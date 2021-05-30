@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Richasy.Bili.Toolkit.Interfaces</AssemblyName>
+    <RootNamespace>Richasy.Bili.Toolkit.Interfaces</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Models\Models.Enums\Models.Enums.csproj" />
+  </ItemGroup>
+
+</Project>

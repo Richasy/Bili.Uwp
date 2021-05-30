@@ -1,0 +1,19 @@
+{
+    "AttributeOrderingRuleGroups": [
+        "x:Class",
+        "xmlns, xmlns:x",
+        "xmlns:*",
+        "x:Key, Key, x:Name, Name, x:Uid, Uid, AutomationProperties.AutomationId, AutomationProperties.Name, Title, Style, Target",
+        "Grid.Row, Grid.RowSpan, Grid.Column, Grid.ColumnSpan, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
+        "RelativePanel, RelativePanel.*",
+        "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
+        "Margin, Padding, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
+        "*:*, *",
+        "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
+        "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
+        "Storyboard.*, From, To, Duration"
+    ],
+    "ReorderVSM": 1,
+    "CommentPadding": 1,
+    "IndentSize": 4
+}

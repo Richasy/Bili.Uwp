@@ -1,0 +1,12 @@
+﻿<Project>
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);SA1600</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" />
+        <PackageReference Include="Moq" Version="4.14.5" />
+    </ItemGroup>
+</Project>

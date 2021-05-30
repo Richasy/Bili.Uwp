@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\Uwp.props" />
+  <PropertyGroup>
+    <ProjectGuid>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Richasy.Bili.ViewModels.Uwp</RootNamespace>
+    <AssemblyName>Richasy.Bili.ViewModels.Uwp</AssemblyName>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AppViewModel\AppViewModel.cs" />
+    <Compile Include="AppViewModel\AppViewModel.Properties.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Content Include="Properties\ViewModels.Uwp.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI">
+      <Version>13.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI.Fody">
+      <Version>13.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
+      <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
+      <Name>Locator.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
+      <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
+      <Name>Toolkit.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
+      <Project>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</Project>
+      <Name>Toolkit.Uwp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+</Project>

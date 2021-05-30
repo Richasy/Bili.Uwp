@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Richasy.Bili.Models.Enums</AssemblyName>
+    <RootNamespace>Richasy.Bili.Models.Enums</RootNamespace>
+  </PropertyGroup>
+
+</Project>
