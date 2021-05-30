@@ -33,6 +33,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
+      <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
+      <Name>Models.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
       <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
       <Name>Locator.Uwp</Name>

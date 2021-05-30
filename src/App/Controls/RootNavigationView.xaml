@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
     xmlns:icons="using:Fluent.Icons"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -22,73 +23,82 @@
     </UserControl.Resources>
 
     <Grid>
-        <muxc:NavigationView x:Name="RootNavView" Style="{StaticResource BiliNavigationViewStyle}">
+        <muxc:NavigationView
+            x:Name="RootNavView"
+            Style="{StaticResource BiliNavigationViewStyle}"
+            IsPaneOpen="{x:Bind ViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
+            ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=Home}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Home" Content="{loc:LocaleLocator Name=Home}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="Home16Filled" />
+                        <icons:FluentIconElement Symbol="Home16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=Rank}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:LocaleLocator Name=Rank}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="RibbonStar20Filled" />
+                        <icons:FluentIconElement Symbol="RibbonStar20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=Partition}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Partition" Content="{loc:LocaleLocator Name=Partition}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="Apps16Filled" />
+                        <icons:FluentIconElement Symbol="Apps16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=Channel}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Channel" Content="{loc:LocaleLocator Name=Channel}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="ChannelShare16Filled" />
+                        <icons:FluentIconElement Symbol="ChannelShare16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=SpecialColumn}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:LocaleLocator Name=SpecialColumn}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="Document16Filled" />
+                        <icons:FluentIconElement Symbol="DocumentBriefcase20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=Live}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:LocaleLocator Name=Live}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="Video16Filled" />
+                        <icons:FluentIconElement Symbol="Video16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemSeparator />
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Persional}" />
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=DynamicFeed}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DynamicFeed" Content="{loc:LocaleLocator Name=DynamicFeed}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="EmojiLaugh20Filled" />
+                        <icons:FluentIconElement Symbol="EmojiLaugh20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=MyFavorite}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="MyFavorite" Content="{loc:LocaleLocator Name=MyFavorite}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="StarLineHorizontal320Filled" />
+                        <icons:FluentIconElement Symbol="StarLineHorizontal320" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=SeeLater}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SeeLater" Content="{loc:LocaleLocator Name=SeeLater}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="CalendarClock16Filled" />
+                        <icons:FluentIconElement Symbol="CalendarClock16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=ViewHistory}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="ViewHistory" Content="{loc:LocaleLocator Name=ViewHistory}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="History20Filled" />
+                        <icons:FluentIconElement Symbol="History20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.Content>
-                <Grid>
-                    <Frame x:Name="MainFrame" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" />
+                <Grid
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource OverlayCornerRadius}">
+                    <Frame x:Name="MainFrame" />
+                    <Frame x:Name="OverlayFrame" Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}" />
                 </Grid>
             </muxc:NavigationView.Content>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem Content="{loc:LocaleLocator Name=HelpAndSupport}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:LocaleLocator Name=HelpAndSupport}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="BookQuestionMark24Filled" />
+                        <icons:FluentIconElement Symbol="BookQuestionMark24" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>

@@ -11,6 +11,7 @@
     <AppxOSMaxVersionTestedReplaceManifestVersion>false</AppxOSMaxVersionTestedReplaceManifestVersion>
     <DisableStackTraceMetadata>true</DisableStackTraceMetadata>
     <DisableExceptionMessages>true</DisableExceptionMessages>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
@@ -19,13 +20,53 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AppTitleBar.xaml.cs">
+      <DependentUpon>AppTitleBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChannelPage.xaml.cs">
+      <DependentUpon>ChannelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DynamicFeedPage.xaml.cs">
+      <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LivePage.xaml.cs">
+      <DependentUpon>LivePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MyFavoritePage.xaml.cs">
+      <DependentUpon>MyFavoritePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PartitionPage.xaml.cs">
+      <DependentUpon>PartitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RankPage.xaml.cs">
+      <DependentUpon>RankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RootPage.xaml.cs">
       <DependentUpon>RootPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SeeLaterPage.xaml.cs">
+      <DependentUpon>SeeLaterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SpecialColumnPage.xaml.cs">
+      <DependentUpon>SpecialColumnPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ViewHistoryPage.xaml.cs">
+      <DependentUpon>ViewHistoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Extension\NavigationExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -33,6 +74,58 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Bili_rgba_25.png" />
+    <Content Include="Assets\Bili_rgba_500.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-100.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-125.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-150.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-200.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-400.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-100.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-125.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-150.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-200.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-400.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-100.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-125.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -49,13 +142,69 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\AppTitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RootNavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ChannelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DynamicFeedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HelpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LivePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MyFavoritePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\RootPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SeeLaterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SpecialColumnPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ViewHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Style.Overwrite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Theme.Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +228,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.0-prerelease.210524002</Version>

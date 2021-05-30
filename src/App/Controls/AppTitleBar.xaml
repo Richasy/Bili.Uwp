@@ -1,0 +1,193 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.AppTitleBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedVisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Fluent.Icons"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Height="48"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style
+            x:Key="TitleBarButtonStyle"
+            BasedOn="{StaticResource DefaultButtonStyle}"
+            TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualStateGroup.States>
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="641" />
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="MenuButton.Visibility" Value="Visible" />
+                            <Setter Target="ContentGrid.Padding" Value="8,0,0,0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup.States>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Rectangle
+            x:Name="TitleBarHost"
+            MinHeight="48"
+            Fill="Transparent" />
+        <Grid x:Name="ContentGrid" Padding="16,0,0,0">
+
+            <Grid.ColumnDefinitions>
+                <!-- Back button -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Menu button -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Logo -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Search -->
+                <ColumnDefinition Width="*" />
+                <!-- User -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Flex column -->
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="144" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                x:Name="BackButton"
+                Style="{StaticResource TitleBarButtonStyle}"
+                Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}">
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.3" />
+                    <animations:ScaleAnimation
+                        From="0.5"
+                        To="1"
+                        Duration="0:0:0.3" />
+                </animations:Implicit.ShowAnimations>
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.2" />
+                    <animations:ScaleAnimation
+                        From="1"
+                        To="0.5"
+                        Duration="0:0:0.2" />
+                </animations:Implicit.HideAnimations>
+                <Viewbox
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <muxc:AnimatedIcon>
+                        <animatedVisuals:AnimatedBackVisualSource />
+                        <muxc:AnimatedIcon.FallbackIconSource>
+                            <muxc:SymbolIconSource Symbol="Back" />
+                        </muxc:AnimatedIcon.FallbackIconSource>
+                    </muxc:AnimatedIcon>
+                </Viewbox>
+            </Button>
+
+            <Button
+                x:Name="MenuButton"
+                Style="{StaticResource TitleBarButtonStyle}"
+                Grid.Column="1"
+                Click="OnMenuButtonClick"
+                Visibility="Collapsed">
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.3" />
+                    <animations:ScaleAnimation
+                        From="0.5"
+                        To="1"
+                        Duration="0:0:0.3" />
+                </animations:Implicit.ShowAnimations>
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.2" />
+                    <animations:ScaleAnimation
+                        From="1"
+                        To="0.5"
+                        Duration="0:0:0.2" />
+                </animations:Implicit.HideAnimations>
+                <Viewbox
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <muxc:AnimatedIcon>
+                        <animatedVisuals:AnimatedGlobalNavigationButtonVisualSource />
+                        <muxc:AnimatedIcon.FallbackIconSource>
+                            <muxc:SymbolIconSource Symbol="GlobalNavigationButton" />
+                        </muxc:AnimatedIcon.FallbackIconSource>
+                    </muxc:AnimatedIcon>
+                </Viewbox>
+            </Button>
+
+            <StackPanel
+                Grid.Column="2"
+                Margin="0,0,12,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="12">
+                <Image
+                    Width="16"
+                    Height="16"
+                    Source="ms-appx:///Assets/Bili_rgba_25.png" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    VerticalAlignment="Center"
+                    Text="{loc:LocaleLocator Name=AppName}" />
+            </StackPanel>
+
+            <Grid
+                Grid.Column="3"
+                MinWidth="160"
+                MaxWidth="520"
+                VerticalAlignment="Center">
+                <AutoSuggestBox
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    PlaceholderText="Search"
+                    QueryIcon="Find"
+                    UpdateTextOnSelect="False" />
+            </Grid>
+
+            <muxc:PersonPicture
+                x:Name="UserAvatar"
+                Grid.Column="4"
+                Width="28"
+                Height="28"
+                Margin="12,0"
+                VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+
+</UserControl>

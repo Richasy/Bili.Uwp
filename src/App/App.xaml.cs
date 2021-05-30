@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Microsoft.Extensions.DependencyInjection;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
@@ -26,6 +25,7 @@ namespace Richasy.Bili.App
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
             this.UnhandledException += this.OnUnhandledException;
+            RequestedTheme = ApplicationTheme.Light;
             _ = AppViewModel.Instance;
             ServiceLocator.Instance.GetService<IAppToolkit>()
                                    .InitializeTheme();
