@@ -39,5 +39,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsNavigatePaneOpen { get; set; }
+
+        /// <summary>
+        /// 页面标题文本.
+        /// </summary>
+        [Reactive]
+        public string HeaderText { get; set; }
     }
 }

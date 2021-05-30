@@ -153,6 +153,9 @@
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
   </data>
+  <data name="PartitionLoading" xml:space="preserve">
+    <value>正在加载分区</value>
+  </data>
   <data name="Persional" xml:space="preserve">
     <value>个人</value>
   </data>

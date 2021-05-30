@@ -31,13 +31,13 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid x:Name="RootGrid" Background="{ThemeResource NavigationViewExpandedPaneBackground}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
                 <VisualStateGroup.States>
                     <VisualState x:Name="Wide">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="641" />
+                            <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
                         </VisualState.StateTriggers>
                     </VisualState>
                     <VisualState x:Name="Narrow">
@@ -47,6 +47,7 @@
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
                             <Setter Target="ContentGrid.Padding" Value="8,0,0,0" />
+                            <Setter Target="RootGrid.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>
@@ -156,6 +157,7 @@
                 Margin="0,0,12,0"
                 VerticalAlignment="Center"
                 Orientation="Horizontal"
+                IsHitTestVisible="False"
                 Spacing="12">
                 <Image
                     Width="16"

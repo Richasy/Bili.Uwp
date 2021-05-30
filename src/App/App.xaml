@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />

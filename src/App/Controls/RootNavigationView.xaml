@@ -23,9 +23,29 @@
     </UserControl.Resources>
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutVisualGroups">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
+                        <Setter Target="MainGrid.RowSpacing" Value="16" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <muxc:NavigationView
             x:Name="RootNavView"
             Style="{StaticResource BiliNavigationViewStyle}"
+            CompactModeThresholdWidth="{StaticResource CompactModeThresholdWidth}"
+            ExpandedModeThresholdWidth="{StaticResource ExpandedModeThresholdWidth}"
             IsPaneOpen="{x:Bind ViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
@@ -86,12 +106,23 @@
 
             <muxc:NavigationView.Content>
                 <Grid
+                    x:Name="MainGrid"
+                    Padding="{StaticResource DefaultPagePadding}"
                     Background="{ThemeResource LayerFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="{StaticResource OverlayCornerRadius}">
-                    <Frame x:Name="MainFrame" />
-                    <Frame x:Name="OverlayFrame" Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}" />
+                    CornerRadius="{StaticResource OverlayCornerRadius}"
+                    RowSpacing="28">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                    <Frame x:Name="MainFrame" Grid.Row="1" />
+                    <Frame
+                        x:Name="OverlayFrame"
+                        Grid.Row="1"
+                        Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}" />
                 </Grid>
             </muxc:NavigationView.Content>
 

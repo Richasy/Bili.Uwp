@@ -2,8 +2,10 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Richasy.Bili.App.Pages;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -64,7 +66,7 @@ namespace Richasy.Bili.App.Controls
         {
             if (args.IsSettingsInvoked)
             {
-                ViewModel.SetMainContentId(Models.Enums.PageIds.Settings);
+                ViewModel.SetMainContentId(PageIds.Settings);
             }
             else
             {
@@ -79,43 +81,43 @@ namespace Richasy.Bili.App.Controls
             Type pageType = null;
             switch (pageId)
             {
-                case Models.Enums.PageIds.None:
+                case PageIds.None:
                 default:
                     break;
-                case Models.Enums.PageIds.Home:
+                case PageIds.Home:
                     pageType = typeof(HomePage);
                     break;
-                case Models.Enums.PageIds.Rank:
+                case PageIds.Rank:
                     pageType = typeof(RankPage);
                     break;
-                case Models.Enums.PageIds.Partition:
+                case PageIds.Partition:
                     pageType = typeof(PartitionPage);
                     break;
-                case Models.Enums.PageIds.Channel:
+                case PageIds.Channel:
                     pageType = typeof(ChannelPage);
                     break;
-                case Models.Enums.PageIds.SpecialColumn:
+                case PageIds.SpecialColumn:
                     pageType = typeof(SpecialColumnPage);
                     break;
-                case Models.Enums.PageIds.Live:
+                case PageIds.Live:
                     pageType = typeof(LivePage);
                     break;
-                case Models.Enums.PageIds.DynamicFeed:
+                case PageIds.DynamicFeed:
                     pageType = typeof(DynamicFeedPage);
                     break;
-                case Models.Enums.PageIds.MyFavorite:
+                case PageIds.MyFavorite:
                     pageType = typeof(MyFavoritePage);
                     break;
-                case Models.Enums.PageIds.SeeLater:
+                case PageIds.SeeLater:
                     pageType = typeof(SeeLaterPage);
                     break;
-                case Models.Enums.PageIds.ViewHistory:
+                case PageIds.ViewHistory:
                     pageType = typeof(ViewHistoryPage);
                     break;
-                case Models.Enums.PageIds.Help:
+                case PageIds.Help:
                     pageType = typeof(HelpPage);
                     break;
-                case Models.Enums.PageIds.Settings:
+                case PageIds.Settings:
                     pageType = typeof(SettingPage);
                     break;
             }
@@ -123,6 +125,23 @@ namespace Richasy.Bili.App.Controls
             if (pageType != null)
             {
                 MainFrame.Navigate(pageType, null, new DrillInNavigationTransitionInfo());
+            }
+
+            if (RootNavView.SelectedItem == null ||
+                (RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem &&
+                NavigationExtension.GetPageId(navItem) != pageId))
+            {
+                var shouldSelectedItem = RootNavView.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
+                    .Where(p => NavigationExtension.GetPageId(p) == pageId).FirstOrDefault();
+                if (shouldSelectedItem != null)
+                {
+                    RootNavView.SelectedItem = shouldSelectedItem;
+                }
+            }
+
+            if (RootNavView.SelectedItem != null && RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem selectItem)
+            {
+                ViewModel.HeaderText = selectItem.Content.ToString();
             }
         }
     }

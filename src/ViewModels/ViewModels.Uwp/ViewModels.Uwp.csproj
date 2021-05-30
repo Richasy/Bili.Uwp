@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="AppViewModel\AppViewModel.cs" />
     <Compile Include="AppViewModel\AppViewModel.Properties.cs" />
+    <Compile Include="PartitionViewModel\PartitionViewModel.cs" />
+    <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
@@ -33,6 +35,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
+      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
+      <Name>Models.BiliBili</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
