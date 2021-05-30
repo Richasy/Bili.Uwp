@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Richasy.Bili.Models.BiliBili
@@ -38,6 +39,18 @@ namespace Richasy.Bili.Models.BiliBili
         public string Uri { get; set; }
 
         /// <summary>
+        /// 分区子项.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "children", Required = Required.Default)]
+        public List<Partition> Children { get; set; }
+
+        /// <summary>
+        /// 是否是动漫分区.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "is_bangumi", Required = Required.Default)]
+        public int IsBangumi { get; set; }
+
+        /// <summary>
         /// 判断该分区是否需要显示.
         /// </summary>
         /// <remarks>
@@ -48,7 +61,9 @@ namespace Richasy.Bili.Models.BiliBili
         {
             var needToShow = !string.IsNullOrEmpty(Uri) &&
                 Uri.StartsWith("bilibili") &&
-                (Uri.Contains("pgc/partition_page") || Uri.Contains("region/"));
+                (Uri.Contains("pgc/partition_page") || Uri.Contains("region/")) &&
+                Children != null &&
+                Children.Count > 0;
             return needToShow;
         }
 
