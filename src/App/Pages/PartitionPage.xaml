@@ -48,12 +48,13 @@
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>
                     <controls:AdaptiveLayout
-                        ItemsJustification="SpaceFlow"
+                        ItemsJustification="Start"
                         ItemsStretch="Fill"
                         MinColumnSpacing="12"
                         MinItemHeight="120"
                         MinItemWidth="112"
-                        MinRowSpacing="12" />
+                        MinRowSpacing="12"
+                        Orientation="Horizontal" />
                 </muxc:ItemsRepeater.Layout>
             </muxc:ItemsRepeater>
         </ScrollViewer>

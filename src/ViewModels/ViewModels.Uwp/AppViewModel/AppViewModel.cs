@@ -20,7 +20,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RegisterToolkitServices();
             IsNavigatePaneOpen = true;
-            CurrentMainContentId = PageIds.Home;
+            CurrentMainContentId = PageIds.Partition;
         }
 
         /// <summary>

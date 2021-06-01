@@ -54,6 +54,15 @@ namespace Richasy.Bili.App.Controls
                 }
                 else
                 {
+                    var count = _context.ItemCount;
+                    if (_realizedElementLayoutBounds.Count != count)
+                    {
+                        _realizedElementLayoutBounds.Clear();
+                        for (var i = 0; i < count; i++)
+                        {
+                            _realizedElementLayoutBounds.Add(default);
+                        }
+                    }
                 }
             }
         }
@@ -280,7 +289,7 @@ namespace Richasy.Bili.App.Controls
                                     if (_realizedElements.TryGetElementAt(realizedIndex, out var elementRef))
                                     {
                                         _context.RecycleElement(elementRef);
-                                        _realizedElements[realizedIndex] = null; // TODO UNO .... weird!!!
+                                        _realizedElements[realizedIndex] = null;
                                     }
                                 }
                             }
@@ -305,10 +314,9 @@ namespace Richasy.Bili.App.Controls
                         break;
 
                     case NotifyCollectionChangedAction.Move:
-                        // Move is not supported by default by ItemsRepeater (throw new NotImplementedException();)
-                        // This is Uno specific
-                        OnItemsRemoved(args.OldStartingIndex, args.OldItems.Count);
-                        OnItemsAdded(args.NewStartingIndex, args.NewItems.Count);
+                        var size = args.OldItems != null ? args.OldItems.Count : 1;
+                        OnItemsRemoved(args.OldStartingIndex, size);
+                        OnItemsAdded(args.NewStartingIndex, size);
                         break;
                 }
             }

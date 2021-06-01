@@ -168,9 +168,9 @@ namespace Richasy.Bili.App.Controls
             var extraMinorPixelsForEachItem = 0.0;
             if (!double.IsInfinity(availableSizeMinor))
             {
-                var numItemsPerColumn = Math.Min(
+                var numItemsPerColumn = Math.Floor(Math.Min(
                     maxItemsPerLine,
-                    Math.Max(1.0, availableSizeMinor / (itemSizeMinor + minorItemSpacing)));
+                    Math.Max(1.0, availableSizeMinor / (itemSizeMinor + minorItemSpacing))));
                 var usedSpace = (numItemsPerColumn * (itemSizeMinor + minorItemSpacing)) - minorItemSpacing;
                 var remainingSpace = (int)(availableSizeMinor - usedSpace);
                 extraMinorPixelsForEachItem = remainingSpace / ((int)numItemsPerColumn);

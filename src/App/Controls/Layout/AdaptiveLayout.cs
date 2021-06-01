@@ -48,11 +48,6 @@ namespace Richasy.Bili.App.Controls
         /// is added at the start or end.
         /// </summary>
         SpaceEvenly = 5,
-
-        /// <summary>
-        /// Be flexible and add items in order from left to right.
-        /// </summary>
-        SpaceFlow = 6,
     }
 
     /// <summary>
@@ -295,7 +290,7 @@ namespace Richasy.Bili.App.Controls
                 var gridState = (AdaptiveLayoutState)context.LayoutState;
                 var lastExtent = gridState.FlowAlgorithm.LastExtent;
                 var itemsPerLine = Math.Min( // note use of unsigned ints
-                    Math.Max(1u, (uint)(_orientation.Minor(availableSize) / GetMinorSizeWithSpacing(context))),
+                    Math.Max(1u, (uint)((_orientation.Minor(availableSize) + MinItemSpacing) / GetMinorSizeWithSpacing(context))),
                     Math.Max(1u, (uint)_maximumRowsOrColumns));
                 var majorSize = itemsCount / itemsPerLine * GetMajorSizeWithSpacing(context);
                 var realizationWindowStartWithinExtent = _orientation.MajorStart(realizationRect) - _orientation.MajorStart(lastExtent);
@@ -328,7 +323,7 @@ namespace Richasy.Bili.App.Controls
             if (targetIndex >= 0 && targetIndex < count)
             {
                 var itemsPerLine = (int)Math.Min( // note use of unsigned ints
-                    Math.Max(1u, (uint)(_orientation.Minor(availableSize) / GetMinorSizeWithSpacing(context))),
+                    Math.Max(1u, (uint)((_orientation.Minor(availableSize) + MinItemSpacing) / GetMinorSizeWithSpacing(context))),
                     Math.Max(1u, _maximumRowsOrColumns));
                 var indexOfFirstInLine = targetIndex / itemsPerLine * itemsPerLine;
                 index = indexOfFirstInLine;
@@ -360,7 +355,7 @@ namespace Richasy.Bili.App.Controls
             var itemsCount = context.ItemCount;
             var availableSizeMinor = _orientation.Minor(availableSize);
             var calcCount = !double.IsInfinity(availableSizeMinor)
-                                    ? (uint)(availableSizeMinor / GetMinorSizeWithSpacing(context))
+                                    ? (uint)((availableSizeMinor + MinItemSpacing) / GetMinorSizeWithSpacing(context))
                                     : (uint)itemsCount;
             var itemsPerLine =
                 (int)Math.Min( // note use of unsigned ints
@@ -548,7 +543,7 @@ namespace Richasy.Bili.App.Controls
             VirtualizingLayoutContext context)
         {
             var itemsPerLine = (int)Math.Min(
-                Math.Max(1u, (uint)(_orientation.Minor(availableSize) / GetMinorSizeWithSpacing(context))),
+                Math.Max(1u, (uint)((_orientation.Minor(availableSize) + MinItemSpacing) / GetMinorSizeWithSpacing(context))),
                 Math.Max(1u, _maximumRowsOrColumns));
             var rowIndex = index / itemsPerLine;
             var indexInRow = index - (rowIndex * itemsPerLine);

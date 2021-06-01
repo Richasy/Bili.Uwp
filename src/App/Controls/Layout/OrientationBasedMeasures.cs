@@ -26,9 +26,9 @@ namespace Richasy.Bili.App.Controls
 
         public double MinorStart(in Rect rect) => ScrollOrientation == ScrollOrientation.Vertical ? rect.X : rect.Y;
 
-        public double MajorEnd(in Rect rect) => ScrollOrientation == ScrollOrientation.Vertical ? rect.Bottom : rect.Right;
+        public double MajorEnd(in Rect rect) => ScrollOrientation == ScrollOrientation.Vertical ? rect.Y + rect.Height : rect.X + rect.Width;
 
-        public double MinorEnd(in Rect rect) => ScrollOrientation == ScrollOrientation.Vertical ? rect.Right : rect.Bottom;
+        public double MinorEnd(in Rect rect) => ScrollOrientation == ScrollOrientation.Vertical ? rect.X + rect.Width : rect.Y + rect.Height;
 
         public void SetMajorSize(ref Rect rect, double value)
         {

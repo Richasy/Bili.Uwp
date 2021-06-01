@@ -37,7 +37,6 @@ namespace Richasy.Bili.App.Controls
             SpaceAround,
             SpaceBetween,
             SpaceEvenly,
-            SpaceFlow,
         }
 
         private enum GenerateDirection
@@ -99,7 +98,6 @@ namespace Richasy.Bili.App.Controls
 
             // If minor size is infinity, there is only one line and no need to align that line.
             _scrollOrientationSameAsFlow = double.IsInfinity(_orientation.Minor(availableSize));
-            var realizationRect = RealizationRect;
 
             var suggestedAnchorIndex = _context.RecommendedAnchorIndex;
             if (_elementManager.IsIndexValidInData(suggestedAnchorIndex))
@@ -326,7 +324,6 @@ namespace Richasy.Bili.App.Controls
                 var lineOffset = _orientation.MajorStart(anchorBounds);
                 var lineMajorSize = _orientation.MajorSize(anchorBounds);
                 var countInLine = 1;
-                var count = 0;
                 var lineNeedsReposition = false;
 
                 while (_elementManager.IsIndexValidInData(currentIndex) &&
@@ -336,7 +333,6 @@ namespace Richasy.Bili.App.Controls
                     _elementManager.EnsureElementRealized(direction == GenerateDirection.Forward, currentIndex, layoutId);
                     var currentElement = _elementManager.GetRealizedElement(currentIndex);
                     var desiredSize = MeasureElement(currentElement, currentIndex, availableSize, _context);
-                    ++count;
 
                     // Lay it out.
                     var previousElement = _elementManager.GetRealizedElement(previousIndex);
@@ -389,7 +385,7 @@ namespace Richasy.Bili.App.Controls
                             // Does not fit, wrap to the previous row
                             var availableSizeMinor = _orientation.Minor(availableSize);
 
-                            _orientation.SetMinorStart(ref currentBounds, !double.IsInfinity(availableSizeMinor) ? availableSizeMinor - _orientation.Minor(desiredSize) : 0);
+                            _orientation.SetMinorStart(ref currentBounds, !double.IsInfinity(availableSizeMinor) ? availableSizeMinor - _orientation.Minor(desiredSize) : _orientation.MinorSize(_lastExtent) - _orientation.Minor(desiredSize));
                             _orientation.SetMajorStart(ref currentBounds, lineOffset - _orientation.Major(desiredSize) - lineSpacing);
 
                             if (lineNeedsReposition)
@@ -480,7 +476,16 @@ namespace Richasy.Bili.App.Controls
             return
                 _elementManager.GetRealizedElementCount() > 0 &&
                 _elementManager.GetDataIndexFromRealizedRangeIndex(0) == 0 &&
-                _orientation.MinorStart(_elementManager.GetLayoutBoundsForRealizedIndex(0)) != 0;
+                IsItemNotAtBegining();
+
+            bool IsItemNotAtBegining()
+            {
+                var isItemNotAtBegining = _orientation.ScrollOrientation == ScrollOrientation.Vertical ?
+                _elementManager.GetLayoutBoundsForRealizedIndex(0).X != 0 :
+                _elementManager.GetLayoutBoundsForRealizedIndex(0).Y != 0;
+
+                return isItemNotAtBegining;
+            }
         }
 
         private bool ShouldContinueFillingUpSpace(
@@ -509,9 +514,9 @@ namespace Richasy.Bili.App.Controls
 
                 // Ensure that both minor and major directions are taken into consideration so that if the scrolling direction
                 // is the same as the flow direction we still stop at the end of the viewport rectangle.
-                shouldContinue =
-                    (direction == GenerateDirection.Forward && elementMajorStart < rectMajorEnd && elementMinorStart < rectMinorEnd) ||
-                    (direction == GenerateDirection.Backward && elementMajorEnd > rectMajorStart && elementMinorEnd > rectMinorStart);
+                shouldContinue = direction == GenerateDirection.Forward
+                                ? elementMajorStart < rectMajorEnd && elementMinorStart < rectMinorEnd
+                                : elementMajorEnd > rectMajorStart && elementMinorEnd > rectMinorStart;
             }
 
             return shouldContinue;
@@ -700,18 +705,6 @@ namespace Richasy.Bili.App.Controls
                                     _orientation.SetMinorStart(
                                         ref bounds,
                                         minorStart - spaceAtLineStart + (interItemSpace * (rangeIndex - lineStartIndex + 1)));
-                                    break;
-                                }
-
-                            case LineAlignment.SpaceFlow:
-                                {
-                                    var maxCountInLine = Math.Round(finalSize.Width / bounds.Width) - 1;
-                                    var maxTotalSpace = totalSpace / countInLine * maxCountInLine;
-                                    var remainSpace = (maxCountInLine - countInLine) * (bounds.Width + 12);
-                                    var interItemSpace = countInLine >= 1 ? (maxTotalSpace - remainSpace) / maxCountInLine : 0;
-                                    _orientation.SetMinorStart(
-                                        ref bounds,
-                                        minorStart - spaceAtLineStart + (interItemSpace * (rangeIndex - lineStartIndex)));
                                     break;
                                 }
                         }
