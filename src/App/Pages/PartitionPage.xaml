@@ -47,8 +47,8 @@
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>
-                    <muxc:UniformGridLayout
-                        ItemsJustification="Center"
+                    <controls:AdaptiveLayout
+                        ItemsJustification="SpaceFlow"
                         ItemsStretch="Fill"
                         MinColumnSpacing="12"
                         MinItemHeight="120"

@@ -17,15 +17,23 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\Layout\AdaptiveLayoutState.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Layout\AdaptiveLayout.cs" />
     <Compile Include="Controls\AppTitleBar.xaml.cs">
       <DependentUpon>AppTitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PartitionItem.xaml.cs">
+    <Compile Include="Controls\Bili\PartitionItem.xaml.cs">
       <DependentUpon>PartitionItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Layout\CollectionExtensions.cs" />
+    <Compile Include="Controls\Layout\ElementManager.cs" />
+    <Compile Include="Controls\Layout\FlowLayoutAlgorithm.cs" />
+    <Compile Include="Controls\Layout\FlowLayoutAnchorInfo.cs" />
+    <Compile Include="Controls\Layout\IFlowLayoutAlgorithmDelegates.cs" />
+    <Compile Include="Controls\Layout\OrientationBasedMeasures.cs" />
     <Compile Include="Controls\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
     </Compile>
@@ -149,7 +157,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PartitionItem.xaml">
+    <Page Include="Controls\Bili\PartitionItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +267,6 @@
     <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Bili\" />
     <Folder Include="Resources\Fonts\" />
   </ItemGroup>
   <ItemGroup>
