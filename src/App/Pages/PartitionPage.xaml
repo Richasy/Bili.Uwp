@@ -9,6 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
     <Grid>
@@ -42,8 +43,8 @@
                 ItemsSource="{x:Bind ViewModel.PartitionCollection}"
                 Loaded="OnItemsRepeaterLoadedAsync">
                 <muxc:ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="bilibili:Partition">
-                        <controls:PartitionItem Data="{x:Bind}" />
+                    <DataTemplate x:DataType="uwp:PartitionViewModel">
+                        <controls:PartitionItem Data="{x:Bind}" ItemClick="OnPartitionItemClick" />
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>

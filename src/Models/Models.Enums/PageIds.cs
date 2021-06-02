@@ -71,5 +71,10 @@ namespace Richasy.Bili.Models.Enums
         /// 帮助页面.
         /// </summary>
         Help,
+
+        /// <summary>
+        /// 分区详情页面.
+        /// </summary>
+        PartitionDetail,
     }
 }

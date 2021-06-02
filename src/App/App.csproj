@@ -49,14 +49,15 @@
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\IConnectedAnimationPage.cs" />
     <Compile Include="Pages\LivePage.xaml.cs">
       <DependentUpon>LivePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MyFavoritePage.xaml.cs">
       <DependentUpon>MyFavoritePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\SubPartitionPage.xaml.cs">
-      <DependentUpon>SubPartitionPage.xaml</DependentUpon>
+    <Compile Include="Pages\Overlay\PartitionDetailPage.xaml.cs">
+      <DependentUpon>PartitionDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PartitionPage.xaml.cs">
       <DependentUpon>PartitionPage.xaml</DependentUpon>
@@ -80,6 +81,8 @@
       <DependentUpon>ViewHistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +195,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\SubPartitionPage.xaml">
+    <Page Include="Pages\Overlay\PartitionDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,8 +313,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Mock\PartitionFirstRequest.json" />
-    <Content Include="Assets\Mock\SubpartitionList.json" />
+    <Content Include="Assets\Mock\RecommendSubpartitionFirstRequest.json" />
+    <Content Include="Assets\Mock\SubpartitionFirstRequest.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

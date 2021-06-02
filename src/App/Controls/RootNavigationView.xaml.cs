@@ -46,12 +46,19 @@ namespace Richasy.Bili.App.Controls
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged -= this.OnAppViewModelPropertyChanged;
+            ViewModel.RequestOverlayNavigation -= this.OnRequestOverlayNavigation;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += this.OnAppViewModelPropertyChanged;
+            ViewModel.RequestOverlayNavigation += this.OnRequestOverlayNavigation;
             CheckMainContentNavigation();
+        }
+
+        private void OnRequestOverlayNavigation(object sender, object e)
+        {
+            CheckOverlayContentNavigation(e);
         }
 
         private void OnAppViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -59,6 +66,21 @@ namespace Richasy.Bili.App.Controls
             if (e.PropertyName == nameof(ViewModel.CurrentMainContentId))
             {
                 CheckMainContentNavigation();
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsShowOverlay))
+            {
+                if (!ViewModel.IsShowOverlay)
+                {
+                    if (OverlayFrame.Content != null)
+                    {
+                        OverlayFrame.Navigate(typeof(Page));
+                    }
+
+                    if (MainFrame.Content != null && MainFrame.Content is IConnectedAnimationPage animatePage)
+                    {
+                        animatePage.TryStartConnectedAnimation();
+                    }
+                }
             }
         }
 
@@ -142,6 +164,26 @@ namespace Richasy.Bili.App.Controls
             if (RootNavView.SelectedItem != null && RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem selectItem)
             {
                 ViewModel.HeaderText = selectItem.Content.ToString();
+            }
+        }
+
+        private void CheckOverlayContentNavigation(object param)
+        {
+            var pageId = ViewModel.CurrentOverlayContentId;
+            Type pageType = null;
+
+            switch (pageId)
+            {
+                case PageIds.PartitionDetail:
+                    pageType = typeof(Pages.Overlay.PartitionDetailPage);
+                    break;
+                default:
+                    break;
+            }
+
+            if (pageType != null)
+            {
+                OverlayFrame.Navigate(pageType, param, new EntranceNavigationTransitionInfo());
             }
         }
     }

@@ -1,13 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Richasy.Bili.Models.BiliBili;
-using Windows.Storage;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -19,24 +13,28 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitionViewModel"/> class.
         /// </summary>
-        internal PartitionViewModel()
+        /// <param name="partition">数据.</param>
+        public PartitionViewModel(Partition partition)
         {
-            PartitionCollection = new ObservableCollection<Partition>();
+            this._partition = partition;
+            this.Init();
         }
 
-        /// <summary>
-        /// 初始化分区索引.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task InitializePartitionAsync()
+        private void Init()
         {
-            IsLoading = true;
-            PartitionCollection.Clear();
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Mock/PartitionList.json"));
-            var json = await FileIO.ReadTextAsync(file);
-            var response = JsonConvert.DeserializeObject<ServerResponse<List<Partition>>>(json);
-            response.Data.Where(p => p.IsNeedToShow()).ToList().ForEach(p => PartitionCollection.Add(p));
-            IsLoading = false;
+            this.Title = this._partition.Name;
+            this.ImageUrl = this._partition.Logo;
+            this.SubPartitionCollection = new ObservableCollection<SubPartitionViewModel>();
+
+            if (this._partition.Children != null && this._partition.Children.Count > 0)
+            {
+                this._partition.Children.ForEach(p => this.SubPartitionCollection.Add(new SubPartitionViewModel(p)));
+            }
+
+            if (this._partition.IsBangumi != 1)
+            {
+                this.SubPartitionCollection.Insert(0, new SubPartitionViewModel(null));
+            }
         }
     }
 }

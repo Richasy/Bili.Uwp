@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.BiliBili;
@@ -8,24 +7,38 @@ using Richasy.Bili.Models.BiliBili;
 namespace Richasy.Bili.ViewModels.Uwp
 {
     /// <summary>
-    /// 分区视图模型属性集.
+    /// 子分区视图模型属性集.
     /// </summary>
     public partial class PartitionViewModel
     {
-        /// <summary>
-        /// <see cref="PartitionViewModel"/>的单例.
-        /// </summary>
-        public static PartitionViewModel Instance { get; } = new Lazy<PartitionViewModel>(() => new PartitionViewModel()).Value;
+        private readonly Partition _partition;
 
         /// <summary>
-        /// 分区索引集合.
-        /// </summary>
-        public ObservableCollection<Partition> PartitionCollection { get; }
-
-        /// <summary>
-        /// 是否正在加载.
+        /// 分区Logo.
         /// </summary>
         [Reactive]
-        public bool IsLoading { get; set; }
+        public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// 分区名称.
+        /// </summary>
+        [Reactive]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 子分区集合.
+        /// </summary>
+        public ObservableCollection<SubPartitionViewModel> SubPartitionCollection { get; set; }
+
+        /// <summary>
+        /// 分区Id.
+        /// </summary>
+        public int PartitionId => _partition?.Tid ?? 0;
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is PartitionViewModel model && PartitionId == model.PartitionId;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => -352390548 + PartitionId.GetHashCode();
     }
 }

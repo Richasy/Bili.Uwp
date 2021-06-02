@@ -12,6 +12,11 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class AppViewModel
     {
         /// <summary>
+        /// 请求导航至二级页面时发生
+        /// </summary>
+        public event EventHandler<object> RequestOverlayNavigation;
+
+        /// <summary>
         /// <see cref="AppViewModel"/>的单例.
         /// </summary>
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;

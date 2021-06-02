@@ -2,8 +2,10 @@
 
 using System;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Richasy.Bili.App.Controls
@@ -17,7 +19,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Data"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register(nameof(Data), typeof(Partition), typeof(PartitionItem), new PropertyMetadata(null, new PropertyChangedCallback(OnDataChanged)));
+            DependencyProperty.Register(nameof(Data), typeof(PartitionViewModel), typeof(PartitionItem), new PropertyMetadata(null, new PropertyChangedCallback(OnDataChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitionItem"/> class.
@@ -30,30 +32,33 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 在条目被点击时发生.
         /// </summary>
-        public event EventHandler<Partition> ItemClick;
+        public event EventHandler<PartitionViewModel> ItemClick;
 
         /// <summary>
         /// 分区数据.
         /// </summary>
-        public Partition Data
+        public PartitionViewModel Data
         {
-            get { return (Partition)GetValue(DataProperty); }
+            get { return (PartitionViewModel)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
         }
 
         private static void OnDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as PartitionItem;
-            if (e.NewValue != null && e.NewValue is Partition data)
+            if (e.NewValue != null && e.NewValue is PartitionViewModel data)
             {
-                instance.PartitionLogo.Source = new BitmapImage(new Uri(data.Logo));
-                instance.PartitionName.Text = data.Name;
+                instance.PartitionLogo.Source = new BitmapImage(new Uri(data.ImageUrl));
+                instance.PartitionName.Text = data.Title;
             }
         }
 
         private void OnItemTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             e.Handled = true;
+            var animationService = ConnectedAnimationService.GetForCurrentView();
+            animationService.PrepareToAnimate("PartitionLogoAnimate", this.PartitionLogo);
+            animationService.PrepareToAnimate("PartitionNameAnimate", this.PartitionName);
             ItemClick?.Invoke(this, Data);
         }
     }

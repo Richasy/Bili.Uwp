@@ -48,4 +48,17 @@ namespace Richasy.Bili.Models.BiliBili
             public List<Banner> TopBanners { get; set; }
         }
     }
+
+    /// <summary>
+    /// 常规子分区.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class SubPartitionDefault : SubPartition
+    {
+        /// <summary>
+        /// 高频标签.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "top_tag", Required = Required.Default)]
+        public List<Tag> TopTags { get; set; }
+    }
 }

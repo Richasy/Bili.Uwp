@@ -37,10 +37,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 修改当前覆盖内容标识.
         /// </summary>
         /// <param name="pageId">覆盖内容标识.</param>
-        public void SetOverlayContentId(PageIds pageId)
+        public void SetOverlayContentId(PageIds pageId, object param = null)
         {
             CurrentOverlayContentId = pageId;
             IsShowOverlay = true;
+            RequestOverlayNavigation?.Invoke(this, param);
         }
 
         private void RegisterToolkitServices()

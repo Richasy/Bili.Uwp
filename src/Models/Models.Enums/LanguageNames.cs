@@ -26,6 +26,7 @@ namespace Richasy.Bili.Models.Enums
         ViewHistory,
         HelpAndSupport,
         PartitionLoading,
+        Recommend,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

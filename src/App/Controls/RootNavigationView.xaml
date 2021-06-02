@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.RootNavigationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
     xmlns:icons="using:Fluent.Icons"
@@ -20,6 +21,7 @@
             <Setter Property="OpenPaneLength" Value="240" />
             <Setter Property="IsTitleBarAutoPaddingEnabled" Value="False" />
         </Style>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
     </UserControl.Resources>
 
     <Grid>
@@ -117,11 +119,17 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
-                    <Frame x:Name="MainFrame" Grid.Row="1" />
+                    <TextBlock
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                    <Frame
+                        x:Name="MainFrame"
+                        Grid.Row="1"
+                        Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                     <Frame
                         x:Name="OverlayFrame"
-                        Grid.Row="1"
+                        Grid.RowSpan="2"
                         Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}" />
                 </Grid>
             </muxc:NavigationView.Content>

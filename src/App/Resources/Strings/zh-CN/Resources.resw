@@ -162,6 +162,9 @@
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>
   </data>
+  <data name="Recommend" xml:space="preserve">
+    <value>推荐</value>
+  </data>
   <data name="SeeLater" xml:space="preserve">
     <value>稍后再看</value>
   </data>
