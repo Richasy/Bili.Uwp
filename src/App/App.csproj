@@ -55,6 +55,9 @@
     <Compile Include="Pages\MyFavoritePage.xaml.cs">
       <DependentUpon>MyFavoritePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Overlay\SubPartitionPage.xaml.cs">
+      <DependentUpon>SubPartitionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PartitionPage.xaml.cs">
       <DependentUpon>PartitionPage.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MyFavoritePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\SubPartitionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
