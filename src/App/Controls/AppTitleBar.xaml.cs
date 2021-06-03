@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,6 +40,14 @@ namespace Richasy.Bili.App.Controls
         private void OnMenuButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
+        }
+
+        private void OnBackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsShowOverlay)
+            {
+                ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
+            }
         }
     }
 }

@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
     <Grid Padding="{StaticResource DefaultContainerPadding}">
@@ -28,5 +30,19 @@
                 FontWeight="Bold"
                 Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
         </StackPanel>
+        <muxc:NavigationView
+            x:Name="DetailNavigationView"
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            MenuItemsSource="{x:Bind ViewModel.SubPartitionCollection}"
+            PaneDisplayMode="Top">
+            <muxc:NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="uwp:SubPartitionViewModel">
+                    <muxc:NavigationViewItem Content="{x:Bind Title, Mode=OneWay}" />
+                </DataTemplate>
+            </muxc:NavigationView.MenuItemTemplate>
+        </muxc:NavigationView>
     </Grid>
 </Page>

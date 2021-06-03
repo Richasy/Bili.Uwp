@@ -54,7 +54,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             var animationService = ConnectedAnimationService.GetForCurrentView();
-            animationService.PrepareToAnimate("PartitionBackAnimate", this.PartitionHeader);
+            var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.PartitionHeader);
+            animate.Configuration = new DirectConnectedAnimationConfiguration();
         }
     }
 }

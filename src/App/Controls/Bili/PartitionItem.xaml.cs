@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -57,8 +56,10 @@ namespace Richasy.Bili.App.Controls
         {
             e.Handled = true;
             var animationService = ConnectedAnimationService.GetForCurrentView();
-            animationService.PrepareToAnimate("PartitionLogoAnimate", this.PartitionLogo);
-            animationService.PrepareToAnimate("PartitionNameAnimate", this.PartitionName);
+            var animate1 = animationService.PrepareToAnimate("PartitionLogoAnimate", this.PartitionLogo);
+            var animate2 = animationService.PrepareToAnimate("PartitionNameAnimate", this.PartitionName);
+            animate1.Configuration = new DirectConnectedAnimationConfiguration();
+            animate2.Configuration = new DirectConnectedAnimationConfiguration();
             ItemClick?.Invoke(this, Data);
         }
     }
