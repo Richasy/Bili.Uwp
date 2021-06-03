@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.ComponentModel;
+using System.Linq;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -26,6 +29,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         public PartitionDetailPage()
         {
             this.InitializeComponent();
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
         }
 
         /// <summary>
@@ -56,6 +61,54 @@ namespace Richasy.Bili.App.Pages.Overlay
             var animationService = ConnectedAnimationService.GetForCurrentView();
             var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.PartitionHeader);
             animate.Configuration = new DirectConnectedAnimationConfiguration();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            CheckCurrentSubPartition();
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.CurrentSelectedSubPartition))
+            {
+                CheckCurrentSubPartition();
+            }
+        }
+
+        private void OnDetailNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            var invokeItem = args.InvokedItemContainer as Microsoft.UI.Xaml.Controls.NavigationViewItem;
+            var subPartitionId = invokeItem.Tag == null ? -1 : Convert.ToInt32(invokeItem.Tag);
+            SubPartitionViewModel vm;
+            if (subPartitionId == -1)
+            {
+                vm = ViewModel.SubPartitionCollection.First();
+            }
+            else
+            {
+                vm = ViewModel.SubPartitionCollection.Where(p => p.SubPartitionId == subPartitionId).FirstOrDefault();
+            }
+
+            ViewModel.CurrentSelectedSubPartition = vm;
+        }
+
+        private void CheckCurrentSubPartition()
+        {
+            var vm = ViewModel.CurrentSelectedSubPartition;
+            if (vm != null)
+            {
+                if (!(DetailNavigationView.SelectedItem is SubPartitionViewModel selectedItem) || selectedItem != vm)
+                {
+                    DetailNavigationView.SelectedItem = vm;
+                }
+            }
         }
     }
 }

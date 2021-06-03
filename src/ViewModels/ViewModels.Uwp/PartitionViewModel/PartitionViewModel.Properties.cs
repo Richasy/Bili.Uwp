@@ -35,6 +35,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public int PartitionId => _partition?.Tid ?? 0;
 
+        /// <summary>
+        /// 当前选中的子分区.
+        /// </summary>
+        [Reactive]
+        public SubPartitionViewModel CurrentSelectedSubPartition { get; set; }
+
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is PartitionViewModel model && PartitionId == model.PartitionId;
 

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Linq;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -35,6 +36,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 this.SubPartitionCollection.Insert(0, new SubPartitionViewModel(null));
             }
+
+            this.CurrentSelectedSubPartition = this.SubPartitionCollection.First();
         }
     }
 }
