@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     mc:Ignorable="d">
 
     <Grid>
@@ -28,6 +29,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollView.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -62,16 +64,22 @@
             </muxc:NavigationView.Resources>
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="uwp:SubPartitionViewModel">
-                    <muxc:NavigationViewItem Content="{x:Bind Title, Mode=OneWay}" Tag="{x:Bind SubPartitionId}" />
+                    <muxc:NavigationViewItem Content="{x:Bind}" Tag="{x:Bind SubPartitionId}">
+                        <muxc:NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="uwp:SubPartitionViewModel">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Title, Mode=OneWay}" />
+                            </DataTemplate>
+                        </muxc:NavigationViewItem.ContentTemplate>
+                    </muxc:NavigationViewItem>
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
             <muxc:NavigationView.Content>
-                <muxc:ScrollView
+                <ScrollViewer
                     x:Name="ContentScrollView"
                     Padding="{StaticResource DefaultContainerPadding}"
-                    HorizontalScrollBarVisibility="Hidden"
                     HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto">
+                    VerticalScrollBarVisibility="Auto"
+                    VerticalScrollMode="Enabled">
                     <Grid x:Name="ContentGrid" Padding="0,12,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -80,8 +88,16 @@
 
                         <controls:BannerView
                             x:Name="BannerView"
+                            Margin="0,0,0,12"
                             VerticalAlignment="Top"
                             ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}" />
+
+                        <controls:VideoView
+                            x:Name="VideoView"
+                            Grid.Row="1"
+                            Margin="0,0,0,12"
+                            HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
+                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}" />
 
                         <muxc:ProgressRing
                             x:Name="LoadingRing"
@@ -96,7 +112,7 @@
                             IsIndeterminate="True"
                             Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" />
                     </Grid>
-                </muxc:ScrollView>
+                </ScrollViewer>
 
             </muxc:NavigationView.Content>
         </muxc:NavigationView>

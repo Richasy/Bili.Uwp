@@ -123,11 +123,17 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩</value>
   </data>
+  <data name="Billion" xml:space="preserve">
+    <value>亿</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Channel" xml:space="preserve">
     <value>频道</value>
+  </data>
+  <data name="ComprehensiveDynamics" xml:space="preserve">
+    <value>综合动态</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
@@ -141,8 +147,14 @@
   <data name="Home" xml:space="preserve">
     <value>首页</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小时</value>
+  </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分钟</value>
   </data>
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>
@@ -165,11 +177,17 @@
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
   </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
   <data name="SeeLater" xml:space="preserve">
     <value>稍后再看</value>
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
+  </data>
+  <data name="TenThousands" xml:space="preserve">
+    <value>万</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>

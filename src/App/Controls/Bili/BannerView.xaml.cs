@@ -24,6 +24,7 @@ namespace Richasy.Bili.App.Controls
         {
             this.InitializeComponent();
             this.SizeChanged += OnSizeChanged;
+            this.Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -36,6 +37,11 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            CheckOffsetButtonStatus();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             CheckOffsetButtonStatus();
         }
@@ -70,7 +76,7 @@ namespace Richasy.Bili.App.Controls
             var rightOffset = WideScrollView.HorizontalOffset + WideScrollView.ViewportWidth;
             if (rightOffset > WideScrollView.ExtentWidth)
             {
-                rightOffset = WideScrollView.ScrollableWidth;
+                rightOffset = WideScrollView.ScrollableWidth - WideScrollView.ViewportWidth;
             }
 
             var options = new ScrollingScrollOptions(ScrollingAnimationMode.Auto, ScrollingSnapPointsMode.Ignore);

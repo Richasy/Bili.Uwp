@@ -26,7 +26,7 @@
             <Setter Property="Width" Value="36" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Margin" Value="0,0,4,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
@@ -172,7 +172,6 @@
 
             <Grid
                 Grid.Column="3"
-                MinWidth="160"
                 MaxWidth="520"
                 VerticalAlignment="Center">
                 <AutoSuggestBox

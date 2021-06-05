@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
-using System.Linq;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -84,17 +82,7 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private void OnDetailNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var invokeItem = args.InvokedItemContainer as Microsoft.UI.Xaml.Controls.NavigationViewItem;
-            var subPartitionId = invokeItem.Tag == null ? -1 : Convert.ToInt32(invokeItem.Tag);
-            SubPartitionViewModel vm;
-            if (subPartitionId == -1)
-            {
-                vm = ViewModel.SubPartitionCollection.First();
-            }
-            else
-            {
-                vm = ViewModel.SubPartitionCollection.Where(p => p.SubPartitionId == subPartitionId).FirstOrDefault();
-            }
+            var vm = args.InvokedItem as SubPartitionViewModel;
 
             ViewModel.CurrentSelectedSubPartition = vm;
         }

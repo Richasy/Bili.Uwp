@@ -1,0 +1,98 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.VideoItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid
+        AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
+        Background="{ThemeResource CardBackgroundFillColorDefault}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="{ThemeResource OverlayCornerRadius}"
+        Tapped="OnContainerTapped">
+
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="Row1" Height="Auto" />
+            <RowDefinition x:Name="Row2" Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="Column1" Width="*" />
+            <ColumnDefinition x:Name="Column2" Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="VerticalState" />
+                <VisualState x:Name="HorizontalState">
+                    <VisualState.Setters>
+                        <Setter Target="CoverContainer.VerticalAlignment" Value="Center" />
+                        <Setter Target="CoverContainer.Height" Value="Auto" />
+                        <Setter Target="CoverContainer.Width" Value="160" />
+                        <Setter Target="CoverContainer.Margin" Value="8" />
+                        <Setter Target="CoverContainer.CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+                        <Setter Target="ContentContainer.(Grid.Row)" Value="0" />
+                        <Setter Target="ContentContainer.(Grid.Column)" Value="1" />
+                        <Setter Target="Row1.Height" Value="*" />
+                        <Setter Target="Row2.Height" Value="Auto" />
+                        <Setter Target="Column1.Width" Value="Auto" />
+                        <Setter Target="Column2.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid x:Name="CoverContainer" Height="124">
+            <Image
+                x:Name="CoverImage"
+                Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
+                Stretch="UniformToFill" />
+
+            <Grid
+                Margin="8,0,0,12"
+                Padding="8,4"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Background="{ThemeResource AppMaskAcrylicBrush}"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                RequestedTheme="Dark">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
+            </Grid>
+        </Grid>
+
+        <Grid
+            x:Name="ContentContainer"
+            Grid.Row="1"
+            Padding="12,8"
+            RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Opacity="0.6"
+                Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+            <TextBlock
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                MaxLines="2"
+                Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap"
+                ToolTipService.ToolTip="{x:Bind ViewModel.Title, Mode=OneWay}" />
+            <TextBlock
+                x:Name="DescriptionBlock"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Grid.Row="2"
+                Opacity="0.6"
+                TextTrimming="CharacterEllipsis" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -37,6 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 修改当前覆盖内容标识.
         /// </summary>
         /// <param name="pageId">覆盖内容标识.</param>
+        /// <param name="param">导航参数.</param>
         public void SetOverlayContentId(PageIds pageId, object param = null)
         {
             CurrentOverlayContentId = pageId;
@@ -50,6 +51,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 .AddSingleton<IAppToolkit, AppToolkit>()
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
+                .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>();
             _ = new ServiceLocator(serviceCollection);
         }

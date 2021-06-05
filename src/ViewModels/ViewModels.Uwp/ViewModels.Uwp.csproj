@@ -17,6 +17,8 @@
     <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
+    <Compile Include="VideoViewModel\VideoViewModel.cs" />
+    <Compile Include="VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">

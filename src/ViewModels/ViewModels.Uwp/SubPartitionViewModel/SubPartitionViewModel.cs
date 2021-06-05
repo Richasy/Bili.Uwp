@@ -22,7 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
             BannerCollection = new ObservableCollection<Banner>();
-            VideoCollection = new ObservableCollection<Video>();
+            VideoCollection = new ObservableCollection<VideoViewModel>();
             TagCollection = new ObservableCollection<Tag>();
             this._partition = partition;
             if (this._partition != null)
@@ -96,6 +96,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     videos = videos.Concat(source.RecommendVideos).ToList();
                 }
+            }
+
+            if (videos.Count > 0)
+            {
+                videos.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
             }
 
             IsInitializeLoading = false;

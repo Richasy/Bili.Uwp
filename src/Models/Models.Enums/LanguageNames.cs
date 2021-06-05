@@ -27,6 +27,12 @@ namespace Richasy.Bili.Models.Enums
         HelpAndSupport,
         PartitionLoading,
         Recommend,
+        TenThousands,
+        Billion,
+        Hours,
+        Minutes,
+        Seconds,
+        ComprehensiveDynamics,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

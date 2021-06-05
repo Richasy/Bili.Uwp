@@ -33,7 +33,6 @@
             <controls:ScrollView
                 x:Name="WideScrollView"
                 HorizontalScrollBarVisibility="Hidden"
-                HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled"
                 ViewChanged="OnWideScrollViewChanged">

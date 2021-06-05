@@ -48,12 +48,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 横幅集合.
         /// </summary>
+        [Reactive]
         public ObservableCollection<Banner> BannerCollection { get; set; }
 
         /// <summary>
         /// 视频集合.
         /// </summary>
-        public ObservableCollection<Video> VideoCollection { get; set; }
+        [Reactive]
+        public ObservableCollection<VideoViewModel> VideoCollection { get; set; }
 
         /// <summary>
         /// 显示出来的标签集合.
