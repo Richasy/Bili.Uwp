@@ -15,12 +15,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly Partition _partition;
         private readonly bool _isRecommendPartition;
         private readonly IResourceToolkit _resourceToolkit;
-        private bool _isRequested;
 
         /// <summary>
         /// 子分区Id.
         /// </summary>
-        public int SubPartitionId => _partition.Tid;
+        public int SubPartitionId => _partition?.Tid ?? -1;
+
+        /// <summary>
+        /// 标识该分区是否已经加载过数据.
+        /// </summary>
+        [Reactive]
+        public bool IsRequested { get; private set; }
 
         /// <summary>
         /// 子分区名称.

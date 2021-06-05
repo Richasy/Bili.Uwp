@@ -17,6 +17,9 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\BannerView.xaml.cs">
+      <DependentUpon>BannerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Layout\AdaptiveLayoutState.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -34,6 +37,7 @@
     <Compile Include="Controls\Layout\FlowLayoutAnchorInfo.cs" />
     <Compile Include="Controls\Layout\IFlowLayoutAlgorithmDelegates.cs" />
     <Compile Include="Controls\Layout\OrientationBasedMeasures.cs" />
+    <Compile Include="Controls\OffsetButton.cs" />
     <Compile Include="Controls\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
     </Compile>
@@ -160,6 +164,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AppTitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BannerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

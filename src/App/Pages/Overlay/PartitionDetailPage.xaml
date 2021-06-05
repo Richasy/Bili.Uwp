@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Pages.Overlay.PartitionDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,11 +10,28 @@
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <Grid Padding="{StaticResource DefaultContainerPadding}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentScrollView.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <StackPanel
             x:Name="PartitionHeader"
             HorizontalAlignment="Left"
@@ -47,6 +65,40 @@
                     <muxc:NavigationViewItem Content="{x:Bind Title, Mode=OneWay}" Tag="{x:Bind SubPartitionId}" />
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
+            <muxc:NavigationView.Content>
+                <muxc:ScrollView
+                    x:Name="ContentScrollView"
+                    Padding="{StaticResource DefaultContainerPadding}"
+                    HorizontalScrollBarVisibility="Hidden"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="ContentGrid" Padding="0,12,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <controls:BannerView
+                            x:Name="BannerView"
+                            VerticalAlignment="Top"
+                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}" />
+
+                        <muxc:ProgressRing
+                            x:Name="LoadingRing"
+                            Style="{StaticResource PageProgressRingStyle}"
+                            Grid.RowSpan="2"
+                            IsActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
+
+                        <muxc:ProgressBar
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            IsIndeterminate="True"
+                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" />
+                    </Grid>
+                </muxc:ScrollView>
+
+            </muxc:NavigationView.Content>
         </muxc:NavigationView>
     </Grid>
 </Page>

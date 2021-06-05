@@ -43,7 +43,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestDataAsync()
         {
-            if (_isRequested)
+            if (IsRequested)
             {
                 await DeltaRequestAsync();
             }
@@ -99,7 +99,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsInitializeLoading = false;
-            _isRequested = true;
+            IsRequested = true;
         }
 
         /// <summary>

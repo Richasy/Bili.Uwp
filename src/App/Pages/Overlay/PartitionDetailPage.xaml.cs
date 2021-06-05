@@ -71,14 +71,14 @@ namespace Richasy.Bili.App.Pages.Overlay
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            CheckCurrentSubPartition();
+            CheckCurrentSubPartitionAsync();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentSelectedSubPartition))
             {
-                CheckCurrentSubPartition();
+                CheckCurrentSubPartitionAsync();
             }
         }
 
@@ -99,11 +99,17 @@ namespace Richasy.Bili.App.Pages.Overlay
             ViewModel.CurrentSelectedSubPartition = vm;
         }
 
-        private void CheckCurrentSubPartition()
+        private async void CheckCurrentSubPartitionAsync()
         {
             var vm = ViewModel.CurrentSelectedSubPartition;
             if (vm != null)
             {
+                if (!vm.IsRequested)
+                {
+                    await vm.RequestDataAsync();
+                }
+
+                BannerView.Visibility = vm.BannerCollection != null && vm.BannerCollection.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
                 if (!(DetailNavigationView.SelectedItem is SubPartitionViewModel selectedItem) || selectedItem != vm)
                 {
                     DetailNavigationView.SelectedItem = vm;
