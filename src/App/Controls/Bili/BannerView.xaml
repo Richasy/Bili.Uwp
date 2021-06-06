@@ -39,14 +39,10 @@
                 <controls:ItemsRepeater x:Name="BannerRepeater" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
                     <controls:ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="bilibili:Banner">
-                            <Grid x:Name="ImageContainer" CornerRadius="{StaticResource ControlCornerRadius}">
-                                <Image
-                                    AutomationProperties.Name="{x:Bind Title}"
-                                    MaxHeight="114"
-                                    Source="{x:Bind Image}"
-                                    Stretch="Uniform"
-                                    ToolTipService.ToolTip="{x:Bind Title}" />
-                            </Grid>
+                            <local:BannerItem
+                                Title="{x:Bind Title}"
+                                Source="{x:Bind Image}"
+                                Uri="{x:Bind NavigateUri}" />
                         </DataTemplate>
                     </controls:ItemsRepeater.ItemTemplate>
                     <controls:ItemsRepeater.Layout>

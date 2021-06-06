@@ -43,13 +43,8 @@
             x:Name="VideoRepeater"
             Grid.Row="1"
             ElementPrepared="OnElementPrepared"
+            ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
-            Layout="{StaticResource GridLayout}">
-            <muxc:ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="uwp:VideoViewModel">
-                    <local:VideoItem ViewModel="{x:Bind}" />
-                </DataTemplate>
-            </muxc:ItemsRepeater.ItemTemplate>
-        </muxc:ItemsRepeater>
+            Layout="{StaticResource GridLayout}" />
     </Grid>
 </UserControl>

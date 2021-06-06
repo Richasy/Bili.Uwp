@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     mc:Ignorable="d">
 
     <Grid>
@@ -97,7 +97,17 @@
                             Grid.Row="1"
                             Margin="0,0,0,12"
                             HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
-                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}" />
+                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}">
+                            <controls:VideoView.ItemTemplate>
+                                <DataTemplate x:DataType="uwp:VideoViewModel">
+                                    <controls:VideoItem
+                                        IsShowDanmakuCount="True"
+                                        IsShowLikeCount="True"
+                                        IsShowPlayCount="True"
+                                        ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </controls:VideoView.ItemTemplate>
+                        </controls:VideoView>
 
                         <muxc:ProgressRing
                             x:Name="LoadingRing"

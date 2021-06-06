@@ -35,15 +35,15 @@ namespace Richasy.Bili.Toolkit.Uwp
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (timeSpan.TotalHours > 1)
             {
-                return Math.Round(timeSpan.TotalHours, 2) + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Hours);
+                return Math.Round(timeSpan.TotalHours, 2) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Hours);
             }
             else if (timeSpan.TotalMinutes > 1)
             {
-                return Math.Round(timeSpan.TotalMinutes) + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Minutes);
+                return Math.Round(timeSpan.TotalMinutes) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Minutes);
             }
             else
             {
-                return Math.Round(timeSpan.TotalSeconds) + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Seconds);
+                return Math.Round(timeSpan.TotalSeconds) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Seconds);
             }
         }
     }

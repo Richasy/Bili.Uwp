@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using HN.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,6 +23,36 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+
+        /// <summary>
+        /// <see cref="IsShowPublishDateTime"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowPublishDateTimeProperty =
+            DependencyProperty.Register(nameof(IsShowPublishDateTime), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowReplayCount"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowReplayCountProperty =
+            DependencyProperty.Register(nameof(IsShowReplayCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowDanmakuCount"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowDanmakuCountProperty =
+            DependencyProperty.Register(nameof(IsShowDanmakuCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowPlayCount"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowPlayCountProperty =
+            DependencyProperty.Register(nameof(IsShowPlayCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowLikeCount"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowLikeCountProperty =
+            DependencyProperty.Register(nameof(IsShowLikeCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
@@ -50,16 +81,57 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(OrientationProperty, value); }
         }
 
+        /// <summary>
+        /// 是否显示播放数.
+        /// </summary>
+        public bool IsShowPlayCount
+        {
+            get { return (bool)GetValue(IsShowPlayCountProperty); }
+            set { SetValue(IsShowPlayCountProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示弹幕数.
+        /// </summary>
+        public bool IsShowDanmakuCount
+        {
+            get { return (bool)GetValue(IsShowDanmakuCountProperty); }
+            set { SetValue(IsShowDanmakuCountProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示回复数.
+        /// </summary>
+        public bool IsShowReplayCount
+        {
+            get { return (bool)GetValue(IsShowReplayCountProperty); }
+            set { SetValue(IsShowReplayCountProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示发布时间.
+        /// </summary>
+        public bool IsShowPublishDateTime
+        {
+            get { return (bool)GetValue(IsShowPublishDateTimeProperty); }
+            set { SetValue(IsShowPublishDateTimeProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示点赞数.
+        /// </summary>
+        public bool IsShowLikeCount
+        {
+            get { return (bool)GetValue(IsShowLikeCountProperty); }
+            set { SetValue(IsShowLikeCountProperty, value); }
+        }
+
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VideoItem;
             if (e.NewValue != null && e.NewValue is VideoViewModel vm)
             {
                 var description = string.Empty;
-                var playStr = $"播放:{vm.PlayCount}";
-                var danmakuStr = $"弹幕：{vm.DanmakuCount}";
-                description = playStr + " · " + danmakuStr;
-                instance.DescriptionBlock.Text = description;
                 instance.CheckOrientation();
             }
         }
@@ -96,6 +168,11 @@ namespace Richasy.Bili.App.Controls
 
         private void OnContainerTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+        }
+
+        private void CoverImage_ImageFailed(in object sender, in ImageExFailedEventArgs e)
+        {
+            var msg = e.Exception.Message;
         }
     }
 }

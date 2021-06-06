@@ -115,7 +115,7 @@ namespace Richasy.Bili.App.Controls
             _realizedElements.AddOrInsert(realizedIndex, element);
 
             // Set bounds to an invalid rect since we do not know it yet.
-            _realizedElementLayoutBounds.AddOrInsert(realizedIndex, new Rect(-1, -1, -1, -1));
+            _realizedElementLayoutBounds.AddOrInsert(realizedIndex, new Rect(0, 0, 0, 0));
         }
 
         public void ClearRealizedRange(int realizedIndex, int count)

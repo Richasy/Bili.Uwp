@@ -17,8 +17,12 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\Bili\BannerItem.cs" />
     <Compile Include="Controls\Bili\BannerView.xaml.cs">
       <DependentUpon>BannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IconTextBlock.xaml.cs">
+      <DependentUpon>IconTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Layout\AdaptiveLayoutState.cs" />
     <Compile Include="App.xaml.cs">
@@ -46,6 +50,9 @@
     </Compile>
     <Compile Include="Controls\Bili\VideoView.xaml.cs">
       <DependentUpon>VideoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Bili\UserAvatar.xaml.cs">
+      <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ChannelPage.xaml.cs">
       <DependentUpon>ChannelPage.xaml</DependentUpon>
@@ -181,6 +188,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\IconTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RootNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Bili\VideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Bili\UserAvatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,10 +284,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fluent.Icons">
       <Version>1.1.110</Version>
+    </PackageReference>
+    <PackageReference Include="HN.Controls.ImageEx.Uwp">
+      <Version>1.0.33</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Metrics">
       <Version>3.3.0</Version>
@@ -288,6 +310,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.AsyncEx.Tasks">
+      <Version>5.1.0</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

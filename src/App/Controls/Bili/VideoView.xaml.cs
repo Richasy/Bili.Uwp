@@ -37,11 +37,26 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsShowHeader), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
 
         /// <summary>
+        /// <see cref="ItemTemplate"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(VideoItem), new PropertyMetadata(null));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="VideoView"/> class.
         /// </summary>
         public VideoView()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// 条目模板.
+        /// </summary>
+        public DataTemplate ItemTemplate
+        {
+            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
+            set { SetValue(ItemTemplateProperty, value); }
         }
 
         /// <summary>
