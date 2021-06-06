@@ -183,6 +183,27 @@
   <data name="SeeLater" xml:space="preserve">
     <value>稍后再看</value>
   </data>
+  <data name="SelectSortType" xml:space="preserve">
+    <value>选择排序方式</value>
+  </data>
+  <data name="SortByDanmaku" xml:space="preserve">
+    <value>弹幕最多</value>
+  </data>
+  <data name="SortByDefault" xml:space="preserve">
+    <value>默认排序</value>
+  </data>
+  <data name="SortByFavorite" xml:space="preserve">
+    <value>收藏最多</value>
+  </data>
+  <data name="SortByNewest" xml:space="preserve">
+    <value>最新视频</value>
+  </data>
+  <data name="SortByPlay" xml:space="preserve">
+    <value>播放最多</value>
+  </data>
+  <data name="SortByReply" xml:space="preserve">
+    <value>评论最多</value>
+  </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
   </data>

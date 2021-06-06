@@ -33,6 +33,13 @@ namespace Richasy.Bili.Models.Enums
         Minutes,
         Seconds,
         ComprehensiveDynamics,
+        SelectSortType,
+        SortByDefault,
+        SortByNewest,
+        SortByPlay,
+        SortByReply,
+        SortByDanmaku,
+        SortByFavorite,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

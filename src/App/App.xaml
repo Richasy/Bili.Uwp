@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:local="using:Richasy.Bili.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,6 +16,8 @@
                 <ResourceDictionary x:Key="Dark" Source="ms-appx:///Styles/Theme.Dark.xaml" />
                 <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Styles/Theme.HighContrast.xaml" />
             </ResourceDictionary.ThemeDictionaries>
+
+            <converter:SortTypeTextConverter x:Key="SortTypeTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

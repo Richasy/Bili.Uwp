@@ -71,7 +71,6 @@
             VerticalAlignment="Stretch">
             <hn:ImageEx
                 x:Name="CoverImage"
-                ImageFailed="CoverImage_ImageFailed"
                 LazyLoadingEnabled="True"
                 RetryCount="2"
                 RetryDelay="0:0:5"
@@ -126,8 +125,8 @@
                 Height="36"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Avatar="{x:Bind ViewModel.PublisherAvatar}"
-                UserName="{x:Bind ViewModel.PublisherName}" />
+                Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
         </Grid>
 
         <Grid
@@ -147,9 +146,9 @@
                     Height="24"
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    Visibility="Collapsed"
-                    Avatar="{x:Bind ViewModel.PublisherAvatar}"
-                    UserName="{x:Bind ViewModel.PublisherName}" />
+                    Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
+                    Visibility="Collapsed" />
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"

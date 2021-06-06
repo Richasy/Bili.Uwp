@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -29,10 +30,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 this.Title = this._partition.Name;
                 this._isRecommendPartition = false;
+                GenerateSortType();
+                CurrentSortType = VideoSortType.Default;
             }
             else
             {
-                this.Title = this._resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Recommend);
+                this.Title = this._resourceToolkit.GetLocaleString(LanguageNames.Recommend);
                 this._isRecommendPartition = true;
             }
         }
@@ -65,6 +68,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             TagCollection.Clear();
             var videos = new List<Video>();
             SubPartition source = null;
+            await Task.Delay(400);
             if (_isRecommendPartition)
             {
                 var data = await LoadMockDataAsync<ServerResponse<SubPartitionRecommend>>("RecommendSubpartitionFirstRequest");
@@ -87,7 +91,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (source != null)
             {
-                if (source.NewVideos != null && source.RecommendVideos.Count > 0)
+                if (source.NewVideos != null && source.NewVideos.Count > 0)
                 {
                     videos = videos.Concat(source.NewVideos).ToList();
                 }
@@ -111,9 +115,55 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 执行增量请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        internal Task DeltaRequestAsync()
+        internal async Task DeltaRequestAsync()
         {
-            return Task.CompletedTask;
+            ServerResponse<SubPartitionDefault> data;
+            IsDeltaLoading = true;
+            await Task.Delay(400);
+            if (_isRecommendPartition)
+            {
+                data = await LoadMockDataAsync<ServerResponse<SubPartitionDefault>>("RecommendSubpartitionNextRequest");
+            }
+            else
+            {
+                data = await LoadMockDataAsync<ServerResponse<SubPartitionDefault>>("SubpartitionNextRequest");
+            }
+
+            var source = data.Data;
+            var videos = new List<Video>();
+            if (source != null)
+            {
+                if (source.NewVideos != null && source.NewVideos.Count > 0)
+                {
+                    videos = videos.Concat(source.NewVideos).ToList();
+                }
+
+                if (source.RecommendVideos != null && source.RecommendVideos.Count > 0)
+                {
+                    videos = videos.Concat(source.RecommendVideos).ToList();
+                }
+            }
+
+            if (videos.Count > 0)
+            {
+                videos.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
+            }
+
+            IsDeltaLoading = false;
+            IsRequested = true;
+        }
+
+        private void GenerateSortType()
+        {
+            SortTypeCollection = new ObservableCollection<VideoSortType>()
+            {
+                VideoSortType.Default,
+                VideoSortType.Newest,
+                VideoSortType.Play,
+                VideoSortType.Reply,
+                VideoSortType.Danmaku,
+                VideoSortType.Favorite,
+            };
         }
     }
 }

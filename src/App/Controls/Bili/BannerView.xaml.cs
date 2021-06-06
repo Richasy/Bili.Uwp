@@ -6,6 +6,7 @@ using Richasy.Bili.Models.BiliBili;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -38,6 +39,9 @@ namespace Richasy.Bili.App.Controls
             get { return (object)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPointerEntered(PointerRoutedEventArgs e) => CheckOffsetButtonStatus();
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -79,7 +83,7 @@ namespace Richasy.Bili.App.Controls
             var rightOffset = WideScrollView.HorizontalOffset + WideScrollView.ViewportWidth;
             if (rightOffset > WideScrollView.ExtentWidth)
             {
-                rightOffset = WideScrollView.ScrollableWidth - WideScrollView.ViewportWidth;
+                rightOffset = WideScrollView.ScrollableWidth - WideScrollView.HorizontalOffset;
             }
 
             var options = new ScrollingScrollOptions(ScrollingAnimationMode.Auto, ScrollingSnapPointsMode.Ignore);

@@ -2,6 +2,7 @@
 
 using HN.Controls;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -126,6 +127,22 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(IsShowLikeCountProperty, value); }
         }
 
+        /// <summary>
+        /// 获取占位大小，这是一个固定值，用于预先测量.
+        /// </summary>
+        /// <returns><see cref="Size"/>.</returns>
+        public Size GetHolderSize()
+        {
+            if (Orientation == Orientation.Horizontal)
+            {
+                return new Size(double.PositiveInfinity, 180);
+            }
+            else
+            {
+                return new Size(210, 228);
+            }
+        }
+
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VideoItem;
@@ -168,11 +185,6 @@ namespace Richasy.Bili.App.Controls
 
         private void OnContainerTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-        }
-
-        private void CoverImage_ImageFailed(in object sender, in ImageExFailedEventArgs e)
-        {
-            var msg = e.Exception.Message;
         }
     }
 }

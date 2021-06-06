@@ -31,14 +31,28 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Margin="0,0,0,12"
-            HorizontalAlignment="Left"
-            FontSize="16"
-            Text="{x:Bind HeaderText, Mode=OneWay}"
-            TextTrimming="CharacterEllipsis"
-            Visibility="{x:Bind IsShowHeader, Mode=OneWay}" />
+        <Grid Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                Text="{x:Bind HeaderText, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                Visibility="{x:Bind IsShowHeader, Mode=OneWay}" />
+
+            <ContentPresenter
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Content="{x:Bind AdditionalContent, Mode=OneWay}" />
+        </Grid>
+
         <muxc:ItemsRepeater
             x:Name="VideoRepeater"
             Grid.Row="1"

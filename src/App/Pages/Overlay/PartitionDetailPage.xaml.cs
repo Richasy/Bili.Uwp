@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -92,15 +93,70 @@ namespace Richasy.Bili.App.Pages.Overlay
             var vm = ViewModel.CurrentSelectedSubPartition;
             if (vm != null)
             {
+                VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
+                VideoView.NewItemAdded += OnVideoViewNewItemAddedAsync;
+
                 if (!vm.IsRequested)
                 {
                     await vm.RequestDataAsync();
                 }
 
                 BannerView.Visibility = vm.BannerCollection != null && vm.BannerCollection.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+                var isShowSort = vm.SortTypeCollection != null && vm.SortTypeCollection.Count > 0;
+                if (isShowSort)
+                {
+                    VideoSortComboBox.Visibility = Visibility.Visible;
+                    VideoSortComboBox.SelectedItem = vm.CurrentSortType;
+                }
+                else
+                {
+                    VideoSortComboBox.Visibility = Visibility.Collapsed;
+                }
+
                 if (!(DetailNavigationView.SelectedItem is SubPartitionViewModel selectedItem) || selectedItem != vm)
                 {
                     DetailNavigationView.SelectedItem = vm;
+                }
+            }
+        }
+
+        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+            var currentSubPartition = ViewModel.CurrentSelectedSubPartition;
+            if (currentSubPartition != null && !currentSubPartition.IsDeltaLoading && !currentSubPartition.IsInitializeLoading)
+            {
+                await currentSubPartition.RequestDataAsync();
+            }
+        }
+
+        private async void OnVideoViewNewItemAddedAsync(object sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs e)
+        {
+            var currentSubPartition = ViewModel.CurrentSelectedSubPartition;
+            if (currentSubPartition != null &&
+                !currentSubPartition.IsDeltaLoading &&
+                !currentSubPartition.IsInitializeLoading &&
+                e.Index >= currentSubPartition.VideoCollection.Count - 1)
+            {
+                var videoItem = e.Element as VideoItem;
+                var size = videoItem.GetHolderSize();
+                var isNeedLoadMore = false;
+                if (double.IsInfinity(size.Width))
+                {
+                    isNeedLoadMore = (e.Index + 1) * size.Height <= ContentScrollView.ViewportHeight;
+                }
+                else
+                {
+                    var rowCount = e.Index / (ContentScrollView.ViewportWidth / size.Width);
+                    isNeedLoadMore = rowCount * size.Height <= ContentScrollView.ViewportHeight;
+                }
+
+                if (isNeedLoadMore)
+                {
+                    await ViewModel.CurrentSelectedSubPartition.RequestDataAsync();
+                }
+                else
+                {
+                    VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
                 }
             }
         }

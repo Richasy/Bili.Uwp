@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -46,6 +47,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsDeltaLoading { get; set; }
 
         /// <summary>
+        /// 当前排序方式.
+        /// </summary>
+        [Reactive]
+        public VideoSortType CurrentSortType { get; set; }
+
+        /// <summary>
         /// 横幅集合.
         /// </summary>
         [Reactive]
@@ -61,5 +68,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 显示出来的标签集合.
         /// </summary>
         public ObservableCollection<Tag> TagCollection { get; set; }
+
+        /// <summary>
+        /// 排序方式集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoSortType> SortTypeCollection { get; set; }
     }
 }
