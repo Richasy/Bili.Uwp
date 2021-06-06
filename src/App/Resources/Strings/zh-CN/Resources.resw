@@ -177,6 +177,12 @@
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
   </data>
+  <data name="SearchTip" xml:space="preserve">
+    <value>搜索视频，番剧或UP主</value>
+  </data>
+  <data name="SearchTipSlim" xml:space="preserve">
+    <value>搜一搜</value>
+  </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
   </data>

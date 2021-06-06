@@ -40,6 +40,8 @@ namespace Richasy.Bili.Models.Enums
         SortByReply,
         SortByDanmaku,
         SortByFavorite,
+        SearchTip,
+        SearchTipSlim,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

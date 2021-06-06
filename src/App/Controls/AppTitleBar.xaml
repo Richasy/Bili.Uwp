@@ -26,7 +26,6 @@
             <Setter Property="Width" Value="36" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0,0,4,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
@@ -46,7 +45,9 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
+                            <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
                             <Setter Target="ContentGrid.Padding" Value="8,0,0,0" />
+                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
                             <Setter Target="RootGrid.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                         </VisualState.Setters>
                     </VisualState>
@@ -71,14 +72,14 @@
                 <!-- User -->
                 <ColumnDefinition Width="Auto" />
                 <!-- Flex column -->
-                <ColumnDefinition x:Name="RightPaddingColumn" Width="144" />
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="136" />
             </Grid.ColumnDefinitions>
 
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}"
-                Click="OnBackButtonClick">
+                Click="OnBackButtonClick"
+                Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"
@@ -155,16 +156,17 @@
 
             <StackPanel
                 Grid.Column="2"
-                Margin="0,0,12,0"
+                Margin="8,0,12,0"
                 VerticalAlignment="Center"
-                Orientation="Horizontal"
                 IsHitTestVisible="False"
+                Orientation="Horizontal"
                 Spacing="12">
                 <Image
                     Width="16"
                     Height="16"
                     Source="ms-appx:///Assets/Bili_rgba_25.png" />
                 <TextBlock
+                    x:Name="AppNameBlock"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
                     Text="{loc:LocaleLocator Name=AppName}" />
@@ -175,9 +177,10 @@
                 MaxWidth="520"
                 VerticalAlignment="Center">
                 <AutoSuggestBox
+                    x:Name="AppSearchBox"
                     HorizontalAlignment="Stretch"
                     IsTabStop="True"
-                    PlaceholderText="Search"
+                    PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
                     QueryIcon="Find"
                     UpdateTextOnSelect="False" />
             </Grid>
