@@ -2,47 +2,35 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\Uwp.props" />
   <PropertyGroup>
-    <ProjectGuid>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</ProjectGuid>
+    <ProjectGuid>{C8AB398F-10C2-4B97-87F0-F09B922947D6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Richasy.Bili.ViewModels.Uwp</RootNamespace>
-    <AssemblyName>Richasy.Bili.ViewModels.Uwp</AssemblyName>
+    <RootNamespace>Richasy.Bili.Lib.Uwp</RootNamespace>
+    <AssemblyName>Richasy.Bili.Lib.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AppViewModel\AppViewModel.cs" />
-    <Compile Include="AppViewModel\AppViewModel.Properties.cs" />
-    <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.cs" />
-    <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
-    <Compile Include="PartitionViewModel\PartitionViewModel.cs" />
-    <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
-    <Compile Include="SubPartitionViewModel\SubPartitionViewModel.cs" />
-    <Compile Include="SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
-    <Compile Include="VideoViewModel\VideoViewModel.cs" />
-    <Compile Include="VideoViewModel\VideoViewModel.Properties.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="AuthorizeProvider.cs" />
+    <Compile Include="AuthorizeProvider.Extension.cs" />
+    <Compile Include="HttpProvider\HttpProvider.cs" />
+    <Compile Include="HttpProvider\HttpProvider.Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Content Include="Properties\ViewModels.Uwp.rd.xml" />
+    <Content Include="Properties\Lib.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
-      <Version>5.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
-    <PackageReference Include="ReactiveUI">
-      <Version>13.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI.Fody">
-      <Version>13.3.2</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
+      <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
+      <Name>Models.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
-      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
+      <Project>{8776A0BD-DBD1-4F11-A022-400D044FF618}</Project>
       <Name>Models.BiliBili</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
@@ -57,9 +45,9 @@
       <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
       <Name>Toolkit.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
-      <Project>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</Project>
-      <Name>Toolkit.Uwp</Name>
+    <ProjectReference Include="..\Lib.Interfaces\Lib.Interfaces.csproj">
+      <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
+      <Name>Lib.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

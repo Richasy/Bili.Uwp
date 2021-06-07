@@ -52,7 +52,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
                 .AddSingleton<INumberToolkit, NumberToolkit>()
-                .AddSingleton<ISettingsToolkit, SettingsToolkit>();
+                .AddSingleton<ISettingsToolkit, SettingsToolkit>()
+                .AddSingleton<IMD5Toolkit, MD5Toolkit>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

@@ -7,9 +7,8 @@ namespace Richasy.Bili.Models.BiliBili
     /// <summary>
     /// 哔哩哔哩服务器返回的数据响应结构类型.
     /// </summary>
-    /// <typeparam name="T"><see cref="Data"/>对应的类型.</typeparam>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class ServerResponse<T>
+    public class ServerResponse
     {
         /// <summary>
         /// 响应代码.
@@ -28,7 +27,15 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ttl", Required = Required.Default)]
         public int TTL { get; set; }
+    }
 
+    /// <summary>
+    /// 哔哩哔哩服务器返回的数据响应结构类型.
+    /// </summary>
+    /// <typeparam name="T"><see cref="Data"/>对应的类型.</typeparam>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class ServerResponse<T> : ServerResponse
+    {
         /// <summary>
         /// 响应返回的数据.
         /// </summary>

@@ -6,4 +6,13 @@
     <RootNamespace>Richasy.Bili.Models.App</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models.BiliBili\Models.BiliBili.csproj" />
+    <ProjectReference Include="..\Models.Enums\Models.Enums.csproj" />
+  </ItemGroup>
+
 </Project>

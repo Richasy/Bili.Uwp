@@ -1,11 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.UI.Xaml.Controls;
-using Windows.Foundation;
-using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -17,7 +12,7 @@ namespace Richasy.Bili.App.Controls
             if (index < collection.Count)
             {
                 element = collection[index];
-                return element != default; // TODO UNO
+                return element != default;
             }
             else
             {
