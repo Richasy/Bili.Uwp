@@ -11,5 +11,7 @@ namespace Richasy.Bili.Models.Enums
         /// Application theme.
         /// </summary>
         AppTheme,
+        BiliUserId,
+        AuthorizeResult,
     }
 }

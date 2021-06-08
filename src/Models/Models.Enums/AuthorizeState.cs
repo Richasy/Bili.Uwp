@@ -15,7 +15,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 用户已退出.
         /// </summary>
-        SingedOut,
+        SignedOut,
 
         /// <summary>
         /// 用户已登录.

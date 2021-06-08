@@ -41,6 +41,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
+      <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
+      <Name>Lib.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Lib.Uwp\Lib.Uwp.csproj">
+      <Project>{c8ab398f-10c2-4b97-87f0-f09b922947d6}</Project>
+      <Name>Lib.Uwp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
       <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
       <Name>Models.BiliBili</Name>

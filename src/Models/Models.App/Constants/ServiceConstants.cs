@@ -5,7 +5,7 @@ namespace Richasy.Bili.Models.App.Constants
     /// <summary>
     /// 服务相关的常量.
     /// </summary>
-    public class ServiceConstants
+    public static class ServiceConstants
     {
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
@@ -34,6 +34,7 @@ namespace Richasy.Bili.Models.App.Constants
 
         public static class Messages
         {
+            public static string NotFound = "没有找到你所需要的资源";
             public static string AuthenticationProviderMissing = "Authentication provider is required before sending a request.";
             public static string BaseUrlMissing = "Base URL cannot be null or empty.";
             public static string InvalidTypeForDateConverter = "DateConverter can only serialize objects of type Date.";

@@ -127,7 +127,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 if (response != null && response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    errorResponse = new ServerResponse { Message = ServiceConstants.Codes.ItemNotFound };
+                    errorResponse = new ServerResponse { Message = ServiceConstants.Messages.NotFound };
                 }
                 else
                 {

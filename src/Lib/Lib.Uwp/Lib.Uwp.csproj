@@ -9,8 +9,11 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AuthorizeProvider.cs" />
-    <Compile Include="AuthorizeProvider.Extension.cs" />
+    <Compile Include="AuthorizeProvider\AccountManagementPane.xaml.cs">
+      <DependentUpon>AccountManagementPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
+    <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
     <Compile Include="HttpProvider\HttpProvider.cs" />
     <Compile Include="HttpProvider\HttpProvider.Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -22,6 +25,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.6.0-prerelease.210524002</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,16 @@
       <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
       <Name>Lib.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AuthorizeProvider\AccountManagementPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

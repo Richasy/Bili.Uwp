@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Windows.Networking.Connectivity;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -20,10 +21,10 @@ namespace Richasy.Bili.Lib.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizeProvider"/> class.
         /// </summary>
-        /// <param name="md5Toolkit">MD5工具.</param>
-        public AuthorizeProvider(IMD5Toolkit md5Toolkit)
+        public AuthorizeProvider()
         {
-            _md5Toolkit = md5Toolkit;
+            ServiceLocator.Instance.LoadService(out _md5Toolkit)
+                                   .LoadService(out _settingsToolkit);
         }
 
         /// <inheritdoc/>
@@ -83,15 +84,85 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public Task<string> GetTokenAsync(bool silentOnly = false) => throw new NotImplementedException();
+        public async Task<string> GetTokenAsync(bool silentOnly = false)
+        {
+            // TODO: 检查当前Token的时效.
+            var internetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
+            if (internetConnectionProfile == null)
+            {
+                // 目前不在线.
+                return null;
+            }
+
+            try
+            {
+                var result = await ShowAccountManagementPaneAndGetResultAsync();
+
+                _accessToken = result;
+                return result;
+            }
+            catch (Exception)
+            {
+            }
+
+            await SignOutAsync();
+            return null;
+        }
 
         /// <inheritdoc/>
-        public Task SignInAsync() => throw new NotImplementedException();
+        public async Task SignInAsync()
+        {
+            if (!string.IsNullOrEmpty(_accessToken) || State != AuthorizeState.SignedOut)
+            {
+                return;
+            }
+
+            State = AuthorizeState.Loading;
+
+            var token = await GetTokenAsync();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                await SignOutAsync();
+            }
+        }
 
         /// <inheritdoc/>
-        public Task SignOutAsync() => throw new NotImplementedException();
+        public Task SignOutAsync()
+        {
+            State = AuthorizeState.Loading;
+
+            _settingsToolkit.DeleteLocalSetting(SettingNames.BiliUserId);
+            _settingsToolkit.DeleteLocalSetting(SettingNames.AuthorizeResult);
+
+            if (!string.IsNullOrEmpty(_accessToken))
+            {
+                _accessToken = null;
+            }
+
+            State = AuthorizeState.SignedOut;
+            return Task.CompletedTask;
+        }
 
         /// <inheritdoc/>
-        public Task<bool> TrySilentSignInAsync() => throw new NotImplementedException();
+        public async Task<bool> TrySilentSignInAsync()
+        {
+            if (!string.IsNullOrEmpty(_accessToken) && State == AuthorizeState.SignedIn)
+            {
+                return true;
+            }
+
+            State = AuthorizeState.Loading;
+
+            var token = await GetTokenAsync(true);
+
+            if (token == null)
+            {
+                State = AuthorizeState.SignedOut;
+                return false;
+            }
+
+            return true;
+        }
     }
 }
