@@ -42,6 +42,16 @@ namespace Richasy.Bili.Models.Enums
         SortByFavorite,
         SearchTip,
         SearchTipSlim,
+        SignInTitle,
+        UserName,
+        Password,
+        SignIn,
+        UserNameHolder,
+        PasswordHolder,
+        Captcha,
+        CaptchaHolder,
+        ValidUserNameOrPasswordTip,
+        CaptchaIsEmpty,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -47,8 +47,34 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, object> queryParameters)
+        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, object> queryParameters, RequestClientType clientType)
         {
+            if (queryParameters == null)
+            {
+                queryParameters = new Dictionary<string, object>();
+            }
+
+            queryParameters.Add(ServiceConstants.Query.Build, ServiceConstants.BuildNumber);
+            if (clientType == RequestClientType.IOS)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
+                queryParameters.Add(ServiceConstants.Query.MobileApp, "iphone");
+                queryParameters.Add(ServiceConstants.Query.Platform, "ios");
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
+            }
+            else if (clientType == RequestClientType.Web)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds());
+            }
+            else
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
+                queryParameters.Add(ServiceConstants.Query.MobileApp, "android");
+                queryParameters.Add(ServiceConstants.Query.Platform, "android");
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
+            }
+
             var query = string.Empty;
             if (!string.IsNullOrEmpty(_accessToken))
             {
@@ -98,8 +124,8 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 var result = await ShowAccountManagementPaneAndGetResultAsync();
 
-                _accessToken = result;
-                return result;
+                _accessToken = result.TokenInfo.AccessToken;
+                return _accessToken;
             }
             catch (Exception)
             {

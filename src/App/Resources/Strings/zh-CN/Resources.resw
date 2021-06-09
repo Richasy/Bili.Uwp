@@ -129,6 +129,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Captcha" xml:space="preserve">
+    <value>验证码</value>
+  </data>
+  <data name="CaptchaHolder" xml:space="preserve">
+    <value>请输入右侧验证码</value>
+  </data>
+  <data name="CaptchaIsEmpty" xml:space="preserve">
+    <value>验证码不能为空</value>
+  </data>
   <data name="Channel" xml:space="preserve">
     <value>频道</value>
   </data>
@@ -168,6 +177,12 @@
   <data name="PartitionLoading" xml:space="preserve">
     <value>正在加载分区</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PasswordHolder" xml:space="preserve">
+    <value>请输入密码</value>
+  </data>
   <data name="Persional" xml:space="preserve">
     <value>个人</value>
   </data>
@@ -192,6 +207,12 @@
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="SignInTitle" xml:space="preserve">
+    <value>用户登录</value>
+  </data>
   <data name="SortByDanmaku" xml:space="preserve">
     <value>弹幕最多</value>
   </data>
@@ -215,6 +236,15 @@
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="UserNameHolder" xml:space="preserve">
+    <value>请输入用户名/手机</value>
+  </data>
+  <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
+    <value>请输入有效的用户名或密码</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>

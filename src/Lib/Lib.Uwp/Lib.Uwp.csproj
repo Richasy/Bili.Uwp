@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AuthorizeProvider\AccountManagementPane.xaml.cs">
-      <DependentUpon>AccountManagementPane.xaml</DependentUpon>
+    <Compile Include="AuthorizeProvider\AccountLoginDialog.xaml.cs">
+      <DependentUpon>AccountLoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
@@ -57,7 +57,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AuthorizeProvider\AccountManagementPane.xaml">
+    <Page Include="AuthorizeProvider\AccountLoginDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -96,16 +96,6 @@ namespace Richasy.Bili.Lib.Uwp
             this._httpClient = client;
         }
 
-        private long GetNowSeconds()
-        {
-            return DateTimeOffset.Now.ToLocalTime().ToUnixTimeSeconds();
-        }
-
-        private long GetNowMilliSeconds()
-        {
-            return DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds();
-        }
-
         private async Task ThrowIfHasExceptionAsync(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode)
@@ -119,7 +109,7 @@ namespace Richasy.Bili.Lib.Uwp
                 var errorResponseStr = await response.Content.ReadAsStringAsync();
                 errorResponse = JsonConvert.DeserializeObject<ServerResponse>(errorResponseStr);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
             }
 

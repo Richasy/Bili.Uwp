@@ -55,42 +55,26 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public HttpRequestMessage GetRequestMessage(
+        public async Task<HttpRequestMessage> GetRequestMessageAsync(
             HttpMethod method,
             string url,
             Dictionary<string, object> queryParams = null,
             RequestClientType clientType = RequestClientType.Android)
         {
-            if (queryParams == null)
+            var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType);
+            HttpRequestMessage requestMessage;
+            if (method == HttpMethod.Get || method == HttpMethod.Delete)
             {
-                queryParams = new Dictionary<string, object>();
-            }
-
-            queryParams.Add(ServiceConstants.Query.Build, ServiceConstants.BuildNumber);
-            if (clientType == RequestClientType.IOS)
-            {
-                queryParams.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
-                queryParams.Add(ServiceConstants.Query.MobileApp, "iphone");
-                queryParams.Add(ServiceConstants.Query.Platform, "ios");
-                queryParams.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
-            }
-            else if (clientType == RequestClientType.Web)
-            {
-                queryParams.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
-                queryParams.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds());
+                url += $"?{query}";
+                requestMessage = new HttpRequestMessage(method, url);
             }
             else
             {
-                queryParams.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
-                queryParams.Add(ServiceConstants.Query.MobileApp, "android");
-                queryParams.Add(ServiceConstants.Query.Platform, "android");
-                queryParams.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
+                requestMessage = new HttpRequestMessage(method, url);
+                requestMessage.Content = new StringContent(query, System.Text.Encoding.UTF8, ServiceConstants.Headers.FormUrlEncodedContentType);
             }
 
-            var query = _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams);
-            url += $"?{query}";
-
-            return new HttpRequestMessage(method, url);
+            return requestMessage;
         }
 
         /// <inheritdoc/>

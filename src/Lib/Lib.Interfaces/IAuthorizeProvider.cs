@@ -27,8 +27,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 获取包含授权码的查询字符串.
         /// </summary>
         /// <param name="queryParameters">请求所需的查询参数.</param>
+        /// <param name="clientType">请求需要模拟的客户端类型.</param>
         /// <returns>包含授权验证的查询字符串.</returns>
-        Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, object> queryParameters);
+        Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, object> queryParameters, RequestClientType clientType);
 
         /// <summary>
         /// 获取当前登录用户的访问令牌.
