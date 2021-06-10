@@ -27,7 +27,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="queryParams">查询参数.</param>
         /// <param name="type">需要模拟的设备类型.</param>
         /// <returns><see cref="HttpRequestMessage"/>.</returns>
-        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, object> queryParams = null, RequestClientType type = RequestClientType.Android);
+        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android);
 
         /// <summary>
         /// 发送请求.

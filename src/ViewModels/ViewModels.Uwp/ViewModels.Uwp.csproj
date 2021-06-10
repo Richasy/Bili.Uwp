@@ -17,6 +17,8 @@
     <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
+    <Compile Include="UserViewModel.cs" />
+    <Compile Include="UserViewModel.Properties.cs" />
     <Compile Include="VideoViewModel\VideoViewModel.cs" />
     <Compile Include="VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="ViewModelBase.cs" />

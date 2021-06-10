@@ -58,20 +58,21 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<HttpRequestMessage> GetRequestMessageAsync(
             HttpMethod method,
             string url,
-            Dictionary<string, object> queryParams = null,
+            Dictionary<string, string> queryParams = null,
             RequestClientType clientType = RequestClientType.Android)
         {
-            var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType);
             HttpRequestMessage requestMessage;
             if (method == HttpMethod.Get || method == HttpMethod.Delete)
             {
+                var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType);
                 url += $"?{query}";
                 requestMessage = new HttpRequestMessage(method, url);
             }
             else
             {
+                var query = await _authenticationProvider.GenerateAuthorizedQueryDictionaryAsync(queryParams, clientType);
                 requestMessage = new HttpRequestMessage(method, url);
-                requestMessage.Content = new StringContent(query, System.Text.Encoding.UTF8, ServiceConstants.Headers.FormUrlEncodedContentType);
+                requestMessage.Content = new FormUrlEncodedContent(query);
             }
 
             return requestMessage;

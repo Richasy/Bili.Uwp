@@ -2,7 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
@@ -25,6 +27,9 @@ namespace Richasy.Bili.Lib.Uwp
         {
             ServiceLocator.Instance.LoadService(out _md5Toolkit)
                                    .LoadService(out _settingsToolkit);
+
+            State = AuthorizeState.SignedOut;
+            RetrieveAuthorizeResult();
         }
 
         /// <inheritdoc/>
@@ -47,11 +52,11 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, object> queryParameters, RequestClientType clientType)
+        public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(Dictionary<string, string> queryParameters, RequestClientType clientType)
         {
             if (queryParameters == null)
             {
-                queryParameters = new Dictionary<string, object>();
+                queryParameters = new Dictionary<string, string>();
             }
 
             queryParameters.Add(ServiceConstants.Query.Build, ServiceConstants.BuildNumber);
@@ -60,27 +65,27 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
                 queryParameters.Add(ServiceConstants.Query.MobileApp, "iphone");
                 queryParameters.Add(ServiceConstants.Query.Platform, "ios");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             }
             else if (clientType == RequestClientType.Web)
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds());
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
             }
             else
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
                 queryParameters.Add(ServiceConstants.Query.MobileApp, "android");
                 queryParameters.Add(ServiceConstants.Query.Platform, "android");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds());
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             }
 
             var query = string.Empty;
-            if (!string.IsNullOrEmpty(_accessToken))
+            if (IsTokenValid())
             {
-                queryParameters.Add(ServiceConstants.Query.AccessToken, _accessToken);
+                queryParameters.Add(ServiceConstants.Query.AccessToken, _tokenInfo.AccessToken);
             }
-            else
+            else if (_tokenInfo != null)
             {
                 await GetTokenAsync();
             }
@@ -104,15 +109,26 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             query = string.Join('&', queryList);
-            var signQuery = query + $"&{apiSecret}";
+            var signQuery = query + apiSecret;
             var sign = _md5Toolkit.GetMd5String(signQuery).ToLower();
-            return query + $"&sign={sign}";
+
+            queryParameters.Add("sign", sign);
+            return queryParameters;
+        }
+
+        /// <inheritdoc/>
+        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType)
+        {
+            var parameters = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, clientType);
+            var queryList = parameters.Select(p => $"{p.Key}={p.Value}").ToList();
+            queryList.Sort();
+            var query = string.Join('&', queryList);
+            return query;
         }
 
         /// <inheritdoc/>
         public async Task<string> GetTokenAsync(bool silentOnly = false)
         {
-            // TODO: 检查当前Token的时效.
             var internetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
             if (internetConnectionProfile == null)
             {
@@ -122,10 +138,23 @@ namespace Richasy.Bili.Lib.Uwp
 
             try
             {
-                var result = await ShowAccountManagementPaneAndGetResultAsync();
-
-                _accessToken = result.TokenInfo.AccessToken;
-                return _accessToken;
+                if (_tokenInfo != null)
+                {
+                    if (IsTokenValid())
+                    {
+                        return _tokenInfo.AccessToken;
+                    }
+                    else
+                    {
+                        // TODO: Refresh token.
+                    }
+                }
+                else
+                {
+                    var result = await ShowAccountManagementPaneAndGetResultAsync();
+                    SaveAuthorizeResult(result);
+                    return result.TokenInfo.AccessToken;
+                }
             }
             catch (Exception)
             {
@@ -138,7 +167,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task SignInAsync()
         {
-            if (!string.IsNullOrEmpty(_accessToken) || State != AuthorizeState.SignedOut)
+            if (IsTokenValid() || State != AuthorizeState.SignedOut)
             {
                 return;
             }
@@ -161,9 +190,9 @@ namespace Richasy.Bili.Lib.Uwp
             _settingsToolkit.DeleteLocalSetting(SettingNames.BiliUserId);
             _settingsToolkit.DeleteLocalSetting(SettingNames.AuthorizeResult);
 
-            if (!string.IsNullOrEmpty(_accessToken))
+            if (_tokenInfo != null)
             {
-                _accessToken = null;
+                _tokenInfo = null;
             }
 
             State = AuthorizeState.SignedOut;
@@ -173,7 +202,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<bool> TrySilentSignInAsync()
         {
-            if (!string.IsNullOrEmpty(_accessToken) && State == AuthorizeState.SignedIn)
+            if (IsTokenValid() && State == AuthorizeState.SignedIn)
             {
                 return true;
             }
@@ -189,6 +218,19 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 获取验证码图片流.
+        /// </summary>
+        /// <returns>图片数据流.</returns>
+        public async Task<Stream> GetCaptchaImageAsync()
+        {
+            var uri = ServiceConstants.Api.Passport.Captcha + $"?ts={GetNowSeconds()}";
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+            var response = await httpProvider.SendAsync(request);
+            return await response.Content.ReadAsStreamAsync();
         }
     }
 }

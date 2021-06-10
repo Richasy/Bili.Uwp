@@ -89,31 +89,39 @@ namespace Richasy.Bili.Lib.Uwp
 
         private void InitHttpClient()
         {
-            var handler = new HttpClientHandler { AllowAutoRedirect = false, AutomaticDecompression = DecompressionMethods.None };
+            var handler = new HttpClientHandler { AllowAutoRedirect = false, AutomaticDecompression = DecompressionMethods.None, UseCookies = true };
             var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = false, NoStore = false };
             client.DefaultRequestHeaders.Add("accept", ServiceConstants.DefaultAcceptString);
             this._httpClient = client;
         }
 
         private async Task ThrowIfHasExceptionAsync(HttpResponseMessage response)
         {
-            if (response.IsSuccessStatusCode)
-            {
-                return;
-            }
-
             ServerResponse errorResponse = null;
             try
             {
                 var errorResponseStr = await response.Content.ReadAsStringAsync();
+                if (response.Content.Headers.ContentType.MediaType.Contains("image"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return;
+                    }
+                }
+
                 errorResponse = JsonConvert.DeserializeObject<ServerResponse>(errorResponseStr);
+                var cookie = response.Headers.GetValues("Set-Cookie");
+                if (errorResponse.Code == 0)
+                {
+                    return;
+                }
             }
             catch (Exception)
             {
             }
 
-            if (errorResponse == null)
+            if (errorResponse == null || !response.IsSuccessStatusCode)
             {
                 if (response != null && response.StatusCode == HttpStatusCode.NotFound)
                 {

@@ -9,7 +9,7 @@
     Title="{loc:LocaleLocator Name=SignInTitle}"
     Style="{StaticResource DefaultContentDialogStyle}"
     CloseButtonText="{loc:LocaleLocator Name=Cancel}"
-    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonClick="OnPrimaryButtonClickAsync"
     PrimaryButtonText="{loc:LocaleLocator Name=SignIn}"
     mc:Ignorable="d">
 

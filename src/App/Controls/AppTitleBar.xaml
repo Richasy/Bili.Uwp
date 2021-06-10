@@ -72,7 +72,7 @@
                 <!-- User -->
                 <ColumnDefinition Width="Auto" />
                 <!-- Flex column -->
-                <ColumnDefinition x:Name="RightPaddingColumn" Width="136" />
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="172" />
             </Grid.ColumnDefinitions>
 
             <Button
@@ -191,7 +191,8 @@
                 Width="28"
                 Height="28"
                 Margin="12,0"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Tapped="OnUserAvatarTappedAsync" />
         </Grid>
     </Grid>
 

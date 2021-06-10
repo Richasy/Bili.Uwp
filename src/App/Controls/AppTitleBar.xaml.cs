@@ -49,5 +49,10 @@ namespace Richasy.Bili.App.Controls
                 ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
             }
         }
+
+        private async void OnUserAvatarTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            await UserViewModel.Instance.SignInAsync();
+        }
     }
 }

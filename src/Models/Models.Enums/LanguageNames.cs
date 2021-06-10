@@ -52,6 +52,8 @@ namespace Richasy.Bili.Models.Enums
         CaptchaHolder,
         ValidUserNameOrPasswordTip,
         CaptchaIsEmpty,
+        InputCaptchaTip,
+        InvalidUserNameOrPassword,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

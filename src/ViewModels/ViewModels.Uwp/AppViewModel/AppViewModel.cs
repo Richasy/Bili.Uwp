@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Microsoft.Extensions.DependencyInjection;
+using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Lib.Uwp;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -53,7 +55,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
                 .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>()
-                .AddSingleton<IMD5Toolkit, MD5Toolkit>();
+                .AddSingleton<IMD5Toolkit, MD5Toolkit>()
+                .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
+                .AddSingleton<IHttpProvider, HttpProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

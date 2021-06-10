@@ -159,6 +159,12 @@
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
   </data>
+  <data name="InputCaptchaTip" xml:space="preserve">
+    <value>请输入验证码</value>
+  </data>
+  <data name="InvalidUserNameOrPassword" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
   </data>

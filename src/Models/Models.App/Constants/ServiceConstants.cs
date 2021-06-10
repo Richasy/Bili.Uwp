@@ -24,7 +24,7 @@ namespace Richasy.Bili.Models.App.Constants
 
         public static class Query
         {
-            public const string AppKey = "appKey";
+            public const string AppKey = "appkey";
             public const string Build = "build";
             public const string MobileApp = "mobi_app";
             public const string Platform = "platform";
@@ -65,6 +65,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Bearer = "Bearer";
             public const string FormUrlEncodedContentType = "application/x-www-form-urlencoded";
             public const string JsonContentType = "application/json";
+        }
+
+        public static class Settings
+        {
+            public const string AccessTokenKey = "accessToken";
+            public const string RefreshTokenKey = "refreshToken";
+            public const string UserIdKey = "userId";
+            public const string ExpiresInKey = "expiresIn";
+            public const string AuthResultKey = "authorizeResult";
+            public const string LastSaveAuthTimeKey = "lastSaveAuthorizeResultTime";
         }
 
         public static class Api
