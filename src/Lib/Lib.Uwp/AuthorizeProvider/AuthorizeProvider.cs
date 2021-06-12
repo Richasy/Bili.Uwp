@@ -52,7 +52,10 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(Dictionary<string, string> queryParameters, RequestClientType clientType)
+        public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(
+            Dictionary<string, string> queryParameters,
+            RequestClientType clientType,
+            bool needToken = true)
         {
             if (queryParameters == null)
             {
@@ -81,45 +84,28 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             var query = string.Empty;
-            if (IsTokenValid())
+            if (needToken)
             {
-                queryParameters.Add(ServiceConstants.Query.AccessToken, _tokenInfo.AccessToken);
-            }
-            else if (_tokenInfo != null)
-            {
-                await GetTokenAsync();
-            }
-
-            var queryList = queryParameters.Select(p => $"{p.Key}={p.Value}").ToList();
-            queryList.Sort();
-
-            var apiKey = queryParameters[ServiceConstants.Query.AppKey].ToString();
-            var apiSecret = string.Empty;
-            if (apiKey == ServiceConstants.Keys.IOSKey)
-            {
-                apiSecret = ServiceConstants.Keys.IOSSecret;
-            }
-            else if (apiKey == ServiceConstants.Keys.AndroidKey)
-            {
-                apiSecret = ServiceConstants.Keys.AndroidSecret;
-            }
-            else
-            {
-                apiSecret = ServiceConstants.Keys.WebSecret;
+                var token = await GetTokenAsync();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    queryParameters.Add(ServiceConstants.Query.AccessKey, token);
+                }
+                else
+                {
+                    throw new OperationCanceledException("需要令牌，但获取访问令牌失败.");
+                }
             }
 
-            query = string.Join('&', queryList);
-            var signQuery = query + apiSecret;
-            var sign = _md5Toolkit.GetMd5String(signQuery).ToLower();
-
-            queryParameters.Add("sign", sign);
+            var sign = GenerateSign(queryParameters);
+            queryParameters.Add(ServiceConstants.Query.Sign, sign);
             return queryParameters;
         }
 
         /// <inheritdoc/>
-        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType)
+        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true)
         {
-            var parameters = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, clientType);
+            var parameters = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, clientType, needToken);
             var queryList = parameters.Select(p => $"{p.Key}={p.Value}").ToList();
             queryList.Sort();
             var query = string.Join('&', queryList);
@@ -140,19 +126,24 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 if (_tokenInfo != null)
                 {
-                    if (IsTokenValid())
+                    if (await IsTokenValidAsync() && !silentOnly)
                     {
                         return _tokenInfo.AccessToken;
                     }
                     else
                     {
-                        // TODO: Refresh token.
+                        var tokenInfo = await InternalRefreshTokenAsync();
+                        if (tokenInfo != null)
+                        {
+                            SaveAuthorizeResult(tokenInfo);
+                            return tokenInfo.AccessToken;
+                        }
                     }
                 }
                 else
                 {
                     var result = await ShowAccountManagementPaneAndGetResultAsync();
-                    SaveAuthorizeResult(result);
+                    SaveAuthorizeResult(result.TokenInfo);
                     return result.TokenInfo.AccessToken;
                 }
             }
@@ -167,7 +158,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task SignInAsync()
         {
-            if (IsTokenValid() || State != AuthorizeState.SignedOut)
+            if (await IsTokenValidAsync() || State != AuthorizeState.SignedOut)
             {
                 return;
             }
@@ -202,8 +193,13 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<bool> TrySilentSignInAsync()
         {
-            if (IsTokenValid() && State == AuthorizeState.SignedIn)
+            if (await IsTokenValidAsync(true))
             {
+                if (State != AuthorizeState.SignedIn)
+                {
+                    State = AuthorizeState.SignedIn;
+                }
+
                 return true;
             }
 
@@ -218,6 +214,27 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return true;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> IsTokenValidAsync(bool isNetworkVerify = false)
+        {
+            var result = false;
+            var isLocalValid = _tokenInfo != null &&
+                !string.IsNullOrEmpty(_tokenInfo.AccessToken) &&
+                _lastAuthorizeTime != null &&
+                (DateTimeOffset.Now - _lastAuthorizeTime).TotalSeconds < _tokenInfo.ExpiresIn;
+
+            if (isLocalValid && isNetworkVerify)
+            {
+                result = await NetworkVerifyTokenAsync();
+            }
+            else
+            {
+                result = isLocalValid;
+            }
+
+            return result;
         }
 
         /// <summary>

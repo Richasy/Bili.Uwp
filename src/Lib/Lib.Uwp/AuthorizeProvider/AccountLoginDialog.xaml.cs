@@ -55,35 +55,26 @@ namespace Richasy.Bili.Lib.Uwp
                     var authProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>();
                     var result = await (authProvider as AuthorizeProvider)?.InternalLoginAsync(userName, password, captcha);
                     _taskCompletionSource.SetResult(result);
+                    this.Hide();
                 }
                 catch (ServiceException se)
                 {
-                    var isHandled = false;
                     switch (se.Error.Code)
                     {
                         case -105:
                             // 需要验证码.
                             await ShowCaptchaAsync();
-                            isHandled = true;
                             break;
                         case -629:
                             // 账号或密码错误.
                             ShowError(LanguageNames.InvalidUserNameOrPassword);
-                            isHandled = true;
                             break;
                         default:
+                            ShowError(se.Error?.Message ?? se.ToString());
                             break;
                     }
 
-                    if (!isHandled)
-                    {
-                        _taskCompletionSource.SetException(se);
-                        this.Hide();
-                    }
-                    else
-                    {
-                        IsPrimaryButtonEnabled = true;
-                    }
+                    IsPrimaryButtonEnabled = true;
                 }
             }
         }
@@ -99,16 +90,27 @@ namespace Richasy.Bili.Lib.Uwp
             await bitmap.SetSourceAsync(imageStream.AsRandomAccessStream());
         }
 
+        private void ShowError(string msg)
+        {
+            ErrorBlock.Visibility = Visibility.Visible;
+            ErrorBlock.Text = msg;
+        }
+
         private void ShowError(LanguageNames name)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            ErrorBlock.Visibility = Visibility.Visible;
-            ErrorBlock.Text = resourceToolkit.GetLocaleString(name);
+            var msg = resourceToolkit.GetLocaleString(name);
+            ShowError(msg);
         }
 
         private void HideError()
         {
             ErrorBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            _taskCompletionSource.SetCanceled();
         }
     }
 }

@@ -45,15 +45,69 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android);
+            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android, false);
             query[Query.UserName] = userName;
             query[Query.Password] = encryptedPwd;
             var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.Login);
             request.Content = new FormUrlEncodedContent(query);
             var response = await httpProvider.SendAsync(request);
             var result = await httpProvider.ParseAsync<ServerResponse<AuthorizeResult>>(response);
-            await SSOInitAsync(result.Data.SSO.FirstOrDefault());
+            await SSOInitAsync();
             return result.Data;
+        }
+
+        internal async Task<TokenInfo> InternalRefreshTokenAsync()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(_tokenInfo?.RefreshToken))
+                {
+                    var queryParameters = new Dictionary<string, string>
+                    {
+                        { Query.AccessToken, _tokenInfo.AccessToken },
+                        { Query.RefreshToken, _tokenInfo.RefreshToken },
+                    };
+
+                    var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.RefreshToken, queryParameters);
+                    var response = await httpProvider.SendAsync(request);
+                    var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
+                    await SSOInitAsync();
+
+                    return result.Data;
+                }
+            }
+            catch
+            {
+            }
+
+            return null;
+        }
+
+        internal string GenerateSign(Dictionary<string, string> queryParameters)
+        {
+            var queryList = queryParameters.Select(p => $"{p.Key}={p.Value}").ToList();
+            queryList.Sort();
+
+            var apiKey = queryParameters[Query.AppKey].ToString();
+            var apiSecret = string.Empty;
+            if (apiKey == Keys.IOSKey)
+            {
+                apiSecret = Keys.IOSSecret;
+            }
+            else if (apiKey == Keys.AndroidKey)
+            {
+                apiSecret = Keys.AndroidSecret;
+            }
+            else
+            {
+                apiSecret = Keys.WebSecret;
+            }
+
+            var query = string.Join('&', queryList);
+            var signQuery = query + apiSecret;
+            var sign = _md5Toolkit.GetMd5String(signQuery).ToLower();
+            return sign;
         }
 
         internal async Task<string> EncryptedPasswordAsync(string password)
@@ -62,7 +116,7 @@ namespace Richasy.Bili.Lib.Uwp
             try
             {
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android);
+                var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android, false);
                 var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.PasswordEncrypt);
                 request.Content = new FormUrlEncodedContent(param);
                 var response = await httpProvider.SendAsync(request);
@@ -86,16 +140,37 @@ namespace Richasy.Bili.Lib.Uwp
             return base64String;
         }
 
-        private async Task SSOInitAsync(string url)
+        private async Task SSOInitAsync()
         {
-            if (string.IsNullOrEmpty(url))
-            {
-                url = Api.Passport.SSO;
-            }
-
+            var url = Api.Passport.SSO;
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
             var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
             await httpProvider.SendAsync(request);
+        }
+
+        private async Task<bool> NetworkVerifyTokenAsync()
+        {
+            if (!string.IsNullOrEmpty(_tokenInfo?.AccessToken))
+            {
+                var queryParameters = new Dictionary<string, string>
+                {
+                    { Query.AccessToken, _tokenInfo.AccessToken },
+                };
+
+                try
+                {
+                    var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Passport.CheckToken, queryParameters);
+                    _ = await httpProvider.SendAsync(request);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
 
         private async Task<AuthorizeResult> ShowAccountManagementPaneAndGetResultAsync()
@@ -116,22 +191,23 @@ namespace Richasy.Bili.Lib.Uwp
             return DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds();
         }
 
-        private void SaveAuthorizeResult(AuthorizeResult result)
+        private void SaveAuthorizeResult(TokenInfo result)
         {
             if (result != null)
             {
                 var saveTime = DateTimeOffset.Now;
                 var compositeValue = new ApplicationDataCompositeValue
                 {
-                    [Settings.AccessTokenKey] = result.TokenInfo.AccessToken,
-                    [Settings.RefreshTokenKey] = result.TokenInfo.RefreshToken,
-                    [Settings.UserIdKey] = result.TokenInfo.Mid,
-                    [Settings.ExpiresInKey] = result.TokenInfo.ExpiresIn,
+                    [Settings.AccessTokenKey] = result.AccessToken,
+                    [Settings.RefreshTokenKey] = result.RefreshToken,
+                    [Settings.UserIdKey] = result.Mid,
+                    [Settings.ExpiresInKey] = result.ExpiresIn,
                     [Settings.LastSaveAuthTimeKey] = saveTime.ToUnixTimeSeconds(),
                 };
 
                 ApplicationData.Current.LocalSettings.Values[Settings.AuthResultKey] = compositeValue;
                 _lastAuthorizeTime = saveTime;
+                State = AuthorizeState.SignedIn;
             }
         }
 
@@ -157,14 +233,6 @@ namespace Richasy.Bili.Lib.Uwp
                 _tokenInfo = null;
                 _lastAuthorizeTime = default;
             }
-        }
-
-        private bool IsTokenValid()
-        {
-            return _tokenInfo != null &&
-                !string.IsNullOrEmpty(_tokenInfo.AccessToken) &&
-                _lastAuthorizeTime != null &&
-                (DateTimeOffset.Now - _lastAuthorizeTime).TotalSeconds < _tokenInfo.ExpiresIn;
         }
     }
 }

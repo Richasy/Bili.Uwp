@@ -10,7 +10,9 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     CloseButtonText="{loc:LocaleLocator Name=Cancel}"
     PrimaryButtonClick="OnPrimaryButtonClickAsync"
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     PrimaryButtonText="{loc:LocaleLocator Name=SignIn}"
+    CloseButtonClick="OnCloseButtonClick"
     mc:Ignorable="d">
 
     <Grid>

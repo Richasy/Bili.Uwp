@@ -24,7 +24,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task SignInAsync()
         {
-            await _authorizeProvider.SignInAsync();
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                await _authorizeProvider.TrySilentSignInAsync();
+            }
+            else
+            {
+                await _authorizeProvider.SignInAsync();
+            }
         }
     }
 }

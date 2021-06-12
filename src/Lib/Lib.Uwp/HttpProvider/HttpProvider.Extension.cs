@@ -21,7 +21,8 @@ namespace Richasy.Bili.Lib.Uwp
     {
         private readonly IAuthorizeProvider _authenticationProvider;
         private HttpClient _httpClient;
-        private bool disposedValue;
+        private bool _disposedValue;
+        private CookieContainer _cookieContainer;
 
         /// <inheritdoc/>
         public void Dispose()
@@ -72,7 +73,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <param name="disposing">Is it disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -83,13 +84,20 @@ namespace Richasy.Bili.Lib.Uwp
                 }
 
                 this._httpClient = null;
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
         private void InitHttpClient()
         {
-            var handler = new HttpClientHandler { AllowAutoRedirect = false, AutomaticDecompression = DecompressionMethods.None, UseCookies = true };
+            _cookieContainer = new CookieContainer();
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                AutomaticDecompression = DecompressionMethods.None,
+                UseCookies = true,
+                CookieContainer = _cookieContainer,
+            };
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = false, NoStore = false };
             client.DefaultRequestHeaders.Add("accept", ServiceConstants.DefaultAcceptString);
@@ -102,7 +110,7 @@ namespace Richasy.Bili.Lib.Uwp
             try
             {
                 var errorResponseStr = await response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentType.MediaType.Contains("image"))
+                if (response.Content.Headers.ContentType?.MediaType.Contains("image") ?? false)
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -111,8 +119,7 @@ namespace Richasy.Bili.Lib.Uwp
                 }
 
                 errorResponse = JsonConvert.DeserializeObject<ServerResponse>(errorResponseStr);
-                var cookie = response.Headers.GetValues("Set-Cookie");
-                if (errorResponse.Code == 0)
+                if (errorResponse?.Code == 0 || string.IsNullOrEmpty(errorResponseStr))
                 {
                     return;
                 }

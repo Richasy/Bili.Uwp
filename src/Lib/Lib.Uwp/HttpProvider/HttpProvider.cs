@@ -59,18 +59,19 @@ namespace Richasy.Bili.Lib.Uwp
             HttpMethod method,
             string url,
             Dictionary<string, string> queryParams = null,
-            RequestClientType clientType = RequestClientType.Android)
+            RequestClientType clientType = RequestClientType.Android,
+            bool needToken = true)
         {
             HttpRequestMessage requestMessage;
             if (method == HttpMethod.Get || method == HttpMethod.Delete)
             {
-                var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType);
+                var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType, needToken);
                 url += $"?{query}";
                 requestMessage = new HttpRequestMessage(method, url);
             }
             else
             {
-                var query = await _authenticationProvider.GenerateAuthorizedQueryDictionaryAsync(queryParams, clientType);
+                var query = await _authenticationProvider.GenerateAuthorizedQueryDictionaryAsync(queryParams, clientType, needToken);
                 requestMessage = new HttpRequestMessage(method, url);
                 requestMessage.Content = new FormUrlEncodedContent(query);
             }

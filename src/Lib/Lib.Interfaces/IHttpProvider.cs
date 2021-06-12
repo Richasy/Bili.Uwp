@@ -26,8 +26,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="url">请求地址.</param>
         /// <param name="queryParams">查询参数.</param>
         /// <param name="type">需要模拟的设备类型.</param>
+        /// <param name="needToken">是否需要令牌.</param>
         /// <returns><see cref="HttpRequestMessage"/>.</returns>
-        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android);
+        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android, bool needToken = true);
 
         /// <summary>
         /// 发送请求.

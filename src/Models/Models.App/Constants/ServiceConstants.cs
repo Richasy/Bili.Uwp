@@ -29,10 +29,13 @@ namespace Richasy.Bili.Models.App.Constants
             public const string MobileApp = "mobi_app";
             public const string Platform = "platform";
             public const string TimeStamp = "ts";
-            public const string AccessToken = "access_key";
+            public const string AccessKey = "access_key";
             public const string Password = "password";
             public const string UserName = "username";
             public const string Captcha = "captcha";
+            public const string AccessToken = "access_token";
+            public const string RefreshToken = "refresh_token";
+            public const string Sign = "sign";
         }
 
         public static class Messages
