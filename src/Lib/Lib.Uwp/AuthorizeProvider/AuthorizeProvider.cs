@@ -118,7 +118,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetTokenAsync(bool silentOnly = false)
+        public async Task<string> GetTokenAsync()
         {
             var internetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
             if (internetConnectionProfile == null)
@@ -131,7 +131,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 if (_tokenInfo != null)
                 {
-                    if (await IsTokenValidAsync() && !silentOnly)
+                    if (await IsTokenValidAsync())
                     {
                         return _tokenInfo.AccessToken;
                     }
@@ -193,32 +193,6 @@ namespace Richasy.Bili.Lib.Uwp
 
             State = AuthorizeState.SignedOut;
             return Task.CompletedTask;
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> TrySilentSignInAsync()
-        {
-            if (await IsTokenValidAsync(true))
-            {
-                if (State != AuthorizeState.SignedIn)
-                {
-                    State = AuthorizeState.SignedIn;
-                }
-
-                return true;
-            }
-
-            State = AuthorizeState.Loading;
-
-            var token = await GetTokenAsync(true);
-
-            if (token == null)
-            {
-                State = AuthorizeState.SignedOut;
-                return false;
-            }
-
-            return true;
         }
 
         /// <inheritdoc/>

@@ -185,14 +185,13 @@
                     UpdateTextOnSelect="False" />
             </Grid>
 
-            <muxc:PersonPicture
+            <local:AccountAvatar
                 x:Name="UserAvatar"
                 Grid.Column="4"
                 Width="28"
                 Height="28"
                 Margin="12,0"
-                VerticalAlignment="Center"
-                Tapped="OnUserAvatarTappedAsync" />
+                VerticalAlignment="Center" />
         </Grid>
     </Grid>
 

@@ -330,6 +330,7 @@ namespace Richasy.Bili.Lib.Uwp
 
                 ApplicationData.Current.LocalSettings.Values[Settings.AuthResultKey] = compositeValue;
                 _lastAuthorizeTime = saveTime;
+                _tokenInfo = result;
                 State = AuthorizeState.SignedIn;
             }
         }

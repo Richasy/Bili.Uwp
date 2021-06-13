@@ -76,7 +76,7 @@
             x:Name="QRLoginContainer"
             Grid.Row="2"
             Margin="0,8,0,0"
-            RowSpacing="12">
+            RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />

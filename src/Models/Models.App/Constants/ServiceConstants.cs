@@ -113,6 +113,14 @@ namespace Richasy.Bili.Models.App.Constants
                 /// </summary>
                 public const string QRCodeCheck = _passBase + "/x/passport-tv-login/qrcode/poll";
             }
+
+            public static class Account
+            {
+                /// <summary>
+                /// 我的信息.
+                /// </summary>
+                public const string MyInfo = _appBase + "/x/v2/account/myinfo";
+            }
         }
 #pragma warning restore SA1401 // Fields should be private
 #pragma warning restore SA1600 // Elements should be documented

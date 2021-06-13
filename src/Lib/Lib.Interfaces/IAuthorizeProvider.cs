@@ -44,9 +44,8 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <summary>
         /// 获取当前登录用户的访问令牌.
         /// </summary>
-        /// <param name="isSlientOnly">是否保持静默登录.</param>
         /// <returns>账户授权的令牌.</returns>
-        Task<string> GetTokenAsync(bool isSlientOnly = false);
+        Task<string> GetTokenAsync();
 
         /// <summary>
         /// 用户登录.
@@ -59,12 +58,6 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         Task SignOutAsync();
-
-        /// <summary>
-        /// 尝试静默登录.
-        /// </summary>
-        /// <returns>静默登录的结果.</returns>
-        Task<bool> TrySilentSignInAsync();
 
         /// <summary>
         /// 当前的访问令牌是否有效.

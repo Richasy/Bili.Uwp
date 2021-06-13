@@ -17,6 +17,9 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\Bili\AccountAvatar.xaml.cs">
+      <DependentUpon>AccountAvatar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Bili\BannerItem.cs" />
     <Compile Include="Controls\Bili\BannerView.xaml.cs">
       <DependentUpon>BannerView.xaml</DependentUpon>
@@ -183,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Bili\AccountAvatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Bili\BannerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +343,10 @@
     <Content Include="Assets\Mock\PartitionList.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Controller\Controller.Uwp\Controller.Uwp.csproj">
+      <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
+      <Name>Controller.Uwp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.App\Models.App.csproj">
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>
       <Name>Models.App</Name>

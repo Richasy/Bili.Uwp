@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IAccountProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
     <Compile Include="IHttpProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +135,10 @@
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
       <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
       <Name>Models.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
+      <Project>{8776A0BD-DBD1-4F11-A022-400D044FF618}</Project>
+      <Name>Models.BiliBili</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>

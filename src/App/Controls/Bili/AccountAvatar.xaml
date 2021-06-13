@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.AccountAvatar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="NormalState" />
+                <VisualState x:Name="LoadingState">
+                    <VisualState.Setters>
+                        <Setter Target="UserAvatar.Visibility" Value="Collapsed" />
+                        <Setter Target="LoadingContainer.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <local:UserAvatar
+            x:Name="UserAvatar"
+            Width="{x:Bind Width, Mode=OneWay}"
+            Height="{x:Bind Height, Mode=OneWay}"
+            Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+            Tapped="OnUserAvatarTappedAsync"
+            UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
+        <Viewbox x:Name="LoadingContainer" Visibility="Collapsed">
+            <muxc:ProgressRing x:Name="LoadingRing" Style="{StaticResource PageProgressRingStyle}" />
+        </Viewbox>
+    </Grid>
+</UserControl>
