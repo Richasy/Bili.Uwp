@@ -3,6 +3,7 @@
 using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -33,6 +34,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class AccountViewModel
     {
         private readonly BiliController _controller;
+        private readonly IResourceToolkit _resourceToolkit;
 
         /// <summary>
         /// <see cref="AccountViewModel"/>的实例.
@@ -56,5 +58,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// 工具提示及自动化文本.
+        /// </summary>
+        [Reactive]
+        public string TipText { get; set; }
     }
 }

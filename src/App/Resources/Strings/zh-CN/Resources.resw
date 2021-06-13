@@ -204,6 +204,9 @@
   <data name="Persional" xml:space="preserve">
     <value>个人</value>
   </data>
+  <data name="PleaseSignIn" xml:space="preserve">
+    <value>请登录</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>

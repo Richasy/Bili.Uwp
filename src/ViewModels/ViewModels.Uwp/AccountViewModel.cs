@@ -4,7 +4,9 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -24,6 +26,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller.LoggedOut += OnLoggedOut;
             _controller.AccountChanged += OnAccountChanged;
             Status = AccountViewModelStatus.Logout;
+            ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
         }
 
         /// <summary>
@@ -57,6 +61,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void OnLoggedOut(object sender, EventArgs e)
         {
             this.Status = AccountViewModelStatus.Logout;
+            TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
         }
 
         private void OnLoggedFailed(object sender, Exception e)
@@ -85,6 +90,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Avatar = e.Avatar;
                 DisplayName = e.Name;
+                TipText = $"{e.Name} Lv.{e.Level}";
             }
         }
     }
