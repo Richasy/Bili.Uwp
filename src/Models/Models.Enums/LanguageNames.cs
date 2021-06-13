@@ -54,6 +54,15 @@ namespace Richasy.Bili.Models.Enums
         CaptchaIsEmpty,
         InputCaptchaTip,
         InvalidUserNameOrPassword,
+        NeedQRLogin,
+        PasswordLoginTip,
+        QRLoginTip,
+        SwitchToPasswordLogin,
+        SwitchToQRLogin,
+        Refresh,
+        FailedToLoadQRCode,
+        QRCodeExpired,
+        LoginFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

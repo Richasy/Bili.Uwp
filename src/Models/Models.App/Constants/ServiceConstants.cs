@@ -36,31 +36,18 @@ namespace Richasy.Bili.Models.App.Constants
             public const string AccessToken = "access_token";
             public const string RefreshToken = "refresh_token";
             public const string Sign = "sign";
+            public const string GeeType = "gee_type";
+            public const string LocalId = "local_id";
+            public const string AuthCode = "auth_code";
         }
 
         public static class Messages
         {
             public const string NotFound = "没有找到你所需要的资源";
-            public const string AuthenticationProviderMissing = "Authentication provider is required before sending a request.";
-            public const string BaseUrlMissing = "Base URL cannot be null or empty.";
-            public const string InvalidTypeForDateConverter = "DateConverter can only serialize objects of type Date.";
-            public const string LocationHeaderNotSetOnRedirect = "Location header not present in redirection response.";
-            public const string OverallTimeoutCannotBeSet = "Overall timeout cannot be set after the first request is sent.";
-            public const string RequestTimedOut = "The request timed out.";
-            public const string RequestUrlMissing = "Request URL is required to send a request.";
-            public const string TooManyRedirectsFormatString = "More than {0} redirects encountered while sending the request.";
-            public const string TooManyRetriesFormatString = "More than {0} retries encountered while sending the request.";
-            public const string UnableToCreateInstanceOfTypeFormatString = "Unable to create an instance of type {0}.";
-            public const string UnableToDeserializeDate = "Unable to deserialize the returned Date.";
-            public const string UnexpectedExceptionOnSend = "An error occurred sending the request.";
-            public const string UnexpectedExceptionResponse = "Unexpected exception returned from the service.";
-            public const string MaximumValueExceeded = "{0} exceeds the maximum value of {1}.";
-            public const string NullParameter = "{0} parameter cannot be null.";
-            public const string UnableToDeserializexContent = "Unable to deserialize content.";
-            public const string InvalidDependsOnRequestId = "Corresponding batch request id not found for the specified dependsOn relation.";
-            public const string ExpiredUploadSession = "Upload session expired. Upload cannot resume";
-            public const string NoResponseForUpload = "No Response Received for upload.";
-            public const string InvalidProxyArgument = "Proxy cannot be set more once. Proxy can only be set on the proxy or defaultHttpHandler argument and not both.";
+            public const string UnexpectedExceptionOnSend = "在发送请求时出现了异常";
+            public const string RequestTimedOut = "请求超时";
+            public const string OverallTimeoutCannotBeSet = "全局超时未能在第一次请求后设置";
+            public const string UnexpectedExceptionResponse = "在获取响应时出现了异常";
         }
 
         public static class Headers
@@ -117,9 +104,14 @@ namespace Richasy.Bili.Models.App.Constants
                 public const string SSO = _passBase + "/api/login/sso";
 
                 /// <summary>
-                /// 获取验证码.
+                /// 获取登录二维码.
                 /// </summary>
-                public const string Captcha = _passBase + "/captcha";
+                public const string QRCode = _passBase + "/x/passport-tv-login/qrcode/auth_code";
+
+                /// <summary>
+                /// 登录二维码轮询状态.
+                /// </summary>
+                public const string QRCodeCheck = _passBase + "/x/passport-tv-login/qrcode/poll";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

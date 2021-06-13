@@ -150,6 +150,9 @@
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
+  <data name="FailedToLoadQRCode" xml:space="preserve">
+    <value>二维码加载失败，请刷新</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="Live" xml:space="preserve">
     <value>直播</value>
   </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>登录失败，请稍后重试</value>
+  </data>
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>
@@ -176,6 +182,9 @@
   </data>
   <data name="Navigation" xml:space="preserve">
     <value>导航</value>
+  </data>
+  <data name="NeedQRLogin" xml:space="preserve">
+    <value>密码登录方式失败，请使用二维码登录</value>
   </data>
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
@@ -189,14 +198,26 @@
   <data name="PasswordHolder" xml:space="preserve">
     <value>请输入密码</value>
   </data>
+  <data name="PasswordLoginTip" xml:space="preserve">
+    <value>请在下方输入您的用户名和密码，应用不会存储这部分数据，但安全起见，请使用二维码登录</value>
+  </data>
   <data name="Persional" xml:space="preserve">
     <value>个人</value>
+  </data>
+  <data name="QRCodeExpired" xml:space="preserve">
+    <value>二维码已过期，请刷新</value>
+  </data>
+  <data name="QRLoginTip" xml:space="preserve">
+    <value>请使用移动客户端扫描下方的二维码登录</value>
   </data>
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>
   </data>
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
   </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频，番剧或UP主</value>
@@ -239,6 +260,12 @@
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
+  </data>
+  <data name="SwitchToPasswordLogin" xml:space="preserve">
+    <value>用密码登录</value>
+  </data>
+  <data name="SwitchToQRLogin" xml:space="preserve">
+    <value>扫描二维码登录</value>
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>

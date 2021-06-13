@@ -2,14 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Windows.Networking.Connectivity;
 
@@ -30,10 +29,16 @@ namespace Richasy.Bili.Lib.Uwp
 
             State = AuthorizeState.SignedOut;
             RetrieveAuthorizeResult();
+            _guid = Guid.NewGuid().ToString("N");
         }
 
         /// <inheritdoc/>
         public event EventHandler<AuthorizeStateChangedEventArgs> StateChanged;
+
+        /// <summary>
+        /// 在二维码状态发生改变时发生.
+        /// </summary>
+        public event EventHandler<Tuple<QRCodeStatus, TokenInfo>> QRCodeStatusChanged;
 
         /// <inheritdoc/>
         public AuthorizeState State
@@ -235,19 +240,6 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// 获取验证码图片流.
-        /// </summary>
-        /// <returns>图片数据流.</returns>
-        public async Task<Stream> GetCaptchaImageAsync()
-        {
-            var uri = ServiceConstants.Api.Passport.Captcha + $"?ts={GetNowSeconds()}";
-            var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-            var response = await httpProvider.SendAsync(request);
-            return await response.Content.ReadAsStreamAsync();
         }
     }
 }

@@ -6,15 +6,21 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Other.Models;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
+using ZXing;
+using ZXing.Common;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -26,23 +32,23 @@ namespace Richasy.Bili.Lib.Uwp
     {
         private readonly IMD5Toolkit _md5Toolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly string _guid;
         private AuthorizeState _state;
         private TokenInfo _tokenInfo;
         private DateTimeOffset _lastAuthorizeTime;
+        private string _internalQRAuthCode;
+        private DispatcherTimer _qrTimer;
+        private CancellationTokenSource _qrPollCancellationTokenSource;
 
-        internal async Task<AuthorizeResult> InternalLoginAsync(string userName, string password, string captcha)
+        internal async Task<AuthorizeResult> InternalLoginAsync(string userName, string password, int geeType = 10)
         {
             var encryptedPwd = await EncryptedPasswordAsync(password);
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.UserName, Uri.EscapeDataString(userName) },
                 { Query.Password, Uri.EscapeDataString(encryptedPwd) },
+                { Query.GeeType, geeType.ToString() },
             };
-
-            if (!string.IsNullOrEmpty(captcha))
-            {
-                queryParameters.Add(Query.Captcha, captcha);
-            }
 
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
             var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android, false);
@@ -91,17 +97,18 @@ namespace Richasy.Bili.Lib.Uwp
 
             var apiKey = queryParameters[Query.AppKey].ToString();
             var apiSecret = string.Empty;
-            if (apiKey == Keys.IOSKey)
+
+            switch (apiKey)
             {
-                apiSecret = Keys.IOSSecret;
-            }
-            else if (apiKey == Keys.AndroidKey)
-            {
-                apiSecret = Keys.AndroidSecret;
-            }
-            else
-            {
-                apiSecret = Keys.WebSecret;
+                case Keys.IOSKey:
+                    apiSecret = Keys.IOSSecret;
+                    break;
+                case Keys.AndroidKey:
+                    apiSecret = Keys.AndroidSecret;
+                    break;
+                default:
+                    apiSecret = Keys.WebSecret;
+                    break;
             }
 
             var query = string.Join('&', queryList);
@@ -138,6 +145,122 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return base64String;
+        }
+
+        internal async Task<WriteableBitmap> GetQRImageAsync()
+        {
+            try
+            {
+                StopQRLoginListener();
+                var queryParameters = new Dictionary<string, string>
+                {
+                    { Query.LocalId, _guid },
+                };
+                var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCode, queryParameters, needToken: false);
+                var response = await httpProvider.SendAsync(request);
+                var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
+
+                _internalQRAuthCode = result.Data.AuthCode;
+                var barcodeWriter = new BarcodeWriter();
+                barcodeWriter.Format = BarcodeFormat.QR_CODE;
+                barcodeWriter.Options = new EncodingOptions()
+                {
+                    Margin = 1,
+                    Height = 200,
+                    Width = 200,
+                };
+
+                var img = barcodeWriter.Write(result.Data.Url);
+                return img;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 开始本地轮询二维码状态.
+        /// </summary>
+        internal void StartQRLoginListener()
+        {
+            if (_qrTimer == null)
+            {
+                _qrTimer = new DispatcherTimer();
+                _qrTimer.Interval = TimeSpan.FromSeconds(3);
+                _qrTimer.Tick += OnQRTimerTickAsync;
+            }
+
+            _qrTimer?.Start();
+        }
+
+        internal void StopQRLoginListener()
+        {
+            _qrTimer?.Stop();
+            _qrTimer = null;
+            CleanQRCodeCancellationToken();
+        }
+
+        private async void OnQRTimerTickAsync(object sender, object e)
+        {
+            CleanQRCodeCancellationToken();
+            _qrPollCancellationTokenSource = new CancellationTokenSource();
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.AuthCode, _internalQRAuthCode },
+                { Query.LocalId, _guid },
+            };
+
+            try
+            {
+                var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCodeCheck, queryParameters, needToken: false);
+                var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
+                var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
+
+                QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(QRCodeStatus.Success, result.Data));
+            }
+            catch (ServiceException se)
+            {
+                if (se.InnerException is TaskCanceledException)
+                {
+                    return;
+                }
+
+                if (se.Error != null)
+                {
+                    QRCodeStatus qrStatus = default;
+                    if (se.Error.Code == 86039)
+                    {
+                        qrStatus = QRCodeStatus.NotConfirm;
+                    }
+                    else if (se.Error.Code == 86038 || se.Error.Code == -3)
+                    {
+                        qrStatus = QRCodeStatus.Expiried;
+                    }
+                    else
+                    {
+                        qrStatus = QRCodeStatus.Failed;
+                    }
+
+                    QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(qrStatus, null));
+                }
+            }
+        }
+
+        private void CleanQRCodeCancellationToken()
+        {
+            if (_qrPollCancellationTokenSource != null)
+            {
+                if (_qrPollCancellationTokenSource.Token.CanBeCanceled)
+                {
+                    _qrPollCancellationTokenSource.Cancel();
+                }
+
+                _qrPollCancellationTokenSource.Dispose();
+                _qrPollCancellationTokenSource = null;
+            }
         }
 
         private async Task SSOInitAsync()

@@ -46,6 +46,7 @@ namespace Richasy.Bili.Lib.Uwp
                 throw new ServiceException(
                         new ServerResponse
                         {
+                            Code = 408,
                             Message = ServiceConstants.Messages.RequestTimedOut,
                         },
                         exception);
