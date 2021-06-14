@@ -22,6 +22,18 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "new", Required = Required.Default)]
         public List<Video> NewVideos { get; set; }
+
+        /// <summary>
+        /// 向上刷新的标识符.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ctop", Required = Required.Default)]
+        public int TopOffsetId { get; set; }
+
+        /// <summary>
+        /// 向下刷新的标识符.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cbottom", Required = Required.Default)]
+        public int BottomOffsetId { get; set; }
     }
 
     /// <summary>

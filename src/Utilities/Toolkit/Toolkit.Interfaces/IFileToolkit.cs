@@ -18,7 +18,7 @@ namespace Richasy.Bili.Toolkit.Interfaces
         /// <param name="defaultValue">The default value when the file does not exist or has no content.</param>
         /// <param name="folderName">The folder to which the file belongs.</param>
         /// <returns>Converted result.</returns>
-        Task<T> ReadLocalDataAsync<T>(string fileName, string defaultValue = "[]", string folderName = "");
+        Task<T> ReadLocalDataAsync<T>(string fileName, string defaultValue = "{}", string folderName = "");
 
         /// <summary>
         /// Write data to local file.

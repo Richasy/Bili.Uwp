@@ -39,6 +39,21 @@ namespace Richasy.Bili.Models.App.Constants
             public const string GeeType = "gee_type";
             public const string LocalId = "local_id";
             public const string AuthCode = "auth_code";
+            public const string PartitionId = "rid";
+            public const string OffsetId = "ctime";
+            public const string Order = "order";
+            public const string Pull = "pull";
+            public const string PageNumber = "pn";
+            public const string PageSize = "ps";
+        }
+
+        public static class Sort
+        {
+            public const string Newest = "senddate";
+            public const string Play = "view";
+            public const string Reply = "reply";
+            public const string Danmaku = "danmaku";
+            public const string Favorite = "favorite";
         }
 
         public static class Messages
@@ -120,6 +135,39 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 我的信息.
                 /// </summary>
                 public const string MyInfo = _appBase + "/x/v2/account/myinfo";
+            }
+
+            public static class Partition
+            {
+                /// <summary>
+                /// 分区索引（包含子分区数据）.
+                /// </summary>
+                public const string PartitionIndex = _appBase + "/x/v2/region/index";
+
+                /// <summary>
+                /// 推荐子分区.
+                /// </summary>
+                public const string SubPartitionRecommend = _appBase + "/x/v2/region/dynamic";
+
+                /// <summary>
+                /// 推荐子分区的增量加载.
+                /// </summary>
+                public const string SubPartitionRecommendOffset = _appBase + "/x/v2/region/dynamic/list";
+
+                /// <summary>
+                /// 常规子分区.
+                /// </summary>
+                public const string SubPartitionNormal = _appBase + "/x/v2/region/dynamic/child";
+
+                /// <summary>
+                /// 常规子分区的增量加载.
+                /// </summary>
+                public const string SubPartitionNormalOffset = _appBase + "/x/v2/region/dynamic/child/list";
+
+                /// <summary>
+                /// 子分区排序增量加载.
+                /// </summary>
+                public const string SubPartitionOrderOffset = _appBase + "/x/v2/region/show/child/list";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

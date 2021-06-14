@@ -18,6 +18,8 @@
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
     <Compile Include="HttpProvider\HttpProvider.cs" />
     <Compile Include="HttpProvider\HttpProvider.Extension.cs" />
+    <Compile Include="PartitionProvider.cs" />
+    <Compile Include="PartitionProvider.Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>

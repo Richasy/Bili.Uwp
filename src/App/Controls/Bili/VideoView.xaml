@@ -15,10 +15,10 @@
             x:Name="GridLayout"
             ItemsJustification="Start"
             ItemsStretch="Fill"
-            MinColumnSpacing="12"
-            MinItemHeight="228"
-            MinItemWidth="210"
-            MinRowSpacing="12"
+            MinColumnSpacing="16"
+            MinItemHeight="232"
+            MinItemWidth="222"
+            MinRowSpacing="16"
             Orientation="Horizontal" />
         <muxc:StackLayout
             x:Name="ListLayout"

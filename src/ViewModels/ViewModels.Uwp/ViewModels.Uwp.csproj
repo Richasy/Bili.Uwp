@@ -17,8 +17,8 @@
     <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
-    <Compile Include="AccountViewModel.cs" />
-    <Compile Include="AccountViewModel.Properties.cs" />
+    <Compile Include="AccountViewModel\AccountViewModel.cs" />
+    <Compile Include="AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="VideoViewModel\VideoViewModel.cs" />
     <Compile Include="VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="ViewModelBase.cs" />
@@ -54,6 +54,10 @@
     <ProjectReference Include="..\..\Lib\Lib.Uwp\Lib.Uwp.csproj">
       <Project>{c8ab398f-10c2-4b97-87f0-f09b922947d6}</Project>
       <Name>Lib.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
+      <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
+      <Name>Models.App</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
       <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>

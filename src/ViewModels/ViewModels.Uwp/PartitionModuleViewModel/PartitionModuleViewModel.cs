@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -19,6 +16,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         internal PartitionModuleViewModel()
         {
             PartitionCollection = new ObservableCollection<PartitionViewModel>();
+            _controller = Controller.Uwp.BiliController.Instance;
         }
 
         /// <summary>
@@ -28,10 +26,35 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task InitializeAllPartitionAsync()
         {
             IsLoading = true;
+            IsError = false;
             PartitionCollection.Clear();
-            var response = await LoadMockDataAsync<ServerResponse<List<Partition>>>("PartitionList");
-            response.Data.Where(p => p.IsNeedToShow()).ToList().ForEach(p => PartitionCollection.Add(new PartitionViewModel(p)));
+            try
+            {
+                var data = await _controller.RequestPartitionIndexAsync();
+                data.ForEach(p => PartitionCollection.Add(new PartitionViewModel(p)));
+            }
+            catch
+            {
+                IsError = true;
+            }
+
             IsLoading = false;
+        }
+
+        /// <summary>
+        /// 打开分区.
+        /// </summary>
+        /// <param name="vm">分区视图模型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task SelectPartitionAsync(PartitionViewModel vm)
+        {
+            if (CurrentPartition != null && CurrentPartition != vm)
+            {
+                CurrentPartition.Deactive();
+            }
+
+            CurrentPartition = vm;
+            await vm.ActivateAsync();
         }
     }
 }

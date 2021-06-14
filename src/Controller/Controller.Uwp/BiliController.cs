@@ -7,6 +7,7 @@ using Richasy.Bili.Controller.Uwp.Modules;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Lib.Uwp;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.Toolkit.Uwp;
@@ -19,8 +20,11 @@ namespace Richasy.Bili.Controller.Uwp
     public partial class BiliController
     {
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IFileToolkit _fileToolkit;
+
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
+        private readonly IPartitionProvider _partitionProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -31,32 +35,44 @@ namespace Richasy.Bili.Controller.Uwp
         {
             RegisterToolkitServices();
             ServiceLocator.Instance.LoadService(out _settingsToolkit)
+                .LoadService(out _fileToolkit)
                 .LoadService(out _networkModule)
                 .LoadService(out _authorizeProvider)
-                .LoadService(out _accountProvider);
+                .LoadService(out _accountProvider)
+                .LoadService(out _partitionProvider);
 
             RegisterEvents();
         }
 
         /// <summary>
-        /// Triggered when the user successfully logs in
+        /// 在用户成功登录后发生.
         /// </summary>
         public event EventHandler Logged;
 
         /// <summary>
-        /// Triggered when the user successfully logs out
+        /// 在用户登出时发生.
         /// </summary>
         public event EventHandler LoggedOut;
 
         /// <summary>
-        /// Triggered when user login fails
+        /// 在用户登录失败时发生.
         /// </summary>
         public event EventHandler<Exception> LoggedFailed;
 
         /// <summary>
-        /// Triggered when the user changes
+        /// 在登录账户数据发生改变时发生.
         /// </summary>
         public event EventHandler<MyInfo> AccountChanged;
+
+        /// <summary>
+        /// 在子分区有新的视频列表传入时发生.
+        /// </summary>
+        public event EventHandler<PartitionVideoIterationEventArgs> SubPartitionVideoIteration;
+
+        /// <summary>
+        /// 在子分区的附加数据发生改变时发生.
+        /// </summary>
+        public event EventHandler<PartitionAdditionalDataChangedEventArgs> SubPartitionAdditionalDataChanged;
 
         /// <summary>
         /// 控制器实例.
@@ -87,7 +103,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<INetworkModule, NetworkModule>()
                 .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
-                .AddSingleton<IAccountProvider, AccountProvider>();
+                .AddSingleton<IAccountProvider, AccountProvider>()
+                .AddSingleton<IPartitionProvider, PartitionProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

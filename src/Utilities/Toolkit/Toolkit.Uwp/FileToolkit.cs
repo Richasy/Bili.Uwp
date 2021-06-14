@@ -17,7 +17,7 @@ namespace Richasy.Bili.Toolkit.Uwp
     public class FileToolkit : IFileToolkit
     {
         /// <inheritdoc/>
-        public Task<T> ReadLocalDataAsync<T>(string fileName, string defaultValue = "[]", string folderName = "") => Task.Run(async () =>
+        public Task<T> ReadLocalDataAsync<T>(string fileName, string defaultValue = "{}", string folderName = "") => Task.Run(async () =>
         {
             var path = string.IsNullOrEmpty(folderName) ?
                             $"ms-appdata:///local/{fileName}" :

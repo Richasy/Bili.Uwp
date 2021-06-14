@@ -61,7 +61,7 @@ namespace Richasy.Bili.Models.BiliBili
         {
             var needToShow = !string.IsNullOrEmpty(Uri) &&
                 Uri.StartsWith("bilibili") &&
-                (Uri.Contains("pgc/partition_page") || Uri.Contains("region/")) &&
+                Uri.Contains("region/") &&
                 Children != null &&
                 Children.Count > 0;
             return needToShow;

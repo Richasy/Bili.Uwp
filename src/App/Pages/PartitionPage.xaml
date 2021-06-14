@@ -44,7 +44,7 @@
                 Loaded="OnItemsRepeaterLoadedAsync">
                 <muxc:ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="uwp:PartitionViewModel">
-                        <controls:PartitionItem Data="{x:Bind}" ItemClick="OnPartitionItemClick" />
+                        <controls:PartitionItem Data="{x:Bind}" ItemClick="OnPartitionItemClickAsync" />
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>

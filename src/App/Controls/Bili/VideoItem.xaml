@@ -119,7 +119,7 @@
             <Ellipse
                 Width="40"
                 Height="40"
-                Fill="{ThemeResource CardBackgroundFillColorDefault}" />
+                Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
             <local:UserAvatar
                 Width="36"
                 Height="36"

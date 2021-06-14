@@ -56,8 +56,7 @@ namespace Richasy.Bili.App.Controls
         {
             e.Handled = true;
             var animationService = ConnectedAnimationService.GetForCurrentView();
-            animationService.PrepareToAnimate("PartitionLogoAnimate", this.PartitionLogo);
-            animationService.PrepareToAnimate("PartitionNameAnimate", this.PartitionName);
+            animationService.PrepareToAnimate("PartitionAnimate", this.ContentContainer);
             ItemClick?.Invoke(this, Data);
         }
     }

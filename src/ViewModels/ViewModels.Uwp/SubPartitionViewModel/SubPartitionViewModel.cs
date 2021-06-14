@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -21,11 +23,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="partition">子分区数据.</param>
         public SubPartitionViewModel(Partition partition)
         {
+            _controller = Controller.Uwp.BiliController.Instance;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
             BannerCollection = new ObservableCollection<Banner>();
             VideoCollection = new ObservableCollection<VideoViewModel>();
             TagCollection = new ObservableCollection<Tag>();
             this._partition = partition;
+            SubPartitionId = partition?.Tid ?? -1;
             if (this._partition != null)
             {
                 this.Title = this._partition.Name;
@@ -38,6 +42,30 @@ namespace Richasy.Bili.ViewModels.Uwp
                 this.Title = this._resourceToolkit.GetLocaleString(LanguageNames.Recommend);
                 this._isRecommendPartition = true;
             }
+
+            this.PropertyChanged += OnPropertyChangedAsync;
+        }
+
+        /// <summary>
+        /// 激活该分区.
+        /// </summary>
+        public void Activate()
+        {
+            _controller.SubPartitionVideoIteration += OnSubPartitionVideoIteration;
+            _controller.SubPartitionAdditionalDataChanged += OnSubPartitionAdditionalDataChanged;
+            if (_isRecommendPartition)
+            {
+                SubPartitionId = PartitionModuleViewModel.Instance.CurrentPartition.PartitionId;
+            }
+        }
+
+        /// <summary>
+        /// 停用该分区.
+        /// </summary>
+        public void Deactive()
+        {
+            _controller.SubPartitionVideoIteration -= OnSubPartitionVideoIteration;
+            _controller.SubPartitionAdditionalDataChanged -= OnSubPartitionAdditionalDataChanged;
         }
 
         /// <summary>
@@ -62,53 +90,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         internal async Task InitializeRequestAsync()
         {
-            IsInitializeLoading = true;
-            VideoCollection.Clear();
-            BannerCollection.Clear();
-            TagCollection.Clear();
-            var videos = new List<Video>();
-            SubPartition source = null;
-            await Task.Delay(400);
-            if (_isRecommendPartition)
+            if (!IsInitializeLoading && !IsDeltaLoading)
             {
-                var data = await LoadMockDataAsync<ServerResponse<SubPartitionRecommend>>("RecommendSubpartitionFirstRequest");
-                source = data.Data;
-                if (data.Data.Banner != null && data.Data.Banner.TopBanners != null)
-                {
-                    data.Data.Banner.TopBanners.ForEach(p => BannerCollection.Add(p));
-                }
+                IsInitializeLoading = true;
+                VideoCollection.Clear();
+                _offsetId = 0;
+                _lastRequestTime = DateTimeOffset.MinValue;
+                await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                IsInitializeLoading = false;
             }
-            else
-            {
-                var data = await LoadMockDataAsync<ServerResponse<SubPartitionDefault>>("SubpartitionFirstRequest");
-                source = data.Data;
-                TagCollection.Clear();
-                if (data.Data.TopTags != null && data.Data.TopTags.Count > 0)
-                {
-                    data.Data.TopTags.ForEach(p => TagCollection.Add(p));
-                }
-            }
-
-            if (source != null)
-            {
-                if (source.NewVideos != null && source.NewVideos.Count > 0)
-                {
-                    videos = videos.Concat(source.NewVideos).ToList();
-                }
-
-                if (source.RecommendVideos != null && source.RecommendVideos.Count > 0)
-                {
-                    videos = videos.Concat(source.RecommendVideos).ToList();
-                }
-            }
-
-            if (videos.Count > 0)
-            {
-                videos.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
-            }
-
-            IsInitializeLoading = false;
-            IsRequested = true;
         }
 
         /// <summary>
@@ -117,40 +107,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         internal async Task DeltaRequestAsync()
         {
-            ServerResponse<SubPartitionDefault> data;
-            IsDeltaLoading = true;
-            await Task.Delay(400);
-            if (_isRecommendPartition)
+            if (!IsDeltaLoading)
             {
-                data = await LoadMockDataAsync<ServerResponse<SubPartitionDefault>>("RecommendSubpartitionNextRequest");
+                IsDeltaLoading = true;
+                await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, _offsetId, CurrentSortType, _pageNumber);
+                IsDeltaLoading = false;
             }
-            else
-            {
-                data = await LoadMockDataAsync<ServerResponse<SubPartitionDefault>>("SubpartitionNextRequest");
-            }
-
-            var source = data.Data;
-            var videos = new List<Video>();
-            if (source != null)
-            {
-                if (source.NewVideos != null && source.NewVideos.Count > 0)
-                {
-                    videos = videos.Concat(source.NewVideos).ToList();
-                }
-
-                if (source.RecommendVideos != null && source.RecommendVideos.Count > 0)
-                {
-                    videos = videos.Concat(source.RecommendVideos).ToList();
-                }
-            }
-
-            if (videos.Count > 0)
-            {
-                videos.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
-            }
-
-            IsDeltaLoading = false;
-            IsRequested = true;
         }
 
         private void GenerateSortType()
@@ -164,6 +126,51 @@ namespace Richasy.Bili.ViewModels.Uwp
                 VideoSortType.Danmaku,
                 VideoSortType.Favorite,
             };
+        }
+
+        private async void OnPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CurrentSortType))
+            {
+                await InitializeRequestAsync();
+            }
+        }
+
+        private void OnSubPartitionAdditionalDataChanged(object sender, PartitionAdditionalDataChangedEventArgs e)
+        {
+            if (e.SubPartitionId == SubPartitionId)
+            {
+                if (e.BannerList?.Any() ?? false)
+                {
+                    BannerCollection.Clear();
+                    e.BannerList.ToList().ForEach(p => BannerCollection.Add(p));
+                }
+
+                if (e.TagList?.Any() ?? false)
+                {
+                    TagCollection.Clear();
+                    e.TagList.ToList().ForEach(p => TagCollection.Add(p));
+                }
+            }
+        }
+
+        private void OnSubPartitionVideoIteration(object sender, PartitionVideoIterationEventArgs e)
+        {
+            if (e.SubPartitionId == SubPartitionId)
+            {
+                _pageNumber = e.NextPageNumber;
+
+                if (e.RequestDateTime > _lastRequestTime)
+                {
+                    _lastRequestTime = e.RequestDateTime;
+                    _offsetId = e.BottomOffsetId;
+                }
+
+                if (e.VideoList?.Any() ?? false)
+                {
+                    e.VideoList.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
+                }
+            }
         }
     }
 }

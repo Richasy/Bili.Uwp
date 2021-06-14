@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 using Richasy.Bili.App.Controls;
-using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,8 +49,11 @@ namespace Richasy.Bili.App.Pages.Overlay
                 this.ViewModel = data;
                 this.DataContext = data;
                 var animationService = ConnectedAnimationService.GetForCurrentView();
-                animationService.TryStartAnimation("PartitionLogoAnimate", PartitionLogo);
-                animationService.TryStartAnimation("PartitionNameAnimate", PartitionName);
+                var animate = animationService.GetAnimation("PartitionAnimate");
+                if (animate != null)
+                {
+                    animate.TryStart(PartitionHeader, new UIElement[] { DetailNavigationView });
+                }
             }
         }
 
@@ -58,49 +61,42 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             var animationService = ConnectedAnimationService.GetForCurrentView();
-            var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.PartitionHeader);
+            var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.RootContainer);
             animate.Configuration = new DirectConnectedAnimationConfiguration();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            CheckCurrentSubPartitionAsync();
+            VideoView.NewItemAdded += OnVideoViewNewItemAddedAsync;
+            CheckCurrentSubPartition();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentSelectedSubPartition))
             {
-                CheckCurrentSubPartitionAsync();
+                CheckCurrentSubPartition();
             }
         }
 
-        private void OnDetailNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private async void OnDetailNavigationViewItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             var vm = args.InvokedItem as SubPartitionViewModel;
-
-            ViewModel.CurrentSelectedSubPartition = vm;
+            await ViewModel.SelectSubPartitionAsync(vm);
         }
 
-        private async void CheckCurrentSubPartitionAsync()
+        private void CheckCurrentSubPartition()
         {
             var vm = ViewModel.CurrentSelectedSubPartition;
             if (vm != null)
             {
-                VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
-                VideoView.NewItemAdded += OnVideoViewNewItemAddedAsync;
-
-                if (!vm.IsRequested)
-                {
-                    await vm.RequestDataAsync();
-                }
-
                 BannerView.Visibility = vm.BannerCollection != null && vm.BannerCollection.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
                 var isShowSort = vm.SortTypeCollection != null && vm.SortTypeCollection.Count > 0;
                 if (isShowSort)
@@ -154,10 +150,15 @@ namespace Richasy.Bili.App.Pages.Overlay
                 {
                     await ViewModel.CurrentSelectedSubPartition.RequestDataAsync();
                 }
-                else
-                {
-                    VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
-                }
+            }
+        }
+
+        private void OnVideoSortComboBoxSlectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (VideoSortComboBox.SelectedItem != null)
+            {
+                var item = (VideoSortType)VideoSortComboBox.SelectedItem;
+                ViewModel.CurrentSelectedSubPartition.CurrentSortType = item;
             }
         }
     }

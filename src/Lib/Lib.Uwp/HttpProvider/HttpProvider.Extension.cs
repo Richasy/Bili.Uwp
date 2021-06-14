@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other.Models;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Lib.Uwp

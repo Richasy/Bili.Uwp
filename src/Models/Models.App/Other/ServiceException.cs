@@ -3,7 +3,7 @@
 using System;
 using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Other.Models
+namespace Richasy.Bili.Models.App.Other
 {
     /// <summary>
     /// Graph service exception.

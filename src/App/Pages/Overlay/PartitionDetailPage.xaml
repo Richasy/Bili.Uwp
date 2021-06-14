@@ -12,7 +12,7 @@
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid x:Name="RootContainer">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -57,7 +57,7 @@
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
-            ItemInvoked="OnDetailNavigationViewItemInvoked"
+            ItemInvoked="OnDetailNavigationViewItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.SubPartitionCollection}"
             PaneDisplayMode="Top">
             <muxc:NavigationView.Resources>
@@ -106,6 +106,7 @@
                                     Style="{StaticResource DefaultComboBoxStyle}"
                                     ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
                                     PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                                    SelectionChanged="OnVideoSortComboBoxSlectionChanged"
                                     Visibility="Collapsed">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate x:DataType="enums:VideoSortType">

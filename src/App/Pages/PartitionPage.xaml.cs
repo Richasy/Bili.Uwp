@@ -64,10 +64,10 @@ namespace Richasy.Bili.App.Pages
             this.FindName("PartitionView");
         }
 
-        private void OnPartitionItemClick(object sender, PartitionViewModel e)
+        private async void OnPartitionItemClickAsync(object sender, PartitionViewModel e)
         {
-            this.ViewModel.CurrentPartition = e;
             AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.PartitionDetail, e);
+            await this.ViewModel.SelectPartitionAsync(e);
         }
     }
 }

@@ -19,7 +19,7 @@
         CornerRadius="{StaticResource ControlCornerRadius}"
         Tapped="OnItemTapped">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid RowSpacing="8">
+            <Grid x:Name="ContentContainer" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

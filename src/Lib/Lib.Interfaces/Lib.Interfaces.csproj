@@ -123,6 +123,7 @@
     <Compile Include="IAccountProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
     <Compile Include="IHttpProvider.cs" />
+    <Compile Include="IPartitionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Lib.Interfaces.rd.xml" />
   </ItemGroup>

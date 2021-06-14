@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Controller.Uwp;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -11,6 +12,8 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PartitionModuleViewModel
     {
+        private readonly BiliController _controller;
+
         /// <summary>
         /// <see cref="PartitionModuleViewModel"/>的单例.
         /// </summary>
@@ -26,6 +29,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsLoading { get; set; }
+
+        /// <summary>
+        /// 是否出现了错误以至于无法显示分区索引.
+        /// </summary>
+        [Reactive]
+        public bool IsError { get; set; }
 
         /// <summary>
         /// 当前选中的分区.
