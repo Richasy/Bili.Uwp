@@ -5,7 +5,6 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -18,7 +17,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Source"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register(nameof(Source), typeof(ImageSource), typeof(BannerItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Source), typeof(object), typeof(BannerItem), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Uri"/>的依赖属性.
@@ -43,9 +42,9 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 图片源.
         /// </summary>
-        public ImageSource Source
+        public object Source
         {
-            get { return (ImageSource)GetValue(SourceProperty); }
+            get { return GetValue(SourceProperty); }
             set { SetValue(SourceProperty, value); }
         }
 
@@ -85,6 +84,23 @@ namespace Richasy.Bili.App.Controls
 
         /// <inheritdoc/>
         protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            BackToNormal(e);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerCanceled(PointerRoutedEventArgs e)
+        {
+            BackToNormal(e);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerCaptureLost(PointerRoutedEventArgs e)
+        {
+            BackToNormal(e);
+        }
+
+        private void BackToNormal(PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "NormalState", true);
             this.ReleasePointerCapture(e.Pointer);

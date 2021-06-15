@@ -50,6 +50,12 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty AdditionalContentProperty =
             DependencyProperty.Register(nameof(AdditionalContent), typeof(object), typeof(VideoView), new PropertyMetadata(null));
 
+        /// <summary>
+        /// <see cref="IsAutoFillEnable"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsAutoFillEnableProperty =
+            DependencyProperty.Register(nameof(IsAutoFillEnable), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
+
         private ScrollViewer _parentScrollViewer;
 
         /// <summary>
@@ -66,12 +72,6 @@ namespace Richasy.Bili.App.Controls
         /// 在外部的ScrollViewer滚动到接近底部时发生.
         /// </summary>
         public event EventHandler RequestLoadMore;
-
-        /// <summary>
-        /// 当有新的条目添加并准备好与用户交互时发生.
-        /// 会返回新条目的索引值与其实际高度的乘积，用以估算列表总高度.
-        /// </summary>
-        public event EventHandler<Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs> NewItemAdded;
 
         /// <summary>
         /// 条目模板.
@@ -125,6 +125,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (object)GetValue(AdditionalContentProperty); }
             set { SetValue(AdditionalContentProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否允许根据容器剩余空间自行计算视频条目容量，并主动发起请求填满整个容器.
+        /// </summary>
+        public bool IsAutoFillEnable
+        {
+            get { return (bool)GetValue(IsAutoFillEnableProperty); }
+            set { SetValue(IsAutoFillEnableProperty, value); }
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -208,7 +217,28 @@ namespace Richasy.Bili.App.Controls
             if (args.Element != null && args.Element is VideoItem item)
             {
                 item.Orientation = ItemOrientation;
-                NewItemAdded?.Invoke(this, args);
+                if (IsAutoFillEnable &&
+                    ItemsSource is ObservableCollection<VideoViewModel> collectionSource &&
+                    _parentScrollViewer != null &&
+                    args.Index >= collectionSource.Count - 1)
+                {
+                    var size = item.GetHolderSize();
+                    var isNeedLoadMore = false;
+                    if (double.IsInfinity(size.Width))
+                    {
+                        isNeedLoadMore = (args.Index + 1) * size.Height <= _parentScrollViewer.ViewportHeight;
+                    }
+                    else
+                    {
+                        var rowCount = args.Index / (_parentScrollViewer.ViewportWidth / size.Width);
+                        isNeedLoadMore = rowCount * size.Height <= _parentScrollViewer.ViewportHeight;
+                    }
+
+                    if (isNeedLoadMore)
+                    {
+                        RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                    }
+                }
             }
         }
     }

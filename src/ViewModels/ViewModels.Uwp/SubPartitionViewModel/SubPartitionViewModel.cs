@@ -88,13 +88,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 执行初始请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        internal async Task InitializeRequestAsync()
+        public async Task InitializeRequestAsync()
         {
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsInitializeLoading = true;
                 VideoCollection.Clear();
                 _offsetId = 0;
+                _pageNumber = 1;
                 _lastRequestTime = DateTimeOffset.MinValue;
                 await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
                 IsInitializeLoading = false;
@@ -140,13 +141,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.SubPartitionId == SubPartitionId)
             {
-                if (e.BannerList?.Any() ?? false)
+                IsShowBanner = e.BannerList?.Any() ?? false;
+                IsShowTags = e.TagList?.Any() ?? false;
+                if (IsShowBanner)
                 {
                     BannerCollection.Clear();
                     e.BannerList.ToList().ForEach(p => BannerCollection.Add(p));
                 }
 
-                if (e.TagList?.Any() ?? false)
+                if (IsShowTags)
                 {
                     TagCollection.Clear();
                     e.TagList.ToList().ForEach(p => TagCollection.Add(p));

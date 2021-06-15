@@ -5,6 +5,7 @@
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Richasy.Bili.Models.Enums"
+    xmlns:icons="using:Fluent.Icons"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -91,7 +92,8 @@
                             x:Name="BannerView"
                             Margin="0,0,0,12"
                             VerticalAlignment="Top"
-                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}" />
+                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsShowBanner, Mode=OneWay}" />
 
                         <controls:VideoView
                             x:Name="VideoView"
@@ -101,19 +103,30 @@
                             ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}"
                             RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                             <controls:VideoView.AdditionalContent>
-                                <ComboBox
-                                    x:Name="VideoSortComboBox"
-                                    Style="{StaticResource DefaultComboBoxStyle}"
-                                    ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
-                                    PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
-                                    SelectionChanged="OnVideoSortComboBoxSlectionChanged"
-                                    Visibility="Collapsed">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate x:DataType="enums:VideoSortType">
-                                            <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                <Grid>
+                                    <Button
+                                        x:Name="RefreshButton"
+                                        VerticalAlignment="Center"
+                                        Click="OnRefreshButtonClickAsync">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <icons:FluentIconElement VerticalAlignment="Center" Symbol="ArrowSyncCircle16" />
+                                            <TextBlock Text="{loc:LocaleLocator Name=Refresh}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <ComboBox
+                                        x:Name="VideoSortComboBox"
+                                        Style="{StaticResource DefaultComboBoxStyle}"
+                                        ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
+                                        PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                                        SelectionChanged="OnVideoSortComboBoxSlectionChanged"
+                                        Visibility="Collapsed">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate x:DataType="enums:VideoSortType">
+                                                <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Grid>
                             </controls:VideoView.AdditionalContent>
                             <controls:VideoView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">

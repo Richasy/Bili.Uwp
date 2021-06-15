@@ -35,6 +35,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsRequested => _offsetId != 0 || _pageNumber > 1;
 
         /// <summary>
+        /// 是否显示横幅.
+        /// </summary>
+        [Reactive]
+        public bool IsShowBanner { get; set; }
+
+        /// <summary>
+        /// 是否显示顶部标签组.
+        /// </summary>
+        [Reactive]
+        public bool IsShowTags { get; set; }
+
+        /// <summary>
         /// 子分区名称.
         /// </summary>
         [Reactive]

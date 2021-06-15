@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -68,13 +67,11 @@ namespace Richasy.Bili.App.Pages.Overlay
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-            VideoView.NewItemAdded -= OnVideoViewNewItemAddedAsync;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            VideoView.NewItemAdded += OnVideoViewNewItemAddedAsync;
             CheckCurrentSubPartition();
         }
 
@@ -97,15 +94,16 @@ namespace Richasy.Bili.App.Pages.Overlay
             var vm = ViewModel.CurrentSelectedSubPartition;
             if (vm != null)
             {
-                BannerView.Visibility = vm.BannerCollection != null && vm.BannerCollection.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
                 var isShowSort = vm.SortTypeCollection != null && vm.SortTypeCollection.Count > 0;
                 if (isShowSort)
                 {
                     VideoSortComboBox.Visibility = Visibility.Visible;
+                    RefreshButton.Visibility = Visibility.Collapsed;
                     VideoSortComboBox.SelectedItem = vm.CurrentSortType;
                 }
                 else
                 {
+                    RefreshButton.Visibility = Visibility.Visible;
                     VideoSortComboBox.Visibility = Visibility.Collapsed;
                 }
 
@@ -119,40 +117,11 @@ namespace Richasy.Bili.App.Pages.Overlay
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
             var currentSubPartition = ViewModel.CurrentSelectedSubPartition;
-            if (currentSubPartition != null && !currentSubPartition.IsDeltaLoading && !currentSubPartition.IsInitializeLoading)
-            {
-                await currentSubPartition.RequestDataAsync();
-            }
-        }
-
-        private async void OnVideoViewNewItemAddedAsync(object sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs e)
-        {
-            // 当视频条目列表加载完成之后计算这些视频条目是否足以填满整个显示区域，
-            // 如果不足，则再次请求，直到填满显示区域.
-            // 此法是滚动加载设计的前置条件，即先让显示区域能够滚动.
-            var currentSubPartition = ViewModel.CurrentSelectedSubPartition;
             if (currentSubPartition != null &&
                 !currentSubPartition.IsDeltaLoading &&
-                !currentSubPartition.IsInitializeLoading &&
-                e.Index >= currentSubPartition.VideoCollection.Count - 1)
+                !currentSubPartition.IsInitializeLoading)
             {
-                var videoItem = e.Element as VideoItem;
-                var size = videoItem.GetHolderSize();
-                var isNeedLoadMore = false;
-                if (double.IsInfinity(size.Width))
-                {
-                    isNeedLoadMore = (e.Index + 1) * size.Height <= ContentScrollView.ViewportHeight;
-                }
-                else
-                {
-                    var rowCount = e.Index / (ContentScrollView.ViewportWidth / size.Width);
-                    isNeedLoadMore = rowCount * size.Height <= ContentScrollView.ViewportHeight;
-                }
-
-                if (isNeedLoadMore)
-                {
-                    await ViewModel.CurrentSelectedSubPartition.RequestDataAsync();
-                }
+                await currentSubPartition.RequestDataAsync();
             }
         }
 
@@ -162,6 +131,16 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 var item = (VideoSortType)VideoSortComboBox.SelectedItem;
                 ViewModel.CurrentSelectedSubPartition.CurrentSortType = item;
+            }
+        }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentSelectedSubPartition != null &&
+                !ViewModel.CurrentSelectedSubPartition.IsInitializeLoading &&
+                !ViewModel.CurrentSelectedSubPartition.IsDeltaLoading)
+            {
+                await ViewModel.CurrentSelectedSubPartition.InitializeRequestAsync();
             }
         }
     }
