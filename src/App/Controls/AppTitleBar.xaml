@@ -49,6 +49,7 @@
                             <Setter Target="ContentGrid.Padding" Value="8,0,0,0" />
                             <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
                             <Setter Target="RootGrid.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
+                            <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>

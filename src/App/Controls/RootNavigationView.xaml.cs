@@ -168,8 +168,17 @@ namespace Richasy.Bili.App.Controls
                 (RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem &&
                 NavigationExtension.GetPageId(navItem) != pageId))
             {
-                var shouldSelectedItem = RootNavView.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
+                Microsoft.UI.Xaml.Controls.NavigationViewItem shouldSelectedItem = null;
+                if (pageId == PageIds.Settings)
+                {
+                    shouldSelectedItem = RootNavView.SettingsItem as Microsoft.UI.Xaml.Controls.NavigationViewItem;
+                }
+                else
+                {
+                    shouldSelectedItem = RootNavView.MenuItems.Concat(RootNavView.FooterMenuItems).OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
                     .Where(p => NavigationExtension.GetPageId(p) == pageId).FirstOrDefault();
+                }
+
                 RootNavView.SelectedItem = shouldSelectedItem;
             }
 

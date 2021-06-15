@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <muxc:CommandBarFlyout x:Key="AvatarFlyout" Placement="BottomEdgeAlignedRight">
+        <muxc:CommandBarFlyout x:Key="AvatarFlyout" Placement="Bottom">
             <muxc:CommandBarFlyout.SecondaryCommands>
                 <AppBarElementContainer>
                     <Grid
