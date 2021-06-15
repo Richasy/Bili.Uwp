@@ -5,6 +5,8 @@
     xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hn="using:HN.Controls"
+    xmlns:icons="using:Fluent.Icons"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
@@ -69,12 +71,37 @@
                 <FlipView.ItemTemplate>
                     <DataTemplate x:DataType="bilibili:Banner">
                         <Grid x:Name="ImageContainer" CornerRadius="{StaticResource ControlCornerRadius}">
-                            <Image
+                            <hn:ImageEx
                                 AutomationProperties.Name="{x:Bind Title}"
+                                LazyLoadingEnabled="True"
                                 RenderTransformOrigin="0.5,0.5"
+                                RetryCount="2"
+                                RetryDelay="0:0:2"
                                 Source="{x:Bind Image}"
                                 Stretch="UniformToFill"
-                                ToolTipService.ToolTip="{x:Bind Title}" />
+                                ToolTipService.ToolTip="{x:Bind Title}">
+                                <hn:ImageEx.LoadingTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <controls:ProgressRing
+                                                Style="{StaticResource PageProgressRingStyle}"
+                                                Width="28"
+                                                Height="28" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.LoadingTemplate>
+                                <hn:ImageEx.FailedTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
+                                            <icons:FluentIconElement
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                                Symbol="Image28Filled" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.FailedTemplate>
+                            </hn:ImageEx>
                         </Grid>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
