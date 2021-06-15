@@ -43,6 +43,13 @@ namespace Richasy.Bili.Models.App.Args
                 videoList = videoList.Concat(partionData.RecommendVideos).ToList();
             }
 
+            // 限制图片分辨率以减轻UI和内存压力.
+            foreach (var item in videoList)
+            {
+                item.Cover += "@400w_250h_1c_100q.jpg";
+                item.PublisherAvatar += "@60w_60h_1c_100q.jpg";
+            }
+
             this.VideoList = videoList;
         }
 

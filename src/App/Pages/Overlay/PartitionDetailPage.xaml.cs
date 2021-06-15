@@ -127,6 +127,9 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private async void OnVideoViewNewItemAddedAsync(object sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs e)
         {
+            // 当视频条目列表加载完成之后计算这些视频条目是否足以填满整个显示区域，
+            // 如果不足，则再次请求，直到填满显示区域.
+            // 此法是滚动加载设计的前置条件，即先让显示区域能够滚动.
             var currentSubPartition = ViewModel.CurrentSelectedSubPartition;
             if (currentSubPartition != null &&
                 !currentSubPartition.IsDeltaLoading &&
