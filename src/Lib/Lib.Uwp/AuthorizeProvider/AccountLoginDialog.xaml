@@ -13,7 +13,6 @@
     CloseButtonText="{loc:LocaleLocator Name=Cancel}"
     PrimaryButtonClick="OnPrimaryButtonClickAsync"
     PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    PrimaryButtonText="{loc:LocaleLocator Name=SignIn}"
     mc:Ignorable="d">
 
     <Grid Width="320">
@@ -35,12 +34,14 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Opacity="0.7"
+                Text="{loc:LocaleLocator Name=QRLoginTip}"
                 TextWrapping="Wrap" />
             <HyperlinkButton
                 Name="SwitchActionButton"
                 Style="{StaticResource DefaultHyperlinkButtonStyle}"
                 Grid.Column="1"
                 Margin="0,-7,0,0"
+                Content="{loc:LocaleLocator Name=SwitchToPasswordLogin}"
                 VerticalAlignment="Top"
                 Click="OnSwitchButtonClickAsync"
                 FontSize="12" />
@@ -82,6 +83,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid MinHeight="200" CornerRadius="{StaticResource ControlCornerRadius}">
+
+                <muxc:ProgressBar
+                    Width="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+
                 <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image
                         x:Name="QRCodeImage"

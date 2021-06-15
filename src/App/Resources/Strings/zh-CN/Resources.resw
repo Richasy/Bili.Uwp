@@ -147,11 +147,20 @@
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="Documentary" xml:space="preserve">
+    <value>纪录片</value>
+  </data>
+  <data name="DomesticAnime" xml:space="preserve">
+    <value>国创</value>
+  </data>
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="ForeignAnime" xml:space="preserve">
+    <value>番剧</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
@@ -177,8 +186,14 @@
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>
+  <data name="Movie" xml:space="preserve">
+    <value>电影</value>
+  </data>
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>
+  </data>
+  <data name="MyWebPage" xml:space="preserve">
+    <value>个人主页</value>
   </data>
   <data name="Navigation" xml:space="preserve">
     <value>导航</value>
@@ -201,7 +216,7 @@
   <data name="PasswordLoginTip" xml:space="preserve">
     <value>请在下方输入您的用户名和密码，应用不会存储这部分数据，但安全起见，请使用二维码登录</value>
   </data>
-  <data name="Persional" xml:space="preserve">
+  <data name="Personal" xml:space="preserve">
     <value>个人</value>
   </data>
   <data name="PleaseSignIn" xml:space="preserve">
@@ -243,6 +258,9 @@
   <data name="SignInTitle" xml:space="preserve">
     <value>用户登录</value>
   </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>退出</value>
+  </data>
   <data name="SortByDanmaku" xml:space="preserve">
     <value>弹幕最多</value>
   </data>
@@ -272,6 +290,12 @@
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>专题</value>
+  </data>
+  <data name="TV" xml:space="preserve">
+    <value>电视剧</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>

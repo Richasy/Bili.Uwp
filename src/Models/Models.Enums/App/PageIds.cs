@@ -38,6 +38,31 @@ namespace Richasy.Bili.Models.Enums
         SpecialColumn,
 
         /// <summary>
+        /// 番剧.
+        /// </summary>
+        ForeignAnime,
+
+        /// <summary>
+        /// 国创.
+        /// </summary>
+        DomesticAnime,
+
+        /// <summary>
+        /// 纪录片.
+        /// </summary>
+        Documentary,
+
+        /// <summary>
+        /// 电影.
+        /// </summary>
+        Movie,
+
+        /// <summary>
+        /// 电视剧.
+        /// </summary>
+        TV,
+
+        /// <summary>
         /// 直播.
         /// </summary>
         Live,

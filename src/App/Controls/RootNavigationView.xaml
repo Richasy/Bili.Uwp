@@ -72,36 +72,42 @@
                         <icons:FluentIconElement Symbol="ChannelShare16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:LocaleLocator Name=SpecialColumn}">
-                    <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="DocumentBriefcase20" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:LocaleLocator Name=Live}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:FluentIconElement Symbol="Video16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemSeparator />
-                <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Persional}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DynamicFeed" Content="{loc:LocaleLocator Name=DynamicFeed}">
+
+                <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Topic}" />
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="ForeignAnime" Content="{loc:LocaleLocator Name=ForeignAnime}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="EmojiLaugh20" />
+                        <icons:FluentIconElement Symbol="Cookies20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="MyFavorite" Content="{loc:LocaleLocator Name=MyFavorite}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:LocaleLocator Name=DomesticAnime}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="StarLineHorizontal320" />
+                        <icons:FluentIconElement Symbol="FastAcceleration24" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SeeLater" Content="{loc:LocaleLocator Name=SeeLater}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:LocaleLocator Name=SpecialColumn}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="CalendarClock16" />
+                        <icons:FluentIconElement Symbol="DocumentBriefcase20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="ViewHistory" Content="{loc:LocaleLocator Name=ViewHistory}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:LocaleLocator Name=Documentary}">
                     <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="History20" />
+                        <icons:FluentIconElement Symbol="LeafTwo16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:LocaleLocator Name=Movie}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:FluentIconElement Symbol="MoviesandTV16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:LocaleLocator Name=TV}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:FluentIconElement Symbol="VideoClip20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>

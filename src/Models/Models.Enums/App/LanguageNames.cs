@@ -19,7 +19,7 @@ namespace Richasy.Bili.Models.Enums
         Channel,
         SpecialColumn,
         Live,
-        Persional,
+        Personal,
         DynamicFeed,
         MyFavorite,
         SeeLater,
@@ -64,6 +64,14 @@ namespace Richasy.Bili.Models.Enums
         QRCodeExpired,
         LoginFailed,
         PleaseSignIn,
+        Topic,
+        ForeignAnime,
+        DomesticAnime,
+        Documentary,
+        Movie,
+        TV,
+        SignOut,
+        MyWebPage,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

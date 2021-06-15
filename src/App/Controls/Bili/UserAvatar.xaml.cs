@@ -72,6 +72,10 @@ namespace Richasy.Bili.App.Controls
             {
                 instance.PersonPicture.ProfilePicture = new BitmapImage(new Uri(url)) { DecodePixelWidth = instance.DecodeSize };
             }
+            else
+            {
+                instance.PersonPicture.ProfilePicture = null;
+            }
         }
     }
 }

@@ -60,8 +60,17 @@
     <Compile Include="Pages\ChannelPage.xaml.cs">
       <DependentUpon>ChannelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DocumentaryPage.xaml.cs">
+      <DependentUpon>DocumentaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DomesticAnimePage.xaml.cs">
+      <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ForeignAnimePage.xaml.cs">
+      <DependentUpon>ForeignAnimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
@@ -72,6 +81,9 @@
     <Compile Include="Pages\IConnectedAnimationPage.cs" />
     <Compile Include="Pages\LivePage.xaml.cs">
       <DependentUpon>LivePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MoviePage.xaml.cs">
+      <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MyFavoritePage.xaml.cs">
       <DependentUpon>MyFavoritePage.xaml</DependentUpon>
@@ -96,6 +108,9 @@
     </Compile>
     <Compile Include="Pages\SpecialColumnPage.xaml.cs">
       <DependentUpon>SpecialColumnPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TVPage.xaml.cs">
+      <DependentUpon>TVPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ViewHistoryPage.xaml.cs">
       <DependentUpon>ViewHistoryPage.xaml</DependentUpon>
@@ -222,7 +237,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\DocumentaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DomesticAnimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DynamicFeedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ForeignAnimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LivePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MoviePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,6 +298,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SpecialColumnPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TVPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

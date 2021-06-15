@@ -3,6 +3,7 @@
 using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -35,11 +36,17 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private readonly BiliController _controller;
         private readonly IResourceToolkit _resourceToolkit;
+        private MyInfo _myInfo;
 
         /// <summary>
         /// <see cref="AccountViewModel"/>的实例.
         /// </summary>
         public static AccountViewModel Instance { get; } = new Lazy<AccountViewModel>(() => new AccountViewModel()).Value;
+
+        /// <summary>
+        /// 登录用户Id.
+        /// </summary>
+        public int? Mid => _myInfo?.Mid;
 
         /// <summary>
         /// 当前视图模型状态.
@@ -58,6 +65,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// 等级.
+        /// </summary>
+        [Reactive]
+        public int Level { get; set; }
 
         /// <summary>
         /// 工具提示及自动化文本.

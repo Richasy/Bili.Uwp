@@ -122,7 +122,7 @@ namespace Richasy.Bili.Lib.Uwp
             }
         }
 
-        private async Task LoadQRCodeAsync(bool isShowTip = false)
+        private async Task LoadQRCodeAsync()
         {
             HideQRTip();
             QRLoadingRing.IsActive = true;
@@ -147,12 +147,12 @@ namespace Richasy.Bili.Lib.Uwp
             switch (type)
             {
                 case LoginType.Password:
+                    _authorizeProvider.StopQRLoginListener();
                     PasswordLoginContainer.Visibility = Visibility.Visible;
                     QRLoginContainer.Visibility = Visibility.Collapsed;
                     PrimaryButtonText = resourceToolkit.GetLocaleString(LanguageNames.SignIn);
                     TipBlock.Text = resourceToolkit.GetLocaleString(LanguageNames.PasswordLoginTip);
                     SwitchActionButton.Content = resourceToolkit.GetLocaleString(LanguageNames.SwitchToQRLogin);
-                    (_authorizeProvider as AuthorizeProvider).StartQRLoginListener();
                     break;
                 case LoginType.QRCode:
                     PasswordLoginContainer.Visibility = Visibility.Collapsed;

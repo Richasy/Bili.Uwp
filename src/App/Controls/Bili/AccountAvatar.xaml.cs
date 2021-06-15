@@ -1,10 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
-using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -79,6 +82,30 @@ namespace Richasy.Bili.App.Controls
             {
                 await ViewModel.TrySignInAsync();
             }
+            else
+            {
+                FlyoutBase.ShowAttachedFlyout(UserAvatar);
+            }
+        }
+
+        private void OnNavigateButtonClick(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as AppBarButton;
+            var pageId = NavigationExtension.GetPageId(btn);
+            AppViewModel.Instance.HeaderText = btn.Label;
+            AppViewModel.Instance.SetMainContentId(pageId);
+        }
+
+        private async void OnSignOutButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
+            await AccountViewModel.Instance.SignOutAsync();
+        }
+
+        private async void OnNavigateToMyHomePageButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
+            await Launcher.LaunchUriAsync(new Uri($"https://space.bilibili.com/{AccountViewModel.Instance.Mid}/")).AsTask();
         }
     }
 }

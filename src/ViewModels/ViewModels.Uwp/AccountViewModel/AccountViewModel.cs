@@ -27,7 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller.AccountChanged += OnAccountChanged;
             Status = AccountViewModelStatus.Logout;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
+            Reset();
         }
 
         /// <summary>
@@ -39,6 +39,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             this.Status = AccountViewModelStatus.Logging;
             await _controller.TrySignInAsync(isSlientOnly);
+        }
+
+        /// <summary>
+        /// 登出.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task SignOutAsync()
+        {
+            await _controller.SignOutAsync();
         }
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void OnLoggedOut(object sender, EventArgs e)
         {
             this.Status = AccountViewModelStatus.Logout;
-            TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
+            Reset();
         }
 
         private void OnLoggedFailed(object sender, Exception e)
@@ -71,6 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             // 它仅在用户未登录时触发.
             if (this.Status != AccountViewModelStatus.Login)
             {
+                Reset();
                 this.Status = AccountViewModelStatus.Logout;
             }
         }
@@ -79,8 +89,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (this.Status != AccountViewModelStatus.Login)
             {
-                this.Status = AccountViewModelStatus.Login;
                 await GetMyProfileAsync();
+                this.Status = AccountViewModelStatus.Login;
             }
         }
 
@@ -88,10 +98,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e != null)
             {
+                _myInfo = e;
                 Avatar = e.Avatar;
                 DisplayName = e.Name;
+                Level = e.Level;
                 TipText = $"{e.Name} Lv.{e.Level}";
             }
+        }
+
+        private void Reset()
+        {
+            _myInfo = null;
+            Avatar = string.Empty;
+            DisplayName = string.Empty;
+            Level = 0;
+            TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// 用户登出.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LogoutAsync()
+        public async Task SignOutAsync()
         {
             this._isRequestLogout = true;
             await _authorizeProvider.SignOutAsync();

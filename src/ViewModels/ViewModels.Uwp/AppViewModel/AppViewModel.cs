@@ -1,12 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Microsoft.Extensions.DependencyInjection;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Lib.Uwp;
-using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.Toolkit.Uwp;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -20,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         internal AppViewModel()
         {
-            RegisterToolkitServices();
+            _ = BiliController.Instance;
             IsNavigatePaneOpen = true;
             CurrentMainContentId = PageIds.Partition;
         }
@@ -45,20 +40,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentOverlayContentId = pageId;
             IsShowOverlay = true;
             RequestOverlayNavigation?.Invoke(this, param);
-        }
-
-        private void RegisterToolkitServices()
-        {
-            var serviceCollection = new ServiceCollection()
-                .AddSingleton<IAppToolkit, AppToolkit>()
-                .AddSingleton<IFileToolkit, FileToolkit>()
-                .AddSingleton<IResourceToolkit, ResourceToolkit>()
-                .AddSingleton<INumberToolkit, NumberToolkit>()
-                .AddSingleton<ISettingsToolkit, SettingsToolkit>()
-                .AddSingleton<IMD5Toolkit, MD5Toolkit>()
-                .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
-                .AddSingleton<IHttpProvider, HttpProvider>();
-            _ = new ServiceLocator(serviceCollection);
         }
     }
 }

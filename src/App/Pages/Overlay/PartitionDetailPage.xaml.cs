@@ -46,7 +46,6 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (e.Parameter != null && e.Parameter is PartitionViewModel data)
             {
                 this.ViewModel = data;
-                this.DataContext = data;
                 var animationService = ConnectedAnimationService.GetForCurrentView();
                 var animate = animationService.GetAnimation("PartitionAnimate");
                 if (animate != null)

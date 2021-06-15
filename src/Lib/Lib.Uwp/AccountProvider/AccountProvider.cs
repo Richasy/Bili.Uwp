@@ -25,7 +25,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<MyInfo> GetMyInformationAsync()
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.MyInfo, type: Models.Enums.RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.MyInfo, type: Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<MyInfo>>(response);
             _mid = result.Data.Mid;

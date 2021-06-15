@@ -3,12 +3,108 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
+    xmlns:icons="using:Fluent.Icons"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <muxc:CommandBarFlyout x:Key="AvatarFlyout" Placement="BottomEdgeAlignedRight">
+            <muxc:CommandBarFlyout.SecondaryCommands>
+                <AppBarElementContainer>
+                    <Grid
+                        MinWidth="260"
+                        MaxWidth="320"
+                        Padding="12,8"
+                        ColumnSpacing="12"
+                        RowSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <local:UserAvatar
+                            Width="40"
+                            Height="40"
+                            Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+                            DecodeSize="80"
+                            UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Spacing="4">
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Text="{x:Bind ViewModel.TipText, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="-10,0,0,0"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal"
+                            Spacing="2">
+                            <HyperlinkButton
+                                Click="OnNavigateToMyHomePageButtonClickAsync"
+                                Content="{loc:LocaleLocator Name=MyWebPage}"
+                                FontSize="12" />
+                            <HyperlinkButton
+                                Click="OnSignOutButtonClickAsync"
+                                Content="{loc:LocaleLocator Name=SignOut}"
+                                FontSize="12" />
+                        </StackPanel>
+                    </Grid>
+                </AppBarElementContainer>
+                <AppBarSeparator />
+                <AppBarButton
+                    ext:NavigationExtension.PageId="DynamicFeed"
+                    Click="OnNavigateButtonClick"
+                    Label="{loc:LocaleLocator Name=DynamicFeed}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="EmojiLaugh20" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton
+                    ext:NavigationExtension.PageId="MyFavorite"
+                    Click="OnNavigateButtonClick"
+                    Label="{loc:LocaleLocator Name=MyFavorite}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="StarLineHorizontal320" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton
+                    ext:NavigationExtension.PageId="SeeLater"
+                    Click="OnNavigateButtonClick"
+                    Label="{loc:LocaleLocator Name=SeeLater}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="CalendarClock16" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton
+                    ext:NavigationExtension.PageId="ViewHistory"
+                    Click="OnNavigateButtonClick"
+                    Label="{loc:LocaleLocator Name=ViewHistory}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="History20" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </muxc:CommandBarFlyout.SecondaryCommands>
+        </muxc:CommandBarFlyout>
+    </UserControl.Resources>
 
     <Grid ToolTipService.ToolTip="{x:Bind ViewModel.TipText, Mode=OneWay}">
         <VisualStateManager.VisualStateGroups>
@@ -28,6 +124,7 @@
             Width="{x:Bind Width, Mode=OneWay}"
             Height="{x:Bind Height, Mode=OneWay}"
             Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+            FlyoutBase.AttachedFlyout="{StaticResource AvatarFlyout}"
             Tapped="OnUserAvatarTappedAsync"
             UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
         <Viewbox x:Name="LoadingContainer" Visibility="Collapsed">

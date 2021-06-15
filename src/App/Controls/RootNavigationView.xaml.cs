@@ -121,6 +121,21 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.SpecialColumn:
                     pageType = typeof(SpecialColumnPage);
                     break;
+                case PageIds.ForeignAnime:
+                    pageType = typeof(ForeignAnimePage);
+                    break;
+                case PageIds.DomesticAnime:
+                    pageType = typeof(DomesticAnimePage);
+                    break;
+                case PageIds.Movie:
+                    pageType = typeof(MoviePage);
+                    break;
+                case PageIds.TV:
+                    pageType = typeof(TVPage);
+                    break;
+                case PageIds.Documentary:
+                    pageType = typeof(DocumentaryPage);
+                    break;
                 case PageIds.Live:
                     pageType = typeof(LivePage);
                     break;
@@ -155,10 +170,7 @@ namespace Richasy.Bili.App.Controls
             {
                 var shouldSelectedItem = RootNavView.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
                     .Where(p => NavigationExtension.GetPageId(p) == pageId).FirstOrDefault();
-                if (shouldSelectedItem != null)
-                {
-                    RootNavView.SelectedItem = shouldSelectedItem;
-                }
+                RootNavView.SelectedItem = shouldSelectedItem;
             }
 
             if (RootNavView.SelectedItem != null && RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem selectItem)

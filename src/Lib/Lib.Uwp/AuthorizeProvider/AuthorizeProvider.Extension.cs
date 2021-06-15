@@ -51,7 +51,7 @@ namespace Richasy.Bili.Lib.Uwp
             };
 
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android, false);
+            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android);
             query[Query.UserName] = userName;
             query[Query.Password] = encryptedPwd;
             var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.Login);
@@ -123,7 +123,7 @@ namespace Richasy.Bili.Lib.Uwp
             try
             {
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android, false);
+                var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android);
                 var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.PasswordEncrypt);
                 request.Content = new FormUrlEncodedContent(param);
                 var response = await httpProvider.SendAsync(request);
@@ -157,7 +157,7 @@ namespace Richasy.Bili.Lib.Uwp
                     { Query.LocalId, _guid },
                 };
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCode, queryParameters, needToken: false);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCode, queryParameters);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
@@ -204,6 +204,12 @@ namespace Richasy.Bili.Lib.Uwp
 
         private async void OnQRTimerTickAsync(object sender, object e)
         {
+            if (await IsTokenValidAsync())
+            {
+                StopQRLoginListener();
+                return;
+            }
+
             CleanQRCodeCancellationToken();
             _qrPollCancellationTokenSource = new CancellationTokenSource();
             var queryParameters = new Dictionary<string, string>
@@ -215,7 +221,7 @@ namespace Richasy.Bili.Lib.Uwp
             try
             {
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCodeCheck, queryParameters, needToken: false);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
 

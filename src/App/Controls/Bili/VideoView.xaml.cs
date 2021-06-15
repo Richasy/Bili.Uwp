@@ -57,6 +57,7 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsAutoFillEnable), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
 
         private ScrollViewer _parentScrollViewer;
+        private double _itemHolderHeight = 0d;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoView"/> class.
@@ -185,9 +186,7 @@ namespace Richasy.Bili.App.Controls
             if (!e.IsIntermediate)
             {
                 var currentPosition = _parentScrollViewer.VerticalOffset;
-                var items = ItemsSource as ObservableCollection<VideoViewModel>;
-                if (VideoRepeater.TryGetElement(items.Count - 1) is FrameworkElement firstElement &&
-                    _parentScrollViewer.ScrollableHeight - currentPosition <= firstElement.ActualHeight)
+                if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
                 }
@@ -223,6 +222,7 @@ namespace Richasy.Bili.App.Controls
                     args.Index >= collectionSource.Count - 1)
                 {
                     var size = item.GetHolderSize();
+                    _itemHolderHeight = size.Height;
                     var isNeedLoadMore = false;
                     if (double.IsInfinity(size.Width))
                     {

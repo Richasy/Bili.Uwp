@@ -60,7 +60,7 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(
             Dictionary<string, string> queryParameters,
             RequestClientType clientType,
-            bool needToken = true)
+            bool needToken = false)
         {
             if (queryParameters == null)
             {
@@ -89,17 +89,23 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             var query = string.Empty;
-            if (needToken)
+            var token = string.Empty;
+            if (await IsTokenValidAsync())
             {
-                var token = await GetTokenAsync();
-                if (!string.IsNullOrEmpty(token))
-                {
-                    queryParameters.Add(ServiceConstants.Query.AccessKey, token);
-                }
-                else
-                {
-                    throw new OperationCanceledException("需要令牌，但获取访问令牌失败.");
-                }
+                token = _tokenInfo.AccessToken;
+            }
+            else if (needToken)
+            {
+                token = await GetTokenAsync();
+            }
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                queryParameters.Add(ServiceConstants.Query.AccessKey, token);
+            }
+            else if (needToken)
+            {
+                throw new OperationCanceledException("需要令牌，但获取访问令牌失败.");
             }
 
             var sign = GenerateSign(queryParameters);
@@ -154,6 +160,7 @@ namespace Richasy.Bili.Lib.Uwp
             }
             catch (Exception)
             {
+                StopQRLoginListener();
             }
 
             await SignOutAsync();
