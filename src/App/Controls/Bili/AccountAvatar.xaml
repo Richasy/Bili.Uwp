@@ -21,16 +21,11 @@
                         MinWidth="260"
                         MaxWidth="320"
                         Padding="12,8"
-                        ColumnSpacing="12"
-                        RowSpacing="4">
+                        ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
                         <local:UserAvatar
                             Width="40"
                             Height="40"
@@ -46,36 +41,33 @@
                                 HorizontalAlignment="Left"
                                 Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
                                 TextTrimming="CharacterEllipsis" />
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
+                            <Image
+                                Height="24"
                                 HorizontalAlignment="Left"
-                                Text="{x:Bind ViewModel.TipText, Mode=OneWay}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="-10,0,0,0"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal"
-                            Spacing="2">
-                            <HyperlinkButton
-                                Click="OnNavigateToMyHomePageButtonClickAsync"
-                                Content="{loc:LocaleLocator Name=MyWebPage}"
-                                FontSize="12" />
-                            <HyperlinkButton
-                                Click="OnSignOutButtonClickAsync"
-                                Content="{loc:LocaleLocator Name=SignOut}"
-                                FontSize="12" />
+                                Source="{x:Bind ViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
                         </StackPanel>
                     </Grid>
                 </AppBarElementContainer>
                 <AppBarSeparator />
+                <AppBarButton Click="OnNavigateToMyHomePageButtonClickAsync" Label="{loc:LocaleLocator Name=MyWebPage}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="Globe16" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <AppBarButton
                     ext:NavigationExtension.PageId="DynamicFeed"
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=DynamicFeed}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="EmojiLaugh20" />
+                        <icons:FluentIconElement Symbol="DesignIdeas16" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton
+                    ext:NavigationExtension.PageId="Message"
+                    Click="OnNavigateButtonClick"
+                    Label="{loc:LocaleLocator Name=Message}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Symbol="Chat16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -100,6 +92,12 @@
                     Label="{loc:LocaleLocator Name=ViewHistory}">
                     <AppBarButton.Icon>
                         <icons:FluentIconElement Symbol="History20" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarButton Click="OnSignOutButtonClickAsync" Label="{loc:LocaleLocator Name=SignOut}">
+                    <AppBarButton.Icon>
+                        <icons:FluentIconElement Foreground="{ThemeResource SystemControlErrorTextForegroundBrush}" Symbol="SignOut20" />
                     </AppBarButton.Icon>
                 </AppBarButton>
             </muxc:CommandBarFlyout.SecondaryCommands>

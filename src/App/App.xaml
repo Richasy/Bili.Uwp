@@ -18,6 +18,7 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <converter:SortTypeTextConverter x:Key="SortTypeTextConverter" />
+            <converter:UserLevelConverter x:Key="UserLevelConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

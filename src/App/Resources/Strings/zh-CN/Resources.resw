@@ -183,6 +183,9 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>

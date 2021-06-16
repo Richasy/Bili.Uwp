@@ -72,6 +72,7 @@ namespace Richasy.Bili.Models.Enums
         TV,
         SignOut,
         MyWebPage,
+        Message,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

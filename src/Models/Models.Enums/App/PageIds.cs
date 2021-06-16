@@ -101,5 +101,10 @@ namespace Richasy.Bili.Models.Enums
         /// 分区详情页面.
         /// </summary>
         PartitionDetail,
+
+        /// <summary>
+        /// 消息.
+        /// </summary>
+        Message,
     }
 }
