@@ -117,9 +117,9 @@
                     x:Name="MainGrid"
                     Padding="{StaticResource DefaultPagePadding}"
                     Background="{ThemeResource LayerFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="{StaticResource OverlayCornerRadius}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0"
                     RowSpacing="28">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

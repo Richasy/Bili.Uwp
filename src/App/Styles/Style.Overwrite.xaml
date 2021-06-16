@@ -7,6 +7,8 @@
     <Thickness x:Key="NavigationViewContentPresenterMargin">0</Thickness>
     <Thickness x:Key="TopNavigationViewTopNavGridMargin">0</Thickness>
     <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Transparent" />
 
     <Style x:Key="PageProgressRingStyle" TargetType="muxc:ProgressRing">
         <Setter Property="Width" Value="32" />

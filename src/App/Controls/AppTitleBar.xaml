@@ -13,7 +13,6 @@
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <UserControl.Resources>
