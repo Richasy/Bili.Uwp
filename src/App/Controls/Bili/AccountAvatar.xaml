@@ -42,7 +42,7 @@
                                 Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
                                 TextTrimming="CharacterEllipsis" />
                             <Image
-                                Height="24"
+                                Height="10"
                                 HorizontalAlignment="Left"
                                 Source="{x:Bind ViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
                         </StackPanel>
