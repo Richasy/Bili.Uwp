@@ -52,9 +52,8 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnItemTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void OnItemClick(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
             var animationService = ConnectedAnimationService.GetForCurrentView();
             animationService.PrepareToAnimate("PartitionAnimate", this.ContentContainer);
             ItemClick?.Invoke(this, Data);

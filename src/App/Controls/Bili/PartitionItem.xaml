@@ -9,15 +9,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <ListViewItem
-        Style="{StaticResource ListViewItemExpanded}"
-        HorizontalContentAlignment="Stretch"
-        VerticalContentAlignment="Stretch"
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="{StaticResource ControlCornerRadius}"
-        Tapped="OnItemTapped">
+    <local:CardPanel Click="OnItemClick">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid x:Name="ContentContainer" RowSpacing="8">
                 <Grid.RowDefinitions>
@@ -45,5 +37,5 @@
                     TextAlignment="Center" />
             </Grid>
         </Grid>
-    </ListViewItem>
+    </local:CardPanel>
 </UserControl>

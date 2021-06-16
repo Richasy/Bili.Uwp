@@ -182,7 +182,7 @@ namespace Richasy.Bili.App.Controls
             CheckOrientation();
         }
 
-        private void OnContainerTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void OnContainerClick(object sender, RoutedEventArgs e)
         {
         }
     }

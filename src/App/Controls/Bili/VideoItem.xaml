@@ -20,22 +20,10 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid
+    <local:CardPanel
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
         CornerRadius="{ThemeResource OverlayCornerRadius}"
-        Tapped="OnContainerTapped">
-
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="Row1" Height="Auto" />
-            <RowDefinition x:Name="Row2" Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="Column1" Width="*" />
-            <ColumnDefinition x:Name="Column2" Width="Auto" />
-        </Grid.ColumnDefinitions>
+        Click="OnContainerClick">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -65,134 +53,146 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid
-            x:Name="CoverContainer"
-            Height="124"
-            VerticalAlignment="Stretch">
-            <hn:ImageEx
-                x:Name="CoverImage"
-                LazyLoadingEnabled="True"
-                RetryCount="2"
-                RetryDelay="0:0:5"
-                Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
-                Stretch="UniformToFill">
-                <hn:ImageEx.LoadingTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <muxc:ProgressRing
-                                Style="{StaticResource PageProgressRingStyle}"
-                                Width="28"
-                                Height="28" />
-                        </Grid>
-                    </DataTemplate>
-                </hn:ImageEx.LoadingTemplate>
-                <hn:ImageEx.FailedTemplate>
-                    <DataTemplate>
-                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                            <icons:FluentIconElement
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                Symbol="Image28Filled" />
-                        </Grid>
-                    </DataTemplate>
-                </hn:ImageEx.FailedTemplate>
-            </hn:ImageEx>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="Row1" Height="Auto" />
+                <RowDefinition x:Name="Row2" Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="Column1" Width="*" />
+                <ColumnDefinition x:Name="Column2" Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                x:Name="CoverContainer"
+                Height="124"
+                CornerRadius="4,4,0,0"
+                Margin="1,0"
+                VerticalAlignment="Stretch">
+                <hn:ImageEx
+                    x:Name="CoverImage"
+                    LazyLoadingEnabled="True"
+                    RetryCount="2"
+                    RetryDelay="0:0:5"
+                    Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
+                    Stretch="UniformToFill">
+                    <hn:ImageEx.LoadingTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <muxc:ProgressRing
+                                    Style="{StaticResource PageProgressRingStyle}"
+                                    Width="28"
+                                    Height="28" />
+                            </Grid>
+                        </DataTemplate>
+                    </hn:ImageEx.LoadingTemplate>
+                    <hn:ImageEx.FailedTemplate>
+                        <DataTemplate>
+                            <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
+                                <icons:FluentIconElement
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                    Symbol="Image28Filled" />
+                            </Grid>
+                        </DataTemplate>
+                    </hn:ImageEx.FailedTemplate>
+                </hn:ImageEx>
+
+                <Grid
+                    Margin="8,0,0,8"
+                    Padding="8,4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{ThemeResource AppMaskAcrylicBrush}"
+                    CornerRadius="{StaticResource ControlCornerRadius}"
+                    RequestedTheme="Dark">
+                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
+                </Grid>
+            </Grid>
 
             <Grid
-                Margin="8,0,0,8"
-                Padding="8,4"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{ThemeResource AppMaskAcrylicBrush}"
-                CornerRadius="{StaticResource ControlCornerRadius}"
-                RequestedTheme="Dark">
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
-            </Grid>
-        </Grid>
-
-        <Grid
-            x:Name="SingleAvatar"
-            Margin="0,0,12,-18"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom">
-            <Ellipse
-                Width="40"
-                Height="40"
-                Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
-            <local:UserAvatar
-                Width="36"
-                Height="36"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
-        </Grid>
-
-        <Grid
-            x:Name="ContentContainer"
-            Grid.Row="1"
-            Padding="12,8"
-            RowSpacing="8">
-            <Grid.RowDefinitions>
-                <RowDefinition x:Name="ContentRow1" Height="Auto" />
-                <RowDefinition x:Name="ContentRow2" Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <StackPanel x:Name="InlineUserContainer" Orientation="Horizontal">
+                x:Name="SingleAvatar"
+                Margin="0,0,12,-18"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom">
+                <Ellipse
+                    Width="40"
+                    Height="40"
+                    Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
                 <local:UserAvatar
-                    x:Name="InlineAvatar"
-                    Width="24"
-                    Height="24"
-                    Margin="0,0,8,0"
+                    Width="36"
+                    Height="36"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
-                    Visibility="Collapsed" />
-                <TextBlock
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    VerticalAlignment="Center"
-                    Opacity="0.6"
-                    Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
-            </StackPanel>
+                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+            </Grid>
 
-            <TextBlock
-                x:Name="TitleBlock"
+            <Grid
+                x:Name="ContentContainer"
                 Grid.Row="1"
-                VerticalAlignment="Top"
-                MaxLines="2"
-                Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis"
-                TextWrapping="Wrap">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{x:Bind TitleBlock.IsTextTrimmed, Mode=OneWay}" />
-                </ToolTipService.ToolTip>
-            </TextBlock>
-            <StackPanel
-                Grid.Row="2"
-                Orientation="Horizontal"
-                Spacing="12">
-                <local:IconTextBlock
-                    Opacity="0.6"
-                    Symbol="PlayCircle16Filled"
-                    Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
-                    Visibility="{x:Bind IsShowPlayCount, Mode=OneWay}" />
-                <local:IconTextBlock
-                    Opacity="0.6"
-                    Symbol="SlideText16Filled"
-                    Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
-                    Visibility="{x:Bind IsShowDanmakuCount, Mode=OneWay}" />
-                <local:IconTextBlock
-                    Opacity="0.6"
-                    Symbol="ThumbLike16Filled"
-                    Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
-                    Visibility="{x:Bind IsShowLikeCount, Mode=OneWay}" />
-                <local:IconTextBlock
-                    Opacity="0.6"
-                    Symbol="Comment16Filled"
-                    Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
-                    Visibility="{x:Bind IsShowReplayCount, Mode=OneWay}" />
-            </StackPanel>
+                Padding="12,8"
+                RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="ContentRow1" Height="Auto" />
+                    <RowDefinition x:Name="ContentRow2" Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel x:Name="InlineUserContainer" Orientation="Horizontal">
+                    <local:UserAvatar
+                        x:Name="InlineAvatar"
+                        Width="24"
+                        Height="24"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                        UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
+                        Visibility="Collapsed" />
+                    <TextBlock
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        VerticalAlignment="Center"
+                        Opacity="0.6"
+                        Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                </StackPanel>
+
+                <TextBlock
+                    x:Name="TitleBlock"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    MaxLines="2"
+                    Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{x:Bind TitleBlock.IsTextTrimmed, Mode=OneWay}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+                <StackPanel
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <local:IconTextBlock
+                        Opacity="0.6"
+                        Symbol="PlayCircle16Filled"
+                        Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
+                        Visibility="{x:Bind IsShowPlayCount, Mode=OneWay}" />
+                    <local:IconTextBlock
+                        Opacity="0.6"
+                        Symbol="SlideText16Filled"
+                        Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
+                        Visibility="{x:Bind IsShowDanmakuCount, Mode=OneWay}" />
+                    <local:IconTextBlock
+                        Opacity="0.6"
+                        Symbol="ThumbLike16Filled"
+                        Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
+                        Visibility="{x:Bind IsShowLikeCount, Mode=OneWay}" />
+                    <local:IconTextBlock
+                        Opacity="0.6"
+                        Symbol="Comment16Filled"
+                        Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
+                        Visibility="{x:Bind IsShowReplayCount, Mode=OneWay}" />
+                </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </local:CardPanel>
 </UserControl>
