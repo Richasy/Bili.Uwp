@@ -15,13 +15,13 @@ namespace Richasy.Bili.Models.BiliBili
         /// 推荐视频列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recommend", Required = Required.Default)]
-        public List<Video> RecommendVideos { get; set; }
+        public List<PartitionVideo> RecommendVideos { get; set; }
 
         /// <summary>
         /// 新的视频列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "new", Required = Required.Default)]
-        public List<Video> NewVideos { get; set; }
+        public List<PartitionVideo> NewVideos { get; set; }
 
         /// <summary>
         /// 向上刷新的标识符.

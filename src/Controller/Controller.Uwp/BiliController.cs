@@ -25,6 +25,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
         private readonly IPartitionProvider _partitionProvider;
+        private readonly IRankProvider _rankProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -39,7 +40,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _networkModule)
                 .LoadService(out _authorizeProvider)
                 .LoadService(out _accountProvider)
-                .LoadService(out _partitionProvider);
+                .LoadService(out _partitionProvider)
+                .LoadService(out _rankProvider);
 
             RegisterEvents();
         }
@@ -104,7 +106,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
-                .AddSingleton<IPartitionProvider, PartitionProvider>();
+                .AddSingleton<IPartitionProvider, PartitionProvider>()
+                .AddSingleton<IRankProvider, RankProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

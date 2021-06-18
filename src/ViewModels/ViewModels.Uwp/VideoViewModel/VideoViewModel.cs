@@ -15,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
         /// <param name="video">视频.</param>
-        public VideoViewModel(Video video)
+        public VideoViewModel(PartitionVideo video)
             : this()
         {
             Title = video.Title ?? string.Empty;

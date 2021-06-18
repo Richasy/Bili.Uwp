@@ -24,6 +24,8 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="RankProvider\RankProvider.cs" />
+    <Compile Include="RankProvider\RankProvider.Extension.cs" />
     <Content Include="Properties\Lib.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

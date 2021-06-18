@@ -32,7 +32,7 @@ namespace Richasy.Bili.Models.App.Args
             this.RequestDateTime = requestDateTime;
             this.NextPageNumber = nextPageNumber;
 
-            var videoList = new List<Video>();
+            var videoList = new List<PartitionVideo>();
             if (partionData.NewVideos?.Any() ?? false)
             {
                 videoList = videoList.Concat(partionData.NewVideos).ToList();
@@ -56,7 +56,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// 视频列表.
         /// </summary>
-        public List<Video> VideoList { get; set; }
+        public List<PartitionVideo> VideoList { get; set; }
 
         /// <summary>
         /// 向上偏移标识符.

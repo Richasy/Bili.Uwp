@@ -111,7 +111,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 if (!isDefaultOrder)
                 {
-                    var list = (await _httpProvider.ParseAsync<ServerResponse<List<Video>>>(response)).Data;
+                    var list = (await _httpProvider.ParseAsync<ServerResponse<List<PartitionVideo>>>(response)).Data;
                     data = new SubPartition()
                     {
                         NewVideos = list,

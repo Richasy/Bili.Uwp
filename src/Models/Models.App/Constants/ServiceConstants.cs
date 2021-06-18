@@ -45,6 +45,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Pull = "pull";
             public const string PageNumber = "pn";
             public const string PageSize = "ps";
+            public const string Type = "type";
         }
 
         public static class Sort

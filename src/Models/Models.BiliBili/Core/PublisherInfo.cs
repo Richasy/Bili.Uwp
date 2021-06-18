@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright (c) Richasy. All rights reserved.
+
 using Newtonsoft.Json;
 
 namespace Richasy.Bili.Models.BiliBili

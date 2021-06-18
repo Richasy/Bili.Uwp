@@ -13,6 +13,7 @@
     <Compile Include="BiliController.cs" />
     <Compile Include="BiliController.Account.cs" />
     <Compile Include="BiliController.Partition.cs" />
+    <Compile Include="BiliController.Rank.cs" />
     <Compile Include="Interfaces\INetworkModule.cs" />
     <Compile Include="Modules\NetworkModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
