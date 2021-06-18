@@ -169,6 +169,14 @@ namespace Richasy.Bili.Models.App.Constants
                 /// </summary>
                 public const string SubPartitionOrderOffset = _appBase + "/x/v2/region/show/child/list";
             }
+
+            public static class Rank
+            {
+                /// <summary>
+                /// 排行榜.
+                /// </summary>
+                public const string Ranking = _apiBase + "/x/web-interface/ranking/v2";
+            }
         }
 #pragma warning restore SA1401 // Fields should be private
 #pragma warning restore SA1600 // Elements should be documented

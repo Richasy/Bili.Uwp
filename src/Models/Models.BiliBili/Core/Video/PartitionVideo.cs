@@ -8,14 +8,8 @@ namespace Richasy.Bili.Models.BiliBili
     /// 视频基类型.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Video
+    public class PartitionVideo : VideoBase
     {
-        /// <summary>
-        /// 视频标题.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "title", Required = Required.Default)]
-        public string Title { get; set; }
-
         /// <summary>
         /// 视频封面图片地址.
         /// </summary>
@@ -41,13 +35,13 @@ namespace Richasy.Bili.Models.BiliBili
         public string Type { get; set; }
 
         /// <summary>
-        /// 视频上传者.
+        /// 视频发布者.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name", Required = Required.Default)]
         public string Publisher { get; set; }
 
         /// <summary>
-        /// 视频上传者的头像.
+        /// 视频发布者的头像.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "face", Required = Required.Default)]
         public string PublisherAvatar { get; set; }
@@ -75,18 +69,6 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favourite", Required = Required.Default)]
         public int FavouriteCount { get; set; }
-
-        /// <summary>
-        /// 视频发布时间 (Unix时间戳).
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pubdate", Required = Required.Default)]
-        public int PublishDateTime { get; set; }
-
-        /// <summary>
-        /// 视频时长 (秒).
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "duration", Required = Required.Default)]
-        public int Duration { get; set; }
 
         /// <summary>
         /// 所属分区ID.

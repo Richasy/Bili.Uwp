@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
+
+namespace Richasy.Bili.Models.BiliBili
+{
+    /// <summary>
+    /// 发布者信息.
+    /// </summary>
+    public class PublisherInfo
+    {
+        /// <summary>
+        /// 视频发布者的Id.
+        /// </summary>
+        public int Mid { get; set; }
+
+        /// <summary>
+        /// 视频发布者.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name", Required = Required.Default)]
+        public string Publisher { get; set; }
+
+        /// <summary>
+        /// 视频发布者的头像.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "face", Required = Required.Default)]
+        public string PublisherAvatar { get; set; }
+    }
+}
