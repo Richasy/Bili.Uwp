@@ -23,6 +23,7 @@
     <local:CardPanel
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
         CornerRadius="{ThemeResource OverlayCornerRadius}"
+        BorderBrush="{ThemeResource ControlElevationBorderBrush}"
         Click="OnContainerClick">
 
         <VisualStateManager.VisualStateGroups>
