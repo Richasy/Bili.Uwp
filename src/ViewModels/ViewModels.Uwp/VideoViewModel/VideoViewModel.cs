@@ -20,16 +20,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             Title = video.Title ?? string.Empty;
             PublisherName = video.Publisher ?? "--";
-            CoverUrl = video.Cover;
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.PlayCount);
             ReplyCount = _numberToolkit.GetCountText(video.ReplyCount);
             DanmakuCount = _numberToolkit.GetCountText(video.DanmakuCount);
             LikeCount = _numberToolkit.GetCountText(video.LikeCount);
             VideoId = video.Parameter;
-            PublisherAvatar = video.PublisherAvatar;
             PartitionName = video.PartitionName;
             Source = video;
+            LimitCoverAndAvatar(video.Cover, video.PublisherAvatar);
         }
 
         /// <summary>
@@ -41,8 +40,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             Title = video.Title ?? string.Empty;
             PublisherName = video.PublisherInfo.Publisher;
-            PublisherAvatar = video.PublisherInfo.PublisherAvatar;
-            CoverUrl = video.Cover;
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.Status.PlayCount);
             ReplyCount = _numberToolkit.GetCountText(video.Status.ReplyCount);
@@ -51,11 +48,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoId = video.Aid.ToString();
             PartitionName = video.PartitionName;
             Source = video;
+            LimitCoverAndAvatar(video.Cover, video.PublisherInfo.PublisherAvatar);
         }
 
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);
+        }
+
+        /// <summary>
+        /// 限制图片分辨率以减轻UI和内存压力.
+        /// </summary>
+        private void LimitCoverAndAvatar(string coverUrl, string avatarUrl)
+        {
+            SourceCoverUrl = coverUrl;
+            CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
+            PublisherAvatar = avatarUrl + "@60w_60h_1c_100q.jpg";
         }
     }
 }

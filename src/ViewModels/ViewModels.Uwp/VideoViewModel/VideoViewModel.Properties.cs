@@ -83,6 +83,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public string VideoId { get; set; }
 
+        /// <summary>
+        /// 原始封面地址.
+        /// </summary>
+        public string SourceCoverUrl { get; set; }
+
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoViewModel model && VideoId == model.VideoId;
 
