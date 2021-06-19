@@ -56,6 +56,12 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty IsAutoFillEnableProperty =
             DependencyProperty.Register(nameof(IsAutoFillEnable), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
 
+        /// <summary>
+        /// <see cref="HeaderVisibility"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty HeaderVisibilityProperty =
+            DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(VideoView), new PropertyMetadata(Visibility.Visible));
+
         private ScrollViewer _parentScrollViewer;
         private double _itemHolderHeight = 0d;
 
@@ -135,6 +141,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (bool)GetValue(IsAutoFillEnableProperty); }
             set { SetValue(IsAutoFillEnableProperty, value); }
+        }
+
+        /// <summary>
+        /// 标题的可见性.
+        /// </summary>
+        public Visibility HeaderVisibility
+        {
+            get { return (Visibility)GetValue(HeaderVisibilityProperty); }
+            set { SetValue(HeaderVisibilityProperty, value); }
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

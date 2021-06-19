@@ -15,7 +15,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 原创.
         /// </summary>
-        Original,
+        Origin,
 
         /// <summary>
         /// 新人.

@@ -130,6 +130,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Bili_rgba_80.png" />
     <Content Include="Assets\Bili_rgba_25.png" />
     <Content Include="Assets\Bili_rgba_500.png" />
     <Content Include="Assets\Level\level_0.png" />
@@ -189,6 +190,8 @@
     <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Original_rgba_80.png" />
+    <Content Include="Assets\Rookie_rgba_80.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

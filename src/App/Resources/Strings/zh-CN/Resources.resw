@@ -204,6 +204,9 @@
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
   </data>
+  <data name="Original" xml:space="preserve">
+    <value>原创</value>
+  </data>
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
   </data>
@@ -239,6 +242,9 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="Rookie" xml:space="preserve">
+    <value>新人</value>
   </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频，番剧或UP主</value>
@@ -311,5 +317,8 @@
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
+  </data>
+  <data name="WholePartitions" xml:space="preserve">
+    <value>全区</value>
   </data>
 </root>

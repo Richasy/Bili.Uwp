@@ -61,9 +61,6 @@
             ItemInvoked="OnDetailNavigationViewItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.SubPartitionCollection}"
             PaneDisplayMode="Top">
-            <muxc:NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
-            </muxc:NavigationView.Resources>
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="uwp:SubPartitionViewModel">
                     <muxc:NavigationViewItem Content="{x:Bind}" Tag="{x:Bind SubPartitionId}">
