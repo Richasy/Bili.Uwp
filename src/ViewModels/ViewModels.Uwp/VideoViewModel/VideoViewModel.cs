@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bilibili.App.Show.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 
@@ -27,6 +28,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LikeCount = _numberToolkit.GetCountText(video.LikeCount);
             VideoId = video.Parameter;
             PartitionName = video.PartitionName;
+            PartitionId = video.PartitionId;
             Source = video;
             LimitCoverAndAvatar(video.Cover, video.PublisherAvatar);
         }
@@ -35,20 +37,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
         /// <param name="video">排行榜视频.</param>
-        public VideoViewModel(RankVideo video)
+        public VideoViewModel(RankItem video)
             : this()
         {
             Title = video.Title ?? string.Empty;
-            PublisherName = video.PublisherInfo.Publisher;
+            PublisherName = video.Name ?? "--";
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
-            PlayCount = _numberToolkit.GetCountText(video.Status.PlayCount);
-            ReplyCount = _numberToolkit.GetCountText(video.Status.ReplyCount);
-            DanmakuCount = _numberToolkit.GetCountText(video.Status.DanmakuCount);
-            LikeCount = _numberToolkit.GetCountText(video.Status.LikeCount);
-            VideoId = video.Aid.ToString();
-            PartitionName = video.PartitionName;
+            PlayCount = _numberToolkit.GetCountText(video.Play);
+            ReplyCount = _numberToolkit.GetCountText(video.Reply);
+            DanmakuCount = _numberToolkit.GetCountText(video.Danmaku);
+            LikeCount = _numberToolkit.GetCountText(video.Like);
+            VideoId = video.Param;
+            PartitionName = video.Rname;
             Source = video;
-            LimitCoverAndAvatar(video.Cover, video.PublisherInfo.PublisherAvatar);
+            PartitionId = video.Rid;
+            LimitCoverAndAvatar(video.Cover, video.Face);
         }
 
         internal VideoViewModel()

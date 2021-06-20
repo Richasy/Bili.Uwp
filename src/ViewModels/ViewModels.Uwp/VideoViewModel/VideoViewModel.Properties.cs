@@ -14,6 +14,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly INumberToolkit _numberToolkit;
 
         /// <summary>
+        /// 分区Id.
+        /// </summary>
+        public int PartitionId { get; }
+
+        /// <summary>
         /// 视频标题.
         /// </summary>
         [Reactive]

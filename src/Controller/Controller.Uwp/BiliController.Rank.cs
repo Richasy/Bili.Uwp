@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bilibili.App.Show.V1;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -15,13 +15,12 @@ namespace Richasy.Bili.Controller.Uwp
         /// 获取排行榜信息.
         /// </summary>
         /// <param name="partitionId">分区Id.</param>
-        /// <param name="scope">排行榜范围.</param>
         /// <returns>排行榜信息.</returns>
-        public async Task<RankInfo> GetRankAsync(int partitionId, RankScope scope)
+        public async Task<List<RankItem>> GetRankAsync(int partitionId)
         {
             try
             {
-                var rank = await _rankProvider.GetRankDetailAsync(partitionId, scope);
+                var rank = await _rankProvider.GetRankDetailAsync(partitionId);
                 return rank;
             }
             catch

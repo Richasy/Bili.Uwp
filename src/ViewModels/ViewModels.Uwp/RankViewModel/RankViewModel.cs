@@ -41,20 +41,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     0,
                     new RankPartition(
                         _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions),
-                        Models.Enums.RankScope.All,
                         "ms-appx:///Assets/Bili_rgba_80.png"));
-                rankPartitions.Insert(
-                    1,
-                    new RankPartition(
-                        _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Original),
-                        Models.Enums.RankScope.Origin,
-                        "ms-appx:///Assets/Original_rgba_80.png"));
-                rankPartitions.Insert(
-                    2,
-                    new RankPartition(
-                        _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Rookie),
-                        Models.Enums.RankScope.Rookie,
-                        "ms-appx:///Assets/Rookie_rgba_80.png"));
 
                 rankPartitions.ForEach(p => PartitionCollection.Add(p));
 
@@ -82,10 +69,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
                 else
                 {
-                    var rankInfo = await _controller.GetRankAsync(partition.PartitionId, partition.Scope);
-                    if (rankInfo != null)
+                    var rankList = await _controller.GetRankAsync(partition.PartitionId);
+                    if (rankList?.Any() ?? false)
                     {
-                        videoList = rankInfo.VideoList.Select(p => new VideoViewModel(p)).ToList();
+                        videoList = rankList.Select(p => new VideoViewModel(p)).ToList();
                         _cachedRankData.Add(partition, videoList);
                     }
                 }

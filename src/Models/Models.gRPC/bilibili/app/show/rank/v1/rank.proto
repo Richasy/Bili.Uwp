@@ -38,11 +38,11 @@ message RankRegionResultReq {
 // 排行榜信息-响应
 message RankListReply {
     // 排行榜列表
-    repeated Item items = 1;
+    repeated RankItem items = 1;
 }
 
 // 排行榜列表项
-message Item {
+message RankItem {
     // 标题
     string title = 1;
     // 封面url
@@ -94,7 +94,7 @@ message Item {
     // UP主认证信息
     OfficialVerify officialVerify = 24;
     // 同一UP收起子项列表
-    repeated Item children = 25;
+    repeated RankItem children = 25;
     // 关系信息
     Relation relation = 26;
 }
