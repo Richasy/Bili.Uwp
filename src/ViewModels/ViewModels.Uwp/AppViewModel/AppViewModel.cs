@@ -17,7 +17,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _ = BiliController.Instance;
             IsNavigatePaneOpen = true;
-            CurrentMainContentId = PageIds.Rank;
+            CurrentMainContentId = PageIds.Recommend;
         }
 
         /// <summary>

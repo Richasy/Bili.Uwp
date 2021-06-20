@@ -55,6 +55,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsShowLikeCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
         /// <summary>
+        /// <see cref="IsShowAvatar"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowAvatarProperty =
+            DependencyProperty.Register(nameof(IsShowAvatar), typeof(bool), typeof(VideoItem), new PropertyMetadata(true));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
         /// </summary>
         public VideoItem()
@@ -124,6 +130,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (bool)GetValue(IsShowLikeCountProperty); }
             set { SetValue(IsShowLikeCountProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示头像.
+        /// </summary>
+        public bool IsShowAvatar
+        {
+            get { return (bool)GetValue(IsShowAvatarProperty); }
+            set { SetValue(IsShowAvatarProperty, value); }
         }
 
         /// <summary>

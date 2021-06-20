@@ -77,8 +77,7 @@
                     x:Name="ContentScrollView"
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto"
-                    VerticalScrollMode="Enabled">
+                    VerticalScrollBarVisibility="Auto">
                     <Grid x:Name="ContentGrid" Padding="0,12,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

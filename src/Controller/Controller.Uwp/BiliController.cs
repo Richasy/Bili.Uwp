@@ -26,6 +26,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IAccountProvider _accountProvider;
         private readonly IPartitionProvider _partitionProvider;
         private readonly IRankProvider _rankProvider;
+        private readonly IHomeProvider _homeProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -41,7 +42,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _authorizeProvider)
                 .LoadService(out _accountProvider)
                 .LoadService(out _partitionProvider)
-                .LoadService(out _rankProvider);
+                .LoadService(out _rankProvider)
+                .LoadService(out _homeProvider);
 
             RegisterEvents();
         }
@@ -77,6 +79,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<PartitionAdditionalDataChangedEventArgs> SubPartitionAdditionalDataChanged;
 
         /// <summary>
+        /// 在首页推荐中有新的视频列表传入时发生.
+        /// </summary>
+        public event EventHandler<HomeVideoIterationEventArgs> HomeVideoIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -107,7 +114,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
                 .AddSingleton<IPartitionProvider, PartitionProvider>()
-                .AddSingleton<IRankProvider, RankProvider>();
+                .AddSingleton<IRankProvider, RankProvider>()
+                .AddSingleton<IHomeProvider, HomeProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

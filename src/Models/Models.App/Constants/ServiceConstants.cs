@@ -9,8 +9,11 @@ namespace Richasy.Bili.Models.App.Constants
     {
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
-        public static string DefaultAcceptString = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-        public static string BuildNumber = "5520400";
+        public const string DefaultAcceptString = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+        public const string BuildNumber = "5520400";
+        public const string Av = "av";
+        public const string Bangumi = "bangumi";
+        public const string Pgc = "pgc";
 
         public static class Keys
         {
@@ -46,6 +49,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PageNumber = "pn";
             public const string PageSize = "ps";
             public const string Type = "type";
+            public const string Idx = "idx";
+            public const string Flush = "flush";
+            public const string Device = "device";
+            public const string DeviceName = "device_name";
+            public const string Column = "column";
         }
 
         public static class Sort
@@ -204,6 +212,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 排行榜 - gRPC.
                 /// </summary>
                 public const string RankingGRPC = _grpcBase + "/bilibili.app.show.v1.Rank/RankRegion";
+            }
+
+            public static class Home
+            {
+                public const string Recommend = _appBase + "/x/v2/feed/index";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

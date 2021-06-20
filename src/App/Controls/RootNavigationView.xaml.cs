@@ -106,8 +106,8 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.None:
                 default:
                     break;
-                case PageIds.Home:
-                    pageType = typeof(HomePage);
+                case PageIds.Recommend:
+                    pageType = typeof(RecommendPage);
                     break;
                 case PageIds.Rank:
                     pageType = typeof(RankPage);

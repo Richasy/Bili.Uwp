@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Richasy.Bili.App.Pages.RecommendPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:Richasy.Bili.App.Controls" xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    mc:Ignorable="d">
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <muxc:RefreshContainer RefreshRequested="OnRefreshRequestedAsync">
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                    Padding="{StaticResource DefaultContainerPadding}"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                <controls:VideoView ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                                x:Name="VideoView"
+                                    HeaderVisibility="Collapsed"
+                                Margin="0,0,0,12"
+                                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                    <controls:VideoView.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:VideoViewModel">
+                            <controls:VideoItem IsShowDanmakuCount="{x:Bind DanmakuCount,Mode=OneWay,Converter={StaticResource ObjectToBoolConverter}}"
+                                                IsShowPlayCount="True"
+                                                IsShowLikeCount="{x:Bind LikeCount,Mode=OneWay,Converter={StaticResource ObjectToBoolConverter}}"
+                                                IsShowAvatar="False"
+                                                ViewModel="{x:Bind Mode=OneWay}"
+                                                />
+                        </DataTemplate>
+                    </controls:VideoView.ItemTemplate>
+                </controls:VideoView>
+            </ScrollViewer>
+        </muxc:RefreshContainer>
+
+        <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}"
+                                       IsActive="{x:Bind ViewModel.IsInitializeLoading,Mode=OneWay}"/>
+        <muxc:ProgressBar VerticalAlignment="Bottom" IsIndeterminate="True"
+                                      Visibility="{x:Bind ViewModel.IsDeltaLoading,Mode=OneWay}"
+                                      HorizontalAlignment="Stretch"/>
+    </Grid>
+</Page>

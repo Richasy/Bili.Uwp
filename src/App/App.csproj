@@ -76,8 +76,8 @@
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="Pages\RecommendPage.xaml.cs">
+      <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\IConnectedAnimationPage.cs" />
     <Compile Include="Pages\LivePage.xaml.cs">
@@ -119,6 +119,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
+    <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
+    <Compile Include="Resources\Converter\StringToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
@@ -276,7 +278,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\HomePage.xaml">
+    <Page Include="Pages\RecommendPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

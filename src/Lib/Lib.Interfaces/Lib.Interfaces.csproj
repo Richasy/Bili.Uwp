@@ -122,6 +122,7 @@
   <ItemGroup>
     <Compile Include="IAccountProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
+    <Compile Include="IHomeProvider.cs" />
     <Compile Include="IHttpProvider.cs" />
     <Compile Include="IPartitionProvider.cs" />
     <Compile Include="IRankProvider.cs" />

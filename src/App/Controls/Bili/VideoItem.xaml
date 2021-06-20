@@ -67,7 +67,6 @@
                 x:Name="CoverContainer"
                 Height="124"
                 CornerRadius="4,4,0,0"
-                Margin="1,0"
                 VerticalAlignment="Stretch">
                 <hn:ImageEx
                     x:Name="CoverImage"
@@ -115,7 +114,8 @@
                 x:Name="SingleAvatar"
                 Margin="0,0,12,-18"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom">
+                VerticalAlignment="Bottom"
+                Visibility="{x:Bind IsShowAvatar,Mode=OneWay}">
                 <Ellipse
                     Width="40"
                     Height="40"
@@ -140,7 +140,8 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel x:Name="InlineUserContainer" Orientation="Horizontal">
-                    <local:UserAvatar
+                    <Grid Visibility="{x:Bind IsShowAvatar,Mode=OneWay}">
+                        <local:UserAvatar
                         x:Name="InlineAvatar"
                         Width="24"
                         Height="24"
@@ -149,6 +150,8 @@
                         Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
                         UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
                         Visibility="Collapsed" />
+                    </Grid>
+
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         VerticalAlignment="Center"

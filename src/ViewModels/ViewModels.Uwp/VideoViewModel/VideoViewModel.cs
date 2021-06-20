@@ -3,6 +3,7 @@
 using System;
 using Bilibili.App.Show.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -51,7 +52,49 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = video.Rname;
             Source = video;
             PartitionId = video.Rid;
+            AdditionalText = video.Pts.ToString();
             LimitCoverAndAvatar(video.Cover, video.Face);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="card">推荐视频卡片.</param>
+        public VideoViewModel(RecommendCard card)
+            : this()
+        {
+            Title = card.Title ?? string.Empty;
+            VideoId = card.Parameter;
+            PlayCount = card.PlayCountText;
+            if (card.CardGoto == ServiceConstants.Av)
+            {
+                // 视频处理.
+                DanmakuCount = card.SubStatusText;
+                LikeCount = string.Empty;
+                PublisherName = card.CardArgs.PublisherName ?? "--";
+                if ((card.PlayerArgs?.Duration).HasValue)
+                {
+                    Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds((double)card.PlayerArgs?.Duration));
+                }
+                else
+                {
+                    Duration = _numberToolkit.GetDurationText(TimeSpan.Parse(card.DurationText));
+                }
+
+                PartitionId = card.CardArgs.PartitionId;
+                PartitionName = card.CardArgs.PartitionName;
+            }
+            else
+            {
+                // 动漫处理.
+                LikeCount = card.SubStatusText;
+                DanmakuCount = string.Empty;
+                PublisherName = card.Description?.Text ?? "--";
+            }
+
+            AdditionalText = card.RecommendReason ?? string.Empty;
+            Source = card;
+            LimitCoverAndAvatar(card.Cover);
         }
 
         internal VideoViewModel()
@@ -62,11 +105,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.
         /// </summary>
-        private void LimitCoverAndAvatar(string coverUrl, string avatarUrl)
+        private void LimitCoverAndAvatar(string coverUrl, string avatarUrl = null)
         {
             SourceCoverUrl = coverUrl;
             CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
-            PublisherAvatar = avatarUrl + "@60w_60h_1c_100q.jpg";
+            if (!string.IsNullOrEmpty(avatarUrl))
+            {
+                PublisherAvatar = avatarUrl + "@60w_60h_1c_100q.jpg";
+            }
         }
     }
 }

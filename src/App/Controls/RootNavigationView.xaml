@@ -52,7 +52,7 @@
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Home" Content="{loc:LocaleLocator Name=Home}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:LocaleLocator Name=Recommend}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:FluentIconElement Symbol="Home16" />
                     </muxc:NavigationViewItem.Icon>

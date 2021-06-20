@@ -35,18 +35,25 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (CurrentPartition == null)
             {
                 IsInitializeLoading = true;
-                var originalPartitions = await _controller.RequestPartitionIndexAsync();
-                var rankPartitions = originalPartitions.Select(p => new RankPartition(p)).ToList();
-                rankPartitions.Insert(
-                    0,
-                    new RankPartition(
-                        _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions),
-                        "ms-appx:///Assets/Bili_rgba_80.png"));
+                try
+                {
+                    var originalPartitions = await _controller.RequestPartitionIndexAsync();
+                    var rankPartitions = originalPartitions.Select(p => new RankPartition(p)).ToList();
+                    rankPartitions.Insert(
+                        0,
+                        new RankPartition(
+                            _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions),
+                            "ms-appx:///Assets/Bili_rgba_80.png"));
 
-                rankPartitions.ForEach(p => PartitionCollection.Add(p));
+                    rankPartitions.ForEach(p => PartitionCollection.Add(p));
 
-                IsInitializeLoading = false;
-                await SetSelectedRankPartitionAsync(PartitionCollection.First());
+                    IsInitializeLoading = false;
+                    await SetSelectedRankPartitionAsync(PartitionCollection.First());
+                }
+                catch (System.Exception)
+                {
+                    // ignore.
+                }
             }
         }
 

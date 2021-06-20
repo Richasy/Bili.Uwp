@@ -1,0 +1,49 @@
+﻿// Copyright (c) Richasy. All rights reserved.
+
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.BiliBili;
+using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+
+namespace Richasy.Bili.Lib.Uwp
+{
+    /// <summary>
+    /// 首页视频处理程序.
+    /// </summary>
+    public partial class HomeProvider : IHomeProvider
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeProvider"/> class.
+        /// </summary>
+        /// <param name="httpProvider">网络处理工具.</param>
+        public HomeProvider(IHttpProvider httpProvider)
+        {
+            this._httpProvider = httpProvider;
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<RecommendCard>> RequestRecommendCardsAsync(int offsetIdx)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Idx, offsetIdx.ToString() },
+                { Query.Flush, "5" },
+                { Query.Column, "4" },
+                { Query.Device, "phone" },
+                { Query.DeviceName, "iPhone 12" },
+                { Query.Pull, (offsetIdx == 0).ToString().ToLower() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(
+                HttpMethod.Get,
+                Api.Home.Recommend,
+                queryParameters,
+                Models.Enums.RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<HomeRecommendInfo>>(response);
+            return data.Data.Items;
+        }
+    }
+}

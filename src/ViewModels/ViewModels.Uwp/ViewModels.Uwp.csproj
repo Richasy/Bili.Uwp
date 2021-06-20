@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="AppViewModel\AppViewModel.cs" />
     <Compile Include="AppViewModel\AppViewModel.Properties.cs" />
+    <Compile Include="RecommendViewModel.cs" />
+    <Compile Include="RecommendViewModel.Properties.cs" />
     <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.cs" />
     <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
     <Compile Include="PartitionViewModel\PartitionViewModel.cs" />

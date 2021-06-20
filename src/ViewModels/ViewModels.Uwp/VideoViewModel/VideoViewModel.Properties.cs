@@ -79,6 +79,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string PartitionName { get; set; }
 
         /// <summary>
+        /// 附加文本.
+        /// </summary>
+        [Reactive]
+        public string AdditionalText { get; set; }
+
+        /// <summary>
         /// 生成视图模型的源数据.
         /// </summary>
         public object Source { get; private set; }

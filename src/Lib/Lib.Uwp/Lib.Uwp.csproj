@@ -16,6 +16,8 @@
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
+    <Compile Include="HomeProvider\HomeProvider.cs" />
+    <Compile Include="HomeProvider\HomeProvider.Extension.cs" />
     <Compile Include="HttpProvider\HttpProvider.cs" />
     <Compile Include="HttpProvider\HttpProvider.Extension.cs" />
     <Compile Include="PartitionProvider\PartitionProvider.cs" />

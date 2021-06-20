@@ -13,9 +13,9 @@ namespace Richasy.Bili.Models.Enums
         None,
 
         /// <summary>
-        /// 首页.
+        /// 视频推荐.
         /// </summary>
-        Home,
+        Recommend,
 
         /// <summary>
         /// 排行榜.
