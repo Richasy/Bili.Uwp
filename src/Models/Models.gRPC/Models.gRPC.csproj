@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Richasy.Bili.Models.gRPC</RootNamespace>
+    <AssemblyName>Richasy.Bili.Models.gRPC</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="bilibili\account\fission\v1\fission.proto" />
+    <None Remove="bilibili\ad\v1\ad.proto" />
+    <None Remove="bilibili\api\probe\v1\probe.proto" />
+    <None Remove="bilibili\app\archive\middleware\v1\preload.proto" />
+    <None Remove="bilibili\app\archive\v1\archive.proto" />
+    <None Remove="bilibili\app\card\v1\ad.proto" />
+    <None Remove="bilibili\app\card\v1\card.proto" />
+    <None Remove="bilibili\app\card\v1\common.proto" />
+    <None Remove="bilibili\app\card\v1\double.proto" />
+    <None Remove="bilibili\app\card\v1\single.proto" />
+    <None Remove="bilibili\app\dynamic\v1\dynamic.proto" />
+    <None Remove="bilibili\app\dynamic\v2\dynamic.proto" />
+    <None Remove="bilibili\app\interfaces\v1.proto" />
+    <None Remove="bilibili\app\playurl\v1\playurl.proto" />
+    <None Remove="bilibili\app\show\gateway\v1\gateway.proto" />
+    <None Remove="bilibili\app\show\popular\v1\popular.proto" />
+    <None Remove="bilibili\app\show\rank\v1\rank.proto" />
+    <None Remove="bilibili\app\show\region\v1\region.proto" />
+    <None Remove="bilibili\app\space\v1\space.proto" />
+    <None Remove="bilibili\app\splash\v1\splash.proto" />
+    <None Remove="bilibili\app\view\v1\view.proto" />
+    <None Remove="bilibili\app\wall\v1\wall.proto" />
+    <None Remove="bilibili\broadcast\message\main.proto" />
+    <None Remove="bilibili\cheese\gateway\player\v1.proto" />
+    <None Remove="bilibili\community\service\dm\v1.proto" />
+    <None Remove="bilibili\im\interfaces\v1.proto" />
+    <None Remove="bilibili\im\type.proto" />
+    <None Remove="bilibili\main\community\reply\v1\reply.proto" />
+    <None Remove="bilibili\metadata\device\device.proto" />
+    <None Remove="bilibili\metadata\fawkes\fawkes.proto" />
+    <None Remove="bilibili\metadata\locale\locale.proto" />
+    <None Remove="bilibili\metadata\metadata.proto" />
+    <None Remove="bilibili\metadata\network\network.proto" />
+    <None Remove="bilibili\metadata\restriction\restriction.proto" />
+    <None Remove="bilibili\pgc\gateway\player\v2.proto" />
+    <None Remove="bilibili\rpc\status.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.17.3" />
+    <PackageReference Include="Grpc.Core" Version="2.38.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.38.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="bilibili\broadcast\message\main.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="bilibili\app\playurl\v1\playurl.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="bilibili\account\fission\v1\fission.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\ad\v1\ad.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\api\probe\v1\probe.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\archive\middleware\v1\preload.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\archive\v1\archive.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\card\v1\ad.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\card\v1\card.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\card\v1\common.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\card\v1\double.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\card\v1\single.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\dynamic\v1\dynamic.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\dynamic\v2\dynamic.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\interfaces\v1.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\show\gateway\v1\gateway.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\show\popular\v1\popular.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\show\rank\v1\rank.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\show\region\v1\region.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\space\v1\space.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\splash\v1\splash.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\view\v1\view.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\app\wall\v1\wall.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\cheese\gateway\player\v1.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\community\service\dm\v1.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\im\interfaces\v1.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\im\type.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\main\community\reply\v1\reply.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\device\device.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\fawkes\fawkes.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\locale\locale.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\metadata.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\network\network.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\metadata\restriction\restriction.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\pgc\gateway\player\v2.proto" GrpcServices="Client" />
+    <Protobuf Include="bilibili\rpc\status.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+</Project>

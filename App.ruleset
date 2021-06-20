@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Rules for App" Description="Code analysis rules for App.csproj." ToolsVersion="16.0">
+<RuleSet Name="Rules for App" Description="Code analysis rules for App.csproj." ToolsVersion="17.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1001" Action="Warning" />
     <Rule Id="CA1009" Action="Warning" />
@@ -78,6 +78,7 @@
     <Rule Id="SA1101" Action="None" />
     <Rule Id="SA1309" Action="None" />
     <Rule Id="SA1402" Action="None" />
+    <Rule Id="SA1518" Action="None" />
     <Rule Id="SA1623" Action="None" />
     <Rule Id="SA1642" Action="None" />
   </Rules>

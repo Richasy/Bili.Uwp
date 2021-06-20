@@ -129,6 +129,9 @@
     <EmbeddedResource Include="Properties\Lib.Interfaces.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf">
+      <Version>3.17.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>

@@ -110,7 +110,6 @@ namespace Richasy.Bili.Lib.Uwp
             ServerResponse errorResponse = null;
             try
             {
-                var errorResponseStr = await response.Content.ReadAsStringAsync();
                 if (response.Content.Headers.ContentType?.MediaType.Contains("image") ?? false)
                 {
                     if (response.IsSuccessStatusCode)
@@ -118,7 +117,19 @@ namespace Richasy.Bili.Lib.Uwp
                         return;
                     }
                 }
+                else if (response.Content.Headers.ContentType?.MediaType == ServiceConstants.Headers.GRPCContentType)
+                {
+                    var bytes = await response.Content.ReadAsByteArrayAsync();
+                    if (bytes.Length <= 5)
+                    {
+                        errorResponse = new ServerResponse { Message = ServiceConstants.Messages.NoData };
+                        throw new ServiceException(errorResponse, response.Headers, response.StatusCode);
+                    }
 
+                    return;
+                }
+
+                var errorResponseStr = await response.Content.ReadAsStringAsync();
                 errorResponse = JsonConvert.DeserializeObject<ServerResponse>(errorResponseStr);
                 if (errorResponse?.Code == 0 || string.IsNullOrEmpty(errorResponseStr))
                 {
