@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package bilibili.api.probe.v1;
+
+//
+service Probe {
+    //
+    rpc TestCode (CodeReq) returns (CodeReply);
+    //
+    rpc TestReq (ProbeReq) returns (ProbeReply);
+    //
+    rpc TestStream (ProbeStreamReq) returns (ProbeStreamReply);
+    //
+    rpc TestSub (ProbeSubReq) returns (ProbeSubReply);
+}
+
+//
+message CodeReq {
+    //
+    int64 code = 1;
+}
+
+//
+message CodeReply {}
+
+//
+message ProbeReq {
+    //
+    int64 mid = 1;
+    //
+    string buvid = 2;
+}
+
+//
+message ProbeReply {
+    //
+    string content = 1;
+    //
+    int64 timestamp = 2;
+}
+
+//
+message ProbeStreamReq {
+    //
+    int64 mid = 1;
+    //
+    int64 sequence = 2;
+}
+
+//
+message ProbeStreamReply {
+    //
+    int64 sequence = 1;
+    //
+    int64 timestamp = 2;
+    //
+    string content = 3;
+}
+
+//
+message ProbeSubReq {
+    //
+    int64 buvid = 1;
+}
+
+//
+message ProbeSubReply {
+    //
+    int64 messageId = 1;
+}

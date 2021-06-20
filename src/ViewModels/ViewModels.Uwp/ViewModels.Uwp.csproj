@@ -69,6 +69,10 @@
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj">
+      <Project>{0187840f-8d1a-4198-b5bf-8b05cadb4554}</Project>
+      <Name>Models.gRPC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
       <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
       <Name>Locator.Uwp</Name>

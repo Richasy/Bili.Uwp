@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.Lib.Interfaces
@@ -31,6 +32,14 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android, bool needToken = false);
 
         /// <summary>
+        /// 获取 <see cref="HttpRequestMessage"/>.
+        /// </summary>
+        /// <param name="url">请求地址.</param>
+        /// <param name="grpcMessage">gRPC信息.</param>
+        /// <returns><see cref="HttpRequestMessage"/>.</returns>
+        Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage);
+
+        /// <summary>
         /// 发送请求.
         /// </summary>
         /// <param name="request">需要发送的 <see cref="HttpRequestMessage"/>.</param>
@@ -52,5 +61,15 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <typeparam name="T">需要转换的目标类型.</typeparam>
         /// <returns>转换结果.</returns>
         Task<T> ParseAsync<T>(HttpResponseMessage response);
+
+        /// <summary>
+        /// 解析响应.
+        /// </summary>
+        /// <param name="response">得到的 <see cref="HttpResponseMessage"/>.</param>
+        /// <param name="parser">对应gRPC类型的转换器.</param>
+        /// <typeparam name="T">需要转换的gRPC目标类型.</typeparam>
+        /// <returns>转换结果.</returns>
+        Task<T> ParseAsync<T>(HttpResponseMessage response, MessageParser<T> parser)
+            where T : IMessage<T>;
     }
 }

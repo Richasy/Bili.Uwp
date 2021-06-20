@@ -60,6 +60,7 @@ namespace Richasy.Bili.Models.App.Constants
         public static class Messages
         {
             public const string NotFound = "没有找到你所需要的资源";
+            public const string NoData = "请求失败，没有数据返回";
             public const string UnexpectedExceptionOnSend = "在发送请求时出现了异常";
             public const string RequestTimedOut = "请求超时";
             public const string OverallTimeoutCannotBeSet = "全局超时未能在第一次请求后设置";
@@ -69,8 +70,28 @@ namespace Richasy.Bili.Models.App.Constants
         public static class Headers
         {
             public const string Bearer = "Bearer";
+            public const string Identify = "identify_v1";
             public const string FormUrlEncodedContentType = "application/x-www-form-urlencoded";
             public const string JsonContentType = "application/json";
+            public const string GRPCContentType = "application/grpc";
+            public const string UserAgent = "User-Agent";
+            public const string AppKey = "APP-KEY";
+            public const string BiliMeta = "x-bili-metadata-bin";
+            public const string Authorization = "authorization";
+            public const string BiliDevice = "x-bili-device-bin";
+            public const string BiliNetwork = "x-bili-network-bin";
+            public const string BiliRestriction = "x-bili-restriction-bin";
+            public const string BiliLocale = "x-bili-locale-bin";
+            public const string BiliFawkes = "x-bili-fawkes-req-bin";
+            public const string GRPCAcceptEncodingKey = "grpc-accept-encoding";
+            public const string GRPCAcceptEncodingValue = "identity,deflate,gzip";
+            public const string GRPCTimeOutKey = "grpc-timeout";
+            public const string GRPCTimeOutValue = "20100m";
+            public const string Envoriment = "env";
+            public const string TransferEncodingKey = "Transfer-Encoding";
+            public const string TransferEncodingValue = "chunked";
+            public const string TEKey = "TE";
+            public const string TEValue = "trailers";
         }
 
         public static class Settings
@@ -91,6 +112,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string _liveBase = "https://api.live.bilibili.com";
             public const string _passBase = "https://passport.bilibili.com";
             public const string _bangumiBase = "https://bangumi.bilibili.com";
+            public const string _grpcBase = "https://grpc.biliapi.net";
 
             public static class Passport
             {
@@ -174,9 +196,14 @@ namespace Richasy.Bili.Models.App.Constants
             public static class Rank
             {
                 /// <summary>
-                /// 排行榜.
+                /// 排行榜 - Web.
                 /// </summary>
                 public const string Ranking = _apiBase + "/x/web-interface/ranking/v2";
+
+                /// <summary>
+                /// 排行榜 - gRPC.
+                /// </summary>
+                public const string RankingGRPC = _grpcBase + "/bilibili.app.show.v1.Rank/RankRegion";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

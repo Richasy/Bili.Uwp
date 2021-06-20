@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.Models.App.Other
 {
@@ -14,14 +13,12 @@ namespace Richasy.Bili.Models.App.Other
         /// Initializes a new instance of the <see cref="RankPartition"/> class.
         /// </summary>
         /// <param name="partitionName">分区名称.</param>
-        /// <param name="scope">排行榜范围.</param>
         /// <param name="logo">图标.</param>
         /// <param name="partitionId">分区Id.</param>
-        public RankPartition(string partitionName, RankScope scope, string logo, int partitionId = 0)
+        public RankPartition(string partitionName, string logo, int partitionId = 0)
         {
             this.PartitionName = partitionName;
             this.PartitionId = partitionId;
-            this.Scope = scope;
             this.Logo = logo;
         }
 
@@ -33,7 +30,6 @@ namespace Richasy.Bili.Models.App.Other
         {
             this.PartitionId = partition.Tid;
             this.PartitionName = partition.Name;
-            this.Scope = RankScope.All;
             this.Logo = partition.Logo;
         }
 
@@ -48,24 +44,18 @@ namespace Richasy.Bili.Models.App.Other
         public string PartitionName { get; set; }
 
         /// <summary>
-        /// 排行榜范围.
-        /// </summary>
-        public RankScope Scope { get; set; }
-
-        /// <summary>
         /// 图标.
         /// </summary>
         public string Logo { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is RankPartition partition && PartitionId == partition.PartitionId && Scope == partition.Scope;
+        public override bool Equals(object obj) => obj is RankPartition partition && PartitionId == partition.PartitionId;
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
             var hashCode = 1323653111;
             hashCode = (hashCode * -1521134295) + PartitionId.GetHashCode();
-            hashCode = (hashCode * -1521134295) + Scope.GetHashCode();
             return hashCode;
         }
     }

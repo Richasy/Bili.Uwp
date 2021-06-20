@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
+using Bilibili.App.Show.V1;
 using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -25,18 +24,13 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<RankInfo> GetRankDetailAsync(int partitionId, RankScope rankScope)
+        public async Task<List<RankItem>> GetRankDetailAsync(int partitionId)
         {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.PartitionId, partitionId.ToString() },
-                { Query.Type, rankScope.ToString().ToLower() },
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Rank.Ranking, queryParameters, RequestClientType.Web);
+            var rankRequst = new RankRegionResultReq() { Rid = partitionId };
+            var request = await _httpProvider.GetRequestMessageAsync(Api.Rank.RankingGRPC, rankRequst);
             var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<RankInfo>>(response);
-            return data.Data;
+            var data = await _httpProvider.ParseAsync(response, RankListReply.Parser);
+            return data.Items.ToList();
         }
     }
 }

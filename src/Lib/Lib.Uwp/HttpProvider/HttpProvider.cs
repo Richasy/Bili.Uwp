@@ -2,14 +2,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Newtonsoft.Json;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.gRPC;
+using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -80,6 +85,50 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage)
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+            var token = await _authenticationProvider.GetTokenAsync();
+            var grpcConfig = new GRPCConfig(token);
+            var userAgent = $"bili-universal/62800300 "
+                + $"os/ios model/{GRPCConfig.Model} mobi_app/iphone "
+                + $"osVer/{GRPCConfig.OSVersion} "
+                + $"network/{GRPCConfig.NetworkType} "
+                + $"grpc-objc/1.32.0 grpc-c/12.0.0 (ios; cronet_http)";
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue(Headers.Identify, token);
+            requestMessage.Headers.Add(Headers.UserAgent, userAgent);
+            requestMessage.Headers.Add(Headers.AppKey, GRPCConfig.MobileApp);
+            requestMessage.Headers.Add(Headers.BiliDevice, grpcConfig.GetDeviceBin());
+            requestMessage.Headers.Add(Headers.BiliFawkes, grpcConfig.GetFawkesreqBin());
+            requestMessage.Headers.Add(Headers.BiliLocale, grpcConfig.GetLocaleBin());
+            requestMessage.Headers.Add(Headers.BiliMeta, grpcConfig.GetMetadataBin());
+            requestMessage.Headers.Add(Headers.BiliNetwork, grpcConfig.GetNetworkBin());
+            requestMessage.Headers.Add(Headers.BiliRestriction, grpcConfig.GetRestrictionBin());
+            requestMessage.Headers.Add(Headers.GRPCAcceptEncodingKey, Headers.GRPCAcceptEncodingValue);
+            requestMessage.Headers.Add(Headers.GRPCTimeOutKey, Headers.GRPCTimeOutValue);
+            requestMessage.Headers.Add(Headers.Envoriment, GRPCConfig.Envorienment);
+            requestMessage.Headers.Add(Headers.TransferEncodingKey, Headers.TransferEncodingValue);
+            requestMessage.Headers.Add(Headers.TEKey, Headers.TEValue);
+
+            var messageBytes = grpcMessage.ToByteArray();
+
+            // 校验用?第五位为数组长度
+            var stateBytes = new byte[] { 0, 0, 0, 0, (byte)messageBytes.Length };
+
+            // 合并两个字节数组
+            var bodyBytes = new byte[5 + messageBytes.Length];
+            stateBytes.CopyTo(bodyBytes, 0);
+            messageBytes.CopyTo(bodyBytes, 5);
+
+            var byteArrayContent = new ByteArrayContent(bodyBytes);
+            byteArrayContent.Headers.ContentType = new MediaTypeHeaderValue(Headers.GRPCContentType);
+            byteArrayContent.Headers.ContentLength = bodyBytes.Length;
+
+            requestMessage.Content = byteArrayContent;
+            return requestMessage;
+        }
+
+        /// <inheritdoc/>
         public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
             return this.SendAsync(request, CancellationToken.None);
@@ -106,6 +155,14 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(responseString);
+        }
+
+        /// <inheritdoc/>
+        public async Task<T> ParseAsync<T>(HttpResponseMessage response, MessageParser<T> parser)
+            where T : IMessage<T>
+        {
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            return parser.ParseFrom(bytes.Skip(5).ToArray());
         }
     }
 }
