@@ -55,44 +55,39 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckOffsetButtonStatus()
         {
-            if (WideScrollView.ExtentWidth <= WideScrollView.ViewportWidth)
+            if (WideScrollViewer.ExtentWidth <= WideScrollViewer.ViewportWidth)
             {
                 LeftOffsetButton.Visibility = RightOffsetButton.Visibility = Visibility.Collapsed;
             }
             else
             {
-                LeftOffsetButton.Visibility = WideScrollView.HorizontalOffset == 0 ? Visibility.Collapsed : Visibility.Visible;
-                RightOffsetButton.Visibility = WideScrollView.ScrollableWidth - WideScrollView.HorizontalOffset > 0 ? Visibility.Visible : Visibility.Collapsed;
+                LeftOffsetButton.Visibility = WideScrollViewer.HorizontalOffset == 0 ? Visibility.Collapsed : Visibility.Visible;
+                RightOffsetButton.Visibility = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset > 0 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void OnLeftOffsetButtonClick(object sender, RoutedEventArgs e)
         {
-            var leftOffset = WideScrollView.HorizontalOffset - WideScrollView.ViewportWidth;
+            var leftOffset = WideScrollViewer.HorizontalOffset - WideScrollViewer.ViewportWidth;
             if (leftOffset < 0)
             {
                 leftOffset = 0;
             }
 
             var options = new ScrollingScrollOptions(ScrollingAnimationMode.Enabled, ScrollingSnapPointsMode.Ignore);
-            WideScrollView.ScrollTo(leftOffset, 0, options);
+            WideScrollViewer.ChangeView(leftOffset, 0, 1);
         }
 
         private void OnRightOffsetButtonClick(object sender, RoutedEventArgs e)
         {
-            var rightOffset = WideScrollView.HorizontalOffset + WideScrollView.ViewportWidth;
-            if (rightOffset > WideScrollView.ExtentWidth)
+            var rightOffset = WideScrollViewer.HorizontalOffset + WideScrollViewer.ViewportWidth;
+            if (rightOffset > WideScrollViewer.ExtentWidth)
             {
-                rightOffset = WideScrollView.ScrollableWidth - WideScrollView.HorizontalOffset;
+                rightOffset = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset;
             }
 
             var options = new ScrollingScrollOptions(ScrollingAnimationMode.Auto, ScrollingSnapPointsMode.Ignore);
-            WideScrollView.ScrollTo(rightOffset, 0, options);
-        }
-
-        private void OnWideScrollViewChanged(ScrollView sender, object args)
-        {
-            CheckOffsetButtonStatus();
+            WideScrollViewer.ChangeView(rightOffset, 0, 1);
         }
 
         private async void OnBannerTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
@@ -113,6 +108,11 @@ namespace Richasy.Bili.App.Controls
             var control = sender as Control;
             VisualStateManager.GoToState(sender as Control, "NormalState", true);
             control.ReleasePointerCapture(e.Pointer);
+        }
+
+        private void OnWideScrollViewerChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            CheckOffsetButtonStatus();
         }
     }
 }

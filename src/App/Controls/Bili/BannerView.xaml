@@ -32,12 +32,12 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="WideContainer" CornerRadius="{StaticResource ControlCornerRadius}">
-            <controls:ScrollView
-                x:Name="WideScrollView"
+            <ScrollViewer
+                x:Name="WideScrollViewer"
                 HorizontalScrollBarVisibility="Hidden"
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled"
-                ViewChanged="OnWideScrollViewChanged">
+                ViewChanged="OnWideScrollViewerChanged">
                 <controls:ItemsRepeater x:Name="BannerRepeater" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
                     <controls:ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="bilibili:Banner">
@@ -51,7 +51,7 @@
                         <controls:StackLayout Orientation="Horizontal" Spacing="12" />
                     </controls:ItemsRepeater.Layout>
                 </controls:ItemsRepeater>
-            </controls:ScrollView>
+            </ScrollViewer>
 
             <local:OffsetButton
                 x:Name="LeftOffsetButton"
@@ -79,6 +79,7 @@
                                 RetryDelay="0:0:2"
                                 Source="{x:Bind Image}"
                                 Stretch="UniformToFill"
+                                Tapped="OnBannerTappedAsync"
                                 ToolTipService.ToolTip="{x:Bind Title}">
                                 <hn:ImageEx.LoadingTemplate>
                                     <DataTemplate>
