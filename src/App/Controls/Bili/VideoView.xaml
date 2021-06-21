@@ -16,8 +16,8 @@
             ItemsJustification="Start"
             ItemsStretch="Fill"
             MinColumnSpacing="16"
-            MinItemHeight="232"
-            MinItemWidth="222"
+            MinItemHeight="{x:Bind MinWideItemHeight, Mode=OneWay}"
+            MinItemWidth="{x:Bind MinWideItemWidth, Mode=OneWay}"
             MinRowSpacing="16"
             Orientation="Horizontal" />
         <muxc:StackLayout
@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Margin="0,0,0,12" Visibility="{x:Bind HeaderVisibility,Mode=OneWay}">
+        <Grid Margin="0,0,0,12" Visibility="{x:Bind HeaderVisibility, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

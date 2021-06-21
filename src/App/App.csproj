@@ -25,6 +25,9 @@
       <DependentUpon>BannerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CardPanel\CardPanel.cs" />
+    <Compile Include="Controls\ErrorPanel.xaml.cs">
+      <DependentUpon>ErrorPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconTextBlock.xaml.cs">
       <DependentUpon>IconTextBlock.xaml</DependentUpon>
     </Compile>
@@ -120,7 +123,7 @@
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
-    <Compile Include="Resources\Converter\StringToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
@@ -192,6 +195,7 @@
     <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Null_rgba.png" />
     <Content Include="Assets\Original_rgba_80.png" />
     <Content Include="Assets\Rookie_rgba_80.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -231,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CardPanel\CardPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ErrorPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

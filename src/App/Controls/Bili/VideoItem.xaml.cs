@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -59,6 +61,24 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty IsShowAvatarProperty =
             DependencyProperty.Register(nameof(IsShowAvatar), typeof(bool), typeof(VideoItem), new PropertyMetadata(true));
+
+        /// <summary>
+        /// <see cref="AdditionalFooterContent"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AdditionalFooterContentProperty =
+            DependencyProperty.Register(nameof(AdditionalFooterContent), typeof(object), typeof(VideoItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// <see cref="AdditionalOverlayContent"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AdditionalOverlayContentProperty =
+            DependencyProperty.Register(nameof(AdditionalOverlayContent), typeof(object), typeof(VideoItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// <see cref="AdditionalOverlayContentVisibility"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AdditionalOverlayContentVisibilityProperty =
+            DependencyProperty.Register(nameof(AdditionalOverlayContentVisibility), typeof(Visibility), typeof(VideoItem), new PropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
@@ -142,6 +162,33 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 附加的底部内容，显示在内容区底部.
+        /// </summary>
+        public object AdditionalFooterContent
+        {
+            get { return (object)GetValue(AdditionalFooterContentProperty); }
+            set { SetValue(AdditionalFooterContentProperty, value); }
+        }
+
+        /// <summary>
+        /// 附加的Overlay内容，在竖向排版时显示在视频封面上，横向排版时显示在标题下方.
+        /// </summary>
+        public object AdditionalOverlayContent
+        {
+            get { return (object)GetValue(AdditionalOverlayContentProperty); }
+            set { SetValue(AdditionalOverlayContentProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示附加的Overlay内容.
+        /// </summary>
+        public Visibility AdditionalOverlayContentVisibility
+        {
+            get { return (Visibility)GetValue(AdditionalOverlayContentVisibilityProperty); }
+            set { SetValue(AdditionalOverlayContentVisibilityProperty, value); }
+        }
+
+        /// <summary>
         /// 获取占位大小，这是一个固定值，用于预先测量.
         /// </summary>
         /// <returns><see cref="Size"/>.</returns>
@@ -153,7 +200,7 @@ namespace Richasy.Bili.App.Controls
             }
             else
             {
-                return new Size(210, 228);
+                return new Size(210, 248);
             }
         }
 
@@ -197,8 +244,10 @@ namespace Richasy.Bili.App.Controls
             CheckOrientation();
         }
 
-        private void OnContainerClick(object sender, RoutedEventArgs e)
+        private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
+            var link = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
+            await Launcher.LaunchUriAsync(new System.Uri(link)).AsTask();
         }
     }
 }

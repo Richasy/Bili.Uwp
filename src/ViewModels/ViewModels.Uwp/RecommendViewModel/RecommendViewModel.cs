@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
+using Richasy.Bili.Models.App.Other;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -22,6 +23,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller = BiliController.Instance;
             VideoCollection = new ObservableCollection<VideoViewModel>();
             _offsetIndex = 0;
+            ServiceLocator.Instance.LoadService(out _resourceToolkit);
             _controller.HomeVideoIteration += OnHomeVideoIteration;
         }
 
@@ -55,9 +57,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     await _controller.RequestRecommendCardsAsync(_offsetIndex);
                 }
-                catch (Exception)
+                catch (ServiceException ex)
                 {
                     IsError = true;
+                    ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestRecommendFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
 
                 IsInitializeLoading = false;
@@ -84,6 +87,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void Reset()
         {
             _offsetIndex = 0;
+            IsError = false;
+            ErrorText = string.Empty;
             VideoCollection.Clear();
         }
 

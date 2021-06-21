@@ -53,5 +53,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsRankLoading { get; set; }
+
+        /// <summary>
+        /// 是否发生了请求错误.
+        /// </summary>
+        [Reactive]
+        public bool IsError { get; set; }
+
+        /// <summary>
+        /// 错误文本.
+        /// </summary>
+        [Reactive]
+        public string ErrorText { get; set; }
     }
 }

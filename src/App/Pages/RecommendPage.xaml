@@ -2,11 +2,13 @@
     x:Class="Richasy.Bili.App.Pages.RecommendPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:Richasy.Bili.App.Controls" xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
     <Grid>
@@ -31,32 +33,57 @@
         <muxc:RefreshContainer RefreshRequested="OnRefreshRequestedAsync">
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                    Padding="{StaticResource DefaultContainerPadding}"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                <controls:VideoView ItemsSource="{x:Bind ViewModel.VideoCollection}"
-                                x:Name="VideoView"
-                                    HeaderVisibility="Collapsed"
-                                Margin="0,0,0,12"
-                                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                Padding="{StaticResource DefaultContainerPadding}"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <controls:VideoView
+                    x:Name="VideoView"
+                    Margin="0,0,0,12"
+                    HeaderVisibility="Collapsed"
+                    ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                     <controls:VideoView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <controls:VideoItem IsShowDanmakuCount="{x:Bind DanmakuCount,Mode=OneWay,Converter={StaticResource ObjectToBoolConverter}}"
-                                                IsShowPlayCount="True"
-                                                IsShowLikeCount="{x:Bind LikeCount,Mode=OneWay,Converter={StaticResource ObjectToBoolConverter}}"
-                                                IsShowAvatar="False"
-                                                ViewModel="{x:Bind Mode=OneWay}"
-                                                />
+                            <controls:VideoItem
+                                AdditionalOverlayContentVisibility="{x:Bind AdditionalText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}"
+                                IsShowAvatar="False"
+                                IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
+                                IsShowLikeCount="{x:Bind LikeCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
+                                IsShowPlayCount="True"
+                                ViewModel="{x:Bind Mode=OneWay}">
+                                <controls:VideoItem.AdditionalOverlayContent>
+                                    <Grid
+                                        Padding="8,4"
+                                        HorizontalAlignment="Left"
+                                        Background="{ThemeResource AccentMaskAcrylicBrush}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                            Text="{x:Bind AdditionalText, Mode=OneWay}" />
+                                    </Grid>
+                                </controls:VideoItem.AdditionalOverlayContent>
+                            </controls:VideoItem>
                         </DataTemplate>
                     </controls:VideoView.ItemTemplate>
                 </controls:VideoView>
             </ScrollViewer>
         </muxc:RefreshContainer>
 
-        <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}"
-                                       IsActive="{x:Bind ViewModel.IsInitializeLoading,Mode=OneWay}"/>
-        <muxc:ProgressBar VerticalAlignment="Bottom" IsIndeterminate="True"
-                                      Visibility="{x:Bind ViewModel.IsDeltaLoading,Mode=OneWay}"
-                                      HorizontalAlignment="Stretch"/>
+        <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" IsActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+        <muxc:ProgressBar
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            IsIndeterminate="True"
+            Visibility="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" />
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ActionButtonClick="OnRefreshButtonClickAsync"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
     </Grid>
 </Page>

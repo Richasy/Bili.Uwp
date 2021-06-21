@@ -76,6 +76,11 @@ namespace Richasy.Bili.Models.Enums
         WholePartitions,
         Original,
         Rookie,
+        Score,
+        RankRequestFailed,
+        PartitionRequestFailed,
+        RequestRecommendFailed,
+        RequestSubPartitionFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

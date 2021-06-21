@@ -213,6 +213,9 @@
   <data name="PartitionLoading" xml:space="preserve">
     <value>正在加载分区</value>
   </data>
+  <data name="PartitionRequestFailed" xml:space="preserve">
+    <value>分区请求失败</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
   </data>
@@ -237,14 +240,26 @@
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>
   </data>
+  <data name="RankRequestFailed" xml:space="preserve">
+    <value>请求排行榜失败</value>
+  </data>
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RequestRecommendFailed" xml:space="preserve">
+    <value>推荐视频请求失败</value>
+  </data>
+  <data name="RequestSubPartitionFailed" xml:space="preserve">
+    <value>分区视频请求失败</value>
+  </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>评分</value>
   </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频，番剧或UP主</value>

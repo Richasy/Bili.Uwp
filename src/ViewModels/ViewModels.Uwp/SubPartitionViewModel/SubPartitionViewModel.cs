@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -96,8 +97,19 @@ namespace Richasy.Bili.ViewModels.Uwp
                 VideoCollection.Clear();
                 _offsetId = 0;
                 _pageNumber = 1;
+                IsError = false;
+                ErrorText = string.Empty;
                 _lastRequestTime = DateTimeOffset.MinValue;
-                await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                try
+                {
+                    await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                }
+                catch (ServiceException ex)
+                {
+                    IsError = true;
+                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+
                 IsInitializeLoading = false;
             }
         }

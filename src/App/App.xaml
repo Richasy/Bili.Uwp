@@ -19,8 +19,10 @@
 
             <converter:SortTypeTextConverter x:Key="SortTypeTextConverter" />
             <converter:UserLevelConverter x:Key="UserLevelConverter" />
-            <converter:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-            <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <converter:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converter:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

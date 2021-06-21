@@ -7,9 +7,9 @@ using Windows.UI.Xaml.Data;
 namespace Richasy.Bili.App.Resources.Converter
 {
     /// <summary>
-    /// 字符串到可见性的转换器. 当字符串为空时，返回Collapsed.
+    /// 对象到可见性的转换器. 当对象为空时，返回Collapsed.
     /// </summary>
-    public class StringToVisibilityConverter : IValueConverter
+    public class ObjectToVisibilityConverter : IValueConverter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Resources.Converter
                 return string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible;
             }
 
-            return Visibility.Collapsed;
+            return Visibility.Visible;
         }
 
         /// <inheritdoc/>

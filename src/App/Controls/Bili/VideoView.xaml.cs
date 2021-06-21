@@ -62,6 +62,18 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty HeaderVisibilityProperty =
             DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(VideoView), new PropertyMetadata(Visibility.Visible));
 
+        /// <summary>
+        /// <see cref="MinWideItemHeight"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty MinWideItemHeightProperty =
+            DependencyProperty.Register(nameof(MinWideItemHeight), typeof(double), typeof(VideoView), new PropertyMetadata(232d));
+
+        /// <summary>
+        /// <see cref="MinWideItemWidth"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty MinWideItemWidthProperty =
+            DependencyProperty.Register(nameof(MinWideItemWidth), typeof(double), typeof(VideoView), new PropertyMetadata(222d));
+
         private ScrollViewer _parentScrollViewer;
         private double _itemHolderHeight = 0d;
 
@@ -150,6 +162,24 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (Visibility)GetValue(HeaderVisibilityProperty); }
             set { SetValue(HeaderVisibilityProperty, value); }
+        }
+
+        /// <summary>
+        /// 在网格布局下，单个条目的最小宽度.
+        /// </summary>
+        public double MinWideItemWidth
+        {
+            get { return (double)GetValue(MinWideItemWidthProperty); }
+            set { SetValue(MinWideItemWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// 在网格布局下，单个条目的最小高度.
+        /// </summary>
+        public double MinWideItemHeight
+        {
+            get { return (double)GetValue(MinWideItemHeightProperty); }
+            set { SetValue(MinWideItemHeightProperty, value); }
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

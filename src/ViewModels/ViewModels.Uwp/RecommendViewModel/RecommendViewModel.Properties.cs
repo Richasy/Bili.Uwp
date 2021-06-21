@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -13,6 +14,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class RecommendViewModel
     {
         private readonly BiliController _controller;
+        private readonly IResourceToolkit _resourceToolkit;
         private int _offsetIndex;
 
         /// <summary>
@@ -43,5 +45,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsError { get; set; }
+
+        /// <summary>
+        /// 错误文本.
+        /// </summary>
+        [Reactive]
+        public string ErrorText { get; set; }
     }
 }

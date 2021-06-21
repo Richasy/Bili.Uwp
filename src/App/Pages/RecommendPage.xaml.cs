@@ -61,5 +61,10 @@ namespace Richasy.Bili.App.Pages
             def.Complete();
             def.Dispose();
         }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.RequestDataAsync();
+        }
     }
 }

@@ -22,9 +22,9 @@
 
     <local:CardPanel
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
-        CornerRadius="{ThemeResource OverlayCornerRadius}"
         BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-        Click="OnContainerClick">
+        Click="OnContainerClickAsync"
+        CornerRadius="{ThemeResource OverlayCornerRadius}">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -49,6 +49,9 @@
                         <Setter Target="ContentRow2.Height" Value="Auto" />
                         <Setter Target="InlineUserContainer.(Grid.Row)" Value="1" />
                         <Setter Target="TitleBlock.(Grid.Row)" Value="0" />
+                        <Setter Target="AdditionalOverlayContainer.Margin" Value="8,8,0,0" />
+                        <Setter Target="AdditionalOverlayContainer.VerticalAlignment" Value="Top" />
+                        <Setter Target="AdditionalOverlayContainer.HorizontalAlignment" Value="Left" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -66,8 +69,8 @@
             <Grid
                 x:Name="CoverContainer"
                 Height="124"
-                CornerRadius="4,4,0,0"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                CornerRadius="4,4,0,0">
                 <hn:ImageEx
                     x:Name="CoverImage"
                     LazyLoadingEnabled="True"
@@ -108,6 +111,15 @@
                     RequestedTheme="Dark">
                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
                 </Grid>
+
+                <Grid
+                    x:Name="AdditionalOverlayContainer"
+                    Margin="0,0,8,8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Visibility="{x:Bind AdditionalOverlayContentVisibility, Mode=OneWay}">
+                    <ContentPresenter Content="{x:Bind AdditionalOverlayContent, Mode=OneWay}" />
+                </Grid>
             </Grid>
 
             <Grid
@@ -115,7 +127,7 @@
                 Margin="0,0,12,-18"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Visibility="{x:Bind IsShowAvatar,Mode=OneWay}">
+                Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
                 <Ellipse
                     Width="40"
                     Height="40"
@@ -132,24 +144,25 @@
             <Grid
                 x:Name="ContentContainer"
                 Grid.Row="1"
-                Padding="12,8"
+                Padding="12,8,12,0"
                 RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition x:Name="ContentRow1" Height="Auto" />
                     <RowDefinition x:Name="ContentRow2" Height="*" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel x:Name="InlineUserContainer" Orientation="Horizontal">
-                    <Grid Visibility="{x:Bind IsShowAvatar,Mode=OneWay}">
+                    <Grid Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
                         <local:UserAvatar
-                        x:Name="InlineAvatar"
-                        Width="24"
-                        Height="24"
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
-                        Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                        UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
-                        Visibility="Collapsed" />
+                            x:Name="InlineAvatar"
+                            Width="24"
+                            Height="24"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                            UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
+                            Visibility="Collapsed" />
                     </Grid>
 
                     <TextBlock
@@ -171,6 +184,7 @@
                         <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{x:Bind TitleBlock.IsTextTrimmed, Mode=OneWay}" />
                     </ToolTipService.ToolTip>
                 </TextBlock>
+
                 <StackPanel
                     Grid.Row="2"
                     Orientation="Horizontal"
@@ -196,6 +210,9 @@
                         Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
                         Visibility="{x:Bind IsShowReplayCount, Mode=OneWay}" />
                 </StackPanel>
+                <Grid Grid.Row="3" Visibility="{x:Bind AdditionalFooterContent, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+                    <ContentPresenter x:Name="AdditionalFooterPresenter" Content="{x:Bind AdditionalFooterContent, Mode=OneWay}" />
+                </Grid>
             </Grid>
         </Grid>
     </local:CardPanel>

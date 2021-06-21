@@ -72,5 +72,17 @@ namespace Richasy.Bili.App.Pages
             ContentScrollViewer.ChangeView(0, 0, 1);
             await ViewModel.SetSelectedRankPartitionAsync(item);
         }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.PartitionCollection.Count == 0)
+            {
+                await ViewModel.InitializeAsync();
+            }
+            else if (ViewModel.CurrentPartition != null)
+            {
+                await ViewModel.RefreshCurrentRankPartitionAsync();
+            }
+        }
     }
 }

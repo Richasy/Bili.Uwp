@@ -35,6 +35,7 @@
             <ScrollViewer
                 x:Name="WideScrollViewer"
                 HorizontalScrollBarVisibility="Hidden"
+                HorizontalScrollMode="Auto"
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled"
                 ViewChanged="OnWideScrollViewerChanged">

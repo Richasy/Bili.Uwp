@@ -73,83 +73,93 @@
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
             <muxc:NavigationView.Content>
-                <ScrollViewer
-                    x:Name="ContentScrollView"
-                    Padding="{StaticResource DefaultContainerPadding}"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ContentGrid" Padding="0,12,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                <Grid>
+                    <ScrollViewer
+                        x:Name="ContentScrollView"
+                        Padding="{StaticResource DefaultContainerPadding}"
+                        HorizontalScrollMode="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="ContentGrid" Padding="0,12,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                        <controls:BannerView
-                            x:Name="BannerView"
-                            Margin="0,0,0,12"
-                            VerticalAlignment="Top"
-                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsShowBanner, Mode=OneWay}" />
+                            <controls:BannerView
+                                x:Name="BannerView"
+                                Margin="0,0,0,12"
+                                VerticalAlignment="Top"
+                                ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsShowBanner, Mode=OneWay}" />
 
-                        <controls:VideoView
-                            x:Name="VideoView"
-                            Grid.Row="1"
-                            Margin="0,0,0,12"
-                            HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
-                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}"
-                            RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                            <controls:VideoView.AdditionalContent>
-                                <Grid>
-                                    <Button
-                                        x:Name="RefreshButton"
-                                        VerticalAlignment="Center"
-                                        Click="OnRefreshButtonClickAsync">
-                                        <StackPanel Orientation="Horizontal" Spacing="8">
-                                            <icons:FluentIconElement VerticalAlignment="Center" Symbol="ArrowSyncCircle16" />
-                                            <TextBlock Text="{loc:LocaleLocator Name=Refresh}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <ComboBox
-                                        x:Name="VideoSortComboBox"
-                                        Style="{StaticResource DefaultComboBoxStyle}"
-                                        ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
-                                        PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
-                                        SelectionChanged="OnVideoSortComboBoxSlectionChanged"
-                                        Visibility="Collapsed">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate x:DataType="enums:VideoSortType">
-                                                <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                </Grid>
-                            </controls:VideoView.AdditionalContent>
-                            <controls:VideoView.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoItem
-                                        IsShowDanmakuCount="True"
-                                        IsShowLikeCount="True"
-                                        IsShowPlayCount="True"
-                                        ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </controls:VideoView.ItemTemplate>
-                        </controls:VideoView>
+                            <controls:VideoView
+                                x:Name="VideoView"
+                                Grid.Row="1"
+                                Margin="0,0,0,12"
+                                HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
+                                ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}"
+                                RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                                <controls:VideoView.AdditionalContent>
+                                    <Grid>
+                                        <Button
+                                            x:Name="RefreshButton"
+                                            VerticalAlignment="Center"
+                                            Click="OnRefreshButtonClickAsync">
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <icons:FluentIconElement VerticalAlignment="Center" Symbol="ArrowSyncCircle16" />
+                                                <TextBlock Text="{loc:LocaleLocator Name=Refresh}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <ComboBox
+                                            x:Name="VideoSortComboBox"
+                                            Style="{StaticResource DefaultComboBoxStyle}"
+                                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
+                                            PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                                            SelectionChanged="OnVideoSortComboBoxSlectionChanged"
+                                            Visibility="Collapsed">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate x:DataType="enums:VideoSortType">
+                                                    <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Grid>
+                                </controls:VideoView.AdditionalContent>
+                                <controls:VideoView.ItemTemplate>
+                                    <DataTemplate x:DataType="uwp:VideoViewModel">
+                                        <controls:VideoItem
+                                            IsShowDanmakuCount="True"
+                                            IsShowLikeCount="True"
+                                            IsShowPlayCount="True"
+                                            ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </controls:VideoView.ItemTemplate>
+                            </controls:VideoView>
 
-                        <muxc:ProgressRing
-                            x:Name="LoadingRing"
-                            Style="{StaticResource PageProgressRingStyle}"
-                            Grid.RowSpan="2"
-                            IsActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
+                            <muxc:ProgressRing
+                                x:Name="LoadingRing"
+                                Style="{StaticResource PageProgressRingStyle}"
+                                Grid.RowSpan="2"
+                                IsActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
 
-                        <muxc:ProgressBar
-                            Grid.Row="1"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom"
-                            IsIndeterminate="True"
-                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" />
-                    </Grid>
-                </ScrollViewer>
+                            <muxc:ProgressBar
+                                Grid.Row="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" />
+                        </Grid>
+                    </ScrollViewer>
 
+                    <controls:ErrorPanel
+                        x:Name="ErrorPanel"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ActionButtonClick="OnRefreshButtonClickAsync"
+                        ActionContent="{loc:LocaleLocator Name=Refresh}"
+                        Text="{x:Bind ViewModel.CurrentSelectedSubPartition.ErrorText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsError, Mode=OneWay}" />
+                </Grid>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
     </Grid>

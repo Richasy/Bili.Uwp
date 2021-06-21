@@ -1,3 +1,4 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="AppMaskAcrylicBrush" Color="{ThemeResource SystemChromeAltMediumHighColor}" />
+    <SolidColorBrush x:Key="AccentMaskAcrylicBrush" Color="{ThemeResource SystemAccentColor}" />
 </ResourceDictionary>

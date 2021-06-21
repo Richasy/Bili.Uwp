@@ -86,6 +86,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             var vm = args.InvokedItem as SubPartitionViewModel;
             await ViewModel.SelectSubPartitionAsync(vm);
+            CheckError();
         }
 
         private void CheckCurrentSubPartition()
@@ -110,6 +111,15 @@ namespace Richasy.Bili.App.Pages.Overlay
                 {
                     DetailNavigationView.SelectedItem = vm;
                 }
+            }
+        }
+
+        private void CheckError()
+        {
+            if (ViewModel.CurrentSelectedSubPartition.IsError)
+            {
+                VideoSortComboBox.Visibility = Visibility.Collapsed;
+                RefreshButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -140,6 +150,8 @@ namespace Richasy.Bili.App.Pages.Overlay
                 !ViewModel.CurrentSelectedSubPartition.IsDeltaLoading)
             {
                 await ViewModel.CurrentSelectedSubPartition.InitializeRequestAsync();
+                CheckCurrentSubPartition();
+                CheckError();
             }
         }
     }

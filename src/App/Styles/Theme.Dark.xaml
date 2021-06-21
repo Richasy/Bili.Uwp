@@ -4,4 +4,10 @@
         FallbackColor="Black"
         TintColor="#2b2b2b"
         TintOpacity="0.5" />
+
+    <AcrylicBrush
+        x:Key="AccentMaskAcrylicBrush"
+        FallbackColor="{ThemeResource SystemAccentColor}"
+        TintColor="{ThemeResource SystemAccentColorLight2}"
+        TintOpacity="0.9" />
 </ResourceDictionary>

@@ -92,5 +92,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<VideoSortType> SortTypeCollection { get; set; }
+
+        /// <summary>
+        /// 是否显示错误信息.
+        /// </summary>
+        [Reactive]
+        public bool IsError { get; set; }
+
+        /// <summary>
+        /// 错误文本.
+        /// </summary>
+        [Reactive]
+        public string ErrorText { get; set; }
     }
 }
