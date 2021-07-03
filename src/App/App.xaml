@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animator="using:Richasy.Bili.App.Controls.Animator"
     xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
-    xmlns:local="using:Richasy.Bili.App">
+    xmlns:local="using:Richasy.Bili.App" xmlns:shadow="using:Richasy.Bili.App.Controls.Shadow">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,6 +17,8 @@
                 <ResourceDictionary x:Key="Dark" Source="ms-appx:///Styles/Theme.Dark.xaml" />
                 <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Styles/Theme.HighContrast.xaml" />
             </ResourceDictionary.ThemeDictionaries>
+
+            <shadow:CardAttachedShadow x:Key="DefaultCardShadow" BlurRadius="4" CornerRadius="8"/>
 
             <animator:CardCollectionAnimator x:Key="CardCollectionAnimator" />
 

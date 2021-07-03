@@ -13,7 +13,7 @@ namespace Richasy.Bili.App.Controls.Animator
 {
 #pragma warning disable CS8305 // Type is for evaluation purposes only and is subject to change or removal in future updates.
     /// <summary>
-    /// Card Collection Animator.
+    /// 卡片集合的动画器.
     /// </summary>
     public class CardCollectionAnimator : ElementAnimator
     {
@@ -29,7 +29,7 @@ namespace Richasy.Bili.App.Controls.Animator
         }
 
         /// <summary>
-        /// Animation slow down factor.
+        /// 动画减速因素.
         /// </summary>
         public static double AnimationSlowdownFactor { get; set; }
 
@@ -52,7 +52,7 @@ namespace Richasy.Bili.App.Controls.Animator
             Rect oldBounds,
             Rect newBounds)
         {
-            return true;
+            return context != AnimationContext.None;
         }
 
         /// <inheritdoc/>
