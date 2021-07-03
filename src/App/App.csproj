@@ -62,6 +62,10 @@
     <Compile Include="Controls\Bili\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shadow\AttachedShadow.cs" />
+    <Compile Include="Controls\Shadow\AttachedShadowElementContext.cs" />
+    <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
+    <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
     <Compile Include="Pages\ChannelPage.xaml.cs">
       <DependentUpon>ChannelPage.xaml</DependentUpon>
     </Compile>
@@ -397,12 +401,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Shadow\" />
     <Folder Include="Resources\Fonts\" />
   </ItemGroup>
   <ItemGroup>
