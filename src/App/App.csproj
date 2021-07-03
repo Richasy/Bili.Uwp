@@ -66,6 +66,7 @@
     <Compile Include="Controls\Shadow\AttachedShadowElementContext.cs" />
     <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
+    <Compile Include="Controls\Shadow\Shadows.cs" />
     <Compile Include="Pages\ChannelPage.xaml.cs">
       <DependentUpon>ChannelPage.xaml</DependentUpon>
     </Compile>

@@ -10,27 +10,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BannerItem">
-                    <Grid x:Name="RootGrid" CornerRadius="{StaticResource ControlCornerRadius}">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonGroup">
-                                <VisualState x:Name="NormalState" />
-                                <VisualState x:Name="PressedState">
-                                    <VisualState.Storyboard>
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation Storyboard.TargetName="BannerImage" />
-                                        </Storyboard>
-                                    </VisualState.Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="ReleaseState">
-                                    <VisualState.Storyboard>
-                                        <Storyboard>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="BannerImage" />
-                                        </Storyboard>
-                                    </VisualState.Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <hn:ImageEx
+                    <local:CardPanel x:Name="RootGrid" Margin="0,6">
+                        <Grid CornerRadius="{StaticResource ControlCornerRadius}">
+                            <hn:ImageEx
                             x:Name="BannerImage"
                             AutomationProperties.Name="{TemplateBinding Title}"
                             MinWidth="300"
@@ -42,29 +24,30 @@
                             Source="{TemplateBinding Source}"
                             Stretch="Uniform"
                             ToolTipService.ToolTip="{TemplateBinding Title}">
-                            <hn:ImageEx.LoadingTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <muxc:ProgressRing
+                                <hn:ImageEx.LoadingTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <muxc:ProgressRing
                                             Style="{StaticResource PageProgressRingStyle}"
                                             Width="28"
                                             Height="28" />
-                                    </Grid>
-                                </DataTemplate>
-                            </hn:ImageEx.LoadingTemplate>
-                            <hn:ImageEx.FailedTemplate>
-                                <DataTemplate>
-                                    <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                        <icons:FluentIconElement
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.LoadingTemplate>
+                                <hn:ImageEx.FailedTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
+                                            <icons:FluentIconElement
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
                                             Symbol="Image28Filled" />
-                                    </Grid>
-                                </DataTemplate>
-                            </hn:ImageEx.FailedTemplate>
-                        </hn:ImageEx>
-                    </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.FailedTemplate>
+                            </hn:ImageEx>
+                        </Grid>
+                    </local:CardPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

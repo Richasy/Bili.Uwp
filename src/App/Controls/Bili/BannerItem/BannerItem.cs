@@ -74,36 +74,5 @@ namespace Richasy.Bili.App.Controls
                 await Launcher.LaunchUriAsync(new Uri(Uri));
             }
         }
-
-        /// <inheritdoc/>
-        protected override void OnPointerPressed(PointerRoutedEventArgs e)
-        {
-            this.CapturePointer(e.Pointer);
-            VisualStateManager.GoToState(this, "PressedState", true);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnPointerReleased(PointerRoutedEventArgs e)
-        {
-            BackToNormal(e);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnPointerCanceled(PointerRoutedEventArgs e)
-        {
-            BackToNormal(e);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnPointerCaptureLost(PointerRoutedEventArgs e)
-        {
-            BackToNormal(e);
-        }
-
-        private void BackToNormal(PointerRoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(this, "NormalState", true);
-            this.ReleasePointerCapture(e.Pointer);
-        }
     }
 }
