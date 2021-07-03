@@ -17,6 +17,7 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\Animator\CardCollectionAnimator.cs" />
     <Compile Include="Controls\Bili\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
@@ -401,6 +402,7 @@
     <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\Shadow\" />
     <Folder Include="Resources\Fonts\" />
   </ItemGroup>
   <ItemGroup>

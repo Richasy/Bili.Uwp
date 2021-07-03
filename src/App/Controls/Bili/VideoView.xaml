@@ -56,6 +56,7 @@
         <muxc:ItemsRepeater
             x:Name="VideoRepeater"
             Grid.Row="1"
+            Animator="{StaticResource CardCollectionAnimator}"
             ElementPrepared="OnElementPrepared"
             ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
