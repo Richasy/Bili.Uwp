@@ -40,10 +40,10 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>13.3.2</Version>
+      <Version>13.3.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>13.3.2</Version>
+      <Version>13.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
