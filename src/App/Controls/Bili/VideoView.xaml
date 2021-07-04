@@ -39,8 +39,8 @@
             <TextBlock
                 Style="{StaticResource SubtitleTextBlockStyle}"
                 HorizontalAlignment="Left"
-                FontSize="16"
                 VerticalAlignment="Center"
+                FontSize="16"
                 Text="{x:Bind HeaderText, Mode=OneWay}"
                 TextTrimming="CharacterEllipsis"
                 Visibility="{x:Bind IsShowHeader, Mode=OneWay}" />

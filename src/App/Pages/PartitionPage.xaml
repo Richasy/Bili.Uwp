@@ -40,8 +40,8 @@
             <muxc:ItemsRepeater
                 x:Name="PartitionView"
                 x:Load="False"
-                ItemsSource="{x:Bind ViewModel.PartitionCollection}"
                 Animator="{StaticResource CardCollectionAnimator}"
+                ItemsSource="{x:Bind ViewModel.PartitionCollection}"
                 Loaded="OnItemsRepeaterLoadedAsync">
                 <muxc:ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="uwp:PartitionViewModel">
