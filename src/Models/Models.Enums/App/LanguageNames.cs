@@ -13,10 +13,9 @@ namespace Richasy.Bili.Models.Enums
         Confirm,
         Cancel,
         Navigation,
-        Home,
+        Popular,
         Rank,
         Partition,
-        Channel,
         SpecialColumn,
         Live,
         Personal,
@@ -81,6 +80,7 @@ namespace Richasy.Bili.Models.Enums
         PartitionRequestFailed,
         RequestRecommendFailed,
         RequestSubPartitionFailed,
+        RequestPopularFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

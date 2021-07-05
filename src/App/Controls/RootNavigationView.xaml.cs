@@ -115,8 +115,8 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Partition:
                     pageType = typeof(PartitionPage);
                     break;
-                case PageIds.Channel:
-                    pageType = typeof(ChannelPage);
+                case PageIds.Popular:
+                    pageType = typeof(PopularPage);
                     break;
                 case PageIds.SpecialColumn:
                     pageType = typeof(SpecialColumnPage);

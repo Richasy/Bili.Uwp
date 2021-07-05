@@ -122,9 +122,10 @@
   <ItemGroup>
     <Compile Include="IAccountProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
-    <Compile Include="IHomeProvider.cs" />
+    <Compile Include="IRecommendProvider.cs" />
     <Compile Include="IHttpProvider.cs" />
     <Compile Include="IPartitionProvider.cs" />
+    <Compile Include="IPopularProvider.cs" />
     <Compile Include="IRankProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Lib.Interfaces.rd.xml" />

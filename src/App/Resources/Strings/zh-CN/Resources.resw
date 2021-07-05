@@ -138,9 +138,6 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
-  <data name="Channel" xml:space="preserve">
-    <value>频道</value>
-  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
@@ -231,6 +228,9 @@
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>
   </data>
+  <data name="Popular" xml:space="preserve">
+    <value>热门</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>
@@ -248,6 +248,9 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="RequestPopularFailed" xml:space="preserve">
+    <value>热门视频请求失败</value>
   </data>
   <data name="RequestRecommendFailed" xml:space="preserve">
     <value>推荐视频请求失败</value>

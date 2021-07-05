@@ -12,13 +12,13 @@ namespace Richasy.Bili.Lib.Uwp
     /// <summary>
     /// 首页视频处理程序.
     /// </summary>
-    public partial class HomeProvider : IHomeProvider
+    public partial class RecommendProvider : IRecommendProvider
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HomeProvider"/> class.
+        /// Initializes a new instance of the <see cref="RecommendProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络处理工具.</param>
-        public HomeProvider(IHttpProvider httpProvider)
+        public RecommendProvider(IHttpProvider httpProvider)
         {
             this._httpProvider = httpProvider;
         }

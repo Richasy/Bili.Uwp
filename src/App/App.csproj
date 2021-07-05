@@ -67,9 +67,6 @@
     <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\Shadows.cs" />
-    <Compile Include="Pages\ChannelPage.xaml.cs">
-      <DependentUpon>ChannelPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DocumentaryPage.xaml.cs">
       <DependentUpon>DocumentaryPage.xaml</DependentUpon>
     </Compile>
@@ -84,6 +81,9 @@
     </Compile>
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PopularPage.xaml.cs">
+      <DependentUpon>PopularPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RecommendPage.xaml.cs">
       <DependentUpon>RecommendPage.xaml</DependentUpon>
@@ -268,10 +268,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ChannelPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\DocumentaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HelpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PopularPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

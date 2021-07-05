@@ -9,7 +9,7 @@ namespace Richasy.Bili.Lib.Interfaces
     /// <summary>
     /// 首页推荐视频处理程序.
     /// </summary>
-    public interface IHomeProvider
+    public interface IRecommendProvider
     {
         /// <summary>
         /// 请求推荐视频列表.

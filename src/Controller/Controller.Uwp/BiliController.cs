@@ -26,7 +26,8 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IAccountProvider _accountProvider;
         private readonly IPartitionProvider _partitionProvider;
         private readonly IRankProvider _rankProvider;
-        private readonly IHomeProvider _homeProvider;
+        private readonly IRecommendProvider _homeProvider;
+        private readonly IPopularProvider _popularProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -43,7 +44,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _accountProvider)
                 .LoadService(out _partitionProvider)
                 .LoadService(out _rankProvider)
-                .LoadService(out _homeProvider);
+                .LoadService(out _homeProvider)
+                .LoadService(out _popularProvider);
 
             RegisterEvents();
         }
@@ -81,7 +83,12 @@ namespace Richasy.Bili.Controller.Uwp
         /// <summary>
         /// 在首页推荐中有新的视频列表传入时发生.
         /// </summary>
-        public event EventHandler<HomeVideoIterationEventArgs> HomeVideoIteration;
+        public event EventHandler<RecommendVideoIterationEventArgs> RecommendVideoIteration;
+
+        /// <summary>
+        /// 在热门有新的视频列表传入时发生.
+        /// </summary>
+        public event EventHandler<PopularVideoIterationEventArgs> PopularVideoIteration;
 
         /// <summary>
         /// 控制器实例.
@@ -115,7 +122,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IAccountProvider, AccountProvider>()
                 .AddSingleton<IPartitionProvider, PartitionProvider>()
                 .AddSingleton<IRankProvider, RankProvider>()
-                .AddSingleton<IHomeProvider, HomeProvider>();
+                .AddSingleton<IRecommendProvider, RecommendProvider>()
+                .AddSingleton<IPopularProvider, PopularProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

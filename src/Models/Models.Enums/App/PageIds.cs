@@ -18,6 +18,11 @@ namespace Richasy.Bili.Models.Enums
         Recommend,
 
         /// <summary>
+        /// 热门.
+        /// </summary>
+        Popular,
+
+        /// <summary>
         /// 排行榜.
         /// </summary>
         Rank,
@@ -26,11 +31,6 @@ namespace Richasy.Bili.Models.Enums
         /// 分区.
         /// </summary>
         Partition,
-
-        /// <summary>
-        /// 频道.
-        /// </summary>
-        Channel,
 
         /// <summary>
         /// 专栏.

@@ -11,20 +11,20 @@ using Richasy.Bili.Models.App.Other;
 namespace Richasy.Bili.ViewModels.Uwp
 {
     /// <summary>
-    /// 视频推荐视图模型.
+    /// 热门视图模型.
     /// </summary>
-    public partial class RecommendViewModel : ViewModelBase
+    public partial class PopularViewModel : ViewModelBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RecommendViewModel"/> class.
+        /// Initializes a new instance of the <see cref="PopularViewModel"/> class.
         /// </summary>
-        internal RecommendViewModel()
+        internal PopularViewModel()
         {
             _controller = BiliController.Instance;
             VideoCollection = new ObservableCollection<VideoViewModel>();
             _offsetIndex = 0;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            _controller.RecommendVideoIteration += OnRecommendVideoIteration;
+            _controller.PopularVideoIteration += OnPopularVideoIteration;
         }
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Reset();
                 try
                 {
-                    await _controller.RequestRecommendCardsAsync(_offsetIndex);
+                    await _controller.RequestPopularCardsAsync(_offsetIndex);
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestRecommendFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestPopularFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
 
                 IsInitializeLoading = false;
@@ -76,7 +76,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsDeltaLoading = true;
-                await _controller.RequestRecommendCardsAsync(_offsetIndex);
+                await _controller.RequestPopularCardsAsync(_offsetIndex);
                 IsDeltaLoading = false;
             }
         }
@@ -92,7 +92,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoCollection.Clear();
         }
 
-        private void OnRecommendVideoIteration(object sender, RecommendVideoIterationEventArgs e)
+        private void OnPopularVideoIteration(object sender, PopularVideoIterationEventArgs e)
         {
             _offsetIndex = e.OffsetIndex;
 

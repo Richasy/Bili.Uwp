@@ -214,6 +214,14 @@ namespace Richasy.Bili.Models.App.Constants
                 public const string RankingGRPC = _grpcBase + "/bilibili.app.show.v1.Rank/RankRegion";
             }
 
+            public static class Popular
+            {
+                /// <summary>
+                /// 热门 - gRPC.
+                /// </summary>
+                public const string PopularGRPC = _grpcBase + "/bilibili.app.show.v1.Popular";
+            }
+
             public static class Home
             {
                 public const string Recommend = _appBase + "/x/v2/feed/index";

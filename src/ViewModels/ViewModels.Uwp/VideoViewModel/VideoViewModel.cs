@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bilibili.App.Card.V1;
 using Bilibili.App.Show.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
@@ -95,6 +96,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             AdditionalText = card.RecommendReason ?? string.Empty;
             Source = card;
             LimitCoverAndAvatar(card.Cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="card">视频卡片.</param>
+        public VideoViewModel(Card card)
+        {
         }
 
         internal VideoViewModel()
