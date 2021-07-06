@@ -79,7 +79,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
                 else
                 {
-                    Duration = _numberToolkit.GetDurationText(TimeSpan.Parse(card.DurationText));
+                    Duration = _numberToolkit.FormatDurationText(card.DurationText);
                 }
 
                 PartitionId = card.CardArgs.PartitionId;
@@ -103,7 +103,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="card">视频卡片.</param>
         public VideoViewModel(Card card)
+            : this()
         {
+            var v5 = card.SmallCoverV5;
+            var cardBase = v5.Base;
+            Title = cardBase.Title;
+            VideoId = cardBase.Param;
+            PlayCount = v5.RightDesc2;
+            PublisherName = v5.RightDesc1;
+            AdditionalText = v5.RcmdReasonStyle?.Text ?? string.Empty;
+            Duration = _numberToolkit.FormatDurationText(v5.CoverRightText1);
+            LimitCoverAndAvatar(cardBase.Cover);
+            Source = card;
         }
 
         internal VideoViewModel()

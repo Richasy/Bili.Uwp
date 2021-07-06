@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bilibili.App.Card.V1;
 
 namespace Richasy.Bili.Models.App.Args
@@ -16,7 +18,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <param name="cards">卡片列表.</param>
         public PopularVideoIterationEventArgs(List<Card> cards)
         {
-            // OffsetIndex = cards.Last().Index;
+            OffsetIndex = Convert.ToInt32(cards.Last().SmallCoverV5.Base.Idx);
             Cards = cards;
         }
 

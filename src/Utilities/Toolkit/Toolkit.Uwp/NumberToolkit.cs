@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 
@@ -45,6 +46,31 @@ namespace Richasy.Bili.Toolkit.Uwp
             {
                 return Math.Round(timeSpan.TotalSeconds) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Seconds);
             }
+        }
+
+        /// <inheritdoc/>
+        public string FormatDurationText(string webDurationText)
+        {
+            var colonCount = webDurationText.Count(p => p == ':');
+            var hourStr = string.Empty;
+            if (colonCount == 1)
+            {
+                webDurationText = "00:" + webDurationText;
+            }
+            else if (colonCount == 2)
+            {
+                var sp = webDurationText.Split(':');
+                webDurationText = string.Join(':', "00", sp[1], sp[2]);
+                hourStr = sp[0];
+            }
+
+            var ts = TimeSpan.Parse(webDurationText);
+            if (!string.IsNullOrEmpty(hourStr))
+            {
+                ts += TimeSpan.FromHours(Convert.ToInt32(hourStr));
+            }
+
+            return GetDurationText(ts);
         }
     }
 }

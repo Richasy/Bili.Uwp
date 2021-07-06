@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Richasy.Bili.Controller.Uwp
@@ -19,6 +20,11 @@ namespace Richasy.Bili.Controller.Uwp
             try
             {
                 var cards = await _popularProvider.GetPopularDetailAsync(offsetIndex);
+                cards = cards.Where(p =>
+                    p.ItemCase == Bilibili.App.Card.V1.Card.ItemOneofCase.SmallCoverV5
+                    && p.SmallCoverV5 != null
+                    && p.SmallCoverV5.Base.CardGoto == "av")
+                    .ToList();
                 PopularVideoIteration?.Invoke(this, new Models.App.Args.PopularVideoIterationEventArgs(cards));
             }
             catch

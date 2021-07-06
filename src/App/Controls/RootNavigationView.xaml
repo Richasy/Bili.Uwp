@@ -57,6 +57,11 @@
                         <icons:FluentIconElement Symbol="Home16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:LocaleLocator Name=Popular}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:FluentIconElement Symbol="Rocket16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:LocaleLocator Name=Rank}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:FluentIconElement Symbol="Trophy16" />
@@ -65,11 +70,6 @@
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Partition" Content="{loc:LocaleLocator Name=Partition}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:FluentIconElement Symbol="Apps16" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:LocaleLocator Name=Popular}">
-                    <muxc:NavigationViewItem.Icon>
-                        <icons:FluentIconElement Symbol="Rocket16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:LocaleLocator Name=Live}">
