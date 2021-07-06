@@ -33,9 +33,15 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 Idx = offsetIndex,
                 LoginEvent = isLogin ? 2 : 1,
-                SourceId = 0,
-                Flush = 0,
-                LastParam = string.Empty,
+                Qn = 112,
+                Fnval = 464,
+                Fourk = 1,
+                Spmid = "creation.hot-tab.0.0",
+                PlayerArgs = new Bilibili.App.Archive.Middleware.V1.PlayerArgs
+                {
+                    Qn = 112,
+                    Fnval = 464,
+                },
             };
             var request = await _httpProvider.GetRequestMessageAsync(Models.App.Constants.ServiceConstants.Api.Popular.PopularGRPC, popularReq);
             var response = await _httpProvider.SendAsync(request);
