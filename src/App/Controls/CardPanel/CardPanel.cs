@@ -42,7 +42,7 @@ namespace Richasy.Bili.App.Controls
         private const float DarkPointerPressedShadowOffsetY = 0f;
         private const float DarkPointerPressedShadowOpacity = 0.2f;
 
-        private const float PointerOverOffsetY = -2f;
+        private const float PointerOverOffsetY = -4f;
 
         private static readonly TimeSpan ShowShadowDuration = TimeSpan.FromMilliseconds(300);
         private static readonly TimeSpan HideShadowDuration = TimeSpan.FromMilliseconds(250);
