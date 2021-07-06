@@ -27,7 +27,7 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<List<RankItem>> GetRankDetailAsync(int partitionId)
         {
             var rankRequst = new RankRegionResultReq() { Rid = partitionId };
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Rank.RankingGRPC, rankRequst);
+            var request = await _httpProvider.GetRequestMessageAsync(Api.Home.RankingGRPC, rankRequst);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, RankListReply.Parser);
             return data.Items.ToList();

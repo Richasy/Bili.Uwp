@@ -54,6 +54,9 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Device = "device";
             public const string DeviceName = "device_name";
             public const string Column = "column";
+            public const string Page = "page";
+            public const string RelationPage = "relation_page";
+            public const string Scale = "scale";
         }
 
         public static class Sort
@@ -201,8 +204,18 @@ namespace Richasy.Bili.Models.App.Constants
                 public const string SubPartitionOrderOffset = _appBase + "/x/v2/region/show/child/list";
             }
 
-            public static class Rank
+            public static class Home
             {
+                /// <summary>
+                /// 推荐视频.
+                /// </summary>
+                public const string Recommend = _appBase + "/x/v2/feed/index";
+
+                /// <summary>
+                /// 热门 - gRPC.
+                /// </summary>
+                public const string PopularGRPC = _grpcBase + "/bilibili.app.show.v1.Popular/Index";
+
                 /// <summary>
                 /// 排行榜 - Web.
                 /// </summary>
@@ -214,17 +227,9 @@ namespace Richasy.Bili.Models.App.Constants
                 public const string RankingGRPC = _grpcBase + "/bilibili.app.show.v1.Rank/RankRegion";
             }
 
-            public static class Popular
+            public static class Live
             {
-                /// <summary>
-                /// 热门 - gRPC.
-                /// </summary>
-                public const string PopularGRPC = _grpcBase + "/bilibili.app.show.v1.Popular/Index";
-            }
-
-            public static class Home
-            {
-                public const string Recommend = _appBase + "/x/v2/feed/index";
+                public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
             }
         }
 #pragma warning restore SA1401 // Fields should be private
