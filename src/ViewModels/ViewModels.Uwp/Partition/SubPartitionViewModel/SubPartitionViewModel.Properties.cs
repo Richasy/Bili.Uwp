@@ -74,7 +74,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 横幅集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<Banner> BannerCollection { get; set; }
+        public ObservableCollection<BannerViewModel> BannerCollection { get; set; }
 
         /// <summary>
         /// 视频集合.

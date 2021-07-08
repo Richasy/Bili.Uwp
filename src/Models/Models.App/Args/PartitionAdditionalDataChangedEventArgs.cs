@@ -21,7 +21,7 @@ namespace Richasy.Bili.Models.App.Args
         public PartitionAdditionalDataChangedEventArgs(
             int subPartitionId,
             DateTimeOffset requestDateTime,
-            IEnumerable<Banner> bannerList = null,
+            IEnumerable<PartitionBanner> bannerList = null,
             IEnumerable<Tag> tagList = null)
             : base(subPartitionId, requestDateTime)
         {
@@ -32,7 +32,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// 横幅列表.
         /// </summary>
-        public IEnumerable<Banner> BannerList { get; set; }
+        public IEnumerable<PartitionBanner> BannerList { get; set; }
 
         /// <summary>
         /// 热门标签列表.

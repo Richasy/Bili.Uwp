@@ -26,7 +26,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _controller = Controller.Uwp.BiliController.Instance;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            BannerCollection = new ObservableCollection<Banner>();
+            BannerCollection = new ObservableCollection<BannerViewModel>();
             VideoCollection = new ObservableCollection<VideoViewModel>();
             TagCollection = new ObservableCollection<Tag>();
             this._partition = partition;
@@ -158,7 +158,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 if (IsShowBanner)
                 {
                     BannerCollection.Clear();
-                    e.BannerList.ToList().ForEach(p => BannerCollection.Add(p));
+                    e.BannerList.ToList().ForEach(p => BannerCollection.Add(new BannerViewModel(p)));
                 }
 
                 if (IsShowTags)

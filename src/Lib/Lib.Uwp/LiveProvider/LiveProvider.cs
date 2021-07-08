@@ -32,12 +32,14 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Page, page.ToString() },
                 { Query.RelationPage, page.ToString() },
                 { Query.Scale, "2" },
+                { Query.LoginEvent, "1" },
+                { Query.Device, "phone" },
             };
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.LiveFeed, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<LiveFeedResponse>(response);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveFeedResponse>>(response);
 
-            return result;
+            return result.Data;
         }
     }
 }

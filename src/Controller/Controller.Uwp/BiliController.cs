@@ -28,6 +28,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IRankProvider _rankProvider;
         private readonly IRecommendProvider _homeProvider;
         private readonly IPopularProvider _popularProvider;
+        private readonly ILiveProvider _liveProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -45,7 +46,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _partitionProvider)
                 .LoadService(out _rankProvider)
                 .LoadService(out _homeProvider)
-                .LoadService(out _popularProvider);
+                .LoadService(out _popularProvider)
+                .LoadService(out _liveProvider);
 
             RegisterEvents();
         }
@@ -91,6 +93,16 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<PopularVideoIterationEventArgs> PopularVideoIteration;
 
         /// <summary>
+        /// 在直播源的附加数据发生改变时发生.
+        /// </summary>
+        public event EventHandler<LiveFeedAdditionalDataChangedEventArgs> LiveFeedAdditionalDataChanged;
+
+        /// <summary>
+        /// 在直播源有新的直播源数据更改时发生.
+        /// </summary>
+        public event EventHandler<LiveFeedRoomIterationEventArgs> LiveFeedRoomIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -123,7 +135,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IPartitionProvider, PartitionProvider>()
                 .AddSingleton<IRankProvider, RankProvider>()
                 .AddSingleton<IRecommendProvider, RecommendProvider>()
-                .AddSingleton<IPopularProvider, PopularProvider>();
+                .AddSingleton<IPopularProvider, PopularProvider>()
+                .AddSingleton<ILiveProvider, LiveProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

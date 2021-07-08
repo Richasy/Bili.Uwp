@@ -57,6 +57,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Page = "page";
             public const string RelationPage = "relation_page";
             public const string Scale = "scale";
+            public const string LoginEvent = "login_event";
         }
 
         public static class Sort

@@ -1,9 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using Microsoft.UI.Xaml.Controls;
-using Richasy.Bili.Models.BiliBili;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -74,7 +70,6 @@ namespace Richasy.Bili.App.Controls
                 leftOffset = 0;
             }
 
-            var options = new ScrollingScrollOptions(ScrollingAnimationMode.Enabled, ScrollingSnapPointsMode.Ignore);
             WideScrollViewer.ChangeView(leftOffset, 0, 1);
         }
 
@@ -86,28 +81,7 @@ namespace Richasy.Bili.App.Controls
                 rightOffset = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset;
             }
 
-            var options = new ScrollingScrollOptions(ScrollingAnimationMode.Auto, ScrollingSnapPointsMode.Ignore);
             WideScrollViewer.ChangeView(rightOffset, 0, 1);
-        }
-
-        private async void OnBannerTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            var context = (sender as FrameworkElement).DataContext as Banner;
-            await Launcher.LaunchUriAsync(new System.Uri(context.NavigateUri));
-        }
-
-        private void OnBannerPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            var control = sender as Control;
-            control.CapturePointer(e.Pointer);
-            VisualStateManager.GoToState(control, "PressedState", true);
-        }
-
-        private void OnBannerPointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            var control = sender as Control;
-            VisualStateManager.GoToState(sender as Control, "NormalState", true);
-            control.ReleasePointerCapture(e.Pointer);
         }
 
         private void OnWideScrollViewerChanged(object sender, ScrollViewerViewChangedEventArgs e)

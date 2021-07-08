@@ -8,7 +8,7 @@ namespace Richasy.Bili.Models.BiliBili
     /// 横幅定义.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Banner
+    public class PartitionBanner
     {
         /// <summary>
         /// 横幅Id.

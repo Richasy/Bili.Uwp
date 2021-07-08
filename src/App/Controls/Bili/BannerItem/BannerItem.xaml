@@ -10,20 +10,22 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BannerItem">
-                    <local:CardPanel x:Name="RootGrid" Margin="0,6">
+                    <local:CardPanel x:Name="RootPanel" Style="{TemplateBinding CardStyle}">
                         <Grid CornerRadius="{StaticResource ControlCornerRadius}">
                             <hn:ImageEx
                                 x:Name="BannerImage"
                                 AutomationProperties.Name="{TemplateBinding Title}"
                                 MinWidth="300"
                                 MinHeight="100"
-                                MaxHeight="114"
+                                MaxHeight="{TemplateBinding MaxImageHeight}"
                                 LazyLoadingEnabled="True"
                                 RetryCount="2"
                                 RetryDelay="0:0:5"
                                 Source="{TemplateBinding Source}"
-                                Stretch="Uniform"
-                                ToolTipService.ToolTip="{TemplateBinding Title}">
+                                Stretch="UniformToFill">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{TemplateBinding Title}" IsEnabled="{TemplateBinding IsTooltipEnabled}" />
+                                </ToolTipService.ToolTip>
                                 <hn:ImageEx.LoadingTemplate>
                                     <DataTemplate>
                                         <Grid>

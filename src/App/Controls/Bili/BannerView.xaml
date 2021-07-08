@@ -9,6 +9,7 @@
     xmlns:icons="using:Fluent.Icons"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -39,13 +40,17 @@
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled"
                 ViewChanged="OnWideScrollViewerChanged">
-                <controls:ItemsRepeater x:Name="BannerRepeater" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+                <controls:ItemsRepeater
+                    x:Name="BannerRepeater"
+                    Margin="0,4"
+                    ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
                     <controls:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="bilibili:Banner">
+                        <DataTemplate x:DataType="uwp:BannerViewModel">
                             <local:BannerItem
-                                Title="{x:Bind Title}"
-                                Source="{x:Bind Image}"
-                                Uri="{x:Bind NavigateUri}" />
+                                Title="{x:Bind Description}"
+                                IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
+                                Source="{x:Bind Cover}"
+                                Uri="{x:Bind Uri}" />
                         </DataTemplate>
                     </controls:ItemsRepeater.ItemTemplate>
                     <controls:ItemsRepeater.Layout>
@@ -69,42 +74,25 @@
 
         <Grid x:Name="NarrowContainer" Visibility="Collapsed">
             <FlipView Height="128" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+                <FlipView.ItemContainerStyle>
+                    <Style TargetType="FlipViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </FlipView.ItemContainerStyle>
                 <FlipView.ItemTemplate>
-                    <DataTemplate x:DataType="bilibili:Banner">
-                        <Grid x:Name="ImageContainer" CornerRadius="{StaticResource ControlCornerRadius}">
-                            <hn:ImageEx
-                                AutomationProperties.Name="{x:Bind Title}"
-                                LazyLoadingEnabled="True"
-                                RenderTransformOrigin="0.5,0.5"
-                                RetryCount="2"
-                                RetryDelay="0:0:2"
-                                Source="{x:Bind Image}"
-                                Stretch="UniformToFill"
-                                Tapped="OnBannerTappedAsync"
-                                ToolTipService.ToolTip="{x:Bind Title}">
-                                <hn:ImageEx.LoadingTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <controls:ProgressRing
-                                                Style="{StaticResource PageProgressRingStyle}"
-                                                Width="28"
-                                                Height="28" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </hn:ImageEx.LoadingTemplate>
-                                <hn:ImageEx.FailedTemplate>
-                                    <DataTemplate>
-                                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                            <icons:FluentIconElement
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                                Symbol="Image28Filled" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </hn:ImageEx.FailedTemplate>
-                            </hn:ImageEx>
-                        </Grid>
+                    <DataTemplate x:DataType="uwp:BannerViewModel">
+                        <local:BannerItem
+                            Title="{x:Bind Description}"
+                            IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
+                            MaxImageHeight="999"
+                            Source="{x:Bind Cover}"
+                            Uri="{x:Bind Uri}">
+                            <local:BannerItem.CardStyle>
+                                <Style TargetType="local:CardPanel">
+                                    <Setter Property="IsHoverAnimationEnabled" Value="False" />
+                                </Style>
+                            </local:BannerItem.CardStyle>
+                        </local:BannerItem>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
             </FlipView>

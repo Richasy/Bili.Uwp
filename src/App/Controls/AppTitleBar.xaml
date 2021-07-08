@@ -45,7 +45,6 @@
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
                             <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
-                            <Setter Target="ContentGrid.Padding" Value="8,0,0,0" />
                             <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
                             <Setter Target="RootGrid.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
@@ -58,7 +57,7 @@
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid x:Name="ContentGrid" Padding="16,0,0,0">
+        <Grid x:Name="ContentGrid" Padding="8,0,0,0">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->
