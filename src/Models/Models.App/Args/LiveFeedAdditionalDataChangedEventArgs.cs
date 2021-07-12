@@ -24,7 +24,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// 关注用户列表.
         /// </summary>
-        public List<LiveFeedFollowUser> FollowUserList { get; internal set; }
+        public List<LiveFeedFollowRoom> FollowUserList { get; internal set; }
 
         /// <summary>
         /// 热门标签区域列表.

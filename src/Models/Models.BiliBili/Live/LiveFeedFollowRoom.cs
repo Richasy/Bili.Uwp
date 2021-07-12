@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 namespace Richasy.Bili.Models.BiliBili
 {
     /// <summary>
-    /// 直播源推荐中我关注的用户.
+    /// 直播源推荐中我关注的直播间.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class LiveFeedFollowUser : LiveRoomBase
+    public class LiveFeedFollowRoom : LiveRoomBase
     {
         /// <summary>
         /// 直播间Id.
@@ -100,6 +100,6 @@ namespace Richasy.Bili.Models.BiliBili
         /// 列表数据.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "list", Required = Required.Default)]
-        public List<LiveFeedFollowUser> List { get; set; }
+        public List<LiveFeedFollowRoom> List { get; set; }
     }
 }

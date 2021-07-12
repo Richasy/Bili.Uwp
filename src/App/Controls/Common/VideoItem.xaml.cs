@@ -57,6 +57,18 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsShowLikeCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
         /// <summary>
+        /// <see cref="IsShowViewerCount"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowViewerCountProperty =
+            DependencyProperty.Register(nameof(IsShowViewerCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowDuration"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowDurationProperty =
+            DependencyProperty.Register(nameof(IsShowDuration), typeof(bool), typeof(VideoItem), new PropertyMetadata(true));
+
+        /// <summary>
         /// <see cref="IsShowAvatar"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowAvatarProperty =
@@ -150,6 +162,24 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (bool)GetValue(IsShowLikeCountProperty); }
             set { SetValue(IsShowLikeCountProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示点赞数.
+        /// </summary>
+        public bool IsShowDuration
+        {
+            get { return (bool)GetValue(IsShowDurationProperty); }
+            set { SetValue(IsShowDurationProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示观看人数.
+        /// </summary>
+        public bool IsShowViewerCount
+        {
+            get { return (bool)GetValue(IsShowViewerCountProperty); }
+            set { SetValue(IsShowViewerCountProperty, value); }
         }
 
         /// <summary>

@@ -117,6 +117,23 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = card;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="followRoom">关注的直播间.</param>
+        public VideoViewModel(LiveFeedFollowRoom followRoom)
+        {
+            Title = followRoom.Title;
+            VideoId = followRoom.RoomId.ToString();
+            ViewerCount = _numberToolkit.GetCountText(followRoom.ViewerCount);
+            PublisherName = followRoom.UserName;
+            PartitionName = followRoom.DisplayAreaName;
+            PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
+            AdditionalText = $"开始于:{DateTimeOffset.FromUnixTimeSeconds(followRoom.LiveStartTime):HH:mm}";
+            LimitCoverAndAvatar(followRoom.Cover, followRoom.UserAvatar);
+            Source = followRoom;
+        }
+
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);

@@ -61,6 +61,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string LikeCount { get; set; }
 
         /// <summary>
+        /// 观看人数.
+        /// </summary>
+        [Reactive]
+        public string ViewerCount { get; set; }
+
+        /// <summary>
         /// 发布者.
         /// </summary>
         [Reactive]

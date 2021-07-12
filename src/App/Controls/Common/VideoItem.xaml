@@ -108,7 +108,8 @@
                     VerticalAlignment="Bottom"
                     Background="{ThemeResource AppMaskAcrylicBrush}"
                     CornerRadius="{StaticResource ControlCornerRadius}"
-                    RequestedTheme="Dark">
+                    RequestedTheme="Dark"
+                    Visibility="{x:Bind IsShowDuration, Mode=OneWay}">
                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
                 </Grid>
 
@@ -185,30 +186,36 @@
                     </ToolTipService.ToolTip>
                 </TextBlock>
 
-                <StackPanel
-                    Grid.Row="2"
-                    Orientation="Horizontal"
-                    Spacing="12">
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="PlayCircle16Filled"
                         Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
                         Visibility="{x:Bind IsShowPlayCount, Mode=OneWay}" />
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="SlideText16Filled"
                         Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
                         Visibility="{x:Bind IsShowDanmakuCount, Mode=OneWay}" />
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="ThumbLike16Filled"
                         Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                         Visibility="{x:Bind IsShowLikeCount, Mode=OneWay}" />
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="Comment16Filled"
                         Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
                         Visibility="{x:Bind IsShowReplayCount, Mode=OneWay}" />
+                    <local:IconTextBlock
+                        Opacity="0.6"
+                        Symbol="People16Filled"
+                        Text="{x:Bind ViewModel.ViewerCount, Mode=OneWay}"
+                        Visibility="{x:Bind IsShowViewerCount, Mode=OneWay}" />
                 </StackPanel>
                 <Grid Grid.Row="3" Visibility="{x:Bind AdditionalFooterContent, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
                     <ContentPresenter x:Name="AdditionalFooterPresenter" Content="{x:Bind AdditionalFooterContent, Mode=OneWay}" />

@@ -18,18 +18,24 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controls\Animator\CardCollectionAnimator.cs" />
-    <Compile Include="Controls\Bili\AccountAvatar.xaml.cs">
+    <Compile Include="Controls\Live\FollowLiveItem.xaml.cs">
+      <DependentUpon>FollowLiveItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Live\FollowLiveView.xaml.cs">
+      <DependentUpon>FollowLiveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Bili\BannerItem\BannerItem.cs" />
-    <Compile Include="Controls\Bili\BannerView.xaml.cs">
+    <Compile Include="Controls\Banner\BannerItem\BannerItem.cs" />
+    <Compile Include="Controls\Banner\BannerView.xaml.cs">
       <DependentUpon>BannerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CardPanel\CardPanel.cs" />
-    <Compile Include="Controls\ErrorPanel.xaml.cs">
+    <Compile Include="Controls\App\ErrorPanel.xaml.cs">
       <DependentUpon>ErrorPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\IconTextBlock.xaml.cs">
+    <Compile Include="Controls\App\IconTextBlock.xaml.cs">
       <DependentUpon>IconTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Layout\AdaptiveLayoutState.cs" />
@@ -37,10 +43,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Layout\AdaptiveLayout.cs" />
-    <Compile Include="Controls\AppTitleBar.xaml.cs">
+    <Compile Include="Controls\App\AppTitleBar.xaml.cs">
       <DependentUpon>AppTitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Bili\PartitionItem.xaml.cs">
+    <Compile Include="Controls\Common\PartitionItem.xaml.cs">
       <DependentUpon>PartitionItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Layout\CollectionExtensions.cs" />
@@ -49,17 +55,17 @@
     <Compile Include="Controls\Layout\FlowLayoutAnchorInfo.cs" />
     <Compile Include="Controls\Layout\IFlowLayoutAlgorithmDelegates.cs" />
     <Compile Include="Controls\Layout\OrientationBasedMeasures.cs" />
-    <Compile Include="Controls\OffsetButton.cs" />
-    <Compile Include="Controls\RootNavigationView.xaml.cs">
+    <Compile Include="Controls\App\OffsetButton\OffsetButton.cs" />
+    <Compile Include="Controls\App\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Bili\VideoItem.xaml.cs">
+    <Compile Include="Controls\Common\VideoItem.xaml.cs">
       <DependentUpon>VideoItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Bili\VideoView.xaml.cs">
+    <Compile Include="Controls\Common\VideoView.xaml.cs">
       <DependentUpon>VideoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Bili\UserAvatar.xaml.cs">
+    <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shadow\AttachedShadow.cs" />
@@ -220,23 +226,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\AppTitleBar.xaml">
+    <Page Include="Controls\App\AppTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\AccountAvatar.xaml">
+    <Page Include="Controls\App\OffsetButton\OffsetButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\BannerItem\BannerItem.xaml">
+    <Page Include="Controls\Live\FollowLiveItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\BannerView.xaml">
+    <Page Include="Controls\Live\FollowLiveView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\PartitionItem.xaml">
+    <Page Include="Controls\User\AccountAvatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Banner\BannerItem\BannerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Banner\BannerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\PartitionItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,27 +262,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ErrorPanel.xaml">
+    <Page Include="Controls\App\ErrorPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\IconTextBlock.xaml">
+    <Page Include="Controls\App\IconTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\RootNavigationView.xaml">
+    <Page Include="Controls\App\RootNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\VideoItem.xaml">
+    <Page Include="Controls\Common\VideoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\VideoView.xaml">
+    <Page Include="Controls\Common\VideoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Bili\UserAvatar.xaml">
+    <Page Include="Controls\User\UserAvatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

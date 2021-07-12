@@ -45,13 +45,13 @@ namespace Richasy.Bili.Models.BiliBili
         /// 封面左侧文本，指用户名.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_style", Required = Required.Default)]
-        public CoverContent CoverLeftContent { get; set; }
+        public LiveCoverContent CoverLeftContent { get; set; }
 
         /// <summary>
         /// 封面右侧文本，指观看人数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_right_style", Required = Required.Default)]
-        public CoverContent CoverRightContent { get; set; }
+        public LiveCoverContent CoverRightContent { get; set; }
 
         /// <summary>
         /// 反馈列表.
@@ -74,7 +74,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// <summary>
         /// 封面内容样式.
         /// </summary>
-        public class CoverContent
+        public class LiveCoverContent
         {
             /// <summary>
             /// 封面文本.

@@ -8,7 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootContainer" Padding="{StaticResource DefaultContainerWithBottomPadding}">
+    <Grid
+        x:Name="RootContainer"
+        Padding="{StaticResource DefaultContainerWithBottomPadding}"
+        ColumnSpacing="24"
+        RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="Row1" Height="Auto" />
             <RowDefinition x:Name="Row2" Height="Auto" />
@@ -31,11 +35,11 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="BannerContainer.Margin" Value="0" />
+                        <Setter Target="RootContainer.ColumnSpacing" Value="0" />
                         <Setter Target="RootContainer.Padding" Value="{StaticResource NarrowContainerWithBottomPadding}" />
                         <Setter Target="FollowContainer.(Grid.Column)" Value="0" />
                         <Setter Target="FollowContainer.(Grid.Row)" Value="1" />
-                        <Setter Target="FollowContainer.Margin" Value="0,24" />
+                        <Setter Target="FollowContainer.(Grid.RowSpan)" Value="1" />
                         <Setter Target="FollowContainer.Width" Value="Auto" />
                         <Setter Target="FollowContainer.Height" Value="80" />
                     </VisualState.Setters>
@@ -43,23 +47,20 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid
-            x:Name="BannerContainer"
-            Grid.ColumnSpan="2"
-            Margin="0,0,0,24"
-            HorizontalAlignment="Stretch">
+        <Grid x:Name="BannerContainer" HorizontalAlignment="Stretch">
             <controls:BannerView ItemsSource="{x:Bind ViewModel.BannerCollection}" />
         </Grid>
 
         <Grid
             x:Name="FollowContainer"
-            Grid.Row="2"
+            Grid.RowSpan="3"
             Grid.Column="1"
             Width="200"
-            Margin="24,0,0,0"
             HorizontalAlignment="Stretch"
             Background="{ThemeResource LayerFillColorDefaultBrush}"
-            CornerRadius="{StaticResource OverlayCornerRadius}" />
+            CornerRadius="{StaticResource OverlayCornerRadius}">
+            
+        </Grid>
 
         <Grid
             x:Name="FeedsContainer"
