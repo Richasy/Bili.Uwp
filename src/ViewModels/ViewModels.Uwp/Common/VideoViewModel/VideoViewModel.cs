@@ -6,6 +6,7 @@ using Bilibili.App.Show.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -122,6 +123,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="followRoom">关注的直播间.</param>
         public VideoViewModel(LiveFeedFollowRoom followRoom)
+            : this()
         {
             Title = followRoom.Title;
             VideoId = followRoom.RoomId.ToString();
@@ -132,11 +134,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             AdditionalText = $"开始于:{DateTimeOffset.FromUnixTimeSeconds(followRoom.LiveStartTime):HH:mm}";
             LimitCoverAndAvatar(followRoom.Cover, followRoom.UserAvatar);
             Source = followRoom;
+            VideoType = VideoType.Live;
         }
 
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);
+            VideoType = VideoType.Video;
         }
 
         /// <summary>

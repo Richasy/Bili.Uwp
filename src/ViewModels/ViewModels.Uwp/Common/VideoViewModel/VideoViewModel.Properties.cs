@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -89,6 +90,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string AdditionalText { get; set; }
+
+        /// <summary>
+        /// 视频类型.
+        /// </summary>
+        public VideoType VideoType { get; set; }
 
         /// <summary>
         /// 生成视图模型的源数据.

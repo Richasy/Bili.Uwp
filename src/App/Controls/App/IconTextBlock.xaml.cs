@@ -15,13 +15,13 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="IconFontSize"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IconFontSizeProperty =
-            DependencyProperty.Register(nameof(IconFontSize), typeof(double), typeof(IconTextBlock), new PropertyMetadata(14));
+            DependencyProperty.Register(nameof(IconFontSize), typeof(double), typeof(IconTextBlock), new PropertyMetadata(14d));
 
         /// <summary>
         /// <see cref="Spacing"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty SpacingProperty =
-            DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(IconTextBlock), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(IconTextBlock), new PropertyMetadata(0d));
 
         /// <summary>
         /// <see cref="Symbol"/>的依赖属性.

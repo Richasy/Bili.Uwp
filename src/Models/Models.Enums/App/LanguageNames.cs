@@ -81,6 +81,8 @@ namespace Richasy.Bili.Models.Enums
         RequestRecommendFailed,
         RequestSubPartitionFailed,
         RequestPopularFailed,
+        FollowLiveRoom,
+        SeeAll,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

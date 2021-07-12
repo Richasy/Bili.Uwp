@@ -18,7 +18,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(VideoItem), new PropertyMetadata(null, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(VideoItem), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Orientation"/>的依赖属性.
@@ -98,7 +98,6 @@ namespace Richasy.Bili.App.Controls
         public VideoItem()
         {
             this.InitializeComponent();
-            this.SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -234,16 +233,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as VideoItem;
-            if (e.NewValue != null && e.NewValue is VideoViewModel vm)
-            {
-                var description = string.Empty;
-                instance.CheckOrientation();
-            }
-        }
-
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VideoItem;
@@ -263,21 +252,19 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void CheckOrientation()
-        {
-            var windowWidth = Window.Current.Bounds.Width;
-            Orientation = windowWidth <= 641 ? Orientation.Horizontal : Orientation.Vertical;
-        }
-
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            CheckOrientation();
-        }
-
         private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            var link = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
-            await Launcher.LaunchUriAsync(new System.Uri(link)).AsTask();
+            var link = string.Empty;
+            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
+            {
+                link = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
+            }
+            else
+            {
+                link = $"https://live.bilibili.com/{ViewModel.VideoId}";
+            }
+
+            await Launcher.LaunchUriAsync(new Uri(link)).AsTask();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller = BiliController.Instance;
             _currentPage = 1;
             BannerCollection = new ObservableCollection<BannerViewModel>();
+            FollowLiveRoomCollection = new ObservableCollection<VideoViewModel>();
 
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
 
@@ -92,6 +93,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 BannerCollection.Clear();
                 e.BannerList.ForEach(p => BannerCollection.Add(new BannerViewModel(p)));
+            }
+
+            if (e.FollowUserList != null)
+            {
+                FollowLiveRoomCollection.Clear();
+                e.FollowUserList.ForEach(p => FollowLiveRoomCollection.Add(new VideoViewModel(p)));
             }
         }
     }

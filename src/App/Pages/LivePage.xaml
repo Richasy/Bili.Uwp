@@ -8,26 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid
+    <ScrollViewer
         x:Name="RootContainer"
         Padding="{StaticResource DefaultContainerWithBottomPadding}"
-        ColumnSpacing="24"
-        RowSpacing="12">
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="Row1" Height="Auto" />
-            <RowDefinition x:Name="Row2" Height="Auto" />
-            <RowDefinition x:Name="Row3" Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="Column1" />
-            <ColumnDefinition x:Name="Column2" Width="Auto" />
-        </Grid.ColumnDefinitions>
-
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
@@ -35,40 +25,67 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootContainer.ColumnSpacing" Value="0" />
-                        <Setter Target="RootContainer.Padding" Value="{StaticResource NarrowContainerWithBottomPadding}" />
+                        <Setter Target="RootGrid.ColumnSpacing" Value="0" />
                         <Setter Target="FollowContainer.(Grid.Column)" Value="0" />
                         <Setter Target="FollowContainer.(Grid.Row)" Value="1" />
                         <Setter Target="FollowContainer.(Grid.RowSpan)" Value="1" />
                         <Setter Target="FollowContainer.Width" Value="Auto" />
-                        <Setter Target="FollowContainer.Height" Value="80" />
+                        <Setter Target="FollowView.ItemOrientation" Value="Vertical" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="PaddingGroup">
+                <VisualState x:Name="DefaultPaddingState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowPaddingState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootContainer.Padding" Value="{StaticResource NarrowContainerWithBottomPadding}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid x:Name="BannerContainer" HorizontalAlignment="Stretch">
-            <controls:BannerView ItemsSource="{x:Bind ViewModel.BannerCollection}" />
-        </Grid>
-
         <Grid
-            x:Name="FollowContainer"
-            Grid.RowSpan="3"
-            Grid.Column="1"
-            Width="200"
-            HorizontalAlignment="Stretch"
-            Background="{ThemeResource LayerFillColorDefaultBrush}"
-            CornerRadius="{StaticResource OverlayCornerRadius}">
-            
-        </Grid>
+            x:Name="RootGrid"
+            ColumnSpacing="24"
+            RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="Row1" Height="Auto" />
+                <RowDefinition x:Name="Row2" Height="Auto" />
+                <RowDefinition x:Name="Row3" Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="Column1" />
+                <ColumnDefinition x:Name="Column2" Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                x:Name="BannerContainer"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                CornerRadius="{StaticResource OverlayCornerRadius}">
+                <controls:BannerView ItemsSource="{x:Bind ViewModel.BannerCollection}" />
+            </Grid>
 
-        <Grid
-            x:Name="FeedsContainer"
-            Grid.Row="2"
-            Grid.Column="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="{ThemeResource LayerFillColorDefaultBrush}"
-            CornerRadius="{StaticResource OverlayCornerRadius}" />
-    </Grid>
+            <Grid
+                x:Name="FollowContainer"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch">
+                <controls:FollowLiveView x:Name="FollowView" ItemOrientation="Horizontal" />
+            </Grid>
+
+            <Grid
+                x:Name="FeedsContainer"
+                Grid.Row="2"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+        </Grid>
+    </ScrollViewer>
 </Page>

@@ -7,4 +7,5 @@
     <Thickness x:Key="NarrowContainerWithBottomPadding">0,0,16,16</Thickness>
     <x:Double x:Key="CompactModeThresholdWidth">641.0</x:Double>
     <x:Double x:Key="ExpandedModeThresholdWidth">1008.0</x:Double>
+    <x:Double x:Key="WideScreenThresholdWidth">1400.0</x:Double>
 </ResourceDictionary>

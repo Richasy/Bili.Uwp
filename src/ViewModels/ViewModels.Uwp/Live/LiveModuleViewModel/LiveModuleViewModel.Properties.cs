@@ -30,6 +30,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<BannerViewModel> BannerCollection { get; set; }
 
         /// <summary>
+        /// 关注的直播间集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoViewModel> FollowLiveRoomCollection { get; set; }
+
+        /// <summary>
         /// 是否在执行初始化数据加载.
         /// </summary>
         [Reactive]

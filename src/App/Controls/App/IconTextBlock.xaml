@@ -27,6 +27,7 @@
             VerticalAlignment="Center"
             FontSize="{x:Bind FontSize, Mode=OneWay}"
             Text="{x:Bind Text, Mode=OneWay}"
+            TextLineBounds="Tight"
             TextTrimming="CharacterEllipsis">
             <ToolTipService.ToolTip>
                 <ToolTip Content="{x:Bind Text, Mode=OneWay}" IsEnabled="{x:Bind ContentBlock.IsTextTrimmed, Mode=OneWay}" />

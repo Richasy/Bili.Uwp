@@ -1,27 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿// Copyright (c) Richasy. All rights reserved.
+
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
 namespace Richasy.Bili.App.Controls
 {
+    /// <summary>
+    /// 关注的直播间视图.
+    /// </summary>
     public sealed partial class FollowLiveView : UserControl
     {
+        /// <summary>
+        /// <see cref="ViewModel"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(nameof(ViewModel), typeof(LiveModuleViewModel), typeof(FollowLiveView), new PropertyMetadata(LiveModuleViewModel.Instance));
+
+        /// <summary>
+        /// <see cref="ItemOrientation"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty ItemOrientationProperty =
+            DependencyProperty.Register(nameof(ItemOrientation), typeof(Orientation), typeof(FollowLiveView), new PropertyMetadata(default, new PropertyChangedCallback(OnOrientationChanged)));
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FollowLiveView"/> class.
+        /// </summary>
         public FollowLiveView()
         {
             this.InitializeComponent();
+            Current = this;
+            Loaded += OnLoaded;
+        }
+
+        /// <summary>
+        /// <see cref="FollowLiveView"/>的实例.
+        /// </summary>
+        public static FollowLiveView Current { get; private set; }
+
+        /// <summary>
+        /// 视图模型.
+        /// </summary>
+        public LiveModuleViewModel ViewModel
+        {
+            get { return (LiveModuleViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
+
+        /// <summary>
+        /// 布局方向.
+        /// </summary>
+        public Orientation ItemOrientation
+        {
+            get { return (Orientation)GetValue(ItemOrientationProperty); }
+            set { SetValue(ItemOrientationProperty, value); }
+        }
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as FollowLiveView;
+            if (e.NewValue is Orientation ori)
+            {
+                switch (ori)
+                {
+                    case Orientation.Vertical:
+                        VisualStateManager.GoToState(instance, nameof(instance.HorizontalState), false);
+                        break;
+                    case Orientation.Horizontal:
+                        VisualStateManager.GoToState(instance, nameof(instance.VerticalState), false);
+                        break;
+                    default:
+                        break;
+                }
+
+                instance.ChangeInitializedItemOrientation();
+            }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e) => ChangeInitializedItemOrientation();
+
+        private void ChangeInitializedItemOrientation()
+        {
+            for (var i = 0; i < ViewModel.FollowLiveRoomCollection.Count; i++)
+            {
+                var element = LiveRepeater.TryGetElement(i);
+                if (element != null && element is FollowLiveItem vi)
+                {
+                    if (vi.Orientation != ItemOrientation)
+                    {
+                        vi.Orientation = ItemOrientation;
+                    }
+                }
+            }
         }
     }
 }
