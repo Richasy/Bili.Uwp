@@ -39,8 +39,10 @@
                         <Setter Target="Row2.Height" Value="Auto" />
                         <Setter Target="Column1.Width" Value="Auto" />
                         <Setter Target="Column2.Width" Value="*" />
-                        <Setter Target="SingleAvatar.Visibility" Value="Collapsed" />
-                        <Setter Target="InlineAvatar.Visibility" Value="Visible" />
+                        <Setter Target="VerticalAvatarContainer.Visibility" Value="Collapsed" />
+                        <Setter Target="NoAvatarUserName.Visibility" Value="Collapsed" />
+                        <Setter Target="InlineAvatarContainer.Visibility" Value="Visible" />
+                        <Setter Target="InlineUserContainer.Visibility" Value="Visible" />
                         <Setter Target="ContentRow1.Height" Value="*" />
                         <Setter Target="ContentRow2.Height" Value="Auto" />
                         <Setter Target="InlineUserContainer.(Grid.Row)" Value="1" />
@@ -120,23 +122,25 @@
             </Grid>
 
             <Grid
-                x:Name="SingleAvatar"
+                x:Name="VerticalAvatarContainer"
                 Margin="0,0,12,-18"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
-                <Ellipse
-                    Width="40"
-                    Height="40"
-                    Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
-                <local:UserAvatar
-                    Width="36"
-                    Height="36"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                VerticalAlignment="Bottom">
+                <Grid x:Name="SingleAvatar" Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
+                    <local:UserAvatar
+                        Width="36"
+                        Height="36"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                        UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                </Grid>
             </Grid>
+
 
             <Grid
                 x:Name="ContentContainer"
@@ -149,19 +153,30 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <StackPanel x:Name="InlineUserContainer" Orientation="Horizontal">
-                    <Grid Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
-                        <local:UserAvatar
-                            x:Name="InlineAvatar"
-                            Width="24"
-                            Height="24"
-                            Margin="0,0,8,0"
-                            VerticalAlignment="Center"
-                            Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                            UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
-                            Visibility="Collapsed" />
-                    </Grid>
 
+                <TextBlock
+                    x:Name="NoAvatarUserName"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    VerticalAlignment="Center"
+                    Opacity="0.6"
+                    Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+
+                <StackPanel
+                    x:Name="InlineUserContainer"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+                    <Grid x:Name="InlineAvatarContainer">
+                        <Grid Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
+                            <local:UserAvatar
+                                x:Name="InlineAvatar"
+                                Width="24"
+                                Height="24"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                                UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                        </Grid>
+                    </Grid>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         VerticalAlignment="Center"

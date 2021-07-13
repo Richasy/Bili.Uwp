@@ -42,5 +42,18 @@ namespace Richasy.Bili.App.Pages
                 await ViewModel.RequestFeedsAsync();
             }
         }
+
+        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+            await ViewModel.RequestFeedsAsync();
+        }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
+            {
+                await ViewModel.InitializeRequestFeedsAsync();
+            }
+        }
     }
 }

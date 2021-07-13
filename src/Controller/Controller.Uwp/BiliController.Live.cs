@@ -29,10 +29,8 @@ namespace Richasy.Bili.Controller.Uwp
                         LiveFeedAdditionalDataChanged?.Invoke(this, additionalArgs);
                     }
                 }
-                else
-                {
-                    LiveFeedRoomIteration?.Invoke(this, new LiveFeedRoomIterationEventArgs(data, pageNumber + 1));
-                }
+
+                LiveFeedRoomIteration?.Invoke(this, new LiveFeedRoomIterationEventArgs(data, pageNumber + 1));
             }
             catch (ServiceException)
             {

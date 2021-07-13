@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
@@ -24,6 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _currentPage = 1;
             BannerCollection = new ObservableCollection<BannerViewModel>();
             FollowLiveRoomCollection = new ObservableCollection<VideoViewModel>();
+            RecommendLiveRoomCollection = new ObservableCollection<VideoViewModel>();
 
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
 
@@ -59,6 +61,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _currentPage = 1;
                 IsError = false;
                 ErrorText = string.Empty;
+                RecommendLiveRoomCollection.Clear();
+                BannerCollection.Clear();
+                FollowLiveRoomCollection.Clear();
 
                 try
                 {
@@ -69,6 +74,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     IsError = true;
                     ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
+
+                IsInitializeLoading = false;
             }
         }
 
@@ -85,6 +92,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void OnLiveFeedRoomIteration(object sender, LiveFeedRoomIterationEventArgs e)
         {
             var list = e.List;
+            _currentPage = e.NextPageNumber;
+            foreach (var item in list)
+            {
+                if (!RecommendLiveRoomCollection.Any(p => p.VideoId == item.RoomId.ToString()))
+                {
+                    RecommendLiveRoomCollection.Add(new VideoViewModel(item));
+                }
+            }
         }
 
         private void OnLiveFeedAdditionalDataChanged(object sender, LiveFeedAdditionalDataChangedEventArgs e)

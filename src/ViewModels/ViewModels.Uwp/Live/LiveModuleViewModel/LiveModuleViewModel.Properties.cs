@@ -36,6 +36,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoViewModel> FollowLiveRoomCollection { get; set; }
 
         /// <summary>
+        /// 推荐的直播间集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoViewModel> RecommendLiveRoomCollection { get; set; }
+
+        /// <summary>
         /// 是否在执行初始化数据加载.
         /// </summary>
         [Reactive]

@@ -13,7 +13,7 @@
         <Grid x:Name="HorizontalContainer">
             <local:VideoItem
                 x:Name="VideoItem"
-                Width="360"
+                Width="380"
                 IsShowAvatar="True"
                 IsShowDanmakuCount="False"
                 IsShowDuration="False"
@@ -58,9 +58,10 @@
                     <local:IconTextBlock
                         Grid.Row="2"
                         HorizontalAlignment="Center"
-                        Spacing="8"
                         FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         IconFontSize="12"
+                        Spacing="4"
                         Symbol="People16Filled"
                         Text="{x:Bind ViewModel.ViewerCount, Mode=OneWay}" />
                 </Grid>

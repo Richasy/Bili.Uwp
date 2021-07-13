@@ -131,9 +131,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             PublisherName = followRoom.UserName;
             PartitionName = followRoom.DisplayAreaName;
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
-            AdditionalText = $"开始于:{DateTimeOffset.FromUnixTimeSeconds(followRoom.LiveStartTime):HH:mm}";
             LimitCoverAndAvatar(followRoom.Cover, followRoom.UserAvatar);
             Source = followRoom;
+            VideoType = VideoType.Live;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="card">直播间卡片.</param>
+        public VideoViewModel(LiveRoomCard card)
+            : this()
+        {
+            Title = card.Title;
+            VideoId = card.RoomId.ToString();
+            ViewerCount = card.CoverRightContent.Text;
+            PublisherName = card.CoverLeftContent.Text;
+            PartitionName = card.AreaName;
+            PartitionId = Convert.ToInt32(card.AreaId);
+            LimitCoverAndAvatar(card.Cover);
+            Source = card;
             VideoType = VideoType.Live;
         }
 

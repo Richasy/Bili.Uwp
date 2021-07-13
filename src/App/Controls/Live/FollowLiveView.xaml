@@ -34,10 +34,10 @@
                 <VisualState x:Name="VerticalState" />
                 <VisualState x:Name="HorizontalState">
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollViewer.HorizontalScrollMode" Value="Auto" />
-                        <Setter Target="ContentScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
-                        <Setter Target="ContentScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
                         <Setter Target="LiveRepeater.Layout" Value="{StaticResource HorizontalLayout}" />
+                        <Setter Target="ContentScrollViewer.HorizontalScrollMode" Value="Enabled" />
+                        <Setter Target="ContentScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+                        <Setter Target="ContentScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -63,8 +63,6 @@
                 VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <local:IconTextBlock
-                        FontSize="12"
-                        IconFontSize="12"
                         Spacing="8"
                         Symbol="List16Filled"
                         Text="{loc:LocaleLocator Name=SeeAll}" />
@@ -78,10 +76,12 @@
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Hidden"
-            VerticalScrollMode="Disabled">
+            VerticalScrollMode="Auto">
             <muxc:ItemsRepeater
                 x:Name="LiveRepeater"
-                Margin="0,4,0,0"
+                Margin="0,4,0,12"
+                HorizontalAlignment="Left"
+                ElementPrepared="OnElementPrepared"
                 ItemsSource="{x:Bind ViewModel.FollowLiveRoomCollection, Mode=OneWay}"
                 Layout="{StaticResource VerticalLayout}">
                 <muxc:ItemsRepeater.ItemTemplate>

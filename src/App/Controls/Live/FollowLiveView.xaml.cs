@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ItemOrientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemOrientationProperty =
-            DependencyProperty.Register(nameof(ItemOrientation), typeof(Orientation), typeof(FollowLiveView), new PropertyMetadata(default, new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(ItemOrientation), typeof(Orientation), typeof(FollowLiveView), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FollowLiveView"/> class.
@@ -61,18 +61,6 @@ namespace Richasy.Bili.App.Controls
             var instance = d as FollowLiveView;
             if (e.NewValue is Orientation ori)
             {
-                switch (ori)
-                {
-                    case Orientation.Vertical:
-                        VisualStateManager.GoToState(instance, nameof(instance.HorizontalState), false);
-                        break;
-                    case Orientation.Horizontal:
-                        VisualStateManager.GoToState(instance, nameof(instance.VerticalState), false);
-                        break;
-                    default:
-                        break;
-                }
-
                 instance.ChangeInitializedItemOrientation();
             }
         }
@@ -81,6 +69,18 @@ namespace Richasy.Bili.App.Controls
 
         private void ChangeInitializedItemOrientation()
         {
+            switch (ItemOrientation)
+            {
+                case Orientation.Vertical:
+                    VisualStateManager.GoToState(this, nameof(HorizontalState), false);
+                    break;
+                case Orientation.Horizontal:
+                    VisualStateManager.GoToState(this, nameof(VerticalState), false);
+                    break;
+                default:
+                    break;
+            }
+
             for (var i = 0; i < ViewModel.FollowLiveRoomCollection.Count; i++)
             {
                 var element = LiveRepeater.TryGetElement(i);
@@ -91,6 +91,14 @@ namespace Richasy.Bili.App.Controls
                         vi.Orientation = ItemOrientation;
                     }
                 }
+            }
+        }
+
+        private void OnElementPrepared(Microsoft.UI.Xaml.Controls.ItemsRepeater sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs args)
+        {
+            if (args.Element != null && args.Element is FollowLiveItem item)
+            {
+                item.Orientation = ItemOrientation;
             }
         }
     }
