@@ -9,24 +9,28 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AppViewModel\AppViewModel.cs" />
-    <Compile Include="AppViewModel\AppViewModel.Properties.cs" />
-    <Compile Include="PopularViewModel\PopularViewModel.cs" />
-    <Compile Include="PopularViewModel\PopularViewModel.Properties.cs" />
-    <Compile Include="RecommendViewModel\RecommendViewModel.cs" />
-    <Compile Include="RecommendViewModel\RecommendViewModel.Properties.cs" />
-    <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.cs" />
-    <Compile Include="PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
-    <Compile Include="PartitionViewModel\PartitionViewModel.cs" />
-    <Compile Include="PartitionViewModel\PartitionViewModel.Properties.cs" />
-    <Compile Include="RankViewModel\RankViewModel.cs" />
-    <Compile Include="RankViewModel\RankViewModel.Properties.cs" />
-    <Compile Include="SubPartitionViewModel\SubPartitionViewModel.cs" />
-    <Compile Include="SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
+    <Compile Include="Common\AppViewModel\AppViewModel.cs" />
+    <Compile Include="Common\AppViewModel\AppViewModel.Properties.cs" />
+    <Compile Include="Common\BannerViewModel\BannerViewModel.cs" />
+    <Compile Include="Common\BannerViewModel\BannerViewModel.Properties.cs" />
+    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.cs" />
+    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.Properties.cs" />
+    <Compile Include="Home\PopularViewModel\PopularViewModel.cs" />
+    <Compile Include="Home\PopularViewModel\PopularViewModel.Properties.cs" />
+    <Compile Include="Home\RecommendViewModel\RecommendViewModel.cs" />
+    <Compile Include="Home\RecommendViewModel\RecommendViewModel.Properties.cs" />
+    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.cs" />
+    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
+    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.cs" />
+    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.Properties.cs" />
+    <Compile Include="Home\RankViewModel\RankViewModel.cs" />
+    <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
+    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
+    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
     <Compile Include="AccountViewModel\AccountViewModel.cs" />
     <Compile Include="AccountViewModel\AccountViewModel.Properties.cs" />
-    <Compile Include="VideoViewModel\VideoViewModel.cs" />
-    <Compile Include="VideoViewModel\VideoViewModel.Properties.cs" />
+    <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
+    <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
@@ -90,5 +94,6 @@
       <Name>Toolkit.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

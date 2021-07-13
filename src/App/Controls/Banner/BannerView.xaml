@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.BannerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hn="using:HN.Controls"
+    xmlns:icons="using:Fluent.Icons"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="WideContainer.Visibility" Value="Collapsed" />
+                        <Setter Target="NarrowContainer.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="WideContainer" CornerRadius="{StaticResource ControlCornerRadius}">
+            <ScrollViewer
+                x:Name="WideScrollViewer"
+                HorizontalScrollBarVisibility="Hidden"
+                HorizontalScrollMode="Auto"
+                VerticalScrollBarVisibility="Hidden"
+                VerticalScrollMode="Disabled"
+                ViewChanged="OnWideScrollViewerChanged">
+                <controls:ItemsRepeater
+                    x:Name="BannerRepeater"
+                    Margin="0,4"
+                    ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+                    <controls:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:BannerViewModel">
+                            <local:BannerItem
+                                Title="{x:Bind Description}"
+                                IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
+                                Source="{x:Bind Cover}"
+                                Uri="{x:Bind Uri}" />
+                        </DataTemplate>
+                    </controls:ItemsRepeater.ItemTemplate>
+                    <controls:ItemsRepeater.Layout>
+                        <controls:StackLayout Orientation="Horizontal" Spacing="12" />
+                    </controls:ItemsRepeater.Layout>
+                </controls:ItemsRepeater>
+            </ScrollViewer>
+
+            <local:OffsetButton
+                x:Name="LeftOffsetButton"
+                HorizontalAlignment="Left"
+                Click="OnLeftOffsetButtonClick"
+                Glyph="&#xEDD9;" />
+
+            <local:OffsetButton
+                x:Name="RightOffsetButton"
+                HorizontalAlignment="Right"
+                Click="OnRightOffsetButtonClick"
+                Glyph="&#xEDDA;" />
+        </Grid>
+
+        <Grid x:Name="NarrowContainer" Visibility="Collapsed">
+            <FlipView Height="128" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+                <FlipView.ItemContainerStyle>
+                    <Style TargetType="FlipViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </FlipView.ItemContainerStyle>
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="uwp:BannerViewModel">
+                        <local:BannerItem
+                            Title="{x:Bind Description}"
+                            IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
+                            MaxImageHeight="999"
+                            Source="{x:Bind Cover}"
+                            Uri="{x:Bind Uri}">
+                            <local:BannerItem.CardStyle>
+                                <Style TargetType="local:CardPanel">
+                                    <Setter Property="IsHoverAnimationEnabled" Value="False" />
+                                </Style>
+                            </local:BannerItem.CardStyle>
+                        </local:BannerItem>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
+        </Grid>
+    </Grid>
+</UserControl>

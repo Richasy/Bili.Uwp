@@ -57,7 +57,7 @@ namespace Richasy.Bili.Models.BiliBili
             /// 顶层横幅.
             /// </summary>
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "top", Required = Required.Default)]
-            public List<Banner> TopBanners { get; set; }
+            public List<PartitionBanner> TopBanners { get; set; }
         }
     }
 

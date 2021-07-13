@@ -156,6 +156,9 @@
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
   </data>
+  <data name="FollowLiveRoom" xml:space="preserve">
+    <value>关注的直播间</value>
+  </data>
   <data name="ForeignAnime" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -272,6 +275,9 @@
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>查看全部</value>
   </data>
   <data name="SeeLater" xml:space="preserve">
     <value>稍后再看</value>

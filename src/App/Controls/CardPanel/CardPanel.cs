@@ -16,6 +16,12 @@ namespace Richasy.Bili.App.Controls
     /// </summary>
     public class CardPanel : Button
     {
+        /// <summary>
+        /// <see cref="IsHoverAnimationEnabled"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsHoverAnimationEnabledProperty =
+            DependencyProperty.Register(nameof(IsHoverAnimationEnabled), typeof(bool), typeof(CardPanel), new PropertyMetadata(true));
+
         // Light theme
         private const float LightPointerRestShadowRadius = 6f;
         private const float LightPointerRestShadowOffsetY = 2f;
@@ -67,6 +73,15 @@ namespace Richasy.Bili.App.Controls
             _compositor = Window.Current.Compositor;
         }
 
+        /// <summary>
+        /// 是否启用光标滑过的动画.
+        /// </summary>
+        public bool IsHoverAnimationEnabled
+        {
+            get { return (bool)GetValue(IsHoverAnimationEnabledProperty); }
+            set { SetValue(IsHoverAnimationEnabledProperty, value); }
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
@@ -116,16 +131,15 @@ namespace Richasy.Bili.App.Controls
             {
                 switch (ActualTheme)
                 {
-                    case ElementTheme.Default:
-                    case ElementTheme.Dark:
-                        shadowContext.Shadow.BlurRadius = DarkPointerRestShadowRadius;
-                        shadowContext.Shadow.Offset = new Vector3(0, DarkPointerRestShadowOffsetY, 0);
-                        shadowContext.Shadow.Opacity = DarkPointerRestShadowOpacity;
-                        break;
                     case ElementTheme.Light:
                         shadowContext.Shadow.BlurRadius = LightPointerRestShadowRadius;
                         shadowContext.Shadow.Offset = new Vector3(0, LightPointerRestShadowOffsetY, 0);
                         shadowContext.Shadow.Opacity = LightPointerRestShadowOpacity;
+                        break;
+                    default:
+                        shadowContext.Shadow.BlurRadius = DarkPointerRestShadowRadius;
+                        shadowContext.Shadow.Offset = new Vector3(0, DarkPointerRestShadowOffsetY, 0);
+                        shadowContext.Shadow.Opacity = DarkPointerRestShadowOpacity;
                         break;
                 }
             }
@@ -288,7 +302,10 @@ namespace Richasy.Bili.App.Controls
             }
             else if (IsPointerOver)
             {
-                ShowPointerOverShadow();
+                if (IsHoverAnimationEnabled)
+                {
+                    ShowPointerOverShadow();
+                }
             }
             else
             {
