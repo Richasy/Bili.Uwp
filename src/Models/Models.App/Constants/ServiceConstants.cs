@@ -232,6 +232,24 @@ namespace Richasy.Bili.Models.App.Constants
             {
                 public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
             }
+
+            public static class Article
+            {
+                /// <summary>
+                /// 专栏分区.
+                /// </summary>
+                public const string Categories = _apiBase + "/x/article/categories";
+
+                /// <summary>
+                /// 专栏首页，推荐内容.
+                /// </summary>
+                public const string Home = _apiBase + "/x/article/recommends/plus";
+
+                /// <summary>
+                /// 各个分区下的文章列表.
+                /// </summary>
+                public const string ArticleList = _apiBase + "/x/article/recommends";
+            }
         }
 #pragma warning restore SA1401 // Fields should be private
 #pragma warning restore SA1600 // Elements should be documented
