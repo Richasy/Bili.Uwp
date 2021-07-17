@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.BiliBili;
@@ -18,7 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 封面.
         /// </summary>
         [Reactive]
-        public string Cover { get; set; }
+        public string CoverUrl { get; set; }
 
         /// <summary>
         /// 文章标签.
@@ -42,7 +43,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 作者.
         /// </summary>
         [Reactive]
-        public string Publisher { get; set; }
+        public string PublisherName { get; set; }
 
         /// <summary>
         /// 作者头像.
@@ -83,5 +84,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 文章原始数据.
         /// </summary>
         public Article Source { get; private set; }
+
+        /// <summary>
+        /// 原始封面地址.
+        /// </summary>
+        public string SourceCoverUrl { get; set; }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ArticleViewModel model && Id == model.Id;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => 2108858624 + EqualityComparer<string>.Default.GetHashCode(Id);
     }
 }

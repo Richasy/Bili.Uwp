@@ -64,6 +64,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 RecommendLiveRoomCollection.Clear();
                 BannerCollection.Clear();
                 FollowLiveRoomCollection.Clear();
+                IsShowFollowList = false;
 
                 try
                 {
@@ -114,6 +115,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 FollowLiveRoomCollection.Clear();
                 e.FollowUserList.ForEach(p => FollowLiveRoomCollection.Add(new VideoViewModel(p)));
+                IsShowFollowList = FollowLiveRoomCollection.Count > 0;
             }
         }
     }

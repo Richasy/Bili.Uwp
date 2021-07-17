@@ -38,15 +38,16 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            if (!this.ViewModel.VideoCollection.Any())
+            if (!ViewModel.VideoCollection.Any())
             {
                 await this.ViewModel.RequestDataAsync();
+                this.FindName(nameof(VideoView));
             }
         }
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
-            await this.ViewModel.RequestDataAsync();
+            await ViewModel.RequestDataAsync();
         }
 
         private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
@@ -55,7 +56,7 @@ namespace Richasy.Bili.App.Pages
             if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
             {
                 ViewModel.Reset();
-                await this.ViewModel.RequestDataAsync();
+                await ViewModel.RequestDataAsync();
             }
 
             def.Complete();

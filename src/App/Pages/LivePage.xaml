@@ -5,9 +5,8 @@
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -25,12 +24,12 @@
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenThresholdWidth}" />
+                        <trigger:ControlWidthTrigger Condition="{StaticResource WidePageThresholdWidth}" TargetElement="{x:Bind RootContainer}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:ControlWidthTrigger Condition="0" TargetElement="{x:Bind RootContainer}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.ColumnSpacing" Value="0" />
@@ -42,12 +41,12 @@
             <VisualStateGroup x:Name="PaddingGroup">
                 <VisualState x:Name="DefaultPaddingState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="MediumPaddingState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="0" />
@@ -56,7 +55,7 @@
                 </VisualState>
                 <VisualState x:Name="NarrowPaddingState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="0" />
@@ -74,8 +73,8 @@
             <controls:FollowLiveView
                 x:Name="FollowLiveView"
                 MinWidth="200"
-                x:Load="False"
-                ItemOrientation="Horizontal" />
+                ItemOrientation="Horizontal"
+                Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
         </Grid>
 
         <ScrollViewer
@@ -85,8 +84,8 @@
             VerticalScrollBarVisibility="Auto">
             <Grid
                 x:Name="RootGrid"
-                x:Load="False"
-                RowSpacing="12">
+                RowSpacing="12"
+                Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition x:Name="Row1" Height="Auto" />
                     <RowDefinition x:Name="Row2" Height="Auto" />
@@ -104,9 +103,8 @@
                     x:Name="InlineFollowContainer"
                     Grid.Row="1"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
                     Visibility="Collapsed">
-                    <controls:FollowLiveView ItemOrientation="Vertical" />
+                    <controls:FollowLiveView ItemOrientation="Vertical" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
                 </Grid>
 
                 <Grid
@@ -153,14 +151,17 @@
             </Grid>
         </ScrollViewer>
 
-        <Grid Grid.ColumnSpan="2">
-            <muxc:ProgressBar
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                IsIndeterminate="True"
-                Visibility="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" />
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.ColumnSpan="2"
+            ActionButtonClick="OnRefreshButtonClickAsync"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
 
-            <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" IsActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-        </Grid>
+        <controls:OverlayLoadingPanel
+            Grid.ColumnSpan="2"
+            IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
     </Grid>
 </Page>

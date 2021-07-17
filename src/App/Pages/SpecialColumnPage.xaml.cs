@@ -54,5 +54,13 @@ namespace Richasy.Bili.App.Pages
                 await this.ViewModel.CurrentCategory.RequestDataAsync();
             }
         }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.CurrentCategory.IsInitializeLoading && !ViewModel.CurrentCategory.IsDeltaLoading)
+            {
+                await ViewModel.CurrentCategory.InitializeRequestAsync();
+            }
+        }
     }
 }

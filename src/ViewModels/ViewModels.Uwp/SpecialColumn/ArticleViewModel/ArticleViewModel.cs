@@ -30,7 +30,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = article.Title;
             Description = article.Summary;
-            Publisher = article.Publisher.Publisher;
+            PublisherName = article.Publisher.Publisher;
             PublisherAvatar = article.Publisher.PublisherAvatar;
             PublishTime = DateTimeOffset.FromUnixTimeSeconds(article.PublishTime).ToString("yy/MM/dd HH:mm");
             article.RelatedCategories.ForEach(p => CategoryCollection.Add(p));
@@ -58,7 +58,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (!string.IsNullOrEmpty(coverUrl))
             {
-                Cover = coverUrl + "@400w_250h_1c_100q.jpg";
+                CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
             }
 
             if (!string.IsNullOrEmpty(avatarUrl))

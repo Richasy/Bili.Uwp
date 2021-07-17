@@ -17,10 +17,10 @@
             x:Key="VerticalLayout"
             Orientation="Vertical"
             Spacing="12" />
-        <muxc:StackLayout
+        <muxc:UniformGridLayout
             x:Key="HorizontalLayout"
-            Orientation="Horizontal"
-            Spacing="12" />
+            MinColumnSpacing="12"
+            Orientation="Horizontal" />
     </UserControl.Resources>
 
     <Grid x:Name="RootGrid" RowSpacing="12">

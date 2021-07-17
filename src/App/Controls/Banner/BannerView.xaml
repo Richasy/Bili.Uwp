@@ -31,7 +31,7 @@
                         Uri="{x:Bind Uri}">
                         <local:BannerItem.CardStyle>
                             <Style TargetType="local:CardPanel">
-                                <Setter Property="IsHoverAnimationEnabled" Value="False" />
+                                <Setter Property="IsEnableHoverAnimation" Value="False" />
                             </Style>
                         </local:BannerItem.CardStyle>
                     </local:BannerItem>

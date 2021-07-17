@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -18,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _ = BiliController.Instance;
             IsNavigatePaneOpen = true;
             CurrentMainContentId = PageIds.SpecialColumn;
+            ServiceLocator.Instance.LoadService(out _resourceToolkit);
         }
 
         /// <summary>

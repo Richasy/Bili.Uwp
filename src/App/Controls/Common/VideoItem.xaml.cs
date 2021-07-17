@@ -93,6 +93,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(AdditionalOverlayContentVisibility), typeof(Visibility), typeof(VideoItem), new PropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
+        /// <see cref="HorizontalCoverWidth"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty HorizontalCoverWidthProperty =
+            DependencyProperty.Register(nameof(HorizontalCoverWidth), typeof(double), typeof(VideoItem), new PropertyMetadata(160d));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
         /// </summary>
         public VideoItem()
@@ -218,6 +224,15 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(AdditionalOverlayContentVisibilityProperty, value); }
         }
 
+        /// <summary>
+        /// 水平状态下的封面宽度.
+        /// </summary>
+        public double HorizontalCoverWidth
+        {
+            get { return (double)GetValue(HorizontalCoverWidthProperty); }
+            set { SetValue(HorizontalCoverWidthProperty, value); }
+        }
+
         /// <inheritdoc/>
         public Size GetHolderSize()
         {
@@ -245,9 +260,11 @@ namespace Richasy.Bili.App.Controls
             {
                 case Orientation.Vertical:
                     VisualStateManager.GoToState(this, nameof(VerticalState), false);
+                    CoverContainer.Width = double.NaN;
                     break;
                 case Orientation.Horizontal:
                     VisualStateManager.GoToState(this, nameof(HorizontalState), false);
+                    CoverContainer.Width = this.HorizontalCoverWidth;
                     break;
                 default:
                     break;

@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:other="using:Richasy.Bili.Models.App.Other"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -17,12 +18,12 @@
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
@@ -90,14 +91,9 @@
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
                     </ScrollViewer>
-                    <muxc:ProgressRing
-                        x:Name="RankRing"
-                        Style="{StaticResource PageProgressRingStyle}"
-                        IsActive="{x:Bind ViewModel.IsRankLoading, Mode=OneWay}" />
+                    <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsRankLoading, Mode=OneWay}" />
                     <controls:ErrorPanel
                         x:Name="ErrorPanel"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
                         ActionButtonClick="OnRefreshButtonClickAsync"
                         ActionContent="{loc:LocaleLocator Name=Refresh}"
                         Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"

@@ -10,15 +10,15 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <local:AdaptiveLayout
+        <muxc:UniformGridLayout
             x:Name="GridLayout"
-            ItemsJustification="Start"
             ItemsStretch="Fill"
             MinColumnSpacing="16"
             MinItemHeight="{x:Bind MinWideItemHeight, Mode=OneWay}"
             MinItemWidth="{x:Bind MinWideItemWidth, Mode=OneWay}"
             MinRowSpacing="16"
             Orientation="Horizontal" />
+
         <muxc:StackLayout
             x:Name="ListLayout"
             Orientation="Vertical"

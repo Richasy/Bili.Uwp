@@ -10,6 +10,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -35,12 +36,12 @@
                 <VisualStateGroup.States>
                     <VisualState x:Name="Wide">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                            <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                         </VisualState.StateTriggers>
                     </VisualState>
                     <VisualState x:Name="Narrow">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="0" />
+                            <trigger:WindowWidthTrigger Condition="0" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
@@ -57,7 +58,7 @@
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid x:Name="ContentGrid" Padding="8,0,0,0">
+        <Grid x:Name="ContentGrid" Padding="6,0,0,0">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->

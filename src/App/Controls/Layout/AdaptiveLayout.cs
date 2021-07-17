@@ -107,25 +107,25 @@ namespace Richasy.Bili.App.Controls
         /// Defines the <see cref="MinItemHeight"/> property.
         /// </summary>
         public static readonly DependencyProperty MinItemHeightProperty =
-            DependencyProperty.Register(nameof(MinItemHeight), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
+            DependencyProperty.Register(nameof(MinItemHeight), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0d, new PropertyChangedCallback(OnPropertyChanged)));
 
         /// <summary>
         /// Defines the <see cref="MinItemWidth"/> property.
         /// </summary>
         public static readonly DependencyProperty MinItemWidthProperty =
-            DependencyProperty.Register(nameof(MinItemWidth), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
+            DependencyProperty.Register(nameof(MinItemWidth), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0d, new PropertyChangedCallback(OnPropertyChanged)));
 
         /// <summary>
         /// Defines the <see cref="MinRowSpacing"/> property.
         /// </summary>
         public static readonly DependencyProperty MinRowSpacingProperty =
-            DependencyProperty.Register(nameof(MaximumRowsOrColumns), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
+            DependencyProperty.Register(nameof(MaximumRowsOrColumns), typeof(double), typeof(AdaptiveLayout), new PropertyMetadata(0d, new PropertyChangedCallback(OnPropertyChanged)));
 
         /// <summary>
         /// Defines the <see cref="OrientationProperty"/> property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(AdaptiveLayout), new PropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(AdaptiveLayout), new PropertyMetadata(default, new PropertyChangedCallback(OnPropertyChanged)));
 
         private readonly OrientationBasedMeasures _orientation = new OrientationBasedMeasures();
         private double _minItemWidth = double.NaN;

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +25,7 @@ namespace Richasy.Bili.App.Pages
         {
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
+            this.SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -47,6 +49,8 @@ namespace Richasy.Bili.App.Pages
 
             this.UpdateLayout();
         }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e) => this.UpdateLayout();
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {

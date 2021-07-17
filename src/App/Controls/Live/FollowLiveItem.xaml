@@ -13,7 +13,9 @@
         <Grid x:Name="HorizontalContainer">
             <local:VideoItem
                 x:Name="VideoItem"
-                Width="380"
+                Width="320"
+                Height="100"
+                HorizontalCoverWidth="100"
                 IsShowAvatar="True"
                 IsShowDanmakuCount="False"
                 IsShowDuration="False"

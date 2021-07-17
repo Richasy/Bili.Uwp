@@ -47,6 +47,7 @@ namespace Richasy.Bili.App.Pages
         {
             await ViewModel.InitializeAsync();
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.FindName(nameof(VideoView));
             CheckSelectedItem();
         }
 

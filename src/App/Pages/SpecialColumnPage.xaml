@@ -8,6 +8,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -16,12 +17,12 @@
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
@@ -32,13 +33,13 @@
         </VisualStateManager.VisualStateGroups>
         <muxc:NavigationView
             x:Name="SpecialColumnNavigationView"
-            x:Load="False"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             MenuItemsSource="{x:Bind ViewModel.CategoryCollection}"
             PaneDisplayMode="Top"
-            SelectedItem="{x:Bind ViewModel.CurrentCategory, Mode=TwoWay}">
+            SelectedItem="{x:Bind ViewModel.CurrentCategory, Mode=TwoWay}"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="uwp:SpecialColumnCategoryViewModel">
                     <muxc:NavigationViewItem
@@ -55,77 +56,83 @@
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ContentGrid" x:Load="False">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                    <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                        <!-- 横幅 -->
-                        <controls:BannerView
-                            x:Name="BannerView"
-                            Margin="0,0,0,12"
-                            VerticalAlignment="Top"
-                            ItemsSource="{x:Bind ViewModel.CurrentCategory.BannerCollection, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.CurrentCategory.IsShowBanner, Mode=OneWay}" />
+                            <!-- 横幅 -->
+                            <controls:BannerView
+                                x:Name="BannerView"
+                                Margin="0,0,0,12"
+                                VerticalAlignment="Top"
+                                ItemsSource="{x:Bind ViewModel.CurrentCategory.BannerCollection, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CurrentCategory.IsShowBanner, Mode=OneWay}" />
 
-                        <!-- 排行榜 -->
-                        <controls:HorizontalRepeaterView
-                            x:Name="RankView"
-                            Grid.Row="1"
-                            Margin="0,0,0,12"
-                            VerticalAlignment="Top"
-                            Header="{loc:LocaleLocator Name=Rank}"
-                            HeaderVisibility="Visible"
-                            ItemsSource="{x:Bind ViewModel.CurrentCategory.RankCollection, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.CurrentCategory.IsShowRank, Mode=OneWay}">
-                            <controls:HorizontalRepeaterView.WideItemTemplate>
-                                <DataTemplate x:DataType="uwp:ArticleViewModel">
-                                    <controls:ArticleItem
-                                        Width="380"
-                                        Height="128"
-                                        DescriptionVisibility="Collapsed"
-                                        Orientation="Horizontal"
-                                        ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </controls:HorizontalRepeaterView.WideItemTemplate>
-                            <controls:HorizontalRepeaterView.NarrowItemTemplate>
-                                <DataTemplate x:DataType="uwp:ArticleViewModel">
-                                    <controls:ArticleItem
-                                        DescriptionVisibility="Collapsed"
-                                        Orientation="Horizontal"
-                                        ViewModel="{x:Bind}">
-                                        <controls:ArticleItem.CardPanelStyle>
-                                            <Style TargetType="controls:CardPanel">
-                                                <Setter Property="IsHoverAnimationEnabled" Value="False" />
-                                            </Style>
-                                        </controls:ArticleItem.CardPanelStyle>
-                                    </controls:ArticleItem>
-                                </DataTemplate>
-                            </controls:HorizontalRepeaterView.NarrowItemTemplate>
-                        </controls:HorizontalRepeaterView>
+                            <!-- 排行榜 -->
+                            <controls:HorizontalRepeaterView
+                                x:Name="RankView"
+                                Grid.Row="1"
+                                Margin="0,0,0,12"
+                                VerticalAlignment="Top"
+                                Header="{loc:LocaleLocator Name=Rank}"
+                                HeaderVisibility="Visible"
+                                ItemsSource="{x:Bind ViewModel.CurrentCategory.RankCollection, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CurrentCategory.IsShowRank, Mode=OneWay}">
+                                <controls:HorizontalRepeaterView.WideItemTemplate>
+                                    <DataTemplate x:DataType="uwp:ArticleViewModel">
+                                        <controls:ArticleItem
+                                            Width="380"
+                                            Height="128"
+                                            DescriptionVisibility="Collapsed"
+                                            Orientation="Horizontal"
+                                            ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </controls:HorizontalRepeaterView.WideItemTemplate>
+                                <controls:HorizontalRepeaterView.NarrowItemTemplate>
+                                    <DataTemplate x:DataType="uwp:ArticleViewModel">
+                                        <controls:ArticleItem
+                                            DescriptionVisibility="Collapsed"
+                                            Orientation="Horizontal"
+                                            ViewModel="{x:Bind}">
+                                            <controls:ArticleItem.CardPanelStyle>
+                                                <Style TargetType="controls:CardPanel">
+                                                    <Setter Property="IsEnableHoverAnimation" Value="False" />
+                                                </Style>
+                                            </controls:ArticleItem.CardPanelStyle>
+                                        </controls:ArticleItem>
+                                    </DataTemplate>
+                                </controls:HorizontalRepeaterView.NarrowItemTemplate>
+                            </controls:HorizontalRepeaterView>
 
-                        <controls:VerticalRepeaterView
-                            x:Name="ArticleView"
-                            Grid.Row="2"
-                            Margin="0,0,0,12"
-                            HeaderText="{x:Bind ViewModel.CurrentCategory.Title, Mode=OneWay}"
-                            ItemsSource="{x:Bind ViewModel.CurrentCategory.ArticleCollection, Mode=OneWay}"
-                            MinWideItemHeight="272"
-                            RequestLoadMore="OnArticleViewRequestLoadMoreAsync"
-                            Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                            <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:ArticleViewModel">
-                                    <controls:ArticleItem ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </controls:VerticalRepeaterView.ItemTemplate>
-                        </controls:VerticalRepeaterView>
+                            <controls:VerticalRepeaterView
+                                x:Name="ArticleView"
+                                Grid.Row="2"
+                                Margin="0,0,0,12"
+                                HeaderText="{x:Bind ViewModel.CurrentCategory.Title, Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.CurrentCategory.ArticleCollection, Mode=OneWay}"
+                                MinWideItemHeight="272"
+                                RequestLoadMore="OnArticleViewRequestLoadMoreAsync"
+                                Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                <controls:VerticalRepeaterView.ItemTemplate>
+                                    <DataTemplate x:DataType="uwp:ArticleViewModel">
+                                        <controls:ArticleItem ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </controls:VerticalRepeaterView.ItemTemplate>
+                            </controls:VerticalRepeaterView>
+                        </Grid>
 
-                        <muxc:ProgressRing
-                            Style="{StaticResource PageProgressRingStyle}"
-                            Grid.RowSpan="3"
-                            IsActive="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay}" />
+                        <controls:ErrorPanel
+                            x:Name="ErrorPanel"
+                            ActionButtonClick="OnRefreshButtonClickAsync"
+                            ActionContent="{loc:LocaleLocator Name=Refresh}"
+                            Text="{x:Bind ViewModel.CurrentCategory.ErrorText, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.CurrentCategory.IsError, Mode=OneWay}" />
+
+                        <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.CurrentCategory.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay}" />
                     </Grid>
                 </ScrollViewer>
             </muxc:NavigationView.Content>

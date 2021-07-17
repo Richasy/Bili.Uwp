@@ -18,11 +18,18 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controls\Animator\CardCollectionAnimator.cs" />
+    <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
+    <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
+    <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
+    <Compile Include="Controls\CardPanel\CardPanelStateChangedEventArgs.cs" />
     <Compile Include="Controls\Common\ArticleItem.xaml.cs">
       <DependentUpon>ArticleItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\HorizontalRepeaterView.xaml.cs">
       <DependentUpon>HorizontalRepeaterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\OverlayLoadingPanel.xaml.cs">
+      <DependentUpon>OverlayLoadingPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IDynamicLayoutItem.cs" />
     <Compile Include="Controls\IRepeaterItem.cs" />
@@ -46,23 +53,15 @@
     <Compile Include="Controls\App\IconTextBlock.xaml.cs">
       <DependentUpon>IconTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Layout\AdaptiveLayoutState.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Layout\AdaptiveLayout.cs" />
     <Compile Include="Controls\App\AppTitleBar.xaml.cs">
       <DependentUpon>AppTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\PartitionItem.xaml.cs">
       <DependentUpon>PartitionItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Layout\CollectionExtensions.cs" />
-    <Compile Include="Controls\Layout\ElementManager.cs" />
-    <Compile Include="Controls\Layout\FlowLayoutAlgorithm.cs" />
-    <Compile Include="Controls\Layout\FlowLayoutAnchorInfo.cs" />
-    <Compile Include="Controls\Layout\IFlowLayoutAlgorithmDelegates.cs" />
-    <Compile Include="Controls\Layout\OrientationBasedMeasures.cs" />
     <Compile Include="Controls\App\OffsetButton\OffsetButton.cs" />
     <Compile Include="Controls\App\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
@@ -250,6 +249,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Common\OverlayLoadingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Live\FollowLiveItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -404,6 +407,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AdaptiveTriggerLibrary">
+      <Version>1.2.2</Version>
+    </PackageReference>
     <PackageReference Include="Fluent.Icons">
       <Version>1.1.110</Version>
     </PackageReference>

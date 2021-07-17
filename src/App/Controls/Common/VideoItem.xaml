@@ -20,7 +20,10 @@
         </Style>
     </UserControl.Resources>
 
-    <local:CardPanel AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}" Click="OnContainerClickAsync">
+    <local:CardPanel
+        x:Name="RootCard"
+        AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
+        Click="OnContainerClickAsync">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -29,7 +32,6 @@
                     <VisualState.Setters>
                         <Setter Target="CoverContainer.VerticalAlignment" Value="Stretch" />
                         <Setter Target="CoverContainer.Height" Value="Auto" />
-                        <Setter Target="CoverContainer.Width" Value="160" />
                         <Setter Target="CoverContainer.Margin" Value="8" />
                         <Setter Target="CoverContainer.CornerRadius" Value="{StaticResource ControlCornerRadius}" />
                         <Setter Target="ContentContainer.(Grid.Row)" Value="0" />
@@ -50,6 +52,7 @@
                         <Setter Target="AdditionalOverlayContainer.Margin" Value="8,8,0,0" />
                         <Setter Target="AdditionalOverlayContainer.VerticalAlignment" Value="Top" />
                         <Setter Target="AdditionalOverlayContainer.HorizontalAlignment" Value="Left" />
+                        <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

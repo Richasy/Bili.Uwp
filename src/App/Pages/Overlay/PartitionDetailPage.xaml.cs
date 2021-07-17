@@ -71,6 +71,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.FindName(nameof(ContentGrid));
             CheckCurrentSubPartition();
         }
 

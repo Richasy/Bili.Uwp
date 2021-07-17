@@ -54,6 +54,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsDeltaLoading { get; set; }
 
         /// <summary>
+        /// 是否显示关注列表.
+        /// </summary>
+        [Reactive]
+        public bool IsShowFollowList { get; set; }
+
+        /// <summary>
         /// 是否显示错误信息.
         /// </summary>
         [Reactive]

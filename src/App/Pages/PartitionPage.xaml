@@ -9,6 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -17,12 +18,12 @@
             <VisualStateGroup>
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="{StaticResource NarrowContainerWithBottomPadding}" />
@@ -40,7 +41,6 @@
             <muxc:ItemsRepeater
                 x:Name="PartitionView"
                 Margin="0,4,0,0"
-                x:Load="False"
                 Animator="{StaticResource CardCollectionAnimator}"
                 ItemsSource="{x:Bind ViewModel.PartitionCollection}"
                 Loaded="OnItemsRepeaterLoadedAsync">
@@ -50,8 +50,7 @@
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>
-                    <controls:AdaptiveLayout
-                        ItemsJustification="Start"
+                    <muxc:UniformGridLayout
                         ItemsStretch="Fill"
                         MinColumnSpacing="12"
                         MinItemHeight="120"

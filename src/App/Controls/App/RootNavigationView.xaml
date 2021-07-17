@@ -9,7 +9,9 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modifier="using:AdaptiveTriggerLibrary.ConditionModifiers.ComparableModifiers"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -29,12 +31,12 @@
             <VisualStateGroup x:Name="LayoutVisualGroups">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
@@ -46,8 +48,8 @@
         <muxc:NavigationView
             x:Name="RootNavView"
             Style="{StaticResource BiliNavigationViewStyle}"
-            CompactModeThresholdWidth="{StaticResource CompactModeThresholdWidth}"
-            ExpandedModeThresholdWidth="{StaticResource ExpandedModeThresholdWidth}"
+            CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
+            ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
             IsPaneOpen="{x:Bind ViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>

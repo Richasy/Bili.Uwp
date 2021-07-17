@@ -21,6 +21,7 @@
     </UserControl.Resources>
 
     <local:CardPanel
+        x:Name="RootCard"
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
         Style="{x:Bind CardPanelStyle, Mode=OneWay}"
         Click="OnContainerClickAsync">
@@ -51,6 +52,7 @@
                         <Setter Target="InlineUserContainer.(Grid.Row)" Value="1" />
                         <Setter Target="TitleBlock.(Grid.Row)" Value="0" />
                         <Setter Target="PublishTimeBlock.Margin" Value="0" />
+                        <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -75,7 +77,7 @@
                     LazyLoadingEnabled="True"
                     RetryCount="2"
                     RetryDelay="0:0:5"
-                    Source="{x:Bind ViewModel.Cover, Mode=OneWay}"
+                    Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
                     Stretch="UniformToFill">
                     <hn:ImageEx.LoadingTemplate>
                         <DataTemplate>
@@ -116,7 +118,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                    UserName="{x:Bind ViewModel.Publisher, Mode=OneWay}" />
+                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
             </Grid>
 
 
@@ -138,7 +140,7 @@
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.Publisher, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
 
                 <StackPanel
                     x:Name="InlineUserContainer"
@@ -152,13 +154,13 @@
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
                             Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                            UserName="{x:Bind ViewModel.Publisher, Mode=OneWay}" />
+                            UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
                     </Grid>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         VerticalAlignment="Center"
                         Opacity="0.6"
-                        Text="{x:Bind ViewModel.Publisher, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock

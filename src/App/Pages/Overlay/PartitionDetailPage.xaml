@@ -10,6 +10,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -22,12 +23,12 @@
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
@@ -79,7 +80,10 @@
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
                         VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="ContentGrid" Padding="0,12,0,0">
+                        <Grid
+                            x:Name="ContentGrid"
+                            Padding="0,12,0,0"
+                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -136,18 +140,10 @@
                                 </controls:VerticalRepeaterView.ItemTemplate>
                             </controls:VerticalRepeaterView>
 
-                            <muxc:ProgressRing
-                                x:Name="LoadingRing"
-                                Style="{StaticResource PageProgressRingStyle}"
+                            <controls:OverlayLoadingPanel
                                 Grid.RowSpan="2"
-                                IsActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
-
-                            <muxc:ProgressBar
-                                Grid.Row="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Bottom"
-                                IsIndeterminate="True"
-                                Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" />
+                                IsBarActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}"
+                                IsRingActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
                         </Grid>
                     </ScrollViewer>
 

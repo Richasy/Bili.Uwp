@@ -3,6 +3,7 @@
 using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -11,6 +12,8 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class AppViewModel
     {
+        private readonly IResourceToolkit _resourceToolkit;
+
         /// <summary>
         /// 请求导航至二级页面时发生
         /// </summary>

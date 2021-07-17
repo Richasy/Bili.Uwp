@@ -3,13 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animator="using:Richasy.Bili.App.Controls.Animator"
-    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
-    xmlns:local="using:Richasy.Bili.App"
-    xmlns:shadow="using:Richasy.Bili.App.Controls.Shadow">
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
             </ResourceDictionary.MergedDictionaries>
