@@ -30,7 +30,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollView.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
@@ -75,7 +75,7 @@
             <muxc:NavigationView.Content>
                 <Grid>
                     <ScrollViewer
-                        x:Name="ContentScrollView"
+                        x:Name="ContentScrollViewer"
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
                         VerticalScrollBarVisibility="Auto">
@@ -92,14 +92,14 @@
                                 ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsShowBanner, Mode=OneWay}" />
 
-                            <controls:VideoView
+                            <controls:VerticalRepeaterView
                                 x:Name="VideoView"
                                 Grid.Row="1"
                                 Margin="0,0,0,12"
                                 HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
                                 ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}"
                                 RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                                <controls:VideoView.AdditionalContent>
+                                <controls:VerticalRepeaterView.AdditionalContent>
                                     <Grid>
                                         <Button
                                             x:Name="RefreshButton"
@@ -124,8 +124,8 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </Grid>
-                                </controls:VideoView.AdditionalContent>
-                                <controls:VideoView.ItemTemplate>
+                                </controls:VerticalRepeaterView.AdditionalContent>
+                                <controls:VerticalRepeaterView.ItemTemplate>
                                     <DataTemplate x:DataType="uwp:VideoViewModel">
                                         <controls:VideoItem
                                             IsShowDanmakuCount="True"
@@ -133,8 +133,8 @@
                                             IsShowPlayCount="True"
                                             ViewModel="{x:Bind}" />
                                     </DataTemplate>
-                                </controls:VideoView.ItemTemplate>
-                            </controls:VideoView>
+                                </controls:VerticalRepeaterView.ItemTemplate>
+                            </controls:VerticalRepeaterView>
 
                             <muxc:ProgressRing
                                 x:Name="LoadingRing"

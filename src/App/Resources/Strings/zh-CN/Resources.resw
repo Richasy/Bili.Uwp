@@ -327,6 +327,9 @@
   <data name="Topic" xml:space="preserve">
     <value>专题</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>全部</value>
+  </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
   </data>

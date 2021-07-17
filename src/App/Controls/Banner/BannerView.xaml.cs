@@ -2,7 +2,6 @@
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -23,8 +22,6 @@ namespace Richasy.Bili.App.Controls
         public BannerView()
         {
             this.InitializeComponent();
-            this.SizeChanged += OnSizeChanged;
-            this.Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -34,59 +31,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (object)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        /// <inheritdoc/>
-        protected override void OnPointerEntered(PointerRoutedEventArgs e) => CheckOffsetButtonStatus();
-
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            CheckOffsetButtonStatus();
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            CheckOffsetButtonStatus();
-        }
-
-        private void CheckOffsetButtonStatus()
-        {
-            if (WideScrollViewer.ExtentWidth <= WideScrollViewer.ViewportWidth)
-            {
-                LeftOffsetButton.Visibility = RightOffsetButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                LeftOffsetButton.Visibility = WideScrollViewer.HorizontalOffset == 0 ? Visibility.Collapsed : Visibility.Visible;
-                RightOffsetButton.Visibility = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset > 0 ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
-
-        private void OnLeftOffsetButtonClick(object sender, RoutedEventArgs e)
-        {
-            var leftOffset = WideScrollViewer.HorizontalOffset - WideScrollViewer.ViewportWidth;
-            if (leftOffset < 0)
-            {
-                leftOffset = 0;
-            }
-
-            WideScrollViewer.ChangeView(leftOffset, 0, 1);
-        }
-
-        private void OnRightOffsetButtonClick(object sender, RoutedEventArgs e)
-        {
-            var rightOffset = WideScrollViewer.HorizontalOffset + WideScrollViewer.ViewportWidth;
-            if (rightOffset > WideScrollViewer.ExtentWidth)
-            {
-                rightOffset = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset;
-            }
-
-            WideScrollViewer.ChangeView(rightOffset, 0, 1);
-        }
-
-        private void OnWideScrollViewerChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            CheckOffsetButtonStatus();
         }
     }
 }

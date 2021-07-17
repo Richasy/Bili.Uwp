@@ -5,10 +5,12 @@ using Richasy.Bili.Lib.Interfaces;
 namespace Richasy.Bili.Lib.Uwp
 {
     /// <summary>
-    /// 提供已登录用户相关的数据操作.
+    /// 提供专栏文章相关的操作.
     /// </summary>
-    public partial class AccountProvider
+    public partial class SpecialColumnProvider
     {
         private readonly IHttpProvider _httpProvider;
+
+        private readonly IAccountProvider _accountProvider;
     }
 }

@@ -2,5 +2,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Controls/Banner/BannerItem/BannerItem.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/CardPanel/CardPanel.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/OffsetButton/OffsetButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

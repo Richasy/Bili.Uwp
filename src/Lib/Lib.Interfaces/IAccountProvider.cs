@@ -11,6 +11,11 @@ namespace Richasy.Bili.Lib.Interfaces
     public interface IAccountProvider
     {
         /// <summary>
+        /// 已登录的用户Id.
+        /// </summary>
+        int UserId { get; }
+
+        /// <summary>
         /// 获取已登录用户的个人资料.
         /// </summary>
         /// <returns>个人资料.</returns>

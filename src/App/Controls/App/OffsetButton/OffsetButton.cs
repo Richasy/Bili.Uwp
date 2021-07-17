@@ -17,6 +17,14 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(Glyph), typeof(string), typeof(OffsetButton), new PropertyMetadata(string.Empty));
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OffsetButton"/> class.
+        /// </summary>
+        public OffsetButton()
+        {
+            this.DefaultStyleKey = typeof(OffsetButton);
+        }
+
+        /// <summary>
         /// 按钮图标.
         /// </summary>
         public string Glyph

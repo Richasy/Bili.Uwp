@@ -65,7 +65,10 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => ChangeInitializedItemOrientation();
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ChangeInitializedItemOrientation();
+        }
 
         private void ChangeInitializedItemOrientation()
         {

@@ -97,7 +97,7 @@
                 <AppBarSeparator />
                 <AppBarButton Click="OnSignOutButtonClickAsync" Label="{loc:LocaleLocator Name=SignOut}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Foreground="{ThemeResource SystemControlErrorTextForegroundBrush}" Symbol="SignOut20" />
+                        <icons:FluentIconElement Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="SignOut20" />
                     </AppBarButton.Icon>
                 </AppBarButton>
             </muxc:CommandBarFlyout.SecondaryCommands>

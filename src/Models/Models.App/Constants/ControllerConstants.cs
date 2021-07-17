@@ -12,6 +12,7 @@ namespace Richasy.Bili.Models.App.Constants
         public static class Names
         {
             public const string PartitionIndex = "partitionIndex.json";
+            public const string DocumentaryCategories = "documentaryCategories.json";
             public const string ServerFolder = "Server";
         }
 #pragma warning disable SA1600 // Elements should be documented

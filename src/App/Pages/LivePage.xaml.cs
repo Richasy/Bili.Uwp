@@ -41,6 +41,11 @@ namespace Richasy.Bili.App.Pages
             {
                 await ViewModel.RequestFeedsAsync();
             }
+
+            this.FindName(nameof(FollowLiveView));
+            this.FindName(nameof(RootGrid));
+
+            this.UpdateLayout();
         }
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)

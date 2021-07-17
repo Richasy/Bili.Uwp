@@ -16,6 +16,8 @@
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
+    <Compile Include="SpecialColumnProvider\SpecialColumnProvider.cs" />
+    <Compile Include="SpecialColumnProvider\SpecialColumnProvider.Extension.cs" />
     <Compile Include="LiveProvider\LiveProvider.cs" />
     <Compile Include="LiveProvider\LiveProvider.Extension.cs" />
     <Compile Include="RecommendProvider\RecommendProvider.cs" />
