@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections;
 using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -12,75 +11,75 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 视频视图.
     /// </summary>
-    public sealed partial class VideoView : UserControl
+    public sealed partial class VerticalRepeaterView : UserControl
     {
         /// <summary>
         /// <see cref="ItemsSource"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(VideoView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(VerticalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="ItemOrientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemOrientationProperty =
-            DependencyProperty.Register(nameof(ItemOrientation), typeof(Orientation), typeof(VideoView), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(ItemOrientation), typeof(Orientation), typeof(VerticalRepeaterView), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// <see cref="HeaderText"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty HeaderTextProperty =
-            DependencyProperty.Register(nameof(HeaderText), typeof(string), typeof(VideoView), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register(nameof(HeaderText), typeof(string), typeof(VerticalRepeaterView), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// <see cref="IsShowHeader"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowHeaderProperty =
-            DependencyProperty.Register(nameof(IsShowHeader), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsShowHeader), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(true));
 
         /// <summary>
         /// <see cref="ItemTemplate"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(VideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(VerticalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="AdditionalContent"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty AdditionalContentProperty =
-            DependencyProperty.Register(nameof(AdditionalContent), typeof(object), typeof(VideoView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AdditionalContent), typeof(object), typeof(VerticalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="IsAutoFillEnable"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsAutoFillEnableProperty =
-            DependencyProperty.Register(nameof(IsAutoFillEnable), typeof(bool), typeof(VideoView), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutoFillEnable), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(true));
 
         /// <summary>
         /// <see cref="HeaderVisibility"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty HeaderVisibilityProperty =
-            DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(VideoView), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(VerticalRepeaterView), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// <see cref="MinWideItemHeight"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty MinWideItemHeightProperty =
-            DependencyProperty.Register(nameof(MinWideItemHeight), typeof(double), typeof(VideoView), new PropertyMetadata(232d));
+            DependencyProperty.Register(nameof(MinWideItemHeight), typeof(double), typeof(VerticalRepeaterView), new PropertyMetadata(232d));
 
         /// <summary>
         /// <see cref="MinWideItemWidth"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty MinWideItemWidthProperty =
-            DependencyProperty.Register(nameof(MinWideItemWidth), typeof(double), typeof(VideoView), new PropertyMetadata(222d));
+            DependencyProperty.Register(nameof(MinWideItemWidth), typeof(double), typeof(VerticalRepeaterView), new PropertyMetadata(222d));
 
         private ScrollViewer _parentScrollViewer;
         private double _itemHolderHeight = 0d;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoView"/> class.
+        /// Initializes a new instance of the <see cref="VerticalRepeaterView"/> class.
         /// </summary>
-        public VideoView()
+        public VerticalRepeaterView()
         {
             this.InitializeComponent();
             this.Loaded += OnLoaded;
@@ -184,7 +183,7 @@ namespace Richasy.Bili.App.Controls
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as VideoView;
+            var instance = d as VerticalRepeaterView;
             if (e.NewValue is Orientation type)
             {
                 instance.CheckOrientationStatus();
@@ -196,10 +195,10 @@ namespace Richasy.Bili.App.Controls
             switch (ItemOrientation)
             {
                 case Orientation.Vertical:
-                    VideoRepeater.Layout = GridLayout;
+                    ItemsRepeater.Layout = GridLayout;
                     break;
                 case Orientation.Horizontal:
-                    VideoRepeater.Layout = ListLayout;
+                    ItemsRepeater.Layout = ListLayout;
                     break;
                 default:
                     break;
@@ -240,12 +239,12 @@ namespace Richasy.Bili.App.Controls
 
         private void ChangeInitializedItemOrientation()
         {
-            if (ItemsSource is ObservableCollection<VideoViewModel> items)
+            if (ItemsSource is ICollection items)
             {
                 for (var i = 0; i < items.Count; i++)
                 {
-                    var element = VideoRepeater.TryGetElement(i);
-                    if (element != null && element is VideoItem vi)
+                    var element = ItemsRepeater.TryGetElement(i);
+                    if (element != null && element is IDynamicLayoutItem vi)
                     {
                         if (vi.Orientation != ItemOrientation)
                         {
@@ -258,15 +257,15 @@ namespace Richasy.Bili.App.Controls
 
         private void OnElementPrepared(Microsoft.UI.Xaml.Controls.ItemsRepeater sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs args)
         {
-            if (args.Element != null && args.Element is VideoItem item)
+            if (args.Element != null && args.Element is IDynamicLayoutItem dynamicLayoutItem && args.Element is IRepeaterItem repeaterItem)
             {
-                item.Orientation = ItemOrientation;
+                dynamicLayoutItem.Orientation = ItemOrientation;
                 if (IsAutoFillEnable &&
-                    ItemsSource is ObservableCollection<VideoViewModel> collectionSource &&
+                    ItemsSource is ICollection collectionSource &&
                     _parentScrollViewer != null &&
                     args.Index >= collectionSource.Count - 1)
                 {
-                    var size = item.GetHolderSize();
+                    var size = repeaterItem.GetHolderSize();
                     _itemHolderHeight = size.Height;
                     var isNeedLoadMore = false;
                     if (double.IsInfinity(size.Width))

@@ -43,7 +43,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string LocalId = "local_id";
             public const string AuthCode = "auth_code";
             public const string PartitionId = "rid";
-            public const string OffsetId = "ctime";
+            public const string CreateTime = "ctime";
             public const string Order = "order";
             public const string Pull = "pull";
             public const string PageNumber = "pn";
@@ -58,6 +58,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string RelationPage = "relation_page";
             public const string Scale = "scale";
             public const string LoginEvent = "login_event";
+            public const string CategoryId = "cid";
+            public const string MyId = "mid";
         }
 
         public static class Sort
@@ -231,6 +233,24 @@ namespace Richasy.Bili.Models.App.Constants
             public static class Live
             {
                 public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
+            }
+
+            public static class Article
+            {
+                /// <summary>
+                /// 专栏分区.
+                /// </summary>
+                public const string Categories = _apiBase + "/x/article/categories";
+
+                /// <summary>
+                /// 专栏首页，推荐内容.
+                /// </summary>
+                public const string Recommend = _apiBase + "/x/article/recommends/plus";
+
+                /// <summary>
+                /// 各个分区下的文章列表.
+                /// </summary>
+                public const string ArticleList = _apiBase + "/x/article/recommends";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

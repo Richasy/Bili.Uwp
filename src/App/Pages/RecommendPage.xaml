@@ -36,13 +36,13 @@
                 Padding="{StaticResource DefaultContainerPadding}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
-                <controls:VideoView
+                <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}"
                     RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                    <controls:VideoView.ItemTemplate>
+                    <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoViewModel">
                             <controls:VideoItem
                                 AdditionalOverlayContentVisibility="{x:Bind AdditionalText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}"
@@ -65,8 +65,8 @@
                                 </controls:VideoItem.AdditionalOverlayContent>
                             </controls:VideoItem>
                         </DataTemplate>
-                    </controls:VideoView.ItemTemplate>
-                </controls:VideoView>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
             </ScrollViewer>
         </muxc:RefreshContainer>
 

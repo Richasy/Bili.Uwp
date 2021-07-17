@@ -18,6 +18,7 @@
                                 MinWidth="300"
                                 MinHeight="100"
                                 MaxHeight="{TemplateBinding MaxImageHeight}"
+                                IsTabStop="False"
                                 LazyLoadingEnabled="True"
                                 RetryCount="2"
                                 RetryDelay="0:0:5"

@@ -29,6 +29,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IRecommendProvider _homeProvider;
         private readonly IPopularProvider _popularProvider;
         private readonly ILiveProvider _liveProvider;
+        private readonly ISpecialColumnProvider _documentaryProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -47,7 +48,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _rankProvider)
                 .LoadService(out _homeProvider)
                 .LoadService(out _popularProvider)
-                .LoadService(out _liveProvider);
+                .LoadService(out _liveProvider)
+                .LoadService(out _documentaryProvider);
 
             RegisterEvents();
         }
@@ -103,6 +105,16 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<LiveFeedRoomIterationEventArgs> LiveFeedRoomIteration;
 
         /// <summary>
+        /// 在专栏文章的附加数据发生改变时发生.
+        /// </summary>
+        public event EventHandler<SpecialColumnAdditionalDataChangedEventArgs> SpecialColumnAdditionalDataChanged;
+
+        /// <summary>
+        /// 在专栏有新的文章数据更改时发生.
+        /// </summary>
+        public event EventHandler<SpecialColumnArticleIterationEventArgs> SpecialColumnArticleIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -136,7 +148,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IRankProvider, RankProvider>()
                 .AddSingleton<IRecommendProvider, RecommendProvider>()
                 .AddSingleton<IPopularProvider, PopularProvider>()
-                .AddSingleton<ILiveProvider, LiveProvider>();
+                .AddSingleton<ILiveProvider, LiveProvider>()
+                .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
     }

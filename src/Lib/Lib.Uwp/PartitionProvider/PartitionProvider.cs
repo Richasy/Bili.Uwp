@@ -69,7 +69,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             if (isOffset)
             {
-                queryParameters.Add(Query.OffsetId, offsetId.ToString());
+                queryParameters.Add(Query.CreateTime, offsetId.ToString());
             }
 
             if (!isDefaultOrder)

@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 视频条目.
     /// </summary>
-    public sealed partial class VideoItem : UserControl
+    public sealed partial class VideoItem : UserControl, IRepeaterItem, IDynamicLayoutItem
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -98,6 +98,7 @@ namespace Richasy.Bili.App.Controls
         public VideoItem()
         {
             this.InitializeComponent();
+            this.Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -217,10 +218,7 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(AdditionalOverlayContentVisibilityProperty, value); }
         }
 
-        /// <summary>
-        /// 获取占位大小，这是一个固定值，用于预先测量.
-        /// </summary>
-        /// <returns><see cref="Size"/>.</returns>
+        /// <inheritdoc/>
         public Size GetHolderSize()
         {
             if (Orientation == Orientation.Horizontal)
@@ -236,19 +234,23 @@ namespace Richasy.Bili.App.Controls
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VideoItem;
-            if (e.NewValue is Orientation type)
+            instance.CheckOrientation();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e) => CheckOrientation();
+
+        private void CheckOrientation()
+        {
+            switch (Orientation)
             {
-                switch (type)
-                {
-                    case Orientation.Vertical:
-                        VisualStateManager.GoToState(instance, nameof(VerticalState), false);
-                        break;
-                    case Orientation.Horizontal:
-                        VisualStateManager.GoToState(instance, nameof(HorizontalState), false);
-                        break;
-                    default:
-                        break;
-                }
+                case Orientation.Vertical:
+                    VisualStateManager.GoToState(this, nameof(VerticalState), false);
+                    break;
+                case Orientation.Horizontal:
+                    VisualStateManager.GoToState(this, nameof(HorizontalState), false);
+                    break;
+                default:
+                    break;
             }
         }
 

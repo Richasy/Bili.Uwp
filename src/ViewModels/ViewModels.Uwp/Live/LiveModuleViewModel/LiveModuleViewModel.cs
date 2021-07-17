@@ -14,7 +14,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 直播视图模型.
     /// </summary>
-    public partial class LiveModuleViewModel
+    public partial class LiveModuleViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveModuleViewModel"/> class.

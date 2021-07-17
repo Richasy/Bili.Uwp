@@ -18,6 +18,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controls\Animator\CardCollectionAnimator.cs" />
+    <Compile Include="Controls\Common\ArticleItem.xaml.cs">
+      <DependentUpon>ArticleItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\HorizontalRepeaterView.xaml.cs">
+      <DependentUpon>HorizontalRepeaterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IDynamicLayoutItem.cs" />
+    <Compile Include="Controls\IRepeaterItem.cs" />
     <Compile Include="Controls\Live\FollowLiveItem.xaml.cs">
       <DependentUpon>FollowLiveItem.xaml</DependentUpon>
     </Compile>
@@ -62,8 +70,8 @@
     <Compile Include="Controls\Common\VideoItem.xaml.cs">
       <DependentUpon>VideoItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\VideoView.xaml.cs">
-      <DependentUpon>VideoView.xaml</DependentUpon>
+    <Compile Include="Controls\Common\VerticalRepeaterView.xaml.cs">
+      <DependentUpon>VerticalRepeaterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
@@ -234,6 +242,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Common\ArticleItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\HorizontalRepeaterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Live\FollowLiveItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -278,7 +294,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\VideoView.xaml">
+    <Page Include="Controls\Common\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

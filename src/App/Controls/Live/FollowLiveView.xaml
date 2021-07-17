@@ -23,7 +23,7 @@
             Spacing="12" />
     </UserControl.Resources>
 
-    <Grid RowSpacing="12">
+    <Grid x:Name="RootGrid" RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -38,6 +38,7 @@
                         <Setter Target="ContentScrollViewer.HorizontalScrollMode" Value="Enabled" />
                         <Setter Target="ContentScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
                         <Setter Target="ContentScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+                        <Setter Target="ContentScrollViewer.VerticalScrollMode" Value="Disabled" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

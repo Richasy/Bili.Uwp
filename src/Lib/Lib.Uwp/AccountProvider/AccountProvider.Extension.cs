@@ -10,6 +10,5 @@ namespace Richasy.Bili.Lib.Uwp
     public partial class AccountProvider
     {
         private readonly IHttpProvider _httpProvider;
-        private int _mid;
     }
 }

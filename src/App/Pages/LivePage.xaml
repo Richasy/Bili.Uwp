@@ -71,7 +71,11 @@
             Grid.Column="1"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
-            <controls:FollowLiveView MinWidth="200" ItemOrientation="Horizontal" />
+            <controls:FollowLiveView
+                x:Name="FollowLiveView"
+                MinWidth="200"
+                x:Load="False"
+                ItemOrientation="Horizontal" />
         </Grid>
 
         <ScrollViewer
@@ -79,7 +83,10 @@
             Padding="0,0,24,0"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="RootGrid" RowSpacing="12">
+            <Grid
+                x:Name="RootGrid"
+                x:Load="False"
+                RowSpacing="12">
                 <Grid.RowDefinitions>
                     <RowDefinition x:Name="Row1" Height="Auto" />
                     <RowDefinition x:Name="Row2" Height="Auto" />
@@ -108,14 +115,14 @@
                     Grid.Column="0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
-                    <controls:VideoView
+                    <controls:VerticalRepeaterView
                         x:Name="VideoView"
                         HeaderText="{loc:LocaleLocator Name=Recommend}"
                         ItemsSource="{x:Bind ViewModel.RecommendLiveRoomCollection, Mode=OneWay}"
                         MinWideItemHeight="204"
                         MinWideItemWidth="200"
                         RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                        <controls:VideoView.AdditionalContent>
+                        <controls:VerticalRepeaterView.AdditionalContent>
                             <Grid>
                                 <Button
                                     x:Name="RefreshButton"
@@ -127,8 +134,8 @@
                                         Text="{loc:LocaleLocator Name=Refresh}" />
                                 </Button>
                             </Grid>
-                        </controls:VideoView.AdditionalContent>
-                        <controls:VideoView.ItemTemplate>
+                        </controls:VerticalRepeaterView.AdditionalContent>
+                        <controls:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:VideoViewModel">
                                 <controls:VideoItem
                                     IsShowAvatar="False"
@@ -140,23 +147,20 @@
                                     IsShowViewerCount="True"
                                     ViewModel="{x:Bind}" />
                             </DataTemplate>
-                        </controls:VideoView.ItemTemplate>
-                    </controls:VideoView>
+                        </controls:VerticalRepeaterView.ItemTemplate>
+                    </controls:VerticalRepeaterView>
                 </Grid>
-
-
             </Grid>
         </ScrollViewer>
 
-        <muxc:ProgressBar
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Bottom"
-            IsIndeterminate="True"
-            Visibility="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" />
+        <Grid Grid.ColumnSpan="2">
+            <muxc:ProgressBar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                IsIndeterminate="True"
+                Visibility="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" />
 
-        <muxc:ProgressRing
-            x:Name="LoadingRing"
-            Style="{StaticResource PageProgressRingStyle}"
-            IsActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+            <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" IsActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+        </Grid>
     </Grid>
 </Page>

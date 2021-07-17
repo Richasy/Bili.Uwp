@@ -128,6 +128,7 @@
     <Compile Include="IPartitionProvider.cs" />
     <Compile Include="IPopularProvider.cs" />
     <Compile Include="IRankProvider.cs" />
+    <Compile Include="ISpecialColumnProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Lib.Interfaces.rd.xml" />
   </ItemGroup>
