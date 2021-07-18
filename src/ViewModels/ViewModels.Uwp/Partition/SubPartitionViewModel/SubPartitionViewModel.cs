@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -16,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 子分区视图模型.
     /// </summary>
-    public partial class SubPartitionViewModel : ViewModelBase
+    public partial class SubPartitionViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SubPartitionViewModel"/> class.
@@ -24,8 +23,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="partition">子分区数据.</param>
         public SubPartitionViewModel(Partition partition)
         {
-            _controller = Controller.Uwp.BiliController.Instance;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
             BannerCollection = new ObservableCollection<BannerViewModel>();
             VideoCollection = new ObservableCollection<VideoViewModel>();
             TagCollection = new ObservableCollection<Tag>();
@@ -40,7 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                this.Title = this._resourceToolkit.GetLocaleString(LanguageNames.Recommend);
+                this.Title = this.ResourceToolkit.GetLocaleString(LanguageNames.Recommend);
                 this._isRecommendPartition = true;
             }
 
@@ -52,8 +49,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void Activate()
         {
-            _controller.SubPartitionVideoIteration += OnSubPartitionVideoIteration;
-            _controller.SubPartitionAdditionalDataChanged += OnSubPartitionAdditionalDataChanged;
+            IsRequested = _offsetId != 0 || _pageNumber > 1;
+            Controller.SubPartitionVideoIteration += OnSubPartitionVideoIteration;
+            Controller.SubPartitionAdditionalDataChanged += OnSubPartitionAdditionalDataChanged;
             if (_isRecommendPartition)
             {
                 SubPartitionId = PartitionModuleViewModel.Instance.CurrentPartition.PartitionId;
@@ -65,8 +63,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void Deactive()
         {
-            _controller.SubPartitionVideoIteration -= OnSubPartitionVideoIteration;
-            _controller.SubPartitionAdditionalDataChanged -= OnSubPartitionAdditionalDataChanged;
+            Controller.SubPartitionVideoIteration -= OnSubPartitionVideoIteration;
+            Controller.SubPartitionAdditionalDataChanged -= OnSubPartitionAdditionalDataChanged;
         }
 
         /// <summary>
@@ -83,6 +81,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await InitializeRequestAsync();
             }
+
+            IsRequested = _offsetId != 0 || _pageNumber > 1;
         }
 
         /// <summary>
@@ -102,16 +102,23 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _lastRequestTime = DateTimeOffset.MinValue;
                 try
                 {
-                    await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                    await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
                 }
 
                 IsInitializeLoading = false;
             }
+
+            IsRequested = _offsetId != 0 || _pageNumber > 1;
         }
 
         /// <summary>
@@ -123,7 +130,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading)
             {
                 IsDeltaLoading = true;
-                await _controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, _offsetId, CurrentSortType, _pageNumber);
+                await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, _offsetId, CurrentSortType, _pageNumber);
                 IsDeltaLoading = false;
             }
         }

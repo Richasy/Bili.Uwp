@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.Lib.Interfaces
 {
@@ -30,8 +31,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="categoryId">分类Id.</param>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="sortType">排序方式.</param>
         /// <param name="pageSize">每页数据，默认是20.</param>
         /// <returns>文章列表.</returns>
-        Task<List<Article>> GetCategoryArticlesAsync(int categoryId, int pageNumber, int pageSize = 20);
+        Task<List<Article>> GetCategoryArticlesAsync(int categoryId, int pageNumber, ArticleSortType sortType, int pageSize = 20);
     }
 }

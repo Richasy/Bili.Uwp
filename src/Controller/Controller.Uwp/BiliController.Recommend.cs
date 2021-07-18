@@ -20,6 +20,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
+                ThrowWhenNetworkUnavaliable();
                 var cards = await _homeProvider.RequestRecommendCardsAsync(offsetIndex);
                 var result = cards.Where(p => p.CardGoto == Av || p.CardGoto == Bangumi || p.CardGoto == Pgc).ToList();
 

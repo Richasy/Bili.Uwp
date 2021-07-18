@@ -3,10 +3,8 @@
 using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -17,8 +15,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private readonly Partition _partition;
         private readonly bool _isRecommendPartition;
-        private readonly IResourceToolkit _resourceToolkit;
-        private readonly BiliController _controller;
 
         private int _offsetId = 0;
         private int _pageNumber = 1;
@@ -28,11 +24,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 子分区Id.
         /// </summary>
         public int SubPartitionId { get; internal set; }
-
-        /// <summary>
-        /// 标识该分区是否已经加载过数据.
-        /// </summary>
-        public bool IsRequested => _offsetId != 0 || _pageNumber > 1;
 
         /// <summary>
         /// 是否显示横幅.
@@ -51,18 +42,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string Title { get; set; }
-
-        /// <summary>
-        /// 是否在执行初始化数据加载.
-        /// </summary>
-        [Reactive]
-        public bool IsInitializeLoading { get; set; }
-
-        /// <summary>
-        /// 是否在执行增量加载.
-        /// </summary>
-        [Reactive]
-        public bool IsDeltaLoading { get; set; }
 
         /// <summary>
         /// 当前排序方式.
@@ -92,17 +71,5 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<VideoSortType> SortTypeCollection { get; set; }
-
-        /// <summary>
-        /// 是否显示错误信息.
-        /// </summary>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <summary>
-        /// 错误文本.
-        /// </summary>
-        [Reactive]
-        public string ErrorText { get; set; }
     }
 }

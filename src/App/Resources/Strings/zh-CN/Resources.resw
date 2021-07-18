@@ -252,6 +252,12 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RequestArticleListFailed" xml:space="preserve">
+    <value>文章列表请求失败</value>
+  </data>
+  <data name="RequestLiveFailed" xml:space="preserve">
+    <value>直播数据请求失败</value>
+  </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>热门视频请求失败</value>
   </data>
@@ -303,11 +309,17 @@
   <data name="SortByFavorite" xml:space="preserve">
     <value>收藏最多</value>
   </data>
+  <data name="SortByLike" xml:space="preserve">
+    <value>点赞最多</value>
+  </data>
   <data name="SortByNewest" xml:space="preserve">
     <value>最新视频</value>
   </data>
   <data name="SortByPlay" xml:space="preserve">
     <value>播放最多</value>
+  </data>
+  <data name="SortByRead" xml:space="preserve">
+    <value>阅读最多</value>
   </data>
   <data name="SortByReply" xml:space="preserve">
     <value>评论最多</value>

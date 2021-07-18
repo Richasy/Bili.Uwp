@@ -20,6 +20,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
+                ThrowWhenNetworkUnavaliable();
                 var data = await _liveProvider.GetLiveFeedsAsync(pageNumber);
                 if (pageNumber == 1)
                 {

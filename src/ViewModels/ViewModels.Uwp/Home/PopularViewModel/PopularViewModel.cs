@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 
@@ -13,18 +12,16 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 热门视图模型.
     /// </summary>
-    public partial class PopularViewModel : ViewModelBase
+    public partial class PopularViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularViewModel"/> class.
         /// </summary>
         internal PopularViewModel()
         {
-            _controller = BiliController.Instance;
             VideoCollection = new ObservableCollection<VideoViewModel>();
             _offsetIndex = 0;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            _controller.PopularVideoIteration += OnPopularVideoIteration;
+            Controller.PopularVideoIteration += OnPopularVideoIteration;
         }
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestDataAsync()
         {
-            if (_offsetIndex == 0)
+            if (!IsRequested)
             {
                 await InitializeRequestAsync();
             }
@@ -41,6 +38,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await DeltaRequestAsync();
             }
+
+            IsRequested = _offsetIndex > 0;
         }
 
         /// <summary>
@@ -55,12 +54,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Reset();
                 try
                 {
-                    await _controller.RequestPopularCardsAsync(_offsetIndex);
+                    await Controller.RequestPopularCardsAsync(_offsetIndex);
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestPopularFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestPopularFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
                 }
 
                 IsInitializeLoading = false;
@@ -76,7 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsDeltaLoading = true;
-                await _controller.RequestPopularCardsAsync(_offsetIndex);
+                await Controller.RequestPopularCardsAsync(_offsetIndex);
                 IsDeltaLoading = false;
             }
         }
@@ -90,6 +94,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsError = false;
             ErrorText = string.Empty;
             VideoCollection.Clear();
+            IsRequested = false;
         }
 
         private void OnPopularVideoIteration(object sender, PopularVideoIterationEventArgs e)

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:Richasy.Bili.Models.Enums"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -117,6 +118,24 @@
                                 MinWideItemHeight="272"
                                 RequestLoadMore="OnArticleViewRequestLoadMoreAsync"
                                 Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                <controls:VerticalRepeaterView.AdditionalContent>
+                                    <Grid>
+                                        <ComboBox
+                                            x:Name="ArticleSortComboBox"
+                                            Style="{StaticResource DefaultComboBoxStyle}"
+                                            ItemsSource="{x:Bind ViewModel.CurrentCategory.SortTypeCollection, Mode=OneWay}"
+                                            PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                                            SelectedItem="{x:Bind ViewModel.CurrentCategory.CurrentSortType, Mode=TwoWay}"
+                                            SelectionChanged="OnArticleSortComboBoxSlectionChanged"
+                                            Visibility="{x:Bind ViewModel.CurrentCategory.IsRecommend, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate x:DataType="enums:ArticleSortType">
+                                                    <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Grid>
+                                </controls:VerticalRepeaterView.AdditionalContent>
                                 <controls:VerticalRepeaterView.ItemTemplate>
                                     <DataTemplate x:DataType="uwp:ArticleViewModel">
                                         <controls:ArticleItem ViewModel="{x:Bind}" />

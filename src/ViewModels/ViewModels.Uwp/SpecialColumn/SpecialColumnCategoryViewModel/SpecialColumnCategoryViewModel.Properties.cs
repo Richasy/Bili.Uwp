@@ -1,12 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -15,15 +12,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class SpecialColumnCategoryViewModel
     {
-        private readonly IResourceToolkit _resourceToolkit;
-        private readonly BiliController _controller;
-
         private int _pageNumber = 1;
-
-        /// <summary>
-        /// 标识该分类是否已经加载过数据.
-        /// </summary>
-        public bool IsRequested => _pageNumber > 1;
 
         /// <summary>
         /// 是否为推荐分类.
@@ -74,18 +63,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ArticleCategory Category { get; set; }
 
         /// <summary>
-        /// 是否在执行初始化数据加载.
-        /// </summary>
-        [Reactive]
-        public bool IsInitializeLoading { get; set; }
-
-        /// <summary>
-        /// 是否在执行增量加载.
-        /// </summary>
-        [Reactive]
-        public bool IsDeltaLoading { get; set; }
-
-        /// <summary>
         /// 当前排序方式.
         /// </summary>
         [Reactive]
@@ -126,18 +103,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<ArticleSortType> SortTypeCollection { get; set; }
-
-        /// <summary>
-        /// 是否显示错误信息.
-        /// </summary>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <summary>
-        /// 错误文本.
-        /// </summary>
-        [Reactive]
-        public string ErrorText { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SpecialColumnCategoryViewModel model && Id == model.Id;

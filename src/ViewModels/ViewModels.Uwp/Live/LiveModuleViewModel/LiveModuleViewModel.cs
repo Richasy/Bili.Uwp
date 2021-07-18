@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
@@ -14,23 +13,20 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 直播视图模型.
     /// </summary>
-    public partial class LiveModuleViewModel : ViewModelBase
+    public partial class LiveModuleViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveModuleViewModel"/> class.
         /// </summary>
         internal LiveModuleViewModel()
         {
-            _controller = BiliController.Instance;
             _currentPage = 1;
             BannerCollection = new ObservableCollection<BannerViewModel>();
             FollowLiveRoomCollection = new ObservableCollection<VideoViewModel>();
             RecommendLiveRoomCollection = new ObservableCollection<VideoViewModel>();
 
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
-
-            _controller.LiveFeedRoomIteration += OnLiveFeedRoomIteration;
-            _controller.LiveFeedAdditionalDataChanged += OnLiveFeedAdditionalDataChanged;
+            Controller.LiveFeedRoomIteration += OnLiveFeedRoomIteration;
+            Controller.LiveFeedAdditionalDataChanged += OnLiveFeedAdditionalDataChanged;
         }
 
         /// <summary>
@@ -39,7 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestFeedsAsync()
         {
-            if (_currentPage == 1)
+            if (!IsRequested)
             {
                 await InitializeRequestFeedsAsync();
             }
@@ -47,6 +43,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await DeltaRequestFeedsAsync();
             }
+
+            IsRequested = _currentPage > 1;
         }
 
         /// <summary>
@@ -68,16 +66,23 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 try
                 {
-                    await _controller.RequestLiveFeedsAsync(_currentPage);
+                    await Controller.RequestLiveFeedsAsync(_currentPage);
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestLiveFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
                 }
 
                 IsInitializeLoading = false;
             }
+
+            IsRequested = _currentPage > 1;
         }
 
         internal async Task DeltaRequestFeedsAsync()
@@ -85,7 +90,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsDeltaLoading = true;
-                await _controller.RequestLiveFeedsAsync(_currentPage);
+                await Controller.RequestLiveFeedsAsync(_currentPage);
                 IsDeltaLoading = false;
             }
         }

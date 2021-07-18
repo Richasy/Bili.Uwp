@@ -60,6 +60,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string LoginEvent = "login_event";
             public const string CategoryId = "cid";
             public const string MyId = "mid";
+            public const string Sort = "sort";
         }
 
         public static class Sort

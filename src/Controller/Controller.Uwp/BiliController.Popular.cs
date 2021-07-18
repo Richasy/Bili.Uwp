@@ -19,6 +19,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
+                ThrowWhenNetworkUnavaliable();
                 var cards = await _popularProvider.GetPopularDetailAsync(offsetIndex);
                 cards = cards.Where(p =>
                     p.ItemCase == Bilibili.App.Card.V1.Card.ItemOneofCase.SmallCoverV5

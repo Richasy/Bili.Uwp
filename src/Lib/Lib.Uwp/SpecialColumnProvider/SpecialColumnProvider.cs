@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -40,7 +41,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<List<Article>> GetCategoryArticlesAsync(int categoryId, int pageNumber, int pageSize = 20)
+        public async Task<List<Article>> GetCategoryArticlesAsync(int categoryId, int pageNumber, ArticleSortType sort, int pageSize = 20)
         {
             if (pageNumber < 1)
             {
@@ -52,6 +53,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.CategoryId, categoryId.ToString() },
                 { Query.PageNumber, pageNumber.ToString() },
                 { Query.PageSize, pageSize.ToString() },
+                { Query.Sort, ((int)sort).ToString() },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Article.ArticleList, queryParameters);

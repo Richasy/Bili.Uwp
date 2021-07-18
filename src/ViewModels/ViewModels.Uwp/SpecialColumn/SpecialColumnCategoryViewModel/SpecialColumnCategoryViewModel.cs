@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -15,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 专栏分类视图模型.
     /// </summary>
-    public partial class SpecialColumnCategoryViewModel : ViewModelBase
+    public partial class SpecialColumnCategoryViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecialColumnCategoryViewModel"/> class.
@@ -40,6 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = category.Name;
             IsRecommend = category.Id == 0;
+            CurrentSortType = ArticleSortType.Default;
             this.PropertyChanged += OnPropertyChangedAsync;
         }
 
@@ -48,8 +49,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         protected SpecialColumnCategoryViewModel()
         {
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            _controller = Controller.Uwp.BiliController.Instance;
             ArticleCollection = new ObservableCollection<ArticleViewModel>();
             Children = new ObservableCollection<SpecialColumnCategoryViewModel>();
             BannerCollection = new ObservableCollection<BannerViewModel>();
@@ -61,10 +60,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void Activate()
         {
-            _controller.SpecialColumnArticleIteration += OnCategoryArticleIteration;
-            _controller.SpecialColumnAdditionalDataChanged += OnCategoryAdditionalDataChanged;
+            Controller.SpecialColumnArticleIteration += OnCategoryArticleIteration;
+            Controller.SpecialColumnAdditionalDataChanged += OnCategoryAdditionalDataChanged;
             SpecialColumnModuleViewModel.Instance.CurrentCategory = this;
             IsActive = true;
+            IsRequested = _pageNumber > 1;
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void Deactive()
         {
-            _controller.SpecialColumnArticleIteration -= OnCategoryArticleIteration;
-            _controller.SpecialColumnAdditionalDataChanged -= OnCategoryAdditionalDataChanged;
+            Controller.SpecialColumnArticleIteration -= OnCategoryArticleIteration;
+            Controller.SpecialColumnAdditionalDataChanged -= OnCategoryAdditionalDataChanged;
             IsActive = false;
         }
 
@@ -117,6 +117,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await InitializeRequestAsync();
             }
+
+            IsRequested = _pageNumber > 1;
         }
 
         /// <summary>
@@ -136,21 +138,28 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     if (!IsRecommend)
                     {
-                        await _controller.RequestCategoryArticlesAsync(Id, _pageNumber);
+                        await Controller.RequestCategoryArticlesAsync(Id, _pageNumber, CurrentSortType);
                     }
                     else
                     {
-                        await _controller.RequestRecommendArticlesAsync(_pageNumber);
+                        await Controller.RequestRecommendArticlesAsync(_pageNumber);
                     }
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestArticleListFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestArticleListFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
                 }
 
                 IsInitializeLoading = false;
             }
+
+            IsRequested = _pageNumber > 1;
         }
 
         /// <summary>
@@ -164,11 +173,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDeltaLoading = true;
                 if (!IsRecommend)
                 {
-                    await _controller.RequestCategoryArticlesAsync(Id, _pageNumber);
+                    await Controller.RequestCategoryArticlesAsync(Id, _pageNumber, CurrentSortType);
                 }
                 else
                 {
-                    await _controller.RequestRecommendArticlesAsync(_pageNumber);
+                    await Controller.RequestRecommendArticlesAsync(_pageNumber);
                 }
 
                 IsDeltaLoading = false;

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -60,6 +61,15 @@ namespace Richasy.Bili.App.Pages
             if (!ViewModel.CurrentCategory.IsInitializeLoading && !ViewModel.CurrentCategory.IsDeltaLoading)
             {
                 await ViewModel.CurrentCategory.InitializeRequestAsync();
+            }
+        }
+
+        private void OnArticleSortComboBoxSlectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ArticleSortComboBox.SelectedItem != null)
+            {
+                var item = (ArticleSortType)ArticleSortComboBox.SelectedItem;
+                ViewModel.CurrentCategory.CurrentSortType = item;
             }
         }
     }

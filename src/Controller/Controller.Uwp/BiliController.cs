@@ -75,6 +75,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<MyInfo> AccountChanged;
 
         /// <summary>
+        /// 在网络状态改变时发生，将返回网络可用性.
+        /// </summary>
+        public event EventHandler<bool> NetworkChanged;
+
+        /// <summary>
         /// 在子分区有新的视频列表传入时发生.
         /// </summary>
         public event EventHandler<PartitionVideoIterationEventArgs> SubPartitionVideoIteration;
@@ -127,9 +132,10 @@ namespace Richasy.Bili.Controller.Uwp
         private void RegisterEvents()
         {
             this._authorizeProvider.StateChanged += OnAuthenticationStateChanged;
-
-            // this._networkModule.NetworkChanged += OnNetworkChangedAsync;
+            this._networkModule.NetworkChanged += OnNetworkChangedAsync;
         }
+
+        private void OnNetworkChangedAsync(object sender, EventArgs e) => NetworkChanged?.Invoke(this, IsNetworkAvailable);
 
         private void RegisterToolkitServices()
         {
@@ -151,6 +157,14 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<ILiveProvider, LiveProvider>()
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>();
             _ = new ServiceLocator(serviceCollection);
+        }
+
+        private void ThrowWhenNetworkUnavaliable()
+        {
+            if (!IsNetworkAvailable)
+            {
+                throw new InvalidOperationException("网络连接异常");
+            }
         }
     }
 }

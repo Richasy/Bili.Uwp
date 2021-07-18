@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ControllerConstants;
 
 namespace Richasy.Bili.Controller.Uwp
@@ -31,6 +32,7 @@ namespace Richasy.Bili.Controller.Uwp
 
             if (needRequest)
             {
+                ThrowWhenNetworkUnavaliable();
                 data = await _documentaryProvider.GetCategoriesAsync();
                 var localCache = new LocalCache<List<ArticleCategory>>(DateTimeOffset.Now.AddDays(1), data);
                 await _fileToolkit.WriteLocalDataAsync(Names.DocumentaryCategories, localCache, Names.ServerFolder);
@@ -48,12 +50,14 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="categoryId">分类Id.</param>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="sortType">排序类型.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestCategoryArticlesAsync(int categoryId, int pageNumber)
+        public async Task RequestCategoryArticlesAsync(int categoryId, int pageNumber, ArticleSortType sortType)
         {
             try
             {
-                var data = await _documentaryProvider.GetCategoryArticlesAsync(categoryId, pageNumber);
+                ThrowWhenNetworkUnavaliable();
+                var data = await _documentaryProvider.GetCategoryArticlesAsync(categoryId, pageNumber, sortType);
                 var iterationArgs = SpecialColumnArticleIterationEventArgs.Create(data, categoryId, pageNumber + 1);
                 SpecialColumnArticleIteration?.Invoke(this, iterationArgs);
             }
@@ -75,6 +79,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
+                ThrowWhenNetworkUnavaliable();
                 var data = await _documentaryProvider.GetRecommendArticlesAsync(pageNumber);
                 var additionalArgs = SpecialColumnAdditionalDataChangedEventArgs.Create(data);
                 if (additionalArgs != null && pageNumber == 1)

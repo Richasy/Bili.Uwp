@@ -10,31 +10,31 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 默认排序.
         /// </summary>
-        Default,
+        Default = 0,
 
         /// <summary>
         /// 最新视频优先.
         /// </summary>
-        Newest,
+        Newest = 1,
 
         /// <summary>
         /// 最多阅读优先.
         /// </summary>
-        Read,
+        Read = 5,
 
         /// <summary>
         /// 最多回复优先.
         /// </summary>
-        Reply,
+        Reply = 3,
 
         /// <summary>
         /// 最多点赞优先.
         /// </summary>
-        Like,
+        Like = 2,
 
         /// <summary>
         /// 最多收藏优先.
         /// </summary>
-        Favorite,
+        Favorite = 4,
     }
 }

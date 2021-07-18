@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Other;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -12,18 +12,16 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 排行榜视图模型.
     /// </summary>
-    public partial class RankViewModel : ViewModelBase
+    public partial class RankViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RankViewModel"/> class.
         /// </summary>
         public RankViewModel()
         {
-            _controller = Controller.Uwp.BiliController.Instance;
             _cachedRankData = new Dictionary<RankPartition, List<VideoViewModel>>();
             DisplayVideoCollection = new ObservableCollection<VideoViewModel>();
             PartitionCollection = new ObservableCollection<RankPartition>();
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
         }
 
         /// <summary>
@@ -39,12 +37,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ErrorText = string.Empty;
                 try
                 {
-                    var originalPartitions = await _controller.RequestPartitionIndexAsync();
+                    var originalPartitions = await Controller.RequestPartitionIndexAsync();
                     var rankPartitions = originalPartitions.Select(p => new RankPartition(p)).ToList();
                     rankPartitions.Insert(
                         0,
                         new RankPartition(
-                            _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions),
+                            ResourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions),
                             "ms-appx:///Assets/Bili_rgba_80.png"));
 
                     rankPartitions.ForEach(p => PartitionCollection.Add(p));
@@ -55,13 +53,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    var msg = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PartitionRequestFailed)}\n";
+                    var msg = $"{ResourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PartitionRequestFailed)}\n";
                     if (!string.IsNullOrEmpty(ex.Error?.Message))
                     {
                         msg += ex.Error.Message;
                     }
 
                     ErrorText = msg;
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
                 }
 
                 IsInitializeLoading = false;
@@ -109,7 +112,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 try
                 {
-                    var rankList = await _controller.GetRankAsync(CurrentPartition.PartitionId);
+                    var rankList = await Controller.GetRankAsync(CurrentPartition.PartitionId);
                     if (rankList?.Any() ?? false)
                     {
                         videoList = rankList.Select(p => new VideoViewModel(p)).ToList();
@@ -119,7 +122,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    var msg = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n";
+                    var msg = $"{ResourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n";
                     if (!string.IsNullOrEmpty(ex.Error?.Message))
                     {
                         msg += ex.Error.Message;

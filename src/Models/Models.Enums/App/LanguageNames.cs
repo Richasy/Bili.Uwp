@@ -39,6 +39,8 @@ namespace Richasy.Bili.Models.Enums
         SortByReply,
         SortByDanmaku,
         SortByFavorite,
+        SortByLike,
+        SortByRead,
         SearchTip,
         SearchTipSlim,
         SignInTitle,
@@ -86,6 +88,7 @@ namespace Richasy.Bili.Models.Enums
         Total,
         CategoriesReuqestFailed,
         RequestArticleListFailed,
+        RequestLiveFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

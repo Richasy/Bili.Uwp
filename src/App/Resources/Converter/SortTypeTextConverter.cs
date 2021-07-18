@@ -44,6 +44,32 @@ namespace Richasy.Bili.App.Resources.Converter
                         break;
                 }
             }
+            else if (value is ArticleSortType ast)
+            {
+                switch (ast)
+                {
+                    case ArticleSortType.Default:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByDefault);
+                        break;
+                    case ArticleSortType.Newest:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByNewest);
+                        break;
+                    case ArticleSortType.Read:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByRead);
+                        break;
+                    case ArticleSortType.Reply:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByReply);
+                        break;
+                    case ArticleSortType.Like:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByLike);
+                        break;
+                    case ArticleSortType.Favorite:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.SortByFavorite);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             return result;
         }

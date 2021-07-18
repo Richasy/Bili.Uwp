@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -16,8 +14,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class RankViewModel
     {
         private readonly Dictionary<RankPartition, List<VideoViewModel>> _cachedRankData;
-        private readonly IResourceToolkit _resourceToolkit;
-        private readonly BiliController _controller;
 
         /// <summary>
         /// <see cref="RankViewModel"/>的静态实例.
@@ -43,27 +39,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public RankPartition CurrentPartition { get; set; }
 
         /// <summary>
-        /// 是否正在初始化.
-        /// </summary>
-        [Reactive]
-        public bool IsInitializeLoading { get; set; }
-
-        /// <summary>
         /// 分区是否正在加载.
         /// </summary>
         [Reactive]
         public bool IsRankLoading { get; set; }
-
-        /// <summary>
-        /// 是否发生了请求错误.
-        /// </summary>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <summary>
-        /// 错误文本.
-        /// </summary>
-        [Reactive]
-        public string ErrorText { get; set; }
     }
 }

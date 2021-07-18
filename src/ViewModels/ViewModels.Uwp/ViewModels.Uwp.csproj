@@ -38,11 +38,12 @@
     <Compile Include="AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Base\WebRequestViewModelBase.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -33,6 +33,7 @@ namespace Richasy.Bili.Controller.Uwp
 
             if (needRequest)
             {
+                ThrowWhenNetworkUnavaliable();
                 var webResult = await _partitionProvider.GetPartitionIndexAsync();
                 data = webResult.ToList();
                 var localCache = new LocalCache<List<Partition>>(DateTimeOffset.Now.AddDays(1), data);
@@ -64,6 +65,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
+                ThrowWhenNetworkUnavaliable();
                 var requestDateTime = DateTimeOffset.Now;
                 var data = await _partitionProvider.GetSubPartitionDataAsync(subPartitionId, isRecommend, offsetId, sortType, pageNumber);
                 pageNumber = !isRecommend && sortType != VideoSortType.Default ? pageNumber + 1 : 1;
