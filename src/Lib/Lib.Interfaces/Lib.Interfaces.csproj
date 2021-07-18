@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IAccountProvider.cs" />
+    <Compile Include="IPgcProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
     <Compile Include="ILiveProvider.cs" />
     <Compile Include="IRecommendProvider.cs" />

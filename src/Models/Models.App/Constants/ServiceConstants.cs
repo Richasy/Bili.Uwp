@@ -15,6 +15,16 @@ namespace Richasy.Bili.Models.App.Constants
         public const string Bangumi = "bangumi";
         public const string Pgc = "pgc";
 
+        /// <summary>
+        /// 番剧分区Id.
+        /// </summary>
+        public const int BangumiRegionId = 152;
+
+        /// <summary>
+        /// 国创分区Id.
+        /// </summary>
+        public const int DomesticRegionId = 167;
+
         public static class Keys
         {
             public const string AndroidKey = "4409e2ce8ffd12b8";
@@ -252,6 +262,19 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 各个分区下的文章列表.
                 /// </summary>
                 public const string ArticleList = _apiBase + "/x/article/recommends";
+            }
+
+            public static class Pgc
+            {
+                /// <summary>
+                /// 顶部标签.
+                /// </summary>
+                public const string Tab = _apiBase + "/pgc/page/tab";
+
+                /// <summary>
+                /// 页面详情.
+                /// </summary>
+                public const string Detail = _apiBase + "/pgc/page";
             }
         }
 #pragma warning restore SA1401 // Fields should be private
