@@ -37,5 +37,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 源对象.
         /// </summary>
         public object Source { get; private set; }
+
+        /// <summary>
+        /// 最小高度.
+        /// </summary>
+        [Reactive]
+        public double MinHeight { get; set; }
     }
 }

@@ -17,8 +17,6 @@
                 <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Styles/Theme.HighContrast.xaml" />
             </ResourceDictionary.ThemeDictionaries>
 
-            <animator:CardCollectionAnimator x:Key="CardCollectionAnimator" />
-
             <converter:SortTypeTextConverter x:Key="SortTypeTextConverter" />
             <converter:UserLevelConverter x:Key="UserLevelConverter" />
             <converter:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />

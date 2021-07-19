@@ -82,7 +82,7 @@
                 <muxc:NavigationViewItemSeparator />
 
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Topic}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="ForeignAnime" Content="{loc:LocaleLocator Name=ForeignAnime}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:LocaleLocator Name=Bangumi}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:FluentIconElement Symbol="Cookies20" />
                     </muxc:NavigationViewItem.Icon>

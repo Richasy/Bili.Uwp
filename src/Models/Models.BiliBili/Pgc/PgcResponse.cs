@@ -12,6 +12,12 @@ namespace Richasy.Bili.Models.BiliBili
     public class PgcResponse
     {
         /// <summary>
+        /// 数据源标识.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "feed", Required = Required.Default)]
+        public PgcFeedIdentifier FeedIdentifier { get; set; }
+
+        /// <summary>
         /// 模块.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "modules", Required = Required.Default)]
@@ -22,5 +28,24 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "next_cursor", Required = Required.Default)]
         public string NextCursor { get; set; }
+    }
+
+    /// <summary>
+    /// PGC数据源标识.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class PgcFeedIdentifier
+    {
+        /// <summary>
+        /// 下属分区Id.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fall_wid", Required = Required.Default)]
+        public List<int> PartitionIds { get; set; }
+
+        /// <summary>
+        /// 数据源类型.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type", Required = Required.Default)]
+        public string Type { get; set; }
     }
 }

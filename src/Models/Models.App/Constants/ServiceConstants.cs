@@ -18,12 +18,15 @@ namespace Richasy.Bili.Models.App.Constants
         /// <summary>
         /// 番剧分区Id.
         /// </summary>
-        public const int BangumiRegionId = 152;
+        public const int BangumiPartitionId = 152;
 
         /// <summary>
         /// 国创分区Id.
         /// </summary>
-        public const int DomesticRegionId = 167;
+        public const int DomesticPartitionId = 167;
+
+        public const string BangumiOperation = "bangumi-operation";
+        public const string DomesticOperation = "gc-operation";
 
         public static class Keys
         {
@@ -71,6 +74,15 @@ namespace Richasy.Bili.Models.App.Constants
             public const string CategoryId = "cid";
             public const string MyId = "mid";
             public const string Sort = "sort";
+            public const string ParentTab = "parent_tab_name";
+            public const string IsHideRecommendTab = "hide_rcmd_tab";
+            public const string Fnval = "fnval";
+            public const string Fnver = "fnver";
+            public const string Fourk = "fourk";
+            public const string Qn = "qn";
+            public const string TabId = "tab_id";
+            public const string TeenagersMode = "teenagers_mode";
+            public const string Cursor = "cursor";
         }
 
         public static class Sort

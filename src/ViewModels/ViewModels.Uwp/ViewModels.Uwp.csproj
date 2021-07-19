@@ -9,7 +9,17 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.cs" />
+    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
+    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.Properties.cs" />
+    <Compile Include="Pgc\AnimeViewModelBase\AnimeViewModelBase.cs" />
+    <Compile Include="Pgc\AnimeViewModelBase\AnimeViewModelBase.Properties.cs" />
+    <Compile Include="Pgc\BangumiViewModel.cs" />
     <Compile Include="Common\AppViewModel\AppViewModel.Threshold.cs" />
+    <Compile Include="Pgc\DomesticViewModel.cs" />
+    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.cs" />
+    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
+    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

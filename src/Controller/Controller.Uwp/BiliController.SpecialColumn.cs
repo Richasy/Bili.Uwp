@@ -33,7 +33,7 @@ namespace Richasy.Bili.Controller.Uwp
             if (needRequest)
             {
                 ThrowWhenNetworkUnavaliable();
-                data = await _documentaryProvider.GetCategoriesAsync();
+                data = await _specialColumnProvider.GetCategoriesAsync();
                 var localCache = new LocalCache<List<ArticleCategory>>(DateTimeOffset.Now.AddDays(1), data);
                 await _fileToolkit.WriteLocalDataAsync(Names.DocumentaryCategories, localCache, Names.ServerFolder);
             }
@@ -57,7 +57,7 @@ namespace Richasy.Bili.Controller.Uwp
             try
             {
                 ThrowWhenNetworkUnavaliable();
-                var data = await _documentaryProvider.GetCategoryArticlesAsync(categoryId, pageNumber, sortType);
+                var data = await _specialColumnProvider.GetCategoryArticlesAsync(categoryId, pageNumber, sortType);
                 var iterationArgs = SpecialColumnArticleIterationEventArgs.Create(data, categoryId, pageNumber + 1);
                 SpecialColumnArticleIteration?.Invoke(this, iterationArgs);
             }
@@ -80,7 +80,7 @@ namespace Richasy.Bili.Controller.Uwp
             try
             {
                 ThrowWhenNetworkUnavaliable();
-                var data = await _documentaryProvider.GetRecommendArticlesAsync(pageNumber);
+                var data = await _specialColumnProvider.GetRecommendArticlesAsync(pageNumber);
                 var additionalArgs = SpecialColumnAdditionalDataChangedEventArgs.Create(data);
                 if (additionalArgs != null && pageNumber == 1)
                 {

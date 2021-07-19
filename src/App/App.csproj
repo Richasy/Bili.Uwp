@@ -17,7 +17,6 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Controls\Animator\CardCollectionAnimator.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
@@ -80,6 +79,9 @@
     <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\Shadows.cs" />
+    <Compile Include="Pages\AnimePage.xaml.cs">
+      <DependentUpon>AnimePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DocumentaryPage.xaml.cs">
       <DependentUpon>DocumentaryPage.xaml</DependentUpon>
     </Compile>
@@ -89,8 +91,8 @@
     <Compile Include="Pages\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ForeignAnimePage.xaml.cs">
-      <DependentUpon>ForeignAnimePage.xaml</DependentUpon>
+    <Compile Include="Pages\BangumiPage.xaml.cs">
+      <DependentUpon>BangumiPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
@@ -305,6 +307,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AnimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DocumentaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,7 +323,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ForeignAnimePage.xaml">
+    <Page Include="Pages\BangumiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

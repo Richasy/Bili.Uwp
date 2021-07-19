@@ -85,10 +85,10 @@ namespace Richasy.Bili.Models.BiliBili
         public string Description { get; set; }
 
         /// <summary>
-        /// 徽章内容.
+        /// 最新章节.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "new_ep", Required = Required.Default)]
-        public PgcEpisode Episode { get; set; }
+        public PgcEpisode NewEpisode { get; set; }
 
         /// <summary>
         /// 所属动漫或影视剧的Id.
@@ -137,6 +137,12 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cards", Required = Required.Default)]
         public List<PgcModuleItem> Cards { get; set; }
+
+        /// <summary>
+        /// 显示的综合评分文本.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pts", Required = Required.Default)]
+        public string DisplayScoreText { get; set; }
     }
 
     /// <summary>

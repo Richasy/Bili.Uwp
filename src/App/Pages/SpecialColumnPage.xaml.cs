@@ -1,5 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -44,8 +48,7 @@ namespace Richasy.Bili.App.Pages
                 await this.ViewModel.RequestCategoriesAsync();
             }
 
-            this.FindName(nameof(SpecialColumnNavigationView));
-            this.FindName(nameof(ContentGrid));
+            CheckCurrentTabAsync(true);
         }
 
         private async void OnArticleViewRequestLoadMoreAsync(object sender, System.EventArgs e)
@@ -70,6 +73,33 @@ namespace Richasy.Bili.App.Pages
             {
                 var item = (ArticleSortType)ArticleSortComboBox.SelectedItem;
                 ViewModel.CurrentCategory.CurrentSortType = item;
+            }
+        }
+
+        private void OnSpecialColumnNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.InvokedItem is SpecialColumnCategoryViewModel vm)
+            {
+                ViewModel.CurrentCategory = vm;
+            }
+            else if (args.InvokedItemContainer is Microsoft.UI.Xaml.Controls.NavigationViewItem item)
+            {
+                ViewModel.CurrentCategory = item.Tag as SpecialColumnCategoryViewModel;
+            }
+
+            CheckCurrentTabAsync();
+        }
+
+        private async void CheckCurrentTabAsync(bool needDelay = false)
+        {
+            if (!(SpecialColumnNavigationView.SelectedItem is SpecialColumnCategoryViewModel selectedItem) || selectedItem != ViewModel.CurrentCategory)
+            {
+                if (needDelay)
+                {
+                    await Task.Delay(100);
+                }
+
+                SpecialColumnNavigationView.SelectedItem = ViewModel.CurrentCategory;
             }
         }
     }

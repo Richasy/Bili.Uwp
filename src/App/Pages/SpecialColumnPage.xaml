@@ -37,16 +37,16 @@
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
+            ItemInvoked="OnSpecialColumnNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.CategoryCollection}"
             PaneDisplayMode="Top"
-            SelectedItem="{x:Bind ViewModel.CurrentCategory, Mode=TwoWay}"
             Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="uwp:SpecialColumnCategoryViewModel">
                     <muxc:NavigationViewItem
                         Content="{x:Bind Title, Mode=OneWay}"
                         MenuItemsSource="{x:Bind Children, Mode=OneWay}"
-                        Tag="{x:Bind Id}" />
+                        Tag="{x:Bind Mode=OneWay}" />
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
 
@@ -125,7 +125,7 @@
                                             Style="{StaticResource DefaultComboBoxStyle}"
                                             ItemsSource="{x:Bind ViewModel.CurrentCategory.SortTypeCollection, Mode=OneWay}"
                                             PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
-                                            SelectedItem="{x:Bind ViewModel.CurrentCategory.CurrentSortType, Mode=TwoWay}"
+                                            SelectedItem="{x:Bind ViewModel.CurrentCategory.CurrentSortType, Mode=OneWay}"
                                             SelectionChanged="OnArticleSortComboBoxSlectionChanged"
                                             Visibility="{x:Bind ViewModel.CurrentCategory.IsRecommend, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                             <ComboBox.ItemTemplate>

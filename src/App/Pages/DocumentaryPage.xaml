@@ -8,5 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Frame x:Name="RootFrame" />
+    </Grid>
 </Page>

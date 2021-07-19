@@ -123,6 +123,9 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩</value>
   </data>
+  <data name="Bangumi" xml:space="preserve">
+    <value>番剧</value>
+  </data>
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
   </data>
@@ -158,9 +161,6 @@
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
-  </data>
-  <data name="ForeignAnime" xml:space="preserve">
-    <value>番剧</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
@@ -258,6 +258,9 @@
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>
   </data>
+  <data name="RequestPgcFailed" xml:space="preserve">
+    <value>PGC内容请求失败</value>
+  </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>热门视频请求失败</value>
   </data>
@@ -266,6 +269,9 @@
   </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分区视频请求失败</value>
+  </data>
+  <data name="RequestTabDetailFailed" xml:space="preserve">
+    <value>标签页详情数据请求失败</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
@@ -313,7 +319,7 @@
     <value>点赞最多</value>
   </data>
   <data name="SortByNewest" xml:space="preserve">
-    <value>最新视频</value>
+    <value>最新发布</value>
   </data>
   <data name="SortByPlay" xml:space="preserve">
     <value>播放最多</value>

@@ -44,6 +44,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(MaxImageHeight), typeof(double), typeof(BannerItem), new PropertyMetadata(114d));
 
         /// <summary>
+        /// <see cref="MinImageHeight"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty MinImageHeightProperty =
+            DependencyProperty.Register(nameof(MinImageHeight), typeof(double), typeof(BannerItem), new PropertyMetadata(100d));
+
+        /// <summary>
         /// <see cref="CardStyle"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty CardStyleProperty =
@@ -100,6 +106,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (double)GetValue(MaxImageHeightProperty); }
             set { SetValue(MaxImageHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// 图片最小高度.
+        /// </summary>
+        public double MinImageHeight
+        {
+            get { return (double)GetValue(MinImageHeightProperty); }
+            set { SetValue(MinImageHeightProperty, value); }
         }
 
         /// <summary>
