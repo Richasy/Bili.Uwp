@@ -36,8 +36,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="url">请求地址.</param>
         /// <param name="grpcMessage">gRPC信息.</param>
+        /// <param name="needToken">是否需要令牌.</param>
         /// <returns><see cref="HttpRequestMessage"/>.</returns>
-        Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage);
+        Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage, bool needToken = false);
 
         /// <summary>
         /// 发送请求.

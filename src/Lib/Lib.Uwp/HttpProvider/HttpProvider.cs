@@ -85,17 +85,28 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage)
+        public async Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage, bool needToken = false)
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
-            var token = await _authenticationProvider.GetTokenAsync();
+            var isTokenValid = await _authenticationProvider.IsTokenValidAsync();
+            var token = string.Empty;
+            if (needToken || isTokenValid)
+            {
+                token = await _authenticationProvider.GetTokenAsync();
+            }
+
             var grpcConfig = new GRPCConfig(token);
             var userAgent = $"bili-universal/62800300 "
                 + $"os/ios model/{GRPCConfig.Model} mobi_app/iphone "
                 + $"osVer/{GRPCConfig.OSVersion} "
                 + $"network/{GRPCConfig.NetworkType} "
                 + $"grpc-objc/1.32.0 grpc-c/12.0.0 (ios; cronet_http)";
-            requestMessage.Headers.Authorization = new AuthenticationHeaderValue(Headers.Identify, token);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue(Headers.Identify, token);
+            }
+
             requestMessage.Headers.Add(Headers.UserAgent, userAgent);
             requestMessage.Headers.Add(Headers.AppKey, GRPCConfig.MobileApp);
             requestMessage.Headers.Add(Headers.BiliDevice, grpcConfig.GetDeviceBin());
