@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -46,6 +47,12 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty NarrowHeightProperty =
             DependencyProperty.Register(nameof(NarrowHeight), typeof(double), typeof(HorizontalRepeaterView), new PropertyMetadata(128d));
+
+        /// <summary>
+        /// <see cref="AdditionalContent"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AdditionalContentProperty =
+            DependencyProperty.Register(nameof(AdditionalContent), typeof(object), typeof(HorizontalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BannerView"/> class.
@@ -111,17 +118,28 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(NarrowHeightProperty, value); }
         }
 
+        /// <summary>
+        /// 顶部附加内容.
+        /// </summary>
+        public object AdditionalContent
+        {
+            get { return (object)GetValue(AdditionalContentProperty); }
+            set { SetValue(AdditionalContentProperty, value); }
+        }
+
         /// <inheritdoc/>
         protected override void OnPointerEntered(PointerRoutedEventArgs e) => CheckOffsetButtonStatus();
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             CheckOffsetButtonStatus();
+            CheckLayout();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             CheckOffsetButtonStatus();
+            CheckLayout();
         }
 
         private void CheckOffsetButtonStatus()
@@ -134,6 +152,21 @@ namespace Richasy.Bili.App.Controls
             {
                 LeftOffsetButton.Visibility = WideScrollViewer.HorizontalOffset == 0 ? Visibility.Collapsed : Visibility.Visible;
                 RightOffsetButton.Visibility = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset > 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        private void CheckLayout()
+        {
+            var windowWidth = Window.Current.Bounds.Width;
+            if (windowWidth < AppViewModel.Instance.NarrowWindowThresholdWidth && NarrowItemTemplate != null)
+            {
+                WideContainer.Visibility = Visibility.Collapsed;
+                NarrowContainer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                WideContainer.Visibility = Visibility.Visible;
+                NarrowContainer.Visibility = Visibility.Collapsed;
             }
         }
 

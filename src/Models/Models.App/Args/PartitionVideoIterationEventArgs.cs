@@ -17,33 +17,19 @@ namespace Richasy.Bili.Models.App.Args
         /// </summary>
         /// <param name="subPartitionId">子分区Id.</param>
         /// <param name="requestDateTime">请求发生时间.</param>
-        /// <param name="partionData">子分区数据.</param>
+        /// <param name="partitionData">子分区数据.</param>
         /// <param name="nextPageNumber">下一页码.</param>
         public PartitionVideoIterationEventArgs(
             int subPartitionId,
             DateTimeOffset requestDateTime,
-            SubPartition partionData,
+            SubPartition partitionData,
             int nextPageNumber)
             : base(subPartitionId, requestDateTime)
         {
-            this.SubPartitionId = subPartitionId;
-            this.TopOffsetId = partionData.TopOffsetId;
-            this.BottomOffsetId = partionData.BottomOffsetId;
-            this.RequestDateTime = requestDateTime;
+            this.TopOffsetId = partitionData.TopOffsetId;
+            this.BottomOffsetId = partitionData.BottomOffsetId;
             this.NextPageNumber = nextPageNumber;
-
-            var videoList = new List<PartitionVideo>();
-            if (partionData.NewVideos?.Any() ?? false)
-            {
-                videoList = videoList.Concat(partionData.NewVideos).ToList();
-            }
-
-            if (partionData.RecommendVideos?.Any() ?? false)
-            {
-                videoList = videoList.Concat(partionData.RecommendVideos).ToList();
-            }
-
-            this.VideoList = videoList;
+            this.InitVideos(partitionData);
         }
 
         /// <summary>
@@ -65,5 +51,21 @@ namespace Richasy.Bili.Models.App.Args
         /// 下一个页码.
         /// </summary>
         public int NextPageNumber { get; set; }
+
+        private void InitVideos(SubPartition partitionData)
+        {
+            var videoList = new List<PartitionVideo>();
+            if (partitionData.NewVideos?.Any() ?? false)
+            {
+                videoList = videoList.Concat(partitionData.NewVideos).ToList();
+            }
+
+            if (partitionData.RecommendVideos?.Any() ?? false)
+            {
+                videoList = videoList.Concat(partitionData.RecommendVideos).ToList();
+            }
+
+            this.VideoList = videoList;
+        }
     }
 }

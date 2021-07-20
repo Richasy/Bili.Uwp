@@ -27,6 +27,15 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ttl", Required = Required.Default)]
         public int TTL { get; set; }
+
+        /// <summary>
+        /// 响应结果是否为成功.
+        /// </summary>
+        /// <returns>成功或失败.</returns>
+        public bool IsSuccess()
+        {
+            return Code == 0;
+        }
     }
 
     /// <summary>
@@ -41,14 +50,19 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data", Required = Required.Default)]
         public T Data { get; set; }
+    }
 
+    /// <summary>
+    /// 哔哩哔哩服务器返回的数据响应结构类型.
+    /// </summary>
+    /// <typeparam name="T"><see cref="Result"/>对应的类型.</typeparam>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class ServerResponse2<T> : ServerResponse
+    {
         /// <summary>
-        /// 响应结果是否为成功.
+        /// 响应返回的数据.
         /// </summary>
-        /// <returns>成功或失败.</returns>
-        public bool IsSuccess()
-        {
-            return Code == 0;
-        }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "result", Required = Required.Default)]
+        public T Result { get; set; }
     }
 }

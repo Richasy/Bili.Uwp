@@ -123,6 +123,9 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩</value>
   </data>
+  <data name="Bangumi" xml:space="preserve">
+    <value>番剧</value>
+  </data>
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
   </data>
@@ -159,9 +162,6 @@
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
   </data>
-  <data name="ForeignAnime" xml:space="preserve">
-    <value>番剧</value>
-  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
   </data>
@@ -170,6 +170,9 @@
   </data>
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>索引</value>
   </data>
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
@@ -255,8 +258,14 @@
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
   </data>
+  <data name="RequestFeedDetailFailed" xml:space="preserve">
+    <value>数据源详情请求失败</value>
+  </data>
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>
+  </data>
+  <data name="RequestPgcFailed" xml:space="preserve">
+    <value>PGC内容请求失败</value>
   </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>热门视频请求失败</value>
@@ -266,6 +275,9 @@
   </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分区视频请求失败</value>
+  </data>
+  <data name="RequestTabDetailFailed" xml:space="preserve">
+    <value>标签页详情数据请求失败</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
@@ -291,6 +303,9 @@
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>显示更多</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>登录</value>
   </data>
@@ -313,7 +328,7 @@
     <value>点赞最多</value>
   </data>
   <data name="SortByNewest" xml:space="preserve">
-    <value>最新视频</value>
+    <value>最新发布</value>
   </data>
   <data name="SortByPlay" xml:space="preserve">
     <value>播放最多</value>
@@ -335,6 +350,9 @@
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>
+  </data>
+  <data name="TimeChart" xml:space="preserve">
+    <value>时间表</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>专题</value>

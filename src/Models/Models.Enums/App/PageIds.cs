@@ -40,7 +40,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 番剧.
         /// </summary>
-        ForeignAnime,
+        Bangumi,
 
         /// <summary>
         /// 国创.

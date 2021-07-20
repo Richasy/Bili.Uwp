@@ -41,8 +41,7 @@
                 VerticalAlignment="Center"
                 FontSize="16"
                 Text="{x:Bind HeaderText, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis"
-                Visibility="{x:Bind IsShowHeader, Mode=OneWay}" />
+                TextTrimming="CharacterEllipsis" />
 
             <ContentPresenter
                 Grid.Column="1"
@@ -57,7 +56,6 @@
             x:Name="ItemsRepeater"
             Grid.Row="1"
             Margin="0,12,0,0"
-            Animator="{StaticResource CardCollectionAnimator}"
             ElementPrepared="OnElementPrepared"
             ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"

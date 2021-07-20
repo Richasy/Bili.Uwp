@@ -12,6 +12,7 @@
     <Compile Include="BiliController.Auth.cs" />
     <Compile Include="BiliController.cs" />
     <Compile Include="BiliController.Account.cs" />
+    <Compile Include="BiliController.Pgc.cs" />
     <Compile Include="BiliController.SpecialColumn.cs" />
     <Compile Include="BiliController.Live.cs" />
     <Compile Include="BiliController.Recommend.cs" />

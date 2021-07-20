@@ -117,7 +117,7 @@
                         x:Name="VideoView"
                         HeaderText="{loc:LocaleLocator Name=Recommend}"
                         ItemsSource="{x:Bind ViewModel.RecommendLiveRoomCollection, Mode=OneWay}"
-                        MinWideItemHeight="204"
+                        MinWideItemHeight="208"
                         MinWideItemWidth="200"
                         RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                         <controls:VerticalRepeaterView.AdditionalContent>

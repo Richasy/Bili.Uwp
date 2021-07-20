@@ -1,0 +1,121 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.PgcItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hn="using:HN.Controls"
+    xmlns:icons="using:Fluent.Icons"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:CardPanel
+        x:Name="RootCard"
+        AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
+        Style="{x:Bind CardStyle, Mode=OneWay}"
+        Click="OnRootCardClickAsync">
+        <Grid Padding="12" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid VerticalAlignment="Center" CornerRadius="{ThemeResource ControlCornerRadius}">
+                <hn:ImageEx
+                    x:Name="CoverImage"
+                    Width="{x:Bind CoverWidth, Mode=OneWay}"
+                    Height="{x:Bind CoverHeight, Mode=OneWay}"
+                    LazyLoadingEnabled="True"
+                    RetryCount="2"
+                    RetryDelay="0:0:5"
+                    Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
+                    Stretch="UniformToFill">
+                    <hn:ImageEx.LoadingTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <muxc:ProgressRing
+                                    Style="{StaticResource PageProgressRingStyle}"
+                                    Width="28"
+                                    Height="28" />
+                            </Grid>
+                        </DataTemplate>
+                    </hn:ImageEx.LoadingTemplate>
+                    <hn:ImageEx.FailedTemplate>
+                        <DataTemplate>
+                            <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
+                                <icons:FluentIconElement
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                    Symbol="Image28Filled" />
+                            </Grid>
+                        </DataTemplate>
+                    </hn:ImageEx.FailedTemplate>
+                </hn:ImageEx>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Height="{x:Bind TitleRowHeight, Mode=OneWay}">
+                    <TextBlock
+                        x:Name="TitleBlock"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        FontSize="14"
+                        MaxLines="2"
+                        Text="{x:Bind ViewModel.Title, Mode=OneWay}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                        </ToolTipService.ToolTip>
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Grid.Row="1"
+                    Opacity="0.6"
+                    Text="{x:Bind ViewModel.Subtitle}" />
+
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Left"
+                    Visibility="{x:Bind ViewModel.IsShowBadge, Mode=OneWay}">
+                    <Rectangle
+                        Fill="{ThemeResource AccentBadgeBackground}"
+                        RadiusX="4"
+                        RadiusY="4" />
+                    <TextBlock
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Margin="6,4"
+                        FontSize="10"
+                        Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                        Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
+                </Grid>
+
+                <Grid Grid.Row="3" Visibility="{x:Bind TagVisibility, Mode=OneWay}">
+                    <TextBlock
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        VerticalAlignment="Bottom"
+                        Opacity="0.6"
+                        Text="{x:Bind ViewModel.Tags, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowTags, Mode=OneWay}" />
+                </Grid>
+
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Grid.Row="4"
+                    Margin="0,8,0,0"
+                    Opacity="0.6"
+                    Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsShowAdditionalText, Mode=OneWay}" />
+            </Grid>
+        </Grid>
+    </local:CardPanel>
+</UserControl>

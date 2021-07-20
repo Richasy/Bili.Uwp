@@ -121,8 +121,8 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.SpecialColumn:
                     pageType = typeof(SpecialColumnPage);
                     break;
-                case PageIds.ForeignAnime:
-                    pageType = typeof(ForeignAnimePage);
+                case PageIds.Bangumi:
+                    pageType = typeof(BangumiPage);
                     break;
                 case PageIds.DomesticAnime:
                     pageType = typeof(DomesticAnimePage);

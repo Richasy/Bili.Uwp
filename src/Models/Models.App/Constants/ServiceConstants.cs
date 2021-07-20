@@ -15,6 +15,22 @@ namespace Richasy.Bili.Models.App.Constants
         public const string Bangumi = "bangumi";
         public const string Pgc = "pgc";
 
+        /// <summary>
+        /// 番剧分区Id.
+        /// </summary>
+        public const int BangumiPartitionId = 152;
+
+        /// <summary>
+        /// 国创分区Id.
+        /// </summary>
+        public const int DomesticPartitionId = 167;
+
+        public const string BangumiOperation = "bangumi-operation";
+        public const string DomesticOperation = "gc-operation";
+        public const string MovieOperation = "movie-operation";
+        public const string TvOperation = "tv-operation";
+        public const string DocumentaryOperation = "documentary-operation";
+
         public static class Keys
         {
             public const string AndroidKey = "4409e2ce8ffd12b8";
@@ -61,6 +77,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string CategoryId = "cid";
             public const string MyId = "mid";
             public const string Sort = "sort";
+            public const string ParentTab = "parent_tab_name";
+            public const string IsHideRecommendTab = "hide_rcmd_tab";
+            public const string Fnval = "fnval";
+            public const string Fnver = "fnver";
+            public const string Fourk = "fourk";
+            public const string Qn = "qn";
+            public const string TabId = "tab_id";
+            public const string TeenagersMode = "teenagers_mode";
+            public const string Cursor = "cursor";
+            public const string Name = "name";
         }
 
         public static class Sort
@@ -252,6 +278,19 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 各个分区下的文章列表.
                 /// </summary>
                 public const string ArticleList = _apiBase + "/x/article/recommends";
+            }
+
+            public static class Pgc
+            {
+                /// <summary>
+                /// 顶部标签.
+                /// </summary>
+                public const string Tab = _apiBase + "/pgc/page/tab";
+
+                /// <summary>
+                /// 页面详情.
+                /// </summary>
+                public const string Detail = _apiBase + "/pgc/page";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

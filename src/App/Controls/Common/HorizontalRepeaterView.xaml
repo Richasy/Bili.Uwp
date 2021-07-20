@@ -9,40 +9,37 @@
     xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="Common">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource NarrowWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="WideContainer.Visibility" Value="Collapsed" />
-                        <Setter Target="NarrowContainer.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
 
-        <TextBlock
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Margin="0,0,0,8"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            FontSize="16"
-            Text="{x:Bind Header, Mode=OneWay}"
-            TextTrimming="CharacterEllipsis"
-            Visibility="{x:Bind HeaderVisibility, Mode=OneWay}" />
+        <Grid ColumnSpacing="12" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="{x:Bind Header, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                Visibility="{x:Bind HeaderVisibility, Mode=OneWay}" />
+            <ContentPresenter
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Content="{x:Bind AdditionalContent, Mode=OneWay}" />
+        </Grid>
 
         <Grid
             x:Name="WideContainer"

@@ -66,7 +66,7 @@ namespace Richasy.Bili.Models.Enums
         LoginFailed,
         PleaseSignIn,
         Topic,
-        ForeignAnime,
+        Bangumi,
         DomesticAnime,
         Documentary,
         Movie,
@@ -89,6 +89,12 @@ namespace Richasy.Bili.Models.Enums
         CategoriesReuqestFailed,
         RequestArticleListFailed,
         RequestLiveFailed,
+        RequestTabDetailFailed,
+        RequestPgcFailed,
+        ShowMore,
+        Index,
+        TimeChart,
+        RequestFeedDetailFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

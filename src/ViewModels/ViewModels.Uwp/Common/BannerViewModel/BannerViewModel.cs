@@ -20,6 +20,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             this.Source = partitionBanner;
             this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
             LimitCover(partitionBanner.Image);
+            MinHeight = 100d;
         }
 
         /// <summary>
@@ -33,6 +34,21 @@ namespace Richasy.Bili.ViewModels.Uwp
             this.Source = liveBanner;
             this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
             LimitCover(liveBanner.Cover);
+            MinHeight = 100d;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BannerViewModel"/> class.
+        /// </summary>
+        /// <param name="pgcItem">PGC条目.</param>
+        public BannerViewModel(PgcModuleItem pgcItem)
+        {
+            this.Uri = pgcItem.WebLink;
+            this.Description = pgcItem.Title;
+            this.Source = pgcItem;
+            this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
+            this.Cover = pgcItem.Cover + "@600w_320h_1c_100q.jpg";
+            MinHeight = 180d;
         }
 
         private void LimitCover(string coverUrl)

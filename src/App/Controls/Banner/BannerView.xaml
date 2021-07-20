@@ -10,25 +10,26 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
     <Grid>
-        <local:HorizontalRepeaterView ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+        <local:HorizontalRepeaterView Style="{x:Bind ViewStyle, Mode=OneWay}" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
             <local:HorizontalRepeaterView.WideItemTemplate>
                 <DataTemplate x:DataType="uwp:BannerViewModel">
                     <local:BannerItem
-                        Title="{x:Bind Description}"
+                        Title="{x:Bind Description, Mode=OneWay}"
                         IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
-                        Source="{x:Bind Cover}"
+                        MinImageHeight="{x:Bind MinHeight, Mode=OneWay}"
+                        Source="{x:Bind Cover, Mode=OneWay}"
                         TabFocusNavigation="Local"
-                        Uri="{x:Bind Uri}" />
+                        Uri="{x:Bind Uri, Mode=OneWay}" />
                 </DataTemplate>
             </local:HorizontalRepeaterView.WideItemTemplate>
             <local:HorizontalRepeaterView.NarrowItemTemplate>
                 <DataTemplate x:DataType="uwp:BannerViewModel">
                     <local:BannerItem
-                        Title="{x:Bind Description}"
-                        IsTooltipEnabled="{x:Bind IsTooltipEnabled}"
+                        Title="{x:Bind Description, Mode=OneWay}"
+                        IsTooltipEnabled="{x:Bind IsTooltipEnabled, Mode=OneWay}"
                         MaxImageHeight="999"
-                        Source="{x:Bind Cover}"
-                        Uri="{x:Bind Uri}">
+                        Source="{x:Bind Cover, Mode=OneWay}"
+                        Uri="{x:Bind Uri, Mode=OneWay}">
                         <local:BannerItem.CardStyle>
                             <Style TargetType="local:CardPanel">
                                 <Setter Property="IsEnableHoverAnimation" Value="False" />

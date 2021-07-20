@@ -12,12 +12,21 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitionEventArgs"/> class.
         /// </summary>
+        /// <param name="requestDateTime">请求发生的时间.</param>
+        public PartitionEventArgs(DateTimeOffset requestDateTime)
+        {
+            this.RequestDateTime = requestDateTime;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PartitionEventArgs"/> class.
+        /// </summary>
         /// <param name="subPartitionId">子分区Id.</param>
         /// <param name="requestDateTime">请求发生的时间.</param>
         public PartitionEventArgs(int subPartitionId, DateTimeOffset requestDateTime)
+            : this(requestDateTime)
         {
             this.SubPartitionId = subPartitionId;
-            this.RequestDateTime = requestDateTime;
         }
 
         /// <summary>

@@ -29,7 +29,8 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IRecommendProvider _homeProvider;
         private readonly IPopularProvider _popularProvider;
         private readonly ILiveProvider _liveProvider;
-        private readonly ISpecialColumnProvider _documentaryProvider;
+        private readonly ISpecialColumnProvider _specialColumnProvider;
+        private readonly IPgcProvider _pgcProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -49,7 +50,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _homeProvider)
                 .LoadService(out _popularProvider)
                 .LoadService(out _liveProvider)
-                .LoadService(out _documentaryProvider);
+                .LoadService(out _specialColumnProvider)
+                .LoadService(out _pgcProvider);
 
             RegisterEvents();
         }
@@ -120,6 +122,16 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<SpecialColumnArticleIterationEventArgs> SpecialColumnArticleIteration;
 
         /// <summary>
+        /// 在PGC的附加数据发生改变时发生.
+        /// </summary>
+        public event EventHandler<PgcModuleAdditionalDataChangedEventArgs> PgcModuleAdditionalDataChanged;
+
+        /// <summary>
+        /// 在PGC有新的模块数据更改时发生.
+        /// </summary>
+        public event EventHandler<PgcModuleIterationEventArgs> PgcModuleIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -155,7 +167,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IRecommendProvider, RecommendProvider>()
                 .AddSingleton<IPopularProvider, PopularProvider>()
                 .AddSingleton<ILiveProvider, LiveProvider>()
-                .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>();
+                .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
+                .AddSingleton<IPgcProvider, PgcProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
 
