@@ -18,7 +18,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _ = BiliController.Instance;
             IsNavigatePaneOpen = true;
-            CurrentMainContentId = PageIds.Bangumi;
+            CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
         }
 

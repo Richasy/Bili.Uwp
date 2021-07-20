@@ -59,14 +59,13 @@ namespace Richasy.Bili.Controller.Uwp
         /// 获取PGC页面详情.
         /// </summary>
         /// <param name="tabId">标签页Id.</param>
-        /// <param name="cursor">增量加载的滚动标识，不存在于番剧和国创中.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestPgcPageDetailAsync(int tabId, string cursor = null)
+        public async Task RequestPgcPageDetailAsync(int tabId)
         {
             try
             {
                 ThrowWhenNetworkUnavaliable();
-                var response = await _pgcProvider.GetPageDetailAsync(tabId, cursor);
+                var response = await _pgcProvider.GetPageDetailAsync(tabId);
 
                 var additionalArgs = PgcModuleAdditionalDataChangedEventArgs.Create(response, tabId);
                 if (additionalArgs != null)
@@ -75,6 +74,37 @@ namespace Richasy.Bili.Controller.Uwp
                 }
 
                 var iterationArgs = PgcModuleIterationEventArgs.Create(response, tabId);
+                PgcModuleIteration?.Invoke(this, iterationArgs);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取PGC页面详情.
+        /// </summary>
+        /// <param name="type">PGC类型.</param>
+        /// <param name="cursor">增量加载的滚动标识，不存在于番剧和国创中.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestPgcPageDetailAsync(PgcType type, string cursor = null)
+        {
+            try
+            {
+                ThrowWhenNetworkUnavaliable();
+                var response = await _pgcProvider.GetPageDetailAsync(type, cursor);
+
+                if (string.IsNullOrEmpty(cursor))
+                {
+                    var additionalArgs = PgcModuleAdditionalDataChangedEventArgs.Create(response, type);
+                    if (additionalArgs != null)
+                    {
+                        PgcModuleAdditionalDataChanged?.Invoke(this, additionalArgs);
+                    }
+                }
+
+                var iterationArgs = PgcModuleIterationEventArgs.Create(response, type);
                 PgcModuleIteration?.Invoke(this, iterationArgs);
             }
             catch (Exception)

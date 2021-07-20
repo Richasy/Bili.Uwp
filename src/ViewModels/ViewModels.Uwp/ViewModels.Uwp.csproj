@@ -9,6 +9,10 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Pgc\DocumentaryViewModel.cs" />
+    <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
+    <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
+    <Compile Include="Pgc\MovieViewModel.cs" />
     <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.cs" />
     <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.Properties.cs" />
@@ -20,6 +24,7 @@
     <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
+    <Compile Include="Pgc\TvViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

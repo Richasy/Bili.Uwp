@@ -32,12 +32,6 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(HeaderText), typeof(string), typeof(VerticalRepeaterView), new PropertyMetadata(string.Empty));
 
         /// <summary>
-        /// <see cref="IsShowHeader"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty IsShowHeaderProperty =
-            DependencyProperty.Register(nameof(IsShowHeader), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(true));
-
-        /// <summary>
         /// <see cref="ItemTemplate"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
@@ -125,15 +119,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (string)GetValue(HeaderTextProperty); }
             set { SetValue(HeaderTextProperty, value); }
-        }
-
-        /// <summary>
-        /// 是否显示标题文本.
-        /// </summary>
-        public bool IsShowHeader
-        {
-            get { return (bool)GetValue(IsShowHeaderProperty); }
-            set { SetValue(IsShowHeaderProperty, value); }
         }
 
         /// <summary>

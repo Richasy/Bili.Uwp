@@ -219,10 +219,7 @@
                                             x:Name="RefreshButton"
                                             VerticalAlignment="Center"
                                             Click="OnRefreshButtonClickAsync">
-                                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                                <icons:FluentIconElement VerticalAlignment="Center" Symbol="ArrowSyncCircle16" />
-                                                <TextBlock Text="{loc:LocaleLocator Name=Refresh}" />
-                                            </StackPanel>
+                                            <controls:IconTextBlock Symbol="ArrowSyncCircle16" Text="{loc:LocaleLocator Name=Refresh}" />
                                         </Button>
                                     </controls:VerticalRepeaterView.AdditionalContent>
                                     <controls:VerticalRepeaterView.ItemTemplate>

@@ -115,7 +115,7 @@
                                 Margin="0,0,0,12"
                                 HeaderText="{x:Bind ViewModel.CurrentCategory.Title, Mode=OneWay}"
                                 ItemsSource="{x:Bind ViewModel.CurrentCategory.ArticleCollection, Mode=OneWay}"
-                                MinWideItemHeight="272"
+                                MinWideItemHeight="276"
                                 RequestLoadMore="OnArticleViewRequestLoadMoreAsync"
                                 Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                 <controls:VerticalRepeaterView.AdditionalContent>

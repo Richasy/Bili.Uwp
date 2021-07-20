@@ -27,13 +27,17 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PgcResponse> GetPageDetailAsync(int tabId, string cursor)
+        public async Task<PgcResponse> GetPageDetailAsync(int tabId)
         {
-            var queryParameters = GetPageDetailQueryParameters(tabId, cursor);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.Detail, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse2<PgcResponse>>(response);
-            return data.Result;
+            var queryParameters = GetPageDetailQueryParameters(tabId);
+            return await GetPgcResponseInternalAsync(queryParameters);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PgcResponse> GetPageDetailAsync(PgcType type, string cursor)
+        {
+            var queryParameters = GetPageDetailQueryParameters(type, cursor);
+            return await GetPgcResponseInternalAsync(queryParameters);
         }
 
         /// <inheritdoc/>

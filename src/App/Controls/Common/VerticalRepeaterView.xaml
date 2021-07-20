@@ -41,8 +41,7 @@
                 VerticalAlignment="Center"
                 FontSize="16"
                 Text="{x:Bind HeaderText, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis"
-                Visibility="{x:Bind IsShowHeader, Mode=OneWay}" />
+                TextTrimming="CharacterEllipsis" />
 
             <ContentPresenter
                 Grid.Column="1"

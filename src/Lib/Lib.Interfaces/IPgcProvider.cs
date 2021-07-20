@@ -23,9 +23,16 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 获取导航标签所指向的内容详情.
         /// </summary>
         /// <param name="tabId">标签Id.</param>
-        /// <param name="cursor">标识符指针（用于增量加载）.</param>
         /// <returns>内容详情.</returns>
-        Task<PgcResponse> GetPageDetailAsync(int tabId, string cursor = null);
+        Task<PgcResponse> GetPageDetailAsync(int tabId);
+
+        /// <summary>
+        /// 获取PGC页面详情.
+        /// </summary>
+        /// <param name="type">类型.</param>
+        /// <param name="cursor">偏移指针.</param>
+        /// <returns>内容详情.</returns>
+        Task<PgcResponse> GetPageDetailAsync(PgcType type, string cursor);
 
         /// <summary>
         /// 获取全区动态.

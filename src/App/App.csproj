@@ -82,7 +82,7 @@
     <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\Shadows.cs" />
-    <Compile Include="Pages\AnimePage.xaml.cs">
+    <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DocumentaryPage.xaml.cs">
@@ -96,6 +96,9 @@
     </Compile>
     <Compile Include="Pages\BangumiPage.xaml.cs">
       <DependentUpon>BangumiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reuse\FeedPage.xaml.cs">
+      <DependentUpon>FeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
@@ -314,7 +317,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AnimePage.xaml">
+    <Page Include="Pages\Reuse\AnimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -331,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\BangumiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Reuse\FeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

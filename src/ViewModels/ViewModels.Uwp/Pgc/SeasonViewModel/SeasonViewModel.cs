@@ -15,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="item">动漫模块条目.</param>
         /// <param name="isVerticalCover">是否为纵向封面.</param>
         /// <returns><see cref="SeasonViewModel"/>.</returns>
-        public static SeasonViewModel CreateFromAnime(PgcModuleItem item, bool isVerticalCover = true)
+        public static SeasonViewModel CreateFromModuleItem(PgcModuleItem item, bool isVerticalCover = true)
         {
             var vm = new SeasonViewModel();
             vm.Title = item.Title;

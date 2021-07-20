@@ -94,6 +94,7 @@
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Margin="6,4"
+                        FontSize="10"
                         Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                         Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
                 </Grid>

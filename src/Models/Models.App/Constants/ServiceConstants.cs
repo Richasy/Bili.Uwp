@@ -27,6 +27,9 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string BangumiOperation = "bangumi-operation";
         public const string DomesticOperation = "gc-operation";
+        public const string MovieOperation = "movie-operation";
+        public const string TvOperation = "tv-operation";
+        public const string DocumentaryOperation = "documentary-operation";
 
         public static class Keys
         {
@@ -83,6 +86,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string TabId = "tab_id";
             public const string TeenagersMode = "teenagers_mode";
             public const string Cursor = "cursor";
+            public const string Name = "name";
         }
 
         public static class Sort
