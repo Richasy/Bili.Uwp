@@ -95,6 +95,9 @@ namespace Richasy.Bili.Models.Enums
         Index,
         TimeChart,
         RequestFeedDetailFailed,
+        AppTheme,
+        AppThemeDescription,
+        Generic,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

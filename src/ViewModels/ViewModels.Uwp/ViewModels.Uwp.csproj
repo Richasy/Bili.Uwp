@@ -25,6 +25,8 @@
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
     <Compile Include="Pgc\TvViewModel.cs" />
+    <Compile Include="SettingViewModel.cs" />
+    <Compile Include="SettingViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

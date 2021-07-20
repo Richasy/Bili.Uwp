@@ -123,6 +123,12 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩</value>
   </data>
+  <data name="AppTheme" xml:space="preserve">
+    <value>应用主题</value>
+  </data>
+  <data name="AppThemeDescription" xml:space="preserve">
+    <value>选择一个你偏好的应用主题</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
+  </data>
+  <data name="Generic" xml:space="preserve">
+    <value>通用</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
