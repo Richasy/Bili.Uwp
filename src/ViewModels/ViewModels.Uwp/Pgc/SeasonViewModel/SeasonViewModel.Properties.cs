@@ -51,9 +51,38 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string AdditionalText { get; set; }
 
         /// <summary>
+        /// 徽章文本.
+        /// </summary>
+        [Reactive]
+        public string BadgeText { get; set; }
+
+        /// <summary>
+        /// 是否显示徽章.
+        /// </summary>
+        [Reactive]
+        public bool IsShowBadge { get; set; }
+
+        /// <summary>
+        /// 是否显示标签.
+        /// </summary>
+        [Reactive]
+        public bool IsShowTags { get; set; }
+
+        /// <summary>
+        /// 是否显示附加文本.
+        /// </summary>
+        [Reactive]
+        public bool IsShowAdditionalText { get; set; }
+
+        /// <summary>
         /// 源数据.
         /// </summary>
         public PgcModuleItem Source { get; set; }
+
+        /// <summary>
+        /// 源封面.
+        /// </summary>
+        public string SourceCoverUrl { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SeasonViewModel model && VideoId == model.VideoId;

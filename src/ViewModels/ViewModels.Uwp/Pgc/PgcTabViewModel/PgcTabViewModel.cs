@@ -89,7 +89,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     ErrorText = invalidEx.Message;
                 }
 
-                IsShowBanner = BannerCollection.Count > 0;
+                CheckVisibility();
                 IsInitializeLoading = false;
             }
         }
@@ -132,7 +132,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task DeltaPartitionRequestAsync()
         {
-            if (!IsDeltaLoading && !IsPartitionInitializeLoading)
+            if (!IsDeltaLoading && !IsPartitionInitializeLoading && PartitionId > 0)
             {
                 IsDeltaLoading = true;
                 await Controller.RequestSubPartitionDataAsync(PartitionId, _offsetId);
@@ -149,6 +149,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     ModuleCollection.Add(PgcModuleViewModel.CreateFromAnime(item));
                 }
             }
+
+            CheckVisibility();
         }
 
         private async void OnPgcModuleAdditionalDataChangedAsync(object sender, PgcModuleAdditionalDataChangedEventArgs e)
@@ -171,8 +173,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await InitializePartitionRequestAsync();
                 }
 
-                IsShowVideo = PartitionId > 0;
-                IsShowBanner = BannerCollection.Any();
+                CheckVisibility();
             }
         }
 
@@ -186,6 +187,16 @@ namespace Richasy.Bili.ViewModels.Uwp
                     e.VideoList.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
                 }
             }
+
+            CheckVisibility();
+        }
+
+        private void CheckVisibility()
+        {
+            IsShowBanner = BannerCollection.Any();
+            IsShowModule = ModuleCollection.Any();
+            IsShowRank = RankCollection.Any();
+            IsShowVideo = VideoCollection.Any();
         }
     }
 }

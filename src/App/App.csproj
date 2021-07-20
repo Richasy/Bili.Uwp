@@ -38,6 +38,9 @@
     <Compile Include="Controls\Live\FollowLiveView.xaml.cs">
       <DependentUpon>FollowLiveView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\PgcItem.xaml.cs">
+      <DependentUpon>PgcItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
@@ -260,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Live\FollowLiveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\PgcItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

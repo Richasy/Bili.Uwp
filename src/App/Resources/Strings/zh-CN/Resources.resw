@@ -171,6 +171,9 @@
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
   </data>
+  <data name="Index" xml:space="preserve">
+    <value>索引</value>
+  </data>
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
   </data>
@@ -297,6 +300,9 @@
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>显示更多</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>登录</value>
   </data>
@@ -341,6 +347,9 @@
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>
+  </data>
+  <data name="TimeChart" xml:space="preserve">
+    <value>时间表</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>专题</value>

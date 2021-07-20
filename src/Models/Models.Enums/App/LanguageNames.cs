@@ -91,6 +91,9 @@ namespace Richasy.Bili.Models.Enums
         RequestLiveFailed,
         RequestTabDetailFailed,
         RequestPgcFailed,
+        ShowMore,
+        Index,
+        TimeChart,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

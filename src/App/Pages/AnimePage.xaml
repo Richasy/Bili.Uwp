@@ -13,6 +13,10 @@
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <muxc:StackLayout x:Key="HorizontalLayout" Spacing="12" />
+    </Page.Resources>
+
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
@@ -27,6 +31,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="NavHeaderAdditionalContainer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
@@ -37,9 +42,9 @@
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
+            ItemInvoked="OnRootNavViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.TabCollection, Mode=OneWay}"
             PaneDisplayMode="Top"
-            ItemInvoked="OnRootNavViewItemInvoked"
             Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="uwp:PgcTabViewModel">
@@ -52,6 +57,20 @@
                     </muxc:NavigationViewItem>
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
+            <muxc:NavigationView.PaneFooter>
+                <StackPanel
+                    x:Name="NavHeaderAdditionalContainer"
+                    Padding="{StaticResource DefaultContainerPadding}"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button x:Name="IndexButton">
+                        <controls:IconTextBlock Symbol="TextBulletListLTR20Filled" Text="{loc:LocaleLocator Name=Index}" />
+                    </Button>
+                    <Button x:Name="TimeChartButton">
+                        <controls:IconTextBlock Symbol="Clock16Filled" Text="{loc:LocaleLocator Name=TimeChart}" />
+                    </Button>
+                </StackPanel>
+            </muxc:NavigationView.PaneFooter>
             <muxc:NavigationView.Content>
                 <Grid>
                     <ScrollViewer
@@ -61,9 +80,11 @@
                         VerticalScrollBarVisibility="Auto">
                         <Grid
                             x:Name="ContentGrid"
-                            Padding="0,12,0,0"
+                            Padding="0,8,0,0"
                             Visibility="{x:Bind ViewModel.CurrentTab.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
@@ -76,12 +97,116 @@
                                 Visibility="{x:Bind ViewModel.CurrentTab.IsShowBanner, Mode=OneWay}">
                                 <controls:BannerView.ViewStyle>
                                     <Style TargetType="controls:HorizontalRepeaterView">
-                                        <Setter Property="NarrowHeight" Value="240" />
+                                        <Setter Property="NarrowHeight" Value="200" />
                                     </Style>
                                 </controls:BannerView.ViewStyle>
                             </controls:BannerView>
 
-                            <Grid Grid.Row="1">
+                            <Grid
+                                Grid.Row="1"
+                                Margin="0,0,0,12"
+                                Visibility="{x:Bind ViewModel.CurrentTab.IsShowRank, Mode=OneWay}">
+                                <controls:HorizontalRepeaterView
+                                    Header="{loc:LocaleLocator Name=Rank}"
+                                    HeaderVisibility="Visible"
+                                    ItemsSource="{x:Bind ViewModel.CurrentTab.RankCollection, Mode=OneWay}">
+                                    <controls:HorizontalRepeaterView.WideItemTemplate>
+                                        <DataTemplate x:DataType="uwp:PgcModuleViewModel">
+                                            <controls:CardPanel IsEnableHoverAnimation="False">
+                                                <Grid Padding="8">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        Style="{StaticResource BodyTextBlockStyle}"
+                                                        Margin="8,0,8,8"
+                                                        FontWeight="Bold"
+                                                        Text="{x:Bind Title, Mode=OneWay}" />
+                                                    <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind SeasonCollection}">
+                                                        <muxc:ItemsRepeater.Layout>
+                                                            <muxc:StackLayout Orientation="Vertical" Spacing="0" />
+                                                        </muxc:ItemsRepeater.Layout>
+                                                        <muxc:ItemsRepeater.ItemTemplate>
+                                                            <DataTemplate x:DataType="uwp:SeasonViewModel">
+                                                                <controls:PgcItem
+                                                                    Width="322"
+                                                                    CoverHeight="88"
+                                                                    CoverWidth="120"
+                                                                    TagVisibility="Collapsed"
+                                                                    TitleRowHeight="20"
+                                                                    ViewModel="{x:Bind}">
+                                                                    <controls:PgcItem.CardStyle>
+                                                                        <Style TargetType="controls:CardPanel">
+                                                                            <Setter Property="IsEnableShadow" Value="False" />
+                                                                            <Setter Property="IsEnableHoverAnimation" Value="False" />
+                                                                            <Setter Property="BorderThickness" Value="0" />
+                                                                            <Setter Property="Background" Value="Transparent" />
+                                                                        </Style>
+                                                                    </controls:PgcItem.CardStyle>
+                                                                </controls:PgcItem>
+                                                            </DataTemplate>
+                                                        </muxc:ItemsRepeater.ItemTemplate>
+                                                    </muxc:ItemsRepeater>
+                                                </Grid>
+                                            </controls:CardPanel>
+                                        </DataTemplate>
+                                    </controls:HorizontalRepeaterView.WideItemTemplate>
+                                </controls:HorizontalRepeaterView>
+                            </Grid>
+
+                            <Grid
+                                Grid.Row="2"
+                                Margin="0,0,0,12"
+                                Visibility="{x:Bind ViewModel.CurrentTab.IsShowModule, Mode=OneWay}">
+                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.CurrentTab.ModuleCollection, Mode=OneWay}" Layout="{StaticResource HorizontalLayout}">
+                                    <muxc:ItemsRepeater.ItemTemplate>
+                                        <DataTemplate x:DataType="uwp:PgcModuleViewModel">
+                                            <Grid>
+                                                <controls:HorizontalRepeaterView
+                                                    Header="{x:Bind Title, Mode=OneWay}"
+                                                    HeaderVisibility="Visible"
+                                                    ItemsSource="{x:Bind SeasonCollection}"
+                                                    NarrowHeight="180">
+                                                    <controls:HorizontalRepeaterView.AdditionalContent>
+                                                        <Button
+                                                            x:Name="ShowMoreButton"
+                                                            Click="OnShowMoreButtonClickAsync"
+                                                            Tag="{x:Bind}"
+                                                            Visibility="{x:Bind IsDisplayMoreButton, Mode=OneWay}">
+                                                            <Button.Content>
+                                                                <controls:IconTextBlock
+                                                                    Spacing="8"
+                                                                    Symbol="List16Filled"
+                                                                    Text="{loc:LocaleLocator Name=ShowMore}" />
+                                                            </Button.Content>
+                                                        </Button>
+                                                    </controls:HorizontalRepeaterView.AdditionalContent>
+                                                    <controls:HorizontalRepeaterView.WideItemTemplate>
+                                                        <DataTemplate x:DataType="uwp:SeasonViewModel">
+                                                            <controls:PgcItem Width="338" ViewModel="{x:Bind}" />
+                                                        </DataTemplate>
+                                                    </controls:HorizontalRepeaterView.WideItemTemplate>
+                                                    <controls:HorizontalRepeaterView.NarrowItemTemplate>
+                                                        <DataTemplate x:DataType="uwp:SeasonViewModel">
+                                                            <controls:PgcItem ViewModel="{x:Bind}">
+                                                                <controls:PgcItem.CardStyle>
+                                                                    <Style TargetType="controls:CardPanel">
+                                                                        <Setter Property="IsEnableHoverAnimation" Value="False" />
+                                                                        <Setter Property="IsEnableShadow" Value="False" />
+                                                                    </Style>
+                                                                </controls:PgcItem.CardStyle>
+                                                            </controls:PgcItem>
+                                                        </DataTemplate>
+                                                    </controls:HorizontalRepeaterView.NarrowItemTemplate>
+                                                </controls:HorizontalRepeaterView>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater.ItemTemplate>
+                                </muxc:ItemsRepeater>
+                            </Grid>
+
+                            <Grid Grid.Row="3">
                                 <controls:VerticalRepeaterView
                                     x:Name="VideoView"
                                     Margin="0,0,0,12"

@@ -10,7 +10,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid ColumnSpacing="{x:Bind Spacing, Mode=OneWay}">
+    <Grid ColumnSpacing="{x:Bind Spacing, Mode=OneWay}" Margin="0,2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />

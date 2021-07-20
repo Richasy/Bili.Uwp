@@ -13,8 +13,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 从动漫条目中创建.
         /// </summary>
         /// <param name="item">动漫模块条目.</param>
+        /// <param name="isVerticalCover">是否为纵向封面.</param>
         /// <returns><see cref="SeasonViewModel"/>.</returns>
-        public static SeasonViewModel CreateFromAnime(PgcModuleItem item)
+        public static SeasonViewModel CreateFromAnime(PgcModuleItem item, bool isVerticalCover = true)
         {
             var vm = new SeasonViewModel();
             vm.Title = item.Title;
@@ -29,14 +30,25 @@ namespace Richasy.Bili.ViewModels.Uwp
                 vm.VideoId = item.Aid;
             }
 
+            var resString = isVerticalCover ? "@240w_320h_1c_100q.jpg" : "@400w_250h_1c_100q.jpg";
             vm.Tags = item.SeasonTags;
-            vm.CoverUrl = item.Cover;
+            vm.CoverUrl = item.Cover + resString;
             vm.Source = item;
+            vm.BadgeText = item.Badge;
+            vm.SourceCoverUrl = item.Cover;
 
-            if (!string.IsNullOrEmpty(item.DisplayScoreText))
+            if (item.Stat != null && !string.IsNullOrEmpty(item.Stat.FollowDisplayText))
+            {
+                vm.AdditionalText = item.Stat.FollowDisplayText;
+            }
+            else if (!string.IsNullOrEmpty(item.DisplayScoreText))
             {
                 vm.AdditionalText = item.DisplayScoreText;
             }
+
+            vm.IsShowBadge = !string.IsNullOrEmpty(item.Badge);
+            vm.IsShowTags = !string.IsNullOrEmpty(item.SeasonTags);
+            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
 
             return vm;
         }

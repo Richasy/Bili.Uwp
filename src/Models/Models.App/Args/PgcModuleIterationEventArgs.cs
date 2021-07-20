@@ -47,7 +47,7 @@ namespace Richasy.Bili.Models.App.Args
             args.TabId = tabId;
             foreach (var module in response.Modules)
             {
-                if (module.Style == "v-card" || module.Style.Contains("feed"))
+                if (module.Style == "v_card" || module.Style.Contains("feed"))
                 {
                     args.Modules.Add(module);
                 }

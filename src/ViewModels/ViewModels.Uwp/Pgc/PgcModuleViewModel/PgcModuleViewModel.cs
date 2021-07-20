@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Linq;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -23,6 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.SeasonCollection = new ObservableCollection<SeasonViewModel>();
             vm.Type = PgcModuleType.Anime;
             module.Items.ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromAnime(p)));
+            vm.IsDisplayMoreButton = true;
             return vm;
         }
 
@@ -37,7 +39,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.Title = module.Title;
             vm.SeasonCollection = new ObservableCollection<SeasonViewModel>();
             vm.Type = PgcModuleType.Rank;
-            module.Cards.ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromAnime(p)));
+            module.Cards.Take(3).ToList().ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromAnime(p, false)));
+            vm.IsDisplayMoreButton = false;
             return vm;
         }
     }

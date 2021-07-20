@@ -61,6 +61,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowRank { get; set; }
 
         /// <summary>
+        /// 是否显示模块.
+        /// </summary>
+        [Reactive]
+        public bool IsShowModule { get; set; }
+
+        /// <summary>
         /// 分区是否正在初始化加载.
         /// </summary>
         [Reactive]

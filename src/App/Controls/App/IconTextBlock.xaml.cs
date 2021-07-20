@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Spacing"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty SpacingProperty =
-            DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(IconTextBlock), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(Spacing), typeof(double), typeof(IconTextBlock), new PropertyMetadata(8d));
 
         /// <summary>
         /// <see cref="Symbol"/>的依赖属性.

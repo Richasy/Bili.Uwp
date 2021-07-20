@@ -10,4 +10,9 @@
         FallbackColor="{ThemeResource SystemAccentColor}"
         TintColor="{ThemeResource SystemAccentColorLight2}"
         TintOpacity="0.9" />
+
+    <SolidColorBrush
+        x:Key="AccentBadgeBackground"
+        Opacity="0.4"
+        Color="{ThemeResource SystemAccentColorLight2}" />
 </ResourceDictionary>

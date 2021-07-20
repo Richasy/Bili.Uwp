@@ -101,5 +101,9 @@ namespace Richasy.Bili.App.Pages
             ViewModel.CurrentTab = args.InvokedItem as PgcTabViewModel;
             CheckCurrentTabAsync();
         }
+
+        private void OnShowMoreButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
