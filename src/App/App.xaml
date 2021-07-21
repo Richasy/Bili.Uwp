@@ -22,6 +22,7 @@
             <converter:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
+            <converter:ThemeStringConverter x:Key="ThemeStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

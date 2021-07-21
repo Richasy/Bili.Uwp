@@ -153,6 +153,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
+  </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>跟随系统</value>
   </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
@@ -188,6 +194,9 @@
   </data>
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
@@ -246,6 +255,12 @@
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
   </data>
+  <data name="Prelaunch" xml:space="preserve">
+    <value>预启动</value>
+  </data>
+  <data name="PrelaunchDescription" xml:space="preserve">
+    <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>
@@ -287,6 +302,9 @@
   </data>
   <data name="RequestTabDetailFailed" xml:space="preserve">
     <value>标签页详情数据请求失败</value>
+  </data>
+  <data name="RestartWarning" xml:space="preserve">
+    <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
@@ -350,6 +368,24 @@
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
+  </data>
+  <data name="StartMethod" xml:space="preserve">
+    <value>启动方式</value>
+  </data>
+  <data name="StartMethodDescription" xml:space="preserve">
+    <value>您可以选择应用的启动方式以更快速地打开应用</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>自启动</value>
+  </data>
+  <data name="StartupDescription" xml:space="preserve">
+    <value>将应用添加到开启启动项，应用将在系统启动后自动打开，并以最小化形式显示在任务栏</value>
+  </data>
+  <data name="StartupDisabledByPolicy" xml:space="preserve">
+    <value>启动项由您的组织或组策略管理，应用启动项已被禁用</value>
+  </data>
+  <data name="StartupDisabledByUser" xml:space="preserve">
+    <value>启动项由用户手动禁用，您需要手动启用才能生效</value>
   </data>
   <data name="SwitchToPasswordLogin" xml:space="preserve">
     <value>用密码登录</value>

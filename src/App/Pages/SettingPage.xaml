@@ -7,15 +7,43 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel Spacing="4">
-            <TextBlock
-                Style="{StaticResource BodyTextBlockStyle}"
-                FontWeight="Bold"
-                Text="{loc:LocaleLocator Name=Generic}" />
-            <controls:ThemeSettingSection />
-        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootPanel.Margin" Value="{StaticResource NarrowContainerPadding}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                x:Name="RootPanel"
+                Margin="{StaticResource DefaultContainerPadding}"
+                Spacing="4">
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Margin="0,0,0,8"
+                    FontWeight="Bold"
+                    Text="{loc:LocaleLocator Name=Generic}" />
+                <controls:ThemeSettingSection />
+                <controls:StartupSettingSection />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

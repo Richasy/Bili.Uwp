@@ -98,6 +98,18 @@ namespace Richasy.Bili.Models.Enums
         AppTheme,
         AppThemeDescription,
         Generic,
+        Light,
+        Dark,
+        FollowSystem,
+        RestartWarning,
+        StartMethod,
+        StartMethodDescription,
+        Prelaunch,
+        PrelaunchDescription,
+        Startup,
+        StartupDescription,
+        StartupDisabledByUser,
+        StartupDisabledByPolicy,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

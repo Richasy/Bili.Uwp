@@ -42,6 +42,9 @@
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\SettingSectionControl.cs" />
+    <Compile Include="Controls\Settings\StartupSettingSection.xaml.cs">
+      <DependentUpon>StartupSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,7 @@
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
@@ -274,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\StartupSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

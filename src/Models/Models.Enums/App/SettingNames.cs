@@ -13,5 +13,7 @@ namespace Richasy.Bili.Models.Enums
         AppTheme,
         BiliUserId,
         AuthorizeResult,
+        IsPrelaunch,
+        IsStartup,
     }
 }

@@ -11,6 +11,11 @@ namespace Richasy.Bili.Models.App.Constants
         public const string ThemeDefault = "System";
         public const string ThemeLight = "Light";
         public const string ThemeDark = "Dark";
+
+        public const string StartupTaskId = "Richasy.Bili";
+
+        public const double AppMinWidth = 360d;
+        public const double AppMinHeight = 500d;
 #pragma warning restore SA1600 // Elements should be documented
     }
 }
