@@ -60,6 +60,7 @@
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="0" />
                         <Setter Target="RootScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

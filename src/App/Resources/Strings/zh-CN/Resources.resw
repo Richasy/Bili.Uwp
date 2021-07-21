@@ -147,6 +147,12 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
+  <data name="Clean" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="CleanLogger" xml:space="preserve">
+    <value>清除日志记录</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
@@ -201,6 +207,15 @@
   <data name="Live" xml:space="preserve">
     <value>直播</value>
   </data>
+  <data name="LoggerFolder" xml:space="preserve">
+    <value>日志文件夹</value>
+  </data>
+  <data name="LoggerModule" xml:space="preserve">
+    <value>日志记录</value>
+  </data>
+  <data name="LoggerModuleDescription" xml:space="preserve">
+    <value>查看应用日志或清除日志记录</value>
+  </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>
   </data>
@@ -224,6 +239,9 @@
   </data>
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
   </data>
   <data name="Original" xml:space="preserve">
     <value>原创</value>

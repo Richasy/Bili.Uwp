@@ -56,7 +56,11 @@
                         <uwp:ExpanderExDescriptor
                             Title="{x:Bind ViewModel.StartupWarningText, Mode=OneWay}"
                             DescriptionVisibility="Collapsed"
-                            Foreground="{ThemeResource SystemFillColorCriticalBrush}">
+                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                            TitleFontSize="12">
+                            <uwp:ExpanderExDescriptor.Resources>
+                                <SolidColorBrush x:Key="DefaultExpanderDescriptorTitleForeground" Color="{ThemeResource SystemFillColorCritical}" />
+                            </uwp:ExpanderExDescriptor.Resources>
                             <uwp:ExpanderExDescriptor.Icon>
                                 <icons:FluentIconElement Symbol="Warning16Filled" />
                             </uwp:ExpanderExDescriptor.Icon>

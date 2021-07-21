@@ -43,6 +43,7 @@
                     Text="{loc:LocaleLocator Name=Generic}" />
                 <controls:ThemeSettingSection />
                 <controls:StartupSettingSection />
+                <controls:LoggerSettingSection />
             </StackPanel>
         </ScrollViewer>
     </Grid>

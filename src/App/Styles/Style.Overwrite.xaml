@@ -22,10 +22,10 @@
 
     <!-- 在Expander(有内容的ExpanderEx)头部的Wrapper样式 -->
     <Style x:Key="WrapperInExpanderHeaderStyle" TargetType="expander:ExpanderExWrapper">
-        <Setter Property="InlineWidePadding" Value="0,8" />
-        <Setter Property="InlineIntermediatePadding" Value="0,8" />
+        <Setter Property="InlineWidePadding" Value="0,8,0,12" />
+        <Setter Property="InlineIntermediatePadding" Value="0,8,0,12" />
         <Setter Property="WrapRowSpacing" Value="0" />
-        <Setter Property="WrapMargin" Value="0,8" />
+        <Setter Property="WrapMargin" Value="0,8,0,12" />
     </Style>
 
     <!-- 在ExpanderEx内容区域的Wrapper样式 -->

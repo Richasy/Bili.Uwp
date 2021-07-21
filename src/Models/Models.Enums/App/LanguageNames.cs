@@ -110,6 +110,12 @@ namespace Richasy.Bili.Models.Enums
         StartupDescription,
         StartupDisabledByUser,
         StartupDisabledByPolicy,
+        LoggerModule,
+        LoggerModuleDescription,
+        LoggerFolder,
+        OpenFolder,
+        CleanLogger,
+        Clean,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

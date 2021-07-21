@@ -40,7 +40,8 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
-                        <Setter Target="MainGrid.RowSpacing" Value="16" />
+                        <Setter Target="MainGrid.RowSpacing" Value="4" />
+                        <Setter Target="MainGrid.CornerRadius" Value="0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -122,7 +123,7 @@
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1,1,0,0"
                     CornerRadius="8,0,0,0"
-                    RowSpacing="12">
+                    RowSpacing="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />

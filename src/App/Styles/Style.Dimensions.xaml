@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Thickness x:Key="DefaultPagePadding">52,32,0,0</Thickness>
-    <Thickness x:Key="NarrowPagePadding">16,16,0,0</Thickness>
+    <Thickness x:Key="DefaultPagePadding">52,28,0,0</Thickness>
+    <Thickness x:Key="NarrowPagePadding">16,12,0,0</Thickness>
     <Thickness x:Key="DefaultContainerPadding">0,0,52,0</Thickness>
     <Thickness x:Key="NarrowContainerPadding">0,0,12,0</Thickness>
-    <Thickness x:Key="DefaultContainerWithBottomPadding">0,0,52,32</Thickness>
+    <Thickness x:Key="DefaultContainerWithBottomPadding">0,0,52,28</Thickness>
     <Thickness x:Key="NarrowContainerWithBottomPadding">0,0,12,16</Thickness>
 
     <x:Double x:Key="WideWindowThresholdWidth">1200</x:Double>
