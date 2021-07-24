@@ -16,8 +16,11 @@
             <controls:PgcItem ViewModel="{x:Bind}" />
         </DataTemplate>
         <DataTemplate x:Key="NarrowSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <controls:PgcItem ViewModel="{x:Bind}" CoverHeight="140" CoverWidth="100"
-                              TitleRowHeight="28">
+            <controls:PgcItem
+                CoverHeight="140"
+                CoverWidth="100"
+                TitleRowHeight="28"
+                ViewModel="{x:Bind}">
                 <controls:PgcItem.CardStyle>
                     <Style TargetType="controls:CardPanel">
                         <Setter Property="IsEnableHoverAnimation" Value="False" />
@@ -82,7 +85,7 @@
                 RequestLoadMore="OnFeedViewRequestLoadMoreAsync">
                 <controls:VerticalRepeaterView.AdditionalContent>
                     <Button x:Name="IndexButton">
-                        <controls:IconTextBlock Symbol="TextBulletListLTR20Filled" Text="{loc:LocaleLocator Name=Index}" />
+                        <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
                     </Button>
                 </controls:VerticalRepeaterView.AdditionalContent>
             </controls:VerticalRepeaterView>

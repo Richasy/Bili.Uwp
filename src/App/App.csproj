@@ -453,9 +453,6 @@
     <PackageReference Include="AdaptiveTriggerLibrary">
       <Version>1.2.2</Version>
     </PackageReference>
-    <PackageReference Include="Fluent.Icons">
-      <Version>1.1.110</Version>
-    </PackageReference>
     <PackageReference Include="HN.Controls.ImageEx.Uwp">
       <Version>1.0.33</Version>
     </PackageReference>
@@ -482,6 +479,9 @@
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
+      <Version>1.1.135</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

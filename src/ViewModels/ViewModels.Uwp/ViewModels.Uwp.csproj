@@ -66,13 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
-      <Version>5.0.1</Version>
+      <Version>5.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>13.3.1</Version>
+      <Version>14.1.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
       <Version>13.3.1</Version>

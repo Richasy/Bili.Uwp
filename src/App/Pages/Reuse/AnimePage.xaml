@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Fluent.Icons"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -64,10 +64,10 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button x:Name="IndexButton">
-                        <controls:IconTextBlock Symbol="TextBulletListLTR20Filled" Text="{loc:LocaleLocator Name=Index}" />
+                        <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
                     </Button>
                     <Button x:Name="TimeChartButton">
-                        <controls:IconTextBlock Symbol="Clock16Filled" Text="{loc:LocaleLocator Name=TimeChart}" />
+                        <controls:IconTextBlock Symbol="Clock16" Text="{loc:LocaleLocator Name=TimeChart}" />
                     </Button>
                 </StackPanel>
             </muxc:NavigationView.PaneFooter>
@@ -177,7 +177,7 @@
                                                             <Button.Content>
                                                                 <controls:IconTextBlock
                                                                     Spacing="8"
-                                                                    Symbol="List16Filled"
+                                                                    Symbol="List16"
                                                                     Text="{loc:LocaleLocator Name=ShowMore}" />
                                                             </Button.Content>
                                                         </Button>

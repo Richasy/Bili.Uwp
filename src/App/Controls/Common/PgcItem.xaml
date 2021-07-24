@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hn="using:HN.Controls"
-    xmlns:icons="using:Fluent.Icons"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -45,11 +45,12 @@
                     <hn:ImageEx.FailedTemplate>
                         <DataTemplate>
                             <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                <icons:FluentIconElement
+                                <icons:RegularFluentIcon
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    FontSize="28"
                                     Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                    Symbol="Image28Filled" />
+                                    Symbol="Image28" />
                             </Grid>
                         </DataTemplate>
                     </hn:ImageEx.FailedTemplate>
