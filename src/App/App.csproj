@@ -41,6 +41,9 @@
     <Compile Include="Controls\Common\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
+      <DependentUpon>MTCSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\PlayerControlSettingSection.xaml.cs">
       <DependentUpon>PlayerControlSettingSection.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
@@ -291,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\MTCSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

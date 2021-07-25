@@ -55,6 +55,7 @@
                     Text="{loc:LocaleLocator Name=Player}" />
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
+                <controls:MTCSettingSection />
             </StackPanel>
         </ScrollViewer>
     </Grid>

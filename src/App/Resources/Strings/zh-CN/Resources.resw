@@ -129,6 +129,9 @@
   <data name="AppThemeDescription" xml:space="preserve">
     <value>选择一个你偏好的应用主题</value>
   </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>自动</value>
+  </data>
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>
   </data>
+  <data name="Manual" xml:space="preserve">
+    <value>手动</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>消息</value>
   </data>
@@ -248,6 +254,12 @@
   </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
+  </data>
+  <data name="MTCControlMode" xml:space="preserve">
+    <value>媒体传输控件控制模式</value>
+  </data>
+  <data name="MTCControlModeDescription" xml:space="preserve">
+    <value>选择媒体传输控件（包含播放进度的播放控制栏）显隐的方式</value>
   </data>
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>

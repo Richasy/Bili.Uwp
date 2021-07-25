@@ -40,6 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPreferHEVC = ReadSetting(SettingNames.IsPreferHEVC, false);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PlayerModeInit();
+            MTCControlModeInit();
             StartupInitAsync();
 
             PropertyChanged += OnPropertyChangedAsync;
@@ -77,6 +78,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(SingleFastForwardAndRewindSpan):
                     WriteSetting(SettingNames.SingleFastForwardAndRewindSpan, SingleFastForwardAndRewindSpan);
                     break;
+                case nameof(DefaultMTCControlMode):
+                    WriteSetting(SettingNames.DefaultMTCControlMode, DefaultMTCControlMode);
+                    break;
                 default:
                     break;
             }
@@ -102,6 +106,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             DefaultPlayerDisplayMode = ReadSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+        }
+
+        private void MTCControlModeInit()
+        {
+            if (MTCControlModeCollection == null || MTCControlModeCollection.Count == 0)
+            {
+                MTCControlModeCollection = new ObservableCollection<MTCControlMode>
+                {
+                    MTCControlMode.Automatic,
+                    MTCControlMode.Manual,
+                };
+            }
+
+            DefaultMTCControlMode = ReadSetting(SettingNames.DefaultMTCControlMode, MTCControlMode.Manual);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

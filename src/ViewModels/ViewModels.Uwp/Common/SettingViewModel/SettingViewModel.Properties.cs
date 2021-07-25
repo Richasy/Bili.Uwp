@@ -29,6 +29,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<PlayerDisplayMode> PlayerDisplayModeCollection { get; set; }
 
         /// <summary>
+        /// 媒体传输控件控制模式可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<MTCControlMode> MTCControlModeCollection { get; set; }
+
+        /// <summary>
         /// 应用主题.
         /// </summary>
         [Reactive]
@@ -75,6 +81,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PlayerDisplayMode DefaultPlayerDisplayMode { get; set; }
+
+        /// <summary>
+        /// 默认媒体传输控件控制模式.
+        /// </summary>
+        [Reactive]
+        public MTCControlMode DefaultMTCControlMode { get; set; }
 
         /// <summary>
         /// 优先4K.

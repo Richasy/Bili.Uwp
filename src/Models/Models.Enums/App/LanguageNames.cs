@@ -134,6 +134,10 @@ namespace Richasy.Bili.Models.Enums
         PreferHEVCDescription,
         SingleFastForwardAndRewindSpan,
         SingleFastForwardAndRewindSpanDescription,
+        MTCControlMode,
+        MTCControlModeDescription,
+        Automatic,
+        Manual,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

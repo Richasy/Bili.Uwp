@@ -21,5 +21,6 @@ namespace Richasy.Bili.Models.Enums
         IsPrefer4K,
         IsPreferHEVC,
         SingleFastForwardAndRewindSpan,
+        DefaultMTCControlMode,
     }
 }
