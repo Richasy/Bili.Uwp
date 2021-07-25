@@ -18,5 +18,8 @@ namespace Richasy.Bili.Models.Enums
         IsAutoPlayWhenLoaded,
         DefaultPlayerDisplayMode,
         IsEnableHideRepeaterItemWhenScrolling,
+        IsPrefer4K,
+        IsPreferHEVC,
+        SingleFastForwardAndRewindSpan,
     }
 }

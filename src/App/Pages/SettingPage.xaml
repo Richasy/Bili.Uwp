@@ -35,6 +35,7 @@
             <StackPanel
                 x:Name="RootPanel"
                 Margin="{StaticResource DefaultContainerPadding}"
+                Padding="0,0,0,24"
                 Spacing="4">
 
                 <TextBlock
@@ -53,6 +54,7 @@
                     FontWeight="Bold"
                     Text="{loc:LocaleLocator Name=Player}" />
                 <controls:PlayerModeSettingSection />
+                <controls:PlayerControlSettingSection />
             </StackPanel>
         </ScrollViewer>
     </Grid>

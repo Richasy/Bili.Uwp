@@ -291,6 +291,12 @@
   <data name="Player" xml:space="preserve">
     <value>播放器</value>
   </data>
+  <data name="PlayerControl" xml:space="preserve">
+    <value>播放器控制</value>
+  </data>
+  <data name="PlayerControlDescription" xml:space="preserve">
+    <value>包含优先解码以及一些播放行为的设置</value>
+  </data>
   <data name="PlayerMode" xml:space="preserve">
     <value>播放模式</value>
   </data>
@@ -302,6 +308,18 @@
   </data>
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
+  </data>
+  <data name="Prefer4K" xml:space="preserve">
+    <value>4K优先</value>
+  </data>
+  <data name="Prefer4KDescription" xml:space="preserve">
+    <value>在用户已登录并有权限获取4K播放源的情况下，优先播放4K片源</value>
+  </data>
+  <data name="PreferHEVC" xml:space="preserve">
+    <value>优先解析HEVC</value>
+  </data>
+  <data name="PreferHEVCDescription" xml:space="preserve">
+    <value>优先以HEVC解析片源，需要设备上具备HEVC解码器（可在Microsoft Store下载）</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
     <value>预启动</value>
@@ -389,6 +407,12 @@
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>退出</value>
+  </data>
+  <data name="SingleFastForwardAndRewindSpan" xml:space="preserve">
+    <value>单次快进/快退时长</value>
+  </data>
+  <data name="SingleFastForwardAndRewindSpanDescription" xml:space="preserve">
+    <value>单次按下键盘左右方向键时的快进/快退跳跃时长（秒）</value>
   </data>
   <data name="SortByDanmaku" xml:space="preserve">
     <value>弹幕最多</value>

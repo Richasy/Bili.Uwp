@@ -126,6 +126,14 @@ namespace Richasy.Bili.Models.Enums
         FullWindowMode,
         HideRepeaterItemWhenScrolling,
         HideRepeaterItemWhenScrollingDescription,
+        PlayerControl,
+        PlayerControlDescription,
+        Prefer4K,
+        Prefer4KDescription,
+        PreferHEVC,
+        PreferHEVCDescription,
+        SingleFastForwardAndRewindSpan,
+        SingleFastForwardAndRewindSpanDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

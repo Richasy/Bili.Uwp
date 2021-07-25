@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Visibility="{x:Bind HeaderVisibility, Mode=OneWay}">
+        <Grid Margin="0,0,0,8" Visibility="{x:Bind HeaderVisibility, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -55,7 +55,7 @@
         <muxc:ItemsRepeater
             x:Name="ItemsRepeater"
             Grid.Row="1"
-            Margin="0,12,0,0"
+            Margin="0,4,0,0"
             ElementPrepared="OnElementPrepared"
             ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"

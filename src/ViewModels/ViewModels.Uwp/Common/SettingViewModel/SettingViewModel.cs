@@ -36,6 +36,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
             IsEnableHideRepeaterItemWhenScrolling = ReadSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, true);
+            IsPrefer4K = ReadSetting(SettingNames.IsPrefer4K, false);
+            IsPreferHEVC = ReadSetting(SettingNames.IsPreferHEVC, false);
+            SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PlayerModeInit();
             StartupInitAsync();
 
@@ -65,6 +68,15 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsEnableHideRepeaterItemWhenScrolling):
                     WriteSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, IsEnableHideRepeaterItemWhenScrolling);
                     break;
+                case nameof(IsPrefer4K):
+                    WriteSetting(SettingNames.IsPrefer4K, IsPrefer4K);
+                    break;
+                case nameof(IsPreferHEVC):
+                    WriteSetting(SettingNames.IsPreferHEVC, IsPreferHEVC);
+                    break;
+                case nameof(SingleFastForwardAndRewindSpan):
+                    WriteSetting(SettingNames.SingleFastForwardAndRewindSpan, SingleFastForwardAndRewindSpan);
+                    break;
                 default:
                     break;
             }
@@ -79,12 +91,15 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private void PlayerModeInit()
         {
-            PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
+            if (PlayerDisplayModeCollection == null || PlayerDisplayModeCollection.Count == 0)
             {
-                PlayerDisplayMode.Default,
-                PlayerDisplayMode.Cinema,
-                PlayerDisplayMode.FullWindow,
-            };
+                PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
+                {
+                    PlayerDisplayMode.Default,
+                    PlayerDisplayMode.Cinema,
+                    PlayerDisplayMode.FullWindow,
+                };
+            }
 
             DefaultPlayerDisplayMode = ReadSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
         }

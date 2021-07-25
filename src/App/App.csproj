@@ -41,6 +41,9 @@
     <Compile Include="Controls\Common\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\PlayerControlSettingSection.xaml.cs">
+      <DependentUpon>PlayerControlSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\PlayerModeSettingSection.xaml.cs">
       <DependentUpon>PlayerModeSettingSection.xaml</DependentUpon>
     </Compile>
@@ -288,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\PlayerControlSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

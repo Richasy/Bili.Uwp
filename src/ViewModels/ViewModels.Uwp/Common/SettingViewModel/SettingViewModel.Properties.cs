@@ -75,5 +75,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PlayerDisplayMode DefaultPlayerDisplayMode { get; set; }
+
+        /// <summary>
+        /// 优先4K.
+        /// </summary>
+        [Reactive]
+        public bool IsPrefer4K { get; set; }
+
+        /// <summary>
+        /// 优先HEVC解码.
+        /// </summary>
+        [Reactive]
+        public bool IsPreferHEVC { get; set; }
+
+        /// <summary>
+        /// 单次快进/快退时长.
+        /// </summary>
+        [Reactive]
+        public double SingleFastForwardAndRewindSpan { get; set; }
     }
 }
