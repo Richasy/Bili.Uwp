@@ -129,6 +129,9 @@
   <data name="AppThemeDescription" xml:space="preserve">
     <value>选择一个你偏好的应用主题</value>
   </data>
+  <data name="AutoPlayWhenLoaded" xml:space="preserve">
+    <value>加载完成后自动播放</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
+  <data name="CinemaMode" xml:space="preserve">
+    <value>影院模式</value>
+  </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
   </data>
@@ -161,6 +167,12 @@
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="DefaultPlayerDisplayMode" xml:space="preserve">
+    <value>默认播放器显示模式</value>
   </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
@@ -180,11 +192,20 @@
   <data name="FollowSystem" xml:space="preserve">
     <value>跟随系统</value>
   </data>
+  <data name="FullWindowMode" xml:space="preserve">
+    <value>全窗口模式</value>
+  </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
+  </data>
+  <data name="HideRepeaterItemWhenScrolling" xml:space="preserve">
+    <value>滚动时隐藏条目</value>
+  </data>
+  <data name="HideRepeaterItemWhenScrollingDescription" xml:space="preserve">
+    <value>在网格视图中，达到一定宽度后滚动时自动隐藏条目以提高滚动性能</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
@@ -266,6 +287,15 @@
   </data>
   <data name="Personal" xml:space="preserve">
     <value>个人</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>播放器</value>
+  </data>
+  <data name="PlayerMode" xml:space="preserve">
+    <value>播放模式</value>
+  </data>
+  <data name="PlayerModeDescription" xml:space="preserve">
+    <value>包含播放器的基础设置和默认行为</value>
   </data>
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>

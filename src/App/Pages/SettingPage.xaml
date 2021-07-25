@@ -36,14 +36,23 @@
                 x:Name="RootPanel"
                 Margin="{StaticResource DefaultContainerPadding}"
                 Spacing="4">
+
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     Margin="0,0,0,8"
                     FontWeight="Bold"
                     Text="{loc:LocaleLocator Name=Generic}" />
                 <controls:ThemeSettingSection />
+                <controls:ScrollSettingSection />
                 <controls:StartupSettingSection />
                 <controls:LoggerSettingSection />
+
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Margin="0,12,0,8"
+                    FontWeight="Bold"
+                    Text="{loc:LocaleLocator Name=Player}" />
+                <controls:PlayerModeSettingSection />
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
@@ -33,6 +34,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             AppTheme = ReadSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
             _initializeTheme = AppTheme;
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
+            IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+            IsEnableHideRepeaterItemWhenScrolling = ReadSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, true);
+            PlayerModeInit();
             StartupInitAsync();
 
             PropertyChanged += OnPropertyChangedAsync;
@@ -52,6 +56,15 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsStartup):
                     await TrySetStartupAsync();
                     break;
+                case nameof(IsAutoPlayWhenLoaded):
+                    WriteSetting(SettingNames.IsAutoPlayWhenLoaded, IsAutoPlayWhenLoaded);
+                    break;
+                case nameof(DefaultPlayerDisplayMode):
+                    WriteSetting(SettingNames.DefaultPlayerDisplayMode, DefaultPlayerDisplayMode);
+                    break;
+                case nameof(IsEnableHideRepeaterItemWhenScrolling):
+                    WriteSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, IsEnableHideRepeaterItemWhenScrolling);
+                    break;
                 default:
                     break;
             }
@@ -62,6 +75,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             var task = await StartupTask.GetAsync(AppConstants.StartupTaskId);
             IsStartup = task.State.ToString().Contains("enable", StringComparison.OrdinalIgnoreCase);
             StartupWarningText = string.Empty;
+        }
+
+        private void PlayerModeInit()
+        {
+            PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
+            {
+                PlayerDisplayMode.Default,
+                PlayerDisplayMode.Cinema,
+                PlayerDisplayMode.FullWindow,
+            };
+
+            DefaultPlayerDisplayMode = ReadSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

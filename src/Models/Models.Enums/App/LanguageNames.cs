@@ -116,6 +116,16 @@ namespace Richasy.Bili.Models.Enums
         OpenFolder,
         CleanLogger,
         Clean,
+        Player,
+        PlayerMode,
+        PlayerModeDescription,
+        AutoPlayWhenLoaded,
+        DefaultPlayerDisplayMode,
+        Default,
+        CinemaMode,
+        FullWindowMode,
+        HideRepeaterItemWhenScrolling,
+        HideRepeaterItemWhenScrollingDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

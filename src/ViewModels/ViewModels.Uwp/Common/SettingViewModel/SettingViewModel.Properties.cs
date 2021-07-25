@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -19,6 +21,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 单例.
         /// </summary>
         public static SettingViewModel Instance { get; } = new Lazy<SettingViewModel>(() => new SettingViewModel()).Value;
+
+        /// <summary>
+        /// 播放器显示模式可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PlayerDisplayMode> PlayerDisplayModeCollection { get; set; }
 
         /// <summary>
         /// 应用主题.
@@ -49,5 +57,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string StartupWarningText { get; set; }
+
+        /// <summary>
+        /// 加载完成后自动播放.
+        /// </summary>
+        [Reactive]
+        public bool IsAutoPlayWhenLoaded { get; set; }
+
+        /// <summary>
+        /// 是否在需要的时候，滚动时隐藏条目以提高性能.
+        /// </summary>
+        [Reactive]
+        public bool IsEnableHideRepeaterItemWhenScrolling { get; set; }
+
+        /// <summary>
+        /// 默认播放器显示模式.
+        /// </summary>
+        [Reactive]
+        public PlayerDisplayMode DefaultPlayerDisplayMode { get; set; }
     }
 }

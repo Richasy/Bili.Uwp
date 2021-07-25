@@ -53,5 +53,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string HeaderText { get; set; }
+
+        /// <summary>
+        /// 标识视图是否需要在滚动的时候隐藏条目以提高滚动性能.
+        /// </summary>
+        [Reactive]
+        public bool IsNeedHideWhenScrolling { get; set; }
     }
 }

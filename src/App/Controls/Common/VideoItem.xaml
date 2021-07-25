@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.VideoItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hn="using:HN.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
@@ -58,7 +59,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid>
+        <Grid Visibility="{x:Bind AppViewModel.IsNeedHideWhenScrolling, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Row1" Height="Auto" />
                 <RowDefinition x:Name="Row2" Height="*" />

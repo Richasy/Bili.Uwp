@@ -15,5 +15,8 @@ namespace Richasy.Bili.Models.Enums
         AuthorizeResult,
         IsPrelaunch,
         IsStartup,
+        IsAutoPlayWhenLoaded,
+        DefaultPlayerDisplayMode,
+        IsEnableHideRepeaterItemWhenScrolling,
     }
 }
