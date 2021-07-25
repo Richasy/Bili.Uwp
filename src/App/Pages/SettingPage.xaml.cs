@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages
 {
@@ -15,6 +17,12 @@ namespace Richasy.Bili.App.Pages
         public SettingPage()
         {
             this.InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SettingViewModel.Instance.InitializeSettings();
         }
     }
 }

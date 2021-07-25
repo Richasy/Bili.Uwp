@@ -4,7 +4,8 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap mp uap5">
 
   <Identity
     Name="Richasy.Bili"
@@ -46,6 +47,11 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap5:Extension Category="windows.startupTask" EntryPoint="App.App" Executable="$targetnametoken$.exe">
+          <uap5:StartupTask DisplayName="ms-resource:AppName" Enabled="true" TaskId="Richasy.Bili"/>
+        </uap5:Extension>
+      </Extensions>
     </Application>
   </Applications>
 

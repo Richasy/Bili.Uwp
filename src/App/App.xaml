@@ -2,7 +2,6 @@
     x:Class="Richasy.Bili.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animator="using:Richasy.Bili.App.Controls.Animator"
     xmlns:converter="using:Richasy.Bili.App.Resources.Converter">
     <Application.Resources>
         <ResourceDictionary>
@@ -23,6 +22,7 @@
             <converter:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
+            <converter:ThemeStringConverter x:Key="ThemeStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

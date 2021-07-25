@@ -41,6 +41,28 @@
     <Compile Include="Controls\Common\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
+      <DependentUpon>MTCSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\PlayerControlSettingSection.xaml.cs">
+      <DependentUpon>PlayerControlSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\PlayerModeSettingSection.xaml.cs">
+      <DependentUpon>PlayerModeSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\LoggerSettingSection.xaml.cs">
+      <DependentUpon>LoggerSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\ScrollSettingSection.xaml.cs">
+      <DependentUpon>ScrollSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingSectionControl.cs" />
+    <Compile Include="Controls\Settings\StartupSettingSection.xaml.cs">
+      <DependentUpon>StartupSettingSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
+      <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
@@ -148,9 +170,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
+    <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
@@ -270,6 +295,34 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\MTCSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\PlayerControlSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\PlayerModeSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\LoggerSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\ScrollSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\StartupSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\ThemeSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,9 +483,6 @@
     <PackageReference Include="AdaptiveTriggerLibrary">
       <Version>1.2.2</Version>
     </PackageReference>
-    <PackageReference Include="Fluent.Icons">
-      <Version>1.1.110</Version>
-    </PackageReference>
     <PackageReference Include="HN.Controls.ImageEx.Uwp">
       <Version>1.0.33</Version>
     </PackageReference>
@@ -449,13 +499,19 @@
       <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.0-prerelease.210623001</Version>
+      <Version>2.6.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="Nito.AsyncEx.Tasks">
       <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Richasy.ExpanderEx.UWP">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
+      <Version>1.1.135</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

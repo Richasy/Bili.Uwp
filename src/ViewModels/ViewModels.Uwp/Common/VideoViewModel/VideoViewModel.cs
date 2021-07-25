@@ -92,6 +92,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 LikeCount = card.SubStatusText;
                 DanmakuCount = string.Empty;
                 PublisherName = card.Description?.Text ?? "--";
+                Duration = "--";
             }
 
             AdditionalText = card.RecommendReason ?? string.Empty;

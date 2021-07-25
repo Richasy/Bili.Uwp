@@ -13,5 +13,14 @@ namespace Richasy.Bili.Models.Enums
         AppTheme,
         BiliUserId,
         AuthorizeResult,
+        IsPrelaunch,
+        IsStartup,
+        IsAutoPlayWhenLoaded,
+        DefaultPlayerDisplayMode,
+        IsEnableHideRepeaterItemWhenScrolling,
+        IsPrefer4K,
+        IsPreferHEVC,
+        SingleFastForwardAndRewindSpan,
+        DefaultMTCControlMode,
     }
 }

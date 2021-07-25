@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Fluent.Icons;
+using Richasy.FluentIcon.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Symbol"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty SymbolProperty =
-            DependencyProperty.Register(nameof(Symbol), typeof(FluentSymbol), typeof(IconTextBlock), new PropertyMetadata(default(FluentSymbol)));
+            DependencyProperty.Register(nameof(Symbol), typeof(RegularFluentSymbol), typeof(IconTextBlock), new PropertyMetadata(default));
 
         /// <summary>
         /// <see cref="Text"/>的依赖属性.
@@ -64,9 +64,9 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 图标.
         /// </summary>
-        public FluentSymbol Symbol
+        public RegularFluentSymbol Symbol
         {
-            get { return (FluentSymbol)GetValue(SymbolProperty); }
+            get { return (RegularFluentSymbol)GetValue(SymbolProperty); }
             set { SetValue(SymbolProperty, value); }
         }
 

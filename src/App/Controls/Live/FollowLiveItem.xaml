@@ -64,7 +64,7 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         IconFontSize="12"
                         Spacing="4"
-                        Symbol="People16Filled"
+                        Symbol="People16"
                         Text="{x:Bind ViewModel.ViewerCount, Mode=OneWay}" />
                 </Grid>
             </local:CardPanel>

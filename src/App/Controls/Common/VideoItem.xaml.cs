@@ -105,7 +105,13 @@ namespace Richasy.Bili.App.Controls
         {
             this.InitializeComponent();
             this.Loaded += OnLoaded;
+            this.AppViewModel = AppViewModel.Instance;
         }
+
+        /// <summary>
+        /// 应用视图模型.
+        /// </summary>
+        public AppViewModel AppViewModel { get; private set; }
 
         /// <summary>
         /// 视频视图模型.

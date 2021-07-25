@@ -4,11 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
-    xmlns:icons="using:Fluent.Icons"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:icons="using:Richasy.FluentIcon.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -51,7 +50,7 @@
                 <AppBarSeparator />
                 <AppBarButton Click="OnNavigateToMyHomePageButtonClickAsync" Label="{loc:LocaleLocator Name=MyWebPage}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="Globe16" />
+                        <icons:RegularFluentIcon Symbol="Globe16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -59,7 +58,7 @@
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=DynamicFeed}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="DesignIdeas16" />
+                        <icons:RegularFluentIcon Symbol="DesignIdeas16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -67,7 +66,7 @@
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=Message}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="Chat16" />
+                        <icons:RegularFluentIcon Symbol="Chat16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -75,7 +74,7 @@
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=MyFavorite}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="StarLineHorizontal320" />
+                        <icons:RegularFluentIcon Symbol="StarLineHorizontal320" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -83,7 +82,7 @@
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=SeeLater}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="CalendarClock16" />
+                        <icons:RegularFluentIcon Symbol="CalendarClock16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -91,13 +90,13 @@
                     Click="OnNavigateButtonClick"
                     Label="{loc:LocaleLocator Name=ViewHistory}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Symbol="History20" />
+                        <icons:RegularFluentIcon Symbol="History20" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarSeparator />
                 <AppBarButton Click="OnSignOutButtonClickAsync" Label="{loc:LocaleLocator Name=SignOut}">
                     <AppBarButton.Icon>
-                        <icons:FluentIconElement Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="SignOut20" />
+                        <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="SignOut20" />
                     </AppBarButton.Icon>
                 </AppBarButton>
             </muxc:CommandBarFlyout.SecondaryCommands>

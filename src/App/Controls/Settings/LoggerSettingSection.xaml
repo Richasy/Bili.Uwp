@@ -1,0 +1,61 @@
+﻿<local:SettingSectionControl
+    x:Class="Richasy.Bili.App.Controls.LoggerSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.ExpanderEx.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <uwp:ExpanderEx>
+        <uwp:ExpanderEx.Header>
+            <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                <uwp:ExpanderExWrapper.MainContent>
+                    <uwp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=LoggerModule}" Description="{loc:LocaleLocator Name=LoggerModuleDescription}">
+                        <uwp:ExpanderExDescriptor.Icon>
+                            <icons:RegularFluentIcon Symbol="Channel16" />
+                        </uwp:ExpanderExDescriptor.Icon>
+                    </uwp:ExpanderExDescriptor>
+                </uwp:ExpanderExWrapper.MainContent>
+            </uwp:ExpanderExWrapper>
+        </uwp:ExpanderEx.Header>
+        <uwp:ExpanderEx.Content>
+            <uwp:ExpanderExMenuPanel>
+                <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <uwp:ExpanderExWrapper.MainContent>
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            VerticalAlignment="Center"
+                            Text="{loc:LocaleLocator Name=LoggerFolder}" />
+                    </uwp:ExpanderExWrapper.MainContent>
+                    <uwp:ExpanderExWrapper.WrapContent>
+                        <Button
+                            x:Name="OpenLoggerFolderButton"
+                            Click="OnOpenLoggerFolderButtonClick"
+                            Content="{loc:LocaleLocator Name=OpenFolder}" />
+                    </uwp:ExpanderExWrapper.WrapContent>
+                </uwp:ExpanderExWrapper>
+                <uwp:ExpanderExItemSeparator />
+                <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <uwp:ExpanderExWrapper.MainContent>
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            VerticalAlignment="Center"
+                            Text="{loc:LocaleLocator Name=CleanLogger}" />
+                    </uwp:ExpanderExWrapper.MainContent>
+                    <uwp:ExpanderExWrapper.WrapContent>
+                        <Button
+                            x:Name="CleanLoggerButton"
+                            Click="OnCleanLoggerButtonClick"
+                            Content="{loc:LocaleLocator Name=Clean}" />
+                    </uwp:ExpanderExWrapper.WrapContent>
+                </uwp:ExpanderExWrapper>
+            </uwp:ExpanderExMenuPanel>
+        </uwp:ExpanderEx.Content>
+    </uwp:ExpanderEx>
+</local:SettingSectionControl>

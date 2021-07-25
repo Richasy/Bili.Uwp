@@ -2,10 +2,13 @@
 
 using System;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -51,6 +54,9 @@ namespace Richasy.Bili.App
 
         private void OnLaunchedOrActivated(IActivatedEventArgs e)
         {
+            var appView = ApplicationView.GetForCurrentView();
+            appView.SetPreferredMinSize(new Size(AppConstants.AppMinWidth, AppConstants.AppMinHeight));
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (!(Window.Current.Content is Frame rootFrame))
@@ -71,6 +77,7 @@ namespace Richasy.Bili.App
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
+                SettingViewModel.Instance.SetPrelaunch();
                 if (rootFrame.Content == null)
                 {
                     rootFrame.Navigate(typeof(Pages.RootPage), (e as LaunchActivatedEventArgs).Arguments);

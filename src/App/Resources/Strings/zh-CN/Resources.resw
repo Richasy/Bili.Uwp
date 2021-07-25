@@ -123,6 +123,18 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩</value>
   </data>
+  <data name="AppTheme" xml:space="preserve">
+    <value>应用主题</value>
+  </data>
+  <data name="AppThemeDescription" xml:space="preserve">
+    <value>选择一个你偏好的应用主题</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="AutoPlayWhenLoaded" xml:space="preserve">
+    <value>加载完成后自动播放</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -141,11 +153,29 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
+  <data name="CinemaMode" xml:space="preserve">
+    <value>影院模式</value>
+  </data>
+  <data name="Clean" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="CleanLogger" xml:space="preserve">
+    <value>清除日志记录</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="DefaultPlayerDisplayMode" xml:space="preserve">
+    <value>默认播放器显示模式</value>
   </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
@@ -162,8 +192,23 @@
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
   </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="FullWindowMode" xml:space="preserve">
+    <value>全窗口模式</value>
+  </data>
+  <data name="Generic" xml:space="preserve">
+    <value>通用</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
+  </data>
+  <data name="HideRepeaterItemWhenScrolling" xml:space="preserve">
+    <value>滚动时隐藏条目</value>
+  </data>
+  <data name="HideRepeaterItemWhenScrollingDescription" xml:space="preserve">
+    <value>在网格视图中，达到一定宽度后滚动时自动隐藏条目以提高滚动性能</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
@@ -180,11 +225,26 @@
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
   </data>
+  <data name="LoggerFolder" xml:space="preserve">
+    <value>日志文件夹</value>
+  </data>
+  <data name="LoggerModule" xml:space="preserve">
+    <value>日志记录</value>
+  </data>
+  <data name="LoggerModuleDescription" xml:space="preserve">
+    <value>查看应用日志或清除日志记录</value>
+  </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>手动</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>消息</value>
@@ -194,6 +254,12 @@
   </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
+  </data>
+  <data name="MTCControlMode" xml:space="preserve">
+    <value>媒体传输控件控制模式</value>
+  </data>
+  <data name="MTCControlModeDescription" xml:space="preserve">
+    <value>选择媒体传输控件（包含播放进度的播放控制栏）显隐的方式</value>
   </data>
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>
@@ -206,6 +272,9 @@
   </data>
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
   </data>
   <data name="Original" xml:space="preserve">
     <value>原创</value>
@@ -231,11 +300,44 @@
   <data name="Personal" xml:space="preserve">
     <value>个人</value>
   </data>
+  <data name="Player" xml:space="preserve">
+    <value>播放器</value>
+  </data>
+  <data name="PlayerControl" xml:space="preserve">
+    <value>播放器控制</value>
+  </data>
+  <data name="PlayerControlDescription" xml:space="preserve">
+    <value>包含优先解码以及一些播放行为的设置</value>
+  </data>
+  <data name="PlayerMode" xml:space="preserve">
+    <value>播放模式</value>
+  </data>
+  <data name="PlayerModeDescription" xml:space="preserve">
+    <value>包含播放器的基础设置和默认行为</value>
+  </data>
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>
   </data>
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
+  </data>
+  <data name="Prefer4K" xml:space="preserve">
+    <value>4K优先</value>
+  </data>
+  <data name="Prefer4KDescription" xml:space="preserve">
+    <value>在用户已登录并有权限获取4K播放源的情况下，优先播放4K片源</value>
+  </data>
+  <data name="PreferHEVC" xml:space="preserve">
+    <value>优先解析HEVC</value>
+  </data>
+  <data name="PreferHEVCDescription" xml:space="preserve">
+    <value>优先以HEVC解析片源，需要设备上具备HEVC解码器（可在Microsoft Store下载）</value>
+  </data>
+  <data name="Prelaunch" xml:space="preserve">
+    <value>预启动</value>
+  </data>
+  <data name="PrelaunchDescription" xml:space="preserve">
+    <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
   </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
@@ -279,6 +381,9 @@
   <data name="RequestTabDetailFailed" xml:space="preserve">
     <value>标签页详情数据请求失败</value>
   </data>
+  <data name="RestartWarning" xml:space="preserve">
+    <value>您更改了静态资源，需要重启应用才能生效</value>
+  </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
   </data>
@@ -315,6 +420,12 @@
   <data name="SignOut" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="SingleFastForwardAndRewindSpan" xml:space="preserve">
+    <value>单次快进/快退时长</value>
+  </data>
+  <data name="SingleFastForwardAndRewindSpanDescription" xml:space="preserve">
+    <value>单次按下键盘左右方向键时的快进/快退跳跃时长（秒）</value>
+  </data>
   <data name="SortByDanmaku" xml:space="preserve">
     <value>弹幕最多</value>
   </data>
@@ -341,6 +452,24 @@
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
+  </data>
+  <data name="StartMethod" xml:space="preserve">
+    <value>启动方式</value>
+  </data>
+  <data name="StartMethodDescription" xml:space="preserve">
+    <value>您可以选择应用的启动方式以更快速地打开应用</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>自启动</value>
+  </data>
+  <data name="StartupDescription" xml:space="preserve">
+    <value>将应用添加到开启启动项，应用将在系统启动后自动打开，并以最小化形式显示在任务栏</value>
+  </data>
+  <data name="StartupDisabledByPolicy" xml:space="preserve">
+    <value>启动项由您的组织或组策略管理，应用启动项已被禁用</value>
+  </data>
+  <data name="StartupDisabledByUser" xml:space="preserve">
+    <value>启动项由用户手动禁用，您需要手动启用才能生效</value>
   </data>
   <data name="SwitchToPasswordLogin" xml:space="preserve">
     <value>用密码登录</value>

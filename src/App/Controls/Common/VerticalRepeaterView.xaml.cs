@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -214,11 +215,18 @@ namespace Richasy.Bili.App.Controls
         {
             if (!e.IsIntermediate)
             {
+                AppViewModel.Instance.IsNeedHideWhenScrolling = false;
                 var currentPosition = _parentScrollViewer.VerticalOffset;
                 if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
                 }
+            }
+            else
+            {
+                AppViewModel.Instance.IsNeedHideWhenScrolling = this.ItemOrientation == Orientation.Vertical &&
+                    SettingViewModel.Instance.IsEnableHideRepeaterItemWhenScrolling &&
+                    this.ActualWidth >= 210 * 8;
             }
         }
 

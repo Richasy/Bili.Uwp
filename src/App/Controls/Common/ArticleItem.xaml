@@ -4,10 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hn="using:HN.Controls"
-    xmlns:icons="using:Fluent.Icons"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:icons1="using:Richasy.FluentIcon.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -92,11 +92,12 @@
                     <hn:ImageEx.FailedTemplate>
                         <DataTemplate>
                             <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                <icons:FluentIconElement
+                                <icons:RegularFluentIcon
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                    Symbol="Image28Filled" />
+                                    Symbol="Image28"
+                                    FontSize="28"/>
                             </Grid>
                         </DataTemplate>
                     </hn:ImageEx.FailedTemplate>
@@ -197,16 +198,16 @@
                     Grid.Row="3"
                     Orientation="Horizontal"
                     Spacing="12">
-                    <local:IconTextBlock Symbol="EyeShow20Filled" Text="{x:Bind ViewModel.ViewCount, Mode=OneWay}" />
-                    <local:IconTextBlock Symbol="ThumbLike16Filled" Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
-                    <local:IconTextBlock Symbol="Comment16Filled" Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}" />
+                    <local:IconTextBlock Symbol="EyeShow20" Text="{x:Bind ViewModel.ViewCount, Mode=OneWay}" />
+                    <local:IconTextBlock Symbol="ThumbLike16" Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
+                    <local:IconTextBlock Symbol="Comment16" Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}" />
                 </StackPanel>
 
                 <local:IconTextBlock
                     x:Name="PublishTimeBlock"
                     Grid.Row="4"
                     Margin="0,4,0,8"
-                    Symbol="Clock16Filled"
+                    Symbol="Clock16"
                     Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}" />
             </Grid>
         </Grid>
