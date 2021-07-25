@@ -59,5 +59,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsNeedHideWhenScrolling { get; set; }
+
+        /// <summary>
+        /// 是否开启播放器.
+        /// </summary>
+        [Reactive]
+        public bool IsOpenPlayer { get; set; }
     }
 }

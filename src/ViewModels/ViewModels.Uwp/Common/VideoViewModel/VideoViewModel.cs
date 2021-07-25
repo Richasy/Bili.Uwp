@@ -3,6 +3,7 @@
 using System;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Show.V1;
+using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -93,6 +94,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 DanmakuCount = string.Empty;
                 PublisherName = card.Description?.Text ?? "--";
                 Duration = "--";
+                VideoType = VideoType.Pgc;
             }
 
             AdditionalText = card.RecommendReason ?? string.Empty;
@@ -153,6 +155,27 @@ namespace Richasy.Bili.ViewModels.Uwp
             LimitCoverAndAvatar(card.Cover);
             Source = card;
             VideoType = VideoType.Live;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="relate">相关视频推荐.</param>
+        public VideoViewModel(Relate relate)
+        {
+            Title = relate.Title;
+            VideoId = relate.Aid.ToString();
+            PlayCount = _numberToolkit.GetCountText(relate.Stat.View);
+            DanmakuCount = _numberToolkit.GetCountText(relate.Stat.Danmaku);
+            LikeCount = _numberToolkit.GetCountText(relate.Stat.Like);
+            ReplyCount = _numberToolkit.GetCountText(relate.Stat.Reply);
+            PublisherName = relate.Author.Name;
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(relate.Duration));
+            AdditionalText = relate.Rating.ToString();
+            LimitCoverAndAvatar(relate.Pic, relate.Author.Face);
+            Source = relate;
+            VideoType = relate.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase) ?
+                VideoType.Video : VideoType.Pgc;
         }
 
         internal VideoViewModel()

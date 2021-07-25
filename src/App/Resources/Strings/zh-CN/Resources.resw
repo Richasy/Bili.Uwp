@@ -381,6 +381,9 @@
   <data name="RequestTabDetailFailed" xml:space="preserve">
     <value>标签页详情数据请求失败</value>
   </data>
+  <data name="RequestVideoFailed" xml:space="preserve">
+    <value>视频播放信息请求失败</value>
+  </data>
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>

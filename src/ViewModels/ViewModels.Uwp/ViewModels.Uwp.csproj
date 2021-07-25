@@ -28,6 +28,9 @@
     <Compile Include="Common\SettingViewModel\SettingViewModel.cs" />
     <Compile Include="Common\SettingViewModel\SettingViewModel.Methods.cs" />
     <Compile Include="Common\SettingViewModel\SettingViewModel.Properties.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Methods.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

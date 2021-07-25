@@ -87,6 +87,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string TeenagersMode = "teenagers_mode";
             public const string Cursor = "cursor";
             public const string Name = "name";
+            public const string Aid = "aid";
+            public const string Cid = "cid";
         }
 
         public static class Sort
@@ -291,6 +293,24 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 页面详情.
                 /// </summary>
                 public const string Detail = _apiBase + "/pgc/page";
+            }
+
+            public static class Video
+            {
+                /// <summary>
+                /// 视频详情.
+                /// </summary>
+                public const string Detail = _appBase + "/bilibili.app.view.v1.View/View";
+
+                /// <summary>
+                /// 在线观看人数.
+                /// </summary>
+                public const string OnlineViewerCount = _appBase + "/x/v2/view/video/online";
+
+                /// <summary>
+                /// 视频播放地址.
+                /// </summary>
+                public const string PlayUrl = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayView";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

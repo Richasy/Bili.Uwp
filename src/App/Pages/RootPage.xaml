@@ -16,6 +16,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:AppTitleBar />
-        <controls:RootNavigationView Grid.Row="1" />
+        <controls:RootNavigationView
+            x:Name="RootNavView"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+        <Frame
+            x:Name="PlayerFrame"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
     </Grid>
 </Page>

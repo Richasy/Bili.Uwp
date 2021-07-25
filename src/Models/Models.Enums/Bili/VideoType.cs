@@ -13,14 +13,9 @@ namespace Richasy.Bili.Models.Enums
         Video,
 
         /// <summary>
-        /// 国漫.
+        /// PGC内容，包括动漫，电影等.
         /// </summary>
-        Anime,
-
-        /// <summary>
-        /// 番剧.
-        /// </summary>
-        Bangumi,
+        Pgc,
 
         /// <summary>
         /// 直播.
