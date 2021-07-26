@@ -36,7 +36,6 @@
                         <Setter Target="ContentGrid.ColumnSpacing" Value="0" />
                         <Setter Target="RelatedContainer.(Grid.Row)" Value="2" />
                         <Setter Target="RelatedContainer.(Grid.Column)" Value="0" />
-                        <Setter Target="RelatedVideoView.MaxWidth" Value="999" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -61,88 +60,13 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid RowSpacing="12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel
-                        x:Name="SinglePublisherContainer"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal"
-                        Spacing="12">
-                        <controls:UserAvatar
-                            Width="32"
-                            Height="32"
-                            Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
-                            UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Spacing="24">
-                        <TextBlock
-                            x:Name="TitleBlock"
-                            Style="{StaticResource TitleTextBlockStyle}"
-                            MaxLines="2"
-                            Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-                            TextWrapping="Wrap">
-                            <ToolTipService.ToolTip>
-                                <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
-                            </ToolTipService.ToolTip>
-                        </TextBlock>
-                        <TextBlock
-                            x:Name="DescriptionBlock"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            HorizontalAlignment="Left"
-                            MaxLines="12"
-                            Text="{x:Bind ViewModel.Description, Mode=OneWay}"
-                            TextTrimming="CharacterEllipsis"
-                            TextWrapping="Wrap">
-                            <ToolTipService.ToolTip>
-                                <ToolTip Content="{x:Bind ViewModel.Description, Mode=OneWay}" IsEnabled="{Binding ElementName=DescriptionBlock, Mode=OneWay, Path=IsTextTrimmed}" />
-                            </ToolTipService.ToolTip>
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-
+                <controls:PlayerDescriptor />
             </Grid>
             <Grid
                 x:Name="RelatedContainer"
                 Grid.RowSpan="2"
-                Grid.Column="1"
-                CornerRadius="{StaticResource ControlCornerRadius}"
-                RowSpacing="12">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    HorizontalAlignment="Left"
-                    FontWeight="Bold"
-                    Text="{loc:LocaleLocator Name=RelatedVideos}" />
-                <ScrollViewer
-                    Grid.Row="1"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Hidden">
-                    <Grid>
-                        <controls:VerticalRepeaterView
-                            x:Name="RelatedVideoView"
-                            MaxWidth="380"
-                            HeaderVisibility="Collapsed"
-                            ItemOrientation="Horizontal"
-                            ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
-                            <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoItem
-                                        IsShowDanmakuCount="True"
-                                        IsShowPlayCount="True"
-                                        ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </controls:VerticalRepeaterView.ItemTemplate>
-                        </controls:VerticalRepeaterView>
-                    </Grid>
-                </ScrollViewer>
+                Grid.Column="1">
+                <controls:PlayerRelatedView />
             </Grid>
         </Grid>
 

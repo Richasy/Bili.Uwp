@@ -41,6 +41,13 @@
     <Compile Include="Controls\Common\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\PlayerComponent.cs" />
+    <Compile Include="Controls\Player\PlayerDescriptor.xaml.cs">
+      <DependentUpon>PlayerDescriptor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player\PlayerRelatedView.xaml.cs">
+      <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -298,6 +305,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\PlayerDescriptor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\PlayerRelatedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
