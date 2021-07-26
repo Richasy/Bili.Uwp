@@ -90,6 +90,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string ReplyCount { get; set; }
 
         /// <summary>
+        /// 发布者.
+        /// </summary>
+        [Reactive]
+        public PublisherViewModel Publisher { get; set; }
+
+        /// <summary>
         /// 关联视频集合.
         /// </summary>
         [Reactive]

@@ -37,16 +37,16 @@
                     <local:UserAvatar
                         Width="52"
                         Height="52"
-                        Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
+                        Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                         DecodeSize="40"
-                        UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                        UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                     <StackPanel Grid.Row="1" Spacing="8">
                         <TextBlock
                             Style="{StaticResource BodyTextBlockStyle}"
                             HorizontalAlignment="Center"
                             FontWeight="Bold"
                             MaxLines="1"
-                            Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}"
+                            Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}"
                             TextAlignment="Center"
                             TextTrimming="CharacterEllipsis" />
                         <TextBlock

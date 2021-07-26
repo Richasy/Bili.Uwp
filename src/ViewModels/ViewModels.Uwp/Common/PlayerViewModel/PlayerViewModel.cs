@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -53,6 +55,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 Title = _detail.Arc.Title;
                 Description = _detail.Arc.Desc;
+                Publisher = new PublisherViewModel(_detail.Arc.Author);
                 AvId = _detail.Arc.Aid.ToString();
                 BvId = _detail.Bvid;
                 PlayCount = _numberToolkit.GetCountText(_detail.Arc.Stat.View);
@@ -68,7 +71,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     PartCollection.Add(page);
                 }
 
-                foreach (var video in _detail.Relates)
+                var relates = _detail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
+                foreach (var video in relates)
                 {
                     RelatedVideoCollection.Add(new VideoViewModel(video));
                 }

@@ -357,6 +357,9 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RelatedVideos" xml:space="preserve">
+    <value>关联视频</value>
+  </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
   </data>

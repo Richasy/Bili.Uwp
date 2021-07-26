@@ -27,7 +27,7 @@
     <Compile Include="Controls\Common\HorizontalRepeaterView.xaml.cs">
       <DependentUpon>HorizontalRepeaterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\OverlayLoadingPanel.xaml.cs">
+    <Compile Include="Controls\App\OverlayLoadingPanel.xaml.cs">
       <DependentUpon>OverlayLoadingPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IDynamicLayoutItem.cs" />
@@ -285,7 +285,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\OverlayLoadingPanel.xaml">
+    <Page Include="Controls\App\OverlayLoadingPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

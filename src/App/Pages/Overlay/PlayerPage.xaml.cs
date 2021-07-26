@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,7 +27,10 @@ namespace Richasy.Bili.App.Pages.Overlay
         public PlayerPage()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
             this.Loaded += OnLoadedAsync;
+            this.Unloaded += OnUnloadedAsync;
+            this.SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -47,7 +51,46 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
         }
 
+        /// <inheritdoc/>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _navigateVM = null;
+        }
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        {
+            if (_navigateVM != null)
+            {
+                await ViewModel.LoadAsync(_navigateVM);
+            }
+        }
+
+        private void OnUnloadedAsync(object sender, RoutedEventArgs e)
+        {
+            // TODO: 清理播放数据.
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < AppViewModel.Instance.MediumWindowThresholdWidth)
+            {
+                if (RootGrid.Children.Contains(ContentGrid))
+                {
+                    this.RootGrid.Children.Remove(ContentGrid);
+                    RootScrollViewer.Content = ContentGrid;
+                }
+            }
+            else
+            {
+                if (RootScrollViewer.Content != null)
+                {
+                    RootScrollViewer.Content = null;
+                    this.RootGrid.Children.Insert(0, ContentGrid);
+                }
+            }
+        }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
             if (_navigateVM != null)
             {

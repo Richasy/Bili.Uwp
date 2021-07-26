@@ -77,8 +77,7 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick"
-                Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}">
+                Click="OnBackButtonClick">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"

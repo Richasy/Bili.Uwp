@@ -140,8 +140,8 @@
                         Height="36"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                        UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                        Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                        UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 </Grid>
             </Grid>
 
@@ -163,7 +163,7 @@
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
 
                 <StackPanel
                     x:Name="InlineUserContainer"
@@ -177,15 +177,15 @@
                                 Height="24"
                                 Margin="0,0,8,0"
                                 VerticalAlignment="Center"
-                                Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                                UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                                Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                                UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                         </Grid>
                     </Grid>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         VerticalAlignment="Center"
                         Opacity="0.6"
-                        Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock

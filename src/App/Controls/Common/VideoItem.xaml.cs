@@ -279,9 +279,9 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
+        private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            
+            AppViewModel.OpenPlayer(ViewModel);
         }
     }
 }

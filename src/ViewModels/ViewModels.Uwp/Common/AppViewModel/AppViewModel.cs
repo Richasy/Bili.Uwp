@@ -43,5 +43,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowOverlay = true;
             RequestOverlayNavigation?.Invoke(this, param);
         }
+
+        /// <summary>
+        /// 打开播放器播放视频.
+        /// </summary>
+        /// <param name="playVM">包含播放信息的视图模型.</param>
+        public void OpenPlayer(object playVM)
+        {
+            RequestPlay?.Invoke(this, playVM);
+            IsOpenPlayer = true;
+        }
     }
 }

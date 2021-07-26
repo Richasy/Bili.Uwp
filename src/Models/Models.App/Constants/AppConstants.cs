@@ -14,7 +14,7 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string StartupTaskId = "Richasy.Bili";
 
-        public const double AppMinWidth = 360d;
+        public const double AppMinWidth = 500d;
         public const double AppMinHeight = 500d;
 #pragma warning restore SA1600 // Elements should be documented
     }

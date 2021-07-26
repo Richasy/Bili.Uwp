@@ -139,6 +139,7 @@ namespace Richasy.Bili.Models.Enums
         Automatic,
         Manual,
         RequestVideoFailed,
+        RelatedVideos,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

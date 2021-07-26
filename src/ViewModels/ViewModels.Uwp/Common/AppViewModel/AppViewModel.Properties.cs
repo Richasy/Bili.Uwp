@@ -20,6 +20,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler<object> RequestOverlayNavigation;
 
         /// <summary>
+        /// 请求播放视频.
+        /// </summary>
+        public event EventHandler<object> RequestPlay;
+
+        /// <summary>
         /// <see cref="AppViewModel"/>的单例.
         /// </summary>
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;
