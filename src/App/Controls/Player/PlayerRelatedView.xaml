@@ -19,10 +19,18 @@
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
-                <VisualState x:Name="SideState">
+                <VisualState x:Name="SideWideState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="SideNarrowState">
                     <VisualState.StateTriggers>
                         <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RelatedVideoView.MaxWidth" Value="320" />
+                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="RowState">
                     <VisualState.StateTriggers>
@@ -55,6 +63,8 @@
                             <local:VideoItem
                                 IsShowDanmakuCount="True"
                                 IsShowPlayCount="True"
+                                HorizontalCoverWidth="120"
+                                MaxHeight="100"
                                 ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </local:VerticalRepeaterView.ItemTemplate>

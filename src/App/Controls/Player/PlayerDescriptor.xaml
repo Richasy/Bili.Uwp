@@ -29,10 +29,10 @@
             <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Spacing="24">
+        <StackPanel Grid.Row="1" Spacing="16">
             <TextBlock
                 x:Name="TitleBlock"
-                Style="{StaticResource TitleTextBlockStyle}"
+                Style="{StaticResource SubtitleTextBlockStyle}"
                 MaxLines="2"
                 Text="{x:Bind ViewModel.Title, Mode=OneWay}"
                 TextWrapping="Wrap">
