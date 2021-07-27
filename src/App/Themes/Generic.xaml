@@ -4,4 +4,32 @@
         <ResourceDictionary Source="ms-appx:///Controls/CardPanel/CardPanel.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/OffsetButton/OffsetButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="local2:ProgressButton" xmlns:local2="using:Richasy.Bili.App.Controls">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:ProgressButton">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local2:BubbleView" xmlns:local2="using:Richasy.Bili.App.Controls">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:BubbleView">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

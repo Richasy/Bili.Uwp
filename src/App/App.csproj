@@ -17,6 +17,9 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\Bubble.cs" />
+    <Compile Include="Controls\BubbleView.cs" />
+    <Compile Include="Controls\BubbleView.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
@@ -48,6 +51,7 @@
     <Compile Include="Controls\Player\PlayerRelatedView.xaml.cs">
       <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProgressButton.cs" />
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -111,6 +115,7 @@
     <Compile Include="Controls\Shadow\CardAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\IAttachedShadow.cs" />
     <Compile Include="Controls\Shadow\Shadows.cs" />
+    <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
     </Compile>
@@ -281,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\OffsetButton\OffsetButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BubbleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
