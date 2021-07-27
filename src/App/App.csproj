@@ -17,9 +17,9 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Controls\Bubble.cs" />
-    <Compile Include="Controls\BubbleView.cs" />
-    <Compile Include="Controls\BubbleView.Properties.cs" />
+    <Compile Include="Controls\App\BubbleView\Bubble.cs" />
+    <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
+    <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
@@ -51,7 +51,7 @@
     <Compile Include="Controls\Player\PlayerRelatedView.xaml.cs">
       <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ProgressButton.cs" />
+    <Compile Include="Controls\App\ProgressButton\ProgressButton.cs" />
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -289,7 +289,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\BubbleView.xaml">
+    <Page Include="Controls\App\BubbleView\BubbleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -322,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\PlayerRelatedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\ProgressButton\ProgressButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
