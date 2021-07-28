@@ -58,7 +58,8 @@
         <Grid
             x:Name="ContentGrid"
             Margin="{StaticResource DefaultContainerWithBottomPadding}"
-            ColumnSpacing="48">
+            ColumnSpacing="48"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="PlayerRow" Height="*" />
                 <RowDefinition Height="Auto" />

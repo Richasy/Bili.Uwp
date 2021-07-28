@@ -39,11 +39,13 @@ namespace Richasy.Bili.App.Controls
         private Microsoft.UI.Xaml.Controls.ProgressRing _progressRing;
 
         private long _pressedToken;
+        private long _isCheckedToken;
 
         private DispatcherTimer _timer;
         private bool _isHolding = false;
         private double _holdingTime = 0d;
         private double _currentProgressValue;
+        private bool _isClearProgressWhenChecked;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressButton"/> class.
@@ -56,7 +58,17 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// Gets or sets button diameter.
+        /// 长按开始.
+        /// </summary>
+        public event EventHandler HoldingStart;
+
+        /// <summary>
+        /// 长按中止（此时没有完成动画）.
+        /// </summary>
+        public event EventHandler HoldingSuspend;
+
+        /// <summary>
+        /// 直径.
         /// </summary>
         public double Diameter
         {
@@ -76,8 +88,10 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 开始进度动画.
         /// </summary>
-        public void BeginProgressAnimation()
+        /// <param name="isClearProgressWhenChecked">是否在动画完成后清除进度环的值.</param>
+        public void BeginProgressAnimation(bool isClearProgressWhenChecked = false)
         {
+            _isClearProgressWhenChecked = isClearProgressWhenChecked;
             VisualStateManager.GoToState(this, "HoldingState", false);
         }
 
@@ -86,6 +100,11 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void StopProgressAnimation()
         {
+            if (_currentProgressValue < 99.9)
+            {
+                _progressRing.Value = 0d;
+            }
+
             VisualStateManager.GoToState(this, "NonState", false);
         }
 
@@ -119,11 +138,12 @@ namespace Richasy.Bili.App.Controls
 
             _isHolding = false;
             this.UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);
+            this.UnregisterPropertyChangedCallback(IsCheckedProperty, _isCheckedToken);
         }
 
         private void OnLoading(FrameworkElement sender, object args)
         {
-            if (_timer == null)
+            if (_timer == null && IsHoldingEnabled)
             {
                 _timer = new DispatcherTimer();
                 _timer.Interval = TimeSpan.FromMilliseconds(10);
@@ -132,6 +152,7 @@ namespace Richasy.Bili.App.Controls
 
             _isHolding = false;
             _pressedToken = this.RegisterPropertyChangedCallback(IsPressedProperty, new DependencyPropertyChangedCallback(OnIsPressedChanged));
+            _isCheckedToken = this.RegisterPropertyChangedCallback(IsCheckedProperty, new DependencyPropertyChangedCallback(OnIsCheckedChanged));
         }
 
         private void OnTimerTick(object sender, object e)
@@ -140,12 +161,18 @@ namespace Richasy.Bili.App.Controls
             if (_holdingTime > _defaultHoldingJudgeTime && !_isHolding)
             {
                 _isHolding = true;
+                HoldingStart?.Invoke(this, EventArgs.Empty);
                 BeginProgressAnimation();
             }
         }
 
         private void OnIsPressedChanged(DependencyObject sender, DependencyProperty dp)
         {
+            if (!IsHoldingEnabled)
+            {
+                return;
+            }
+
             if (IsPressed)
             {
                 if (Convert.ToBoolean(IsChecked))
@@ -159,10 +186,22 @@ namespace Richasy.Bili.App.Controls
             }
             else
             {
-                // Stop holding.
+                if (_currentProgressValue < 99.9 && _currentProgressValue > 0)
+                {
+                    HoldingSuspend?.Invoke(this, EventArgs.Empty);
+                }
+
                 _timer.Stop();
-                this.IsChecked = _isHolding && _currentProgressValue > 99.9d;
                 StopProgressAnimation();
+            }
+        }
+
+        private void OnIsCheckedChanged(DependencyObject sender, DependencyProperty dp)
+        {
+            if (_isHolding)
+            {
+                IsChecked = _currentProgressValue >= 99.9;
+                _isHolding = false;
             }
         }
 
@@ -171,8 +210,13 @@ namespace Richasy.Bili.App.Controls
             _currentProgressValue = _progressRing.Value;
             if (_currentProgressValue >= 99.9)
             {
-                // Raise event.
                 _bubbleView.ShowBubbles();
+                this.IsChecked = true;
+
+                if (_isClearProgressWhenChecked)
+                {
+                    _progressRing.Value = 0d;
+                }
             }
         }
 

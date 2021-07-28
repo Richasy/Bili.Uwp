@@ -33,6 +33,7 @@
             <TextBlock
                 x:Name="TitleBlock"
                 Style="{StaticResource SubtitleTextBlockStyle}"
+                HorizontalAlignment="Left"
                 MaxLines="2"
                 Text="{x:Bind ViewModel.Title, Mode=OneWay}"
                 TextWrapping="Wrap">
@@ -44,8 +45,8 @@
                 x:Name="DescriptionBlock"
                 Style="{StaticResource BodyTextBlockStyle}"
                 HorizontalAlignment="Left"
-                Foreground="{ThemeResource TextFillColorSecondary}"
-                MaxLines="12"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                MaxLines="8"
                 Text="{x:Bind ViewModel.Description, Mode=OneWay}"
                 TextTrimming="CharacterEllipsis"
                 TextWrapping="Wrap">

@@ -140,6 +140,13 @@ namespace Richasy.Bili.Models.Enums
         Manual,
         RequestVideoFailed,
         RelatedVideos,
+        Like,
+        Coin,
+        Favorite,
+        View,
+        Danmaku,
+        Share,
+        Reply,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

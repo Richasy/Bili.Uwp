@@ -162,11 +162,17 @@
   <data name="CleanLogger" xml:space="preserve">
     <value>清除日志记录</value>
   </data>
+  <data name="Coin" xml:space="preserve">
+    <value>投币</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
+  </data>
+  <data name="Danmaku" xml:space="preserve">
+    <value>弹幕</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
@@ -188,6 +194,9 @@
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>收藏</value>
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
@@ -227,6 +236,9 @@
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>点赞</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
@@ -360,6 +372,9 @@
   <data name="RelatedVideos" xml:space="preserve">
     <value>关联视频</value>
   </data>
+  <data name="Reply" xml:space="preserve">
+    <value>评论</value>
+  </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
   </data>
@@ -413,6 +428,9 @@
   </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>显示更多</value>
@@ -506,6 +524,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>观看</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>

@@ -56,8 +56,8 @@
     <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
-    <Compile Include="AccountViewModel\AccountViewModel.cs" />
-    <Compile Include="AccountViewModel\AccountViewModel.Properties.cs" />
+    <Compile Include="Common\AccountViewModel\AccountViewModel.cs" />
+    <Compile Include="Common\AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="Base\ViewModelBase.cs" />

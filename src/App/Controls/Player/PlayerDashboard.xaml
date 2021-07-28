@@ -4,19 +4,75 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid>
+    <local:PlayerComponent.Resources>
+        <Style TargetType="local:IconTextBlock">
+            <Setter Property="IconFontSize" Value="20" />
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Style>
+    </local:PlayerComponent.Resources>
+
+    <Grid RowSpacing="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <local:ProgressButton x:Name="LikeButton">
-            <icons:RegularFluentIcon Symbol="ThumbLike16" />
-        </local:ProgressButton>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <local:ProgressButton
+                x:Name="LikeButton"
+                HoldingStart="OnLikeButtonHoldingStart"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
+                <icons:RegularFluentIcon Symbol="ThumbLike16" />
+            </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="CoinButton"
+                HoldingSuspend="OnButtonHoldingSuspend"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
+                <icons:RegularFluentIcon Symbol="Blur16" />
+            </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="FavoriteButton"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
+                <icons:RegularFluentIcon Symbol="Star16" />
+            </local:ProgressButton>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Padding="8,0,0,0">
+            <local:IconTextBlock
+                Symbol="SidebarSearchLtr20"
+                Text="{x:Bind ViewModel.AvId, Mode=OneWay}"
+                ToolTipService.ToolTip="AV" />
+            <local:IconTextBlock
+                Symbol="SidebarSearchLtr20"
+                Text="{x:Bind ViewModel.BvId, Mode=OneWay}"
+                ToolTipService.ToolTip="BV" />
+            <local:IconTextBlock
+                Symbol="EyeShow16"
+                Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=View}" />
+            <local:IconTextBlock
+                Symbol="SlideText16"
+                Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}" />
+            <local:IconTextBlock
+                Symbol="ThumbLike16"
+                Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}" />
+            <local:IconTextBlock
+                Symbol="Blur16"
+                Text="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}" />
+            <local:IconTextBlock
+                Symbol="Star16"
+                Text="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}" />
+        </StackPanel>
     </Grid>
 </local:PlayerComponent>

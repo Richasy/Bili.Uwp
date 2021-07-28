@@ -37,6 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (_detail == null || vm.VideoId != AvId)
             {
                 IsLoading = true;
+                IsError = false;
                 PartCollection.Clear();
                 RelatedVideoCollection.Clear();
                 Title = vm.Title;
