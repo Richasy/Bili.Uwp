@@ -20,11 +20,6 @@
                         <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:Name="MediumState">
-                    <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
                         <trigger:WindowWidthTrigger Condition="0" />
@@ -36,6 +31,25 @@
                         <Setter Target="ContentGrid.ColumnSpacing" Value="0" />
                         <Setter Target="RelatedContainer.(Grid.Row)" Value="2" />
                         <Setter Target="RelatedContainer.(Grid.Column)" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="DashboardGroup">
+                <VisualState x:Name="DashboardSplitState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="DashboardCombineState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="InfomationContainer.ColumnSpacing" Value="0" />
+                        <Setter Target="InfomationContainer.RowSpacing" Value="20" />
+                        <Setter Target="Dashboard.(Grid.Column)" Value="0" />
+                        <Setter Target="Dashboard.(Grid.Row)" Value="1" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -55,12 +69,24 @@
                 <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
             </Grid.ColumnDefinitions>
             <MediaPlayerElement x:Name="PlayerElement" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-            <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <Grid
+                x:Name="InformationContainer"
+                Grid.Row="1"
+                ColumnSpacing="20"
+                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <controls:PlayerDescriptor />
+                <controls:PlayerDashboard
+                    x:Name="Dashboard"
+                    Grid.Column="1"
+                    VerticalAlignment="Top" />
             </Grid>
             <Grid
                 x:Name="RelatedContainer"

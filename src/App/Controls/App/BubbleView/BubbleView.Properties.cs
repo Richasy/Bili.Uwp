@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Microsoft.Graphics.Canvas;
 using System.Collections.Generic;
+using Microsoft.Graphics.Canvas;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -33,6 +33,8 @@ namespace Richasy.Bili.App.Controls
                 }
             }));
 
+        private readonly long _foregroundPropertyChangedToken;
+
         private Rectangle _bubbleHost;
         private Color _foregroundColor;
 
@@ -44,8 +46,6 @@ namespace Richasy.Bili.App.Controls
         private CompositionGraphicsDevice _graphicsDevice;
 
         private List<Bubble> _bubbles;
-
-        private long _foregroundPropertyChangedToken;
 
         /// <summary>
         /// 当设置IsBubbing = true时，触发ShowBubbles，并将IsBubbing设置为false，等待下次设置IsBubbing = true.

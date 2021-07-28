@@ -44,6 +44,9 @@
     <Compile Include="Controls\Common\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\PlayerDashboard.xaml.cs">
+      <DependentUpon>PlayerDashboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\PlayerComponent.cs" />
     <Compile Include="Controls\Player\PlayerDescriptor.xaml.cs">
       <DependentUpon>PlayerDescriptor.xaml</DependentUpon>
@@ -314,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\PgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\PlayerDashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
