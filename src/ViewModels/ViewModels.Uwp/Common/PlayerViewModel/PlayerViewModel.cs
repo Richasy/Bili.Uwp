@@ -55,6 +55,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 Title = _detail.Arc.Title;
+                Subtitle = DateTimeOffset.FromUnixTimeSeconds(_detail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
                 Description = _detail.Arc.Desc;
                 Publisher = new PublisherViewModel(_detail.Arc.Author);
                 AvId = _detail.Arc.Aid.ToString();

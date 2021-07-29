@@ -26,12 +26,15 @@
         <StackPanel Orientation="Horizontal" Spacing="12">
             <local:ProgressButton
                 x:Name="LikeButton"
+                Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                 HoldingStart="OnLikeButtonHoldingStart"
+                IsHoldingEnabled="True"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
                 <icons:RegularFluentIcon Symbol="ThumbLike16" />
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="CoinButton"
+                Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
                 HoldingSuspend="OnButtonHoldingSuspend"
                 IsHoldingEnabled="False"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
@@ -39,40 +42,24 @@
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="FavoriteButton"
+                Description="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
                 IsHoldingEnabled="False"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
                 <icons:RegularFluentIcon Symbol="Star16" />
             </local:ProgressButton>
         </StackPanel>
-        <StackPanel Grid.Row="1" Padding="8,0,0,0">
-            <local:IconTextBlock
-                Symbol="SidebarSearchLtr20"
-                Text="{x:Bind ViewModel.AvId, Mode=OneWay}"
-                ToolTipService.ToolTip="AV" />
-            <local:IconTextBlock
-                Symbol="SidebarSearchLtr20"
-                Text="{x:Bind ViewModel.BvId, Mode=OneWay}"
-                ToolTipService.ToolTip="BV" />
-            <local:IconTextBlock
-                Symbol="EyeShow16"
-                Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=View}" />
-            <local:IconTextBlock
-                Symbol="SlideText16"
-                Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}" />
-            <local:IconTextBlock
-                Symbol="ThumbLike16"
-                Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}" />
-            <local:IconTextBlock
-                Symbol="Blur16"
-                Text="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}" />
-            <local:IconTextBlock
-                Symbol="Star16"
-                Text="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}" />
+        <StackPanel
+            Grid.Row="1"
+            Padding="8,0,0,0"
+            Spacing="4">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="AV" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.AvId, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="BV" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.BvId, Mode=OneWay}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </local:PlayerComponent>

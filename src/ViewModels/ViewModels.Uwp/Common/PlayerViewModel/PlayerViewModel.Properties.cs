@@ -30,6 +30,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string Title { get; set; }
 
         /// <summary>
+        /// 副标题，发布时间.
+        /// </summary>
+        [Reactive]
+        public string Subtitle { get; set; }
+
+        /// <summary>
         /// 说明.
         /// </summary>
         [Reactive]

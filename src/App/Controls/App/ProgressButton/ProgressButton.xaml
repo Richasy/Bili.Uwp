@@ -12,6 +12,7 @@
         <Setter Property="BorderBrush" Value="{ThemeResource ToggleButtonBorderBrush}" />
         <Setter Property="BorderThickness" Value="{ThemeResource ToggleButtonBorderThemeThickness}" />
         <Setter Property="Padding" Value="0" />
+        <Setter Property="Spacing" Value="4" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -26,7 +27,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ProgressButton">
-                    <Grid>
+                    <Grid RowSpacing="{TemplateBinding Spacing}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -235,6 +240,18 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             ContentTransitions="{TemplateBinding ContentTransitions}"
                             IsHitTestVisible="True" />
+
+                        <TextBlock
+                            x:Name="DescriptionBlock"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Text="{TemplateBinding Description}"
+                            TextAlignment="Center"
+                            TextTrimming="CharacterEllipsis">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{TemplateBinding Description}" IsEnabled="{Binding ElementName=DescriptionBlock, Path=IsTextTrimmed}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

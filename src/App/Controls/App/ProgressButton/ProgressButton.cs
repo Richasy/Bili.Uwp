@@ -32,6 +32,26 @@ namespace Richasy.Bili.App.Controls
                 typeof(ProgressButton),
                 new PropertyMetadata(0d));
 
+        /// <summary>
+        /// <see cref="Description"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty DescriptionProperty =
+            DependencyProperty.Register(
+                nameof(Description),
+                typeof(string),
+                typeof(ProgressButton),
+                new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// <see cref="Spacing"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty SpacingProperty =
+            DependencyProperty.Register(
+                nameof(Spacing),
+                typeof(double),
+                typeof(ProgressButton),
+                new PropertyMetadata(0d));
+
         private readonly double _defaultHoldingJudgeTime = 100d;
 
         private BubbleView _bubbleView;
@@ -86,6 +106,24 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 描述文本.
+        /// </summary>
+        public string Description
+        {
+            get { return (string)GetValue(DescriptionProperty); }
+            set { SetValue(DescriptionProperty, value); }
+        }
+
+        /// <summary>
+        /// 按钮与说明文本的间隔.
+        /// </summary>
+        public double Spacing
+        {
+            get { return (double)GetValue(SpacingProperty); }
+            set { SetValue(SpacingProperty, value); }
+        }
+
+        /// <summary>
         /// 开始进度动画.
         /// </summary>
         /// <param name="isClearProgressWhenChecked">是否在动画完成后清除进度环的值.</param>
@@ -105,6 +143,7 @@ namespace Richasy.Bili.App.Controls
                 _progressRing.Value = 0d;
             }
 
+            _timer?.Stop();
             VisualStateManager.GoToState(this, "NonState", false);
         }
 
@@ -191,7 +230,6 @@ namespace Richasy.Bili.App.Controls
                     HoldingSuspend?.Invoke(this, EventArgs.Empty);
                 }
 
-                _timer.Stop();
                 StopProgressAnimation();
             }
         }
