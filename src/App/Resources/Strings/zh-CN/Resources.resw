@@ -153,9 +153,6 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
-  <data name="CinemaMode" xml:space="preserve">
-    <value>影院模式</value>
-  </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
   </data>
@@ -203,6 +200,9 @@
   </data>
   <data name="FollowSystem" xml:space="preserve">
     <value>跟随系统</value>
+  </data>
+  <data name="FullScreenMode" xml:space="preserve">
+    <value>全屏模式</value>
   </data>
   <data name="FullWindowMode" xml:space="preserve">
     <value>全窗口模式</value>

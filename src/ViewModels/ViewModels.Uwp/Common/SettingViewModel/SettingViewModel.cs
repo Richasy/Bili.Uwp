@@ -100,8 +100,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
                 {
                     PlayerDisplayMode.Default,
-                    PlayerDisplayMode.Cinema,
                     PlayerDisplayMode.FullWindow,
+                    PlayerDisplayMode.FullScreen,
                 };
             }
 

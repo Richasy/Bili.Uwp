@@ -122,7 +122,7 @@ namespace Richasy.Bili.Models.Enums
         AutoPlayWhenLoaded,
         DefaultPlayerDisplayMode,
         Default,
-        CinemaMode,
+        FullScreenMode,
         FullWindowMode,
         HideRepeaterItemWhenScrolling,
         HideRepeaterItemWhenScrollingDescription,

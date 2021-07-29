@@ -60,13 +60,18 @@
                     Symbol="SlideText16"
                     Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
                     ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}" />
+                <local:IconTextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Symbol="Chat16"
+                    Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Reply}" />
             </StackPanel>
             <TextBlock
                 x:Name="DescriptionBlock"
                 Style="{StaticResource BodyTextBlockStyle}"
                 HorizontalAlignment="Left"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                MaxLines="8"
+                MaxLines="6"
                 Text="{x:Bind ViewModel.Description, Mode=OneWay}"
                 TextTrimming="CharacterEllipsis"
                 TextWrapping="Wrap">
@@ -74,6 +79,12 @@
                     <ToolTip Content="{x:Bind ViewModel.Description, Mode=OneWay}" IsEnabled="{Binding ElementName=DescriptionBlock, Mode=OneWay, Path=IsTextTrimmed}" />
                 </ToolTipService.ToolTip>
             </TextBlock>
+            <TextBlock
+                Margin="0,-8,0,0"
+                HorizontalAlignment="Left"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="..."
+                Visibility="{Binding ElementName=DescriptionBlock, Path=IsTextTrimmed}" />
         </StackPanel>
     </Grid>
 </local:PlayerComponent>

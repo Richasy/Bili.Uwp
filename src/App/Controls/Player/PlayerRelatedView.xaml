@@ -6,6 +6,7 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
@@ -13,10 +14,6 @@
     mc:Ignorable="d">
 
     <Grid CornerRadius="{StaticResource ControlCornerRadius}" RowSpacing="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="SideWideState">
@@ -42,34 +39,39 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <TextBlock
-            Style="{StaticResource BodyTextBlockStyle}"
-            HorizontalAlignment="Left"
-            FontWeight="Bold"
-            Text="{loc:LocaleLocator Name=RelatedVideos}" />
-        <ScrollViewer
-            Grid.Row="1"
-            HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Hidden">
-            <Grid>
-                <local:VerticalRepeaterView
-                    x:Name="RelatedVideoView"
-                    MaxWidth="380"
-                    HeaderVisibility="Collapsed"
-                    ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
-                    <local:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <local:VideoItem
-                                IsShowDanmakuCount="True"
-                                IsShowPlayCount="True"
-                                HorizontalCoverWidth="120"
-                                MaxHeight="100"
-                                ViewModel="{x:Bind}" />
-                        </DataTemplate>
-                    </local:VerticalRepeaterView.ItemTemplate>
-                </local:VerticalRepeaterView>
-            </Grid>
-        </ScrollViewer>
+        <muxc:NavigationView
+            x:Name="Nav"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Top"
+            SelectionChanged="OnNavSelectionChanged">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Name="RelatedViedeosItem" Content="{loc:LocaleLocator Name=RelatedVideos}" />
+                <muxc:NavigationViewItem x:Name="ReplyItem" Content="{loc:LocaleLocator Name=Reply}" />
+            </muxc:NavigationView.MenuItems>
+            <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    <local:VerticalRepeaterView
+                        x:Name="RelatedVideoView"
+                        MaxWidth="380"
+                        HeaderVisibility="Collapsed"
+                        ItemOrientation="Horizontal"
+                        ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
+                        <local:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="uwp:VideoViewModel">
+                                <local:VideoItem
+                                    MaxHeight="100"
+                                    HorizontalCoverWidth="120"
+                                    IsShowDanmakuCount="True"
+                                    IsShowPlayCount="True"
+                                    ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </local:VerticalRepeaterView.ItemTemplate>
+                    </local:VerticalRepeaterView>
+                </Grid>
+            </ScrollViewer>
+        </muxc:NavigationView>
+
     </Grid>
 </local:PlayerComponent>

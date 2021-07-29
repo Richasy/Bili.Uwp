@@ -1,5 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
+using System.Linq;
+using Windows.UI.Xaml;
+
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
@@ -13,6 +17,31 @@ namespace Richasy.Bili.App.Controls
         public PlayerRelatedView()
         {
             this.InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsLoading))
+            {
+                Nav.SelectedItem = Nav.MenuItems.First();
+            }
+        }
+
+        private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            InitializeLayout();
+        }
+
+        private void InitializeLayout()
+        {
+            RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
+                Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

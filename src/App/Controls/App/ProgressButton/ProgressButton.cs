@@ -160,7 +160,6 @@ namespace Richasy.Bili.App.Controls
             if (_timer != null)
             {
                 _timer.Stop();
-                _timer = null;
             }
 
             _isHolding = false;
@@ -170,7 +169,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnLoading(FrameworkElement sender, object args)
         {
-            if (_timer == null && IsHoldingEnabled)
+            if (_timer == null)
             {
                 _timer = new DispatcherTimer();
                 _timer.Interval = TimeSpan.FromMilliseconds(10);
@@ -239,6 +238,10 @@ namespace Richasy.Bili.App.Controls
                 _bubbleView.ShowBubbles();
                 this.IsChecked = true;
                 HoldingCompleted?.Invoke(this, EventArgs.Empty);
+            }
+            else if (!IsPressed)
+            {
+                StopProgressAnimation();
             }
         }
 

@@ -13,13 +13,13 @@ namespace Richasy.Bili.Models.Enums
         Default,
 
         /// <summary>
-        /// 影院模式，横向占据屏幕.
-        /// </summary>
-        Cinema,
-
-        /// <summary>
         /// 全窗口模式，让播放器充满整个窗口.
         /// </summary>
         FullWindow,
+
+        /// <summary>
+        /// 全屏模式.
+        /// </summary>
+        FullScreen,
     }
 }

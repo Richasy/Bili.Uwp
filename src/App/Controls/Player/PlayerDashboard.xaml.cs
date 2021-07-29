@@ -22,5 +22,9 @@ namespace Richasy.Bili.App.Controls
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
         }
+
+        private void OnShareButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+        }
     }
 }

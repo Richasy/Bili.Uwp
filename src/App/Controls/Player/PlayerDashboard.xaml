@@ -51,6 +51,13 @@
             Grid.Row="1"
             Padding="8,0,0,0"
             Spacing="4">
+            <Button
+                x:Name="ShareButton"
+                Width="152"
+                Margin="0,0,0,8"
+                Click="OnShareButtonClick">
+                <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
+            </Button>
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
