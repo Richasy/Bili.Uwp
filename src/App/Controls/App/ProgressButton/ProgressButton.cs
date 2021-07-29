@@ -65,7 +65,6 @@ namespace Richasy.Bili.App.Controls
         private bool _isHolding = false;
         private double _holdingTime = 0d;
         private double _currentProgressValue;
-        private bool _isClearProgressWhenChecked;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressButton"/> class.
@@ -86,6 +85,11 @@ namespace Richasy.Bili.App.Controls
         /// 长按中止（此时没有完成动画）.
         /// </summary>
         public event EventHandler HoldingSuspend;
+
+        /// <summary>
+        /// 长按完成.
+        /// </summary>
+        public event EventHandler HoldingCompleted;
 
         /// <summary>
         /// 直径.
@@ -124,27 +128,11 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// 开始进度动画.
+        /// 显示气泡.
         /// </summary>
-        /// <param name="isClearProgressWhenChecked">是否在动画完成后清除进度环的值.</param>
-        public void BeginProgressAnimation(bool isClearProgressWhenChecked = false)
+        public void ShowBubbles()
         {
-            _isClearProgressWhenChecked = isClearProgressWhenChecked;
-            VisualStateManager.GoToState(this, "HoldingState", false);
-        }
-
-        /// <summary>
-        /// 终止进度动画.
-        /// </summary>
-        public void StopProgressAnimation()
-        {
-            if (_currentProgressValue < 99.9)
-            {
-                _progressRing.Value = 0d;
-            }
-
-            _timer?.Stop();
-            VisualStateManager.GoToState(this, "NonState", false);
+            _bubbleView.ShowBubbles();
         }
 
         /// <inheritdoc/>
@@ -250,12 +238,30 @@ namespace Richasy.Bili.App.Controls
             {
                 _bubbleView.ShowBubbles();
                 this.IsChecked = true;
-
-                if (_isClearProgressWhenChecked)
-                {
-                    _progressRing.Value = 0d;
-                }
+                HoldingCompleted?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        /// <summary>
+        /// 开始进度动画.
+        /// </summary>
+        private void BeginProgressAnimation(bool isClearProgressWhenChecked = false)
+        {
+            VisualStateManager.GoToState(this, "HoldingState", false);
+        }
+
+        /// <summary>
+        /// 终止进度动画.
+        /// </summary>
+        private void StopProgressAnimation()
+        {
+            if (_currentProgressValue < 99.9)
+            {
+                _progressRing.Value = 0d;
+            }
+
+            _timer?.Stop();
+            VisualStateManager.GoToState(this, "NonState", false);
         }
 
         private void Initialize()

@@ -196,6 +196,7 @@
                                     <VisualState.Storyboard>
                                         <Storyboard Duration="0:0:3">
                                             <DoubleAnimation
+                                                BeginTime="0:0:0"
                                                 EnableDependentAnimation="True"
                                                 Storyboard.TargetName="ProgressRing"
                                                 Storyboard.TargetProperty="Value"
@@ -216,7 +217,7 @@
                         <muxc:ProgressRing
                             x:Name="ProgressRing"
                             IsIndeterminate="False"
-                            Value="{TemplateBinding Progress}" />
+                            Value="0" />
 
                         <Ellipse
                             x:Name="BackgroundHost"
@@ -245,6 +246,7 @@
                             x:Name="DescriptionBlock"
                             Grid.Row="1"
                             HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                             Text="{TemplateBinding Description}"
                             TextAlignment="Center"
                             TextTrimming="CharacterEllipsis">

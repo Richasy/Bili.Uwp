@@ -27,7 +27,7 @@
             <local:ProgressButton
                 x:Name="LikeButton"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
-                HoldingStart="OnLikeButtonHoldingStart"
+                HoldingCompleted="OnLikeButtonHoldingCompleted"
                 IsHoldingEnabled="True"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
                 <icons:RegularFluentIcon Symbol="ThumbLike16" />
@@ -35,7 +35,6 @@
             <local:ProgressButton
                 x:Name="CoinButton"
                 Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
-                HoldingSuspend="OnButtonHoldingSuspend"
                 IsHoldingEnabled="False"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
                 <icons:RegularFluentIcon Symbol="Blur16" />
@@ -53,12 +52,24 @@
             Padding="8,0,0,0"
             Spacing="4">
             <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="AV" />
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.AvId, Mode=OneWay}" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="AV" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.AvId, Mode=OneWay}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="BV" />
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.BvId, Mode=OneWay}" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="BV" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.BvId, Mode=OneWay}" />
             </StackPanel>
         </StackPanel>
     </Grid>

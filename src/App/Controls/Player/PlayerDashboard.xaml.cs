@@ -15,16 +15,12 @@ namespace Richasy.Bili.App.Controls
             this.InitializeComponent();
         }
 
-        private void OnLikeButtonHoldingStart(object sender, System.EventArgs e)
+        private void OnLikeButtonHoldingCompleted(object sender, System.EventArgs e)
         {
-            CoinButton.BeginProgressAnimation(true);
-            FavoriteButton.BeginProgressAnimation(true);
-        }
-
-        private void OnButtonHoldingSuspend(object sender, System.EventArgs e)
-        {
-            CoinButton.StopProgressAnimation();
-            FavoriteButton.StopProgressAnimation();
+            CoinButton.IsChecked = true;
+            FavoriteButton.IsChecked = true;
+            CoinButton.ShowBubbles();
+            FavoriteButton.ShowBubbles();
         }
     }
 }
