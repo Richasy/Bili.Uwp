@@ -18,11 +18,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PlayerViewModel
     {
-        private string LimitAvatar(string avatarUrl)
-        {
-            return avatarUrl + $"@60w_60h_1c_100q.jpg";
-        }
-
         private async Task CreateMediaSourceAsync()
         {
             MediaSource result = null;
@@ -36,8 +31,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                                   <Period  start=""PT0S"">
                                     <AdaptationSet>
                                       <ContentComponent contentType=""video"" id=""1"" />
-                                      <Representation bandwidth=""{_currentVideo.Dashvideo.Bandwidth}"" codecs=""{_currentVideo.Dashvideo.Codecid}"" height=""{_detail.Arc.Dimension.Height}"" mimeType=""video/mp4"" id=""{_currentVideo.Info.Quality}"" width=""{_detail.Arc.Dimension.Width}"">
-                                        <BaseURL>{_currentVideo.Dashvideo.BaseUrl}</BaseURL>
+                                      <Representation bandwidth=""{_currentVideo.DashVideo.Bandwidth}"" codecs=""{_currentVideo.DashVideo.Codecid}"" height=""{_detail.Arc.Dimension.Height}"" mimeType=""video/mp4"" id=""{_currentVideo.StreamInfo.Quality}"" width=""{_detail.Arc.Dimension.Width}"">
+                                        <BaseURL>{_currentVideo.DashVideo.BaseUrl}</BaseURL>
                                         <SegmentBase indexRange=""0"">
                                             <Initialization range=""0"" />
                                         </SegmentBase>
@@ -66,7 +61,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var stream = new MemoryStream(Encoding.UTF8.GetBytes(mpdStr)).AsInputStream();
-                var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.Dashvideo.BaseUrl), "application/dash+xml", httpClient);
+                var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.DashVideo.BaseUrl), "application/dash+xml", httpClient);
                 var s = soure.Status;
                 soure.MediaSource.DownloadRequested += (sender, args) =>
                 {
@@ -123,19 +118,24 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async Task InitializeVideoPlayInformationAsync(PlayViewReply videoPlayView)
         {
-            _audioList = videoPlayView.Info.Audio.ToList();
-            _streamList = videoPlayView.Info.StreamList.ToList();
+            _audioList = videoPlayView.VideoInfo.DashAudio.ToList();
+            _streamList = videoPlayView.VideoInfo.StreamList.ToList();
 
-            var selectedStream = _streamList.Where(p => p.Info.Quality == CurrentQuality).FirstOrDefault();
+            _currentAudio = null;
+            _currentVideo = null;
+
+            await Task.CompletedTask;
+
+            var selectedStream = _streamList.Where(p => p.StreamInfo.Quality == CurrentQuality).FirstOrDefault();
             if (selectedStream == null)
             {
-                var maxQuality = _streamList.Max(p => p.Info.Quality);
-                selectedStream = _streamList.Where(p => p.Info.Quality == maxQuality).FirstOrDefault();
+                var maxQuality = _streamList.Max(p => p.StreamInfo.Quality);
+                selectedStream = _streamList.Where(p => p.StreamInfo.Quality == maxQuality).FirstOrDefault();
             }
 
             _currentVideo = selectedStream;
 
-            var selectedAudio = _audioList.Where(p => p.Id == _currentVideo.Dashvideo.AudioId).FirstOrDefault();
+            var selectedAudio = _audioList.Where(p => p.Id == _currentVideo.DashVideo.AudioId).FirstOrDefault();
             if (selectedAudio == null)
             {
                 selectedAudio = _audioList.Last();

@@ -16,7 +16,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="partitionId">分区Id.</param>
         /// <returns>排行榜信息.</returns>
-        public async Task<List<RankItem>> GetRankAsync(int partitionId)
+        public async Task<List<Item>> GetRankAsync(int partitionId)
         {
             ThrowWhenNetworkUnavaliable();
             var rank = await _rankProvider.GetRankDetailAsync(partitionId);

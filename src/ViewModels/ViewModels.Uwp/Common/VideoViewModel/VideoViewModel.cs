@@ -41,7 +41,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
         /// <param name="video">排行榜视频.</param>
-        public VideoViewModel(RankItem video)
+        public VideoViewModel(Item video)
             : this()
         {
             Title = video.Title ?? string.Empty;

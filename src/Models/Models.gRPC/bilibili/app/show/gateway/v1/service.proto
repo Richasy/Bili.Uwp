@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bilibili.app.show.gateway.v1;
 
-import "bilibili/broadcast/message/main.proto";
+import "bilibili/broadcast/message/main/native.proto";
 
 //
 service AppShow {
