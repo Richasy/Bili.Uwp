@@ -16,7 +16,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
-        Task<ViewReply> GetVideoDetailAsync(int videoId);
+        Task<ViewReply> GetVideoDetailAsync(long videoId);
 
         /// <summary>
         /// 获取同时在线观看人数.
@@ -24,14 +24,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
         /// <returns>同时在线观看人数.</returns>
-        Task<string> GetOnlineViewerCountAsync(int videoId, int partId);
+        Task<string> GetOnlineViewerCountAsync(long videoId, long partId);
 
         /// <summary>
         /// 获取播放地址.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
-        /// <returns><see cref="PlayURLReply"/>.</returns>
-        Task<PlayURLReply> GetPlayUrlAsync(int videoId, int partId);
+        /// <returns><see cref="PlayViewReply"/>.</returns>
+        Task<PlayViewReply> GetPlayViewAsync(long videoId, long partId);
     }
 }

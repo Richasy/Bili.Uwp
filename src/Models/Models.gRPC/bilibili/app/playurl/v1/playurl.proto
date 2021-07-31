@@ -322,6 +322,8 @@ message DashItem {
 	string md5=6;
 	//大小
 	uint64 size=7;
+    // 帧率
+    string frameRate = 8;
 }
 
 //dash视频流
@@ -349,15 +351,21 @@ message DashVideo {
 	
 	//是否非全二压
 	bool noRexcode=8;
+    // 帧率.
+    string frameRate = 9;
 }
 
 //杜比音频信息
 message DolbyItem {
-	//
-	int32 type=1;
-	
-	//音频流
-	DashItem audio=2;
+    enum Type {
+        NONE = 0;   // NONE
+        COMMON = 1; // 普通杜比音效
+        ATMOS = 2;  // 全景杜比音效
+    }
+    // 杜比类型
+    Type type = 1;
+    // 音频流
+    DashItem audio = 2;
 }
 
 //事件

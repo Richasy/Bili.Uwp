@@ -308,9 +308,19 @@ namespace Richasy.Bili.Models.App.Constants
                 public const string OnlineViewerCount = _appBase + "/x/v2/view/video/online";
 
                 /// <summary>
-                /// 视频播放地址.
+                /// 视频播放信息.
                 /// </summary>
-                public const string PlayUrl = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayView";
+                public const string PlayInformation = _grpcBase + "/bilibili.app.playurl.v1.PlayURL/PlayView";
+
+                /// <summary>
+                /// 视频播放信息.
+                /// </summary>
+                public const string PlayURL = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayURL";
+
+                /// <summary>
+                /// 视频播放信息.
+                /// </summary>
+                public const string PlayConfig = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayConf";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

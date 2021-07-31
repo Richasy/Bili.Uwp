@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
+using Windows.Media.Core;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -23,9 +22,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
             PartCollection = new ObservableCollection<ViewPage>();
+            _audioList = new System.Collections.Generic.List<Bilibili.App.Playurl.V1.DashItem>();
+            _streamList = new System.Collections.Generic.List<Bilibili.App.Playurl.V1.Stream>();
             ServiceLocator.Instance.LoadService(out _numberToolkit)
-                                   .LoadService(out _resourceToolkit);
+                                   .LoadService(out _resourceToolkit)
+                                   .LoadService(out _settingsToolkit);
+            CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
         }
+
+        /// <summary>
+        /// 多媒体源更新.
+        /// </summary>
+        public event EventHandler<MediaSource> MediaSourceUpdated;
 
         /// <summary>
         /// 视频加载.
@@ -36,50 +44,42 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (_detail == null || vm.VideoId != AvId)
             {
-                IsLoading = true;
-                IsError = false;
+                IsDetailLoading = true;
+                IsDetailError = false;
                 PartCollection.Clear();
                 RelatedVideoCollection.Clear();
+                _audioList.Clear();
+                _streamList.Clear();
                 Title = vm.Title;
                 try
                 {
-                    var detail = await Controller.GetVideoDetailAsync(Convert.ToInt32(vm.VideoId));
+                    var detail = await Controller.GetVideoDetailAsync(Convert.ToInt64(vm.VideoId));
                     _detail = detail;
                 }
                 catch (Exception ex)
                 {
-                    IsError = true;
-                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
-                    IsLoading = false;
+                    IsDetailError = true;
+                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
+                    IsDetailLoading = false;
                     return;
                 }
 
-                Title = _detail.Arc.Title;
-                Subtitle = DateTimeOffset.FromUnixTimeSeconds(_detail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
-                Description = _detail.Arc.Desc;
-                Publisher = new PublisherViewModel(_detail.Arc.Author);
-                AvId = _detail.Arc.Aid.ToString();
-                BvId = _detail.Bvid;
-                PlayCount = _numberToolkit.GetCountText(_detail.Arc.Stat.View);
-                DanmakuCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Danmaku);
-                LikeCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Like);
-                CoinCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Coin);
-                FavoriteCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Fav);
-                ShareCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Share);
-                ReplyCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Reply);
+                InitializeVideoDetail();
+                IsDetailLoading = false;
 
-                foreach (var page in _detail.Pages)
+                try
                 {
-                    PartCollection.Add(page);
+                    var play = await Controller.GetVideoPlayInformationAsync(Convert.ToInt64(vm.VideoId), Convert.ToInt64(CurrentPart?.Page.Cid));
+                    if (play != null)
+                    {
+                        await InitializeVideoPlayInformationAsync(play);
+                    }
                 }
-
-                var relates = _detail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
-                foreach (var video in relates)
+                catch (Exception ex)
                 {
-                    RelatedVideoCollection.Add(new VideoViewModel(video));
+                    IsPlayInformationError = true;
+                    PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
                 }
-
-                IsLoading = false;
             }
         }
     }

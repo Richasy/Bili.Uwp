@@ -57,7 +57,7 @@
             x:Name="ContentGrid"
             Margin="{StaticResource DefaultContainerWithBottomPadding}"
             ColumnSpacing="48"
-            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="PlayerRow" Height="*" />
                 <RowDefinition Height="Auto" />
@@ -67,12 +67,12 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
             </Grid.ColumnDefinitions>
-            <MediaPlayerElement x:Name="PlayerElement" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+            <MediaPlayerElement x:Name="PlayerElement" Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
             <Grid
                 x:Name="InformationContainer"
                 Grid.Row="1"
                 ColumnSpacing="20"
-                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -106,8 +106,8 @@
             x:Name="ErrorPanel"
             ActionButtonClick="OnRefreshButtonClickAsync"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
-            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+            Text="{x:Bind ViewModel.DetailErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay}" />
+        <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay}" />
     </Grid>
 </Page>

@@ -25,7 +25,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<ViewReply> GetVideoDetailAsync(int videoId)
+        public async Task<ViewReply> GetVideoDetailAsync(long videoId)
         {
             var viewRequest = new ViewReq()
             {
@@ -39,7 +39,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetOnlineViewerCountAsync(int videoId, int partId)
+        public async Task<string> GetOnlineViewerCountAsync(long videoId, long partId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -55,9 +55,9 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PlayURLReply> GetPlayUrlAsync(int videoId, int partId)
+        public async Task<PlayViewReply> GetPlayViewAsync(long videoId, long partId)
         {
-            var playUrlReq = new PlayURLReq()
+            var playViewReq = new PlayViewReq
             {
                 Aid = videoId,
                 Cid = partId,
@@ -65,12 +65,15 @@ namespace Richasy.Bili.Lib.Uwp
                 Fnval = 16,
                 Fourk = true,
                 Download = 0,
-                ForceHost = 2,
+                PreferCodecType = CodeType.Code264,
+                Qn = 64,
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.PlayUrl, playUrlReq);
+            var playConfReq = new PlayConfReq();
+
+            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.PlayInformation, playViewReq);
             var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync(response, PlayURLReply.Parser);
+            var data = await _httpProvider.ParseAsync(response, PlayViewReply.Parser);
             return data;
         }
     }

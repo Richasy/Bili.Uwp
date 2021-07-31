@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
@@ -16,7 +18,14 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
         private ViewReply _detail;
+
+        private DashItem _currentAudio;
+        private Stream _currentVideo;
+
+        private List<DashItem> _audioList;
+        private List<Stream> _streamList;
 
         /// <summary>
         /// 单例.
@@ -114,22 +123,52 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<ViewPage> PartCollection { get; set; }
 
         /// <summary>
+        /// 当前分P.
+        /// </summary>
+        [Reactive]
+        public ViewPage CurrentPart { get; set; }
+
+        /// <summary>
+        /// 当前清晰度.
+        /// </summary>
+        [Reactive]
+        public uint CurrentQuality { get; set; }
+
+        /// <summary>
         /// 是否正在加载.
         /// </summary>
         [Reactive]
-        public bool IsLoading { get; set; }
+        public bool IsDetailLoading { get; set; }
 
         /// <summary>
         /// 是否出错.
         /// </summary>
         [Reactive]
-        public bool IsError { get; set; }
+        public bool IsDetailError { get; set; }
 
         /// <summary>
         /// 错误文本.
         /// </summary>
         [Reactive]
-        public string ErrorText { get; set; }
+        public string DetailErrorText { get; set; }
+
+        /// <summary>
+        /// 播放信息是否正在加载中.
+        /// </summary>
+        [Reactive]
+        public bool IsPlayInformationLoading { get; set; }
+
+        /// <summary>
+        /// 是否在请求播放信息的过程中出错.
+        /// </summary>
+        [Reactive]
+        public bool IsPlayInformationError { get; set; }
+
+        /// <summary>
+        /// 请求播放信息出错的错误文本.
+        /// </summary>
+        [Reactive]
+        public string PlayInformationErrorText { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

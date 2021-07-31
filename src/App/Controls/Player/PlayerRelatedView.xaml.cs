@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.IsLoading))
+            if (e.PropertyName == nameof(ViewModel.IsDetailLoading))
             {
                 Nav.SelectedItem = Nav.MenuItems.First();
             }
