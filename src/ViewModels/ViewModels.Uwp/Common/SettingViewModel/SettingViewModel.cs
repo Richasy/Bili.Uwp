@@ -37,8 +37,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
             IsEnableHideRepeaterItemWhenScrolling = ReadSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, true);
             IsPrefer4K = ReadSetting(SettingNames.IsPrefer4K, false);
-            IsPreferHEVC = ReadSetting(SettingNames.IsPreferHEVC, false);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
+            PreferCodecInit();
             PlayerModeInit();
             MTCControlModeInit();
             StartupInitAsync();
@@ -72,8 +72,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsPrefer4K):
                     WriteSetting(SettingNames.IsPrefer4K, IsPrefer4K);
                     break;
-                case nameof(IsPreferHEVC):
-                    WriteSetting(SettingNames.IsPreferHEVC, IsPreferHEVC);
+                case nameof(PreferCodec):
+                    WriteSetting(SettingNames.PreferCodec, PreferCodec);
                     break;
                 case nameof(SingleFastForwardAndRewindSpan):
                     WriteSetting(SettingNames.SingleFastForwardAndRewindSpan, SingleFastForwardAndRewindSpan);
@@ -120,6 +120,21 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             DefaultMTCControlMode = ReadSetting(SettingNames.DefaultMTCControlMode, MTCControlMode.Manual);
+        }
+
+        private void PreferCodecInit()
+        {
+            if (PreferCodecCollection == null || PreferCodecCollection.Count == 0)
+            {
+                PreferCodecCollection = new ObservableCollection<PreferCodec>
+                {
+                    PreferCodec.H265,
+                    PreferCodec.H264,
+                    PreferCodec.Flv,
+                };
+            }
+
+            PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H265);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

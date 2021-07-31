@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
+using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -28,9 +28,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">分P Id.</param>
         /// <returns>播放信息.</returns>
-        public async Task<PlayViewReply> GetVideoPlayInformationAsync(long videoId, long partId)
+        public async Task<PlayerDashInformation> GetVideoPlayInformationAsync(long videoId, long partId)
         {
-            var result = await _videoProvider.GetPlayViewAsync(videoId, partId);
+            var result = await _videoProvider.GetDashAsync(videoId, partId);
             return result;
         }
     }

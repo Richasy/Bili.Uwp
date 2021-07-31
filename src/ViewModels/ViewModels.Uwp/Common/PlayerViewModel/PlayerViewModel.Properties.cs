@@ -3,10 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -22,15 +23,20 @@ namespace Richasy.Bili.ViewModels.Uwp
         private ViewReply _detail;
 
         private DashItem _currentAudio;
-        private Stream _currentVideo;
+        private DashItem _currentVideo;
 
         private List<DashItem> _audioList;
-        private List<Stream> _streamList;
+        private List<DashItem> _streamList;
 
         /// <summary>
         /// 单例.
         /// </summary>
         public static PlayerViewModel Instance { get; } = new Lazy<PlayerViewModel>(() => new PlayerViewModel()).Value;
+
+        /// <summary>
+        /// 偏好的解码模式.
+        /// </summary>
+        public PreferCodec PreferCodec => SettingViewModel.Instance.PreferCodec;
 
         /// <summary>
         /// 标题.

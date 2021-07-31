@@ -13,7 +13,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid CornerRadius="{StaticResource ControlCornerRadius}" RowSpacing="12">
+    <Grid CornerRadius="{StaticResource ControlCornerRadius}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="SideWideState">
@@ -41,6 +41,7 @@
         </VisualStateManager.VisualStateGroups>
         <muxc:NavigationView
             x:Name="Nav"
+            Margin="0,-12,0,0"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"

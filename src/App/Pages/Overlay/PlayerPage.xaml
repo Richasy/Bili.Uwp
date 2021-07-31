@@ -67,7 +67,15 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
             </Grid.ColumnDefinitions>
-            <MediaPlayerElement x:Name="PlayerElement" Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+            <Grid Margin="0,0,0,24" CornerRadius="{StaticResource OverlayCornerRadius}">
+                <MediaPlayerElement
+                    x:Name="PlayerElement"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AreTransportControlsEnabled="True"
+                    AutoPlay="True" />
+            </Grid>
+
             <Grid
                 x:Name="InformationContainer"
                 Grid.Row="1"
@@ -89,7 +97,7 @@
             </Grid>
             <Grid
                 x:Name="RelatedContainer"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Grid.Column="1">
                 <controls:PlayerRelatedView />
             </Grid>

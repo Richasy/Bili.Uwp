@@ -130,8 +130,8 @@ namespace Richasy.Bili.Models.Enums
         PlayerControlDescription,
         Prefer4K,
         Prefer4KDescription,
-        PreferHEVC,
-        PreferHEVCDescription,
+        PreferCodec,
+        PreferCodecDescription,
         SingleFastForwardAndRewindSpan,
         SingleFastForwardAndRewindSpanDescription,
         MTCControlMode,
@@ -147,6 +147,9 @@ namespace Richasy.Bili.Models.Enums
         Danmaku,
         Share,
         Reply,
+        H265,
+        H264,
+        Flv,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

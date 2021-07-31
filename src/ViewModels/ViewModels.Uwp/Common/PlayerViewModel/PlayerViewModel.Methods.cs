@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bilibili.App.Playurl.V1;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.BiliBili;
 using Windows.Media.Core;
 using Windows.Media.Streaming.Adaptive;
 using Windows.Web.Http;
@@ -28,13 +28,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
                 var mpdStr = $@"<MPD xmlns=""urn:mpeg:DASH:schema:MPD:2011""  profiles=""urn:mpeg:dash:profile:isoff-on-demand:2011"" type=""static"">
-                                  <Period  start=""PT0S"">
+                                  <Period start=""PT0S"">
                                     <AdaptationSet>
                                       <ContentComponent contentType=""video"" id=""1"" />
-                                      <Representation bandwidth=""{_currentVideo.DashVideo.Bandwidth}"" codecs=""{_currentVideo.DashVideo.Codecid}"" height=""{_detail.Arc.Dimension.Height}"" mimeType=""video/mp4"" id=""{_currentVideo.StreamInfo.Quality}"" width=""{_detail.Arc.Dimension.Width}"">
-                                        <BaseURL>{_currentVideo.DashVideo.BaseUrl}</BaseURL>
-                                        <SegmentBase indexRange=""0"">
-                                            <Initialization range=""0"" />
+                                      <Representation bandwidth=""{_currentVideo.BandWidth}"" codecs=""{_currentVideo.Codecs}"" height=""{_currentVideo.Height}"" mimeType=""{_currentVideo.MimeType}"" id=""{_currentVideo.Id}"" width=""{_currentVideo.Width}"">
+                                        <BaseURL></BaseURL>
+                                        <SegmentBase indexRange=""{_currentVideo.SegmentBase.IndexRange}"">
+                                            <Initialization range=""{_currentVideo.SegmentBase.Initialization}"" />
                                         </SegmentBase>
                                       </Representation>
                                     </AdaptationSet>
@@ -50,10 +50,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     var audioStr = $@"<AdaptationSet>
                                       <ContentComponent contentType=""audio"" id=""2"" />
-                                      <Representation bandwidth=""{_currentAudio.Bandwidth}"" codecs=""{_currentAudio.Codecid}"" id=""{_currentAudio.Id}"" mimeType=""audio/mp4"" >
-                                        <BaseURL>{_currentAudio.BaseUrl}</BaseURL>
-                                        <SegmentBase indexRange=""0"">
-                                            <Initialization range=""0"" />
+                                      <Representation bandwidth=""{_currentAudio.BandWidth}"" codecs=""{_currentAudio.Codecs}"" id=""{_currentAudio.Id}"" mimeType=""{_currentAudio.MimeType}"">
+                                        <BaseURL></BaseURL>
+                                        <SegmentBase indexRange=""{_currentAudio.SegmentBase.IndexRange}"">
+                                            <Initialization range=""{_currentAudio.SegmentBase.Initialization}"" />
                                         </SegmentBase>
                                       </Representation>
                                     </AdaptationSet>";
@@ -61,7 +61,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var stream = new MemoryStream(Encoding.UTF8.GetBytes(mpdStr)).AsInputStream();
-                var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.DashVideo.BaseUrl), "application/dash+xml", httpClient);
+                var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.BaseUrl), "application/dash+xml", httpClient);
                 var s = soure.Status;
                 soure.MediaSource.DownloadRequested += (sender, args) =>
                 {
@@ -116,34 +116,52 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private async Task InitializeVideoPlayInformationAsync(PlayViewReply videoPlayView)
+        private async Task InitializeVideoPlayInformationAsync(PlayerDashInformation videoPlayView)
         {
-            _audioList = videoPlayView.VideoInfo.DashAudio.ToList();
-            _streamList = videoPlayView.VideoInfo.StreamList.ToList();
+            _audioList = videoPlayView.VideoInformation.Audio.ToList();
+            _streamList = videoPlayView.VideoInformation.Video.ToList();
 
             _currentAudio = null;
             _currentVideo = null;
 
-            await Task.CompletedTask;
-
-            var selectedStream = _streamList.Where(p => p.StreamInfo.Quality == CurrentQuality).FirstOrDefault();
-            if (selectedStream == null)
+            var preferCodecId = GetPreferCodecId();
+            var conditionStreams = _streamList.Where(p => p.Id == CurrentQuality).ToList();
+            if (conditionStreams.Count == 0)
             {
-                var maxQuality = _streamList.Max(p => p.StreamInfo.Quality);
-                selectedStream = _streamList.Where(p => p.StreamInfo.Quality == maxQuality).FirstOrDefault();
+                var maxQuality = _streamList.Max(p => p.Id);
+                _currentVideo = _streamList.Where(p => p.Id == maxQuality).FirstOrDefault();
+            }
+            else
+            {
+                var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
+                if (tempVideo == null)
+                {
+                    tempVideo = conditionStreams.First();
+                }
+
+                _currentVideo = tempVideo;
             }
 
-            _currentVideo = selectedStream;
-
-            var selectedAudio = _audioList.Where(p => p.Id == _currentVideo.DashVideo.AudioId).FirstOrDefault();
-            if (selectedAudio == null)
-            {
-                selectedAudio = _audioList.Last();
-            }
-
-            _currentAudio = selectedAudio;
+            _currentAudio = _audioList.FirstOrDefault();
 
             await CreateMediaSourceAsync();
+        }
+
+        private int GetPreferCodecId()
+        {
+            var id = 7;
+            switch (PreferCodec)
+            {
+                case Models.Enums.PreferCodec.H265:
+                    id = 12;
+                    break;
+                case Models.Enums.PreferCodec.H264:
+                case Models.Enums.PreferCodec.Flv:
+                default:
+                    break;
+            }
+
+            return id;
         }
     }
 }

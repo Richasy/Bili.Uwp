@@ -190,6 +190,7 @@
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
+    <Compile Include="Resources\Converter\PreferCodecConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />

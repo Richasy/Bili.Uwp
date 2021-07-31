@@ -88,7 +88,9 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Cursor = "cursor";
             public const string Name = "name";
             public const string Aid = "aid";
+            public const string AVid = "avid";
             public const string Cid = "cid";
+            public const string OType = "otype";
         }
 
         public static class Sort
@@ -310,12 +312,7 @@ namespace Richasy.Bili.Models.App.Constants
                 /// <summary>
                 /// 视频播放信息.
                 /// </summary>
-                public const string PlayInformation = _grpcBase + "/bilibili.app.playurl.v1.PlayURL/PlayView";
-
-                /// <summary>
-                /// 视频播放信息.
-                /// </summary>
-                public const string PlayURL = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayURL";
+                public const string PlayInformation = _apiBase + "/x/player/playurl";
 
                 /// <summary>
                 /// 视频播放信息.

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Windows.Media.Core;
 
@@ -22,8 +23,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
             PartCollection = new ObservableCollection<ViewPage>();
-            _audioList = new System.Collections.Generic.List<Bilibili.App.Playurl.V1.DashItem>();
-            _streamList = new System.Collections.Generic.List<Bilibili.App.Playurl.V1.Stream>();
+            _audioList = new System.Collections.Generic.List<DashItem>();
+            _streamList = new System.Collections.Generic.List<DashItem>();
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit);

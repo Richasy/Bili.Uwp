@@ -19,7 +19,7 @@ namespace Richasy.Bili.Models.Enums
         DefaultPlayerDisplayMode,
         IsEnableHideRepeaterItemWhenScrolling,
         IsPrefer4K,
-        IsPreferHEVC,
+        PreferCodec,
         SingleFastForwardAndRewindSpan,
         DefaultMTCControlMode,
         DefaultVideoQuality,

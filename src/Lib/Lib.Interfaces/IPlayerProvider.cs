@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
+using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Lib.Interfaces
 {
     /// <summary>
     /// 提供视频数据操作.
     /// </summary>
-    public interface IVideoProvider
+    public interface IPlayerProvider
     {
         /// <summary>
         /// 获取视频详细信息，包括分P内容.
@@ -27,11 +27,11 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<string> GetOnlineViewerCountAsync(long videoId, long partId);
 
         /// <summary>
-        /// 获取播放地址.
+        /// 获取Dash播放信息.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
-        /// <returns><see cref="PlayViewReply"/>.</returns>
-        Task<PlayViewReply> GetPlayViewAsync(long videoId, long partId);
+        /// <returns><see cref="PlayerDashInformation"/>.</returns>
+        Task<PlayerDashInformation> GetDashAsync(long videoId, long partId);
     }
 }

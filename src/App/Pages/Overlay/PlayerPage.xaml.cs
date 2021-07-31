@@ -2,6 +2,8 @@
 
 using System;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -47,6 +49,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (e.Parameter != null && e.Parameter is VideoViewModel vm)
             {
+                ViewModel.MediaSourceUpdated += OnMediaSourceUpdated;
                 _navigateVM = vm;
             }
         }
@@ -55,6 +58,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigateVM = null;
+            ViewModel.MediaSourceUpdated -= OnMediaSourceUpdated;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -63,6 +67,14 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 await ViewModel.LoadAsync(_navigateVM);
             }
+        }
+
+        private void OnMediaSourceUpdated(object sender, MediaSource e)
+        {
+            var player = new MediaPlayer();
+            player.Source = e;
+            player.AutoPlay = true;
+            PlayerElement.SetMediaPlayer(player);
         }
 
         private void OnUnloadedAsync(object sender, RoutedEventArgs e)

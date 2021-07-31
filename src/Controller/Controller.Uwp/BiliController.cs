@@ -31,7 +31,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly ILiveProvider _liveProvider;
         private readonly ISpecialColumnProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
-        private readonly IVideoProvider _videoProvider;
+        private readonly IPlayerProvider _videoProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -171,7 +171,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<ILiveProvider, LiveProvider>()
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
                 .AddSingleton<IPgcProvider, PgcProvider>()
-                .AddSingleton<IVideoProvider, VideoProvider>();
+                .AddSingleton<IPlayerProvider, PlayerProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
 
