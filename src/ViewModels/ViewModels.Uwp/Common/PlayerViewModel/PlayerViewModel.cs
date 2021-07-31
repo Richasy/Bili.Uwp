@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -32,12 +32,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _httpProvider);
             CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
+            this.PropertyChanged += OnPropertyChanged;
         }
-
-        /// <summary>
-        /// 多媒体源更新.
-        /// </summary>
-        public event EventHandler<AdaptiveMediaSource> MediaSourceUpdated;
 
         /// <summary>
         /// 保存媒体控件.
@@ -85,7 +81,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 try
                 {
                     IsPlayInformationLoading = true;
-                    IsShowCover = true;
                     var play = await Controller.GetVideoPlayInformationAsync(Convert.ToInt64(vm.VideoId), Convert.ToInt64(CurrentPart?.Page.Cid));
                     if (play != null)
                     {
@@ -97,6 +92,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                     IsPlayInformationError = true;
                     PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
                 }
+
+                IsPlayInformationLoading = false;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            switch (args.PropertyName)
+            {
+                default:
+                    break;
             }
         }
     }

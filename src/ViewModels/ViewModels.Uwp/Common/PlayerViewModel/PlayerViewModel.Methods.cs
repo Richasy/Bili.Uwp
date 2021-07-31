@@ -33,6 +33,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Fav);
             ShareCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Share);
             ReplyCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Reply);
+            CoverUrl = _detail.Arc.Pic;
 
             foreach (var page in _detail.Pages)
             {

@@ -145,18 +145,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PublisherViewModel Publisher { get; set; }
 
         /// <summary>
-        /// 是否正在缓冲.
-        /// </summary>
-        [Reactive]
-        public bool IsBuffering { get; set; }
-
-        /// <summary>
-        /// 是否显示封面.
-        /// </summary>
-        [Reactive]
-        public bool IsShowCover { get; set; }
-
-        /// <summary>
         /// 关联视频集合.
         /// </summary>
         [Reactive]

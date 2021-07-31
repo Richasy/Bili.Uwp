@@ -48,7 +48,6 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (e.Parameter != null && e.Parameter is VideoViewModel vm)
             {
-                ViewModel.MediaSourceUpdated += OnMediaSourceUpdated;
                 _navigateVM = vm;
             }
         }
@@ -58,7 +57,6 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             _navigateVM = null;
             RemovePlayer();
-            ViewModel.MediaSourceUpdated -= OnMediaSourceUpdated;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -77,10 +75,6 @@ namespace Richasy.Bili.App.Pages.Overlay
 
                 await ViewModel.LoadAsync(_navigateVM);
             }
-        }
-
-        private void OnMediaSourceUpdated(object sender, AdaptiveMediaSource e)
-        {
         }
 
         private void OnUnloadedAsync(object sender, RoutedEventArgs e)

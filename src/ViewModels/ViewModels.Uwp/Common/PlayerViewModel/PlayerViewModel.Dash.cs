@@ -75,11 +75,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
                 };
 
-                if (_currentVideoPlayer == null)
+                if (_currentVideoPlayer != null)
                 {
-                    _currentVideoPlayer = new MediaPlayer();
+                    // 释放.
                 }
 
+                _currentVideoPlayer = new MediaPlayer();
                 _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
                 MediaPlayerElement.SetMediaPlayer(_currentVideoPlayer);
                 _currentVideoPlayer.Play();

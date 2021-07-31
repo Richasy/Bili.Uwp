@@ -11,7 +11,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliPlayer">
                     <Grid>
-                        <Grid x:Name="PlayerContainer" CornerRadius="{StaticResource OverlayCornerRadius}">
+                        <Grid
+                            x:Name="PlayerContainer"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <!-- Media player -->
                             <MediaPlayerElement
                                 x:Name="MediaPlayerElement"
@@ -20,7 +23,10 @@
                                 AreTransportControlsEnabled="True" />
                         </Grid>
 
-                        <Grid x:Name="LoadingContainer" CornerRadius="{StaticResource OverlayCornerRadius}">
+                        <Grid
+                            x:Name="LoadingContainer"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading}">
                             <hn:ImageEx
                                 x:Name="CoverImage"
                                 HorizontalAlignment="Stretch"
