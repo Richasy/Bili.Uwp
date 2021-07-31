@@ -6,9 +6,13 @@ using System.Collections.ObjectModel;
 using Bilibili.App.View.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
+using Windows.Media;
+using Windows.Media.Playback;
+using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -20,7 +24,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IFileToolkit _fileToolkit;
+        private readonly IHttpProvider _httpProvider;
         private ViewReply _detail;
+        private PlayerDashInformation _dashInformation;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;
@@ -28,10 +35,25 @@ namespace Richasy.Bili.ViewModels.Uwp
         private List<DashItem> _audioList;
         private List<DashItem> _streamList;
 
+        private MediaPlayer _currentVideoPlayer;
+        private MediaPlayer _currentAudioPlayer;
+
+        private MediaTimelineController _timelineController;
+
         /// <summary>
         /// 单例.
         /// </summary>
         public static PlayerViewModel Instance { get; } = new Lazy<PlayerViewModel>(() => new PlayerViewModel()).Value;
+
+        /// <summary>
+        /// 媒体播放控件.
+        /// </summary>
+        public MediaPlayerElement MediaPlayerElement { get; private set; }
+
+        /// <summary>
+        /// 应用视频播放器.
+        /// </summary>
+        public Control BiliPlayer { get; private set; }
 
         /// <summary>
         /// 偏好的解码模式.
@@ -111,10 +133,28 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string ReplyCount { get; set; }
 
         /// <summary>
+        /// 播放器地址.
+        /// </summary>
+        [Reactive]
+        public string CoverUrl { get; set; }
+
+        /// <summary>
         /// 发布者.
         /// </summary>
         [Reactive]
         public PublisherViewModel Publisher { get; set; }
+
+        /// <summary>
+        /// 是否正在缓冲.
+        /// </summary>
+        [Reactive]
+        public bool IsBuffering { get; set; }
+
+        /// <summary>
+        /// 是否显示封面.
+        /// </summary>
+        [Reactive]
+        public bool IsShowCover { get; set; }
 
         /// <summary>
         /// 关联视频集合.

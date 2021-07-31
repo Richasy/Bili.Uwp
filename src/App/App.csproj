@@ -20,6 +20,8 @@
     <Compile Include="Controls\App\BubbleView\Bubble.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
+    <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.cs" />
+    <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
     <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
@@ -209,6 +211,7 @@
     <Content Include="Assets\Bili_rgba_80.png" />
     <Content Include="Assets\Bili_rgba_25.png" />
     <Content Include="Assets\Bili_rgba_500.png" />
+    <Content Include="Assets\DashVideoTemplate.xml" />
     <Content Include="Assets\Level\level_0.png" />
     <Content Include="Assets\Level\level_1.png" />
     <Content Include="Assets\Level\level_2.png" />
@@ -294,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\BubbleView\BubbleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\BiliPlayer\BiliPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -525,6 +532,9 @@
   <ItemGroup>
     <PackageReference Include="AdaptiveTriggerLibrary">
       <Version>1.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="FFmpegInteropX.FFmpegUWP">
+      <Version>4.4.0-pre3</Version>
     </PackageReference>
     <PackageReference Include="HN.Controls.ImageEx.Uwp">
       <Version>1.0.33</Version>

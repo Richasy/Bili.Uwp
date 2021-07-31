@@ -122,5 +122,12 @@ namespace Richasy.Bili.Toolkit.Uwp
 
             return null;
         }
+
+        /// <inheritdoc/>
+        public async Task<string> ReadPackageFile(string filePath)
+        {
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
+            return await FileIO.ReadTextAsync(file);
+        }
     }
 }

@@ -7,7 +7,8 @@ using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-using Windows.Media.Core;
+using Windows.Media.Streaming.Adaptive;
+using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -27,14 +28,27 @@ namespace Richasy.Bili.ViewModels.Uwp
             _streamList = new System.Collections.Generic.List<DashItem>();
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
-                                   .LoadService(out _settingsToolkit);
+                                   .LoadService(out _settingsToolkit)
+                                   .LoadService(out _fileToolkit)
+                                   .LoadService(out _httpProvider);
             CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
         }
 
         /// <summary>
         /// 多媒体源更新.
         /// </summary>
-        public event EventHandler<MediaSource> MediaSourceUpdated;
+        public event EventHandler<AdaptiveMediaSource> MediaSourceUpdated;
+
+        /// <summary>
+        /// 保存媒体控件.
+        /// </summary>
+        /// <param name="playerControl">播放器控件.</param>
+        /// <param name="mediaPlayerElement">媒体播放器.</param>
+        public void ApplyMediaControl(Control playerControl, MediaPlayerElement mediaPlayerElement)
+        {
+            MediaPlayerElement = mediaPlayerElement;
+            BiliPlayer = playerControl;
+        }
 
         /// <summary>
         /// 视频加载.
@@ -70,6 +84,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 try
                 {
+                    IsPlayInformationLoading = true;
+                    IsShowCover = true;
                     var play = await Controller.GetVideoPlayInformationAsync(Convert.ToInt64(vm.VideoId), Convert.ToInt64(CurrentPart?.Page.Cid));
                     if (play != null)
                     {

@@ -10,6 +10,7 @@ namespace Richasy.Bili.Models.App.Constants
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
         public const string DefaultAcceptString = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+        public const string DefaultUserAgentString = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
         public const string BuildNumber = "5520400";
         public const string Av = "av";
         public const string Bangumi = "bangumi";
@@ -120,6 +121,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string JsonContentType = "application/json";
             public const string GRPCContentType = "application/grpc";
             public const string UserAgent = "User-Agent";
+            public const string Referer = "Referer";
             public const string AppKey = "APP-KEY";
             public const string BiliMeta = "x-bili-metadata-bin";
             public const string Authorization = "authorization";

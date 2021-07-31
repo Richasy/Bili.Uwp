@@ -1,15 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
-using Windows.Media.Core;
-using Windows.Media.Streaming.Adaptive;
-using Windows.Web.Http;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -18,69 +13,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PlayerViewModel
     {
-        private async Task CreateMediaSourceAsync()
-        {
-            MediaSource result = null;
-
-            try
-            {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
-                var mpdStr = $@"<MPD xmlns=""urn:mpeg:DASH:schema:MPD:2011""  profiles=""urn:mpeg:dash:profile:isoff-on-demand:2011"" type=""static"">
-                                  <Period start=""PT0S"">
-                                    <AdaptationSet>
-                                      <ContentComponent contentType=""video"" id=""1"" />
-                                      <Representation bandwidth=""{_currentVideo.BandWidth}"" codecs=""{_currentVideo.Codecs}"" height=""{_currentVideo.Height}"" mimeType=""{_currentVideo.MimeType}"" id=""{_currentVideo.Id}"" width=""{_currentVideo.Width}"">
-                                        <BaseURL></BaseURL>
-                                        <SegmentBase indexRange=""{_currentVideo.SegmentBase.IndexRange}"">
-                                            <Initialization range=""{_currentVideo.SegmentBase.Initialization}"" />
-                                        </SegmentBase>
-                                      </Representation>
-                                    </AdaptationSet>
-                                    {{audio}}
-                                  </Period>
-                                </MPD>
-                                ";
-                if (_currentAudio == null)
-                {
-                    mpdStr = mpdStr.Replace("{audio}", string.Empty);
-                }
-                else
-                {
-                    var audioStr = $@"<AdaptationSet>
-                                      <ContentComponent contentType=""audio"" id=""2"" />
-                                      <Representation bandwidth=""{_currentAudio.BandWidth}"" codecs=""{_currentAudio.Codecs}"" id=""{_currentAudio.Id}"" mimeType=""{_currentAudio.MimeType}"">
-                                        <BaseURL></BaseURL>
-                                        <SegmentBase indexRange=""{_currentAudio.SegmentBase.IndexRange}"">
-                                            <Initialization range=""{_currentAudio.SegmentBase.Initialization}"" />
-                                        </SegmentBase>
-                                      </Representation>
-                                    </AdaptationSet>";
-                    mpdStr = mpdStr.Replace("{audio}", audioStr);
-                }
-
-                var stream = new MemoryStream(Encoding.UTF8.GetBytes(mpdStr)).AsInputStream();
-                var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.BaseUrl), "application/dash+xml", httpClient);
-                var s = soure.Status;
-                soure.MediaSource.DownloadRequested += (sender, args) =>
-                {
-                    if (args.ResourceContentType == "audio/mp4" && _currentAudio != null)
-                    {
-                        args.Result.ResourceUri = new Uri(_currentAudio.BaseUrl);
-                    }
-                };
-
-                result = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
-            }
-            catch (Exception)
-            {
-                // Show error.
-            }
-
-            MediaSourceUpdated?.Invoke(this, result);
-        }
-
         private void InitializeVideoDetail()
         {
             if (_detail == null)
@@ -143,8 +75,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _currentAudio = _audioList.FirstOrDefault();
+            _dashInformation = videoPlayView;
 
-            await CreateMediaSourceAsync();
+            await InitializeOnlineDashVideoAsync();
         }
 
         private int GetPreferCodecId()

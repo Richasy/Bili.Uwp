@@ -5,5 +5,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/OffsetButton/OffsetButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/BubbleView/BubbleView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/ProgressButton/ProgressButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayer/BiliPlayer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

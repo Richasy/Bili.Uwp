@@ -67,14 +67,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid Margin="0,0,0,24" CornerRadius="{StaticResource OverlayCornerRadius}">
-                <MediaPlayerElement
-                    x:Name="PlayerElement"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    AreTransportControlsEnabled="True"
-                    AutoPlay="True" />
-            </Grid>
+            <Grid x:Name="PlayerContainer" Margin="0,0,0,24" />
 
             <Grid
                 x:Name="InformationContainer"

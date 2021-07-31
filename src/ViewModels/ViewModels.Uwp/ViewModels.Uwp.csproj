@@ -9,6 +9,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
@@ -69,6 +70,12 @@
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FFmpegInteropX">
+      <Version>0.9.2</Version>
+    </PackageReference>
+    <PackageReference Include="FFmpegInteropX.FFmpegUWP">
+      <Version>4.4.0-pre3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>5.0.2</Version>
     </PackageReference>

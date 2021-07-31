@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Media.Core;
-using Windows.Media.Playback;
+using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -58,6 +57,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigateVM = null;
+            RemovePlayer();
             ViewModel.MediaSourceUpdated -= OnMediaSourceUpdated;
         }
 
@@ -65,21 +65,27 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (_navigateVM != null)
             {
+                if (ViewModel.BiliPlayer != null)
+                {
+                    this.PlayerContainer.Children.Add(ViewModel.BiliPlayer);
+                }
+                else
+                {
+                    var player = new BiliPlayer();
+                    this.PlayerContainer.Children.Add(player);
+                }
+
                 await ViewModel.LoadAsync(_navigateVM);
             }
         }
 
-        private void OnMediaSourceUpdated(object sender, MediaSource e)
+        private void OnMediaSourceUpdated(object sender, AdaptiveMediaSource e)
         {
-            var player = new MediaPlayer();
-            player.Source = e;
-            player.AutoPlay = true;
-            PlayerElement.SetMediaPlayer(player);
         }
 
         private void OnUnloadedAsync(object sender, RoutedEventArgs e)
         {
-            // TODO: 清理播放数据.
+            RemovePlayer();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -107,6 +113,14 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (_navigateVM != null)
             {
                 await ViewModel.LoadAsync(_navigateVM);
+            }
+        }
+
+        private void RemovePlayer()
+        {
+            if (PlayerContainer.Children.Count > 0)
+            {
+                PlayerContainer.Children.Clear();
             }
         }
     }
