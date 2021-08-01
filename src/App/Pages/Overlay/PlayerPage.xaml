@@ -71,7 +71,9 @@
             <Grid
                 x:Name="PlayerContainer"
                 Margin="0,0,0,24"
-                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <controls:BiliPlayer />
+            </Grid>
 
             <Grid
                 x:Name="InformationContainer"
@@ -95,7 +97,8 @@
             <Grid
                 x:Name="RelatedContainer"
                 Grid.RowSpan="3"
-                Grid.Column="1">
+                Grid.Column="1"
+                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:PlayerRelatedView />
             </Grid>
         </Grid>

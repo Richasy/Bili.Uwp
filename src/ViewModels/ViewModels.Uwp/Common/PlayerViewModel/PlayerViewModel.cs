@@ -114,6 +114,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _timelineController.Pause();
             }
 
+            MediaPlayerElement.SetMediaPlayer(null);
+
             if (_currentVideoPlayer != null)
             {
                 if (_currentVideoPlayer.PlaybackSession.CanPause)

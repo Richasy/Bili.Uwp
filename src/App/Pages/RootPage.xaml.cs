@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Pages
 {
@@ -46,7 +46,7 @@ namespace Richasy.Bili.App.Pages
 
         private void OnRequestPlay(object sender, object e)
         {
-            PlayerFrame.Navigate(typeof(Overlay.PlayerPage), e);
+            PlayerFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

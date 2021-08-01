@@ -61,16 +61,6 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (_navigateVM != null)
             {
-                if (ViewModel.BiliPlayer != null)
-                {
-                    this.PlayerContainer.Children.Add(ViewModel.BiliPlayer);
-                }
-                else
-                {
-                    var player = new BiliPlayer();
-                    this.PlayerContainer.Children.Add(player);
-                }
-
                 await ViewModel.LoadAsync(_navigateVM);
             }
         }
