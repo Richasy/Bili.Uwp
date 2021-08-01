@@ -2,7 +2,6 @@
 
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -56,7 +55,6 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigateVM = null;
-            RemovePlayer();
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -79,7 +77,7 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private void OnUnloadedAsync(object sender, RoutedEventArgs e)
         {
-            RemovePlayer();
+            ViewModel.ClearPlayer();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -107,14 +105,6 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (_navigateVM != null)
             {
                 await ViewModel.LoadAsync(_navigateVM);
-            }
-        }
-
-        private void RemovePlayer()
-        {
-            if (PlayerContainer.Children.Count > 0)
-            {
-                PlayerContainer.Children.Clear();
             }
         }
     }

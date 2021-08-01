@@ -46,6 +46,8 @@ namespace Richasy.Bili.App.Controls
         private CompositionGraphicsDevice _graphicsDevice;
 
         private List<Bubble> _bubbles;
+        private bool _isLoaded;
+        private bool _isApplied;
 
         /// <summary>
         /// 当设置IsBubbing = true时，触发ShowBubbles，并将IsBubbing设置为false，等待下次设置IsBubbing = true.

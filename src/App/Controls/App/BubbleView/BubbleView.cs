@@ -30,6 +30,7 @@ namespace Richasy.Bili.App.Controls
             this.DefaultStyleKey = typeof(BubbleView);
             _foregroundPropertyChangedToken = RegisterPropertyChangedCallback(ForegroundProperty, ForegroundPropertyChanged);
             this.Unloaded += OnBubbleViewUnloaded;
+            this.Loaded += OnBubbleViewLoaded;
         }
 
         /// <summary>
@@ -53,8 +54,23 @@ namespace Richasy.Bili.App.Controls
 
             _bubbleHost = GetTemplateChild("BubbleHost") as Rectangle;
             _bubbleHost.SizeChanged += OnBubbleHostSizeChanged;
-            SetupComposition();
-            SetupDevices();
+            _isApplied = true;
+            Setup();
+        }
+
+        private void Setup()
+        {
+            if (_isLoaded && _isApplied)
+            {
+                SetupComposition();
+                SetupDevices();
+            }
+        }
+
+        private void OnBubbleViewLoaded(object sender, RoutedEventArgs e)
+        {
+            _isLoaded = true;
+            Setup();
         }
 
         private void SetupComposition()

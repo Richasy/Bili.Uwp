@@ -33,7 +33,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private DashItem _currentVideo;
 
         private List<DashItem> _audioList;
-        private List<DashItem> _streamList;
+        private List<DashItem> _videoList;
 
         private MediaPlayer _currentVideoPlayer;
         private MediaPlayer _currentAudioPlayer;

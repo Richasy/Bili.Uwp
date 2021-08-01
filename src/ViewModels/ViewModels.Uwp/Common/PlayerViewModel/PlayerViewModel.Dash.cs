@@ -30,10 +30,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
                 var mpdStr = await _fileToolkit.ReadPackageFile(AppConstants.DashVideoMPDFile);
 
-                var videos = _streamList.Where(p => p.CodecId == GetPreferCodecId()).ToList();
+                var videos = _videoList.Where(p => p.CodecId == GetPreferCodecId()).ToList();
                 if (videos.Count == 0)
                 {
-                    videos = _streamList;
+                    videos = _videoList;
                 }
 
                 var videoStr =

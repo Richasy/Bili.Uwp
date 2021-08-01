@@ -25,7 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
             PartCollection = new ObservableCollection<ViewPage>();
             _audioList = new System.Collections.Generic.List<DashItem>();
-            _streamList = new System.Collections.Generic.List<DashItem>();
+            _videoList = new System.Collections.Generic.List<DashItem>();
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
@@ -57,10 +57,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsDetailLoading = true;
                 IsDetailError = false;
+                _dashInformation = null;
                 PartCollection.Clear();
                 RelatedVideoCollection.Clear();
                 _audioList.Clear();
-                _streamList.Clear();
+                _videoList.Clear();
+                ClearPlayer();
                 Title = vm.Title;
                 try
                 {
@@ -84,7 +86,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     var play = await Controller.GetVideoPlayInformationAsync(Convert.ToInt64(vm.VideoId), Convert.ToInt64(CurrentPart?.Page.Cid));
                     if (play != null)
                     {
-                        await InitializeVideoPlayInformationAsync(play);
+                        _dashInformation = play;
                     }
                 }
                 catch (Exception ex)
@@ -94,6 +96,54 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 IsPlayInformationLoading = false;
+}
+
+            if (_dashInformation != null)
+            {
+                await InitializeVideoPlayInformationAsync(_dashInformation);
+            }
+        }
+
+        /// <summary>
+        /// 清理播放数据.
+        /// </summary>
+        public void ClearPlayer()
+        {
+            if (_timelineController != null)
+            {
+                _timelineController.Pause();
+            }
+
+            if (_currentVideoPlayer != null)
+            {
+                if (_currentVideoPlayer.PlaybackSession.CanPause)
+                {
+                    _currentVideoPlayer.Pause();
+                }
+
+                if (_currentVideoPlayer.Source != null)
+                {
+                    (_currentVideoPlayer.Source as IDisposable).Dispose();
+                }
+
+                _currentVideoPlayer.Dispose();
+                _currentVideoPlayer = null;
+            }
+
+            if (_currentAudioPlayer != null)
+            {
+                if (_currentAudioPlayer.PlaybackSession.CanPause)
+                {
+                    _currentAudioPlayer.Pause();
+                }
+
+                if (_currentAudioPlayer.Source != null)
+                {
+                    (_currentAudioPlayer.Source as IDisposable).Dispose();
+                }
+
+                _currentAudioPlayer.Dispose();
+                _currentAudioPlayer = null;
             }
         }
 

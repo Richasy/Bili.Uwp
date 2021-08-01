@@ -52,17 +52,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         private async Task InitializeVideoPlayInformationAsync(PlayerDashInformation videoPlayView)
         {
             _audioList = videoPlayView.VideoInformation.Audio.ToList();
-            _streamList = videoPlayView.VideoInformation.Video.ToList();
+            _videoList = videoPlayView.VideoInformation.Video.ToList();
 
             _currentAudio = null;
             _currentVideo = null;
 
             var preferCodecId = GetPreferCodecId();
-            var conditionStreams = _streamList.Where(p => p.Id == CurrentQuality).ToList();
+            var conditionStreams = _videoList.Where(p => p.Id == CurrentQuality).ToList();
             if (conditionStreams.Count == 0)
             {
-                var maxQuality = _streamList.Max(p => p.Id);
-                _currentVideo = _streamList.Where(p => p.Id == maxQuality).FirstOrDefault();
+                var maxQuality = _videoList.Max(p => p.Id);
+                _currentVideo = _videoList.Where(p => p.Id == maxQuality).FirstOrDefault();
             }
             else
             {
@@ -76,7 +76,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _currentAudio = _audioList.FirstOrDefault();
-            _dashInformation = videoPlayView;
 
             await InitializeOnlineDashVideoAsync();
         }
