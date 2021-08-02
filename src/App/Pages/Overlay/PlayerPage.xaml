@@ -29,7 +29,7 @@
                         <Setter Target="ContentGrid.RowSpacing" Value="16" />
                         <Setter Target="RelatedContainer.(Grid.Row)" Value="2" />
                         <Setter Target="RelatedContainer.(Grid.Column)" Value="0" />
-                        <Setter Target="PlayerContsiner.Margin" Value="0,0,0,12" />
+                        <Setter Target="PlayerContainer.Margin" Value="0,0,0,12" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

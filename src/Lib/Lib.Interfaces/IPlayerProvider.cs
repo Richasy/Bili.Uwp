@@ -2,6 +2,7 @@
 
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
+using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Lib.Interfaces
@@ -33,5 +34,22 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="partId">视频分P的Id.</param>
         /// <returns><see cref="PlayerDashInformation"/>.</returns>
         Task<PlayerDashInformation> GetDashAsync(long videoId, long partId);
+
+        /// <summary>
+        /// 获取弹幕元数据信息.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">视频分P的Id.</param>
+        /// <returns>弹幕元数据响应结果.</returns>
+        Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId);
+
+        /// <summary>
+        /// 获取分段弹幕信息.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">视频分P的Id.</param>
+        /// <param name="segmentIndex">分段索引，6分钟为一段.</param>
+        /// <returns><see cref="DmSegMobileReply"/>.</returns>
+        Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex);
     }
 }

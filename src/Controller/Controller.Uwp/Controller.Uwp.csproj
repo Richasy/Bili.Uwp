@@ -19,7 +19,7 @@
     <Compile Include="BiliController.Partition.cs" />
     <Compile Include="BiliController.Popular.cs" />
     <Compile Include="BiliController.Rank.cs" />
-    <Compile Include="BiliController.Video.cs" />
+    <Compile Include="BiliController.Player.cs" />
     <Compile Include="Interfaces\INetworkModule.cs" />
     <Compile Include="Modules\NetworkModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

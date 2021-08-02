@@ -320,6 +320,16 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 视频播放信息.
                 /// </summary>
                 public const string PlayConfig = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayConf";
+
+                /// <summary>
+                /// 弹幕元数据.
+                /// </summary>
+                public const string DanmakuMetaData = _grpcBase + "/bilibili.community.service.dm.v1.DM/DmView";
+
+                /// <summary>
+                /// 分段弹幕.
+                /// </summary>
+                public const string SegmentDanmaku = _grpcBase + "/bilibili.community.service.dm.v1.DM/DmSegMobile";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

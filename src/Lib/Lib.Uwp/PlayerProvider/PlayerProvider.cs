@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
+using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json.Linq;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
@@ -94,6 +95,39 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return null;
+        }
+
+        /// <inheritdoc/>
+        public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
+        {
+            var req = new DmViewReq()
+            {
+                Pid = videoId,
+                Oid = partId,
+                Type = 1,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.DanmakuMetaData, req);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync(response, DmViewReply.Parser);
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex)
+        {
+            var req = new DmSegMobileReq
+            {
+                Pid = videoId,
+                Oid = partId,
+                SegmentIndex = segmentIndex,
+                Type = 1,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.SegmentDanmaku, req);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync(response, DmSegMobileReply.Parser);
+            return result;
         }
     }
 }

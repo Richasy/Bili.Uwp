@@ -31,7 +31,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly ILiveProvider _liveProvider;
         private readonly ISpecialColumnProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
-        private readonly IPlayerProvider _videoProvider;
+        private readonly IPlayerProvider _playerProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -53,7 +53,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _liveProvider)
                 .LoadService(out _specialColumnProvider)
                 .LoadService(out _pgcProvider)
-                .LoadService(out _videoProvider);
+                .LoadService(out _playerProvider);
 
             RegisterEvents();
         }
@@ -132,6 +132,11 @@ namespace Richasy.Bili.Controller.Uwp
         /// 在PGC有新的模块数据更改时发生.
         /// </summary>
         public event EventHandler<PgcModuleIterationEventArgs> PgcModuleIteration;
+
+        /// <summary>
+        /// 在有分片弹幕更新时发生.
+        /// </summary>
+        public event EventHandler<SegmentDanmakuIterationEventArgs> SegmentDanmakuIteration;
 
         /// <summary>
         /// 控制器实例.

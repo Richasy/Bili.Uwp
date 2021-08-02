@@ -70,7 +70,6 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
-        <Setter Property="MaxWidth" Value="{ThemeResource MediaTransportControlsMaxWidth}" />
         <Setter Property="MinWidth" Value="{ThemeResource MediaTransportControlsMinWidth}" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
@@ -307,7 +306,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <controls:Danmaku
-                            x:Name="DanmakuControls"
+                            x:Name="DanmakuControl"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch" />
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">

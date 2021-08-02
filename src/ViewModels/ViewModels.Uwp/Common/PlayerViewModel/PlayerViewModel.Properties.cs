@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bilibili.App.View.V1;
+using Bilibili.Community.Service.Dm.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Lib.Interfaces;
@@ -36,6 +37,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private MediaPlayer _currentVideoPlayer;
         private MediaPlayer _currentAudioPlayer;
+
+        private List<DanmakuElem> _danmakuList;
 
         /// <summary>
         /// 单例.
