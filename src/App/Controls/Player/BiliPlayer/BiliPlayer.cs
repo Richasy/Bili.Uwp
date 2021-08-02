@@ -9,8 +9,6 @@ namespace Richasy.Bili.App.Controls
     /// </summary>
     public partial class BiliPlayer : Control
     {
-        private MediaPlayerElement mediaPlayerElement;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliPlayer"/> class.
         /// </summary>
@@ -22,11 +20,10 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
-            mediaPlayerElement = GetTemplateChild("MediaPlayerElement") as MediaPlayerElement;
-
-            if (ViewModel.MediaPlayerElement == null)
+            if (ViewModel.BiliPlayer == null)
             {
-                ViewModel.ApplyMediaControl(this, mediaPlayerElement);
+                var mediaPlayerElement = GetTemplateChild("MediaPlayerElement") as MediaPlayerElement;
+                ViewModel.ApplyMediaControl(mediaPlayerElement);
             }
         }
     }

@@ -39,10 +39,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 保存媒体控件.
         /// </summary>
         /// <param name="playerControl">播放器控件.</param>
-        /// <param name="mediaPlayerElement">媒体播放器.</param>
-        public void ApplyMediaControl(Control playerControl, MediaPlayerElement mediaPlayerElement)
+        public void ApplyMediaControl(MediaPlayerElement playerControl)
         {
-            MediaPlayerElement = mediaPlayerElement;
             BiliPlayer = playerControl;
         }
 
@@ -109,12 +107,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void ClearPlayer()
         {
-            if (_timelineController != null)
-            {
-                _timelineController.Pause();
-            }
-
-            MediaPlayerElement.SetMediaPlayer(null);
+            BiliPlayer.SetMediaPlayer(null);
 
             if (_currentVideoPlayer != null)
             {

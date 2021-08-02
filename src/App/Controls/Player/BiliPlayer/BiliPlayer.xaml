@@ -20,7 +20,11 @@
                                 x:Name="MediaPlayerElement"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                AreTransportControlsEnabled="True" />
+                                AreTransportControlsEnabled="True">
+                                <MediaPlayerElement.TransportControls>
+                                    <local:BiliPlayerTransportControls />
+                                </MediaPlayerElement.TransportControls>
+                            </MediaPlayerElement>
                         </Grid>
 
                         <Grid

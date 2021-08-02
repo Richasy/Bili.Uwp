@@ -10,7 +10,6 @@ using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
-using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.Xaml.Controls;
 
@@ -38,22 +37,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         private MediaPlayer _currentVideoPlayer;
         private MediaPlayer _currentAudioPlayer;
 
-        private MediaTimelineController _timelineController;
-
         /// <summary>
         /// 单例.
         /// </summary>
         public static PlayerViewModel Instance { get; } = new Lazy<PlayerViewModel>(() => new PlayerViewModel()).Value;
 
         /// <summary>
-        /// 媒体播放控件.
-        /// </summary>
-        public MediaPlayerElement MediaPlayerElement { get; private set; }
-
-        /// <summary>
         /// 应用视频播放器.
         /// </summary>
-        public Control BiliPlayer { get; private set; }
+        public MediaPlayerElement BiliPlayer { get; private set; }
 
         /// <summary>
         /// 偏好的解码模式.

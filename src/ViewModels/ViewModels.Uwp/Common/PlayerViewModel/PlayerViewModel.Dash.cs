@@ -6,9 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FFmpegInterop;
 using Richasy.Bili.Models.App.Constants;
-using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
@@ -82,69 +80,13 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 _currentVideoPlayer = new MediaPlayer();
                 _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
-                MediaPlayerElement.SetMediaPlayer(_currentVideoPlayer);
+                BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 _currentVideoPlayer.Play();
             }
             catch (Exception)
             {
                 // Show error.
             }
-        }
-
-        private async Task InitializeLocalVideoAsync()
-        {
-            var ffmpegConfig = new FFmpegInteropConfig();
-            ffmpegConfig.VideoDecoderMode = VideoDecoderMode.AutomaticSystemDecoder;
-            ffmpegConfig.FFmpegOptions.Add(ServiceConstants.Headers.UserAgent, ServiceConstants.DefaultUserAgentString);
-            ffmpegConfig.FFmpegOptions.Add(ServiceConstants.Headers.Referer, "https://www.bilibili.com");
-            var request = await _httpProvider.GetRequestMessageAsync(System.Net.Http.HttpMethod.Get, _currentVideo.BaseUrl);
-            foreach (var item in request.Headers)
-            {
-                if (!ffmpegConfig.FFmpegOptions.ContainsKey(item.Key))
-                {
-                    ffmpegConfig.FFmpegOptions.Add(item.Key, item.Value);
-                }
-            }
-
-            if (_timelineController == null)
-            {
-                _timelineController = new MediaTimelineController();
-            }
-
-            _timelineController.Pause();
-            _timelineController.Position = TimeSpan.Zero;
-            _timelineController.Duration = TimeSpan.FromSeconds(_dashInformation.Duration);
-
-            var ffmpegMSSVideo = await FFmpegInteropMSS.CreateFromUriAsync(_currentVideo.BaseUrl, ffmpegConfig);
-            var videoPlaybackItem = ffmpegMSSVideo.CreateMediaPlaybackItem();
-            if (_currentVideoPlayer == null)
-            {
-                _currentVideoPlayer = new MediaPlayer();
-                _currentVideoPlayer.CommandManager.IsEnabled = false;
-                _currentVideoPlayer.TimelineController = _timelineController;
-            }
-
-            _currentVideoPlayer.Source = videoPlaybackItem;
-
-            FFmpegInteropMSS ffmpegMSSAudio = null;
-            MediaPlaybackItem audioPlaybackItem = null;
-            if (_currentAudio != null)
-            {
-                ffmpegMSSAudio = await FFmpegInteropMSS.CreateFromUriAsync(_currentAudio.BaseUrl, ffmpegConfig);
-                audioPlaybackItem = ffmpegMSSAudio.CreateMediaPlaybackItem();
-                if (_currentAudioPlayer == null)
-                {
-                    _currentAudioPlayer = new MediaPlayer();
-                    _currentAudioPlayer.CommandManager.IsEnabled = false;
-                    _currentAudioPlayer.TimelineController = _timelineController;
-                }
-
-                _currentAudioPlayer.Source = audioPlaybackItem;
-            }
-
-            MediaPlayerElement.SetMediaPlayer(_currentVideoPlayer);
-
-            _timelineController.Start();
         }
     }
 }
