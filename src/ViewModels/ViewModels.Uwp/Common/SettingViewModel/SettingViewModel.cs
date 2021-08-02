@@ -128,13 +128,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 PreferCodecCollection = new ObservableCollection<PreferCodec>
                 {
-                    PreferCodec.H265,
                     PreferCodec.H264,
-                    PreferCodec.Flv,
+                    PreferCodec.H265,
                 };
             }
 
-            PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H265);
+            PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H264);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

@@ -28,9 +28,6 @@ namespace Richasy.Bili.App.Resources.Converter
                     case PreferCodec.H264:
                         result = resourceToolkit.GetLocaleString(LanguageNames.H264);
                         break;
-                    case PreferCodec.Flv:
-                        result = resourceToolkit.GetLocaleString(LanguageNames.Flv);
-                        break;
                     default:
                         break;
                 }

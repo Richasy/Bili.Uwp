@@ -16,10 +16,5 @@ namespace Richasy.Bili.Models.Enums
         /// H264高清.
         /// </summary>
         H264,
-
-        /// <summary>
-        /// Flv视频.
-        /// </summary>
-        Flv,
     }
 }

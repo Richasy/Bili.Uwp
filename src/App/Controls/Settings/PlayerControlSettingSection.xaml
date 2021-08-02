@@ -57,7 +57,10 @@
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
-                        <ComboBox ItemsSource="{x:Bind ViewModel.PreferCodecCollection, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.PreferCodec, Mode=TwoWay}">
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PreferCodecCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.PreferCodec, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate x:DataType="enums:PreferCodec">
                                     <TextBlock Text="{x:Bind Converter={StaticResource PreferCodecConverter}}" />

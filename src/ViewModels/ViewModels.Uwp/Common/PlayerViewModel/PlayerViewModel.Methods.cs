@@ -88,8 +88,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case Models.Enums.PreferCodec.H265:
                     id = 12;
                     break;
-                case Models.Enums.PreferCodec.H264:
-                case Models.Enums.PreferCodec.Flv:
                 default:
                     break;
             }
