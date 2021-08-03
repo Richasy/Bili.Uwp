@@ -24,6 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
 
+        private long _videoId;
         private ViewReply _detail;
         private PlayerDashInformation _dashInformation;
 
@@ -145,7 +146,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 分集视频集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<ViewPage> PartCollection { get; set; }
+        public ObservableCollection<VideoPartViewModel> PartCollection { get; set; }
 
         /// <summary>
         /// 当前分P.
@@ -200,6 +201,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PlayerDisplayMode PlayerDisplayMode { get; set; }
+
+        /// <summary>
+        /// 是否显示分P.
+        /// </summary>
+        [Reactive]
+        public bool IsShowParts { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

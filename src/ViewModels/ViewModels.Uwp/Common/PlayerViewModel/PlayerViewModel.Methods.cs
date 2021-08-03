@@ -13,7 +13,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PlayerViewModel
     {
-        private void InitializeVideoDetail()
+        private void InitializeVideoDetail(long partId = 0)
         {
             if (_detail == null)
             {
@@ -37,10 +37,10 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             foreach (var page in _detail.Pages)
             {
-                PartCollection.Add(page);
+                PartCollection.Add(new VideoPartViewModel(page));
             }
 
-            CurrentPart = PartCollection.First();
+            IsShowParts = PartCollection.Count > 1;
 
             var relates = _detail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
             foreach (var video in relates)
@@ -93,6 +93,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             return id;
+        }
+
+        private void CheckPartSelection()
+        {
+            foreach (var item in PartCollection)
+            {
+                item.IsSelected = item.Data.Equals(CurrentPart);
+            }
         }
     }
 }

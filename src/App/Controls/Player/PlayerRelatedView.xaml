@@ -48,6 +48,10 @@
             PaneDisplayMode="Top"
             SelectionChanged="OnNavSelectionChanged">
             <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    x:Name="PartsItem"
+                    Content="{loc:LocaleLocator Name=Parts}"
+                    Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
                 <muxc:NavigationViewItem x:Name="RelatedViedeosItem" Content="{loc:LocaleLocator Name=RelatedVideos}" />
                 <muxc:NavigationViewItem x:Name="ReplyItem" Content="{loc:LocaleLocator Name=Reply}" />
             </muxc:NavigationView.MenuItems>
@@ -67,6 +71,46 @@
                                     IsShowDanmakuCount="True"
                                     IsShowPlayCount="True"
                                     ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </local:VerticalRepeaterView.ItemTemplate>
+                    </local:VerticalRepeaterView>
+                    <local:VerticalRepeaterView
+                        x:Name="PartView"
+                        MaxWidth="380"
+                        HeaderVisibility="Collapsed"
+                        ItemOrientation="Horizontal"
+                        ItemsSource="{x:Bind ViewModel.PartCollection}">
+                        <local:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="uwp:VideoPartViewModel">
+                                <local:CardPanel
+                                    Click="OnPartItemClickAsync"
+                                    DataContext="{x:Bind}"
+                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                    IsEnableCheck="True"
+                                    IsEnableHoverAnimation="False">
+                                    <Grid Padding="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="36" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="Bold"
+                                            Text="{x:Bind Data.Page.Page_}" />
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                FontWeight="Bold"
+                                                Text="{x:Bind Data.Page.Part}" />
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Margin="0,4,0,0"
+                                                FontWeight="Bold"
+                                                Text="{x:Bind Data.Page.Desc}"
+                                                Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </local:CardPanel>
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>

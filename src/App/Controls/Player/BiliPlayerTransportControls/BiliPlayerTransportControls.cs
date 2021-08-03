@@ -29,6 +29,7 @@ namespace Richasy.Bili.App.Controls
             this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
+            this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
         }
 
@@ -47,6 +48,7 @@ namespace Richasy.Bili.App.Controls
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
 
             CheckCurrentPlayerMode();
+            CheckDanmakuZoom();
             base.OnApplyTemplate();
         }
 
@@ -222,6 +224,34 @@ namespace Richasy.Bili.App.Controls
                     _danmakuDictionary.Add(g.Key, g.Value);
                 }
             }
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            CheckDanmakuZoom();
+        }
+
+        private void CheckDanmakuZoom()
+        {
+            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _danmakuControl == null)
+            {
+                return;
+            }
+
+            var baseWidth = 800d;
+            var baseHeight = 600d;
+            var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
+            if (scale > 1)
+            {
+                scale = 1;
+            }
+            else if (scale < 0.2)
+            {
+                scale = 0.2;
+            }
+
+            _danmakuControl.SetDanmakuDuration(12);
+            _danmakuControl.DanmakuSizeZoom = scale;
         }
 
         private async void OnDanmkuTimerTickAsync(object sender, object e)

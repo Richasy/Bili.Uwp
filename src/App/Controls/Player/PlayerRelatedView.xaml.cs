@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -29,7 +29,14 @@ namespace Richasy.Bili.App.Controls
         {
             if (e.PropertyName == nameof(ViewModel.IsDetailLoading))
             {
-                Nav.SelectedItem = Nav.MenuItems.First();
+                if (ViewModel.IsShowParts)
+                {
+                    Nav.SelectedItem = PartsItem;
+                }
+                else
+                {
+                    Nav.SelectedItem = RelatedViedeosItem;
+                }
             }
         }
 
@@ -42,6 +49,22 @@ namespace Richasy.Bili.App.Controls
         {
             RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
                 Visibility.Visible : Visibility.Collapsed;
+            PartView.Visibility = Nav.SelectedItem == PartsItem ?
+                Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private async void OnPartItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var card = sender as CardPanel;
+            var data = card.DataContext as VideoPartViewModel;
+            if (!data.Data.Equals(ViewModel.CurrentPart))
+            {
+                await ViewModel.ChangePartAsync(data.Data.Page.Cid);
+            }
+            else
+            {
+                data.IsSelected = true;
+            }
         }
     }
 }

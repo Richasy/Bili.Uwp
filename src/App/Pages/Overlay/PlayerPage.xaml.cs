@@ -32,7 +32,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             this.InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
             this.Loaded += OnLoadedAsync;
-            this.Unloaded += OnUnloadedAsync;
+            this.Unloaded += OnUnloaded;
             this.SizeChanged += OnSizeChanged;
         }
 
@@ -46,11 +46,15 @@ namespace Richasy.Bili.App.Pages.Overlay
         }
 
         /// <inheritdoc/>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null && e.Parameter is VideoViewModel vm)
             {
                 _navigateVM = vm;
+                if (IsLoaded)
+                {
+                    await ViewModel.LoadAsync(_navigateVM);
+                }
             }
         }
 
@@ -67,9 +71,10 @@ namespace Richasy.Bili.App.Pages.Overlay
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             if (_navigateVM != null)
             {
-                CheckPlayerDisplayModeAsync();
                 await ViewModel.LoadAsync(_navigateVM);
             }
+
+            CheckPlayerDisplayModeAsync();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -84,7 +89,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
         }
 
-        private void OnUnloadedAsync(object sender, RoutedEventArgs e)
+        private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             ViewModel.ClearPlayer();

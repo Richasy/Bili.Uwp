@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
@@ -25,7 +26,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PlayerViewModel()
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
-            PartCollection = new ObservableCollection<ViewPage>();
+            PartCollection = new ObservableCollection<VideoPartViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
 
@@ -70,9 +71,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _videoList.Clear();
                 ClearPlayer();
                 Title = vm.Title;
+                _videoId = Convert.ToInt64(vm.VideoId);
                 try
                 {
-                    var detail = await Controller.GetVideoDetailAsync(Convert.ToInt64(vm.VideoId));
+                    var detail = await Controller.GetVideoDetailAsync(_videoId);
                     _detail = detail;
                 }
                 catch (Exception ex)
@@ -85,11 +87,37 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 InitializeVideoDetail();
                 IsDetailLoading = false;
+            }
+
+            var partId = CurrentPart == null ? 0 : CurrentPart.Page.Cid;
+            await ChangePartAsync(partId);
+        }
+
+        /// <summary>
+        /// 改变当前分P.
+        /// </summary>
+        /// <param name="partId">分P Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangePartAsync(long partId)
+        {
+            if (CurrentPart == null || partId == 0 || partId != CurrentPart.Page.Cid)
+            {
+                if (partId != 0 && PartCollection.Any(p => p.Data.Page.Cid == partId))
+                {
+                    var targetPart = PartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
+                    CurrentPart = targetPart.Data;
+                }
+                else
+                {
+                    CurrentPart = PartCollection.First().Data;
+                }
+
+                CheckPartSelection();
 
                 try
                 {
                     IsPlayInformationLoading = true;
-                    var play = await Controller.GetVideoPlayInformationAsync(Convert.ToInt64(vm.VideoId), Convert.ToInt64(CurrentPart?.Page.Cid));
+                    var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentPart?.Page.Cid));
                     if (play != null)
                     {
                         _dashInformation = play;
@@ -106,6 +134,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (_dashInformation != null)
             {
+                ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
                 await DanmakuViewModel.Instance.LoadAsync(_detail.Arc.Aid, CurrentPart.Page.Cid);

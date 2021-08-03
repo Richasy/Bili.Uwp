@@ -9,6 +9,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Base\SelectableViewModelBase{T}.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
@@ -70,6 +71,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Base\WebRequestViewModelBase.cs" />
+    <Compile Include="Common\VideoPartViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

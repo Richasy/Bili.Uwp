@@ -314,6 +314,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <controls:Danmaku
                             x:Name="DanmakuControl"
+                            Width="1920"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Opacity="0.8"
@@ -677,20 +678,24 @@
                                             Spacing="8">
                                             <Button
                                                 x:Name="DanmakuSendButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSendSettings}"
                                                 Width="32"
                                                 Height="32"
                                                 Padding="0"
                                                 Background="Transparent"
-                                                BorderThickness="0">
+                                                BorderThickness="0"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
                                                 <icons:RegularFluentIcon Symbol="TextEffects20" />
                                             </Button>
                                             <Button
                                                 x:Name="DanmakuOptionButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuDisplaySettings}"
                                                 Width="32"
                                                 Height="32"
                                                 Padding="0"
                                                 Background="Transparent"
-                                                BorderThickness="0">
+                                                BorderThickness="0"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuDisplaySettings}">
                                                 <icons:RegularFluentIcon Symbol="Settings20" />
                                             </Button>
                                         </StackPanel>

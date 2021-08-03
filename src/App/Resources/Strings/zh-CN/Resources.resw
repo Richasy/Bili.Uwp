@@ -174,8 +174,14 @@
   <data name="Danmaku" xml:space="preserve">
     <value>弹幕</value>
   </data>
+  <data name="DanmakuDisplaySettings" xml:space="preserve">
+    <value>弹幕显示设置</value>
+  </data>
   <data name="DanmakuPlaceholder" xml:space="preserve">
     <value>发个友善的弹幕见证当下</value>
+  </data>
+  <data name="DanmakuSendSettings" xml:space="preserve">
+    <value>弹幕发送设置</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="PartitionRequestFailed" xml:space="preserve">
     <value>分区请求失败</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>分集</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
