@@ -11,7 +11,7 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
             <Thickness x:Key="MediaTransportControlsTitleSafeBounds">48,0,48,27</Thickness>
-            <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="#8E000000" />
+            <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="#AE000000" />
             <StaticResource x:Key="MediaTransportControlsFlyoutBackground" ResourceKey="AcrylicBackgroundFillColorDefaultBrush" />
             <StaticResource x:Key="MediaTransportControlsThumbBorderBackground" ResourceKey="ControlStrongFillColorDefaultBrush" />
             <StaticResource x:Key="MediaTransportControlsFillTimeElapsedText" ResourceKey="TextFillColorSecondaryBrush" />
@@ -49,7 +49,7 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Thickness x:Key="MediaTransportControlsTitleSafeBounds">48,0,48,27</Thickness>
-            <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="#8FFFFFFF" />
+            <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="#AFFFFFFF" />
             <StaticResource x:Key="MediaTransportControlsFlyoutBackground" ResourceKey="AcrylicBackgroundFillColorDefaultBrush" />
             <StaticResource x:Key="MediaTransportControlsThumbBorderBackground" ResourceKey="ControlStrongFillColorDefaultBrush" />
             <StaticResource x:Key="MediaTransportControlsFillTimeElapsedText" ResourceKey="TextFillColorSecondaryBrush" />
@@ -648,8 +648,7 @@
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
-                                        Margin="0,2,0,0"
-                                        Padding="0,2,0,0"
+                                        Padding="4,8"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                                         BorderThickness="0,1,0,0"
                                         ColumnSpacing="12">
@@ -661,10 +660,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ToggleSwitch
                                                 x:Name="DanmakuVisibilityToggleSwitch"
-                                                MinWidth="0"
-                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}"
-                                                OffContent="{loc:LocaleLocator Name=HideDanmaku}"
-                                                OnContent="{loc:LocaleLocator Name=ShowDanmaku}" />
+                                                Style="{StaticResource DanmakuToggleSwitchStyle}"
+                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}" />
                                         </StackPanel>
                                         <TextBox
                                             x:Name="DanmakuBox"
@@ -672,9 +669,30 @@
                                             Grid.Column="1"
                                             Height="28"
                                             Padding="8,6,8,4"
-                                            HorizontalAlignment="Stretch" />
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <!-- Right -->
+                                            HorizontalAlignment="Stretch"
+                                            PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}" />
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                            <Button
+                                                x:Name="DanmakuSendButton"
+                                                Width="32"
+                                                Height="32"
+                                                Padding="0"
+                                                Background="Transparent"
+                                                BorderThickness="0">
+                                                <icons:RegularFluentIcon Symbol="TextEffects20" />
+                                            </Button>
+                                            <Button
+                                                x:Name="DanmakuOptionButton"
+                                                Width="32"
+                                                Height="32"
+                                                Padding="0"
+                                                Background="Transparent"
+                                                BorderThickness="0">
+                                                <icons:RegularFluentIcon Symbol="Settings20" />
+                                            </Button>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>

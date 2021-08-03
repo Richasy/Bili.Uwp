@@ -2,4 +2,5 @@
     <SolidColorBrush x:Key="AppMaskAcrylicBrush" Color="{ThemeResource SystemChromeAltMediumHighColor}" />
     <SolidColorBrush x:Key="AccentMaskAcrylicBrush" Color="{ThemeResource SystemAccentColor}" />
     <SolidColorBrush x:Key="AccentBadgeBackground" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
 </ResourceDictionary>
