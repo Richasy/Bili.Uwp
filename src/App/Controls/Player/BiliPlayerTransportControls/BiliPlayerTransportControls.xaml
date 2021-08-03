@@ -315,7 +315,9 @@
                         <controls:Danmaku
                             x:Name="DanmakuControl"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch" />
+                            VerticalAlignment="Stretch"
+                            Opacity="0.8"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
                             <Grid
                                 x:Name="ControlPanelGrid"
@@ -419,10 +421,14 @@
                                         </AppBarButton.Icon>
                                     </AppBarButton>
                                 </Border>
-                                <Border
+                                <Grid
                                     x:Name="MediaTransportControls_Command_Border"
                                     Grid.Row="2"
                                     Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
                                     <CommandBar
                                         x:Name="MediaControlsCommandBar"
                                         Style="{StaticResource CommandBarStyle}"
@@ -639,7 +645,39 @@
                                             </AppBarButton>
                                         </CommandBar.PrimaryCommands>
                                     </CommandBar>
-                                </Border>
+                                    <Grid
+                                        x:Name="Danmaku_Command_Border"
+                                        Grid.Row="1"
+                                        Margin="0,2,0,0"
+                                        Padding="0,2,0,0"
+                                        BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                        BorderThickness="0,1,0,0"
+                                        ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ToggleSwitch
+                                                x:Name="DanmakuVisibilityToggleSwitch"
+                                                MinWidth="0"
+                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}"
+                                                OffContent="{loc:LocaleLocator Name=HideDanmaku}"
+                                                OnContent="{loc:LocaleLocator Name=ShowDanmaku}" />
+                                        </StackPanel>
+                                        <TextBox
+                                            x:Name="DanmakuBox"
+                                            Style="{StaticResource DefaultTextBoxStyle}"
+                                            Grid.Column="1"
+                                            Height="28"
+                                            Padding="8,6,8,4"
+                                            HorizontalAlignment="Stretch" />
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <!-- Right -->
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Border>
                     </Grid>

@@ -26,8 +26,8 @@ namespace Richasy.Bili.App.Controls
             this.DefaultStyleKey = typeof(BiliPlayerTransportControls);
             this._danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
             this._segmentIndex = 1;
-            this.ViewModel.DanmakuListAdded += OnDanmakuListAdded;
-            this.ViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
+            this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             InitializeDanmakuTimer();
         }
@@ -35,7 +35,7 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
-            _danmakuControl = GetTemplateChild("DanmakuControl") as Danmaku;
+            _danmakuControl = GetTemplateChild(DanmakuControlName) as Danmaku;
             _defaultPlayModeButton = GetTemplateChild(DefaultPlayModeButtonName) as AppBarToggleButton;
             _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as AppBarToggleButton;
             _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as AppBarToggleButton;
@@ -244,7 +244,7 @@ namespace Richasy.Bili.App.Controls
             if (segmentIndex > _segmentIndex)
             {
                 _segmentIndex = segmentIndex;
-                ViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
             }
 
             if (player.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)

@@ -6,10 +6,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
-using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -28,27 +28,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartCollection = new ObservableCollection<ViewPage>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
-            _danmakuList = new List<DanmakuElem>();
+
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
-                                   .LoadService(out _fileToolkit)
-                                   .LoadService(out _httpProvider);
+                                   .LoadService(out _fileToolkit);
             CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
-            Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
             this.PropertyChanged += OnPropertyChanged;
         }
-
-        /// <summary>
-        /// 弹幕列表已添加.
-        /// </summary>
-        public event EventHandler<List<DanmakuElem>> DanmakuListAdded;
-
-        /// <summary>
-        /// 请求清除弹幕列表.
-        /// </summary>
-        public event EventHandler RequestClearDanmaku;
 
         /// <summary>
         /// 媒体播放器数据已更新.
@@ -80,8 +68,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 RelatedVideoCollection.Clear();
                 _audioList.Clear();
                 _videoList.Clear();
-                _danmakuList.Clear();
-                RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
                 ClearPlayer();
                 Title = vm.Title;
                 try
@@ -116,13 +102,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 IsPlayInformationLoading = false;
-}
+            }
 
             if (_dashInformation != null)
             {
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
-                await Controller.RequestNewSegmentDanmakuAsync(_detail.Arc.Aid, CurrentPart.Page.Cid, 1);
+                await DanmakuViewModel.Instance.LoadAsync(_detail.Arc.Aid, CurrentPart.Page.Cid);
             }
         }
 

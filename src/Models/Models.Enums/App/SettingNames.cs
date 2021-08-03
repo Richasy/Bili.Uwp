@@ -23,5 +23,6 @@ namespace Richasy.Bili.Models.Enums
         SingleFastForwardAndRewindSpan,
         DefaultMTCControlMode,
         DefaultVideoQuality,
+        IsShowDanmaku,
     }
 }

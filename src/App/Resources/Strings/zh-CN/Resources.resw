@@ -225,6 +225,9 @@
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
   </data>
+  <data name="HideDanmaku" xml:space="preserve">
+    <value>隐藏弹幕</value>
+  </data>
   <data name="HideRepeaterItemWhenScrolling" xml:space="preserve">
     <value>滚动时隐藏条目</value>
   </data>
@@ -443,6 +446,9 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>分享</value>
+  </data>
+  <data name="ShowDanmaku" xml:space="preserve">
+    <value>显示弹幕</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>显示更多</value>
