@@ -1,6 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.ComponentModel;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -54,18 +58,35 @@ namespace Richasy.Bili.App.Pages.Overlay
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigateVM = null;
+            EnterDefaultModeAsync();
+            AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             if (_navigateVM != null)
             {
+                CheckPlayerDisplayModeAsync();
                 await ViewModel.LoadAsync(_navigateVM);
+            }
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ViewModel.PlayerDisplayMode):
+                    CheckPlayerDisplayModeAsync();
+                    break;
+                default:
+                    break;
             }
         }
 
         private void OnUnloadedAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             ViewModel.ClearPlayer();
         }
 
@@ -73,9 +94,9 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (e.NewSize.Width < AppViewModel.Instance.MediumWindowThresholdWidth)
             {
-                if (RootGrid.Children.Contains(ContentGrid))
+                if (ContentContainer.Children.Contains(ContentGrid))
                 {
-                    this.RootGrid.Children.Remove(ContentGrid);
+                    this.ContentContainer.Children.Remove(ContentGrid);
                     RootScrollViewer.Content = ContentGrid;
                 }
             }
@@ -84,7 +105,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                 if (RootScrollViewer.Content != null)
                 {
                     RootScrollViewer.Content = null;
-                    this.RootGrid.Children.Insert(0, ContentGrid);
+                    this.ContentContainer.Children.Insert(0, ContentGrid);
                 }
             }
         }
@@ -94,6 +115,71 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (_navigateVM != null)
             {
                 await ViewModel.LoadAsync(_navigateVM);
+            }
+        }
+
+        private async void CheckPlayerDisplayModeAsync()
+        {
+            var appView = ApplicationView.GetForCurrentView();
+
+            if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
+            {
+                VisualStateManager.GoToState(this, nameof(DefaultModeState), false);
+                EnterDefaultModeAsync();
+                AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, nameof(FullModeState), false);
+                AppViewModel.Instance.IsOverLayerExtendToTitleBar = true;
+                if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.FullScreen)
+                {
+                    appView.TryEnterFullScreenMode();
+                }
+                else if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.CompactOverlay)
+                {
+                    await appView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+                }
+                else
+                {
+                    EnterDefaultModeAsync();
+                }
+            }
+
+            CheckPlayerVisual();
+        }
+
+        private async void EnterDefaultModeAsync()
+        {
+            var appView = ApplicationView.GetForCurrentView();
+
+            if (appView.ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                await appView.TryEnterViewModeAsync(ApplicationViewMode.Default);
+            }
+            else if (appView.IsFullScreenMode)
+            {
+                appView.ExitFullScreenMode();
+            }
+        }
+
+        private void CheckPlayerVisual()
+        {
+            if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
+            {
+                if (RootGrid.Children.Count > 1)
+                {
+                    RootGrid.Children.RemoveAt(1);
+                    PlayerContainer.Children.Add(BiliPlayer);
+                }
+            }
+            else
+            {
+                if (PlayerContainer.Children.Count > 0)
+                {
+                    PlayerContainer.Children.RemoveAt(0);
+                    RootGrid.Children.Add(BiliPlayer);
+                }
             }
         }
     }

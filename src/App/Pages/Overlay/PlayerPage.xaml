@@ -9,7 +9,7 @@
     xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" Padding="{StaticResource DefaultPagePadding}">
+    <Grid x:Name="RootGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -22,7 +22,7 @@
                         <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
+                        <Setter Target="ContentContainer.Padding" Value="{StaticResource NarrowPagePadding}" />
                         <Setter Target="ContentGrid.Margin" Value="{StaticResource NarrowContainerWithBottomPadding}" />
                         <Setter Target="RootScrollViewer.Visibility" Value="Visible" />
                         <Setter Target="ContentGrid.ColumnSpacing" Value="0" />
@@ -52,70 +52,81 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+
+            <VisualStateGroup x:Name="PlayerModeGroup">
+                <VisualState x:Name="DefaultModeState" />
+                <VisualState x:Name="FullModeState">
+                    <VisualState.Setters>
+                        <Setter Target="ContentContainer.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-        <Grid
-            x:Name="ContentGrid"
-            Margin="{StaticResource DefaultContainerWithBottomPadding}"
-            ColumnSpacing="48"
-            Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition x:Name="PlayerRow" Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="ContentContainer" Padding="{StaticResource DefaultPagePadding}">
             <Grid
-                x:Name="PlayerContainer"
-                Margin="0,0,0,24"
-                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <controls:BiliPlayer />
-            </Grid>
-
-            <Grid
-                x:Name="InformationContainer"
-                Grid.Row="1"
-                ColumnSpacing="20"
-                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                x:Name="ContentGrid"
+                Margin="{StaticResource DefaultContainerWithBottomPadding}"
+                ColumnSpacing="48"
+                Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <Grid.RowDefinitions>
+                    <RowDefinition x:Name="PlayerRow" Height="*" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <controls:PlayerDescriptor />
-                <controls:PlayerDashboard
-                    x:Name="Dashboard"
+                <Grid
+                    x:Name="PlayerContainer"
+                    Margin="0,0,0,24"
+                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <controls:BiliPlayer x:Name="BiliPlayer" />
+                </Grid>
+
+                <Grid
+                    x:Name="InformationContainer"
+                    Grid.Row="1"
+                    ColumnSpacing="20"
+                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <controls:PlayerDescriptor />
+                    <controls:PlayerDashboard
+                        x:Name="Dashboard"
+                        Grid.Column="1"
+                        VerticalAlignment="Top" />
+                </Grid>
+                <Grid
+                    x:Name="RelatedContainer"
+                    Grid.RowSpan="3"
                     Grid.Column="1"
-                    VerticalAlignment="Top" />
+                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <controls:PlayerRelatedView />
+                </Grid>
             </Grid>
-            <Grid
-                x:Name="RelatedContainer"
-                Grid.RowSpan="3"
-                Grid.Column="1"
-                Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <controls:PlayerRelatedView />
-            </Grid>
+
+            <ScrollViewer
+                x:Name="RootScrollViewer"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Visibility="Collapsed" />
+
+
+            <controls:ErrorPanel
+                x:Name="ErrorPanel"
+                ActionButtonClick="OnRefreshButtonClickAsync"
+                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                Text="{x:Bind ViewModel.DetailErrorText, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay}" />
+            <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay}" />
         </Grid>
-
-        <ScrollViewer
-            x:Name="RootScrollViewer"
-            HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Auto"
-            Visibility="Collapsed" />
-
-
-        <controls:ErrorPanel
-            x:Name="ErrorPanel"
-            ActionButtonClick="OnRefreshButtonClickAsync"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
-            Text="{x:Bind ViewModel.DetailErrorText, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay}" />
-        <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay}" />
     </Grid>
+
 </Page>

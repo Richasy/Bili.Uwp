@@ -22,7 +22,14 @@
                                 VerticalAlignment="Stretch"
                                 AreTransportControlsEnabled="True">
                                 <MediaPlayerElement.TransportControls>
-                                    <local:BiliPlayerTransportControls />
+                                    <local:BiliPlayerTransportControls
+                                        IsCompactOverlayButtonVisible="True"
+                                        IsCompactOverlayEnabled="True"
+                                        IsFastForwardButtonVisible="True"
+                                        IsFastForwardEnabled="True"
+                                        IsFastRewindButtonVisible="True"
+                                        IsFastRewindEnabled="True"
+                                        IsFullWindowButtonVisible="False" />
                                 </MediaPlayerElement.TransportControls>
                             </MediaPlayerElement>
                         </Grid>

@@ -162,6 +162,9 @@
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
+  <data name="CompactOverlayMode" xml:space="preserve">
+    <value>小窗模式</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>

@@ -6,6 +6,7 @@ using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 using NSDanmaku.Controls;
 using NSDanmaku.Model;
+using Richasy.Bili.Models.Enums;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,7 +36,92 @@ namespace Richasy.Bili.App.Controls
         protected override void OnApplyTemplate()
         {
             _danmakuControl = GetTemplateChild("DanmakuControl") as Danmaku;
+            _defaultPlayModeButton = GetTemplateChild(DefaultPlayModeButtonName) as AppBarToggleButton;
+            _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as AppBarToggleButton;
+            _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as AppBarToggleButton;
+            _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as AppBarToggleButton;
+
+            _defaultPlayModeButton.Click += OnPlayModeButtonClick;
+            _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
+            _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
+            _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
+
+            CheckCurrentPlayerMode();
             base.OnApplyTemplate();
+        }
+
+        private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as AppBarToggleButton;
+            PlayerDisplayMode mode = default;
+            switch (btn.Name)
+            {
+                case DefaultPlayModeButtonName:
+                    _defaultPlayModeButton.IsChecked = true;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    mode = PlayerDisplayMode.Default;
+                    break;
+                case FullWindowPlayModeButtonName:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = true;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    mode = PlayerDisplayMode.FullWindow;
+                    break;
+                case FullScreenPlayModeButtonName:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = true;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    mode = PlayerDisplayMode.FullScreen;
+                    break;
+                case CompactOverlayPlayModeButtonName:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = true;
+                    mode = PlayerDisplayMode.CompactOverlay;
+                    break;
+                default:
+                    break;
+            }
+
+            ViewModel.PlayerDisplayMode = mode;
+        }
+
+        private void CheckCurrentPlayerMode()
+        {
+            switch (ViewModel.PlayerDisplayMode)
+            {
+                case PlayerDisplayMode.Default:
+                    _defaultPlayModeButton.IsChecked = true;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    break;
+                case PlayerDisplayMode.FullWindow:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = true;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    break;
+                case PlayerDisplayMode.FullScreen:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = true;
+                    _compactOverlayPlayModeButton.IsChecked = false;
+                    break;
+                case PlayerDisplayMode.CompactOverlay:
+                    _defaultPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _compactOverlayPlayModeButton.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
@@ -49,6 +135,7 @@ namespace Richasy.Bili.App.Controls
             this._segmentIndex = 1;
             this._danmakuDictionary.Clear();
             this._danmakuTimer.Stop();
+            _danmakuControl.ClearAll();
         }
 
         private void OnMediaPlayerUdpated(object sender, EventArgs e)

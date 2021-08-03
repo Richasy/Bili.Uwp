@@ -199,6 +199,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public string PlayInformationErrorText { get; set; }
 
+        /// <summary>
+        /// 播放器显示模式.
+        /// </summary>
+        [Reactive]
+        public PlayerDisplayMode PlayerDisplayMode { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

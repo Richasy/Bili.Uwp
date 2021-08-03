@@ -46,7 +46,7 @@ namespace Richasy.Bili.App.Pages
 
         private void OnRequestPlay(object sender, object e)
         {
-            PlayerFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
+            OverFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -55,8 +55,13 @@ namespace Richasy.Bili.App.Pages
             {
                 if (!ViewModel.IsOpenPlayer)
                 {
-                    PlayerFrame.Navigate(typeof(Page));
+                    OverFrame.Navigate(typeof(Page));
                 }
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsOverLayerExtendToTitleBar))
+            {
+                var stateName = ViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
+                VisualStateManager.GoToState(this, stateName, false);
             }
         }
     }

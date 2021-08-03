@@ -150,6 +150,7 @@ namespace Richasy.Bili.Models.Enums
         H265,
         H264,
         Flv,
+        CompactOverlayMode,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

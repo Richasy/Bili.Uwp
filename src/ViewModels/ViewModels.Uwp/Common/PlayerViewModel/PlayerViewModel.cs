@@ -35,6 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _httpProvider);
             CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
+            PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
             this.PropertyChanged += OnPropertyChanged;
         }

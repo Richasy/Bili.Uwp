@@ -5,6 +5,7 @@ using NSDanmaku.Controls;
 using NSDanmaku.Model;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -19,10 +20,19 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(PlayerViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(PlayerViewModel.Instance));
 
+        private const string DefaultPlayModeButtonName = "DefaultModeButton";
+        private const string FullWindowPlayModeButtonName = "FullWindowModeButton";
+        private const string FullScreenPlayModeButtonName = "FullScreenModeButton";
+        private const string CompactOverlayPlayModeButtonName = "CompactOverlayModeButton";
+
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
         private DispatcherTimer _danmakuTimer;
         private Danmaku _danmakuControl;
+        private AppBarToggleButton _defaultPlayModeButton;
+        private AppBarToggleButton _fullWindowPlayModeButton;
+        private AppBarToggleButton _fullScreenPlayModeButton;
+        private AppBarToggleButton _compactOverlayPlayModeButton;
         private int _segmentIndex;
 
         /// <summary>

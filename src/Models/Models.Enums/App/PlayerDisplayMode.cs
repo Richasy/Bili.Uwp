@@ -21,5 +21,10 @@ namespace Richasy.Bili.Models.Enums
         /// 全屏模式.
         /// </summary>
         FullScreen,
+
+        /// <summary>
+        /// 小窗模式.
+        /// </summary>
+        CompactOverlay,
     }
 }

@@ -70,5 +70,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsOpenPlayer { get; set; }
+
+        /// <summary>
+        /// 覆盖层是否扩展至TitleBar.
+        /// </summary>
+        [Reactive]
+        public bool IsOverLayerExtendToTitleBar { get; set; }
     }
 }

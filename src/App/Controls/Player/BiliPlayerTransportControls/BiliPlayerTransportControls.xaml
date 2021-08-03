@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:contract8Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     xmlns:controls="using:NSDanmaku.Controls"
+    xmlns:enums="using:Richasy.Bili.Models.Enums"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls">
 
     <ResourceDictionary.ThemeDictionaries>
@@ -59,11 +62,15 @@
             <x:Double x:Key="MediaTransportControlsAppBarButtonHeight">40</x:Double>
             <x:Double x:Key="MediaTransportControlsAppBarButtonWidth">40</x:Double>
             <x:Double x:Key="MediaTransportControlsSliderHeight">32</x:Double>
-            <x:Double x:Key="MediaTransportControlsSliderWidth">190</x:Double>
+            <x:Double x:Key="MediaTransportControlsSliderWidth">186</x:Double>
             <x:Double x:Key="MediaTransportControlsMinWidth">296</x:Double>
             <x:Double x:Key="MediaTransportControlsMaxWidth">720</x:Double>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
+
+    <enums:PlayerDisplayMode x:Key="DefaultPlayMode">Default</enums:PlayerDisplayMode>
+    <enums:PlayerDisplayMode x:Key="FullWindowPlayMode">FullWindow</enums:PlayerDisplayMode>
+    <enums:PlayerDisplayMode x:Key="FullScreenPlayMode">FullScreen</enums:PlayerDisplayMode>
 
     <Style TargetType="local:BiliPlayerTransportControls">
         <Setter Property="IsTabStop" Value="False" />
@@ -349,16 +356,18 @@
                                     x:Name="MediaTransportControls_Timeline_Border"
                                     Grid.Row="1"
                                     Grid.Column="1">
-                                    <Grid x:Name="MediaTransportControls_Timeline_Grid">
+                                    <Grid
+                                        x:Name="MediaTransportControls_Timeline_Grid"
+                                        Padding="12,0"
+                                        ColumnSpacing="8">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
                                         <Slider
                                             x:Name="ProgressSlider"
+                                            Grid.Column="1"
                                             Height="{ThemeResource MediaTransportControlsSliderHeight}"
                                             MinWidth="80"
                                             Margin="7,2,7,1"
@@ -366,31 +375,29 @@
                                             IsThumbToolTipEnabled="False" />
                                         <ProgressBar
                                             x:Name="BufferingProgressBar"
+                                            Grid.Column="1"
                                             Height="4"
                                             Margin="0,2,0,0"
                                             VerticalAlignment="Top"
                                             IsHitTestVisible="False"
                                             IsIndeterminate="True"
                                             Visibility="Collapsed" />
-                                        <Grid
-                                            x:Name="TimeTextGrid"
-                                            Grid.Row="1"
-                                            Height="16"
-                                            Margin="7,0,7,2">
-                                            <TextBlock
-                                                x:Name="TimeElapsedElement"
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Margin="0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Bottom"
-                                                Text="00:00" />
-                                            <TextBlock
-                                                x:Name="TimeRemainingElement"
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Text="00:00" />
-                                        </Grid>
+                                        <TextBlock
+                                            x:Name="TimeElapsedElement"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Grid.Column="0"
+                                            Margin="0,3,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="00:00" />
+                                        <TextBlock
+                                            x:Name="TimeRemainingElement"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Grid.Column="2"
+                                            Margin="0,3,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="00:00" />
                                     </Grid>
                                 </Border>
                                 <Border
@@ -419,7 +426,6 @@
                                     <CommandBar
                                         x:Name="MediaControlsCommandBar"
                                         Style="{StaticResource CommandBarStyle}"
-                                        Margin="0,3"
                                         IsDynamicOverflowEnabled="False">
                                         <CommandBar.Resources>
                                             <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
@@ -437,7 +443,7 @@
                                                         x:Name="VolumeFlyout"
                                                         contract8Present:ShouldConstrainToRootBounds="False"
                                                         FlyoutPresenterStyle="{StaticResource FlyoutStyle}">
-                                                        <StackPanel Padding="3,11" Orientation="Horizontal">
+                                                        <StackPanel Padding="4,0,16,0" Orientation="Horizontal">
                                                             <AppBarButton
                                                                 x:Name="AudioMuteButton"
                                                                 Style="{StaticResource AppBarButtonStyle}"
@@ -455,7 +461,7 @@
                                                                 x:Name="VolumeSlider"
                                                                 Width="{ThemeResource MediaTransportControlsSliderWidth}"
                                                                 Height="{ThemeResource MediaTransportControlsSliderHeight}"
-                                                                Margin="12,0,8,0"
+                                                                Margin="12,0"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center"
                                                                 IsThumbToolTipEnabled="False"
@@ -464,7 +470,6 @@
                                                                 x:Name="VolumeValue"
                                                                 Style="{StaticResource MediaTextBlockStyle}"
                                                                 Width="24"
-                                                                Margin="8,0,16,0"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center"
                                                                 Text="{Binding ElementName=VolumeSlider, Path=Value}"
@@ -607,13 +612,22 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarButton
-                                                x:Name="CompactOverlayButton"
+                                                x:Name="PlayerModeButton"
                                                 Style="{StaticResource AppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="24"
-                                                Visibility="Collapsed">
+                                                MediaTransportControlsHelper.DropoutOrder="24">
                                                 <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xE8B9;" />
+                                                    <icons:RegularFluentIcon Symbol="DeviceMeetingRoom16" />
                                                 </AppBarButton.Icon>
+                                                <AppBarButton.Flyout>
+                                                    <CommandBarFlyout>
+                                                        <CommandBarFlyout.SecondaryCommands>
+                                                            <AppBarToggleButton x:Name="DefaultModeButton" Label="{loc:LocaleLocator Name=Default}" />
+                                                            <AppBarToggleButton x:Name="FullWindowModeButton" Label="{loc:LocaleLocator Name=FullWindowMode}" />
+                                                            <AppBarToggleButton x:Name="FullScreenModeButton" Label="{loc:LocaleLocator Name=FullScreenMode}" />
+                                                            <AppBarToggleButton x:Name="CompactOverlayModeButton" Label="{loc:LocaleLocator Name=CompactOverlayMode}" />
+                                                        </CommandBarFlyout.SecondaryCommands>
+                                                    </CommandBarFlyout>
+                                                </AppBarButton.Flyout>
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="FullWindowButton"
