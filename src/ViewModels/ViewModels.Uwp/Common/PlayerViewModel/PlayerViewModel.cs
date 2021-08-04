@@ -100,37 +100,34 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ChangePartAsync(long partId)
         {
-            if (CurrentPart == null || partId == 0 || partId != CurrentPart.Page.Cid)
+            if (partId != 0 && PartCollection.Any(p => p.Data.Page.Cid == partId))
             {
-                if (partId != 0 && PartCollection.Any(p => p.Data.Page.Cid == partId))
-                {
-                    var targetPart = PartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
-                    CurrentPart = targetPart.Data;
-                }
-                else
-                {
-                    CurrentPart = PartCollection.First().Data;
-                }
-
-                CheckPartSelection();
-
-                try
-                {
-                    IsPlayInformationLoading = true;
-                    var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentPart?.Page.Cid));
-                    if (play != null)
-                    {
-                        _dashInformation = play;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    IsPlayInformationError = true;
-                    PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
-                }
-
-                IsPlayInformationLoading = false;
+                var targetPart = PartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
+                CurrentPart = targetPart.Data;
             }
+            else
+            {
+                CurrentPart = PartCollection.First().Data;
+            }
+
+            CheckPartSelection();
+
+            try
+            {
+                IsPlayInformationLoading = true;
+                var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentPart?.Page.Cid));
+                if (play != null)
+                {
+                    _dashInformation = play;
+                }
+            }
+            catch (Exception ex)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
+            }
+
+            IsPlayInformationLoading = false;
 
             if (_dashInformation != null)
             {

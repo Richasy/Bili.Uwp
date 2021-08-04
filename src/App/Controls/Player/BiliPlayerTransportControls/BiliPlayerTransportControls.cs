@@ -250,7 +250,7 @@ namespace Richasy.Bili.App.Controls
                 scale = 0.2;
             }
 
-            _danmakuControl.SetDanmakuDuration(12);
+            // _danmakuControl.SetDanmakuDuration(12);
             _danmakuControl.DanmakuSizeZoom = scale;
         }
 

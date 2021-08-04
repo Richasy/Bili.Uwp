@@ -314,7 +314,6 @@
                         </VisualStateManager.VisualStateGroups>
                         <controls:Danmaku
                             x:Name="DanmakuControl"
-                            Width="1920"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Opacity="0.8"
