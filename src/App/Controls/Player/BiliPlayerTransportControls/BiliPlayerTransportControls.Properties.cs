@@ -7,6 +7,7 @@ using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Shapes;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -27,20 +28,28 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty DanmakuViewModelProperty =
             DependencyProperty.Register(nameof(DanmakuViewModel), typeof(DanmakuViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(DanmakuViewModel.Instance));
 
+        /// <summary>
+        /// <see cref="SettingViewModel"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty SettingViewModelProperty =
+            DependencyProperty.Register(nameof(SettingViewModel), typeof(SettingViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(SettingViewModel.Instance));
+
         private const string DanmakuControlName = "DanmakuControl";
-        private const string DefaultPlayModeButtonName = "DefaultModeButton";
         private const string FullWindowPlayModeButtonName = "FullWindowModeButton";
         private const string FullScreenPlayModeButtonName = "FullScreenModeButton";
         private const string CompactOverlayPlayModeButtonName = "CompactOverlayModeButton";
+        private const string InteractionControlName = "InteractionControl";
+        private const string ControlPanelName = "ControlPanel_ControlPanelVisibilityStates_Border";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
         private DispatcherTimer _danmakuTimer;
         private Danmaku _danmakuControl;
-        private AppBarToggleButton _defaultPlayModeButton;
         private AppBarToggleButton _fullWindowPlayModeButton;
         private AppBarToggleButton _fullScreenPlayModeButton;
         private AppBarToggleButton _compactOverlayPlayModeButton;
+        private Rectangle _interactionControl;
+        private Border _controlPanel;
         private int _segmentIndex;
 
         /// <summary>
@@ -59,6 +68,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (DanmakuViewModel)GetValue(DanmakuViewModelProperty); }
             set { SetValue(DanmakuViewModelProperty, value); }
+        }
+
+        /// <summary>
+        /// 设置视图模型.
+        /// </summary>
+        public SettingViewModel SettingViewModel
+        {
+            get { return (SettingViewModel)GetValue(SettingViewModelProperty); }
+            set { SetValue(SettingViewModelProperty, value); }
         }
     }
 }

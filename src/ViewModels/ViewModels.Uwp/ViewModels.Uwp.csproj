@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Base\WebRequestViewModelBase.cs" />
     <Compile Include="Common\VideoPartViewModel.cs" />
+    <Compile Include="Common\VideoFormatViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -27,6 +26,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
             PartCollection = new ObservableCollection<VideoPartViewModel>();
+            FormatCollection = new ObservableCollection<VideoFormatViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
 
@@ -34,7 +34,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit);
-            CurrentQuality = Convert.ToUInt32(_settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoQuality, 64));
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             this.PropertyChanged += OnPropertyChanged;
         }
@@ -67,6 +66,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _dashInformation = null;
                 PartCollection.Clear();
                 RelatedVideoCollection.Clear();
+                FormatCollection.Clear();
                 _audioList.Clear();
                 _videoList.Clear();
                 ClearPlayer();
@@ -182,6 +182,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             switch (args.PropertyName)
             {
+                case nameof(CurrentQuality):
+                    if (CurrentQuality != null)
+                    {
+                        _settingsToolkit.WriteLocalSetting(SettingNames.DefaultVideoQuality, CurrentQuality.Quality);
+                    }
+
+                    break;
                 default:
                     break;
             }

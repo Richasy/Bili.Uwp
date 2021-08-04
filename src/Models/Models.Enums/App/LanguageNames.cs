@@ -157,6 +157,12 @@ namespace Richasy.Bili.Models.Enums
         DanmakuSendSettings,
         DanmakuDisplaySettings,
         Parts,
+        DanmakuOpacity,
+        DanmakuZoom,
+        DanmakuDensity,
+        DanmakuFont,
+        DanmakuMerge,
+        UseCloudShieldSettings,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

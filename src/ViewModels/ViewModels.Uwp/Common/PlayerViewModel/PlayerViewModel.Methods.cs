@@ -57,8 +57,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             _currentAudio = null;
             _currentVideo = null;
 
+            FormatCollection.Clear();
+            videoPlayView.SupportFormats.ForEach(p => FormatCollection.Add(new VideoFormatViewModel(p, false)));
+
             var preferCodecId = GetPreferCodecId();
-            var conditionStreams = _videoList.Where(p => p.Id == CurrentQuality).ToList();
+            var qualityId = CurrentQuality == null ?
+                _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.DefaultVideoQuality, 64) :
+                CurrentQuality.Quality;
+
+            var conditionStreams = _videoList.Where(p => p.Id == qualityId).ToList();
             if (conditionStreams.Count == 0)
             {
                 var maxQuality = _videoList.Max(p => p.Id);

@@ -149,6 +149,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoPartViewModel> PartCollection { get; set; }
 
         /// <summary>
+        /// 视频清晰度集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoFormatViewModel> FormatCollection { get; set; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -158,7 +164,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 当前清晰度.
         /// </summary>
         [Reactive]
-        public uint CurrentQuality { get; set; }
+        public VideoFormat CurrentQuality { get; set; }
 
         /// <summary>
         /// 是否正在加载.

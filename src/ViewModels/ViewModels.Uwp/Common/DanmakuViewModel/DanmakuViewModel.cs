@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Bilibili.Community.Service.Dm.V1;
@@ -18,13 +19,11 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuViewModel"/> class.
         /// </summary>
-        public DanmakuViewModel()
+        internal DanmakuViewModel()
         {
-            ServiceLocator.Instance.LoadService(out _settingsToolkit);
-            _danmakuList = new List<DanmakuElem>();
-            IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
-            Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
-            PropertyChanged += OnPropertyChanged;
+            ServiceLocator.Instance.LoadService(out _settingsToolkit)
+                                   .LoadService(out _fontToolkit);
+            Initialize();
         }
 
         /// <summary>
@@ -50,8 +49,40 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             _danmakuList.Clear();
             RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
 
-            var danmakuMeta = await Controller.GetDanmakuMetaDataAsync(_videoId, _partId);
+            if (UseCloudShieldSettings)
+            {
+                try
+                {
+                    var danmakuMeta = await Controller.GetDanmakuMetaDataAsync(_videoId, _partId);
+                    DanmakuConfig = danmakuMeta;
+                }
+                catch (Exception)
+                {
+                }
+            }
+
             await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, 1);
+        }
+
+        private void Initialize()
+        {
+            _danmakuList = new List<DanmakuElem>();
+            FontCollection = new ObservableCollection<string>();
+
+            IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
+            DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
+            DanmakuZoom = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuZoom, 1d);
+            DanmakuDensity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuDensity, 400d);
+            DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
+            IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
+            UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
+
+            Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
+            PropertyChanged += OnPropertyChanged;
+
+            FontCollection.Clear();
+            var fontList = _fontToolkit.GetSystemFontList();
+            fontList.ForEach(p => FontCollection.Add(p));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -60,6 +91,24 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             {
                 case nameof(IsShowDanmaku):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsShowDanmaku, IsShowDanmaku);
+                    break;
+                case nameof(DanmakuOpacity):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuOpacity, DanmakuOpacity);
+                    break;
+                case nameof(DanmakuZoom):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuZoom, DanmakuZoom);
+                    break;
+                case nameof(DanmakuDensity):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuDensity, DanmakuDensity);
+                    break;
+                case nameof(DanmakuFont):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuFont, DanmakuFont);
+                    break;
+                case nameof(IsDanmakuMerge):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
+                    break;
+                case nameof(UseCloudShieldSettings):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);
                     break;
                 default:
                     break;

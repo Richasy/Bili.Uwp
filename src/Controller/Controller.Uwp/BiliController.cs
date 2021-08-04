@@ -165,6 +165,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>()
                 .AddSingleton<IMD5Toolkit, MD5Toolkit>()
+                .AddSingleton<IFontToolkit, FontToolkit>()
                 .AddSingleton<INetworkModule, NetworkModule>()
                 .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()

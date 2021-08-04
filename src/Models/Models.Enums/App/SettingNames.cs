@@ -24,5 +24,11 @@ namespace Richasy.Bili.Models.Enums
         DefaultMTCControlMode,
         DefaultVideoQuality,
         IsShowDanmaku,
+        DanmakuOpacity,
+        DanmakuZoom,
+        DanmakuDensity,
+        DanmakuFont,
+        IsDanmakuMerge,
+        UseCloudShieldSettings,
     }
 }

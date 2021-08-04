@@ -20,6 +20,9 @@
     <Compile Include="Controls\App\BubbleView\Bubble.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
+    <Compile Include="Controls\Player\DanmakuDisplayOptions.xaml.cs">
+      <DependentUpon>DanmakuDisplayOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.cs" />
     <Compile Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.Properties.cs" />
     <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.cs" />
@@ -201,6 +204,7 @@
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
+    <Compile Include="Resources\Extension\DanmakuModelComparer.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
     <Compile Include="Resources\Extension\VisualTreeExtension.cs" />
   </ItemGroup>
@@ -299,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\BubbleView\BubbleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\DanmakuDisplayOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

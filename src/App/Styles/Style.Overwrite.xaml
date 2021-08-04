@@ -26,6 +26,13 @@
         <Setter Property="FontSize" Value="16" />
     </Style>
 
+    <Style
+        x:Key="ThinPaddingFlyoutPresenterStyle"
+        BasedOn="{StaticResource DefaultFlyoutPresenterStyle}"
+        TargetType="FlyoutPresenter">
+        <Setter Property="Padding" Value="8" />
+    </Style>
+
     <!-- 在Expander(有内容的ExpanderEx)头部的Wrapper样式 -->
     <Style x:Key="WrapperInExpanderHeaderStyle" TargetType="expander:ExpanderExWrapper">
         <Setter Property="InlineWidePadding" Value="0,8,0,12" />

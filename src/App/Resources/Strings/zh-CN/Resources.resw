@@ -174,14 +174,29 @@
   <data name="Danmaku" xml:space="preserve">
     <value>弹幕</value>
   </data>
+  <data name="DanmakuDensity" xml:space="preserve">
+    <value>同屏弹幕密度</value>
+  </data>
   <data name="DanmakuDisplaySettings" xml:space="preserve">
     <value>弹幕显示设置</value>
+  </data>
+  <data name="DanmakuFont" xml:space="preserve">
+    <value>弹幕字体</value>
+  </data>
+  <data name="DanmakuMerge" xml:space="preserve">
+    <value>弹幕合并</value>
+  </data>
+  <data name="DanmakuOpacity" xml:space="preserve">
+    <value>弹幕透明度</value>
   </data>
   <data name="DanmakuPlaceholder" xml:space="preserve">
     <value>发个友善的弹幕见证当下</value>
   </data>
   <data name="DanmakuSendSettings" xml:space="preserve">
     <value>弹幕发送设置</value>
+  </data>
+  <data name="DanmakuZoom" xml:space="preserve">
+    <value>弹幕缩放</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
@@ -545,6 +560,9 @@
   </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
+  </data>
+  <data name="UseCloudShieldSettings" xml:space="preserve">
+    <value>使用云屏蔽配置</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>

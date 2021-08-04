@@ -2,14 +2,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 using NSDanmaku.Controls;
 using NSDanmaku.Model;
+using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Shapes;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -28,7 +32,9 @@ namespace Richasy.Bili.App.Controls
             this._segmentIndex = 1;
             this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
+            this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
+            this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
         }
@@ -37,19 +43,38 @@ namespace Richasy.Bili.App.Controls
         protected override void OnApplyTemplate()
         {
             _danmakuControl = GetTemplateChild(DanmakuControlName) as Danmaku;
-            _defaultPlayModeButton = GetTemplateChild(DefaultPlayModeButtonName) as AppBarToggleButton;
             _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as AppBarToggleButton;
             _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as AppBarToggleButton;
             _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as AppBarToggleButton;
+            _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
+            _controlPanel = GetTemplateChild(ControlPanelName) as Border;
 
-            _defaultPlayModeButton.Click += OnPlayModeButtonClick;
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
+            _interactionControl.Tapped += OnInteractionControlTapped;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
+            CheckMTCControlMode();
             base.OnApplyTemplate();
+        }
+
+        private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (this.ShowAndHideAutomatically)
+            {
+                return;
+            }
+
+            if (_controlPanel.Opacity == 0d)
+            {
+                Show();
+            }
+            else if (_controlPanel.Opacity == 1)
+            {
+                Hide();
+            }
         }
 
         private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
@@ -58,33 +83,23 @@ namespace Richasy.Bili.App.Controls
             PlayerDisplayMode mode = default;
             switch (btn.Name)
             {
-                case DefaultPlayModeButtonName:
-                    _defaultPlayModeButton.IsChecked = true;
-                    _fullScreenPlayModeButton.IsChecked = false;
-                    _fullWindowPlayModeButton.IsChecked = false;
-                    _compactOverlayPlayModeButton.IsChecked = false;
-                    mode = PlayerDisplayMode.Default;
-                    break;
                 case FullWindowPlayModeButtonName:
-                    _defaultPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
-                    _fullWindowPlayModeButton.IsChecked = true;
                     _compactOverlayPlayModeButton.IsChecked = false;
-                    mode = PlayerDisplayMode.FullWindow;
+                    mode = _fullWindowPlayModeButton.IsChecked.Value ?
+                        PlayerDisplayMode.FullWindow : PlayerDisplayMode.Default;
                     break;
                 case FullScreenPlayModeButtonName:
-                    _defaultPlayModeButton.IsChecked = false;
-                    _fullScreenPlayModeButton.IsChecked = true;
                     _fullWindowPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = false;
-                    mode = PlayerDisplayMode.FullScreen;
+                    mode = _fullScreenPlayModeButton.IsChecked.Value ?
+                        PlayerDisplayMode.FullScreen : PlayerDisplayMode.Default;
                     break;
                 case CompactOverlayPlayModeButtonName:
-                    _defaultPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _fullWindowPlayModeButton.IsChecked = false;
-                    _compactOverlayPlayModeButton.IsChecked = true;
-                    mode = PlayerDisplayMode.CompactOverlay;
+                    mode = _compactOverlayPlayModeButton.IsChecked.Value ?
+                        PlayerDisplayMode.CompactOverlay : PlayerDisplayMode.Default;
                     break;
                 default:
                     break;
@@ -98,25 +113,21 @@ namespace Richasy.Bili.App.Controls
             switch (ViewModel.PlayerDisplayMode)
             {
                 case PlayerDisplayMode.Default:
-                    _defaultPlayModeButton.IsChecked = true;
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = false;
                     break;
                 case PlayerDisplayMode.FullWindow:
-                    _defaultPlayModeButton.IsChecked = false;
                     _fullWindowPlayModeButton.IsChecked = true;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = false;
                     break;
                 case PlayerDisplayMode.FullScreen:
-                    _defaultPlayModeButton.IsChecked = false;
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = true;
                     _compactOverlayPlayModeButton.IsChecked = false;
                     break;
                 case PlayerDisplayMode.CompactOverlay:
-                    _defaultPlayModeButton.IsChecked = false;
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = true;
@@ -146,6 +157,22 @@ namespace Richasy.Bili.App.Controls
             if (player != null && player.PlaybackSession != null)
             {
                 player.PlaybackSession.PlaybackStateChanged += OnPlaybackStateChangedAsync;
+            }
+        }
+
+        private void OnSettingViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SettingViewModel.DefaultMTCControlMode))
+            {
+                CheckMTCControlMode();
+            }
+        }
+
+        private void OnDanmakuViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(DanmakuViewModel.DanmakuZoom))
+            {
+                CheckDanmakuZoom();
             }
         }
 
@@ -241,17 +268,32 @@ namespace Richasy.Bili.App.Controls
             var baseWidth = 800d;
             var baseHeight = 600d;
             var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
+            scale *= DanmakuViewModel.DanmakuZoom;
             if (scale > 1)
             {
                 scale = 1;
             }
-            else if (scale < 0.2)
+            else if (scale < 0.4)
             {
-                scale = 0.2;
+                scale = 0.4;
             }
 
-            // _danmakuControl.SetDanmakuDuration(12);
             _danmakuControl.DanmakuSizeZoom = scale;
+        }
+
+        private void CheckMTCControlMode()
+        {
+            switch (SettingViewModel.DefaultMTCControlMode)
+            {
+                case MTCControlMode.Automatic:
+                    this.ShowAndHideAutomatically = true;
+                    break;
+                case MTCControlMode.Manual:
+                    this.ShowAndHideAutomatically = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private async void OnDanmkuTimerTickAsync(object sender, object e)
@@ -288,6 +330,30 @@ namespace Richasy.Bili.App.Controls
                 if (_danmakuDictionary.ContainsKey(positionInt))
                 {
                     var data = _danmakuDictionary[positionInt];
+
+                    if (DanmakuViewModel.IsDanmakuMerge)
+                    {
+                        data = data.Distinct(new DanmakuModelComparer()).ToList();
+                    }
+
+                    if (DanmakuViewModel.UseCloudShieldSettings && DanmakuViewModel.DanmakuConfig != null)
+                    {
+                        var isUseDefault = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuPlayerConfig.PlayerDanmakuUseDefaultConfig;
+                        var defaultConfig = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuDefaultPlayerConfig;
+                        var customCofig = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuPlayerConfig;
+
+                        var isSheldLevel = isUseDefault ?
+                                defaultConfig.PlayerDanmakuAiRecommendedSwitch : customCofig.PlayerDanmakuAiRecommendedSwitch;
+
+                        if (isSheldLevel)
+                        {
+                            var shieldLevel = isUseDefault ?
+                                defaultConfig.PlayerDanmakuAiRecommendedLevel : customCofig.PlayerDanmakuAiRecommendedLevel;
+                            data = data.Where(p => p.weight >= shieldLevel).ToList();
+                        }
+
+                        var list = DanmakuViewModel.DanmakuConfig.ReportFilterContent.ToList();
+                    }
 
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {

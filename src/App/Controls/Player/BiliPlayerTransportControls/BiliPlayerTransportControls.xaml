@@ -17,7 +17,7 @@
             <StaticResource x:Key="MediaTransportControlsFillTimeElapsedText" ResourceKey="TextFillColorSecondaryBrush" />
             <StaticResource x:Key="MediaTransportControlsFillMediaText" ResourceKey="TextFillColorPrimaryBrush" />
             <StaticResource x:Key="MediaTransportControlsBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-            <Thickness x:Key="MediaTransportControlsMargin">12</Thickness>
+            <Thickness x:Key="MediaTransportControlsMargin">12,4</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderMargin">7,2,7,1</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderCompactMargin">12,-1,8,1</Thickness>
             <x:Double x:Key="MediaTransportControlsBorderThickness">1</x:Double>
@@ -36,7 +36,7 @@
             <StaticResource x:Key="MediaTransportControlsFillTimeElapsedText" ResourceKey="SystemControlPageTextBaseMediumBrush" />
             <StaticResource x:Key="MediaTransportControlsFillMediaText" ResourceKey="SystemControlForegroundBaseHighBrush" />
             <StaticResource x:Key="MediaTransportControlsBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-            <Thickness x:Key="MediaTransportControlsMargin">12</Thickness>
+            <Thickness x:Key="MediaTransportControlsMargin">12,4</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderMargin">7,2,7,1</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderCompactMargin">12,-1,8,1</Thickness>
             <x:Double x:Key="MediaTransportControlsBorderThickness">1</x:Double>
@@ -55,7 +55,7 @@
             <StaticResource x:Key="MediaTransportControlsFillTimeElapsedText" ResourceKey="TextFillColorSecondaryBrush" />
             <StaticResource x:Key="MediaTransportControlsFillMediaText" ResourceKey="TextFillColorPrimaryBrush" />
             <StaticResource x:Key="MediaTransportControlsBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-            <Thickness x:Key="MediaTransportControlsMargin">12</Thickness>
+            <Thickness x:Key="MediaTransportControlsMargin">12,4</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderMargin">7,2,7,1</Thickness>
             <Thickness x:Key="MediaTransportControlsProgressSliderCompactMargin">12,-1,8,1</Thickness>
             <x:Double x:Key="MediaTransportControlsBorderThickness">1</x:Double>
@@ -77,7 +77,6 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
-        <Setter Property="MinWidth" Value="{ThemeResource MediaTransportControlsMinWidth}" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
@@ -147,21 +146,21 @@
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimation
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="50"
                                             To="0.5"
-                                            Duration="0:0:0.3" />
+                                            Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ControlPanelFadeOut">
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="IsHitTestVisible">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
@@ -171,7 +170,7 @@
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="50"
-                                            Duration="0:0:0.7" />
+                                            Duration="0:0:0.4" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -312,11 +311,17 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+                        <Rectangle
+                            x:Name="InteractionControl"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent" />
                         <controls:Danmaku
                             x:Name="DanmakuControl"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Opacity="0.8"
+                            DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
+                            Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
                             <Grid
@@ -497,6 +502,14 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarButton
+                                                x:Name="QualitySelectionButton"
+                                                Style="{StaticResource AppBarButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="12">
+                                                <AppBarButton.Icon>
+                                                    <icons:RegularFluentIcon Symbol="Hd24" />
+                                                </AppBarButton.Icon>
+                                            </AppBarButton>
+                                            <AppBarButton
                                                 x:Name="AudioTracksSelectionButton"
                                                 Style="{StaticResource AppBarButtonStyle}"
                                                 MediaTransportControlsHelper.DropoutOrder="13"
@@ -617,32 +630,36 @@
                                                     <FontIcon Glyph="&#xEC15;" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton
-                                                x:Name="PlayerModeButton"
-                                                Style="{StaticResource AppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="24">
-                                                <AppBarButton.Icon>
-                                                    <icons:RegularFluentIcon Symbol="DeviceMeetingRoom16" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.Flyout>
-                                                    <CommandBarFlyout>
-                                                        <CommandBarFlyout.SecondaryCommands>
-                                                            <AppBarToggleButton x:Name="DefaultModeButton" Label="{loc:LocaleLocator Name=Default}" />
-                                                            <AppBarToggleButton x:Name="FullWindowModeButton" Label="{loc:LocaleLocator Name=FullWindowMode}" />
-                                                            <AppBarToggleButton x:Name="FullScreenModeButton" Label="{loc:LocaleLocator Name=FullScreenMode}" />
-                                                            <AppBarToggleButton x:Name="CompactOverlayModeButton" Label="{loc:LocaleLocator Name=CompactOverlayMode}" />
-                                                        </CommandBarFlyout.SecondaryCommands>
-                                                    </CommandBarFlyout>
-                                                </AppBarButton.Flyout>
-                                            </AppBarButton>
-                                            <AppBarButton
-                                                x:Name="FullWindowButton"
-                                                Style="{StaticResource AppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="17">
-                                                <AppBarButton.Icon>
-                                                    <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
+                                            <AppBarToggleButton
+                                                x:Name="FullWindowModeButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
+                                                Style="{StaticResource AppBarToggleButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="15"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullWindowMode}">
+                                                <AppBarToggleButton.Icon>
+                                                    <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
+                                                </AppBarToggleButton.Icon>
+                                            </AppBarToggleButton>
+                                            <AppBarToggleButton
+                                                x:Name="FullScreenModeButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
+                                                Style="{StaticResource AppBarToggleButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="16"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
+                                                <AppBarToggleButton.Icon>
+                                                    <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
+                                                </AppBarToggleButton.Icon>
+                                            </AppBarToggleButton>
+                                            <AppBarToggleButton
+                                                x:Name="CompactOverlayModeButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
+                                                Style="{StaticResource AppBarToggleButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="17"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
+                                                <AppBarToggleButton.Icon>
+                                                    <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
+                                                </AppBarToggleButton.Icon>
+                                            </AppBarToggleButton>
                                         </CommandBar.PrimaryCommands>
                                     </CommandBar>
                                     <Grid
@@ -684,7 +701,7 @@
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
-                                                <icons:RegularFluentIcon Symbol="TextEffects20" />
+                                                <icons:RegularFluentIcon Symbol="TextEffects24" />
                                             </Button>
                                             <Button
                                                 x:Name="DanmakuOptionButton"
@@ -696,6 +713,11 @@
                                                 BorderThickness="0"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuDisplaySettings}">
                                                 <icons:RegularFluentIcon Symbol="Settings20" />
+                                                <Button.Flyout>
+                                                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
+                                                        <local:DanmakuDisplayOptions />
+                                                    </Flyout>
+                                                </Button.Flyout>
                                             </Button>
                                         </StackPanel>
                                     </Grid>
