@@ -164,7 +164,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 当前清晰度.
         /// </summary>
         [Reactive]
-        public VideoFormat CurrentQuality { get; set; }
+        public VideoFormat CurrentFormat { get; set; }
 
         /// <summary>
         /// 是否正在加载.

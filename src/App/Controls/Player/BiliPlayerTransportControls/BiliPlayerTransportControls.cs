@@ -9,6 +9,7 @@ using NSDanmaku.Controls;
 using NSDanmaku.Model;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,6 +36,7 @@ namespace Richasy.Bili.App.Controls
             this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
+            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
         }
@@ -48,16 +50,26 @@ namespace Richasy.Bili.App.Controls
             _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as AppBarToggleButton;
             _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
+            _formatListView = GetTemplateChild(FormatListViewName) as ListView;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
             _interactionControl.Tapped += OnInteractionControlTapped;
+            _formatListView.SelectionChanged += OnFormatComboBoxSelectionChangedAsync;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
             CheckMTCControlMode();
             base.OnApplyTemplate();
+        }
+
+        private async void OnFormatComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (_formatListView.SelectedItem is VideoFormatViewModel item)
+            {
+                await ViewModel.ChangeFormatAsync(item.Data.Quality);
+            }
         }
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
@@ -173,6 +185,19 @@ namespace Richasy.Bili.App.Controls
             if (e.PropertyName == nameof(DanmakuViewModel.DanmakuZoom))
             {
                 CheckDanmakuZoom();
+            }
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.CurrentFormat))
+            {
+                if (ViewModel.CurrentFormat != null &&
+                    (_formatListView.SelectedItem == null ||
+                    (_formatListView.SelectedItem as VideoFormatViewModel).Data.Quality != ViewModel.CurrentFormat.Quality))
+                {
+                    _formatListView.SelectedItem = ViewModel.FormatCollection.Where(p => p.Data.Quality == ViewModel.CurrentFormat.Quality).FirstOrDefault();
+                }
             }
         }
 

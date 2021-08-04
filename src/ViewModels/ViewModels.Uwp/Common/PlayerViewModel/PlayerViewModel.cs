@@ -64,6 +64,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = true;
                 IsDetailError = false;
                 _dashInformation = null;
+                CurrentFormat = null;
                 PartCollection.Clear();
                 RelatedVideoCollection.Clear();
                 FormatCollection.Clear();
@@ -139,6 +140,39 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 修改清晰度.
+        /// </summary>
+        /// <param name="formatId">清晰度Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangeFormatAsync(int formatId)
+        {
+            var preferCodecId = GetPreferCodecId();
+            var conditionStreams = _videoList.Where(p => p.Id == formatId).ToList();
+            if (conditionStreams.Count == 0)
+            {
+                var maxQuality = _videoList.Max(p => p.Id);
+                _currentVideo = _videoList.Where(p => p.Id == maxQuality).FirstOrDefault();
+            }
+            else
+            {
+                var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
+                if (tempVideo == null)
+                {
+                    tempVideo = conditionStreams.First();
+                }
+
+                _currentVideo = tempVideo;
+            }
+
+            CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _currentVideo.Id).FirstOrDefault().Data;
+            _currentAudio = _audioList.FirstOrDefault();
+
+            CheckFormatSelection();
+
+            await InitializeOnlineDashVideoAsync();
+        }
+
+        /// <summary>
         /// 清理播放数据.
         /// </summary>
         public void ClearPlayer()
@@ -182,10 +216,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             switch (args.PropertyName)
             {
-                case nameof(CurrentQuality):
-                    if (CurrentQuality != null)
+                case nameof(CurrentFormat):
+                    if (CurrentFormat != null)
                     {
-                        _settingsToolkit.WriteLocalSetting(SettingNames.DefaultVideoQuality, CurrentQuality.Quality);
+                        _settingsToolkit.WriteLocalSetting(SettingNames.DefaultVideoFormat, CurrentFormat.Quality);
                     }
 
                     break;

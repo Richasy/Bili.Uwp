@@ -6,7 +6,8 @@
     xmlns:enums="using:Richasy.Bili.Models.Enums"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls">
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:vm="using:Richasy.Bili.ViewModels.Uwp">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
@@ -502,12 +503,27 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarButton
-                                                x:Name="QualitySelectionButton"
+                                                x:Name="FormatButton"
                                                 Style="{StaticResource AppBarButtonStyle}"
                                                 MediaTransportControlsHelper.DropoutOrder="12">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
                                                 </AppBarButton.Icon>
+                                                <AppBarButton.Flyout>
+                                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutStyle}" Placement="Top">
+                                                        <ListView
+                                                            x:Name="FormatListView"
+                                                            Margin="4"
+                                                            MinWidth="120"
+                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FormatCollection}">
+                                                            <ListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Data.Description}" />
+                                                                </DataTemplate>
+                                                            </ListView.ItemTemplate>
+                                                        </ListView>
+                                                    </Flyout>
+                                                </AppBarButton.Flyout>
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="AudioTracksSelectionButton"

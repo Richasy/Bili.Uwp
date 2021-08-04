@@ -40,6 +40,7 @@ namespace Richasy.Bili.App.Controls
         private const string CompactOverlayPlayModeButtonName = "CompactOverlayModeButton";
         private const string InteractionControlName = "InteractionControl";
         private const string ControlPanelName = "ControlPanel_ControlPanelVisibilityStates_Border";
+        private const string FormatListViewName = "FormatListView";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -50,6 +51,7 @@ namespace Richasy.Bili.App.Controls
         private AppBarToggleButton _compactOverlayPlayModeButton;
         private Rectangle _interactionControl;
         private Border _controlPanel;
+        private ListView _formatListView;
         private int _segmentIndex;
 
         /// <summary>

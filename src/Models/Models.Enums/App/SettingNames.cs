@@ -22,7 +22,7 @@ namespace Richasy.Bili.Models.Enums
         PreferCodec,
         SingleFastForwardAndRewindSpan,
         DefaultMTCControlMode,
-        DefaultVideoQuality,
+        DefaultVideoFormat,
         IsShowDanmaku,
         DanmakuOpacity,
         DanmakuZoom,

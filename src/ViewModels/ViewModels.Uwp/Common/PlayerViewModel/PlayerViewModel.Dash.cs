@@ -75,7 +75,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 if (_currentVideoPlayer != null)
                 {
-                    // 释放.
+                    ClearPlayer();
                 }
 
                 _currentVideoPlayer = new MediaPlayer();

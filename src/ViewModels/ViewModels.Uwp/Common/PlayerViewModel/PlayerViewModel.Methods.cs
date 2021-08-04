@@ -60,31 +60,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             FormatCollection.Clear();
             videoPlayView.SupportFormats.ForEach(p => FormatCollection.Add(new VideoFormatViewModel(p, false)));
 
-            var preferCodecId = GetPreferCodecId();
-            var qualityId = CurrentQuality == null ?
-                _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.DefaultVideoQuality, 64) :
-                CurrentQuality.Quality;
+            var formatId = CurrentFormat == null ?
+                _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.DefaultVideoFormat, 64) :
+                CurrentFormat.Quality;
 
-            var conditionStreams = _videoList.Where(p => p.Id == qualityId).ToList();
-            if (conditionStreams.Count == 0)
-            {
-                var maxQuality = _videoList.Max(p => p.Id);
-                _currentVideo = _videoList.Where(p => p.Id == maxQuality).FirstOrDefault();
-            }
-            else
-            {
-                var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
-                if (tempVideo == null)
-                {
-                    tempVideo = conditionStreams.First();
-                }
-
-                _currentVideo = tempVideo;
-            }
-
-            _currentAudio = _audioList.FirstOrDefault();
-
-            await InitializeOnlineDashVideoAsync();
+            await ChangeFormatAsync(formatId);
         }
 
         private int GetPreferCodecId()
@@ -107,6 +87,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             foreach (var item in PartCollection)
             {
                 item.IsSelected = item.Data.Equals(CurrentPart);
+            }
+        }
+
+        private void CheckFormatSelection()
+        {
+            foreach (var item in FormatCollection)
+            {
+                item.IsSelected = item.Data.Equals(CurrentFormat);
             }
         }
     }
