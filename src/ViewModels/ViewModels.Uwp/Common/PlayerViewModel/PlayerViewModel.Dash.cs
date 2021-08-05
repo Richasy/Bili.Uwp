@@ -73,14 +73,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
                 };
 
-                if (_currentVideoPlayer != null)
+                if (_currentVideoPlayer == null)
                 {
-                    ClearPlayer();
+                    _currentVideoPlayer = new MediaPlayer();
                 }
 
-                _currentVideoPlayer = new MediaPlayer();
                 _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
+                MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
                 _currentVideoPlayer.Play();
             }
             catch (Exception)

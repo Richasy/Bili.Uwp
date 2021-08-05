@@ -23,6 +23,12 @@ namespace Richasy.Bili.App.Controls
     public partial class BubbleView : Control
     {
         /// <summary>
+        /// <see cref="IsDisposeWhenUnloaded"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsDisposeWhenUnloadedProperty =
+            DependencyProperty.Register(nameof(IsDisposeWhenUnloaded), typeof(bool), typeof(BubbleView), new PropertyMetadata(false));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BubbleView"/> class.
         /// </summary>
         public BubbleView()
@@ -34,10 +40,20 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 是否在控件卸载时释放.
+        /// </summary>
+        public bool IsDisposeWhenUnloaded
+        {
+            get { return (bool)GetValue(IsDisposeWhenUnloadedProperty); }
+            set { SetValue(IsDisposeWhenUnloadedProperty, value); }
+        }
+
+        /// <summary>
         /// 发射气泡.
         /// </summary>
         public void ShowBubbles()
         {
+            CreateBubbles();
             if (_bubbles != null)
             {
                 foreach (var bubble in _bubbles)
@@ -212,12 +228,15 @@ namespace Richasy.Bili.App.Controls
 
         private void OnBubbleViewUnloaded(object sender, RoutedEventArgs e)
         {
-            ClearBubbles();
-            _bubblesVisual?.Dispose();
-            _bubblesVisual = null;
-            _canvasDevice = null;
-            _graphicsDevice?.Dispose();
-            _graphicsDevice = null;
+            if (IsDisposeWhenUnloaded)
+            {
+                ClearBubbles();
+                _bubblesVisual?.Dispose();
+                _bubblesVisual = null;
+                _canvasDevice = null;
+                _graphicsDevice?.Dispose();
+                _graphicsDevice = null;
+            }
         }
 
         private void ForegroundPropertyChanged(DependencyObject sender, DependencyProperty dp)

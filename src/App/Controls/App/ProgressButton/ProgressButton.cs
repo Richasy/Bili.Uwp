@@ -248,7 +248,7 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 开始进度动画.
         /// </summary>
-        private void BeginProgressAnimation(bool isClearProgressWhenChecked = false)
+        private void BeginProgressAnimation()
         {
             VisualStateManager.GoToState(this, "HoldingState", false);
         }

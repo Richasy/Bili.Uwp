@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;

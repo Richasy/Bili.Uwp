@@ -134,7 +134,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
-                MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
                 await DanmakuViewModel.Instance.LoadAsync(_detail.Arc.Aid, CurrentPart.Page.Cid);
             }
         }
