@@ -29,12 +29,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             FormatCollection = new ObservableCollection<VideoFormatViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
+            _lastReportProgress = TimeSpan.Zero;
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit);
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
         }
 
@@ -92,6 +94,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             var partId = CurrentPart == null ? 0 : CurrentPart.Page.Cid;
             await ChangePartAsync(partId);
+
+            _progressTimer.Start();
         }
 
         /// <summary>
@@ -209,6 +213,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _currentAudioPlayer.Dispose();
                 _currentAudioPlayer = null;
             }
+
+            _lastReportProgress = TimeSpan.Zero;
+            _progressTimer.Stop();
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)

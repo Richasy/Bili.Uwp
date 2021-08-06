@@ -51,5 +51,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="segmentIndex">分段索引，6分钟为一段.</param>
         /// <returns><see cref="DmSegMobileReply"/>.</returns>
         Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex);
+
+        /// <summary>
+        /// 报告播放进度记录.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">视频分P的Id.</param>
+        /// <param name="progress">播放进度.</param>
+        /// <returns>进度上报是否成功.</returns>
+        Task<bool> ReportProgressAsync(long videoId, long partId, long progress);
     }
 }

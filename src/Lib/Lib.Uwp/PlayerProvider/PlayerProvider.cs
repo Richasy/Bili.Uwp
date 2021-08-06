@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
@@ -128,6 +130,22 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DmSegMobileReply.Parser);
             return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ReportProgressAsync(long videoId, long partId, long progress)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+                { Query.Cid, partId.ToString() },
+                { Query.Progress, progress.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.Code == 0;
         }
     }
 }

@@ -92,6 +92,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string AVid = "avid";
             public const string Cid = "cid";
             public const string OType = "otype";
+            public const string Progress = "progress";
         }
 
         public static class Sort
@@ -330,6 +331,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 分段弹幕.
                 /// </summary>
                 public const string SegmentDanmaku = _grpcBase + "/bilibili.community.service.dm.v1.DM/DmSegMobile";
+
+                /// <summary>
+                /// 历史记录.
+                /// </summary>
+                public const string ProgressReport = _apiBase + "/x/v2/history/report";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

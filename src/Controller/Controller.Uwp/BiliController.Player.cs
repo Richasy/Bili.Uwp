@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
@@ -62,6 +63,30 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 var args = new SegmentDanmakuIterationEventArgs(result, videoId, partId);
                 SegmentDanmakuIteration?.Invoke(this, args);
+            }
+        }
+
+        /// <summary>
+        /// 上报历史记录.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <param name="progress">播放进度.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ReportHistoryAsync(long videoId, long partId, TimeSpan progress)
+        {
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                try
+                {
+                    var result = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
+
+                    // Record.
+                }
+                catch (Exception)
+                {
+                    // Record.
+                }
             }
         }
     }

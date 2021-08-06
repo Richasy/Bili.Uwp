@@ -10,6 +10,7 @@ using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Media.Playback;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -27,6 +28,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private long _videoId;
         private ViewReply _detail;
         private PlayerDashInformation _dashInformation;
+        private TimeSpan _lastReportProgress;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;
@@ -36,6 +38,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private MediaPlayer _currentVideoPlayer;
         private MediaPlayer _currentAudioPlayer;
+
+        private DispatcherTimer _progressTimer;
 
         /// <summary>
         /// 单例.

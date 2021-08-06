@@ -67,6 +67,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangeFormatAsync(formatId);
         }
 
+        private void InitializeTimer()
+        {
+            if (_progressTimer == null)
+            {
+                _progressTimer = new Windows.UI.Xaml.DispatcherTimer();
+                _progressTimer.Interval = TimeSpan.FromSeconds(5);
+                _progressTimer.Tick += OnProgressTimerTickAsync;
+            }
+        }
+
         private int GetPreferCodecId()
         {
             var id = 7;
@@ -95,6 +105,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             foreach (var item in FormatCollection)
             {
                 item.IsSelected = item.Data.Equals(CurrentFormat);
+            }
+        }
+
+        private async void OnProgressTimerTickAsync(object sender, object e)
+        {
+            if (_detail == null || CurrentPart == null)
+            {
+                return;
+            }
+
+            if (_currentVideoPlayer == null || _currentVideoPlayer.PlaybackSession == null)
+            {
+                return;
+            }
+
+            var progress = _currentVideoPlayer.PlaybackSession.Position;
+            if (progress != _lastReportProgress)
+            {
+                await Controller.ReportHistoryAsync(_videoId, CurrentPart.Page.Cid, _currentVideoPlayer.PlaybackSession.Position);
+                _lastReportProgress = progress;
             }
         }
     }
