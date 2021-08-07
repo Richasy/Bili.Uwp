@@ -66,7 +66,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnFormatComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (_formatListView.SelectedItem is VideoFormatViewModel item)
+            if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
             }
