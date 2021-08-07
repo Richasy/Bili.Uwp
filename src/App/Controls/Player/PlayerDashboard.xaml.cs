@@ -15,10 +15,9 @@ namespace Richasy.Bili.App.Controls
             this.InitializeComponent();
         }
 
-        private void OnLikeButtonHoldingCompleted(object sender, System.EventArgs e)
+        private async void OnLikeButtonHoldingCompletedAsync(object sender, System.EventArgs e)
         {
-            CoinButton.IsChecked = true;
-            FavoriteButton.IsChecked = true;
+            await ViewModel.TripleAsync();
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
         }

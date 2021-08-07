@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json.Linq;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.Bili;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -146,6 +149,90 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> LikeAsync(long videoId, bool isLike)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+                { Query.Like, isLike ? "0" : "1" },
+            };
+
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Like, queryParameters, needToken: true);
+                var response = await _httpProvider.SendAsync(request, GetExpiryToken());
+                var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+                return result.Code == 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<CoinResult> CoinAsync(long videoId, int number, bool alsoLike)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+                { Query.Multiply, number.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Coin, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request, GetExpiryToken());
+            var result = await _httpProvider.ParseAsync<ServerResponse<CoinResult>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.PartitionId, videoId.ToString() },
+                { Query.Type, "2" },
+            };
+
+            if (needAddFavoriteList?.Any() ?? false)
+            {
+                queryParameters.Add(Query.AddFavoriteIds, string.Join(',', needAddFavoriteList));
+            }
+
+            if (needRemoveFavoriteList?.Any() ?? false)
+            {
+                queryParameters.Add(Query.DeleteFavoriteIds, string.Join(',', needAddFavoriteList));
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            try
+            {
+                var response = await _httpProvider.SendAsync(request, GetExpiryToken());
+            }
+            catch (ServiceException ex)
+            {
+                var result = (FavoriteResult)ex.Error.Code;
+                return result;
+            }
+
+            return FavoriteResult.Success;
+        }
+
+        /// <inheritdoc/>
+        public async Task<TripleResult> TripleAsync(long videoId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Triple, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request, GetExpiryToken());
+            var result = await _httpProvider.ParseAsync<ServerResponse<TripleResult>>(response);
+            return result.Data;
         }
     }
 }

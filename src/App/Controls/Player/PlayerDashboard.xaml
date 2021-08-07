@@ -27,7 +27,8 @@
             <local:ProgressButton
                 x:Name="LikeButton"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
-                HoldingCompleted="OnLikeButtonHoldingCompleted"
+                HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
+                IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
                 IsHoldingEnabled="True"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
                 <icons:RegularFluentIcon Symbol="ThumbLike16" />
@@ -35,6 +36,7 @@
             <local:ProgressButton
                 x:Name="CoinButton"
                 Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IsCoinChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
                 <icons:RegularFluentIcon Symbol="Blur16" />
@@ -42,6 +44,7 @@
             <local:ProgressButton
                 x:Name="FavoriteButton"
                 Description="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IsFavoriteChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
                 <icons:RegularFluentIcon Symbol="Star16" />

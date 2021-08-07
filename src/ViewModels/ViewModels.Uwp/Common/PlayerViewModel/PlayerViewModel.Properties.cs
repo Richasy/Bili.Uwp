@@ -218,6 +218,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsShowParts { get; set; }
 
+        /// <summary>
+        /// 点赞按钮是否被选中.
+        /// </summary>
+        [Reactive]
+        public bool IsLikeChecked { get; set; }
+
+        /// <summary>
+        /// 投币按钮是否被选中.
+        /// </summary>
+        [Reactive]
+        public bool IsCoinChecked { get; set; }
+
+        /// <summary>
+        /// 收藏按钮是否被选中.
+        /// </summary>
+        [Reactive]
+        public bool IsFavoriteChecked { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

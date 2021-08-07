@@ -93,6 +93,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Cid = "cid";
             public const string OType = "otype";
             public const string Progress = "progress";
+            public const string Like = "like";
+            public const string Multiply = "multiply";
+            public const string AlsoLike = "select_like";
+            public const string AddFavoriteIds = "add_media_ids";
+            public const string DeleteFavoriteIds = "del_media_ids";
         }
 
         public static class Sort
@@ -336,6 +341,26 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 历史记录.
                 /// </summary>
                 public const string ProgressReport = _apiBase + "/x/v2/history/report";
+
+                /// <summary>
+                /// 点赞视频.
+                /// </summary>
+                public const string Like = _appBase + "/x/v2/view/like";
+
+                /// <summary>
+                /// 给视频投币.
+                /// </summary>
+                public const string Coin = _appBase + "/x/v2/view/coin/add";
+
+                /// <summary>
+                /// 添加或删除视频收藏.
+                /// </summary>
+                public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/deal";
+
+                /// <summary>
+                /// 一键三连.
+                /// </summary>
+                public const string Triple = _appBase + "/x/v2/view/like/triple";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

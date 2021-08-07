@@ -35,6 +35,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Reply);
             CoverUrl = _detail.Arc.Pic;
 
+            IsLikeChecked = _detail.ReqUser.Like == 1;
+            IsCoinChecked = _detail.ReqUser.Coin == 1;
+            IsFavoriteChecked = _detail.ReqUser.Favorite == 1;
+
             foreach (var page in _detail.Pages)
             {
                 PartCollection.Add(new VideoPartViewModel(page));

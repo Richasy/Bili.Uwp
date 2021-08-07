@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.Bili;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -88,6 +90,71 @@ namespace Richasy.Bili.Controller.Uwp
                     // Record.
                 }
             }
+        }
+
+        /// <summary>
+        /// 点赞视频.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="isLike">是否点赞.</param>
+        /// <returns>结果.</returns>
+        public async Task<bool> LikeVideoAsync(long videoId, bool isLike = true)
+        {
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                return await _playerProvider.LikeAsync(videoId, isLike);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 给视频投币.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="coinNumber">硬币数.</param>
+        /// <param name="isAlsoLike">同时点赞视频.</param>
+        /// <returns>投币结果.</returns>
+        public async Task<CoinResult> CoinVideoAsync(long videoId, int coinNumber, bool isAlsoLike)
+        {
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                return await _playerProvider.CoinAsync(videoId, coinNumber, isAlsoLike);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 收藏视频.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="addFavoriteListIds">要添加到的收藏夹Id列表.</param>
+        /// <param name="deleteFavoriteListIds">要移除的收藏夹Id列表.</param>
+        /// <returns>结果.</returns>
+        public async Task<FavoriteResult> FavoriteVideoAsync(long videoId, List<string> addFavoriteListIds, List<string> deleteFavoriteListIds)
+        {
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                return await _playerProvider.FavoriteAsync(videoId, addFavoriteListIds, deleteFavoriteListIds);
+            }
+
+            return FavoriteResult.NeedLogin;
+        }
+
+        /// <summary>
+        /// 一键三连.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>三连结果.</returns>
+        public async Task<TripleResult> TripleAsync(long videoId)
+        {
+            if (await _authorizeProvider.IsTokenValidAsync())
+            {
+                return await _playerProvider.TripleAsync(videoId);
+            }
+
+            return null;
         }
     }
 }

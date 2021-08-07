@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.Bili;
 
 namespace Richasy.Bili.Lib.Interfaces
 {
@@ -60,5 +62,38 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="progress">播放进度.</param>
         /// <returns>进度上报是否成功.</returns>
         Task<bool> ReportProgressAsync(long videoId, long partId, long progress);
+
+        /// <summary>
+        /// 点赞视频.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="isLike">是否点赞.</param>
+        /// <returns>结果.</returns>
+        Task<bool> LikeAsync(long videoId, bool isLike);
+
+        /// <summary>
+        /// 投币.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="number">投币数量，上限为2.</param>
+        /// <param name="alsoLike">是否同时点赞.</param>
+        /// <returns>投币结果.</returns>
+        Task<CoinResult> CoinAsync(long videoId, int number, bool alsoLike);
+
+        /// <summary>
+        /// 添加收藏.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="needAddFavoriteList">需要添加的收藏夹列表.</param>
+        /// <param name="needRemoveFavoriteList">需要移除的收藏夹列表.</param>
+        /// <returns>收藏结果.</returns>
+        Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList);
+
+        /// <summary>
+        /// 一键三连.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>三连结果.</returns>
+        Task<TripleResult> TripleAsync(long videoId);
     }
 }
