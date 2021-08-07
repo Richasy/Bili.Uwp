@@ -57,43 +57,35 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 视频加载.
         /// </summary>
-        /// <param name="vm">视频视图模型.</param>
+        /// <param name="vm">视图模型.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(VideoViewModel vm)
+        public async Task LoadAsync(object vm)
         {
-            if (_detail == null || vm.VideoId != AvId)
-            {
-                IsDetailLoading = true;
-                IsDetailError = false;
-                _dashInformation = null;
-                CurrentFormat = null;
-                PartCollection.Clear();
-                RelatedVideoCollection.Clear();
-                FormatCollection.Clear();
-                _audioList.Clear();
-                _videoList.Clear();
-                ClearPlayer();
-                Title = vm.Title;
-                _videoId = Convert.ToInt64(vm.VideoId);
-                try
-                {
-                    var detail = await Controller.GetVideoDetailAsync(_videoId);
-                    _detail = detail;
-                }
-                catch (Exception ex)
-                {
-                    IsDetailError = true;
-                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
-                    IsDetailLoading = false;
-                    return;
-                }
+            var videoId = string.Empty;
 
-                InitializeVideoDetail();
-                IsDetailLoading = false;
+            if (vm is VideoViewModel videoVM)
+            {
+                videoId = videoVM.VideoId;
+                _videoType = videoVM.VideoType;
+            }
+            else if (vm is SeasonViewModel seasonVM)
+            {
+                videoId = seasonVM.VideoId.ToString();
+                _videoType = VideoType.Pgc;
             }
 
-            var partId = CurrentPart == null ? 0 : CurrentPart.Page.Cid;
-            await ChangePartAsync(partId);
+            switch (_videoType)
+            {
+                case VideoType.Video:
+                    await LoadVideoDetailAsync(videoId);
+                    break;
+                case VideoType.Pgc:
+                    break;
+                case VideoType.Live:
+                    break;
+                default:
+                    break;
+            }
 
             _progressTimer.Start();
         }
@@ -138,7 +130,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
-                await DanmakuViewModel.Instance.LoadAsync(_detail.Arc.Aid, CurrentPart.Page.Cid);
+                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentPart.Page.Cid);
             }
         }
 

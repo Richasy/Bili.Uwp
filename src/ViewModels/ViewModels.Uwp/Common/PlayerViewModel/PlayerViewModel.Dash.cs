@@ -78,10 +78,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _currentVideoPlayer = new MediaPlayer();
                 }
 
+                var position = TimeSpan.Zero;
+                if (_currentVideoPlayer.PlaybackSession != null)
+                {
+                    position = _currentVideoPlayer.PlaybackSession.Position;
+                }
+
                 _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
                 _currentVideoPlayer.Play();
+                _currentVideoPlayer.PlaybackSession.Position = position;
             }
             catch (Exception)
             {

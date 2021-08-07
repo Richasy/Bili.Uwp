@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -13,40 +14,81 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PlayerViewModel
     {
+        private void Reset()
+        {
+            IsDetailError = false;
+            _dashInformation = null;
+            CurrentFormat = null;
+            PartCollection.Clear();
+            RelatedVideoCollection.Clear();
+            FormatCollection.Clear();
+            _audioList.Clear();
+            _videoList.Clear();
+            ClearPlayer();
+        }
+
+        private async Task LoadVideoDetailAsync(string videoId)
+        {
+            if (_videoDetail == null || videoId != AvId)
+            {
+                Reset();
+                IsDetailLoading = true;
+                _videoId = Convert.ToInt64(videoId);
+                try
+                {
+                    var detail = await Controller.GetVideoDetailAsync(_videoId);
+                    _videoDetail = detail;
+                }
+                catch (Exception ex)
+                {
+                    IsDetailError = true;
+                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed) + $"\n{ex.Message}";
+                    IsDetailLoading = false;
+                    return;
+                }
+
+                InitializeVideoDetail();
+                IsDetailLoading = false;
+            }
+
+            var partId = CurrentPart == null ? 0 : CurrentPart.Page.Cid;
+            await ChangePartAsync(partId);
+        }
+
         private void InitializeVideoDetail(long partId = 0)
         {
-            if (_detail == null)
+            if (_videoDetail == null)
             {
                 return;
             }
 
-            Title = _detail.Arc.Title;
-            Subtitle = DateTimeOffset.FromUnixTimeSeconds(_detail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
-            Description = _detail.Arc.Desc;
-            Publisher = new PublisherViewModel(_detail.Arc.Author);
-            AvId = _detail.Arc.Aid.ToString();
-            BvId = _detail.Bvid;
-            PlayCount = _numberToolkit.GetCountText(_detail.Arc.Stat.View);
-            DanmakuCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Danmaku);
-            LikeCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Like);
-            CoinCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Coin);
-            FavoriteCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Fav);
-            ShareCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Share);
-            ReplyCount = _numberToolkit.GetCountText(_detail.Arc.Stat.Reply);
-            CoverUrl = _detail.Arc.Pic;
+            Title = _videoDetail.Arc.Title;
+            Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
+            Description = _videoDetail.Arc.Desc;
+            Publisher = new PublisherViewModel(_videoDetail.Arc.Author);
+            AvId = _videoDetail.Arc.Aid.ToString();
+            BvId = _videoDetail.Bvid;
+            PlayCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.View);
+            DanmakuCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Danmaku);
+            LikeCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Like);
+            CoinCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Coin);
+            FavoriteCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Fav);
+            ShareCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Share);
+            ReplyCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Reply);
+            CoverUrl = _videoDetail.Arc.Pic;
 
-            IsLikeChecked = _detail.ReqUser.Like == 1;
-            IsCoinChecked = _detail.ReqUser.Coin == 1;
-            IsFavoriteChecked = _detail.ReqUser.Favorite == 1;
+            IsLikeChecked = _videoDetail.ReqUser.Like == 1;
+            IsCoinChecked = _videoDetail.ReqUser.Coin == 1;
+            IsFavoriteChecked = _videoDetail.ReqUser.Favorite == 1;
 
-            foreach (var page in _detail.Pages)
+            foreach (var page in _videoDetail.Pages)
             {
                 PartCollection.Add(new VideoPartViewModel(page));
             }
 
             IsShowParts = PartCollection.Count > 1;
 
-            var relates = _detail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
+            var relates = _videoDetail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
             foreach (var video in relates)
             {
                 RelatedVideoCollection.Add(new VideoViewModel(video));
@@ -114,7 +156,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnProgressTimerTickAsync(object sender, object e)
         {
-            if (_detail == null || CurrentPart == null)
+            if (_videoDetail == null || CurrentPart == null)
             {
                 return;
             }

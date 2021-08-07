@@ -111,13 +111,9 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(CardStyleProperty, value); }
         }
 
-        private async void OnRootCardClickAsync(object sender, RoutedEventArgs e)
+        private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var link = ViewModel.Source.WebLink;
-            if (!string.IsNullOrEmpty(link))
-            {
-                await Launcher.LaunchUriAsync(new Uri(link));
-            }
+            AppViewModel.Instance.OpenPlayer(ViewModel);
         }
     }
 }

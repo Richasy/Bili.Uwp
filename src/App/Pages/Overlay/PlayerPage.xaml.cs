@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(PlayerViewModel), typeof(PlayerPage), new PropertyMetadata(PlayerViewModel.Instance));
 
-        private VideoViewModel _navigateVM;
+        private object _navigateVM;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPage"/> class.
@@ -49,9 +49,17 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// <inheritdoc/>
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null && e.Parameter is VideoViewModel vm)
+            if (e.Parameter != null)
             {
-                _navigateVM = vm;
+                if (e.Parameter is VideoViewModel videoVM)
+                {
+                    _navigateVM = videoVM;
+                }
+                else if (e.Parameter is SeasonViewModel ssVM)
+                {
+                    _navigateVM = ssVM;
+                }
+
                 if (IsLoaded)
                 {
                     await ViewModel.LoadAsync(_navigateVM);

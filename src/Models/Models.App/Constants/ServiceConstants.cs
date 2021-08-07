@@ -302,7 +302,7 @@ namespace Richasy.Bili.Models.App.Constants
                 /// <summary>
                 /// 页面详情.
                 /// </summary>
-                public const string Detail = _apiBase + "/pgc/page";
+                public const string PageDetail = _apiBase + "/pgc/page";
             }
 
             public static class Video

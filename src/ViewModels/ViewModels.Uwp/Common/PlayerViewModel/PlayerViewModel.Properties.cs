@@ -26,9 +26,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IFileToolkit _fileToolkit;
 
         private long _videoId;
-        private ViewReply _detail;
+        private ViewReply _videoDetail;
         private PlayerDashInformation _dashInformation;
         private TimeSpan _lastReportProgress;
+        private VideoType _videoType;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;
@@ -85,6 +86,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string BvId { get; set; }
+
+        /// <summary>
+        /// 剧集 Id.
+        /// </summary>
+        [Reactive]
+        public string SeasonId { get; set; }
 
         /// <summary>
         /// 播放数.
