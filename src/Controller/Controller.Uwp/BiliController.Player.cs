@@ -40,6 +40,18 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取PGC播放信息.
+        /// </summary>
+        /// <param name="partId">分集Id.</param>
+        /// <param name="seasonType">剧集类型.</param>
+        /// <returns>播放信息.</returns>
+        public async Task<PlayerDashInformation> GetPgcPlayInformationAsync(int partId, int seasonType)
+        {
+            var result = await _playerProvider.GetDashAsync(partId, seasonType);
+            return result;
+        }
+
+        /// <summary>
         /// 获取弹幕元数据.
         /// </summary>
         /// <param name="videoId">视频Id.</param>

@@ -55,13 +55,34 @@
             Padding="8,0,0,0"
             Spacing="4">
             <Button
+                x:Name="PgcDetailButton"
+                Style="{StaticResource AccentButtonStyle}"
+                Width="152"
+                Margin="0,0,0,8"
+                Click="OnPgcDetailButtonClick"
+                Visibility="{x:Bind ViewModel.SeasonId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <StackPanel
+                    Margin="0,4"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <icons:RegularFluentIcon VerticalAlignment="Center" Symbol="TextBulletListTree16" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="{loc:LocaleLocator Name=Detail}"
+                        TextLineBounds="Tight" />
+                </StackPanel>
+            </Button>
+            <Button
                 x:Name="ShareButton"
                 Width="152"
                 Margin="0,0,0,8"
                 Click="OnShareButtonClick">
                 <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
             </Button>
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="8"
+                Visibility="{x:Bind ViewModel.AvId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -71,7 +92,10 @@
                     IsTextSelectionEnabled="True"
                     Text="{x:Bind ViewModel.AvId, Mode=OneWay}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="8"
+                Visibility="{x:Bind ViewModel.BvId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"

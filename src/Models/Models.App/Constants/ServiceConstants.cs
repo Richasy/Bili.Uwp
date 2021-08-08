@@ -16,6 +16,10 @@ namespace Richasy.Bili.Models.App.Constants
         public const string Bangumi = "bangumi";
         public const string Pgc = "pgc";
 
+        public const string Season = "season";
+        public const string Positive = "positive";
+        public const string Section = "section";
+
         /// <summary>
         /// 番剧分区Id.
         /// </summary>
@@ -98,6 +102,12 @@ namespace Richasy.Bili.Models.App.Constants
             public const string AlsoLike = "select_like";
             public const string AddFavoriteIds = "add_media_ids";
             public const string DeleteFavoriteIds = "del_media_ids";
+            public const string AutoPlay = "autoplay";
+            public const string IsShowAllSeries = "is_show_all_series";
+            public const string SeasonId = "season_id";
+            public const string EpisodeId = "ep_id";
+            public const string Module = "module";
+            public const string SeasonType = "season_type";
         }
 
         public static class Sort
@@ -303,6 +313,16 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 页面详情.
                 /// </summary>
                 public const string PageDetail = _apiBase + "/pgc/page";
+
+                /// <summary>
+                /// 剧集详情.
+                /// </summary>
+                public const string SeasonDetail = _apiBase + "/pgc/view/v2/app/season";
+
+                /// <summary>
+                /// 剧集播放信息.
+                /// </summary>
+                public const string PlayInformation = _apiBase + "/pgc/player/web/playurl";
             }
 
             public static class Video

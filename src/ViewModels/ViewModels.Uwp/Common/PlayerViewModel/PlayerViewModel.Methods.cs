@@ -16,12 +16,25 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private void Reset()
         {
+            _videoDetail = null;
+            _pgcDetail = null;
             IsDetailError = false;
             _dashInformation = null;
             CurrentFormat = null;
-            PartCollection.Clear();
+            CurrentPgcEpisode = null;
+            CurrentVideoPart = null;
+            Publisher = null;
+            IsShowEpisode = false;
+            IsShowParts = false;
+            IsShowPgcActivityTab = false;
+            IsShowSeason = false;
+            IsShowRelatedVideos = false;
+            VideoPartCollection.Clear();
             RelatedVideoCollection.Clear();
             FormatCollection.Clear();
+            PgcSectionCollection.Clear();
+            EpisodeCollection.Clear();
+            SeasonCollection.Clear();
             _audioList.Clear();
             _videoList.Clear();
             ClearPlayer();
@@ -51,11 +64,43 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = false;
             }
 
-            var partId = CurrentPart == null ? 0 : CurrentPart.Page.Cid;
-            await ChangePartAsync(partId);
+            var partId = CurrentVideoPart == null ? 0 : CurrentVideoPart.Page.Cid;
+            await ChangeVideoPartAsync(partId);
         }
 
-        private void InitializeVideoDetail(long partId = 0)
+        private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0)
+        {
+            if (_pgcDetail == null ||
+                episodeId.ToString() != EpisodeId ||
+                seasonId.ToString() != SeasonId)
+            {
+                Reset();
+                IsDetailLoading = true;
+                EpisodeId = episodeId.ToString();
+                SeasonId = seasonId.ToString();
+
+                try
+                {
+                    var detail = await Controller.GetPgcDisplayInformationAsync(episodeId, seasonId);
+                    _pgcDetail = detail;
+                }
+                catch (Exception ex)
+                {
+                    IsDetailError = true;
+                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestPgcFailed) + $"\n{ex.Message}";
+                    IsDetailLoading = false;
+                    return;
+                }
+
+                InitializePgcDetail();
+                IsDetailLoading = false;
+            }
+
+            var id = CurrentPgcEpisode == null ? episodeId : CurrentPgcEpisode.Id;
+            await ChangePgcEpisodeAsync(id);
+        }
+
+        private void InitializeVideoDetail()
         {
             if (_videoDetail == null)
             {
@@ -68,6 +113,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(_videoDetail.Arc.Author);
             AvId = _videoDetail.Arc.Aid.ToString();
             BvId = _videoDetail.Bvid;
+            SeasonId = string.Empty;
+            EpisodeId = string.Empty;
             PlayCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.View);
             DanmakuCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Danmaku);
             LikeCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Like);
@@ -83,15 +130,78 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             foreach (var page in _videoDetail.Pages)
             {
-                PartCollection.Add(new VideoPartViewModel(page));
+                VideoPartCollection.Add(new VideoPartViewModel(page));
             }
 
-            IsShowParts = PartCollection.Count > 1;
+            IsShowParts = VideoPartCollection.Count > 1;
 
             var relates = _videoDetail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
+            IsShowRelatedVideos = relates.Count() > 0;
             foreach (var video in relates)
             {
                 RelatedVideoCollection.Add(new VideoViewModel(video));
+            }
+        }
+
+        private void InitializePgcDetail()
+        {
+            if (_pgcDetail == null)
+            {
+                return;
+            }
+
+            Title = _pgcDetail.Title;
+            Subtitle = _pgcDetail.OriginName ?? _pgcDetail.DynamicSubtitle ?? _pgcDetail.BadgeText ?? Subtitle;
+            Description = $"{_pgcDetail.TypeDescription}\n" +
+                $"{_pgcDetail.PublishInformation.DisplayReleaseDate}\n" +
+                $"{_pgcDetail.PublishInformation.DisplayProgress}";
+            AvId = string.Empty;
+            BvId = string.Empty;
+            SeasonId = _pgcDetail.SeasonId.ToString();
+            PlayCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.DanmakuCount);
+            LikeCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.LikeCount);
+            CoinCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.CoinCount);
+            FavoriteCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.FavoriteCount);
+            ShareCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.ShareCount);
+            ReplyCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.ReplyCount);
+            CoverUrl = _pgcDetail.Cover;
+
+            IsShowPgcActivityTab = _pgcDetail.ActivityTab != null;
+            if (IsShowPgcActivityTab)
+            {
+                PgcActivityTab = _pgcDetail.ActivityTab.DisplayName;
+            }
+
+            if (_pgcDetail.UserStatus != null)
+            {
+                IsFollow = _pgcDetail.UserStatus.IsFollow == 1;
+            }
+
+            if (_pgcDetail.Modules != null && _pgcDetail.Modules.Count > 0)
+            {
+                var seasonModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Season).FirstOrDefault();
+                IsShowSeason = seasonModule != null;
+                if (IsShowSeason)
+                {
+                    foreach (var item in seasonModule.Data.Seasons)
+                    {
+                        SeasonCollection.Add(new PgcSeasonViewModel(item, item.SeasonId.ToString() == SeasonId));
+                    }
+                }
+
+                var episodeModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Positive).FirstOrDefault();
+                IsShowEpisode = episodeModule != null;
+                if (IsShowEpisode)
+                {
+                    foreach (var item in episodeModule.Data.Episodes)
+                    {
+                        EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
+                    }
+                }
+
+                var partModuleList = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Section).ToList();
+                IsShowSection = partModuleList.Count > 0;
             }
         }
 
@@ -140,9 +250,17 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private void CheckPartSelection()
         {
-            foreach (var item in PartCollection)
+            foreach (var item in VideoPartCollection)
             {
-                item.IsSelected = item.Data.Equals(CurrentPart);
+                item.IsSelected = item.Data.Equals(CurrentVideoPart);
+            }
+        }
+
+        private void CheckEpisodeSelection()
+        {
+            foreach (var item in EpisodeCollection)
+            {
+                item.IsSelected = item.Data.Equals(CurrentPgcEpisode);
             }
         }
 
@@ -156,7 +274,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnProgressTimerTickAsync(object sender, object e)
         {
-            if (_videoDetail == null || CurrentPart == null)
+            if (_videoDetail == null || CurrentVideoPart == null)
             {
                 return;
             }
@@ -169,7 +287,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var progress = _currentVideoPlayer.PlaybackSession.Position;
             if (progress != _lastReportProgress)
             {
-                await Controller.ReportHistoryAsync(_videoId, CurrentPart.Page.Cid, _currentVideoPlayer.PlaybackSession.Position);
+                await Controller.ReportHistoryAsync(_videoId, CurrentVideoPart.Page.Cid, _currentVideoPlayer.PlaybackSession.Position);
                 _lastReportProgress = progress;
             }
         }

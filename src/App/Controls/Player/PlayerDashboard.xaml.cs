@@ -25,5 +25,9 @@ namespace Richasy.Bili.App.Controls
         private void OnShareButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
         }
+
+        private void OnPgcDetailButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+        }
     }
 }

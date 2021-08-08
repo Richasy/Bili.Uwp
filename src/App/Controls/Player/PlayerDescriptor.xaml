@@ -21,7 +21,8 @@
             x:Name="SinglePublisherContainer"
             HorizontalAlignment="Left"
             Orientation="Horizontal"
-            Spacing="12">
+            Spacing="12"
+            Visibility="{x:Bind ViewModel.Publisher, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
             <local:UserAvatar
                 Width="32"
                 Height="32"

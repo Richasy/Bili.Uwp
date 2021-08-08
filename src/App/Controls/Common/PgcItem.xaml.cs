@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

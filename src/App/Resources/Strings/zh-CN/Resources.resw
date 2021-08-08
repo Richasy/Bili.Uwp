@@ -207,6 +207,9 @@
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>
@@ -215,6 +218,9 @@
   </data>
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
+  </data>
+  <data name="Episodes" xml:space="preserve">
+    <value>分集</value>
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
@@ -459,8 +465,14 @@
   <data name="SearchTipSlim" xml:space="preserve">
     <value>搜一搜</value>
   </data>
+  <data name="Seasons" xml:space="preserve">
+    <value>系列</value>
+  </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>相关内容</value>
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>

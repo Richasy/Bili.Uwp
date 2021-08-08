@@ -139,5 +139,26 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 获取PGC内容详情.
+        /// </summary>
+        /// <param name="episodeId">单集Id.</param>
+        /// <param name="seasonId">剧集/系列Id.</param>
+        /// <returns>详细内容.</returns>
+        public async Task<PgcDisplayInformation> GetPgcDisplayInformationAsync(int episodeId = 0, int seasonId = 0)
+        {
+            if (episodeId < 0 || seasonId < 0)
+            {
+                throw new ArgumentOutOfRangeException("Id不会小于0");
+            }
+
+            if (episodeId == 0 && seasonId == 0)
+            {
+                throw new ArgumentException("无效的参数");
+            }
+
+            return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId);
+        }
     }
 }

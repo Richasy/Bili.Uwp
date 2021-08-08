@@ -1,11 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using Richasy.Bili.App.Pages;
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

@@ -104,5 +104,25 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcResponse>>(response);
             return data.Result;
         }
+
+        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.AutoPlay, "0" },
+                { Query.IsShowAllSeries, "0" },
+            };
+            if (episodeId > 0)
+            {
+                queryParameters.Add(Query.EpisodeId, episodeId.ToString());
+            }
+
+            if (seasonId > 0)
+            {
+                queryParameters.Add(Query.SeasonId, seasonId.ToString());
+            }
+
+            return queryParameters;
+        }
     }
 }

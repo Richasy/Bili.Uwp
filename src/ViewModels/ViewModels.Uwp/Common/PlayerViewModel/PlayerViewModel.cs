@@ -25,8 +25,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PlayerViewModel()
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
-            PartCollection = new ObservableCollection<VideoPartViewModel>();
+            VideoPartCollection = new ObservableCollection<VideoPartViewModel>();
             FormatCollection = new ObservableCollection<VideoFormatViewModel>();
+            EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
+            SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
+            PgcSectionCollection = new ObservableCollection<PgcDetailModuleData>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -62,6 +65,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task LoadAsync(object vm)
         {
             var videoId = string.Empty;
+            var seasonId = 0;
 
             if (vm is VideoViewModel videoVM)
             {
@@ -70,7 +74,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else if (vm is SeasonViewModel seasonVM)
             {
-                videoId = seasonVM.VideoId.ToString();
+                videoId = seasonVM.EpisodeId.ToString();
+                seasonId = seasonVM.SeasonId;
                 _videoType = VideoType.Pgc;
             }
 
@@ -80,6 +85,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadVideoDetailAsync(videoId);
                     break;
                 case VideoType.Pgc:
+                    await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
                     break;
                 case VideoType.Live:
                     break;
@@ -95,16 +101,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="partId">分P Id.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ChangePartAsync(long partId)
+        public async Task ChangeVideoPartAsync(long partId)
         {
-            if (partId != 0 && PartCollection.Any(p => p.Data.Page.Cid == partId))
+            if (partId != 0 && VideoPartCollection.Any(p => p.Data.Page.Cid == partId))
             {
-                var targetPart = PartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
-                CurrentPart = targetPart.Data;
+                var targetPart = VideoPartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
+                CurrentVideoPart = targetPart.Data;
             }
             else
             {
-                CurrentPart = PartCollection.First().Data;
+                CurrentVideoPart = VideoPartCollection.First().Data;
             }
 
             CheckPartSelection();
@@ -112,7 +118,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             try
             {
                 IsPlayInformationLoading = true;
-                var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentPart?.Page.Cid));
+                var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentVideoPart?.Page.Cid));
                 if (play != null)
                 {
                     _dashInformation = play;
@@ -130,7 +136,52 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
-                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentPart.Page.Cid);
+                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
+            }
+        }
+
+        /// <summary>
+        /// 改变PGC当前分集.
+        /// </summary>
+        /// <param name="episodeId">分集Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangePgcEpisodeAsync(int episodeId)
+        {
+            if (episodeId != 0 && EpisodeCollection.Any(p => p.Data.Id == episodeId))
+            {
+                var targetPart = EpisodeCollection.Where(p => p.Data.Id == episodeId).FirstOrDefault();
+                CurrentPgcEpisode = targetPart.Data;
+            }
+            else
+            {
+                CurrentPgcEpisode = EpisodeCollection.First().Data;
+            }
+
+            EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
+            CheckEpisodeSelection();
+
+            try
+            {
+                IsPlayInformationLoading = true;
+                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType));
+                if (play != null)
+                {
+                    _dashInformation = play;
+                }
+            }
+            catch (Exception ex)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestPgcFailed) + $"\n{ex.Message}";
+            }
+
+            IsPlayInformationLoading = false;
+
+            if (_dashInformation != null)
+            {
+                ClearPlayer();
+                await InitializeVideoPlayInformationAsync(_dashInformation);
+                await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
             }
         }
 

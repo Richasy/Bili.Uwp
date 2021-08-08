@@ -163,6 +163,10 @@ namespace Richasy.Bili.Models.Enums
         DanmakuFont,
         DanmakuMerge,
         UseCloudShieldSettings,
+        Episodes,
+        Seasons,
+        Sections,
+        Detail,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

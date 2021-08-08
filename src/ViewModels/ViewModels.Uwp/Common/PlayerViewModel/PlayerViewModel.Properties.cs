@@ -27,6 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private long _videoId;
         private ViewReply _videoDetail;
+        private PgcDisplayInformation _pgcDetail;
         private PlayerDashInformation _dashInformation;
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
@@ -88,7 +89,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string BvId { get; set; }
 
         /// <summary>
-        /// 剧集 Id.
+        /// PGC单集Id.
+        /// </summary>
+        [Reactive]
+        public string EpisodeId { get; set; }
+
+        /// <summary>
+        /// PGC剧集/系列Id.
         /// </summary>
         [Reactive]
         public string SeasonId { get; set; }
@@ -157,7 +164,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 分集视频集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<VideoPartViewModel> PartCollection { get; set; }
+        public ObservableCollection<VideoPartViewModel> VideoPartCollection { get; set; }
 
         /// <summary>
         /// 视频清晰度集合.
@@ -166,10 +173,34 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoFormatViewModel> FormatCollection { get; set; }
 
         /// <summary>
+        /// PGC区块（比如PV）集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PgcDetailModuleData> PgcSectionCollection { get; set; }
+
+        /// <summary>
+        /// PGC分集集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PgcEpisodeViewModel> EpisodeCollection { get; set; }
+
+        /// <summary>
+        /// PGC剧集/系列集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; set; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
-        public ViewPage CurrentPart { get; set; }
+        public ViewPage CurrentVideoPart { get; set; }
+
+        /// <summary>
+        /// 当前分集.
+        /// </summary>
+        [Reactive]
+        public PgcEpisodeDetail CurrentPgcEpisode { get; set; }
 
         /// <summary>
         /// 当前清晰度.
@@ -220,10 +251,46 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PlayerDisplayMode PlayerDisplayMode { get; set; }
 
         /// <summary>
+        /// PGC动态标签页名.
+        /// </summary>
+        [Reactive]
+        public string PgcActivityTab { get; set; }
+
+        /// <summary>
+        /// 是否显示PGC动态标签页.
+        /// </summary>
+        [Reactive]
+        public bool IsShowPgcActivityTab { get; set; }
+
+        /// <summary>
         /// 是否显示分P.
         /// </summary>
         [Reactive]
         public bool IsShowParts { get; set; }
+
+        /// <summary>
+        /// 是否显示关联视频.
+        /// </summary>
+        [Reactive]
+        public bool IsShowRelatedVideos { get; set; }
+
+        /// <summary>
+        /// 是否显示系列.
+        /// </summary>
+        [Reactive]
+        public bool IsShowSeason { get; set; }
+
+        /// <summary>
+        /// 是否显示分集列表.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEpisode { get; set; }
+
+        /// <summary>
+        /// 是否显示区块.
+        /// </summary>
+        [Reactive]
+        public bool IsShowSection { get; set; }
 
         /// <summary>
         /// 点赞按钮是否被选中.
@@ -242,6 +309,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsFavoriteChecked { get; set; }
+
+        /// <summary>
+        /// 是否已追番/关注.
+        /// </summary>
+        [Reactive]
+        public bool IsFollow { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

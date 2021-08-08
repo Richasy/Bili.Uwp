@@ -33,7 +33,15 @@ namespace Richasy.Bili.App.Controls
                 {
                     Nav.SelectedItem = PartsItem;
                 }
-                else
+                else if (ViewModel.IsShowEpisode)
+                {
+                    Nav.SelectedItem = EpisodeItem;
+                }
+                else if (ViewModel.IsShowSeason)
+                {
+                    Nav.SelectedItem = SeasonItem;
+                }
+                else if (ViewModel.IsShowRelatedVideos)
                 {
                     Nav.SelectedItem = RelatedViedeosItem;
                 }
@@ -51,15 +59,31 @@ namespace Richasy.Bili.App.Controls
                 Visibility.Visible : Visibility.Collapsed;
             PartView.Visibility = Nav.SelectedItem == PartsItem ?
                 Visibility.Visible : Visibility.Collapsed;
+            EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
+                Visibility.Visible : Visibility.Collapsed;
         }
 
         private async void OnPartItemClickAsync(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
             var data = card.DataContext as VideoPartViewModel;
-            if (!data.Data.Equals(ViewModel.CurrentPart))
+            if (!data.Data.Equals(ViewModel.CurrentVideoPart))
             {
-                await ViewModel.ChangePartAsync(data.Data.Page.Cid);
+                await ViewModel.ChangeVideoPartAsync(data.Data.Page.Cid);
+            }
+            else
+            {
+                data.IsSelected = true;
+            }
+        }
+
+        private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var card = sender as CardPanel;
+            var data = card.DataContext as PgcEpisodeViewModel;
+            if (!data.Data.Equals(ViewModel.CurrentPgcEpisode))
+            {
+                await ViewModel.ChangePgcEpisodeAsync(data.Data.Id);
             }
             else
             {

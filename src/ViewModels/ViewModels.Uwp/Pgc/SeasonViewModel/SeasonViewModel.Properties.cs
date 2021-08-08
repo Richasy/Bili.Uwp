@@ -18,7 +18,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 视频Id.
         /// </summary>
-        public int VideoId { get; set; }
+        public int EpisodeId { get; set; }
 
         /// <summary>
         /// 视频标题.
@@ -85,9 +85,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string SourceCoverUrl { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SeasonViewModel model && VideoId == model.VideoId;
+        public override bool Equals(object obj) => obj is SeasonViewModel model && EpisodeId == model.EpisodeId;
 
         /// <inheritdoc/>
-        public override int GetHashCode() => -593024695 + VideoId.GetHashCode();
+        public override int GetHashCode() => -593024695 + EpisodeId.GetHashCode();
     }
 }

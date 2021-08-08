@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
-using Newtonsoft.Json.Linq;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -66,40 +65,13 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<PlayerDashInformation> GetDashAsync(long videoId, long partId)
         {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.Fnver, "0" },
-                { Query.AVid, videoId.ToString() },
-                { Query.Cid, partId.ToString() },
-                { Query.Fourk, "1" },
-                { Query.Fnval, "16" },
-                { Query.Qn, "64" },
-                { Query.OType, "json" },
-            };
+            return await InternalGetDashAsync(partId.ToString(), videoId.ToString());
+        }
 
-            if (_accountProvider.UserId != 0)
-            {
-                queryParameters.Add(Query.MyId, _accountProvider.UserId.ToString());
-            }
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Video.PlayInformation, queryParameters, Models.Enums.RequestClientType.Web);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PlayerDashInformation>, ServerResponse2<PlayerDashInformation>>(response, (str) =>
-              {
-                  var jobj = JObject.Parse(str);
-                  return jobj.ContainsKey("data");
-              });
-
-            if (data is ServerResponse<PlayerDashInformation> res1)
-            {
-                return res1.Data;
-            }
-            else if (data is ServerResponse2<PlayerDashInformation> res2)
-            {
-                return res2.Result;
-            }
-
-            return null;
+        /// <inheritdoc/>
+        public async Task<PlayerDashInformation> GetDashAsync(int partId, int seasonType)
+        {
+            return await InternalGetDashAsync(partId.ToString(), seasonType: seasonType.ToString());
         }
 
         /// <inheritdoc/>

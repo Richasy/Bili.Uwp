@@ -26,7 +26,7 @@
                         <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RelatedVideoView.MaxWidth" Value="320" />
+                        <Setter Target="DetailGrid.MaxWidth" Value="320" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="RowState">
@@ -34,7 +34,7 @@
                         <trigger:WindowWidthTrigger Condition="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RelatedVideoView.MaxWidth" Value="999" />
+                        <Setter Target="DetailGrid.MaxWidth" Value="999" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -52,14 +52,28 @@
                     x:Name="PartsItem"
                     Content="{loc:LocaleLocator Name=Parts}"
                     Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
-                <muxc:NavigationViewItem x:Name="RelatedViedeosItem" Content="{loc:LocaleLocator Name=RelatedVideos}" />
+                <muxc:NavigationViewItem
+                    x:Name="EpisodeItem"
+                    Content="{loc:LocaleLocator Name=Episodes}"
+                    Visibility="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="SeasonItem"
+                    Content="{loc:LocaleLocator Name=Seasons}"
+                    Visibility="{x:Bind ViewModel.IsShowSeason, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="RelatedViedeosItem"
+                    Content="{loc:LocaleLocator Name=RelatedVideos}"
+                    Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
                 <muxc:NavigationViewItem x:Name="ReplyItem" Content="{loc:LocaleLocator Name=Reply}" />
+                <muxc:NavigationViewItem
+                    x:Name="SectionItem"
+                    Content="{loc:LocaleLocator Name=Sections}"
+                    Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
             <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
-                <Grid>
+                <Grid x:Name="DetailGrid" MaxWidth="380">
                     <local:VerticalRepeaterView
                         x:Name="RelatedVideoView"
-                        MaxWidth="380"
                         HeaderVisibility="Collapsed"
                         ItemOrientation="Horizontal"
                         ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
@@ -76,10 +90,9 @@
                     </local:VerticalRepeaterView>
                     <local:VerticalRepeaterView
                         x:Name="PartView"
-                        MaxWidth="380"
                         HeaderVisibility="Collapsed"
                         ItemOrientation="Horizontal"
-                        ItemsSource="{x:Bind ViewModel.PartCollection}">
+                        ItemsSource="{x:Bind ViewModel.VideoPartCollection}">
                         <local:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:VideoPartViewModel">
                                 <local:CardPanel
@@ -108,6 +121,52 @@
                                                 FontWeight="Bold"
                                                 Text="{x:Bind Data.Page.Desc}"
                                                 Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </local:CardPanel>
+                            </DataTemplate>
+                        </local:VerticalRepeaterView.ItemTemplate>
+                    </local:VerticalRepeaterView>
+                    <local:VerticalRepeaterView
+                        x:Name="EpisodeView"
+                        HeaderVisibility="Collapsed"
+                        ItemOrientation="Horizontal"
+                        ItemsSource="{x:Bind ViewModel.EpisodeCollection}">
+                        <local:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
+                                <local:CardPanel
+                                    Click="OnEpisodeItemClickAsync"
+                                    DataContext="{x:Bind}"
+                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                    IsEnableCheck="True"
+                                    IsEnableHoverAnimation="False">
+                                    <Grid
+                                        Padding="12"
+                                        HorizontalAlignment="Stretch"
+                                        ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid
+                                            Width="96"
+                                            Height="64"
+                                            VerticalAlignment="Center"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <Image Source="{x:Bind Data.Cover}" Stretch="UniformToFill" />
+                                        </Grid>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Spacing="8">
+                                            <TextBlock
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                FontWeight="Bold"
+                                                Text="{x:Bind Data.LongTitle}" />
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{x:Bind Data.Subtitle}" />
                                         </StackPanel>
                                     </Grid>
                                 </local:CardPanel>

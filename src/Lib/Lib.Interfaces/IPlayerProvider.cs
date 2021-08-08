@@ -38,6 +38,14 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<PlayerDashInformation> GetDashAsync(long videoId, long partId);
 
         /// <summary>
+        /// 获取PGC的剧集Dash播放信息.
+        /// </summary>
+        /// <param name="partId">对应剧集的Cid.</param>
+        /// <param name="seasonType">剧集类型.</param>
+        /// <returns><see cref="PlayerDashInformation"/>.</returns>
+        Task<PlayerDashInformation> GetDashAsync(int partId, int seasonType);
+
+        /// <summary>
         /// 获取弹幕元数据信息.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
