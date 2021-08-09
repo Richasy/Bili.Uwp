@@ -109,7 +109,7 @@ namespace Richasy.Bili.Models.BiliBili
         public string SeasonTags { get; set; }
 
         /// <summary>
-        /// 动漫参数.
+        /// PGC用户交互参数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "stat", Required = Required.Default)]
         public PgcItemStat Stat { get; set; }

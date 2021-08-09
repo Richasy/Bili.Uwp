@@ -78,6 +78,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                 seasonId = seasonVM.SeasonId;
                 _videoType = VideoType.Pgc;
             }
+            else if (vm is PgcSeason seasonData)
+            {
+                videoId = "0";
+                seasonId = seasonData.SeasonId;
+                _videoType = VideoType.Pgc;
+            }
 
             switch (_videoType)
             {

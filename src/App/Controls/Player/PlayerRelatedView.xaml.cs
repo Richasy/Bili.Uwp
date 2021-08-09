@@ -61,6 +61,8 @@ namespace Richasy.Bili.App.Controls
                 Visibility.Visible : Visibility.Collapsed;
             EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
+            SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
+                Visibility.Visible : Visibility.Collapsed;
         }
 
         private async void OnPartItemClickAsync(object sender, RoutedEventArgs e)
@@ -84,6 +86,20 @@ namespace Richasy.Bili.App.Controls
             if (!data.Data.Equals(ViewModel.CurrentPgcEpisode))
             {
                 await ViewModel.ChangePgcEpisodeAsync(data.Data.Id);
+            }
+            else
+            {
+                data.IsSelected = true;
+            }
+        }
+
+        private async void OnSeasonItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var card = sender as CardPanel;
+            var data = card.DataContext as PgcSeasonViewModel;
+            if (!data.Data.SeasonId.ToString().Equals(ViewModel.SeasonId))
+            {
+                await ViewModel.LoadAsync(data.Data);
             }
             else
             {

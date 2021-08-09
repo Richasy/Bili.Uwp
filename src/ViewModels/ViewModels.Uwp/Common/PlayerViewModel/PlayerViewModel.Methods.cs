@@ -24,6 +24,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
             Publisher = null;
+            _initializeProgress = TimeSpan.Zero;
+            _lastReportProgress = TimeSpan.Zero;
             IsShowEpisode = false;
             IsShowParts = false;
             IsShowPgcActivityTab = false;
@@ -96,7 +98,21 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = false;
             }
 
-            var id = CurrentPgcEpisode == null ? episodeId : CurrentPgcEpisode.Id;
+            var id = 0;
+            if (CurrentPgcEpisode != null)
+            {
+                id = CurrentPgcEpisode.Id;
+            }
+            else if (episodeId > 0)
+            {
+                id = episodeId;
+            }
+            else if (_pgcDetail.UserStatus?.Progress != null)
+            {
+                id = _pgcDetail.UserStatus.Progress.LastEpisodeId;
+                _initializeProgress = TimeSpan.FromSeconds(_pgcDetail.UserStatus.Progress.LastTime);
+            }
+
             await ChangePgcEpisodeAsync(id);
         }
 
@@ -181,7 +197,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (_pgcDetail.Modules != null && _pgcDetail.Modules.Count > 0)
             {
                 var seasonModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Season).FirstOrDefault();
-                IsShowSeason = seasonModule != null;
+                IsShowSeason = seasonModule != null && seasonModule.Data.Seasons.Count > 1;
                 if (IsShowSeason)
                 {
                     foreach (var item in seasonModule.Data.Seasons)
@@ -191,7 +207,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var episodeModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Positive).FirstOrDefault();
-                IsShowEpisode = episodeModule != null;
+                IsShowEpisode = episodeModule != null && episodeModule.Data.Episodes.Count > 1;
                 if (IsShowEpisode)
                 {
                     foreach (var item in episodeModule.Data.Episodes)

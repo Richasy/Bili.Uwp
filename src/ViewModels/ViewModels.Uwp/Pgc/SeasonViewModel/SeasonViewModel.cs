@@ -21,11 +21,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.Title = item.Title;
             vm.Subtitle = item.Description;
             vm.SeasonId = item.OriginId;
-            if (item.NewEpisode != null)
-            {
-                vm.EpisodeId = item.NewEpisode.Id;
-            }
-            else if (item.Aid > 0)
+            if (item.Aid > 0)
             {
                 vm.EpisodeId = item.Aid;
             }

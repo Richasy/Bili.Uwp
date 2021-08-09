@@ -31,6 +31,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private PlayerDashInformation _dashInformation;
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
+        private TimeSpan _initializeProgress;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;

@@ -83,6 +83,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     position = _currentVideoPlayer.PlaybackSession.Position;
                 }
+                else if (_initializeProgress != TimeSpan.Zero)
+                {
+                    position = _initializeProgress;
+                }
 
                 _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
