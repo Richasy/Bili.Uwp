@@ -45,7 +45,7 @@
                     Width="120"
                     Height="160"
                     ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.SeasonId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}" />
             </Grid>
             <StackPanel
                 Grid.Column="1"

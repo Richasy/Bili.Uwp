@@ -311,19 +311,38 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
+                            <!-- Danmaku states -->
+                            <VisualStateGroup x:Name="DanmakuStates">
+                                <VisualState x:Name="DanmakuDefaultState">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowWindowThresholdWidth}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                                <VisualState x:Name="DanmakuInvisibleState">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="DanmakuContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="DanmakuVisibilityToggleSwitch.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Rectangle
                             x:Name="InteractionControl"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Fill="Transparent" />
-                        <controls:Danmaku
-                            x:Name="DanmakuControl"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
-                            Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
-                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Grid x:Name="DanmakuContainer">
+                            <controls:Danmaku
+                                x:Name="DanmakuControl"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
+                                Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        </Grid>
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
                             <Grid
                                 x:Name="ControlPanelGrid"
@@ -513,8 +532,8 @@
                                                     <Flyout FlyoutPresenterStyle="{StaticResource FlyoutStyle}" Placement="Top">
                                                         <ListView
                                                             x:Name="FormatListView"
-                                                            Margin="4"
                                                             MinWidth="120"
+                                                            Margin="4"
                                                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FormatCollection}">
                                                             <ListView.ItemTemplate>
                                                                 <DataTemplate>

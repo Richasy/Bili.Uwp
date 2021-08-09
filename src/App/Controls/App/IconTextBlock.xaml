@@ -26,6 +26,7 @@
             Grid.Column="1"
             VerticalAlignment="Center"
             FontSize="{x:Bind FontSize, Mode=OneWay}"
+            Foreground="{x:Bind Foreground, Mode=OneWay}"
             Text="{x:Bind Text, Mode=OneWay}"
             TextLineBounds="Tight"
             TextTrimming="CharacterEllipsis">

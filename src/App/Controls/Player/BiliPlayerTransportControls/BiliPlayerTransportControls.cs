@@ -298,9 +298,9 @@ namespace Richasy.Bili.App.Controls
             {
                 scale = 1;
             }
-            else if (scale < 0.4)
+            else if (scale < 0.6)
             {
-                scale = 0.4;
+                scale = 0.6;
             }
 
             _danmakuControl.DanmakuSizeZoom = scale;

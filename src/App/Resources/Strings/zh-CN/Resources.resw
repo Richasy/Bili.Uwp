@@ -360,6 +360,12 @@
   <data name="Personal" xml:space="preserve">
     <value>个人</value>
   </data>
+  <data name="PgcFollowing" xml:space="preserve">
+    <value>正在追</value>
+  </data>
+  <data name="PgcNotFollow" xml:space="preserve">
+    <value>追</value>
+  </data>
   <data name="Player" xml:space="preserve">
     <value>播放器</value>
   </data>

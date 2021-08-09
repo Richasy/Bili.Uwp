@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.PlayerDashboard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
@@ -16,6 +17,8 @@
             <Setter Property="IconFontSize" Value="20" />
             <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
         </Style>
+
+        <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
     </local:PlayerComponent.Resources>
 
     <Grid RowSpacing="20">
@@ -49,33 +52,42 @@
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
                 <icons:RegularFluentIcon Symbol="Star16" />
             </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="FollowButton"
+                Description="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
+                IsChecked="{x:Bind ViewModel.IsFollow, Mode=OneWay}"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}"
+                Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
+                <icons:RegularFluentIcon Symbol="RibbonStar20" />
+            </local:ProgressButton>
         </StackPanel>
         <StackPanel
             Grid.Row="1"
-            Padding="8,0,0,0"
+            MaxWidth="152"
+            HorizontalAlignment="Stretch"
             Spacing="4">
-            <Button
-                x:Name="PgcDetailButton"
-                Style="{StaticResource AccentButtonStyle}"
-                Width="152"
-                Margin="0,0,0,8"
-                Click="OnPgcDetailButtonClick"
-                Visibility="{x:Bind ViewModel.SeasonId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
-                <StackPanel
-                    Margin="0,4"
-                    Orientation="Horizontal"
-                    Spacing="8">
-                    <icons:RegularFluentIcon VerticalAlignment="Center" Symbol="TextBulletListTree16" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Text="{loc:LocaleLocator Name=Detail}"
-                        TextLineBounds="Tight" />
-                </StackPanel>
-            </Button>
+            <StackPanel
+                x:Name="PgcControlContainer"
+                Margin="0,0,0,4"
+                HorizontalAlignment="Stretch"
+                Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
+                <Button
+                    x:Name="PgcDetailButton"
+                    Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Stretch"
+                    Click="OnPgcDetailButtonClick">
+                    <local:IconTextBlock
+                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                        Symbol="TextBulletListTree16"
+                        Text="{loc:LocaleLocator Name=Detail}" />
+                </Button>
+            </StackPanel>
+
             <Button
                 x:Name="ShareButton"
-                Width="152"
                 Margin="0,0,0,8"
+                HorizontalAlignment="Stretch"
                 Click="OnShareButtonClick">
                 <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
             </Button>

@@ -317,6 +317,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsFollow { get; set; }
 
+        /// <summary>
+        /// 是否为PGC内容.
+        /// </summary>
+        [Reactive]
+        public bool IsPgc { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

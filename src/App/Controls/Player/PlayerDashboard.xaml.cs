@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Windows.UI.Xaml;
+
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
@@ -22,11 +24,15 @@ namespace Richasy.Bili.App.Controls
             FavoriteButton.ShowBubbles();
         }
 
-        private void OnShareButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnShareButtonClick(object sender, RoutedEventArgs e)
         {
         }
 
-        private void OnPgcDetailButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnPgcDetailButtonClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
         {
         }
     }

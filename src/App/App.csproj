@@ -20,7 +20,7 @@
     <Compile Include="Controls\App\BubbleView\Bubble.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
-    <Compile Include="Controls\Common\CommonImageEx.xaml.cs">
+    <Compile Include="Controls\App\CommonImageEx.xaml.cs">
       <DependentUpon>CommonImageEx.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\DanmakuDisplayOptions.xaml.cs">
@@ -201,6 +201,7 @@
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
+    <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
     <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\PreferCodecConverter.cs" />
@@ -313,7 +314,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\CommonImageEx.xaml">
+    <Page Include="Controls\App\CommonImageEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

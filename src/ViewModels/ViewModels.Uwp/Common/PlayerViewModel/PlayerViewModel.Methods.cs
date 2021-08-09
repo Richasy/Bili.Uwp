@@ -40,6 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _audioList.Clear();
             _videoList.Clear();
             ClearPlayer();
+            IsPgc = false;
         }
 
         private async Task LoadVideoDetailAsync(string videoId)
@@ -77,6 +78,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 seasonId.ToString() != SeasonId)
             {
                 Reset();
+                IsPgc = true;
                 IsDetailLoading = true;
                 EpisodeId = episodeId.ToString();
                 SeasonId = seasonId.ToString();

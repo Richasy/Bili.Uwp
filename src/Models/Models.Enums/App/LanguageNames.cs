@@ -167,6 +167,8 @@ namespace Richasy.Bili.Models.Enums
         Seasons,
         Sections,
         Detail,
+        PgcFollowing,
+        PgcNotFollow,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

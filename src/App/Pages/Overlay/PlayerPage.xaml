@@ -49,6 +49,7 @@
                         <Setter Target="InformationContainer.RowSpacing" Value="12" />
                         <Setter Target="Dashboard.(Grid.Column)" Value="0" />
                         <Setter Target="Dashboard.(Grid.Row)" Value="1" />
+                        <Setter Target="Dashboard.HorizontalAlignment" Value="Left" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
