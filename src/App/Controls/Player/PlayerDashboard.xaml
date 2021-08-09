@@ -26,7 +26,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Spacing="12">
+        <StackPanel Orientation="Horizontal">
             <local:ProgressButton
                 x:Name="LikeButton"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
@@ -38,6 +38,7 @@
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="CoinButton"
+                Margin="12,0"
                 Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
                 IsChecked="{x:Bind ViewModel.IsCoinChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"
@@ -54,6 +55,7 @@
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="FollowButton"
+                Margin="12,0,0,0"
                 Description="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
                 IsChecked="{x:Bind ViewModel.IsFollow, Mode=OneWay}"
                 IsHoldingEnabled="False"
@@ -64,7 +66,6 @@
         </StackPanel>
         <StackPanel
             Grid.Row="1"
-            MaxWidth="152"
             HorizontalAlignment="Stretch"
             Spacing="4">
             <StackPanel

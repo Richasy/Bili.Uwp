@@ -39,13 +39,15 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Margin="0,0,20,0" CornerRadius="{StaticResource ControlCornerRadius}">
+            <Grid
+                Margin="0,0,20,0"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
                 <local:CommonImageEx
                     x:Name="PgcImage"
                     Width="120"
                     Height="160"
-                    ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}" />
+                    ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
             </Grid>
             <StackPanel
                 Grid.Column="1"
