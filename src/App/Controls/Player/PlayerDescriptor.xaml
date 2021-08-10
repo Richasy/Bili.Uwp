@@ -91,8 +91,11 @@
                 <TextBlock
                     x:Name="DescriptionBlock"
                     Style="{StaticResource BodyTextBlockStyle}"
+                    MaxWidth="600"
                     HorizontalAlignment="Left"
+                    FontSize="12"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    LineHeight="20"
                     MaxLines="6"
                     Text="{x:Bind ViewModel.Description, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis"

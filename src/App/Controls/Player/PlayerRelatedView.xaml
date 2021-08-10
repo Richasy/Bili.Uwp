@@ -8,6 +8,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:related="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
@@ -79,158 +80,10 @@
             </muxc:NavigationView.MenuItems>
             <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                 <Grid x:Name="DetailGrid" MaxWidth="360">
-                    <local:VerticalRepeaterView
-                        x:Name="RelatedVideoView"
-                        HeaderVisibility="Collapsed"
-                        ItemOrientation="Horizontal"
-                        ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
-                        <local:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:VideoViewModel">
-                                <local:VideoItem
-                                    MaxHeight="100"
-                                    HorizontalCoverWidth="120"
-                                    IsShowDanmakuCount="True"
-                                    IsShowPlayCount="True"
-                                    ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </local:VerticalRepeaterView.ItemTemplate>
-                    </local:VerticalRepeaterView>
-                    <local:VerticalRepeaterView
-                        x:Name="PartView"
-                        HeaderVisibility="Collapsed"
-                        ItemOrientation="Horizontal"
-                        ItemsSource="{x:Bind ViewModel.VideoPartCollection}">
-                        <local:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:VideoPartViewModel">
-                                <local:CardPanel
-                                    Click="OnPartItemClickAsync"
-                                    DataContext="{x:Bind}"
-                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                    IsEnableCheck="True"
-                                    IsEnableHoverAnimation="False">
-                                    <Grid Padding="12">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="36" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            FontWeight="Bold"
-                                            Text="{x:Bind Data.Page.Page_}" />
-                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                            <TextBlock
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                FontWeight="Bold"
-                                                Text="{x:Bind Data.Page.Part}" />
-                                            <TextBlock
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Margin="0,4,0,0"
-                                                FontWeight="Bold"
-                                                Text="{x:Bind Data.Page.Desc}"
-                                                Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </local:CardPanel>
-                            </DataTemplate>
-                        </local:VerticalRepeaterView.ItemTemplate>
-                    </local:VerticalRepeaterView>
-                    <local:VerticalRepeaterView
-                        x:Name="EpisodeView"
-                        HeaderVisibility="Collapsed"
-                        ItemOrientation="Horizontal"
-                        ItemsSource="{x:Bind ViewModel.EpisodeCollection}">
-                        <local:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
-                                <local:CardPanel
-                                    Click="OnEpisodeItemClickAsync"
-                                    DataContext="{x:Bind}"
-                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                    IsEnableCheck="True"
-                                    IsEnableHoverAnimation="False">
-                                    <Grid
-                                        Padding="12"
-                                        HorizontalAlignment="Stretch"
-                                        ColumnSpacing="12">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid
-                                            Width="96"
-                                            Height="64"
-                                            VerticalAlignment="Center"
-                                            CornerRadius="{StaticResource ControlCornerRadius}">
-                                            <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
-                                        </Grid>
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            Spacing="4">
-                                            <TextBlock
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                FontWeight="Bold"
-                                                Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
-                                            <TextBlock
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{x:Bind Data.Duration, Converter={StaticResource MillisecondsDurationConverter}}" />
-                                            <TextBlock
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{x:Bind Data.Subtitle}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </local:CardPanel>
-                            </DataTemplate>
-                        </local:VerticalRepeaterView.ItemTemplate>
-                    </local:VerticalRepeaterView>
-                    <local:VerticalRepeaterView
-                        x:Name="SeasonView"
-                        HeaderVisibility="Collapsed"
-                        ItemOrientation="Vertical"
-                        ItemsSource="{x:Bind ViewModel.SeasonCollection}"
-                        MinWideItemHeight="200"
-                        MinWideItemWidth="120">
-                        <local:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:PgcSeasonViewModel">
-                                <local:CardPanel
-                                    Click="OnSeasonItemClickAsync"
-                                    DataContext="{x:Bind}"
-                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                    IsEnableCheck="True"
-                                    IsEnableHoverAnimation="False">
-                                    <Grid Padding="20,12" RowSpacing="12">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Grid HorizontalAlignment="Center" CornerRadius="{StaticResource ControlCornerRadius}">
-                                            <Image Source="{x:Bind Data.Cover, Converter={StaticResource SeasonCoverConverter}}" ToolTipService.ToolTip="{x:Bind Data.SeasonTitle}" />
-                                            <Border
-                                                Margin="2,0,0,2"
-                                                Padding="8,4"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Bottom"
-                                                Background="{ThemeResource AccentBadgeBackground}"
-                                                CornerRadius="{StaticResource ControlCornerRadius}"
-                                                Visibility="{x:Bind Data.Badge, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                                <TextBlock FontSize="12" Text="{x:Bind Data.Badge}" />
-                                            </Border>
-                                        </Grid>
-                                        <TextBlock
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Grid.Row="1"
-                                            HorizontalAlignment="Center"
-                                            FontWeight="Bold"
-                                            MaxLines="1"
-                                            Text="{x:Bind Data.Title}"
-                                            TextAlignment="Center"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </local:CardPanel>
-                            </DataTemplate>
-                        </local:VerticalRepeaterView.ItemTemplate>
-                    </local:VerticalRepeaterView>
+                    <related:RelatedVideoView x:Name="RelatedVideoView" Visibility="Collapsed" />
+                    <related:VideoPartView x:Name="VideoPartView" Visibility="Collapsed" />
+                    <related:EpisodeView x:Name="EpisodeView" Visibility="Collapsed" />
+                    <related:SeasonView x:Name="SeasonView" Visibility="Collapsed" />
                 </Grid>
             </ScrollViewer>
         </muxc:NavigationView>

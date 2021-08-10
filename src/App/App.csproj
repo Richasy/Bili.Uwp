@@ -65,6 +65,18 @@
       <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\ProgressButton\ProgressButton.cs" />
+    <Compile Include="Controls\Player\Related\EpisodeView.xaml.cs">
+      <DependentUpon>EpisodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player\Related\RelatedVideoView.xaml.cs">
+      <DependentUpon>RelatedVideoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player\Related\SeasonView.xaml.cs">
+      <DependentUpon>SeasonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player\Related\VideoPartView.xaml.cs">
+      <DependentUpon>VideoPartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -367,6 +379,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\ProgressButton\ProgressButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\EpisodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\RelatedVideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\SeasonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\VideoPartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

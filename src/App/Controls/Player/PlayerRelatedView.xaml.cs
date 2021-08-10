@@ -57,54 +57,12 @@ namespace Richasy.Bili.App.Controls
         {
             RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
                 Visibility.Visible : Visibility.Collapsed;
-            PartView.Visibility = Nav.SelectedItem == PartsItem ?
+            VideoPartView.Visibility = Nav.SelectedItem == PartsItem ?
                 Visibility.Visible : Visibility.Collapsed;
             EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
             SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
                 Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private async void OnPartItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            var card = sender as CardPanel;
-            var data = card.DataContext as VideoPartViewModel;
-            if (!data.Data.Equals(ViewModel.CurrentVideoPart))
-            {
-                await ViewModel.ChangeVideoPartAsync(data.Data.Page.Cid);
-            }
-            else
-            {
-                data.IsSelected = true;
-            }
-        }
-
-        private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            var card = sender as CardPanel;
-            var data = card.DataContext as PgcEpisodeViewModel;
-            if (!data.Data.Equals(ViewModel.CurrentPgcEpisode))
-            {
-                await ViewModel.ChangePgcEpisodeAsync(data.Data.Id);
-            }
-            else
-            {
-                data.IsSelected = true;
-            }
-        }
-
-        private async void OnSeasonItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            var card = sender as CardPanel;
-            var data = card.DataContext as PgcSeasonViewModel;
-            if (!data.Data.SeasonId.ToString().Equals(ViewModel.SeasonId))
-            {
-                await ViewModel.LoadAsync(data.Data);
-            }
-            else
-            {
-                data.IsSelected = true;
-            }
         }
     }
 }
