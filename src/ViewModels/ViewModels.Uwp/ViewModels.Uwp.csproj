@@ -14,6 +14,7 @@
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
     <Compile Include="Common\PgcEpisodeViewModel.cs" />
+    <Compile Include="Common\PgcSectionViewModel.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
     <Compile Include="Common\PgcSeasonViewModel.cs" />

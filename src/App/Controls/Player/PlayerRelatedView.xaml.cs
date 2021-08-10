@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -29,7 +28,16 @@ namespace Richasy.Bili.App.Controls
         {
             if (e.PropertyName == nameof(ViewModel.IsDetailLoading))
             {
-                if (ViewModel.IsShowParts)
+                if (ViewModel.IsDetailLoading)
+                {
+                    return;
+                }
+
+                if (ViewModel.IsPgc && ViewModel.IsCurrentEpisodeInPgcSection)
+                {
+                    Nav.SelectedItem = SectionItem;
+                }
+                else if (ViewModel.IsShowParts)
                 {
                     Nav.SelectedItem = PartsItem;
                 }
@@ -46,6 +54,13 @@ namespace Richasy.Bili.App.Controls
                     Nav.SelectedItem = RelatedViedeosItem;
                 }
                 else if (ViewModel.IsShowSection)
+                {
+                    Nav.SelectedItem = SectionItem;
+                }
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsCurrentEpisodeInPgcSection))
+            {
+                if (ViewModel.IsCurrentEpisodeInPgcSection)
                 {
                     Nav.SelectedItem = SectionItem;
                 }

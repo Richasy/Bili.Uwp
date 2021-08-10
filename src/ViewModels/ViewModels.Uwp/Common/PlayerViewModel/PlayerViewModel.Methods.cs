@@ -31,10 +31,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowPgcActivityTab = false;
             IsShowSeason = false;
             IsShowRelatedVideos = false;
+            IsCurrentEpisodeInPgcSection = false;
+            PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
             RelatedVideoCollection.Clear();
             FormatCollection.Clear();
-            PgcSectionCollection.Clear();
             EpisodeCollection.Clear();
             SeasonCollection.Clear();
             _audioList.Clear();
@@ -224,9 +225,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     foreach (var item in partModuleList)
                     {
-                        if (item.Data?.Seasons?.Any() ?? false)
+                        if (item.Data?.Episodes?.Any() ?? false)
                         {
-                            PgcSectionCollection.Add(item.Title, item.Data.Episodes.Select(p => new PgcEpisodeViewModel(p, false)).ToList());
+                            PgcSectionCollection.Add(new PgcSectionViewModel(item));
                         }
                     }
                 }
@@ -290,6 +291,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 item.IsSelected = item.Data.Equals(CurrentPgcEpisode);
             }
+
+            foreach (var section in PgcSectionCollection)
+            {
+                foreach (var epi in section.Episodes)
+                {
+                    epi.IsSelected = epi.Data.Equals(CurrentPgcEpisode);
+                }
+            }
+
+            IsCurrentEpisodeInPgcSection = !EpisodeCollection.Any(p => p.Data.Equals(CurrentPgcEpisode));
         }
 
         private void CheckFormatSelection()

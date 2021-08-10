@@ -177,7 +177,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// PGC区块（比如PV）集合.
         /// </summary>
         [Reactive]
-        public Dictionary<string, List<PgcEpisodeViewModel>> PgcSectionCollection { get; set; }
+        public ObservableCollection<PgcSectionViewModel> PgcSectionCollection { get; set; }
 
         /// <summary>
         /// PGC分集集合.
@@ -322,6 +322,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsPgc { get; set; }
+
+        /// <summary>
+        /// 当前的分集是否在PGC关联内容里（比如PV）.
+        /// </summary>
+        [Reactive]
+        public bool IsCurrentEpisodeInPgcSection { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }
