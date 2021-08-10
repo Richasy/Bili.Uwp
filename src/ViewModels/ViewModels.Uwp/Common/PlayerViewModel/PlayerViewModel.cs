@@ -160,7 +160,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                CurrentPgcEpisode = EpisodeCollection.First().Data;
+                CurrentPgcEpisode = EpisodeCollection.FirstOrDefault().Data;
+            }
+
+            if (CurrentPgcEpisode == null)
+            {
+                // 没有分集，弹出警告.
+                return;
             }
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;

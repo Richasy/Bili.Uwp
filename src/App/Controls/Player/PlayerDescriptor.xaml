@@ -13,7 +13,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="12">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -22,6 +22,7 @@
 
         <StackPanel
             x:Name="SinglePublisherContainer"
+            Margin="0,0,0,12"
             HorizontalAlignment="Left"
             Orientation="Horizontal"
             Spacing="12"
@@ -46,7 +47,6 @@
                 <local:CommonImageEx
                     x:Name="PgcImage"
                     Width="120"
-                    Height="160"
                     ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
             </Grid>
             <StackPanel

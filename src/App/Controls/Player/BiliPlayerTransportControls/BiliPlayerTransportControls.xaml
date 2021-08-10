@@ -324,7 +324,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="DanmakuContainer.Visibility" Value="Collapsed" />
-                                        <Setter Target="DanmakuVisibilityToggleSwitch.Visibility" Value="Collapsed" />
+                                        <Setter Target="Danmaku_Command_Border.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -543,6 +543,12 @@
                                                         </ListView>
                                                     </Flyout>
                                                 </AppBarButton.Flyout>
+                                                <AppBarButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator
+                                                        Key="Q"
+                                                        IsEnabled="True"
+                                                        Modifiers="Control" />
+                                                </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="AudioTracksSelectionButton"
@@ -598,6 +604,13 @@
                                                 <AppBarButton.Icon>
                                                     <FontIcon x:Name="PlayPauseSymbol" Glyph="&#xF5B0;" />
                                                 </AppBarButton.Icon>
+                                                <AppBarButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator Key="Space" IsEnabled="True" />
+                                                    <KeyboardAccelerator
+                                                        Key="P"
+                                                        IsEnabled="True"
+                                                        Modifiers="Control" />
+                                                </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="FastForwardButton"
@@ -674,6 +687,9 @@
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
                                                 </AppBarToggleButton.Icon>
+                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator Key="F10" IsEnabled="True" />
+                                                </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
                                             <AppBarToggleButton
                                                 x:Name="FullScreenModeButton"
@@ -684,6 +700,9 @@
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
                                                 </AppBarToggleButton.Icon>
+                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator Key="F11" IsEnabled="True" />
+                                                </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
                                             <AppBarToggleButton
                                                 x:Name="CompactOverlayModeButton"
@@ -694,6 +713,12 @@
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
                                                 </AppBarToggleButton.Icon>
+                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator
+                                                        Key="M"
+                                                        IsEnabled="True"
+                                                        Modifiers="Control" />
+                                                </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
                                         </CommandBar.PrimaryCommands>
                                     </CommandBar>

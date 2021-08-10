@@ -78,7 +78,7 @@
                     Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
             <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
-                <Grid x:Name="DetailGrid" MaxWidth="380">
+                <Grid x:Name="DetailGrid" MaxWidth="360">
                     <local:VerticalRepeaterView
                         x:Name="RelatedVideoView"
                         HeaderVisibility="Collapsed"
