@@ -55,7 +55,12 @@ namespace Richasy.Bili.App.Pages
             {
                 if (!ViewModel.IsOpenPlayer)
                 {
+                    ViewModel.ReleaseDisplayRequest();
                     OverFrame.Navigate(typeof(Page));
+                }
+                else
+                {
+                    ViewModel.ActiveDisplayRequest();
                 }
             }
             else if (e.PropertyName == nameof(ViewModel.IsOverLayerExtendToTitleBar))

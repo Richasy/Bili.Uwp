@@ -88,7 +88,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                     position = _initializeProgress;
                 }
 
-                _currentVideoPlayer.Source = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
+                var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
+                var playbackItem = new MediaPlaybackItem(mediaSource);
+                _currentVideoPlayer.Source = playbackItem;
+
+                var props = playbackItem.GetDisplayProperties();
+                props.Type = Windows.Media.MediaPlaybackType.Video;
+                props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
+                props.VideoProperties.Title = Title;
+                props.VideoProperties.Subtitle = IsPgc ? Subtitle : Description;
+                props.VideoProperties.Genres.Add(_videoType.ToString());
+                playbackItem.ApplyDisplayProperties(props);
+
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
                 _currentVideoPlayer.Play();

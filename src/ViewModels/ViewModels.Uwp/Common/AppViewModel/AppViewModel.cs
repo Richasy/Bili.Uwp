@@ -20,6 +20,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsNavigatePaneOpen = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            _displayRequest = new Windows.System.Display.DisplayRequest();
         }
 
         /// <summary>
@@ -52,6 +53,22 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RequestPlay?.Invoke(this, playVM);
             IsOpenPlayer = true;
+        }
+
+        /// <summary>
+        /// 激活显示请求.
+        /// </summary>
+        public void ActiveDisplayRequest()
+        {
+            _displayRequest.RequestActive();
+        }
+
+        /// <summary>
+        /// 释放显示请求.
+        /// </summary>
+        public void ReleaseDisplayRequest()
+        {
+            _displayRequest.RequestRelease();
         }
     }
 }

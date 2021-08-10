@@ -4,6 +4,7 @@ using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
+using Windows.System.Display;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -13,6 +14,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class AppViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly DisplayRequest _displayRequest;
 
         /// <summary>
         /// 请求导航至二级页面时发生

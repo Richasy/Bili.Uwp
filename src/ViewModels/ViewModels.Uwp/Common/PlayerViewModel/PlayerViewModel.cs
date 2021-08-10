@@ -10,6 +10,7 @@ using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
+using Windows.Media.Playback;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -267,7 +268,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 if (_currentVideoPlayer.Source != null)
                 {
-                    (_currentVideoPlayer.Source as IDisposable).Dispose();
+                    (_currentVideoPlayer.Source as MediaPlaybackItem).Source.Dispose();
                 }
 
                 _currentVideoPlayer.Dispose();
