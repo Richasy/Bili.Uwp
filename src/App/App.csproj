@@ -68,6 +68,9 @@
     <Compile Include="Controls\Player\Related\EpisodeView.xaml.cs">
       <DependentUpon>EpisodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\Related\PgcSectionView.xaml.cs">
+      <DependentUpon>PgcSectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\Related\RelatedVideoView.xaml.cs">
       <DependentUpon>RelatedVideoView.xaml</DependentUpon>
     </Compile>
@@ -383,6 +386,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\Related\EpisodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\PgcSectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,10 +33,10 @@
                         <Grid HorizontalAlignment="Center" CornerRadius="{StaticResource ControlCornerRadius}">
                             <Image Source="{x:Bind Data.Cover, Converter={StaticResource SeasonCoverConverter}}" ToolTipService.ToolTip="{x:Bind Data.SeasonTitle}" />
                             <Border
-                                Margin="2,0,0,2"
+                                Margin="0,8,8,0"
                                 Padding="8,4"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
                                 Background="{ThemeResource AccentBadgeBackground}"
                                 CornerRadius="{StaticResource ControlCornerRadius}"
                                 Visibility="{x:Bind Data.Badge, Converter={StaticResource ObjectToVisibilityConverter}}">

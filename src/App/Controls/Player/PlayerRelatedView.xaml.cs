@@ -45,6 +45,10 @@ namespace Richasy.Bili.App.Controls
                 {
                     Nav.SelectedItem = RelatedViedeosItem;
                 }
+                else if (ViewModel.IsShowSection)
+                {
+                    Nav.SelectedItem = SectionItem;
+                }
             }
         }
 
@@ -62,6 +66,8 @@ namespace Richasy.Bili.App.Controls
             EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
             SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
+                Visibility.Visible : Visibility.Collapsed;
+            SectionView.Visibility = Nav.SelectedItem == SectionItem ?
                 Visibility.Visible : Visibility.Collapsed;
         }
     }

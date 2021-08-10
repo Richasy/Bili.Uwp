@@ -220,6 +220,16 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 var partModuleList = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Section).ToList();
                 IsShowSection = partModuleList.Count > 0;
+                if (IsShowSection)
+                {
+                    foreach (var item in partModuleList)
+                    {
+                        if (item.Data?.Seasons?.Any() ?? false)
+                        {
+                            PgcSectionCollection.Add(item.Title, item.Data.Episodes.Select(p => new PgcEpisodeViewModel(p, false)).ToList());
+                        }
+                    }
+                }
             }
         }
 

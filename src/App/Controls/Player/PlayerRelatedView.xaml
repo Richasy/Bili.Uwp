@@ -15,12 +15,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <converter:EpisodeTitleConverter x:Key="EpisodeTitleConverter" />
-        <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
-        <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
-    </UserControl.Resources>
-
     <Grid CornerRadius="{StaticResource ControlCornerRadius}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -84,6 +78,7 @@
                     <related:VideoPartView x:Name="VideoPartView" Visibility="Collapsed" />
                     <related:EpisodeView x:Name="EpisodeView" Visibility="Collapsed" />
                     <related:SeasonView x:Name="SeasonView" Visibility="Collapsed" />
+                    <related:PgcSectionView x:Name="SectionView" Visibility="Collapsed" />
                 </Grid>
             </ScrollViewer>
         </muxc:NavigationView>

@@ -177,7 +177,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// PGC区块（比如PV）集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<PgcDetailModuleData> PgcSectionCollection { get; set; }
+        public Dictionary<string, List<PgcEpisodeViewModel>> PgcSectionCollection { get; set; }
 
         /// <summary>
         /// PGC分集集合.

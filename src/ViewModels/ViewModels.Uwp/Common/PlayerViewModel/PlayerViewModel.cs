@@ -29,7 +29,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FormatCollection = new ObservableCollection<VideoFormatViewModel>();
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
-            PgcSectionCollection = new ObservableCollection<PgcDetailModuleData>();
+            PgcSectionCollection = new Dictionary<string, List<PgcEpisodeViewModel>>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -82,6 +82,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 videoId = "0";
                 seasonId = seasonData.SeasonId;
+                _videoType = VideoType.Pgc;
+            }
+            else if (vm is PgcEpisodeDetail episodeData)
+            {
+                videoId = episodeData.Id.ToString();
+                seasonId = 0;
                 _videoType = VideoType.Pgc;
             }
 
@@ -160,7 +166,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                CurrentPgcEpisode = EpisodeCollection.FirstOrDefault().Data;
+                CurrentPgcEpisode = EpisodeCollection.FirstOrDefault()?.Data;
             }
 
             if (CurrentPgcEpisode == null)
