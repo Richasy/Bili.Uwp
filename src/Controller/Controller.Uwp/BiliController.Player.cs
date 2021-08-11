@@ -85,15 +85,25 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">分P Id.</param>
+        /// <param name="episodeId">分集Id.</param>
+        /// <param name="seasonId">剧集Id.</param>
         /// <param name="progress">播放进度.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ReportHistoryAsync(long videoId, long partId, TimeSpan progress)
+        public async Task ReportHistoryAsync(long videoId, long partId, int episodeId, int seasonId, TimeSpan progress)
         {
             if (await _authorizeProvider.IsTokenValidAsync())
             {
                 try
                 {
-                    var result = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
+                    var isSuccess = false;
+                    if (videoId > 0)
+                    {
+                        isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
+                    }
+                    else if (episodeId > 0)
+                    {
+                        isSuccess = await _playerProvider.ReportProgressAsync(episodeId, seasonId, Convert.ToInt64(progress.TotalSeconds));
+                    }
 
                     // Record.
                 }

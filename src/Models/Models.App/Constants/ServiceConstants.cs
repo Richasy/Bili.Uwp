@@ -106,6 +106,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string IsShowAllSeries = "is_show_all_series";
             public const string SeasonId = "season_id";
             public const string EpisodeId = "ep_id";
+            public const string EpisodeIdSlim = "epid";
+            public const string SeasonIdSlim = "sid";
             public const string Module = "module";
             public const string SeasonType = "season_type";
         }

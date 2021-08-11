@@ -267,7 +267,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var id = 7;
             switch (PreferCodec)
             {
-                case Models.Enums.PreferCodec.H265:
+                case PreferCodec.H265:
                     id = 12;
                     break;
                 default:
@@ -326,7 +326,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             var progress = _currentVideoPlayer.PlaybackSession.Position;
             if (progress != _lastReportProgress)
             {
-                await Controller.ReportHistoryAsync(_videoId, CurrentVideoPart.Page.Cid, _currentVideoPlayer.PlaybackSession.Position);
+                var videoId = IsPgc ? 0 : _videoId;
+                var partId = IsPgc ? 0 : CurrentVideoPart?.Page?.Cid ?? 0;
+                var episodeId = IsPgc ? Convert.ToInt32(EpisodeId) : 0;
+                var seasonId = IsPgc ? Convert.ToInt32(SeasonId) : 0;
+                await Controller.ReportHistoryAsync(videoId, partId, episodeId, seasonId, _currentVideoPlayer.PlaybackSession.Position);
                 _lastReportProgress = progress;
             }
         }

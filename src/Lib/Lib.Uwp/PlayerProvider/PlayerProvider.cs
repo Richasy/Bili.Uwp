@@ -124,6 +124,22 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<bool> ReportProgressAsync(int episodeId, int seasonId, long progress)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.EpisodeIdSlim, episodeId.ToString() },
+                { Query.SeasonIdSlim, seasonId.ToString() },
+                { Query.Progress, progress.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.Code == 0;
+        }
+
+        /// <inheritdoc/>
         public async Task<bool> LikeAsync(long videoId, bool isLike)
         {
             var queryParameters = new Dictionary<string, string>
