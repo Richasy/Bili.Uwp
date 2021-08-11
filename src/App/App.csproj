@@ -311,16 +311,16 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Resources\Misc\Update.en_US.txt" />
     <Content Include="Resources\Misc\Update.zh_CN.txt" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avcodec-58.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avdevice-58.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avfilter-7.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avformat-58.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avutil-56.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\libcrypto-1_1-x64.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\libssl-1_1-x64.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\postproc-55.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\swresample-3.dll" />
-    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\swscale-5.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\avcodec-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\avdevice-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\avfilter-7.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\avformat-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\avutil-56.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\libcrypto-1_1-x64.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\libssl-1_1-x64.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\postproc-55.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\swresample-3.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\swscale-5.dll" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
