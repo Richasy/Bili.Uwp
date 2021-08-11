@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bilibili.App.View.V1;
+using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.BiliBili;
@@ -29,9 +30,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         private ViewReply _videoDetail;
         private PgcDisplayInformation _pgcDetail;
         private PlayerDashInformation _dashInformation;
+        private LivePlayInformation _livePlayInformation;
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
         private TimeSpan _initializeProgress;
+        private FFmpegInteropConfig _liveFFConfig;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;
@@ -192,6 +195,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; set; }
 
         /// <summary>
+        /// 直播线路集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<LivePlayLineViewModel> PlayLineCollection { get; set; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -208,6 +217,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public VideoFormat CurrentFormat { get; set; }
+
+        /// <summary>
+        /// 当前播放线路.
+        /// </summary>
+        [Reactive]
+        public LivePlayLine CurrentPlayLine { get; set; }
 
         /// <summary>
         /// 是否正在加载.
@@ -328,6 +343,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsCurrentEpisodeInPgcSection { get; set; }
+
+        /// <summary>
+        /// 是否显示直播线路切换.
+        /// </summary>
+        [Reactive]
+        public bool IsShowLivePlayLine { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

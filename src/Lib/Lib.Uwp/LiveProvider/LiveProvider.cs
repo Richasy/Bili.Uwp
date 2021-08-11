@@ -41,5 +41,20 @@ namespace Richasy.Bili.Lib.Uwp
 
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId)
+        {
+            var queryParameter = new Dictionary<string, string>
+            {
+                { Query.Cid, roomId.ToString() },
+                { Query.Qn, "0" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.PlayInformation, queryParameter, RequestClientType.Web);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LivePlayInformation>>(response);
+            return result.Data;
+        }
     }
 }

@@ -311,6 +311,16 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Resources\Misc\Update.en_US.txt" />
     <Content Include="Resources\Misc\Update.zh_CN.txt" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avcodec-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avdevice-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avfilter-7.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avformat-58.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\avutil-56.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\libcrypto-1_1-x64.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\libssl-1_1-x64.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\postproc-55.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\swresample-3.dll" />
+    <Content Include="E:\Project\Bili.Uwp\ffmpeg\bin\swscale-5.dll" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -593,6 +603,9 @@
   <ItemGroup>
     <PackageReference Include="AdaptiveTriggerLibrary">
       <Version>1.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="FFmpegInteropX">
+      <Version>0.9.2</Version>
     </PackageReference>
     <PackageReference Include="HN.Controls.ImageEx.Uwp">
       <Version>1.0.33</Version>

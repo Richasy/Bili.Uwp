@@ -283,7 +283,15 @@ namespace Richasy.Bili.Models.App.Constants
 
             public static class Live
             {
+                /// <summary>
+                /// 直播源（首页内容）.
+                /// </summary>
                 public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
+
+                /// <summary>
+                /// 直播播放信息.
+                /// </summary>
+                public const string PlayInformation = _liveBase + "/room/v1/Room/playUrl";
             }
 
             public static class Article

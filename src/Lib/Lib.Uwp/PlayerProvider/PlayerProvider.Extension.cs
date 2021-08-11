@@ -29,6 +29,7 @@ namespace Richasy.Bili.Lib.Uwp
         private async Task<PlayerDashInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "")
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
+
             var url = isPgc ? Api.Pgc.PlayInformation : Api.Video.PlayInformation;
 
             var queryParameters = new Dictionary<string, string>

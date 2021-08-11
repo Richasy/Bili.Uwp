@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
+using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -40,6 +41,17 @@ namespace Richasy.Bili.Controller.Uwp
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取直播间播放信息.
+        /// </summary>
+        /// <param name="roomId">直播间Id.</param>
+        /// <returns>播放信息.</returns>
+        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId)
+        {
+            var result = await _liveProvider.GetLivePlayInformationAsync(roomId);
+            return result;
         }
     }
 }

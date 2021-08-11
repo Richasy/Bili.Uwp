@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FFmpegInterop;
 using Richasy.Bili.Models.App.Constants;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -109,6 +110,31 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 // Show error.
             }
+        }
+
+        private async Task InitializeLiveDashAsync()
+        {
+            var url = CurrentPlayLine.Url;
+            var intropMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
+            var playbackItem = intropMSS.CreateMediaPlaybackItem();
+            var props = playbackItem.GetDisplayProperties();
+            props.Type = Windows.Media.MediaPlaybackType.Video;
+
+            // props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
+            // props.VideoProperties.Title = Title;
+            // props.VideoProperties.Subtitle = IsPgc ? Subtitle : Description;
+            // props.VideoProperties.Genres.Add(_videoType.ToString());
+            playbackItem.ApplyDisplayProperties(props);
+
+            if (_currentVideoPlayer == null)
+            {
+                _currentVideoPlayer = new MediaPlayer();
+            }
+
+            _currentVideoPlayer.Source = playbackItem;
+            BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
+            MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
+            _currentVideoPlayer.Play();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -31,9 +32,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
+            PlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
+
+            _liveFFConfig = new FFmpegInteropConfig();
+            _liveFFConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
+            _liveFFConfig.FFmpegOptions.Add("user_agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
+            _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
@@ -101,6 +108,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
                     break;
                 case VideoType.Live:
+                    _livePlayInformation = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(videoId));
+                    await ChangePlayLineAsync(_livePlayInformation.PlayLines.First().Order);
                     break;
                 default:
                     break;
@@ -217,6 +226,23 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
             }
+        }
+
+        /// <summary>
+        /// 修改播放线路.
+        /// </summary>
+        /// <param name="order">线路序号.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangePlayLineAsync(int order)
+        {
+            var playLine = _livePlayInformation.PlayLines.Where(p => p.Order == order).FirstOrDefault();
+
+            if (playLine != null)
+            {
+                CurrentPlayLine = playLine;
+            }
+
+            await InitializeLiveDashAsync();
         }
 
         /// <summary>

@@ -1,0 +1,14 @@
+prefix=../../../Build/Windows10/x64
+exec_prefix=${prefix}
+libdir=../../../Build/Windows10/x64/lib
+includedir=../../../Build/Windows10/x64/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 56.42.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil 
+Libs.private: dxgi.lib d3d11.lib bcrypt.lib
+Cflags: -I${includedir}

@@ -1,0 +1,14 @@
+prefix=../../../Build/Windows10/x64
+exec_prefix=${prefix}
+libdir=../../../Build/Windows10/x64/lib
+includedir=../../../Build/Windows10/x64/include
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 58.9.103
+Requires: 
+Requires.private: libavformat >= 58.39.101, libavcodec >= 58.73.102, libswresample >= 3.6.100, libavutil >= 56.42.100
+Conflicts:
+Libs: -L${libdir}  -lavdevice 
+Libs.private: 
+Cflags: -I${includedir}
