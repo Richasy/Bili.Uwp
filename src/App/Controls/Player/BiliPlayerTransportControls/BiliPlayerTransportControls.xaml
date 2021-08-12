@@ -155,6 +155,10 @@
                                             From="50"
                                             To="0.5"
                                             Duration="0:0:0.2" />
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ControlPanelFadeOut">
@@ -172,6 +176,13 @@
                                             From="0.5"
                                             To="50"
                                             Duration="0:0:0.4" />
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -786,6 +797,28 @@
                                 </Grid>
                             </Grid>
                         </Border>
+                        <Grid
+                            x:Name="HeaderCommandsPanel"
+                            Padding="12,32,12,0"
+                            VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="BackButton"
+                                AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
+                                Width="32"
+                                Height="32"
+                                Padding="0"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}">
+                                <icons:RegularFluentIcon FontSize="14" Symbol="ChevronLeft48" />
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

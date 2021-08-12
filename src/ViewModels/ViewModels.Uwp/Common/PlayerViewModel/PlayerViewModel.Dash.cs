@@ -76,7 +76,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 if (_currentVideoPlayer == null)
                 {
-                    _currentVideoPlayer = new MediaPlayer();
+                    _currentVideoPlayer = InitializeMediaPlayer();
                 }
 
                 var position = TimeSpan.Zero;
@@ -126,7 +126,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             playbackItem.ApplyDisplayProperties(props);
             if (_currentVideoPlayer == null)
             {
-                _currentVideoPlayer = new MediaPlayer();
+                _currentVideoPlayer = InitializeMediaPlayer();
             }
 
             _currentVideoPlayer.Source = playbackItem;

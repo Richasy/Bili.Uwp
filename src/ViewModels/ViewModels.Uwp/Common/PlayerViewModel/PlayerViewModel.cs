@@ -314,6 +314,26 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _interopMSS.Dispose();
                 _interopMSS = null;
             }
+
+            PlayerStatus = PlayerStatus.NotLoad;
+        }
+
+        /// <summary>
+        /// 切换播放/暂停状态.
+        /// </summary>
+        public void TogglePlayPause()
+        {
+            if (_currentVideoPlayer != null)
+            {
+                if (PlayerStatus == PlayerStatus.Playing)
+                {
+                    _currentVideoPlayer.Pause();
+                }
+                else
+                {
+                    _currentVideoPlayer.Play();
+                }
+            }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Windows.Media.Playback;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -415,6 +416,49 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await Controller.ReportHistoryAsync(videoId, partId, episodeId, seasonId, _currentVideoPlayer.PlaybackSession.Position);
                 _lastReportProgress = progress;
             }
+        }
+
+        private MediaPlayer InitializeMediaPlayer()
+        {
+            var player = new MediaPlayer();
+            player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
+            player.MediaEnded += OnMediaPlayerEndedAsync;
+
+            return player;
+        }
+
+        private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                PlayerStatus = PlayerStatus.End;
+            });
+        }
+
+        private async void OnMediaPlayerCurrentStateChangedAsync(MediaPlayer sender, object args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                switch (sender.PlaybackSession.PlaybackState)
+                {
+                    case MediaPlaybackState.None:
+                        PlayerStatus = PlayerStatus.End;
+                        break;
+                    case MediaPlaybackState.Opening:
+                    case MediaPlaybackState.Playing:
+                        PlayerStatus = PlayerStatus.Playing;
+                        break;
+                    case MediaPlaybackState.Buffering:
+                        PlayerStatus = PlayerStatus.Buffering;
+                        break;
+                    case MediaPlaybackState.Paused:
+                        PlayerStatus = PlayerStatus.End;
+                        break;
+                    default:
+                        PlayerStatus = PlayerStatus.NotLoad;
+                        break;
+                }
+            });
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             this.InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            ViewModel.Dispatcher = this.Dispatcher;
             this.Loaded += OnLoadedAsync;
             this.Unloaded += OnUnloaded;
             this.SizeChanged += OnSizeChanged;

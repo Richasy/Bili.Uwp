@@ -41,6 +41,7 @@ namespace Richasy.Bili.App.Controls
         private const string InteractionControlName = "InteractionControl";
         private const string ControlPanelName = "ControlPanel_ControlPanelVisibilityStates_Border";
         private const string FormatListViewName = "FormatListView";
+        private const string BackButtonName = "BackButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -52,6 +53,7 @@ namespace Richasy.Bili.App.Controls
         private Rectangle _interactionControl;
         private Border _controlPanel;
         private ListView _formatListView;
+        private Button _backButton;
         private int _segmentIndex;
 
         /// <summary>

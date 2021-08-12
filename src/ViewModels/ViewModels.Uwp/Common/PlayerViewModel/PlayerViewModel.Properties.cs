@@ -11,6 +11,7 @@ using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Media.Playback;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -64,6 +65,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 偏好的解码模式.
         /// </summary>
         public PreferCodec PreferCodec => SettingViewModel.Instance.PreferCodec;
+
+        /// <summary>
+        /// 调度器.
+        /// </summary>
+        public CoreDispatcher Dispatcher { get; set; }
 
         /// <summary>
         /// 标题.
@@ -358,6 +364,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsLive { get; set; }
+
+        /// <summary>
+        /// 播放器状态.
+        /// </summary>
+        [Reactive]
+        public PlayerStatus PlayerStatus { get; set; }
 
         /// <summary>
         /// 当前的分集是否在PGC关联内容里（比如PV）.

@@ -135,6 +135,9 @@
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
+  <data name="BackToDefaultView" xml:space="preserve">
+    <value>返回标准视图</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>

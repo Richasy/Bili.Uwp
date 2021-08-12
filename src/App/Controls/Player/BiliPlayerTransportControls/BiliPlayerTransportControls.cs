@@ -51,17 +51,25 @@ namespace Richasy.Bili.App.Controls
             _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
+            _backButton = GetTemplateChild(BackButtonName) as Button;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
             _interactionControl.Tapped += OnInteractionControlTapped;
+            _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
             _formatListView.SelectionChanged += OnFormatComboBoxSelectionChangedAsync;
+            _backButton.Click += OnBackButtonClick;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
             CheckMTCControlMode();
             base.OnApplyTemplate();
+        }
+
+        private void OnBackButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
         }
 
         private async void OnFormatComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
@@ -86,6 +94,16 @@ namespace Richasy.Bili.App.Controls
             else if (_controlPanel.Opacity == 1)
             {
                 Hide();
+            }
+        }
+
+        private void OnInteractionControlDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var playerStatus = ViewModel.PlayerStatus;
+            var canDoubleTapped = playerStatus == PlayerStatus.Playing || playerStatus == PlayerStatus.Pause;
+            if (canDoubleTapped)
+            {
+                ViewModel.TogglePlayPause();
             }
         }
 
@@ -128,21 +146,25 @@ namespace Richasy.Bili.App.Controls
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = false;
+                    _backButton.Visibility = Visibility.Collapsed;
                     break;
                 case PlayerDisplayMode.FullWindow:
                     _fullWindowPlayModeButton.IsChecked = true;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = false;
+                    _backButton.Visibility = Visibility.Visible;
                     break;
                 case PlayerDisplayMode.FullScreen:
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = true;
                     _compactOverlayPlayModeButton.IsChecked = false;
+                    _backButton.Visibility = Visibility.Visible;
                     break;
                 case PlayerDisplayMode.CompactOverlay:
                     _fullWindowPlayModeButton.IsChecked = false;
                     _fullScreenPlayModeButton.IsChecked = false;
                     _compactOverlayPlayModeButton.IsChecked = true;
+                    _backButton.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     break;
@@ -198,6 +220,10 @@ namespace Richasy.Bili.App.Controls
                 {
                     _formatListView.SelectedItem = ViewModel.FormatCollection.Where(p => p.Data.Quality == ViewModel.CurrentFormat.Quality).FirstOrDefault();
                 }
+            }
+            else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))
+            {
+                CheckCurrentPlayerMode();
             }
         }
 
