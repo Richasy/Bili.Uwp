@@ -46,6 +46,7 @@ namespace Richasy.Bili.App.Controls
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
         private DispatcherTimer _danmakuTimer;
+        private DispatcherTimer _cursorTimer;
         private Danmaku _danmakuControl;
         private AppBarToggleButton _fullWindowPlayModeButton;
         private AppBarToggleButton _fullScreenPlayModeButton;
@@ -55,6 +56,7 @@ namespace Richasy.Bili.App.Controls
         private ListView _formatListView;
         private Button _backButton;
         private int _segmentIndex;
+        private double _cursorStayTime;
 
         /// <summary>
         /// 视图模型.

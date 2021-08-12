@@ -437,28 +437,36 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerCurrentStateChangedAsync(MediaPlayer sender, object args)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            if (sender != null && sender.PlaybackSession != null)
             {
-                switch (sender.PlaybackSession.PlaybackState)
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    case MediaPlaybackState.None:
-                        PlayerStatus = PlayerStatus.End;
-                        break;
-                    case MediaPlaybackState.Opening:
-                    case MediaPlaybackState.Playing:
-                        PlayerStatus = PlayerStatus.Playing;
-                        break;
-                    case MediaPlaybackState.Buffering:
-                        PlayerStatus = PlayerStatus.Buffering;
-                        break;
-                    case MediaPlaybackState.Paused:
-                        PlayerStatus = PlayerStatus.End;
-                        break;
-                    default:
-                        PlayerStatus = PlayerStatus.NotLoad;
-                        break;
-                }
-            });
+                    if (sender.PlaybackSession == null)
+                    {
+                        return;
+                    }
+
+                    switch (sender.PlaybackSession.PlaybackState)
+                    {
+                        case MediaPlaybackState.None:
+                            PlayerStatus = PlayerStatus.End;
+                            break;
+                        case MediaPlaybackState.Opening:
+                        case MediaPlaybackState.Playing:
+                            PlayerStatus = PlayerStatus.Playing;
+                            break;
+                        case MediaPlaybackState.Buffering:
+                            PlayerStatus = PlayerStatus.Buffering;
+                            break;
+                        case MediaPlaybackState.Paused:
+                            PlayerStatus = PlayerStatus.Pause;
+                            break;
+                        default:
+                            PlayerStatus = PlayerStatus.NotLoad;
+                            break;
+                    }
+                });
+            }
         }
     }
 }

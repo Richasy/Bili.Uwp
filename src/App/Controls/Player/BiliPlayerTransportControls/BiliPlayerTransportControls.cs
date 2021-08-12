@@ -39,6 +39,7 @@ namespace Richasy.Bili.App.Controls
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
+            InitializeCursorTimer();
         }
 
         /// <inheritdoc/>
@@ -65,6 +66,22 @@ namespace Richasy.Bili.App.Controls
             CheckDanmakuZoom();
             CheckMTCControlMode();
             base.OnApplyTemplate();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerMoved(PointerRoutedEventArgs e)
+        {
+            _cursorTimer.Start();
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            _cursorStayTime = 0;
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerExited(PointerRoutedEventArgs e)
+        {
+            _cursorTimer.Stop();
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            _cursorStayTime = 0;
         }
 
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
@@ -256,6 +273,16 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        private void InitializeCursorTimer()
+        {
+            if (_cursorTimer == null)
+            {
+                _cursorTimer = new DispatcherTimer();
+                _cursorTimer.Interval = TimeSpan.FromSeconds(0.5);
+                _cursorTimer.Tick += OnCursorTimerTickAsync;
+            }
+        }
+
         private void InitializeDanmaku(List<DanmakuElem> elements)
         {
             var list = new List<DanmakuModel>();
@@ -417,6 +444,17 @@ namespace Richasy.Bili.App.Controls
             }
             catch (Exception)
             {
+            }
+        }
+
+        private void OnCursorTimerTickAsync(object sender, object e)
+        {
+            _cursorStayTime += 500;
+            if (_cursorStayTime > 1500)
+            {
+                Window.Current.CoreWindow.PointerCursor = null;
+                _cursorTimer.Stop();
+                _cursorStayTime = 0;
             }
         }
     }
