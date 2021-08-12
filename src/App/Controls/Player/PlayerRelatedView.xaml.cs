@@ -57,6 +57,14 @@ namespace Richasy.Bili.App.Controls
                 {
                     Nav.SelectedItem = SectionItem;
                 }
+                else if (ViewModel.IsShowChat)
+                {
+                    Nav.SelectedItem = ChatItem;
+                }
+                else if (ViewModel.IsShowReply)
+                {
+                    Nav.SelectedItem = ReplyItem;
+                }
             }
             else if (e.PropertyName == nameof(ViewModel.IsCurrentEpisodeInPgcSection))
             {

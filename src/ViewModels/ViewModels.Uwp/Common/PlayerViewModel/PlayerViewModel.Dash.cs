@@ -112,20 +112,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private async Task InitializeLiveDashAsync()
+        private async Task InitializeLiveDashAsync(string url)
         {
-            var url = CurrentPlayLine.Url;
-            var intropMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
-            var playbackItem = intropMSS.CreateMediaPlaybackItem();
+            _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
+            var playbackItem = _interopMSS.CreateMediaPlaybackItem();
+
             var props = playbackItem.GetDisplayProperties();
             props.Type = Windows.Media.MediaPlaybackType.Video;
-
-            // props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
-            // props.VideoProperties.Title = Title;
-            // props.VideoProperties.Subtitle = IsPgc ? Subtitle : Description;
-            // props.VideoProperties.Genres.Add(_videoType.ToString());
+            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
+            props.VideoProperties.Title = Title;
+            props.VideoProperties.Subtitle = string.IsNullOrEmpty(Subtitle) ? Subtitle : Description;
+            props.VideoProperties.Genres.Add(_videoType.ToString());
             playbackItem.ApplyDisplayProperties(props);
-
             if (_currentVideoPlayer == null)
             {
                 _currentVideoPlayer = new MediaPlayer();

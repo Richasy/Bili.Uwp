@@ -26,7 +26,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <local:ProgressButton
                 x:Name="LikeButton"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"

@@ -382,7 +382,8 @@
                                 <Border
                                     x:Name="MediaTransportControls_Timeline_Border"
                                     Grid.Row="1"
-                                    Grid.Column="1">
+                                    Grid.Column="1"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                     <Grid
                                         x:Name="MediaTransportControls_Timeline_Grid"
                                         Padding="12,0"
@@ -524,7 +525,8 @@
                                             <AppBarButton
                                                 x:Name="FormatButton"
                                                 Style="{StaticResource AppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="12">
+                                                MediaTransportControlsHelper.DropoutOrder="12"
+                                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
                                                 </AppBarButton.Icon>

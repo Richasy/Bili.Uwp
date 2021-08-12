@@ -66,7 +66,14 @@
                     x:Name="RelatedViedeosItem"
                     Content="{loc:LocaleLocator Name=RelatedVideos}"
                     Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
-                <muxc:NavigationViewItem x:Name="ReplyItem" Content="{loc:LocaleLocator Name=Reply}" />
+                <muxc:NavigationViewItem
+                    x:Name="ChatItem"
+                    Content="{loc:LocaleLocator Name=Chat}"
+                    Visibility="{x:Bind ViewModel.IsShowChat, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="ReplyItem"
+                    Content="{loc:LocaleLocator Name=Reply}"
+                    Visibility="{x:Bind ViewModel.IsShowReply, Mode=OneWay}" />
                 <muxc:NavigationViewItem
                     x:Name="SectionItem"
                     Content="{loc:LocaleLocator Name=Sections}"

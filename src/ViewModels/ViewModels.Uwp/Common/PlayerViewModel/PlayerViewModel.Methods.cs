@@ -31,6 +31,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowPgcActivityTab = false;
             IsShowSeason = false;
             IsShowRelatedVideos = false;
+            IsShowChat = false;
+            IsShowReply = true;
             IsCurrentEpisodeInPgcSection = false;
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
@@ -42,6 +44,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _videoList.Clear();
             ClearPlayer();
             IsPgc = false;
+            IsLive = false;
         }
 
         private async Task LoadVideoDetailAsync(string videoId)
@@ -119,6 +122,53 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangePgcEpisodeAsync(id);
         }
 
+        private async Task LoadLiveDetailAsync(int roomId, string h264Url, string h265Url)
+        {
+            if (_liveDetail == null || RoomId != roomId.ToString())
+            {
+                Reset();
+                IsLive = true;
+                IsDetailLoading = true;
+                IsShowReply = false;
+                RoomId = roomId.ToString();
+
+                try
+                {
+                    var detail = await Controller.GetLiveRoomDetailAsync(roomId);
+                    _liveDetail = detail;
+                }
+                catch (Exception ex)
+                {
+                    IsDetailError = true;
+                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLiveFailed) + $"\n{ex.Message}";
+                    IsDetailLoading = false;
+                    return;
+                }
+
+                InitializeLiveDetail();
+                IsDetailLoading = false;
+
+                var url = string.Empty;
+                if (string.IsNullOrEmpty(h264Url) || string.IsNullOrEmpty(h265Url))
+                {
+                    url = string.IsNullOrEmpty(h264Url) ? h265Url : h264Url;
+                }
+                else
+                {
+                    url = PreferCodec == PreferCodec.H264 ? h264Url : h265Url;
+                }
+
+                if (string.IsNullOrEmpty(url))
+                {
+                    IsPlayInformationError = true;
+                    PlayInformationErrorText = "无法获取正确的播放地址";
+                    return;
+                }
+
+                await InitializeLiveDashAsync(url);
+            }
+        }
+
         private void InitializeVideoDetail()
         {
             if (_videoDetail == null)
@@ -134,6 +184,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             BvId = _videoDetail.Bvid;
             SeasonId = string.Empty;
             EpisodeId = string.Empty;
+            RoomId = string.Empty;
             PlayCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.View);
             DanmakuCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Danmaku);
             LikeCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Like);
@@ -141,6 +192,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Fav);
             ShareCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Share);
             ReplyCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Reply);
+            ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
 
             IsLikeChecked = _videoDetail.ReqUser.Like == 1;
@@ -176,6 +228,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 $"{_pgcDetail.PublishInformation.DisplayProgress}";
             AvId = string.Empty;
             BvId = string.Empty;
+            RoomId = string.Empty;
             SeasonId = _pgcDetail.SeasonId.ToString();
             PlayCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.PlayCount);
             DanmakuCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.DanmakuCount);
@@ -184,6 +237,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.FavoriteCount);
             ShareCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.ShareCount);
             ReplyCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.ReplyCount);
+            ViewerCount = string.Empty;
             CoverUrl = _pgcDetail.Cover;
 
             IsShowPgcActivityTab = _pgcDetail.ActivityTab != null;
@@ -232,6 +286,34 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
                 }
             }
+        }
+
+        private void InitializeLiveDetail()
+        {
+            if (_liveDetail == null)
+            {
+                return;
+            }
+
+            Title = _liveDetail.RoomInformation.Title;
+            Subtitle = _liveDetail.RoomInformation.AreaName + " · " + _liveDetail.RoomInformation.ParentAreaName;
+            Description = _liveDetail.RoomInformation.Description;
+            RoomId = _liveDetail.RoomInformation.RoomId.ToString();
+            AvId = string.Empty;
+            BvId = string.Empty;
+            SeasonId = string.Empty;
+            EpisodeId = string.Empty;
+            PlayCount = string.Empty;
+            DanmakuCount = string.Empty;
+            LikeCount = string.Empty;
+            CoinCount = string.Empty;
+            FavoriteCount = string.Empty;
+            ShareCount = string.Empty;
+            ReplyCount = string.Empty;
+            ViewerCount = _numberToolkit.GetCountText(_liveDetail.AnchorInformation.RelationInformation.AttentionCount);
+            CoverUrl = _liveDetail.RoomInformation.Cover ?? _liveDetail.RoomInformation.Keyframe;
+            Publisher = new PublisherViewModel(_liveDetail.AnchorInformation.UserBasicInformation);
+            IsShowChat = true;
         }
 
         private async Task InitializeVideoPlayInformationAsync(PlayerDashInformation videoPlayView)

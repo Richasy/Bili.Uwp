@@ -32,7 +32,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
-            PlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -74,11 +73,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             var videoId = string.Empty;
             var seasonId = 0;
+            var live264Url = string.Empty;
+            var live265Url = string.Empty;
 
             if (vm is VideoViewModel videoVM)
             {
                 videoId = videoVM.VideoId;
                 _videoType = videoVM.VideoType;
+
+                if (_videoType == VideoType.Live)
+                {
+                    live264Url = videoVM.LiveH264Url;
+                    live265Url = videoVM.LiveH265Url;
+                }
             }
             else if (vm is SeasonViewModel seasonVM)
             {
@@ -108,8 +115,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
                     break;
                 case VideoType.Live:
-                    _livePlayInformation = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(videoId));
-                    await ChangePlayLineAsync(_livePlayInformation.PlayLines.First().Order);
+                    await LoadLiveDetailAsync(Convert.ToInt32(videoId), live264Url, live265Url);
                     break;
                 default:
                     break;
@@ -229,23 +235,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 修改播放线路.
-        /// </summary>
-        /// <param name="order">线路序号.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task ChangePlayLineAsync(int order)
-        {
-            var playLine = _livePlayInformation.PlayLines.Where(p => p.Order == order).FirstOrDefault();
-
-            if (playLine != null)
-            {
-                CurrentPlayLine = playLine;
-            }
-
-            await InitializeLiveDashAsync();
-        }
-
-        /// <summary>
         /// 修改清晰度.
         /// </summary>
         /// <param name="formatId">清晰度Id.</param>
@@ -319,6 +308,12 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer.Stop();
+
+            if (_interopMSS != null)
+            {
+                _interopMSS.Dispose();
+                _interopMSS = null;
+            }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)

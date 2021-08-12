@@ -153,6 +153,9 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
+  <data name="Chat" xml:space="preserve">
+    <value>聊天互动</value>
+  </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
   </data>

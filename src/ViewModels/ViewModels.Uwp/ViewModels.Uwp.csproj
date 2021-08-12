@@ -13,7 +13,6 @@
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
-    <Compile Include="Common\LivePlayLineViewModel.cs" />
     <Compile Include="Common\PgcEpisodeViewModel.cs" />
     <Compile Include="Common\PgcSectionViewModel.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
@@ -139,6 +138,6 @@
       <Name>Toolkit.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup/>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

@@ -110,6 +110,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string SeasonIdSlim = "sid";
             public const string Module = "module";
             public const string SeasonType = "season_type";
+            public const string RoomId = "room_id";
         }
 
         public static class Sort
@@ -287,6 +288,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 直播源（首页内容）.
                 /// </summary>
                 public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
+
+                /// <summary>
+                /// 直播间详情.
+                /// </summary>
+                public const string RoomDetail = _liveBase + "/xlive/app-room/v1/index/getInfoByRoom";
 
                 /// <summary>
                 /// 直播播放信息.

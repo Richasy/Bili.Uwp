@@ -3,6 +3,7 @@
 using System;
 using Bilibili.App.Archive.V1;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -20,6 +21,17 @@ namespace Richasy.Bili.ViewModels.Uwp
             Id = Convert.ToInt32(author.Mid);
             Name = author.Name;
             Avatar = author.Face + "@60w_60h_1c_100q.jpg";
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PublisherViewModel"/> class.
+        /// </summary>
+        /// <param name="info">直播间用户基本信息.</param>
+        public PublisherViewModel(LiveUserBasicInformation info)
+        {
+            Id = -1;
+            Name = info.UserName;
+            Avatar = info.Avatar + "@60w_60h_1c_100q.jpg";
         }
 
         /// <summary>

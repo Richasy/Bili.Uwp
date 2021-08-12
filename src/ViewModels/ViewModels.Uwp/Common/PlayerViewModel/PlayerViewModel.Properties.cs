@@ -26,15 +26,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
 
+        private readonly FFmpegInteropConfig _liveFFConfig;
+
         private long _videoId;
         private ViewReply _videoDetail;
         private PgcDisplayInformation _pgcDetail;
+        private LiveRoomDetail _liveDetail;
         private PlayerDashInformation _dashInformation;
-        private LivePlayInformation _livePlayInformation;
+
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
         private TimeSpan _initializeProgress;
-        private FFmpegInteropConfig _liveFFConfig;
+        private FFmpegInteropMSS _interopMSS;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;
@@ -105,6 +108,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string SeasonId { get; set; }
 
         /// <summary>
+        /// 直播间Id.
+        /// </summary>
+        [Reactive]
+        public string RoomId { get; set; }
+
+        /// <summary>
         /// 播放数.
         /// </summary>
         [Reactive]
@@ -145,6 +154,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string ReplyCount { get; set; }
+
+        /// <summary>
+        /// 在线观看人数.
+        /// </summary>
+        [Reactive]
+        public string ViewerCount { get; set; }
 
         /// <summary>
         /// 播放器地址.
@@ -195,12 +210,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; set; }
 
         /// <summary>
-        /// 直播线路集合.
-        /// </summary>
-        [Reactive]
-        public ObservableCollection<LivePlayLineViewModel> PlayLineCollection { get; set; }
-
-        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -217,12 +226,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public VideoFormat CurrentFormat { get; set; }
-
-        /// <summary>
-        /// 当前播放线路.
-        /// </summary>
-        [Reactive]
-        public LivePlayLine CurrentPlayLine { get; set; }
 
         /// <summary>
         /// 是否正在加载.
@@ -309,6 +312,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowSection { get; set; }
 
         /// <summary>
+        /// 是否显示聊天室.
+        /// </summary>
+        [Reactive]
+        public bool IsShowChat { get; set; }
+
+        /// <summary>
+        /// 是否回复.
+        /// </summary>
+        [Reactive]
+        public bool IsShowReply { get; set; }
+
+        /// <summary>
         /// 点赞按钮是否被选中.
         /// </summary>
         [Reactive]
@@ -339,16 +354,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsPgc { get; set; }
 
         /// <summary>
+        /// 是否为直播.
+        /// </summary>
+        [Reactive]
+        public bool IsLive { get; set; }
+
+        /// <summary>
         /// 当前的分集是否在PGC关联内容里（比如PV）.
         /// </summary>
         [Reactive]
         public bool IsCurrentEpisodeInPgcSection { get; set; }
-
-        /// <summary>
-        /// 是否显示直播线路切换.
-        /// </summary>
-        [Reactive]
-        public bool IsShowLivePlayLine { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }
