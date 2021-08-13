@@ -171,6 +171,7 @@ namespace Richasy.Bili.Models.Enums
         PgcNotFollow,
         Chat,
         BackToDefaultView,
+        DanmakuSwitch,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

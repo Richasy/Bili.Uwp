@@ -77,5 +77,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string TipText { get; set; }
+
+        /// <summary>
+        /// 是否为大会员.
+        /// </summary>
+        [Reactive]
+        public bool IsVip { get; set; }
     }
 }

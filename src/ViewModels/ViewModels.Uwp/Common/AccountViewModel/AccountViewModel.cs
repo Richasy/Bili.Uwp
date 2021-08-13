@@ -103,6 +103,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 DisplayName = e.Name;
                 Level = e.Level;
                 TipText = $"{e.Name} Lv.{e.Level}";
+                IsVip = e.VIP.Status == 1;
             }
         }
 
@@ -113,6 +114,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             DisplayName = string.Empty;
             Level = 0;
             TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
+            IsVip = false;
         }
     }
 }

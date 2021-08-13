@@ -772,8 +772,10 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ToggleSwitch
                                                 x:Name="DanmakuVisibilityToggleSwitch"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSwitch}"
                                                 Style="{StaticResource DanmakuToggleSwitchStyle}"
-                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}" />
+                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSwitch}" />
                                         </StackPanel>
                                         <TextBox
                                             x:Name="DanmakuBox"

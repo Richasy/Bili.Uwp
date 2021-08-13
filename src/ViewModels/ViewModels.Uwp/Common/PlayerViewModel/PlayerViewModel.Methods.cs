@@ -330,9 +330,22 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             FormatCollection.Clear();
             var isLogin = AccountViewModel.Instance.Mid != null && AccountViewModel.Instance.Mid > 0;
+            var isVip = AccountViewModel.Instance.IsVip;
             foreach (var format in videoPlayView.SupportFormats)
             {
-                var canAdd = isLogin ? true : format.Quality <= 64;
+                var canAdd = false;
+                if (isLogin)
+                {
+                    if (!(format.Quality >= 112 && !isVip))
+                    {
+                        canAdd = true;
+                    }
+                }
+                else
+                {
+                    canAdd = format.Quality <= 64;
+                }
+
                 if (canAdd)
                 {
                     FormatCollection.Add(new VideoFormatViewModel(format, false));

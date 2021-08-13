@@ -201,6 +201,9 @@
   <data name="DanmakuSendSettings" xml:space="preserve">
     <value>弹幕发送设置</value>
   </data>
+  <data name="DanmakuSwitch" xml:space="preserve">
+    <value>弹幕开关</value>
+  </data>
   <data name="DanmakuZoom" xml:space="preserve">
     <value>弹幕缩放</value>
   </data>
