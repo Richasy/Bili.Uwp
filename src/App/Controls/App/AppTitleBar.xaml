@@ -85,6 +85,9 @@
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Click="OnBackButtonClick">
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Back" />
+                </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"

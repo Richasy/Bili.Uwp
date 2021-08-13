@@ -437,15 +437,10 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerCurrentStateChangedAsync(MediaPlayer sender, object args)
         {
-            if (sender != null && sender.PlaybackSession != null)
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                try
                 {
-                    if (sender.PlaybackSession == null)
-                    {
-                        return;
-                    }
-
                     switch (sender.PlaybackSession.PlaybackState)
                     {
                         case MediaPlaybackState.None:
@@ -465,8 +460,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                             PlayerStatus = PlayerStatus.NotLoad;
                             break;
                     }
-                });
-            }
+                }
+                catch (Exception)
+                {
+                    PlayerStatus = PlayerStatus.NotLoad;
+                }
+            });
         }
     }
 }

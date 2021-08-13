@@ -58,6 +58,8 @@ namespace Richasy.Bili.App.Controls
         private int _segmentIndex;
         private double _cursorStayTime;
 
+        private double _slideDistance;
+
         /// <summary>
         /// 视图模型.
         /// </summary>
