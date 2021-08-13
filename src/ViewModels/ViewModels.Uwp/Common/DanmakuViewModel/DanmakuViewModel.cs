@@ -61,7 +61,13 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                 }
             }
 
-            await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, 1);
+            try
+            {
+                await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, 1);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void Initialize()

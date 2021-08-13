@@ -47,7 +47,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         private List<DashItem> _videoList;
 
         private MediaPlayer _currentVideoPlayer;
-        private MediaPlayer _currentAudioPlayer;
 
         private DispatcherTimer _progressTimer;
 
@@ -65,6 +64,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 偏好的解码模式.
         /// </summary>
         public PreferCodec PreferCodec => SettingViewModel.Instance.PreferCodec;
+
+        /// <summary>
+        /// 是否自动播放.
+        /// </summary>
+        public bool IsAutoPlay => SettingViewModel.Instance.IsAutoPlayWhenLoaded;
 
         /// <summary>
         /// 调度器.

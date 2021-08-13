@@ -611,6 +611,17 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarButton
+                                                x:Name="BackSkipButton"
+                                                Style="{StaticResource AppBarButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="2">
+                                                <AppBarButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator Key="Left" IsEnabled="True" />
+                                                </AppBarButton.KeyboardAccelerators>
+                                                <AppBarButton.Icon>
+                                                    <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowReply48" />
+                                                </AppBarButton.Icon>
+                                            </AppBarButton>
+                                            <AppBarButton
                                                 x:Name="PlayPauseButton"
                                                 Style="{StaticResource AppBarButtonStyle}"
                                                 MediaTransportControlsHelper.DropoutOrder="23">
@@ -624,6 +635,17 @@
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
                                                 </AppBarButton.KeyboardAccelerators>
+                                            </AppBarButton>
+                                            <AppBarButton
+                                                x:Name="ForwardSkipButton"
+                                                Style="{StaticResource AppBarButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="2">
+                                                <AppBarButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator Key="Right" IsEnabled="True" />
+                                                </AppBarButton.KeyboardAccelerators>
+                                                <AppBarButton.Icon>
+                                                    <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowForward48" />
+                                                </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="FastForwardButton"

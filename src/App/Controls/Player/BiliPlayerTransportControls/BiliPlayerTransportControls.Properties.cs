@@ -42,6 +42,8 @@ namespace Richasy.Bili.App.Controls
         private const string ControlPanelName = "ControlPanel_ControlPanelVisibilityStates_Border";
         private const string FormatListViewName = "FormatListView";
         private const string BackButtonName = "BackButton";
+        private const string BackSkipButtonName = "BackSkipButton";
+        private const string ForwardSkipButtonName = "ForwardSkipButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -55,10 +57,10 @@ namespace Richasy.Bili.App.Controls
         private Border _controlPanel;
         private ListView _formatListView;
         private Button _backButton;
+        private AppBarButton _backSkipButton;
+        private AppBarButton _forwardSkipButton;
         private int _segmentIndex;
         private double _cursorStayTime;
-
-        private double _slideDistance;
 
         /// <summary>
         /// 视图模型.

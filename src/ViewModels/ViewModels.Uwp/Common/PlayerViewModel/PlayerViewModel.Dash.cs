@@ -103,7 +103,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
-                _currentVideoPlayer.Play();
                 _currentVideoPlayer.PlaybackSession.Position = position;
             }
             catch (Exception)
@@ -132,7 +131,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             _currentVideoPlayer.Source = playbackItem;
             BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
             MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
-            _currentVideoPlayer.Play();
         }
     }
 }

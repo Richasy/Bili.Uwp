@@ -290,22 +290,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _currentVideoPlayer = null;
             }
 
-            if (_currentAudioPlayer != null)
-            {
-                if (_currentAudioPlayer.PlaybackSession.CanPause)
-                {
-                    _currentAudioPlayer.Pause();
-                }
-
-                if (_currentAudioPlayer.Source != null)
-                {
-                    (_currentAudioPlayer.Source as IDisposable).Dispose();
-                }
-
-                _currentAudioPlayer.Dispose();
-                _currentAudioPlayer = null;
-            }
-
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer.Stop();
 

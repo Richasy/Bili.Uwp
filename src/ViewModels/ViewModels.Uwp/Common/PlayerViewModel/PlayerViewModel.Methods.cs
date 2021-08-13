@@ -46,6 +46,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             ClearPlayer();
             IsPgc = false;
             IsLive = false;
+
+            var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            PlayerDisplayMode = preferPlayerMode;
         }
 
         private async Task LoadVideoDetailAsync(string videoId)
@@ -326,11 +329,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             _currentVideo = null;
 
             FormatCollection.Clear();
-            videoPlayView.SupportFormats.ForEach(p => FormatCollection.Add(new VideoFormatViewModel(p, false)));
+            var isLogin = AccountViewModel.Instance.Mid != null && AccountViewModel.Instance.Mid > 0;
+            foreach (var format in videoPlayView.SupportFormats)
+            {
+                var canAdd = isLogin ? true : format.Quality <= 64;
+                if (canAdd)
+                {
+                    FormatCollection.Add(new VideoFormatViewModel(format, false));
+                }
+            }
 
             var formatId = CurrentFormat == null ?
-                _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.DefaultVideoFormat, 64) :
+                _settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoFormat, 64) :
                 CurrentFormat.Quality;
+
+            // 如果用户选择了4K优先，则优先播放4K片源.
+            if (_settingsToolkit.ReadLocalSetting(SettingNames.IsPrefer4K, false) &&
+                FormatCollection.Any(p => p.Data.Quality == 120))
+            {
+                formatId = 120;
+            }
 
             await ChangeFormatAsync(formatId);
         }
@@ -423,6 +441,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var player = new MediaPlayer();
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
+            player.AutoPlay = IsAutoPlay;
 
             return player;
         }

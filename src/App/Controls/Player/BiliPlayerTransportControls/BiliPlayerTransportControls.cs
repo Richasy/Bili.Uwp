@@ -53,6 +53,8 @@ namespace Richasy.Bili.App.Controls
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
             _backButton = GetTemplateChild(BackButtonName) as Button;
+            _backSkipButton = GetTemplateChild(BackSkipButtonName) as AppBarButton;
+            _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as AppBarButton;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -61,6 +63,8 @@ namespace Richasy.Bili.App.Controls
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
             _formatListView.SelectionChanged += OnFormatComboBoxSelectionChangedAsync;
             _backButton.Click += OnBackButtonClick;
+            _backSkipButton.Click += OnBackSkipButtonClick;
+            _forwardSkipButton.Click += OnForwardSkipButtonClick;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -122,6 +126,18 @@ namespace Richasy.Bili.App.Controls
             {
                 ViewModel.TogglePlayPause();
             }
+        }
+
+        private void OnForwardSkipButtonClick(object sender, RoutedEventArgs e)
+        {
+            var forwardSeconds = SettingViewModel.SingleFastForwardAndRewindSpan;
+            ViewModel.ForwardSkip(forwardSeconds);
+        }
+
+        private void OnBackSkipButtonClick(object sender, RoutedEventArgs e)
+        {
+            var backSeconds = SettingViewModel.SingleFastForwardAndRewindSpan;
+            ViewModel.BackSkip(backSeconds);
         }
 
         private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
