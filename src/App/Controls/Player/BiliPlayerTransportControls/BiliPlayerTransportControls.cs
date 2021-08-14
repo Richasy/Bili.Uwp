@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
-using NSDanmaku.Controls;
-using NSDanmaku.Model;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
@@ -45,7 +44,7 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
-            _danmakuControl = GetTemplateChild(DanmakuControlName) as Danmaku;
+            _danmakuView = GetTemplateChild(DanmakuViewName) as DanmakuView;
             _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as AppBarToggleButton;
             _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as AppBarToggleButton;
             _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as AppBarToggleButton;
@@ -215,7 +214,7 @@ namespace Richasy.Bili.App.Controls
             this._segmentIndex = 1;
             this._danmakuDictionary.Clear();
             this._danmakuTimer.Stop();
-            _danmakuControl.ClearAll();
+            _danmakuView.ClearAll();
         }
 
         private void OnMediaPlayerUdpated(object sender, EventArgs e)
@@ -266,15 +265,15 @@ namespace Richasy.Bili.App.Controls
             {
                 if (sender.PlaybackState == MediaPlaybackState.Buffering)
                 {
-                    _danmakuControl.PauseDanmaku();
+                    _danmakuView.PauseDanmaku();
                 }
                 else if (sender.PlaybackState == MediaPlaybackState.Paused && sender.Position < sender.NaturalDuration)
                 {
-                    _danmakuControl.PauseDanmaku();
+                    _danmakuView.PauseDanmaku();
                 }
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
-                    _danmakuControl.ResumeDanmaku();
+                    _danmakuView.ResumeDanmaku();
                 }
             });
         }
@@ -316,24 +315,22 @@ namespace Richasy.Bili.App.Controls
 
                 var newDm = new DanmakuModel()
                 {
-                    color = item.Color.ToString().ToColor(),
-                    fromSite = DanmakuSite.Bilibili,
-                    location = location,
-                    pool = item.Pool.ToString(),
-                    rowID = item.IdStr,
-                    sendID = item.MidHash,
-                    size = item.Fontsize,
-                    weight = item.Weight,
-                    text = item.Content,
-                    sendTime = item.Ctime.ToString(),
-                    time = item.Progress / 1000d,
-                    time_s = item.Progress / 1000,
+                    Color = item.Color.ToString().ToColor(),
+                    Location = location,
+                    Pool = item.Pool.ToString(),
+                    Id = item.IdStr,
+                    SendId = item.MidHash,
+                    Size = item.Fontsize,
+                    Weight = item.Weight,
+                    Text = item.Content,
+                    SendTime = item.Ctime.ToString(),
+                    Time = item.Progress / 1000,
                 };
 
                 list.Add(newDm);
             }
 
-            var group = list.GroupBy(p => p.time_s).ToDictionary(x => x.Key, x => x.ToList());
+            var group = list.GroupBy(p => p.Time).ToDictionary(x => x.Key, x => x.ToList());
             foreach (var g in group)
             {
                 if (_danmakuDictionary.ContainsKey(g.Key))
@@ -354,7 +351,7 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckDanmakuZoom()
         {
-            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _danmakuControl == null)
+            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _danmakuView == null)
             {
                 return;
             }
@@ -372,7 +369,7 @@ namespace Richasy.Bili.App.Controls
                 scale = 0.6;
             }
 
-            _danmakuControl.DanmakuSizeZoom = scale;
+            _danmakuView.DanmakuSizeZoom = scale;
         }
 
         private void CheckMTCControlMode()
@@ -392,7 +389,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnDanmkuTimerTickAsync(object sender, object e)
         {
-            if (ViewModel.BiliPlayer == null || _danmakuControl == null)
+            if (ViewModel.BiliPlayer == null || _danmakuView == null)
             {
                 return;
             }
@@ -443,7 +440,7 @@ namespace Richasy.Bili.App.Controls
                         {
                             var shieldLevel = isUseDefault ?
                                 defaultConfig.PlayerDanmakuAiRecommendedLevel : customCofig.PlayerDanmakuAiRecommendedLevel;
-                            data = data.Where(p => p.weight >= shieldLevel).ToList();
+                            data = data.Where(p => p.Weight >= shieldLevel).ToList();
                         }
 
                         var list = DanmakuViewModel.DanmakuConfig.ReportFilterContent.ToList();
@@ -453,7 +450,7 @@ namespace Richasy.Bili.App.Controls
                     {
                         foreach (var item in data)
                         {
-                            _danmakuControl.AddDanmu(item, false);
+                            _danmakuView.AddScreenDanmaku(item, false);
                         }
                     });
                 }

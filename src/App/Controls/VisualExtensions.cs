@@ -31,39 +31,5 @@ namespace Richasy.Bili.App.Controls
             var exp = target.Compositor.CreateExpressionAnimation("Vector3(this.Target.Size.X / 2, this.Target.Size.Y / 2, 0f)");
             target.StartAnimation("CenterPoint", exp);
         }
-
-        /// <summary>
-        /// 将字符串转换为颜色.
-        /// </summary>
-        /// <param name="str">颜色.</param>
-        /// <returns><see cref="Windows.UI.Color"/>.</returns>
-        public static Color ToColor(this string str)
-        {
-            str = str.Replace("#", string.Empty);
-            if (int.TryParse(str, out var c))
-            {
-                str = c.ToString("X2");
-            }
-
-            var color = default(Color);
-            if (str.Length <= 6)
-            {
-                str = str.PadLeft(6, '0');
-                color.R = byte.Parse(str.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-                color.G = byte.Parse(str.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-                color.B = byte.Parse(str.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-                color.A = 255;
-            }
-            else
-            {
-                str = str.PadLeft(8, '0');
-                color.R = byte.Parse(str.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-                color.G = byte.Parse(str.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-                color.B = byte.Parse(str.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
-                color.A = byte.Parse(str.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-            }
-
-            return color;
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using NSDanmaku.Model;
+using Richasy.Bili.App.Controls;
 
 namespace Richasy.Bili.App.Resources.Extension
 {
@@ -13,13 +13,13 @@ namespace Richasy.Bili.App.Resources.Extension
         /// <inheritdoc/>
         public bool Equals(DanmakuModel x, DanmakuModel y)
         {
-            return x.text == y.text;
+            return x.Text == y.Text;
         }
 
         /// <inheritdoc/>
         public int GetHashCode(DanmakuModel obj)
         {
-            return obj.text.GetHashCode();
+            return obj.Text.GetHashCode();
         }
     }
 }
