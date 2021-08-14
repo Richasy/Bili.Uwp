@@ -5,9 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hn="using:HN.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:icons1="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:icons1="using:Richasy.FluentIcon.Uwp"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -72,36 +73,7 @@
                 Height="124"
                 VerticalAlignment="Stretch"
                 CornerRadius="4,4,0,0">
-                <hn:ImageEx
-                    x:Name="CoverImage"
-                    LazyLoadingEnabled="True"
-                    RetryCount="2"
-                    RetryDelay="0:0:5"
-                    Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
-                    Stretch="UniformToFill">
-                    <hn:ImageEx.LoadingTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <muxc:ProgressRing
-                                    Style="{StaticResource PageProgressRingStyle}"
-                                    Width="28"
-                                    Height="28" />
-                            </Grid>
-                        </DataTemplate>
-                    </hn:ImageEx.LoadingTemplate>
-                    <hn:ImageEx.FailedTemplate>
-                        <DataTemplate>
-                            <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                <icons:RegularFluentIcon
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                    Symbol="Image28"
-                                    FontSize="28"/>
-                            </Grid>
-                        </DataTemplate>
-                    </hn:ImageEx.FailedTemplate>
-                </hn:ImageEx>
+                <local:CommonImageEx x:Name="CoverImage" ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
             </Grid>
 
             <Grid

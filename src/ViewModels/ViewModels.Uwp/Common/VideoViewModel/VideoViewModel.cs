@@ -3,6 +3,7 @@
 using System;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Show.V1;
+using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -23,7 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             : this()
         {
             Title = video.Title ?? string.Empty;
-            PublisherName = video.Publisher ?? "--";
+            Publisher = new PublisherViewModel(video.Publisher, video.PublisherAvatar);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.PlayCount);
             ReplyCount = _numberToolkit.GetCountText(video.ReplyCount);
@@ -33,18 +34,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = video.PartitionName;
             PartitionId = video.PartitionId;
             Source = video;
-            LimitCoverAndAvatar(video.Cover, video.PublisherAvatar);
+            LimitCoverAndAvatar(video.Cover);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
         /// <param name="video">排行榜视频.</param>
-        public VideoViewModel(RankItem video)
+        public VideoViewModel(Item video)
             : this()
         {
             Title = video.Title ?? string.Empty;
-            PublisherName = video.Name ?? "--";
+            Publisher = new PublisherViewModel(video.Name, video.Face, Convert.ToInt32(video.Mid));
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.Play);
             ReplyCount = _numberToolkit.GetCountText(video.Reply);
@@ -55,7 +56,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = video;
             PartitionId = video.Rid;
             AdditionalText = video.Pts.ToString();
-            LimitCoverAndAvatar(video.Cover, video.Face);
+            LimitCoverAndAvatar(video.Cover);
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 // 视频处理.
                 DanmakuCount = card.SubStatusText;
                 LikeCount = string.Empty;
-                PublisherName = card.CardArgs.PublisherName ?? "--";
+                Publisher = new PublisherViewModel(card.CardArgs.PublisherName, id: card.CardArgs.PublisherId);
                 if ((card.PlayerArgs?.Duration).HasValue)
                 {
                     Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds((double)card.PlayerArgs?.Duration));
@@ -91,8 +92,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 // 动漫处理.
                 LikeCount = card.SubStatusText;
                 DanmakuCount = string.Empty;
-                PublisherName = card.Description?.Text ?? "--";
+                Publisher = new PublisherViewModel(card.Description?.Text);
                 Duration = "--";
+                VideoType = VideoType.Pgc;
             }
 
             AdditionalText = card.RecommendReason ?? string.Empty;
@@ -112,7 +114,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = cardBase.Title;
             VideoId = cardBase.Param;
             PlayCount = v5.RightDesc2;
-            PublisherName = v5.RightDesc1;
+            Publisher = new PublisherViewModel(v5.RightDesc1);
             AdditionalText = v5.RcmdReasonStyle?.Text ?? string.Empty;
             Duration = _numberToolkit.FormatDurationText(v5.CoverRightText1);
             LimitCoverAndAvatar(cardBase.Cover);
@@ -129,11 +131,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = followRoom.Title;
             VideoId = followRoom.RoomId.ToString();
             ViewerCount = _numberToolkit.GetCountText(followRoom.ViewerCount);
-            PublisherName = followRoom.UserName;
+            Publisher = new PublisherViewModel(followRoom.UserName, followRoom.UserAvatar, followRoom.UserId);
             PartitionName = followRoom.DisplayAreaName;
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
-            LimitCoverAndAvatar(followRoom.Cover, followRoom.UserAvatar);
+            LimitCoverAndAvatar(followRoom.Cover);
             Source = followRoom;
+            LiveH264Url = followRoom.PlayUrl;
+            LiveH265Url = followRoom.H265PlayUrl;
             VideoType = VideoType.Live;
         }
 
@@ -147,12 +151,36 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = card.Title;
             VideoId = card.RoomId.ToString();
             ViewerCount = card.CoverRightContent.Text;
-            PublisherName = card.CoverLeftContent.Text;
+            Publisher = new PublisherViewModel(card.CoverLeftContent.Text);
             PartitionName = card.AreaName;
             PartitionId = Convert.ToInt32(card.AreaId);
             LimitCoverAndAvatar(card.Cover);
+            LiveH264Url = card.PlayUrl;
+            LiveH265Url = card.H265PlayUrl;
             Source = card;
             VideoType = VideoType.Live;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="relate">相关视频推荐.</param>
+        public VideoViewModel(Relate relate)
+            : this()
+        {
+            Title = relate.Title;
+            VideoId = relate.Aid.ToString();
+            PlayCount = _numberToolkit.GetCountText(relate.Stat.View);
+            DanmakuCount = _numberToolkit.GetCountText(relate.Stat.Danmaku);
+            LikeCount = _numberToolkit.GetCountText(relate.Stat.Like);
+            ReplyCount = _numberToolkit.GetCountText(relate.Stat.Reply);
+            Publisher = new PublisherViewModel(relate.Author);
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(relate.Duration));
+            AdditionalText = relate.Rating.ToString();
+            LimitCoverAndAvatar(relate.Pic);
+            Source = relate;
+            VideoType = relate.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase) ?
+                VideoType.Video : VideoType.Pgc;
         }
 
         internal VideoViewModel()
@@ -164,14 +192,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.
         /// </summary>
-        private void LimitCoverAndAvatar(string coverUrl, string avatarUrl = null)
+        private void LimitCoverAndAvatar(string coverUrl)
         {
             SourceCoverUrl = coverUrl;
             CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
-            if (!string.IsNullOrEmpty(avatarUrl))
-            {
-                PublisherAvatar = avatarUrl + "@60w_60h_1c_100q.jpg";
-            }
         }
     }
 }

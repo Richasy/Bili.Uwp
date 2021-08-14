@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,7 +36,20 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(TitleBarHost);
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Window.Current.SetTitleBar(TitleBarHost);
+            CheckBackButtonVisibility();
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsOpenPlayer) || e.PropertyName == nameof(ViewModel.IsShowOverlay))
+            {
+                CheckBackButtonVisibility();
+            }
+        }
 
         private void OnMenuButtonClick(object sender, RoutedEventArgs e)
         {
@@ -44,10 +58,20 @@ namespace Richasy.Bili.App.Controls
 
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.IsShowOverlay)
+            if (ViewModel.IsOpenPlayer)
+            {
+                ViewModel.IsOpenPlayer = false;
+            }
+            else if (ViewModel.IsShowOverlay)
             {
                 ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
             }
+        }
+
+        private void CheckBackButtonVisibility()
+        {
+            BackButton.Visibility = (ViewModel.IsShowOverlay || ViewModel.IsOpenPlayer) ?
+                Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

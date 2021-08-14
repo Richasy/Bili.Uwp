@@ -1,0 +1,52 @@
+﻿<controls:PlayerComponent
+    x:Class="Richasy.Bili.App.Controls.Player.Related.VideoPartView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <controls:VerticalRepeaterView
+        HeaderVisibility="Collapsed"
+        ItemOrientation="Horizontal"
+        ItemsSource="{x:Bind ViewModel.VideoPartCollection}">
+        <controls:VerticalRepeaterView.ItemTemplate>
+            <DataTemplate x:DataType="uwp:VideoPartViewModel">
+                <controls:CardPanel
+                    Click="OnPartItemClickAsync"
+                    DataContext="{x:Bind}"
+                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                    IsEnableCheck="True"
+                    IsEnableHoverAnimation="False">
+                    <Grid Padding="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="36" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="{x:Bind Data.Page.Page_}" />
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                FontWeight="Bold"
+                                Text="{x:Bind Data.Page.Part}" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Margin="0,4,0,0"
+                                FontWeight="Bold"
+                                Text="{x:Bind Data.Page.Desc}"
+                                Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        </StackPanel>
+                    </Grid>
+                </controls:CardPanel>
+            </DataTemplate>
+        </controls:VerticalRepeaterView.ItemTemplate>
+    </controls:VerticalRepeaterView>
+</controls:PlayerComponent>

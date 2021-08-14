@@ -15,7 +15,26 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:AppTitleBar />
-        <controls:RootNavigationView Grid.Row="1" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="OverLayerGroup">
+                <VisualState x:Name="DefaultOverState" />
+                <VisualState x:Name="ExtendedOverState">
+                    <VisualState.Setters>
+                        <Setter Target="OverFrame.(Grid.Row)" Value="0" />
+                        <Setter Target="OverFrame.(Grid.RowSpan)" Value="2" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <controls:RootNavigationView
+            x:Name="RootNavView"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+        <Frame
+            x:Name="OverFrame"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+        <controls:AppTitleBar Canvas.ZIndex="1" />
     </Grid>
 </Page>

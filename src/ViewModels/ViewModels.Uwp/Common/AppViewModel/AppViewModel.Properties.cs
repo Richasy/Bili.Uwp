@@ -4,6 +4,7 @@ using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
+using Windows.System.Display;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -13,11 +14,17 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class AppViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly DisplayRequest _displayRequest;
 
         /// <summary>
         /// 请求导航至二级页面时发生
         /// </summary>
         public event EventHandler<object> RequestOverlayNavigation;
+
+        /// <summary>
+        /// 请求播放视频.
+        /// </summary>
+        public event EventHandler<object> RequestPlay;
 
         /// <summary>
         /// <see cref="AppViewModel"/>的单例.
@@ -59,5 +66,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsNeedHideWhenScrolling { get; set; }
+
+        /// <summary>
+        /// 是否开启播放器.
+        /// </summary>
+        [Reactive]
+        public bool IsOpenPlayer { get; set; }
+
+        /// <summary>
+        /// 覆盖层是否扩展至TitleBar.
+        /// </summary>
+        [Reactive]
+        public bool IsOverLayerExtendToTitleBar { get; set; }
     }
 }

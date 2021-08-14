@@ -10,10 +10,15 @@ namespace Richasy.Bili.Models.App.Constants
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
         public const string DefaultAcceptString = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+        public const string DefaultUserAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62";
         public const string BuildNumber = "5520400";
         public const string Av = "av";
         public const string Bangumi = "bangumi";
         public const string Pgc = "pgc";
+
+        public const string Season = "season";
+        public const string Positive = "positive";
+        public const string Section = "section";
 
         /// <summary>
         /// 番剧分区Id.
@@ -87,6 +92,25 @@ namespace Richasy.Bili.Models.App.Constants
             public const string TeenagersMode = "teenagers_mode";
             public const string Cursor = "cursor";
             public const string Name = "name";
+            public const string Aid = "aid";
+            public const string AVid = "avid";
+            public const string Cid = "cid";
+            public const string OType = "otype";
+            public const string Progress = "progress";
+            public const string Like = "like";
+            public const string Multiply = "multiply";
+            public const string AlsoLike = "select_like";
+            public const string AddFavoriteIds = "add_media_ids";
+            public const string DeleteFavoriteIds = "del_media_ids";
+            public const string AutoPlay = "autoplay";
+            public const string IsShowAllSeries = "is_show_all_series";
+            public const string SeasonId = "season_id";
+            public const string EpisodeId = "ep_id";
+            public const string EpisodeIdSlim = "epid";
+            public const string SeasonIdSlim = "sid";
+            public const string Module = "module";
+            public const string SeasonType = "season_type";
+            public const string RoomId = "room_id";
         }
 
         public static class Sort
@@ -116,6 +140,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string JsonContentType = "application/json";
             public const string GRPCContentType = "application/grpc";
             public const string UserAgent = "User-Agent";
+            public const string Referer = "Referer";
             public const string AppKey = "APP-KEY";
             public const string BiliMeta = "x-bili-metadata-bin";
             public const string Authorization = "authorization";
@@ -259,7 +284,20 @@ namespace Richasy.Bili.Models.App.Constants
 
             public static class Live
             {
+                /// <summary>
+                /// 直播源（首页内容）.
+                /// </summary>
                 public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
+
+                /// <summary>
+                /// 直播间详情.
+                /// </summary>
+                public const string RoomDetail = _liveBase + "/xlive/app-room/v1/index/getInfoByRoom";
+
+                /// <summary>
+                /// 直播播放信息.
+                /// </summary>
+                public const string PlayInformation = _liveBase + "/room/v1/Room/playUrl";
             }
 
             public static class Article
@@ -290,7 +328,75 @@ namespace Richasy.Bili.Models.App.Constants
                 /// <summary>
                 /// 页面详情.
                 /// </summary>
-                public const string Detail = _apiBase + "/pgc/page";
+                public const string PageDetail = _apiBase + "/pgc/page";
+
+                /// <summary>
+                /// 剧集详情.
+                /// </summary>
+                public const string SeasonDetail = _apiBase + "/pgc/view/v2/app/season";
+
+                /// <summary>
+                /// 剧集播放信息.
+                /// </summary>
+                public const string PlayInformation = _apiBase + "/pgc/player/web/playurl";
+            }
+
+            public static class Video
+            {
+                /// <summary>
+                /// 视频详情.
+                /// </summary>
+                public const string Detail = _appBase + "/bilibili.app.view.v1.View/View";
+
+                /// <summary>
+                /// 在线观看人数.
+                /// </summary>
+                public const string OnlineViewerCount = _appBase + "/x/v2/view/video/online";
+
+                /// <summary>
+                /// 视频播放信息.
+                /// </summary>
+                public const string PlayInformation = _apiBase + "/x/player/playurl";
+
+                /// <summary>
+                /// 视频播放信息.
+                /// </summary>
+                public const string PlayConfig = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayConf";
+
+                /// <summary>
+                /// 弹幕元数据.
+                /// </summary>
+                public const string DanmakuMetaData = _grpcBase + "/bilibili.community.service.dm.v1.DM/DmView";
+
+                /// <summary>
+                /// 分段弹幕.
+                /// </summary>
+                public const string SegmentDanmaku = _grpcBase + "/bilibili.community.service.dm.v1.DM/DmSegMobile";
+
+                /// <summary>
+                /// 历史记录.
+                /// </summary>
+                public const string ProgressReport = _apiBase + "/x/v2/history/report";
+
+                /// <summary>
+                /// 点赞视频.
+                /// </summary>
+                public const string Like = _appBase + "/x/v2/view/like";
+
+                /// <summary>
+                /// 给视频投币.
+                /// </summary>
+                public const string Coin = _appBase + "/x/v2/view/coin/add";
+
+                /// <summary>
+                /// 添加或删除视频收藏.
+                /// </summary>
+                public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/deal";
+
+                /// <summary>
+                /// 一键三连.
+                /// </summary>
+                public const string Triple = _appBase + "/x/v2/view/like/triple";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

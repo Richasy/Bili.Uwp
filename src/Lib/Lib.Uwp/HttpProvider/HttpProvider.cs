@@ -175,5 +175,19 @@ namespace Richasy.Bili.Lib.Uwp
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return parser.ParseFrom(bytes.Skip(5).ToArray());
         }
+
+        /// <inheritdoc/>
+        public async Task<object> ParseAsync<T1, T2>(HttpResponseMessage response, Func<string, bool> condition)
+        {
+            var responseString = await response.Content.ReadAsStringAsync();
+            if (condition(responseString))
+            {
+                return JsonConvert.DeserializeObject<T1>(responseString);
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T2>(responseString);
+            }
+        }
     }
 }

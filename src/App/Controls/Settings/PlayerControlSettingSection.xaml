@@ -2,7 +2,9 @@
     x:Class="Richasy.Bili.App.Controls.PlayerControlSettingSection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:Richasy.Bili.Models.Enums"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
@@ -12,6 +14,10 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
+
+    <local:SettingSectionControl.Resources>
+        <converter:PreferCodecConverter x:Key="PreferCodecConverter" />
+    </local:SettingSectionControl.Resources>
 
     <exp:ExpanderEx>
         <exp:ExpanderEx.Header>
@@ -45,13 +51,22 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PreferHEVC}"
-                            Description="{loc:LocaleLocator Name=PreferHEVCDescription}"
+                            Title="{loc:LocaleLocator Name=PreferCodec}"
+                            Description="{loc:LocaleLocator Name=PreferCodecDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPreferHEVC, Mode=TwoWay}" />
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PreferCodecCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.PreferCodec, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="enums:PreferCodec">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource PreferCodecConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 

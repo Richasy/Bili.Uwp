@@ -31,6 +31,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly ILiveProvider _liveProvider;
         private readonly ISpecialColumnProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
+        private readonly IPlayerProvider _playerProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -51,7 +52,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _popularProvider)
                 .LoadService(out _liveProvider)
                 .LoadService(out _specialColumnProvider)
-                .LoadService(out _pgcProvider);
+                .LoadService(out _pgcProvider)
+                .LoadService(out _playerProvider);
 
             RegisterEvents();
         }
@@ -132,6 +134,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<PgcModuleIterationEventArgs> PgcModuleIteration;
 
         /// <summary>
+        /// 在有分片弹幕更新时发生.
+        /// </summary>
+        public event EventHandler<SegmentDanmakuIterationEventArgs> SegmentDanmakuIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -158,6 +165,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>()
                 .AddSingleton<IMD5Toolkit, MD5Toolkit>()
+                .AddSingleton<IFontToolkit, FontToolkit>()
                 .AddSingleton<INetworkModule, NetworkModule>()
                 .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
@@ -168,7 +176,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IPopularProvider, PopularProvider>()
                 .AddSingleton<ILiveProvider, LiveProvider>()
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
-                .AddSingleton<IPgcProvider, PgcProvider>();
+                .AddSingleton<IPgcProvider, PgcProvider>()
+                .AddSingleton<IPlayerProvider, PlayerProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
 

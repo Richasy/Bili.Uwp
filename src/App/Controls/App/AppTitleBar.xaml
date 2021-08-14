@@ -29,7 +29,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="RootGrid" Background="{ThemeResource NavigationViewExpandedPaneBackground}">
+    <Grid x:Name="RootGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
                 <VisualStateGroup.States>
@@ -46,18 +46,25 @@
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
                             <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
                             <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
-                            <Setter Target="RootGrid.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
+                            <Setter Target="BackgroundHost.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid
+            x:Name="BackgroundHost"
+            Background="{ThemeResource NavigationViewExpandedPaneBackground}"
+            Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
         <Rectangle
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid x:Name="ContentGrid" Padding="6,0,0,0">
+        <Grid
+            x:Name="ContentGrid"
+            Padding="6,0,0,0"
+            Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->
@@ -77,8 +84,11 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick"
-                Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}">
+                Click="OnBackButtonClick">
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Back" IsEnabled="True" />
+                    <KeyboardAccelerator Key="XButton2" IsEnabled="True" />
+                </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"

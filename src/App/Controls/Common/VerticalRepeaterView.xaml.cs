@@ -213,7 +213,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnParentScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (!e.IsIntermediate)
+            if (!e.IsIntermediate && _parentScrollViewer != null)
             {
                 AppViewModel.Instance.IsNeedHideWhenScrolling = false;
                 var currentPosition = _parentScrollViewer.VerticalOffset;

@@ -1,0 +1,94 @@
+﻿<local:PlayerComponent
+    x:Class="Richasy.Bili.App.Controls.PlayerRelatedView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:related="using:Richasy.Bili.App.Controls.Player.Related"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid CornerRadius="{StaticResource ControlCornerRadius}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="SideWideState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="SideNarrowState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DetailGrid.MaxWidth" Value="320" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="RowState">
+                    <VisualState.StateTriggers>
+                        <trigger:WindowWidthTrigger Condition="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DetailGrid.MaxWidth" Value="999" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <muxc:NavigationView
+            x:Name="Nav"
+            Margin="0,-12,0,0"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Top"
+            SelectionChanged="OnNavSelectionChanged">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    x:Name="PartsItem"
+                    Content="{loc:LocaleLocator Name=Parts}"
+                    Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="EpisodeItem"
+                    Content="{loc:LocaleLocator Name=Episodes}"
+                    Visibility="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="SeasonItem"
+                    Content="{loc:LocaleLocator Name=Seasons}"
+                    Visibility="{x:Bind ViewModel.IsShowSeason, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="RelatedViedeosItem"
+                    Content="{loc:LocaleLocator Name=RelatedVideos}"
+                    Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="ChatItem"
+                    Content="{loc:LocaleLocator Name=Chat}"
+                    Visibility="{x:Bind ViewModel.IsShowChat, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="ReplyItem"
+                    Content="{loc:LocaleLocator Name=Reply}"
+                    Visibility="{x:Bind ViewModel.IsShowReply, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="SectionItem"
+                    Content="{loc:LocaleLocator Name=Sections}"
+                    Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
+            </muxc:NavigationView.MenuItems>
+            <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                <Grid x:Name="DetailGrid" MaxWidth="360">
+                    <related:RelatedVideoView x:Name="RelatedVideoView" Visibility="Collapsed" />
+                    <related:VideoPartView x:Name="VideoPartView" Visibility="Collapsed" />
+                    <related:EpisodeView x:Name="EpisodeView" Visibility="Collapsed" />
+                    <related:SeasonView x:Name="SeasonView" Visibility="Collapsed" />
+                    <related:PgcSectionView x:Name="SectionView" Visibility="Collapsed" />
+                </Grid>
+            </ScrollViewer>
+        </muxc:NavigationView>
+
+    </Grid>
+</local:PlayerComponent>

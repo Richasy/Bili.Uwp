@@ -99,10 +99,30 @@ namespace Richasy.Bili.Lib.Uwp
 
         private async Task<PgcResponse> GetPgcResponseInternalAsync(Dictionary<string, string> queryParameters)
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.Detail, queryParameters, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.PageDetail, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcResponse>>(response);
             return data.Result;
+        }
+
+        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.AutoPlay, "0" },
+                { Query.IsShowAllSeries, "0" },
+            };
+            if (episodeId > 0)
+            {
+                queryParameters.Add(Query.EpisodeId, episodeId.ToString());
+            }
+
+            if (seasonId > 0)
+            {
+                queryParameters.Add(Query.SeasonId, seasonId.ToString());
+            }
+
+            return queryParameters;
         }
     }
 }

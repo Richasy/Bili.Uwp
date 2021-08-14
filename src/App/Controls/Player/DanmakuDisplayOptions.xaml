@@ -1,0 +1,47 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.DanmakuDisplayOptions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <StackPanel
+        Width="240"
+        Padding="16,12"
+        Spacing="12">
+        <Slider
+            x:Name="OpacitySlider"
+            Header="{loc:LocaleLocator Name=DanmakuOpacity}"
+            Maximum="1"
+            Minimum="0"
+            StepFrequency="0.1"
+            Value="{x:Bind ViewModel.DanmakuOpacity, Mode=TwoWay}" />
+        <Slider
+            x:Name="ZoomSlider"
+            Header="{loc:LocaleLocator Name=DanmakuZoom}"
+            Maximum="1.6"
+            Minimum="0.5"
+            StepFrequency="0.1"
+            Value="{x:Bind ViewModel.DanmakuZoom, Mode=TwoWay}" />
+        <Slider
+            x:Name="DensitySlider"
+            Header="{loc:LocaleLocator Name=DanmakuDensity}"
+            Maximum="1000"
+            Minimum="10"
+            StepFrequency="10"
+            Value="{x:Bind ViewModel.DanmakuDensity, Mode=TwoWay}" />
+        <ComboBox
+            x:Name="DanmakuFontComboBox"
+            HorizontalAlignment="Stretch"
+            Header="{loc:LocaleLocator Name=DanmakuFont}"
+            ItemsSource="{x:Bind ViewModel.FontCollection, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.DanmakuFont, Mode=TwoWay}" />
+        <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuMerge}" IsOn="{x:Bind ViewModel.IsDanmakuMerge, Mode=TwoWay}" />
+        <ToggleSwitch Header="{loc:LocaleLocator Name=UseCloudShieldSettings}" IsOn="{x:Bind ViewModel.UseCloudShieldSettings, Mode=TwoWay}" />
+    </StackPanel>
+</UserControl>

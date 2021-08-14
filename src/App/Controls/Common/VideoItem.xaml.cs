@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -277,19 +275,9 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
+        private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            var link = string.Empty;
-            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
-            {
-                link = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
-            }
-            else
-            {
-                link = $"https://live.bilibili.com/{ViewModel.VideoId}";
-            }
-
-            await Launcher.LaunchUriAsync(new Uri(link)).AsTask();
+            AppViewModel.OpenPlayer(ViewModel);
         }
     }
 }

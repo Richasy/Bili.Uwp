@@ -20,6 +20,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsNavigatePaneOpen = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            _displayRequest = new Windows.System.Display.DisplayRequest();
         }
 
         /// <summary>
@@ -42,6 +43,32 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentOverlayContentId = pageId;
             IsShowOverlay = true;
             RequestOverlayNavigation?.Invoke(this, param);
+        }
+
+        /// <summary>
+        /// 打开播放器播放视频.
+        /// </summary>
+        /// <param name="playVM">包含播放信息的视图模型.</param>
+        public void OpenPlayer(object playVM)
+        {
+            RequestPlay?.Invoke(this, playVM);
+            IsOpenPlayer = true;
+        }
+
+        /// <summary>
+        /// 激活显示请求.
+        /// </summary>
+        public void ActiveDisplayRequest()
+        {
+            _displayRequest.RequestActive();
+        }
+
+        /// <summary>
+        /// 释放显示请求.
+        /// </summary>
+        public void ReleaseDisplayRequest()
+        {
+            _displayRequest.RequestRelease();
         }
     }
 }

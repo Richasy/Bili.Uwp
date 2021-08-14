@@ -64,6 +64,16 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<T> ParseAsync<T>(HttpResponseMessage response);
 
         /// <summary>
+        /// 解析响应，并选择满足条件的目标类型返回.
+        /// </summary>
+        /// <param name="response">得到的 <see cref="HttpResponseMessage"/>.</param>
+        /// <param name="condition">条件.</param>
+        /// <typeparam name="T1">需要转换的目标类型1.</typeparam>
+        /// <typeparam name="T2">需要转换的目标类型2.</typeparam>
+        /// <returns>转换结果.</returns>
+        Task<object> ParseAsync<T1, T2>(HttpResponseMessage response, Func<string, bool> condition);
+
+        /// <summary>
         /// 解析响应.
         /// </summary>
         /// <param name="response">得到的 <see cref="HttpResponseMessage"/>.</param>

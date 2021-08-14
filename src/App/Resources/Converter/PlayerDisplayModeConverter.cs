@@ -25,8 +25,8 @@ namespace Richasy.Bili.App.Resources.Converter
                     case PlayerDisplayMode.Default:
                         result = resourceToolkit.GetLocaleString(LanguageNames.Default);
                         break;
-                    case PlayerDisplayMode.Cinema:
-                        result = resourceToolkit.GetLocaleString(LanguageNames.CinemaMode);
+                    case PlayerDisplayMode.FullScreen:
+                        result = resourceToolkit.GetLocaleString(LanguageNames.FullScreenMode);
                         break;
                     case PlayerDisplayMode.FullWindow:
                         result = resourceToolkit.GetLocaleString(LanguageNames.FullWindowMode);

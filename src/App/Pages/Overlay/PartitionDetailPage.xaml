@@ -149,8 +149,6 @@
 
                     <controls:ErrorPanel
                         x:Name="ErrorPanel"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
                         ActionButtonClick="OnRefreshButtonClickAsync"
                         ActionContent="{loc:LocaleLocator Name=Refresh}"
                         Text="{x:Bind ViewModel.CurrentSelectedSubPartition.ErrorText, Mode=OneWay}"

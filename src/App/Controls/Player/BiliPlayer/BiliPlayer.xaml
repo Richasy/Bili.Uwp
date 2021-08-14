@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hn="using:HN.Controls"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <Style TargetType="local:BiliPlayer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliPlayer">
+                    <Grid>
+                        <Grid
+                            x:Name="PlayerContainer"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <!-- Media player -->
+                            <MediaPlayerElement
+                                x:Name="MediaPlayerElement"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                AreTransportControlsEnabled="True">
+                                <MediaPlayerElement.TransportControls>
+                                    <local:BiliPlayerTransportControls
+                                        IsCompactOverlayButtonVisible="True"
+                                        IsCompactOverlayEnabled="True"
+                                        IsFullWindowButtonVisible="False" />
+                                </MediaPlayerElement.TransportControls>
+                            </MediaPlayerElement>
+                        </Grid>
+
+                        <Grid
+                            x:Name="LoadingContainer"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading}">
+                            <hn:ImageEx
+                                x:Name="CoverImage"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                LazyLoadingEnabled="True"
+                                RetryCount="2"
+                                RetryDelay="0:0:5"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
+                                Stretch="UniformToFill">
+                                <hn:ImageEx.LoadingTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <muxc:ProgressRing
+                                                Style="{StaticResource PageProgressRingStyle}"
+                                                Width="40"
+                                                Height="40" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.LoadingTemplate>
+                                <hn:ImageEx.FailedTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
+                                            <icons:RegularFluentIcon
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="80"
+                                                Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                                Symbol="Image28" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </hn:ImageEx.FailedTemplate>
+                            </hn:ImageEx>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

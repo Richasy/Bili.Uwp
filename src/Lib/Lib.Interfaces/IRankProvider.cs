@@ -16,6 +16,6 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="partitionId">分区Id. 如果是全区则为0.</param>
         /// <returns>排行榜信息.</returns>
-        Task<List<RankItem>> GetRankDetailAsync(int partitionId);
+        Task<List<Item>> GetRankDetailAsync(int partitionId);
     }
 }

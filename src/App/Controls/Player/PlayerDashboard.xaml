@@ -1,0 +1,123 @@
+﻿<local:PlayerComponent
+    x:Class="Richasy.Bili.App.Controls.PlayerDashboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:PlayerComponent.Resources>
+        <Style TargetType="local:IconTextBlock">
+            <Setter Property="IconFontSize" Value="20" />
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Style>
+
+        <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
+    </local:PlayerComponent.Resources>
+
+    <Grid RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <local:ProgressButton
+                x:Name="LikeButton"
+                Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
+                HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
+                IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
+                IsHoldingEnabled="True"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
+                <icons:RegularFluentIcon Symbol="ThumbLike16" />
+            </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="CoinButton"
+                Margin="12,0"
+                Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IsCoinChecked, Mode=OneWay}"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
+                <icons:RegularFluentIcon Symbol="Blur16" />
+            </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="FavoriteButton"
+                Description="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IsFavoriteChecked, Mode=OneWay}"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
+                <icons:RegularFluentIcon Symbol="Star16" />
+            </local:ProgressButton>
+            <local:ProgressButton
+                x:Name="FollowButton"
+                Margin="12,0,0,0"
+                Description="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
+                IsChecked="{x:Bind ViewModel.IsFollow, Mode=OneWay}"
+                IsHoldingEnabled="False"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}"
+                Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
+                <icons:RegularFluentIcon Symbol="RibbonStar20" />
+            </local:ProgressButton>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            Spacing="4">
+            <StackPanel
+                x:Name="PgcControlContainer"
+                Margin="0,0,0,4"
+                HorizontalAlignment="Stretch"
+                Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
+                <Button
+                    x:Name="PgcDetailButton"
+                    Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Stretch"
+                    Click="OnPgcDetailButtonClick">
+                    <local:IconTextBlock
+                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                        Symbol="TextBulletListTree16"
+                        Text="{loc:LocaleLocator Name=Detail}" />
+                </Button>
+            </StackPanel>
+
+            <Button
+                x:Name="ShareButton"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Stretch"
+                Click="OnShareButtonClick">
+                <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
+            </Button>
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="8"
+                Visibility="{x:Bind ViewModel.AvId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="AV" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.AvId, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="8"
+                Visibility="{x:Bind ViewModel.BvId, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="BV" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.BvId, Mode=OneWay}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</local:PlayerComponent>

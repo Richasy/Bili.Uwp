@@ -71,13 +71,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 发布者.
         /// </summary>
         [Reactive]
-        public string PublisherName { get; set; }
-
-        /// <summary>
-        /// 发布者头像.
-        /// </summary>
-        [Reactive]
-        public string PublisherAvatar { get; set; }
+        public PublisherViewModel Publisher { get; set; }
 
         /// <summary>
         /// 分区名称.
@@ -110,6 +104,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 原始封面地址.
         /// </summary>
         public string SourceCoverUrl { get; set; }
+
+        /// <summary>
+        /// 直播的H264播放地址.
+        /// </summary>
+        public string LiveH264Url { get; set; }
+
+        /// <summary>
+        /// 直播的H265播放地址.
+        /// </summary>
+        public string LiveH265Url { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoViewModel model && VideoId == model.VideoId;

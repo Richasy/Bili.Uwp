@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -111,13 +109,9 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(CardStyleProperty, value); }
         }
 
-        private async void OnRootCardClickAsync(object sender, RoutedEventArgs e)
+        private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var link = ViewModel.Source.WebLink;
-            if (!string.IsNullOrEmpty(link))
-            {
-                await Launcher.LaunchUriAsync(new Uri(link));
-            }
+            AppViewModel.Instance.OpenPlayer(ViewModel);
         }
     }
 }

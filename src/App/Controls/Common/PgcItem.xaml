@@ -16,45 +16,18 @@
         x:Name="RootCard"
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
         Style="{x:Bind CardStyle, Mode=OneWay}"
-        Click="OnRootCardClickAsync">
+        Click="OnRootCardClick">
         <Grid Padding="12" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid VerticalAlignment="Center" CornerRadius="{ThemeResource ControlCornerRadius}">
-                <hn:ImageEx
+                <local:CommonImageEx
                     x:Name="CoverImage"
                     Width="{x:Bind CoverWidth, Mode=OneWay}"
                     Height="{x:Bind CoverHeight, Mode=OneWay}"
-                    LazyLoadingEnabled="True"
-                    RetryCount="2"
-                    RetryDelay="0:0:5"
-                    Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}"
-                    Stretch="UniformToFill">
-                    <hn:ImageEx.LoadingTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <muxc:ProgressRing
-                                    Style="{StaticResource PageProgressRingStyle}"
-                                    Width="28"
-                                    Height="28" />
-                            </Grid>
-                        </DataTemplate>
-                    </hn:ImageEx.LoadingTemplate>
-                    <hn:ImageEx.FailedTemplate>
-                        <DataTemplate>
-                            <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                <icons:RegularFluentIcon
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontSize="28"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                    Symbol="Image28" />
-                            </Grid>
-                        </DataTemplate>
-                    </hn:ImageEx.FailedTemplate>
-                </hn:ImageEx>
+                    ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

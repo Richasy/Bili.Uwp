@@ -24,7 +24,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<List<RankItem>> GetRankDetailAsync(int partitionId)
+        public async Task<List<Item>> GetRankDetailAsync(int partitionId)
         {
             var rankRequst = new RankRegionResultReq() { Rid = partitionId };
             var request = await _httpProvider.GetRequestMessageAsync(Api.Home.RankingGRPC, rankRequst);

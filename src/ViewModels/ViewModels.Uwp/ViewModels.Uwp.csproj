@@ -9,6 +9,15 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Base\SelectableViewModelBase{T}.cs" />
+    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.cs" />
+    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
+    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
+    <Compile Include="Common\PgcEpisodeViewModel.cs" />
+    <Compile Include="Common\PgcSectionViewModel.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
+    <Compile Include="Common\PgcSeasonViewModel.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
@@ -28,6 +37,10 @@
     <Compile Include="Common\SettingViewModel\SettingViewModel.cs" />
     <Compile Include="Common\SettingViewModel\SettingViewModel.Methods.cs" />
     <Compile Include="Common\SettingViewModel\SettingViewModel.Properties.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Methods.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Properties.cs" />
+    <Compile Include="Common\PublisherViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />
@@ -52,8 +65,8 @@
     <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
-    <Compile Include="AccountViewModel\AccountViewModel.cs" />
-    <Compile Include="AccountViewModel\AccountViewModel.Properties.cs" />
+    <Compile Include="Common\AccountViewModel\AccountViewModel.cs" />
+    <Compile Include="Common\AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
@@ -62,9 +75,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Base\WebRequestViewModelBase.cs" />
+    <Compile Include="Common\VideoPartViewModel.cs" />
+    <Compile Include="Common\VideoFormatViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FFmpegInteropX">
+      <Version>0.9.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>5.0.2</Version>
     </PackageReference>
@@ -72,10 +90,10 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>14.1.1</Version>
+      <Version>14.3.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>14.1.1</Version>
+      <Version>14.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

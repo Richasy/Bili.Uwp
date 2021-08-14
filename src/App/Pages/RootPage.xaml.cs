@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Pages
 {
@@ -12,6 +14,12 @@ namespace Richasy.Bili.App.Pages
     public sealed partial class RootPage : Page
     {
         /// <summary>
+        /// <see cref="ViewModel"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(RootPage), new PropertyMetadata(AppViewModel.Instance));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RootPage"/> class.
         /// </summary>
         public RootPage()
@@ -20,9 +28,46 @@ namespace Richasy.Bili.App.Pages
             this.Loaded += OnLoadedAsync;
         }
 
+        /// <summary>
+        /// 应用视图模型.
+        /// </summary>
+        public AppViewModel ViewModel
+        {
+            get { return (AppViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
+            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.ViewModel.RequestPlay += OnRequestPlay;
             await AccountViewModel.Instance.TrySignInAsync(true);
+        }
+
+        private void OnRequestPlay(object sender, object e)
+        {
+            OverFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsOpenPlayer))
+            {
+                if (!ViewModel.IsOpenPlayer)
+                {
+                    ViewModel.ReleaseDisplayRequest();
+                    OverFrame.Navigate(typeof(Page));
+                }
+                else
+                {
+                    ViewModel.ActiveDisplayRequest();
+                }
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsOverLayerExtendToTitleBar))
+            {
+                var stateName = ViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
+                VisualStateManager.GoToState(this, stateName, false);
+            }
         }
     }
 }

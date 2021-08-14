@@ -38,11 +38,11 @@ message RankRegionResultReq {
 // 排行榜信息-响应
 message RankListReply {
     // 排行榜列表
-    repeated RankItem items = 1;
+    repeated Item items = 1;
 }
 
 // 排行榜列表项
-message RankItem {
+message Item {
     // 标题
     string title = 1;
     // 封面url
@@ -52,7 +52,7 @@ message RankItem {
     // 跳转uri
     string uri = 4;
     // 重定向url
-    string redirectUrl = 5;
+    string redirect_url = 5;
     // 跳转类型
     // av:视频稿件
     string goto = 6;
@@ -71,7 +71,7 @@ message RankItem {
     // 收藏数
     int32 favourite = 13;
     // 发布时间
-    int64 pubDate = 14;
+    int64 pub_date = 14;
     // 分区tid
     int32 rid = 15;
     // 子分区名
@@ -92,9 +92,9 @@ message RankItem {
     // UP主粉丝数
     int64 follower = 23;
     // UP主认证信息
-    OfficialVerify officialVerify = 24;
+    OfficialVerify official_verify = 24;
     // 同一UP收起子项列表
-    repeated RankItem children = 25;
+    repeated Item children = 25;
     // 关系信息
     Relation relation = 26;
 }
@@ -114,7 +114,7 @@ message Relation {
     // 1:未关注 2:已关注 3:被关注 4:互相关注
     int32 status = 1;
     // 是否关注
-    int32 isFollow = 2;
+    int32 is_follow = 2;
     // 是否粉丝
-    int32 isFollowed = 3;
+    int32 is_followed = 3;
 }

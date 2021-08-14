@@ -41,5 +41,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="offsetId">偏移值.</param>
         /// <returns><see cref="SubPartition"/>.</returns>
         Task<SubPartition> GetPartitionRecommendVideoAsync(int partitionId, int offsetId = 0);
+
+        /// <summary>
+        /// 获取PGC内容的详细信息.
+        /// </summary>
+        /// <param name="episodeId">(可选项) 单集Id.</param>
+        /// <param name="seasonId">(可选项) 剧集/系列Id.</param>
+        /// <returns>PGC内容详情.</returns>
+        Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0);
     }
 }

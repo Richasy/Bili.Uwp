@@ -35,6 +35,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<MTCControlMode> MTCControlModeCollection { get; set; }
 
         /// <summary>
+        /// 偏好的解码模式可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PreferCodec> PreferCodecCollection { get; set; }
+
+        /// <summary>
         /// 应用主题.
         /// </summary>
         [Reactive]
@@ -95,10 +101,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsPrefer4K { get; set; }
 
         /// <summary>
-        /// 优先HEVC解码.
+        /// 偏好的解码模式.
         /// </summary>
         [Reactive]
-        public bool IsPreferHEVC { get; set; }
+        public PreferCodec PreferCodec { get; set; }
 
         /// <summary>
         /// 单次快进/快退时长.

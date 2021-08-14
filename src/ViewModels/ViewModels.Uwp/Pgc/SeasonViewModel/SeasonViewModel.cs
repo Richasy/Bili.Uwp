@@ -21,13 +21,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.Title = item.Title;
             vm.Subtitle = item.Description;
             vm.SeasonId = item.OriginId;
-            if (item.NewEpisode != null)
+            if (item.Aid > 0)
             {
-                vm.VideoId = item.NewEpisode.Id;
-            }
-            else if (item.Aid > 0)
-            {
-                vm.VideoId = item.Aid;
+                vm.EpisodeId = item.Aid;
             }
 
             var resString = isVerticalCover ? "@240w_320h_1c_100q.jpg" : "@400w_250h_1c_100q.jpg";

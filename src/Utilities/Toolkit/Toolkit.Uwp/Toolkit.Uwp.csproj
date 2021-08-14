@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="AppToolkit.cs" />
     <Compile Include="FileToolkit.cs" />
+    <Compile Include="FontToolkit.cs" />
     <Compile Include="MD5Toolkit.cs" />
     <Compile Include="NumberToolkit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -27,6 +28,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

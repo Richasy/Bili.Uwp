@@ -44,5 +44,12 @@ namespace Richasy.Bili.Toolkit.Interfaces
         /// <param name="types">Allowed file extension.</param>
         /// <returns><c>Item1</c> represents the content of the file, <c>Item2</c> means file extension name.</returns>
         Task<Tuple<string, string>> OpenLocalFileAndReadAsync(params string[] types);
+
+        /// <summary>
+        /// Open file which in the package.
+        /// </summary>
+        /// <param name="filePath">Start with ms-appx:///.</param>
+        /// <returns>Text.</returns>
+        Task<string> ReadPackageFile(string filePath);
     }
 }

@@ -15,4 +15,6 @@
         x:Key="AccentBadgeBackground"
         Opacity="0.4"
         Color="{ThemeResource SystemAccentColorLight2}" />
+
+    <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="Black" />
 </ResourceDictionary>

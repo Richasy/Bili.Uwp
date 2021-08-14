@@ -56,5 +56,15 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _partitionProvider.GetSubPartitionDataAsync(partitionId, false, offsetId);
             return data;
         }
+
+        /// <inheritdoc/>
+        public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0)
+        {
+            var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.SeasonDetail, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
+            return data.Data;
+        }
     }
 }

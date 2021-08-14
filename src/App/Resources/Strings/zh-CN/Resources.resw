@@ -135,6 +135,9 @@
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
+  <data name="BackToDefaultView" xml:space="preserve">
+    <value>返回标准视图</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -153,8 +156,8 @@
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
   </data>
-  <data name="CinemaMode" xml:space="preserve">
-    <value>影院模式</value>
+  <data name="Chat" xml:space="preserve">
+    <value>聊天互动</value>
   </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
@@ -162,11 +165,47 @@
   <data name="CleanLogger" xml:space="preserve">
     <value>清除日志记录</value>
   </data>
+  <data name="Coin" xml:space="preserve">
+    <value>投币</value>
+  </data>
+  <data name="CompactOverlayMode" xml:space="preserve">
+    <value>小窗模式</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
+  </data>
+  <data name="Danmaku" xml:space="preserve">
+    <value>弹幕</value>
+  </data>
+  <data name="DanmakuDensity" xml:space="preserve">
+    <value>同屏弹幕密度</value>
+  </data>
+  <data name="DanmakuDisplaySettings" xml:space="preserve">
+    <value>弹幕显示设置</value>
+  </data>
+  <data name="DanmakuFont" xml:space="preserve">
+    <value>弹幕字体</value>
+  </data>
+  <data name="DanmakuMerge" xml:space="preserve">
+    <value>弹幕合并</value>
+  </data>
+  <data name="DanmakuOpacity" xml:space="preserve">
+    <value>弹幕透明度</value>
+  </data>
+  <data name="DanmakuPlaceholder" xml:space="preserve">
+    <value>发个友善的弹幕见证当下</value>
+  </data>
+  <data name="DanmakuSendSettings" xml:space="preserve">
+    <value>弹幕发送设置</value>
+  </data>
+  <data name="DanmakuSwitch" xml:space="preserve">
+    <value>弹幕开关</value>
+  </data>
+  <data name="DanmakuZoom" xml:space="preserve">
+    <value>弹幕缩放</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
@@ -177,6 +216,9 @@
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>
@@ -186,8 +228,17 @@
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
+  <data name="Episodes" xml:space="preserve">
+    <value>分集</value>
+  </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="Flv" xml:space="preserve">
+    <value>流媒体/FLV</value>
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
@@ -195,14 +246,26 @@
   <data name="FollowSystem" xml:space="preserve">
     <value>跟随系统</value>
   </data>
+  <data name="FullScreenMode" xml:space="preserve">
+    <value>全屏模式</value>
+  </data>
   <data name="FullWindowMode" xml:space="preserve">
     <value>全窗口模式</value>
   </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
   </data>
+  <data name="H264" xml:space="preserve">
+    <value>AVC/H.264</value>
+  </data>
+  <data name="H265" xml:space="preserve">
+    <value>HVEC/H.265</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
+  </data>
+  <data name="HideDanmaku" xml:space="preserve">
+    <value>隐藏弹幕</value>
   </data>
   <data name="HideRepeaterItemWhenScrolling" xml:space="preserve">
     <value>滚动时隐藏条目</value>
@@ -227,6 +290,9 @@
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>点赞</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
@@ -288,6 +354,9 @@
   <data name="PartitionRequestFailed" xml:space="preserve">
     <value>分区请求失败</value>
   </data>
+  <data name="Parts" xml:space="preserve">
+    <value>分集</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
   </data>
@@ -299,6 +368,12 @@
   </data>
   <data name="Personal" xml:space="preserve">
     <value>个人</value>
+  </data>
+  <data name="PgcFollowing" xml:space="preserve">
+    <value>正在追</value>
+  </data>
+  <data name="PgcNotFollow" xml:space="preserve">
+    <value>追</value>
   </data>
   <data name="Player" xml:space="preserve">
     <value>播放器</value>
@@ -327,11 +402,11 @@
   <data name="Prefer4KDescription" xml:space="preserve">
     <value>在用户已登录并有权限获取4K播放源的情况下，优先播放4K片源</value>
   </data>
-  <data name="PreferHEVC" xml:space="preserve">
-    <value>优先解析HEVC</value>
+  <data name="PreferCodec" xml:space="preserve">
+    <value>解码器偏好</value>
   </data>
-  <data name="PreferHEVCDescription" xml:space="preserve">
-    <value>优先以HEVC解析片源，需要设备上具备HEVC解码器（可在Microsoft Store下载）</value>
+  <data name="PreferCodecDescription" xml:space="preserve">
+    <value>优先选择该编码的视频流，HEVC/H.265需要额外安装解码器</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
     <value>预启动</value>
@@ -357,6 +432,12 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RelatedVideos" xml:space="preserve">
+    <value>关联视频</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>评论</value>
+  </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
   </data>
@@ -381,6 +462,9 @@
   <data name="RequestTabDetailFailed" xml:space="preserve">
     <value>标签页详情数据请求失败</value>
   </data>
+  <data name="RequestVideoFailed" xml:space="preserve">
+    <value>视频播放信息请求失败</value>
+  </data>
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>
@@ -396,8 +480,14 @@
   <data name="SearchTipSlim" xml:space="preserve">
     <value>搜一搜</value>
   </data>
+  <data name="Seasons" xml:space="preserve">
+    <value>系列</value>
+  </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>相关内容</value>
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
@@ -407,6 +497,12 @@
   </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="ShowDanmaku" xml:space="preserve">
+    <value>显示弹幕</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>显示更多</value>
@@ -492,6 +588,9 @@
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
   </data>
+  <data name="UseCloudShieldSettings" xml:space="preserve">
+    <value>使用云屏蔽配置</value>
+  </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>
   </data>
@@ -500,6 +599,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>观看</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
