@@ -276,6 +276,9 @@
   <data name="Home" xml:space="preserve">
     <value>首页</value>
   </data>
+  <data name="HotSearch" xml:space="preserve">
+    <value>搜索热词</value>
+  </data>
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
   </data>

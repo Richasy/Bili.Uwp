@@ -172,6 +172,7 @@ namespace Richasy.Bili.Models.Enums
         Chat,
         BackToDefaultView,
         DanmakuSwitch,
+        HotSearch,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

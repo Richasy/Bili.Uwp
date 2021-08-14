@@ -18,6 +18,8 @@
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
     <Compile Include="PgcProvider\PgcProvider.cs" />
     <Compile Include="PgcProvider\PgcProvider.Extension.cs" />
+    <Compile Include="SearchProvider\SearchProvider.cs" />
+    <Compile Include="SearchProvider\SearchProvider.Extension.cs" />
     <Compile Include="SpecialColumnProvider\SpecialColumnProvider.cs" />
     <Compile Include="SpecialColumnProvider\SpecialColumnProvider.Extension.cs" />
     <Compile Include="LiveProvider\LiveProvider.cs" />

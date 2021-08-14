@@ -111,6 +111,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Module = "module";
             public const string SeasonType = "season_type";
             public const string RoomId = "room_id";
+            public const string From = "from";
+            public const string Limit = "limit";
         }
 
         public static class Sort
@@ -397,6 +399,14 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 一键三连.
                 /// </summary>
                 public const string Triple = _appBase + "/x/v2/view/like/triple";
+            }
+
+            public static class Search
+            {
+                /// <summary>
+                /// 搜索推荐.
+                /// </summary>
+                public const string Square = _appBase + "/x/v2/search/square";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

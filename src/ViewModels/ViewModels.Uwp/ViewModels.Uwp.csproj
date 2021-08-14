@@ -41,6 +41,8 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Methods.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Properties.cs" />
     <Compile Include="Common\PublisherViewModel.cs" />
+    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.cs" />
+    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />
@@ -138,6 +140,8 @@
       <Name>Toolkit.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Home\SearchViewModel\SearchSubModuleViewModel\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

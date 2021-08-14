@@ -87,6 +87,9 @@
     <Compile Include="Controls\Player\Related\VideoPartView.xaml.cs">
       <DependentUpon>VideoPartView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\SearchSuggestBox.xaml.cs">
+      <DependentUpon>SearchSuggestBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -415,6 +418,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\Related\VideoPartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\SearchSuggestBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

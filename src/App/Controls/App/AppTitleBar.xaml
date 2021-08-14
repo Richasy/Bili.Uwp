@@ -185,13 +185,7 @@
                 Grid.Column="3"
                 MaxWidth="520"
                 VerticalAlignment="Center">
-                <AutoSuggestBox
-                    x:Name="AppSearchBox"
-                    HorizontalAlignment="Stretch"
-                    IsTabStop="True"
-                    PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
-                    QueryIcon="Find"
-                    UpdateTextOnSelect="False" />
+                <local:SearchSuggestBox />
             </Grid>
 
             <local:AccountAvatar
