@@ -48,12 +48,42 @@ namespace Richasy.Bili.Lib.Uwp
             return null;
         }
 
-        public Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
-        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
-        public Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        /// <inheritdoc/>
+        public Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(string keyword, string orderType, int pageNumber)
+            => GetSubModuleResultAsync<ArticleSearchItem>(6, keyword, orderType, pageNumber);
 
-        public Task<LiveSearchResultResponse> GetLiveSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
-        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetMovieSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
-        public Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        /// <inheritdoc/>
+        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(string keyword, string orderType, int pageNumber)
+            => GetSubModuleResultAsync<PgcSearchItem>(7, keyword, orderType, pageNumber);
+
+        /// <inheritdoc/>
+        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetMovieSearchResultAsync(string keyword, string orderType, int pageNumber)
+            => GetSubModuleResultAsync<PgcSearchItem>(8, keyword, orderType, pageNumber);
+
+        /// <inheritdoc/>
+        public Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(string keyword, string orderType, int pageNumber)
+            => GetSubModuleResultAsync<UserSearchItem>(2, keyword, orderType, pageNumber);
+
+        /// <inheritdoc/>
+        public async Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, int pageNumber)
+        {
+            var queryParameters = GetSearchBasicQueryParameters(keyword, orderType, pageNumber);
+            queryParameters.Add(Query.Recommend, "1");
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.ComprehensiveSearch, queryParameters, Models.Enums.RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<ComprehensiveSearchResultResponse>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, string orderType, int pageNumber)
+        {
+            var queryParameters = GetSearchBasicQueryParameters(keyword, orderType, pageNumber);
+            queryParameters.Add(Query.Type, "4");
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.LiveModuleSearch, queryParameters, Models.Enums.RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveSearchResultResponse>>(response);
+            return result.Data;
+        }
     }
 }

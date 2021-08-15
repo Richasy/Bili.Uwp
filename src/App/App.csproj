@@ -157,6 +157,9 @@
     <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Overlay\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
     </Compile>
@@ -498,6 +501,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\PlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

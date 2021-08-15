@@ -183,6 +183,36 @@ namespace Richasy.Bili.ViewModels.Uwp
                 VideoType.Video : VideoType.Pgc;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="item">视频搜索结果.</param>
+        public VideoViewModel(VideoSearchItem item)
+            : this()
+        {
+            VideoType = VideoType.Video;
+            Title = item.Title;
+            VideoId = item.Parameter;
+            PlayCount = _numberToolkit.GetCountText(item.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
+            Publisher = new PublisherViewModel(item.Author, item.Avatar, item.UserId);
+            Duration = _numberToolkit.FormatDurationText(item.Duration);
+            LimitCoverAndAvatar(item.Cover);
+            Source = item;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="item">直播搜索结果.</param>
+        public VideoViewModel(LiveSearchItem item)
+            : this()
+        {
+            VideoType = VideoType.Live;
+            Title = item.Title;
+            VideoId = item.RoomId.ToString();
+        }
+
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);

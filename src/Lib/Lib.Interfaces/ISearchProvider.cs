@@ -20,43 +20,55 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <summary>
         /// 获取综合搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>综合搜索结果.</returns>
-        Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(int pageNumber);
+        Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, int pageNumber);
 
         /// <summary>
         /// 获取番剧搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>响应结果.</returns>
-        Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(int pageNumber);
+        Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(string keyword, string orderType, int pageNumber);
 
         /// <summary>
         /// 获取电影电视剧搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>响应结果.</returns>
-        Task<SubModuleSearchResultResponse<PgcSearchItem>> GetMovieSearchResultAsync(int pageNumber);
+        Task<SubModuleSearchResultResponse<PgcSearchItem>> GetMovieSearchResultAsync(string keyword, string orderType, int pageNumber);
 
         /// <summary>
         /// 获取用户搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>用户搜索结果.</returns>
-        Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(int pageNumber);
+        Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(string keyword, string orderType, int pageNumber);
 
         /// <summary>
         /// 获取文章搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>文章搜索结果.</returns>
-        Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(int pageNumber);
+        Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(string keyword, string orderType, int pageNumber);
 
         /// <summary>
         /// 获取直播间搜索结果.
         /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>直播搜索结果.</returns>
-        Task<LiveSearchResultResponse> GetLiveSearchResultAsync(int pageNumber);
+        Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, string orderType, int pageNumber);
     }
 }

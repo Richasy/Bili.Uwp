@@ -113,6 +113,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string RoomId = "room_id";
             public const string From = "from";
             public const string Limit = "limit";
+            public const string Keyword = "keyword";
+            public const string Recommend = "recommend";
         }
 
         public static class Sort

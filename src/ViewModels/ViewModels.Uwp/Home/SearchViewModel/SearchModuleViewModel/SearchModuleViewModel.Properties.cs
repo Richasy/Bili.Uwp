@@ -25,6 +25,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<SearchRecommendItem> HotSearchCollection { get; set; }
 
         /// <summary>
+        /// 模块集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<SearchSubModuleViewModel> ModuleCollection { get; set; }
+
+        /// <summary>
         /// 搜索关键词.
         /// </summary>
         [Reactive]
