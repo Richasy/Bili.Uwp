@@ -17,12 +17,13 @@ namespace Richasy.Bili.Models.App.Args
         /// </summary>
         /// <param name="response">Pgc搜索响应结果.</param>
         /// <param name="currentPageNumber">当前页码.</param>
-        public PgcSearchEventArgs(SubModuleSearchResultResponse<PgcSearchItem> response, int currentPageNumber)
+        /// <param name="keyword">搜索关键词.</param>
+        public PgcSearchEventArgs(SubModuleSearchResultResponse<PgcSearchItem> response, int currentPageNumber, string keyword)
         {
             HasMore = response.PageNumber > currentPageNumber;
             NextPageNumber = HasMore ? currentPageNumber + 1 : -1;
             List = response.ItemList.ToList();
-            Keyword = response.Keyword;
+            Keyword = keyword;
         }
 
         /// <summary>

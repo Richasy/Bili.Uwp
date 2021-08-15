@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -58,7 +56,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns>剧集视图模型.</returns>
         public static SeasonViewModel CreateFromSearchItem(PgcSearchItem item)
         {
-            var numberToolkit = ServiceLocator.Instance.GetService<INumberToolkit>();
             var vm = new SeasonViewModel();
             vm.Title = item.Title;
             vm.Subtitle = item.Label;
@@ -68,7 +65,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.BadgeText = item.BadgeText;
             vm.SourceCoverUrl = item.Cover;
             vm.Rating = item.Rating;
-            vm.AdditionalText = numberToolkit.GetCountText(item.VoteNumber);
+            vm.AdditionalText = item.Area;
             vm.Source = item;
 
             vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);

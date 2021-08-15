@@ -99,7 +99,7 @@
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
-                    <Grid Margin="0,0,0,20">
+                    <Grid Margin="0,0,0,12">
                         <controls:SearchVideoView x:Name="VideoView" Visibility="Collapsed" />
                         <controls:SearchPgcView
                             x:Name="BangumiView"

@@ -64,7 +64,7 @@ namespace Richasy.Bili.Controller.Uwp
                     try
                     {
                         var bangumiData = await _searchProvider.GetBangumiSearchResultAsync(keyword, TotalRank, pageNumber);
-                        BangumiSearchIteration?.Invoke(this, new PgcSearchEventArgs(bangumiData, pageNumber));
+                        BangumiSearchIteration?.Invoke(this, new PgcSearchEventArgs(bangumiData, pageNumber, keyword));
                     }
                     catch (System.Exception)
                     {
@@ -79,7 +79,7 @@ namespace Richasy.Bili.Controller.Uwp
                     try
                     {
                         var movieData = await _searchProvider.GetMovieSearchResultAsync(keyword, TotalRank, pageNumber);
-                        MovieSearchIteration?.Invoke(this, new PgcSearchEventArgs(movieData, pageNumber));
+                        MovieSearchIteration?.Invoke(this, new PgcSearchEventArgs(movieData, pageNumber, keyword));
                     }
                     catch (System.Exception)
                     {

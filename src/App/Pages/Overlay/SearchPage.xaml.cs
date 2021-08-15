@@ -26,7 +26,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             this.Loaded += OnLoaded;
         }
 
@@ -60,11 +60,12 @@ namespace Richasy.Bili.App.Pages.Overlay
             ViewModel.CurrentType = vm.Type;
         }
 
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentType))
             {
                 CheckCurrentType();
+                await ViewModel.ShowModuleAsync(ViewModel.CurrentType);
             }
         }
 
@@ -74,6 +75,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             VideoView.Visibility = Visibility.Collapsed;
             BangumiView.Visibility = Visibility.Collapsed;
             MovieView.Visibility = Visibility.Collapsed;
+            FilterContainer.Visibility = Visibility.Collapsed;
 
             switch (ViewModel.CurrentType)
             {
@@ -81,6 +83,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                     VideoFilter.Visibility = Visibility.Visible;
                     VideoView.Visibility = Visibility.Visible;
                     Nav.SelectedItem = VideoNavItem;
+                    FilterContainer.Visibility = Visibility.Visible;
                     break;
                 case Models.Enums.SearchModuleType.Bangumi:
                     BangumiView.Visibility = Visibility.Visible;

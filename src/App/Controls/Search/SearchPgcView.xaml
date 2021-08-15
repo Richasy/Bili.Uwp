@@ -32,7 +32,7 @@
         </DataTemplate>
     </local:SearchComponent.Resources>
 
-    <Grid x:Name="VideoDetailContainer">
+    <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -56,6 +56,8 @@
             HeaderVisibility="Collapsed"
             ItemTemplate="{StaticResource WideSeasonItemTemplate}"
             ItemsSource="{x:Bind SubModuleViewModel.PgcCollection, Mode=OneWay}"
+            MinWideItemHeight="180"
+            MinWideItemWidth="300"
             RequestLoadMore="OnViewRequestLoadMoreAsync" />
         <local:OverlayLoadingPanel IsBarActive="{x:Bind SubModuleViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind SubModuleViewModel.IsInitializeLoading, Mode=OneWay}" />
         <local:ErrorPanel

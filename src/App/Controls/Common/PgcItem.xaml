@@ -53,8 +53,10 @@
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Grid.Row="1"
+                    MaxLines="1"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.Subtitle}" />
+                    Text="{x:Bind ViewModel.Subtitle}"
+                    ToolTipService.ToolTip="{x:Bind ViewModel.Subtitle}" />
 
                 <Grid
                     Grid.Row="2"
@@ -104,7 +106,7 @@
                         Grid.Column="1"
                         Margin="12,0,0,0"
                         VerticalAlignment="Bottom"
-                        FontSize="40"
+                        FontSize="28"
                         FontWeight="Bold"
                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                         Text="{x:Bind ViewModel.Rating, Mode=OneWay}"
