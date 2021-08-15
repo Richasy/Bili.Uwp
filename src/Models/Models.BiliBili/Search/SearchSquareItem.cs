@@ -6,14 +6,6 @@ using Newtonsoft.Json;
 namespace Richasy.Bili.Models.BiliBili
 {
     /// <summary>
-    /// 搜索建议响应结果.
-    /// </summary>
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class SearchSquareResponse : List<SearchSquareItem>
-    {
-    }
-
-    /// <summary>
     /// 搜索推荐条目.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]

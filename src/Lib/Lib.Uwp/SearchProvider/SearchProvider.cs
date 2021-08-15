@@ -47,5 +47,13 @@ namespace Richasy.Bili.Lib.Uwp
 
             return null;
         }
+
+        public Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        public Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+
+        public Task<LiveSearchResultResponse> GetLiveSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetMovieSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
+        public Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(int pageNumber) => throw new System.NotImplementedException();
     }
 }

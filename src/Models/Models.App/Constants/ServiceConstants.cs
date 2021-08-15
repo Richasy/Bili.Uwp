@@ -407,6 +407,21 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 搜索推荐.
                 /// </summary>
                 public const string Square = _appBase + "/x/v2/search/square";
+
+                /// <summary>
+                /// 综合搜索.
+                /// </summary>
+                public const string ComprehensiveSearch = _appBase + "/x/v2/search";
+
+                /// <summary>
+                /// 子模块搜索，包括PGC，用户和文章.
+                /// </summary>
+                public const string SubModuleSearch = _appBase + "/x/v2/search/type";
+
+                /// <summary>
+                /// 直播搜索.
+                /// </summary>
+                public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
             }
         }
 #pragma warning restore SA1401 // Fields should be private
