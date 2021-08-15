@@ -237,6 +237,21 @@
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
   </data>
+  <data name="FilterByGreaterThan60Min" xml:space="preserve">
+    <value>60分钟+</value>
+  </data>
+  <data name="FilterByLessThan10Min" xml:space="preserve">
+    <value>0-10分钟</value>
+  </data>
+  <data name="FilterByLessThan30Min" xml:space="preserve">
+    <value>10-30分钟</value>
+  </data>
+  <data name="FilterByLessThan60Min" xml:space="preserve">
+    <value>30-60分钟</value>
+  </data>
+  <data name="FilterByTotalDuration" xml:space="preserve">
+    <value>全部时长</value>
+  </data>
   <data name="Flv" xml:space="preserve">
     <value>流媒体/FLV</value>
   </data>
@@ -477,6 +492,9 @@
   <data name="Score" xml:space="preserve">
     <value>评分</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频，番剧或UP主</value>
   </data>
@@ -602,6 +620,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>观看</value>

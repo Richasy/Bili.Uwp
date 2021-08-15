@@ -22,9 +22,11 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="keyword">搜索关键词.</param>
         /// <param name="orderType">排序方式.</param>
+        /// <param name="partitionId">分区筛选.</param>
+        /// <param name="duration">时长筛选.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>综合搜索结果.</returns>
-        Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, int pageNumber);
+        Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, string partitionId, string duration, int pageNumber);
 
         /// <summary>
         /// 获取番剧搜索结果.

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,14 +22,10 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Keyword, keyword },
+                { Query.Keyword, Uri.EscapeDataString(keyword) },
                 { Query.Order, orderType },
-                { Query.Fnval, "976" },
-                { Query.Fnver, "0" },
-                { Query.Fourk, "1" },
                 { Query.PageNumber, pageNumber.ToString() },
                 { Query.PageSize, "20" },
-                { Query.Qn, "112" },
             };
 
             return queryParameters;

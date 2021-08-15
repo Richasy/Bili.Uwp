@@ -65,10 +65,15 @@ namespace Richasy.Bili.Lib.Uwp
             => GetSubModuleResultAsync<UserSearchItem>(2, keyword, orderType, pageNumber);
 
         /// <inheritdoc/>
-        public async Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, int pageNumber)
+        public async Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, string partitionId, string duration, int pageNumber)
         {
             var queryParameters = GetSearchBasicQueryParameters(keyword, orderType, pageNumber);
             queryParameters.Add(Query.Recommend, "1");
+            queryParameters.Add(Query.PartitionId, partitionId);
+            queryParameters.Add(Query.Duration, duration);
+            queryParameters.Add(Query.HighLight, "0");
+            queryParameters.Add(Query.IsOrgQuery, "0");
+            queryParameters.Add(Query.Device, "phone");
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.ComprehensiveSearch, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ComprehensiveSearchResultResponse>>(response);

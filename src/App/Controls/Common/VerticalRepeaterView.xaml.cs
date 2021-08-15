@@ -217,7 +217,8 @@ namespace Richasy.Bili.App.Controls
             {
                 AppViewModel.Instance.IsNeedHideWhenScrolling = false;
                 var currentPosition = _parentScrollViewer.VerticalOffset;
-                if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight)
+                if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
+                    this.Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
                 }

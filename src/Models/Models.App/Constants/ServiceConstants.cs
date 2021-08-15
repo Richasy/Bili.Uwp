@@ -115,6 +115,9 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Limit = "limit";
             public const string Keyword = "keyword";
             public const string Recommend = "recommend";
+            public const string Duration = "duration";
+            public const string HighLight = "highlight";
+            public const string IsOrgQuery = "is_org_query";
         }
 
         public static class Sort

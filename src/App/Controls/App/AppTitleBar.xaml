@@ -45,7 +45,6 @@
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
                             <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
-                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
                             <Setter Target="BackgroundHost.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
                         </VisualState.Setters>

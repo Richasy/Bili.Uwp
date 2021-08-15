@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -45,6 +47,34 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.IsShowBadge = !string.IsNullOrEmpty(item.Badge);
             vm.IsShowTags = !string.IsNullOrEmpty(item.SeasonTags);
             vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
+
+            return vm;
+        }
+
+        /// <summary>
+        /// 从搜索结果创建条目.
+        /// </summary>
+        /// <param name="item">条目.</param>
+        /// <returns>剧集视图模型.</returns>
+        public static SeasonViewModel CreateFromSearchItem(PgcSearchItem item)
+        {
+            var numberToolkit = ServiceLocator.Instance.GetService<INumberToolkit>();
+            var vm = new SeasonViewModel();
+            vm.Title = item.Title;
+            vm.Subtitle = item.Label;
+            vm.SeasonId = item.SeasonId;
+            vm.Tags = item.SubTitle;
+            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            vm.BadgeText = item.BadgeText;
+            vm.SourceCoverUrl = item.Cover;
+            vm.Rating = item.Rating;
+            vm.AdditionalText = numberToolkit.GetCountText(item.VoteNumber);
+            vm.Source = item;
+
+            vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            vm.IsShowTags = !string.IsNullOrEmpty(item.Label);
+            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
+            vm.IsShowRating = item.Rating > 0;
 
             return vm;
         }

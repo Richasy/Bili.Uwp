@@ -73,22 +73,43 @@
                         Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
                 </Grid>
 
-                <Grid Grid.Row="3" Visibility="{x:Bind TagVisibility, Mode=OneWay}">
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Visibility="{x:Bind TagVisibility, Mode=OneWay}">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            VerticalAlignment="Bottom"
+                            Opacity="0.6"
+                            Text="{x:Bind ViewModel.Tags, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsShowTags, Mode=OneWay}" />
+                    </Grid>
+
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        VerticalAlignment="Bottom"
+                        Grid.Row="1"
+                        Margin="0,8,0,0"
                         Opacity="0.6"
-                        Text="{x:Bind ViewModel.Tags, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsShowTags, Mode=OneWay}" />
-                </Grid>
+                        Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowAdditionalText, Mode=OneWay}" />
 
-                <TextBlock
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Grid.Row="4"
-                    Margin="0,8,0,0"
-                    Opacity="0.6"
-                    Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsShowAdditionalText, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Bottom"
+                        FontSize="40"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                        Text="{x:Bind ViewModel.Rating, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowRating, Mode=OneWay}" />
+                </Grid>
             </Grid>
         </Grid>
     </local:CardPanel>

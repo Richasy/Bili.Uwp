@@ -90,6 +90,16 @@
     <Compile Include="Controls\App\SearchSuggestBox.xaml.cs">
       <DependentUpon>SearchSuggestBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Search\SearchComponent.cs" />
+    <Compile Include="Controls\Search\SearchPgcView.xaml.cs">
+      <DependentUpon>SearchPgcView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchVideoFilter.xaml.cs">
+      <DependentUpon>SearchVideoFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchVideoView.xaml.cs">
+      <DependentUpon>SearchVideoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -425,6 +435,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\SearchSuggestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchPgcView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchVideoFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchVideoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

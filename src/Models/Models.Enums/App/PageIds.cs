@@ -106,5 +106,10 @@ namespace Richasy.Bili.Models.Enums
         /// 消息.
         /// </summary>
         Message,
+
+        /// <summary>
+        /// 搜索页面.
+        /// </summary>
+        Search,
     }
 }

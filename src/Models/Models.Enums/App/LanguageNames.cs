@@ -173,6 +173,13 @@ namespace Richasy.Bili.Models.Enums
         BackToDefaultView,
         DanmakuSwitch,
         HotSearch,
+        FilterByTotalDuration,
+        FilterByLessThan10Min,
+        FilterByLessThan30Min,
+        FilterByLessThan60Min,
+        FilterByGreaterThan60Min,
+        Videos,
+        Search,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

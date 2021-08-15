@@ -8,19 +8,20 @@ using Richasy.Bili.Models.BiliBili;
 namespace Richasy.Bili.Models.App.Args
 {
     /// <summary>
-    /// 视频搜索结果参数.
+    /// PGC搜索事件参数.
     /// </summary>
-    public class VideoSearchEventArgs : EventArgs
+    public class PgcSearchEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoSearchEventArgs"/> class.
         /// </summary>
-        /// <param name="response">综合搜索响应结果.</param>
+        /// <param name="response">Pgc搜索响应结果.</param>
         /// <param name="currentPageNumber">当前页码.</param>
-        public VideoSearchEventArgs(ComprehensiveSearchResultResponse response, int currentPageNumber)
+        public PgcSearchEventArgs(SubModuleSearchResultResponse<PgcSearchItem> response, int currentPageNumber)
         {
-            NextPageNumber = currentPageNumber + 1;
-            List = response.ItemList.Where(p => p.Goto == "av").ToList();
+            HasMore = response.PageNumber > currentPageNumber;
+            NextPageNumber = HasMore ? currentPageNumber + 1 : -1;
+            List = response.ItemList.ToList();
             Keyword = response.Keyword;
         }
 
@@ -35,9 +36,9 @@ namespace Richasy.Bili.Models.App.Args
         public int NextPageNumber { get; set; }
 
         /// <summary>
-        /// 视频搜索结果.
+        /// Pgc搜索结果.
         /// </summary>
-        public List<VideoSearchItem> List { get; set; }
+        public List<PgcSearchItem> List { get; set; }
 
         /// <summary>
         /// 关键词.

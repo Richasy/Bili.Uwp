@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
 {
@@ -23,6 +25,9 @@ namespace Richasy.Bili.App.Pages.Overlay
         public SearchPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -32,6 +37,74 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             get { return (SearchModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
+        }
+
+        /// <inheritdoc/>
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                await ViewModel.SearchAsync();
+            }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            CheckCurrentType();
+        }
+
+        private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            var item = args.InvokedItemContainer as Microsoft.UI.Xaml.Controls.NavigationViewItem;
+            var vm = item.Tag as SearchSubModuleViewModel;
+            ViewModel.CurrentType = vm.Type;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.CurrentType))
+            {
+                CheckCurrentType();
+            }
+        }
+
+        private void CheckCurrentType()
+        {
+            VideoFilter.Visibility = Visibility.Collapsed;
+            VideoView.Visibility = Visibility.Collapsed;
+            BangumiView.Visibility = Visibility.Collapsed;
+            MovieView.Visibility = Visibility.Collapsed;
+
+            switch (ViewModel.CurrentType)
+            {
+                case Models.Enums.SearchModuleType.Video:
+                    VideoFilter.Visibility = Visibility.Visible;
+                    VideoView.Visibility = Visibility.Visible;
+                    Nav.SelectedItem = VideoNavItem;
+                    break;
+                case Models.Enums.SearchModuleType.Bangumi:
+                    BangumiView.Visibility = Visibility.Visible;
+                    Nav.SelectedItem = BangumiNavItem;
+                    break;
+                case Models.Enums.SearchModuleType.Live:
+                    VideoFilter.Visibility = Visibility.Visible;
+                    VideoView.Visibility = Visibility.Visible;
+                    break;
+                case Models.Enums.SearchModuleType.User:
+                    VideoFilter.Visibility = Visibility.Visible;
+                    VideoView.Visibility = Visibility.Visible;
+                    break;
+                case Models.Enums.SearchModuleType.Movie:
+                    MovieView.Visibility = Visibility.Visible;
+                    Nav.SelectedItem = MovieNavItem;
+                    break;
+                case Models.Enums.SearchModuleType.Article:
+                    VideoFilter.Visibility = Visibility.Visible;
+                    VideoView.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

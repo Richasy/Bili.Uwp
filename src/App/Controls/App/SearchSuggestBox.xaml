@@ -8,19 +8,40 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualStateGroup.States>
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <trigger:WindowWidthTrigger Condition="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup.States>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <AutoSuggestBox
             x:Name="AppSearchBox"
             HorizontalAlignment="Stretch"
             IsTabStop="True"
             PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
             QueryIcon="Find"
-            Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}"
+            QuerySubmitted="OnSearchBoxSubmitted"
+            Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
             UpdateTextOnSelect="False">
             <AutoSuggestBox.TextBoxStyle>
                 <Style TargetType="TextBox">

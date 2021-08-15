@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -45,7 +44,8 @@ namespace Richasy.Bili.App.Controls
         private void OnHotItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as SearchRecommendItem;
-            ViewModel.Keyword = item.Keyword;
+            ViewModel.InputWords = item.Keyword;
+            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
             HotSearchFlyout.Hide();
         }
 
@@ -61,6 +61,11 @@ namespace Richasy.Bili.App.Controls
             {
                 (sender as Flyout).Hide();
             }
+        }
+
+        private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
         }
     }
 }

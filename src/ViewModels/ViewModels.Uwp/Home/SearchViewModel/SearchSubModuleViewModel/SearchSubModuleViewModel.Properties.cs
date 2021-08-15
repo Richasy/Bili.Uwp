@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -20,8 +21,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 搜索关键词.
         /// </summary>
-        [Reactive]
-        public string Keyword { get; set; }
+        public string Keyword => SearchModuleViewModel.Instance.Keyword;
 
         /// <summary>
         /// 页码.
@@ -39,7 +39,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 当前排序方式.
         /// </summary>
         [Reactive]
-        public string CurrentOrder { get; set; }
+        public KeyValue<string> CurrentOrder { get; set; }
+
+        /// <summary>
+        /// 当前选中的分区.
+        /// </summary>
+        [Reactive]
+        public KeyValue<string> CurrentPartitionId { get; set; }
+
+        /// <summary>
+        /// 当前选中的时长.
+        /// </summary>
+        [Reactive]
+        public KeyValue<string> CurrentDuration { get; set; }
 
         /// <summary>
         /// 视频/直播集合.
@@ -58,6 +70,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<ArticleViewModel> ArticleCollection { get; set; }
+
+        /// <summary>
+        /// 视频排序值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> VideoOrderCollection { get; set; }
+
+        /// <summary>
+        /// 视频时长值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> VideoDurationCollection { get; set; }
+
+        /// <summary>
+        /// 视频分区值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> VideoPartitionCollection { get; set; }
 
         /// <summary>
         /// 是否已经全部加载完成.
