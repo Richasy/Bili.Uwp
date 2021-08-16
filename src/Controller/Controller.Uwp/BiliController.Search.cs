@@ -90,10 +90,21 @@ namespace Richasy.Bili.Controller.Uwp
                     }
 
                     break;
+                case SearchModuleType.Live:
+                    try
+                    {
+                        var liveData = await _searchProvider.GetLiveSearchResultAsync(keyword, pageNumber);
+                        LiveSearchIteration?.Invoke(this, new LiveSearchIterationEventArgs(liveData, keyword, pageNumber));
+                    }
+                    catch (System.Exception)
+                    {
+                        if (pageNumber == 1)
+                        {
+                            throw;
+                        }
+                    }
 
-                // case SearchModuleType.Live:
-                //     var liveData = await _searchProvider.GetLiveSearchResultAsync(keyword, orderType, pageNumber);
-                //     break;
+                    break;
                 case SearchModuleType.User:
                     try
                     {

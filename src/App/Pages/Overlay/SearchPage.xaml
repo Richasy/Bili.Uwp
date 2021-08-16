@@ -75,6 +75,11 @@
                     IsEnabled="{x:Bind ViewModel.BangumiModule.IsEnabled, Mode=OneWay}"
                     Tag="{x:Bind ViewModel.BangumiModule, Mode=OneWay}" />
                 <muxc:NavigationViewItem
+                    x:Name="LiveNavItem"
+                    Content="{loc:LocaleLocator Name=Live}"
+                    IsEnabled="{x:Bind ViewModel.LiveModule.IsEnabled, Mode=OneWay}"
+                    Tag="{x:Bind ViewModel.LiveModule, Mode=OneWay}" />
+                <muxc:NavigationViewItem
                     x:Name="UserNavItem"
                     Content="{loc:LocaleLocator Name=User}"
                     IsEnabled="{x:Bind ViewModel.UserModule.IsEnabled, Mode=OneWay}"
@@ -123,6 +128,7 @@
                             Visibility="Collapsed" />
                         <controls:SearchArticleView x:Name="ArticleView" Visibility="Collapsed" />
                         <controls:SearchUserView x:Name="UserView" Visibility="Collapsed" />
+                        <controls:SearchLiveView x:Name="LiveView" Visibility="Collapsed" />
                     </Grid>
                 </ScrollViewer>
             </Grid>

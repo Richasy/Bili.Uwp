@@ -94,9 +94,9 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, string orderType, int pageNumber)
+        public async Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, int pageNumber)
         {
-            var queryParameters = GetSearchBasicQueryParameters(keyword, orderType, pageNumber);
+            var queryParameters = GetSearchBasicQueryParameters(keyword, string.Empty, pageNumber);
             queryParameters.Add(Query.Type, "4");
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.LiveModuleSearch, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);

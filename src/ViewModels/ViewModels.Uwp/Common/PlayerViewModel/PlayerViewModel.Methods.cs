@@ -164,8 +164,16 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 if (string.IsNullOrEmpty(url))
                 {
+                    // 通过API获取直播间播放地址.
+                    var data = await Controller.GetLivePlayInformationAsync(roomId);
+                    url = data.PlayLines.FirstOrDefault()?.Url;
+                }
+
+                if (string.IsNullOrEmpty(url))
+                {
                     IsPlayInformationError = true;
                     PlayInformationErrorText = "无法获取正确的播放地址";
+
                     return;
                 }
 

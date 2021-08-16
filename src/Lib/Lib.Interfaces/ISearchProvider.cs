@@ -71,9 +71,8 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 获取直播间搜索结果.
         /// </summary>
         /// <param name="keyword">搜索关键词.</param>
-        /// <param name="orderType">排序方式.</param>
         /// <param name="pageNumber">页码.</param>
         /// <returns>直播搜索结果.</returns>
-        Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, string orderType, int pageNumber);
+        Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, int pageNumber);
     }
 }

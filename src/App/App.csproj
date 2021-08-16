@@ -97,6 +97,9 @@
       <DependentUpon>SearchArticleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Search\SearchComponent.cs" />
+    <Compile Include="Controls\Search\SearchLiveView.xaml.cs">
+      <DependentUpon>SearchLiveView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Search\SearchPgcView.xaml.cs">
       <DependentUpon>SearchPgcView.xaml</DependentUpon>
     </Compile>
@@ -455,6 +458,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Search\SearchArticleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchLiveView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

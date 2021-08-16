@@ -59,6 +59,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             MovieModule.Reset(true);
             ArticleModule.Reset(true);
             UserModule.Reset(true);
+            LiveModule.Reset(true);
             await VideoModule.InitializeRequestAsync();
         }
 

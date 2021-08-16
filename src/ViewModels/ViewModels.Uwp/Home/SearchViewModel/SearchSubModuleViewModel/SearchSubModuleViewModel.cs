@@ -41,6 +41,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     Controller.BangumiSearchIteration += OnPgcSearchIteration;
                     break;
                 case SearchModuleType.Live:
+                    VideoCollection = new ObservableCollection<VideoViewModel>();
+                    Controller.LiveSearchIteration += OnLiveSearchIteration;
                     break;
                 case SearchModuleType.User:
                     UserCollection = new ObservableCollection<UserViewModel>();
@@ -155,6 +157,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     PgcCollection.Clear();
                     break;
                 case SearchModuleType.Live:
+                    VideoCollection.Clear();
                     break;
                 case SearchModuleType.User:
                     if (isClearFilter)
@@ -243,6 +246,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private void OnLiveSearchIteration(object sender, LiveSearchIterationEventArgs e)
+        {
+            if (e.Keyword == Keyword)
+            {
+                foreach (var item in e.List)
+                {
+                    if (!VideoCollection.Any(p => p.VideoId == item.RoomId.ToString()))
+                    {
+                        VideoCollection.Add(new VideoViewModel(item));
+                    }
+                }
+
+                HandleSearchIterationArgs(e, VideoCollection.Count);
+            }
+        }
+
         private void HandleSearchIterationArgs(SearchIterationEventArgs args, int currentCount)
         {
             IsLoadCompleted = !args.HasMore && currentCount >= Total;
@@ -267,8 +286,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                     result.Add(OrderType, CurrentOrder.Key);
                     result.Add(Duration, CurrentDuration.Key);
                     result.Add(PartitionId, CurrentPartitionId.Key);
-                    break;
-                case SearchModuleType.Live:
                     break;
                 case SearchModuleType.User:
                     var userOrderSp = CurrentOrder.Key.Split("_");

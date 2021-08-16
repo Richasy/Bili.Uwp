@@ -121,6 +121,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string IsOrgQuery = "is_org_query";
             public const string FullCategoryId = "category_id";
             public const string UserType = "user_type";
+            public const string PlayUrl = "play_url";
         }
 
         public static class Sort
@@ -307,7 +308,7 @@ namespace Richasy.Bili.Models.App.Constants
                 /// <summary>
                 /// 直播播放信息.
                 /// </summary>
-                public const string PlayInformation = _liveBase + "/room/v1/Room/playUrl";
+                public const string PlayInformation = _liveBase + "/xlive/web-room/v1/index/getRoomPlayInfo";
             }
 
             public static class Article

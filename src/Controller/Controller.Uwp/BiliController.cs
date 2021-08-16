@@ -171,6 +171,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<UserSearchIterationEventArgs> UserSearchIteration;
 
         /// <summary>
+        /// 在直播搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<LiveSearchIterationEventArgs> LiveSearchIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

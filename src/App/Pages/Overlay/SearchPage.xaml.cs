@@ -79,6 +79,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             UserView.Visibility = Visibility.Collapsed;
             ArticleFilter.Visibility = Visibility.Collapsed;
             ArticleView.Visibility = Visibility.Collapsed;
+            LiveView.Visibility = Visibility.Collapsed;
             FilterContainer.Visibility = Visibility.Collapsed;
 
             switch (ViewModel.CurrentType)
@@ -94,8 +95,8 @@ namespace Richasy.Bili.App.Pages.Overlay
                     Nav.SelectedItem = BangumiNavItem;
                     break;
                 case Models.Enums.SearchModuleType.Live:
-                    VideoFilter.Visibility = Visibility.Visible;
-                    VideoView.Visibility = Visibility.Visible;
+                    LiveView.Visibility = Visibility.Visible;
+                    Nav.SelectedItem = LiveNavItem;
                     break;
                 case Models.Enums.SearchModuleType.User:
                     UserFilter.Visibility = Visibility.Visible;

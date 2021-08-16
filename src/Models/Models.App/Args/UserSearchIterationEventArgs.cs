@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Linq;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Models.App.Args
@@ -20,7 +19,7 @@ namespace Richasy.Bili.Models.App.Args
         {
             HasMore = response.PageNumber > pageNumber;
             NextPageNumber = pageNumber + 1;
-            List = response.ItemList.ToList();
+            List = response.ItemList;
             Keyword = keyword;
         }
     }

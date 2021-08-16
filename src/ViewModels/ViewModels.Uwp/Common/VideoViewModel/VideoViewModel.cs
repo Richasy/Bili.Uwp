@@ -211,6 +211,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoType = VideoType.Live;
             Title = item.Title;
             VideoId = item.RoomId.ToString();
+            Publisher = new PublisherViewModel(item.Name, id: item.UserId);
+            ViewerCount = _numberToolkit.GetCountText(item.ViewerCount);
+            PartitionName = item.AreaName;
+            LimitCoverAndAvatar(item.Cover);
+            Source = item;
+            VideoType = VideoType.Live;
         }
 
         internal VideoViewModel()
