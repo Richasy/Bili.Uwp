@@ -161,6 +161,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<PgcSearchEventArgs> MovieSearchIteration;
 
         /// <summary>
+        /// 在文章搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<ArticleSearchEventArgs> ArticleSearchIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

@@ -97,10 +97,23 @@ namespace Richasy.Bili.Controller.Uwp
                 // case SearchModuleType.User:
                 //     var userData = await _searchProvider.GetUserSearchResultAsync(keyword, orderType, pageNumber);
                 //     break;
+                case SearchModuleType.Article:
+                    try
+                    {
+                        var a_orderType = pairs[OrderType];
+                        var a_partitionId = pairs[PartitionId];
+                        var articleData = await _searchProvider.GetArticleSearchResultAsync(keyword, a_orderType, pageNumber, pairs);
+                        BangumiSearchIteration?.Invoke(this, new ArticleSearchEventArgs(articleData, pageNumber, keyword));
+                    }
+                    catch (System.Exception)
+                    {
+                        if (pageNumber == 1)
+                        {
+                            throw;
+                        }
+                    }
 
-                // case SearchModuleType.Article:
-                //     var articleData = await _searchProvider.GetArticleSearchResultAsync(keyword, orderType, pageNumber);
-                //     break;
+                    break;
                 default:
                     break;
             }
