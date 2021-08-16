@@ -3,8 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {

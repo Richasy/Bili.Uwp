@@ -43,12 +43,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case SearchModuleType.Live:
                     break;
                 case SearchModuleType.User:
+                    UserCollection = new ObservableCollection<UserViewModel>();
+                    Controller.UserSearchIteration += OnUserSearchIteration;
                     break;
                 case SearchModuleType.Movie:
                     PgcCollection = new ObservableCollection<SeasonViewModel>();
                     Controller.MovieSearchIteration += OnPgcSearchIteration;
                     break;
                 case SearchModuleType.Article:
+                    ArticleCollection = new ObservableCollection<ArticleViewModel>();
+                    Controller.ArticleSearchIteration += OnArticleSearchIteration;
+                    InitializeArticleFiltersAsync();
                     break;
                 default:
                     break;
@@ -137,9 +142,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case SearchModuleType.Video:
                     if (isClearFilter)
                     {
-                        CurrentOrder = VideoOrderCollection.First();
+                        CurrentOrder = OrderCollection.First();
                         CurrentDuration = VideoDurationCollection.First();
-                        CurrentPartitionId = VideoPartitionCollection.FirstOrDefault();
+                        CurrentPartitionId = PartitionCollection.FirstOrDefault();
                     }
 
                     VideoCollection.Clear();
@@ -151,15 +156,29 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case SearchModuleType.Live:
                     break;
                 case SearchModuleType.User:
+                    if (isClearFilter)
+                    {
+                        CurrentOrder = OrderCollection.First();
+                        CurrentUserType = UserTypeCollection.FirstOrDefault();
+                    }
+
+                    UserCollection.Clear();
                     break;
                 case SearchModuleType.Article:
+                    if (isClearFilter)
+                    {
+                        CurrentOrder = OrderCollection.First();
+                        CurrentPartitionId = PartitionCollection.FirstOrDefault();
+                    }
+
+                    ArticleCollection.Clear();
                     break;
                 default:
                     break;
             }
         }
 
-        private void OnVideoSearchIteration(object sender, VideoSearchEventArgs e)
+        private void OnVideoSearchIteration(object sender, VideoSearchIterationEventArgs e)
         {
             if (e.Keyword == Keyword)
             {
@@ -176,7 +195,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private void OnPgcSearchIteration(object sender, PgcSearchEventArgs e)
+        private void OnPgcSearchIteration(object sender, PgcSearchIterationEventArgs e)
         {
             if (e.Keyword == Keyword)
             {
@@ -189,6 +208,42 @@ namespace Richasy.Bili.ViewModels.Uwp
                     if (!PgcCollection.Any(p => p.SeasonId == item.SeasonId))
                     {
                         PgcCollection.Add(SeasonViewModel.CreateFromSearchItem(item));
+                    }
+                }
+            }
+        }
+
+        private void OnArticleSearchIteration(object sender, ArticleSearchIterationEventArgs e)
+        {
+            if (e.Keyword == Keyword)
+            {
+                IsLoadCompleted = e.NextPageNumber == -1;
+                PageNumber = e.NextPageNumber;
+                IsRequested = PageNumber != 0;
+
+                foreach (var item in e.List)
+                {
+                    if (!ArticleCollection.Any(p => p.Id == item.Id.ToString()))
+                    {
+                        ArticleCollection.Add(new ArticleViewModel(item));
+                    }
+                }
+            }
+        }
+
+        private void OnUserSearchIteration(object sender, UserSearchIterationEventArgs e)
+        {
+            if (e.Keyword == Keyword)
+            {
+                IsLoadCompleted = e.NextPageNumber == -1;
+                PageNumber = e.NextPageNumber;
+                IsRequested = PageNumber != 0;
+
+                foreach (var item in e.List)
+                {
+                    if (!UserCollection.Any(p => p.Id == item.UserId))
+                    {
+                        UserCollection.Add(new UserViewModel(item));
                     }
                 }
             }
@@ -207,8 +262,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case SearchModuleType.Live:
                     break;
                 case SearchModuleType.User:
+                    var userOrderSp = CurrentOrder.Key.Split("_");
+                    result.Add(OrderType, userOrderSp[0]);
+                    result.Add(OrderSort, userOrderSp[1]);
+                    result.Add(UserType, CurrentUserType.Key);
                     break;
                 case SearchModuleType.Article:
+                    result.Add(OrderType, CurrentOrder.Key);
+                    result.Add(PartitionId, CurrentPartitionId.Key);
                     break;
                 default:
                     break;
@@ -219,14 +280,14 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void InitializeVideoFiltersAsync()
         {
-            VideoOrderCollection = new ObservableCollection<KeyValue<string>>();
+            OrderCollection = new ObservableCollection<KeyValue<string>>();
             VideoDurationCollection = new ObservableCollection<KeyValue<string>>();
-            VideoPartitionCollection = new ObservableCollection<KeyValue<string>>();
+            PartitionCollection = new ObservableCollection<KeyValue<string>>();
 
-            VideoOrderCollection.Add(new KeyValue<string>("default", ResourceToolkit.GetLocaleString(LanguageNames.SortByDefault)));
-            VideoOrderCollection.Add(new KeyValue<string>("view", ResourceToolkit.GetLocaleString(LanguageNames.SortByPlay)));
-            VideoOrderCollection.Add(new KeyValue<string>("pubdate", ResourceToolkit.GetLocaleString(LanguageNames.SortByNewest)));
-            VideoOrderCollection.Add(new KeyValue<string>("danmaku", ResourceToolkit.GetLocaleString(LanguageNames.SortByDanmaku)));
+            OrderCollection.Add(new KeyValue<string>("default", ResourceToolkit.GetLocaleString(LanguageNames.SortByDefault)));
+            OrderCollection.Add(new KeyValue<string>("view", ResourceToolkit.GetLocaleString(LanguageNames.SortByPlay)));
+            OrderCollection.Add(new KeyValue<string>("pubdate", ResourceToolkit.GetLocaleString(LanguageNames.SortByNewest)));
+            OrderCollection.Add(new KeyValue<string>("danmaku", ResourceToolkit.GetLocaleString(LanguageNames.SortByDanmaku)));
 
             VideoDurationCollection.Add(new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.FilterByTotalDuration)));
             VideoDurationCollection.Add(new KeyValue<string>("1", ResourceToolkit.GetLocaleString(LanguageNames.FilterByLessThan10Min)));
@@ -241,8 +302,46 @@ namespace Richasy.Bili.ViewModels.Uwp
                 totalPartition = PartitionModuleViewModel.Instance.PartitionCollection;
             }
 
-            totalPartition.ToList().ForEach(p => VideoPartitionCollection.Add(new KeyValue<string>(p.PartitionId.ToString(), p.Title)));
-            VideoPartitionCollection.Insert(0, new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.Total)));
+            totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.PartitionId.ToString(), p.Title)));
+            PartitionCollection.Insert(0, new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.Total)));
+        }
+
+        private async void InitializeArticleFiltersAsync()
+        {
+            OrderCollection = new ObservableCollection<KeyValue<string>>();
+            PartitionCollection = new ObservableCollection<KeyValue<string>>();
+
+            OrderCollection.Add(new KeyValue<string>(string.Empty, ResourceToolkit.GetLocaleString(LanguageNames.SortByDefault)));
+            OrderCollection.Add(new KeyValue<string>("pubdate", ResourceToolkit.GetLocaleString(LanguageNames.SortByNewest)));
+            OrderCollection.Add(new KeyValue<string>("click", ResourceToolkit.GetLocaleString(LanguageNames.SortByRead)));
+            OrderCollection.Add(new KeyValue<string>("scores", ResourceToolkit.GetLocaleString(LanguageNames.SortByReply)));
+            OrderCollection.Add(new KeyValue<string>("attention", ResourceToolkit.GetLocaleString(LanguageNames.SortByLike)));
+
+            var totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
+            if (totalPartition.Count == 0)
+            {
+                await SpecialColumnModuleViewModel.Instance.RequestCategoriesAsync();
+                totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
+            }
+
+            totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.Id.ToString(), p.Title)));
+        }
+
+        private void InitializeUserFilters()
+        {
+            OrderCollection = new ObservableCollection<KeyValue<string>>();
+            UserTypeCollection = new ObservableCollection<KeyValue<string>>();
+
+            OrderCollection.Add(new KeyValue<string>("totalrank_0", ResourceToolkit.GetLocaleString(LanguageNames.SortByDefault)));
+            OrderCollection.Add(new KeyValue<string>("fan_0", ResourceToolkit.GetLocaleString(LanguageNames.SortByFansHTL)));
+            OrderCollection.Add(new KeyValue<string>("fan_1", ResourceToolkit.GetLocaleString(LanguageNames.SortByFansLTH)));
+            OrderCollection.Add(new KeyValue<string>("level_0", ResourceToolkit.GetLocaleString(LanguageNames.SortByLevelHTL)));
+            OrderCollection.Add(new KeyValue<string>("level_1", ResourceToolkit.GetLocaleString(LanguageNames.SortByLevelLTH)));
+
+            UserTypeCollection.Add(new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.TotalUser)));
+            UserTypeCollection.Add(new KeyValue<string>("1", ResourceToolkit.GetLocaleString(LanguageNames.UpMaster)));
+            UserTypeCollection.Add(new KeyValue<string>("2", ResourceToolkit.GetLocaleString(LanguageNames.NormalUser)));
+            UserTypeCollection.Add(new KeyValue<string>("3", ResourceToolkit.GetLocaleString(LanguageNames.OfficialUser)));
         }
 
         private async void OnPropertyChangedAsync(object sender, PropertyChangedEventArgs e)

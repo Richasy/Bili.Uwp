@@ -9,7 +9,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid x:Name="VideoFilterContainer" ColumnSpacing="12">
+    <Grid ColumnSpacing="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -18,7 +18,7 @@
         <ComboBox
             x:Name="VideoOrderComboBox"
             ItemTemplate="{StaticResource FilterItemTemplate}"
-            ItemsSource="{x:Bind ViewModel.VideoModule.VideoOrderCollection, Mode=OneWay}"
+            ItemsSource="{x:Bind ViewModel.VideoModule.OrderCollection, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.VideoModule.CurrentOrder, Mode=TwoWay}" />
         <ComboBox
             x:Name="VideoDurationComboBox"
@@ -30,7 +30,7 @@
             x:Name="VideoRegionComboBox"
             Grid.Column="2"
             ItemTemplate="{StaticResource FilterItemTemplate}"
-            ItemsSource="{x:Bind ViewModel.VideoModule.VideoPartitionCollection, Mode=OneWay}"
+            ItemsSource="{x:Bind ViewModel.VideoModule.PartitionCollection, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.VideoModule.CurrentPartitionId, Mode=TwoWay}" />
     </Grid>
 </local:SearchComponent>

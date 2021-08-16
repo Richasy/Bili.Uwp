@@ -54,6 +54,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public KeyValue<string> CurrentDuration { get; set; }
 
         /// <summary>
+        /// 当前选中的用户类型.
+        /// </summary>
+        [Reactive]
+        public KeyValue<string> CurrentUserType { get; set; }
+
+        /// <summary>
         /// 视频/直播集合.
         /// </summary>
         [Reactive]
@@ -72,10 +78,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<ArticleViewModel> ArticleCollection { get; set; }
 
         /// <summary>
-        /// 视频排序值集合.
+        /// 用户集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<KeyValue<string>> VideoOrderCollection { get; set; }
+        public ObservableCollection<UserViewModel> UserCollection { get; set; }
+
+        /// <summary>
+        /// 排序值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> OrderCollection { get; set; }
 
         /// <summary>
         /// 视频时长值集合.
@@ -87,7 +99,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 视频分区值集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<KeyValue<string>> VideoPartitionCollection { get; set; }
+        public ObservableCollection<KeyValue<string>> PartitionCollection { get; set; }
+
+        /// <summary>
+        /// 文章分区值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> ArticlePartitionCollection { get; set; }
+
+        /// <summary>
+        /// 用户类型值集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> UserTypeCollection { get; set; }
 
         /// <summary>
         /// 是否已经全部加载完成.

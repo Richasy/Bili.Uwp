@@ -65,7 +65,10 @@ namespace Richasy.Bili.App.Controls
 
         private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+            if (!string.IsNullOrEmpty(sender.Text))
+            {
+                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+            }
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentType = SearchModuleType.Video;
             BangumiModule.Reset(true);
             MovieModule.Reset(true);
+            ArticleModule.Reset(true);
             await VideoModule.InitializeRequestAsync();
         }
 
@@ -84,6 +85,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     selectItem = MovieModule;
                     break;
                 case SearchModuleType.Article:
+                    selectItem = ArticleModule;
                     break;
                 default:
                     break;
@@ -117,6 +119,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await MovieModule.RequestDataAsync();
                     break;
                 case SearchModuleType.Article:
+                    await ArticleModule.RequestDataAsync();
                     break;
                 default:
                     break;
@@ -128,6 +131,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoModule = new SearchSubModuleViewModel(SearchModuleType.Video);
             BangumiModule = new SearchSubModuleViewModel(SearchModuleType.Bangumi);
             MovieModule = new SearchSubModuleViewModel(SearchModuleType.Movie);
+            ArticleModule = new SearchSubModuleViewModel(SearchModuleType.Article);
             Controller.SearchMetaChanged += OnMetaChanged;
         }
 
@@ -151,6 +155,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                             MovieModule.IsEnabled = isEnabled;
                             break;
                         case SearchModuleType.Article:
+                            ArticleModule.IsEnabled = isEnabled;
                             break;
                         default:
                             break;

@@ -148,22 +148,27 @@ namespace Richasy.Bili.Controller.Uwp
         /// <summary>
         /// 在视频搜索结果更新时发生.
         /// </summary>
-        public event EventHandler<VideoSearchEventArgs> VideoSearchIteration;
+        public event EventHandler<VideoSearchIterationEventArgs> VideoSearchIteration;
 
         /// <summary>
         /// 在番剧搜索结果更新时发生.
         /// </summary>
-        public event EventHandler<PgcSearchEventArgs> BangumiSearchIteration;
+        public event EventHandler<PgcSearchIterationEventArgs> BangumiSearchIteration;
 
         /// <summary>
         /// 在电影/电视剧搜索结果更新时发生.
         /// </summary>
-        public event EventHandler<PgcSearchEventArgs> MovieSearchIteration;
+        public event EventHandler<PgcSearchIterationEventArgs> MovieSearchIteration;
 
         /// <summary>
         /// 在文章搜索结果更新时发生.
         /// </summary>
-        public event EventHandler<ArticleSearchEventArgs> ArticleSearchIteration;
+        public event EventHandler<ArticleSearchIterationEventArgs> ArticleSearchIteration;
+
+        /// <summary>
+        /// 在用户搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<UserSearchIterationEventArgs> UserSearchIteration;
 
         /// <summary>
         /// 控制器实例.

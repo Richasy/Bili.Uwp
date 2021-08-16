@@ -49,8 +49,14 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(string keyword, string orderType, int pageNumber)
-            => GetSubModuleResultAsync<ArticleSearchItem>(6, keyword, orderType, pageNumber);
+        public Task<SubModuleSearchResultResponse<ArticleSearchItem>> GetArticleSearchResultAsync(string keyword, string orderType, string partitionId, int pageNumber)
+        {
+            var parameters = new Dictionary<string, string>
+            {
+                { Query.FullCategoryId, partitionId },
+            };
+            return GetSubModuleResultAsync<ArticleSearchItem>(6, keyword, orderType, pageNumber, parameters);
+        }
 
         /// <inheritdoc/>
         public Task<SubModuleSearchResultResponse<PgcSearchItem>> GetBangumiSearchResultAsync(string keyword, string orderType, int pageNumber)
@@ -61,8 +67,15 @@ namespace Richasy.Bili.Lib.Uwp
             => GetSubModuleResultAsync<PgcSearchItem>(8, keyword, orderType, pageNumber);
 
         /// <inheritdoc/>
-        public Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(string keyword, string orderType, int pageNumber)
-            => GetSubModuleResultAsync<UserSearchItem>(2, keyword, orderType, pageNumber);
+        public Task<SubModuleSearchResultResponse<UserSearchItem>> GetUserSearchResultAsync(string keyword, string orderType, string orderSort, string userType, int pageNumber)
+        {
+            var parameters = new Dictionary<string, string>
+            {
+                { Query.OrderSort, orderSort },
+                { Query.UserType, userType },
+            };
+            return GetSubModuleResultAsync<UserSearchItem>(2, keyword, orderType, pageNumber, parameters);
+        }
 
         /// <inheritdoc/>
         public async Task<ComprehensiveSearchResultResponse> GetComprehensiveSearchResultAsync(string keyword, string orderType, string partitionId, string duration, int pageNumber)

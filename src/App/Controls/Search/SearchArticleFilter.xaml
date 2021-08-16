@@ -1,0 +1,29 @@
+﻿<local:SearchComponent
+    x:Class="Richasy.Bili.App.Controls.SearchArticleFilter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ComboBox
+            x:Name="OrderComboBox"
+            ItemTemplate="{StaticResource FilterItemTemplate}"
+            ItemsSource="{x:Bind ViewModel.ArticleModule.OrderCollection, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.ArticleModule.CurrentOrder, Mode=TwoWay}" />
+        <ComboBox
+            x:Name="PartitionComboBox"
+            Grid.Column="1"
+            ItemTemplate="{StaticResource FilterItemTemplate}"
+            ItemsSource="{x:Bind ViewModel.ArticleModule.PartitionCollection, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.ArticleModule.CurrentPartitionId, Mode=TwoWay}" />
+    </Grid>
+</local:SearchComponent>

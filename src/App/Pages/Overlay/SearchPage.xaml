@@ -79,6 +79,11 @@
                     Content="{loc:LocaleLocator Name=Movie}"
                     IsEnabled="{x:Bind ViewModel.MovieModule.IsEnabled, Mode=OneWay}"
                     Tag="{x:Bind ViewModel.MovieModule, Mode=OneWay}" />
+                <muxc:NavigationViewItem
+                    x:Name="ArticleNavItem"
+                    Content="{loc:LocaleLocator Name=SpecialColumn}"
+                    IsEnabled="{x:Bind ViewModel.ArticleModule.IsEnabled, Mode=OneWay}"
+                    Tag="{x:Bind ViewModel.ArticleModule, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
             <Grid>
                 <Grid.RowDefinitions>
@@ -91,6 +96,7 @@
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalAlignment="Left">
                     <controls:SearchVideoFilter x:Name="VideoFilter" Visibility="Collapsed" />
+                    <controls:SearchArticleFilter x:Name="ArticleFilter" Visibility="Collapsed" />
                 </Grid>
 
                 <ScrollViewer
@@ -109,6 +115,8 @@
                             x:Name="MovieView"
                             SubModuleViewModel="{x:Bind ViewModel.MovieModule, Mode=OneWay}"
                             Visibility="Collapsed" />
+                        <controls:SearchArticleView x:Name="ArticleView"
+                                                    Visibility="Collapsed"/>
                     </Grid>
                 </ScrollViewer>
             </Grid>

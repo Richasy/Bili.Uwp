@@ -48,7 +48,7 @@ namespace Richasy.Bili.Controller.Uwp
                             SearchMetaChanged?.Invoke(this, new SearchMetaEventArgs(videoData));
                         }
 
-                        VideoSearchIteration?.Invoke(this, new VideoSearchEventArgs(videoData, pageNumber));
+                        VideoSearchIteration?.Invoke(this, new VideoSearchIterationEventArgs(videoData, pageNumber));
                     }
                     catch (System.Exception)
                     {
@@ -64,7 +64,7 @@ namespace Richasy.Bili.Controller.Uwp
                     try
                     {
                         var bangumiData = await _searchProvider.GetBangumiSearchResultAsync(keyword, TotalRank, pageNumber);
-                        BangumiSearchIteration?.Invoke(this, new PgcSearchEventArgs(bangumiData, pageNumber, keyword));
+                        BangumiSearchIteration?.Invoke(this, new PgcSearchIterationEventArgs(bangumiData, pageNumber, keyword));
                     }
                     catch (System.Exception)
                     {
@@ -79,7 +79,7 @@ namespace Richasy.Bili.Controller.Uwp
                     try
                     {
                         var movieData = await _searchProvider.GetMovieSearchResultAsync(keyword, TotalRank, pageNumber);
-                        MovieSearchIteration?.Invoke(this, new PgcSearchEventArgs(movieData, pageNumber, keyword));
+                        MovieSearchIteration?.Invoke(this, new PgcSearchIterationEventArgs(movieData, pageNumber, keyword));
                     }
                     catch (System.Exception)
                     {
@@ -94,16 +94,31 @@ namespace Richasy.Bili.Controller.Uwp
                 // case SearchModuleType.Live:
                 //     var liveData = await _searchProvider.GetLiveSearchResultAsync(keyword, orderType, pageNumber);
                 //     break;
-                // case SearchModuleType.User:
-                //     var userData = await _searchProvider.GetUserSearchResultAsync(keyword, orderType, pageNumber);
-                //     break;
+                case SearchModuleType.User:
+                    try
+                    {
+                        var u_orderType = pairs[OrderType];
+                        var u_orderSort = pairs[OrderSort];
+                        var u_userType = pairs[UserType];
+                        var userData = await _searchProvider.GetUserSearchResultAsync(keyword, u_orderType, u_orderSort, u_userType, pageNumber);
+                        UserSearchIteration?.Invoke(this, new UserSearchIterationEventArgs(userData, pageNumber, keyword));
+                    }
+                    catch (System.Exception)
+                    {
+                        if (pageNumber == 1)
+                        {
+                            throw;
+                        }
+                    }
+
+                    break;
                 case SearchModuleType.Article:
                     try
                     {
                         var a_orderType = pairs[OrderType];
                         var a_partitionId = pairs[PartitionId];
-                        var articleData = await _searchProvider.GetArticleSearchResultAsync(keyword, a_orderType, pageNumber, pairs);
-                        BangumiSearchIteration?.Invoke(this, new ArticleSearchEventArgs(articleData, pageNumber, keyword));
+                        var articleData = await _searchProvider.GetArticleSearchResultAsync(keyword, a_orderType, a_partitionId, pageNumber);
+                        ArticleSearchIteration?.Invoke(this, new ArticleSearchIterationEventArgs(articleData, pageNumber, keyword));
                     }
                     catch (System.Exception)
                     {

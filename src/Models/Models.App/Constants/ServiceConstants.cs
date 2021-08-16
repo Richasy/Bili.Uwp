@@ -66,6 +66,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PartitionId = "rid";
             public const string CreateTime = "ctime";
             public const string Order = "order";
+            public const string OrderSort = "order_sort";
             public const string Pull = "pull";
             public const string PageNumber = "pn";
             public const string PageSize = "ps";
@@ -118,6 +119,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Duration = "duration";
             public const string HighLight = "highlight";
             public const string IsOrgQuery = "is_org_query";
+            public const string FullCategoryId = "category_id";
+            public const string UserType = "user_type";
         }
 
         public static class Sort

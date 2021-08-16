@@ -180,6 +180,14 @@ namespace Richasy.Bili.Models.Enums
         FilterByGreaterThan60Min,
         Videos,
         Search,
+        SortByFansLTH,
+        SortByFansHTL,
+        SortByLevelHTL,
+        SortByLevelLTH,
+        TotalUser,
+        UpMaster,
+        OfficialUser,
+        NormalUser,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
