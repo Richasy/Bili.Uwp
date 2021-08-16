@@ -45,6 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case SearchModuleType.User:
                     UserCollection = new ObservableCollection<UserViewModel>();
                     Controller.UserSearchIteration += OnUserSearchIteration;
+                    InitializeUserFilters();
                     break;
                 case SearchModuleType.Movie:
                     PgcCollection = new ObservableCollection<SeasonViewModel>();
@@ -182,9 +183,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                IsLoadCompleted = false;
-                PageNumber = e.NextPageNumber;
-                IsRequested = PageNumber != 0;
                 foreach (var item in e.List)
                 {
                     if (!VideoCollection.Any(p => p.VideoId == item.Parameter))
@@ -192,6 +190,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                         VideoCollection.Add(new VideoViewModel(item));
                     }
                 }
+
+                HandleSearchIterationArgs(e, VideoCollection.Count);
             }
         }
 
@@ -199,10 +199,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                IsLoadCompleted = e.NextPageNumber == -1;
-                PageNumber = e.NextPageNumber;
-                IsRequested = PageNumber != 0;
-
                 foreach (var item in e.List)
                 {
                     if (!PgcCollection.Any(p => p.SeasonId == item.SeasonId))
@@ -210,6 +206,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                         PgcCollection.Add(SeasonViewModel.CreateFromSearchItem(item));
                     }
                 }
+
+                HandleSearchIterationArgs(e, PgcCollection.Count);
             }
         }
 
@@ -217,10 +215,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                IsLoadCompleted = e.NextPageNumber == -1;
-                PageNumber = e.NextPageNumber;
-                IsRequested = PageNumber != 0;
-
                 foreach (var item in e.List)
                 {
                     if (!ArticleCollection.Any(p => p.Id == item.Id.ToString()))
@@ -228,6 +222,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                         ArticleCollection.Add(new ArticleViewModel(item));
                     }
                 }
+
+                HandleSearchIterationArgs(e, ArticleCollection.Count);
             }
         }
 
@@ -235,10 +231,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                IsLoadCompleted = e.NextPageNumber == -1;
-                PageNumber = e.NextPageNumber;
-                IsRequested = PageNumber != 0;
-
                 foreach (var item in e.List)
                 {
                     if (!UserCollection.Any(p => p.Id == item.UserId))
@@ -246,7 +238,24 @@ namespace Richasy.Bili.ViewModels.Uwp
                         UserCollection.Add(new UserViewModel(item));
                     }
                 }
+
+                HandleSearchIterationArgs(e, UserCollection.Count);
             }
+        }
+
+        private void HandleSearchIterationArgs(SearchIterationEventArgs args, int currentCount)
+        {
+            IsLoadCompleted = !args.HasMore && currentCount >= Total;
+            if (!IsLoadCompleted)
+            {
+                PageNumber = args.NextPageNumber;
+            }
+            else if (PageNumber == 0)
+            {
+                PageNumber = 1;
+            }
+
+            IsRequested = PageNumber != 0;
         }
 
         private Dictionary<string, string> GetQueryParameters()

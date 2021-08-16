@@ -188,6 +188,10 @@ namespace Richasy.Bili.Models.Enums
         UpMaster,
         OfficialUser,
         NormalUser,
+        Followed,
+        Follow,
+        User,
+        UserEmptySign,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

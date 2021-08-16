@@ -36,6 +36,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsEnabled { get; set; }
 
         /// <summary>
+        /// 条目总数.
+        /// </summary>
+        [Reactive]
+        public int Total { get; set; }
+
+        /// <summary>
         /// 当前排序方式.
         /// </summary>
         [Reactive]

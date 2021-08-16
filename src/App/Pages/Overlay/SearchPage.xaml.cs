@@ -75,6 +75,8 @@ namespace Richasy.Bili.App.Pages.Overlay
             VideoView.Visibility = Visibility.Collapsed;
             BangumiView.Visibility = Visibility.Collapsed;
             MovieView.Visibility = Visibility.Collapsed;
+            UserFilter.Visibility = Visibility.Collapsed;
+            UserView.Visibility = Visibility.Collapsed;
             ArticleFilter.Visibility = Visibility.Collapsed;
             ArticleView.Visibility = Visibility.Collapsed;
             FilterContainer.Visibility = Visibility.Collapsed;
@@ -96,8 +98,10 @@ namespace Richasy.Bili.App.Pages.Overlay
                     VideoView.Visibility = Visibility.Visible;
                     break;
                 case Models.Enums.SearchModuleType.User:
-                    VideoFilter.Visibility = Visibility.Visible;
-                    VideoView.Visibility = Visibility.Visible;
+                    UserFilter.Visibility = Visibility.Visible;
+                    UserView.Visibility = Visibility.Visible;
+                    Nav.SelectedItem = UserNavItem;
+                    FilterContainer.Visibility = Visibility.Visible;
                     break;
                 case Models.Enums.SearchModuleType.Movie:
                     MovieView.Visibility = Visibility.Visible;

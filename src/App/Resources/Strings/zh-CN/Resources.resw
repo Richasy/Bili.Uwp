@@ -255,6 +255,12 @@
   <data name="Flv" xml:space="preserve">
     <value>流媒体/FLV</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Followed" xml:space="preserve">
+    <value>已关注</value>
+  </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
   </data>
@@ -635,6 +641,12 @@
   </data>
   <data name="UseCloudShieldSettings" xml:space="preserve">
     <value>使用云屏蔽配置</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="UserEmptySign" xml:space="preserve">
+    <value>该用户还没有个性签名</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>

@@ -75,6 +75,11 @@
                     IsEnabled="{x:Bind ViewModel.BangumiModule.IsEnabled, Mode=OneWay}"
                     Tag="{x:Bind ViewModel.BangumiModule, Mode=OneWay}" />
                 <muxc:NavigationViewItem
+                    x:Name="UserNavItem"
+                    Content="{loc:LocaleLocator Name=User}"
+                    IsEnabled="{x:Bind ViewModel.UserModule.IsEnabled, Mode=OneWay}"
+                    Tag="{x:Bind ViewModel.UserModule, Mode=OneWay}" />
+                <muxc:NavigationViewItem
                     x:Name="MovieNavItem"
                     Content="{loc:LocaleLocator Name=Movie}"
                     IsEnabled="{x:Bind ViewModel.MovieModule.IsEnabled, Mode=OneWay}"
@@ -97,6 +102,7 @@
                     HorizontalAlignment="Left">
                     <controls:SearchVideoFilter x:Name="VideoFilter" Visibility="Collapsed" />
                     <controls:SearchArticleFilter x:Name="ArticleFilter" Visibility="Collapsed" />
+                    <controls:SearchUserFilter x:Name="UserFilter" Visibility="Collapsed" />
                 </Grid>
 
                 <ScrollViewer
@@ -115,8 +121,8 @@
                             x:Name="MovieView"
                             SubModuleViewModel="{x:Bind ViewModel.MovieModule, Mode=OneWay}"
                             Visibility="Collapsed" />
-                        <controls:SearchArticleView x:Name="ArticleView"
-                                                    Visibility="Collapsed"/>
+                        <controls:SearchArticleView x:Name="ArticleView" Visibility="Collapsed" />
+                        <controls:SearchUserView x:Name="UserView" Visibility="Collapsed" />
                     </Grid>
                 </ScrollViewer>
             </Grid>

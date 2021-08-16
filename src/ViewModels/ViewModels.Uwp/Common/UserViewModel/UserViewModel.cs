@@ -15,6 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="item">用户搜索条目.</param>
         public UserViewModel(UserSearchItem item)
+            : this()
         {
             IsShowFollowButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             if (item.Relation != null)
@@ -24,9 +25,14 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Name = item.Title;
             Sign = item.Sign;
+            if (string.IsNullOrEmpty(Sign))
+            {
+                Sign = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UserEmptySign);
+            }
+
             Level = item.Level;
             FollowerCount = _numberToolkit.GetCountText(item.FollowerCount);
-            Avatar = item.Cover;
+            Avatar = item.Cover + "@60w_60h_1c_100q.jpg";
             Id = item.UserId;
         }
 

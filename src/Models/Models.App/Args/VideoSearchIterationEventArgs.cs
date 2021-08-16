@@ -20,6 +20,7 @@ namespace Richasy.Bili.Models.App.Args
             NextPageNumber = currentPageNumber + 1;
             List = response.ItemList.Where(p => p.Goto == "av").ToList();
             Keyword = response.Keyword;
+            HasMore = true;
         }
     }
 }

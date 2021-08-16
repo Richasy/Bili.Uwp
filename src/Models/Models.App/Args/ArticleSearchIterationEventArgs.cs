@@ -19,7 +19,7 @@ namespace Richasy.Bili.Models.App.Args
         public ArticleSearchIterationEventArgs(SubModuleSearchResultResponse<ArticleSearchItem> response, int currentPageNumber, string keyword)
         {
             HasMore = response.PageNumber > currentPageNumber;
-            NextPageNumber = HasMore ? currentPageNumber + 1 : -1;
+            NextPageNumber = currentPageNumber + 1;
             List = response.ItemList.ToList();
             Keyword = keyword;
         }

@@ -58,6 +58,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             BangumiModule.Reset(true);
             MovieModule.Reset(true);
             ArticleModule.Reset(true);
+            UserModule.Reset(true);
             await VideoModule.InitializeRequestAsync();
         }
 
@@ -78,8 +79,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                     selectItem = BangumiModule;
                     break;
                 case SearchModuleType.Live:
+                    selectItem = LiveModule;
                     break;
                 case SearchModuleType.User:
+                    selectItem = UserModule;
                     break;
                 case SearchModuleType.Movie:
                     selectItem = MovieModule;
@@ -112,8 +115,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await BangumiModule.RequestDataAsync();
                     break;
                 case SearchModuleType.Live:
+                    await LiveModule.RequestDataAsync();
                     break;
                 case SearchModuleType.User:
+                    await UserModule.RequestDataAsync();
                     break;
                 case SearchModuleType.Movie:
                     await MovieModule.RequestDataAsync();
@@ -132,6 +137,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             BangumiModule = new SearchSubModuleViewModel(SearchModuleType.Bangumi);
             MovieModule = new SearchSubModuleViewModel(SearchModuleType.Movie);
             ArticleModule = new SearchSubModuleViewModel(SearchModuleType.Article);
+            UserModule = new SearchSubModuleViewModel(SearchModuleType.User);
+            LiveModule = new SearchSubModuleViewModel(SearchModuleType.Live);
             Controller.SearchMetaChanged += OnMetaChanged;
         }
 
@@ -142,20 +149,28 @@ namespace Richasy.Bili.ViewModels.Uwp
                 foreach (var item in e.MetaList)
                 {
                     var isEnabled = item.Value > 0;
+                    var number = item.Value;
                     switch (item.Key)
                     {
                         case SearchModuleType.Bangumi:
                             BangumiModule.IsEnabled = isEnabled;
+                            BangumiModule.Total = number;
                             break;
                         case SearchModuleType.Live:
+                            LiveModule.IsEnabled = isEnabled;
+                            LiveModule.Total = number;
                             break;
                         case SearchModuleType.User:
+                            UserModule.IsEnabled = isEnabled;
+                            UserModule.Total = number;
                             break;
                         case SearchModuleType.Movie:
                             MovieModule.IsEnabled = isEnabled;
+                            MovieModule.Total = number;
                             break;
                         case SearchModuleType.Article:
                             ArticleModule.IsEnabled = isEnabled;
+                            ArticleModule.Total = number;
                             break;
                         default:
                             break;

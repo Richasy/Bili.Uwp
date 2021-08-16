@@ -50,6 +50,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         public SearchSubModuleViewModel ArticleModule { get; set; }
 
         /// <summary>
+        /// 用户模块.
+        /// </summary>
+        [Reactive]
+        public SearchSubModuleViewModel UserModule { get; set; }
+
+        /// <summary>
+        /// 直播模块.
+        /// </summary>
+        [Reactive]
+        public SearchSubModuleViewModel LiveModule { get; set; }
+
+        /// <summary>
         /// 搜索关键词.
         /// </summary>
         [Reactive]
