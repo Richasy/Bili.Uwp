@@ -66,6 +66,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PartitionId = "rid";
             public const string CreateTime = "ctime";
             public const string Order = "order";
+            public const string OrderSort = "order_sort";
             public const string Pull = "pull";
             public const string PageNumber = "pn";
             public const string PageSize = "ps";
@@ -111,6 +112,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Module = "module";
             public const string SeasonType = "season_type";
             public const string RoomId = "room_id";
+            public const string From = "from";
+            public const string Limit = "limit";
+            public const string Keyword = "keyword";
+            public const string Recommend = "recommend";
+            public const string Duration = "duration";
+            public const string HighLight = "highlight";
+            public const string IsOrgQuery = "is_org_query";
+            public const string FullCategoryId = "category_id";
+            public const string UserType = "user_type";
+            public const string PlayUrl = "play_url";
         }
 
         public static class Sort
@@ -297,7 +308,7 @@ namespace Richasy.Bili.Models.App.Constants
                 /// <summary>
                 /// 直播播放信息.
                 /// </summary>
-                public const string PlayInformation = _liveBase + "/room/v1/Room/playUrl";
+                public const string PlayInformation = _liveBase + "/xlive/web-room/v1/index/getRoomPlayInfo";
             }
 
             public static class Article
@@ -397,6 +408,29 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 一键三连.
                 /// </summary>
                 public const string Triple = _appBase + "/x/v2/view/like/triple";
+            }
+
+            public static class Search
+            {
+                /// <summary>
+                /// 搜索推荐.
+                /// </summary>
+                public const string Square = _appBase + "/x/v2/search/square";
+
+                /// <summary>
+                /// 综合搜索.
+                /// </summary>
+                public const string ComprehensiveSearch = _appBase + "/x/v2/search";
+
+                /// <summary>
+                /// 子模块搜索，包括PGC，用户和文章.
+                /// </summary>
+                public const string SubModuleSearch = _appBase + "/x/v2/search/type";
+
+                /// <summary>
+                /// 直播搜索.
+                /// </summary>
+                public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
             }
         }
 #pragma warning restore SA1401 // Fields should be private

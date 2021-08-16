@@ -87,6 +87,34 @@
     <Compile Include="Controls\Player\Related\VideoPartView.xaml.cs">
       <DependentUpon>VideoPartView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\SearchSuggestBox.xaml.cs">
+      <DependentUpon>SearchSuggestBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchArticleFilter.xaml.cs">
+      <DependentUpon>SearchArticleFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchArticleView.xaml.cs">
+      <DependentUpon>SearchArticleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchComponent.cs" />
+    <Compile Include="Controls\Search\SearchLiveView.xaml.cs">
+      <DependentUpon>SearchLiveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchPgcView.xaml.cs">
+      <DependentUpon>SearchPgcView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchUserFilter.xaml.cs">
+      <DependentUpon>SearchUserFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchUserView.xaml.cs">
+      <DependentUpon>SearchUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchVideoFilter.xaml.cs">
+      <DependentUpon>SearchVideoFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\SearchVideoView.xaml.cs">
+      <DependentUpon>SearchVideoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
@@ -153,6 +181,9 @@
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Overlay\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
@@ -418,6 +449,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\App\SearchSuggestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchArticleFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchArticleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchLiveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchPgcView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchUserFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchVideoFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Search\SearchVideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Settings\MTCSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -491,6 +558,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\PlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

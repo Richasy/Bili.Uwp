@@ -32,6 +32,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly ISpecialColumnProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
         private readonly IPlayerProvider _playerProvider;
+        private readonly ISearchProvider _searchProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -53,7 +54,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _liveProvider)
                 .LoadService(out _specialColumnProvider)
                 .LoadService(out _pgcProvider)
-                .LoadService(out _playerProvider);
+                .LoadService(out _playerProvider)
+                .LoadService(out _searchProvider);
 
             RegisterEvents();
         }
@@ -139,6 +141,41 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<SegmentDanmakuIterationEventArgs> SegmentDanmakuIteration;
 
         /// <summary>
+        /// 在搜索元数据更改时发生.
+        /// </summary>
+        public event EventHandler<SearchMetaEventArgs> SearchMetaChanged;
+
+        /// <summary>
+        /// 在视频搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<VideoSearchIterationEventArgs> VideoSearchIteration;
+
+        /// <summary>
+        /// 在番剧搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<PgcSearchIterationEventArgs> BangumiSearchIteration;
+
+        /// <summary>
+        /// 在电影/电视剧搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<PgcSearchIterationEventArgs> MovieSearchIteration;
+
+        /// <summary>
+        /// 在文章搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<ArticleSearchIterationEventArgs> ArticleSearchIteration;
+
+        /// <summary>
+        /// 在用户搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<UserSearchIterationEventArgs> UserSearchIteration;
+
+        /// <summary>
+        /// 在直播搜索结果更新时发生.
+        /// </summary>
+        public event EventHandler<LiveSearchIterationEventArgs> LiveSearchIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -177,7 +214,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<ILiveProvider, LiveProvider>()
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
                 .AddSingleton<IPgcProvider, PgcProvider>()
-                .AddSingleton<IPlayerProvider, PlayerProvider>();
+                .AddSingleton<IPlayerProvider, PlayerProvider>()
+                .AddSingleton<ISearchProvider, SearchProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
 

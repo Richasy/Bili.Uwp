@@ -37,6 +37,19 @@ namespace Richasy.Bili.Models.BiliBili
     }
 
     /// <summary>
+    /// 直播播放地址响应结果.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class LivePlayUrlResponse
+    {
+        /// <summary>
+        /// 当前播放清晰度.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "play_url", Required = Required.Default)]
+        public LivePlayInformation Information { get; set; }
+    }
+
+    /// <summary>
     /// 直播播放地址.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]

@@ -1,0 +1,92 @@
+﻿<local:SearchComponent
+    x:Class="Richasy.Bili.App.Controls.SearchUserView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <local:VerticalRepeaterView
+            x:Name="UserView"
+            HeaderVisibility="Collapsed"
+            ItemsSource="{x:Bind ViewModel.UserModule.UserCollection, Mode=OneWay}"
+            MinWideItemHeight="220"
+            MinWideItemWidth="180"
+            RequestLoadMore="OnViewRequestLoadMoreAsync">
+            <local:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="uwp:UserViewModel">
+                    <local:CardPanel AutomationProperties.Name="{x:Bind Name, Mode=OneWay}">
+                        <Grid Padding="20,20,20,16" RowSpacing="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <local:UserAvatar
+                                Width="40"
+                                Height="40"
+                                Avatar="{x:Bind Avatar, Mode=OneWay}"
+                                DecodeSize="40"
+                                UserName="{x:Bind Name, Mode=OneWay}" />
+                            <StackPanel Grid.Row="1" Spacing="8">
+                                <TextBlock
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"
+                                    MaxLines="1"
+                                    Text="{x:Bind Name, Mode=OneWay}"
+                                    TextAlignment="Center"
+                                    TextTrimming="CharacterEllipsis" />
+                                <Image
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    Source="{x:Bind Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="SignBlock"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Grid.Row="2"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                MaxLines="3"
+                                Text="{x:Bind Sign, Mode=OneWay}"
+                                TextAlignment="Center"
+                                TextTrimming="CharacterEllipsis">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{x:Bind Sign, Mode=OneWay}" IsEnabled="{Binding ElementName=SignBlock, Path=IsTextTrimmed}" />
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+                            <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                                <Button
+                                    x:Name="FollowButton"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    HorizontalAlignment="Stretch"
+                                    Content="{loc:LocaleLocator Name=Follow}"
+                                    FontSize="12"
+                                    Visibility="{x:Bind IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                                <Button
+                                    x:Name="UnFollowButton"
+                                    HorizontalAlignment="Stretch"
+                                    Content="{loc:LocaleLocator Name=Followed}"
+                                    FontSize="12"
+                                    Visibility="{x:Bind IsFollow, Mode=OneWay}" />
+                            </Grid>
+                        </Grid>
+                    </local:CardPanel>
+                </DataTemplate>
+            </local:VerticalRepeaterView.ItemTemplate>
+        </local:VerticalRepeaterView>
+        <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.UserModule.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.UserModule.IsInitializeLoading, Mode=OneWay}" />
+        <local:ErrorPanel
+            ActionButtonClick="OnUserRefreshButtonClickAsync"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.UserModule.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.UserModule.IsError, Mode=OneWay}" />
+    </Grid>
+</local:SearchComponent>

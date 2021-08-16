@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bilibili.Pgc.Gateway.Player.V1;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -47,14 +48,15 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var queryParameter = new Dictionary<string, string>
             {
-                { Query.Cid, roomId.ToString() },
+                { Query.RoomId, roomId.ToString() },
+                { Query.PlayUrl, "1" },
                 { Query.Qn, "0" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.PlayInformation, queryParameter, RequestClientType.Web);
             var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<LivePlayInformation>>(response);
-            return result.Data;
+            var result = await _httpProvider.ParseAsync<ServerResponse<LivePlayUrlResponse>>(response);
+            return result.Data.Information;
         }
 
         /// <inheritdoc/>

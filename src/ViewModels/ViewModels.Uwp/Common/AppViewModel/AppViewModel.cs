@@ -42,6 +42,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             CurrentOverlayContentId = pageId;
             IsShowOverlay = true;
+            IsOpenPlayer = false;
             RequestOverlayNavigation?.Invoke(this, param);
         }
 

@@ -26,6 +26,10 @@
         <Setter Property="FontSize" Value="16" />
     </Style>
 
+    <DataTemplate x:Key="FilterItemTemplate">
+        <TextBlock Text="{Binding Value}" />
+    </DataTemplate>
+
     <Style
         x:Key="ThinPaddingFlyoutPresenterStyle"
         BasedOn="{StaticResource DefaultFlyoutPresenterStyle}"

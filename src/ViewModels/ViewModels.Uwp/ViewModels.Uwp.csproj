@@ -18,6 +18,8 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
     <Compile Include="Common\PgcSeasonViewModel.cs" />
+    <Compile Include="Common\UserViewModel\UserViewModel.cs" />
+    <Compile Include="Common\UserViewModel\UserViewModel.Properties.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
@@ -41,6 +43,10 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Methods.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Properties.cs" />
     <Compile Include="Common\PublisherViewModel.cs" />
+    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.cs" />
+    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
+    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.cs" />
+    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

@@ -30,16 +30,44 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = article.Title;
             Description = article.Summary;
-            PublisherName = article.Publisher.Publisher;
-            PublisherAvatar = article.Publisher.PublisherAvatar;
+            Publisher = new PublisherViewModel(article.Publisher);
             PublishTime = DateTimeOffset.FromUnixTimeSeconds(article.PublishTime).ToString("yy/MM/dd HH:mm");
             article.RelatedCategories.ForEach(p => CategoryCollection.Add(p));
 
             ViewCount = _numberToolkit.GetCountText(article.Stats.ViewCount);
             ReplyCount = _numberToolkit.GetCountText(article.Stats.ReplyCount);
-            LikeCount = _numberToolkit.GetCountText(article.Stats.ReplyCount);
+            LikeCount = _numberToolkit.GetCountText(article.Stats.LikeCount);
 
-            LimitCoverAndAvatar(cover, article.Publisher.PublisherAvatar);
+            LimitCover(cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
+        /// </summary>
+        /// <param name="item">文章信息.</param>
+        public ArticleViewModel(ArticleSearchItem item)
+            : this()
+        {
+            Id = item.Id.ToString();
+            var cover = string.Empty;
+            var hasCover = item.CoverUrls?.Any() ?? false;
+            if (hasCover)
+            {
+                cover = item.CoverUrls.First();
+            }
+            else
+            {
+                cover = item.Cover;
+            }
+
+            Title = item.Title;
+            Description = item.Description;
+            Publisher = new PublisherViewModel(item.Name, id: item.UserId);
+            ViewCount = _numberToolkit.GetCountText(item.ViewCount);
+            ReplyCount = _numberToolkit.GetCountText(item.ReplyCount);
+            LikeCount = _numberToolkit.GetCountText(item.LikeCount);
+
+            LimitCover(cover);
         }
 
         /// <summary>
@@ -54,16 +82,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.
         /// </summary>
-        private void LimitCoverAndAvatar(string coverUrl, string avatarUrl = null)
+        private void LimitCover(string coverUrl)
         {
             if (!string.IsNullOrEmpty(coverUrl))
             {
                 CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
-            }
-
-            if (!string.IsNullOrEmpty(avatarUrl))
-            {
-                PublisherAvatar = avatarUrl + "@60w_60h_1c_100q.jpg";
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -75,9 +74,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowAdditionalText { get; set; }
 
         /// <summary>
+        /// 评分.
+        /// </summary>
+        [Reactive]
+        public double Rating { get; set; }
+
+        /// <summary>
+        /// 是否显示评分.
+        /// </summary>
+        [Reactive]
+        public bool IsShowRating { get; set; }
+
+        /// <summary>
         /// 源数据.
         /// </summary>
-        public PgcModuleItem Source { get; set; }
+        public object Source { get; set; }
 
         /// <summary>
         /// 源封面.

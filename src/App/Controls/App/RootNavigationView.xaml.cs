@@ -198,6 +198,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.PartitionDetail:
                     pageType = typeof(Pages.Overlay.PartitionDetailPage);
                     break;
+                case PageIds.Search:
+                    pageType = typeof(Pages.Overlay.SearchPage);
+                    break;
                 default:
                     break;
             }

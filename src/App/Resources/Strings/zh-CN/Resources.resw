@@ -237,8 +237,29 @@
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
   </data>
+  <data name="FilterByGreaterThan60Min" xml:space="preserve">
+    <value>60分钟+</value>
+  </data>
+  <data name="FilterByLessThan10Min" xml:space="preserve">
+    <value>0-10分钟</value>
+  </data>
+  <data name="FilterByLessThan30Min" xml:space="preserve">
+    <value>10-30分钟</value>
+  </data>
+  <data name="FilterByLessThan60Min" xml:space="preserve">
+    <value>30-60分钟</value>
+  </data>
+  <data name="FilterByTotalDuration" xml:space="preserve">
+    <value>全部时长</value>
+  </data>
   <data name="Flv" xml:space="preserve">
     <value>流媒体/FLV</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Followed" xml:space="preserve">
+    <value>已关注</value>
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
@@ -275,6 +296,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
+  </data>
+  <data name="HotSearch" xml:space="preserve">
+    <value>搜索热词</value>
   </data>
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
@@ -338,6 +362,12 @@
   </data>
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
+  </data>
+  <data name="NormalUser" xml:space="preserve">
+    <value>普通用户</value>
+  </data>
+  <data name="OfficialUser" xml:space="preserve">
+    <value>认证用户</value>
   </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
@@ -474,6 +504,9 @@
   <data name="Score" xml:space="preserve">
     <value>评分</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频，番剧或UP主</value>
   </data>
@@ -528,8 +561,20 @@
   <data name="SortByDefault" xml:space="preserve">
     <value>默认排序</value>
   </data>
+  <data name="SortByFansHTL" xml:space="preserve">
+    <value>粉丝数由高到低</value>
+  </data>
+  <data name="SortByFansLTH" xml:space="preserve">
+    <value>粉丝数由低到高</value>
+  </data>
   <data name="SortByFavorite" xml:space="preserve">
     <value>收藏最多</value>
+  </data>
+  <data name="SortByLevelHTL" xml:space="preserve">
+    <value>等级由高到低</value>
+  </data>
+  <data name="SortByLevelLTH" xml:space="preserve">
+    <value>等级由低到高</value>
   </data>
   <data name="SortByLike" xml:space="preserve">
     <value>点赞最多</value>
@@ -585,11 +630,23 @@
   <data name="Total" xml:space="preserve">
     <value>全部</value>
   </data>
+  <data name="TotalUser" xml:space="preserve">
+    <value>全部用户</value>
+  </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
   </data>
+  <data name="UpMaster" xml:space="preserve">
+    <value>UP主</value>
+  </data>
   <data name="UseCloudShieldSettings" xml:space="preserve">
     <value>使用云屏蔽配置</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="UserEmptySign" xml:space="preserve">
+    <value>该用户还没有个性签名</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>
@@ -599,6 +656,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>观看</value>

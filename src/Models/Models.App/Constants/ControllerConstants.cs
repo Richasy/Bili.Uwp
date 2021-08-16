@@ -15,6 +15,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string DocumentaryCategories = "documentaryCategories.json";
             public const string ServerFolder = "Server";
         }
+
+        public static class Search
+        {
+            public const string OrderType = "orderType";
+            public const string OrderSort = "orderSort";
+            public const string Duration = "duration";
+            public const string PartitionId = "partitionId";
+            public const string TotalRank = "totalrank";
+            public const string UserType = "userType";
+        }
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
     }

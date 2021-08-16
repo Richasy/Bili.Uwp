@@ -81,17 +81,19 @@
                 Margin="0,0,12,-18"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom">
-                <Ellipse
-                    Width="40"
-                    Height="40"
-                    Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
-                <local:UserAvatar
-                    Width="36"
-                    Height="36"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                    UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                <Grid Visibility="{x:Bind ViewModel.Publisher.Avatar, Converter={StaticResource ObjectToVisibilityConverter}, Mode=OneWay}">
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
+                    <local:UserAvatar
+                        Width="36"
+                        Height="36"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                        UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                </Grid>
             </Grid>
 
 
@@ -113,8 +115,7 @@
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
-
+                    Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 <StackPanel
                     x:Name="InlineUserContainer"
                     Orientation="Horizontal"
@@ -126,14 +127,15 @@
                             Height="24"
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
-                            Avatar="{x:Bind ViewModel.PublisherAvatar, Mode=OneWay}"
-                            UserName="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                            Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                            UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.Publisher.Avatar, Converter={StaticResource ObjectToVisibilityConverter}, Mode=OneWay}" />
                     </Grid>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         VerticalAlignment="Center"
                         Opacity="0.6"
-                        Text="{x:Bind ViewModel.PublisherName, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock
@@ -180,7 +182,8 @@
                     Grid.Row="4"
                     Margin="0,4,0,8"
                     Symbol="Clock16"
-                    Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.PublishTime, Converter={StaticResource ObjectToVisibilityConverter}, Mode=OneWay}" />
             </Grid>
         </Grid>
     </local:CardPanel>

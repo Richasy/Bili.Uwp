@@ -17,10 +17,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="author">用户信息.</param>
         public PublisherViewModel(Author author)
+            : this(author.Name, author.Face, Convert.ToInt32(author.Mid))
         {
-            Id = Convert.ToInt32(author.Mid);
-            Name = author.Name;
-            Avatar = author.Face + "@60w_60h_1c_100q.jpg";
         }
 
         /// <summary>
@@ -28,10 +26,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="info">直播间用户基本信息.</param>
         public PublisherViewModel(LiveUserBasicInformation info)
+            : this(info.UserName, info.Avatar)
         {
-            Id = -1;
-            Name = info.UserName;
-            Avatar = info.Avatar + "@60w_60h_1c_100q.jpg";
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PublisherViewModel"/> class.
+        /// </summary>
+        /// <param name="info">发布者基本信息.</param>
+        public PublisherViewModel(PublisherInfo info)
+            : this(info.Publisher, info.PublisherAvatar, info.Mid)
+        {
         }
 
         /// <summary>
