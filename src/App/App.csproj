@@ -137,6 +137,9 @@
     <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
@@ -510,6 +513,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Settings\ThemeSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,62 @@
     SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <Flyout
+            x:Name="HotSearchFlyout"
+            Opening="OnHotSearchOpening"
+            Placement="BottomEdgeAlignedLeft">
+            <Flyout.FlyoutPresenterStyle>
+                <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                    <Setter Property="MaxWidth" Value="1200" />
+                    <Setter Property="Padding" Value="8" />
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <ListView
+                x:Name="HotSearchListView"
+                Width="{Binding ElementName=AppSearchBox, Path=ActualWidth}"
+                HorizontalAlignment="Stretch"
+                IsItemClickEnabled="True"
+                ItemClick="OnHotItemClick"
+                ItemsSource="{x:Bind ViewModel.HotSearchCollection}"
+                SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="bilibili:SearchRecommendItem">
+                        <Grid AutomationProperties.Name="{x:Bind DisplayName}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="28" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind Position}" />
+                            <Image
+                                Grid.Column="1"
+                                Width="16"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                Source="{Binding Icon}"
+                                Stretch="Uniform"
+                                Visibility="{x:Bind Icon, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                MaxLines="1"
+                                Text="{x:Bind DisplayName}"
+                                TextLineBounds="Tight"
+                                TextTrimming="CharacterEllipsis"
+                                ToolTipService.ToolTip="{x:Bind Keyword}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Flyout>
+    </UserControl.Resources>
+
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
@@ -59,63 +115,9 @@
             VerticalAlignment="Center"
             Background="Transparent"
             BorderThickness="0"
+            Click="OnHotSearchButtonClickAsync"
             ToolTipService.ToolTip="{loc:LocaleLocator Name=HotSearch}">
             <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
-            <Button.Flyout>
-                <Flyout
-                    x:Name="HotSearchFlyout"
-                    Opening="OnHotSearchOpening"
-                    Placement="BottomEdgeAlignedLeft">
-                    <Flyout.FlyoutPresenterStyle>
-                        <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
-                            <Setter Property="MaxWidth" Value="1200" />
-                            <Setter Property="Padding" Value="8" />
-                        </Style>
-                    </Flyout.FlyoutPresenterStyle>
-                    <ListView
-                        x:Name="HotSearchListView"
-                        Width="{Binding ElementName=AppSearchBox, Path=ActualWidth}"
-                        HorizontalAlignment="Stretch"
-                        IsItemClickEnabled="True"
-                        ItemClick="OnHotItemClick"
-                        ItemsSource="{x:Bind ViewModel.HotSearchCollection}"
-                        SelectionMode="None">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="bilibili:SearchRecommendItem">
-                                <Grid AutomationProperties.Name="{x:Bind DisplayName}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="28" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        FontSize="12"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{x:Bind Position}" />
-                                    <Image
-                                        Grid.Column="1"
-                                        Width="16"
-                                        Margin="0,0,12,0"
-                                        VerticalAlignment="Center"
-                                        Source="{Binding Icon}"
-                                        Stretch="Uniform"
-                                        Visibility="{x:Bind Icon, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                                    <TextBlock
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Grid.Column="2"
-                                        VerticalAlignment="Center"
-                                        MaxLines="1"
-                                        Text="{x:Bind DisplayName}"
-                                        TextLineBounds="Tight"
-                                        TextTrimming="CharacterEllipsis"
-                                        ToolTipService.ToolTip="{x:Bind Keyword}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Flyout>
-            </Button.Flyout>
         </Button>
     </Grid>
 </UserControl>

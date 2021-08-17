@@ -39,6 +39,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
+        /// <param name="userId">用户Id.</param>
+        public UserViewModel(int userId)
+            : this()
+        {
+            Id = userId;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
         protected UserViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit)

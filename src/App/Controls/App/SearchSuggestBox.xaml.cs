@@ -52,7 +52,7 @@ namespace Richasy.Bili.App.Controls
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = e.NewSize.Width;
-            HotSearchListView.Width = width - 24;
+            HotSearchListView.Width = width;
         }
 
         private void OnHotSearchOpening(object sender, object e)
@@ -69,6 +69,12 @@ namespace Richasy.Bili.App.Controls
             {
                 AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
             }
+        }
+
+        private async void OnHotSearchButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            HotSearchFlyout.ShowAt(AppSearchBox);
+            await UserView.Instance.ShowAsync(0);
         }
     }
 }

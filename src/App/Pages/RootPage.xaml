@@ -35,6 +35,10 @@
             Grid.Row="1"
             Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
 
+        <Grid x:Name="HolderContainer" Visibility="Collapsed" Grid.RowSpan="2">
+            <Rectangle Fill="Transparent" IsHitTestVisible="False" />
+        </Grid>
+
         <controls:AppTitleBar Canvas.ZIndex="1" />
     </Grid>
 </Page>
