@@ -352,6 +352,23 @@
     <Content Include="Resources\Misc\Update.zh_CN.txt" />
     <Content Include="$(SolutionDir)\ffmpeg\*.dll" />
   </ItemGroup>
+  <Choose>
+    <When Condition=" '$(Platform)' == 'x86' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\x86\*.dll" />
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Platform)' == 'x64' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\x64\*.dll" />
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Platform)' == 'ARM64' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\ARM64\*.dll" />
+      </ItemGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
