@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     mc:Ignorable="d">
 
     <Grid x:Name="RootGrid">
@@ -14,12 +13,12 @@
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="0" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentContainer.Padding" Value="{StaticResource NarrowPagePadding}" />
@@ -37,12 +36,12 @@
             <VisualStateGroup x:Name="DashboardGroup">
                 <VisualState x:Name="DashboardSplitState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="DashboardCombineState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="0" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="InformationContainer.ColumnSpacing" Value="0" />

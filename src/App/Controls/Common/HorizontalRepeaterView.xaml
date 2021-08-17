@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
@@ -18,7 +17,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid ColumnSpacing="12" Margin="0,0,0,4">
+        <Grid Margin="0,0,0,4" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

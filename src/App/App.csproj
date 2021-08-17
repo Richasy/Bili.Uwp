@@ -675,9 +675,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AdaptiveTriggerLibrary">
-      <Version>1.2.2</Version>
-    </PackageReference>
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.2</Version>
     </PackageReference>
@@ -691,7 +688,7 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>7.0.0</Version>
+      <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.1</Version>

@@ -6,7 +6,6 @@
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     mc:Ignorable="d">
 
     <Grid>

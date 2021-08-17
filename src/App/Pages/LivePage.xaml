@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -24,12 +23,12 @@
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <trigger:ControlWidthTrigger Condition="{StaticResource WidePageThresholdWidth}" TargetElement="{x:Bind RootContainer}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WidePageThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <trigger:ControlWidthTrigger Condition="0" TargetElement="{x:Bind RootContainer}" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.ColumnSpacing" Value="0" />
@@ -41,12 +40,12 @@
             <VisualStateGroup x:Name="PaddingGroup">
                 <VisualState x:Name="DefaultPaddingState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource WideWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="MediumPaddingState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="0" />
@@ -55,7 +54,7 @@
                 </VisualState>
                 <VisualState x:Name="NarrowPaddingState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="0" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootContainer.Padding" Value="0" />
