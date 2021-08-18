@@ -14,8 +14,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
 
-        private int _currentPage;
-
         /// <summary>
         /// 头像.
         /// </summary>

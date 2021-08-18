@@ -114,7 +114,7 @@
             VerticalAlignment="Center"
             Background="Transparent"
             BorderThickness="0"
-            Click="OnHotSearchButtonClickAsync"
+            Click="OnHotSearchButtonClick"
             ToolTipService.ToolTip="{loc:LocaleLocator Name=HotSearch}">
             <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
         </Button>

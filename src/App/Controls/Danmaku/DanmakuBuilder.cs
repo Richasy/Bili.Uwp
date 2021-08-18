@@ -1,6 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Geometry;
+using Microsoft.Graphics.Canvas.Text;
+using Microsoft.Graphics.Canvas.UI.Xaml;
+using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -112,10 +117,60 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 创建描边弹幕.
+        /// </summary>
+        /// <returns>弹幕容器.</returns>
+        public Grid CreateStrokeDanmaku()
+        {
+            if (_model == null)
+            {
+                throw new ArgumentNullException("未传入弹幕模型.");
+            }
+
+            var size = _model.Size * _sizeZoom;
+            var canvasControl = new CanvasControl();
+            var container = new Grid();
+            container.Children.Add(canvasControl);
+            CanvasDrawingSession session = null;
+            CanvasTextFormat format = null;
+            CanvasTextLayout layout = null;
+            canvasControl.Draw += (control, args) =>
+            {
+                session = args.DrawingSession;
+                format = new CanvasTextFormat() { FontSize = (float)size, WordWrapping = CanvasWordWrapping.NoWrap };
+                layout = new CanvasTextLayout(session, _model.Text, format, 0f, 0f);
+                control.Width = layout.DrawBounds.Width;
+                control.Height = layout.DrawBounds.Height;
+                var textGeo = CanvasGeometry.CreateText(layout);
+                session.DrawGeometry(textGeo, _model.Color.R < 60 ? Colors.White : Colors.Black);
+                session.DrawTextLayout(layout, 0f, 0f, _model.Color);
+            };
+            container.Unloaded += (s, e) =>
+            {
+                if (session != null)
+                {
+                    session.Dispose();
+                }
+
+                if (format != null)
+                {
+                    format.Dispose();
+                }
+
+                if (layout != null)
+                {
+                    layout.Dispose();
+                }
+            };
+
+            return container;
+        }
+
+        /// <summary>
         /// 创建无边框弹幕.
         /// </summary>
         /// <returns>弹幕容器.</returns>
-        public Grid CreateNormalDanmaku()
+        public Grid CreateNoStrokeDanmaku()
         {
             if (_model == null)
             {

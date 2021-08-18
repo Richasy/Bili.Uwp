@@ -343,11 +343,11 @@ namespace Richasy.Bili.App.Controls
                 .WithDanmakuModel(m);
             switch (DanmakuStyle)
             {
-                case DanmakuStyle.NoBorder:
+                case DanmakuStyle.NoStroke:
                 case DanmakuStyle.Shadow:
-                    return builder.CreateNormalDanmaku();
+                    return builder.CreateNoStrokeDanmaku();
                 default:
-                    return builder.CreateOverlapDanamku();
+                    return builder.CreateStrokeDanmaku();
             }
         }
     }
