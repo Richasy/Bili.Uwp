@@ -141,6 +141,9 @@
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
+  <data name="BelikeCount" xml:space="preserve">
+    <value>获赞数</value>
+  </data>
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
   </data>
@@ -234,6 +237,9 @@
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
   </data>
+  <data name="FansCount" xml:space="preserve">
+    <value>粉丝数</value>
+  </data>
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
   </data>
@@ -257,6 +263,9 @@
   </data>
   <data name="Follow" xml:space="preserve">
     <value>关注</value>
+  </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value>关注数</value>
   </data>
   <data name="Followed" xml:space="preserve">
     <value>已关注</value>
@@ -647,6 +656,9 @@
   </data>
   <data name="UserEmptySign" xml:space="preserve">
     <value>该用户还没有个性签名</value>
+  </data>
+  <data name="UserHaveNoVideos" xml:space="preserve">
+    <value>用户没有投稿视频</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>

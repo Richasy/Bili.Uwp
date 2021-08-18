@@ -74,7 +74,6 @@ namespace Richasy.Bili.App.Controls
         private async void OnHotSearchButtonClickAsync(object sender, RoutedEventArgs e)
         {
             HotSearchFlyout.ShowAt(AppSearchBox);
-            await UserView.Instance.ShowAsync(0);
         }
     }
 }

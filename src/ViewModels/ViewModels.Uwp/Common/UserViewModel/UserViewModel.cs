@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 
@@ -8,7 +10,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 用户视图模型，特指非当前登录账户的其它用户.
     /// </summary>
-    public partial class UserViewModel : ViewModelBase
+    public partial class UserViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
@@ -53,6 +55,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit);
+
+            VideoCollection = new ObservableCollection<VideoViewModel>();
+        }
+
+        /// <summary>
+        /// 初始化用户资料.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeUserDetailAsync()
+        {
+            if (!IsInitializeLoading && !IsDeltaLoading)
+            {
+                VideoCollection.Clear();
+                IsShowEmptyHolder = false;
+                IsInitializeLoading = true;
+            }
+
+            await Task.CompletedTask;
         }
     }
 }

@@ -14,6 +14,9 @@
     <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
     <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent" />
 
+    <x:Double x:Key="TeachingTipMaxHeight">800</x:Double>
+    <x:Double x:Key="TeachingTipMaxWidth">520</x:Double>
+
     <Style x:Key="PageProgressRingStyle" TargetType="muxc:ProgressRing">
         <Setter Property="Width" Value="32" />
         <Setter Property="Height" Value="32" />

@@ -58,5 +58,13 @@ namespace Richasy.Bili.App.Controls
 
             await Task.CompletedTask;
         }
+
+        private void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+        }
     }
 }

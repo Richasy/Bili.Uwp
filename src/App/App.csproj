@@ -87,7 +87,7 @@
     <Compile Include="Controls\Player\Related\VideoPartView.xaml.cs">
       <DependentUpon>VideoPartView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\App\SearchSuggestBox.xaml.cs">
+    <Compile Include="Controls\Search\SearchSuggestBox.xaml.cs">
       <DependentUpon>SearchSuggestBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Search\SearchArticleFilter.xaml.cs">
@@ -469,7 +469,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\App\SearchSuggestBox.xaml">
+    <Page Include="Controls\Search\SearchSuggestBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

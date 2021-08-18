@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -11,8 +11,10 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class UserViewModel
     {
-        private INumberToolkit _numberToolkit;
-        private IResourceToolkit _resourceToolkit;
+        private readonly INumberToolkit _numberToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
+
+        private int _currentPage;
 
         /// <summary>
         /// 头像.
@@ -71,9 +73,20 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 用户Id.
         /// </summary>
+        [Reactive]
         public int Id { get; set; }
 
-        private BiliController Controller { get; } = BiliController.Instance;
+        /// <summary>
+        /// 投稿视频集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoViewModel> VideoCollection { get; set; }
+
+        /// <summary>
+        /// 是否显示空白占位符.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEmptyHolder { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is UserViewModel model && Id == model.Id;
