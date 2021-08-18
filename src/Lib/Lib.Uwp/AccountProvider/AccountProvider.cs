@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
@@ -32,6 +33,20 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<MyInfo>>(response);
             UserId = result.Data.Mid;
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.VMid, userId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.Space, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
             return result.Data;
         }
     }

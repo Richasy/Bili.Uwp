@@ -33,29 +33,25 @@
         <muxc:TeachingTip
             x:Name="Container"
             VerticalAlignment="Stretch"
+            Background="Transparent"
             IsLightDismissEnabled="True"
             PreferredPlacement="Center">
-            <Grid RowSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid RowSpacing="4">
+            <muxc:TeachingTip.HeroContent>
+                <Grid Padding="20,20,20,12" RowSpacing="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid ColumnSpacing="12">
+                    <Grid ColumnSpacing="24">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <local:UserAvatar
-                            Width="40"
-                            Height="40"
+                            Width="64"
+                            Height="64"
                             Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
                             UserName="{x:Bind ViewModel.Name, Mode=OneWay}" />
                         <Grid
@@ -137,7 +133,11 @@
                             </Grid>
                         </Grid>
                     </Grid>
-                    <StackPanel Grid.Row="1" Spacing="8">
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,12,0,0"
+                        Orientation="Horizontal"
+                        Spacing="8">
                         <TextBlock
                             Style="{StaticResource BodyTextBlockStyle}"
                             MaxWidth="300"
@@ -156,8 +156,11 @@
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Grid.Row="2"
+                        MaxWidth="380"
+                        HorizontalAlignment="Left"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         MaxLines="3"
+                        Text="{x:Bind ViewModel.Sign, Mode=OneWay}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <Border
@@ -172,13 +175,9 @@
                         </TextBlock>
                     </Border>
                 </Grid>
-                <Border
-                    Grid.Row="1"
-                    Height="1"
-                    HorizontalAlignment="Stretch"
-                    Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
-
-                <Grid Grid.Row="2">
+            </muxc:TeachingTip.HeroContent>
+            <Grid Width="400" Margin="0,-12,0,0">
+                <Grid>
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
                         Grid.Row="2"
@@ -191,8 +190,9 @@
                         <local:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:VideoViewModel">
                                 <local:VideoItem
+                                    IsShowAvatar="False"
                                     IsShowDanmakuCount="True"
-                                    IsShowLikeCount="True"
+                                    IsShowDuration="True"
                                     IsShowPlayCount="True"
                                     ViewModel="{x:Bind}" />
                             </DataTemplate>
@@ -205,10 +205,10 @@
                         ActionContent="{loc:LocaleLocator Name=Refresh}"
                         Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-                    <local:ErrorPanel
+                    <!--<local:ErrorPanel
                         x:Name="EmptyPanel"
                         Text="{loc:LocaleLocator Name=UserHaveNoVideos}"
-                        Visibility="{x:Bind ViewModel.IsShowEmptyHolder, Mode=OneWay}" />
+                        Visibility="{x:Bind ViewModel.IsShowEmptyHolder, Mode=OneWay}" />-->
                 </Grid>
             </Grid>
         </muxc:TeachingTip>

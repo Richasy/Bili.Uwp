@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
         /// <param name="text">参数.</param>
         /// <param name="own">是否自己发送的.</param>
         /// <param name="color">颜色.</param>
-        public void AddLiveDanmaku(string text, bool own, Color? color)
+        public async void AddLiveDanmakuAsync(string text, bool own, Color? color)
         {
             if (color == null)
             {
@@ -39,7 +39,7 @@ namespace Richasy.Bili.App.Controls
                 Size = 25,
             };
 
-            var grid = CreateNewDanmuControl(m);
+            var grid = await CreateNewDanmuControlAsync(m);
             if (own)
             {
                 grid.BorderBrush = new SolidColorBrush(color.Value);
@@ -103,13 +103,13 @@ namespace Richasy.Bili.App.Controls
                 case DanmakuLocation.Scroll:
                 case DanmakuLocation.Top:
                 case DanmakuLocation.Bottom:
-                    AddDanmakuInternal(m, isOwn);
+                    AddDanmakuInternalAsync(m, isOwn);
                     break;
                 case DanmakuLocation.Position:
-                    AddPositionDanmaku(m);
+                    AddPositionDanmakuAsync(m);
                     break;
                 default:
-                    AddDanmakuInternal(m, isOwn);
+                    AddDanmakuInternalAsync(m, isOwn);
                     break;
             }
         }
@@ -118,11 +118,11 @@ namespace Richasy.Bili.App.Controls
         /// 添加定位弹幕.
         /// </summary>
         /// <param name="m">参数.</param>
-        public void AddPositionDanmaku(DanmakuModel m)
+        public async void AddPositionDanmakuAsync(DanmakuModel m)
         {
             var data = Newtonsoft.Json.JsonConvert.DeserializeObject<object[]>(m.Text);
             m.Text = data[4].ToString().Replace("/n", "\r\n");
-            var danmaku = CreateNewDanmuControl(m);
+            var danmaku = await CreateNewDanmuControlAsync(m);
             var danmakuFontFamily = data[data.Length - 2].ToString();
 
             danmaku.Tag = m;
@@ -252,6 +252,11 @@ namespace Richasy.Bili.App.Controls
         /// <param name="danmaku">参数.</param>
         public void Remove(DanmakuModel danmaku)
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             switch (danmaku.Location)
             {
                 case DanmakuLocation.Top:
@@ -295,6 +300,11 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void ClearAll()
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             _topBottomStoryList.Clear();
             _scrollStoryList.Clear();
             _bottomContainer.Children.Clear();
@@ -309,6 +319,11 @@ namespace Richasy.Bili.App.Controls
         /// <returns>弹幕列表.</returns>
         public List<DanmakuModel> GetDanmakus(DanmakuLocation? danmakuLocation = null)
         {
+            if (!_isApplyTemplate)
+            {
+                return null;
+            }
+
             var danmakus = new List<DanmakuModel>();
             if (danmakuLocation == null || danmakuLocation == DanmakuLocation.Top)
             {
@@ -343,6 +358,11 @@ namespace Richasy.Bili.App.Controls
         /// <param name="location">需要隐藏的位置.</param>
         public void HideDanmaku(DanmakuLocation location)
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             switch (location)
             {
                 case DanmakuLocation.Scroll:
@@ -365,6 +385,11 @@ namespace Richasy.Bili.App.Controls
         /// <param name="location">需要显示的位置.</param>
         public void ShowDanmaku(DanmakuLocation location)
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             switch (location)
             {
                 case DanmakuLocation.Scroll:

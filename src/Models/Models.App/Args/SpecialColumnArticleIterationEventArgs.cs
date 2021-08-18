@@ -54,7 +54,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <param name="list">分类文章列表.</param>
         /// <param name="categoryId">分类ID.</param>
         /// <param name="nextPageNumber">下一页码.</param>
-        /// <returns><see cref="SpecialColumnArticleIterationEventArgs"/></returns>
+        /// <returns><see cref="SpecialColumnArticleIterationEventArgs"/>.</returns>
         public static SpecialColumnArticleIterationEventArgs Create(List<Article> list, int categoryId, int nextPageNumber)
         {
             var args = new SpecialColumnArticleIterationEventArgs();

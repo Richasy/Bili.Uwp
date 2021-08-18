@@ -13,7 +13,6 @@
 
     <Grid>
         <local:VerticalRepeaterView
-            x:Name="UserView"
             HeaderVisibility="Collapsed"
             ItemsSource="{x:Bind ViewModel.UserModule.UserCollection, Mode=OneWay}"
             MinWideItemHeight="220"
@@ -21,7 +20,10 @@
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:UserViewModel">
-                    <local:CardPanel AutomationProperties.Name="{x:Bind Name, Mode=OneWay}">
+                    <local:CardPanel
+                        AutomationProperties.Name="{x:Bind Name, Mode=OneWay}"
+                        Click="OnUserItemClickAsync"
+                        Tag="{x:Bind Id, Mode=OneWay}">
                         <Grid Padding="20,20,20,16" RowSpacing="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

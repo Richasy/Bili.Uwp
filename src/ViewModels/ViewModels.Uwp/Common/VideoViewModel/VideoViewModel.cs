@@ -34,7 +34,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = video.PartitionName;
             PartitionId = video.PartitionId;
             Source = video;
-            LimitCoverAndAvatar(video.Cover);
+            LimitCover(video.Cover);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = video;
             PartitionId = video.Rid;
             AdditionalText = video.Pts.ToString();
-            LimitCoverAndAvatar(video.Cover);
+            LimitCover(video.Cover);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             AdditionalText = card.RecommendReason ?? string.Empty;
             Source = card;
-            LimitCoverAndAvatar(card.Cover);
+            LimitCover(card.Cover);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(v5.RightDesc1);
             AdditionalText = v5.RcmdReasonStyle?.Text ?? string.Empty;
             Duration = _numberToolkit.FormatDurationText(v5.CoverRightText1);
-            LimitCoverAndAvatar(cardBase.Cover);
+            LimitCover(cardBase.Cover);
             Source = card;
         }
 
@@ -134,7 +134,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(followRoom.UserName, followRoom.UserAvatar, followRoom.UserId);
             PartitionName = followRoom.DisplayAreaName;
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
-            LimitCoverAndAvatar(followRoom.Cover);
+            LimitCover(followRoom.Cover);
             Source = followRoom;
             LiveH264Url = followRoom.PlayUrl;
             LiveH265Url = followRoom.H265PlayUrl;
@@ -154,7 +154,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(card.CoverLeftContent.Text);
             PartitionName = card.AreaName;
             PartitionId = Convert.ToInt32(card.AreaId);
-            LimitCoverAndAvatar(card.Cover);
+            LimitCover(card.Cover);
             LiveH264Url = card.PlayUrl;
             LiveH265Url = card.H265PlayUrl;
             Source = card;
@@ -177,7 +177,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(relate.Author);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(relate.Duration));
             AdditionalText = relate.Rating.ToString();
-            LimitCoverAndAvatar(relate.Pic);
+            LimitCover(relate.Pic);
             Source = relate;
             VideoType = relate.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase) ?
                 VideoType.Video : VideoType.Pgc;
@@ -197,7 +197,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
             Publisher = new PublisherViewModel(item.Author, item.Avatar, item.UserId);
             Duration = _numberToolkit.FormatDurationText(item.Duration);
-            LimitCoverAndAvatar(item.Cover);
+            LimitCover(item.Cover);
             Source = item;
         }
 
@@ -214,9 +214,28 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new PublisherViewModel(item.Name, id: item.UserId);
             ViewerCount = _numberToolkit.GetCountText(item.ViewerCount);
             PartitionName = item.AreaName;
-            LimitCoverAndAvatar(item.Cover);
+            LimitCover(item.Cover);
             Source = item;
             VideoType = VideoType.Live;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="item">用户空间视频条目.</param>
+        public VideoViewModel(UserSpaceVideoItem item)
+            : this()
+        {
+            VideoType = item.IsPgc ? VideoType.Pgc : VideoType.Video;
+            Title = item.Title;
+            VideoId = item.Id;
+            PartitionName = item.PartitionName;
+            PlayCount = _numberToolkit.GetCountText(item.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
+            Publisher = new PublisherViewModel(item.PublisherName);
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
+            LimitCover(item.Cover);
+            Source = item;
         }
 
         internal VideoViewModel()
@@ -228,7 +247,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.
         /// </summary>
-        private void LimitCoverAndAvatar(string coverUrl)
+        private void LimitCover(string coverUrl)
         {
             SourceCoverUrl = coverUrl;
             CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";

@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -19,7 +23,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public UserViewModel(UserSearchItem item)
             : this()
         {
-            IsShowFollowButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             if (item.Relation != null)
             {
                 IsFollow = item.Relation.Status == 2 || item.Relation.Status == 4;
@@ -52,11 +55,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
         protected UserViewModel()
+            : base()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit);
 
+            IsShowFollowButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             VideoCollection = new ObservableCollection<VideoViewModel>();
+            Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
         }
 
         /// <summary>
@@ -68,11 +74,55 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 VideoCollection.Clear();
-                IsShowEmptyHolder = false;
                 IsInitializeLoading = true;
+
+                try
+                {
+                    _detail = await Controller.RequestUserSpaceInformationAsync(Id);
+                    InitializeUserInformation();
+                }
+                catch (Exception ex)
+                {
+                    IsError = true;
+                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestUserInformationFailed) + $"\n{ex.Message}";
+                    IsInitializeLoading = false;
+                    return;
+                }
+
+                IsInitializeLoading = false;
+            }
+        }
+
+        private void InitializeUserInformation()
+        {
+            Name = _detail.UserName;
+            Avatar = _detail.Avatar;
+            Sign = _detail.Sign;
+            FollowCount = _numberToolkit.GetCountText(_detail.FollowCount);
+            FollowerCount = _numberToolkit.GetCountText(_detail.FollowerCount);
+            LikeCount = _numberToolkit.GetCountText(_detail.LikeInformation.LikeCount);
+            Level = _detail.LevelInformation.CurrentLevel;
+
+            if (_detail.Relation != null)
+            {
+                IsFollow = _detail.Relation.Status == 2 || _detail.Relation.Status == 4;
+            }
+        }
+
+        private void OnUserSpaceVideoIteration(object sender, UserSpaceVideoIterationEventArgs e)
+        {
+            if (e.UserId != Id)
+            {
+                return;
             }
 
-            await Task.CompletedTask;
+            foreach (var item in e.List)
+            {
+                if (!VideoCollection.Any(p => p.VideoId == item.Id))
+                {
+                    VideoCollection.Add(new VideoViewModel(item));
+                }
+            }
         }
     }
 }

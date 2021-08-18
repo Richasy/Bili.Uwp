@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Controls
 {
+    /// <summary>
+    /// 弹幕视图.
+    /// </summary>
     public sealed partial class DanmakuView
     {
         /// <summary>
@@ -61,6 +64,8 @@ namespace Richasy.Bili.App.Controls
         private Grid _topContainer;
         private Grid _bottomContainer;
         private Grid _scrollContainer;
+
+        private bool _isApplyTemplate;
 
         /// <summary>
         /// 字体大小缩放，电脑推荐默认1.0，手机推荐0.5.

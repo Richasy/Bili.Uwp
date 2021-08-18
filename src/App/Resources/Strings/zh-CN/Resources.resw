@@ -501,6 +501,9 @@
   <data name="RequestTabDetailFailed" xml:space="preserve">
     <value>标签页详情数据请求失败</value>
   </data>
+  <data name="RequestUserInformationFailed" xml:space="preserve">
+    <value>请求用户信息失败</value>
+  </data>
   <data name="RequestVideoFailed" xml:space="preserve">
     <value>视频播放信息请求失败</value>
   </data>

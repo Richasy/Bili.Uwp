@@ -54,9 +54,8 @@ namespace Richasy.Bili.App.Controls
             {
                 // 请求用户数据.
                 ViewModel = new UserViewModel(userId);
+                await ViewModel.InitializeUserDetailAsync();
             }
-
-            await Task.CompletedTask;
         }
 
         private void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)

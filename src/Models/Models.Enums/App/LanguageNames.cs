@@ -196,6 +196,7 @@ namespace Richasy.Bili.Models.Enums
         FollowCount,
         BeLikeCount,
         UserHaveNoVideos,
+        RequestUserInformationFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

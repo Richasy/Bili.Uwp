@@ -58,7 +58,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
-                await _controller.GetMyProfileAsync();
+                await _controller.RequestMyProfileAsync();
             }
             catch (Exception ex)
             {

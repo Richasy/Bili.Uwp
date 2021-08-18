@@ -122,6 +122,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string FullCategoryId = "category_id";
             public const string UserType = "user_type";
             public const string PlayUrl = "play_url";
+            public const string VMid = "vmid";
         }
 
         public static class Sort
@@ -235,6 +236,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 我的信息.
                 /// </summary>
                 public const string MyInfo = _appBase + "/x/v2/account/myinfo";
+
+                /// <summary>
+                /// 用户空间.
+                /// </summary>
+                public const string Space = _appBase + "/x/v2/space";
             }
 
             public static class Partition

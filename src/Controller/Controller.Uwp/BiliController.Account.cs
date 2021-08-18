@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Controller.Uwp
@@ -31,7 +32,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// 获取我的资料.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task GetMyProfileAsync()
+        public async Task RequestMyProfileAsync()
         {
             if (await _authorizeProvider.IsTokenValidAsync() && IsNetworkAvailable)
             {
@@ -45,6 +46,32 @@ namespace Richasy.Bili.Controller.Uwp
                     Debug.WriteLine(ex.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// 请求用户空间数据.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task<UserSpaceInformation> RequestUserSpaceInformationAsync(int userId)
+        {
+            if (IsNetworkAvailable)
+            {
+                var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
+                if (data.VideoSet != null)
+                {
+                    var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
+                    UserSpaceVideoIteration?.Invoke(this, args);
+                }
+
+                return data.User;
+            }
+            else
+            {
+                ThrowWhenNetworkUnavaliable();
+            }
+
+            return null;
         }
     }
 }
