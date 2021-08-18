@@ -355,6 +355,23 @@
     <Content Include="Resources\Misc\Update.zh_CN.txt" />
     <Content Include="$(SolutionDir)\ffmpeg\*.dll" />
   </ItemGroup>
+  <Choose>
+    <When Condition=" '$(Platform)' == 'x86' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\x86\*.dll" />
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Platform)' == 'x64' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\x64\*.dll" />
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Platform)' == 'ARM64' ">
+      <ItemGroup>
+        <Content Include="$(SolutionDir)\ffmpeg\ARM64\*.dll" />
+      </ItemGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -682,9 +699,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AdaptiveTriggerLibrary">
-      <Version>1.2.2</Version>
-    </PackageReference>
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.2</Version>
     </PackageReference>
@@ -698,7 +712,7 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>7.0.0</Version>
+      <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.1</Version>

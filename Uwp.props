@@ -39,6 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'ARM64'">
     <Prefer32Bit>false</Prefer32Bit>
+    <NoLinkerSymbols>true</NoLinkerSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <Prefer32Bit>false</Prefer32Bit>

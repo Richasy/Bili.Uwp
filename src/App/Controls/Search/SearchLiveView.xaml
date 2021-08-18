@@ -6,7 +6,6 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -17,12 +16,12 @@
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <trigger:WindowWidthTrigger Condition="0" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="LiveView.ItemOrientation" Value="Horizontal" />
@@ -33,9 +32,9 @@
         <local:VerticalRepeaterView
             x:Name="LiveView"
             HeaderVisibility="Collapsed"
+            ItemsSource="{x:Bind ViewModel.LiveModule.VideoCollection, Mode=OneWay}"
             MinWideItemHeight="220"
             MinWideItemWidth="200"
-            ItemsSource="{x:Bind ViewModel.LiveModule.VideoCollection, Mode=OneWay}"
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:VideoViewModel">

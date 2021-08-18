@@ -9,7 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:trigger="using:AdaptiveTriggerLibrary.Triggers.UserInterfaceTriggers"
+    
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -35,12 +35,12 @@
                 <VisualStateGroup.States>
                     <VisualState x:Name="Wide">
                         <VisualState.StateTriggers>
-                            <trigger:WindowWidthTrigger Condition="{StaticResource MediumWindowThresholdWidth}" />
+                            <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                         </VisualState.StateTriggers>
                     </VisualState>
                     <VisualState x:Name="Narrow">
                         <VisualState.StateTriggers>
-                            <trigger:WindowWidthTrigger Condition="0" />
+                            <AdaptiveTrigger MinWindowWidth="0" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Target="MenuButton.Visibility" Value="Visible" />
