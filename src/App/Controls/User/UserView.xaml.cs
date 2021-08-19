@@ -67,5 +67,10 @@ namespace Richasy.Bili.App.Controls
             ViewModel.Destory();
             ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
         }
+
+        private void OnVideoItemClick(object sender, VideoViewModel e)
+        {
+            this.Container.IsOpen = false;
+        }
     }
 }

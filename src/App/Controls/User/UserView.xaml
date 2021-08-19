@@ -38,7 +38,10 @@
             PreferredPlacement="Center"
             ShouldConstrainToRootBounds="False">
             <muxc:TeachingTip.HeroContent>
-                <Grid Padding="20,0,20,12" RowSpacing="8">
+                <Grid
+                    Padding="20,0,20,12"
+                    RowSpacing="8"
+                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -202,11 +205,15 @@
                                     IsShowDanmakuCount="True"
                                     IsShowDuration="True"
                                     IsShowPlayCount="True"
+                                    ItemClick="OnVideoItemClick"
                                     ViewModel="{x:Bind}" />
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>
-                    <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+                    <local:OverlayLoadingPanel
+                        MinHeight="80"
+                        IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+                        IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
                     <local:ErrorPanel
                         x:Name="ErrorPanel"
                         ActionButtonClick="OnRefreshButtonClickAsync"
