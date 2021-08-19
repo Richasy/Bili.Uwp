@@ -22,15 +22,10 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="UserView"/> class.
         /// </summary>
-        protected UserView()
+        public UserView()
         {
             this.InitializeComponent();
         }
-
-        /// <summary>
-        /// 实例.
-        /// </summary>
-        public static UserView Instance { get; } = new UserView();
 
         /// <summary>
         /// 视图模型.
@@ -65,6 +60,12 @@ namespace Richasy.Bili.App.Controls
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
             await ViewModel.DeltaRequestVideoAsync();
+        }
+
+        private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
+        {
+            ViewModel.Destory();
+            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
         }
     }
 }

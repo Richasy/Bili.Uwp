@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnUserItemClickAsync(object sender, RoutedEventArgs e)
         {
-            await UserView.Instance.ShowAsync((int)(sender as FrameworkElement).Tag);
+            await new UserView().ShowAsync((int)(sender as FrameworkElement).Tag);
         }
     }
 }

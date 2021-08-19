@@ -663,6 +663,9 @@
   <data name="UserHaveNoVideos" xml:space="preserve">
     <value>用户没有投稿视频</value>
   </data>
+  <data name="UserInformation" xml:space="preserve">
+    <value>用户信息</value>
+  </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>
   </data>

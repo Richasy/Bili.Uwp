@@ -107,6 +107,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 清除数据.
+        /// </summary>
+        public void Destory()
+        {
+            VideoCollection.Clear();
+            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
+        }
+
         private void InitializeUserInformation()
         {
             Name = _detail.UserName;
