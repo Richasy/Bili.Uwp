@@ -16,6 +16,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IResourceToolkit _resourceToolkit;
 
         private UserSpaceInformation _detail;
+        private string _videoOffsetId;
+
+        private bool _isVideoLoadCompleted;
 
         /// <summary>
         /// 头像.

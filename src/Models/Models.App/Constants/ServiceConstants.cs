@@ -241,6 +241,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 用户空间.
                 /// </summary>
                 public const string Space = _appBase + "/x/v2/space";
+
+                /// <summary>
+                /// 用户空间中视频的增量请求.
+                /// </summary>
+                public const string VideoCursor = _appBase + "/x/v2/space/archive/cursor";
             }
 
             public static class Partition

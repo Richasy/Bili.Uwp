@@ -62,8 +62,9 @@ namespace Richasy.Bili.App.Controls
         {
         }
 
-        private void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
+            await ViewModel.DeltaRequestVideoAsync();
         }
     }
 }

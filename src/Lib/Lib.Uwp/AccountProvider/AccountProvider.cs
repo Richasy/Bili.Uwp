@@ -49,5 +49,20 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.VMid, userId.ToString() },
+                { Query.Aid, offsetId },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.VideoCursor, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
+            return result.Data;
+        }
     }
 }

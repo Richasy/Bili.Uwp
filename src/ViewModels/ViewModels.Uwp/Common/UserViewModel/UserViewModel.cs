@@ -93,6 +93,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 执行增量请求.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task DeltaRequestVideoAsync()
+        {
+            if (!IsDeltaLoading && !_isVideoLoadCompleted)
+            {
+                IsDeltaLoading = true;
+                await Controller.RequestUserSpaceVideoSetAsync(Id, _videoOffsetId);
+                IsDeltaLoading = false;
+            }
+        }
+
         private void InitializeUserInformation()
         {
             Name = _detail.UserName;
@@ -123,6 +137,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     VideoCollection.Add(new VideoViewModel(item));
                 }
             }
+
+            _videoOffsetId = e.NextOffsetId;
+            _isVideoLoadCompleted = VideoCollection.Count >= e.TotalCount;
         }
     }
 }

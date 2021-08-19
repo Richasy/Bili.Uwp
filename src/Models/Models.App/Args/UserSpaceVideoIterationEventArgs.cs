@@ -25,7 +25,7 @@ namespace Richasy.Bili.Models.App.Args
 
             if (set.List != null && set.List.Count > 0)
             {
-                NextOffsetId = set.List.Last().CreateTime;
+                NextOffsetId = set.List.Last().Id;
             }
         }
 
@@ -47,6 +47,6 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// 下次查询的偏移Id.
         /// </summary>
-        public int NextOffsetId { get; set; }
+        public string NextOffsetId { get; set; }
     }
 }

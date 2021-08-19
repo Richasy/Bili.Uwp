@@ -27,5 +27,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="userId">用户Id.</param>
         /// <returns><see cref="UserSpaceResponse"/>.</returns>
         Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId);
+
+        /// <summary>
+        /// 获取用户空间的视频集.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="offsetId">偏移值Id.</param>
+        /// <returns>视频集.</returns>
+        Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId);
     }
 }

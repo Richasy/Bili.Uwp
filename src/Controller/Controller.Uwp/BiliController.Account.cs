@@ -55,23 +55,29 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task<UserSpaceInformation> RequestUserSpaceInformationAsync(int userId)
         {
-            if (IsNetworkAvailable)
+            ThrowWhenNetworkUnavaliable();
+            var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
+            if (data.VideoSet != null)
             {
-                var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
-                if (data.VideoSet != null)
-                {
-                    var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
-                    UserSpaceVideoIteration?.Invoke(this, args);
-                }
-
-                return data.User;
-            }
-            else
-            {
-                ThrowWhenNetworkUnavaliable();
+                var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
+                UserSpaceVideoIteration?.Invoke(this, args);
             }
 
-            return null;
+            return data.User;
+        }
+
+        /// <summary>
+        /// 请求用户空间视频集.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="offsetId">偏移Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestUserSpaceVideoSetAsync(int userId, string offsetId)
+        {
+            ThrowWhenNetworkUnavaliable();
+            var data = await _accountProvider.GetUserSpaceVideoSetAsync(userId, offsetId);
+            var args = new UserSpaceVideoIterationEventArgs(data, userId);
+            UserSpaceVideoIteration?.Invoke(this, args);
         }
     }
 }
