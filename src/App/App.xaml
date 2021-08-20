@@ -28,6 +28,7 @@
             <converter:EpisodeTitleConverter x:Key="EpisodeTitleConverter" />
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
+            <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

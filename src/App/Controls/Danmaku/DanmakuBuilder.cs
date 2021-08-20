@@ -148,8 +148,8 @@ namespace Richasy.Bili.App.Controls
             using (var session = renderTarget.CreateDrawingSession())
             {
                 session.Clear(Colors.Transparent);
-                var borderColor = _model.Color.R <= 80 ? Colors.White : Colors.Black;
-                session.DrawGeometry(textGeo, borderColor, 2f, new CanvasStrokeStyle() { DashStyle = CanvasDashStyle.Solid });
+                var borderColor = _model.Color.R <= 80 ? Color.FromArgb(125, 255, 255, 255) : Color.FromArgb(125, 0, 0, 0);
+                session.DrawGeometry(textGeo, borderColor, 1f, new CanvasStrokeStyle() { DashStyle = CanvasDashStyle.Solid });
                 session.FillGeometry(textGeo, _model.Color);
             }
 

@@ -74,6 +74,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         {
             _danmakuList = new List<DanmakuElem>();
             FontCollection = new ObservableCollection<string>();
+            StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
@@ -89,6 +90,11 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             FontCollection.Clear();
             var fontList = _fontToolkit.GetSystemFontList();
             fontList.ForEach(p => FontCollection.Add(p));
+
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Stroke);
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Shadow);
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.NoStroke);
+            DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Stroke);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -115,6 +121,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(UseCloudShieldSettings):
                     _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);
+                    break;
+                case nameof(DanmakuStyle):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuStyle, DanmakuStyle);
                     break;
                 default:
                     break;

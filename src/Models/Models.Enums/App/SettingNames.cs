@@ -30,5 +30,6 @@ namespace Richasy.Bili.Models.Enums
         DanmakuFont,
         IsDanmakuMerge,
         UseCloudShieldSettings,
+        DanmakuStyle,
     }
 }

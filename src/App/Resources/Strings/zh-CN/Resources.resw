@@ -204,6 +204,9 @@
   <data name="DanmakuSendSettings" xml:space="preserve">
     <value>弹幕发送设置</value>
   </data>
+  <data name="DanmakuStyle" xml:space="preserve">
+    <value>弹幕样式</value>
+  </data>
   <data name="DanmakuSwitch" xml:space="preserve">
     <value>弹幕开关</value>
   </data>
@@ -378,6 +381,9 @@
   <data name="NoSpecificData" xml:space="preserve">
     <value>没有找到指定的数据</value>
   </data>
+  <data name="NoStroke" xml:space="preserve">
+    <value>无描边</value>
+  </data>
   <data name="OfficialUser" xml:space="preserve">
     <value>认证用户</value>
   </data>
@@ -546,6 +552,9 @@
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
   </data>
+  <data name="Shadow" xml:space="preserve">
+    <value>阴影</value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>分享</value>
   </data>
@@ -626,6 +635,9 @@
   </data>
   <data name="StartupDisabledByUser" xml:space="preserve">
     <value>启动项由用户手动禁用，您需要手动启用才能生效</value>
+  </data>
+  <data name="Stroke" xml:space="preserve">
+    <value>描边</value>
   </data>
   <data name="SwitchToPasswordLogin" xml:space="preserve">
     <value>用密码登录</value>

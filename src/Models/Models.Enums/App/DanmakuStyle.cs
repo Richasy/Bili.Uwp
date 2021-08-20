@@ -10,7 +10,7 @@ namespace Richasy.Bili.Models.Enums.App
         /// <summary>
         /// 默认，带文字描边.
         /// </summary>
-        Default = 0,
+        Stroke = 0,
 
         /// <summary>
         /// 无描边.

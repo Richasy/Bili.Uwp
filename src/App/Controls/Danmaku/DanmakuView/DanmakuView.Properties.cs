@@ -41,7 +41,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="DanmakuStyle"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuStyleProperty =
-          DependencyProperty.Register(nameof(DanmakuStyle), typeof(DanmakuStyle), typeof(DanmakuView), new PropertyMetadata(DanmakuStyle.Default));
+          DependencyProperty.Register(nameof(DanmakuStyle), typeof(DanmakuStyle), typeof(DanmakuView), new PropertyMetadata(DanmakuStyle.Stroke));
 
         /// <summary>
         /// <see cref="DanmakuArea"/>的依赖属性.
