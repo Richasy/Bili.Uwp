@@ -198,6 +198,7 @@ namespace Richasy.Bili.Models.Enums
         UserHaveNoVideos,
         RequestUserInformationFailed,
         UserInformation,
+        NoSpecificData,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

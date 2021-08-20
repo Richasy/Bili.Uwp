@@ -56,7 +56,6 @@
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Grid.Row="2"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                MaxLines="3"
                                 Text="{x:Bind Sign, Mode=OneWay}"
                                 TextAlignment="Center"
                                 TextTrimming="CharacterEllipsis">
@@ -64,7 +63,10 @@
                                     <ToolTip Content="{x:Bind Sign, Mode=OneWay}" IsEnabled="{Binding ElementName=SignBlock, Path=IsTextTrimmed}" />
                                 </ToolTipService.ToolTip>
                             </TextBlock>
-                            <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                            <Grid
+                                Grid.Row="3"
+                                HorizontalAlignment="Stretch"
+                                Visibility="{x:Bind IsShowFollowButton, Mode=OneWay}">
                                 <Button
                                     x:Name="FollowButton"
                                     Style="{StaticResource AccentButtonStyle}"
@@ -94,5 +96,6 @@
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.UserModule.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.UserModule.IsError, Mode=OneWay}" />
+        <local:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.UserModule.IsShowEmpty, Mode=OneWay}" />
     </Grid>
 </local:SearchComponent>

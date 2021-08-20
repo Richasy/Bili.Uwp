@@ -32,13 +32,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             Sign = item.Sign;
             if (string.IsNullOrEmpty(Sign))
             {
-                Sign = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UserEmptySign);
+                Sign = _resourceToolkit.GetLocaleString(LanguageNames.UserEmptySign);
             }
 
             Level = item.Level;
             FollowerCount = _numberToolkit.GetCountText(item.FollowerCount);
             Avatar = item.Cover + "@60w_60h_1c_100q.jpg";
             Id = item.UserId;
+            CheckFollowButtonVisibility();
         }
 
         /// <summary>
@@ -60,7 +61,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit);
 
-            IsShowFollowButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             VideoCollection = new ObservableCollection<VideoViewModel>();
         }
 
@@ -80,6 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     _detail = await Controller.RequestUserSpaceInformationAsync(Id);
                     InitializeUserInformation();
+                    IsShowVideoEmpty = VideoCollection.Count == 0;
                     IsRequested = true;
                 }
                 catch (Exception ex)
@@ -150,14 +151,23 @@ namespace Richasy.Bili.ViewModels.Uwp
             FollowerCount = _numberToolkit.GetCountText(_detail.FollowerCount);
             LikeCount = _numberToolkit.GetCountText(_detail.LikeInformation.LikeCount);
             Level = _detail.LevelInformation.CurrentLevel;
+            if (string.IsNullOrEmpty(Sign))
+            {
+                Sign = _resourceToolkit.GetLocaleString(LanguageNames.UserEmptySign);
+            }
 
             if (_detail.Relation != null)
             {
                 IsFollow = _detail.Relation.Status == 2 || _detail.Relation.Status == 4;
             }
 
+            CheckFollowButtonVisibility();
+        }
+
+        private void CheckFollowButtonVisibility()
+        {
             var accVM = AccountViewModel.Instance;
-            var isMe = accVM.Status == AccountViewModelStatus.Login && accVM.Mid.ToString() == _detail.UserId;
+            var isMe = accVM.Status == AccountViewModelStatus.Login && accVM.Mid == Id;
             IsShowFollowButton = accVM.Status == AccountViewModelStatus.Login && !isMe;
         }
 
@@ -178,6 +188,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _videoOffsetId = e.NextOffsetId;
             _isVideoLoadCompleted = VideoCollection.Count >= e.TotalCount;
+            IsShowVideoEmpty = VideoCollection.Count == 0;
         }
     }
 }

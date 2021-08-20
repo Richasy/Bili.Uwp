@@ -221,10 +221,10 @@
                         ActionContent="{loc:LocaleLocator Name=Refresh}"
                         Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-                    <!--<local:ErrorPanel
+                    <local:ErrorPanel
                         x:Name="EmptyPanel"
                         Text="{loc:LocaleLocator Name=UserHaveNoVideos}"
-                        Visibility="{x:Bind ViewModel.IsShowEmptyHolder, Mode=OneWay}" />-->
+                        Visibility="{x:Bind ViewModel.IsShowVideoEmpty, Mode=OneWay}" />
                 </Grid>
             </Grid>
         </muxc:TeachingTip>

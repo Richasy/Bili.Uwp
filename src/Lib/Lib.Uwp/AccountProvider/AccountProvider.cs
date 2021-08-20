@@ -57,6 +57,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.VMid, userId.ToString() },
                 { Query.Aid, offsetId },
+                { Query.Order, "pubdate" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.VideoCursor, queryParameters);

@@ -76,6 +76,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowFollowButton { get; set; }
 
         /// <summary>
+        /// 是否显示无视频提示.
+        /// </summary>
+        [Reactive]
+        public bool IsShowVideoEmpty { get; set; }
+
+        /// <summary>
         /// 用户Id.
         /// </summary>
         [Reactive]
