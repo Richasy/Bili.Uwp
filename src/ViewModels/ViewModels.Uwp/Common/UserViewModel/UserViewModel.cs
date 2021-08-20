@@ -62,7 +62,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             IsShowFollowButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             VideoCollection = new ObservableCollection<VideoViewModel>();
-            Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
         }
 
         /// <summary>
@@ -73,13 +72,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
-                VideoCollection.Clear();
+                Reset();
+                Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
                 IsInitializeLoading = true;
 
                 try
                 {
                     _detail = await Controller.RequestUserSpaceInformationAsync(Id);
                     InitializeUserInformation();
+                    IsRequested = true;
                 }
                 catch (Exception ex)
                 {
@@ -108,11 +109,35 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 切换关注状态.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleFollowStateAsync()
+        {
+            if (_isFollowRequesting)
+            {
+                return;
+            }
+
+            _isFollowRequesting = true;
+            var result = await Controller.ModifyUserRelationAsync(Id, !IsFollow);
+            if (result)
+            {
+                IsFollow = !IsFollow;
+            }
+
+            _isFollowRequesting = false;
+        }
+
+        /// <summary>
         /// 清除数据.
         /// </summary>
-        public void Destory()
+        public void Reset()
         {
             VideoCollection.Clear();
+            IsRequested = false;
+            _isFollowRequesting = false;
+            _isVideoLoadCompleted = false;
             Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
         }
 
@@ -130,6 +155,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsFollow = _detail.Relation.Status == 2 || _detail.Relation.Status == 4;
             }
+
+            var accVM = AccountViewModel.Instance;
+            var isMe = accVM.Status == AccountViewModelStatus.Login && accVM.Mid.ToString() == _detail.UserId;
+            IsShowFollowButton = accVM.Status == AccountViewModelStatus.Login && !isMe;
         }
 
         private void OnUserSpaceVideoIteration(object sender, UserSpaceVideoIterationEventArgs e)

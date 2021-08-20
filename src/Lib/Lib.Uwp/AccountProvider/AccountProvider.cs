@@ -64,5 +64,22 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Fid, userId.ToString() },
+                { Query.ReSrc, "21" },
+                { Query.Action, isFollow ? "1" : "2" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Account.ModifyRelation, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+
+            return result.IsSuccess();
+        }
     }
 }

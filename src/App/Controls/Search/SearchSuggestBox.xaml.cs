@@ -52,7 +52,7 @@ namespace Richasy.Bili.App.Controls
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = e.NewSize.Width;
-            HotSearchListView.Width = width;
+            HotSearchListView.Width = width - 16;
         }
 
         private void OnHotSearchOpening(object sender, object e)

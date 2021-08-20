@@ -23,7 +23,7 @@
                     <local:CardPanel
                         AutomationProperties.Name="{x:Bind Name, Mode=OneWay}"
                         Click="OnUserItemClickAsync"
-                        Tag="{x:Bind Id, Mode=OneWay}">
+                        DataContext="{x:Bind}">
                         <Grid Padding="20,20,20,16" RowSpacing="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -69,13 +69,17 @@
                                     x:Name="FollowButton"
                                     Style="{StaticResource AccentButtonStyle}"
                                     HorizontalAlignment="Stretch"
+                                    Click="OnFollowButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=Follow}"
+                                    DataContext="{x:Bind}"
                                     FontSize="12"
                                     Visibility="{x:Bind IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                 <Button
                                     x:Name="UnFollowButton"
                                     HorizontalAlignment="Stretch"
+                                    Click="OnFollowButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=Followed}"
+                                    DataContext="{x:Bind}"
                                     FontSize="12"
                                     Visibility="{x:Bind IsFollow, Mode=OneWay}" />
                             </Grid>

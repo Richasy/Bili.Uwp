@@ -53,6 +53,26 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        /// <summary>
+        /// 显示.
+        /// </summary>
+        /// <param name="vm">用户数据模型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ShowAsync(UserViewModel vm)
+        {
+            Container.IsOpen = true;
+            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            if (ViewModel == null || ViewModel.Id != vm.Id)
+            {
+                // 请求用户数据.
+                ViewModel = vm;
+                if (!vm.IsRequested)
+                {
+                    await ViewModel.InitializeUserDetailAsync();
+                }
+            }
+        }
+
         private void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
         }
@@ -64,13 +84,18 @@ namespace Richasy.Bili.App.Controls
 
         private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
         {
-            ViewModel.Destory();
+            ViewModel.Reset();
             ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
         }
 
         private void OnVideoItemClick(object sender, VideoViewModel e)
         {
             this.Container.IsOpen = false;
+        }
+
+        private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.ToggleFollowStateAsync();
         }
     }
 }

@@ -133,12 +133,13 @@
                                 <Button
                                     Style="{StaticResource AccentButtonStyle}"
                                     HorizontalAlignment="Stretch"
+                                    Click="OnFollowButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=Follow}"
                                     Visibility="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                 <Button
-                                    Style="{StaticResource AccentButtonStyle}"
                                     HorizontalAlignment="Stretch"
-                                    Content="{loc:LocaleLocator Name=Follow}"
+                                    Click="OnFollowButtonClickAsync"
+                                    Content="{loc:LocaleLocator Name=Followed}"
                                     Visibility="{x:Bind ViewModel.IsFollow, Mode=OneWay}" />
                             </Grid>
                         </Grid>

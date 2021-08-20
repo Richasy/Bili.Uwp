@@ -35,5 +35,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="offsetId">偏移值Id.</param>
         /// <returns>视频集.</returns>
         Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId);
+
+        /// <summary>
+        /// 关注/取消关注用户.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="isFollow">是否关注.</param>
+        /// <returns>关注是否成功.</returns>
+        Task<bool> ModifyUserRelationAsync(int userId, bool isFollow);
     }
 }

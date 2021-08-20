@@ -19,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private string _videoOffsetId;
 
         private bool _isVideoLoadCompleted;
+        private bool _isFollowRequesting;
 
         /// <summary>
         /// 头像.

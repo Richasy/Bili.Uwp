@@ -79,5 +79,18 @@ namespace Richasy.Bili.Controller.Uwp
             var args = new UserSpaceVideoIterationEventArgs(data, userId);
             UserSpaceVideoIteration?.Invoke(this, args);
         }
+
+        /// <summary>
+        /// 修改用户关系(关注/取消关注).
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="isFollow">是否关注.</param>
+        /// <returns>结果.</returns>
+        public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
+        {
+            ThrowWhenNetworkUnavaliable();
+            var result = await _accountProvider.ModifyUserRelationAsync(userId, isFollow);
+            return result;
+        }
     }
 }
