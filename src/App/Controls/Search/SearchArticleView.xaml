@@ -47,5 +47,6 @@
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ArticleModule.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.ArticleModule.IsError, Mode=OneWay}" />
+        <local:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.ArticleModule.IsShowEmpty, Mode=OneWay}" />
     </Grid>
 </local:SearchComponent>

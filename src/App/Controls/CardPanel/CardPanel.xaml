@@ -2,8 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Richasy.Bili.App.Controls"
-    xmlns:shadow="using:Richasy.Bili.App.Controls.Shadow">
-    <shadow:CardAttachedShadow
+    xmlns:shadow="using:Richasy.Shadow.Uwp">
+    <shadow:RoundedCornerAttachedShadow
         x:Key="DefaultCardShadow"
         BlurRadius="4"
         CornerRadius="8" />

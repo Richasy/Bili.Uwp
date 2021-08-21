@@ -192,6 +192,18 @@ namespace Richasy.Bili.Models.Enums
         Follow,
         User,
         UserEmptySign,
+        FansCount,
+        FollowCount,
+        BeLikeCount,
+        UserHaveNoVideos,
+        RequestUserInformationFailed,
+        UserInformation,
+        NoSpecificData,
+        DanmakuStyle,
+        Stroke,
+        NoStroke,
+        Shadow,
+        DanmakuBold,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

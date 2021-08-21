@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -105,6 +106,11 @@ namespace Richasy.Bili.App.Controls
             this.Loaded += OnLoaded;
             this.AppViewModel = AppViewModel.Instance;
         }
+
+        /// <summary>
+        /// 条目被点击时触发.
+        /// </summary>
+        public event EventHandler<VideoViewModel> ItemClick;
 
         /// <summary>
         /// 应用视图模型.
@@ -278,6 +284,7 @@ namespace Richasy.Bili.App.Controls
         private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
             AppViewModel.OpenPlayer(ViewModel);
+            ItemClick?.Invoke(this, this.ViewModel);
         }
     }
 }

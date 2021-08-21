@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -11,8 +12,14 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class UserViewModel
     {
-        private INumberToolkit _numberToolkit;
-        private IResourceToolkit _resourceToolkit;
+        private readonly INumberToolkit _numberToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
+
+        private UserSpaceInformation _detail;
+        private string _videoOffsetId;
+
+        private bool _isVideoLoadCompleted;
+        private bool _isFollowRequesting;
 
         /// <summary>
         /// 头像.
@@ -69,11 +76,22 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowFollowButton { get; set; }
 
         /// <summary>
+        /// 是否显示无视频提示.
+        /// </summary>
+        [Reactive]
+        public bool IsShowVideoEmpty { get; set; }
+
+        /// <summary>
         /// 用户Id.
         /// </summary>
+        [Reactive]
         public int Id { get; set; }
 
-        private BiliController Controller { get; } = BiliController.Instance;
+        /// <summary>
+        /// 投稿视频集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<VideoViewModel> VideoCollection { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is UserViewModel model && Id == model.Id;

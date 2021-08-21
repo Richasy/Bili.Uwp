@@ -74,6 +74,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         {
             _danmakuList = new List<DanmakuElem>();
             FontCollection = new ObservableCollection<string>();
+            StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
@@ -81,6 +82,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             DanmakuDensity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuDensity, 400d);
             DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
+            IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
 
             Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
@@ -89,6 +91,11 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             FontCollection.Clear();
             var fontList = _fontToolkit.GetSystemFontList();
             fontList.ForEach(p => FontCollection.Add(p));
+
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Stroke);
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Shadow);
+            StyleCollection.Add(Models.Enums.App.DanmakuStyle.NoStroke);
+            DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Stroke);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -113,8 +120,14 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                 case nameof(IsDanmakuMerge):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
                     break;
+                case nameof(IsDanmakuBold):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuBold);
+                    break;
                 case nameof(UseCloudShieldSettings):
                     _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);
+                    break;
+                case nameof(DanmakuStyle):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuStyle, DanmakuStyle);
                     break;
                 default:
                     break;

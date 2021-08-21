@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Bilibili.Community.Service.Dm.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 
 namespace Richasy.Bili.ViewModels.Uwp.Common
@@ -63,16 +64,34 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public string DanmakuFont { get; set; }
 
         /// <summary>
+        /// 弹幕样式.
+        /// </summary>
+        [Reactive]
+        public DanmakuStyle DanmakuStyle { get; set; }
+
+        /// <summary>
         /// 系统字体集合.
         /// </summary>
         [Reactive]
         public ObservableCollection<string> FontCollection { get; set; }
 
         /// <summary>
+        /// 样式集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<DanmakuStyle> StyleCollection { get; set; }
+
+        /// <summary>
         /// 是否启用弹幕合并.
         /// </summary>
         [Reactive]
         public bool IsDanmakuMerge { get; set; }
+
+        /// <summary>
+        /// 是否加粗弹幕.
+        /// </summary>
+        [Reactive]
+        public bool IsDanmakuBold { get; set; }
 
         /// <summary>
         /// 是否启用云屏蔽设置.

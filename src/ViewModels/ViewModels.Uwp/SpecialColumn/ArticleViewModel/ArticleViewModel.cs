@@ -30,7 +30,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = article.Title;
             Description = article.Summary;
-            Publisher = new PublisherViewModel(article.Publisher);
+            Publisher = new UserViewModel(article.Publisher.Publisher, article.Publisher.PublisherAvatar, article.Publisher.Mid);
             PublishTime = DateTimeOffset.FromUnixTimeSeconds(article.PublishTime).ToString("yy/MM/dd HH:mm");
             article.RelatedCategories.ForEach(p => CategoryCollection.Add(p));
 
@@ -62,7 +62,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = item.Title;
             Description = item.Description;
-            Publisher = new PublisherViewModel(item.Name, id: item.UserId);
+            Publisher = new UserViewModel(item.Name, userId: item.UserId);
             ViewCount = _numberToolkit.GetCountText(item.ViewCount);
             ReplyCount = _numberToolkit.GetCountText(item.ReplyCount);
             LikeCount = _numberToolkit.GetCountText(item.LikeCount);

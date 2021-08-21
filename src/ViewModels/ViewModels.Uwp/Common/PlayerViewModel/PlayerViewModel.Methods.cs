@@ -191,7 +191,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = _videoDetail.Arc.Title;
             Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
             Description = _videoDetail.Arc.Desc;
-            Publisher = new PublisherViewModel(_videoDetail.Arc.Author);
+            var author = _videoDetail.Arc.Author;
+            Publisher = new UserViewModel(author.Name, author.Face, Convert.ToInt32(author.Mid));
             AvId = _videoDetail.Arc.Aid.ToString();
             BvId = _videoDetail.Bvid;
             SeasonId = string.Empty;
@@ -324,7 +325,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCount = string.Empty;
             ViewerCount = _numberToolkit.GetCountText(_liveDetail.AnchorInformation.RelationInformation.AttentionCount);
             CoverUrl = _liveDetail.RoomInformation.Cover ?? _liveDetail.RoomInformation.Keyframe;
-            Publisher = new PublisherViewModel(_liveDetail.AnchorInformation.UserBasicInformation);
+            var user = _liveDetail.AnchorInformation.UserBasicInformation;
+            Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);
             IsShowChat = true;
         }
 

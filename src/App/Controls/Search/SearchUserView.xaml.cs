@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -20,6 +21,17 @@ namespace Richasy.Bili.App.Controls
         private async void OnUserRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await ViewModel.UserModule.InitializeRequestAsync();
+        }
+
+        private async void OnUserItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            await new UserView().ShowAsync((sender as FrameworkElement).DataContext as UserViewModel);
+        }
+
+        private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var data = (sender as FrameworkElement).DataContext as UserViewModel;
+            await data.ToggleFollowStateAsync();
         }
     }
 }

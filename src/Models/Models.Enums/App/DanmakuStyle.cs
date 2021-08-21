@@ -8,14 +8,14 @@ namespace Richasy.Bili.Models.Enums.App
     public enum DanmakuStyle
     {
         /// <summary>
-        /// 默认.
+        /// 默认，带文字描边.
         /// </summary>
-        Default = 0,
+        Stroke = 0,
 
         /// <summary>
-        /// 无边框.
+        /// 无描边.
         /// </summary>
-        NoBorder = 1,
+        NoStroke = 1,
 
         /// <summary>
         /// 有阴影.

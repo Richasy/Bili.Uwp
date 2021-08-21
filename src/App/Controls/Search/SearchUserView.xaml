@@ -13,7 +13,6 @@
 
     <Grid>
         <local:VerticalRepeaterView
-            x:Name="UserView"
             HeaderVisibility="Collapsed"
             ItemsSource="{x:Bind ViewModel.UserModule.UserCollection, Mode=OneWay}"
             MinWideItemHeight="220"
@@ -21,7 +20,10 @@
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:UserViewModel">
-                    <local:CardPanel AutomationProperties.Name="{x:Bind Name, Mode=OneWay}">
+                    <local:CardPanel
+                        AutomationProperties.Name="{x:Bind Name, Mode=OneWay}"
+                        Click="OnUserItemClickAsync"
+                        DataContext="{x:Bind}">
                         <Grid Padding="20,20,20,16" RowSpacing="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -54,7 +56,6 @@
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Grid.Row="2"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                MaxLines="3"
                                 Text="{x:Bind Sign, Mode=OneWay}"
                                 TextAlignment="Center"
                                 TextTrimming="CharacterEllipsis">
@@ -62,18 +63,25 @@
                                     <ToolTip Content="{x:Bind Sign, Mode=OneWay}" IsEnabled="{Binding ElementName=SignBlock, Path=IsTextTrimmed}" />
                                 </ToolTipService.ToolTip>
                             </TextBlock>
-                            <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                            <Grid
+                                Grid.Row="3"
+                                HorizontalAlignment="Stretch"
+                                Visibility="{x:Bind IsShowFollowButton, Mode=OneWay}">
                                 <Button
                                     x:Name="FollowButton"
                                     Style="{StaticResource AccentButtonStyle}"
                                     HorizontalAlignment="Stretch"
+                                    Click="OnFollowButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=Follow}"
+                                    DataContext="{x:Bind}"
                                     FontSize="12"
                                     Visibility="{x:Bind IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                 <Button
                                     x:Name="UnFollowButton"
                                     HorizontalAlignment="Stretch"
+                                    Click="OnFollowButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=Followed}"
+                                    DataContext="{x:Bind}"
                                     FontSize="12"
                                     Visibility="{x:Bind IsFollow, Mode=OneWay}" />
                             </Grid>
@@ -88,5 +96,6 @@
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.UserModule.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.UserModule.IsError, Mode=OneWay}" />
+        <local:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.UserModule.IsShowEmpty, Mode=OneWay}" />
     </Grid>
 </local:SearchComponent>

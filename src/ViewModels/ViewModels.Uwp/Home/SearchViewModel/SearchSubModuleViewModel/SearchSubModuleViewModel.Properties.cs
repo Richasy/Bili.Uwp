@@ -120,6 +120,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<KeyValue<string>> UserTypeCollection { get; set; }
 
         /// <summary>
+        /// 是否显示空白提示.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEmpty { get; set; }
+
+        /// <summary>
         /// 是否已经全部加载完成.
         /// </summary>
         [Reactive]

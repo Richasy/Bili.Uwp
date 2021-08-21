@@ -10,7 +10,6 @@
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -139,14 +138,10 @@
                                     </DataTemplate>
                                 </controls:VerticalRepeaterView.ItemTemplate>
                             </controls:VerticalRepeaterView>
-
-                            <controls:OverlayLoadingPanel
-                                Grid.RowSpan="2"
-                                IsBarActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}"
-                                IsRingActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
                         </Grid>
                     </ScrollViewer>
 
+                    <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
                     <controls:ErrorPanel
                         x:Name="ErrorPanel"
                         ActionButtonClick="OnRefreshButtonClickAsync"

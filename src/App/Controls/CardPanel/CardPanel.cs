@@ -3,7 +3,7 @@
 using System;
 using System.Numerics;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Richasy.Bili.App.Controls.Shadow;
+using Richasy.Shadow.Uwp;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;

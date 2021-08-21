@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
@@ -33,6 +34,53 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<MyInfo>>(response);
             UserId = result.Data.Mid;
             return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.VMid, userId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.Space, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.VMid, userId.ToString() },
+                { Query.Aid, offsetId },
+                { Query.Order, "pubdate" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.VideoCursor, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Fid, userId.ToString() },
+                { Query.ReSrc, "21" },
+                { Query.Action, isFollow ? "1" : "2" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Account.ModifyRelation, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+
+            return result.IsSuccess();
         }
     }
 }

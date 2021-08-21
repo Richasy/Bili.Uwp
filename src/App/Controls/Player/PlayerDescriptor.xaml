@@ -26,6 +26,7 @@
             HorizontalAlignment="Left"
             Orientation="Horizontal"
             Spacing="12"
+            Tapped="OnUserTappedAsync"
             Visibility="{x:Bind ViewModel.Publisher, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
             <local:UserAvatar
                 Width="32"

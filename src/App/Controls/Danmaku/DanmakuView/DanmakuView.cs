@@ -3,7 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums.App;
+using Richasy.Shadow.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,6 +38,7 @@ namespace Richasy.Bili.App.Controls
             _topContainer = GetTemplateChild(TopContainerName) as Grid;
             _bottomContainer = GetTemplateChild(BottomContainerName) as Grid;
             _canvas = GetTemplateChild(CanvasName) as Canvas;
+            _isApplyTemplate = true;
         }
 
         /// <inheritdoc/>
@@ -87,9 +90,14 @@ namespace Richasy.Bili.App.Controls
             ((DanmakuView)d).DanmakuArea = value;
         }
 
-        private void AddDanmakuInternal(DanmakuModel m, bool isOwn)
+        private async void AddDanmakuInternalAsync(DanmakuModel m, bool isOwn)
         {
-            var danmaku = CreateNewDanmuControl(m);
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
+            var danmaku = await CreateNewDanmuControlAsync(m);
 
             if (isOwn)
             {
@@ -163,6 +171,18 @@ namespace Richasy.Bili.App.Controls
 
             moveStoryboard.Completed += new EventHandler<object>((senders, obj) =>
             {
+                var danmakuContent = danmaku.Children.FirstOrDefault();
+                if (danmakuContent is TextBlock txt)
+                {
+                    var shadow = Shadows.GetAttachedShadow(txt);
+                    if (shadow != null)
+                    {
+                        var shadowContext = shadow.GetElementContext(txt);
+                        shadowContext?.ClearAndDisposeResources();
+                        shadow.DisconnectElement(txt);
+                    }
+                }
+
                 container.Children.Remove(danmaku);
                 danmaku.Children.Clear();
                 danmaku = null;
@@ -176,6 +196,11 @@ namespace Richasy.Bili.App.Controls
 
         private void SetDanmakuSizeZoom(double value)
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             SetRows(this.ActualHeight);
             foreach (var item in _scrollContainer.Children)
             {
@@ -219,6 +244,11 @@ namespace Richasy.Bili.App.Controls
 
         private void SetRows(double height)
         {
+            if (!_isApplyTemplate)
+            {
+                return;
+            }
+
             var txt = new TextBlock()
             {
                 Text = "测试test",
@@ -243,6 +273,11 @@ namespace Richasy.Bili.App.Controls
 
         private int GetTopAvailableRow()
         {
+            if (!_isApplyTemplate)
+            {
+                return 0;
+            }
+
             var max = _topContainer.RowDefinitions.Count / 2;
 
             for (var i = 0; i < max; i++)
@@ -334,7 +369,7 @@ namespace Richasy.Bili.App.Controls
             return -1;
         }
 
-        private Grid CreateNewDanmuControl(DanmakuModel m)
+        private async Task<Grid> CreateNewDanmuControlAsync(DanmakuModel m)
         {
             var builder = new DanmakuBuilder()
                 .WithSizeZoom(DanmakuSizeZoom)
@@ -343,11 +378,12 @@ namespace Richasy.Bili.App.Controls
                 .WithDanmakuModel(m);
             switch (DanmakuStyle)
             {
-                case DanmakuStyle.NoBorder:
+                case DanmakuStyle.NoStroke:
+                    return builder.CreateNoStrokeDanmaku();
                 case DanmakuStyle.Shadow:
-                    return builder.CreateNormalDanmaku();
+                    return builder.CreateShadowDanmaku();
                 default:
-                    return builder.CreateOverlapDanamku();
+                    return await builder.CreateStrokeDanmakuAsync();
             }
         }
     }

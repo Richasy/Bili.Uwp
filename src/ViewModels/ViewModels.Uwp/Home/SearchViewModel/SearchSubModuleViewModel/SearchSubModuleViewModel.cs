@@ -186,11 +186,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                foreach (var item in e.List)
+                if (e.List != null)
                 {
-                    if (!VideoCollection.Any(p => p.VideoId == item.Parameter))
+                    foreach (var item in e.List)
                     {
-                        VideoCollection.Add(new VideoViewModel(item));
+                        if (!VideoCollection.Any(p => p.VideoId == item.Parameter))
+                        {
+                            VideoCollection.Add(new VideoViewModel(item));
+                        }
                     }
                 }
 
@@ -202,11 +205,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                foreach (var item in e.List)
+                if (e.List != null)
                 {
-                    if (!PgcCollection.Any(p => p.SeasonId == item.SeasonId))
+                    foreach (var item in e.List)
                     {
-                        PgcCollection.Add(SeasonViewModel.CreateFromSearchItem(item));
+                        if (!PgcCollection.Any(p => p.SeasonId == item.SeasonId))
+                        {
+                            PgcCollection.Add(SeasonViewModel.CreateFromSearchItem(item));
+                        }
                     }
                 }
 
@@ -218,11 +224,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                foreach (var item in e.List)
+                if (e.List != null)
                 {
-                    if (!ArticleCollection.Any(p => p.Id == item.Id.ToString()))
+                    foreach (var item in e.List)
                     {
-                        ArticleCollection.Add(new ArticleViewModel(item));
+                        if (!ArticleCollection.Any(p => p.Id == item.Id.ToString()))
+                        {
+                            ArticleCollection.Add(new ArticleViewModel(item));
+                        }
                     }
                 }
 
@@ -234,11 +243,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                foreach (var item in e.List)
+                if (e.List != null)
                 {
-                    if (!UserCollection.Any(p => p.Id == item.UserId))
+                    foreach (var item in e.List)
                     {
-                        UserCollection.Add(new UserViewModel(item));
+                        if (!UserCollection.Any(p => p.Id == item.UserId))
+                        {
+                            UserCollection.Add(new UserViewModel(item));
+                        }
                     }
                 }
 
@@ -250,11 +262,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Keyword == Keyword)
             {
-                foreach (var item in e.List)
+                if (e.List != null)
                 {
-                    if (!VideoCollection.Any(p => p.VideoId == item.RoomId.ToString()))
+                    foreach (var item in e.List)
                     {
-                        VideoCollection.Add(new VideoViewModel(item));
+                        if (!VideoCollection.Any(p => p.VideoId == item.RoomId.ToString()))
+                        {
+                            VideoCollection.Add(new VideoViewModel(item));
+                        }
                     }
                 }
 
@@ -274,7 +289,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 PageNumber = 1;
             }
 
-            IsRequested = PageNumber != 0;
+            IsShowEmpty = currentCount == 0;
+            IsRequested = true;
         }
 
         private Dictionary<string, string> GetQueryParameters()

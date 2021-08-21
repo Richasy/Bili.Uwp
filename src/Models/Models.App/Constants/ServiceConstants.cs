@@ -122,6 +122,10 @@ namespace Richasy.Bili.Models.App.Constants
             public const string FullCategoryId = "category_id";
             public const string UserType = "user_type";
             public const string PlayUrl = "play_url";
+            public const string VMid = "vmid";
+            public const string Fid = "fid";
+            public const string Action = "act";
+            public const string ReSrc = "re_src";
         }
 
         public static class Sort
@@ -235,6 +239,21 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 我的信息.
                 /// </summary>
                 public const string MyInfo = _appBase + "/x/v2/account/myinfo";
+
+                /// <summary>
+                /// 用户空间.
+                /// </summary>
+                public const string Space = _appBase + "/x/v2/space";
+
+                /// <summary>
+                /// 用户空间中视频的增量请求.
+                /// </summary>
+                public const string VideoCursor = _appBase + "/x/v2/space/archive/cursor";
+
+                /// <summary>
+                /// 修改与用户间的关系（关注/取消关注）.
+                /// </summary>
+                public const string ModifyRelation = _apiBase + "/x/relation/modify";
             }
 
             public static class Partition

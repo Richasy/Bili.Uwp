@@ -37,6 +37,28 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <summary>
+        /// 显示顶层视图.
+        /// </summary>
+        /// <param name="element">要显示的元素.</param>
+        public void ShowOnHolder(UIElement element)
+        {
+            if (!HolderContainer.Children.Contains(element))
+            {
+                HolderContainer.Children.Add(element);
+            }
+
+            HolderContainer.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// 清除顶层视图.
+        /// </summary>
+        public void ClearHolder()
+        {
+            HolderContainer.Children.Clear();
+        }
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;

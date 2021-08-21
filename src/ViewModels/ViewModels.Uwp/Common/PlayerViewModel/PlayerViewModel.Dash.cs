@@ -97,7 +97,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 props.Type = Windows.Media.MediaPlaybackType.Video;
                 props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
                 props.VideoProperties.Title = Title;
-                props.VideoProperties.Subtitle = IsPgc ? Subtitle : Description;
+                props.VideoProperties.Subtitle = GetSlimDescription(IsPgc ? Subtitle : Description);
                 props.VideoProperties.Genres.Add(_videoType.ToString());
                 playbackItem.ApplyDisplayProperties(props);
 
@@ -120,7 +120,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             props.Type = Windows.Media.MediaPlaybackType.Video;
             props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
             props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = string.IsNullOrEmpty(Subtitle) ? Subtitle : Description;
+            props.VideoProperties.Subtitle = GetSlimDescription(string.IsNullOrEmpty(Subtitle) ? Subtitle : Description);
             props.VideoProperties.Genres.Add(_videoType.ToString());
             playbackItem.ApplyDisplayProperties(props);
             if (_currentVideoPlayer == null)
@@ -131,6 +131,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             _currentVideoPlayer.Source = playbackItem;
             BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
             MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private string GetSlimDescription(string text)
+        {
+            if (!string.IsNullOrEmpty(text) && text.Length > 20)
+            {
+                return text.Substring(0, 20);
+            }
+
+            return text;
         }
     }
 }
