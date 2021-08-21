@@ -21,14 +21,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="item">用户搜索条目.</param>
         public UserViewModel(UserSearchItem item)
-            : this()
+            : this(item.Title, item.Cover, item.UserId)
         {
             if (item.Relation != null)
             {
                 IsFollow = item.Relation.Status == 2 || item.Relation.Status == 4;
             }
 
-            Name = item.Title;
             Sign = item.Sign;
             if (string.IsNullOrEmpty(Sign))
             {
@@ -37,9 +36,23 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Level = item.Level;
             FollowerCount = _numberToolkit.GetCountText(item.FollowerCount);
-            Avatar = item.Cover + "@60w_60h_1c_100q.jpg";
-            Id = item.UserId;
             CheckFollowButtonVisibility();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
+        /// <param name="userName">用户名.</param>
+        /// <param name="avatar">头像.</param>
+        /// <param name="userId">用户Id.</param>
+        public UserViewModel(string userName, string avatar = "", int userId = 0)
+            : this(userId)
+        {
+            Name = userName ?? "--";
+            if (!string.IsNullOrEmpty(avatar))
+            {
+                Avatar = avatar + "@60w_60h_1c_100q.jpg";
+            }
         }
 
         /// <summary>
@@ -65,6 +78,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 激活.
+        /// </summary>
+        public void Active()
+        {
+            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
+            Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
+        }
+
+        /// <summary>
+        /// 休眠.
+        /// </summary>
+        public void Deactive()
+        {
+            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
+        }
+
+        /// <summary>
         /// 初始化用户资料.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -73,7 +103,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 Reset();
-                Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
+                Active();
                 IsInitializeLoading = true;
 
                 try
@@ -139,7 +169,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsRequested = false;
             _isFollowRequesting = false;
             _isVideoLoadCompleted = false;
-            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
         }
 
         private void InitializeUserInformation()

@@ -51,6 +51,10 @@ namespace Richasy.Bili.App.Controls
                 ViewModel = new UserViewModel(userId);
                 await ViewModel.InitializeUserDetailAsync();
             }
+            else
+            {
+                ViewModel.Active();
+            }
         }
 
         /// <summary>
@@ -70,6 +74,14 @@ namespace Richasy.Bili.App.Controls
                 {
                     await ViewModel.InitializeUserDetailAsync();
                 }
+                else
+                {
+                    ViewModel.Active();
+                }
+            }
+            else
+            {
+                ViewModel.Active();
             }
         }
 
@@ -84,7 +96,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
         {
-            ViewModel.Reset();
+            ViewModel.Deactive();
             ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
         }
 

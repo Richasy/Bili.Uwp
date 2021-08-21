@@ -24,7 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             : this()
         {
             Title = video.Title ?? string.Empty;
-            Publisher = new PublisherViewModel(video.Publisher, video.PublisherAvatar);
+            Publisher = new UserViewModel(video.Publisher, video.PublisherAvatar);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.PlayCount);
             ReplyCount = _numberToolkit.GetCountText(video.ReplyCount);
@@ -45,7 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             : this()
         {
             Title = video.Title ?? string.Empty;
-            Publisher = new PublisherViewModel(video.Name, video.Face, Convert.ToInt32(video.Mid));
+            Publisher = new UserViewModel(video.Name, video.Face, Convert.ToInt32(video.Mid));
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
             PlayCount = _numberToolkit.GetCountText(video.Play);
             ReplyCount = _numberToolkit.GetCountText(video.Reply);
@@ -74,7 +74,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 // 视频处理.
                 DanmakuCount = card.SubStatusText;
                 LikeCount = string.Empty;
-                Publisher = new PublisherViewModel(card.CardArgs.PublisherName, id: card.CardArgs.PublisherId);
+                Publisher = new UserViewModel(card.CardArgs.PublisherName, userId: card.CardArgs.PublisherId);
                 if ((card.PlayerArgs?.Duration).HasValue)
                 {
                     Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds((double)card.PlayerArgs?.Duration));
@@ -92,7 +92,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 // 动漫处理.
                 LikeCount = card.SubStatusText;
                 DanmakuCount = string.Empty;
-                Publisher = new PublisherViewModel(card.Description?.Text);
+                Publisher = new UserViewModel(card.Description?.Text);
                 Duration = "--";
                 VideoType = VideoType.Pgc;
             }
@@ -114,7 +114,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = cardBase.Title;
             VideoId = cardBase.Param;
             PlayCount = v5.RightDesc2;
-            Publisher = new PublisherViewModel(v5.RightDesc1);
+            Publisher = new UserViewModel(v5.RightDesc1);
             AdditionalText = v5.RcmdReasonStyle?.Text ?? string.Empty;
             Duration = _numberToolkit.FormatDurationText(v5.CoverRightText1);
             LimitCover(cardBase.Cover);
@@ -131,7 +131,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = followRoom.Title;
             VideoId = followRoom.RoomId.ToString();
             ViewerCount = _numberToolkit.GetCountText(followRoom.ViewerCount);
-            Publisher = new PublisherViewModel(followRoom.UserName, followRoom.UserAvatar, followRoom.UserId);
+            Publisher = new UserViewModel(followRoom.UserName, followRoom.UserAvatar, followRoom.UserId);
             PartitionName = followRoom.DisplayAreaName;
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
             LimitCover(followRoom.Cover);
@@ -151,7 +151,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = card.Title;
             VideoId = card.RoomId.ToString();
             ViewerCount = card.CoverRightContent.Text;
-            Publisher = new PublisherViewModel(card.CoverLeftContent.Text);
+            Publisher = new UserViewModel(card.CoverLeftContent.Text);
             PartitionName = card.AreaName;
             PartitionId = Convert.ToInt32(card.AreaId);
             LimitCover(card.Cover);
@@ -174,7 +174,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             DanmakuCount = _numberToolkit.GetCountText(relate.Stat.Danmaku);
             LikeCount = _numberToolkit.GetCountText(relate.Stat.Like);
             ReplyCount = _numberToolkit.GetCountText(relate.Stat.Reply);
-            Publisher = new PublisherViewModel(relate.Author);
+            var author = relate.Author;
+            Publisher = new UserViewModel(author.Name, author.Face, Convert.ToInt32(author.Mid));
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(relate.Duration));
             AdditionalText = relate.Rating.ToString();
             LimitCover(relate.Pic);
@@ -195,7 +196,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoId = item.Parameter;
             PlayCount = _numberToolkit.GetCountText(item.PlayCount);
             DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
-            Publisher = new PublisherViewModel(item.Author, item.Avatar, item.UserId);
+            Publisher = new UserViewModel(item.Author, item.Avatar, item.UserId);
             Duration = _numberToolkit.FormatDurationText(item.Duration);
             LimitCover(item.Cover);
             Source = item;
@@ -211,7 +212,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             VideoType = VideoType.Live;
             Title = item.Title;
             VideoId = item.RoomId.ToString();
-            Publisher = new PublisherViewModel(item.Name, id: item.UserId);
+            Publisher = new UserViewModel(item.Name, userId: item.UserId);
             ViewerCount = _numberToolkit.GetCountText(item.ViewerCount);
             PartitionName = item.AreaName;
             LimitCover(item.Cover);
@@ -232,7 +233,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = item.PartitionName;
             PlayCount = _numberToolkit.GetCountText(item.PlayCount);
             DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
-            Publisher = new PublisherViewModel(item.PublisherName);
+            Publisher = new UserViewModel(item.PublisherName);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
             LimitCover(item.Cover);
             Source = item;

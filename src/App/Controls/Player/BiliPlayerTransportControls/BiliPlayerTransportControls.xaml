@@ -715,6 +715,22 @@
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarToggleButton
+                                                x:Name="CompactOverlayModeButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
+                                                Style="{StaticResource AppBarToggleButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="17"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
+                                                <AppBarToggleButton.Icon>
+                                                    <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
+                                                </AppBarToggleButton.Icon>
+                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                    <KeyboardAccelerator
+                                                        Key="M"
+                                                        IsEnabled="True"
+                                                        Modifiers="Control" />
+                                                </AppBarToggleButton.KeyboardAccelerators>
+                                            </AppBarToggleButton>
+                                            <AppBarToggleButton
                                                 x:Name="FullWindowModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
                                                 Style="{StaticResource AppBarToggleButtonStyle}"
@@ -738,22 +754,6 @@
                                                 </AppBarToggleButton.Icon>
                                                 <AppBarToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="F11" IsEnabled="True" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
-                                            <AppBarToggleButton
-                                                x:Name="CompactOverlayModeButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
-                                                Style="{StaticResource AppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="17"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
-                                                <AppBarToggleButton.Icon>
-                                                    <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
-                                                    <KeyboardAccelerator
-                                                        Key="M"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
                                                 </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
                                         </CommandBar.PrimaryCommands>

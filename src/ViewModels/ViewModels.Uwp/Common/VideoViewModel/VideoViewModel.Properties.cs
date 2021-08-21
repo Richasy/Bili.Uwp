@@ -71,7 +71,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 发布者.
         /// </summary>
         [Reactive]
-        public PublisherViewModel Publisher { get; set; }
+        public UserViewModel Publisher { get; set; }
 
         /// <summary>
         /// 分区名称.
