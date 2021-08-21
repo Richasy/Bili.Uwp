@@ -2,7 +2,8 @@
     x:Class="Richasy.Bili.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:Richasy.Bili.App.Resources.Converter">
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
+    xmlns:uwp="using:Richasy.Shadow.Uwp">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,6 +30,11 @@
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
             <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
+
+            <uwp:ElementShadow
+                x:Key="TextShadow"
+                BlurRadius="2"
+                Opacity="0.4" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

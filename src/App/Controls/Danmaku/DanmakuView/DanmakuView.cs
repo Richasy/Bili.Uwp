@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums.App;
+using Richasy.Shadow.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -170,6 +171,18 @@ namespace Richasy.Bili.App.Controls
 
             moveStoryboard.Completed += new EventHandler<object>((senders, obj) =>
             {
+                var danmakuContent = danmaku.Children.FirstOrDefault();
+                if (danmakuContent is TextBlock txt)
+                {
+                    var shadow = Shadows.GetAttachedShadow(txt);
+                    if (shadow != null)
+                    {
+                        var shadowContext = shadow.GetElementContext(txt);
+                        shadowContext?.ClearAndDisposeResources();
+                        shadow.DisconnectElement(txt);
+                    }
+                }
+
                 container.Children.Remove(danmaku);
                 danmaku.Children.Clear();
                 danmaku = null;
@@ -366,8 +379,9 @@ namespace Richasy.Bili.App.Controls
             switch (DanmakuStyle)
             {
                 case DanmakuStyle.NoStroke:
-                case DanmakuStyle.Shadow:
                     return builder.CreateNoStrokeDanmaku();
+                case DanmakuStyle.Shadow:
+                    return builder.CreateShadowDanmaku();
                 default:
                     return await builder.CreateStrokeDanmakuAsync();
             }

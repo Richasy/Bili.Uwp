@@ -203,6 +203,7 @@ namespace Richasy.Bili.Models.Enums
         Stroke,
         NoStroke,
         Shadow,
+        DanmakuBold,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Geometry;
 using Microsoft.Graphics.Canvas.Text;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Text;
@@ -198,6 +199,50 @@ namespace Richasy.Bili.App.Controls
             var size = _model.Size * _sizeZoom;
             tx.FontSize = size;
             grid.Children.Add(tx);
+            grid.Tag = _model;
+            return grid;
+        }
+
+        /// <summary>
+        /// 创建无边框弹幕.
+        /// </summary>
+        /// <returns>弹幕容器.</returns>
+        public Grid CreateShadowDanmaku()
+        {
+            if (_model == null)
+            {
+                throw new ArgumentNullException("未传入弹幕模型.");
+            }
+
+            // 创建基础控件
+            var tx = new TextBlock();
+            tx.Text = _model.Text;
+            if (_isBold)
+            {
+                tx.FontWeight = FontWeights.Bold;
+            }
+
+            if (string.IsNullOrEmpty(_fontFamily))
+            {
+                tx.FontFamily = new FontFamily(_fontFamily);
+            }
+
+            tx.Foreground = _model.Foreground;
+            var size = _model.Size * _sizeZoom;
+            tx.FontSize = size;
+
+            var grid = new Grid();
+            var dropShadowPanel = new DropShadowPanel()
+            {
+                BlurRadius = 6,
+                ShadowOpacity = 0.6,
+                OffsetX = 0,
+                OffsetY = 0,
+                Color = _model.Color.R <= 80 ? Colors.White : Colors.Black,
+            };
+
+            dropShadowPanel.Content = tx;
+            grid.Children.Add(dropShadowPanel);
             grid.Tag = _model;
             return grid;
         }

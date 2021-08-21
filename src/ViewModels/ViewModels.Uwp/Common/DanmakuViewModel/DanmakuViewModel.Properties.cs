@@ -88,6 +88,12 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public bool IsDanmakuMerge { get; set; }
 
         /// <summary>
+        /// 是否加粗弹幕.
+        /// </summary>
+        [Reactive]
+        public bool IsDanmakuBold { get; set; }
+
+        /// <summary>
         /// 是否启用云屏蔽设置.
         /// </summary>
         [Reactive]

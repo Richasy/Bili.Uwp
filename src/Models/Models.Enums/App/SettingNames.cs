@@ -31,5 +31,6 @@ namespace Richasy.Bili.Models.Enums
         IsDanmakuMerge,
         UseCloudShieldSettings,
         DanmakuStyle,
+        IsDanmakuBold,
     }
 }

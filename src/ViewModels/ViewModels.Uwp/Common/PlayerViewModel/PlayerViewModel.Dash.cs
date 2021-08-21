@@ -135,7 +135,12 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private string GetSlimDescription(string text)
         {
-            return text.Substring(0, 20);
+            if (!string.IsNullOrEmpty(text) && text.Length > 20)
+            {
+                return text.Substring(0, 20);
+            }
+
+            return text;
         }
     }
 }
