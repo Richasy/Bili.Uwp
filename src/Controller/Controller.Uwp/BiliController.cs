@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Net.WebSockets;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Controller.Uwp.Modules;
@@ -11,6 +14,7 @@ using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.Toolkit.Uwp;
+using Windows.Networking.Sockets;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -37,6 +41,14 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly INetworkModule _networkModule;
 
         /// <summary>
+        /// 直播间套接字.
+        /// </summary>
+        private MessageWebSocket _liveWebSocket;
+        private CancellationTokenSource _liveCancellationToken;
+        private bool _isLiveSocketConnected;
+        private Task _liveConnectionTask;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BiliController"/> class.
         /// </summary>
         internal BiliController()
@@ -57,6 +69,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _playerProvider)
                 .LoadService(out _searchProvider);
 
+            InitializeLiveSocket();
             RegisterEvents();
         }
 

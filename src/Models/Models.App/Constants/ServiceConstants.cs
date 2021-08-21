@@ -328,6 +328,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 直播播放信息.
                 /// </summary>
                 public const string PlayInformation = _liveBase + "/xlive/web-room/v1/index/getRoomPlayInfo";
+
+                /// <summary>
+                /// 聊天套接字地址.
+                /// </summary>
+                public const string ChatSocket = "wss://broadcastlv.chat.bilibili.com/sub";
             }
 
             public static class Article
