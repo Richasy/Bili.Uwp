@@ -194,6 +194,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<UserSpaceVideoIterationEventArgs> UserSpaceVideoIteration;
 
         /// <summary>
+        /// 收到直播消息时发生.
+        /// </summary>
+        public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

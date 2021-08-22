@@ -126,7 +126,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangePgcEpisodeAsync(id);
         }
 
-        private async Task LoadLiveDetailAsync(int roomId, string h264Url, string h265Url)
+        private async Task LoadLiveDetailAsync(int roomId)
         {
             if (_liveDetail == null || RoomId != roomId.ToString())
             {
@@ -152,22 +152,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
-                var url = string.Empty;
-                if (string.IsNullOrEmpty(h264Url) || string.IsNullOrEmpty(h265Url))
-                {
-                    url = string.IsNullOrEmpty(h264Url) ? h265Url : h264Url;
-                }
-                else
-                {
-                    url = PreferCodec == PreferCodec.H264 ? h264Url : h265Url;
-                }
+                await Controller.ConnectToLiveRoomAsync(roomId);
+                await Controller.SendLiveHeartBeatAsync();
 
-                if (string.IsNullOrEmpty(url))
-                {
-                    // 通过API获取直播间播放地址.
-                    var data = await Controller.GetLivePlayInformationAsync(roomId);
-                    url = data.PlayLines.FirstOrDefault()?.Url;
-                }
+                var data = await Controller.GetLivePlayInformationAsync(roomId);
+                var url = data.PlayLines.FirstOrDefault()?.Url;
 
                 if (string.IsNullOrEmpty(url))
                 {
@@ -384,6 +373,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
                 _progressTimer.Tick += OnProgressTimerTickAsync;
             }
+
+            if (_heartBeatTimer == null)
+            {
+                _heartBeatTimer = new Windows.UI.Xaml.DispatcherTimer();
+                _heartBeatTimer.Interval = TimeSpan.FromSeconds(25);
+                _heartBeatTimer.Tick += OnHeartBeatTimerTickAsync;
+            }
         }
 
         private int GetPreferCodecId()
@@ -456,6 +452,19 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var seasonId = IsPgc ? Convert.ToInt32(SeasonId) : 0;
                 await Controller.ReportHistoryAsync(videoId, partId, episodeId, seasonId, _currentVideoPlayer.PlaybackSession.Position);
                 _lastReportProgress = progress;
+            }
+        }
+
+        private async void OnHeartBeatTimerTickAsync(object sender, object e)
+        {
+            if (_currentVideoPlayer == null || _currentVideoPlayer.PlaybackSession == null)
+            {
+                return;
+            }
+
+            if (_videoType == VideoType.Live)
+            {
+                await Controller.SendLiveHeartBeatAsync();
             }
         }
 

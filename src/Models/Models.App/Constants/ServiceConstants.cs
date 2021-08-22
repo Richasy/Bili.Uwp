@@ -126,6 +126,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Fid = "fid";
             public const string Action = "act";
             public const string ReSrc = "re_src";
+            public const string ActionKey = "actionKey";
         }
 
         public static class Sort
@@ -333,6 +334,11 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 聊天套接字地址.
                 /// </summary>
                 public const string ChatSocket = "wss://broadcastlv.chat.bilibili.com/sub";
+
+                /// <summary>
+                /// 进入直播间.
+                /// </summary>
+                public const string EnterRoom = _liveBase + "/xlive/app-room/v1/index/roomEntryAction";
             }
 
             public static class Article

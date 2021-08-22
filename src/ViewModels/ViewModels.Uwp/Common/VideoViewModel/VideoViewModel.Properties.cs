@@ -105,16 +105,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public string SourceCoverUrl { get; set; }
 
-        /// <summary>
-        /// 直播的H264播放地址.
-        /// </summary>
-        public string LiveH264Url { get; set; }
-
-        /// <summary>
-        /// 直播的H265播放地址.
-        /// </summary>
-        public string LiveH265Url { get; set; }
-
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoViewModel model && VideoId == model.VideoId;
 

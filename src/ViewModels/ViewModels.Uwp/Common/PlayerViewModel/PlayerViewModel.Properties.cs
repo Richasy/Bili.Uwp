@@ -49,6 +49,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private MediaPlayer _currentVideoPlayer;
 
         private DispatcherTimer _progressTimer;
+        private DispatcherTimer _heartBeatTimer;
 
         /// <summary>
         /// 单例.

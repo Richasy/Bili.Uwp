@@ -25,6 +25,21 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<bool> EnterLiveRoomAsync(int roomId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.RoomId, roomId.ToString() },
+                { Query.ActionKey, Query.AppKey },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Live.EnterRoom, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return data.IsSuccess();
+        }
+
+        /// <inheritdoc/>
         public async Task<LiveFeedResponse> GetLiveFeedsAsync(int page)
         {
             var queryParameters = new Dictionary<string, string>

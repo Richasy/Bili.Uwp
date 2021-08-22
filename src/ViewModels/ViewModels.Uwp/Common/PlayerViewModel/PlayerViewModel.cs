@@ -48,6 +48,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
+            Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
         }
 
         /// <summary>
@@ -73,19 +74,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             var videoId = string.Empty;
             var seasonId = 0;
-            var live264Url = string.Empty;
-            var live265Url = string.Empty;
 
             if (vm is VideoViewModel videoVM)
             {
                 videoId = videoVM.VideoId;
                 _videoType = videoVM.VideoType;
-
-                if (_videoType == VideoType.Live)
-                {
-                    live264Url = videoVM.LiveH264Url;
-                    live265Url = videoVM.LiveH265Url;
-                }
             }
             else if (vm is SeasonViewModel seasonVM)
             {
@@ -115,7 +108,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
                     break;
                 case VideoType.Live:
-                    await LoadLiveDetailAsync(Convert.ToInt32(videoId), live264Url, live265Url);
+                    await LoadLiveDetailAsync(Convert.ToInt32(videoId));
                     break;
                 default:
                     break;
@@ -292,6 +285,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer.Stop();
+            _heartBeatTimer.Stop();
 
             if (_interopMSS != null)
             {

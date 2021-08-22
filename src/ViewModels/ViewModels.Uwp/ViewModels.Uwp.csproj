@@ -18,6 +18,7 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
     <Compile Include="Common\PgcSeasonViewModel.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Live.cs" />
     <Compile Include="Common\UserViewModel\UserViewModel.cs" />
     <Compile Include="Common\UserViewModel\UserViewModel.Properties.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />

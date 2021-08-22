@@ -30,5 +30,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="roomId">直播间Id.</param>
         /// <returns>播放信息.</returns>
         Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId);
+
+        /// <summary>
+        /// 进入直播间.
+        /// </summary>
+        /// <param name="roomId">直播间Id.</param>
+        /// <returns>是否成功.</returns>
+        Task<bool> EnterLiveRoomAsync(int roomId);
     }
 }
