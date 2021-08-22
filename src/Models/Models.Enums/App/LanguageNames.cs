@@ -206,6 +206,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuBold,
         PlayLine,
         Quality,
+        Viewer,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

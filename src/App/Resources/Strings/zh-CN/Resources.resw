@@ -705,6 +705,9 @@
   <data name="View" xml:space="preserve">
     <value>观看</value>
   </data>
+  <data name="Viewer" xml:space="preserve">
+    <value>观看人数</value>
+  </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
   </data>

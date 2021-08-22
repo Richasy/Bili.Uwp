@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -65,7 +66,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid
+        <muxc:RefreshContainer
             x:Name="StandardFollowContainer"
             Grid.Column="1"
             HorizontalAlignment="Stretch"
@@ -75,81 +76,84 @@
                 MinWidth="200"
                 ItemOrientation="Horizontal"
                 Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
-        </Grid>
+        </muxc:RefreshContainer>
 
-        <ScrollViewer
-            x:Name="RootScrollViewer"
-            Padding="0,0,24,0"
-            HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Auto">
-            <Grid
-                x:Name="RootGrid"
-                RowSpacing="12"
-                Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <Grid.RowDefinitions>
-                    <RowDefinition x:Name="Row1" Height="Auto" />
-                    <RowDefinition x:Name="Row2" Height="Auto" />
-                    <RowDefinition x:Name="Row3" Height="Auto" />
-                </Grid.RowDefinitions>
+        <muxc:RefreshContainer>
+            <ScrollViewer
+                x:Name="RootScrollViewer"
+                Padding="0,0,24,0"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto">
                 <Grid
-                    x:Name="BannerContainer"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    CornerRadius="{StaticResource OverlayCornerRadius}">
-                    <controls:BannerView VerticalAlignment="Top" ItemsSource="{x:Bind ViewModel.BannerCollection}" />
-                </Grid>
+                    x:Name="RootGrid"
+                    RowSpacing="12"
+                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="Row1" Height="Auto" />
+                        <RowDefinition x:Name="Row2" Height="Auto" />
+                        <RowDefinition x:Name="Row3" Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid
+                        x:Name="BannerContainer"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource OverlayCornerRadius}">
+                        <controls:BannerView VerticalAlignment="Top" ItemsSource="{x:Bind ViewModel.BannerCollection}" />
+                    </Grid>
 
-                <Grid
-                    x:Name="InlineFollowContainer"
-                    Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    Visibility="Collapsed">
-                    <controls:FollowLiveView ItemOrientation="Vertical" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
-                </Grid>
+                    <Grid
+                        x:Name="InlineFollowContainer"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Visibility="Collapsed">
+                        <controls:FollowLiveView ItemOrientation="Vertical" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
+                    </Grid>
 
-                <Grid
-                    x:Name="FeedsContainer"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <controls:VerticalRepeaterView
-                        x:Name="VideoView"
-                        HeaderText="{loc:LocaleLocator Name=Recommend}"
-                        ItemsSource="{x:Bind ViewModel.RecommendLiveRoomCollection, Mode=OneWay}"
-                        MinWideItemHeight="208"
-                        MinWideItemWidth="200"
-                        RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                        <controls:VerticalRepeaterView.AdditionalContent>
-                            <Grid>
-                                <Button
-                                    x:Name="RefreshButton"
-                                    VerticalAlignment="Center"
-                                    Click="OnRefreshButtonClickAsync">
-                                    <controls:IconTextBlock
-                                        Spacing="8"
-                                        Symbol="ArrowSyncCircle16"
-                                        Text="{loc:LocaleLocator Name=Refresh}" />
-                                </Button>
-                            </Grid>
-                        </controls:VerticalRepeaterView.AdditionalContent>
-                        <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:VideoViewModel">
-                                <controls:VideoItem
-                                    IsShowAvatar="False"
-                                    IsShowDanmakuCount="False"
-                                    IsShowDuration="False"
-                                    IsShowLikeCount="False"
-                                    IsShowPlayCount="False"
-                                    IsShowReplayCount="False"
-                                    IsShowViewerCount="True"
-                                    ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </controls:VerticalRepeaterView.ItemTemplate>
-                    </controls:VerticalRepeaterView>
+                    <Grid
+                        x:Name="FeedsContainer"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <controls:VerticalRepeaterView
+                            x:Name="VideoView"
+                            HeaderText="{loc:LocaleLocator Name=Recommend}"
+                            ItemsSource="{x:Bind ViewModel.RecommendLiveRoomCollection, Mode=OneWay}"
+                            MinWideItemHeight="208"
+                            MinWideItemWidth="200"
+                            RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                            <controls:VerticalRepeaterView.AdditionalContent>
+                                <Grid>
+                                    <Button
+                                        x:Name="RefreshButton"
+                                        VerticalAlignment="Center"
+                                        Click="OnRefreshButtonClickAsync">
+                                        <controls:IconTextBlock
+                                            Spacing="8"
+                                            Symbol="ArrowSyncCircle16"
+                                            Text="{loc:LocaleLocator Name=Refresh}" />
+                                    </Button>
+                                </Grid>
+                            </controls:VerticalRepeaterView.AdditionalContent>
+                            <controls:VerticalRepeaterView.ItemTemplate>
+                                <DataTemplate x:DataType="uwp:VideoViewModel">
+                                    <controls:VideoItem
+                                        IsShowAvatar="False"
+                                        IsShowDanmakuCount="False"
+                                        IsShowDuration="False"
+                                        IsShowLikeCount="False"
+                                        IsShowPlayCount="False"
+                                        IsShowReplayCount="False"
+                                        IsShowViewerCount="True"
+                                        ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </controls:VerticalRepeaterView.ItemTemplate>
+                        </controls:VerticalRepeaterView>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </ScrollViewer>
+            </ScrollViewer>
+        </muxc:RefreshContainer>
+
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
