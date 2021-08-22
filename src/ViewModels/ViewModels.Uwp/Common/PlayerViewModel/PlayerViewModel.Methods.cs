@@ -152,9 +152,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
-                await Controller.ConnectToLiveRoomAsync(roomId);
-                await Controller.SendLiveHeartBeatAsync();
-
                 var data = await Controller.GetLivePlayInformationAsync(roomId);
                 var url = data.PlayLines.FirstOrDefault()?.Url;
 
@@ -167,6 +164,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 await InitializeLiveDashAsync(url);
+
+                await Controller.ConnectToLiveRoomAsync(roomId);
+                await Controller.SendLiveHeartBeatAsync();
             }
         }
 
