@@ -59,10 +59,12 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
-            {
-                await ViewModel.InitializeRequestFeedsAsync();
-            }
+            await ViewModel.InitializeRequestFeedsAsync();
+        }
+
+        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
+        {
+            await ViewModel.InitializeRequestFeedsAsync();
         }
     }
 }

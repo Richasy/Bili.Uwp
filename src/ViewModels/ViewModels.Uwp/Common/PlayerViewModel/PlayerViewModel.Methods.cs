@@ -361,15 +361,14 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async Task InitializeLivePlayInformationAsync(LivePlayInformation livePlayInfo)
         {
-            if (LiveQualityCollection.Count == 0)
+            LiveQualityCollection.Clear();
+            LivePlayLineCollection.Clear();
+            foreach (var q in livePlayInfo.AcceptQuality)
             {
-                foreach (var q in livePlayInfo.AcceptQuality)
+                var quality = livePlayInfo.QualityDescriptions.Where(p => p.Quality.ToString() == q).FirstOrDefault();
+                if (quality != null)
                 {
-                    var quality = livePlayInfo.QualityDescriptions.Where(p => p.Quality.ToString() == q).FirstOrDefault();
-                    if (quality != null)
-                    {
-                        LiveQualityCollection.Add(new LiveQualityViewModel(quality, quality.Quality == livePlayInfo.CurrentQuality));
-                    }
+                    LiveQualityCollection.Add(new LiveQualityViewModel(quality, quality.Quality == livePlayInfo.CurrentQuality));
                 }
             }
 

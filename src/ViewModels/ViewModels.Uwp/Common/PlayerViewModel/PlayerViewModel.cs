@@ -160,6 +160,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
             }
         }
 
@@ -199,6 +200,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 // 没有分集，弹出警告.
                 return;
+            }
+
+            try
+            {
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+            }
+            catch (Exception)
+            {
             }
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;

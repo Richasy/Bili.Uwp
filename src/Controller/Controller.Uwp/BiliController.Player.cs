@@ -28,6 +28,18 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取在线观看人数.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="cid">分P Id.</param>
+        /// <returns>观看人数.</returns>
+        public async Task<string> GetOnlineViewerCountAsync(int videoId, int cid)
+        {
+            var result = await _playerProvider.GetOnlineViewerCountAsync(videoId, cid);
+            return result;
+        }
+
+        /// <summary>
         /// 获取视频播放信息.
         /// </summary>
         /// <param name="videoId">视频Id.</param>

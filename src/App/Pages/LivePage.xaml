@@ -66,7 +66,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <muxc:RefreshContainer
+        <Grid
             x:Name="StandardFollowContainer"
             Grid.Column="1"
             HorizontalAlignment="Stretch"
@@ -76,9 +76,9 @@
                 MinWidth="200"
                 ItemOrientation="Horizontal"
                 Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
-        </muxc:RefreshContainer>
+        </Grid>
 
-        <muxc:RefreshContainer>
+        <muxc:RefreshContainer RefreshRequested="OnRefreshRequestedAsync">
             <ScrollViewer
                 x:Name="RootScrollViewer"
                 Padding="0,0,24,0"
