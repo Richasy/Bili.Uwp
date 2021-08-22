@@ -107,5 +107,11 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "desc", Required = Required.Default)]
         public string Description { get; set; }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is LiveQualityDescription description && Quality == description.Quality;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => -141866058 + Quality.GetHashCode();
     }
 }

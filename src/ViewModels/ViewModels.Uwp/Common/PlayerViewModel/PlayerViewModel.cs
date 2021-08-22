@@ -32,6 +32,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
+            LivePlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
+            LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -258,6 +260,32 @@ namespace Richasy.Bili.ViewModels.Uwp
             CheckFormatSelection();
 
             await InitializeOnlineDashVideoAsync();
+        }
+
+        /// <summary>
+        /// 修改直播清晰度.
+        /// </summary>
+        /// <param name="quality">清晰度.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangeLiveQualityAsync(int quality)
+        {
+            var playInfo = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(RoomId), quality);
+            await InitializeLivePlayInformationAsync(playInfo);
+        }
+
+        /// <summary>
+        /// 修改直播线路.
+        /// </summary>
+        /// <param name="order">线路序号.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangeLivePlayLineAsync(int order)
+        {
+            var playLine = LivePlayLineCollection.Where(p => p.Data.Order == order).FirstOrDefault()?.Data;
+            if (playLine != null)
+            {
+                CurrentPlayLine = playLine;
+                await InitializeLiveDashAsync(CurrentPlayLine.Url);
+            }
         }
 
         /// <summary>

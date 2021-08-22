@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -41,6 +42,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             FormatCollection.Clear();
             EpisodeCollection.Clear();
             SeasonCollection.Clear();
+            LiveQualityCollection.Clear();
+            LivePlayLineCollection.Clear();
+            CurrentPlayLine = null;
+            CurrentLiveQuality = null;
             _audioList.Clear();
             _videoList.Clear();
             ClearPlayer();
@@ -152,19 +157,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
-                var data = await Controller.GetLivePlayInformationAsync(roomId);
-                var url = data.PlayLines.FirstOrDefault()?.Url;
-
-                if (string.IsNullOrEmpty(url))
-                {
-                    IsPlayInformationError = true;
-                    PlayInformationErrorText = "无法获取正确的播放地址";
-
-                    return;
-                }
-
-                await InitializeLiveDashAsync(url);
-
+                await ChangeLiveQualityAsync(0);
                 await Controller.ConnectToLiveRoomAsync(roomId);
                 await Controller.SendLiveHeartBeatAsync();
             }
@@ -299,7 +292,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = _liveDetail.RoomInformation.Title;
             Subtitle = _liveDetail.RoomInformation.AreaName + " · " + _liveDetail.RoomInformation.ParentAreaName;
-            Description = _liveDetail.RoomInformation.Description;
+            var descRegex = new Regex(@"<[^>]*>");
+            Description = descRegex.Replace(_liveDetail.RoomInformation.Description, string.Empty).Trim();
             RoomId = _liveDetail.RoomInformation.RoomId.ToString();
             AvId = string.Empty;
             BvId = string.Empty;
@@ -363,6 +357,55 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             await ChangeFormatAsync(formatId);
+        }
+
+        private async Task InitializeLivePlayInformationAsync(LivePlayInformation livePlayInfo)
+        {
+            if (LiveQualityCollection.Count == 0)
+            {
+                foreach (var q in livePlayInfo.AcceptQuality)
+                {
+                    var quality = livePlayInfo.QualityDescriptions.Where(p => p.Quality.ToString() == q).FirstOrDefault();
+                    if (quality != null)
+                    {
+                        LiveQualityCollection.Add(new LiveQualityViewModel(quality, quality.Quality == livePlayInfo.CurrentQuality));
+                    }
+                }
+            }
+
+            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
+
+            var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
+            if (currentQuality == null)
+            {
+                currentQuality = LiveQualityCollection.First();
+            }
+
+            CurrentLiveQuality = currentQuality.Data;
+
+            if (CurrentPlayLine != null)
+            {
+                foreach (var item in LivePlayLineCollection)
+                {
+                    item.IsSelected = item.Data.Order == CurrentPlayLine.Order;
+                }
+
+                CurrentPlayLine = LivePlayLineCollection.Where(p => p.IsSelected).FirstOrDefault()?.Data ?? LivePlayLineCollection.First().Data;
+            }
+            else
+            {
+                CurrentPlayLine = LivePlayLineCollection.First().Data;
+            }
+
+            if (CurrentPlayLine == null)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = "无法获取正确的播放地址";
+
+                return;
+            }
+
+            await InitializeLiveDashAsync(CurrentPlayLine.Url);
         }
 
         private void InitializeTimer()
@@ -480,9 +523,19 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 PlayerStatus = PlayerStatus.End;
+                if (IsLive)
+                {
+                    var currentOrder = CurrentPlayLine == null ? -1 : CurrentPlayLine.Order;
+                    if (currentOrder == LivePlayLineCollection.Count - 1)
+                    {
+                        currentOrder = -1;
+                    }
+
+                    await ChangeLivePlayLineAsync(currentOrder + 1);
+                }
             });
         }
 

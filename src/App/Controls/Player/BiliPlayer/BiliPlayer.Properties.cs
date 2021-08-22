@@ -22,6 +22,10 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(PlayerViewModel), typeof(BiliPlayer), new PropertyMetadata(PlayerViewModel.Instance));
 
+        private const string MTCName = "MTC";
+
+        private BiliPlayerTransportControls _mediaTransport;
+
         /// <summary>
         /// 视图模型.
         /// </summary>

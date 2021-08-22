@@ -441,6 +441,9 @@
   <data name="PlayerModeDescription" xml:space="preserve">
     <value>包含播放器的基础设置和默认行为</value>
   </data>
+  <data name="PlayLine" xml:space="preserve">
+    <value>线路</value>
+  </data>
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>
   </data>
@@ -470,6 +473,9 @@
   </data>
   <data name="QRLoginTip" xml:space="preserve">
     <value>请使用移动客户端扫描下方的二维码登录</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>清晰度</value>
   </data>
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>

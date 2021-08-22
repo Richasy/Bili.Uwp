@@ -51,6 +51,8 @@ namespace Richasy.Bili.App.Controls
             _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
+            _livePlayLineListView = GetTemplateChild(LivePlayLineListViewName) as ListView;
+            _liveQualityListView = GetTemplateChild(LiveQualityListViewName) as ListView;
             _backButton = GetTemplateChild(BackButtonName) as Button;
             _backSkipButton = GetTemplateChild(BackSkipButtonName) as AppBarButton;
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as AppBarButton;
@@ -60,10 +62,32 @@ namespace Richasy.Bili.App.Controls
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
             _interactionControl.Tapped += OnInteractionControlTapped;
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
-            _formatListView.SelectionChanged += OnFormatComboBoxSelectionChangedAsync;
             _backButton.Click += OnBackButtonClick;
-            _backSkipButton.Click += OnBackSkipButtonClick;
-            _forwardSkipButton.Click += OnForwardSkipButtonClick;
+
+            if (_formatListView != null)
+            {
+                _formatListView.SelectionChanged += OnFormatListViewSelectionChangedAsync;
+            }
+
+            if (_liveQualityListView != null)
+            {
+                _liveQualityListView.SelectionChanged += OnLiveQualityListViewSelectionChangedAsync;
+            }
+
+            if (_livePlayLineListView != null)
+            {
+                _livePlayLineListView.SelectionChanged += OnLivePlayLineListViewSelectionChangedAsync;
+            }
+
+            if (_backSkipButton != null)
+            {
+                _backSkipButton.Click += OnBackSkipButtonClick;
+            }
+
+            if (_forwardSkipButton != null)
+            {
+                _forwardSkipButton.Click += OnForwardSkipButtonClick;
+            }
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -92,11 +116,27 @@ namespace Richasy.Bili.App.Controls
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
         }
 
-        private async void OnFormatComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        private async void OnFormatListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
+            }
+        }
+
+        private async void OnLivePlayLineListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (_livePlayLineListView.SelectedItem is LivePlayLineViewModel data && ViewModel.CurrentPlayLine != data.Data)
+            {
+                await ViewModel.ChangeLivePlayLineAsync(data.Data.Order);
+            }
+        }
+
+        private async void OnLiveQualityListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (_liveQualityListView.SelectedItem is LiveQualityViewModel data && ViewModel.CurrentLiveQuality != data.Data)
+            {
+                await ViewModel.ChangeLiveQualityAsync(data.Data.Quality);
             }
         }
 
@@ -251,6 +291,24 @@ namespace Richasy.Bili.App.Controls
                     (_formatListView.SelectedItem as VideoFormatViewModel).Data.Quality != ViewModel.CurrentFormat.Quality))
                 {
                     _formatListView.SelectedItem = ViewModel.FormatCollection.Where(p => p.Data.Quality == ViewModel.CurrentFormat.Quality).FirstOrDefault();
+                }
+            }
+            else if (e.PropertyName == nameof(ViewModel.CurrentLiveQuality))
+            {
+                if (ViewModel.CurrentLiveQuality != null &&
+                    (_liveQualityListView.SelectedItem == null ||
+                    (_liveQualityListView.SelectedItem as LiveQualityViewModel).Data.Quality != ViewModel.CurrentLiveQuality.Quality))
+                {
+                    _liveQualityListView.SelectedItem = ViewModel.LiveQualityCollection.Where(p => p.Data.Quality == ViewModel.CurrentLiveQuality.Quality).FirstOrDefault();
+                }
+            }
+            else if (e.PropertyName == nameof(ViewModel.CurrentPlayLine))
+            {
+                if (ViewModel.CurrentPlayLine != null &&
+                    (_livePlayLineListView.SelectedItem == null ||
+                    (_livePlayLineListView.SelectedItem as LivePlayLineViewModel).Data.Order != ViewModel.CurrentPlayLine.Order))
+                {
+                    _livePlayLineListView.SelectedItem = ViewModel.LivePlayLineCollection.Where(p => p.Data.Order == ViewModel.CurrentPlayLine.Order).FirstOrDefault();
                 }
             }
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))

@@ -39,6 +39,8 @@ namespace Richasy.Bili.App.Controls
         private const string InteractionControlName = "InteractionControl";
         private const string ControlPanelName = "ControlPanel_ControlPanelVisibilityStates_Border";
         private const string FormatListViewName = "FormatListView";
+        private const string LiveQualityListViewName = "LiveQualityListView";
+        private const string LivePlayLineListViewName = "LivePlayLineListView";
         private const string BackButtonName = "BackButton";
         private const string BackSkipButtonName = "BackSkipButton";
         private const string ForwardSkipButtonName = "ForwardSkipButton";
@@ -54,6 +56,8 @@ namespace Richasy.Bili.App.Controls
         private Rectangle _interactionControl;
         private Border _controlPanel;
         private ListView _formatListView;
+        private ListView _liveQualityListView;
+        private ListView _livePlayLineListView;
         private Button _backButton;
         private AppBarButton _backSkipButton;
         private AppBarButton _forwardSkipButton;

@@ -203,6 +203,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoFormatViewModel> FormatCollection { get; set; }
 
         /// <summary>
+        /// 直播清晰度集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<LiveQualityViewModel> LiveQualityCollection { get; set; }
+
+        /// <summary>
+        /// 直播播放线路集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<LivePlayLineViewModel> LivePlayLineCollection { get; set; }
+
+        /// <summary>
         /// PGC区块（比如PV）集合.
         /// </summary>
         [Reactive]
@@ -237,6 +249,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public VideoFormat CurrentFormat { get; set; }
+
+        /// <summary>
+        /// 当前直播播放线路.
+        /// </summary>
+        [Reactive]
+        public LivePlayLine CurrentPlayLine { get; set; }
+
+        /// <summary>
+        /// 当前直播清晰度.
+        /// </summary>
+        [Reactive]
+        public LiveQualityDescription CurrentLiveQuality { get; set; }
 
         /// <summary>
         /// 是否正在加载.

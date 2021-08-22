@@ -72,10 +72,11 @@ namespace Richasy.Bili.Controller.Uwp
         /// 获取直播间播放信息.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
+        /// <param name="quality">清晰度.</param>
         /// <returns>播放信息.</returns>
-        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId)
+        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality = 4)
         {
-            var result = await _liveProvider.GetLivePlayInformationAsync(roomId);
+            var result = await _liveProvider.GetLivePlayInformationAsync(roomId, quality);
             return result;
         }
 

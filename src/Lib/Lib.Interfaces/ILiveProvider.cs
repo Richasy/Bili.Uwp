@@ -28,8 +28,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 获取直播间播放数据.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
+        /// <param name="quality">清晰度.</param>
         /// <returns>播放信息.</returns>
-        Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId);
+        Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality);
 
         /// <summary>
         /// 进入直播间.
