@@ -31,11 +31,8 @@
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
             <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
-
-            <uwp:ElementShadow
-                x:Key="TextShadow"
-                BlurRadius="2"
-                Opacity="0.4" />
+            <converter:ColorConverter x:Key="ColorConverter" />
+            <converter:ColorConverter x:Key="BrushConverter" IsBrush="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

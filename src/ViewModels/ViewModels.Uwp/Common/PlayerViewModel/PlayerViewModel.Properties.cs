@@ -52,6 +52,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         private DispatcherTimer _heartBeatTimer;
 
         /// <summary>
+        /// 让关联视图滚动到底部.
+        /// </summary>
+        public event EventHandler RequestRelatedViewScrollToBottom;
+
+        /// <summary>
         /// 单例.
         /// </summary>
         public static PlayerViewModel Instance { get; } = new Lazy<PlayerViewModel>(() => new PlayerViewModel()).Value;
@@ -233,6 +238,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; set; }
 
         /// <summary>
+        /// 直播弹幕集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<LiveDanmakuMessage> LiveDanmakuCollection { get; set; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -399,6 +410,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PlayerStatus PlayerStatus { get; set; }
+
+        /// <summary>
+        /// 是否显示直播消息空白占位.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEmptyLiveMessage { get; set; }
 
         /// <summary>
         /// 当前的分集是否在PGC关联内容里（比如PV）.

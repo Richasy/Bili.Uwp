@@ -15,6 +15,7 @@ using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Websocket.Client;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
@@ -123,12 +124,8 @@ namespace Richasy.Bili.Controller.Uwp
         {
             CleanupLiveSocket();
 
-            _liveWebSocket = new MessageWebSocket();
-            _liveWebSocket.Control.MessageType = SocketMessageType.Binary;
-            _liveWebSocket.Control.DesiredUnsolicitedPongInterval = TimeSpan.FromSeconds(1);
-
-            _liveWebSocket.MessageReceived += OnLiveSocketMessageReceived;
-            _liveWebSocket.Closed += OnLiveSocketMessageClosed;
+            _liveWebSocket = new WebsocketClient(new Uri(ServiceConstants.Api.Live.ChatSocket));
+            _liveWebSocket.MessageReceived.Subscribe(msg => OnLiveSocketMessageReceived(msg));
         }
 
         private void CleanupLiveSocket()
@@ -151,6 +148,11 @@ namespace Richasy.Bili.Controller.Uwp
             if (_isLiveSocketConnected)
             {
                 return;
+            }
+
+            if (_liveWebSocket == null)
+            {
+                InitializeLiveSocket();
             }
 
             if (_liveConnectionTask != null && !_liveConnectionTask.IsCompleted)
@@ -445,10 +447,12 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
-                var reader = args.GetDataReader();
-                var bytes = new byte[reader.UnconsumedBufferLength];
-                reader.ReadBytes(bytes);
-                ParseLiveData(bytes);
+                using (var reader = args.GetDataReader())
+                {
+                    var bytes = new byte[reader.UnconsumedBufferLength];
+                    reader.ReadBytes(bytes);
+                    ParseLiveData(bytes);
+                }
             }
             catch (Exception)
             {

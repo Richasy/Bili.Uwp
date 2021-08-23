@@ -2,6 +2,7 @@
 
 using System;
 using Richasy.Bili.Models.App.Args;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -21,7 +22,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
                 else if (e.Type == LiveMessageType.Danmaku)
                 {
-                    // Do something.
+                    var data = e.Data as LiveDanmakuMessage;
+                    LiveDanmakuCollection.Add(data);
                 }
             });
         }

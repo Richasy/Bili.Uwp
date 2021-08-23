@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
             LivePlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
             LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
+            LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -50,6 +52,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
+            LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
         }
 
@@ -364,6 +367,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void OnLiveDanmakuCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var count = LiveDanmakuCollection.Count;
+            IsShowEmptyLiveMessage = count == 0;
+
+            if (count > 0)
+            {
+                RequestRelatedViewScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
     }

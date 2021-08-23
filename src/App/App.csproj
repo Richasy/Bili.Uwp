@@ -75,6 +75,9 @@
     <Compile Include="Controls\Player\Related\EpisodeView.xaml.cs">
       <DependentUpon>EpisodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\Related\LiveMessageView.xaml.cs">
+      <DependentUpon>LiveMessageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\Related\PgcSectionView.xaml.cs">
       <DependentUpon>PgcSectionView.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\ColorConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuStyleConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
@@ -446,6 +450,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\Related\EpisodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\LiveMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -714,7 +722,7 @@
       <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.1</Version>
+      <Version>2.6.2</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

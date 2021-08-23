@@ -36,6 +36,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowChat = false;
             IsShowReply = true;
             IsCurrentEpisodeInPgcSection = false;
+            IsShowEmptyLiveMessage = true;
+            CurrentPlayLine = null;
+            CurrentLiveQuality = null;
+            _audioList.Clear();
+            _videoList.Clear();
+            ClearPlayer();
+            IsPgc = false;
+            IsLive = false;
+
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
             RelatedVideoCollection.Clear();
@@ -44,13 +53,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             SeasonCollection.Clear();
             LiveQualityCollection.Clear();
             LivePlayLineCollection.Clear();
-            CurrentPlayLine = null;
-            CurrentLiveQuality = null;
-            _audioList.Clear();
-            _videoList.Clear();
-            ClearPlayer();
-            IsPgc = false;
-            IsLive = false;
+            LiveDanmakuCollection.Clear();
 
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
@@ -306,7 +309,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCount = string.Empty;
             ShareCount = string.Empty;
             ReplyCount = string.Empty;
-            ViewerCount = _numberToolkit.GetCountText(_liveDetail.AnchorInformation.RelationInformation.AttentionCount);
+            ViewerCount = _numberToolkit.GetCountText(_liveDetail.RoomInformation.ViewerCount);
             CoverUrl = _liveDetail.RoomInformation.Cover ?? _liveDetail.RoomInformation.Keyframe;
             var user = _liveDetail.AnchorInformation.UserBasicInformation;
             Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);

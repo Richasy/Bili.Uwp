@@ -504,6 +504,9 @@
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>
   </data>
+  <data name="RequestLivePlayInformationFailed" xml:space="preserve">
+    <value>请求直播播放信息失败</value>
+  </data>
   <data name="RequestPgcFailed" xml:space="preserve">
     <value>PGC内容请求失败</value>
   </data>

@@ -1,0 +1,75 @@
+﻿<controls:PlayerComponent
+    x:Class="Richasy.Bili.App.Controls.Player.Related.LiveMessageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
+    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" CornerRadius="{StaticResource OverlayCornerRadius}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <muxc:ItemsRepeater
+            x:Name="MessageRepeater"
+            Margin="12"
+            ItemsSource="{x:Bind ViewModel.LiveDanmakuCollection}">
+            <muxc:ItemsRepeater.Layout>
+                <muxc:StackLayout Spacing="12" />
+            </muxc:ItemsRepeater.Layout>
+            <muxc:ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="bilibili:LiveDanmakuMessage">
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Padding="2"
+                                VerticalAlignment="Center"
+                                BorderBrush="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
+                                BorderThickness="1"
+                                CornerRadius="{StaticResource ControlCornerRadius}">
+                                <TextBlock
+                                    FontSize="10"
+                                    Foreground="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
+                                    Text="{x:Bind Level}" />
+                            </Border>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind UserName}" />
+                        </Grid>
+
+                        <Border
+                            Grid.Row="1"
+                            Padding="12,8"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="{StaticResource ControlCornerRadius}">
+                            <TextBlock
+                                IsTextSelectionEnabled="True"
+                                Text="{x:Bind Text}"
+                                TextWrapping="WrapWholeWords" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </muxc:ItemsRepeater.ItemTemplate>
+        </muxc:ItemsRepeater>
+    </Grid>
+</controls:PlayerComponent>
