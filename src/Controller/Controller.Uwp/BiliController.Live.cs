@@ -16,8 +16,6 @@ using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Websocket.Client;
-using Windows.Networking.Sockets;
-using Windows.Storage.Streams;
 
 using static Richasy.Bili.Models.App.Constants.ControllerConstants.Live;
 
@@ -124,8 +122,13 @@ namespace Richasy.Bili.Controller.Uwp
         {
             CleanupLiveSocket();
 
-            _liveWebSocket = new WebsocketClient(new Uri(ServiceConstants.Api.Live.ChatSocket));
-            _liveWebSocket.MessageReceived.Subscribe(msg => OnLiveSocketMessageReceived(msg));
+            if (_liveWebSocket == null)
+            {
+                _liveWebSocket = new WebsocketClient(new Uri(ServiceConstants.Api.Live.ChatSocket));
+                _liveWebSocket.ErrorReconnectTimeout = TimeSpan.FromSeconds(30);
+                _liveWebSocket.DisconnectionHappened.Subscribe(info => OnLiveSocketDisconnected(info));
+                _liveWebSocket.MessageReceived.Subscribe(msg => OnLiveSocketMessageReceived(msg));
+            }
         }
 
         private void CleanupLiveSocket()
@@ -138,9 +141,7 @@ namespace Richasy.Bili.Controller.Uwp
             _liveCancellationToken = new CancellationTokenSource();
 
             _isLiveSocketConnected = false;
-            _liveWebSocket?.Close(1000, string.Empty);
-            _liveWebSocket?.Dispose();
-            _liveWebSocket = null;
+            _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
         }
 
         private void ConnectLiveSocket()
@@ -150,17 +151,12 @@ namespace Richasy.Bili.Controller.Uwp
                 return;
             }
 
-            if (_liveWebSocket == null)
-            {
-                InitializeLiveSocket();
-            }
-
-            if (_liveConnectionTask != null && !_liveConnectionTask.IsCompleted)
+            if (_liveWebSocket == null || (_liveConnectionTask != null && !_liveConnectionTask.IsCompleted))
             {
                 this.InitializeLiveSocket();
             }
 
-            this._liveConnectionTask = _liveWebSocket.ConnectAsync(new Uri(ServiceConstants.Api.Live.ChatSocket)).AsTask(_liveCancellationToken.Token);
+            this._liveConnectionTask = _liveWebSocket.Start();
             this._liveConnectionTask.ContinueWith((result) =>
             {
                 try
@@ -183,14 +179,9 @@ namespace Richasy.Bili.Controller.Uwp
 
         private async Task SendLiveMessageAsync(object data, int action)
         {
-            var messageWriter = new DataWriter(this._liveWebSocket.OutputStream);
             var messageText = data is string str ? str : JsonConvert.SerializeObject(data);
             var messageData = EncodeLiveData(messageText, action);
-            messageWriter.WriteBytes(messageData);
-            await messageWriter.StoreAsync().AsTask().ContinueWith((result) =>
-            {
-                messageWriter.DetachStream();
-            });
+            await _liveWebSocket.SendInstant(messageData);
         }
 
         /// <summary>
@@ -433,30 +424,43 @@ namespace Richasy.Bili.Controller.Uwp
             }
         }
 
-        private void OnLiveSocketMessageClosed(IWebSocket sender, WebSocketClosedEventArgs args)
+        private void OnLiveSocketMessageReceived(ResponseMessage msg)
         {
-            // 如果非用户操作导致失去连接，那么就重连.
-            if (_isLiveSocketConnected)
+            try
+            {
+                switch (msg.MessageType)
+                {
+                    case System.Net.WebSockets.WebSocketMessageType.Binary:
+                        ParseLiveData(msg.Binary);
+                        break;
+                    case System.Net.WebSockets.WebSocketMessageType.Close:
+                        if (_isLiveSocketConnected)
+                        {
+                            InitializeLiveSocket();
+                            ConnectLiveSocket();
+                        }
+
+                        break;
+                    case System.Net.WebSockets.WebSocketMessageType.Text:
+                        ParseMessage(msg.Text);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
             {
                 InitializeLiveSocket();
                 ConnectLiveSocket();
             }
         }
 
-        private void OnLiveSocketMessageReceived(MessageWebSocket sender, MessageWebSocketMessageReceivedEventArgs args)
+        private void OnLiveSocketDisconnected(DisconnectionInfo info)
         {
-            try
+            if (_isLiveSocketConnected)
             {
-                using (var reader = args.GetDataReader())
-                {
-                    var bytes = new byte[reader.UnconsumedBufferLength];
-                    reader.ReadBytes(bytes);
-                    ParseLiveData(bytes);
-                }
-            }
-            catch (Exception)
-            {
-                InitializeLiveSocket();
+                _isLiveSocketConnected = false;
+                _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
                 ConnectLiveSocket();
             }
         }

@@ -160,8 +160,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
-                await ChangeLiveQualityAsync(0);
                 await Controller.ConnectToLiveRoomAsync(roomId);
+                await ChangeLiveQualityAsync(0);
                 await Controller.SendLiveHeartBeatAsync();
             }
         }
