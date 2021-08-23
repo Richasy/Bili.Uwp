@@ -62,10 +62,10 @@ namespace Richasy.Bili.Toolkit.Uwp
                 view.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 view.TitleBar.ButtonForegroundColor = Colors.White;
 
-                view.TitleBar.ButtonHoverBackgroundColor = Colors.DarkGray;
+                view.TitleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 20, 20, 20);
                 view.TitleBar.ButtonHoverForegroundColor = Colors.White;
 
-                view.TitleBar.ButtonPressedBackgroundColor = Colors.Gray;
+                view.TitleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 40, 40, 40);
                 view.TitleBar.ButtonPressedForegroundColor = Colors.White;
 
                 view.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;

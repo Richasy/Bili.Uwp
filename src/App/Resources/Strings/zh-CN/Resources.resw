@@ -378,6 +378,12 @@
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
   </data>
+  <data name="NeedScaleToShowMessage" xml:space="preserve">
+    <value>当前宽度不足以显示消息，请调整应用宽度</value>
+  </data>
+  <data name="NoMessage" xml:space="preserve">
+    <value>正在等待发言</value>
+  </data>
   <data name="NormalUser" xml:space="preserve">
     <value>普通用户</value>
   </data>
@@ -441,6 +447,9 @@
   <data name="PlayerModeDescription" xml:space="preserve">
     <value>包含播放器的基础设置和默认行为</value>
   </data>
+  <data name="PlayLine" xml:space="preserve">
+    <value>线路</value>
+  </data>
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>
   </data>
@@ -471,6 +480,9 @@
   <data name="QRLoginTip" xml:space="preserve">
     <value>请使用移动客户端扫描下方的二维码登录</value>
   </data>
+  <data name="Quality" xml:space="preserve">
+    <value>清晰度</value>
+  </data>
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>
   </data>
@@ -497,6 +509,9 @@
   </data>
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>
+  </data>
+  <data name="RequestLivePlayInformationFailed" xml:space="preserve">
+    <value>请求直播播放信息失败</value>
   </data>
   <data name="RequestPgcFailed" xml:space="preserve">
     <value>PGC内容请求失败</value>
@@ -698,6 +713,9 @@
   </data>
   <data name="View" xml:space="preserve">
     <value>观看</value>
+  </data>
+  <data name="Viewer" xml:space="preserve">
+    <value>观看人数</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>

@@ -10,5 +10,6 @@ namespace Richasy.Bili.Lib.Uwp
     public partial class LiveProvider
     {
         private readonly IHttpProvider _httpProvider;
+        private readonly IAccountProvider _accountProvider;
     }
 }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
+            LivePlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
+            LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
+            LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -48,6 +52,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
+            LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
+            Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
         }
 
         /// <summary>
@@ -73,19 +79,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             var videoId = string.Empty;
             var seasonId = 0;
-            var live264Url = string.Empty;
-            var live265Url = string.Empty;
 
             if (vm is VideoViewModel videoVM)
             {
                 videoId = videoVM.VideoId;
                 _videoType = videoVM.VideoType;
-
-                if (_videoType == VideoType.Live)
-                {
-                    live264Url = videoVM.LiveH264Url;
-                    live265Url = videoVM.LiveH265Url;
-                }
             }
             else if (vm is SeasonViewModel seasonVM)
             {
@@ -115,7 +113,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
                     break;
                 case VideoType.Live:
-                    await LoadLiveDetailAsync(Convert.ToInt32(videoId), live264Url, live265Url);
+                    await LoadLiveDetailAsync(Convert.ToInt32(videoId));
                     break;
                 default:
                     break;
@@ -165,6 +163,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
             }
         }
 
@@ -204,6 +203,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 // 没有分集，弹出警告.
                 return;
+            }
+
+            try
+            {
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+            }
+            catch (Exception)
+            {
             }
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
@@ -268,6 +275,32 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 修改直播清晰度.
+        /// </summary>
+        /// <param name="quality">清晰度.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangeLiveQualityAsync(int quality)
+        {
+            var playInfo = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(RoomId), quality);
+            await InitializeLivePlayInformationAsync(playInfo);
+        }
+
+        /// <summary>
+        /// 修改直播线路.
+        /// </summary>
+        /// <param name="order">线路序号.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ChangeLivePlayLineAsync(int order)
+        {
+            var playLine = LivePlayLineCollection.Where(p => p.Data.Order == order).FirstOrDefault()?.Data;
+            if (playLine != null)
+            {
+                CurrentPlayLine = playLine;
+                await InitializeLiveDashAsync(CurrentPlayLine.Url);
+            }
+        }
+
+        /// <summary>
         /// 清理播放数据.
         /// </summary>
         public void ClearPlayer()
@@ -292,6 +325,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer.Stop();
+            _heartBeatTimer.Stop();
 
             if (_interopMSS != null)
             {
@@ -333,6 +367,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void OnLiveDanmakuCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var count = LiveDanmakuCollection.Count;
+            IsShowEmptyLiveMessage = count == 0;
+
+            if (count > 0)
+            {
+                RequestRelatedViewScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
     }

@@ -84,5 +84,11 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "p2p_type", Required = Required.Default)]
         public int P2PType { get; set; }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is LivePlayLine line && Url == line.Url;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => -1915121810 + EqualityComparer<string>.Default.GetHashCode(Url);
     }
 }

@@ -78,13 +78,17 @@
                     Content="{loc:LocaleLocator Name=Sections}"
                     Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
-            <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Hidden">
                 <Grid x:Name="DetailGrid" MaxWidth="360">
-                    <related:RelatedVideoView x:Name="RelatedVideoView" Visibility="Collapsed" />
-                    <related:VideoPartView x:Name="VideoPartView" Visibility="Collapsed" />
-                    <related:EpisodeView x:Name="EpisodeView" Visibility="Collapsed" />
-                    <related:SeasonView x:Name="SeasonView" Visibility="Collapsed" />
-                    <related:PgcSectionView x:Name="SectionView" Visibility="Collapsed" />
+                    <related:RelatedVideoView x:Name="RelatedVideoView" x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
+                    <related:VideoPartView x:Name="VideoPartView" x:Load="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
+                    <related:EpisodeView x:Name="EpisodeView" x:Load="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}" />
+                    <related:SeasonView x:Name="SeasonView" x:Load="{x:Bind ViewModel.IsShowSeason, Mode=OneWay}" />
+                    <related:PgcSectionView x:Name="SectionView" x:Load="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
+                    <related:LiveMessageView x:Name="ChatView" x:Load="{x:Bind ViewModel.IsShowChat, Mode=OneWay}" />
                 </Grid>
             </ScrollViewer>
         </muxc:NavigationView>

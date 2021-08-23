@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 
@@ -21,7 +22,14 @@ namespace Richasy.Bili.App.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            InitializeLayout();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.RequestRelatedViewScrollToBottom += OnRequestScrollToBottom;
+        }
+
+        private void OnRequestScrollToBottom(object sender, EventArgs e)
+        {
+            ContentScrollViewer.ChangeView(0, ContentScrollViewer.ExtentHeight + ContentScrollViewer.ScrollableHeight + ContentScrollViewer.VerticalOffset, 1);
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -82,16 +90,41 @@ namespace Richasy.Bili.App.Controls
 
         private void InitializeLayout()
         {
-            RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
+            if (ViewModel.IsShowRelatedVideos)
+            {
+                RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
                 Visibility.Visible : Visibility.Collapsed;
-            VideoPartView.Visibility = Nav.SelectedItem == PartsItem ?
+            }
+
+            if (ViewModel.IsShowParts)
+            {
+                VideoPartView.Visibility = Nav.SelectedItem == PartsItem ?
                 Visibility.Visible : Visibility.Collapsed;
-            EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
+            }
+
+            if (ViewModel.IsShowEpisode)
+            {
+                EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
-            SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
+            }
+
+            if (ViewModel.IsShowSeason)
+            {
+                SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
                 Visibility.Visible : Visibility.Collapsed;
-            SectionView.Visibility = Nav.SelectedItem == SectionItem ?
+            }
+
+            if (ViewModel.IsShowSection)
+            {
+                SectionView.Visibility = Nav.SelectedItem == SectionItem ?
                 Visibility.Visible : Visibility.Collapsed;
+            }
+
+            if (ViewModel.IsShowChat)
+            {
+                ChatView.Visibility = Nav.SelectedItem == ChatItem ?
+                Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 }

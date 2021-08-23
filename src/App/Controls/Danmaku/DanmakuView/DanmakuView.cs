@@ -262,6 +262,11 @@ namespace Richasy.Bili.App.Controls
             _bottomContainer.RowDefinitions.Clear();
             _scrollContainer.RowDefinitions.Clear();
 
+            if (double.IsInfinity(height))
+            {
+                return;
+            }
+
             var num = Convert.ToInt32(height / rowHieght);
             for (var i = 0; i < num; i++)
             {

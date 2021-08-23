@@ -70,6 +70,23 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             }
         }
 
+        /// <summary>
+        /// 发送弹幕.
+        /// </summary>
+        /// <param name="danmakuText">弹幕文本.</param>
+        /// <returns>发送结果.</returns>
+        public async Task<bool> SendDanmakuAsync(string danmakuText)
+        {
+            var result = false;
+            var playerVM = PlayerViewModel.Instance;
+            if (playerVM.IsLive)
+            {
+                result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText);
+            }
+
+            return result;
+        }
+
         private void Initialize()
         {
             _danmakuList = new List<DanmakuElem>();

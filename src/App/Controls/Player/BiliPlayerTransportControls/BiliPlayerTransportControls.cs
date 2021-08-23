@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
@@ -36,6 +37,7 @@ namespace Richasy.Bili.App.Controls
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
@@ -51,6 +53,8 @@ namespace Richasy.Bili.App.Controls
             _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
+            _livePlayLineListView = GetTemplateChild(LivePlayLineListViewName) as ListView;
+            _liveQualityListView = GetTemplateChild(LiveQualityListViewName) as ListView;
             _backButton = GetTemplateChild(BackButtonName) as Button;
             _backSkipButton = GetTemplateChild(BackSkipButtonName) as AppBarButton;
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as AppBarButton;
@@ -60,10 +64,32 @@ namespace Richasy.Bili.App.Controls
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
             _interactionControl.Tapped += OnInteractionControlTapped;
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
-            _formatListView.SelectionChanged += OnFormatComboBoxSelectionChangedAsync;
             _backButton.Click += OnBackButtonClick;
-            _backSkipButton.Click += OnBackSkipButtonClick;
-            _forwardSkipButton.Click += OnForwardSkipButtonClick;
+
+            if (_formatListView != null)
+            {
+                _formatListView.SelectionChanged += OnFormatListViewSelectionChangedAsync;
+            }
+
+            if (_liveQualityListView != null)
+            {
+                _liveQualityListView.SelectionChanged += OnLiveQualityListViewSelectionChangedAsync;
+            }
+
+            if (_livePlayLineListView != null)
+            {
+                _livePlayLineListView.SelectionChanged += OnLivePlayLineListViewSelectionChangedAsync;
+            }
+
+            if (_backSkipButton != null)
+            {
+                _backSkipButton.Click += OnBackSkipButtonClick;
+            }
+
+            if (_forwardSkipButton != null)
+            {
+                _forwardSkipButton.Click += OnForwardSkipButtonClick;
+            }
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -92,11 +118,37 @@ namespace Richasy.Bili.App.Controls
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
         }
 
-        private async void OnFormatComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        private void OnNewLiveDanmakuAdded(object sender, LiveDanmakuMessage e)
+        {
+            if (_danmakuView != null)
+            {
+                var myName = AccountViewModel.Instance.DisplayName;
+                var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
+                _danmakuView.AddLiveDanmakuAsync(e.Text, isOwn, e.ContentColor?.ToColor());
+            }
+        }
+
+        private async void OnFormatListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
+            }
+        }
+
+        private async void OnLivePlayLineListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (_livePlayLineListView.SelectedItem is LivePlayLineViewModel data && ViewModel.CurrentPlayLine != data.Data)
+            {
+                await ViewModel.ChangeLivePlayLineAsync(data.Data.Order);
+            }
+        }
+
+        private async void OnLiveQualityListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (_liveQualityListView.SelectedItem is LiveQualityViewModel data && ViewModel.CurrentLiveQuality != data.Data)
+            {
+                await ViewModel.ChangeLiveQualityAsync(data.Data.Quality);
             }
         }
 
@@ -253,6 +305,24 @@ namespace Richasy.Bili.App.Controls
                     _formatListView.SelectedItem = ViewModel.FormatCollection.Where(p => p.Data.Quality == ViewModel.CurrentFormat.Quality).FirstOrDefault();
                 }
             }
+            else if (e.PropertyName == nameof(ViewModel.CurrentLiveQuality))
+            {
+                if (ViewModel.CurrentLiveQuality != null &&
+                    (_liveQualityListView.SelectedItem == null ||
+                    (_liveQualityListView.SelectedItem as LiveQualityViewModel).Data.Quality != ViewModel.CurrentLiveQuality.Quality))
+                {
+                    _liveQualityListView.SelectedItem = ViewModel.LiveQualityCollection.Where(p => p.Data.Quality == ViewModel.CurrentLiveQuality.Quality).FirstOrDefault();
+                }
+            }
+            else if (e.PropertyName == nameof(ViewModel.CurrentPlayLine))
+            {
+                if (ViewModel.CurrentPlayLine != null &&
+                    (_livePlayLineListView.SelectedItem == null ||
+                    (_livePlayLineListView.SelectedItem as LivePlayLineViewModel).Data.Order != ViewModel.CurrentPlayLine.Order))
+                {
+                    _livePlayLineListView.SelectedItem = ViewModel.LivePlayLineCollection.Where(p => p.Data.Order == ViewModel.CurrentPlayLine.Order).FirstOrDefault();
+                }
+            }
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))
             {
                 CheckCurrentPlayerMode();
@@ -274,6 +344,7 @@ namespace Richasy.Bili.App.Controls
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
                     _danmakuView.ResumeDanmaku();
+                    this.Hide();
                 }
             });
         }
@@ -359,16 +430,16 @@ namespace Richasy.Bili.App.Controls
             var baseWidth = 800d;
             var baseHeight = 600d;
             var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
-            scale *= DanmakuViewModel.DanmakuZoom;
             if (scale > 1)
             {
                 scale = 1;
             }
-            else if (scale < 0.6)
+            else if (scale < 0.4)
             {
-                scale = 0.6;
+                scale = 0.4;
             }
 
+            scale *= DanmakuViewModel.DanmakuZoom;
             _danmakuView.DanmakuSizeZoom = scale;
         }
 

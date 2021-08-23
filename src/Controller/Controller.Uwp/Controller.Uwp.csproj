@@ -34,6 +34,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
+    <PackageReference Include="Websocket.Client">
+      <Version>4.3.36</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">

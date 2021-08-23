@@ -69,25 +69,34 @@
                         <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
                     </ToolTipService.ToolTip>
                 </TextBlock>
-                <StackPanel
-                    Margin="0,4,0,8"
-                    Orientation="Horizontal"
-                    Spacing="12">
+                <StackPanel Margin="0,4,0,8" Orientation="Horizontal">
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Symbol="EyeShow16"
                         Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
-                        ToolTipService.ToolTip="{loc:LocaleLocator Name=View}" />
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=View}"
+                        Visibility="{x:Bind ViewModel.PlayCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Symbol="SlideText16"
                         Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
-                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}" />
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}"
+                        Visibility="{x:Bind ViewModel.DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                     <local:IconTextBlock
+                        Margin="0,0,12,0"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Symbol="Chat16"
                         Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
-                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Reply}" />
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Reply}"
+                        Visibility="{x:Bind ViewModel.ReplyCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <local:IconTextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Symbol="EyeShow16"
+                        Text="{x:Bind ViewModel.ViewerCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
+                        Visibility="{x:Bind ViewModel.ViewerCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                 </StackPanel>
                 <TextBlock
                     x:Name="DescriptionBlock"

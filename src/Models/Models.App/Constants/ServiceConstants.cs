@@ -126,6 +126,14 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Fid = "fid";
             public const string Action = "act";
             public const string ReSrc = "re_src";
+            public const string ActionKey = "actionKey";
+            public const string Message = "msg";
+            public const string Rnd = "rnd";
+            public const string Mode = "mode";
+            public const string Pool = "pool";
+            public const string Color = "color";
+            public const string FontSize = "fontsize";
+            public const string PlayTime = "playTime";
         }
 
         public static class Sort
@@ -328,6 +336,21 @@ namespace Richasy.Bili.Models.App.Constants
                 /// 直播播放信息.
                 /// </summary>
                 public const string PlayInformation = _liveBase + "/xlive/web-room/v1/index/getRoomPlayInfo";
+
+                /// <summary>
+                /// 聊天套接字地址.
+                /// </summary>
+                public const string ChatSocket = "wss://broadcastlv.chat.bilibili.com/sub";
+
+                /// <summary>
+                /// 进入直播间.
+                /// </summary>
+                public const string EnterRoom = _liveBase + "/xlive/app-room/v1/index/roomEntryAction";
+
+                /// <summary>
+                /// 发送消息.
+                /// </summary>
+                public const string SendMessage = _liveBase + "/api/sendmsg";
             }
 
             public static class Article

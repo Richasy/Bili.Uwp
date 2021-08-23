@@ -113,7 +113,17 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async Task InitializeLiveDashAsync(string url)
         {
-            _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
+            try
+            {
+                _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
+            }
+            catch (Exception)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestLivePlayInformationFailed);
+                return;
+            }
+
             var playbackItem = _interopMSS.CreateMediaPlaybackItem();
 
             var props = playbackItem.GetDisplayProperties();

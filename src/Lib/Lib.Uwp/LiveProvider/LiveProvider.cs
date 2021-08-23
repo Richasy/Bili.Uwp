@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -19,9 +20,26 @@ namespace Richasy.Bili.Lib.Uwp
         /// Initializes a new instance of the <see cref="LiveProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络请求处理工具.</param>
-        public LiveProvider(IHttpProvider httpProvider)
+        /// <param name="accountProvider">账户工具.</param>
+        public LiveProvider(IHttpProvider httpProvider, IAccountProvider accountProvider)
         {
             _httpProvider = httpProvider;
+            _accountProvider = accountProvider;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> EnterLiveRoomAsync(int roomId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.RoomId, roomId.ToString() },
+                { Query.ActionKey, Query.AppKey },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Live.EnterRoom, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return data.IsSuccess();
         }
 
         /// <inheritdoc/>
@@ -43,13 +61,13 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId)
+        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality)
         {
             var queryParameter = new Dictionary<string, string>
             {
                 { Query.RoomId, roomId.ToString() },
                 { Query.PlayUrl, "1" },
-                { Query.Qn, "0" },
+                { Query.Qn, quality.ToString() },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.PlayInformation, queryParameter, RequestClientType.Web);
@@ -71,6 +89,36 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveRoomDetail>>(response);
             return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SendMessageAsync(int roomId, string message)
+        {
+            var queryParameter = new Dictionary<string, string>
+            {
+                { Query.Cid, roomId.ToString() },
+                { Query.MyId, _accountProvider.UserId.ToString() },
+                { Query.Message, message },
+                { Query.Rnd, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
+                { Query.Mode, "1" },
+                { Query.Pool, "0" },
+                { Query.Type, "json" },
+                { Query.Color, "16777215" },
+                { Query.FontSize, "25" },
+                { Query.PlayTime, "0.0" },
+            };
+
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Live.SendMessage, queryParameter, needToken: true);
+                var response = await _httpProvider.SendAsync(request);
+                var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+                return result.IsSuccess();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

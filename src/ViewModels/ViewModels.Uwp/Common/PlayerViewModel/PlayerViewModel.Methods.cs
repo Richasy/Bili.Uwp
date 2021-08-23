@@ -2,6 +2,8 @@
 
 using System;
 using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -35,17 +37,24 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowChat = false;
             IsShowReply = true;
             IsCurrentEpisodeInPgcSection = false;
+            IsShowEmptyLiveMessage = true;
+            CurrentPlayLine = null;
+            CurrentLiveQuality = null;
+            _audioList.Clear();
+            _videoList.Clear();
+            ClearPlayer();
+            IsPgc = false;
+            IsLive = false;
+
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
             RelatedVideoCollection.Clear();
             FormatCollection.Clear();
             EpisodeCollection.Clear();
             SeasonCollection.Clear();
-            _audioList.Clear();
-            _videoList.Clear();
-            ClearPlayer();
-            IsPgc = false;
-            IsLive = false;
+            LiveQualityCollection.Clear();
+            LivePlayLineCollection.Clear();
+            LiveDanmakuCollection.Clear();
 
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
@@ -126,7 +135,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangePgcEpisodeAsync(id);
         }
 
-        private async Task LoadLiveDetailAsync(int roomId, string h264Url, string h265Url)
+        private async Task LoadLiveDetailAsync(int roomId)
         {
             if (_liveDetail == null || RoomId != roomId.ToString())
             {
@@ -152,32 +161,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
-                var url = string.Empty;
-                if (string.IsNullOrEmpty(h264Url) || string.IsNullOrEmpty(h265Url))
-                {
-                    url = string.IsNullOrEmpty(h264Url) ? h265Url : h264Url;
-                }
-                else
-                {
-                    url = PreferCodec == PreferCodec.H264 ? h264Url : h265Url;
-                }
-
-                if (string.IsNullOrEmpty(url))
-                {
-                    // 通过API获取直播间播放地址.
-                    var data = await Controller.GetLivePlayInformationAsync(roomId);
-                    url = data.PlayLines.FirstOrDefault()?.Url;
-                }
-
-                if (string.IsNullOrEmpty(url))
-                {
-                    IsPlayInformationError = true;
-                    PlayInformationErrorText = "无法获取正确的播放地址";
-
-                    return;
-                }
-
-                await InitializeLiveDashAsync(url);
+                await Controller.ConnectToLiveRoomAsync(roomId);
+                await ChangeLiveQualityAsync(0);
+                await Controller.SendLiveHeartBeatAsync();
             }
         }
 
@@ -310,7 +296,9 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Title = _liveDetail.RoomInformation.Title;
             Subtitle = _liveDetail.RoomInformation.AreaName + " · " + _liveDetail.RoomInformation.ParentAreaName;
-            Description = _liveDetail.RoomInformation.Description;
+            var descRegex = new Regex(@"<[^>]*>");
+            var desc = descRegex.Replace(_liveDetail.RoomInformation.Description, string.Empty).Trim();
+            Description = WebUtility.HtmlDecode(desc);
             RoomId = _liveDetail.RoomInformation.RoomId.ToString();
             AvId = string.Empty;
             BvId = string.Empty;
@@ -323,7 +311,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCount = string.Empty;
             ShareCount = string.Empty;
             ReplyCount = string.Empty;
-            ViewerCount = _numberToolkit.GetCountText(_liveDetail.AnchorInformation.RelationInformation.AttentionCount);
+            ViewerCount = _numberToolkit.GetCountText(_liveDetail.RoomInformation.ViewerCount);
             CoverUrl = _liveDetail.RoomInformation.Cover ?? _liveDetail.RoomInformation.Keyframe;
             var user = _liveDetail.AnchorInformation.UserBasicInformation;
             Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);
@@ -376,6 +364,54 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangeFormatAsync(formatId);
         }
 
+        private async Task InitializeLivePlayInformationAsync(LivePlayInformation livePlayInfo)
+        {
+            LiveQualityCollection.Clear();
+            LivePlayLineCollection.Clear();
+            foreach (var q in livePlayInfo.AcceptQuality)
+            {
+                var quality = livePlayInfo.QualityDescriptions.Where(p => p.Quality.ToString() == q).FirstOrDefault();
+                if (quality != null)
+                {
+                    LiveQualityCollection.Add(new LiveQualityViewModel(quality, quality.Quality == livePlayInfo.CurrentQuality));
+                }
+            }
+
+            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
+
+            var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
+            if (currentQuality == null)
+            {
+                currentQuality = LiveQualityCollection.First();
+            }
+
+            CurrentLiveQuality = currentQuality.Data;
+
+            if (CurrentPlayLine != null)
+            {
+                foreach (var item in LivePlayLineCollection)
+                {
+                    item.IsSelected = item.Data.Order == CurrentPlayLine.Order;
+                }
+
+                CurrentPlayLine = LivePlayLineCollection.Where(p => p.IsSelected).FirstOrDefault()?.Data ?? LivePlayLineCollection.First().Data;
+            }
+            else
+            {
+                CurrentPlayLine = LivePlayLineCollection.First().Data;
+            }
+
+            if (CurrentPlayLine == null)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = "无法获取正确的播放地址";
+
+                return;
+            }
+
+            await InitializeLiveDashAsync(CurrentPlayLine.Url);
+        }
+
         private void InitializeTimer()
         {
             if (_progressTimer == null)
@@ -383,6 +419,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _progressTimer = new Windows.UI.Xaml.DispatcherTimer();
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
                 _progressTimer.Tick += OnProgressTimerTickAsync;
+            }
+
+            if (_heartBeatTimer == null)
+            {
+                _heartBeatTimer = new Windows.UI.Xaml.DispatcherTimer();
+                _heartBeatTimer.Interval = TimeSpan.FromSeconds(25);
+                _heartBeatTimer.Tick += OnHeartBeatTimerTickAsync;
             }
         }
 
@@ -459,6 +502,19 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private async void OnHeartBeatTimerTickAsync(object sender, object e)
+        {
+            if (_currentVideoPlayer == null || _currentVideoPlayer.PlaybackSession == null)
+            {
+                return;
+            }
+
+            if (_videoType == VideoType.Live)
+            {
+                await Controller.SendLiveHeartBeatAsync();
+            }
+        }
+
         private MediaPlayer InitializeMediaPlayer()
         {
             var player = new MediaPlayer();
@@ -471,9 +527,19 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 PlayerStatus = PlayerStatus.End;
+                if (IsLive)
+                {
+                    var currentOrder = CurrentPlayLine == null ? -1 : CurrentPlayLine.Order;
+                    if (currentOrder == LivePlayLineCollection.Count - 1)
+                    {
+                        currentOrder = -1;
+                    }
+
+                    await ChangeLivePlayLineAsync(currentOrder + 1);
+                }
             });
         }
 

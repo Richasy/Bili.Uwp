@@ -10,6 +10,7 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayerTransportControls/BiliPlayerTransportControls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />
@@ -30,11 +31,8 @@
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
             <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
-
-            <uwp:ElementShadow
-                x:Key="TextShadow"
-                BlurRadius="2"
-                Opacity="0.4" />
+            <converter:ColorConverter x:Key="ColorConverter" />
+            <converter:ColorConverter x:Key="BrushConverter" IsBrush="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

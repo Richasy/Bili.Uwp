@@ -204,6 +204,12 @@ namespace Richasy.Bili.Models.Enums
         NoStroke,
         Shadow,
         DanmakuBold,
+        PlayLine,
+        Quality,
+        Viewer,
+        RequestLivePlayInformationFailed,
+        NoMessage,
+        NeedScaleToShowMessage,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

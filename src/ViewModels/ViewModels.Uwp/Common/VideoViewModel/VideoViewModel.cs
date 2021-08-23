@@ -136,8 +136,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
             LimitCover(followRoom.Cover);
             Source = followRoom;
-            LiveH264Url = followRoom.PlayUrl;
-            LiveH265Url = followRoom.H265PlayUrl;
             VideoType = VideoType.Live;
         }
 
@@ -155,8 +153,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = card.AreaName;
             PartitionId = Convert.ToInt32(card.AreaId);
             LimitCover(card.Cover);
-            LiveH264Url = card.PlayUrl;
-            LiveH265Url = card.H265PlayUrl;
             Source = card;
             VideoType = VideoType.Live;
         }
