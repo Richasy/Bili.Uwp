@@ -57,6 +57,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler RequestRelatedViewScrollToBottom;
 
         /// <summary>
+        /// 有新的直播弹幕添加.
+        /// </summary>
+        public event EventHandler<LiveDanmakuMessage> NewLiveDanmakuAdded;
+
+        /// <summary>
         /// 单例.
         /// </summary>
         public static PlayerViewModel Instance { get; } = new Lazy<PlayerViewModel>(() => new PlayerViewModel()).Value;

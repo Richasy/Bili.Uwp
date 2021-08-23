@@ -29,7 +29,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnRequestScrollToBottom(object sender, EventArgs e)
         {
-            ContentScrollViewer.ChangeView(0, ContentScrollViewer.ExtentHeight, 1);
+            ContentScrollViewer.ChangeView(0, ContentScrollViewer.ExtentHeight + ContentScrollViewer.ScrollableHeight + ContentScrollViewer.VerticalOffset, 1);
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

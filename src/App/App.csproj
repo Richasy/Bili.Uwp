@@ -25,6 +25,9 @@
     <Compile Include="Controls\App\CommonImageEx.xaml.cs">
       <DependentUpon>CommonImageEx.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Danmaku\DanmakuBox.xaml.cs">
+      <DependentUpon>DanmakuBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Danmaku\DanmakuView\DanmakuView.cs" />
     <Compile Include="Controls\Danmaku\DanmakuBuilder.cs" />
     <Compile Include="Controls\Danmaku\DanmakuModel.cs" />
@@ -390,6 +393,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\CommonImageEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Danmaku\DanmakuBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -556,6 +556,15 @@
                                                         Modifiers="Control" />
                                                 </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
+                                            <AppBarButton
+                                                x:Name="PlaybackRateButton"
+                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                MediaTransportControlsHelper.DropoutOrder="10"
+                                                Visibility="Collapsed">
+                                                <AppBarButton.Icon>
+                                                    <FontIcon Glyph="&#xEC57;" />
+                                                </AppBarButton.Icon>
+                                            </AppBarButton>
                                             <AppBarSeparator
                                                 x:Name="LeftSeparator"
                                                 Width="0"
@@ -598,15 +607,6 @@
                                                 </AppBarButton.KeyboardAccelerators>
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowForward48" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarButton
-                                                x:Name="PlaybackRateButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="10"
-                                                Visibility="Collapsed">
-                                                <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xEC57;" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
                                             <AppBarSeparator
@@ -671,61 +671,8 @@
                                         Grid.Row="1"
                                         Padding="4,8"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                        BorderThickness="0,1,0,0"
-                                        ColumnSpacing="12">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <ToggleSwitch
-                                                x:Name="DanmakuVisibilityToggleSwitch"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSwitch}"
-                                                Style="{StaticResource DanmakuToggleSwitchStyle}"
-                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSwitch}" />
-                                        </StackPanel>
-                                        <TextBox
-                                            x:Name="DanmakuBox"
-                                            Style="{StaticResource DefaultTextBoxStyle}"
-                                            Grid.Column="1"
-                                            Height="28"
-                                            Padding="8,6,8,4"
-                                            HorizontalAlignment="Stretch"
-                                            PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}" />
-                                        <StackPanel
-                                            Grid.Column="2"
-                                            Orientation="Horizontal"
-                                            Spacing="8">
-                                            <Button
-                                                x:Name="DanmakuSendButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSendSettings}"
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
-                                                <icons:RegularFluentIcon Symbol="TextEffects24" />
-                                            </Button>
-                                            <Button
-                                                x:Name="DanmakuOptionButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuDisplaySettings}"
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuDisplaySettings}">
-                                                <icons:RegularFluentIcon Symbol="Settings20" />
-                                                <Button.Flyout>
-                                                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
-                                                        <local:DanmakuDisplayOptions />
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                            </Button>
-                                        </StackPanel>
+                                        BorderThickness="0,1,0,0">
+                                        <local:DanmakuBox />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1005,6 +952,16 @@
                                         Margin="12"
                                         TextWrapping="WrapWholeWords" />
                                 </Border>
+                                <ProgressBar
+                                    x:Name="BufferingProgressBar"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    Height="4"
+                                    Margin="0,2,0,0"
+                                    VerticalAlignment="Top"
+                                    IsHitTestVisible="False"
+                                    IsIndeterminate="True"
+                                    Visibility="Collapsed" />
                                 <Grid
                                     x:Name="MediaTransportControls_Command_Border"
                                     Grid.Row="2"
@@ -1219,61 +1176,8 @@
                                         Grid.Row="1"
                                         Padding="4,8"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                        BorderThickness="0,1,0,0"
-                                        ColumnSpacing="12">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <ToggleSwitch
-                                                x:Name="DanmakuVisibilityToggleSwitch"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSwitch}"
-                                                Style="{StaticResource DanmakuToggleSwitchStyle}"
-                                                IsOn="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Mode=TwoWay}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSwitch}" />
-                                        </StackPanel>
-                                        <TextBox
-                                            x:Name="DanmakuBox"
-                                            Style="{StaticResource DefaultTextBoxStyle}"
-                                            Grid.Column="1"
-                                            Height="28"
-                                            Padding="8,6,8,4"
-                                            HorizontalAlignment="Stretch"
-                                            PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}" />
-                                        <StackPanel
-                                            Grid.Column="2"
-                                            Orientation="Horizontal"
-                                            Spacing="8">
-                                            <Button
-                                                x:Name="DanmakuSendButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSendSettings}"
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
-                                                <icons:RegularFluentIcon Symbol="TextEffects24" />
-                                            </Button>
-                                            <Button
-                                                x:Name="DanmakuOptionButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuDisplaySettings}"
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuDisplaySettings}">
-                                                <icons:RegularFluentIcon Symbol="Settings20" />
-                                                <Button.Flyout>
-                                                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
-                                                        <local:DanmakuDisplayOptions />
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                            </Button>
-                                        </StackPanel>
+                                        BorderThickness="0,1,0,0">
+                                        <local:DanmakuBox />
                                     </Grid>
                                 </Grid>
                             </Grid>

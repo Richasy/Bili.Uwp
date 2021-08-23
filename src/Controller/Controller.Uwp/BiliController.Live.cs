@@ -118,6 +118,17 @@ namespace Richasy.Bili.Controller.Uwp
             }
         }
 
+        /// <summary>
+        /// 发送直播弹幕.
+        /// </summary>
+        /// <param name="roomId">直播间Id.</param>
+        /// <param name="text">弹幕文本.</param>
+        /// <returns>发送结果.</returns>
+        public async Task<bool> SendLiveDanmakuAsync(int roomId, string text)
+        {
+            return await _liveProvider.SendMessageAsync(roomId, text);
+        }
+
         private void InitializeLiveSocket()
         {
             CleanupLiveSocket();

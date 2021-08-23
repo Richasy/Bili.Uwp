@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
@@ -36,6 +37,7 @@ namespace Richasy.Bili.App.Controls
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
@@ -114,6 +116,16 @@ namespace Richasy.Bili.App.Controls
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
+        }
+
+        private void OnNewLiveDanmakuAdded(object sender, LiveDanmakuMessage e)
+        {
+            if (_danmakuView != null)
+            {
+                var myName = AccountViewModel.Instance.DisplayName;
+                var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
+                _danmakuView.AddLiveDanmakuAsync(e.Text, isOwn, e.ContentColor?.ToColor());
+            }
         }
 
         private async void OnFormatListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
@@ -332,6 +344,7 @@ namespace Richasy.Bili.App.Controls
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
                     _danmakuView.ResumeDanmaku();
+                    this.Hide();
                 }
             });
         }
@@ -417,16 +430,16 @@ namespace Richasy.Bili.App.Controls
             var baseWidth = 800d;
             var baseHeight = 600d;
             var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
-            scale *= DanmakuViewModel.DanmakuZoom;
             if (scale > 1)
             {
                 scale = 1;
             }
-            else if (scale < 0.6)
+            else if (scale < 0.4)
             {
-                scale = 0.6;
+                scale = 0.4;
             }
 
+            scale *= DanmakuViewModel.DanmakuZoom;
             _danmakuView.DanmakuSizeZoom = scale;
         }
 

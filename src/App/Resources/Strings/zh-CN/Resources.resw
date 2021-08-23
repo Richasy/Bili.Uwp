@@ -378,6 +378,12 @@
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
   </data>
+  <data name="NeedScaleToShowMessage" xml:space="preserve">
+    <value>当前宽度不足以显示消息，请调整应用宽度</value>
+  </data>
+  <data name="NoMessage" xml:space="preserve">
+    <value>正在等待发言</value>
+  </data>
   <data name="NormalUser" xml:space="preserve">
     <value>普通用户</value>
   </data>

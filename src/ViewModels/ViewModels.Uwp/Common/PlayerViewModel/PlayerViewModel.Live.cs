@@ -24,6 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     var data = e.Data as LiveDanmakuMessage;
                     LiveDanmakuCollection.Add(data);
+                    NewLiveDanmakuAdded?.Invoke(this, data);
                 }
             });
         }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
@@ -296,7 +297,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = _liveDetail.RoomInformation.Title;
             Subtitle = _liveDetail.RoomInformation.AreaName + " · " + _liveDetail.RoomInformation.ParentAreaName;
             var descRegex = new Regex(@"<[^>]*>");
-            Description = descRegex.Replace(_liveDetail.RoomInformation.Description, string.Empty).Trim();
+            var desc = descRegex.Replace(_liveDetail.RoomInformation.Description, string.Empty).Trim();
+            Description = WebUtility.HtmlDecode(desc);
             RoomId = _liveDetail.RoomInformation.RoomId.ToString();
             AvId = string.Empty;
             BvId = string.Empty;

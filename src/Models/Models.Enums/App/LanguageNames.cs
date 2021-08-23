@@ -208,6 +208,8 @@ namespace Richasy.Bili.Models.Enums
         Quality,
         Viewer,
         RequestLivePlayInformationFailed,
+        NoMessage,
+        NeedScaleToShowMessage,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
