@@ -130,5 +130,15 @@ namespace Richasy.Bili.Lib.Uwp
 
             return result.IsSuccess();
         }
+
+        /// <inheritdoc/>
+        public async Task<Mine> GetMyDataAsync()
+        {
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Mine, type: Models.Enums.RequestClientType.IOS, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<Mine>>(response);
+            UserId = result.Data.Mid;
+            return result.Data;
+        }
     }
 }

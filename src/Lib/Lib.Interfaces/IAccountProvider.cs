@@ -23,6 +23,12 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<MyInfo> GetMyInformationAsync();
 
         /// <summary>
+        /// 获取我的基本数据.
+        /// </summary>
+        /// <returns>个人数据.</returns>
+        Task<Mine> GetMyDataAsync();
+
+        /// <summary>
         /// 获取用户主页信息.
         /// </summary>
         /// <param name="userId">用户Id.</param>

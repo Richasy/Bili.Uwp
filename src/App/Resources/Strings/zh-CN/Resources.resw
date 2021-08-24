@@ -237,6 +237,9 @@
   <data name="DomesticAnime" xml:space="preserve">
     <value>国创</value>
   </data>
+  <data name="DynamicCount" xml:space="preserve">
+    <value>动态数</value>
+  </data>
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
@@ -722,6 +725,9 @@
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
+  </data>
+  <data name="Vip" xml:space="preserve">
+    <value>大会员</value>
   </data>
   <data name="WholePartitions" xml:space="preserve">
     <value>全区</value>

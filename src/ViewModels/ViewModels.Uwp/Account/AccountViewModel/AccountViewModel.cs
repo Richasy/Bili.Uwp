@@ -24,9 +24,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller.Logged += OnLoggedAsync;
             _controller.LoggedFailed += OnLoggedFailed;
             _controller.LoggedOut += OnLoggedOut;
-            _controller.AccountChanged += OnAccountChanged;
+            _controller.AccountChanged += OnAccountChangedAsync;
             Status = AccountViewModelStatus.Logout;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            ServiceLocator.Instance.LoadService(out _resourceToolkit)
+                                   .LoadService(out _numberToolkit);
             Reset();
         }
 
@@ -94,7 +95,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private void OnAccountChanged(object sender, MyInfo e)
+        private async void OnAccountChangedAsync(object sender, MyInfo e)
         {
             if (e != null)
             {
@@ -104,6 +105,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Level = e.Level;
                 TipText = $"{e.Name} Lv.{e.Level}";
                 IsVip = e.VIP.Status == 1;
+
+                var data = await _controller.GetMyDataAsync();
+                DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
+                FollowCount = _numberToolkit.GetCountText(data.FollowCount);
+                FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
             }
         }
 

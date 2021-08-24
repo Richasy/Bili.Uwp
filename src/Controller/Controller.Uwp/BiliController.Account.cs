@@ -52,6 +52,17 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取我的用户数据.
+        /// </summary>
+        /// <returns>用户数据.</returns>
+        public async Task<Mine> GetMyDataAsync()
+        {
+            ThrowWhenNetworkUnavaliable();
+            var data = await _accountProvider.GetMyDataAsync();
+            return data;
+        }
+
+        /// <summary>
         /// 获取历史记录标签页.
         /// </summary>
         /// <returns>历史记录标签页.</returns>

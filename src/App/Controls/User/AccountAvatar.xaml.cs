@@ -90,21 +90,32 @@ namespace Richasy.Bili.App.Controls
 
         private void OnNavigateButtonClick(object sender, RoutedEventArgs e)
         {
-            var btn = sender as AppBarButton;
+            var btn = sender as FrameworkElement;
             var pageId = NavigationExtension.GetPageId(btn);
             AppViewModel.Instance.SetOverlayContentId(pageId);
+            HideFlyout();
         }
 
         private async void OnSignOutButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
+            HideFlyout();
             await AccountViewModel.Instance.SignOutAsync();
         }
 
         private async void OnNavigateToMyHomePageButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
+            HideFlyout();
             await Launcher.LaunchUriAsync(new Uri($"https://space.bilibili.com/{AccountViewModel.Instance.Mid}/")).AsTask();
+        }
+
+        private void OnRequestCloseFlyout(object sender, EventArgs e)
+        {
+            HideFlyout();
+        }
+
+        private void HideFlyout()
+        {
+            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
         }
     }
 }

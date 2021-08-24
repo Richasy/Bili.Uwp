@@ -36,6 +36,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private readonly BiliController _controller;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly INumberToolkit _numberToolkit;
         private MyInfo _myInfo;
 
         /// <summary>
@@ -83,5 +84,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsVip { get; set; }
+
+        /// <summary>
+        /// 动态数.
+        /// </summary>
+        [Reactive]
+        public string DynamicCount { get; set; }
+
+        /// <summary>
+        /// 粉丝数.
+        /// </summary>
+        [Reactive]
+        public string FollowerCount { get; set; }
+
+        /// <summary>
+        /// 关注人数.
+        /// </summary>
+        [Reactive]
+        public string FollowCount { get; set; }
     }
 }

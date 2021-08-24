@@ -4,103 +4,67 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <muxc:CommandBarFlyout x:Key="AvatarFlyout" Placement="Bottom">
-            <muxc:CommandBarFlyout.SecondaryCommands>
-                <AppBarElementContainer>
-                    <Grid
-                        MinWidth="260"
-                        MaxWidth="320"
-                        Padding="12,8"
-                        ColumnSpacing="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <local:UserAvatar
-                            Width="40"
-                            Height="40"
-                            Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
-                            DecodeSize="80"
-                            UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Spacing="4">
-                            <TextBlock
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                HorizontalAlignment="Left"
-                                Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
-                                TextTrimming="CharacterEllipsis" />
-                            <Image
-                                Height="10"
-                                HorizontalAlignment="Left"
-                                Source="{x:Bind ViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
-                        </StackPanel>
-                    </Grid>
-                </AppBarElementContainer>
-                <AppBarSeparator />
-                <AppBarButton Click="OnNavigateToMyHomePageButtonClickAsync" Label="{loc:LocaleLocator Name=MyWebPage}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="Globe16" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton
-                    ext:NavigationExtension.PageId="DynamicFeed"
-                    Click="OnNavigateButtonClick"
-                    Label="{loc:LocaleLocator Name=DynamicFeed}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="DesignIdeas16" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton
-                    ext:NavigationExtension.PageId="Message"
-                    Click="OnNavigateButtonClick"
-                    Label="{loc:LocaleLocator Name=Message}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="Chat16" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton
-                    ext:NavigationExtension.PageId="MyFavorite"
-                    Click="OnNavigateButtonClick"
-                    Label="{loc:LocaleLocator Name=MyFavorite}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="StarLineHorizontal320" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton
-                    ext:NavigationExtension.PageId="SeeLater"
-                    Click="OnNavigateButtonClick"
-                    Label="{loc:LocaleLocator Name=SeeLater}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="CalendarClock16" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton
-                    ext:NavigationExtension.PageId="ViewHistory"
-                    Click="OnNavigateButtonClick"
-                    Label="{loc:LocaleLocator Name=ViewHistory}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Symbol="History20" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarSeparator />
-                <AppBarButton Click="OnSignOutButtonClickAsync" Label="{loc:LocaleLocator Name=SignOut}">
-                    <AppBarButton.Icon>
-                        <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="SignOut20" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </muxc:CommandBarFlyout.SecondaryCommands>
-        </muxc:CommandBarFlyout>
+        <Flyout
+            x:Key="AvatarFlyout"
+            FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}"
+            Placement="Bottom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <local:AccountPanel MinWidth="280" RequestCloseFlyout="OnRequestCloseFlyout" />
+                <StackPanel Grid.Row="1" Spacing="4">
+                    <StackPanel.Resources>
+                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Padding" Value="12,8" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Click="OnNavigateToMyHomePageButtonClickAsync">
+                        <local:IconTextBlock Symbol="Globe16" Text="{loc:LocaleLocator Name=MyWebPage}" />
+                    </Button>
+                    <Button ext:NavigationExtension.PageId="DynamicFeed" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="DesignIdeas16" Text="{loc:LocaleLocator Name=DynamicFeed}" />
+                    </Button>
+                    <Button ext:NavigationExtension.PageId="Message" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="Chat16" Text="{loc:LocaleLocator Name=Message}" />
+                    </Button>
+                    <Button ext:NavigationExtension.PageId="MyFavorite" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="StarLineHorizontal320" Text="{loc:LocaleLocator Name=MyFavorite}" />
+                    </Button>
+                    <Button ext:NavigationExtension.PageId="SeeLater" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="CalendarClock16" Text="{loc:LocaleLocator Name=SeeLater}" />
+                    </Button>
+                    <Button ext:NavigationExtension.PageId="ViewHistory" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="History20" Text="{loc:LocaleLocator Name=ViewHistory}" />
+                    </Button>
+                    <StackPanel
+                        Height="1"
+                        HorizontalAlignment="Stretch"
+                        Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
+                    <Button Click="OnSignOutButtonClickAsync">
+                        <local:IconTextBlock
+                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                            Symbol="SignOut20"
+                            Text="{loc:LocaleLocator Name=SignOut}" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Flyout>
     </UserControl.Resources>
 
     <Grid ToolTipService.ToolTip="{x:Bind ViewModel.TipText, Mode=OneWay}">

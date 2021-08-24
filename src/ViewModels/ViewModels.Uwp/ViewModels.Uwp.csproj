@@ -21,8 +21,8 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
     <Compile Include="Common\PgcSeasonViewModel.cs" />
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Live.cs" />
-    <Compile Include="Common\UserViewModel\UserViewModel.cs" />
-    <Compile Include="Common\UserViewModel\UserViewModel.Properties.cs" />
+    <Compile Include="Account\UserViewModel\UserViewModel.cs" />
+    <Compile Include="Account\UserViewModel\UserViewModel.Properties.cs" />
     <Compile Include="Account\HistoryViewModel\HistoryViewModel.cs" />
     <Compile Include="Account\HistoryViewModel\HistoryViewModel.Properties.cs" />
     <Compile Include="Common\HistoryTabViewModel.cs" />
@@ -76,8 +76,8 @@
     <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
     <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
-    <Compile Include="Common\AccountViewModel\AccountViewModel.cs" />
-    <Compile Include="Common\AccountViewModel\AccountViewModel.Properties.cs" />
+    <Compile Include="Account\AccountViewModel\AccountViewModel.cs" />
+    <Compile Include="Account\AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
