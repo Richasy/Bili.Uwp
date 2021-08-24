@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -44,7 +44,7 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<List<PgcTab>> GetTabAsync(PgcType type)
         {
             var queryParameters = GetTabQueryParameters(type);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.Tab, queryParameters, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.Tab, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<List<PgcTab>>>(response);
             return data.Data;
@@ -61,7 +61,7 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0)
         {
             var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.SeasonDetail, queryParameters, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
             return data.Data;

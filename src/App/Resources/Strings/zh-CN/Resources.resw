@@ -507,6 +507,9 @@
   <data name="RequestFeedDetailFailed" xml:space="preserve">
     <value>数据源详情请求失败</value>
   </data>
+  <data name="RequestHistoryFailed" xml:space="preserve">
+    <value>请求观看历史失败</value>
+  </data>
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>
   </data>

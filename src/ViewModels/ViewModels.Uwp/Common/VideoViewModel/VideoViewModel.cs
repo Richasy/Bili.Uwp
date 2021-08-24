@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Bilibili.App.Card.V1;
+using Bilibili.App.Interfaces.V1;
 using Bilibili.App.Show.V1;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
@@ -232,6 +234,43 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new UserViewModel(item.PublisherName);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
             LimitCover(item.Cover);
+            Source = item;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="item">历史记录条目.</param>
+        public VideoViewModel(CursorItem item)
+            : this()
+        {
+            VideoType = item.CardItemCase == CursorItem.CardItemOneofCase.CardUgc ? VideoType.Video : VideoType.Pgc;
+            Title = item.Title;
+            VideoId = item.Kid.ToString();
+            if (VideoType == VideoType.Video)
+            {
+                var video = item.CardUgc;
+                PlayCount = _numberToolkit.GetCountText(video.View);
+                Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
+                Publisher = new UserViewModel(video.Name, userId: Convert.ToInt32(video.Mid));
+                LimitCover(video.Cover);
+            }
+            else if (VideoType == VideoType.Pgc)
+            {
+                var pgc = item.CardOgv;
+                var uri = new Uri(item.Uri);
+                var episodeId = uri.Segments.Where(p => p.Contains("ep")).FirstOrDefault()?.Replace("ep", string.Empty);
+                if (!string.IsNullOrEmpty(episodeId))
+                {
+                    VideoId = episodeId;
+                }
+
+                PlayCount = "--";
+                Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(pgc.Duration));
+                Publisher = new UserViewModel("--");
+                LimitCover(pgc.Cover);
+            }
+
             Source = item;
         }
 

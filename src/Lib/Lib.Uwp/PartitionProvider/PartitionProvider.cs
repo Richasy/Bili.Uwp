@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
@@ -25,7 +26,7 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<IEnumerable<Partition>> GetPartitionIndexAsync()
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Partition.PartitionIndex);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Partition.PartitionIndex);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<List<Partition>>>(response);
 
@@ -47,17 +48,17 @@ namespace Richasy.Bili.Lib.Uwp
 
             if (isRecommend)
             {
-                requestUrl = isOffset ? Api.Partition.SubPartitionRecommendOffset : Api.Partition.SubPartitionRecommend;
+                requestUrl = isOffset ? ApiConstants.Partition.SubPartitionRecommendOffset : ApiConstants.Partition.SubPartitionRecommend;
             }
             else
             {
                 if (!isDefaultOrder)
                 {
-                    requestUrl = Api.Partition.SubPartitionOrderOffset;
+                    requestUrl = ApiConstants.Partition.SubPartitionOrderOffset;
                 }
                 else
                 {
-                    requestUrl = isOffset ? Api.Partition.SubPartitionNormalOffset : Api.Partition.SubPartitionNormal;
+                    requestUrl = isOffset ? ApiConstants.Partition.SubPartitionNormalOffset : ApiConstants.Partition.SubPartitionNormal;
                 }
             }
 

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -36,7 +38,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.ActionKey, Query.AppKey },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Live.EnterRoom, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.EnterRoom, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse>(response);
             return data.IsSuccess();
@@ -53,7 +55,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.LoginEvent, "1" },
                 { Query.Device, "phone" },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.LiveFeed, queryParameters, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveFeed, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveFeedResponse>>(response);
 
@@ -70,7 +72,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Qn, quality.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.PlayInformation, queryParameter, RequestClientType.Web);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.PlayInformation, queryParameter, RequestClientType.Web);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LivePlayUrlResponse>>(response);
             return result.Data.Information;
@@ -85,7 +87,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Device, "phone" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Live.RoomDetail, queryParameter, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.RoomDetail, queryParameter, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveRoomDetail>>(response);
             return result.Data;
@@ -110,7 +112,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             try
             {
-                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Live.SendMessage, queryParameter, needToken: true);
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.SendMessage, queryParameter, needToken: true);
                 var response = await _httpProvider.SendAsync(request);
                 var result = await _httpProvider.ParseAsync<ServerResponse>(response);
                 return result.IsSuccess();

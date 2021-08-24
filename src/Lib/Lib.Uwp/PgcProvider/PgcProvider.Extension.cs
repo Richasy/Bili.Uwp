@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
@@ -99,7 +100,7 @@ namespace Richasy.Bili.Lib.Uwp
 
         private async Task<PgcResponse> GetPgcResponseInternalAsync(Dictionary<string, string> queryParameters)
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Pgc.PageDetail, queryParameters, RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Pgc.PageDetail, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcResponse>>(response);
             return data.Result;

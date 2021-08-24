@@ -12,6 +12,8 @@ using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums.Bili;
+
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -40,7 +42,7 @@ namespace Richasy.Bili.Lib.Uwp
                 Aid = videoId,
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.Detail, viewRequest);
+            var request = await _httpProvider.GetRequestMessageAsync(Video.Detail, viewRequest);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, ViewReply.Parser);
             return data;
@@ -56,10 +58,10 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Device, "phone" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Video.OnlineViewerCount, queryParameters, Models.Enums.RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.OnlineViewerCount, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<OnlineViewerResponse>>(response);
-            return data.Data.Data.DisplayText;
+            return data.Data != null ? data.Data.Data.DisplayText : "--";
         }
 
         /// <inheritdoc/>
@@ -84,7 +86,7 @@ namespace Richasy.Bili.Lib.Uwp
                 Type = 1,
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.DanmakuMetaData, req);
+            var request = await _httpProvider.GetRequestMessageAsync(Video.DanmakuMetaData, req);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DmViewReply.Parser);
             return result;
@@ -101,7 +103,7 @@ namespace Richasy.Bili.Lib.Uwp
                 Type = 1,
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Video.SegmentDanmaku, req);
+            var request = await _httpProvider.GetRequestMessageAsync(Video.SegmentDanmaku, req);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DmSegMobileReply.Parser);
             return result;
@@ -117,7 +119,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Progress, progress.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;
@@ -133,7 +135,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Progress, progress.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;
@@ -150,7 +152,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             try
             {
-                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Like, queryParameters, needToken: true);
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Like, queryParameters, needToken: true);
                 var response = await _httpProvider.SendAsync(request, GetExpiryToken());
                 var result = await _httpProvider.ParseAsync<ServerResponse>(response);
                 return result.Code == 0;
@@ -170,7 +172,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Multiply, number.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Coin, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Coin, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request, GetExpiryToken());
             var result = await _httpProvider.ParseAsync<ServerResponse<CoinResult>>(response);
             return result.Data;
@@ -195,7 +197,7 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(Query.DeleteFavoriteIds, string.Join(',', needAddFavoriteList));
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);
             try
             {
                 var response = await _httpProvider.SendAsync(request, GetExpiryToken());
@@ -217,7 +219,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Aid, videoId.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Video.Triple, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Triple, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request, GetExpiryToken());
             var result = await _httpProvider.ParseAsync<ServerResponse<TripleResult>>(response);
             return result.Data;

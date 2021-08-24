@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Pages
+namespace Richasy.Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.

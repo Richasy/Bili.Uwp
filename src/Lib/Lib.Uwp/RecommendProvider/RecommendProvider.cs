@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
+
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -38,7 +40,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             var request = await _httpProvider.GetRequestMessageAsync(
                 HttpMethod.Get,
-                Api.Home.Recommend,
+                Home.Recommend,
                 queryParameters,
                 Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);

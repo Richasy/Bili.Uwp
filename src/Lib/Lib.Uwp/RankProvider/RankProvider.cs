@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.Show.V1;
 using Richasy.Bili.Lib.Interfaces;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -27,7 +28,7 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<List<Item>> GetRankDetailAsync(int partitionId)
         {
             var rankRequst = new RankRegionResultReq() { Rid = partitionId };
-            var request = await _httpProvider.GetRequestMessageAsync(Api.Home.RankingGRPC, rankRequst);
+            var request = await _httpProvider.GetRequestMessageAsync(Home.RankingGRPC, rankRequst);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, RankListReply.Parser);
             return data.Items.ToList();
