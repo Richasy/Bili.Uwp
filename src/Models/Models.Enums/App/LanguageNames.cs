@@ -124,8 +124,6 @@ namespace Richasy.Bili.Models.Enums
         Default,
         FullScreenMode,
         FullWindowMode,
-        HideRepeaterItemWhenScrolling,
-        HideRepeaterItemWhenScrollingDescription,
         PlayerControl,
         PlayerControlDescription,
         Prefer4K,

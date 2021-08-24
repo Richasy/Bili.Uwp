@@ -7,9 +7,7 @@ namespace Richasy.Bili.Models.Enums
     /// </summary>
     public enum SettingNames
     {
-        /// <summary>
-        /// Application theme.
-        /// </summary>
+#pragma warning disable SA1602 // Enumeration items should be documented
         AppTheme,
         BiliUserId,
         AuthorizeResult,
@@ -17,7 +15,6 @@ namespace Richasy.Bili.Models.Enums
         IsStartup,
         IsAutoPlayWhenLoaded,
         DefaultPlayerDisplayMode,
-        IsEnableHideRepeaterItemWhenScrolling,
         IsPrefer4K,
         PreferCodec,
         SingleFastForwardAndRewindSpan,
@@ -32,5 +29,6 @@ namespace Richasy.Bili.Models.Enums
         UseCloudShieldSettings,
         DanmakuStyle,
         IsDanmakuBold,
+#pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

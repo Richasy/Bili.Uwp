@@ -35,7 +35,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             _initializeTheme = AppTheme;
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-            IsEnableHideRepeaterItemWhenScrolling = ReadSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, true);
             IsPrefer4K = ReadSetting(SettingNames.IsPrefer4K, false);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PreferCodecInit();
@@ -65,9 +64,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(DefaultPlayerDisplayMode):
                     WriteSetting(SettingNames.DefaultPlayerDisplayMode, DefaultPlayerDisplayMode);
-                    break;
-                case nameof(IsEnableHideRepeaterItemWhenScrolling):
-                    WriteSetting(SettingNames.IsEnableHideRepeaterItemWhenScrolling, IsEnableHideRepeaterItemWhenScrolling);
                     break;
                 case nameof(IsPrefer4K):
                     WriteSetting(SettingNames.IsPrefer4K, IsPrefer4K);

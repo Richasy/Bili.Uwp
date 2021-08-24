@@ -58,9 +58,13 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            var animationService = ConnectedAnimationService.GetForCurrentView();
-            var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.RootContainer);
-            animate.Configuration = new DirectConnectedAnimationConfiguration();
+            // 这意味着是退回到主视图，而非切换到其它同级页面.
+            if (e.SourcePageType.Name == nameof(Page))
+            {
+                var animationService = ConnectedAnimationService.GetForCurrentView();
+                var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.RootContainer);
+                animate.Configuration = new DirectConnectedAnimationConfiguration();
+            }
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)

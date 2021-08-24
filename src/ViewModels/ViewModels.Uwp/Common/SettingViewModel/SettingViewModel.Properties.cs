@@ -77,12 +77,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsAutoPlayWhenLoaded { get; set; }
 
         /// <summary>
-        /// 是否在需要的时候，滚动时隐藏条目以提高性能.
-        /// </summary>
-        [Reactive]
-        public bool IsEnableHideRepeaterItemWhenScrolling { get; set; }
-
-        /// <summary>
         /// 默认播放器显示模式.
         /// </summary>
         [Reactive]

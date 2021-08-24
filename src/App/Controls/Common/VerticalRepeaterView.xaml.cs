@@ -215,19 +215,12 @@ namespace Richasy.Bili.App.Controls
         {
             if (!e.IsIntermediate && _parentScrollViewer != null)
             {
-                AppViewModel.Instance.IsNeedHideWhenScrolling = false;
                 var currentPosition = _parentScrollViewer.VerticalOffset;
                 if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
                     this.Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
                 }
-            }
-            else
-            {
-                AppViewModel.Instance.IsNeedHideWhenScrolling = this.ItemOrientation == Orientation.Vertical &&
-                    SettingViewModel.Instance.IsEnableHideRepeaterItemWhenScrolling &&
-                    this.ActualWidth >= 210 * 8;
             }
         }
 

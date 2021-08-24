@@ -55,7 +55,7 @@
                                     <Grid
                                         Padding="8,4"
                                         HorizontalAlignment="Left"
-                                        Background="{ThemeResource AccentMaskAcrylicBrush}"
+                                        Background="{ThemeResource AccentMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"

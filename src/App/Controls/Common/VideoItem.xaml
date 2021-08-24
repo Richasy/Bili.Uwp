@@ -59,7 +59,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Visibility="{x:Bind AppViewModel.IsNeedHideWhenScrolling, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Row1" Height="Auto" />
                 <RowDefinition x:Name="Row2" Height="*" />
@@ -76,11 +76,12 @@
                 <local:CommonImageEx x:Name="CoverImage" ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
 
                 <Grid
+                    x:Name="DurationContainer"
                     Margin="8,0,0,8"
                     Padding="8,4"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Background="{ThemeResource AppMaskAcrylicBrush}"
+                    Background="{ThemeResource AppMaskBrush}"
                     CornerRadius="{StaticResource ControlCornerRadius}"
                     RequestedTheme="Dark"
                     Visibility="{x:Bind IsShowDuration, Mode=OneWay}">

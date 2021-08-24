@@ -11,6 +11,16 @@
         TintOpacity="0.8" />
 
     <SolidColorBrush
+        x:Key="AppMaskBrush"
+        Opacity="0.6"
+        Color="White" />
+
+    <SolidColorBrush
+        x:Key="AccentMaskBrush"
+        Opacity="0.8"
+        Color="{ThemeResource SystemAccentColorLight2}" />
+
+    <SolidColorBrush
         x:Key="AccentBadgeBackground"
         Opacity="0.4"
         Color="{ThemeResource SystemAccentColorDark1}" />

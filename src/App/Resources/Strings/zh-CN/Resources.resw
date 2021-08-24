@@ -306,12 +306,6 @@
   <data name="HideDanmaku" xml:space="preserve">
     <value>隐藏弹幕</value>
   </data>
-  <data name="HideRepeaterItemWhenScrolling" xml:space="preserve">
-    <value>滚动时隐藏条目</value>
-  </data>
-  <data name="HideRepeaterItemWhenScrollingDescription" xml:space="preserve">
-    <value>在网格视图中，达到一定宽度后滚动时自动隐藏条目以提高滚动性能</value>
-  </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
   </data>
