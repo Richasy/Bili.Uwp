@@ -428,6 +428,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsCurrentEpisodeInPgcSection { get; set; }
 
+        /// <summary>
+        /// 显示的播放历史文本.
+        /// </summary>
+        [Reactive]
+        public string HistoryText { get; set; }
+
+        /// <summary>
+        /// 是否显示播放历史跳转提醒.
+        /// </summary>
+        [Reactive]
+        public bool IsShowHistory { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

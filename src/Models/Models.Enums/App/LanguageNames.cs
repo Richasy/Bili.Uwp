@@ -212,6 +212,7 @@ namespace Richasy.Bili.Models.Enums
         NeedScaleToShowMessage,
         RequestHistoryFailed,
         Delete,
+        PreviousView,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

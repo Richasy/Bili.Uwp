@@ -477,6 +477,9 @@
   <data name="PrelaunchDescription" xml:space="preserve">
     <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
   </data>
+  <data name="PreviousView" xml:space="preserve">
+    <value>上次观看：</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>
