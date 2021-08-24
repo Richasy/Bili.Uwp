@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 
@@ -45,6 +48,61 @@ namespace Richasy.Bili.Controller.Uwp
                 {
                     Debug.WriteLine(ex.Message);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 获取历史记录标签页.
+        /// </summary>
+        /// <returns>历史记录标签页.</returns>
+        [Obsolete]
+        public async Task<List<CursorTab>> GetHistoryTabsAsync()
+        {
+            ThrowWhenNetworkUnavaliable();
+            var data = await _accountProvider.GetMyHistoryTabsAsync();
+            var tabs = data.Tab.ToList();
+            tabs.RemoveAll(p => p.Name == "goods" || p.Name == "show");
+            return tabs;
+        }
+
+        /// <summary>
+        /// 请求历史记录（目前仅请求视频）.
+        /// </summary>
+        /// <param name="cursor">偏移值.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestHistorySetAsync(Cursor cursor)
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                var data = await _accountProvider.GetMyHistorySetAsync("archive", cursor);
+                var args = new HistoryVideoIterationEventArgs(data);
+                HistoryVideoIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (cursor.Max == 0)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 删除历史记录条目.
+        /// </summary>
+        /// <param name="historyId">历史记录Id.</param>
+        /// <returns>是否删除成功.</returns>
+        public async Task<bool> RemoveHistorytemAsync(long historyId)
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                return await _accountProvider.RemoveHistoryItemAsync("archive", historyId);
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

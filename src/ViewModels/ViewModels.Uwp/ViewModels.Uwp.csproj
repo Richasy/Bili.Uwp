@@ -23,6 +23,9 @@
     <Compile Include="Common\PlayerViewModel\PlayerViewModel.Live.cs" />
     <Compile Include="Common\UserViewModel\UserViewModel.cs" />
     <Compile Include="Common\UserViewModel\UserViewModel.Properties.cs" />
+    <Compile Include="Account\HistoryViewModel\HistoryViewModel.cs" />
+    <Compile Include="Account\HistoryViewModel\HistoryViewModel.Properties.cs" />
+    <Compile Include="Common\HistoryTabViewModel.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />

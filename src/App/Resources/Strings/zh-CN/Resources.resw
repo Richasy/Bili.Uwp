@@ -225,6 +225,9 @@
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
   </data>
@@ -474,6 +477,9 @@
   <data name="PrelaunchDescription" xml:space="preserve">
     <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
   </data>
+  <data name="PreviousView" xml:space="preserve">
+    <value>上次观看：</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>
@@ -506,6 +512,9 @@
   </data>
   <data name="RequestFeedDetailFailed" xml:space="preserve">
     <value>数据源详情请求失败</value>
+  </data>
+  <data name="RequestHistoryFailed" xml:space="preserve">
+    <value>请求观看历史失败</value>
   </data>
   <data name="RequestLiveFailed" xml:space="preserve">
     <value>直播数据请求失败</value>

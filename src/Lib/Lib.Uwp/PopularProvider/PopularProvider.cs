@@ -43,7 +43,7 @@ namespace Richasy.Bili.Lib.Uwp
                     Fnval = 464,
                 },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(Models.App.Constants.ServiceConstants.Api.Home.PopularGRPC, popularReq);
+            var request = await _httpProvider.GetRequestMessageAsync(Models.App.Constants.ApiConstants.Home.PopularGRPC, popularReq);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, PopularReply.Parser);
             return data.Items.ToList();

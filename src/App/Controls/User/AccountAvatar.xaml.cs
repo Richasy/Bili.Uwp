@@ -92,8 +92,7 @@ namespace Richasy.Bili.App.Controls
         {
             var btn = sender as AppBarButton;
             var pageId = NavigationExtension.GetPageId(btn);
-            AppViewModel.Instance.HeaderText = btn.Label;
-            AppViewModel.Instance.SetMainContentId(pageId);
+            AppViewModel.Instance.SetOverlayContentId(pageId);
         }
 
         private async void OnSignOutButtonClickAsync(object sender, RoutedEventArgs e)

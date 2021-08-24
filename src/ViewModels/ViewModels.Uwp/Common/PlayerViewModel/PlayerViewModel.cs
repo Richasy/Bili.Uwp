@@ -161,6 +161,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (_dashInformation != null)
             {
                 ClearPlayer();
+
+                if (_videoDetail.History != null && _videoDetail.History.Cid == partId)
+                {
+                    _initializeProgress = TimeSpan.FromSeconds(_videoDetail.History.Progress);
+                }
+
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
                 ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
@@ -351,6 +357,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     _currentVideoPlayer.Play();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 跳转到之前的历史记录.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task JumpToHistoryAsync()
+        {
+            if (_videoType == VideoType.Video)
+            {
+                await CheckVideoHistoryAsync();
             }
         }
 

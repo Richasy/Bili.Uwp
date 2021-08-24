@@ -135,7 +135,7 @@ namespace Richasy.Bili.Controller.Uwp
 
             if (_liveWebSocket == null)
             {
-                _liveWebSocket = new WebsocketClient(new Uri(ServiceConstants.Api.Live.ChatSocket));
+                _liveWebSocket = new WebsocketClient(new Uri(ApiConstants.Live.ChatSocket));
                 _liveWebSocket.ErrorReconnectTimeout = TimeSpan.FromSeconds(30);
                 _liveWebSocket.DisconnectionHappened.Subscribe(info => OnLiveSocketDisconnected(info));
                 _liveWebSocket.MessageReceived.Subscribe(msg => OnLiveSocketMessageReceived(msg));

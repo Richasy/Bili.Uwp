@@ -3,8 +3,10 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -29,11 +31,57 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<MyInfo> GetMyInformationAsync()
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.MyInfo, type: Models.Enums.RequestClientType.IOS, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyInfo, type: Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<MyInfo>>(response);
             UserId = result.Data.Mid;
             return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<CursorV2Reply> GetMyHistorySetAsync(string tabSign, Cursor cursor)
+        {
+            var req = new CursorV2Req
+            {
+                Business = tabSign,
+                Cursor = cursor,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Account.HistoryCursor, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, CursorV2Reply.Parser);
+            return data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<HistoryTabReply> GetMyHistoryTabsAsync()
+        {
+            var req = new HistoryTabReq
+            {
+                Source = HistorySource.HistoryValue,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Account.HistoryTabs, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, HistoryTabReply.Parser);
+            return data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId)
+        {
+            var req = new DeleteReq
+            {
+                HisInfo = new HisInfo
+                {
+                    Business = tabSign,
+                    Kid = itemId,
+                },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Account.DeleteHistoryItem, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            return true;
         }
 
         /// <inheritdoc/>
@@ -44,7 +92,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.VMid, userId.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.Space, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Space, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
             return result.Data;
@@ -60,7 +108,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Order, "pubdate" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Account.VideoCursor, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoCursor, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
             return result.Data;
@@ -76,7 +124,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Action, isFollow ? "1" : "2" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Account.ModifyRelation, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ModifyRelation, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
 

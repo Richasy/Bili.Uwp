@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Richasy.Bili.App.Pages;
+using Richasy.Bili.App.Pages.Overlay;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
@@ -139,18 +140,6 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Live:
                     pageType = typeof(LivePage);
                     break;
-                case PageIds.DynamicFeed:
-                    pageType = typeof(DynamicFeedPage);
-                    break;
-                case PageIds.MyFavorite:
-                    pageType = typeof(MyFavoritePage);
-                    break;
-                case PageIds.SeeLater:
-                    pageType = typeof(SeeLaterPage);
-                    break;
-                case PageIds.ViewHistory:
-                    pageType = typeof(ViewHistoryPage);
-                    break;
                 case PageIds.Help:
                     pageType = typeof(HelpPage);
                     break;
@@ -196,16 +185,29 @@ namespace Richasy.Bili.App.Controls
             switch (pageId)
             {
                 case PageIds.PartitionDetail:
-                    pageType = typeof(Pages.Overlay.PartitionDetailPage);
+                    pageType = typeof(PartitionDetailPage);
                     break;
                 case PageIds.Search:
-                    pageType = typeof(Pages.Overlay.SearchPage);
+                    pageType = typeof(SearchPage);
+                    break;
+                case PageIds.ViewHistory:
+                    pageType = typeof(HistoryPage);
+                    break;
+                case PageIds.MyFavorite:
+                    pageType = typeof(MyFavoritePage);
+                    break;
+                case PageIds.SeeLater:
+                    pageType = typeof(SeeLaterPage);
+                    break;
+                case PageIds.DynamicFeed:
+                    pageType = typeof(DynamicFeedPage);
                     break;
                 default:
                     break;
             }
 
-            if (pageType != null)
+            var currentType = OverlayFrame.Content?.GetType();
+            if (pageType != null && currentType != pageType)
             {
                 OverlayFrame.Navigate(pageType, param, new EntranceNavigationTransitionInfo());
             }

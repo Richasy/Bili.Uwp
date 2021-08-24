@@ -27,6 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
             Publisher = null;
+            HistoryText = string.Empty;
             _initializeProgress = TimeSpan.Zero;
             _lastReportProgress = TimeSpan.Zero;
             IsShowEpisode = false;
@@ -36,6 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowRelatedVideos = false;
             IsShowChat = false;
             IsShowReply = true;
+            IsShowHistory = false;
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
             CurrentPlayLine = null;
@@ -210,6 +212,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             foreach (var video in relates)
             {
                 RelatedVideoCollection.Add(new VideoViewModel(video));
+            }
+
+            if (_videoDetail.History != null && _videoDetail.History.Progress > 0)
+            {
+                var title = string.Empty;
+                if (IsShowParts)
+                {
+                    var part = VideoPartCollection.Where(p => p.Data.Page.Cid == _videoDetail.History.Cid).FirstOrDefault();
+                    if (part != null)
+                    {
+                        title = part.Data.Page.Part;
+                    }
+                }
+
+                var ts = TimeSpan.FromSeconds(_videoDetail.History.Progress);
+                HistoryText = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{title} {ts}";
             }
         }
 
@@ -478,6 +496,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private async Task CheckVideoHistoryAsync()
+        {
+            var history = _videoDetail.History;
+            if (CurrentVideoPart == null || history.Cid != CurrentVideoPart?.Page.Cid)
+            {
+                await ChangeVideoPartAsync(history.Cid);
+                _initializeProgress = TimeSpan.FromSeconds(history.Progress);
+            }
+            else
+            {
+                _currentVideoPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(history.Progress);
+            }
+        }
+
         private async void OnProgressTimerTickAsync(object sender, object e)
         {
             if (_videoDetail == null || CurrentVideoPart == null)
@@ -555,8 +587,22 @@ namespace Richasy.Bili.ViewModels.Uwp
                             PlayerStatus = PlayerStatus.End;
                             break;
                         case MediaPlaybackState.Opening:
+                            PlayerStatus = PlayerStatus.Playing;
+                            break;
                         case MediaPlaybackState.Playing:
                             PlayerStatus = PlayerStatus.Playing;
+
+                            if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero)
+                            {
+                                IsShowHistory = true;
+                            }
+
+                            if (sender.PlaybackSession.Position < _initializeProgress)
+                            {
+                                sender.PlaybackSession.Position = _initializeProgress;
+                                _initializeProgress = TimeSpan.Zero;
+                            }
+
                             break;
                         case MediaPlaybackState.Buffering:
                             PlayerStatus = PlayerStatus.Buffering;

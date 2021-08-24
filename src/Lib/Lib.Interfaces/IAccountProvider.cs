@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Lib.Interfaces
@@ -43,5 +44,27 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="isFollow">是否关注.</param>
         /// <returns>关注是否成功.</returns>
         Task<bool> ModifyUserRelationAsync(int userId, bool isFollow);
+
+        /// <summary>
+        /// 获取我的历史记录标签页信息.
+        /// </summary>
+        /// <returns><see cref="HistoryTabReply"/>.</returns>
+        Task<HistoryTabReply> GetMyHistoryTabsAsync();
+
+        /// <summary>
+        /// 获取我的历史记录信息.
+        /// </summary>
+        /// <param name="tabSign">标签信息.</param>
+        /// <param name="cursor">偏移值.</param>
+        /// <returns><see cref="CursorV2Reply"/>.</returns>
+        Task<CursorV2Reply> GetMyHistorySetAsync(string tabSign, Cursor cursor);
+
+        /// <summary>
+        /// 删除指定的历史记录条目.
+        /// </summary>
+        /// <param name="tabSign">标签信息.</param>
+        /// <param name="itemId">条目Id.</param>
+        /// <returns>删除是否成功.</returns>
+        Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
     }
 }

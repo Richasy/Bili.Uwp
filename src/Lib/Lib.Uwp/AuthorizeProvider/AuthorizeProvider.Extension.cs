@@ -21,6 +21,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using ZXing;
 using ZXing.Common;
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -54,7 +55,7 @@ namespace Richasy.Bili.Lib.Uwp
             var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android);
             query[Query.UserName] = userName;
             query[Query.Password] = encryptedPwd;
-            var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.Login);
+            var request = new HttpRequestMessage(HttpMethod.Post, Passport.Login);
             request.Content = new FormUrlEncodedContent(query);
             var response = await httpProvider.SendAsync(request);
             var result = await httpProvider.ParseAsync<ServerResponse<AuthorizeResult>>(response);
@@ -75,7 +76,7 @@ namespace Richasy.Bili.Lib.Uwp
                     };
 
                     var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.RefreshToken, queryParameters);
+                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.RefreshToken, queryParameters);
                     var response = await httpProvider.SendAsync(request);
                     var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
                     await SSOInitAsync();
@@ -124,7 +125,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
                 var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android);
-                var request = new HttpRequestMessage(HttpMethod.Post, Api.Passport.PasswordEncrypt);
+                var request = new HttpRequestMessage(HttpMethod.Post, Passport.PasswordEncrypt);
                 request.Content = new FormUrlEncodedContent(param);
                 var response = await httpProvider.SendAsync(request);
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -157,7 +158,7 @@ namespace Richasy.Bili.Lib.Uwp
                     { Query.LocalId, _guid },
                 };
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCode, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
@@ -221,7 +222,7 @@ namespace Richasy.Bili.Lib.Uwp
             try
             {
                 var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Api.Passport.QRCodeCheck, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
 
@@ -271,7 +272,7 @@ namespace Richasy.Bili.Lib.Uwp
 
         private async Task SSOInitAsync()
         {
-            var url = Api.Passport.SSO;
+            var url = Passport.SSO;
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
             var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
             await httpProvider.SendAsync(request);
@@ -289,7 +290,7 @@ namespace Richasy.Bili.Lib.Uwp
                 try
                 {
                     var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Passport.CheckToken, queryParameters);
+                    var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.CheckToken, queryParameters);
                     _ = await httpProvider.SendAsync(request);
                     return true;
                 }

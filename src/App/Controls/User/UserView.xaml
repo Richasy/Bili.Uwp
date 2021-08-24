@@ -83,7 +83,7 @@
                                 <StackPanel HorizontalAlignment="Left" Spacing="2">
                                     <TextBlock
                                         Style="{StaticResource BodyTextBlockStyle}"
-                                        HorizontalAlignment="Center"
+                                        HorizontalAlignment="Left"
                                         Text="{x:Bind ViewModel.FollowerCount, Mode=OneWay}" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
@@ -106,6 +106,7 @@
                                         Text="{x:Bind ViewModel.FollowCount, Mode=OneWay}" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
+                                        HorizontalAlignment="Center"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Text="{loc:LocaleLocator Name=FollowCount}" />
                                 </StackPanel>
@@ -121,10 +122,11 @@
                                     Spacing="2">
                                     <TextBlock
                                         Style="{StaticResource BodyTextBlockStyle}"
-                                        HorizontalAlignment="Center"
+                                        HorizontalAlignment="Right"
                                         Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
+                                        HorizontalAlignment="Right"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Text="{loc:LocaleLocator Name=BeLikeCount}" />
                                 </StackPanel>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 
+using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
@@ -34,7 +35,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Limit, "50" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.Square, queryParameters, Models.Enums.RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.Square, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var resData = await _httpProvider.ParseAsync<ServerResponse<List<SearchSquareItem>>>(response);
             foreach (var item in resData.Data)
@@ -87,7 +88,7 @@ namespace Richasy.Bili.Lib.Uwp
             queryParameters.Add(Query.HighLight, "0");
             queryParameters.Add(Query.IsOrgQuery, "0");
             queryParameters.Add(Query.Device, "phone");
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.ComprehensiveSearch, queryParameters, Models.Enums.RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.ComprehensiveSearch, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ComprehensiveSearchResultResponse>>(response);
             return result.Data;
@@ -98,7 +99,7 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var queryParameters = GetSearchBasicQueryParameters(keyword, string.Empty, pageNumber);
             queryParameters.Add(Query.Type, "4");
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Search.LiveModuleSearch, queryParameters, Models.Enums.RequestClientType.IOS);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.LiveModuleSearch, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveSearchResultResponse>>(response);
             return result.Data;

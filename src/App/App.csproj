@@ -183,6 +183,9 @@
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VisualExtensions.cs" />
+    <Compile Include="Pages\Overlay\HistoryPage.xaml.cs">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
     </Compile>
@@ -198,7 +201,7 @@
     <Compile Include="Pages\DomesticAnimePage.xaml.cs">
       <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DynamicFeedPage.xaml.cs">
+    <Compile Include="Pages\Overlay\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BangumiPage.xaml.cs">
@@ -223,7 +226,7 @@
     <Compile Include="Pages\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MyFavoritePage.xaml.cs">
+    <Compile Include="Pages\Overlay\MyFavoritePage.xaml.cs">
       <DependentUpon>MyFavoritePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Overlay\PartitionDetailPage.xaml.cs">
@@ -238,7 +241,7 @@
     <Compile Include="Pages\RootPage.xaml.cs">
       <DependentUpon>RootPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SeeLaterPage.xaml.cs">
+    <Compile Include="Pages\Overlay\SeeLaterPage.xaml.cs">
       <DependentUpon>SeeLaterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingPage.xaml.cs">
@@ -249,9 +252,6 @@
     </Compile>
     <Compile Include="Pages\TVPage.xaml.cs">
       <DependentUpon>TVPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ViewHistoryPage.xaml.cs">
-      <DependentUpon>ViewHistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
@@ -592,6 +592,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Overlay\HistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Overlay\PlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -612,7 +616,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DynamicFeedPage.xaml">
+    <Page Include="Pages\Overlay\DynamicFeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -644,7 +648,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MyFavoritePage.xaml">
+    <Page Include="Pages\Overlay\MyFavoritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -664,7 +668,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\SeeLaterPage.xaml">
+    <Page Include="Pages\Overlay\SeeLaterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -677,10 +681,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TVPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ViewHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

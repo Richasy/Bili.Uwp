@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
@@ -30,7 +31,7 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
-            var url = isPgc ? Api.Pgc.PlayInformation : Api.Video.PlayInformation;
+            var url = isPgc ? ApiConstants.Pgc.PlayInformation : ApiConstants.Video.PlayInformation;
 
             var queryParameters = new Dictionary<string, string>
             {

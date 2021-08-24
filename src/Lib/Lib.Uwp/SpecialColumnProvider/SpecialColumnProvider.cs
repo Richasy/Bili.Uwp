@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
@@ -34,7 +35,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.Device, "phone" },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Article.Categories, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Article.Categories, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<List<ArticleCategory>>>(response);
             return result.Data;
@@ -56,7 +57,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Sort, ((int)sort).ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Article.ArticleList, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Article.ArticleList, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var parsedResponse = await _httpProvider.ParseAsync<ServerResponse<List<Article>>>(response);
             return parsedResponse.Data;
@@ -82,7 +83,7 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(Query.MyId, _accountProvider.UserId.ToString());
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Api.Article.Recommend, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Article.Recommend, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var parsedResponse = await _httpProvider.ParseAsync<ServerResponse<ArticleRecommendResponse>>(response);
             return parsedResponse.Data;
