@@ -225,6 +225,9 @@
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
   </data>

@@ -86,6 +86,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 历史记录指针.
             /// </summary>
             public const string HistoryCursor = _grpcBase + "/bilibili.app.interface.v1.History/CursorV2";
+
+            /// <summary>
+            /// 删除单条历史记录.
+            /// </summary>
+            public const string DeleteHistoryItem = _grpcBase + "/bilibili.app.interface.v1.History/Delete";
         }
 
         public static class Partition

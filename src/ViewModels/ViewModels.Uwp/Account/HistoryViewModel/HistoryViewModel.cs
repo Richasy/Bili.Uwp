@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
@@ -75,6 +76,21 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsRequested = _cursor != null && _cursor.Max != 0;
+        }
+
+        /// <summary>
+        /// 删除历史记录条目.
+        /// </summary>
+        /// <param name="vm">视图模型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task DeleteItemAsync(VideoViewModel vm)
+        {
+            var source = vm.Source as CursorItem;
+            var result = await Controller.RemoveHistorytemAsync(source.Kid);
+            if (result)
+            {
+                VideoCollection.Remove(vm);
+            }
         }
 
         /// <summary>

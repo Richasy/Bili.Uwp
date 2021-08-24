@@ -58,5 +58,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="cursor">偏移值.</param>
         /// <returns><see cref="CursorV2Reply"/>.</returns>
         Task<CursorV2Reply> GetMyHistorySetAsync(string tabSign, Cursor cursor);
+
+        /// <summary>
+        /// 删除指定的历史记录条目.
+        /// </summary>
+        /// <param name="tabSign">标签信息.</param>
+        /// <param name="itemId">条目Id.</param>
+        /// <returns>删除是否成功.</returns>
+        Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
     }
 }

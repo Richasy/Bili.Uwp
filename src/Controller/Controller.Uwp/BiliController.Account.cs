@@ -89,6 +89,24 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 删除历史记录条目.
+        /// </summary>
+        /// <param name="historyId">历史记录Id.</param>
+        /// <returns>是否删除成功.</returns>
+        public async Task<bool> RemoveHistorytemAsync(long historyId)
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                return await _accountProvider.RemoveHistoryItemAsync("archive", historyId);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 请求用户空间数据.
         /// </summary>
         /// <param name="userId">用户Id.</param>

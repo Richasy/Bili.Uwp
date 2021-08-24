@@ -68,6 +68,23 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId)
+        {
+            var req = new DeleteReq
+            {
+                HisInfo = new HisInfo
+                {
+                    Business = tabSign,
+                    Kid = itemId,
+                },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Account.DeleteHistoryItem, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            return true;
+        }
+
+        /// <inheritdoc/>
         public async Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId)
         {
             var queryParameters = new Dictionary<string, string>

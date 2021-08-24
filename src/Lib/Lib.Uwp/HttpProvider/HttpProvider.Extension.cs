@@ -120,7 +120,7 @@ namespace Richasy.Bili.Lib.Uwp
                 else if (response.Content.Headers.ContentType?.MediaType == ServiceConstants.Headers.GRPCContentType)
                 {
                     var bytes = await response.Content.ReadAsByteArrayAsync();
-                    if (bytes.Length <= 5)
+                    if (bytes.Length < 5)
                     {
                         errorResponse = new ServerResponse { Message = ServiceConstants.Messages.NoData };
                         throw new ServiceException(errorResponse, response.Headers, response.StatusCode);

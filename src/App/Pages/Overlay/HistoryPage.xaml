@@ -41,32 +41,47 @@
             FontWeight="Bold"
             Text="{loc:LocaleLocator Name=ViewHistory}" />
         <Grid Grid.Row="1">
-            <ScrollViewer
-                x:Name="ContentScrollViewer"
-                Padding="{StaticResource DefaultContainerPadding}"
-                HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Auto">
-                <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <controls:VerticalRepeaterView
-                        x:Name="VideoView"
-                        Grid.Row="1"
-                        Margin="0,0,0,12"
-                        HeaderVisibility="Collapsed"
-                        ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
-                        MinWideItemHeight="228"
-                        MinWideItemWidth="200"
-                        RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                        <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:VideoViewModel">
-                                <controls:VideoItem
-                                    IsShowAvatar="False"
-                                    IsShowPlayCount="True"
-                                    ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </controls:VerticalRepeaterView.ItemTemplate>
-                    </controls:VerticalRepeaterView>
-                </Grid>
-            </ScrollViewer>
+            <muxc:RefreshContainer VerticalAlignment="Stretch" RefreshRequested="OnRefreshRequestedAsync">
+                <ScrollViewer
+                    x:Name="ContentScrollViewer"
+                    Padding="{StaticResource DefaultContainerPadding}"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <controls:VerticalRepeaterView
+                            x:Name="VideoView"
+                            Grid.Row="1"
+                            Margin="0,0,0,12"
+                            HeaderVisibility="Collapsed"
+                            ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
+                            MinWideItemHeight="228"
+                            MinWideItemWidth="200"
+                            RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                            <controls:VerticalRepeaterView.ItemTemplate>
+                                <DataTemplate x:DataType="uwp:VideoViewModel">
+                                    <controls:VideoItem
+                                        IsShowAvatar="False"
+                                        IsShowPlayCount="True"
+                                        ViewModel="{x:Bind}">
+                                        <controls:VideoItem.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem
+                                                    Click="OnDeleteItemClickAsync"
+                                                    DataContext="{x:Bind}"
+                                                    Text="{loc:LocaleLocator Name=Delete}">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete24" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </controls:VideoItem.ContextFlyout>
+                                    </controls:VideoItem>
+                                </DataTemplate>
+                            </controls:VerticalRepeaterView.ItemTemplate>
+                        </controls:VerticalRepeaterView>
+                    </Grid>
+                </ScrollViewer>
+            </muxc:RefreshContainer>
 
             <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
             <controls:ErrorPanel

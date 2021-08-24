@@ -52,5 +52,16 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             await ViewModel.RequestDataAsync();
         }
+
+        private async void OnDeleteItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var context = (sender as FrameworkElement).DataContext as VideoViewModel;
+            await ViewModel.DeleteItemAsync(context);
+        }
+
+        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
+        {
+            await ViewModel.InitializeRequestAsync();
+        }
     }
 }
