@@ -84,7 +84,7 @@
 
             <local:TwoLineButton
                 Grid.Column="1"
-                Click="OnFollowButtonClick"
+                Click="OnFollowButtonClickAsync"
                 FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
                 SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
 

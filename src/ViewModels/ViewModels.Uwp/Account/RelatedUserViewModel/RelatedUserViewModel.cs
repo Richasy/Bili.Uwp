@@ -6,21 +6,32 @@ using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
     /// <summary>
-    /// 粉丝视图模型.
+    /// 相关用户（粉丝，关注）的视图模型.
     /// </summary>
-    public partial class FansViewModel : WebRequestViewModelBase
+    public partial class RelatedUserViewModel : WebRequestViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FansViewModel"/> class.
         /// </summary>
-        public FansViewModel()
+        /// <param name="type">模型类型.</param>
+        protected RelatedUserViewModel(RelatedUserType type)
         {
-            FansCollection = new ObservableCollection<UserViewModel>();
-            Controller.FansIteration += OnFansIteration;
+            UserCollection = new ObservableCollection<UserViewModel>();
+            _type = type;
+
+            if (type == RelatedUserType.Fans)
+            {
+                Controller.FansIteration += OnUsersIteration;
+            }
+            else
+            {
+                Controller.FollowsIteration += OnUsersIteration;
+            }
         }
 
         /// <summary>
@@ -37,7 +48,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 UserName = userName;
                 IsRequested = false;
                 var isMe = userId == (AccountViewModel.Instance.Mid ?? 0);
-                _maxFansNumber = isMe ? 1000 : 100;
+                _maxQueryNumber = isMe ? 1000 : 100;
                 return true;
             }
 
@@ -72,18 +83,28 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsInitializeLoading = true;
                 _isLoadCompleted = false;
-                FansCollection.Clear();
+                UserCollection.Clear();
                 _pageNumber = 0;
                 IsError = false;
                 ErrorText = string.Empty;
                 try
                 {
-                    await Controller.RequestUserFollowersAsync(_currentUserId, _pageNumber);
+                    if (_type == RelatedUserType.Fans)
+                    {
+                        await Controller.RequestUserFollowersAsync(_currentUserId, 1);
+                    }
+                    else
+                    {
+                        await Controller.RequestUserFollowsAsync(_currentUserId, 1);
+                    }
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestFansFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    var msg = _type == RelatedUserType.Fans ?
+                        ResourceToolkit.GetLocaleString(LanguageNames.RequestFansFailed) :
+                        ResourceToolkit.GetLocaleString(LanguageNames.RequestFollowsFailed);
+                    ErrorText = $"{msg}\n{ex.Error?.Message ?? ex.Message}";
                 }
 
                 IsInitializeLoading = false;
@@ -101,23 +122,31 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !_isLoadCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestUserFollowersAsync(_currentUserId, _pageNumber);
+                if (_type == RelatedUserType.Fans)
+                {
+                    await Controller.RequestUserFollowersAsync(_currentUserId, _pageNumber);
+                }
+                else
+                {
+                    await Controller.RequestUserFollowsAsync(_currentUserId, _pageNumber);
+                }
+
                 IsDeltaLoading = false;
             }
         }
 
-        private void OnFansIteration(object sender, FansIterationEventArgs e)
+        private void OnUsersIteration(object sender, RelatedUserIterationEventArgs e)
         {
             if (e.UserId == _currentUserId)
             {
                 if (e.List?.Any() ?? false)
                 {
-                    e.List.ForEach(p => FansCollection.Add(new UserViewModel(p)));
+                    e.List.ForEach(p => UserCollection.Add(new UserViewModel(p)));
                 }
 
                 _pageNumber = e.NextPageNumber;
-                _isLoadCompleted = e.TotalCount <= FansCollection.Count || FansCollection.Count >= _maxFansNumber;
-                IsShowEmpty = FansCollection.Count == 0;
+                _isLoadCompleted = e.TotalCount <= UserCollection.Count || UserCollection.Count >= _maxQueryNumber;
+                IsShowEmpty = UserCollection.Count == 0;
             }
         }
     }

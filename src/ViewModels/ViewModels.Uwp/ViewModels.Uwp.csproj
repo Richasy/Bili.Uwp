@@ -26,8 +26,8 @@
     <Compile Include="Account\HistoryViewModel\HistoryViewModel.cs" />
     <Compile Include="Account\HistoryViewModel\HistoryViewModel.Properties.cs" />
     <Compile Include="Common\HistoryTabViewModel.cs" />
-    <Compile Include="Account\FansViewModel\FansViewModel.cs" />
-    <Compile Include="Account\FansViewModel\FansViewModel.Properties.cs" />
+    <Compile Include="Account\FansViewModel.cs" />
+    <Compile Include="Account\FollowsViewModel.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
@@ -54,6 +54,8 @@
     <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
     <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.cs" />
     <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
+    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.cs" />
+    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
@@ -79,6 +80,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="userId">指定用户的用户Id.</param>
         /// <param name="page">页码 (每页上限50个).</param>
         /// <returns>粉丝响应结果.</returns>
-        Task<FansResponse> GetFansAsync(int userId, int page);
+        Task<RelatedUserResponse> GetFansAsync(int userId, int page);
+
+        /// <summary>
+        /// 获取指定用户的关注列表.
+        /// </summary>
+        /// <param name="userId">指定用户的用户Id.</param>
+        /// <param name="page">页码（每页上限50个）.</param>
+        /// <returns>关注列表.</returns>
+        Task<RelatedUserResponse> GetFollowsAsync(int userId, int page);
     }
 }

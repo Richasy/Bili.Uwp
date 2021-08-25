@@ -116,5 +116,10 @@ namespace Richasy.Bili.Models.Enums
         /// 粉丝页面.
         /// </summary>
         Fans,
+
+        /// <summary>
+        /// 关注页面.
+        /// </summary>
+        Follows,
     }
 }

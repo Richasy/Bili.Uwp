@@ -215,6 +215,10 @@ namespace Richasy.Bili.Models.Enums
         Vip,
         RequestFansFailed,
         FansSuffix,
+        NoFans,
+        RequestFollowsFailed,
+        NoFollows,
+        FollowsSuffix,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

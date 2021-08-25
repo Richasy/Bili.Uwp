@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Pages;
 using Richasy.Bili.ViewModels.Uwp;
@@ -111,26 +110,15 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.ToggleFollowStateAsync();
         }
 
-        private void OnFollowUserButtonClick(object sender, RoutedEventArgs e)
-        {
-        }
-
         private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            var appVM = AppViewModel.Instance;
-            if (appVM.CurrentOverlayContentId != Models.Enums.PageIds.Fans)
-            {
-                appVM.SetOverlayContentId(Models.Enums.PageIds.Fans, new Tuple<int, string>(ViewModel.Id, ViewModel.Name));
-            }
-            else
-            {
-                var canRefresh = FansViewModel.Instance.SetUser(ViewModel.Id, ViewModel.Name);
-                if (canRefresh)
-                {
-                    await FansViewModel.Instance.InitializeRequestAsync();
-                }
-            }
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Id, ViewModel.Name);
+            Container.IsOpen = false;
+        }
 
+        private async void OnFollowUserButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Id, ViewModel.Name);
             Container.IsOpen = false;
         }
     }

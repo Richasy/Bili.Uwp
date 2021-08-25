@@ -205,7 +205,12 @@ namespace Richasy.Bili.Controller.Uwp
         /// <summary>
         /// 在粉丝列表更新时发生.
         /// </summary>
-        public event EventHandler<FansIterationEventArgs> FansIteration;
+        public event EventHandler<RelatedUserIterationEventArgs> FansIteration;
+
+        /// <summary>
+        /// 在关注列表更新时发生.
+        /// </summary>
+        public event EventHandler<RelatedUserIterationEventArgs> FollowsIteration;
 
         /// <summary>
         /// 控制器实例.

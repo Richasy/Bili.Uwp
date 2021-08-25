@@ -175,8 +175,33 @@ namespace Richasy.Bili.Controller.Uwp
             try
             {
                 var result = await _accountProvider.GetFansAsync(userId, pageNumber);
-                var args = new FansIterationEventArgs(result, pageNumber, userId);
+                var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
                 FansIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 请求新的关注列表.
+        /// </summary>
+        /// <param name="userId">需要查询的用户Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestUserFollowsAsync(int userId, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.GetFollowsAsync(userId, pageNumber);
+                var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
+                FollowsIteration?.Invoke(this, args);
             }
             catch (Exception)
             {

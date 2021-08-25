@@ -9,13 +9,13 @@ namespace Richasy.Bili.Models.BiliBili
     /// 粉丝列表响应结果.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class FansResponse
+    public class RelatedUserResponse
     {
         /// <summary>
         /// 粉丝列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "list", Required = Required.Default)]
-        public List<Fans> FansList { get; set; }
+        public List<RelatedUser> UserList { get; set; }
 
         /// <summary>
         /// 总数.
@@ -25,10 +25,10 @@ namespace Richasy.Bili.Models.BiliBili
     }
 
     /// <summary>
-    /// 粉丝.
+    /// 相关的用户，用于粉丝或关注.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Fans
+    public class RelatedUser
     {
         /// <summary>
         /// 用户ID.
@@ -43,10 +43,10 @@ namespace Richasy.Bili.Models.BiliBili
         public int Attribute { get; set; }
 
         /// <summary>
-        /// 成为粉丝的时间.
+        /// 成为粉丝/关注用户的时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mtime", Required = Required.Default)]
-        public int BeFansTime { get; set; }
+        public int StartTime { get; set; }
 
         /// <summary>
         /// 是否为特别关注，0-是，1-否.

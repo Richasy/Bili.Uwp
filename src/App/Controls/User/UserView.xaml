@@ -84,7 +84,7 @@
                                     SecondLineText="{loc:LocaleLocator Name=FansCount}" />
                                 <local:TwoLineButton
                                     Grid.Column="1"
-                                    Click="OnFollowUserButtonClick"
+                                    Click="OnFollowUserButtonClickAsync"
                                     FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
                                     SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
                                 <StackPanel

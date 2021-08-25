@@ -43,7 +43,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
         /// <param name="item">粉丝条目.</param>
-        public UserViewModel(Fans item)
+        public UserViewModel(RelatedUser item)
             : this(item.Name, item.Avatar, item.Mid)
         {
             IsFollow = item.Attribute != 0;

@@ -288,6 +288,9 @@
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
   </data>
+  <data name="FollowsSuffix" xml:space="preserve">
+    <value>关注的人</value>
+  </data>
   <data name="FollowSystem" xml:space="preserve">
     <value>跟随系统</value>
   </data>
@@ -383,6 +386,12 @@
   </data>
   <data name="NeedScaleToShowMessage" xml:space="preserve">
     <value>当前宽度不足以显示消息，请调整应用宽度</value>
+  </data>
+  <data name="NoFans" xml:space="preserve">
+    <value>该用户还木有粉丝哟~</value>
+  </data>
+  <data name="NoFollows" xml:space="preserve">
+    <value>该用户还没有关注任何人</value>
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>正在等待发言</value>
@@ -512,6 +521,9 @@
   </data>
   <data name="RequestFeedDetailFailed" xml:space="preserve">
     <value>数据源详情请求失败</value>
+  </data>
+  <data name="RequestFollowsFailed" xml:space="preserve">
+    <value>请求关注列表失败</value>
   </data>
   <data name="RequestHistoryFailed" xml:space="preserve">
     <value>请求观看历史失败</value>
