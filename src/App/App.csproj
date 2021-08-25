@@ -19,6 +19,7 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -143,6 +144,9 @@
     <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\User\UserSlimCard.xaml.cs">
+      <DependentUpon>UserSlimCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +187,9 @@
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VisualExtensions.cs" />
+    <Compile Include="Pages\Overlay\FansPage.xaml.cs">
+      <DependentUpon>FansPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Overlay\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
@@ -380,6 +387,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\User\AccountPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -544,6 +555,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\User\UserSlimCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\User\UserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -589,6 +604,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\User\UserAvatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\FansPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

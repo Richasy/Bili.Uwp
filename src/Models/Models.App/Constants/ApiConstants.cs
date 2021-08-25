@@ -96,6 +96,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 删除单条历史记录.
             /// </summary>
             public const string DeleteHistoryItem = _grpcBase + "/bilibili.app.interface.v1.History/Delete";
+
+            /// <summary>
+            /// 获取粉丝列表.
+            /// </summary>
+            public const string Fans = _apiBase + "/x/relation/followers";
         }
 
         public static class Partition

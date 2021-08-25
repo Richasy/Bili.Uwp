@@ -75,58 +75,30 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel HorizontalAlignment="Left" Spacing="2">
-                                    <TextBlock
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        HorizontalAlignment="Left"
-                                        Text="{x:Bind ViewModel.FollowerCount, Mode=OneWay}" />
-                                    <TextBlock
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{loc:LocaleLocator Name=FansCount}" />
-                                </StackPanel>
-                                <Border
+                                <local:TwoLineButton
+                                    Click="OnFansButtonClickAsync"
+                                    FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
+                                    SecondLineText="{loc:LocaleLocator Name=FansCount}" />
+                                <local:TwoLineButton
                                     Grid.Column="1"
-                                    Width="1"
-                                    Height="16"
-                                    VerticalAlignment="Center"
-                                    Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
+                                    Click="OnFollowUserButtonClick"
+                                    FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
+                                    SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
                                 <StackPanel
                                     Grid.Column="2"
-                                    HorizontalAlignment="Center"
+                                    Padding="0,4"
+                                    HorizontalAlignment="Stretch"
                                     Spacing="2">
                                     <TextBlock
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         HorizontalAlignment="Center"
-                                        Text="{x:Bind ViewModel.FollowCount, Mode=OneWay}" />
-                                    <TextBlock
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{loc:LocaleLocator Name=FollowCount}" />
-                                </StackPanel>
-                                <Border
-                                    Grid.Column="3"
-                                    Width="1"
-                                    Height="16"
-                                    VerticalAlignment="Center"
-                                    Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
-                                <StackPanel
-                                    Grid.Column="4"
-                                    HorizontalAlignment="Right"
-                                    Spacing="2">
-                                    <TextBlock
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        HorizontalAlignment="Right"
                                         Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        HorizontalAlignment="Right"
+                                        HorizontalAlignment="Center"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Text="{loc:LocaleLocator Name=BeLikeCount}" />
                                 </StackPanel>

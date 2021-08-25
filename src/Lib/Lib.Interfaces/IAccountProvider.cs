@@ -72,5 +72,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="itemId">条目Id.</param>
         /// <returns>删除是否成功.</returns>
         Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
+
+        /// <summary>
+        /// 获取指定用户的粉丝列表.
+        /// </summary>
+        /// <param name="userId">指定用户的用户Id.</param>
+        /// <param name="page">页码 (每页上限50个).</param>
+        /// <returns>粉丝响应结果.</returns>
+        Task<FansResponse> GetFansAsync(int userId, int page);
     }
 }

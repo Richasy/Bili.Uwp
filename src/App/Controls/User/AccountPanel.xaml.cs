@@ -50,8 +50,22 @@ namespace Richasy.Bili.App.Controls
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnFollowerButtonClick(object sender, RoutedEventArgs e)
+        private async void OnFollowerButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            var appVM = AppViewModel.Instance;
+            if (appVM.CurrentOverlayContentId != Models.Enums.PageIds.Fans)
+            {
+                appVM.SetOverlayContentId(Models.Enums.PageIds.Fans, new Tuple<int, string>(ViewModel.Mid.Value, ViewModel.DisplayName));
+            }
+            else
+            {
+                var canRefresh = FansViewModel.Instance.SetUser(ViewModel.Mid.Value, ViewModel.DisplayName);
+                if (canRefresh)
+                {
+                    await FansViewModel.Instance.InitializeRequestAsync();
+                }
+            }
+
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
     }

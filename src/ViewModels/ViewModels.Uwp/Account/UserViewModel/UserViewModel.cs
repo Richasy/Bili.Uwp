@@ -42,6 +42,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
+        /// <param name="item">粉丝条目.</param>
+        public UserViewModel(Fans item)
+            : this(item.Name, item.Avatar, item.Mid)
+        {
+            IsFollow = item.Attribute != 0;
+            Sign = item.Sign;
+            if (string.IsNullOrEmpty(Sign))
+            {
+                Sign = _resourceToolkit.GetLocaleString(LanguageNames.UserEmptySign);
+            }
+
+            CheckFollowButtonVisibility();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
         /// <param name="userName">用户名.</param>
         /// <param name="avatar">头像.</param>
         /// <param name="userId">用户Id.</param>

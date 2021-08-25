@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +14,6 @@ using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.Toolkit.Uwp;
 using Websocket.Client;
-using Windows.Networking.Sockets;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -203,6 +201,11 @@ namespace Richasy.Bili.Controller.Uwp
         /// 在历史记录视频更新时发生.
         /// </summary>
         public event EventHandler<HistoryVideoIterationEventArgs> HistoryVideoIteration;
+
+        /// <summary>
+        /// 在粉丝列表更新时发生.
+        /// </summary>
+        public event EventHandler<FansIterationEventArgs> FansIteration;
 
         /// <summary>
         /// 控制器实例.

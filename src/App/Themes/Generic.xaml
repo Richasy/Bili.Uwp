@@ -7,5 +7,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/ProgressButton/ProgressButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayer/BiliPlayer.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Danmaku/DanmakuView/DanmakuView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

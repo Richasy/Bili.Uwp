@@ -30,6 +30,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void SetMainContentId(PageIds pageId)
         {
             CurrentMainContentId = pageId;
+            CurrentOverlayContentId = PageIds.None;
             IsShowOverlay = false;
         }
 

@@ -213,6 +213,8 @@ namespace Richasy.Bili.Models.Enums
         PreviousView,
         DynamicCount,
         Vip,
+        RequestFansFailed,
+        FansSuffix,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

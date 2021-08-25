@@ -252,6 +252,9 @@
   <data name="FansCount" xml:space="preserve">
     <value>粉丝数</value>
   </data>
+  <data name="FansSuffix" xml:space="preserve">
+    <value>的粉丝</value>
+  </data>
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
   </data>

@@ -140,5 +140,20 @@ namespace Richasy.Bili.Lib.Uwp
             UserId = result.Data.Mid;
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<FansResponse> GetFansAsync(int userId, int page)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.VMid, userId.ToString() },
+                { Query.Page, page.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Fans, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<FansResponse>>(response);
+            return result.Data;
+        }
     }
 }
