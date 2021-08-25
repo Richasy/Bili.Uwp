@@ -77,56 +77,22 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource BasicButtonStyle}" Click="OnDynamicButtonClick">
-                <StackPanel Spacing="2">
-                    <TextBlock
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Text="{x:Bind ViewModel.DynamicCount, Mode=OneWay}" />
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{loc:LocaleLocator Name=DynamicCount}" />
-                </StackPanel>
-            </Button>
+            <local:TwoLineButton
+                Click="OnDynamicButtonClick"
+                FirstLineText="{x:Bind ViewModel.DynamicCount, Mode=OneWay}"
+                SecondLineText="{loc:LocaleLocator Name=DynamicCount}" />
 
-            <Button
-                Style="{StaticResource BasicButtonStyle}"
+            <local:TwoLineButton
                 Grid.Column="1"
-                Click="OnFollowButtonClick">
-                <StackPanel Spacing="2">
-                    <TextBlock
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Text="{x:Bind ViewModel.FollowCount, Mode=OneWay}" />
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{loc:LocaleLocator Name=FollowCount}" />
-                </StackPanel>
-            </Button>
+                Click="OnFollowButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
+                SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
 
-            <Button
-                Style="{StaticResource BasicButtonStyle}"
+            <local:TwoLineButton
                 Grid.Column="2"
-                Click="OnFollowerButtonClick">
-                <StackPanel
-                    Grid.Column="4"
-                    HorizontalAlignment="Right"
-                    Spacing="2">
-                    <TextBlock
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Text="{x:Bind ViewModel.FollowerCount, Mode=OneWay}" />
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        HorizontalAlignment="Center"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{loc:LocaleLocator Name=FansCount}" />
-                </StackPanel>
-            </Button>
+                Click="OnFollowerButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
+                SecondLineText="{loc:LocaleLocator Name=FansCount}" />
         </Grid>
     </Grid>
 </UserControl>

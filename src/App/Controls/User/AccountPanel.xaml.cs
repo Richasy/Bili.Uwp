@@ -45,13 +45,15 @@ namespace Richasy.Bili.App.Controls
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnFollowButtonClick(object sender, RoutedEventArgs e)
+        private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Mid.Value, ViewModel.DisplayName);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnFollowerButtonClick(object sender, RoutedEventArgs e)
+        private async void OnFollowerButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Mid.Value, ViewModel.DisplayName);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
     }

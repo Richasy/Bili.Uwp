@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -30,6 +33,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void SetMainContentId(PageIds pageId)
         {
             CurrentMainContentId = pageId;
+            CurrentOverlayContentId = PageIds.None;
             IsShowOverlay = false;
         }
 
@@ -70,6 +74,31 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void ReleaseDisplayRequest()
         {
             _displayRequest.RequestRelease();
+        }
+
+        /// <summary>
+        /// 进入相关用户视图.
+        /// </summary>
+        /// <param name="type">粉丝视图或关注视图.</param>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="userName">用户名.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task EnterRelatedUserViewAsync(RelatedUserType type, int userId, string userName)
+        {
+            Enum.TryParse<PageIds>(type.ToString(), out var targetPageId);
+            if (CurrentOverlayContentId != targetPageId)
+            {
+                SetOverlayContentId(targetPageId, new Tuple<int, string>(userId, userName));
+            }
+            else
+            {
+                var targetVM = type == RelatedUserType.Fans ? FansViewModel.Instance : (RelatedUserViewModel)FollowsViewModel.Instance;
+                var canRefresh = targetVM.SetUser(userId, userName);
+                if (canRefresh)
+                {
+                    await targetVM.InitializeRequestAsync();
+                }
+            }
         }
     }
 }

@@ -20,73 +20,7 @@
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:UserViewModel">
-                    <local:CardPanel
-                        AutomationProperties.Name="{x:Bind Name, Mode=OneWay}"
-                        Click="OnUserItemClickAsync"
-                        DataContext="{x:Bind}">
-                        <Grid Padding="20,20,20,16" RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <local:UserAvatar
-                                Width="40"
-                                Height="40"
-                                Avatar="{x:Bind Avatar, Mode=OneWay}"
-                                DecodeSize="40"
-                                UserName="{x:Bind Name, Mode=OneWay}" />
-                            <StackPanel Grid.Row="1" Spacing="8">
-                                <TextBlock
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    HorizontalAlignment="Center"
-                                    FontWeight="Bold"
-                                    MaxLines="1"
-                                    Text="{x:Bind Name, Mode=OneWay}"
-                                    TextAlignment="Center"
-                                    TextTrimming="CharacterEllipsis" />
-                                <Image
-                                    Height="10"
-                                    HorizontalAlignment="Center"
-                                    Source="{x:Bind Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
-                            </StackPanel>
-                            <TextBlock
-                                x:Name="SignBlock"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Grid.Row="2"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind Sign, Mode=OneWay}"
-                                TextAlignment="Center"
-                                TextTrimming="CharacterEllipsis">
-                                <ToolTipService.ToolTip>
-                                    <ToolTip Content="{x:Bind Sign, Mode=OneWay}" IsEnabled="{Binding ElementName=SignBlock, Path=IsTextTrimmed}" />
-                                </ToolTipService.ToolTip>
-                            </TextBlock>
-                            <Grid
-                                Grid.Row="3"
-                                HorizontalAlignment="Stretch"
-                                Visibility="{x:Bind IsShowFollowButton, Mode=OneWay}">
-                                <Button
-                                    x:Name="FollowButton"
-                                    Style="{StaticResource AccentButtonStyle}"
-                                    HorizontalAlignment="Stretch"
-                                    Click="OnFollowButtonClickAsync"
-                                    Content="{loc:LocaleLocator Name=Follow}"
-                                    DataContext="{x:Bind}"
-                                    FontSize="12"
-                                    Visibility="{x:Bind IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                                <Button
-                                    x:Name="UnFollowButton"
-                                    HorizontalAlignment="Stretch"
-                                    Click="OnFollowButtonClickAsync"
-                                    Content="{loc:LocaleLocator Name=Followed}"
-                                    DataContext="{x:Bind}"
-                                    FontSize="12"
-                                    Visibility="{x:Bind IsFollow, Mode=OneWay}" />
-                            </Grid>
-                        </Grid>
-                    </local:CardPanel>
+                    <local:UserSlimCard Click="OnUserCardClickAsync" ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>
         </local:VerticalRepeaterView>

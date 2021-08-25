@@ -202,6 +202,12 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.DynamicFeed:
                     pageType = typeof(DynamicFeedPage);
                     break;
+                case PageIds.Fans:
+                    pageType = typeof(FansPage);
+                    break;
+                case PageIds.Follows:
+                    pageType = typeof(FollowsPage);
+                    break;
                 default:
                     break;
             }

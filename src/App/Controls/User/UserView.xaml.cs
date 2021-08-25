@@ -109,5 +109,17 @@ namespace Richasy.Bili.App.Controls
         {
             await ViewModel.ToggleFollowStateAsync();
         }
+
+        private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Id, ViewModel.Name);
+            Container.IsOpen = false;
+        }
+
+        private async void OnFollowUserButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Id, ViewModel.Name);
+            Container.IsOpen = false;
+        }
     }
 }

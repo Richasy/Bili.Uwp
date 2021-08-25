@@ -24,7 +24,12 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <local:AccountPanel MinWidth="280" RequestCloseFlyout="OnRequestCloseFlyout" />
-                <StackPanel Grid.Row="1" Spacing="4">
+                <StackPanel
+                    Grid.Row="1"
+                    Padding="0,4,0,0"
+                    BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                    BorderThickness="0,1,0,0"
+                    Spacing="4">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -32,6 +37,10 @@
                             <Setter Property="Background" Value="Transparent" />
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="Padding" Value="12,8" />
+                        </Style>
+                        <Style TargetType="local:IconTextBlock">
+                            <Setter Property="Spacing" Value="12" />
+                            <Setter Property="IconFontSize" Value="16" />
                         </Style>
                     </StackPanel.Resources>
                     <Button Click="OnNavigateToMyHomePageButtonClickAsync">

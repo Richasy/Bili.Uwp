@@ -134,6 +134,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Color = "color";
             public const string FontSize = "fontsize";
             public const string PlayTime = "playTime";
+            public const string TagId = "tagid";
         }
 
         public static class Sort
