@@ -286,5 +286,21 @@ namespace Richasy.Bili.App.Controls
             AppViewModel.OpenPlayer(ViewModel);
             ItemClick?.Invoke(this, this.ViewModel);
         }
+
+        private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
+            {
+                await ViewLaterViewModel.Instance.AddAsync(ViewModel);
+            }
+        }
+
+        private void OnFlyoutOpening(object sender, object e)
+        {
+            if (ViewModel.VideoType != Models.Enums.VideoType.Video)
+            {
+                ContextFlyout.Hide();
+            }
+        }
     }
 }

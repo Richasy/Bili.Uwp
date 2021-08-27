@@ -121,6 +121,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 添加到稍后再看列表.
+        /// </summary>
+        /// <param name="vm">视图模型.</param>
+        /// <returns>添加的结果.</returns>
+        public async Task<bool> AddAsync(VideoViewModel vm)
+        {
+            return await Controller.AddVideoToViewLaterAsync(Convert.ToInt32(vm.VideoId));
+        }
+
+        /// <summary>
         /// 执行增量请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>

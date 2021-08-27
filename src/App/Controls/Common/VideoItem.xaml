@@ -2,16 +2,24 @@
     x:Class="Richasy.Bili.App.Controls.VideoItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hn="using:HN.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
+
+    <UserControl.ContextFlyout>
+        <MenuFlyout Opening="OnFlyoutOpening">
+            <MenuFlyoutItem Click="OnAddToViewLaterItemClickAsync" Text="{loc:LocaleLocator Name=AddToViewLater}">
+                <MenuFlyoutItem.Icon>
+                    <icons:RegularFluentIcon Symbol="Add16" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+    </UserControl.ContextFlyout>
 
     <UserControl.Resources>
         <Style TargetType="local:IconTextBlock">
@@ -180,29 +188,34 @@
                         Opacity="0.6"
                         Symbol="PlayCircle16"
                         Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}"
                         Visibility="{x:Bind IsShowPlayCount, Mode=OneWay}" />
                     <local:IconTextBlock
                         Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="SlideText16"
                         Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}"
                         Visibility="{x:Bind IsShowDanmakuCount, Mode=OneWay}" />
                     <local:IconTextBlock
                         Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="ThumbLike16"
                         Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=BeLikeCount}"
                         Visibility="{x:Bind IsShowLikeCount, Mode=OneWay}" />
                     <local:IconTextBlock
                         Margin="0,0,12,0"
                         Opacity="0.6"
                         Symbol="Comment16"
                         Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=ReplyCount}"
                         Visibility="{x:Bind IsShowReplayCount, Mode=OneWay}" />
                     <local:IconTextBlock
                         Opacity="0.6"
                         Symbol="People16"
                         Text="{x:Bind ViewModel.ViewerCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
                         Visibility="{x:Bind IsShowViewerCount, Mode=OneWay}" />
                 </StackPanel>
                 <Grid Grid.Row="3" Visibility="{x:Bind AdditionalFooterContent, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">

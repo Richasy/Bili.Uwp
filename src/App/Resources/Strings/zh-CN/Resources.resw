@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddToViewLater" xml:space="preserve">
+    <value>添加到稍后再看</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="DanmakuBold" xml:space="preserve">
     <value>弹幕加粗</value>
+  </data>
+  <data name="DanmakuCount" xml:space="preserve">
+    <value>弹幕数</value>
   </data>
   <data name="DanmakuDensity" xml:space="preserve">
     <value>同屏弹幕密度</value>
@@ -477,6 +483,9 @@
   <data name="PgcNotFollow" xml:space="preserve">
     <value>追</value>
   </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>播放量</value>
+  </data>
   <data name="Player" xml:space="preserve">
     <value>播放器</value>
   </data>
@@ -551,6 +560,9 @@
   </data>
   <data name="Reply" xml:space="preserve">
     <value>评论</value>
+  </data>
+  <data name="ReplyCount" xml:space="preserve">
+    <value>评论数</value>
   </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>

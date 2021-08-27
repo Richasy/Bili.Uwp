@@ -232,6 +232,10 @@ namespace Richasy.Bili.Models.Enums
         FailedToClearHisotry,
         NoHistoryVideos,
         ClearHistoryWarning,
+        AddToViewLater,
+        PlayCount,
+        DanmakuCount,
+        ReplyCount,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
