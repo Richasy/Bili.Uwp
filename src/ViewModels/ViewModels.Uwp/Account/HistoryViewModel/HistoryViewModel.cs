@@ -39,8 +39,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await InitializeRequestAsync();
             }
-
-            IsRequested = _cursor != null && _cursor.Max != 0;
         }
 
         /// <summary>
@@ -53,13 +51,17 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsInitializeLoading = true;
                 VideoCollection.Clear();
-                _cursor = new Bilibili.App.Interfaces.V1.Cursor { Max = 0 };
+                _cursor = new Cursor { Max = 0 };
                 IsError = false;
                 ErrorText = string.Empty;
+                IsShowEmpty = false;
+                IsShowRuntimeError = false;
+                _isLoadCompleted = false;
                 try
                 {
                     // request.
                     await Controller.RequestHistorySetAsync(_cursor);
+                    IsRequested = true;
                 }
                 catch (ServiceException ex)
                 {
@@ -74,8 +76,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 IsInitializeLoading = false;
             }
-
-            IsRequested = _cursor != null && _cursor.Max != 0;
         }
 
         /// <summary>
@@ -85,11 +85,38 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task DeleteItemAsync(VideoViewModel vm)
         {
+            IsShowRuntimeError = false;
             var source = vm.Source as CursorItem;
-            var result = await Controller.RemoveHistorytemAsync(source.Kid);
+            var result = await Controller.RemoveHistoryItemAsync(source.Kid);
             if (result)
             {
                 VideoCollection.Remove(vm);
+                CheckStatus();
+            }
+            else
+            {
+                IsShowRuntimeError = true;
+                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory);
+            }
+        }
+
+        /// <summary>
+        /// 清除历史记录.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ClearAsync()
+        {
+            IsShowRuntimeError = false;
+            var result = await Controller.ClearHistoryAsync();
+            if (!result)
+            {
+                IsShowRuntimeError = true;
+                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry);
+            }
+            else
+            {
+                VideoCollection.Clear();
+                CheckStatus();
             }
         }
 
@@ -99,7 +126,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         internal async Task DeltaRequestAsync()
         {
-            if (!IsDeltaLoading)
+            if (!IsDeltaLoading && !_isLoadCompleted)
             {
                 IsDeltaLoading = true;
                 await Controller.RequestHistorySetAsync(_cursor);
@@ -117,6 +144,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                     VideoCollection.Add(new VideoViewModel(item));
                 }
             }
+            else
+            {
+                _isLoadCompleted = true;
+            }
+
+            CheckStatus();
+        }
+
+        private void CheckStatus()
+        {
+            IsShowEmpty = VideoCollection.Count == 0;
+            IsClearButtonEnabled = !IsShowEmpty;
         }
     }
 }

@@ -129,6 +129,9 @@
   <data name="AppThemeDescription" xml:space="preserve">
     <value>选择一个你偏好的应用主题</value>
   </data>
+  <data name="AppTip" xml:space="preserve">
+    <value>应用提示</value>
+  </data>
   <data name="Automatic" xml:space="preserve">
     <value>自动</value>
   </data>
@@ -168,8 +171,17 @@
   <data name="CleanLogger" xml:space="preserve">
     <value>清除日志记录</value>
   </data>
+  <data name="ClearHistory" xml:space="preserve">
+    <value>清空历史记录</value>
+  </data>
+  <data name="ClearHistoryWarning" xml:space="preserve">
+    <value>是否要清空历史记录？</value>
+  </data>
   <data name="ClearViewLater" xml:space="preserve">
     <value>清空稍后再看</value>
+  </data>
+  <data name="ClearViewLaterWarning" xml:space="preserve">
+    <value>是否要清空稍后再看列表？</value>
   </data>
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
@@ -249,11 +261,17 @@
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
+  <data name="FailedToClearHisotry" xml:space="preserve">
+    <value>尝试清空历史记录失败，请稍后重试</value>
+  </data>
   <data name="FailedToClearViewLater" xml:space="preserve">
     <value>清除稍后再看列表失败，请稍后重试</value>
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="FailedToRemoveVideoFromHistory" xml:space="preserve">
+    <value>尝试删除该历史记录失败，请稍后重试</value>
   </data>
   <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
     <value>尝试移除视频失败，请稍后重试</value>
@@ -401,6 +419,9 @@
   </data>
   <data name="NoFollows" xml:space="preserve">
     <value>该用户还没有关注任何人</value>
+  </data>
+  <data name="NoHistoryVideos" xml:space="preserve">
+    <value>没有最近的视频历史记录</value>
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>正在等待发言</value>

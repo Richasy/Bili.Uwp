@@ -12,9 +12,10 @@
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="12">
+    <Grid RowSpacing="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
@@ -40,7 +41,19 @@
             HorizontalAlignment="Left"
             FontWeight="Bold"
             Text="{loc:LocaleLocator Name=ViewHistory}" />
-        <Grid Grid.Row="1">
+        <Grid
+            x:Name="InfoContainer"
+            Grid.Row="1"
+            Padding="{StaticResource DefaultContainerPadding}">
+            <muxc:InfoBar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                IsClosable="True"
+                IsOpen="{x:Bind ViewModel.IsShowRuntimeError, Mode=OneWay}"
+                Message="{x:Bind ViewModel.RuntimeErrorText, Mode=OneWay}"
+                Severity="Error" />
+        </Grid>
+        <Grid Grid.Row="2">
             <muxc:RefreshContainer VerticalAlignment="Stretch" RefreshRequested="OnRefreshRequestedAsync">
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
@@ -52,11 +65,31 @@
                             x:Name="VideoView"
                             Grid.Row="1"
                             Margin="0,0,0,12"
-                            HeaderVisibility="Collapsed"
+                            HeaderText="{loc:LocaleLocator Name=Videos}"
                             ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
                             MinWideItemHeight="228"
                             MinWideItemWidth="200"
                             RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                            <controls:VerticalRepeaterView.AdditionalContent>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button
+                                        x:Name="RefreshButton"
+                                        VerticalAlignment="Center"
+                                        Click="OnRefreshButtonClickAsync">
+                                        <controls:IconTextBlock Symbol="ArrowSyncCircle16" Text="{loc:LocaleLocator Name=Refresh}" />
+                                    </Button>
+                                    <Button
+                                        x:Name="ClearButton"
+                                        VerticalAlignment="Center"
+                                        Click="OnClearButtonClickAsync"
+                                        IsEnabled="{x:Bind ViewModel.IsClearButtonEnabled, Mode=OneWay}">
+                                        <controls:IconTextBlock
+                                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                            Symbol="Delete16"
+                                            Text="{loc:LocaleLocator Name=ClearHistory}" />
+                                    </Button>
+                                </StackPanel>
+                            </controls:VerticalRepeaterView.AdditionalContent>
                             <controls:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
                                     <controls:VideoItem
@@ -90,6 +123,7 @@
                 ActionContent="{loc:LocaleLocator Name=Refresh}"
                 Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+            <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoHistoryVideos}" Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
         </Grid>
     </Grid>
 </Page>

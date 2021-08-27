@@ -31,6 +31,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowEmpty { get; set; }
 
         /// <summary>
+        /// 清空按钮是否可用.
+        /// </summary>
+        [Reactive]
+        public bool IsClearButtonEnabled { get; set; }
+
+        /// <summary>
         /// 运行时错误文本（比如删除条目失败）.
         /// </summary>
         [Reactive]

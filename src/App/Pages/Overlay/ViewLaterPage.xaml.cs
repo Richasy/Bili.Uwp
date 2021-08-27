@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using Richasy.Bili.App.Controls.Dialogs;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Pages.Overlay
 {
@@ -47,6 +51,13 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (ViewModel.VideoCollection.Count > 0)
             {
                 // Show dialog.
+                var msg = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(LanguageNames.ClearViewLaterWarning);
+                var dialog = new ConfirmDialog(msg);
+                var result = await dialog.ShowAsync().AsTask();
+                if (result == ContentDialogResult.Primary)
+                {
+                    isClear = true;
+                }
             }
 
             if (isClear)

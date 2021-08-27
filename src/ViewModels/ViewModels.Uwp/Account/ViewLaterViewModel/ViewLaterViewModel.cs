@@ -51,6 +51,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsInitializeLoading = true;
+                IsShowEmpty = false;
+                IsShowRuntimeError = false;
                 _isLoadCompleted = false;
                 VideoCollection.Clear();
                 _pageNumber = 0;
@@ -93,7 +95,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             else
             {
                 VideoCollection.Clear();
-                IsShowEmpty = VideoCollection.Count == 0;
+                CheckStatus();
             }
         }
 
@@ -114,7 +116,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             else
             {
                 VideoCollection.Remove(vm);
-                IsShowEmpty = VideoCollection.Count == 0;
+                CheckStatus();
             }
         }
 
@@ -141,7 +143,13 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _pageNumber = e.NextPageNumber;
             _isLoadCompleted = e.TotalCount <= VideoCollection.Count;
+            CheckStatus();
+        }
+
+        private void CheckStatus()
+        {
             IsShowEmpty = VideoCollection.Count == 0;
+            IsClearButtonEnabled = !IsShowEmpty;
         }
     }
 }

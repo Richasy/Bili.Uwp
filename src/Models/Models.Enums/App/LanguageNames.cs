@@ -225,6 +225,13 @@ namespace Richasy.Bili.Models.Enums
         FailedToClearViewLater,
         FailedToRemoveVideoFromViewLater,
         Remove,
+        AppTip,
+        ClearViewLaterWarning,
+        ClearHistory,
+        FailedToRemoveVideoFromHistory,
+        FailedToClearHisotry,
+        NoHistoryVideos,
+        ClearHistoryWarning,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

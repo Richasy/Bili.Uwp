@@ -195,6 +195,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public UserViewModel Publisher { get; set; }
 
         /// <summary>
+        /// 音量.
+        /// </summary>
+        [Reactive]
+        public double Volume { get; set; }
+
+        /// <summary>
         /// 关联视频集合.
         /// </summary>
         [Reactive]

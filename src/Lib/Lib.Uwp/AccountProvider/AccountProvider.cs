@@ -80,7 +80,16 @@ namespace Richasy.Bili.Lib.Uwp
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Account.DeleteHistoryItem, req, true);
-            var response = await _httpProvider.SendAsync(request);
+            _ = await _httpProvider.SendAsync(request);
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ClearHistoryAsync(string tabSign)
+        {
+            var req = new ClearReq() { Business = tabSign };
+            var request = await _httpProvider.GetRequestMessageAsync(Account.ClearHistory, req, true);
+            _ = await _httpProvider.SendAsync(request);
             return true;
         }
 

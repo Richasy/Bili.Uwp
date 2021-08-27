@@ -98,6 +98,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string DeleteHistoryItem = _grpcBase + "/bilibili.app.interface.v1.History/Delete";
 
             /// <summary>
+            /// 清空历史记录.
+            /// </summary>
+            public const string ClearHistory = _grpcBase + "/bilibili.app.interface.v1.History/Clear";
+
+            /// <summary>
             /// 获取粉丝列表.
             /// </summary>
             public const string Fans = _apiBase + "/x/relation/followers";

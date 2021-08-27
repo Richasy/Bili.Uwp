@@ -32,7 +32,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid RowSpacing="4">
+        <Grid RowSpacing="6">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -80,7 +80,8 @@
                                     <Button
                                         x:Name="ClearButton"
                                         VerticalAlignment="Center"
-                                        Click="OnClearButtonClickAsync">
+                                        Click="OnClearButtonClickAsync"
+                                        IsEnabled="{x:Bind ViewModel.IsClearButtonEnabled, Mode=OneWay}">
                                         <controls:IconTextBlock
                                             Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                             Symbol="Delete16"

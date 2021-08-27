@@ -50,6 +50,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit);
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
@@ -380,6 +381,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                     if (CurrentFormat != null)
                     {
                         _settingsToolkit.WriteLocalSetting(SettingNames.DefaultVideoFormat, CurrentFormat.Quality);
+                    }
+
+                    break;
+                case nameof(Volume):
+                    if (Volume > 0)
+                    {
+                        _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
                     }
 
                     break;

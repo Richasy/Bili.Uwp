@@ -29,6 +29,7 @@ namespace Richasy.Bili.Models.Enums
         UseCloudShieldSettings,
         DanmakuStyle,
         IsDanmakuBold,
+        Volume,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

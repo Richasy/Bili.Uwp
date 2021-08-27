@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
@@ -73,6 +72,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="itemId">条目Id.</param>
         /// <returns>删除是否成功.</returns>
         Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
+
+        /// <summary>
+        /// 清空历史记录.
+        /// </summary>
+        /// <param name="tabSign">标签信息.</param>
+        /// <returns>清空是否成功.</returns>
+        Task<bool> ClearHistoryAsync(string tabSign);
 
         /// <summary>
         /// 获取指定用户的粉丝列表.
