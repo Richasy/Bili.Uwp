@@ -89,5 +89,32 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="page">页码（每页上限50个）.</param>
         /// <returns>关注列表.</returns>
         Task<RelatedUserResponse> GetFollowsAsync(int userId, int page);
+
+        /// <summary>
+        /// 获取稍后再看列表.
+        /// </summary>
+        /// <param name="page">页码.</param>
+        /// <returns>稍后再看视频列表.</returns>
+        Task<ViewLaterResponse> GetViewLaterListAsync(int page);
+
+        /// <summary>
+        /// 清空稍后再看列表.
+        /// </summary>
+        /// <returns>清除结果.</returns>
+        Task<bool> ClearViewLaterAsync();
+
+        /// <summary>
+        /// 将视频添加到稍后再看.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>添加的结果.</returns>
+        Task<bool> AddVideoToViewLaterAsync(int videoId);
+
+        /// <summary>
+        /// 将视频从稍后再看中移除.
+        /// </summary>
+        /// <param name="videoIds">需要移除的视频Id列表.</param>
+        /// <returns>移除结果.</returns>
+        Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds);
     }
 }

@@ -21,7 +21,7 @@ namespace Richasy.Bili.Models.Enums
         Personal,
         DynamicFeed,
         MyFavorite,
-        SeeLater,
+        ViewLater,
         ViewHistory,
         HelpAndSupport,
         PartitionLoading,
@@ -219,6 +219,12 @@ namespace Richasy.Bili.Models.Enums
         RequestFollowsFailed,
         NoFollows,
         FollowsSuffix,
+        RequestViewLaterFailed,
+        ClearViewLater,
+        NoViewLaterVideos,
+        FailedToClearViewLater,
+        FailedToRemoveVideoFromViewLater,
+        Remove,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

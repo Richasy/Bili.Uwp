@@ -211,5 +211,88 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 请求稍后再看视频列表.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestViewLaterListAsync(int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.GetViewLaterListAsync(pageNumber);
+                var args = new ViewLaterVideoIterationEventArgs(result, pageNumber);
+                ViewLaterVideoIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 清除稍后再看列表.
+        /// </summary>
+        /// <returns>清除结果.</returns>
+        public async Task<bool> ClearViewLaterAsync()
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.ClearViewLaterAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 添加视频至稍后再看列表.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>清除结果.</returns>
+        public async Task<bool> AddVideoToViewLaterAsync(int videoId)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.AddVideoToViewLaterAsync(videoId);
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 将视频从稍后再看列表中移除.
+        /// </summary>
+        /// <param name="videoIds">视频Id列表.</param>
+        /// <returns>清除结果.</returns>
+        public async Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.RemoveVideoFromViewLaterAsync(videoIds);
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

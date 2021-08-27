@@ -170,5 +170,55 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<RelatedUserResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<ViewLaterResponse> GetViewLaterListAsync(int page)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.PageNumber, page.ToString() },
+                { Query.PageSize, "40" },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ViewLaterList, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<ViewLaterResponse>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ClearViewLaterAsync()
+        {
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterClear, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> AddVideoToViewLaterAsync(int videoId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterAdd, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds)
+        {
+            var ids = string.Join(',', videoIds);
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, ids },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterDelete, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
     }
 }

@@ -251,8 +251,8 @@
     <Compile Include="Pages\RootPage.xaml.cs">
       <DependentUpon>RootPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\SeeLaterPage.xaml.cs">
-      <DependentUpon>SeeLaterPage.xaml</DependentUpon>
+    <Compile Include="Pages\Overlay\ViewLaterPage.xaml.cs">
+      <DependentUpon>ViewLaterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
@@ -694,7 +694,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Overlay\SeeLaterPage.xaml">
+    <Page Include="Pages\Overlay\ViewLaterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

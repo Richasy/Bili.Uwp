@@ -42,6 +42,27 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
+        /// <param name="video">稍后再看视频信息.</param>
+        public VideoViewModel(ViewLaterVideo video)
+            : this()
+        {
+            Title = video.Title ?? string.Empty;
+            Publisher = new UserViewModel(video.Publisher);
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(video.Duration));
+            PlayCount = _numberToolkit.GetCountText(video.StatusInfo.PlayCount);
+            ReplyCount = _numberToolkit.GetCountText(video.StatusInfo.ReplyCount);
+            DanmakuCount = _numberToolkit.GetCountText(video.StatusInfo.DanmakuCount);
+            LikeCount = _numberToolkit.GetCountText(video.StatusInfo.LikeCount);
+            VideoId = video.VideoId.ToString();
+            PartitionName = video.PartitionName;
+            PartitionId = video.PartitionId;
+            Source = video;
+            LimitCover(video.Cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
         /// <param name="video">排行榜视频.</param>
         public VideoViewModel(Item video)
             : this()

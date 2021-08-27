@@ -59,6 +59,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
+        /// <param name="info">发布者信息.</param>
+        public UserViewModel(PublisherInfo info)
+            : this(info.Publisher, info.PublisherAvatar, info.Mid)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
         /// <param name="userName">用户名.</param>
         /// <param name="avatar">头像.</param>
         /// <param name="userId">用户Id.</param>

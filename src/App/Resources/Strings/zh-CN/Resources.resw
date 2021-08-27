@@ -168,6 +168,9 @@
   <data name="CleanLogger" xml:space="preserve">
     <value>清除日志记录</value>
   </data>
+  <data name="ClearViewLater" xml:space="preserve">
+    <value>清空稍后再看</value>
+  </data>
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
@@ -246,8 +249,14 @@
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
+  <data name="FailedToClearViewLater" xml:space="preserve">
+    <value>清除稍后再看列表失败，请稍后重试</value>
+  </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
+    <value>尝试移除视频失败，请稍后重试</value>
   </data>
   <data name="FansCount" xml:space="preserve">
     <value>粉丝数</value>
@@ -405,6 +414,9 @@
   <data name="NoStroke" xml:space="preserve">
     <value>无描边</value>
   </data>
+  <data name="NoViewLaterVideos" xml:space="preserve">
+    <value>没有视频被加入稍后再看列表</value>
+  </data>
   <data name="OfficialUser" xml:space="preserve">
     <value>认证用户</value>
   </data>
@@ -513,6 +525,9 @@
   <data name="RelatedVideos" xml:space="preserve">
     <value>关联视频</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
   <data name="Reply" xml:space="preserve">
     <value>评论</value>
   </data>
@@ -555,6 +570,9 @@
   <data name="RequestVideoFailed" xml:space="preserve">
     <value>视频播放信息请求失败</value>
   </data>
+  <data name="RequestViewLaterFailed" xml:space="preserve">
+    <value>请求稍后再看列表失败</value>
+  </data>
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>
@@ -584,9 +602,6 @@
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
-  </data>
-  <data name="SeeLater" xml:space="preserve">
-    <value>稍后再看</value>
   </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
@@ -740,6 +755,9 @@
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
+  </data>
+  <data name="ViewLater" xml:space="preserve">
+    <value>稍后再看</value>
   </data>
   <data name="Vip" xml:space="preserve">
     <value>大会员</value>
