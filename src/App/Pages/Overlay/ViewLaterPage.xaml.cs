@@ -12,20 +12,20 @@ using Windows.UI.Xaml.Controls;
 namespace Richasy.Bili.App.Pages.Overlay
 {
     /// <summary>
-    /// 历史记录页面.
+    /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class HistoryPage : Page
+    public sealed partial class ViewLaterPage : Page
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(HistoryViewModel), typeof(HistoryPage), new PropertyMetadata(HistoryViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(ViewLaterViewModel), typeof(ViewLaterPage), new PropertyMetadata(ViewLaterViewModel.Instance));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HistoryPage"/> class.
+        /// Initializes a new instance of the <see cref="ViewLaterPage"/> class.
         /// </summary>
-        public HistoryPage()
+        public ViewLaterPage()
         {
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
@@ -34,37 +34,13 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public HistoryViewModel ViewModel
+        public ViewLaterViewModel ViewModel
         {
-            get { return (HistoryViewModel)GetValue(ViewModelProperty); }
+            get { return (ViewLaterViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            if (!ViewModel.IsRequested)
-            {
-                await ViewModel.InitializeRequestAsync();
-            }
-        }
-
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.InitializeRequestAsync();
-        }
-
-        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
-        {
-            await ViewModel.RequestDataAsync();
-        }
-
-        private async void OnDeleteItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            var context = (sender as FrameworkElement).DataContext as VideoViewModel;
-            await ViewModel.DeleteItemAsync(context);
-        }
-
-        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
         {
             await ViewModel.InitializeRequestAsync();
         }
@@ -75,7 +51,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (ViewModel.VideoCollection.Count > 0)
             {
                 // Show dialog.
-                var msg = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(LanguageNames.ClearHistoryWarning);
+                var msg = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(LanguageNames.ClearViewLaterWarning);
                 var dialog = new ConfirmDialog(msg);
                 var result = await dialog.ShowAsync().AsTask();
                 if (result == ContentDialogResult.Primary)
@@ -88,6 +64,25 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 await ViewModel.ClearAsync();
             }
+        }
+
+        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.IsRequested)
+            {
+                await ViewModel.InitializeRequestAsync();
+            }
+        }
+
+        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+            await ViewModel.RequestDataAsync();
+        }
+
+        private async void OnRemoveItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
+            await ViewModel.RemoveAsync(vm);
         }
     }
 }

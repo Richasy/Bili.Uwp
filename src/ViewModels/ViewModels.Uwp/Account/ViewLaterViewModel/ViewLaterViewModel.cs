@@ -2,8 +2,8 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
-using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
@@ -11,18 +11,17 @@ using Richasy.Bili.Models.Enums;
 namespace Richasy.Bili.ViewModels.Uwp
 {
     /// <summary>
-    /// 历史记录视图模型.
+    /// 稍后再看视图模型.
     /// </summary>
-    public partial class HistoryViewModel : WebRequestViewModelBase
+    public partial class ViewLaterViewModel : WebRequestViewModelBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HistoryViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ViewLaterViewModel"/> class.
         /// </summary>
-        protected HistoryViewModel()
+        protected ViewLaterViewModel()
         {
             VideoCollection = new ObservableCollection<VideoViewModel>();
-            _cursor = null;
-            Controller.HistoryVideoIteration += OnHistoryVideoIteration;
+            Controller.ViewLaterVideoIteration += OnViewLaterVideoIteration;
         }
 
         /// <summary>
@@ -39,6 +38,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await InitializeRequestAsync();
             }
+
+            IsRequested = _pageNumber >= 1;
         }
 
         /// <summary>
@@ -50,74 +51,83 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
                 IsInitializeLoading = true;
-                VideoCollection.Clear();
-                _cursor = new Cursor { Max = 0 };
-                IsError = false;
-                ErrorText = string.Empty;
                 IsShowEmpty = false;
                 IsShowRuntimeError = false;
                 _isLoadCompleted = false;
+                VideoCollection.Clear();
+                _pageNumber = 0;
+                IsError = false;
+                ErrorText = string.Empty;
                 try
                 {
-                    // request.
-                    await Controller.RequestHistorySetAsync(_cursor);
-                    IsRequested = true;
+                    await Controller.RequestViewLaterListAsync(1);
                 }
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestHistoryFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestViewLaterFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
-                catch (InvalidOperationException invalidEx)
+                catch (Exception e)
                 {
                     IsError = true;
-                    ErrorText = invalidEx.Message;
+                    ErrorText = $"{e.Message}";
                 }
 
                 IsInitializeLoading = false;
             }
+
+            IsRequested = _pageNumber != 0;
         }
 
         /// <summary>
-        /// 删除历史记录条目.
-        /// </summary>
-        /// <param name="vm">视图模型.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task DeleteItemAsync(VideoViewModel vm)
-        {
-            IsShowRuntimeError = false;
-            var source = vm.Source as CursorItem;
-            var result = await Controller.RemoveHistoryItemAsync(source.Kid);
-            if (result)
-            {
-                VideoCollection.Remove(vm);
-                CheckStatus();
-            }
-            else
-            {
-                IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory);
-            }
-        }
-
-        /// <summary>
-        /// 清除历史记录.
+        /// 清除稍后再看列表.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         public async Task ClearAsync()
         {
             IsShowRuntimeError = false;
-            var result = await Controller.ClearHistoryAsync();
+            var result = await Controller.ClearViewLaterAsync();
             if (!result)
             {
                 IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry);
+                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearViewLater);
             }
             else
             {
                 VideoCollection.Clear();
                 CheckStatus();
             }
+        }
+
+        /// <summary>
+        /// 将视频移出稍后再看列表.
+        /// </summary>
+        /// <param name="vm">视频模型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RemoveAsync(VideoViewModel vm)
+        {
+            IsShowRuntimeError = false;
+            var result = await Controller.RemoveVideoFromViewLaterAsync(Convert.ToInt32(vm.VideoId));
+            if (!result)
+            {
+                IsShowRuntimeError = true;
+                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromViewLater);
+            }
+            else
+            {
+                VideoCollection.Remove(vm);
+                CheckStatus();
+            }
+        }
+
+        /// <summary>
+        /// 添加到稍后再看列表.
+        /// </summary>
+        /// <param name="vm">视图模型.</param>
+        /// <returns>添加的结果.</returns>
+        public async Task<bool> AddAsync(VideoViewModel vm)
+        {
+            return await Controller.AddVideoToViewLaterAsync(Convert.ToInt32(vm.VideoId));
         }
 
         /// <summary>
@@ -129,26 +139,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !_isLoadCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestHistorySetAsync(_cursor);
+                await Controller.RequestViewLaterListAsync(_pageNumber);
                 IsDeltaLoading = false;
             }
         }
 
-        private void OnHistoryVideoIteration(object sender, HistoryVideoIterationEventArgs e)
+        private void OnViewLaterVideoIteration(object sender, ViewLaterVideoIterationEventArgs e)
         {
-            _cursor = e.Cursor;
-            if (e.List != null && e.List.Count > 0)
+            if (e.List?.Any() ?? false)
             {
-                foreach (var item in e.List)
-                {
-                    VideoCollection.Add(new VideoViewModel(item));
-                }
-            }
-            else
-            {
-                _isLoadCompleted = true;
+                e.List.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
             }
 
+            _pageNumber = e.NextPageNumber;
+            _isLoadCompleted = e.TotalCount <= VideoCollection.Count;
             CheckStatus();
         }
 

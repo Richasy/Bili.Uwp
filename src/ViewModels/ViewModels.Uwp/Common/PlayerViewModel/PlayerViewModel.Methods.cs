@@ -553,8 +553,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.AutoPlay = IsAutoPlay;
+            player.Volume = Volume;
+            player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
 
             return player;
+        }
+
+        private async void OnMediaPlayerVolumeChangedAsync(MediaPlayer sender, object args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                Volume = sender.Volume;
+            });
         }
 
         private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)

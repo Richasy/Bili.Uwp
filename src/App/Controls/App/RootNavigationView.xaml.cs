@@ -196,8 +196,8 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.MyFavorite:
                     pageType = typeof(MyFavoritePage);
                     break;
-                case PageIds.SeeLater:
-                    pageType = typeof(SeeLaterPage);
+                case PageIds.ViewLater:
+                    pageType = typeof(ViewLaterPage);
                     break;
                 case PageIds.DynamicFeed:
                     pageType = typeof(DynamicFeedPage);

@@ -55,8 +55,8 @@
                     <Button ext:NavigationExtension.PageId="MyFavorite" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="StarLineHorizontal320" Text="{loc:LocaleLocator Name=MyFavorite}" />
                     </Button>
-                    <Button ext:NavigationExtension.PageId="SeeLater" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="CalendarClock16" Text="{loc:LocaleLocator Name=SeeLater}" />
+                    <Button ext:NavigationExtension.PageId="ViewLater" Click="OnNavigateButtonClick">
+                        <local:IconTextBlock Symbol="CalendarClock16" Text="{loc:LocaleLocator Name=ViewLater}" />
                     </Button>
                     <Button ext:NavigationExtension.PageId="ViewHistory" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="History20" Text="{loc:LocaleLocator Name=ViewHistory}" />

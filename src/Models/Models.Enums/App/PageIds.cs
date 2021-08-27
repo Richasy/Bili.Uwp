@@ -80,7 +80,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 稍后再看.
         /// </summary>
-        SeeLater,
+        ViewLater,
 
         /// <summary>
         /// 观看历史.

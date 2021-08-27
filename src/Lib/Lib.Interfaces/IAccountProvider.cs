@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
@@ -75,6 +74,13 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
 
         /// <summary>
+        /// 清空历史记录.
+        /// </summary>
+        /// <param name="tabSign">标签信息.</param>
+        /// <returns>清空是否成功.</returns>
+        Task<bool> ClearHistoryAsync(string tabSign);
+
+        /// <summary>
         /// 获取指定用户的粉丝列表.
         /// </summary>
         /// <param name="userId">指定用户的用户Id.</param>
@@ -89,5 +95,32 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="page">页码（每页上限50个）.</param>
         /// <returns>关注列表.</returns>
         Task<RelatedUserResponse> GetFollowsAsync(int userId, int page);
+
+        /// <summary>
+        /// 获取稍后再看列表.
+        /// </summary>
+        /// <param name="page">页码.</param>
+        /// <returns>稍后再看视频列表.</returns>
+        Task<ViewLaterResponse> GetViewLaterListAsync(int page);
+
+        /// <summary>
+        /// 清空稍后再看列表.
+        /// </summary>
+        /// <returns>清除结果.</returns>
+        Task<bool> ClearViewLaterAsync();
+
+        /// <summary>
+        /// 将视频添加到稍后再看.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>添加的结果.</returns>
+        Task<bool> AddVideoToViewLaterAsync(int videoId);
+
+        /// <summary>
+        /// 将视频从稍后再看中移除.
+        /// </summary>
+        /// <param name="videoIds">需要移除的视频Id列表.</param>
+        /// <returns>移除结果.</returns>
+        Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds);
     }
 }

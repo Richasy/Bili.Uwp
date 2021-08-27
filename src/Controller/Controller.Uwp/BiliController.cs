@@ -213,6 +213,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<RelatedUserIterationEventArgs> FollowsIteration;
 
         /// <summary>
+        /// 在稍后再看列表更新时发生.
+        /// </summary>
+        public event EventHandler<ViewLaterVideoIterationEventArgs> ViewLaterVideoIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

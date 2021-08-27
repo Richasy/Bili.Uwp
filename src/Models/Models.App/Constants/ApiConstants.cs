@@ -98,6 +98,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string DeleteHistoryItem = _grpcBase + "/bilibili.app.interface.v1.History/Delete";
 
             /// <summary>
+            /// 清空历史记录.
+            /// </summary>
+            public const string ClearHistory = _grpcBase + "/bilibili.app.interface.v1.History/Clear";
+
+            /// <summary>
             /// 获取粉丝列表.
             /// </summary>
             public const string Fans = _apiBase + "/x/relation/followers";
@@ -106,6 +111,26 @@ namespace Richasy.Bili.Models.App.Constants
             /// 获取关注列表.
             /// </summary>
             public const string Follows = _apiBase + "/x/relation/followings";
+
+            /// <summary>
+            /// 获取稍后再看列表.
+            /// </summary>
+            public const string ViewLaterList = _apiBase + "/x/v2/history/toview";
+
+            /// <summary>
+            /// 添加视频到稍后再看.
+            /// </summary>
+            public const string ViewLaterAdd = _apiBase + "/x/v2/history/toview/add";
+
+            /// <summary>
+            /// 删除稍后再看的视频.
+            /// </summary>
+            public const string ViewLaterDelete = _apiBase + "/x/v2/history/toview/del";
+
+            /// <summary>
+            /// 清空稍后再看的视频.
+            /// </summary>
+            public const string ViewLaterClear = _apiBase + "/x/v2/history/toview/clear";
         }
 
         public static class Partition
