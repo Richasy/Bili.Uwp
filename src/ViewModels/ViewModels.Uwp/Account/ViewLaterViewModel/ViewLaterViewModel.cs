@@ -65,6 +65,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                     IsError = true;
                     ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestViewLaterFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
+                catch (Exception e)
+                {
+                    IsError = true;
+                    ErrorText = $"{e.Message}";
+                }
 
                 IsInitializeLoading = false;
             }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -105,6 +106,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                         ResourceToolkit.GetLocaleString(LanguageNames.RequestFansFailed) :
                         ResourceToolkit.GetLocaleString(LanguageNames.RequestFollowsFailed);
                     ErrorText = $"{msg}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (Exception e)
+                {
+                    IsError = true;
+                    ErrorText = $"{e.Message}";
                 }
 
                 IsInitializeLoading = false;
