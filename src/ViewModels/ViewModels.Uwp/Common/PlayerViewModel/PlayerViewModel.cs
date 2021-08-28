@@ -36,6 +36,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LivePlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
             LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
             LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
+            FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _lastReportProgress = TimeSpan.Zero;
@@ -104,6 +105,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 seasonId = 0;
                 _videoType = VideoType.Pgc;
             }
+
+            IsDetailCanLoaded = true;
 
             switch (_videoType)
             {
@@ -212,14 +215,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
-            try
-            {
-                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
-            }
-            catch (Exception)
-            {
-            }
-
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
 
@@ -245,6 +240,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+            }
+
+            try
+            {
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+                var interaction = await Controller.GetPgcEpisodeInteractionAsync(CurrentPgcEpisode.Id);
+                IsLikeChecked = interaction.IsLike != 0;
+                IsCoinChecked = interaction.CoinNumber > 0;
+                IsFavoriteChecked = interaction.IsFavorite != 0;
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -312,7 +319,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void ClearPlayer()
         {
-            BiliPlayer.SetMediaPlayer(null);
+            if (BiliPlayer != null)
+            {
+                BiliPlayer.SetMediaPlayer(null);
+            }
 
             if (_currentVideoPlayer != null)
             {
@@ -371,6 +381,37 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await CheckVideoHistoryAsync();
             }
+        }
+
+        /// <summary>
+        /// 加载收藏夹列表.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task LoadFavoritesAsync()
+        {
+            var accVM = AccountViewModel.Instance;
+            if (accVM.Status != AccountViewModelStatus.Login || IsRequestingFavorites)
+            {
+                return;
+            }
+
+            try
+            {
+                IsRequestFavoritesError = false;
+                FavoriteMetaCollection.Clear();
+                IsRequestingFavorites = true;
+                var favorites = await Controller.GetFavoriteListAsync(AccountViewModel.Instance.Mid.Value, Convert.ToInt32(GetAid()));
+                if (favorites.Count > 0)
+                {
+                    favorites.ForEach(p => FavoriteMetaCollection.Add(new FavoriteMetaViewModel(p, p.FavoriteState == 1)));
+                }
+            }
+            catch (Exception)
+            {
+                IsRequestFavoritesError = true;
+            }
+
+            IsRequestingFavorites = false;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)

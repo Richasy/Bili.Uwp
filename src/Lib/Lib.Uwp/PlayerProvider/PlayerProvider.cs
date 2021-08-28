@@ -170,6 +170,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.Aid, videoId.ToString() },
                 { Query.Multiply, number.ToString() },
+                { Query.AlsoLike, alsoLike ? "1" : "0" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Coin, queryParameters, needToken: true);
@@ -179,7 +180,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList)
+        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<int> needAddFavoriteList, IList<int> needRemoveFavoriteList)
         {
             var queryParameters = new Dictionary<string, string>
             {

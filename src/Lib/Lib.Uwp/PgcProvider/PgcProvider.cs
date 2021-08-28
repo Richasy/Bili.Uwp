@@ -66,5 +66,26 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
             return data.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<EpisodeInteraction> GetEpisodeInteractionAsync(int episodeId)
+        {
+            var queryParameters = GetEpisodeInteractionQueryParameters(episodeId);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.EpisodeInteraction, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<EpisodeInteraction>>(response);
+            return data.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> FollowAsync(int seasonId, bool isFollow)
+        {
+            var queryParameters = GetFollowQueryParameters(seasonId);
+            var url = isFollow ? Pgc.Follow : Pgc.Unfollow;
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, url, queryParameters, RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return data.IsSuccess();
+        }
     }
 }

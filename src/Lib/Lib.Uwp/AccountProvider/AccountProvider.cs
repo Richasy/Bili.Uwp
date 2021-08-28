@@ -229,5 +229,21 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
         }
+
+        /// <inheritdoc/>
+        public async Task<FavoriteListResponse> GetFavoriteListAsync(int userId, int videoId = 0)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.UpId, userId.ToString() },
+                { Query.Type, "2" },
+                { Query.PartitionId, videoId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.FavoriteList, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<FavoriteListResponse>>(response);
+            return result.Data;
+        }
     }
 }

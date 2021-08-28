@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -79,15 +79,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task TripleAsync()
         {
-            TripleResult result = null;
-            if (_videoId > 0)
-            {
-                result = await Controller.TripleAsync(_videoId);
-            }
-            else if (IsPgc)
-            {
-                result = await Controller.TripleAsync(CurrentPgcEpisode.Aid);
-            }
+            var aid = GetAid();
+            var result = await Controller.TripleAsync(aid);
 
             if (result != null)
             {
@@ -95,6 +88,90 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsCoinChecked = result.IsCoin;
                 IsFavoriteChecked = result.IsFavorite;
             }
+        }
+
+        /// <summary>
+        /// 点赞视频.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task LikeAsync()
+        {
+            var isLike = !IsLikeChecked;
+            var aid = GetAid();
+            var isSuccess = await Controller.LikeVideoAsync(aid, isLike);
+
+            if (isSuccess)
+            {
+                IsLikeChecked = isLike;
+            }
+        }
+
+        /// <summary>
+        /// 投币.
+        /// </summary>
+        /// <param name="number">投币个数.</param>
+        /// <param name="isAlsoLike">是否同时点赞.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task CoinAsync(int number, bool isAlsoLike)
+        {
+            var aid = GetAid();
+            var result = await Controller.CoinVideoAsync(aid, number, isAlsoLike);
+            if (result != null)
+            {
+                IsCoinChecked = true;
+                if (result.IsAlsoLike)
+                {
+                    IsLikeChecked = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 收藏视频.
+        /// </summary>
+        /// <param name="selectedIds">选中的收藏夹Id.</param>
+        /// <param name="deselectedIds">取消选中的收藏夹Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task FavoriteAsync()
+        {
+            var aid = GetAid();
+            var selectedIds = FavoriteMetaCollection.Where(p => p.IsSelected).Select(p => p.Data.Id).ToList();
+            var deselectedIds = FavoriteMetaCollection.Where(p => !p.IsSelected).Select(p => p.Data.Id).ToList();
+            var result = await Controller.FavoriteVideoAsync(aid, selectedIds, deselectedIds);
+
+            switch (result)
+            {
+                case Models.Enums.Bili.FavoriteResult.Success:
+                case Models.Enums.Bili.FavoriteResult.InsufficientAccess:
+                    IsFavoriteChecked = selectedIds.Count > 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 追番/取消追番.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleFollowAsync()
+        {
+            if (!IsPgc)
+            {
+                return;
+            }
+
+            var seasonId = Convert.ToInt32(SeasonId);
+            var isSuccess = await Controller.FollowPgcSeasonAsync(seasonId, !IsFollow);
+            if (isSuccess)
+            {
+                IsFollow = !IsFollow;
+            }
+        }
+
+        private long GetAid()
+        {
+            return IsPgc ? CurrentPgcEpisode.Aid : _videoId;
         }
     }
 }

@@ -8,6 +8,8 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -19,6 +21,102 @@
         </Style>
 
         <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
+
+        <Flyout x:Name="CoinFlyout">
+            <Grid RowSpacing="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{loc:LocaleLocator Name=ChooseCoinNumber}" />
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="1"
+                        FontWeight="Bold"
+                        Tag="1" />
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="2"
+                        FontWeight="Bold"
+                        Tag="2" />
+                </StackPanel>
+                <CheckBox
+                    x:Name="AlsoLikeCheckBox"
+                    Grid.Row="2"
+                    MinWidth="0"
+                    Content="{loc:LocaleLocator Name=AlsoLike}" />
+            </Grid>
+        </Flyout>
+
+        <Flyout x:Name="FavoriteFlyout">
+            <Grid>
+                <Grid Visibility="{x:Bind ViewModel.IsRequestFavoritesError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsRequestingFavorites, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=ChooseFavorite}" />
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FavoriteMetaCollection}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Spacing="4" />
+                            </muxc:ItemsRepeater.Layout>
+                            <muxc:ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="uwp:FavoriteMetaViewModel">
+                                    <local:CardPanel
+                                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                        IsEnableCheck="True"
+                                        IsEnableHoverAnimation="False"
+                                        IsEnableShadow="False">
+                                        <Grid
+                                            Width="240"
+                                            Height="40"
+                                            Padding="12,8">
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                VerticalAlignment="Center"
+                                                FontWeight="Bold"
+                                                Text="{x:Bind Data.Title}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </Grid>
+                                    </local:CardPanel>
+                                </DataTemplate>
+                            </muxc:ItemsRepeater.ItemTemplate>
+                        </muxc:ItemsRepeater>
+                        <Button
+                            x:Name="RequestFavoriteButton"
+                            Style="{StaticResource AccentButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Click="OnRequestFavoriteButtonClickAsync"
+                            Content="{loc:LocaleLocator Name=Confirm}" />
+                    </StackPanel>
+                    <muxc:ProgressRing
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsActive="{x:Bind ViewModel.IsRequestingFavorites, Mode=OneWay}" />
+                </Grid>
+                <local:ErrorPanel
+                    ActionButtonClick="OnRefreshFavoriteButtonClickAsync"
+                    ActionContent="{loc:LocaleLocator Name=Refresh}"
+                    Text="{loc:LocaleLocator Name=RequestFavoriteError}"
+                    Visibility="{x:Bind ViewModel.IsRequestFavoritesError}" />
+            </Grid>
+        </Flyout>
     </local:PlayerComponent.Resources>
 
     <Grid RowSpacing="20">
@@ -29,6 +127,7 @@
         <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <local:ProgressButton
                 x:Name="LikeButton"
+                Click="OnLikeButtonClickAsync"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                 HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
                 IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
@@ -39,6 +138,7 @@
             <local:ProgressButton
                 x:Name="CoinButton"
                 Margin="12,0"
+                Click="OnCoinButtonClick"
                 Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
                 IsChecked="{x:Bind ViewModel.IsCoinChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"
@@ -47,6 +147,7 @@
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="FavoriteButton"
+                Click="OnFavoriteButtonClickAsync"
                 Description="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
                 IsChecked="{x:Bind ViewModel.IsFavoriteChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"
@@ -56,6 +157,7 @@
             <local:ProgressButton
                 x:Name="FollowButton"
                 Margin="12,0,0,0"
+                Click="OnFollowButtonClickAsync"
                 Description="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
                 IsChecked="{x:Bind ViewModel.IsFollow, Mode=OneWay}"
                 IsHoldingEnabled="False"

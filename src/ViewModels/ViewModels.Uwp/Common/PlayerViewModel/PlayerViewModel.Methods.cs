@@ -57,6 +57,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveQualityCollection.Clear();
             LivePlayLineCollection.Clear();
             LiveDanmakuCollection.Clear();
+            FavoriteMetaCollection.Clear();
 
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
@@ -282,12 +283,9 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 var episodeModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Positive).FirstOrDefault();
                 IsShowEpisode = episodeModule != null && episodeModule.Data.Episodes.Count > 1;
-                if (IsShowEpisode)
+                foreach (var item in episodeModule.Data.Episodes)
                 {
-                    foreach (var item in episodeModule.Data.Episodes)
-                    {
-                        EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
-                    }
+                    EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
                 }
 
                 var partModuleList = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Section).ToList();

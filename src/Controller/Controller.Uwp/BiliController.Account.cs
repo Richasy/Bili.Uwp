@@ -311,5 +311,19 @@ namespace Richasy.Bili.Controller.Uwp
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取收藏夹列表.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>收藏夹列表.</returns>
+        public async Task<List<FavoriteMeta>> GetFavoriteListAsync(int userId, int videoId)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            var list = await _accountProvider.GetFavoriteListAsync(userId, videoId);
+            return list.List;
+        }
     }
 }

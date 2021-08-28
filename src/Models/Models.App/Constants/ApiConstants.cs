@@ -131,6 +131,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 清空稍后再看的视频.
             /// </summary>
             public const string ViewLaterClear = _apiBase + "/x/v2/history/toview/clear";
+
+            /// <summary>
+            /// 获取全部收藏夹列表.
+            /// </summary>
+            public const string FavoriteList = _apiBase + "/x/v3/fav/folder/created/list-all";
         }
 
         public static class Partition
@@ -261,6 +266,21 @@ namespace Richasy.Bili.Models.App.Constants
             /// 剧集播放信息.
             /// </summary>
             public const string PlayInformation = _apiBase + "/pgc/player/web/playurl";
+
+            /// <summary>
+            /// 分集交互信息.
+            /// </summary>
+            public const string EpisodeInteraction = _apiBase + "/pgc/season/episode/community";
+
+            /// <summary>
+            /// 追番/追剧.
+            /// </summary>
+            public const string Follow = _apiBase + "/pgc/app/follow/add";
+
+            /// <summary>
+            /// 取消追番/追剧.
+            /// </summary>
+            public const string Unfollow = _apiBase + "/pgc/app/follow/del";
         }
 
         public static class Video

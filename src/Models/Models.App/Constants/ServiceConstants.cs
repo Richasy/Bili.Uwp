@@ -135,6 +135,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string FontSize = "fontsize";
             public const string PlayTime = "playTime";
             public const string TagId = "tagid";
+            public const string UpId = "up_mid";
         }
 
         public static class Sort

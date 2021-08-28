@@ -87,6 +87,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public CoreDispatcher Dispatcher { get; set; }
 
         /// <summary>
+        /// 详情是否可以加载（用于优化页面跳转的加载时间）.
+        /// </summary>
+        [Reactive]
+        public bool IsDetailCanLoaded { get; set; }
+
+        /// <summary>
         /// 标题.
         /// </summary>
         [Reactive]
@@ -253,6 +259,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<LiveDanmakuMessage> LiveDanmakuCollection { get; set; }
+
+        /// <summary>
+        /// 收藏夹集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<FavoriteMetaViewModel> FavoriteMetaCollection { get; set; }
 
         /// <summary>
         /// 当前分P.
@@ -445,6 +457,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowHistory { get; set; }
+
+        /// <summary>
+        /// 请求收藏夹出错.
+        /// </summary>
+        [Reactive]
+        public bool IsRequestFavoritesError { get; set; }
+
+        /// <summary>
+        /// 是否正在请求收藏夹列表.
+        /// </summary>
+        [Reactive]
+        public bool IsRequestingFavorites { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

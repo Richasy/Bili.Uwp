@@ -104,7 +104,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="needAddFavoriteList">需要添加的收藏夹列表.</param>
         /// <param name="needRemoveFavoriteList">需要移除的收藏夹列表.</param>
         /// <returns>收藏结果.</returns>
-        Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList);
+        Task<FavoriteResult> FavoriteAsync(long videoId, IList<int> needAddFavoriteList, IList<int> needRemoveFavoriteList);
 
         /// <summary>
         /// 一键三连.

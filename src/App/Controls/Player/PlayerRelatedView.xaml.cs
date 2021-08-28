@@ -81,6 +81,13 @@ namespace Richasy.Bili.App.Controls
                     Nav.SelectedItem = SectionItem;
                 }
             }
+            else if (e.PropertyName == nameof(ViewModel.IsDetailCanLoaded))
+            {
+                if (ViewModel.IsDetailCanLoaded)
+                {
+                    InitializeLayout();
+                }
+            }
         }
 
         private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -90,37 +97,37 @@ namespace Richasy.Bili.App.Controls
 
         private void InitializeLayout()
         {
-            if (ViewModel.IsShowRelatedVideos)
+            if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
             {
                 RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowParts)
+            if (ViewModel.IsShowParts && VideoPartView != null)
             {
                 VideoPartView.Visibility = Nav.SelectedItem == PartsItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowEpisode)
+            if (ViewModel.IsShowEpisode && EpisodeView != null)
             {
                 EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowSeason)
+            if (ViewModel.IsShowSeason && SeasonView != null)
             {
                 SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowSection)
+            if (ViewModel.IsShowSection && SectionView != null)
             {
                 SectionView.Visibility = Nav.SelectedItem == SectionItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowChat)
+            if (ViewModel.IsShowChat && ChatView != null)
             {
                 ChatView.Visibility = Nav.SelectedItem == ChatItem ?
                 Visibility.Visible : Visibility.Collapsed;
