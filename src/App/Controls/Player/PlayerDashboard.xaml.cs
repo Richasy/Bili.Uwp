@@ -10,6 +10,8 @@ namespace Richasy.Bili.App.Controls
     /// </summary>
     public sealed partial class PlayerDashboard : PlayerComponent
     {
+        private bool _isLikeHoldCompleted;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerDashboard"/> class.
         /// </summary>
@@ -20,6 +22,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLikeButtonHoldingCompletedAsync(object sender, System.EventArgs e)
         {
+            _isLikeHoldCompleted = true;
             await ViewModel.TripleAsync();
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
@@ -43,6 +46,12 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            if (_isLikeHoldCompleted)
+            {
+                _isLikeHoldCompleted = false;
+                return;
+            }
+
             ViewModel.IsLikeChecked = !ViewModel.IsLikeChecked;
             ViewModel.IsLikeChecked = !ViewModel.IsLikeChecked;
             await ViewModel.LikeAsync();

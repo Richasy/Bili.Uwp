@@ -93,6 +93,9 @@ namespace Richasy.Bili.App.Pages.Overlay
                 case nameof(ViewModel.PlayerDisplayMode):
                     CheckPlayerDisplayModeAsync();
                     break;
+                case nameof(ViewModel.IsDetailCanLoaded):
+                    FindName("ContentGrid");
+                    break;
                 default:
                     break;
             }
@@ -183,7 +186,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 if (RootGrid.Children.Count > 1)
                 {
-                    RootGrid.Children.RemoveAt(1);
+                    RootGrid.Children.Remove(BiliPlayer);
                     PlayerContainer.Children.Add(BiliPlayer);
                 }
             }
@@ -191,7 +194,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 if (PlayerContainer.Children.Count > 0)
                 {
-                    PlayerContainer.Children.RemoveAt(0);
+                    PlayerContainer.Children.Remove(BiliPlayer);
                     RootGrid.Children.Add(BiliPlayer);
                 }
             }
