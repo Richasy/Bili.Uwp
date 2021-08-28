@@ -19,6 +19,48 @@
         </Style>
 
         <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
+
+        <Flyout x:Name="CoinFlyout">
+            <Grid RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    FontWeight="Bold"
+                    Text="{loc:LocaleLocator Name=ChooseCoinNumber}" />
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="1"
+                        FontWeight="Bold"
+                        Tag="1" />
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="2"
+                        FontWeight="Bold"
+                        Tag="2" />
+                </StackPanel>
+                <CheckBox
+                    x:Name="AlsoLikeCheckBox"
+                    Grid.Row="2"
+                    MinWidth="0"
+                    Content="{loc:LocaleLocator Name=AlsoLike}" />
+            </Grid>
+        </Flyout>
     </local:PlayerComponent.Resources>
 
     <Grid RowSpacing="20">
@@ -29,6 +71,7 @@
         <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <local:ProgressButton
                 x:Name="LikeButton"
+                Click="OnLikeButtonClickAsync"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                 HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
                 IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
@@ -39,6 +82,7 @@
             <local:ProgressButton
                 x:Name="CoinButton"
                 Margin="12,0"
+                Click="OnCoinButtonClick"
                 Description="{x:Bind ViewModel.CoinCount, Mode=OneWay}"
                 IsChecked="{x:Bind ViewModel.IsCoinChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"

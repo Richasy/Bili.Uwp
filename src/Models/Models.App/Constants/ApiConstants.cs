@@ -261,6 +261,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 剧集播放信息.
             /// </summary>
             public const string PlayInformation = _apiBase + "/pgc/player/web/playurl";
+
+            /// <summary>
+            /// 分集交互信息.
+            /// </summary>
+            public const string EpisodeInteraction = _apiBase + "/pgc/season/episode/community";
         }
 
         public static class Video

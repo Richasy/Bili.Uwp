@@ -170,6 +170,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.Aid, videoId.ToString() },
                 { Query.Multiply, number.ToString() },
+                { Query.AlsoLike, alsoLike ? "1" : "0" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Coin, queryParameters, needToken: true);

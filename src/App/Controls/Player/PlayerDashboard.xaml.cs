@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -34,6 +35,32 @@ namespace Richasy.Bili.App.Controls
 
         private void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
         {
+        }
+
+        private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.LikeAsync();
+        }
+
+        private async void OnGiveCoinButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var coinNumber = Convert.ToInt32((sender as FrameworkElement).Tag);
+            CoinFlyout.Hide();
+            await ViewModel.CoinAsync(coinNumber, AlsoLikeCheckBox.IsChecked.Value);
+        }
+
+        private void OnCoinButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsCoinChecked)
+            {
+                ViewModel.IsCoinChecked = false;
+                ViewModel.IsCoinChecked = true;
+            }
+            else
+            {
+                AlsoLikeCheckBox.IsChecked = true;
+                CoinFlyout.ShowAt(CoinButton);
+            }
         }
     }
 }

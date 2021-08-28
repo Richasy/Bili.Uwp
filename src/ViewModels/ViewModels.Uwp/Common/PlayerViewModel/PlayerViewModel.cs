@@ -105,6 +105,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _videoType = VideoType.Pgc;
             }
 
+            IsDetailCanLoaded = true;
+
             switch (_videoType)
             {
                 case VideoType.Video:
@@ -212,14 +214,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
-            try
-            {
-                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
-            }
-            catch (Exception)
-            {
-            }
-
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
 
@@ -245,6 +239,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_dashInformation);
                 await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+            }
+
+            try
+            {
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+                var interaction = await Controller.GetPgcEpisodeInteractionAsync(CurrentPgcEpisode.Id);
+                IsLikeChecked = interaction.IsLike != 0;
+                IsCoinChecked = interaction.CoinNumber > 0;
+                IsFavoriteChecked = interaction.IsFavorite != 0;
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -312,7 +318,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void ClearPlayer()
         {
-            BiliPlayer.SetMediaPlayer(null);
+            if (BiliPlayer != null)
+            {
+                BiliPlayer.SetMediaPlayer(null);
+            }
 
             if (_currentVideoPlayer != null)
             {

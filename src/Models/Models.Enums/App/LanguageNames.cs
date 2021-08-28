@@ -236,6 +236,8 @@ namespace Richasy.Bili.Models.Enums
         PlayCount,
         DanmakuCount,
         ReplyCount,
+        ChooseCoinNumber,
+        AlsoLike,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

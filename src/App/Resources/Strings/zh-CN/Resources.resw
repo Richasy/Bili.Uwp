@@ -120,6 +120,9 @@
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>
+  <data name="AlsoLike" xml:space="preserve">
+    <value>同时点赞</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Chat" xml:space="preserve">
     <value>聊天互动</value>
+  </data>
+  <data name="ChooseCoinNumber" xml:space="preserve">
+    <value>打算投几个币？</value>
   </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>

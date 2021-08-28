@@ -125,5 +125,15 @@ namespace Richasy.Bili.Lib.Uwp
 
             return queryParameters;
         }
+
+        private Dictionary<string, string> GetEpisodeInteractionQueryParameters(int episodeId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.EpisodeId, episodeId.ToString() },
+            };
+
+            return queryParameters;
+        }
     }
 }

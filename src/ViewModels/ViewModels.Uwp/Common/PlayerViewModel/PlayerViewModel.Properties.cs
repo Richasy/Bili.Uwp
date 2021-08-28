@@ -87,6 +87,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public CoreDispatcher Dispatcher { get; set; }
 
         /// <summary>
+        /// 详情是否可以加载（用于优化页面跳转的加载时间）.
+        /// </summary>
+        [Reactive]
+        public bool IsDetailCanLoaded { get; set; }
+
+        /// <summary>
         /// 标题.
         /// </summary>
         [Reactive]

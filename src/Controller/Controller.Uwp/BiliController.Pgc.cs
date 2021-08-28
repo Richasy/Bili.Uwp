@@ -160,5 +160,15 @@ namespace Richasy.Bili.Controller.Uwp
 
             return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId);
         }
+
+        /// <summary>
+        /// 获取PGC分集的交互信息.
+        /// </summary>
+        /// <param name="episodeId">分集Id.</param>
+        /// <returns>分集交互信息.</returns>
+        public async Task<EpisodeInteraction> GetPgcEpisodeInteractionAsync(int episodeId)
+        {
+            return await _pgcProvider.GetEpisodeInteractionAsync(episodeId);
+        }
     }
 }
