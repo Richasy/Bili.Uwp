@@ -261,6 +261,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<LiveDanmakuMessage> LiveDanmakuCollection { get; set; }
 
         /// <summary>
+        /// 收藏夹集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<FavoriteMetaViewModel> FavoriteMetaCollection { get; set; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -451,6 +457,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowHistory { get; set; }
+
+        /// <summary>
+        /// 请求收藏夹出错.
+        /// </summary>
+        [Reactive]
+        public bool IsRequestFavoritesError { get; set; }
+
+        /// <summary>
+        /// 是否正在请求收藏夹列表.
+        /// </summary>
+        [Reactive]
+        public bool IsRequestingFavorites { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

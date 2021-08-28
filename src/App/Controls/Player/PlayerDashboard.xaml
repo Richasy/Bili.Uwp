@@ -8,6 +8,8 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -21,7 +23,7 @@
         <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
 
         <Flyout x:Name="CoinFlyout">
-            <Grid RowSpacing="8">
+            <Grid RowSpacing="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -29,7 +31,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    FontWeight="Bold"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     Text="{loc:LocaleLocator Name=ChooseCoinNumber}" />
                 <StackPanel
                     Grid.Row="1"
@@ -59,6 +61,60 @@
                     Grid.Row="2"
                     MinWidth="0"
                     Content="{loc:LocaleLocator Name=AlsoLike}" />
+            </Grid>
+        </Flyout>
+
+        <Flyout x:Name="FavoriteFlyout">
+            <Grid>
+                <Grid Visibility="{x:Bind ViewModel.IsRequestFavoritesError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsRequestingFavorites, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=ChooseFavorite}" />
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FavoriteMetaCollection}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Spacing="4" />
+                            </muxc:ItemsRepeater.Layout>
+                            <muxc:ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="uwp:FavoriteMetaViewModel">
+                                    <local:CardPanel
+                                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                        IsEnableCheck="True"
+                                        IsEnableHoverAnimation="False"
+                                        IsEnableShadow="False">
+                                        <Grid
+                                            Width="240"
+                                            Height="40"
+                                            Padding="12,8">
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                VerticalAlignment="Center"
+                                                FontWeight="Bold"
+                                                Text="{x:Bind Data.Title}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </Grid>
+                                    </local:CardPanel>
+                                </DataTemplate>
+                            </muxc:ItemsRepeater.ItemTemplate>
+                        </muxc:ItemsRepeater>
+                        <Button
+                            x:Name="RequestFavoriteButton"
+                            Style="{StaticResource AccentButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Click="OnRequestFavoriteButtonClickAsync"
+                            Content="{loc:LocaleLocator Name=Confirm}" />
+                    </StackPanel>
+                    <muxc:ProgressRing
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsActive="{x:Bind ViewModel.IsRequestingFavorites, Mode=OneWay}" />
+                </Grid>
+                <local:ErrorPanel
+                    ActionButtonClick="OnRefreshFavoriteButtonClickAsync"
+                    ActionContent="{loc:LocaleLocator Name=Refresh}"
+                    Text="{loc:LocaleLocator Name=RequestFavoriteError}"
+                    Visibility="{x:Bind ViewModel.IsRequestFavoritesError}" />
             </Grid>
         </Flyout>
     </local:PlayerComponent.Resources>
@@ -91,6 +147,7 @@
             </local:ProgressButton>
             <local:ProgressButton
                 x:Name="FavoriteButton"
+                Click="OnFavoriteButtonClickAsync"
                 Description="{x:Bind ViewModel.FavoriteCount, Mode=OneWay}"
                 IsChecked="{x:Bind ViewModel.IsFavoriteChecked, Mode=OneWay}"
                 IsHoldingEnabled="False"

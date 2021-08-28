@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums;
 
@@ -102,7 +102,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (isSuccess)
             {
-                IsLikeChecked = !IsLikeChecked;
+                IsLikeChecked = isLike;
             }
         }
 
@@ -116,7 +116,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             var aid = GetAid();
             var result = await Controller.CoinVideoAsync(aid, number, isAlsoLike);
-
             if (result != null)
             {
                 IsCoinChecked = true;
@@ -133,18 +132,22 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="selectedIds">选中的收藏夹Id.</param>
         /// <param name="deselectedIds">取消选中的收藏夹Id.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task FavoriteAsync(List<string> selectedIds, List<string> deselectedIds)
+        public async Task FavoriteAsync()
         {
             var aid = GetAid();
+            var selectedIds = FavoriteMetaCollection.Where(p => p.IsSelected).Select(p => p.Data.Id).ToList();
+            var deselectedIds = FavoriteMetaCollection.Where(p => !p.IsSelected).Select(p => p.Data.Id).ToList();
             var result = await Controller.FavoriteVideoAsync(aid, selectedIds, deselectedIds);
 
             switch (result)
             {
                 case Models.Enums.Bili.FavoriteResult.Success:
                 case Models.Enums.Bili.FavoriteResult.InsufficientAccess:
-                    IsFavoriteChecked = true;
+                    IsFavoriteChecked = selectedIds.Count > 0;
                     break;
                 default:
+                    IsFavoriteChecked = !IsFavoriteChecked;
+                    IsFavoriteChecked = !IsFavoriteChecked;
                     break;
             }
         }

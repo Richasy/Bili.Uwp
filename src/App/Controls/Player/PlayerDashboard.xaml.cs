@@ -39,6 +39,8 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.IsLikeChecked = !ViewModel.IsLikeChecked;
+            ViewModel.IsLikeChecked = !ViewModel.IsLikeChecked;
             await ViewModel.LikeAsync();
         }
 
@@ -51,16 +53,31 @@ namespace Richasy.Bili.App.Controls
 
         private void OnCoinButtonClick(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.IsCoinChecked)
-            {
-                ViewModel.IsCoinChecked = false;
-                ViewModel.IsCoinChecked = true;
-            }
-            else
-            {
-                AlsoLikeCheckBox.IsChecked = true;
-                CoinFlyout.ShowAt(CoinButton);
-            }
+            ViewModel.IsCoinChecked = !ViewModel.IsCoinChecked;
+            ViewModel.IsCoinChecked = !ViewModel.IsCoinChecked;
+
+            AlsoLikeCheckBox.IsChecked = true;
+            CoinFlyout.ShowAt(CoinButton);
+        }
+
+        private async void OnRefreshFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.LoadFavoritesAsync();
+        }
+
+        private async void OnRequestFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            FavoriteFlyout.Hide();
+            await ViewModel.FavoriteAsync();
+        }
+
+        private async void OnFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
+            ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
+
+            FavoriteFlyout.ShowAt(FavoriteButton);
+            await ViewModel.LoadFavoritesAsync();
         }
     }
 }

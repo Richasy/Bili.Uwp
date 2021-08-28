@@ -57,6 +57,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveQualityCollection.Clear();
             LivePlayLineCollection.Clear();
             LiveDanmakuCollection.Clear();
+            FavoriteMetaCollection.Clear();
 
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
