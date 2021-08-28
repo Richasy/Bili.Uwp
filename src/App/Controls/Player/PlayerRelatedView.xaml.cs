@@ -81,6 +81,13 @@ namespace Richasy.Bili.App.Controls
                     Nav.SelectedItem = SectionItem;
                 }
             }
+            else if (e.PropertyName == nameof(ViewModel.IsDetailCanLoaded))
+            {
+                if (ViewModel.IsDetailCanLoaded)
+                {
+                    InitializeLayout();
+                }
+            }
         }
 
         private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)

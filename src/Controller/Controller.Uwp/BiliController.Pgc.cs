@@ -170,5 +170,25 @@ namespace Richasy.Bili.Controller.Uwp
         {
             return await _pgcProvider.GetEpisodeInteractionAsync(episodeId);
         }
+
+        /// <summary>
+        /// 追番/取消追番.
+        /// </summary>
+        /// <param name="seasonId">番剧/影视Id.</param>
+        /// <param name="isFollow">是否关注.</param>
+        /// <returns>关注结果.</returns>
+        public async Task<bool> FollowPgcSeasonAsync(int seasonId, bool isFollow)
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                var result = await _pgcProvider.FollowAsync(seasonId, isFollow);
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

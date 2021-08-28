@@ -157,6 +157,7 @@
             <local:ProgressButton
                 x:Name="FollowButton"
                 Margin="12,0,0,0"
+                Click="OnFollowButtonClickAsync"
                 Description="{x:Bind ViewModel.IsFollow, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
                 IsChecked="{x:Bind ViewModel.IsFollow, Mode=OneWay}"
                 IsHoldingEnabled="False"

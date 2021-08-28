@@ -135,5 +135,15 @@ namespace Richasy.Bili.Lib.Uwp
 
             return queryParameters;
         }
+
+        private Dictionary<string, string> GetFollowQueryParameters(int seasonId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.SeasonId, seasonId.ToString() },
+            };
+
+            return queryParameters;
+        }
     }
 }

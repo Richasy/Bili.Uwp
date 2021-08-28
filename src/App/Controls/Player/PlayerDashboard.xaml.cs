@@ -33,8 +33,12 @@ namespace Richasy.Bili.App.Controls
         {
         }
 
-        private void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.IsFollow = !ViewModel.IsFollow;
+            ViewModel.IsFollow = !ViewModel.IsFollow;
+
+            await ViewModel.ToggleFollowAsync();
         }
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)

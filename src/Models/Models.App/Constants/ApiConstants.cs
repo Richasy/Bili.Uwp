@@ -271,6 +271,16 @@ namespace Richasy.Bili.Models.App.Constants
             /// 分集交互信息.
             /// </summary>
             public const string EpisodeInteraction = _apiBase + "/pgc/season/episode/community";
+
+            /// <summary>
+            /// 追番/追剧.
+            /// </summary>
+            public const string Follow = _apiBase + "/pgc/app/follow/add";
+
+            /// <summary>
+            /// 取消追番/追剧.
+            /// </summary>
+            public const string Unfollow = _apiBase + "/pgc/app/follow/del";
         }
 
         public static class Video

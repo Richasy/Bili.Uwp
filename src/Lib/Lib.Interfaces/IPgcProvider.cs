@@ -56,5 +56,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="episodeId">分集Id.</param>
         /// <returns>交互信息.</returns>
         Task<EpisodeInteraction> GetEpisodeInteractionAsync(int episodeId);
+
+        /// <summary>
+        /// 追番/追剧.
+        /// </summary>
+        /// <param name="seasonId">剧Id.</param>
+        /// <param name="isFollow">是否关注.</param>
+        /// <returns>关注结果.</returns>
+        Task<bool> FollowAsync(int seasonId, bool isFollow);
     }
 }

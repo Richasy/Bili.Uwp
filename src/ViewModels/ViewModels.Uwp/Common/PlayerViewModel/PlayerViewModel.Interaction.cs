@@ -146,9 +146,26 @@ namespace Richasy.Bili.ViewModels.Uwp
                     IsFavoriteChecked = selectedIds.Count > 0;
                     break;
                 default:
-                    IsFavoriteChecked = !IsFavoriteChecked;
-                    IsFavoriteChecked = !IsFavoriteChecked;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 追番/取消追番.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleFollowAsync()
+        {
+            if (!IsPgc)
+            {
+                return;
+            }
+
+            var seasonId = Convert.ToInt32(SeasonId);
+            var isSuccess = await Controller.FollowPgcSeasonAsync(seasonId, !IsFollow);
+            if (isSuccess)
+            {
+                IsFollow = !IsFollow;
             }
         }
 
