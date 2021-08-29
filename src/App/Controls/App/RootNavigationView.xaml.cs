@@ -208,6 +208,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Follows:
                     pageType = typeof(FollowsPage);
                     break;
+                case PageIds.PgcIndex:
+                    pageType = typeof(PgcIndexPage);
+                    break;
                 default:
                     break;
             }

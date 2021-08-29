@@ -105,5 +105,10 @@ namespace Richasy.Bili.App.Pages
         private void OnShowMoreButtonClickAsync(object sender, RoutedEventArgs e)
         {
         }
+
+        private void OnIndexButtonClick(object sender, RoutedEventArgs e)
+        {
+            AppViewModel.Instance.SetOverlayContentId(PageIds.PgcIndex, ViewModel);
+        }
     }
 }

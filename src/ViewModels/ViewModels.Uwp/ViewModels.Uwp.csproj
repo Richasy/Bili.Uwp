@@ -29,6 +29,8 @@
     <Compile Include="Common\HistoryTabViewModel.cs" />
     <Compile Include="Account\FansViewModel.cs" />
     <Compile Include="Account\FollowsViewModel.cs" />
+    <Compile Include="Base\PgcViewModelBase.cs" />
+    <Compile Include="Pgc\PgcConditionViewModel.cs" />
     <Compile Include="Pgc\DocumentaryViewModel.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Pgc\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />

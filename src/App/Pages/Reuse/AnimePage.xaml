@@ -60,7 +60,7 @@
                     Padding="{StaticResource DefaultContainerPadding}"
                     Orientation="Horizontal"
                     Spacing="8">
-                    <Button x:Name="IndexButton">
+                    <Button x:Name="IndexButton" Click="OnIndexButtonClick">
                         <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
                     </Button>
                     <Button x:Name="TimeChartButton">

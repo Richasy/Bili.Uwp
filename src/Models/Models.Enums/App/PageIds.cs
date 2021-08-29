@@ -121,5 +121,6 @@ namespace Richasy.Bili.Models.Enums
         /// 关注页面.
         /// </summary>
         Follows,
+        PgcIndex,
     }
 }

@@ -53,7 +53,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.CategoryId, categoryId.ToString() },
                 { Query.PageNumber, pageNumber.ToString() },
-                { Query.PageSize, pageSize.ToString() },
+                { Query.PageSizeSlim, pageSize.ToString() },
                 { Query.Sort, ((int)sort).ToString() },
             };
 
@@ -75,7 +75,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.CategoryId, "0" },
                 { Query.PageNumber, pageNumber.ToString() },
-                { Query.PageSize, pageSize.ToString() },
+                { Query.PageSizeSlim, pageSize.ToString() },
             };
 
             if (_accountProvider.UserId > 0)

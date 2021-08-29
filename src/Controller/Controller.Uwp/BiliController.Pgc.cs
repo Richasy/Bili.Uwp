@@ -190,5 +190,16 @@ namespace Richasy.Bili.Controller.Uwp
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取PGC索引条件.
+        /// </summary>
+        /// <param name="type">PGC类型.</param>
+        /// <returns>索引结果.</returns>
+        public async Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type)
+        {
+            ThrowWhenNetworkUnavaliable();
+            return await _pgcProvider.GetPgcIndexConditionsAsync(type);
+        }
     }
 }

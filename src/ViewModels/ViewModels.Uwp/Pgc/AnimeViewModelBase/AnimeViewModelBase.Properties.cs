@@ -2,7 +2,6 @@
 
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -11,11 +10,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class AnimeViewModelBase
     {
-        /// <summary>
-        /// PGC类型.
-        /// </summary>
-        public PgcType Type { get; set; }
-
         /// <summary>
         /// 标签集合.
         /// </summary>

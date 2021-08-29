@@ -64,5 +64,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="isFollow">是否关注.</param>
         /// <returns>关注结果.</returns>
         Task<bool> FollowAsync(int seasonId, bool isFollow);
+
+        /// <summary>
+        /// 获取PGC索引条件.
+        /// </summary>
+        /// <param name="type">PGC类型.</param>
+        /// <returns>PGC索引条件响应.</returns>
+        Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type);
     }
 }

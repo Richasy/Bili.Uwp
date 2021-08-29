@@ -26,7 +26,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Keyword, Uri.EscapeDataString(keyword) },
                 { Query.Order, orderType },
                 { Query.PageNumber, pageNumber.ToString() },
-                { Query.PageSize, "20" },
+                { Query.PageSizeSlim, "20" },
             };
 
             return queryParameters;

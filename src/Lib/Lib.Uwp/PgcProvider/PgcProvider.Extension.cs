@@ -145,5 +145,38 @@ namespace Richasy.Bili.Lib.Uwp
 
             return queryParameters;
         }
+
+        private Dictionary<string, string> GetPgcIndexBaseQueryParameters(PgcType type)
+        {
+            var queryParameters = new Dictionary<string, string>();
+
+            if (type == PgcType.Bangumi || type == PgcType.Domestic)
+            {
+                queryParameters.Add(Query.SeasonType, type == PgcType.Bangumi ? "1" : "2");
+            }
+            else
+            {
+                var indexType = string.Empty;
+                switch (type)
+                {
+                    case PgcType.Movie:
+                        indexType = "2";
+                        break;
+                    case PgcType.Documentary:
+                        indexType = "3";
+                        break;
+                    case PgcType.TV:
+                        indexType = "5";
+                        break;
+                    default:
+                        break;
+                }
+
+                queryParameters.Add(Query.IndexType, indexType);
+            }
+
+            queryParameters.Add(Query.Type, "0");
+            return queryParameters;
+        }
     }
 }

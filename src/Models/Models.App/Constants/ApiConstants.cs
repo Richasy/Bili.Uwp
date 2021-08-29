@@ -281,6 +281,16 @@ namespace Richasy.Bili.Models.App.Constants
             /// 取消追番/追剧.
             /// </summary>
             public const string Unfollow = _apiBase + "/pgc/app/follow/del";
+
+            /// <summary>
+            /// PGC索引条件.
+            /// </summary>
+            public const string IndexCondition = _apiBase + "/pgc/season/index/condition";
+
+            /// <summary>
+            /// PGC索引筛选结果.
+            /// </summary>
+            public const string IndexResult = _apiBase + "/pgc/season/index/result";
         }
 
         public static class Video
