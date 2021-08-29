@@ -71,5 +71,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="type">PGC类型.</param>
         /// <returns>PGC索引条件响应.</returns>
         Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type);
+
+        /// <summary>
+        /// 获取PGC索引结果.
+        /// </summary>
+        /// <param name="type">类型.</param>
+        /// <param name="page">页码.</param>
+        /// <param name="queryParameters">查询参数.</param>
+        /// <returns>PGC索引结果响应.</returns>
+        Task<PgcIndexResultResponse> GetPgcIndexResultAsync(PgcType type, int page, Dictionary<string, string> queryParameters);
     }
 }

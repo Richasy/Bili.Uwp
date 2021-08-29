@@ -54,13 +54,22 @@ namespace Richasy.Bili.App.Pages
             }
         }
 
-        private void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
+        private async void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
         {
+            await ViewModel.DeltaRequestIndexAsync();
         }
 
         private async void OnIndexRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await ViewModel.LoadIndexAsync();
+        }
+
+        private async void OnConditionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel.IsIndexRequested)
+            {
+                await ViewModel.LoadIndexAsync();
+            }
         }
     }
 }

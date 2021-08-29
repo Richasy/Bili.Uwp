@@ -152,7 +152,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             if (type == PgcType.Bangumi || type == PgcType.Domestic)
             {
-                queryParameters.Add(Query.SeasonType, type == PgcType.Bangumi ? "1" : "2");
+                queryParameters.Add(Query.SeasonType, "1");
             }
             else
             {
@@ -176,6 +176,23 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             queryParameters.Add(Query.Type, "0");
+            return queryParameters;
+        }
+
+        private Dictionary<string, string> GetPgcIndexResultQueryParameters(PgcType type, int page, Dictionary<string, string> additionalParameters)
+        {
+            var queryParameters = GetPgcIndexBaseQueryParameters(type);
+            queryParameters.Add(Query.PageSizeFull, "21");
+            queryParameters.Add(Query.Page, page.ToString());
+
+            if (additionalParameters != null)
+            {
+                foreach (var item in additionalParameters)
+                {
+                    queryParameters.Add(item.Key, item.Value);
+                }
+            }
+
             return queryParameters;
         }
     }

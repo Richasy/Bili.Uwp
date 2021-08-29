@@ -201,5 +201,31 @@ namespace Richasy.Bili.Controller.Uwp
             ThrowWhenNetworkUnavaliable();
             return await _pgcProvider.GetPgcIndexConditionsAsync(type);
         }
+
+        /// <summary>
+        /// 请求PGC索引内容.
+        /// </summary>
+        /// <param name="type">类型.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <param name="conditions">条件集合.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestPgcIndexResultAsync(PgcType type, int pageNumber, Dictionary<string, string> conditions)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var data = await _pgcProvider.GetPgcIndexResultAsync(type, pageNumber, conditions);
+                var args = new PgcIndexResultIterationEventArgs(data, type);
+                PgcIndexResultIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber > 1)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }
