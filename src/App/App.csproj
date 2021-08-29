@@ -14,6 +14,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <Use64BitCompiler>true</Use64BitCompiler>
+    <ShortcutGenericAnalysis>true</ShortcutGenericAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
@@ -204,6 +205,9 @@
     </Compile>
     <Compile Include="Pages\Overlay\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Overlay\PgcIndexPage.xaml.cs">
+      <DependentUpon>PgcIndexPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
@@ -634,6 +638,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\PgcIndexPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

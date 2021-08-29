@@ -69,7 +69,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string OrderSort = "order_sort";
             public const string Pull = "pull";
             public const string PageNumber = "pn";
-            public const string PageSize = "ps";
+            public const string PageSizeSlim = "ps";
             public const string Type = "type";
             public const string Idx = "idx";
             public const string Flush = "flush";
@@ -136,6 +136,17 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PlayTime = "playTime";
             public const string TagId = "tagid";
             public const string UpId = "up_mid";
+            public const string Area = "area";
+            public const string CopyRight = "copyright";
+            public const string IsFinish = "is_finish";
+            public const string PageSizeFull = "pagesize";
+            public const string SeasonMonth = "season_month";
+            public const string SeasonStatus = "season_status";
+            public const string SeasonVersion = "season_version";
+            public const string SpokenLanguageType = "spoken_language_type";
+            public const string StyleId = "style_id";
+            public const string Year = "year";
+            public const string IndexType = "index_type";
         }
 
         public static class Sort

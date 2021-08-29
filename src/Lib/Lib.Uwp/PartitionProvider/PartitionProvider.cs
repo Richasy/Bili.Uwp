@@ -99,7 +99,7 @@ namespace Richasy.Bili.Lib.Uwp
 
                 queryParameters.Add(Query.Order, sortStr);
                 queryParameters.Add(Query.PageNumber, pageNum.ToString());
-                queryParameters.Add(Query.PageSize, "30");
+                queryParameters.Add(Query.PageSizeSlim, "30");
             }
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, requestUrl, queryParameters);

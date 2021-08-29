@@ -186,7 +186,7 @@ namespace Richasy.Bili.Lib.Uwp
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.PageNumber, page.ToString() },
-                { Query.PageSize, "40" },
+                { Query.PageSizeSlim, "40" },
             };
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ViewLaterList, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);

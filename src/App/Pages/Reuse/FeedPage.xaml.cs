@@ -82,5 +82,10 @@ namespace Richasy.Bili.App.Pages
                 await ViewModel.DeltaRequestAsync();
             }
         }
+
+        private void OnIndexButtonClick(object sender, RoutedEventArgs e)
+        {
+            AppViewModel.Instance.SetOverlayContentId(PageIds.PgcIndex, ViewModel);
+        }
     }
 }

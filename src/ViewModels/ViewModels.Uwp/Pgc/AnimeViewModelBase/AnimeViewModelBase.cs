@@ -13,15 +13,15 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 动漫视图模型基类.
     /// </summary>
-    public partial class AnimeViewModelBase : WebRequestViewModelBase
+    public partial class AnimeViewModelBase : PgcViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimeViewModelBase"/> class.
         /// </summary>
         /// <param name="type">PGC类型.</param>
         public AnimeViewModelBase(PgcType type)
+            : base(type)
         {
-            Type = type;
             TabCollection = new ObservableCollection<PgcTabViewModel>();
             PropertyChanged += OnPropertyChangedAsync;
         }

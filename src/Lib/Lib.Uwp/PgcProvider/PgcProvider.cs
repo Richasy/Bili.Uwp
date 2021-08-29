@@ -87,5 +87,25 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _httpProvider.ParseAsync<ServerResponse>(response);
             return data.IsSuccess();
         }
+
+        /// <inheritdoc/>
+        public async Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type)
+        {
+            var queryParameters = GetPgcIndexBaseQueryParameters(type);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexCondition, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexConditionResponse>>(response);
+            return data.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<PgcIndexResultResponse> GetPgcIndexResultAsync(PgcType type, int page, Dictionary<string, string> parameters)
+        {
+            var queryParameters = GetPgcIndexResultQueryParameters(type, page, parameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexResult, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexResultResponse>>(response);
+            return data.Data;
+        }
     }
 }

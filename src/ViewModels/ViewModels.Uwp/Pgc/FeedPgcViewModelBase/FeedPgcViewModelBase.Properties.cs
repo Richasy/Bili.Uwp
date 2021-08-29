@@ -2,7 +2,6 @@
 
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -37,15 +36,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsShowBanner { get; set; }
 
-        /// <summary>
-        /// PGC类型.
-        /// </summary>
-        public PgcType PgcType { get; set; }
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is FeedPgcViewModelBase model && Type == model.Type;
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is FeedPgcViewModelBase model && PgcType == model.PgcType;
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => 2108858624 + PgcType.GetHashCode();
+        public override int GetHashCode() => 2108858624 + Type.GetHashCode();
     }
 }

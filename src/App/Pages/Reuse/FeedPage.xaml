@@ -84,7 +84,7 @@
                 MinWideItemWidth="300"
                 RequestLoadMore="OnFeedViewRequestLoadMoreAsync">
                 <controls:VerticalRepeaterView.AdditionalContent>
-                    <Button x:Name="IndexButton">
+                    <Button x:Name="IndexButton" Click="OnIndexButtonClick">
                         <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
                     </Button>
                 </controls:VerticalRepeaterView.AdditionalContent>

@@ -13,22 +13,14 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 数据源式PGC视图模型基类.
     /// </summary>
-    public partial class FeedPgcViewModelBase : WebRequestViewModelBase
+    public partial class FeedPgcViewModelBase : PgcViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FeedPgcViewModelBase"/> class.
         /// </summary>
         /// <param name="type">PGC类型.</param>
         public FeedPgcViewModelBase(PgcType type)
-            : this()
-        {
-            PgcType = type;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedPgcViewModelBase"/> class.
-        /// </summary>
-        protected FeedPgcViewModelBase()
+            : base(type)
         {
             SeasonCollection = new ObservableCollection<SeasonViewModel>();
             BannerCollection = new ObservableCollection<BannerViewModel>();
@@ -50,7 +42,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 SeasonCollection.Clear();
                 try
                 {
-                    await Controller.RequestPgcPageDetailAsync(PgcType, _cursor);
+                    await Controller.RequestPgcPageDetailAsync(Type, _cursor);
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -78,14 +70,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !IsInitializeLoading)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestPgcPageDetailAsync(PgcType, _cursor);
+                await Controller.RequestPgcPageDetailAsync(Type, _cursor);
                 IsDeltaLoading = false;
             }
         }
 
         private void OnPgcModuleIteration(object sender, PgcModuleIterationEventArgs e)
         {
-            if (e.PgcType == PgcType)
+            if (e.PgcType == Type)
             {
                 var module = e.Modules.First();
                 module.Items.ForEach(p => SeasonCollection.Add(SeasonViewModel.CreateFromModuleItem(p)));
@@ -95,7 +87,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private void OnPgcModuleAdditionalDataChanged(object sender, PgcModuleAdditionalDataChangedEventArgs e)
         {
-            if (e.PgcType == PgcType)
+            if (e.PgcType == Type)
             {
                 if (e.Banners?.Any() ?? false)
                 {
