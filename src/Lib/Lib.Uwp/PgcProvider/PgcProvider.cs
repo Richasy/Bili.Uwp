@@ -114,8 +114,8 @@ namespace Richasy.Bili.Lib.Uwp
             var queryParameters = GetPgcTimeLineQueryParameters(type);
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.TimeLine, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PgcTimeLineResponse>>(response);
-            return data.Data;
+            var data = await _httpProvider.ParseAsync<ServerResponse2<PgcTimeLineResponse>>(response);
+            return data.Result;
         }
     }
 }

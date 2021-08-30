@@ -58,6 +58,44 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 初始化时间线.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeTimeLineAsync()
+        {
+            if (TimeLineCollection == null)
+            {
+                TimeLineCollection = new ObservableCollection<PgcTimeLineItemViewModel>();
+            }
+
+            if (!IsTimeLineInitializing)
+            {
+                IsTimeLineInitializing = true;
+                IsTimeLineError = false;
+                TimeLineCollection.Clear();
+                try
+                {
+                    var response = await Controller.GetPgcTimeLineAsync(Type);
+                    TimeLineTitle = response.Title;
+                    TimeLineSubtitle = response.Subtitle;
+                    response.Data.ForEach(p => TimeLineCollection.Add(new PgcTimeLineItemViewModel(p)));
+                }
+                catch (ServiceException ex)
+                {
+                    IsError = true;
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestPgcTimeLineFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (InvalidOperationException invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
+                }
+
+                IsTimeLineInitializing = false;
+            }
+        }
+
         private async void OnPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(CurrentTab))

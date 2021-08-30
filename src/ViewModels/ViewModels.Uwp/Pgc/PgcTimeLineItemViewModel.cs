@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Models.BiliBili;
 
@@ -19,12 +19,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PgcTimeLineItemViewModel(PgcTimeLineItem item)
         {
             IsToday = item.IsToday == 1;
-        }
+            Date = item.Date;
+            DayOfWeek = ConvertDayOfWeek(item.DayOfWeek);
+            EpisodeCollection = new ObservableCollection<SeasonViewModel>();
+            IsShowEmpty = item.Episodes == null || item.Episodes.Count == 0;
+            EmptyText = item.HolderText;
 
-        /// <summary>
-        /// 让视图进入界面.
-        /// </summary>
-        public event EventHandler BringIntoView;
+            if (!IsShowEmpty)
+            {
+                item.Episodes.ForEach(p => EpisodeCollection.Add(SeasonViewModel.CreateFromTimeLineItem(p)));
+            }
+        }
 
         /// <summary>
         /// 是否是今天.
@@ -33,11 +38,66 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsToday { get; set; }
 
         /// <summary>
-        /// 发送进入视图事件.
+        /// 日期.
         /// </summary>
-        public void RaiseBringEvent()
+        [Reactive]
+        public string Date { get; set; }
+
+        /// <summary>
+        /// 星期几.
+        /// </summary>
+        [Reactive]
+        public string DayOfWeek { get; set; }
+
+        /// <summary>
+        /// 剧集集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<SeasonViewModel> EpisodeCollection { get; set; }
+
+        /// <summary>
+        /// 是否显示空白.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEmpty { get; set; }
+
+        /// <summary>
+        /// 空白占位符.
+        /// </summary>
+        [Reactive]
+        public string EmptyText { get; set; }
+
+        private string ConvertDayOfWeek(int day)
         {
-            BringIntoView?.Invoke(this, EventArgs.Empty);
+            var dayOfWeek = string.Empty;
+            switch (day)
+            {
+                case 1:
+                    dayOfWeek = "一";
+                    break;
+                case 2:
+                    dayOfWeek = "二";
+                    break;
+                case 3:
+                    dayOfWeek = "三";
+                    break;
+                case 4:
+                    dayOfWeek = "四";
+                    break;
+                case 5:
+                    dayOfWeek = "五";
+                    break;
+                case 6:
+                    dayOfWeek = "六";
+                    break;
+                case 7:
+                    dayOfWeek = "日";
+                    break;
+                default:
+                    break;
+            }
+
+            return "周" + dayOfWeek;
         }
     }
 }

@@ -110,5 +110,10 @@ namespace Richasy.Bili.App.Pages
         {
             AppViewModel.Instance.SetOverlayContentId(PageIds.PgcIndex, ViewModel);
         }
+
+        private void OnTimeChartButtonClick(object sender, RoutedEventArgs e)
+        {
+            AppViewModel.Instance.SetOverlayContentId(PageIds.TimeLine, ViewModel);
+        }
     }
 }

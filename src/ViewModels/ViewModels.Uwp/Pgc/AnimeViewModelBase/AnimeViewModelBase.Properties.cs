@@ -27,5 +27,35 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ObservableCollection<PgcTimeLineItemViewModel> TimeLineCollection { get; set; }
+
+        /// <summary>
+        /// 时间线标题.
+        /// </summary>
+        [Reactive]
+        public string TimeLineTitle { get; set; }
+
+        /// <summary>
+        /// 时间线副标题.
+        /// </summary>
+        [Reactive]
+        public string TimeLineSubtitle { get; set; }
+
+        /// <summary>
+        /// 时间线是否正在加载.
+        /// </summary>
+        [Reactive]
+        public bool IsTimeLineInitializing { get; set; }
+
+        /// <summary>
+        /// 时间线请求是否出错.
+        /// </summary>
+        [Reactive]
+        public bool IsTimeLineError { get; set; }
+
+        /// <summary>
+        /// 时间线请求错误文本.
+        /// </summary>
+        [Reactive]
+        public string TimeLineErrorText { get; set; }
     }
 }
