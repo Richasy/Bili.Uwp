@@ -80,5 +80,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="queryParameters">查询参数.</param>
         /// <returns>PGC索引结果响应.</returns>
         Task<PgcIndexResultResponse> GetPgcIndexResultAsync(PgcType type, int page, Dictionary<string, string> queryParameters);
+
+        /// <summary>
+        /// 获取PGC内容发布时间线.
+        /// </summary>
+        /// <param name="type">类型.</param>
+        /// <returns>时间轴响应结果.</returns>
+        Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type);
     }
 }

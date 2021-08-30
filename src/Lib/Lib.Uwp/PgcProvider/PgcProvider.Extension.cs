@@ -195,5 +195,34 @@ namespace Richasy.Bili.Lib.Uwp
 
             return queryParameters;
         }
+
+        private Dictionary<string, string> GetPgcTimeLineQueryParameters(PgcType type)
+        {
+            var typeStr = string.Empty;
+            switch (type)
+            {
+                case PgcType.Bangumi:
+                    typeStr = "2";
+                    break;
+                case PgcType.Domestic:
+                    typeStr = "3";
+                    break;
+                case PgcType.Movie:
+                    break;
+                case PgcType.Documentary:
+                    break;
+                case PgcType.TV:
+                    break;
+                default:
+                    break;
+            }
+
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Type, typeStr },
+                { Query.FilterType, "0" },
+            };
+            return queryParameters;
+        }
     }
 }

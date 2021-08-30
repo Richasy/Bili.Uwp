@@ -21,5 +21,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PgcTabViewModel CurrentTab { get; set; }
+
+        /// <summary>
+        /// 时间线集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PgcTimeLineItemViewModel> TimeLineCollection { get; set; }
     }
 }

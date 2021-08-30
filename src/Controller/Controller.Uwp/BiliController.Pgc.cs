@@ -227,5 +227,16 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 获取PGC时间线.
+        /// </summary>
+        /// <param name="type">PGC内容类型.</param>
+        /// <returns><see cref="PgcTimeLineResponse"/>.</returns>
+        public Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type)
+        {
+            ThrowWhenNetworkUnavaliable();
+            return _pgcProvider.GetPgcTimeLineAsync(type);
+        }
     }
 }
