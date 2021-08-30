@@ -291,6 +291,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// PGC索引筛选结果.
             /// </summary>
             public const string IndexResult = _apiBase + "/pgc/season/index/result";
+
+            /// <summary>
+            /// 时间表.
+            /// </summary>
+            public const string TimeLine = _apiBase + "/pgc/app/timeline";
         }
 
         public static class Video

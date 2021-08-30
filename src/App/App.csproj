@@ -209,6 +209,9 @@
     <Compile Include="Pages\Overlay\PgcIndexPage.xaml.cs">
       <DependentUpon>PgcIndexPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Overlay\TimeLinePage.xaml.cs">
+      <DependentUpon>TimeLinePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
     </Compile>
@@ -642,6 +645,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\PgcIndexPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\TimeLinePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -244,6 +244,9 @@ namespace Richasy.Bili.Models.Enums
         PublishInInstalments,
         PublishFinished,
         RequestIndexResultFailed,
+        Updated,
+        NotUpdated,
+        RequestPgcTimeLineFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

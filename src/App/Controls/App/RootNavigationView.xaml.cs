@@ -211,6 +211,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.PgcIndex:
                     pageType = typeof(PgcIndexPage);
                     break;
+                case PageIds.TimeLine:
+                    pageType = typeof(TimeLinePage);
+                    break;
                 default:
                     break;
             }

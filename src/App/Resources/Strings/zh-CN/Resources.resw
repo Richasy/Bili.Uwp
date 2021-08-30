@@ -450,6 +450,9 @@
   <data name="NoStroke" xml:space="preserve">
     <value>无描边</value>
   </data>
+  <data name="NotUpdate" xml:space="preserve">
+    <value>即将更新</value>
+  </data>
   <data name="NoViewLaterVideos" xml:space="preserve">
     <value>没有视频被加入稍后再看列表</value>
   </data>
@@ -608,6 +611,9 @@
   </data>
   <data name="RequestPgcFailed" xml:space="preserve">
     <value>PGC内容请求失败</value>
+  </data>
+  <data name="RequestPgcTimeLineFailed" xml:space="preserve">
+    <value>请求时间线内容失败</value>
   </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>热门视频请求失败</value>
@@ -773,6 +779,9 @@
   </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>已更新</value>
   </data>
   <data name="UpMaster" xml:space="preserve">
     <value>UP主</value>

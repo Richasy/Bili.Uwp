@@ -106,5 +106,34 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             return vm;
         }
+
+        /// <summary>
+        /// 从时间线条目创建.
+        /// </summary>
+        /// <param name="item">PGC时间线条目.</param>
+        /// <returns>剧集视图模型.</returns>
+        public static SeasonViewModel CreateFromTimeLineItem(TimeLineEpisode item)
+        {
+            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var vm = new SeasonViewModel();
+            vm.Title = item.Title;
+            vm.Subtitle = item.PublishTime;
+            vm.Tags = item.PublishIndex;
+            vm.SeasonId = item.SeasonId;
+            vm.EpisodeId = item.EpisodeId;
+            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            vm.SourceCoverUrl = item.Cover;
+            vm.AdditionalText = item.IsPublished == 1 ?
+                resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Updated) :
+                resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotUpdated);
+            vm.Source = item;
+
+            vm.IsShowBadge = false;
+            vm.IsShowTags = !string.IsNullOrEmpty(item.PublishIndex);
+            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
+            vm.IsShowRating = false;
+
+            return vm;
+        }
     }
 }

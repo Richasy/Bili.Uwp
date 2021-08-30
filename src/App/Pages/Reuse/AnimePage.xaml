@@ -63,7 +63,7 @@
                     <Button x:Name="IndexButton" Click="OnIndexButtonClick">
                         <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
                     </Button>
-                    <Button x:Name="TimeChartButton">
+                    <Button x:Name="TimeChartButton" Click="OnTimeChartButtonClick">
                         <controls:IconTextBlock Symbol="Clock16" Text="{loc:LocaleLocator Name=TimeChart}" />
                     </Button>
                 </StackPanel>
