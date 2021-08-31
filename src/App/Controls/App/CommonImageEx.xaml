@@ -18,7 +18,7 @@
         RetryCount="2"
         RetryDelay="0:0:5"
         Source="{x:Bind ImageUrl, Mode=OneWay}"
-        Stretch="UniformToFill">
+        Stretch="{x:Bind Stretch, Mode=OneWay}">
         <hn:ImageEx.LoadingTemplate>
             <DataTemplate>
                 <Grid>

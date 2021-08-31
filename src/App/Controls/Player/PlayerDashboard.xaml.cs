@@ -11,6 +11,7 @@ namespace Richasy.Bili.App.Controls
     public sealed partial class PlayerDashboard : PlayerComponent
     {
         private bool _isLikeHoldCompleted;
+        private PgcDetailView _detailView;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerDashboard"/> class.
@@ -34,6 +35,12 @@ namespace Richasy.Bili.App.Controls
 
         private void OnPgcDetailButtonClick(object sender, RoutedEventArgs e)
         {
+            if (_detailView == null)
+            {
+                _detailView = new PgcDetailView();
+            }
+
+            _detailView.Show();
         }
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)

@@ -470,6 +470,132 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsRequestingFavorites { get; set; }
 
+        /// <summary>
+        /// 是否显示徽章文本.
+        /// </summary>
+        [Reactive]
+        public bool IsShowBadge { get; set; }
+
+        /// <summary>
+        /// 徽章文本.
+        /// </summary>
+        [Reactive]
+        public string BadgeText { get; set; }
+
+        /// <summary>
+        /// 是否显示演职人员.
+        /// </summary>
+        [Reactive]
+        public bool IsShowCelebrity { get; set; }
+
+        /// <summary>
+        /// 演职人员.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PgcCelebrity> CelebrityCollection { get; set; }
+
+        /// <summary>
+        /// 发布日期.
+        /// </summary>
+        [Reactive]
+        public string DisplayProgress { get; set; }
+
+        /// <summary>
+        /// 发布时间.
+        /// </summary>
+        [Reactive]
+        public string PublishDate { get; set; }
+
+        /// <summary>
+        /// 是否显示原名.
+        /// </summary>
+        [Reactive]
+        public bool IsShowOriginName { get; set; }
+
+        /// <summary>
+        /// 原名.
+        /// </summary>
+        [Reactive]
+        public string OriginName { get; set; }
+
+        /// <summary>
+        /// 是否显示别名.
+        /// </summary>
+        [Reactive]
+        public bool IsShowAlias { get; set; }
+
+        /// <summary>
+        /// 别名.
+        /// </summary>
+        [Reactive]
+        public string Alias { get; set; }
+
+        /// <summary>
+        /// 是否显示演员信息.
+        /// </summary>
+        [Reactive]
+        public bool IsShowActor { get; set; }
+
+        /// <summary>
+        /// 声优/演员标题.
+        /// </summary>
+        [Reactive]
+        public string ActorTitle { get; set; }
+
+        /// <summary>
+        /// 声优/演员详情.
+        /// </summary>
+        [Reactive]
+        public string ActorInformation { get; set; }
+
+        /// <summary>
+        /// 是否显示制作信息.
+        /// </summary>
+        [Reactive]
+        public bool IsShowEditor { get; set; }
+
+        /// <summary>
+        /// 制作信息标题.
+        /// </summary>
+        [Reactive]
+        public string EditorTitle { get; set; }
+
+        /// <summary>
+        /// 制作信息详情.
+        /// </summary>
+        [Reactive]
+        public string EditorInformation { get; set; }
+
+        /// <summary>
+        /// 评价/简介.
+        /// </summary>
+        [Reactive]
+        public string Evaluate { get; set; }
+
+        /// <summary>
+        /// PGC内容类型.
+        /// </summary>
+        [Reactive]
+        public string PgcTypeName { get; set; }
+
+        /// <summary>
+        /// 评分.
+        /// </summary>
+        [Reactive]
+        public double Rating { get; set; }
+
+        /// <summary>
+        /// 评分人数.
+        /// </summary>
+        [Reactive]
+        public string RatedCount { get; set; }
+
+        /// <summary>
+        /// 是否显示评分.
+        /// </summary>
+        [Reactive]
+        public bool IsShowRating { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -18,6 +19,12 @@ namespace Richasy.Bili.App.Controls
         {
             this.InitializeComponent();
             this.Loaded += OnLoaded;
+            this.ViewModel.Loaded += OnViewModelLoaded;
+        }
+
+        private void OnViewModelLoaded(object sender, EventArgs e)
+        {
+            InitializeLayout();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

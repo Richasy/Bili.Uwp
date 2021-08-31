@@ -120,6 +120,9 @@
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>
+  <data name="Alias" xml:space="preserve">
+    <value>别名</value>
+  </data>
   <data name="AlsoLike" xml:space="preserve">
     <value>同时点赞</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="CaptchaIsEmpty" xml:space="preserve">
     <value>验证码不能为空</value>
+  </data>
+  <data name="CastAndCrew" xml:space="preserve">
+    <value>演职人员</value>
   </data>
   <data name="Chat" xml:space="preserve">
     <value>聊天互动</value>
@@ -257,6 +263,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>简介</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
@@ -465,6 +474,9 @@
   <data name="Original" xml:space="preserve">
     <value>原创</value>
   </data>
+  <data name="OriginName" xml:space="preserve">
+    <value>原名</value>
+  </data>
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
   </data>
@@ -485,6 +497,9 @@
   </data>
   <data name="PasswordLoginTip" xml:space="preserve">
     <value>请在下方输入您的用户名和密码，应用不会存储这部分数据，但安全起见，请使用二维码登录</value>
+  </data>
+  <data name="PeopleCount" xml:space="preserve">
+    <value>人次</value>
   </data>
   <data name="Personal" xml:space="preserve">
     <value>个人</value>
