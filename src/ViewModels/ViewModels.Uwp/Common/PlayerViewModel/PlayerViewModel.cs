@@ -64,6 +64,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler MediaPlayerUpdated;
 
         /// <summary>
+        /// 数据请求完成时发生.
+        /// </summary>
+        public event EventHandler Loaded;
+
+        /// <summary>
         /// 保存媒体控件.
         /// </summary>
         /// <param name="playerControl">播放器控件.</param>
@@ -124,6 +129,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _progressTimer.Start();
+
+            Loaded?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

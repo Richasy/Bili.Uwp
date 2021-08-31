@@ -24,6 +24,9 @@
     <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PgcDetailView.xaml.cs">
+      <DependentUpon>PgcDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Pgc\PgcPlayListView.xaml.cs">
       <DependentUpon>PgcPlayListView.xaml</DependentUpon>
     </Compile>
@@ -132,23 +135,23 @@
     <Compile Include="Controls\Search\SearchVideoView.xaml.cs">
       <DependentUpon>SearchVideoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\PlayerControlSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\PlayerControlSettingSection.xaml.cs">
       <DependentUpon>PlayerControlSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\PlayerModeSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\PlayerModeSettingSection.xaml.cs">
       <DependentUpon>PlayerModeSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\LoggerSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\LoggerSettingSection.xaml.cs">
       <DependentUpon>LoggerSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\SettingSectionControl.cs" />
-    <Compile Include="Controls\Settings\StartupSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\SettingSectionControl.cs" />
+    <Compile Include="Controls\Pgc\Settings\StartupSettingSection.xaml.cs">
       <DependentUpon>StartupSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
+    <Compile Include="Controls\Pgc\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserSlimCard.xaml.cs">
@@ -412,6 +415,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\PgcDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Pgc\PgcPlayListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -556,27 +563,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\MTCSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\MTCSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\PlayerControlSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\PlayerControlSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\PlayerModeSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\PlayerModeSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\LoggerSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\LoggerSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\StartupSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\StartupSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\ThemeSettingSection.xaml">
+    <Page Include="Controls\Pgc\Settings\ThemeSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

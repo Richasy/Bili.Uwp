@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -165,7 +166,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = false;
 
                 await Controller.ConnectToLiveRoomAsync(roomId);
-                await ChangeLiveQualityAsync(0);
+                await ChangeLiveQualityAsync(4);
                 await Controller.SendLiveHeartBeatAsync();
             }
         }
@@ -257,6 +258,49 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCount = _numberToolkit.GetCountText(_pgcDetail.InformationStat.ReplyCount);
             ViewerCount = string.Empty;
             CoverUrl = _pgcDetail.Cover;
+
+            BadgeText = _pgcDetail.BadgeText;
+            IsShowBadge = !string.IsNullOrEmpty(_pgcDetail.BadgeText);
+            DisplayProgress = _pgcDetail.PublishInformation.DisplayProgress;
+            PublishDate = _pgcDetail.PublishInformation.DisplayReleaseDate;
+            IsShowOriginName = !string.IsNullOrEmpty(_pgcDetail.OriginName);
+            OriginName = _pgcDetail.OriginName ?? string.Empty;
+            IsShowAlias = !string.IsNullOrEmpty(_pgcDetail.Alias);
+            Alias = _pgcDetail.Alias ?? string.Empty;
+            IsShowActor = _pgcDetail.Actor != null && !string.IsNullOrEmpty(_pgcDetail.Actor.Information);
+            if (IsShowActor)
+            {
+                ActorTitle = _pgcDetail.Actor.Title;
+                ActorInformation = _pgcDetail.Actor.Information;
+            }
+
+            IsShowEditor = _pgcDetail.Staff != null && !string.IsNullOrEmpty(_pgcDetail.Staff.Information);
+            if (IsShowEditor)
+            {
+                EditorTitle = _pgcDetail.Staff.Title;
+                EditorInformation = _pgcDetail.Staff.Information;
+            }
+
+            Evaluate = _pgcDetail.Evaluate;
+            PgcTypeName = _pgcDetail.TypeName;
+            IsShowRating = _pgcDetail.Rating != null;
+            if (IsShowRating)
+            {
+                Rating = _pgcDetail.Rating.Score;
+                RatedCount = _numberToolkit.GetCountText(_pgcDetail.Rating.Count) + _resourceToolkit.GetLocaleString(LanguageNames.PeopleCount);
+            }
+
+            if (CelebrityCollection == null)
+            {
+                CelebrityCollection = new ObservableCollection<PgcCelebrity>();
+            }
+
+            CelebrityCollection.Clear();
+            IsShowCelebrity = _pgcDetail.Celebrity != null;
+            if (IsShowCelebrity)
+            {
+                _pgcDetail.Celebrity.ForEach(p => CelebrityCollection.Add(p));
+            }
 
             IsShowPgcActivityTab = _pgcDetail.ActivityTab != null;
             if (IsShowPgcActivityTab)

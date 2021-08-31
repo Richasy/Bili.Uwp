@@ -1,0 +1,268 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.PgcDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="CenterState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="BottomState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Container.PreferredPlacement" Value="Bottom" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <muxc:TeachingTip
+            x:Name="Container"
+            MinWidth="300"
+            VerticalAlignment="Stretch"
+            Closed="OnContainerClosed"
+            IsLightDismissEnabled="True"
+            PreferredPlacement="Center"
+            ShouldConstrainToRootBounds="False">
+            <muxc:TeachingTip.HeroContent>
+                <Grid
+                    MinWidth="440"
+                    Padding="20,16,20,12"
+                    ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid CornerRadius="{StaticResource ControlCornerRadius}">
+                        <Image Width="120" Source="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            FontWeight="Bold"
+                            Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+                        <Grid Grid.Row="1" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="4">
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <Border
+                                        Margin="0,0,8,0"
+                                        Padding="4,2"
+                                        VerticalAlignment="Center"
+                                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="2"
+                                        Visibility="{x:Bind ViewModel.IsShowBadge, Mode=OneWay}">
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                            Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
+                                    </Border>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Text="{x:Bind ViewModel.PgcTypeName, Mode=OneWay}" />
+                                </StackPanel>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontSize="12"
+                                    Text="{x:Bind ViewModel.PublishDate, Mode=OneWay}" />
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontSize="12"
+                                    Text="{x:Bind ViewModel.DisplayProgress, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1"
+                                VerticalAlignment="Bottom"
+                                Spacing="4"
+                                Visibility="{x:Bind ViewModel.IsShowRating, Mode=OneWay}">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontSize="36"
+                                    FontWeight="Bold"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Text="{x:Bind ViewModel.Rating, Mode=OneWay}" />
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontSize="10"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind ViewModel.RatedCount, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </muxc:TeachingTip.HeroContent>
+
+            <Grid MaxWidth="440" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Spacing="8">
+                    <Grid ColumnSpacing="12" Visibility="{x:Bind ViewModel.IsShowOriginName, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=OriginName}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            FontSize="12"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.OriginName, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid ColumnSpacing="12" Visibility="{x:Bind ViewModel.IsShowAlias, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=Alias}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            FontSize="12"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.Alias, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    Spacing="4"
+                    Visibility="{x:Bind ViewModel.IsShowCelebrity, Mode=OneWay}">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{loc:LocaleLocator Name=CastAndCrew}" />
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Hidden"
+                        HorizontalScrollMode="Auto"
+                        VerticalScrollMode="Disabled">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.CelebrityCollection, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Orientation="Horizontal" Spacing="4" />
+                            </muxc:ItemsRepeater.Layout>
+                            <muxc:ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="bilibili:PgcCelebrity">
+                                    <local:CardPanel
+                                        AutomationProperties.Name="{x:Bind Name}"
+                                        IsEnableHoverAnimation="False"
+                                        IsEnableShadow="False"
+                                        ToolTipService.ToolTip="{x:Bind Name}">
+                                        <Grid Padding="12">
+                                            <StackPanel Spacing="4">
+                                                <muxc:PersonPicture
+                                                    Width="64"
+                                                    Height="64"
+                                                    Margin="0,0,0,8"
+                                                    DisplayName="{x:Bind Name}"
+                                                    ProfilePicture="{x:Bind Avatar}" />
+                                                <TextBlock
+                                                    MaxWidth="120"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="{x:Bind Name}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                                <TextBlock
+                                                    MaxWidth="120"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{x:Bind ShortDescription, Mode=OneWay}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </local:CardPanel>
+                                </DataTemplate>
+                            </muxc:ItemsRepeater.ItemTemplate>
+                        </muxc:ItemsRepeater>
+                    </ScrollViewer>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="2"
+                    Spacing="8"
+                    Visibility="{x:Bind ViewModel.IsShowActor, Mode=OneWay}">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.ActorTitle, Mode=OneWay}" />
+                    <TextBlock
+                        FontSize="12"
+                        IsTextSelectionEnabled="True"
+                        LineHeight="20"
+                        Text="{x:Bind ViewModel.ActorInformation, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="3"
+                    Spacing="8"
+                    Visibility="{x:Bind ViewModel.IsShowEditor, Mode=OneWay}">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.EditorTitle, Mode=OneWay}" />
+                    <TextBlock
+                        FontSize="12"
+                        IsTextSelectionEnabled="True"
+                        LineHeight="20"
+                        Text="{x:Bind ViewModel.EditorInformation, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Spacing="4">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{loc:LocaleLocator Name=Description}" />
+                    <TextBlock
+                        FontSize="12"
+                        IsTextSelectionEnabled="True"
+                        LineHeight="20"
+                        Text="{x:Bind ViewModel.Evaluate, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </muxc:TeachingTip>
+    </Grid>
+</UserControl>
