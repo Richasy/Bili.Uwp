@@ -148,6 +148,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Year = "year";
             public const string IndexType = "index_type";
             public const string FilterType = "filter_type";
+            public const string Id = "id";
         }
 
         public static class Sort

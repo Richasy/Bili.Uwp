@@ -238,5 +238,16 @@ namespace Richasy.Bili.Controller.Uwp
             ThrowWhenNetworkUnavaliable();
             return _pgcProvider.GetPgcTimeLineAsync(type);
         }
+
+        /// <summary>
+        /// 获取PGC播放列表详情.
+        /// </summary>
+        /// <param name="listId">列表Id.</param>
+        /// <returns>播放列表内容.</returns>
+        public Task<PgcPlayListResponse> GetPgcPlayListAsync(int listId)
+        {
+            ThrowWhenNetworkUnavaliable();
+            return _pgcProvider.GetPgcPlayListAsync(listId);
+        }
     }
 }

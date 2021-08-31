@@ -135,5 +135,37 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             return vm;
         }
+
+        /// <summary>
+        /// 从播放列表条目中创建.
+        /// </summary>
+        /// <param name="item">播放列表条目.</param>
+        /// <returns><see cref="SeasonViewModel"/>.</returns>
+        public static SeasonViewModel CreateFromPlayListItem(PgcPlayListSeason item)
+        {
+            var vm = new SeasonViewModel();
+            vm.Title = item.Title;
+            vm.Subtitle = item.Description;
+            vm.SeasonId = item.SeasonId;
+            vm.Tags = item.Styles;
+            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            vm.Source = item;
+            vm.BadgeText = item.BadgeText;
+            vm.SourceCoverUrl = item.Cover;
+            vm.AdditionalText = item.Subtitle;
+
+            vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            vm.IsShowTags = !string.IsNullOrEmpty(item.Styles);
+            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
+
+            if (item.Rating != null)
+            {
+                vm.Rating = item.Rating.Score;
+            }
+
+            vm.IsShowRating = vm.Rating > 0;
+
+            return vm;
+        }
     }
 }

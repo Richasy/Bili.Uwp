@@ -24,6 +24,9 @@
     <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Pgc\PgcPlayListView.xaml.cs">
+      <DependentUpon>PgcPlayListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -69,7 +72,7 @@
     <Compile Include="Controls\Live\FollowLiveView.xaml.cs">
       <DependentUpon>FollowLiveView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\PgcItem.xaml.cs">
+    <Compile Include="Controls\Pgc\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\PlayerDashboard.xaml.cs">
@@ -408,6 +411,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Pgc\PgcPlayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\User\AccountPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -468,7 +475,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\PgcItem.xaml">
+    <Page Include="Controls\Pgc\PgcItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

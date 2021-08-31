@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,6 +55,11 @@ namespace Richasy.Bili.App.Controls
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// 条目被点击时触发.
+        /// </summary>
+        public event EventHandler<SeasonViewModel> ItemClick;
 
         /// <summary>
         /// 视图模型.
@@ -111,6 +117,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
+            ItemClick?.Invoke(this, ViewModel);
             AppViewModel.Instance.OpenPlayer(ViewModel);
         }
     }

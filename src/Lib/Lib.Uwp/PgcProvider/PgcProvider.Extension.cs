@@ -224,5 +224,15 @@ namespace Richasy.Bili.Lib.Uwp
             };
             return queryParameters;
         }
+
+        private Dictionary<string, string> GetPgcPlayListQueryParameters(int id)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Id, id.ToString() },
+            };
+
+            return queryParameters;
+        }
     }
 }

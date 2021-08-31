@@ -40,6 +40,31 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type", Required = Required.Default)]
         public int Type { get; set; }
+
+        /// <summary>
+        /// 模块头列表.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "headers", Required = Required.Default)]
+        public List<PgcModuleHeader> Headers { get; set; }
+    }
+
+    /// <summary>
+    /// PGC内容头.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class PgcModuleHeader
+    {
+        /// <summary>
+        /// 标题.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "title", Required = Required.Default)]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 导航地址.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "url", Required = Required.Default)]
+        public string Url { get; set; }
     }
 
     /// <summary>

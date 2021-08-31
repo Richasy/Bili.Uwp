@@ -162,7 +162,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsIndexError = true;
                 IndexErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestIndexResultFailed)}\n{ex.Error?.Message ?? ex.Message}";
             }
-            catch (InvalidOperationException invalidEx)
+            catch (Exception invalidEx)
             {
                 IsIndexError = true;
                 IndexErrorText = invalidEx.Message;

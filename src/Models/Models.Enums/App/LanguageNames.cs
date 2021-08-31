@@ -247,6 +247,7 @@ namespace Richasy.Bili.Models.Enums
         Updated,
         NotUpdated,
         RequestPgcTimeLineFailed,
+        RequestPlayListFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

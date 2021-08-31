@@ -12,6 +12,11 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class PgcModuleViewModel
     {
         /// <summary>
+        /// 模块Id.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// 模块数据类型.
         /// </summary>
         public PgcModuleType Type { get; set; }

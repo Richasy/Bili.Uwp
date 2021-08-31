@@ -117,5 +117,15 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcTimeLineResponse>>(response);
             return data.Result;
         }
+
+        /// <inheritdoc/>
+        public async Task<PgcPlayListResponse> GetPgcPlayListAsync(int listId)
+        {
+            var queryParameters = GetPgcPlayListQueryParameters(listId);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.PlayList, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse2<PgcPlayListResponse>>(response);
+            return data.Result;
+        }
     }
 }

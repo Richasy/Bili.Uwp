@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -102,8 +103,13 @@ namespace Richasy.Bili.App.Pages
             CheckCurrentTabAsync();
         }
 
-        private void OnShowMoreButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnShowMoreButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            var vm = (sender as Button).Tag as PgcModuleViewModel;
+            if (vm.Id > 0)
+            {
+                await new PgcPlayListView().ShowAsync(vm.Id);
+            }
         }
 
         private void OnIndexButtonClick(object sender, RoutedEventArgs e)
