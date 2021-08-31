@@ -82,7 +82,24 @@
                     x:Name="PlayerContainer"
                     Margin="0,0,0,24"
                     Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <controls:BiliPlayer x:Name="BiliPlayer" />
+                    <controls:BiliPlayer x:Name="BiliPlayer" Visibility="{x:Bind ViewModel.IsPlayInformationError,Mode=OneWay,Converter={StaticResource BoolToVisibilityReverseConverter}}"/>
+                    <Grid x:Load="{x:Bind ViewModel.IsPlayInformationError,Mode=OneWay}">
+                        <controls:CommonImageEx ImageUrl="{x:Bind ViewModel.CoverUrl,Mode=OneWay}"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"/>
+                        <StackPanel Padding="20,12" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                    CornerRadius="{StaticResource OverlayCornerRadius}" Spacing="8"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="ms-appx:///Assets/ERROR_rgba.png"
+                                   Width="100"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ViewModel.PlayInformationErrorText,Mode=OneWay}"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
 
                 <Grid

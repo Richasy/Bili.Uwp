@@ -212,6 +212,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (CurrentPgcEpisode == null)
             {
                 // 没有分集，弹出警告.
+                if (_pgcDetail.Warning != null)
+                {
+                    IsPlayInformationError = true;
+                    PlayInformationErrorText = _pgcDetail.Warning.Message;
+                }
+
                 return;
             }
 

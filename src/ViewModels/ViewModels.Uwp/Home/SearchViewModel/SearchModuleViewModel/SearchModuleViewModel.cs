@@ -32,10 +32,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (HotSearchCollection.Count == 0)
             {
-                var list = await Controller.GetHotSearchListAsync();
-                if (list != null)
+                try
                 {
-                    list.ForEach(p => HotSearchCollection.Add(p));
+                    var list = await Controller.GetHotSearchListAsync();
+                    if (list != null)
+                    {
+                        list.ForEach(p => HotSearchCollection.Add(p));
+                    }
+                }
+                catch (System.Exception)
+                {
                 }
             }
 

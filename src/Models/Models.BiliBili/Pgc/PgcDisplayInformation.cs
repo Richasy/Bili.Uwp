@@ -214,6 +214,37 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "celebrity", Required = Required.Default)]
         public List<PgcCelebrity> Celebrity { get; set; }
+
+        /// <summary>
+        /// 警示信息.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "dialog", Required = Required.Default)]
+        public PgcPlayerDialog Warning { get; set; }
+    }
+
+    /// <summary>
+    /// 播放器警告.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class PgcPlayerDialog
+    {
+        /// <summary>
+        /// 警告代号.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code", Required = Required.Default)]
+        public int Code { get; set; }
+
+        /// <summary>
+        /// 警告信息.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "msg", Required = Required.Default)]
+        public string Message { get; set; }
+
+        /// <summary>
+        /// 警告类型.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type", Required = Required.Default)]
+        public string Type { get; set; }
     }
 
     /// <summary>

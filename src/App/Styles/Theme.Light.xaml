@@ -3,7 +3,7 @@
         x:Key="AppMaskAcrylicBrush"
         FallbackColor="White"
         TintColor="White"
-        TintOpacity="0.1" />
+        TintOpacity="0.5" />
     <AcrylicBrush
         x:Key="AccentMaskAcrylicBrush"
         FallbackColor="{ThemeResource SystemAccentColor}"

@@ -282,10 +282,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var episodeModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Positive).FirstOrDefault();
-                IsShowEpisode = episodeModule != null && episodeModule.Data.Episodes.Count > 1;
-                foreach (var item in episodeModule.Data.Episodes)
+                IsShowEpisode = episodeModule != null && episodeModule.Data?.Episodes?.Count > 1;
+
+                if (episodeModule != null && episodeModule.Data.Episodes != null)
                 {
-                    EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
+                    foreach (var item in episodeModule.Data.Episodes)
+                    {
+                        EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
+                    }
                 }
 
                 var partModuleList = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Section).ToList();
