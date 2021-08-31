@@ -296,6 +296,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 时间表.
             /// </summary>
             public const string TimeLine = _apiBase + "/pgc/app/timeline";
+
+            /// <summary>
+            /// 播放列表.
+            /// </summary>
+            public const string PlayList = _apiBase + "/pgc/web/playlist";
         }
 
         public static class Video
