@@ -44,6 +44,7 @@
                             </Border>
                         </Grid>
                         <TextBlock
+                            x:Name="TitleBlock"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Grid.Row="1"
                             HorizontalAlignment="Center"
@@ -51,7 +52,11 @@
                             MaxLines="1"
                             Text="{x:Bind Data.Title}"
                             TextAlignment="Center"
-                            TextTrimming="CharacterEllipsis" />
+                            TextTrimming="CharacterEllipsis">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind Data.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
                     </Grid>
                 </controls:CardPanel>
             </DataTemplate>
