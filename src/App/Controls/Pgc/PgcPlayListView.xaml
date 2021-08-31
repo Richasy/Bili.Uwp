@@ -1,0 +1,105 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.PgcPlayListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="CenterState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="BottomState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Container.PreferredPlacement" Value="Bottom" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <muxc:TeachingTip
+            x:Name="Container"
+            VerticalAlignment="Stretch"
+            Closed="OnContainerClosed"
+            IsLightDismissEnabled="True"
+            PreferredPlacement="Center"
+            ShouldConstrainToRootBounds="False">
+            <muxc:TeachingTip.HeroContent>
+                <Grid
+                    Padding="20,16,20,12"
+                    RowSpacing="4"
+                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        HorizontalAlignment="Left"
+                        Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+                    <TextBlock
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </Grid>
+            </muxc:TeachingTip.HeroContent>
+            <Grid Width="400" Margin="0,-12,0,0">
+                <Grid>
+                    <local:VerticalRepeaterView
+                        x:Name="SeasonView"
+                        Grid.Row="2"
+                        Margin="0,0,0,12"
+                        Background="Transparent"
+                        HeaderVisibility="Collapsed"
+                        ItemOrientation="Horizontal"
+                        ItemsSource="{x:Bind ViewModel.SeasonCollection, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <local:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="uwp:SeasonViewModel">
+                                <local:PgcItem
+                                    CoverHeight="140"
+                                    CoverWidth="100"
+                                    ItemClick="OnItemClick"
+                                    TitleRowHeight="28"
+                                    ViewModel="{x:Bind}">
+                                    <local:PgcItem.CardStyle>
+                                        <Style TargetType="local:CardPanel">
+                                            <Setter Property="IsEnableHoverAnimation" Value="False" />
+                                            <Setter Property="IsEnableShadow" Value="False" />
+                                        </Style>
+                                    </local:PgcItem.CardStyle>
+                                </local:PgcItem>
+                            </DataTemplate>
+                        </local:VerticalRepeaterView.ItemTemplate>
+                    </local:VerticalRepeaterView>
+                    <local:OverlayLoadingPanel
+                        MinHeight="80"
+                        IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+                        IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+                    <local:ErrorPanel
+                        x:Name="ErrorPanel"
+                        ActionButtonClick="OnRefreshButtonClickAsync"
+                        ActionContent="{loc:LocaleLocator Name=Refresh}"
+                        Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+                </Grid>
+            </Grid>
+        </muxc:TeachingTip>
+    </Grid>
+</UserControl>

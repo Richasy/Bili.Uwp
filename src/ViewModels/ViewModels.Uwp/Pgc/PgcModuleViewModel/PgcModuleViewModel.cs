@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Richasy.Bili.Models.BiliBili;
@@ -24,7 +25,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.SeasonCollection = new ObservableCollection<SeasonViewModel>();
             vm.Type = PgcModuleType.Anime;
             module.Items.ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromModuleItem(p)));
-            vm.IsDisplayMoreButton = true;
+            if (module.Headers != null && module.Headers.Count > 0)
+            {
+                var header = module.Headers.First();
+                if (header.Url.Contains("/sl"))
+                {
+                    var uri = new Uri(header.Url);
+                    var playListId = uri.Segments.Where(p => p.Contains("sl")).First();
+                    vm.Id = Convert.ToInt32(playListId.Replace("sl", string.Empty));
+                    vm.IsDisplayMoreButton = true;
+                }
+            }
+
             return vm;
         }
 

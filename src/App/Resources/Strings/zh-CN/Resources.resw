@@ -615,6 +615,9 @@
   <data name="RequestPgcTimeLineFailed" xml:space="preserve">
     <value>请求时间线内容失败</value>
   </data>
+  <data name="RequestPlayListFailed" xml:space="preserve">
+    <value>请求播放列表失败</value>
+  </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>热门视频请求失败</value>
   </data>

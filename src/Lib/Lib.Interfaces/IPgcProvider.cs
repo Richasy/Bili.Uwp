@@ -87,5 +87,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="type">类型.</param>
         /// <returns>时间轴响应结果.</returns>
         Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type);
+
+        /// <summary>
+        /// 获取播放列表详情.
+        /// </summary>
+        /// <param name="listId">播放列表Id.</param>
+        /// <returns>播放列表响应结果.</returns>
+        Task<PgcPlayListResponse> GetPgcPlayListAsync(int listId);
     }
 }

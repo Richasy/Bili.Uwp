@@ -85,8 +85,9 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            await ViewModel.InitializeUserDetailAsync();
         }
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
