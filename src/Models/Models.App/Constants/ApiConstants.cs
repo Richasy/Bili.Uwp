@@ -136,6 +136,31 @@ namespace Richasy.Bili.Models.App.Constants
             /// 获取全部收藏夹列表.
             /// </summary>
             public const string FavoriteList = _apiBase + "/x/v3/fav/folder/created/list-all";
+
+            /// <summary>
+            /// 获取视频收藏夹概览.
+            /// </summary>
+            public const string VideoFavoriteGallery = _apiBase + "/x/v3/fav/folder/space/v2";
+
+            /// <summary>
+            /// 获取视频收藏夹增量信息.
+            /// </summary>
+            public const string VideoFavoriteDelta = _apiBase + "/x/v3/fav/resource/list";
+
+            /// <summary>
+            /// 获取动漫收藏信息.
+            /// </summary>
+            public const string AnimeFavorite = _apiBase + "/pgc/app/follow/v2/bangumi";
+
+            /// <summary>
+            /// 电影电视剧收藏信息.
+            /// </summary>
+            public const string MovieFavorite = _apiBase + "/pgc/app/follow/v2/cinema";
+
+            /// <summary>
+            /// 专栏文章收藏信息.
+            /// </summary>
+            public const string ArticleFavorite = _apiBase + "/x/v2/favorite/article";
         }
 
         public static class Partition

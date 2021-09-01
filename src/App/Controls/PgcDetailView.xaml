@@ -204,7 +204,7 @@
                                                     HorizontalAlignment="Center"
                                                     FontSize="12"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                    Text="{x:Bind ShortDescription, Mode=OneWay}"
+                                                    Text="{x:Bind ShortDescription}"
                                                     TextTrimming="CharacterEllipsis" />
                                             </StackPanel>
                                         </Grid>
