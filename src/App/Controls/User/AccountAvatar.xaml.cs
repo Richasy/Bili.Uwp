@@ -92,6 +92,11 @@ namespace Richasy.Bili.App.Controls
         {
             var btn = sender as FrameworkElement;
             var pageId = NavigationExtension.GetPageId(btn);
+            if (pageId == Models.Enums.PageIds.Favorite)
+            {
+                FavoriteViewModel.Instance.SetUser(ViewModel.Mid.Value, ViewModel.DisplayName);
+            }
+
             AppViewModel.Instance.SetOverlayContentId(pageId);
             HideFlyout();
         }

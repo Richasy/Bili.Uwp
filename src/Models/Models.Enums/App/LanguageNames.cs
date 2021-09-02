@@ -253,6 +253,10 @@ namespace Richasy.Bili.Models.Enums
         Alias,
         CastAndCrew,
         Description,
+        RequestVideoFavoriteFailed,
+        Anime,
+        Cinema,
+        DefaultFavorite,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

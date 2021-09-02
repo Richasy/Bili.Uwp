@@ -24,7 +24,8 @@
     <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PgcDetailView.xaml.cs">
+    <Compile Include="Controls\Favorite\FavoriteComponent.cs" />
+    <Compile Include="Controls\Pgc\PgcDetailView.xaml.cs">
       <DependentUpon>PgcDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Pgc\PgcPlayListView.xaml.cs">
@@ -196,9 +197,15 @@
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Favorite\VideoFavoritePanel.xaml.cs">
+      <DependentUpon>VideoFavoritePanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\Overlay\FansPage.xaml.cs">
       <DependentUpon>FansPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Overlay\FavoritePage.xaml.cs">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Overlay\FollowsPage.xaml.cs">
       <DependentUpon>FollowsPage.xaml</DependentUpon>
@@ -252,9 +259,6 @@
     <Compile Include="Pages\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\MyFavoritePage.xaml.cs">
-      <DependentUpon>MyFavoritePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Overlay\PartitionDetailPage.xaml.cs">
       <DependentUpon>PartitionDetailPage.xaml</DependentUpon>
     </Compile>
@@ -286,6 +290,7 @@
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
+    <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
     <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
@@ -415,7 +420,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PgcDetailView.xaml">
+    <Page Include="Controls\Pgc\PgcDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -639,7 +644,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Favorite\VideoFavoritePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Overlay\FansPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\FavoritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -708,10 +721,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MoviePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Overlay\MyFavoritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

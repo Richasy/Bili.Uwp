@@ -325,5 +325,18 @@ namespace Richasy.Bili.Controller.Uwp
             var list = await _accountProvider.GetFavoriteListAsync(userId, videoId);
             return list.List;
         }
+
+        /// <summary>
+        /// 获取视频收藏夹概览信息.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <returns>概览信息.</returns>
+        public async Task<VideoFavoriteGalleryResponse> GetVideoFavoriteGalleryAsync(int userId)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            var response = await _accountProvider.GetFavoriteVideoGalleryAsync(userId);
+            return response;
+        }
     }
 }

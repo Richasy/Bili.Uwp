@@ -34,6 +34,7 @@
             <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
             <converter:ColorConverter x:Key="ColorConverter" />
             <converter:ColorConverter x:Key="BrushConverter" IsBrush="True" />
+            <converter:FavoriteTypeConverter x:Key="FavoriteTypeConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -124,11 +124,18 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds);
 
         /// <summary>
-        /// 获取用户的收藏夹列表.
+        /// 获取用户的收藏夹列表（限于播放视频时）.
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <param name="videoId">待查询的视频Id.</param>
         /// <returns><see cref="FavoriteListResponse"/>.</returns>
         Task<FavoriteListResponse> GetFavoriteListAsync(int userId, int videoId = 0);
+
+        /// <summary>
+        /// 获取用户的视频收藏概览.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <returns>响应结果.</returns>
+        Task<VideoFavoriteGalleryResponse> GetFavoriteVideoGalleryAsync(int userId);
     }
 }

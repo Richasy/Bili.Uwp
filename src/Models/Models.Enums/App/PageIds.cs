@@ -75,7 +75,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 我的收藏.
         /// </summary>
-        MyFavorite,
+        Favorite,
 
         /// <summary>
         /// 稍后再看.

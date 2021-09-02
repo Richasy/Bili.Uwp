@@ -126,6 +126,9 @@
   <data name="AlsoLike" xml:space="preserve">
     <value>同时点赞</value>
   </data>
+  <data name="Anime" xml:space="preserve">
+    <value>动漫</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="ChooseFavorite" xml:space="preserve">
     <value>选择收藏夹</value>
+  </data>
+  <data name="Cinema" xml:space="preserve">
+    <value>影视</value>
   </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
@@ -257,6 +263,9 @@
   </data>
   <data name="Default" xml:space="preserve">
     <value>默认</value>
+  </data>
+  <data name="DefaultFavorite" xml:space="preserve">
+    <value>默认收藏夹</value>
   </data>
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
@@ -650,6 +659,9 @@
   </data>
   <data name="RequestVideoFailed" xml:space="preserve">
     <value>视频播放信息请求失败</value>
+  </data>
+  <data name="RequestVideoFavoriteFailed" xml:space="preserve">
+    <value>请求视频收藏夹信息失败</value>
   </data>
   <data name="RequestViewLaterFailed" xml:space="preserve">
     <value>请求稍后再看列表失败</value>

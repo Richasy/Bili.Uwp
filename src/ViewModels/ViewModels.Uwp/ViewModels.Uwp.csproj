@@ -16,6 +16,9 @@
     <Compile Include="Common\FavoriteMetaViewModel.cs" />
     <Compile Include="Common\LivePlayLineViewModel.cs" />
     <Compile Include="Common\LiveQualityViewModel.cs" />
+    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.cs" />
+    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.Properties.cs" />
+    <Compile Include="Account\FavoriteVideoFolderViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />

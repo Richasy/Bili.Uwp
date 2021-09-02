@@ -295,6 +295,24 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = item;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="media">收藏夹媒体.</param>
+        public VideoViewModel(FavoriteMedia media)
+            : this()
+        {
+            VideoType = VideoType.Video;
+            Title = media.Title;
+            VideoId = media.Id.ToString();
+            PlayCount = _numberToolkit.GetCountText(media.Stat.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(media.Stat.DanmakuCount);
+            Publisher = new UserViewModel(media.Publisher);
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(media.Duration));
+            LimitCover(media.Cover);
+            Source = media;
+        }
+
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);

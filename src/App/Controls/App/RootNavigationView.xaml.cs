@@ -193,8 +193,8 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.ViewHistory:
                     pageType = typeof(HistoryPage);
                     break;
-                case PageIds.MyFavorite:
-                    pageType = typeof(MyFavoritePage);
+                case PageIds.Favorite:
+                    pageType = typeof(FavoritePage);
                     break;
                 case PageIds.ViewLater:
                     pageType = typeof(ViewLaterPage);

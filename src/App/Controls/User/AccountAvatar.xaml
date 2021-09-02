@@ -52,7 +52,7 @@
                     <Button ext:NavigationExtension.PageId="Message" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="Chat16" Text="{loc:LocaleLocator Name=Message}" />
                     </Button>
-                    <Button ext:NavigationExtension.PageId="MyFavorite" Click="OnNavigateButtonClick">
+                    <Button ext:NavigationExtension.PageId="Favorite" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="StarLineHorizontal320" Text="{loc:LocaleLocator Name=MyFavorite}" />
                     </Button>
                     <Button ext:NavigationExtension.PageId="ViewLater" Click="OnNavigateButtonClick">
