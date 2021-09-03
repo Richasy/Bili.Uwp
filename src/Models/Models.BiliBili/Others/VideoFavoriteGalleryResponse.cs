@@ -21,14 +21,14 @@ namespace Richasy.Bili.Models.BiliBili
         /// 用户ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_folder", Required = Required.Default)]
-        public VideoDefaultFavoriteList DefaultFavoriteList { get; set; }
+        public VideoFavoriteListResponse DefaultFavoriteList { get; set; }
     }
 
     /// <summary>
     /// 视频默认收藏夹.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class VideoDefaultFavoriteList
+    public class VideoFavoriteListResponse
     {
         /// <summary>
         /// 用户ID.
