@@ -712,11 +712,6 @@
                                     </VisualState.Setters>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="ProgressSlider"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="0"
-                                            Duration="0" />
-                                        <DoubleAnimation
                                             Storyboard.TargetName="MediaControlsCommandBar"
                                             Storyboard.TargetProperty="Opacity"
                                             To="0"
@@ -783,7 +778,6 @@
                                         <Setter Target="ControlPanelGrid.Height" Value="48" />
                                         <Setter Target="MediaControlsCommandBar.Margin" Value="0" />
                                         <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="ProgressSlider.Margin" Value="{ThemeResource MediaTransportControlsProgressSliderCompactMargin}" />
                                         <Setter Target="ControlPanelGrid.Padding" Value="3" />
                                     </VisualState.Setters>
                                 </VisualState>

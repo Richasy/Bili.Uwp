@@ -47,7 +47,10 @@ namespace Richasy.Bili.App.Controls
         {
             var styleName = ViewModel.IsLive ? "LiveMTCStyle" : "DefaultMTCStyle";
             var style = ServiceLocator.Instance.GetService<IResourceToolkit>().GetResource<Style>(styleName);
-            _mediaTransport.Style = style;
+            if (_mediaTransport != null)
+            {
+                _mediaTransport.Style = style;
+            }
         }
     }
 }
