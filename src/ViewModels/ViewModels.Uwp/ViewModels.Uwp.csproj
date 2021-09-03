@@ -19,8 +19,8 @@
     <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.cs" />
     <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.Properties.cs" />
     <Compile Include="Account\FavoriteVideoFolderViewModel.cs" />
-    <Compile Include="FavoriteVideoViewModel.cs" />
-    <Compile Include="FavoriteVideoViewModel.Properties.cs" />
+    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.cs" />
+    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />

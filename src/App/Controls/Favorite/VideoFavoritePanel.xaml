@@ -72,7 +72,7 @@
                             x:Name="DefaultVideoView"
                             Margin="12,8"
                             HeaderVisibility="Collapsed"
-                            ItemsSource="{x:Bind ViewModel.DefaultVideoFavoriteVideoCollection, Mode=OneWay}">
+                            ItemsSource="{x:Bind ViewModel.DefaultVideoViewModel.VideoCollection, Mode=OneWay}">
                             <local:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp1:VideoViewModel">
                                     <local:VideoItem
@@ -121,19 +121,19 @@
                                                                     <local:CommonImageEx
                                                                         Width="84"
                                                                         Height="56"
-                                                                        ImageUrl="{x:Bind Cover, Mode=OneWay}" />
+                                                                        ImageUrl="{x:Bind Cover}" />
                                                                 </Grid>
                                                                 <StackPanel
                                                                     Grid.Column="1"
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center">
-                                                                    <TextBlock FontWeight="Bold" Text="{x:Bind Title, Mode=OneWay}" />
+                                                                    <TextBlock FontWeight="Bold" Text="{x:Bind Title}" />
                                                                     <TextBlock
                                                                         Style="{StaticResource CaptionTextBlockStyle}"
                                                                         Margin="0,4,0,0"
                                                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                         MaxLines="2"
-                                                                        Text="{x:Bind Description, Mode=OneWay}"
+                                                                        Text="{x:Bind Description}"
                                                                         TextTrimming="CharacterEllipsis"
                                                                         TextWrapping="Wrap"
                                                                         Visibility="{x:Bind Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -144,6 +144,8 @@
                                                             <Button
                                                                 Margin="0,0,-12,0"
                                                                 VerticalAlignment="Center"
+                                                                Click="OnSeeDetailButtonClickAsync"
+                                                                Tag="{x:Bind Id}"
                                                                 Content="{loc:LocaleLocator Name=SeeDetail}" />
                                                         </exp:ExpanderExWrapper.WrapContent>
                                                     </exp:ExpanderExWrapper>

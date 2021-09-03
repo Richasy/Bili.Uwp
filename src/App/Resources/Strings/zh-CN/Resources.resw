@@ -318,6 +318,9 @@
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
   </data>
+  <data name="FavoriteHaveNoVideos" xml:space="preserve">
+    <value>收藏夹内没有视频</value>
+  </data>
   <data name="FilterByGreaterThan60Min" xml:space="preserve">
     <value>60分钟+</value>
   </data>
@@ -842,6 +845,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="VideoCount" xml:space="preserve">
+    <value>视频数</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>视频</value>

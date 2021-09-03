@@ -50,15 +50,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<FavoriteVideoFolderViewModel> VideoFolderCollection { get; set; }
 
         /// <summary>
-        /// 默认视频收藏夹的初始视频集合.
+        /// 默认视频收藏夹视图模型.
         /// </summary>
         [Reactive]
-        public ObservableCollection<VideoViewModel> DefaultVideoFavoriteVideoCollection { get; set; }
-
-        /// <summary>
-        /// 默认视频收藏夹信息.
-        /// </summary>
-        public FavoriteListDetail DefaultVideoFavoriteDetail { get; set; }
+        public FavoriteVideoViewModel DefaultVideoViewModel { get; set; }
 
         /// <summary>
         /// 视频收藏夹是否已请求.

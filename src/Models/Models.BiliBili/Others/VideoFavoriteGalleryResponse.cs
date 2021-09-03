@@ -31,10 +31,16 @@ namespace Richasy.Bili.Models.BiliBili
     public class VideoFavoriteListResponse
     {
         /// <summary>
-        /// 用户ID.
+        /// 收藏夹信息.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "folder_detail", Required = Required.Default)]
         public FavoriteListDetail Detail { get; set; }
+
+        /// <summary>
+        /// 收藏夹信息.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "info", Required = Required.Default)]
+        public FavoriteListDetail Information { get; set; }
 
         /// <summary>
         /// 用户ID.

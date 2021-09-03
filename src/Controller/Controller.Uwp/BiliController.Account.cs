@@ -349,8 +349,20 @@ namespace Richasy.Bili.Controller.Uwp
         {
             ThrowWhenNetworkUnavaliable();
 
-            var response = await _accountProvider.GetFavoriteVideoListAsync(favoriteId, pageNumber);
-            return response;
+            try
+            {
+                var response = await _accountProvider.GetFavoriteVideoListAsync(favoriteId, pageNumber);
+                return response;
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+
+            return null;
         }
     }
 }

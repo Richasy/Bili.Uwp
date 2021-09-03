@@ -21,7 +21,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         protected FavoriteViewModel()
         {
             VideoFolderCollection = new ObservableCollection<FavoriteVideoFolderViewModel>();
-            DefaultVideoFavoriteVideoCollection = new ObservableCollection<VideoViewModel>();
             TypeCollection = new ObservableCollection<FavoriteType>
             {
                 FavoriteType.Video,
@@ -88,11 +87,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
                 }
 
-                DefaultVideoFavoriteDetail = response.DefaultFavoriteList.Detail;
-                if (response.DefaultFavoriteList.Medias.Count > 0)
-                {
-                    response.DefaultFavoriteList.Medias.ForEach(p => DefaultVideoFavoriteVideoCollection.Add(new VideoViewModel(p)));
-                }
+                var myInfo = response.DefaultFavoriteList.Detail.Publisher;
+                myInfo.Publisher = AccountViewModel.Instance.DisplayName;
+                myInfo.PublisherAvatar = AccountViewModel.Instance.Avatar;
+
+                DefaultVideoViewModel = new FavoriteVideoViewModel(response.DefaultFavoriteList);
             }
             catch (ServiceException ex)
             {
@@ -105,18 +104,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 VideoErrorText = invalidEx.Message;
             }
 
-            IsVideoRequested = DefaultVideoFavoriteDetail != null;
+            IsVideoRequested = DefaultVideoViewModel != null;
             IsVideoInitializeLoading = false;
         }
 
         private void Reset()
         {
             VideoFolderCollection.Clear();
-            DefaultVideoFavoriteVideoCollection.Clear();
             IsVideoInitializeLoading = false;
             IsVideoError = false;
             IsVideoRequested = false;
-            DefaultVideoFavoriteDetail = null;
+            DefaultVideoViewModel = null;
         }
     }
 }
