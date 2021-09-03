@@ -257,6 +257,7 @@ namespace Richasy.Bili.Models.Enums
         Anime,
         Cinema,
         DefaultFavorite,
+        SeeDetail,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

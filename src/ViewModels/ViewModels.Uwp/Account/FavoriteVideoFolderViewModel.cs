@@ -23,7 +23,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteCollection = new ObservableCollection<FavoriteListDetail>();
             if (folder.MediaList != null)
             {
-                folder.MediaList.List.ForEach(p => FavoriteCollection.Add(p));
+                foreach (var item in folder.MediaList.List)
+                {
+                    item.Cover += "@200w_160h_1c_100q.jpg";
+                    FavoriteCollection.Add(item);
+                }
+
                 HasMore = folder.MediaList.HasMore;
             }
         }

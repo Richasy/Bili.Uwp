@@ -696,6 +696,9 @@
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
   </data>
+  <data name="SeeDetail" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
   </data>

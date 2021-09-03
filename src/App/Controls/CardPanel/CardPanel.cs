@@ -42,6 +42,15 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <inheritdoc/>
+        protected override void OnToggle()
+        {
+            if (!this.IsEnableCheck)
+            {
+                this.IsChecked = false;
+            }
+        }
+
+        /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
             this._rootContainer = this.GetTemplateChild("RootContainer") as Grid;
@@ -59,7 +68,6 @@ namespace Richasy.Bili.App.Controls
 
             this._pointerOverToken = this.RegisterPropertyChangedCallback(IsPointerOverProperty, this.OnPanelStateChanged);
             this._pressedToken = this.RegisterPropertyChangedCallback(IsPressedProperty, this.OnPanelStateChanged);
-            this._checkedToken = this.RegisterPropertyChangedCallback(IsCheckedProperty, this.OnIsCheckedChanged);
 
             this._loaded = true;
             this.ApplyShadowAnimation();
@@ -71,18 +79,9 @@ namespace Richasy.Bili.App.Controls
 
             this.UnregisterPropertyChangedCallback(IsPointerOverProperty, this._pointerOverToken);
             this.UnregisterPropertyChangedCallback(IsPressedProperty, this._pressedToken);
-            this.UnregisterPropertyChangedCallback(IsCheckedProperty, this._checkedToken);
 
             this._loaded = false;
             this.DestroyShadow();
-        }
-
-        private void OnIsCheckedChanged(DependencyObject sender, DependencyProperty dp)
-        {
-            if (!this.IsEnableCheck)
-            {
-                this.IsChecked = false;
-            }
         }
 
         private void CreateShadow()
