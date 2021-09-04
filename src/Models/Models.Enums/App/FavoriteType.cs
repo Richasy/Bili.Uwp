@@ -20,7 +20,7 @@ namespace Richasy.Bili.Models.Enums.App
         /// <summary>
         /// 追剧.
         /// </summary>
-        Movie,
+        Cinema,
 
         /// <summary>
         /// 文章.

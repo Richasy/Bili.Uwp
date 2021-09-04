@@ -155,7 +155,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 电影电视剧收藏信息.
             /// </summary>
-            public const string MovieFavorite = _apiBase + "/pgc/app/follow/v2/cinema";
+            public const string CinemaFavorite = _apiBase + "/pgc/app/follow/v2/cinema";
 
             /// <summary>
             /// 专栏文章收藏信息.

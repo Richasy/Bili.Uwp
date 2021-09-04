@@ -27,6 +27,8 @@
             </muxc:NavigationView.MenuItems>
             <Grid Padding="0,12,0,0">
                 <controls:VideoFavoritePanel x:Name="VideoPanel" Visibility="Collapsed" />
+                <controls:PgcFavoritePanel x:Name="AnimePanel" Visibility="Collapsed" />
+                <controls:PgcFavoritePanel x:Name="CinemaPanel" Visibility="Collapsed" />
             </Grid>
         </muxc:NavigationView>
     </Grid>

@@ -25,7 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 FavoriteType.Video,
                 FavoriteType.Anime,
-                FavoriteType.Movie,
+                FavoriteType.Cinema,
                 FavoriteType.Article,
             };
 

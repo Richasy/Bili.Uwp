@@ -211,7 +211,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     {
                         if (!PgcCollection.Any(p => p.SeasonId == item.SeasonId))
                         {
-                            PgcCollection.Add(SeasonViewModel.CreateFromSearchItem(item));
+                            PgcCollection.Add(new SeasonViewModel(item));
                         }
                     }
                 }

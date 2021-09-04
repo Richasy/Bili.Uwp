@@ -28,7 +28,7 @@ namespace Richasy.Bili.App.Resources.Converter
                 case FavoriteType.Anime:
                     result = resourceToolkit.GetLocaleString(LanguageNames.Anime);
                     break;
-                case FavoriteType.Movie:
+                case FavoriteType.Cinema:
                     result = resourceToolkit.GetLocaleString(LanguageNames.Cinema);
                     break;
                 case FavoriteType.Article:

@@ -27,7 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (!IsShowEmpty)
             {
-                item.Episodes.ForEach(p => EpisodeCollection.Add(SeasonViewModel.CreateFromTimeLineItem(p)));
+                item.Episodes.ForEach(p => EpisodeCollection.Add(new SeasonViewModel(p)));
             }
         }
 

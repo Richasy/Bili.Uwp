@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 
@@ -35,6 +34,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 当前显示的收藏夹类型.
         /// </summary>
+        [Reactive]
         public FavoriteType CurrentType { get; set; }
 
         /// <summary>

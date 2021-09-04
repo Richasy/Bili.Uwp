@@ -28,6 +28,8 @@ namespace Richasy.Bili.App.Pages.Overlay
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
             this.Unloaded += OnUnloaded;
+            AnimePanel.ViewModel = FavoriteAnimeViewModel.Instance;
+            CinemaPanel.ViewModel = FavoriteCinemaViewModel.Instance;
         }
 
         /// <summary>
@@ -63,27 +65,42 @@ namespace Richasy.Bili.App.Pages.Overlay
         private async Task CheckFavoriteTypeAsync()
         {
             var canInit = false;
+            VideoPanel.Visibility = ViewModel.CurrentType == FavoriteType.Video ? Visibility.Visible : Visibility.Collapsed;
+            AnimePanel.Visibility = ViewModel.CurrentType == FavoriteType.Anime ? Visibility.Visible : Visibility.Collapsed;
+            CinemaPanel.Visibility = ViewModel.CurrentType == FavoriteType.Cinema ? Visibility.Visible : Visibility.Collapsed;
             switch (ViewModel.CurrentType)
             {
                 case FavoriteType.Video:
-                    canInit = !ViewModel.IsVideoRequested;
                     VideoItem.IsSelected = true;
+                    canInit = !ViewModel.IsVideoRequested;
+                    if (canInit)
+                    {
+                        await ViewModel.InitializeRequestAsync(FavoriteType.Video);
+                    }
+
                     break;
                 case FavoriteType.Anime:
+                    AnimeItem.IsSelected = true;
+                    canInit = !FavoriteAnimeViewModel.Instance.IsRequested;
+                    if (canInit)
+                    {
+                        await FavoriteAnimeViewModel.Instance.InitializeRequestAsync();
+                    }
+
                     break;
-                case FavoriteType.Movie:
+                case FavoriteType.Cinema:
+                    CinemaItem.IsSelected = true;
+                    canInit = !FavoriteCinemaViewModel.Instance.IsRequested;
+                    if (canInit)
+                    {
+                        await FavoriteCinemaViewModel.Instance.InitializeRequestAsync();
+                    }
+
                     break;
                 case FavoriteType.Article:
                     break;
                 default:
                     break;
-            }
-
-            VideoPanel.Visibility = ViewModel.CurrentType == FavoriteType.Video ? Visibility.Visible : Visibility.Collapsed;
-
-            if (canInit)
-            {
-                await ViewModel.InitializeRequestAsync(ViewModel.CurrentType);
             }
         }
 
@@ -100,7 +117,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                         ViewModel.CurrentType = FavoriteType.Anime;
                         break;
                     case nameof(CinemaItem):
-                        ViewModel.CurrentType = FavoriteType.Movie;
+                        ViewModel.CurrentType = FavoriteType.Cinema;
                         break;
                     case nameof(ArticleItem):
                         ViewModel.CurrentType = FavoriteType.Article;

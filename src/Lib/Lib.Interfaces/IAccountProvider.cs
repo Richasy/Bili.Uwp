@@ -145,5 +145,19 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>视频收藏夹响应.</returns>
         Task<VideoFavoriteListResponse> GetFavoriteVideoListAsync(int favoriteId, int pageNumber);
+
+        /// <summary>
+        /// 获取追番列表.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>追番列表响应.</returns>
+        Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber);
+
+        /// <summary>
+        /// 获取追剧列表.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>追剧列表响应.</returns>
+        Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber);
     }
 }

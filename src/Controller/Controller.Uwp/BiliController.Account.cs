@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -363,6 +364,40 @@ namespace Richasy.Bili.Controller.Uwp
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 请求PGC收藏夹信息.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <param name="type">收藏夹类型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestPgcFavoriteListAsync(int pageNumber, FavoriteType type)
+        {
+            ThrowWhenNetworkUnavaliable();
+            PgcFavoriteListResponse response = null;
+
+            try
+            {
+                if (type == FavoriteType.Anime)
+                {
+                    response = await _accountProvider.GetFavoriteAnimeListAsync(pageNumber);
+                }
+                else if (type == FavoriteType.Cinema)
+                {
+                    response = await _accountProvider.GetFavoriteCinemaListAsync(pageNumber);
+                }
+
+                var args = new FavoritePgcIterationEventArgs(response, pageNumber, type);
+                PgcFavoriteIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
         }
     }
 }

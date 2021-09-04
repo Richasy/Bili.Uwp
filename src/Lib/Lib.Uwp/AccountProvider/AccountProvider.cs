@@ -275,5 +275,13 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<VideoFavoriteListResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber)
+            => GetPgcFavoriteListInternalAsync(Account.AnimeFavorite, pageNumber);
+
+        /// <inheritdoc/>
+        public Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber)
+            => GetPgcFavoriteListInternalAsync(Account.CinemaFavorite, pageNumber);
     }
 }
