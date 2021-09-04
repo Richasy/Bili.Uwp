@@ -29,6 +29,7 @@
                 <controls:VideoFavoritePanel x:Name="VideoPanel" Visibility="Collapsed" />
                 <controls:PgcFavoritePanel x:Name="AnimePanel" Visibility="Collapsed" />
                 <controls:PgcFavoritePanel x:Name="CinemaPanel" Visibility="Collapsed" />
+                <controls:ArticleFavoritePanel x:Name="ArticlePanel" Visibility="Collapsed" />
             </Grid>
         </muxc:NavigationView>
     </Grid>

@@ -228,6 +228,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<FavoritePgcIterationEventArgs> PgcFavoriteIteration;
 
         /// <summary>
+        /// 在文章收藏夹内容更新时发生.
+        /// </summary>
+        public event EventHandler<FavoriteArticleIterationEventArgs> ArticleFavoriteIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

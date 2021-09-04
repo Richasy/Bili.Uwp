@@ -3,12 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hn="using:HN.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:icons1="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -141,6 +138,7 @@
                 <TextBlock
                     x:Name="TitleBlock"
                     Grid.Row="1"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     FontWeight="SemiBold"
                     MaxLines="1"
@@ -168,13 +166,30 @@
                     </ToolTipService.ToolTip>
                 </TextBlock>
 
-                <StackPanel
-                    Grid.Row="3"
-                    Orientation="Horizontal"
-                    Spacing="12">
-                    <local:IconTextBlock Symbol="EyeShow20" Text="{x:Bind ViewModel.ViewCount, Mode=OneWay}" />
-                    <local:IconTextBlock Symbol="ThumbLike16" Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
-                    <local:IconTextBlock Symbol="Comment16" Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}" />
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <local:IconTextBlock
+                        Margin="0,0,12,0"
+                        Symbol="EyeShow20"
+                        Text="{x:Bind ViewModel.ViewCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=ReadCount}"
+                        Visibility="{x:Bind ViewModel.ViewCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <local:IconTextBlock
+                        Margin="0,0,12,0"
+                        Symbol="ThumbLike16"
+                        Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=LikeCount}"
+                        Visibility="{x:Bind ViewModel.LikeCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <local:IconTextBlock
+                        Margin="0,0,12,0"
+                        Symbol="Comment16"
+                        Text="{x:Bind ViewModel.ReplyCount, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=ReplyCount}"
+                        Visibility="{x:Bind ViewModel.ReplyCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <local:IconTextBlock
+                        Symbol="Star16"
+                        Text="{x:Bind ViewModel.CollectTime, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:LocaleLocator Name=CollectTime}"
+                        Visibility="{x:Bind ViewModel.CollectTime, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                 </StackPanel>
 
                 <local:IconTextBlock

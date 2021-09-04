@@ -75,6 +75,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string Id { get; set; }
 
         /// <summary>
+        /// 收藏时间.
+        /// </summary>
+        public string CollectTime { get; set; }
+
+        /// <summary>
         /// 文章原始数据.
         /// </summary>
         public Article Source { get; private set; }

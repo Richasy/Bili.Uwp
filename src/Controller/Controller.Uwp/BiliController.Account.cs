@@ -399,5 +399,29 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 请求文章收藏夹信息.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestArticleFavoriteListAsync(int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var response = await _accountProvider.GetFavortieArticleListAsync(pageNumber);
+                var args = new FavoriteArticleIterationEventArgs(response, pageNumber);
+                ArticleFavoriteIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }

@@ -160,7 +160,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 专栏文章收藏信息.
             /// </summary>
-            public const string ArticleFavorite = _apiBase + "/x/v2/favorite/article";
+            public const string ArticleFavorite = _appBase + "/x/v2/favorite/article";
         }
 
         public static class Partition

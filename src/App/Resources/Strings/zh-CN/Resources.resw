@@ -210,6 +210,9 @@
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
+  <data name="CollectTime" xml:space="preserve">
+    <value>收藏时间</value>
+  </data>
   <data name="CompactOverlayMode" xml:space="preserve">
     <value>小窗模式</value>
   </data>
@@ -402,6 +405,9 @@
   <data name="Like" xml:space="preserve">
     <value>点赞</value>
   </data>
+  <data name="LikeCount" xml:space="preserve">
+    <value>点赞数</value>
+  </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
   </data>
@@ -591,6 +597,9 @@
   <data name="RankRequestFailed" xml:space="preserve">
     <value>请求排行榜失败</value>
   </data>
+  <data name="ReadCount" xml:space="preserve">
+    <value>阅读数</value>
+  </data>
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
   </data>
@@ -609,8 +618,17 @@
   <data name="ReplyCount" xml:space="preserve">
     <value>评论数</value>
   </data>
+  <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
+    <value>获取追番列表失败</value>
+  </data>
+  <data name="RequestArticleFavoriteFailed" xml:space="preserve">
+    <value>获取收藏文章失败</value>
+  </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
+  </data>
+  <data name="RequestCinemaFavoriteFailed" xml:space="preserve">
+    <value>获取追剧列表失败</value>
   </data>
   <data name="RequestFavoriteError" xml:space="preserve">
     <value>请求收藏夹失败</value>

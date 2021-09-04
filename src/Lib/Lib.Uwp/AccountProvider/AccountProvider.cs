@@ -283,5 +283,20 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber)
             => GetPgcFavoriteListInternalAsync(Account.CinemaFavorite, pageNumber);
+
+        /// <inheritdoc/>
+        public async Task<ArticleFavoriteListResponse> GetFavortieArticleListAsync(int pageNumber)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.PageNumber, pageNumber.ToString() },
+                { Query.PageSizeSlim, "20" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ArticleFavorite, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<ArticleFavoriteListResponse>>(response);
+            return result.Data;
+        }
     }
 }

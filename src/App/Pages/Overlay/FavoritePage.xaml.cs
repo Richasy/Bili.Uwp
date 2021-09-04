@@ -68,6 +68,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             VideoPanel.Visibility = ViewModel.CurrentType == FavoriteType.Video ? Visibility.Visible : Visibility.Collapsed;
             AnimePanel.Visibility = ViewModel.CurrentType == FavoriteType.Anime ? Visibility.Visible : Visibility.Collapsed;
             CinemaPanel.Visibility = ViewModel.CurrentType == FavoriteType.Cinema ? Visibility.Visible : Visibility.Collapsed;
+            ArticlePanel.Visibility = ViewModel.CurrentType == FavoriteType.Article ? Visibility.Visible : Visibility.Collapsed;
             switch (ViewModel.CurrentType)
             {
                 case FavoriteType.Video:
@@ -98,6 +99,13 @@ namespace Richasy.Bili.App.Pages.Overlay
 
                     break;
                 case FavoriteType.Article:
+                    ArticleItem.IsSelected = true;
+                    canInit = !FavoriteArticleViewModel.Instance.IsRequested;
+                    if (canInit)
+                    {
+                        await FavoriteArticleViewModel.Instance.InitializeRequestAsync();
+                    }
+
                     break;
                 default:
                     break;

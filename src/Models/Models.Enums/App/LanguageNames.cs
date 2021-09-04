@@ -262,6 +262,10 @@ namespace Richasy.Bili.Models.Enums
         FavoriteHaveNoVideos,
         RequestAnimeFavoriteFailed,
         RequestCinemaFavoriteFailed,
+        RequestArticleFavoriteFailed,
+        CollectTime,
+        LikeCount,
+        ReadCount,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
