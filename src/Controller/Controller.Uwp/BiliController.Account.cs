@@ -341,6 +341,20 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取分类下的收藏夹列表.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>列表信息.</returns>
+        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber);
+            return response;
+        }
+
+        /// <summary>
         /// 获取收藏夹的视频列表.
         /// </summary>
         /// <param name="favoriteId">收藏夹Id.</param>
@@ -423,5 +437,23 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 移除收藏夹.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="isMe">是否为自己创建的收藏夹.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteFolderAsync(int favoriteId, bool isMe)
+            => _accountProvider.RemoveFavoriteFolderAsync(favoriteId, isMe);
+
+        /// <summary>
+        /// 取消收藏视频.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId)
+            => _accountProvider.RemoveFavoriteVideoAsync(favoriteId, videoId);
     }
 }

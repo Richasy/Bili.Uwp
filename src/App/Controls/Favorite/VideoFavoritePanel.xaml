@@ -5,12 +5,12 @@
     xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.FluentIcon.Uwp"
-    xmlns:uwp1="using:Richasy.Bili.ViewModels.Uwp"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -53,7 +53,7 @@
                             <exp:ExpanderExWrapper.MainContent>
                                 <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=DefaultFavorite}" DescriptionVisibility="Collapsed">
                                     <exp:ExpanderExDescriptor.Icon>
-                                        <uwp:RegularFluentIcon Symbol="VideoClip16" />
+                                        <icons:RegularFluentIcon Symbol="VideoClip16" />
                                     </exp:ExpanderExDescriptor.Icon>
                                 </exp:ExpanderExDescriptor>
                             </exp:ExpanderExWrapper.MainContent>
@@ -74,7 +74,7 @@
                             HeaderVisibility="Collapsed"
                             ItemsSource="{x:Bind ViewModel.DefaultVideoViewModel.VideoCollection, Mode=OneWay}">
                             <local:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="uwp1:VideoViewModel">
+                                <DataTemplate x:DataType="uwp:VideoViewModel">
                                     <local:VideoItem
                                         IsShowAvatar="True"
                                         IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
@@ -90,13 +90,13 @@
                         <muxc:StackLayout Spacing="12" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="uwp1:FavoriteVideoFolderViewModel">
+                        <DataTemplate x:DataType="uwp:FavoriteVideoFolderViewModel">
                             <exp:ExpanderEx InternalExpanderStyle="{StaticResource NoAnimationExpanderStyle}">
                                 <exp:ExpanderEx.Header>
                                     <Grid MinHeight="56">
                                         <exp:ExpanderExDescriptor Title="{x:Bind Name, Mode=OneWay}" DescriptionVisibility="Collapsed">
                                             <exp:ExpanderExDescriptor.Icon>
-                                                <uwp:RegularFluentIcon Symbol="Folder20" />
+                                                <icons:RegularFluentIcon Symbol="Folder20" />
                                             </exp:ExpanderExDescriptor.Icon>
                                         </exp:ExpanderExDescriptor>
                                     </Grid>
@@ -109,7 +109,7 @@
                                         </Grid.RowDefinitions>
                                         <muxc:ItemsRepeater ItemsSource="{x:Bind FavoriteCollection}">
                                             <muxc:ItemsRepeater.ItemTemplate>
-                                                <DataTemplate x:DataType="bilibili:FavoriteListDetail">
+                                                <DataTemplate x:DataType="uwp:FavoriteListDetailViewModel">
                                                     <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                                                         <exp:ExpanderExWrapper.MainContent>
                                                             <Grid Margin="-12,0,0,0" ColumnSpacing="12">
@@ -121,32 +121,53 @@
                                                                     <local:CommonImageEx
                                                                         Width="84"
                                                                         Height="56"
-                                                                        ImageUrl="{x:Bind Cover}" />
+                                                                        ImageUrl="{x:Bind Data.Cover}"
+                                                                        RetryCount="0" />
                                                                 </Grid>
                                                                 <StackPanel
                                                                     Grid.Column="1"
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center">
-                                                                    <TextBlock FontWeight="Bold" Text="{x:Bind Title}" />
+                                                                    <TextBlock
+                                                                        FontWeight="Bold"
+                                                                        MaxLines="2"
+                                                                        Text="{x:Bind Data.Title}"
+                                                                        TextTrimming="CharacterEllipsis"
+                                                                        TextWrapping="Wrap" />
                                                                     <TextBlock
                                                                         Style="{StaticResource CaptionTextBlockStyle}"
                                                                         Margin="0,4,0,0"
                                                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                         MaxLines="2"
-                                                                        Text="{x:Bind Description}"
+                                                                        Text="{x:Bind Data.Description}"
                                                                         TextTrimming="CharacterEllipsis"
                                                                         TextWrapping="Wrap"
-                                                                        Visibility="{x:Bind Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                                                        Visibility="{x:Bind Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                                                 </StackPanel>
                                                             </Grid>
                                                         </exp:ExpanderExWrapper.MainContent>
                                                         <exp:ExpanderExWrapper.WrapContent>
-                                                            <Button
+                                                            <StackPanel
                                                                 Margin="0,0,-12,0"
                                                                 VerticalAlignment="Center"
-                                                                Click="OnSeeDetailButtonClickAsync"
-                                                                Tag="{x:Bind Id}"
-                                                                Content="{loc:LocaleLocator Name=SeeDetail}" />
+                                                                Orientation="Horizontal">
+                                                                <Button
+                                                                    Click="OnSeeDetailButtonClickAsync"
+                                                                    Content="{loc:LocaleLocator Name=SeeDetail}"
+                                                                    Tag="{x:Bind Data.Id}" />
+                                                                <Button
+                                                                    Margin="8,0,0,0"
+                                                                    Click="OnDeleteFavoriteButtonClickAsync"
+                                                                    Content="{loc:LocaleLocator Name=DeleteFavorite}"
+                                                                    DataContext="{x:Bind}"
+                                                                    Visibility="{x:Bind IsShowDeleteButton, Mode=OneWay}" />
+                                                                <Button
+                                                                    Margin="8,0,0,0"
+                                                                    Click="OnUnFavoriteButtonClickAsync"
+                                                                    Content="{loc:LocaleLocator Name=UnFavorite}"
+                                                                    DataContext="{x:Bind}"
+                                                                    Visibility="{x:Bind IsShowUnFavoriteButton, Mode=OneWay}" />
+                                                            </StackPanel>
                                                         </exp:ExpanderExWrapper.WrapContent>
                                                     </exp:ExpanderExWrapper>
                                                 </DataTemplate>
@@ -155,13 +176,43 @@
                                                 <muxc:StackLayout Spacing="8" />
                                             </muxc:ItemsRepeater.Layout>
                                         </muxc:ItemsRepeater>
-                                        <HyperlinkButton
-                                            x:Name="LoadMoreButton"
+
+                                        <exp:ExpanderExWrapper
+                                            Style="{StaticResource WrapperInExpanderContentStyle}"
                                             Grid.Row="1"
-                                            HorizontalAlignment="Left"
-                                            Content="{loc:LocaleLocator Name=ShowMore}"
-                                            Tag="{x:Bind Id, Mode=OneWay}"
-                                            Visibility="{x:Bind HasMore, Mode=OneWay}" />
+                                            Visibility="{x:Bind HasMore, Mode=OneWay}">
+                                            <exp:ExpanderExWrapper.MainContent>
+                                                <Grid Margin="-12,0" ColumnSpacing="12">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <HyperlinkButton
+                                                        x:Name="LoadMoreButton"
+                                                        HorizontalAlignment="Left"
+                                                        Click="OnLoadMoreButtonClickAsync"
+                                                        Content="{loc:LocaleLocator Name=ShowMore}"
+                                                        DataContext="{x:Bind}"
+                                                        Tag="{x:Bind Id, Mode=OneWay}" />
+                                                    <muxc:ProgressBar
+                                                        Grid.Column="1"
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center"
+                                                        IsIndeterminate="True"
+                                                        Visibility="{x:Bind IsDeltaLoading, Mode=OneWay}" />
+                                                </Grid>
+                                            </exp:ExpanderExWrapper.MainContent>
+                                        </exp:ExpanderExWrapper>
+
+                                        <exp:ExpanderExWrapper
+                                            Style="{StaticResource WrapperInExpanderContentStyle}"
+                                            Grid.RowSpan="2"
+                                            Margin="-12,0"
+                                            Visibility="{x:Bind IsShowEmpty, Mode=OneWay}">
+                                            <exp:ExpanderExWrapper.MainContent>
+                                                <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=NoSpecificData}" />
+                                            </exp:ExpanderExWrapper.MainContent>
+                                        </exp:ExpanderExWrapper>
                                     </Grid>
                                 </exp:ExpanderEx.Content>
                             </exp:ExpanderEx>

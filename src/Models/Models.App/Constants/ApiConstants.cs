@@ -148,6 +148,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string VideoFavoriteDelta = _apiBase + "/x/v3/fav/resource/list";
 
             /// <summary>
+            /// 获取视频收藏夹分类的增量信息.
+            /// </summary>
+            public const string VideoFavoriteFolderDelta = _apiBase + "/x/v3/fav/folder/collected/list";
+
+            /// <summary>
             /// 获取动漫收藏信息.
             /// </summary>
             public const string AnimeFavorite = _apiBase + "/pgc/app/follow/v2/bangumi";
@@ -161,6 +166,26 @@ namespace Richasy.Bili.Models.App.Constants
             /// 专栏文章收藏信息.
             /// </summary>
             public const string ArticleFavorite = _appBase + "/x/v2/favorite/article";
+
+            /// <summary>
+            /// 取消关注收藏夹.
+            /// </summary>
+            public const string UnFavoriteFolder = _apiBase + "/x/v3/fav/folder/unfav";
+
+            /// <summary>
+            /// 取消关注视频.
+            /// </summary>
+            public const string UnFavoriteVideo = _apiBase + "/x/v3/fav/resource/batch-del";
+
+            /// <summary>
+            /// 添加视频收藏夹.
+            /// </summary>
+            public const string AddFavoriteFolder = _apiBase + "/x/v3/fav/folder/add";
+
+            /// <summary>
+            /// 删除视频收藏夹.
+            /// </summary>
+            public const string DeleteFavoriteFolder = _apiBase + "/x/v3/fav/folder/del";
         }
 
         public static class Partition

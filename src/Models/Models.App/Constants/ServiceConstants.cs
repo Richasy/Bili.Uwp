@@ -150,7 +150,9 @@ namespace Richasy.Bili.Models.App.Constants
             public const string FilterType = "filter_type";
             public const string Id = "id";
             public const string MediaId = "media_id";
+            public const string MediaIds = "media_ids";
             public const string Status = "status";
+            public const string Resources = "resources";
         }
 
         public static class Sort

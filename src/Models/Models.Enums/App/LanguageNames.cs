@@ -266,6 +266,10 @@ namespace Richasy.Bili.Models.Enums
         CollectTime,
         LikeCount,
         ReadCount,
+        DeleteFavorite,
+        UnFavorite,
+        DeleteFavoriteWarning,
+        UnFavoriteWarning,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

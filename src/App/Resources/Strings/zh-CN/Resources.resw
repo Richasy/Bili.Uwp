@@ -276,6 +276,12 @@
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="DeleteFavorite" xml:space="preserve">
+    <value>删除收藏夹</value>
+  </data>
+  <data name="DeleteFavoriteWarning" xml:space="preserve">
+    <value>是否要删除该收藏夹？</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>简介</value>
   </data>
@@ -833,6 +839,12 @@
   </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
+  </data>
+  <data name="UnFavorite" xml:space="preserve">
+    <value>取消收藏</value>
+  </data>
+  <data name="UnFavoriteWarning" xml:space="preserve">
+    <value>是否不再关注该收藏夹？</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>已更新</value>

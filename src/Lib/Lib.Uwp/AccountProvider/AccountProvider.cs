@@ -298,5 +298,58 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<ArticleFavoriteListResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.UpId, userId.ToString() },
+                { Query.PageSizeSlim, "20" },
+                { Query.PageNumber, pageNumber.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteFolderDelta, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<FavoriteMediaList>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveFavoriteFolderAsync(int favoriteId, bool isMe)
+        {
+            var queryParameters = new Dictionary<string, string>();
+            string uri;
+            if (isMe)
+            {
+                uri = Account.DeleteFavoriteFolder;
+                queryParameters.Add(Query.MediaIds, favoriteId.ToString());
+            }
+            else
+            {
+                uri = Account.UnFavoriteFolder;
+                queryParameters.Add(Query.MediaId, favoriteId.ToString());
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, uri, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.MediaId, favoriteId.ToString() },
+                { Query.Resources, $"{videoId}:2" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.UnFavoriteVideo, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
     }
 }

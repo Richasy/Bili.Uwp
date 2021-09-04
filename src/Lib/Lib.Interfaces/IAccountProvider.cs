@@ -147,6 +147,14 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<VideoFavoriteListResponse> GetFavoriteVideoListAsync(int favoriteId, int pageNumber);
 
         /// <summary>
+        /// 获取视频收藏夹列表.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>视频收藏夹列表响应.</returns>
+        Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber);
+
+        /// <summary>
         /// 获取追番列表.
         /// </summary>
         /// <param name="pageNumber">页码.</param>
@@ -166,5 +174,21 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>收藏文章列表响应.</returns>
         Task<ArticleFavoriteListResponse> GetFavortieArticleListAsync(int pageNumber);
+
+        /// <summary>
+        /// 取消关注收藏夹.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="isMe">是否是登录用户创建的收藏夹.</param>
+        /// <returns>结果.</returns>
+        Task<bool> RemoveFavoriteFolderAsync(int favoriteId, bool isMe);
+
+        /// <summary>
+        /// 取消视频收藏.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>结果.</returns>
+        Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId);
     }
 }

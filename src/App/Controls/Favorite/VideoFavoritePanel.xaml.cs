@@ -1,9 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Richasy.Bili.App.Controls.Dialogs;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -44,6 +49,69 @@ namespace Richasy.Bili.App.Controls
             }
 
             await new FavoriteVideoView().ShowAsync(vm);
+        }
+
+        private async void OnLoadMoreButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as HyperlinkButton;
+            btn.IsEnabled = false;
+            var vm = btn.DataContext as FavoriteVideoFolderViewModel;
+            await vm.LoadMoreAsync();
+            btn.IsEnabled = true;
+        }
+
+        private async void OnDeleteFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = btn.DataContext as FavoriteListDetailViewModel;
+            btn.IsEnabled = false;
+
+            var warning = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.DeleteFavoriteWarning);
+            var dialog = new ConfirmDialog(warning);
+            var isConfirm = (await dialog.ShowAsync()) == ContentDialogResult.Primary;
+
+            if (isConfirm)
+            {
+                var result = await vm.DeleteAsync();
+                if (result)
+                {
+                    var myFolder = ViewModel.VideoFolderCollection.Where(p => p.IsMine).FirstOrDefault();
+                    if (myFolder != null)
+                    {
+                        myFolder.FavoriteCollection.Remove(vm);
+                        myFolder.IsShowEmpty = myFolder.FavoriteCollection.Count == 0;
+                    }
+                }
+            }
+
+            btn.IsEnabled = true;
+        }
+
+        private async void OnUnFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = btn.DataContext as FavoriteListDetailViewModel;
+            btn.IsEnabled = false;
+
+            var warning = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.UnFavoriteWarning);
+            var dialog = new ConfirmDialog(warning);
+            var isConfirm = (await dialog.ShowAsync()) == ContentDialogResult.Primary;
+
+            if (isConfirm)
+            {
+                var result = await vm.UnFavoriteAsync();
+                if (result)
+                {
+                    var folder = ViewModel.VideoFolderCollection.Where(p => !p.IsMine).FirstOrDefault();
+                    if (folder != null)
+                    {
+                        folder.FavoriteCollection.Remove(vm);
+                        folder.IsShowEmpty = folder.FavoriteCollection.Count == 0;
+                    }
+                }
+            }
+
+            btn.IsEnabled = true;
         }
     }
 }

@@ -27,6 +27,7 @@
     <Compile Include="Account\FavoriteCinemaViewModel.cs" />
     <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.cs" />
     <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.Properties.cs" />
+    <Compile Include="Account\FavoriteListDetailViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />
