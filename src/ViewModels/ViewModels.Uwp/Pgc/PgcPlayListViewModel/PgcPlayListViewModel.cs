@@ -51,7 +51,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 TotalCount = response.Total;
                 foreach (var item in response.Seasons)
                 {
-                    SeasonCollection.Add(SeasonViewModel.CreateFromPlayListItem(item));
+                    SeasonCollection.Add(new SeasonViewModel(item));
                 }
             }
             catch (ServiceException ex)

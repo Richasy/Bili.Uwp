@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 
 namespace Richasy.Bili.Controller.Uwp
 {
@@ -325,5 +326,150 @@ namespace Richasy.Bili.Controller.Uwp
             var list = await _accountProvider.GetFavoriteListAsync(userId, videoId);
             return list.List;
         }
+
+        /// <summary>
+        /// 获取视频收藏夹概览信息.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <returns>概览信息.</returns>
+        public async Task<VideoFavoriteGalleryResponse> GetVideoFavoriteGalleryAsync(int userId)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            var response = await _accountProvider.GetFavoriteVideoGalleryAsync(userId);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取分类下的收藏夹列表.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>列表信息.</returns>
+        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取收藏夹的视频列表.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>收藏夹视频列表响应.</returns>
+        public async Task<VideoFavoriteListResponse> GetVideoFavoriteListAsync(int favoriteId, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var response = await _accountProvider.GetFavoriteVideoListAsync(favoriteId, pageNumber);
+                return response;
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 请求PGC收藏夹信息.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <param name="type">收藏夹类型.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestPgcFavoriteListAsync(int pageNumber, FavoriteType type)
+        {
+            ThrowWhenNetworkUnavaliable();
+            PgcFavoriteListResponse response = null;
+
+            try
+            {
+                if (type == FavoriteType.Anime)
+                {
+                    response = await _accountProvider.GetFavoriteAnimeListAsync(pageNumber);
+                }
+                else if (type == FavoriteType.Cinema)
+                {
+                    response = await _accountProvider.GetFavoriteCinemaListAsync(pageNumber);
+                }
+
+                var args = new FavoritePgcIterationEventArgs(response, pageNumber, type);
+                PgcFavoriteIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 请求文章收藏夹信息.
+        /// </summary>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestArticleFavoriteListAsync(int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var response = await _accountProvider.GetFavortieArticleListAsync(pageNumber);
+                var args = new FavoriteArticleIterationEventArgs(response, pageNumber);
+                ArticleFavoriteIteration?.Invoke(this, args);
+            }
+            catch (Exception)
+            {
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 移除收藏夹.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="isMe">是否为自己创建的收藏夹.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteFolderAsync(int favoriteId, bool isMe)
+            => _accountProvider.RemoveFavoriteFolderAsync(favoriteId, isMe);
+
+        /// <summary>
+        /// 取消收藏视频.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId)
+            => _accountProvider.RemoveFavoriteVideoAsync(favoriteId, videoId);
+
+        /// <summary>
+        /// 取消收藏番剧/影视.
+        /// </summary>
+        /// <param name="seasonId">剧集Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoritePgcAsync(int seasonId)
+            => _accountProvider.RemoveFavoritePgcAsync(seasonId);
+
+        /// <summary>
+        /// 取消收藏文章.
+        /// </summary>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteArticleAsync(int articleId)
+            => _accountProvider.RemoveFavoriteArticleAsync(articleId);
     }
 }

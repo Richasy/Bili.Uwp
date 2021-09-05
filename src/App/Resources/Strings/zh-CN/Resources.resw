@@ -126,6 +126,9 @@
   <data name="AlsoLike" xml:space="preserve">
     <value>同时点赞</value>
   </data>
+  <data name="Anime" xml:space="preserve">
+    <value>动漫</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
@@ -183,6 +186,9 @@
   <data name="ChooseFavorite" xml:space="preserve">
     <value>选择收藏夹</value>
   </data>
+  <data name="Cinema" xml:space="preserve">
+    <value>影视</value>
+  </data>
   <data name="Clean" xml:space="preserve">
     <value>清除</value>
   </data>
@@ -203,6 +209,9 @@
   </data>
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
+  </data>
+  <data name="CollectTime" xml:space="preserve">
+    <value>收藏时间</value>
   </data>
   <data name="CompactOverlayMode" xml:space="preserve">
     <value>小窗模式</value>
@@ -258,11 +267,20 @@
   <data name="Default" xml:space="preserve">
     <value>默认</value>
   </data>
+  <data name="DefaultFavorite" xml:space="preserve">
+    <value>默认收藏夹</value>
+  </data>
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
     <value>默认播放器显示模式</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="DeleteFavorite" xml:space="preserve">
+    <value>删除收藏夹</value>
+  </data>
+  <data name="DeleteFavoriteWarning" xml:space="preserve">
+    <value>是否要删除该收藏夹？</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>简介</value>
@@ -308,6 +326,9 @@
   </data>
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
+  </data>
+  <data name="FavoriteHaveNoVideos" xml:space="preserve">
+    <value>收藏夹内没有视频</value>
   </data>
   <data name="FilterByGreaterThan60Min" xml:space="preserve">
     <value>60分钟+</value>
@@ -389,6 +410,9 @@
   </data>
   <data name="Like" xml:space="preserve">
     <value>点赞</value>
+  </data>
+  <data name="LikeCount" xml:space="preserve">
+    <value>点赞数</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
@@ -579,11 +603,17 @@
   <data name="RankRequestFailed" xml:space="preserve">
     <value>请求排行榜失败</value>
   </data>
+  <data name="ReadCount" xml:space="preserve">
+    <value>阅读数</value>
+  </data>
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="RefreshCurrentSection" xml:space="preserve">
+    <value>刷新当前分区</value>
   </data>
   <data name="RelatedVideos" xml:space="preserve">
     <value>关联视频</value>
@@ -597,8 +627,17 @@
   <data name="ReplyCount" xml:space="preserve">
     <value>评论数</value>
   </data>
+  <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
+    <value>获取追番列表失败</value>
+  </data>
+  <data name="RequestArticleFavoriteFailed" xml:space="preserve">
+    <value>获取收藏文章失败</value>
+  </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表请求失败</value>
+  </data>
+  <data name="RequestCinemaFavoriteFailed" xml:space="preserve">
+    <value>获取追剧列表失败</value>
   </data>
   <data name="RequestFavoriteError" xml:space="preserve">
     <value>请求收藏夹失败</value>
@@ -651,6 +690,9 @@
   <data name="RequestVideoFailed" xml:space="preserve">
     <value>视频播放信息请求失败</value>
   </data>
+  <data name="RequestVideoFavoriteFailed" xml:space="preserve">
+    <value>请求视频收藏夹信息失败</value>
+  </data>
   <data name="RequestViewLaterFailed" xml:space="preserve">
     <value>请求稍后再看列表失败</value>
   </data>
@@ -683,6 +725,9 @@
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
+  </data>
+  <data name="SeeDetail" xml:space="preserve">
+    <value>查看详情</value>
   </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
@@ -798,6 +843,12 @@
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
   </data>
+  <data name="UnFavorite" xml:space="preserve">
+    <value>取消收藏</value>
+  </data>
+  <data name="UnFavoriteWarning" xml:space="preserve">
+    <value>是否不再关注该收藏夹？</value>
+  </data>
   <data name="Updated" xml:space="preserve">
     <value>已更新</value>
   </data>
@@ -827,6 +878,9 @@
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="VideoCount" xml:space="preserve">
+    <value>视频数</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>视频</value>

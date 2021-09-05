@@ -12,160 +12,160 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class SeasonViewModel : ViewModelBase
     {
         /// <summary>
-        /// 从动漫条目中创建.
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
         /// </summary>
         /// <param name="item">动漫模块条目.</param>
         /// <param name="isVerticalCover">是否为纵向封面.</param>
-        /// <returns><see cref="SeasonViewModel"/>.</returns>
-        public static SeasonViewModel CreateFromModuleItem(PgcModuleItem item, bool isVerticalCover = true)
+        public SeasonViewModel(PgcModuleItem item, bool isVerticalCover = true)
         {
-            var vm = new SeasonViewModel();
-            vm.Title = item.Title;
-            vm.Subtitle = item.Description;
-            vm.SeasonId = item.OriginId;
+            Title = item.Title;
+            Subtitle = item.Description;
+            SeasonId = item.OriginId;
             if (item.Aid > 0)
             {
-                vm.EpisodeId = item.Aid;
+                EpisodeId = item.Aid;
             }
 
             var resString = isVerticalCover ? "@240w_320h_1c_100q.jpg" : "@400w_250h_1c_100q.jpg";
-            vm.Tags = item.SeasonTags;
-            vm.CoverUrl = item.Cover + resString;
-            vm.Source = item;
-            vm.BadgeText = item.Badge;
-            vm.SourceCoverUrl = item.Cover;
+            Tags = item.SeasonTags;
+            CoverUrl = item.Cover + resString;
+            Source = item;
+            BadgeText = item.Badge;
+            SourceCoverUrl = item.Cover;
 
             if (item.Stat != null && !string.IsNullOrEmpty(item.Stat.FollowDisplayText))
             {
-                vm.AdditionalText = item.Stat.FollowDisplayText;
+                AdditionalText = item.Stat.FollowDisplayText;
             }
             else if (!string.IsNullOrEmpty(item.DisplayScoreText))
             {
-                vm.AdditionalText = item.DisplayScoreText;
+                AdditionalText = item.DisplayScoreText;
             }
 
-            vm.IsShowBadge = !string.IsNullOrEmpty(item.Badge);
-            vm.IsShowTags = !string.IsNullOrEmpty(item.SeasonTags);
-            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
-
-            return vm;
+            IsShowBadge = !string.IsNullOrEmpty(item.Badge);
+            IsShowTags = !string.IsNullOrEmpty(item.SeasonTags);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
         }
 
         /// <summary>
-        /// 从搜索结果创建条目.
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
         /// </summary>
         /// <param name="item">条目.</param>
-        /// <returns>剧集视图模型.</returns>
-        public static SeasonViewModel CreateFromSearchItem(PgcSearchItem item)
+        public SeasonViewModel(PgcSearchItem item)
         {
-            var vm = new SeasonViewModel();
-            vm.Title = item.Title;
-            vm.Subtitle = item.Label;
-            vm.SeasonId = item.SeasonId;
-            vm.Tags = item.SubTitle;
-            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
-            vm.BadgeText = item.BadgeText;
-            vm.SourceCoverUrl = item.Cover;
-            vm.Rating = item.Rating;
-            vm.AdditionalText = item.Area;
-            vm.Source = item;
+            Title = item.Title;
+            Subtitle = item.Label;
+            SeasonId = item.SeasonId;
+            Tags = item.SubTitle;
+            CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            BadgeText = item.BadgeText;
+            SourceCoverUrl = item.Cover;
+            Rating = item.Rating;
+            AdditionalText = item.Area;
+            Source = item;
 
-            vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
-            vm.IsShowTags = !string.IsNullOrEmpty(item.Label);
-            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
-            vm.IsShowRating = item.Rating > 0;
-
-            return vm;
+            IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            IsShowTags = !string.IsNullOrEmpty(item.Label);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
+            IsShowRating = item.Rating > 0;
         }
 
         /// <summary>
-        /// 从索引结果创建.
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
         /// </summary>
         /// <param name="item">PGC索引条目.</param>
-        /// <returns>剧集视图模型.</returns>
-        public static SeasonViewModel CreateFromIndexItem(PgcIndexItem item)
+        public SeasonViewModel(PgcIndexItem item)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            var vm = new SeasonViewModel();
-            vm.Title = item.Title;
-            vm.Subtitle = item.IsFinish == 1 ?
+            Title = item.Title;
+            Subtitle = item.IsFinish == 1 ?
                 resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PublishFinished) :
                 resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PublishInInstalments);
-            vm.Tags = item.OrderText;
-            vm.SeasonId = item.SeasonId;
-            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
-            vm.BadgeText = item.BadgeText;
-            vm.SourceCoverUrl = item.Cover;
-            vm.AdditionalText = item.AdditionalText;
-            vm.Source = item;
+            Tags = item.OrderText;
+            SeasonId = item.SeasonId;
+            CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            BadgeText = item.BadgeText;
+            SourceCoverUrl = item.Cover;
+            AdditionalText = item.AdditionalText;
+            Source = item;
 
-            vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
-            vm.IsShowTags = !string.IsNullOrEmpty(item.OrderText);
-            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
-            vm.IsShowRating = false;
-
-            return vm;
+            IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            IsShowTags = !string.IsNullOrEmpty(item.OrderText);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
+            IsShowRating = false;
         }
 
         /// <summary>
-        /// 从时间线条目创建.
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
         /// </summary>
         /// <param name="item">PGC时间线条目.</param>
-        /// <returns>剧集视图模型.</returns>
-        public static SeasonViewModel CreateFromTimeLineItem(TimeLineEpisode item)
+        public SeasonViewModel(TimeLineEpisode item)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            var vm = new SeasonViewModel();
-            vm.Title = item.Title;
-            vm.Subtitle = item.PublishTime;
-            vm.Tags = item.PublishIndex;
-            vm.SeasonId = item.SeasonId;
-            vm.EpisodeId = item.EpisodeId;
-            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
-            vm.SourceCoverUrl = item.Cover;
-            vm.AdditionalText = item.IsPublished == 1 ?
+            Title = item.Title;
+            Subtitle = item.PublishTime;
+            Tags = item.PublishIndex;
+            SeasonId = item.SeasonId;
+            EpisodeId = item.EpisodeId;
+            CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            SourceCoverUrl = item.Cover;
+            AdditionalText = item.IsPublished == 1 ?
                 resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Updated) :
                 resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotUpdated);
-            vm.Source = item;
+            Source = item;
 
-            vm.IsShowBadge = false;
-            vm.IsShowTags = !string.IsNullOrEmpty(item.PublishIndex);
-            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
-            vm.IsShowRating = false;
-
-            return vm;
+            IsShowBadge = false;
+            IsShowTags = !string.IsNullOrEmpty(item.PublishIndex);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
+            IsShowRating = false;
         }
 
         /// <summary>
-        /// 从播放列表条目中创建.
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
         /// </summary>
         /// <param name="item">播放列表条目.</param>
-        /// <returns><see cref="SeasonViewModel"/>.</returns>
-        public static SeasonViewModel CreateFromPlayListItem(PgcPlayListSeason item)
+        public SeasonViewModel(PgcPlayListSeason item)
         {
-            var vm = new SeasonViewModel();
-            vm.Title = item.Title;
-            vm.Subtitle = item.Description;
-            vm.SeasonId = item.SeasonId;
-            vm.Tags = item.Styles;
-            vm.CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
-            vm.Source = item;
-            vm.BadgeText = item.BadgeText;
-            vm.SourceCoverUrl = item.Cover;
-            vm.AdditionalText = item.Subtitle;
+            Title = item.Title;
+            Subtitle = item.Description;
+            SeasonId = item.SeasonId;
+            Tags = item.Styles;
+            CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            Source = item;
+            BadgeText = item.BadgeText;
+            SourceCoverUrl = item.Cover;
+            AdditionalText = item.Subtitle;
 
-            vm.IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
-            vm.IsShowTags = !string.IsNullOrEmpty(item.Styles);
-            vm.IsShowAdditionalText = !string.IsNullOrEmpty(vm.AdditionalText);
+            IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            IsShowTags = !string.IsNullOrEmpty(item.Styles);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
 
             if (item.Rating != null)
             {
-                vm.Rating = item.Rating.Score;
+                Rating = item.Rating.Score;
             }
 
-            vm.IsShowRating = vm.Rating > 0;
+            IsShowRating = Rating > 0;
+        }
 
-            return vm;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
+        /// </summary>
+        /// <param name="item">收藏夹条目.</param>
+        public SeasonViewModel(FavoritePgcItem item)
+        {
+            Title = item.Title;
+            Subtitle = item.NewEpisode?.DisplayText ?? "--";
+            SeasonId = item.SeasonId;
+            Tags = item.SeasonTypeName;
+            CoverUrl = item.Cover + "@240w_320h_1c_100q.jpg";
+            Source = item;
+            BadgeText = item.BadgeText;
+            SourceCoverUrl = item.Cover;
+
+            IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
+            IsShowTags = !string.IsNullOrEmpty(item.SeasonTypeName);
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
         }
     }
 }

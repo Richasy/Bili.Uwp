@@ -24,7 +24,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.Title = module.Title;
             vm.SeasonCollection = new ObservableCollection<SeasonViewModel>();
             vm.Type = PgcModuleType.Anime;
-            module.Items.ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromModuleItem(p)));
+            module.Items.ForEach(p => vm.SeasonCollection.Add(new SeasonViewModel(p)));
             if (module.Headers != null && module.Headers.Count > 0)
             {
                 var header = module.Headers.First();
@@ -51,7 +51,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             vm.Title = module.Title;
             vm.SeasonCollection = new ObservableCollection<SeasonViewModel>();
             vm.Type = PgcModuleType.Rank;
-            module.Cards.Take(3).ToList().ForEach(p => vm.SeasonCollection.Add(SeasonViewModel.CreateFromModuleItem(p, false)));
+            module.Cards.Take(3).ToList().ForEach(p => vm.SeasonCollection.Add(new SeasonViewModel(p, false)));
             vm.IsDisplayMoreButton = false;
             return vm;
         }

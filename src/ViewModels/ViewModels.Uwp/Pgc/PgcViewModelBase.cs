@@ -203,7 +203,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Type == Type)
             {
-                e.List.ForEach(p => ItemCollection.Add(SeasonViewModel.CreateFromIndexItem(p)));
+                e.List.ForEach(p => ItemCollection.Add(new SeasonViewModel(p)));
 
                 _isIndexLoadCompleted = !e.HasNext || e.TotalCount <= ItemCollection.Count;
                 _indexPageNumber = e.NextPageNumber;

@@ -50,6 +50,5 @@ namespace Richasy.Bili.App.Controls
         private bool _shadowCreated;
         private long _pointerOverToken;
         private long _pressedToken;
-        private long _checkedToken;
     }
 }

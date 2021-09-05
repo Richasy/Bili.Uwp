@@ -9,7 +9,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// <see cref="CardPanel"/>的自动化公开属性.
     /// </summary>
-    public class CardPanelAutomationPeer : FrameworkElementAutomationPeer
+    public class CardPanelAutomationPeer : ToggleButtonAutomationPeer
     {
         private readonly CardPanel owner;
 
@@ -29,13 +29,15 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override int GetPositionInSetCore()
         {
+            var element = this.owner as FrameworkElement;
             var parent = this.owner.Parent;
-            if (!(parent is ItemsRepeater))
+            if (!(parent is ItemsRepeater) && parent != null)
             {
                 parent = (parent as FrameworkElement).Parent;
+                element = this.owner.Parent as FrameworkElement;
             }
 
-            return (this.owner.Parent as ItemsRepeater)?.GetElementIndex(this.owner) + 1
+            return (parent as ItemsRepeater)?.GetElementIndex(element) + 1
                 ?? base.GetPositionInSetCore();
         }
 
@@ -43,12 +45,12 @@ namespace Richasy.Bili.App.Controls
         protected override int GetSizeOfSetCore()
         {
             var parent = this.owner.Parent;
-            if (!(parent is ItemsRepeater))
+            if (!(parent is ItemsRepeater) && parent != null)
             {
                 parent = (parent as FrameworkElement).Parent;
             }
 
-            var count = (this.owner.Parent as ItemsRepeater)?.ItemsSourceView?.Count;
+            var count = (parent as ItemsRepeater)?.ItemsSourceView?.Count;
             return count ?? base.GetSizeOfSetCore();
         }
     }

@@ -41,6 +41,7 @@
                     <TextBlock
                         x:Name="TitleBlock"
                         Style="{StaticResource SubtitleTextBlockStyle}"
+                        HorizontalAlignment="Left"
                         FontSize="14"
                         MaxLines="2"
                         Text="{x:Bind ViewModel.Title, Mode=OneWay}">
@@ -53,6 +54,7 @@
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Grid.Row="1"
+                    HorizontalAlignment="Left"
                     MaxLines="1"
                     Opacity="0.6"
                     Text="{x:Bind ViewModel.Subtitle}"

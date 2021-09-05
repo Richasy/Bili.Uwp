@@ -80,7 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (e.PgcType == Type)
             {
                 var module = e.Modules.First();
-                module.Items.ForEach(p => SeasonCollection.Add(SeasonViewModel.CreateFromModuleItem(p)));
+                module.Items.ForEach(p => SeasonCollection.Add(new SeasonViewModel(p)));
                 _cursor = e.Cursor;
             }
         }

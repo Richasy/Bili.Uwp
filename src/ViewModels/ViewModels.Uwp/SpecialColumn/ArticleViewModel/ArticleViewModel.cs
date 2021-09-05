@@ -73,6 +73,33 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
         /// </summary>
+        /// <param name="item">收藏文章.</param>
+        public ArticleViewModel(FavoriteArticleItem item)
+            : this()
+        {
+            Id = item.Id.ToString();
+            var cover = string.Empty;
+            var hasCover = item.Images?.Any() ?? false;
+            if (hasCover)
+            {
+                cover = item.Images.First();
+            }
+            else
+            {
+                cover = item.Banner;
+            }
+
+            Title = item.Title;
+            Description = item.Summary;
+            Publisher = new UserViewModel(item.PublisherName, userId: item.PublisherId);
+            CollectTime = DateTimeOffset.FromUnixTimeSeconds(item.CollectTime).ToString("yy/MM/dd");
+
+            LimitCover(cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
+        /// </summary>
         protected ArticleViewModel()
         {
             CategoryCollection = new ObservableCollection<ArticleCategory>();

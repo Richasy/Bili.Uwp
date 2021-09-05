@@ -96,9 +96,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string SourceCoverUrl { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SeasonViewModel model && EpisodeId == model.EpisodeId;
+        public override bool Equals(object obj) => obj is SeasonViewModel model && SeasonId == model.SeasonId;
 
         /// <inheritdoc/>
-        public override int GetHashCode() => -593024695 + EpisodeId.GetHashCode();
+        public override int GetHashCode() => -593024695 + SeasonId.GetHashCode();
     }
 }
