@@ -443,6 +443,19 @@ namespace Richasy.Bili.Models.App.Constants
             /// </summary>
             public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
         }
+
+        public static class Community
+        {
+            /// <summary>
+            /// 评论列表.
+            /// </summary>
+            public const string ReplyMainList = _grpcBase + "/bilibili.main.community.reply.v1.Reply/MainList";
+
+            /// <summary>
+            /// 单层评论详情.
+            /// </summary>
+            public const string ReplyDetailList = _grpcBase + "/bilibili.main.community.reply.v1.Reply/DetailList";
+        }
     }
 #pragma warning restore SA1401 // Fields should be private
 #pragma warning restore SA1600 // Elements should be documented
