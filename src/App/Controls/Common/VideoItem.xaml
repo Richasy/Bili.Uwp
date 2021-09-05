@@ -7,18 +7,21 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <UserControl.ContextFlyout>
-        <MenuFlyout Opening="OnFlyoutOpening">
-            <MenuFlyoutItem Click="OnAddToViewLaterItemClickAsync" Text="{loc:LocaleLocator Name=AddToViewLater}">
-                <MenuFlyoutItem.Icon>
-                    <icons:RegularFluentIcon Symbol="Add16" />
-                </MenuFlyoutItem.Icon>
-            </MenuFlyoutItem>
-        </MenuFlyout>
+        <muxc:CommandBarFlyout Opening="OnFlyoutOpening">
+            <muxc:CommandBarFlyout.SecondaryCommands>
+                <AppBarButton Click="OnAddToViewLaterItemClickAsync" Label="{loc:LocaleLocator Name=AddToViewLater}">
+                    <AppBarButton.Icon>
+                        <icons:RegularFluentIcon Symbol="Add16" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </muxc:CommandBarFlyout.SecondaryCommands>
+        </muxc:CommandBarFlyout>
     </UserControl.ContextFlyout>
 
     <UserControl.Resources>

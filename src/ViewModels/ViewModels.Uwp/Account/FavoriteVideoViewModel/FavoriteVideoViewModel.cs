@@ -116,6 +116,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Name = detail.Title;
                 Description = detail.Description;
                 TotalCount = detail.MediaCount;
+                IsMine = detail.Publisher.Mid == AccountViewModel.Instance.Mid.Value;
             }
 
             if (response.Medias != null && response.Medias.Count > 0)

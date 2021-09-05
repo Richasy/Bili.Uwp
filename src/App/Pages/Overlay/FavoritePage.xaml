@@ -12,6 +12,23 @@
     mc:Ignorable="d">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RefreshButton.Margin" Value="{StaticResource NarrowContainerPadding}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <muxc:NavigationView
             x:Name="Nav"
             IsBackButtonVisible="Collapsed"
@@ -25,6 +42,14 @@
                 <muxc:NavigationViewItem x:Name="CinemaItem" Content="{loc:LocaleLocator Name=Cinema}" />
                 <muxc:NavigationViewItem x:Name="ArticleItem" Content="{loc:LocaleLocator Name=SpecialColumn}" />
             </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.PaneFooter>
+                <Button
+                    x:Name="RefreshButton"
+                    Margin="{StaticResource DefaultContainerPadding}"
+                    Click="OnRefreshButtonClickAsync">
+                    <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:LocaleLocator Name=RefreshCurrentSection}" />
+                </Button>
+            </muxc:NavigationView.PaneFooter>
             <Grid Padding="0,12,0,0">
                 <controls:VideoFavoritePanel x:Name="VideoPanel" Visibility="Collapsed" />
                 <controls:PgcFavoritePanel x:Name="AnimePanel" Visibility="Collapsed" />

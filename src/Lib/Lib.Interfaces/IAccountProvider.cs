@@ -190,5 +190,19 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <returns>结果.</returns>
         Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId);
+
+        /// <summary>
+        /// 取消番剧/影视收藏.
+        /// </summary>
+        /// <param name="seasonId">剧集Id.</param>
+        /// <returns>结果.</returns>
+        Task<bool> RemoveFavoritePgcAsync(int seasonId);
+
+        /// <summary>
+        /// 取消文章收藏.
+        /// </summary>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns>结果.</returns>
+        Task<bool> RemoveFavoriteArticleAsync(int articleId);
     }
 }

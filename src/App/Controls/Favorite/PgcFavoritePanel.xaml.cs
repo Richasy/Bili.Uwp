@@ -43,5 +43,11 @@ namespace Richasy.Bili.App.Controls
         {
             await ViewModel.InitializeRequestAsync();
         }
+
+        private async void OnUnFavoritePgcButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as SeasonViewModel;
+            await ViewModel.RemoveFavoritePgcAsync(vm);
+        }
     }
 }

@@ -135,5 +135,29 @@ namespace Richasy.Bili.App.Pages.Overlay
                 }
             }
         }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            RefreshButton.IsEnabled = false;
+            switch (ViewModel.CurrentType)
+            {
+                case FavoriteType.Video:
+                    await ViewModel.InitializeRequestAsync(FavoriteType.Video);
+                    break;
+                case FavoriteType.Anime:
+                    await FavoriteAnimeViewModel.Instance.InitializeRequestAsync();
+                    break;
+                case FavoriteType.Cinema:
+                    await FavoriteCinemaViewModel.Instance.InitializeRequestAsync();
+                    break;
+                case FavoriteType.Article:
+                    await FavoriteArticleViewModel.Instance.InitializeRequestAsync();
+                    break;
+                default:
+                    break;
+            }
+
+            RefreshButton.IsEnabled = true;
+        }
     }
 }

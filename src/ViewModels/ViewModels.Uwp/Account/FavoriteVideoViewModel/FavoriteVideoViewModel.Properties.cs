@@ -49,6 +49,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowEmpty { get; set; }
 
         /// <summary>
+        /// 是否为我的收藏夹.
+        /// </summary>
+        [Reactive]
+        public bool IsMine { get; set; }
+
+        /// <summary>
         /// 视频集合.
         /// </summary>
         [Reactive]

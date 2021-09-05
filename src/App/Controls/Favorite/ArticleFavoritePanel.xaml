@@ -3,9 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -44,7 +46,19 @@
                 RequestLoadMore="OnViewRequestLoadMoreAsync">
                 <local:VerticalRepeaterView.ItemTemplate>
                     <DataTemplate x:DataType="uwp:ArticleViewModel">
-                        <local:ArticleItem ViewModel="{x:Bind}" />
+                        <local:ArticleItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
+                            <local:ArticleItem.ContextFlyout>
+                                <muxc:CommandBarFlyout>
+                                    <muxc:CommandBarFlyout.SecondaryCommands>
+                                        <AppBarButton Click="OnUnFavoriteArticleButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="StarOff16" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </muxc:CommandBarFlyout.SecondaryCommands>
+                                </muxc:CommandBarFlyout>
+                            </local:ArticleItem.ContextFlyout>
+                        </local:ArticleItem>
                     </DataTemplate>
                 </local:VerticalRepeaterView.ItemTemplate>
             </local:VerticalRepeaterView>

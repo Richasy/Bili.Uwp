@@ -62,6 +62,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 取消关注视频.
+        /// </summary>
+        /// <param name="favoriteId">收藏夹Id.</param>
+        /// <param name="resourceId">资源Id.</param>
+        /// <returns>取消收藏结果.</returns>
+        public Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int resourceId)
+            => Controller.RemoveFavoriteVideoAsync(favoriteId, resourceId);
+
         private async Task InitializeVideoRequestAsync()
         {
             if (UserId == 0)
@@ -77,6 +86,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsVideoInitializeLoading = true;
             try
             {
+                VideoFolderCollection.Clear();
                 var response = await Controller.GetVideoFavoriteGalleryAsync(UserId);
 
                 foreach (var folder in response.FavoriteFolderList)

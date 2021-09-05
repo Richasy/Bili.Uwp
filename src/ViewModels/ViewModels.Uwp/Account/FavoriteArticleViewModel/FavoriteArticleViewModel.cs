@@ -73,6 +73,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 取消关注文章.
+        /// </summary>
+        /// <param name="vm">文章视图模型.</param>
+        /// <returns>取消收藏结果.</returns>
+        public async Task RemoveFavoriteArticleAsync(ArticleViewModel vm)
+        {
+            var result = await Controller.RemoveFavoriteArticleAsync(Convert.ToInt32(vm.Id));
+            if (result)
+            {
+                ArticleCollection.Remove(vm);
+                IsShowEmpty = ArticleCollection.Count == 0;
+            }
+        }
+
+        /// <summary>
         /// 数据源增量请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>

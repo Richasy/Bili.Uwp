@@ -178,6 +178,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string UnFavoriteVideo = _apiBase + "/x/v3/fav/resource/batch-del";
 
             /// <summary>
+            /// 取消关注番剧或影视.
+            /// </summary>
+            public const string UnFavoritePgc = _apiBase + "/pgc/app/follow/del";
+
+            /// <summary>
+            /// 取消关注文章.
+            /// </summary>
+            public const string UnFavoriteArticle = _apiBase + "/x/article/favorites/del";
+
+            /// <summary>
             /// 添加视频收藏夹.
             /// </summary>
             public const string AddFavoriteFolder = _apiBase + "/x/v3/fav/folder/add";

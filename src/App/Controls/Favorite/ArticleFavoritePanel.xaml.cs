@@ -43,5 +43,16 @@ namespace Richasy.Bili.App.Controls
         {
             await ViewModel.InitializeRequestAsync();
         }
+
+        private async void OnUnFavoriteArticleButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as ArticleViewModel;
+            await ViewModel.RemoveFavoriteArticleAsync(vm);
+        }
+
+        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
+        {
+            await ViewModel.InitializeRequestAsync();
+        }
     }
 }

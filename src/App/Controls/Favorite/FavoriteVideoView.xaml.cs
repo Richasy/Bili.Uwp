@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Pages;
 using Richasy.Bili.ViewModels.Uwp;
@@ -75,6 +77,29 @@ namespace Richasy.Bili.App.Controls
         private void OnVideoItemClick(object sender, VideoViewModel e)
         {
             this.Container.IsOpen = false;
+        }
+
+        private async void OnAddToViewLaterButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
+            await ViewLaterViewModel.Instance.AddAsync(vm);
+        }
+
+        private async void OnUnFavoriteVideoButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
+            var result = await FavoriteViewModel.Instance.RemoveFavoriteVideoAsync(ViewModel.Id, Convert.ToInt32(vm.VideoId));
+            if (result)
+            {
+                ViewModel.VideoCollection.Remove(vm);
+            }
+        }
+
+        private void OnVideoFlyoutOpening(object sender, object e)
+        {
+            var flyout = sender as Microsoft.UI.Xaml.Controls.CommandBarFlyout;
+            var element = flyout.SecondaryCommands.OfType<AppBarButton>().Last();
+            element.IsEnabled = ViewModel.IsMine;
         }
     }
 }

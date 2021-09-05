@@ -113,5 +113,26 @@ namespace Richasy.Bili.App.Controls
 
             btn.IsEnabled = true;
         }
+
+        private async void OnAddToViewLaterButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
+            await ViewLaterViewModel.Instance.AddAsync(vm);
+        }
+
+        private async void OnUnFavoriteVideoButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
+            var result = await ViewModel.RemoveFavoriteVideoAsync(ViewModel.DefaultVideoViewModel.Id, Convert.ToInt32(vm.VideoId));
+            if (result)
+            {
+                ViewModel.DefaultVideoViewModel.VideoCollection.Remove(vm);
+            }
+        }
+
+        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
+        {
+            await ViewModel.InitializeRequestAsync(Models.Enums.App.FavoriteType.Video);
+        }
     }
 }

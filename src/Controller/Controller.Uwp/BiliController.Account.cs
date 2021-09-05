@@ -455,5 +455,21 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>结果.</returns>
         public Task<bool> RemoveFavoriteVideoAsync(int favoriteId, int videoId)
             => _accountProvider.RemoveFavoriteVideoAsync(favoriteId, videoId);
+
+        /// <summary>
+        /// 取消收藏番剧/影视.
+        /// </summary>
+        /// <param name="seasonId">剧集Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoritePgcAsync(int seasonId)
+            => _accountProvider.RemoveFavoritePgcAsync(seasonId);
+
+        /// <summary>
+        /// 取消收藏文章.
+        /// </summary>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> RemoveFavoriteArticleAsync(int articleId)
+            => _accountProvider.RemoveFavoriteArticleAsync(articleId);
     }
 }

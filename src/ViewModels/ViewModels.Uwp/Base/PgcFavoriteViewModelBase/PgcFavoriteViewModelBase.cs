@@ -85,6 +85,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 取消关注番剧/影视.
+        /// </summary>
+        /// <param name="vm">剧集视图模型.</param>
+        /// <returns>取消收藏结果.</returns>
+        public async Task RemoveFavoritePgcAsync(SeasonViewModel vm)
+        {
+            var result = await Controller.RemoveFavoritePgcAsync(vm.SeasonId);
+            if (result)
+            {
+                SeasonCollection.Remove(vm);
+                IsShowEmpty = SeasonCollection.Count == 0;
+            }
+        }
+
+        /// <summary>
         /// 数据源增量请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>

@@ -351,5 +351,33 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
         }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveFavoritePgcAsync(int seasonId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.SeasonId, seasonId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.UnFavoritePgc, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveFavoriteArticleAsync(int articleId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Id, articleId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.UnFavoriteArticle, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
     }
 }

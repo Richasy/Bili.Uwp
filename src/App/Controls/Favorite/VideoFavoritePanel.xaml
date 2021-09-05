@@ -76,10 +76,28 @@
                             <local:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
                                     <local:VideoItem
+                                        DataContext="{x:Bind}"
                                         IsShowAvatar="True"
                                         IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
                                         IsShowPlayCount="True"
-                                        ViewModel="{x:Bind Mode=OneWay}" />
+                                        ViewModel="{x:Bind Mode=OneWay}">
+                                        <local:VideoItem.ContextFlyout>
+                                            <muxc:CommandBarFlyout>
+                                                <muxc:CommandBarFlyout.SecondaryCommands>
+                                                    <AppBarButton Click="OnAddToViewLaterButtonClickAsync" Label="{loc:LocaleLocator Name=AddToViewLater}">
+                                                        <AppBarButton.Icon>
+                                                            <icons:RegularFluentIcon Symbol="Add16" />
+                                                        </AppBarButton.Icon>
+                                                    </AppBarButton>
+                                                    <AppBarButton Click="OnUnFavoriteVideoButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
+                                                        <AppBarButton.Icon>
+                                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                                        </AppBarButton.Icon>
+                                                    </AppBarButton>
+                                                </muxc:CommandBarFlyout.SecondaryCommands>
+                                            </muxc:CommandBarFlyout>
+                                        </local:VideoItem.ContextFlyout>
+                                    </local:VideoItem>
                                 </DataTemplate>
                             </local:VerticalRepeaterView.ItemTemplate>
                         </local:VerticalRepeaterView>
