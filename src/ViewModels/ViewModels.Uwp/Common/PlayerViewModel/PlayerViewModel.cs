@@ -230,6 +230,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(CurrentPgcEpisode.Aid), Models.Enums.Bili.ReplyType.Video);
 
             try
             {

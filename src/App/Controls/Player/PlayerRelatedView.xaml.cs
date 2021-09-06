@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -137,6 +136,12 @@ namespace Richasy.Bili.App.Controls
             if (ViewModel.IsShowChat && ChatView != null)
             {
                 ChatView.Visibility = Nav.SelectedItem == ChatItem ?
+                Visibility.Visible : Visibility.Collapsed;
+            }
+
+            if (ViewModel.IsShowReply && ReplyView != null)
+            {
+                ReplyView.Visibility = Nav.SelectedItem == ReplyItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
         }

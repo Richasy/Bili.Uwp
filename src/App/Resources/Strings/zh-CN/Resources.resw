@@ -678,6 +678,9 @@
   <data name="RequestRecommendFailed" xml:space="preserve">
     <value>推荐视频请求失败</value>
   </data>
+  <data name="RequestReplyFailed" xml:space="preserve">
+    <value>请求评论失败</value>
+  </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分区视频请求失败</value>
   </data>

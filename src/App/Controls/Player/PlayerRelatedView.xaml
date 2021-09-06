@@ -107,6 +107,10 @@
                         x:Name="ChatView"
                         x:Load="{x:Bind ViewModel.IsShowChat, Mode=OneWay}"
                         Visibility="Collapsed" />
+                    <related:ReplyView
+                        x:Name="ReplyView"
+                        x:Load="{x:Bind ViewModel.IsShowReply, Mode=OneWay}"
+                        Visibility="Collapsed" />
                 </Grid>
             </ScrollViewer>
         </muxc:NavigationView>
