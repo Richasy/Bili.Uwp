@@ -16,8 +16,8 @@
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
-    <Compile Include="CommunityProvider.cs" />
-    <Compile Include="CommunityProvider.Extension.cs" />
+    <Compile Include="CommunityProvider\CommunityProvider.cs" />
+    <Compile Include="CommunityProvider\CommunityProvider.Extension.cs" />
     <Compile Include="PgcProvider\PgcProvider.cs" />
     <Compile Include="PgcProvider\PgcProvider.Extension.cs" />
     <Compile Include="SearchProvider\SearchProvider.cs" />

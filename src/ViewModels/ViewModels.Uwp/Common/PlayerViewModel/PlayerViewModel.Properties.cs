@@ -52,9 +52,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         private DispatcherTimer _heartBeatTimer;
 
         /// <summary>
-        /// 让关联视图滚动到底部.
+        /// 让直播消息视图滚动到底部.
         /// </summary>
-        public event EventHandler RequestRelatedViewScrollToBottom;
+        public event EventHandler RequestLiveMessageScrollToBottom;
 
         /// <summary>
         /// 有新的直播弹幕添加.

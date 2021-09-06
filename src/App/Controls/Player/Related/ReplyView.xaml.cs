@@ -42,5 +42,10 @@ namespace Richasy.Bili.App.Controls.Player.Related
                 await ViewModel.InitializeRequstAsync();
             }
         }
+
+        private async void OnReplyRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+            await ViewModel.RequestDataAsync();
+        }
     }
 }

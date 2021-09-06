@@ -114,7 +114,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _cursor = new CursorReq
             {
                 Prev = 0,
-                Next = 1,
+                Next = 0,
                 Mode = CurrentMode,
             };
         }

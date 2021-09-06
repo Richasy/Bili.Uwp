@@ -74,8 +74,8 @@
     <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
     <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.cs" />
     <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.Properties.cs" />
-    <Compile Include="ReplyModuleViewModel.cs" />
-    <Compile Include="ReplyModuleViewModel.Properties.cs" />
+    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.cs" />
+    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
     <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
     <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />

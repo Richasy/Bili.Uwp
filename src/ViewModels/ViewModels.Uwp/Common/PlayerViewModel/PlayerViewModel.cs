@@ -458,7 +458,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (count > 0)
             {
-                RequestRelatedViewScrollToBottom?.Invoke(this, EventArgs.Empty);
+                RequestLiveMessageScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
     }

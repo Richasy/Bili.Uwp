@@ -15,120 +15,123 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" CornerRadius="{StaticResource OverlayCornerRadius}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="LayoutGroup">
-                <VisualState x:Name="StandardState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="RowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="StandardContainer.Visibility" Value="Collapsed" />
-                        <Setter Target="NarrowContainer.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="StandardContainer">
-            <muxc:ItemsRepeater
-                x:Name="MessageRepeater"
-                Margin="12"
-                ItemsSource="{x:Bind ViewModel.LiveDanmakuCollection}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Spacing="12" />
-                </muxc:ItemsRepeater.Layout>
-                <muxc:ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="bilibili:LiveDanmakuMessage">
-                        <Grid RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid ColumnSpacing="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border
-                                    Padding="2"
-                                    VerticalAlignment="Center"
-                                    BorderBrush="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
-                                    BorderThickness="1"
-                                    CornerRadius="{StaticResource ControlCornerRadius}">
-                                    <TextBlock
-                                        FontSize="10"
-                                        Foreground="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
-                                        Text="{x:Bind Level}" />
-                                </Border>
-                                <TextBlock
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    FontSize="12"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{x:Bind UserName}" />
-                            </Grid>
+        <ScrollViewer
+            x:Name="ScrollViewer"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="LayoutGroup">
+                        <VisualState x:Name="StandardState">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                            </VisualState.StateTriggers>
+                        </VisualState>
+                        <VisualState x:Name="RowState">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="0" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="StandardContainer.Visibility" Value="Collapsed" />
+                                <Setter Target="NarrowContainer.Visibility" Value="Visible" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid x:Name="StandardContainer">
+                    <muxc:ItemsRepeater
+                        x:Name="MessageRepeater"
+                        Margin="12"
+                        ItemsSource="{x:Bind ViewModel.LiveDanmakuCollection}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Spacing="12" />
+                        </muxc:ItemsRepeater.Layout>
+                        <muxc:ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="bilibili:LiveDanmakuMessage">
+                                <Grid RowSpacing="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid ColumnSpacing="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Padding="2"
+                                            VerticalAlignment="Center"
+                                            BorderBrush="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock
+                                                FontSize="10"
+                                                Foreground="{x:Bind LevelColor, Converter={StaticResource BrushConverter}}"
+                                                Text="{x:Bind Level}" />
+                                        </Border>
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="{x:Bind UserName}" />
+                                    </Grid>
 
-                            <Border
-                                Grid.Row="1"
-                                Padding="12,8"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="{StaticResource ControlCornerRadius}">
-                                <TextBlock
-                                    IsTextSelectionEnabled="True"
-                                    Text="{x:Bind Text}"
-                                    TextWrapping="WrapWholeWords" />
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </muxc:ItemsRepeater.ItemTemplate>
-            </muxc:ItemsRepeater>
-            <StackPanel
-                Padding="0,12"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="8"
-                Visibility="{x:Bind ViewModel.IsShowEmptyLiveMessage, Mode=OneWay}">
-                <uwp:RegularFluentIcon
-                    HorizontalAlignment="Center"
-                    FontSize="32"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Symbol="Chat48" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="{loc:LocaleLocator Name=NoMessage}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
-        <Grid x:Name="NarrowContainer" Visibility="Collapsed">
-            <StackPanel
-                Padding="0,12"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="8">
-                <uwp:RegularFluentIcon
-                    HorizontalAlignment="Center"
-                    FontSize="42"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Symbol="Drag24" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="{loc:LocaleLocator Name=NeedScaleToShowMessage}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
+                                    <Border
+                                        Grid.Row="1"
+                                        Padding="12,8"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock
+                                            IsTextSelectionEnabled="True"
+                                            Text="{x:Bind Text}"
+                                            TextWrapping="WrapWholeWords" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater.ItemTemplate>
+                    </muxc:ItemsRepeater>
+                    <StackPanel
+                        Padding="0,12"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="8"
+                        Visibility="{x:Bind ViewModel.IsShowEmptyLiveMessage, Mode=OneWay}">
+                        <uwp:RegularFluentIcon
+                            HorizontalAlignment="Center"
+                            FontSize="32"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Symbol="Chat48" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=NoMessage}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="NarrowContainer" Visibility="Collapsed">
+                    <StackPanel
+                        Padding="0,12"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="8">
+                        <uwp:RegularFluentIcon
+                            HorizontalAlignment="Center"
+                            FontSize="42"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Symbol="Drag24" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:LocaleLocator Name=NeedScaleToShowMessage}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </controls:PlayerComponent>

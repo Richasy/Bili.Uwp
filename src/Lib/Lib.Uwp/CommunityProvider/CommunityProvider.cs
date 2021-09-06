@@ -49,6 +49,7 @@ namespace Richasy.Bili.Lib.Uwp
                 Cursor = cursor,
                 Oid = targetId,
                 Type = (int)type,
+                Rpid = 0,
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Community.ReplyMainList, req);

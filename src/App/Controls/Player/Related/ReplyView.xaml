@@ -6,9 +6,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v1="using:Bilibili.Main.Community.Reply.V1"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Hidden">
+            <controls:VerticalRepeaterView
+                HeaderVisibility="Collapsed"
+                ItemOrientation="Horizontal"
+                ItemsSource="{x:Bind ViewModel.ReplyCollection, Mode=OneWay}"
+                RequestLoadMore="OnReplyRequestLoadMoreAsync">
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="v1:ReplyInfo">
+                        <controls:ReplyItem Data="{x:Bind}" />
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

@@ -11,53 +11,55 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <controls:VerticalRepeaterView
-        HeaderVisibility="Collapsed"
-        ItemOrientation="Horizontal"
-        ItemsSource="{x:Bind ViewModel.EpisodeCollection}">
-        <controls:VerticalRepeaterView.ItemTemplate>
-            <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
-                <controls:CardPanel
-                    Click="OnEpisodeItemClickAsync"
-                    DataContext="{x:Bind}"
-                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                    IsEnableCheck="True"
-                    IsEnableHoverAnimation="False">
-                    <Grid
-                        Padding="12"
-                        HorizontalAlignment="Stretch"
-                        ColumnSpacing="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+    <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
+        <controls:VerticalRepeaterView
+            HeaderVisibility="Collapsed"
+            ItemOrientation="Horizontal"
+            ItemsSource="{x:Bind ViewModel.EpisodeCollection}">
+            <controls:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
+                    <controls:CardPanel
+                        Click="OnEpisodeItemClickAsync"
+                        DataContext="{x:Bind}"
+                        IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                        IsEnableCheck="True"
+                        IsEnableHoverAnimation="False">
                         <Grid
-                            Width="96"
-                            Height="64"
-                            VerticalAlignment="Center"
-                            CornerRadius="{StaticResource ControlCornerRadius}">
-                            <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
+                            Padding="12"
+                            HorizontalAlignment="Stretch"
+                            ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid
+                                Width="96"
+                                Height="64"
+                                VerticalAlignment="Center"
+                                CornerRadius="{StaticResource ControlCornerRadius}">
+                                <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
+                            </Grid>
+                            <StackPanel
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Spacing="4">
+                                <TextBlock
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    FontWeight="Bold"
+                                    Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind Data.Duration, Converter={StaticResource MillisecondsDurationConverter}}" />
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind Data.Subtitle}" />
+                            </StackPanel>
                         </Grid>
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Spacing="4">
-                            <TextBlock
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                FontWeight="Bold"
-                                Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind Data.Duration, Converter={StaticResource MillisecondsDurationConverter}}" />
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind Data.Subtitle}" />
-                        </StackPanel>
-                    </Grid>
-                </controls:CardPanel>
-            </DataTemplate>
-        </controls:VerticalRepeaterView.ItemTemplate>
-    </controls:VerticalRepeaterView>
+                    </controls:CardPanel>
+                </DataTemplate>
+            </controls:VerticalRepeaterView.ItemTemplate>
+        </controls:VerticalRepeaterView>
+    </ScrollViewer>
 </controls:PlayerComponent>

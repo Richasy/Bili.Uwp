@@ -438,6 +438,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>
+  <data name="MoreReplyDisplay" xml:space="preserve">
+    <value>共{0}条回复 ⪢</value>
+  </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
   </data>

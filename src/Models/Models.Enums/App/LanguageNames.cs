@@ -272,6 +272,7 @@ namespace Richasy.Bili.Models.Enums
         UnFavoriteWarning,
         RefreshCurrentSection,
         RequestReplyFailed,
+        MoreReplyDisplay,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -11,19 +11,21 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <controls:VerticalRepeaterView
-        HeaderVisibility="Collapsed"
-        ItemOrientation="Horizontal"
-        ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
-        <controls:VerticalRepeaterView.ItemTemplate>
-            <DataTemplate x:DataType="uwp:VideoViewModel">
-                <controls:VideoItem
-                    MaxHeight="100"
-                    HorizontalCoverWidth="120"
-                    IsShowDanmakuCount="True"
-                    IsShowPlayCount="True"
-                    ViewModel="{x:Bind}" />
-            </DataTemplate>
-        </controls:VerticalRepeaterView.ItemTemplate>
-    </controls:VerticalRepeaterView>
+    <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+        <controls:VerticalRepeaterView
+            HeaderVisibility="Collapsed"
+            ItemOrientation="Horizontal"
+            ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
+            <controls:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="uwp:VideoViewModel">
+                    <controls:VideoItem
+                        MaxHeight="100"
+                        HorizontalCoverWidth="120"
+                        IsShowDanmakuCount="True"
+                        IsShowPlayCount="True"
+                        ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </controls:VerticalRepeaterView.ItemTemplate>
+        </controls:VerticalRepeaterView>
+    </ScrollViewer>
 </controls:PlayerComponent>

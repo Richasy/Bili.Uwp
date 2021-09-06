@@ -43,6 +43,9 @@
     <Compile Include="Controls\Player\Related\ReplyView.xaml.cs">
       <DependentUpon>ReplyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\ReplyItem.xaml.cs">
+      <DependentUpon>ReplyItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -453,6 +456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\Related\ReplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReplyItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
