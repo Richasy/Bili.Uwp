@@ -23,12 +23,12 @@ namespace Richasy.Bili.App.Controls
 
         private void OnViewModelLoaded(object sender, EventArgs e)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
@@ -85,17 +85,17 @@ namespace Richasy.Bili.App.Controls
             {
                 if (ViewModel.IsDetailCanLoaded)
                 {
-                    InitializeLayout();
+                    InitializeLayoutAsync();
                 }
             }
         }
 
         private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
         }
 
-        private void InitializeLayout()
+        private async void InitializeLayoutAsync()
         {
             if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
             {
@@ -137,6 +137,11 @@ namespace Richasy.Bili.App.Controls
             {
                 ReplyView.Visibility = Nav.SelectedItem == ReplyItem ?
                 Visibility.Visible : Visibility.Collapsed;
+
+                if (ReplyView.Visibility == Visibility.Visible)
+                {
+                    await ReplyView.CheckInitializeAsync();
+                }
             }
         }
     }

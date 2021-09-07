@@ -6,15 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
+    <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
         <controls:VerticalRepeaterView
             HeaderVisibility="Collapsed"
             ItemOrientation="Vertical"
+            EnableDetectParentScrollViewer="False"
             ItemsSource="{x:Bind ViewModel.SeasonCollection}"
             MinWideItemHeight="200"
             MinWideItemWidth="120">
@@ -63,5 +65,5 @@
                 </DataTemplate>
             </controls:VerticalRepeaterView.ItemTemplate>
         </controls:VerticalRepeaterView>
-    </ScrollViewer>
+    </muxc:ScrollView>
 </controls:PlayerComponent>

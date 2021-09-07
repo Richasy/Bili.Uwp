@@ -38,6 +38,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public Mode CurrentMode { get; set; }
 
         /// <summary>
+        /// 标题.
+        /// </summary>
+        [Reactive]
+        public string Title { get; set; }
+
+        /// <summary>
         /// 评论集合.
         /// </summary>
         [Reactive]

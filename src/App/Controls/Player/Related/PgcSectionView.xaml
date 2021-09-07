@@ -11,7 +11,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
+    <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PgcSectionCollection, Mode=OneWay}">
             <muxc:ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="uwp:PgcSectionViewModel">
@@ -70,5 +70,5 @@
                 <muxc:StackLayout Spacing="20" />
             </muxc:ItemsRepeater.Layout>
         </muxc:ItemsRepeater>
-    </ScrollViewer>
+    </muxc:ScrollView>
 </controls:PlayerComponent>

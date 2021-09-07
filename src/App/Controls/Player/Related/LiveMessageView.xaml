@@ -15,7 +15,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" CornerRadius="{StaticResource OverlayCornerRadius}">
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="ScrollViewer"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
@@ -132,6 +132,6 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-        </ScrollViewer>
+        </muxc:ScrollView>
     </Grid>
 </controls:PlayerComponent>

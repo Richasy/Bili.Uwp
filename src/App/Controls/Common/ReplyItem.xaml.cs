@@ -4,6 +4,7 @@ using System;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -13,7 +14,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 评论条目.
     /// </summary>
-    public sealed partial class ReplyItem : UserControl
+    public sealed partial class ReplyItem : UserControl, IRepeaterItem, IDynamicLayoutItem
     {
         /// <summary>
         /// <see cref="Data"/>的依赖属性.
@@ -27,6 +28,7 @@ namespace Richasy.Bili.App.Controls
         public ReplyItem()
         {
             this.InitializeComponent();
+            Orientation = Orientation.Horizontal;
         }
 
         /// <summary>
@@ -36,6 +38,17 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (ReplyInfo)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
+        }
+
+        /// <summary>
+        /// 布局方式（附加项）.
+        /// </summary>
+        public Orientation Orientation { get; set; }
+
+        /// <inheritdoc/>
+        public Size GetHolderSize()
+        {
+            return new Size(350, 280);
         }
 
         private static void OnDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

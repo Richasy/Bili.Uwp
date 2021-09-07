@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Models.App.Args;
@@ -24,6 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCollection = new ObservableCollection<ReplyInfo>();
             TopReplyCollection = new ObservableCollection<ReplyInfo>();
             Controller.ReplyIteration += OnReplyIteration;
+            PropertyChanged += OnPropertyChanged;
         }
 
         /// <summary>
@@ -35,6 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             TargetId = targetId;
             Type = type;
+            CurrentMode = Mode.MainListHot;
             Reset();
         }
 
@@ -44,7 +47,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestDataAsync()
         {
-            if (_cursor.Prev == 0)
+            if (!IsRequested)
             {
                 await InitializeRequstAsync();
             }
@@ -68,6 +71,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsInitializeLoading)
             {
                 IsInitializeLoading = true;
+                Reset();
                 _cursor.Mode = CurrentMode;
                 try
                 {
@@ -98,9 +102,9 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (!IsDeltaLoading && !_isCompleted)
             {
-                IsInitializeLoading = true;
+                IsDeltaLoading = true;
                 await Controller.RequestMainReplyListAsync(TargetId, Type, _cursor);
-                IsInitializeLoading = false;
+                IsDeltaLoading = false;
             }
         }
 
@@ -108,7 +112,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _isCompleted = false;
             IsShowEmpty = false;
-            CurrentMode = Mode.MainListHot;
+            IsRequested = false;
+            IsError = false;
             ReplyCollection.Clear();
             TopReplyCollection.Clear();
             _cursor = new CursorReq
@@ -125,7 +130,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 _cursor = new CursorReq
                 {
-                    Prev = e.Cursor.Prev,
+                    Prev = 0,
                     Next = e.Cursor.Next,
                     Mode = e.Cursor.Mode,
                 };
@@ -142,6 +147,16 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 _isCompleted = e.Cursor.IsEnd;
                 IsShowEmpty = ReplyCollection.Count == 0;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CurrentMode))
+            {
+                Title = CurrentMode == Mode.MainListHot ?
+                    ResourceToolkit.GetLocaleString(LanguageNames.HotReply) :
+                    ResourceToolkit.GetLocaleString(LanguageNames.LastestReply);
             }
         }
     }
