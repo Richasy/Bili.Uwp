@@ -68,12 +68,14 @@
                             IconFontSize="12"
                             Symbol="ThumbLike16" />
                     </ToggleButton>
-                    <HyperlinkButton
-                        x:Name="MoreButton"
+                    <StackPanel
                         Grid.Column="1"
-                        HorizontalAlignment="Left">
-                        <TextBlock x:Name="MoreBlock" FontSize="12" />
-                    </HyperlinkButton>
+                        HorizontalAlignment="Left"
+                        Visibility="{x:Bind DetailCountVisibility, Mode=OneWay}">
+                        <HyperlinkButton x:Name="MoreButton" Click="OnMoreButtonClickAsync">
+                            <TextBlock x:Name="MoreBlock" FontSize="12" />
+                        </HyperlinkButton>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>

@@ -44,21 +44,24 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Margin="0,16,0,8"
                         HorizontalAlignment="Left"
                         Text="{loc:LocaleLocator Name=ReplyDetail}" />
-                    <local:ReplyItem Data="{x:Bind ViewModel.RootReply, Mode=OneWay}" />
+                    <local:ReplyItem
+                        Grid.Row="1"
+                        Data="{x:Bind ViewModel.RootReply, Mode=OneWay}"
+                        DetailCountVisibility="Collapsed" />
+                    <local:ReplyView
+                        x:Name="ReplyView"
+                        Grid.Row="2"
+                        HorizontalAlignment="Stretch"
+                        HeaderVisibility="Collapsed" />
                 </Grid>
             </muxc:TeachingTip.HeroContent>
-            <Grid Width="400" Margin="0,-12,0,0">
-                <local:ReplyView ViewModel="{x:Bind ViewModel, Mode=OneWay}" />
-            </Grid>
         </muxc:TeachingTip>
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ using System;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +24,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(Data), typeof(ReplyInfo), typeof(ReplyItem), new PropertyMetadata(null, new PropertyChangedCallback(OnDataChanged)));
 
         /// <summary>
+        /// <see cref="DetailCountVisibility"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty DetailCountVisibilityProperty =
+            DependencyProperty.Register(nameof(DetailCountVisibility), typeof(Visibility), typeof(ReplyItem), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReplyItem"/> class.
         /// </summary>
         public ReplyItem()
@@ -38,6 +45,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (ReplyInfo)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
+        }
+
+        /// <summary>
+        /// 子评论数目显示或隐藏.
+        /// </summary>
+        public Visibility DetailCountVisibility
+        {
+            get { return (Visibility)GetValue(DetailCountVisibilityProperty); }
+            set { SetValue(DetailCountVisibilityProperty, value); }
         }
 
         /// <summary>
@@ -68,6 +84,11 @@ namespace Richasy.Bili.App.Controls
                 instance.MoreButton.Visibility = data.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
                 instance.MoreBlock.Text = string.Format(ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.MoreReplyDisplay), data.Count);
             }
+        }
+
+        private async void OnMoreButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await new ReplyDetailView().ShowAsync(Data);
         }
     }
 }

@@ -8,7 +8,6 @@ using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.Bili;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -23,20 +22,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         protected ReplyDetailViewModel()
         {
             ReplyCollection = new ObservableCollection<ReplyInfo>();
+            Controller.ReplyDetailIteration += OnReplyIteration;
         }
 
         /// <summary>
         /// 设置根评论.
         /// </summary>
         /// <param name="root">根评论.</param>
-        /// <param name="type">评论区类型.</param>
-        public void SetRootReply(ReplyInfo root, ReplyType type)
+        public void SetRootReply(ReplyInfo root)
         {
             if (root != null && (RootReply == null || (RootReply != null && RootReply.Id != root.Id)))
             {
                 RootReply = root;
-                Type = type;
-                CurrentMode = Mode.MainListHot;
+                TargetId = ReplyModuleViewModel.Instance.TargetId;
+                Type = ReplyModuleViewModel.Instance.Type;
+                CurrentMode = Mode.MainListTime;
                 Reset();
             }
         }
@@ -115,6 +115,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Next = 0,
                 Mode = CurrentMode,
             };
+            InitTitle();
         }
 
         private void OnReplyIteration(object sender, ReplyIterationEventArgs e)

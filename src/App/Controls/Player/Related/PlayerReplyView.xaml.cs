@@ -24,6 +24,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         public PlayerReplyView()
         {
             this.InitializeComponent();
+            ReplyView.ViewModel = ViewModel;
         }
 
         /// <summary>

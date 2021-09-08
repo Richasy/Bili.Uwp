@@ -5,11 +5,8 @@
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
-    xmlns:v1="using:Bilibili.Main.Community.Reply.V1"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -34,7 +31,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="StandardContainer" RowSpacing="12">
-            <controls:ReplyView ViewModel="{x:Bind ViewModel, Mode=OneWay}" x:Name="ReplyView" />
+            <controls:ReplyView x:Name="ReplyView" />
         </Grid>
         <Grid x:Name="NarrowContainer" Visibility="Collapsed">
             <StackPanel

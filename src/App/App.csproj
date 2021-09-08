@@ -49,7 +49,7 @@
     <Compile Include="Controls\Common\ReplyView.xaml.cs">
       <DependentUpon>ReplyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ReplyDetailView.xaml.cs">
+    <Compile Include="Controls\Common\ReplyDetailView.xaml.cs">
       <DependentUpon>ReplyDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
@@ -473,7 +473,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ReplyDetailView.xaml">
+    <Page Include="Controls\Common\ReplyDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Threading.Tasks;
+using Bilibili.Main.Community.Reply.V1;
+using Richasy.Bili.App.Pages;
+using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +27,7 @@ namespace Richasy.Bili.App.Controls
         public ReplyDetailView()
         {
             this.InitializeComponent();
+            ReplyView.ViewModel = ViewModel;
         }
 
         /// <summary>
@@ -34,8 +39,25 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <summary>
+        /// 显示.
+        /// </summary>
+        /// <param name="rootReply">根评论.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ShowAsync(ReplyInfo rootReply)
+        {
+            Container.IsOpen = true;
+            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            if (ViewModel == null || ViewModel.RootReply?.Id != rootReply.Id)
+            {
+                ViewModel.SetRootReply(rootReply);
+                await ReplyView.CheckInitializeAsync();
+            }
+        }
+
         private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
         {
+            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
         }
     }
 }

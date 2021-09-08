@@ -20,6 +20,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(ViewModel), typeof(ReplyViewModelBase), typeof(ReplyView), new PropertyMetadata(null));
 
         /// <summary>
+        /// <see cref="HeaderVisibility"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty HeaderVisibilityProperty =
+            DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(ReplyView), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReplyView"/> class.
         /// </summary>
         public ReplyView()
@@ -37,11 +43,25 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 头部可见性.
+        /// </summary>
+        public Visibility HeaderVisibility
+        {
+            get { return (Visibility)GetValue(HeaderVisibilityProperty); }
+            set { SetValue(HeaderVisibilityProperty, value); }
+        }
+
+        /// <summary>
         /// 检查评论初始化.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         public async Task CheckInitializeAsync()
         {
+            if (ViewModel == null)
+            {
+                return;
+            }
+
             OrderTypeComboBox.SelectedIndex = ViewModel.CurrentMode == Mode.MainListHot ? 0 : 1;
             if (!ViewModel.IsRequested)
             {
