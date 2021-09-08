@@ -73,18 +73,9 @@
                         <local:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:SeasonViewModel">
                                 <local:PgcItem
-                                    CoverHeight="140"
-                                    CoverWidth="100"
                                     ItemClick="OnItemClick"
-                                    TitleRowHeight="28"
-                                    ViewModel="{x:Bind}">
-                                    <local:PgcItem.CardStyle>
-                                        <Style TargetType="local:CardPanel">
-                                            <Setter Property="IsEnableHoverAnimation" Value="False" />
-                                            <Setter Property="IsEnableShadow" Value="False" />
-                                        </Style>
-                                    </local:PgcItem.CardStyle>
-                                </local:PgcItem>
+                                    Orientation="Horizontal"
+                                    ViewModel="{x:Bind}" />
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>

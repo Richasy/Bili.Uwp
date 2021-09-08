@@ -32,6 +32,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(TagVisibility), typeof(Visibility), typeof(PgcItem), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
+        /// <see cref="IsSlim"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsSlimProperty =
+            DependencyProperty.Register(nameof(IsSlim), typeof(bool), typeof(PgcItem), new PropertyMetadata(false, new PropertyChangedCallback(OnIsSlimChanged)));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PgcItem"/> class.
         /// </summary>
         public PgcItem()
@@ -71,6 +77,15 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(TagVisibilityProperty, value); }
         }
 
+        /// <summary>
+        /// 是否显示为紧缩模式.
+        /// </summary>
+        public bool IsSlim
+        {
+            get { return (bool)GetValue(IsSlimProperty); }
+            set { SetValue(IsSlimProperty, value); }
+        }
+
         /// <inheritdoc/>
         public Size GetHolderSize()
         {
@@ -88,6 +103,12 @@ namespace Richasy.Bili.App.Controls
         {
             var instance = d as PgcItem;
             instance.CheckOrientation();
+        }
+
+        private static void OnIsSlimChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as PgcItem;
+            instance.CheckSlim();
         }
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
@@ -109,6 +130,13 @@ namespace Richasy.Bili.App.Controls
                 default:
                     break;
             }
+        }
+
+        private void CheckSlim()
+        {
+            var stateName = IsSlim ? nameof(SlimState) : nameof(StandardState);
+            VisualStateManager.GoToState(this, stateName, false);
+            RootCard.IsEnableShadow = !IsSlim;
         }
     }
 }

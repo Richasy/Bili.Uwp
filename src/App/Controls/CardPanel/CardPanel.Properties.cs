@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -15,7 +16,7 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsEnableHoverAnimation), typeof(bool), typeof(CardPanel), new PropertyMetadata(true));
 
         public static readonly DependencyProperty IsEnableShadowProperty =
-            DependencyProperty.Register(nameof(IsEnableShadow), typeof(bool), typeof(CardPanel), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsEnableShadow), typeof(bool), typeof(CardPanel), new PropertyMetadata(true, new PropertyChangedCallback(OnIsEnableShadowChanged)));
 
         public static readonly DependencyProperty IsEnableCheckProperty =
             DependencyProperty.Register(nameof(IsEnableCheck), typeof(bool), typeof(CardPanel), new PropertyMetadata(false));

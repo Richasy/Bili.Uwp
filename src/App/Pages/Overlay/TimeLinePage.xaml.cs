@@ -43,6 +43,8 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 ViewModel = vm;
             }
+
+            base.OnNavigatedTo(e);
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)

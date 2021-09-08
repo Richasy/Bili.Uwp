@@ -25,7 +25,21 @@
                         <Setter Target="CoverImage.Height" Value="140" />
                         <Setter Target="TitleContainer.Height" Value="28" />
                         <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
-                        <Setter Target="RootCard.IsEnableShadow" Value="True" />
+                        <Setter Target="RootCard.IsEnableShadow" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="SlimGroup">
+                <VisualState x:Name="StandardState" />
+                <VisualState x:Name="SlimState">
+                    <VisualState.Setters>
+                        <Setter Target="CoverImage.Width" Value="120" />
+                        <Setter Target="CoverImage.Height" Value="88" />
+                        <Setter Target="TitleContainer.Height" Value="20" />
+                        <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
+                        <Setter Target="RootCard.IsEnableShadow" Value="False" />
+                        <Setter Target="RootCard.BorderThickness" Value="0" />
+                        <Setter Target="RootCard.Background" Value="Transparent" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

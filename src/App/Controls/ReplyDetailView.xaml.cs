@@ -33,5 +33,9 @@ namespace Richasy.Bili.App.Controls
             get { return (ReplyDetailViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
+
+        private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
+        {
+        }
     }
 }
