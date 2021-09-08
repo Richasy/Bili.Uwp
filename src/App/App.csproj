@@ -21,6 +21,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
+    <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
+    <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -51,6 +53,9 @@
     </Compile>
     <Compile Include="Controls\Common\ReplyDetailView.xaml.cs">
       <DependentUpon>ReplyDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
+      <DependentUpon>TrimTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
@@ -433,6 +438,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\App\CenterPopup\CenterPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -474,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\ReplyDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\TrimTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

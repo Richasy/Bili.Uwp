@@ -65,6 +65,7 @@ namespace Richasy.Bili.App.Controls
             OrderTypeComboBox.SelectedIndex = ViewModel.CurrentMode == Mode.MainListHot ? 0 : 1;
             if (!ViewModel.IsRequested)
             {
+                ContentScrollViewer.ScrollTo(0, 0);
                 await ViewModel.InitializeRequestAsync();
             }
         }

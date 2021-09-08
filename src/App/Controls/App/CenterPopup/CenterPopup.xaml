@@ -1,0 +1,56 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls">
+
+    <Style TargetType="local:CenterPopup">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CenterPopup">
+                    <Grid x:Name="PopupContainer" Canvas.ZIndex="2">
+                        <Grid Background="{ThemeResource AppMaskBrush}" Opacity="0.1" />
+                        <Grid
+                            AutomationProperties.Name="{TemplateBinding Title}"
+                            MaxWidth="460"
+                            MaxHeight="900"
+                            Margin="20"
+                            Padding="20,16"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Background="{ThemeResource AppMaskAcrylicBrush}"
+                            CornerRadius="{ThemeResource OverlayCornerRadius}"
+                            RowSpacing="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    HorizontalAlignment="Left"
+                                    Text="{TemplateBinding Title}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <Button
+                                    x:Name="CloseButton"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+                                    <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
+                                </Button>
+                            </Grid>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                Content="{TemplateBinding Content}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

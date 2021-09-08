@@ -73,7 +73,7 @@
             Padding="12,8"
             Background="{ThemeResource CardBackgroundFillColorDefault}"
             ColumnSpacing="12"
-            CornerRadius="{StaticResource OverlayCornerRadius}">
+            CornerRadius="{StaticResource ControlCornerRadius}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

@@ -50,11 +50,7 @@
                         Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock
-                        x:Name="ReplyContentBlock"
-                        HorizontalAlignment="Stretch"
-                        LineHeight="24"
-                        TextWrapping="Wrap" />
+                    <local:TrimTextBlock x:Name="ReplyContentBlock" HorizontalAlignment="Stretch" />
                 </Grid>
                 <Grid Grid.Row="2" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>

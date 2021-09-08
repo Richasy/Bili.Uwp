@@ -29,39 +29,22 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <muxc:TeachingTip
+        <local:CenterPopup
             x:Name="Container"
-            VerticalAlignment="Stretch"
-            Closed="OnContainerClosed"
-            IsLightDismissEnabled="True"
-            PreferredPlacement="Center"
-            ShouldConstrainToRootBounds="False">
-            <muxc:TeachingTip.HeroContent>
-                <Grid
-                    Padding="20,0,20,12"
-                    RowSpacing="8"
-                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Margin="0,16,0,8"
-                        HorizontalAlignment="Left"
-                        Text="{loc:LocaleLocator Name=ReplyDetail}" />
-                    <local:ReplyItem
-                        Grid.Row="1"
-                        Data="{x:Bind ViewModel.RootReply, Mode=OneWay}"
-                        DetailCountVisibility="Collapsed" />
-                    <local:ReplyView
-                        x:Name="ReplyView"
-                        Grid.Row="2"
-                        HorizontalAlignment="Stretch"
-                        HeaderVisibility="Collapsed" />
-                </Grid>
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
+            Title="{loc:LocaleLocator Name=ReplyDetail}"
+            VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <local:ReplyItem x:Name="RootReplyItem" DetailCountVisibility="Collapsed" />
+                <local:ReplyView
+                    x:Name="ReplyView"
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    HeaderVisibility="Collapsed" />
+            </Grid>
+        </local:CenterPopup>
     </Grid>
 </UserControl>

@@ -88,7 +88,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnMoreButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await new ReplyDetailView().ShowAsync(Data);
+            await ReplyDetailView.Instance.ShowAsync(Data);
         }
     }
 }
