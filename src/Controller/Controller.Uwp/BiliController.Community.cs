@@ -31,11 +31,40 @@ namespace Richasy.Bili.Controller.Uwp
             }
             catch (System.Exception)
             {
-                if (cursor.Prev == 0)
+                if (cursor.Next == 0)
                 {
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取单层评论详情列表.
+        /// </summary>
+        /// <param name="targetId">目标评论区Id.</param>
+        /// <param name="type">评论区类型.</param>
+        /// <param name="rootId">根评论Id.</param>
+        /// <param name="cursor">游标.</param>
+        /// <returns>评论列表响应.</returns>
+        public async Task<DetailListReply> RequestDeltailReplyListAsync(int targetId, ReplyType type, long rootId, CursorReq cursor)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var response = await _communityProvider.GetReplyDetailListAsync(targetId, type, rootId, cursor);
+                var args = new ReplyIterationEventArgs(response, targetId);
+                ReplyDetailIteration?.Invoke(this, args);
+            }
+            catch (System.Exception)
+            {
+                if (cursor.Next == 0)
+                {
+                    throw;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -10,26 +10,6 @@
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <DataTemplate x:Key="WideSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <controls:PgcItem ViewModel="{x:Bind}" />
-        </DataTemplate>
-        <DataTemplate x:Key="NarrowSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <controls:PgcItem
-                CoverHeight="140"
-                CoverWidth="100"
-                TitleRowHeight="28"
-                ViewModel="{x:Bind}">
-                <controls:PgcItem.CardStyle>
-                    <Style TargetType="controls:CardPanel">
-                        <Setter Property="IsEnableHoverAnimation" Value="False" />
-                        <Setter Property="IsEnableShadow" Value="False" />
-                    </Style>
-                </controls:PgcItem.CardStyle>
-            </controls:PgcItem>
-        </DataTemplate>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -51,7 +31,6 @@
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="FilterContainer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="IndexView.ItemOrientation" Value="Horizontal" />
-                        <Setter Target="IndexView.ItemTemplate" Value="{StaticResource NarrowSeasonItemTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -118,11 +97,16 @@
                     x:Name="IndexView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
-                    ItemTemplate="{StaticResource WideSeasonItemTemplate}"
                     ItemsSource="{x:Bind ViewModel.ItemCollection, Mode=OneWay}"
                     MinWideItemHeight="180"
                     MinWideItemWidth="300"
-                    RequestLoadMore="OnViewRequestLoadMoreAsync" />
+                    RequestLoadMore="OnViewRequestLoadMoreAsync">
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:SeasonViewModel">
+                            <controls:PgcItem ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
             </ScrollViewer>
 
             <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIndexDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsIndexInitializeLoading, Mode=OneWay}" />

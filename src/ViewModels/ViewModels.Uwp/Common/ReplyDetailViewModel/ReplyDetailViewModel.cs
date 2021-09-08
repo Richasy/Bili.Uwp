@@ -3,7 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Models.App.Args;
@@ -14,31 +13,32 @@ using Richasy.Bili.Models.Enums.Bili;
 namespace Richasy.Bili.ViewModels.Uwp
 {
     /// <summary>
-    /// 评论回复模块视图模型.
+    /// 评论回复单层展开详情视图模型.
     /// </summary>
-    public partial class ReplyModuleViewModel : ReplyViewModelBase
+    public partial class ReplyDetailViewModel : ReplyViewModelBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReplyModuleViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ReplyDetailViewModel"/> class.
         /// </summary>
-        protected ReplyModuleViewModel()
+        protected ReplyDetailViewModel()
         {
             ReplyCollection = new ObservableCollection<ReplyInfo>();
-            Controller.ReplyIteration += OnReplyIteration;
-            PropertyChanged += OnPropertyChanged;
         }
 
         /// <summary>
-        /// 设置初始信息.
+        /// 设置根评论.
         /// </summary>
-        /// <param name="targetId">目标评论区Id.</param>
+        /// <param name="root">根评论.</param>
         /// <param name="type">评论区类型.</param>
-        public void SetInformation(int targetId, ReplyType type)
+        public void SetRootReply(ReplyInfo root, ReplyType type)
         {
-            TargetId = targetId;
-            Type = type;
-            CurrentMode = Mode.MainListHot;
-            Reset();
+            if (root != null && (RootReply == null || (RootReply != null && RootReply.Id != root.Id)))
+            {
+                RootReply = root;
+                Type = type;
+                CurrentMode = Mode.MainListHot;
+                Reset();
+            }
         }
 
         /// <inheritdoc/>
@@ -69,7 +69,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _cursor.Mode = CurrentMode;
                 try
                 {
-                    await Controller.RequestMainReplyListAsync(TargetId, Type, _cursor);
+                    await Controller.RequestDeltailReplyListAsync(TargetId, Type, RootReply.Id, _cursor);
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -97,18 +97,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !_isCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestMainReplyListAsync(TargetId, Type, _cursor);
+                await Controller.RequestDeltailReplyListAsync(TargetId, Type, RootReply.Id, _cursor);
                 IsDeltaLoading = false;
             }
         }
 
         private void Reset()
         {
-            _isCompleted = false;
-            IsShowEmpty = false;
-            IsRequested = false;
-            IsError = false;
             ReplyCollection.Clear();
+            _isCompleted = false;
+            IsError = false;
+            IsRequested = false;
+            IsShowEmpty = false;
             _cursor = new CursorReq
             {
                 Prev = 0,
@@ -127,11 +127,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                     Next = e.Cursor.Next,
                     Mode = e.Cursor.Mode,
                 };
-
-                if (e.TopReply != null && !e.ReplyList.Any(p => p.Id == e.TopReply.Id))
-                {
-                    ReplyCollection.Add(e.TopReply);
-                }
 
                 if (e.ReplyList != null && e.ReplyList.Count > 0)
                 {

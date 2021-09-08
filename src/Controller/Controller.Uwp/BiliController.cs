@@ -240,6 +240,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<ReplyIterationEventArgs> ReplyIteration;
 
         /// <summary>
+        /// 在评论详情更新时发生.
+        /// </summary>
+        public event EventHandler<ReplyIterationEventArgs> ReplyDetailIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;

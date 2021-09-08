@@ -26,6 +26,19 @@ namespace Richasy.Bili.Models.App.Args
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ReplyIterationEventArgs"/> class.
+        /// </summary>
+        /// <param name="reply">评论响应结果.</param>
+        /// <param name="targetId">目标区Id.</param>
+        public ReplyIterationEventArgs(DetailListReply reply, int targetId)
+        {
+            TargetId = targetId;
+            Cursor = reply.Cursor;
+            ReplyList = reply.Root.Replies.ToList();
+            RootId = reply.Root.Id;
+        }
+
+        /// <summary>
         /// 目标区Id.
         /// </summary>
         public int TargetId { get; set; }
@@ -44,5 +57,10 @@ namespace Richasy.Bili.Models.App.Args
         /// 置顶评论.
         /// </summary>
         public ReplyInfo TopReply { get; set; }
+
+        /// <summary>
+        /// 根评论Id.
+        /// </summary>
+        public long RootId { get; set; }
     }
 }

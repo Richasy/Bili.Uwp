@@ -27,7 +27,7 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="DetailGrid.MaxWidth" Value="320" />
+                        <Setter Target="DetailGrid.Width" Value="320" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="RowState">
@@ -35,6 +35,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="DetailGrid.Width" Value="Auto" />
                         <Setter Target="DetailGrid.MaxWidth" Value="999" />
                     </VisualState.Setters>
                 </VisualState>
@@ -79,7 +80,7 @@
                     Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
 
-            <Grid x:Name="DetailGrid" MaxWidth="360">
+            <Grid x:Name="DetailGrid" Width="360">
                 <related:RelatedVideoView
                     x:Name="RelatedVideoView"
                     x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}"
@@ -104,7 +105,7 @@
                     x:Name="ChatView"
                     x:Load="{x:Bind ViewModel.IsShowChat, Mode=OneWay}"
                     Visibility="Collapsed" />
-                <related:ReplyView
+                <related:PlayerReplyView
                     x:Name="ReplyView"
                     x:Load="{x:Bind ViewModel.IsShowReply, Mode=OneWay}"
                     Visibility="Collapsed" />

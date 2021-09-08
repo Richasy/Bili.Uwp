@@ -6,10 +6,10 @@ using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Richasy.Bili.App.Controls
 {
     /// <summary>
-    /// 评论视图.
+    /// 评论回复视图.
     /// </summary>
     public sealed partial class ReplyView : UserControl
     {
@@ -17,7 +17,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(ReplyModuleViewModel), typeof(ReplyView), new PropertyMetadata(ReplyModuleViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(ReplyViewModelBase), typeof(ReplyView), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplyView"/> class.
@@ -28,11 +28,11 @@ namespace Richasy.Bili.App.Controls.Player.Related
         }
 
         /// <summary>
-        /// 视图模型.
+        /// 依赖属性.
         /// </summary>
-        public ReplyModuleViewModel ViewModel
+        public ReplyViewModelBase ViewModel
         {
-            get { return (ReplyModuleViewModel)GetValue(ViewModelProperty); }
+            get { return (ReplyViewModelBase)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
@@ -45,7 +45,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
             OrderTypeComboBox.SelectedIndex = ViewModel.CurrentMode == Mode.MainListHot ? 0 : 1;
             if (!ViewModel.IsRequested)
             {
-                await ViewModel.InitializeRequstAsync();
+                await ViewModel.InitializeRequestAsync();
             }
         }
 
@@ -72,14 +72,14 @@ namespace Richasy.Bili.App.Controls.Player.Related
                 if (ViewModel.CurrentMode != mode)
                 {
                     ViewModel.CurrentMode = mode;
-                    await ViewModel.InitializeRequstAsync();
+                    await ViewModel.InitializeRequestAsync();
                 }
             }
         }
 
         private async void OnReplyRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await ViewModel.InitializeRequstAsync();
+            await ViewModel.InitializeRequestAsync();
         }
     }
 }

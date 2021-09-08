@@ -642,6 +642,9 @@
   <data name="ReplyCount" xml:space="preserve">
     <value>评论数</value>
   </data>
+  <data name="ReplyDetail" xml:space="preserve">
+    <value>评论详情</value>
+  </data>
   <data name="ReplyPlaceholderText" xml:space="preserve">
     <value>写下你的评论吧~</value>
   </data>

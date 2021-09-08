@@ -279,6 +279,7 @@ namespace Richasy.Bili.Models.Enums
         HotReply,
         LastestReply,
         ReplyPlaceholderText,
+        ReplyDetail,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

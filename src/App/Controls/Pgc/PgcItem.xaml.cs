@@ -2,6 +2,7 @@
 
 using System;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,7 +11,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// PGC条目.
     /// </summary>
-    public sealed partial class PgcItem : UserControl
+    public sealed partial class PgcItem : UserControl, IDynamicLayoutItem, IRepeaterItem
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -19,28 +20,10 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(ViewModel), typeof(SeasonViewModel), typeof(PgcItem), new PropertyMetadata(null));
 
         /// <summary>
-        /// <see cref="CardStyle"/>的依赖属性.
+        /// <see cref="Orientation"/>的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty CardStyleProperty =
-            DependencyProperty.Register(nameof(CardStyle), typeof(Style), typeof(PgcItem), new PropertyMetadata(null));
-
-        /// <summary>
-        /// <see cref="CoverWidth"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty CoverWidthProperty =
-            DependencyProperty.Register(nameof(CoverWidth), typeof(double), typeof(PgcItem), new PropertyMetadata(120d));
-
-        /// <summary>
-        /// <see cref="CoverHeight"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty CoverHeightProperty =
-            DependencyProperty.Register(nameof(CoverHeight), typeof(double), typeof(PgcItem), new PropertyMetadata(160d));
-
-        /// <summary>
-        /// <see cref="TitleRowHeight"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty TitleRowHeightProperty =
-            DependencyProperty.Register(nameof(TitleRowHeight), typeof(double), typeof(PgcItem), new PropertyMetadata(48d));
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// <see cref="TagVisibility"/>的依赖属性.
@@ -71,30 +54,12 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// 封面宽度.
+        /// PGC条目的布局方式.
         /// </summary>
-        public double CoverWidth
+        public Orientation Orientation
         {
-            get { return (double)GetValue(CoverWidthProperty); }
-            set { SetValue(CoverWidthProperty, value); }
-        }
-
-        /// <summary>
-        /// 封面高度.
-        /// </summary>
-        public double CoverHeight
-        {
-            get { return (double)GetValue(CoverHeightProperty); }
-            set { SetValue(CoverHeightProperty, value); }
-        }
-
-        /// <summary>
-        /// 标题行高度.
-        /// </summary>
-        public double TitleRowHeight
-        {
-            get { return (double)GetValue(TitleRowHeightProperty); }
-            set { SetValue(TitleRowHeightProperty, value); }
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
         }
 
         /// <summary>
@@ -106,19 +71,44 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(TagVisibilityProperty, value); }
         }
 
-        /// <summary>
-        /// 卡片样式.
-        /// </summary>
-        public Style CardStyle
+        /// <inheritdoc/>
+        public Size GetHolderSize()
         {
-            get { return (Style)GetValue(CardStyleProperty); }
-            set { SetValue(CardStyleProperty, value); }
+            if (Orientation == Orientation.Horizontal)
+            {
+                return new Size(double.PositiveInfinity, 180);
+            }
+            else
+            {
+                return new Size(300, 180);
+            }
+        }
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as PgcItem;
+            instance.CheckOrientation();
         }
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
             ItemClick?.Invoke(this, ViewModel);
             AppViewModel.Instance.OpenPlayer(ViewModel);
+        }
+
+        private void CheckOrientation()
+        {
+            switch (Orientation)
+            {
+                case Orientation.Vertical:
+                    VisualStateManager.GoToState(this, nameof(VerticalState), false);
+                    break;
+                case Orientation.Horizontal:
+                    VisualStateManager.GoToState(this, nameof(HorizontalState), false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

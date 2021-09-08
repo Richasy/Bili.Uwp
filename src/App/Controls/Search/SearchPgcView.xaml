@@ -11,26 +11,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <local:SearchComponent.Resources>
-        <DataTemplate x:Key="WideSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <local:PgcItem ViewModel="{x:Bind}" />
-        </DataTemplate>
-        <DataTemplate x:Key="NarrowSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <local:PgcItem
-                CoverHeight="140"
-                CoverWidth="100"
-                TitleRowHeight="28"
-                ViewModel="{x:Bind}">
-                <local:PgcItem.CardStyle>
-                    <Style TargetType="local:CardPanel">
-                        <Setter Property="IsEnableHoverAnimation" Value="False" />
-                        <Setter Property="IsEnableShadow" Value="False" />
-                    </Style>
-                </local:PgcItem.CardStyle>
-            </local:PgcItem>
-        </DataTemplate>
-    </local:SearchComponent.Resources>
-
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -45,7 +25,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="PgcView.ItemOrientation" Value="Horizontal" />
-                        <Setter Target="PgcView.ItemTemplate" Value="{StaticResource NarrowSeasonItemTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -53,11 +32,16 @@
         <local:VerticalRepeaterView
             x:Name="PgcView"
             HeaderVisibility="Collapsed"
-            ItemTemplate="{StaticResource WideSeasonItemTemplate}"
             ItemsSource="{x:Bind SubModuleViewModel.PgcCollection, Mode=OneWay}"
             MinWideItemHeight="180"
             MinWideItemWidth="300"
-            RequestLoadMore="OnViewRequestLoadMoreAsync" />
+            RequestLoadMore="OnViewRequestLoadMoreAsync">
+            <local:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="uwp:SeasonViewModel">
+                    <local:PgcItem ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </local:VerticalRepeaterView.ItemTemplate>
+        </local:VerticalRepeaterView>
         <local:OverlayLoadingPanel IsBarActive="{x:Bind SubModuleViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind SubModuleViewModel.IsInitializeLoading, Mode=OneWay}" />
         <local:ErrorPanel
             ActionButtonClick="OnPgcRefreshButtonClickAsync"
