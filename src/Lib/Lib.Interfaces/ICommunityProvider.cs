@@ -35,7 +35,20 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="isLike">是否点赞.</param>
         /// <param name="replyId">评论Id.</param>
+        /// <param name="targetId">目标评论区Id.</param>
+        /// <param name="type">评论区类型.</param>
         /// <returns>结果.</returns>
-        Task<bool> LikeReplyAsync(bool isLike, long replyId);
+        Task<bool> LikeReplyAsync(bool isLike, long replyId, int targetId, ReplyType type);
+
+        /// <summary>
+        /// 添加评论.
+        /// </summary>
+        /// <param name="message">评论内容.</param>
+        /// <param name="targetId">评论区Id.</param>
+        /// <param name="type">评论区类型.</param>
+        /// <param name="rootId">根评论Id.</param>
+        /// <param name="parentId">正在回复的评论Id.</param>
+        /// <returns>发布结果.</returns>
+        Task<bool> AddReplyAsync(string message, int targetId, ReplyType type, long rootId, long parentId);
     }
 }

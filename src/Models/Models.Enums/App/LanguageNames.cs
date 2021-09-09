@@ -281,6 +281,7 @@ namespace Richasy.Bili.Models.Enums
         ReplyPlaceholderText,
         ReplyDetail,
         Top,
+        ReplySomeone,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

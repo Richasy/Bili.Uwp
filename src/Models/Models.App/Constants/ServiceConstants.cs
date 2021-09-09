@@ -52,6 +52,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Build = "build";
             public const string MobileApp = "mobi_app";
             public const string Platform = "platform";
+            public const string PlatformSlim = "plat";
             public const string TimeStamp = "ts";
             public const string AccessKey = "access_key";
             public const string Password = "password";
@@ -124,10 +125,12 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PlayUrl = "play_url";
             public const string VMid = "vmid";
             public const string Fid = "fid";
-            public const string Action = "act";
+            public const string ActionSlim = "act";
+            public const string ActionFull = "action";
             public const string ReSrc = "re_src";
             public const string ActionKey = "actionKey";
-            public const string Message = "msg";
+            public const string MessageSlim = "msg";
+            public const string MessageFull = "message";
             public const string Rnd = "rnd";
             public const string Mode = "mode";
             public const string Pool = "pool";
@@ -153,6 +156,10 @@ namespace Richasy.Bili.Models.App.Constants
             public const string MediaIds = "media_ids";
             public const string Status = "status";
             public const string Resources = "resources";
+            public const string Oid = "oid";
+            public const string ReplyId = "rpid";
+            public const string Parent = "parent";
+            public const string Root = "root";
         }
 
         public static class Sort

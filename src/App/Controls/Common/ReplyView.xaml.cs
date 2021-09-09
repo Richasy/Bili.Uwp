@@ -2,6 +2,8 @@
 
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +26,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty HeaderVisibilityProperty =
             DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(ReplyView), new PropertyMetadata(Visibility.Visible));
+
+        private ReplyInfo _selectData;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplyView"/> class.
@@ -101,6 +105,91 @@ namespace Richasy.Bili.App.Controls
         private async void OnReplyRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await ViewModel.InitializeRequestAsync();
+        }
+
+        private void OnReplyItemClick(object sender, System.EventArgs e)
+        {
+            _selectData = (sender as ReplyItem).Data;
+            ReplyBox.Focus(FocusState.Programmatic);
+            CheckReplyPlaceholder();
+        }
+
+        private void OnReplyBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ReplyBox.Text))
+            {
+                _selectData = null;
+                CheckReplyPlaceholder();
+            }
+        }
+
+        private async void OnSendReplyButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await SendReplyAsync();
+        }
+
+        private async Task SendReplyAsync()
+        {
+            var text = ReplyBox.Text?.Trim();
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+            long rootId = 0;
+            long parentId = 0;
+            if (_selectData != null)
+            {
+                rootId = _selectData.Root;
+                parentId = _selectData.Id;
+                text = string.Format(ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), _selectData.Member.Name) + "：" + text;
+            }
+            else if (ViewModel is ReplyDetailViewModel detailVM)
+            {
+                rootId = detailVM.RootReply.Id;
+                parentId = detailVM.RootReply.Id;
+            }
+
+            var result = await ReplyModuleViewModel.Instance.AddReplyAsync(text, rootId, parentId);
+            if (result)
+            {
+                ReplyBox.Text = string.Empty;
+                _selectData = null;
+                CheckReplyPlaceholder();
+
+                if (ViewModel is ReplyDetailViewModel)
+                {
+                    await ViewModel.InitializeRequestAsync();
+                }
+            }
+            else
+            {
+                // Show error.
+            }
+        }
+
+        private void CheckReplyPlaceholder()
+        {
+            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var text = string.Empty;
+            if (_selectData != null)
+            {
+                text = string.Format(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), _selectData.Member.Name);
+            }
+            else
+            {
+                text = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplyPlaceholderText);
+            }
+
+            ReplyBox.PlaceholderText = text;
+        }
+
+        private async void OnReplyBoxKeyDownAsync(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                await SendReplyAsync();
+            }
         }
     }
 }

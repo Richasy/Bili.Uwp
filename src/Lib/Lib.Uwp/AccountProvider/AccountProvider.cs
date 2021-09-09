@@ -130,7 +130,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.Fid, userId.ToString() },
                 { Query.ReSrc, "21" },
-                { Query.Action, isFollow ? "1" : "2" },
+                { Query.ActionSlim, isFollow ? "1" : "2" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ModifyRelation, queryParameters, needToken: true);

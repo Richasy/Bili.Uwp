@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Models.App.Args;
@@ -131,7 +132,13 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 if (e.ReplyList != null && e.ReplyList.Count > 0)
                 {
-                    e.ReplyList.ForEach(p => ReplyCollection.Add(p));
+                    foreach (var item in e.ReplyList)
+                    {
+                        if (!ReplyCollection.Any(p => p.Id == item.Id))
+                        {
+                            ReplyCollection.Add(item);
+                        }
+                    }
                 }
 
                 _isCompleted = e.Cursor.IsEnd;

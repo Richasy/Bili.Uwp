@@ -455,6 +455,16 @@ namespace Richasy.Bili.Models.App.Constants
             /// 单层评论详情.
             /// </summary>
             public const string ReplyDetailList = _grpcBase + "/bilibili.main.community.reply.v1.Reply/DetailList";
+
+            /// <summary>
+            /// 点赞评论.
+            /// </summary>
+            public const string LikeReply = _apiBase + "/x/v2/reply/action";
+
+            /// <summary>
+            /// 添加评论.
+            /// </summary>
+            public const string AddReply = _apiBase + "/x/v2/reply/add";
         }
     }
 #pragma warning restore SA1401 // Fields should be private

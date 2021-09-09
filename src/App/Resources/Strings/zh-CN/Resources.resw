@@ -648,6 +648,9 @@
   <data name="ReplyPlaceholderText" xml:space="preserve">
     <value>写下你的评论吧~</value>
   </data>
+  <data name="ReplySomeone" xml:space="preserve">
+    <value>回复 @{0}</value>
+  </data>
   <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
     <value>获取追番列表失败</value>
   </data>

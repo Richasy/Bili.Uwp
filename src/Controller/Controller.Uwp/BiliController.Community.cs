@@ -66,5 +66,46 @@ namespace Richasy.Bili.Controller.Uwp
 
             return null;
         }
+
+        /// <summary>
+        /// 给评论点赞/取消点赞.
+        /// </summary>
+        /// <param name="isLike">是否点赞.</param>
+        /// <param name="replyId">评论Id.</param>
+        /// <param name="targetId">目标评论区Id.</param>
+        /// <param name="type">评论区类型.</param>
+        /// <returns>结果.</returns>
+        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, int targetId, ReplyType type)
+        {
+            try
+            {
+                return await _communityProvider.LikeReplyAsync(isLike, replyId, targetId, type);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 添加评论.
+        /// </summary>
+        /// <param name="message">评论内容.</param>
+        /// <param name="targetId">评论区Id.</param>
+        /// <param name="type">评论区类型.</param>
+        /// <param name="rootId">根评论Id.</param>
+        /// <param name="parentId">正在回复的评论Id.</param>
+        /// <returns>发布结果.</returns>
+        public async Task<bool> AddReplyAsync(string message, int targetId, ReplyType type, long rootId, long parentId)
+        {
+            try
+            {
+                return await _communityProvider.AddReplyAsync(message, targetId, type, rootId, parentId);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
     }
 }

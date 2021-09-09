@@ -4,6 +4,7 @@ using System;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,6 +37,11 @@ namespace Richasy.Bili.App.Controls
             this.InitializeComponent();
             Orientation = Orientation.Horizontal;
         }
+
+        /// <summary>
+        /// 条目被点击时发生.
+        /// </summary>
+        public event EventHandler Click;
 
         /// <summary>
         /// 数据源.
@@ -90,6 +96,32 @@ namespace Richasy.Bili.App.Controls
         private async void OnMoreButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await ReplyDetailView.Instance.ShowAsync(Data);
+        }
+
+        private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var isLike = !(Data.ReplyControl.Action == 1);
+            this.Focus(FocusState.Programmatic);
+            LikeButton.IsEnabled = false;
+            var result = await ReplyModuleViewModel.Instance.LikeReplyAysnc(isLike, Data.Id);
+            LikeButton.IsEnabled = true;
+            if (result)
+            {
+                LikeButton.IsChecked = isLike;
+                Data.ReplyControl.Action = isLike ? 1 : 0;
+                Data.Like = isLike ? Data.Like + 1 : Data.Like - 1;
+            }
+            else
+            {
+                LikeButton.IsChecked = Data.ReplyControl.Action == 1;
+            }
+
+            LikeCountBlock.Text = ServiceLocator.Instance.GetService<INumberToolkit>().GetCountText(Data.Like);
+        }
+
+        private void OnCardClick(object sender, RoutedEventArgs e)
+        {
+            Click?.Invoke(this, EventArgs.Empty);
         }
     }
 }

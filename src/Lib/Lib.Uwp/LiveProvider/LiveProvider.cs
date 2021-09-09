@@ -100,7 +100,7 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 { Query.Cid, roomId.ToString() },
                 { Query.MyId, _accountProvider.UserId.ToString() },
-                { Query.Message, message },
+                { Query.MessageSlim, message },
                 { Query.Rnd, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
                 { Query.Mode, "1" },
                 { Query.Pool, "0" },

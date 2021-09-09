@@ -87,6 +87,29 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 给评论点赞/取消点赞.
+        /// </summary>
+        /// <param name="isLike">是否点赞.</param>
+        /// <param name="replyId">评论ID.</param>
+        /// <returns>结果.</returns>
+        public Task<bool> LikeReplyAysnc(bool isLike, long replyId)
+        {
+            return Controller.LikeReplyAsync(isLike, replyId, TargetId, Type);
+        }
+
+        /// <summary>
+        /// 添加评论.
+        /// </summary>
+        /// <param name="message">评论内容.</param>
+        /// <param name="rootId">根评论Id.</param>
+        /// <param name="parentId">正在回复的评论Id.</param>
+        /// <returns>发布结果.</returns>
+        public Task<bool> AddReplyAsync(string message, long rootId, long parentId)
+        {
+            return Controller.AddReplyAsync(message, TargetId, Type, rootId, parentId);
+        }
+
         internal async Task DeltaRequestAsync()
         {
             if (TargetId == 0 || _cursor == null)
@@ -128,14 +151,20 @@ namespace Richasy.Bili.ViewModels.Uwp
                     Mode = e.Cursor.Mode,
                 };
 
-                if (e.TopReply != null && !e.ReplyList.Any(p => p.Id == e.TopReply.Id))
+                if (e.TopReply != null && !ReplyCollection.Any(p => p.Id == e.TopReply.Id))
                 {
                     ReplyCollection.Add(e.TopReply);
                 }
 
                 if (e.ReplyList != null && e.ReplyList.Count > 0)
                 {
-                    e.ReplyList.ForEach(p => ReplyCollection.Add(p));
+                    foreach (var item in e.ReplyList)
+                    {
+                        if (!ReplyCollection.Any(p => p.Id == item.Id))
+                        {
+                            ReplyCollection.Add(item);
+                        }
+                    }
                 }
 
                 _isCompleted = e.Cursor.IsEnd;

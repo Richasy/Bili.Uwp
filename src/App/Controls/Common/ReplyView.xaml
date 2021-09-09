@@ -54,7 +54,7 @@
                     RequestLoadMore="OnReplyRequestLoadMoreAsync">
                     <local:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="v1:ReplyInfo">
-                            <local:ReplyItem Data="{x:Bind}" />
+                            <local:ReplyItem Click="OnReplyItemClick" Data="{x:Bind}" />
                         </DataTemplate>
                     </local:VerticalRepeaterView.ItemTemplate>
                 </local:VerticalRepeaterView>
@@ -79,6 +79,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox
+                x:Name="ReplyBox"
                 MaxHeight="80"
                 Padding="12,10,8,8"
                 HorizontalAlignment="Stretch"
@@ -86,6 +87,8 @@
                 AcceptsReturn="True"
                 Background="Transparent"
                 BorderThickness="0"
+                KeyDown="OnReplyBoxKeyDownAsync"
+                LostFocus="OnReplyBoxLostFocus"
                 PlaceholderText="{loc:LocaleLocator Name=ReplyPlaceholderText}"
                 TextWrapping="Wrap" />
             <Button
@@ -93,7 +96,8 @@
                 Grid.Column="1"
                 Width="40"
                 Height="40"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                Click="OnSendReplyButtonClickAsync">
                 <icons:RegularFluentIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

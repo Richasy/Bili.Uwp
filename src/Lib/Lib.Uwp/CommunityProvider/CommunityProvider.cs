@@ -1,11 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Lib.Interfaces;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums.Bili;
 
 using static Richasy.Bili.Models.App.Constants.ApiConstants;
+using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -56,6 +61,42 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, MainListReply.Parser);
             return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> AddReplyAsync(string message, int targetId, ReplyType type, long rootId, long parentId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.MessageFull, message },
+                { Query.Oid, targetId.ToString() },
+                { Query.Type, ((int)type).ToString() },
+                { Query.PlatformSlim, "3" },
+                { Query.Root, rootId.ToString() },
+                { Query.Parent, parentId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Community.AddReply, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, int targetId, ReplyType type)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Oid, targetId.ToString() },
+                { Query.ActionFull, isLike ? "1" : "0" },
+                { Query.ReplyId, replyId.ToString() },
+                { Query.Type, ((int)type).ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Community.LikeReply, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.IsSuccess();
         }
     }
 }
