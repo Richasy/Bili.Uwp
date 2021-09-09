@@ -29,5 +29,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="cursor">游标.</param>
         /// <returns>评论列表响应.</returns>
         Task<DetailListReply> GetReplyDetailListAsync(int targetId, ReplyType type, long rootId, CursorReq cursor);
+
+        /// <summary>
+        /// 给评论点赞/取消点赞.
+        /// </summary>
+        /// <param name="isLike">是否点赞.</param>
+        /// <param name="replyId">评论Id.</param>
+        /// <returns>结果.</returns>
+        Task<bool> LikeReplyAsync(bool isLike, long replyId);
     }
 }

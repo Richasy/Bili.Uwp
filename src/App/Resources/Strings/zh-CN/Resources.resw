@@ -858,6 +858,9 @@
   <data name="TimeChart" xml:space="preserve">
     <value>时间表</value>
   </data>
+  <data name="Top" xml:space="preserve">
+    <value>置顶</value>
+  </data>
   <data name="Topic" xml:space="preserve">
     <value>专题</value>
   </data>

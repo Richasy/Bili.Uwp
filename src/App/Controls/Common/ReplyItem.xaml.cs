@@ -4,7 +4,6 @@ using System;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -72,6 +71,8 @@ namespace Richasy.Bili.App.Controls
             if (e.NewValue is ReplyInfo data)
             {
                 var instance = d as ReplyItem;
+                var isTop = data.ReplyControl.IsAdminTop || data.ReplyControl.IsUpTop;
+                instance.TopContainer.Visibility = isTop ? Visibility.Visible : Visibility.Collapsed;
                 instance.UserAvatar.UserName = instance.UserNameBlock.Text = data.Member.Name;
                 instance.UserAvatar.Avatar = data.Member.Face;
                 instance.LevelImage.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Level/level_{data.Member.Level}.png"));
