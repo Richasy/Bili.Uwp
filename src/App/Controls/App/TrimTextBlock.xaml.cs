@@ -52,13 +52,11 @@ namespace Richasy.Bili.App.Controls
         {
             if (sender.IsTextTrimmed)
             {
-                ToolTipService.SetToolTip(DisplayBlock, Text);
-                TrimBlock.Visibility = Visibility.Visible;
+                OverflowButton.Visibility = Visibility.Visible;
             }
             else
             {
-                TrimBlock.Visibility = Visibility.Collapsed;
-                ToolTipService.SetToolTip(DisplayBlock, null);
+                OverflowButton.Visibility = Visibility.Collapsed;
             }
         }
     }

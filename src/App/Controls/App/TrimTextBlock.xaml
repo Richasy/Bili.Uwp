@@ -30,8 +30,18 @@
             x:Name="OverflowButton"
             Grid.Row="1"
             Padding="2"
-            BorderThickness="0">
-            <icons:RegularFluentIcon FontSize="8" Symbol="MoreHorizontal16" />
+            BorderThickness="0"
+            Visibility="Collapsed">
+            <icons:RegularFluentIcon FontSize="12" Symbol="MoreHorizontal16" />
+            <Button.Flyout>
+                <Flyout>
+                    <TextBlock
+                        MaxWidth="200"
+                        LineHeight="24"
+                        Text="{x:Bind Text, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </Flyout>
+            </Button.Flyout>
         </Button>
     </Grid>
 </UserControl>

@@ -13,48 +13,24 @@
     mc:Ignorable="d">
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="LayoutGroup">
-                <VisualState x:Name="CenterState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="BottomState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Container.PreferredPlacement" Value="Bottom" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <muxc:TeachingTip
+        <local:CenterPopup
             x:Name="Container"
+            Title="{loc:LocaleLocator Name=UserInformation}"
             VerticalAlignment="Stretch"
-            Closed="OnContainerClosed"
-            IsLightDismissEnabled="True"
-            PreferredPlacement="Center"
-            ShouldConstrainToRootBounds="False">
-            <muxc:TeachingTip.HeroContent>
-                <Grid
-                    Padding="20,0,20,12"
-                    RowSpacing="8"
-                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            Closed="OnClosed">
+            <Grid RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid RowSpacing="8" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Margin="0,16,0,8"
-                        HorizontalAlignment="Left"
-                        Text="{loc:LocaleLocator Name=UserInformation}" />
-                    <Grid Grid.Row="1" ColumnSpacing="24">
+                    <Grid ColumnSpacing="24">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -119,7 +95,7 @@
                         </Grid>
                     </Grid>
                     <StackPanel
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Margin="0,12,0,0"
                         Orientation="Horizontal"
                         Spacing="8">
@@ -140,7 +116,7 @@
                     </StackPanel>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Grid.Row="3"
+                        Grid.Row="2"
                         MaxWidth="380"
                         HorizontalAlignment="Left"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -149,7 +125,7 @@
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <Border
-                        Grid.Row="4"
+                        Grid.Row="3"
                         Padding="8,4"
                         HorizontalAlignment="Left"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
@@ -160,9 +136,7 @@
                         </TextBlock>
                     </Border>
                 </Grid>
-            </muxc:TeachingTip.HeroContent>
-            <Grid Width="400" Margin="0,-12,0,0">
-                <Grid>
+                <Grid Grid.Row="1">
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
                         Grid.Row="2"
@@ -201,6 +175,6 @@
                         Visibility="{x:Bind ViewModel.IsShowVideoEmpty, Mode=OneWay}" />
                 </Grid>
             </Grid>
-        </muxc:TeachingTip>
+        </local:CenterPopup>
     </Grid>
 </UserControl>

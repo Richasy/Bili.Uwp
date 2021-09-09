@@ -43,7 +43,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(int userId)
         {
-            Container.IsOpen = true;
+            Container.Show();
             ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
             if (ViewModel == null || ViewModel.Id != userId)
             {
@@ -64,7 +64,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(UserViewModel vm)
         {
-            Container.IsOpen = true;
+            Container.Show();
             ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
             if (ViewModel == null || ViewModel.Id != vm.Id)
             {
@@ -95,15 +95,9 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.DeltaRequestVideoAsync();
         }
 
-        private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
-        {
-            ViewModel.Deactive();
-            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
-        }
-
         private void OnVideoItemClick(object sender, VideoViewModel e)
         {
-            this.Container.IsOpen = false;
+            this.Container.Hide();
         }
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
@@ -114,13 +108,18 @@ namespace Richasy.Bili.App.Controls
         private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Id, ViewModel.Name);
-            Container.IsOpen = false;
+            Container.Hide();
         }
 
         private async void OnFollowUserButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Id, ViewModel.Name);
-            Container.IsOpen = false;
+            Container.Hide();
+        }
+
+        private void OnClosed(object sender, System.EventArgs e)
+        {
+            ViewModel.Deactive();
         }
     }
 }
