@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
     /// 评论回复详情.
     /// </summary>
-    public partial class ReplyDetailView : UserControl
+    public partial class ReplyDetailView : CenterPopup
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -50,14 +49,13 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(ReplyInfo rootReply)
         {
+            Container.Show();
             RootReplyItem.Data = rootReply;
             if (ViewModel == null || ViewModel.RootReply?.Id != rootReply.Id)
             {
                 ViewModel.SetRootReply(rootReply);
                 await ReplyView.CheckInitializeAsync();
             }
-
-            Container.Show();
         }
     }
 }

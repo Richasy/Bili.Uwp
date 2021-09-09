@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Richasy.Bili.App.Pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
     /// 居中显示的浮出层.
     /// </summary>
-    public sealed partial class CenterPopup : ContentControl
+    public partial class CenterPopup : ContentControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CenterPopup"/> class.
@@ -19,8 +19,6 @@ namespace Richasy.Bili.App.Controls
         public CenterPopup()
         {
             this.DefaultStyleKey = typeof(CenterPopup);
-            _popup = new Popup();
-            _popup.Child = this;
         }
 
         /// <summary>
@@ -28,11 +26,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void Show()
         {
-            Window.Current.SizeChanged += OnWindowSizeChanged;
-            this.Width = Window.Current.Bounds.Width;
-            this.Height = Window.Current.Bounds.Height;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequest;
-            _popup.IsOpen = true;
+            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
         }
 
         /// <summary>
@@ -41,8 +36,7 @@ namespace Richasy.Bili.App.Controls
         public void Hide()
         {
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequest;
-            _popup.IsOpen = false;
-            Window.Current.SizeChanged -= OnWindowSizeChanged;
+            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
@@ -60,12 +54,6 @@ namespace Richasy.Bili.App.Controls
         {
             e.Handled = true;
             Hide();
-        }
-
-        private void OnWindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
-        {
-            Width = e.Size.Width;
-            Height = e.Size.Height;
         }
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)

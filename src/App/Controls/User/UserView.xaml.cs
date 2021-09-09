@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Pages;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,7 +11,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 用户视图.
     /// </summary>
-    public partial class UserView : UserControl
+    public partial class UserView : CenterPopup
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -22,10 +22,15 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="UserView"/> class.
         /// </summary>
-        public UserView()
+        protected UserView()
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// 单例.
+        /// </summary>
+        public static UserView Instance { get; } = new Lazy<UserView>(() => new UserView()).Value;
 
         /// <summary>
         /// 视图模型.
@@ -44,7 +49,6 @@ namespace Richasy.Bili.App.Controls
         public async Task ShowAsync(int userId)
         {
             Container.Show();
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
             if (ViewModel == null || ViewModel.Id != userId)
             {
                 // 请求用户数据.
@@ -65,7 +69,6 @@ namespace Richasy.Bili.App.Controls
         public async Task ShowAsync(UserViewModel vm)
         {
             Container.Show();
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
             if (ViewModel == null || ViewModel.Id != vm.Id)
             {
                 // 请求用户数据.

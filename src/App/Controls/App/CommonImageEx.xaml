@@ -17,7 +17,6 @@
         LazyLoadingEnabled="True"
         RetryCount="{x:Bind RetryCount, Mode=OneWay}"
         RetryDelay="0:0:5"
-        Source="{x:Bind ImageUrl, Mode=OneWay}"
         Stretch="{x:Bind Stretch, Mode=OneWay}">
         <hn:ImageEx.LoadingTemplate>
             <DataTemplate>

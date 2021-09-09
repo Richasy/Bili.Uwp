@@ -11,7 +11,6 @@
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayerTransportControls/BiliPlayerTransportControls.xaml" />
-                <ResourceDictionary Source="ms-appx:///Controls/App/CenterPopup/CenterPopup.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />

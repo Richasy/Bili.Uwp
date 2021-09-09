@@ -17,7 +17,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await new UserView().ShowAsync(ViewModel.Publisher);
+            await UserView.Instance.ShowAsync(ViewModel.Publisher);
         }
     }
 }

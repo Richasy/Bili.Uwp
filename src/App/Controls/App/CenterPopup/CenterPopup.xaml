@@ -4,21 +4,53 @@
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls">
 
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.1"
+                Color="White" />
+            <AcrylicBrush
+                x:Key="CenterPopupPresenterBackground"
+                FallbackColor="White"
+                TintColor="White"
+                TintOpacity="0.7" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.05"
+                Color="Black" />
+            <AcrylicBrush
+                x:Key="CenterPopupPresenterBackground"
+                FallbackColor="Black"
+                TintColor="Black"
+                TintOpacity="0.7" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.1"
+                Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="CenterPopupPresenterBackground" Color="{ThemeResource SystemColorWindowColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
     <Style TargetType="local:CenterPopup">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CenterPopup">
-                    <Grid x:Name="PopupContainer" Canvas.ZIndex="2">
-                        <Grid Background="{ThemeResource AppMaskBrush}" Opacity="0.1" />
+                    <Grid x:Name="PopupContainer">
+                        <Grid Background="{ThemeResource CenterPopupMaskBackground}" />
                         <Grid
                             AutomationProperties.Name="{TemplateBinding Title}"
-                            MaxWidth="460"
+                            MaxWidth="440"
                             MaxHeight="900"
                             Margin="20"
                             Padding="20,16"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
-                            Background="{ThemeResource AppMaskAcrylicBrush}"
+                            Background="{ThemeResource CenterPopupPresenterBackground}"
                             CornerRadius="{ThemeResource OverlayCornerRadius}"
                             RowSpacing="12">
                             <Grid.RowDefinitions>
@@ -40,6 +72,9 @@
                                     Grid.Column="1"
                                     VerticalAlignment="Center">
                                     <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="Escape" />
+                                    </Button.KeyboardAccelerators>
                                 </Button>
                             </Grid>
                             <ContentPresenter

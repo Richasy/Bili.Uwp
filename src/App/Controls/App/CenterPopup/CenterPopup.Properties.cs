@@ -3,14 +3,13 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
     /// 居中显示的弹出层.
     /// </summary>
-    public sealed partial class CenterPopup
+    public partial class CenterPopup
     {
         /// <summary>
         /// <see cref="Title"/>的依赖属性.
@@ -20,7 +19,6 @@ namespace Richasy.Bili.App.Controls
 
         private const string CloseButtonName = "CloseButton";
 
-        private readonly Popup _popup;
         private Button _closeButton;
 
         /// <summary>

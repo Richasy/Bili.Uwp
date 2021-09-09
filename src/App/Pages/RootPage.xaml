@@ -37,7 +37,7 @@
 
         <Grid
             x:Name="HolderContainer"
-            Grid.RowSpan="2"
+            Grid.Row="1"
             Visibility="Collapsed" />
 
         <controls:AppTitleBar Canvas.ZIndex="1" />
