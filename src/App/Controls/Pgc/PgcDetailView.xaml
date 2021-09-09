@@ -15,11 +15,10 @@
 
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid
-                    ColumnSpacing="12">
+        <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
@@ -34,9 +33,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                            Style="{StaticResource SubtitleTextBlockStyle}"
-                            FontWeight="Bold"
-                            Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    FontWeight="Bold"
+                    Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
                 <Grid Grid.Row="1" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -45,55 +44,56 @@
                     <StackPanel Spacing="4">
                         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                             <Border
-                                        Margin="0,0,8,0"
-                                        Padding="4,2"
-                                        VerticalAlignment="Center"
-                                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="2"
-                                        Visibility="{x:Bind ViewModel.IsShowBadge, Mode=OneWay}">
+                                Margin="0,0,8,0"
+                                Padding="4,2"
+                                VerticalAlignment="Center"
+                                BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                Visibility="{x:Bind ViewModel.IsShowBadge, Mode=OneWay}">
                                 <TextBlock
-                                            FontSize="12"
-                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                            Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
+                                    FontSize="12"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Text="{x:Bind ViewModel.BadgeText, Mode=OneWay}" />
                             </Border>
                             <TextBlock
-                                        VerticalAlignment="Center"
-                                        FontSize="12"
-                                        Text="{x:Bind ViewModel.PgcTypeName, Mode=OneWay}" />
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="{x:Bind ViewModel.PgcTypeName, Mode=OneWay}" />
                         </StackPanel>
                         <TextBlock
-                                    HorizontalAlignment="Left"
-                                    FontSize="12"
-                                    Text="{x:Bind ViewModel.PublishDate, Mode=OneWay}" />
+                            HorizontalAlignment="Left"
+                            FontSize="12"
+                            Text="{x:Bind ViewModel.PublishDate, Mode=OneWay}" />
                         <TextBlock
-                                    HorizontalAlignment="Left"
-                                    FontSize="12"
-                                    Text="{x:Bind ViewModel.DisplayProgress, Mode=OneWay}" />
+                            HorizontalAlignment="Left"
+                            FontSize="12"
+                            Text="{x:Bind ViewModel.DisplayProgress, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
-                                Grid.Column="1"
-                                VerticalAlignment="Bottom"
-                                Spacing="4"
-                                Visibility="{x:Bind ViewModel.IsShowRating, Mode=OneWay}">
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        Spacing="4"
+                        Visibility="{x:Bind ViewModel.IsShowRating, Mode=OneWay}">
                         <TextBlock
-                                    HorizontalAlignment="Left"
-                                    FontSize="36"
-                                    FontWeight="Bold"
-                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                    Text="{x:Bind ViewModel.Rating, Mode=OneWay}" />
+                            HorizontalAlignment="Left"
+                            FontSize="36"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                            Text="{x:Bind ViewModel.Rating, Mode=OneWay}" />
                         <TextBlock
-                                    HorizontalAlignment="Left"
-                                    FontSize="10"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{x:Bind ViewModel.RatedCount, Mode=OneWay}" />
+                            HorizontalAlignment="Left"
+                            FontSize="10"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind ViewModel.RatedCount, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>
             </Grid>
         </Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden"
-                      HorizontalScrollMode="Disabled"
-                      Grid.Row="1">
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Hidden">
             <Grid RowSpacing="12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

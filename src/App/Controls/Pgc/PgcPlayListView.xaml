@@ -8,27 +8,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
-    Title="{x:Bind ViewModel.Title,Mode=OneWay}"
+    Title="{x:Bind ViewModel.Title, Mode=OneWay}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        HorizontalAlignment="Left"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
-                        TextWrapping="Wrap" />
-        <muxc:ScrollView HorizontalScrollMode="Disabled"
-                         VerticalScrollBarVisibility="Hidden"
-                         Grid.Row="1">
-            <Grid>
-                <local:VerticalRepeaterView
+            Style="{StaticResource CaptionTextBlockStyle}"
+            HorizontalAlignment="Left"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
+            TextWrapping="Wrap" />
+        <Grid Grid.Row="1">
+            <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    <local:VerticalRepeaterView
                         x:Name="SeasonView"
                         Margin="0,0,0,12"
                         Background="Transparent"
@@ -36,27 +35,28 @@
                         ItemOrientation="Horizontal"
                         ItemsSource="{x:Bind ViewModel.SeasonCollection, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <local:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:SeasonViewModel">
-                            <local:PgcItem
+                        <local:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="uwp:SeasonViewModel">
+                                <local:PgcItem
                                     ItemClick="OnItemClick"
                                     Orientation="Horizontal"
                                     ViewModel="{x:Bind}" />
-                        </DataTemplate>
-                    </local:VerticalRepeaterView.ItemTemplate>
-                </local:VerticalRepeaterView>
-                
-            </Grid>
-        </muxc:ScrollView>
-        <local:OverlayLoadingPanel
-                        MinHeight="80"
-                        IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
-                        IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-        <local:ErrorPanel
-                        x:Name="ErrorPanel"
-                        ActionButtonClick="OnRefreshButtonClickAsync"
-                        ActionContent="{loc:LocaleLocator Name=Refresh}"
-                        Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+                            </DataTemplate>
+                        </local:VerticalRepeaterView.ItemTemplate>
+                    </local:VerticalRepeaterView>
+
+                </Grid>
+            </muxc:ScrollView>
+            <local:OverlayLoadingPanel
+                MinHeight="80"
+                IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+                IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+            <local:ErrorPanel
+                x:Name="ErrorPanel"
+                ActionButtonClick="OnRefreshButtonClickAsync"
+                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+        </Grid>
     </Grid>
 </local:CenterPopup>
