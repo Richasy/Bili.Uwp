@@ -282,6 +282,7 @@ namespace Richasy.Bili.Models.Enums
         ReplyDetail,
         Top,
         ReplySomeone,
+        AddReplyFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddReplyFailed" xml:space="preserve">
+    <value>添加评论失败，请稍后再试</value>
+  </data>
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>

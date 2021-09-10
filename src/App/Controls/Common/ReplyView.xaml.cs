@@ -138,11 +138,12 @@ namespace Richasy.Bili.App.Controls
 
             long rootId = 0;
             long parentId = 0;
+            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (_selectData != null)
             {
                 rootId = _selectData.Root;
                 parentId = _selectData.Id;
-                text = string.Format(ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), _selectData.Member.Name) + "：" + text;
+                text = string.Format(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), _selectData.Member.Name) + "：" + text;
             }
             else if (ViewModel is ReplyDetailViewModel detailVM)
             {
@@ -164,7 +165,8 @@ namespace Richasy.Bili.App.Controls
             }
             else
             {
-                // Show error.
+                new TipPopup(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed))
+                    .ShowAsync(Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error);
             }
         }
 
