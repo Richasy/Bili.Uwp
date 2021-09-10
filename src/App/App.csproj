@@ -60,6 +60,9 @@
     <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
       <DependentUpon>TrimTextBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\ReaderView.xaml.cs">
+      <DependentUpon>ReaderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -415,6 +418,9 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\Html\Dark.css" />
+    <Content Include="Resources\Html\Light.css" />
+    <Content Include="Resources\Html\ReaderPage.html" />
     <Content Include="Resources\Misc\Update.en_US.txt" />
     <Content Include="Resources\Misc\Update.zh_CN.txt" />
     <Content Include="$(SolutionDir)\ffmpeg\*.dll" />
@@ -494,6 +500,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TrimTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

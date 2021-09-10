@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
 
@@ -14,6 +15,8 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class ArticleViewModel
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
+        private readonly BiliController _controller;
 
         /// <summary>
         /// 封面.
@@ -77,6 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 收藏时间.
         /// </summary>
+        [Reactive]
         public string CollectTime { get; set; }
 
         /// <summary>
@@ -88,6 +92,30 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 原始封面地址.
         /// </summary>
         public string SourceCoverUrl { get; set; }
+
+        /// <summary>
+        /// 文章内容.
+        /// </summary>
+        [Reactive]
+        public string ArticleContent { get; set; }
+
+        /// <summary>
+        /// 是否显示错误信息.
+        /// </summary>
+        [Reactive]
+        public bool IsError { get; set; }
+
+        /// <summary>
+        /// 错误文本.
+        /// </summary>
+        [Reactive]
+        public string ErrorText { get; set; }
+
+        /// <summary>
+        /// 是否正在加载文章.
+        /// </summary>
+        [Reactive]
+        public bool IsLoading { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is ArticleViewModel model && Id == model.Id;

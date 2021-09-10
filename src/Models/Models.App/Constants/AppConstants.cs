@@ -18,6 +18,9 @@ namespace Richasy.Bili.Models.App.Constants
         public const double AppMinHeight = 500d;
 
         public const string DashVideoMPDFile = "ms-appx:///Assets/DashVideoTemplate.xml";
+
+        public const string ImageClickEvent = "ImageClick";
+        public const string LinkClickEvent = "LinkClick";
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

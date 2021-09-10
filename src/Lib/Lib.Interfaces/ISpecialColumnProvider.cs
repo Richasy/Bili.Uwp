@@ -35,5 +35,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageSize">每页数据，默认是20.</param>
         /// <returns>文章列表.</returns>
         Task<List<Article>> GetCategoryArticlesAsync(int categoryId, int pageNumber, ArticleSortType sortType, int pageSize = 20);
+
+        /// <summary>
+        /// 获取文章内容.
+        /// </summary>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns>文章内容.</returns>
+        Task<string> GetArticleContentAsync(int articleId);
     }
 }

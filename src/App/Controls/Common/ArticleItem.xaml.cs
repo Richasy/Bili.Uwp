@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -104,8 +102,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            var link = $"https://www.bilibili.com/read/cv{ViewModel.Id}/";
-            await Launcher.LaunchUriAsync(new Uri(link));
+            await ReaderView.Instance.ShowAsync(ViewModel);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e) => CheckOrientation();

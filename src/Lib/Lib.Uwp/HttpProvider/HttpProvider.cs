@@ -60,6 +60,9 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public HttpClient HttpClient { get => _httpClient; }
+
+        /// <inheritdoc/>
         public async Task<HttpRequestMessage> GetRequestMessageAsync(
             HttpMethod method,
             string url,

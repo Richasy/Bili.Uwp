@@ -2,8 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -87,6 +89,22 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var parsedResponse = await _httpProvider.ParseAsync<ServerResponse<ArticleRecommendResponse>>(response);
             return parsedResponse.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<string> GetArticleContentAsync(int articleId)
+        {
+            var url = ApiConstants.Article.ArticleContent + articleId;
+            var html = await _httpProvider.HttpClient.GetStringAsync(url);
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            var node = doc.DocumentNode.SelectNodes("//div[contains(@class, 'article-holder')]").FirstOrDefault();
+            if (node != null)
+            {
+                return node.InnerHtml;
+            }
+
+            return null;
         }
     }
 }
