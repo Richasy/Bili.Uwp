@@ -49,6 +49,7 @@ namespace Richasy.Bili.App.Pages
             }
 
             HolderContainer.Visibility = Visibility.Visible;
+            ViewModel.IsBackButtonEnabled = false;
         }
 
         /// <summary>
@@ -57,6 +58,7 @@ namespace Richasy.Bili.App.Pages
         public void ClearHolder()
         {
             HolderContainer.Children.Clear();
+            ViewModel.IsBackButtonEnabled = true;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)

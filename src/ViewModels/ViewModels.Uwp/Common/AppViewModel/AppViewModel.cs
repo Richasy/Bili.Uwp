@@ -21,6 +21,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _ = BiliController.Instance;
             IsNavigatePaneOpen = true;
+            IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit);
             _displayRequest = new Windows.System.Display.DisplayRequest();
