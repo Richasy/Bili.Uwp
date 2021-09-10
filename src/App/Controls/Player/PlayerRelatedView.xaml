@@ -27,7 +27,7 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="DetailGrid.MaxWidth" Value="320" />
+                        <Setter Target="DetailGrid.Width" Value="320" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="RowState">
@@ -35,6 +35,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="DetailGrid.Width" Value="Auto" />
                         <Setter Target="DetailGrid.MaxWidth" Value="999" />
                     </VisualState.Setters>
                 </VisualState>
@@ -78,37 +79,37 @@
                     Content="{loc:LocaleLocator Name=Sections}"
                     Visibility="{x:Bind ViewModel.IsShowSection, Mode=OneWay}" />
             </muxc:NavigationView.MenuItems>
-            <ScrollViewer
-                x:Name="ContentScrollViewer"
-                HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Hidden">
-                <Grid x:Name="DetailGrid" MaxWidth="360">
-                    <related:RelatedVideoView
-                        x:Name="RelatedVideoView"
-                        x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                    <related:VideoPartView
-                        x:Name="VideoPartView"
-                        x:Load="{x:Bind ViewModel.IsShowParts, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                    <related:EpisodeView
-                        x:Name="EpisodeView"
-                        x:Load="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                    <related:SeasonView
-                        x:Name="SeasonView"
-                        x:Load="{x:Bind ViewModel.IsShowSeason, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                    <related:PgcSectionView
-                        x:Name="SectionView"
-                        x:Load="{x:Bind ViewModel.IsShowSection, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                    <related:LiveMessageView
-                        x:Name="ChatView"
-                        x:Load="{x:Bind ViewModel.IsShowChat, Mode=OneWay}"
-                        Visibility="Collapsed" />
-                </Grid>
-            </ScrollViewer>
+
+            <Grid x:Name="DetailGrid" Width="360">
+                <related:RelatedVideoView
+                    x:Name="RelatedVideoView"
+                    x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:VideoPartView
+                    x:Name="VideoPartView"
+                    x:Load="{x:Bind ViewModel.IsShowParts, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:EpisodeView
+                    x:Name="EpisodeView"
+                    x:Load="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:SeasonView
+                    x:Name="SeasonView"
+                    x:Load="{x:Bind ViewModel.IsShowSeason, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:PgcSectionView
+                    x:Name="SectionView"
+                    x:Load="{x:Bind ViewModel.IsShowSection, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:LiveMessageView
+                    x:Name="ChatView"
+                    x:Load="{x:Bind ViewModel.IsShowChat, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <related:PlayerReplyView
+                    x:Name="ReplyView"
+                    x:Load="{x:Bind ViewModel.IsShowReply, Mode=OneWay}"
+                    Visibility="Collapsed" />
+            </Grid>
         </muxc:NavigationView>
 
     </Grid>

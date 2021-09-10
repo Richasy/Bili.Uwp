@@ -230,6 +230,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(CurrentPgcEpisode.Aid), Models.Enums.Bili.ReplyType.Video);
 
             try
             {
@@ -457,7 +458,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             if (count > 0)
             {
-                RequestRelatedViewScrollToBottom?.Invoke(this, EventArgs.Empty);
+                RequestLiveMessageScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
     }

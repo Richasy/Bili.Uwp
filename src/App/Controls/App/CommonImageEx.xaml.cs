@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ImageUrl"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ImageUrlProperty =
-            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnImageUrlChanged)));
 
         /// <summary>
         /// <see cref="Stretch"/>的依赖属性.
@@ -62,6 +62,12 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(RetryCountProperty); }
             set { SetValue(RetryCountProperty, value); }
+        }
+
+        private static void OnImageUrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as CommonImageEx;
+            instance.CoverImage.Source = e.NewValue;
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private async void OnUserCardClickAsync(object sender, System.EventArgs e)
         {
-            await new UserView().ShowAsync((sender as UserSlimCard).ViewModel);
+            await UserView.Instance.ShowAsync((sender as UserSlimCard).ViewModel);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+
 namespace Richasy.Bili.App.Controls.Player.Related
 {
     /// <summary>
@@ -13,6 +15,12 @@ namespace Richasy.Bili.App.Controls.Player.Related
         public LiveMessageView()
         {
             this.InitializeComponent();
+            ViewModel.RequestLiveMessageScrollToBottom += OnRequestLiveMessageScrollToBottom;
+        }
+
+        private void OnRequestLiveMessageScrollToBottom(object sender, EventArgs e)
+        {
+            ScrollViewer.ScrollTo(0, ScrollViewer.ExtentHeight + ScrollViewer.ScrollableHeight + ScrollViewer.VerticalOffset);
         }
     }
 }

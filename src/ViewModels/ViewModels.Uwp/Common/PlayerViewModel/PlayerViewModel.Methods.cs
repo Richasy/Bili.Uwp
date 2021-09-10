@@ -197,6 +197,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Reply);
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.ReplyType.Video);
 
             IsLikeChecked = _videoDetail.ReqUser.Like == 1;
             IsCoinChecked = _videoDetail.ReqUser.Coin == 1;

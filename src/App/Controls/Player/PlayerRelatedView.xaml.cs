@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -24,19 +23,13 @@ namespace Richasy.Bili.App.Controls
 
         private void OnViewModelLoaded(object sender, EventArgs e)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            ViewModel.RequestRelatedViewScrollToBottom += OnRequestScrollToBottom;
-        }
-
-        private void OnRequestScrollToBottom(object sender, EventArgs e)
-        {
-            ContentScrollViewer.ChangeView(0, ContentScrollViewer.ExtentHeight + ContentScrollViewer.ScrollableHeight + ContentScrollViewer.VerticalOffset, 1);
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -92,17 +85,17 @@ namespace Richasy.Bili.App.Controls
             {
                 if (ViewModel.IsDetailCanLoaded)
                 {
-                    InitializeLayout();
+                    InitializeLayoutAsync();
                 }
             }
         }
 
         private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            InitializeLayout();
+            InitializeLayoutAsync();
         }
 
-        private void InitializeLayout()
+        private async void InitializeLayoutAsync()
         {
             if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
             {
@@ -138,6 +131,17 @@ namespace Richasy.Bili.App.Controls
             {
                 ChatView.Visibility = Nav.SelectedItem == ChatItem ?
                 Visibility.Visible : Visibility.Collapsed;
+            }
+
+            if (ViewModel.IsShowReply && ReplyView != null)
+            {
+                ReplyView.Visibility = Nav.SelectedItem == ReplyItem ?
+                Visibility.Visible : Visibility.Collapsed;
+
+                if (ReplyView.Visibility == Visibility.Visible)
+                {
+                    await ReplyView.CheckInitializeAsync();
+                }
             }
         }
     }

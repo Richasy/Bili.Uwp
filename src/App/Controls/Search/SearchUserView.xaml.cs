@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnUserCardClickAsync(object sender, System.EventArgs e)
         {
-            await new UserView().ShowAsync((sender as UserSlimCard).ViewModel);
+            await UserView.Instance.ShowAsync((sender as UserSlimCard).ViewModel);
         }
     }
 }

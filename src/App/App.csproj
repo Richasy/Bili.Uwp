@@ -20,7 +20,12 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\App\TipPopup.xaml.cs">
+      <DependentUpon>TipPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
+    <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
+    <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -39,6 +44,21 @@
     </Compile>
     <Compile Include="Controls\Pgc\PgcPlayListView.xaml.cs">
       <DependentUpon>PgcPlayListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Player\Related\PlayerReplyView.xaml.cs">
+      <DependentUpon>PlayerReplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ReplyItem.xaml.cs">
+      <DependentUpon>ReplyItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ReplyView.xaml.cs">
+      <DependentUpon>ReplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ReplyDetailView.xaml.cs">
+      <DependentUpon>ReplyDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
+      <DependentUpon>TrimTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
@@ -145,23 +165,23 @@
     <Compile Include="Controls\Search\SearchVideoView.xaml.cs">
       <DependentUpon>SearchVideoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\MTCSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\MTCSettingSection.xaml.cs">
       <DependentUpon>MTCSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\PlayerControlSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\PlayerControlSettingSection.xaml.cs">
       <DependentUpon>PlayerControlSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\PlayerModeSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\PlayerModeSettingSection.xaml.cs">
       <DependentUpon>PlayerModeSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\LoggerSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\LoggerSettingSection.xaml.cs">
       <DependentUpon>LoggerSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\SettingSectionControl.cs" />
-    <Compile Include="Controls\Pgc\Settings\StartupSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\SettingSectionControl.cs" />
+    <Compile Include="Controls\Settings\StartupSettingSection.xaml.cs">
       <DependentUpon>StartupSettingSection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\Settings\ThemeSettingSection.xaml.cs">
+    <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserSlimCard.xaml.cs">
@@ -421,6 +441,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\App\CenterPopup\CenterPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\TipPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -446,6 +474,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Pgc\PgcPlayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\PlayerReplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReplyItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReplyDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\TrimTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -589,27 +637,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\MTCSettingSection.xaml">
+    <Page Include="Controls\Settings\MTCSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\PlayerControlSettingSection.xaml">
+    <Page Include="Controls\Settings\PlayerControlSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\PlayerModeSettingSection.xaml">
+    <Page Include="Controls\Settings\PlayerModeSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\LoggerSettingSection.xaml">
+    <Page Include="Controls\Settings\LoggerSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\StartupSettingSection.xaml">
+    <Page Include="Controls\Settings\StartupSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\Settings\ThemeSettingSection.xaml">
+    <Page Include="Controls\Settings\ThemeSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -822,7 +870,7 @@
       <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.2</Version>
+      <Version>2.7.0-prerelease.210827001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

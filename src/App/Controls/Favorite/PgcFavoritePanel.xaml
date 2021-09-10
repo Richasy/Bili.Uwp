@@ -13,50 +13,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <DataTemplate x:Key="WideSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <local:PgcItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
-                <local:PgcItem.ContextFlyout>
-                    <muxc:CommandBarFlyout>
-                        <muxc:CommandBarFlyout.SecondaryCommands>
-                            <AppBarButton Click="OnUnFavoritePgcButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
-                                <AppBarButton.Icon>
-                                    <icons:RegularFluentIcon Symbol="StarOff16" />
-                                </AppBarButton.Icon>
-                            </AppBarButton>
-                        </muxc:CommandBarFlyout.SecondaryCommands>
-                    </muxc:CommandBarFlyout>
-                </local:PgcItem.ContextFlyout>
-            </local:PgcItem>
-        </DataTemplate>
-        <DataTemplate x:Key="NarrowSeasonItemTemplate" x:DataType="uwp:SeasonViewModel">
-            <local:PgcItem
-                CoverHeight="140"
-                CoverWidth="100"
-                DataContext="{x:Bind}"
-                TitleRowHeight="28"
-                ViewModel="{x:Bind}">
-                <local:PgcItem.CardStyle>
-                    <Style TargetType="local:CardPanel">
-                        <Setter Property="IsEnableHoverAnimation" Value="False" />
-                        <Setter Property="IsEnableShadow" Value="False" />
-                    </Style>
-                </local:PgcItem.CardStyle>
-                <local:PgcItem.ContextFlyout>
-                    <muxc:CommandBarFlyout>
-                        <muxc:CommandBarFlyout.SecondaryCommands>
-                            <AppBarButton Click="OnUnFavoritePgcButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
-                                <AppBarButton.Icon>
-                                    <icons:RegularFluentIcon Symbol="StarOff16" />
-                                </AppBarButton.Icon>
-                            </AppBarButton>
-                        </muxc:CommandBarFlyout.SecondaryCommands>
-                    </muxc:CommandBarFlyout>
-                </local:PgcItem.ContextFlyout>
-            </local:PgcItem>
-        </DataTemplate>
-    </UserControl.Resources>
-
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -87,11 +43,28 @@
                 x:Name="PgcView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
-                ItemTemplate="{StaticResource WideSeasonItemTemplate}"
                 ItemsSource="{x:Bind ViewModel.SeasonCollection, Mode=OneWay}"
                 MinWideItemHeight="180"
                 MinWideItemWidth="300"
-                RequestLoadMore="OnViewRequestLoadMoreAsync" />
+                RequestLoadMore="OnViewRequestLoadMoreAsync">
+                <local:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="uwp:SeasonViewModel">
+                        <local:PgcItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
+                            <local:PgcItem.ContextFlyout>
+                                <muxc:CommandBarFlyout>
+                                    <muxc:CommandBarFlyout.SecondaryCommands>
+                                        <AppBarButton Click="OnUnFavoritePgcButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="StarOff16" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </muxc:CommandBarFlyout.SecondaryCommands>
+                                </muxc:CommandBarFlyout>
+                            </local:PgcItem.ContextFlyout>
+                        </local:PgcItem>
+                    </DataTemplate>
+                </local:VerticalRepeaterView.ItemTemplate>
+            </local:VerticalRepeaterView>
         </ScrollViewer>
 
         <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />

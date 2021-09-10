@@ -271,6 +271,18 @@ namespace Richasy.Bili.Models.Enums
         DeleteFavoriteWarning,
         UnFavoriteWarning,
         RefreshCurrentSection,
+        RequestReplyFailed,
+        MoreReplyDisplay,
+        SortByHot,
+        NeedScaleToShowReply,
+        NoReply,
+        HotReply,
+        LastestReply,
+        ReplyPlaceholderText,
+        ReplyDetail,
+        Top,
+        ReplySomeone,
+        AddReplyFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

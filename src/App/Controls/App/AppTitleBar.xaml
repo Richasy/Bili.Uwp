@@ -9,7 +9,6 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -83,7 +82,8 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick">
+                Click="OnBackButtonClick"
+                IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Back" IsEnabled="True" />
                     <KeyboardAccelerator Key="XButton2" IsEnabled="True" />

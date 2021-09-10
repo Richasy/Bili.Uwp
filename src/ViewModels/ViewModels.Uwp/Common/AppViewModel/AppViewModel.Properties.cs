@@ -68,6 +68,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsOpenPlayer { get; set; }
 
         /// <summary>
+        /// 是否启用回退按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsBackButtonEnabled { get; set; }
+
+        /// <summary>
         /// 覆盖层是否扩展至TitleBar.
         /// </summary>
         [Reactive]

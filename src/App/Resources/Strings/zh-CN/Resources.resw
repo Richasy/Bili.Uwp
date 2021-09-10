@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddReplyFailed" xml:space="preserve">
+    <value>添加评论失败，请稍后再试</value>
+  </data>
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>
@@ -390,6 +393,9 @@
   <data name="Home" xml:space="preserve">
     <value>首页</value>
   </data>
+  <data name="HotReply" xml:space="preserve">
+    <value>最热评论</value>
+  </data>
   <data name="HotSearch" xml:space="preserve">
     <value>搜索热词</value>
   </data>
@@ -404,6 +410,9 @@
   </data>
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
+  </data>
+  <data name="LastestReply" xml:space="preserve">
+    <value>最新评论</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
@@ -438,6 +447,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>
+  <data name="MoreReplyDisplay" xml:space="preserve">
+    <value>共{0}条回复 ⪢</value>
+  </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
   </data>
@@ -462,6 +474,9 @@
   <data name="NeedScaleToShowMessage" xml:space="preserve">
     <value>当前宽度不足以显示消息，请调整应用宽度</value>
   </data>
+  <data name="NeedScaleToShowReply" xml:space="preserve">
+    <value>你需要拉宽应用以显示评论列表</value>
+  </data>
   <data name="NoFans" xml:space="preserve">
     <value>该用户还木有粉丝哟~</value>
   </data>
@@ -473,6 +488,9 @@
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>正在等待发言</value>
+  </data>
+  <data name="NoReply" xml:space="preserve">
+    <value>目前还没有评论</value>
   </data>
   <data name="NormalUser" xml:space="preserve">
     <value>普通用户</value>
@@ -627,6 +645,15 @@
   <data name="ReplyCount" xml:space="preserve">
     <value>评论数</value>
   </data>
+  <data name="ReplyDetail" xml:space="preserve">
+    <value>评论详情</value>
+  </data>
+  <data name="ReplyPlaceholderText" xml:space="preserve">
+    <value>写下你的评论吧~</value>
+  </data>
+  <data name="ReplySomeone" xml:space="preserve">
+    <value>回复 @{0}</value>
+  </data>
   <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
     <value>获取追番列表失败</value>
   </data>
@@ -677,6 +704,9 @@
   </data>
   <data name="RequestRecommendFailed" xml:space="preserve">
     <value>推荐视频请求失败</value>
+  </data>
+  <data name="RequestReplyFailed" xml:space="preserve">
+    <value>请求评论失败</value>
   </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分区视频请求失败</value>
@@ -774,6 +804,9 @@
   <data name="SortByFavorite" xml:space="preserve">
     <value>收藏最多</value>
   </data>
+  <data name="SortByHot" xml:space="preserve">
+    <value>最热</value>
+  </data>
   <data name="SortByLevelHTL" xml:space="preserve">
     <value>等级由高到低</value>
   </data>
@@ -830,6 +863,9 @@
   </data>
   <data name="TimeChart" xml:space="preserve">
     <value>时间表</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>置顶</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>专题</value>

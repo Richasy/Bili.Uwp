@@ -15,8 +15,35 @@
     <local:CardPanel
         x:Name="RootCard"
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
-        Style="{x:Bind CardStyle, Mode=OneWay}"
         Click="OnRootCardClick">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonGroup">
+                <VisualState x:Name="VerticalState" />
+                <VisualState x:Name="HorizontalState">
+                    <VisualState.Setters>
+                        <Setter Target="CoverImage.Width" Value="100" />
+                        <Setter Target="CoverImage.Height" Value="140" />
+                        <Setter Target="TitleContainer.Height" Value="28" />
+                        <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
+                        <Setter Target="RootCard.IsEnableShadow" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="SlimGroup">
+                <VisualState x:Name="StandardState" />
+                <VisualState x:Name="SlimState">
+                    <VisualState.Setters>
+                        <Setter Target="CoverImage.Width" Value="120" />
+                        <Setter Target="CoverImage.Height" Value="88" />
+                        <Setter Target="TitleContainer.Height" Value="20" />
+                        <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
+                        <Setter Target="RootCard.IsEnableShadow" Value="False" />
+                        <Setter Target="RootCard.BorderThickness" Value="0" />
+                        <Setter Target="RootCard.Background" Value="Transparent" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid Padding="12" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -25,8 +52,8 @@
             <Grid VerticalAlignment="Center" CornerRadius="{ThemeResource ControlCornerRadius}">
                 <local:CommonImageEx
                     x:Name="CoverImage"
-                    Width="{x:Bind CoverWidth, Mode=OneWay}"
-                    Height="{x:Bind CoverHeight, Mode=OneWay}"
+                    Width="120"
+                    Height="160"
                     ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
             </Grid>
             <Grid Grid.Column="1">
@@ -37,7 +64,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid Height="{x:Bind TitleRowHeight, Mode=OneWay}">
+                <Grid x:Name="TitleContainer" Height="48">
                     <TextBlock
                         x:Name="TitleBlock"
                         Style="{StaticResource SubtitleTextBlockStyle}"

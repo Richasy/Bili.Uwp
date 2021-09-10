@@ -62,6 +62,27 @@ namespace Richasy.Bili.App.Controls
             base.OnApplyTemplate();
         }
 
+        private static void OnIsEnableShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as CardPanel;
+            if (instance._rootContainer == null)
+            {
+                return;
+            }
+
+            var attachedShadow = Shadows.GetAttachedShadow(instance._rootContainer);
+            var isEnabled = Convert.ToBoolean(e.NewValue);
+            if (isEnabled && attachedShadow != null)
+            {
+                instance._rootContainer.ClearValue(Shadows.AttachedShadowProperty);
+                instance.DestroyShadow();
+            }
+            else
+            {
+                instance.CreateShadow();
+            }
+        }
+
         private void OnCardPanelLoading(FrameworkElement sender, object args)
         {
             this.ActualThemeChanged += this.OnActualThemeChanged;

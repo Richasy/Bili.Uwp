@@ -36,6 +36,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IPgcProvider _pgcProvider;
         private readonly IPlayerProvider _playerProvider;
         private readonly ISearchProvider _searchProvider;
+        private readonly ICommunityProvider _communityProvider;
 
         private readonly INetworkModule _networkModule;
 
@@ -66,7 +67,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _specialColumnProvider)
                 .LoadService(out _pgcProvider)
                 .LoadService(out _playerProvider)
-                .LoadService(out _searchProvider);
+                .LoadService(out _searchProvider)
+                .LoadService(out _communityProvider);
 
             InitializeLiveSocket();
             RegisterEvents();
@@ -233,6 +235,16 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<FavoriteArticleIterationEventArgs> ArticleFavoriteIteration;
 
         /// <summary>
+        /// 在评论回复更新时发生.
+        /// </summary>
+        public event EventHandler<ReplyIterationEventArgs> ReplyIteration;
+
+        /// <summary>
+        /// 在评论详情更新时发生.
+        /// </summary>
+        public event EventHandler<ReplyIterationEventArgs> ReplyDetailIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -272,7 +284,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
                 .AddSingleton<IPgcProvider, PgcProvider>()
                 .AddSingleton<IPlayerProvider, PlayerProvider>()
-                .AddSingleton<ISearchProvider, SearchProvider>();
+                .AddSingleton<ISearchProvider, SearchProvider>()
+                .AddSingleton<ICommunityProvider, CommunityProvider>();
             _ = new ServiceLocator(serviceCollection);
         }
 

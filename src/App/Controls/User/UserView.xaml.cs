@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Pages;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,7 +11,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 用户视图.
     /// </summary>
-    public partial class UserView : UserControl
+    public partial class UserView : CenterPopup
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -22,10 +22,15 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="UserView"/> class.
         /// </summary>
-        public UserView()
+        protected UserView()
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// 单例.
+        /// </summary>
+        public static UserView Instance { get; } = new Lazy<UserView>(() => new UserView()).Value;
 
         /// <summary>
         /// 视图模型.
@@ -43,8 +48,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(int userId)
         {
-            Container.IsOpen = true;
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            Container.Show();
             if (ViewModel == null || ViewModel.Id != userId)
             {
                 // 请求用户数据.
@@ -64,8 +68,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(UserViewModel vm)
         {
-            Container.IsOpen = true;
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            Container.Show();
             if (ViewModel == null || ViewModel.Id != vm.Id)
             {
                 // 请求用户数据.
@@ -95,15 +98,9 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.DeltaRequestVideoAsync();
         }
 
-        private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
-        {
-            ViewModel.Deactive();
-            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
-        }
-
         private void OnVideoItemClick(object sender, VideoViewModel e)
         {
-            this.Container.IsOpen = false;
+            this.Container.Hide();
         }
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
@@ -114,13 +111,18 @@ namespace Richasy.Bili.App.Controls
         private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Id, ViewModel.Name);
-            Container.IsOpen = false;
+            Container.Hide();
         }
 
         private async void OnFollowUserButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Id, ViewModel.Name);
-            Container.IsOpen = false;
+            Container.Hide();
+        }
+
+        private void OnClosed(object sender, System.EventArgs e)
+        {
+            ViewModel.Deactive();
         }
     }
 }

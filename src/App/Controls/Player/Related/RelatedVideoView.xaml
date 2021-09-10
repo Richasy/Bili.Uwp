@@ -6,24 +6,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <controls:VerticalRepeaterView
-        HeaderVisibility="Collapsed"
-        ItemOrientation="Horizontal"
-        ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
-        <controls:VerticalRepeaterView.ItemTemplate>
-            <DataTemplate x:DataType="uwp:VideoViewModel">
-                <controls:VideoItem
-                    MaxHeight="100"
-                    HorizontalCoverWidth="120"
-                    IsShowDanmakuCount="True"
-                    IsShowPlayCount="True"
-                    ViewModel="{x:Bind}" />
-            </DataTemplate>
-        </controls:VerticalRepeaterView.ItemTemplate>
-    </controls:VerticalRepeaterView>
+    <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+        <controls:VerticalRepeaterView
+            HeaderVisibility="Collapsed"
+            ItemOrientation="Horizontal"
+            EnableDetectParentScrollViewer="False"
+            ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
+            <controls:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="uwp:VideoViewModel">
+                    <controls:VideoItem
+                        MaxHeight="100"
+                        HorizontalCoverWidth="120"
+                        IsShowDanmakuCount="True"
+                        IsShowPlayCount="True"
+                        ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </controls:VerticalRepeaterView.ItemTemplate>
+        </controls:VerticalRepeaterView>
+    </muxc:ScrollView>
 </controls:PlayerComponent>

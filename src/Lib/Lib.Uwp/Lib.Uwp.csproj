@@ -16,6 +16,8 @@
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
+    <Compile Include="CommunityProvider\CommunityProvider.cs" />
+    <Compile Include="CommunityProvider\CommunityProvider.Extension.cs" />
     <Compile Include="PgcProvider\PgcProvider.cs" />
     <Compile Include="PgcProvider\PgcProvider.Extension.cs" />
     <Compile Include="SearchProvider\SearchProvider.cs" />
@@ -50,7 +52,7 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.2</Version>
+      <Version>2.7.0-prerelease.210827001</Version>
     </PackageReference>
     <PackageReference Include="ZXing.Net">
       <Version>0.16.6</Version>

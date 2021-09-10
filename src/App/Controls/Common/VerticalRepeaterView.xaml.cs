@@ -2,8 +2,8 @@
 
 using System;
 using System.Collections;
+using Microsoft.UI.Xaml.Controls;
 using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -68,7 +68,14 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty MinWideItemWidthProperty =
             DependencyProperty.Register(nameof(MinWideItemWidth), typeof(double), typeof(VerticalRepeaterView), new PropertyMetadata(222d));
 
+        /// <summary>
+        /// <see cref="EnableDetectParentScrollViewer"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty EnableDetectParentScrollViewerProperty =
+            DependencyProperty.Register(nameof(EnableDetectParentScrollViewer), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(true));
+
         private ScrollViewer _parentScrollViewer;
+        private ScrollView _parentScrollView;
         private double _itemHolderHeight = 0d;
 
         /// <summary>
@@ -167,6 +174,15 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(MinWideItemHeightProperty, value); }
         }
 
+        /// <summary>
+        /// 是否启用自动检测父滚动视图.
+        /// </summary>
+        public bool EnableDetectParentScrollViewer
+        {
+            get { return (bool)GetValue(EnableDetectParentScrollViewerProperty); }
+            set { SetValue(EnableDetectParentScrollViewerProperty, value); }
+        }
+
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VerticalRepeaterView;
@@ -195,10 +211,21 @@ namespace Richasy.Bili.App.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _parentScrollViewer = this.FindAscendantElementByType<ScrollViewer>();
-            if (_parentScrollViewer != null)
+            if (EnableDetectParentScrollViewer)
             {
-                _parentScrollViewer.ViewChanged += OnParentScrollViewerViewChanged;
+                _parentScrollView = this.FindAscendantElementByType<ScrollView>();
+                if (_parentScrollView == null)
+                {
+                    _parentScrollViewer = this.FindAscendantElementByType<ScrollViewer>();
+                    if (_parentScrollViewer != null)
+                    {
+                        _parentScrollViewer.ViewChanged += OnParentScrollViewerViewChanged;
+                    }
+                }
+                else
+                {
+                    _parentScrollView.ViewChanged += OnParentScrollViewViewChanged;
+                }
             }
         }
 
@@ -209,6 +236,12 @@ namespace Richasy.Bili.App.Controls
                 _parentScrollViewer.ViewChanged -= OnParentScrollViewerViewChanged;
                 _parentScrollViewer = null;
             }
+
+            if (_parentScrollView != null)
+            {
+                _parentScrollView.ViewChanged -= OnParentScrollViewViewChanged;
+                _parentScrollView = null;
+            }
         }
 
         private void OnParentScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -217,6 +250,19 @@ namespace Richasy.Bili.App.Controls
             {
                 var currentPosition = _parentScrollViewer.VerticalOffset;
                 if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
+                    this.Visibility == Visibility.Visible)
+                {
+                    RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        private void OnParentScrollViewViewChanged(ScrollView sender, object args)
+        {
+            if (_parentScrollView != null)
+            {
+                var currentPosition = _parentScrollView.VerticalOffset;
+                if (_parentScrollView.ScrollableHeight - currentPosition <= _itemHolderHeight &&
                     this.Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
@@ -242,27 +288,29 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnElementPrepared(Microsoft.UI.Xaml.Controls.ItemsRepeater sender, Microsoft.UI.Xaml.Controls.ItemsRepeaterElementPreparedEventArgs args)
+        private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
         {
             if (args.Element != null && args.Element is IDynamicLayoutItem dynamicLayoutItem && args.Element is IRepeaterItem repeaterItem)
             {
                 dynamicLayoutItem.Orientation = ItemOrientation;
                 if (IsAutoFillEnable &&
                     ItemsSource is ICollection collectionSource &&
-                    _parentScrollViewer != null &&
+                    (_parentScrollViewer != null || _parentScrollView != null) &&
                     args.Index >= collectionSource.Count - 1)
                 {
                     var size = repeaterItem.GetHolderSize();
                     _itemHolderHeight = size.Height;
-                    var isNeedLoadMore = false;
+                    var viewportWidth = _parentScrollView != null ? _parentScrollView.ViewportWidth : _parentScrollViewer.ViewportWidth;
+                    var viewportHeight = _parentScrollView != null ? _parentScrollView.ViewportHeight : _parentScrollViewer.ViewportHeight;
+                    bool isNeedLoadMore;
                     if (double.IsInfinity(size.Width))
                     {
-                        isNeedLoadMore = (args.Index + 1) * size.Height <= _parentScrollViewer.ViewportHeight;
+                        isNeedLoadMore = (args.Index + 1) * size.Height <= viewportHeight;
                     }
                     else
                     {
-                        var rowCount = args.Index / (_parentScrollViewer.ViewportWidth / size.Width);
-                        isNeedLoadMore = rowCount * size.Height <= _parentScrollViewer.ViewportHeight;
+                        var rowCount = args.Index / (viewportWidth / size.Width);
+                        isNeedLoadMore = rowCount * size.Height <= viewportHeight;
                     }
 
                     if (isNeedLoadMore)
