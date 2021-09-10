@@ -46,9 +46,6 @@
                     <Button Click="OnNavigateToMyHomePageButtonClickAsync">
                         <local:IconTextBlock Symbol="Globe16" Text="{loc:LocaleLocator Name=MyWebPage}" />
                     </Button>
-                    <Button ext:NavigationExtension.PageId="DynamicFeed" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="DesignIdeas16" Text="{loc:LocaleLocator Name=DynamicFeed}" />
-                    </Button>
                     <Button ext:NavigationExtension.PageId="Message" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="Chat16" Text="{loc:LocaleLocator Name=Message}" />
                     </Button>

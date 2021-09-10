@@ -266,7 +266,7 @@
     <Compile Include="Pages\DomesticAnimePage.xaml.cs">
       <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\DynamicFeedPage.xaml.cs">
+    <Compile Include="Pages\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BangumiPage.xaml.cs">
@@ -771,7 +771,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\DynamicFeedPage.xaml">
+    <Page Include="Pages\DynamicFeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
