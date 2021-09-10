@@ -21,6 +21,11 @@ namespace Richasy.Bili.Lib.Interfaces
         TimeSpan OverallTimeout { get; set; }
 
         /// <summary>
+        /// 网络客户端.
+        /// </summary>
+        HttpClient HttpClient { get; }
+
+        /// <summary>
         /// 获取 <see cref="HttpRequestMessage"/>.
         /// </summary>
         /// <param name="method">请求方法.</param>

@@ -3,8 +3,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -103,7 +106,38 @@ namespace Richasy.Bili.ViewModels.Uwp
         protected ArticleViewModel()
         {
             CategoryCollection = new ObservableCollection<ArticleCategory>();
-            ServiceLocator.Instance.LoadService(out _numberToolkit);
+            _controller = Controller.Uwp.BiliController.Instance;
+            ServiceLocator.Instance.LoadService(out _numberToolkit)
+                                   .LoadService(out _resourceToolkit);
+        }
+
+        /// <summary>
+        /// 初始化文章内容.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeArticleContentAsync()
+        {
+            if (string.IsNullOrEmpty(ArticleContent) && !IsLoading)
+            {
+                IsLoading = true;
+                try
+                {
+                    var content = await _controller.GetArticleContentAsync(Convert.ToInt32(Id));
+                    ArticleContent = content;
+                }
+                catch (ServiceException ex)
+                {
+                    IsError = true;
+                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestReplyFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                }
+                catch (Exception invalidEx)
+                {
+                    IsError = true;
+                    ErrorText = invalidEx.Message;
+                }
+
+                IsLoading = false;
+            }
         }
 
         /// <summary>

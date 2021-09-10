@@ -303,6 +303,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 各个分区下的文章列表.
             /// </summary>
             public const string ArticleList = _apiBase + "/x/article/recommends";
+
+            /// <summary>
+            /// 文章内容.
+            /// </summary>
+            public const string ArticleContent = "https://www.bilibili.com/read/app/";
         }
 
         public static class Pgc

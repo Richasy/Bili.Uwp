@@ -98,5 +98,17 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 获取文章内容.
+        /// </summary>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns>文章内容.</returns>
+        public async Task<string> GetArticleContentAsync(int articleId)
+        {
+            ThrowWhenNetworkUnavaliable();
+            var content = await _specialColumnProvider.GetArticleContentAsync(articleId);
+            return content;
+        }
     }
 }
