@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
@@ -97,6 +97,25 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<DynVideoReply> GetDynamicVideoListAsync(int pageNumber, string historyOffset, string baseLine)
+        {
+            var type = pageNumber <= 1 ? Refresh.New : Refresh.History;
+            var req = new DynVideoReq
+            {
+                Page = pageNumber,
+                RefreshType = type,
+                LocalTime = 8,
+                Offset = historyOffset ?? string.Empty,
+                UpdateBaseline = baseLine ?? string.Empty,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicVideo, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync(response, DynVideoReply.Parser);
+            return result;
         }
     }
 }

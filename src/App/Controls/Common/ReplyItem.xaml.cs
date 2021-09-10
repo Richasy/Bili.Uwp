@@ -83,7 +83,7 @@ namespace Richasy.Bili.App.Controls
                 instance.UserAvatar.Avatar = data.Member.Face;
                 instance.LevelImage.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Level/level_{data.Member.Level}.png"));
                 instance.ReplyContentBlock.Text = data.Content.Message;
-                var time = DateTimeOffset.FromUnixTimeSeconds(data.Ctime);
+                var time = DateTimeOffset.FromUnixTimeSeconds(data.Ctime).ToLocalTime();
                 instance.PublishTimeBlock.Text = time.ToString("HH:mm");
                 ToolTipService.SetToolTip(instance.PublishTimeBlock, time.ToString("yyyy/MM/dd HH:mm:ss"));
                 instance.LikeButton.IsChecked = data.ReplyControl.Action == 1;

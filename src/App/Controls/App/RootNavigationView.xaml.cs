@@ -218,8 +218,7 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
 
-            var currentType = OverlayFrame.Content?.GetType();
-            if (pageType != null && currentType != pageType)
+            if (pageType != null)
             {
                 OverlayFrame.Navigate(pageType, param, new EntranceNavigationTransitionInfo());
             }

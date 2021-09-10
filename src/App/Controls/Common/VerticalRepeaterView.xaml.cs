@@ -74,6 +74,12 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty EnableDetectParentScrollViewerProperty =
             DependencyProperty.Register(nameof(EnableDetectParentScrollViewer), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(true));
 
+        /// <summary>
+        /// <see cref="IsStaggered"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsStaggeredProperty =
+            DependencyProperty.Register(nameof(IsStaggered), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(false, new PropertyChangedCallback(OnIsStaggeredChanged)));
+
         private ScrollViewer _parentScrollViewer;
         private ScrollView _parentScrollView;
         private double _itemHolderHeight = 0d;
@@ -183,6 +189,21 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(EnableDetectParentScrollViewerProperty, value); }
         }
 
+        /// <summary>
+        /// 是否为流式布局.
+        /// </summary>
+        public bool IsStaggered
+        {
+            get { return (bool)GetValue(IsStaggeredProperty); }
+            set { SetValue(IsStaggeredProperty, value); }
+        }
+
+        private static void OnIsStaggeredChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as VerticalRepeaterView;
+            instance.CheckOrientationStatus();
+        }
+
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VerticalRepeaterView;
@@ -194,16 +215,23 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckOrientationStatus()
         {
-            switch (ItemOrientation)
+            if (IsStaggered)
             {
-                case Orientation.Vertical:
-                    ItemsRepeater.Layout = GridLayout;
-                    break;
-                case Orientation.Horizontal:
-                    ItemsRepeater.Layout = ListLayout;
-                    break;
-                default:
-                    break;
+                ItemsRepeater.Layout = StaggeredLayout;
+            }
+            else
+            {
+                switch (ItemOrientation)
+                {
+                    case Orientation.Vertical:
+                        ItemsRepeater.Layout = GridLayout;
+                        break;
+                    case Orientation.Horizontal:
+                        ItemsRepeater.Layout = ListLayout;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             ChangeInitializedItemOrientation();

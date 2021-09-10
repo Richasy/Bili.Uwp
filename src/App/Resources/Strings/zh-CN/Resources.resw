@@ -657,6 +657,9 @@
   <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
     <value>获取追番列表失败</value>
   </data>
+  <data name="RequestArticleFailed" xml:space="preserve">
+    <value>请求文章失败</value>
+  </data>
   <data name="RequestArticleFavoriteFailed" xml:space="preserve">
     <value>获取收藏文章失败</value>
   </data>
@@ -665,6 +668,9 @@
   </data>
   <data name="RequestCinemaFavoriteFailed" xml:space="preserve">
     <value>获取追剧列表失败</value>
+  </data>
+  <data name="RequestDynamicFailed" xml:space="preserve">
+    <value>请求动态失败</value>
   </data>
   <data name="RequestFavoriteError" xml:space="preserve">
     <value>请求收藏夹失败</value>
