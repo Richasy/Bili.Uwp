@@ -23,6 +23,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             DynamicCollection = new ObservableCollection<DynamicItem>();
             Controller.DynamicVideoIteration += OnDynamicVideoIteration;
+            Controller.Logged += OnLoggedAsync;
         }
 
         /// <inheritdoc/>
@@ -41,13 +42,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <inheritdoc/>
         public async Task InitializeRequestAsync()
         {
+            if (AccountViewModel.Instance.Status != AccountViewModelStatus.Login)
+            {
+                Reset();
+                return;
+            }
+
             if (!IsInitializeLoading)
             {
                 IsInitializeLoading = true;
                 Reset();
                 try
                 {
-                    await Controller.RequestDynamicVideoListAsync(_pageNumber, _updateOffset, _baseLine);
+                    await Controller.RequestDynamicVideoListAsync(_updateOffset, _baseLine);
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -70,7 +77,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !_isLoadCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestDynamicVideoListAsync(_pageNumber, _updateOffset, _baseLine);
+                await Controller.RequestDynamicVideoListAsync(_updateOffset, _baseLine);
                 IsDeltaLoading = false;
             }
         }
@@ -78,7 +85,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void Reset()
         {
             DynamicCollection.Clear();
-            _pageNumber = 1;
             _updateOffset = string.Empty;
             _baseLine = string.Empty;
             _isLoadCompleted = false;
@@ -86,7 +92,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private void OnDynamicVideoIteration(object sender, DynamicVideoIterationEventArgs e)
         {
-            _pageNumber = e.NextPageNumebr;
             _isLoadCompleted = !e.HasMore;
             _baseLine = e.BaseLine;
             _updateOffset = e.UpdateOffset;
@@ -103,6 +108,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsShowEmpty = DynamicCollection.Count == 0;
+        }
+
+        private async void OnLoggedAsync(object sender, EventArgs e)
+        {
+            await InitializeRequestAsync();
         }
     }
 }

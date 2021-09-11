@@ -55,10 +55,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <summary>
         /// 获取视频动态列表.
         /// </summary>
-        /// <param name="pageNumber">页码.</param>
         /// <param name="historyOffset">历史偏移值.</param>
         /// <param name="baseLine">更新基线.</param>
         /// <returns>视频动态响应.</returns>
-        Task<DynVideoReply> GetDynamicVideoListAsync(int pageNumber, string historyOffset, string baseLine);
+        Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine);
     }
 }

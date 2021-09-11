@@ -12,7 +12,6 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class DynamicModuleViewModel
     {
-        private int _pageNumber;
         private string _updateOffset;
         private string _baseLine;
         private bool _isLoadCompleted;

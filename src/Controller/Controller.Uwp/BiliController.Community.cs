@@ -111,22 +111,21 @@ namespace Richasy.Bili.Controller.Uwp
         /// <summary>
         /// 请求动态视频列表.
         /// </summary>
-        /// <param name="pageNumber">页码.</param>
         /// <param name="offset">偏移值.</param>
         /// <param name="baseLine">基线值.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestDynamicVideoListAsync(int pageNumber, string offset, string baseLine)
+        public async Task RequestDynamicVideoListAsync(string offset, string baseLine)
         {
             ThrowWhenNetworkUnavaliable();
             try
             {
-                var reply = await _communityProvider.GetDynamicVideoListAsync(pageNumber, offset, baseLine);
-                var args = new DynamicVideoIterationEventArgs(reply, pageNumber);
+                var reply = await _communityProvider.GetDynamicVideoListAsync(offset, baseLine);
+                var args = new DynamicVideoIterationEventArgs(reply);
                 DynamicVideoIteration?.Invoke(this, args);
             }
             catch (System.Exception)
             {
-                if (pageNumber <= 1)
+                if (string.IsNullOrEmpty(offset))
                 {
                     throw;
                 }

@@ -23,6 +23,7 @@ namespace Richasy.Bili.App.Pages
         public DynamicFeedPage()
         {
             this.InitializeComponent();
+            this.Loaded += OnLoadedAsync;
         }
 
         /// <summary>
@@ -34,12 +35,22 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private void OnViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
+            if (!ViewModel.IsRequested)
+            {
+                await ViewModel.InitializeRequestAsync();
+            }
         }
 
-        private void OnDynamicRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
+            await ViewModel.RequestDataAsync();
+        }
+
+        private async void OnDynamicRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.InitializeRequestAsync();
         }
     }
 }

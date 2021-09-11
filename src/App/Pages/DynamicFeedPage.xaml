@@ -7,6 +7,7 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v2="using:Bilibili.App.Dynamic.V2"
     mc:Ignorable="d">
 
     <Grid>
@@ -42,9 +43,14 @@
                 HeaderVisibility="Collapsed"
                 IsStaggered="True"
                 ItemsSource="{x:Bind ViewModel.DynamicCollection, Mode=OneWay}"
-                MinWideItemHeight="220"
-                MinWideItemWidth="180"
-                RequestLoadMore="OnViewRequestLoadMoreAsync" />
+                MinWideItemWidth="320"
+                RequestLoadMore="OnViewRequestLoadMoreAsync">
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="v2:DynamicItem">
+                        <controls:DynamicItem Data="{x:Bind}" />
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
         </ScrollViewer>
 
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />

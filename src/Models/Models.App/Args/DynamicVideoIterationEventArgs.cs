@@ -17,7 +17,7 @@ namespace Richasy.Bili.Models.App.Args
         /// </summary>
         /// <param name="reply">响应结果.</param>
         /// <param name="pageNumber">页码.</param>
-        public DynamicVideoIterationEventArgs(DynVideoReply reply, int pageNumber)
+        public DynamicVideoIterationEventArgs(DynVideoReply reply)
         {
             var data = reply.DynamicList;
             List = data.List.ToList();
@@ -25,7 +25,6 @@ namespace Richasy.Bili.Models.App.Args
             HasMore = data.HasMore;
             BaseLine = data.UpdateBaseline;
             UpdateOffset = data.HistoryOffset;
-            NextPageNumebr = HasMore ? pageNumber + 1 : pageNumber;
         }
 
         /// <summary>
@@ -52,10 +51,5 @@ namespace Richasy.Bili.Models.App.Args
         /// 标识符，更新偏移值.
         /// </summary>
         public string UpdateOffset { get; set; }
-
-        /// <summary>
-        /// 下一页页码.
-        /// </summary>
-        public int NextPageNumebr { get; set; }
     }
 }

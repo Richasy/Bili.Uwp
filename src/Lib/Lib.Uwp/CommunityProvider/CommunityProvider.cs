@@ -100,12 +100,11 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<DynVideoReply> GetDynamicVideoListAsync(int pageNumber, string historyOffset, string baseLine)
+        public async Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine)
         {
-            var type = pageNumber <= 1 ? Refresh.New : Refresh.History;
+            var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;
             var req = new DynVideoReq
             {
-                Page = pageNumber,
                 RefreshType = type,
                 LocalTime = 8,
                 Offset = historyOffset ?? string.Empty,

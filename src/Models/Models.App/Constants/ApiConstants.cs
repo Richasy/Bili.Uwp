@@ -474,22 +474,22 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 动态标签.
             /// </summary>
-            public const string DynamicTabs = _grpcBase + "bilibili.app.dynamic.v2.Dynamic/DynTab";
+            public const string DynamicTabs = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynTab";
 
             /// <summary>
             /// 综合动态列表.
             /// </summary>
-            public const string DynamicAll = _grpcBase + "bilibili.app.dynamic.v2.Dynamic/DynAll";
+            public const string DynamicAll = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynAll";
 
             /// <summary>
             /// 视频动态列表.
             /// </summary>
-            public const string DynamicVideo = _grpcBase + "bilibili.app.dynamic.v2.Dynamic/DynVideo";
+            public const string DynamicVideo = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynVideo";
 
             /// <summary>
             /// 未登录时的动态推荐.
             /// </summary>
-            public const string DynamicWhenUnlogin = _grpcBase + "bilibili.app.dynamic.v2.Dynamic/DynUnLoginRcmd";
+            public const string DynamicWhenUnlogin = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynUnLoginRcmd";
         }
     }
 #pragma warning restore SA1401 // Fields should be private

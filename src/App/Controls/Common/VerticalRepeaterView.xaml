@@ -28,7 +28,7 @@
         <controls:StaggeredLayout
             x:Name="StaggeredLayout"
             ColumnSpacing="16"
-            DesiredColumnWidth="{x:Bind MinWideItemWidth}"
+            DesiredColumnWidth="{x:Bind MinWideItemWidth, Mode=OneWay}"
             RowSpacing="16" />
     </UserControl.Resources>
 
