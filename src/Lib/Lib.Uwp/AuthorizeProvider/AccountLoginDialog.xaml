@@ -41,9 +41,9 @@
                 Style="{StaticResource DefaultHyperlinkButtonStyle}"
                 Grid.Column="1"
                 Margin="0,-7,0,0"
-                Content="{loc:LocaleLocator Name=SwitchToPasswordLogin}"
                 VerticalAlignment="Top"
                 Click="OnSwitchButtonClickAsync"
+                Content="{loc:LocaleLocator Name=SwitchToPasswordLogin}"
                 FontSize="12" />
         </Grid>
         <TextBlock
@@ -83,13 +83,6 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid MinHeight="200" CornerRadius="{StaticResource ControlCornerRadius}">
-
-                <muxc:ProgressBar
-                    Width="150"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsIndeterminate="True" />
-
                 <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image
                         x:Name="QRCodeImage"

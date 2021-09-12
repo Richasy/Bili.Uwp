@@ -21,6 +21,8 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string ImageClickEvent = "ImageClick";
         public const string LinkClickEvent = "LinkClick";
+
+        public const string ReplySection = "Reply";
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

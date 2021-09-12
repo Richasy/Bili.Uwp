@@ -6,6 +6,10 @@
     margin:0 auto;
 }
 
+html::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}
+
 body {
     margin: 0 auto;
     color: #2c3e50;

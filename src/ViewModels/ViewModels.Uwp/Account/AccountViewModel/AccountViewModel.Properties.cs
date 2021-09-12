@@ -102,5 +102,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string FollowCount { get; set; }
+
+        /// <summary>
+        /// 是否已经完成了与账户的连接.
+        /// </summary>
+        [Reactive]
+        public bool IsConnected { get; set; }
     }
 }

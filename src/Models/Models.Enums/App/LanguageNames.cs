@@ -283,6 +283,10 @@ namespace Richasy.Bili.Models.Enums
         Top,
         ReplySomeone,
         AddReplyFailed,
+        RequestDynamicFailed,
+        RequestArticleFailed,
+        DynamicNeedLoginFirst,
+        Login,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

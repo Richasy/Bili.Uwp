@@ -128,7 +128,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestReplyFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestArticleFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
                 catch (Exception invalidEx)
                 {

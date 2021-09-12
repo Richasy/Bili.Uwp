@@ -140,6 +140,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Live:
                     pageType = typeof(LivePage);
                     break;
+                case PageIds.DynamicFeed:
+                    pageType = typeof(DynamicFeedPage);
+                    break;
                 case PageIds.Help:
                     pageType = typeof(HelpPage);
                     break;
@@ -199,9 +202,6 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.ViewLater:
                     pageType = typeof(ViewLaterPage);
                     break;
-                case PageIds.DynamicFeed:
-                    pageType = typeof(DynamicFeedPage);
-                    break;
                 case PageIds.Fans:
                     pageType = typeof(FansPage);
                     break;
@@ -218,8 +218,7 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
 
-            var currentType = OverlayFrame.Content?.GetType();
-            if (pageType != null && currentType != pageType)
+            if (pageType != null)
             {
                 OverlayFrame.Navigate(pageType, param, new EntranceNavigationTransitionInfo());
             }

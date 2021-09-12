@@ -49,6 +49,7 @@
                                             <TextBlock
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 FontWeight="Bold"
+                                                MaxLines="1"
                                                 Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"

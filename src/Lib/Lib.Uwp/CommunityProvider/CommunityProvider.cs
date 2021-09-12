@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
@@ -97,6 +98,47 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
+        }
+
+        /// <inheritdoc/>
+        public async Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine)
+        {
+            var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;
+            var req = new DynVideoReq
+            {
+                RefreshType = type,
+                LocalTime = 8,
+                Offset = historyOffset ?? string.Empty,
+                UpdateBaseline = baseLine ?? string.Empty,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicVideo, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync(response, DynVideoReply.Parser);
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, long userId, string rid)
+        {
+            var req = new DynThumbReq
+            {
+                Type = isLike ? ThumbType.Thumb : ThumbType.Cancel,
+                DynId = dynamicId.ToString(),
+                Rid = rid,
+                Uid = Convert.ToInt64(userId),
+            };
+
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(Community.LikeDynamic, req, true);
+                _ = await _httpProvider.SendAsync(request);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

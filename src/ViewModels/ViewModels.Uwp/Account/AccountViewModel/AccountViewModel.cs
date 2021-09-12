@@ -90,6 +90,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (this.Status != AccountViewModelStatus.Login)
             {
+                IsConnected = true;
                 await GetMyProfileAsync();
                 this.Status = AccountViewModelStatus.Login;
             }
@@ -121,6 +122,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Level = 0;
             TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
             IsVip = false;
+            IsConnected = false;
         }
     }
 }

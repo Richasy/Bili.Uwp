@@ -26,6 +26,15 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
+      <DependentUpon>DynamicItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicPgcItem.xaml.cs">
+      <DependentUpon>DynamicPgcItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicVideoItem.xaml.cs">
+      <DependentUpon>DynamicVideoItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -63,6 +72,10 @@
     <Compile Include="Controls\Common\ReaderView.xaml.cs">
       <DependentUpon>ReaderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -266,7 +279,7 @@
     <Compile Include="Pages\DomesticAnimePage.xaml.cs">
       <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\DynamicFeedPage.xaml.cs">
+    <Compile Include="Pages\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BangumiPage.xaml.cs">
@@ -456,6 +469,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicPgcItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicVideoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -771,7 +796,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\DynamicFeedPage.xaml">
+    <Page Include="Pages\DynamicFeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

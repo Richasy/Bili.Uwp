@@ -470,6 +470,31 @@ namespace Richasy.Bili.Models.App.Constants
             /// 添加评论.
             /// </summary>
             public const string AddReply = _apiBase + "/x/v2/reply/add";
+
+            /// <summary>
+            /// 动态标签.
+            /// </summary>
+            public const string DynamicTabs = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynTab";
+
+            /// <summary>
+            /// 综合动态列表.
+            /// </summary>
+            public const string DynamicAll = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynAll";
+
+            /// <summary>
+            /// 视频动态列表.
+            /// </summary>
+            public const string DynamicVideo = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynVideo";
+
+            /// <summary>
+            /// 未登录时的动态推荐.
+            /// </summary>
+            public const string DynamicWhenUnlogin = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynUnLoginRcmd";
+
+            /// <summary>
+            /// 点赞/取消点赞动态.
+            /// </summary>
+            public const string LikeDynamic = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynThumb";
         }
     }
 #pragma warning restore SA1401 // Fields should be private

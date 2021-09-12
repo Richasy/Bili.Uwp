@@ -1,0 +1,122 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.DynamicPgcItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local1="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="local:IconTextBlock">
+            <Setter Property="Spacing" Value="4" />
+            <Setter Property="IconFontSize" Value="12" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="Row1" Height="Auto" />
+            <RowDefinition x:Name="Row2" Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="Column1" Width="*" />
+            <ColumnDefinition x:Name="Column2" Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="VerticalState" />
+                <VisualState x:Name="HorizontalState">
+                    <VisualState.Setters>
+                        <Setter Target="CoverContainer.VerticalAlignment" Value="Stretch" />
+                        <Setter Target="CoverContainer.Height" Value="76" />
+                        <Setter Target="CoverContainer.Width" Value="120" />
+                        <Setter Target="CoverContainer.CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+                        <Setter Target="ContentContainer.(Grid.Row)" Value="0" />
+                        <Setter Target="ContentContainer.(Grid.Column)" Value="1" />
+                        <Setter Target="ContentContainer.Padding" Value="8" />
+                        <Setter Target="Row1.Height" Value="*" />
+                        <Setter Target="Row2.Height" Value="Auto" />
+                        <Setter Target="Column1.Width" Value="Auto" />
+                        <Setter Target="Column2.Width" Value="*" />
+                        <Setter Target="ContentRow.Height" Value="Auto" />
+                        <Setter Target="TitleBlock.(Grid.Row)" Value="0" />
+                        <Setter Target="DurationContainer.Visibility" Value="Collapsed" />
+                        <Setter Target="InlineDurationBlock.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid
+            x:Name="CoverContainer"
+            Height="200"
+            VerticalAlignment="Stretch"
+            CornerRadius="4">
+            <local:CommonImageEx x:Name="CoverImage" ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />
+
+            <Grid
+                x:Name="DurationContainer"
+                Margin="8,0,0,8"
+                Padding="8,4"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Background="{ThemeResource AppMaskBrush}"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                RequestedTheme="Dark">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}" />
+            </Grid>
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Ellipse
+                    Width="40"
+                    Height="40"
+                    Fill="{ThemeResource AppMaskBrush}"
+                    Opacity="0.8" />
+                <icons:RegularFluentIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                    Symbol="Play16" />
+            </Grid>
+        </Grid>
+
+
+        <Grid
+            x:Name="ContentContainer"
+            Grid.Row="1"
+            RowSpacing="4">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="ContentRow" Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                x:Name="TitleBlock"
+                VerticalAlignment="Top"
+                FontSize="12"
+                MaxLines="2"
+                Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap">
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{x:Bind TitleBlock.IsTextTrimmed, Mode=OneWay}" />
+                </ToolTipService.ToolTip>
+            </TextBlock>
+
+            <local1:IconTextBlock
+                x:Name="InlineDurationBlock"
+                Grid.Row="1"
+                FontSize="12"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                IconFontSize="12"
+                Symbol="Timer16"
+                Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}"
+                Visibility="Collapsed" />
+        </Grid>
+    </Grid>
+</UserControl>
