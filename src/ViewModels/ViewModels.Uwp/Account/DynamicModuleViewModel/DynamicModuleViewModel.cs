@@ -24,7 +24,17 @@ namespace Richasy.Bili.ViewModels.Uwp
             DynamicCollection = new ObservableCollection<DynamicItem>();
             Controller.DynamicVideoIteration += OnDynamicVideoIteration;
             Controller.Logged += OnLoggedAsync;
+            Controller.LoggedOut += OnLoggedOut;
         }
+
+        /// <summary>
+        /// 点赞动态.
+        /// </summary>
+        /// <param name="item">条目.</param>
+        /// <param name="isLike">是否点赞.</param>
+        /// <returns>是否操作成功.</returns>
+        public Task<bool> LikeDynamicAsync(DynamicItem item, bool isLike)
+            => Controller.LikeDynamicAsync(item.Extend.DynIdStr, isLike, item.Extend.Uid, item.Extend.BusinessId);
 
         /// <inheritdoc/>
         public async Task RequestDataAsync()
@@ -42,9 +52,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <inheritdoc/>
         public async Task InitializeRequestAsync()
         {
-            if (AccountViewModel.Instance.Status != AccountViewModelStatus.Login)
+            if (!AccountViewModel.Instance.IsConnected)
             {
                 Reset();
+                IsShowLogin = true;
                 return;
             }
 
@@ -88,6 +99,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             _updateOffset = string.Empty;
             _baseLine = string.Empty;
             _isLoadCompleted = false;
+            IsShowLogin = false;
+            IsError = false;
         }
 
         private void OnDynamicVideoIteration(object sender, DynamicVideoIterationEventArgs e)
@@ -113,6 +126,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         private async void OnLoggedAsync(object sender, EventArgs e)
         {
             await InitializeRequestAsync();
+        }
+
+        private void OnLoggedOut(object sender, EventArgs e)
+        {
+            Reset();
+            IsShowLogin = true;
         }
     }
 }

@@ -60,5 +60,30 @@
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
         <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoFans}" Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
+
+        <StackPanel
+            x:Name="LoginContainer"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            x:Load="{x:Bind ViewModel.IsShowLogin, Mode=OneWay}"
+            Spacing="16"
+            Visibility="{x:Bind ViewModel.IsShowLogin, Mode=OneWay}">
+            <TextBlock
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                HorizontalAlignment="Center"
+                FontSize="28"
+                LineHeight="40"
+                Text="{loc:LocaleLocator Name=DynamicNeedLoginFirst}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="LoginButton"
+                Style="{StaticResource AccentButtonStyle}"
+                Height="40"
+                MinWidth="200"
+                HorizontalAlignment="Center"
+                Click="OnLoginButtonClickAsync"
+                Content="{loc:LocaleLocator Name=Login}" />
+        </StackPanel>
     </Grid>
 </Page>

@@ -303,6 +303,10 @@
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
+  <data name="DynamicNeedLoginFirst" xml:space="preserve">
+    <value>想查看关注的UP主的动态吗？
+快登录吧！</value>
+  </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
@@ -434,6 +438,9 @@
   </data>
   <data name="LoggerModuleDescription" xml:space="preserve">
     <value>查看应用日志或清除日志记录</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>

@@ -131,5 +131,16 @@ namespace Richasy.Bili.Controller.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 点赞/取消点赞动态.
+        /// </summary>
+        /// <param name="dynamicId">动态Id.</param>
+        /// <param name="isLike">是否点赞.</param>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="rid">扩展数据标识.</param>
+        /// <returns>是否操作成功.</returns>
+        public Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, long userId, string rid)
+            => _communityProvider.LikeDynamicAsync(dynamicId, isLike, userId, rid);
     }
 }

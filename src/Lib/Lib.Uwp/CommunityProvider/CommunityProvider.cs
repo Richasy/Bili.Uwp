@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -115,6 +116,29 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DynVideoReply.Parser);
             return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, long userId, string rid)
+        {
+            var req = new DynThumbReq
+            {
+                Type = isLike ? ThumbType.Thumb : ThumbType.Cancel,
+                DynId = dynamicId.ToString(),
+                Rid = rid,
+                Uid = Convert.ToInt64(userId),
+            };
+
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(Community.LikeDynamic, req, true);
+                _ = await _httpProvider.SendAsync(request);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

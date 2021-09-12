@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -83,7 +85,6 @@ namespace Richasy.Bili.App.Controls
                 var descModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDesc).FirstOrDefault()?.ModuleDesc;
                 var mainModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
                 var dataModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleStat).FirstOrDefault()?.ModuleStat;
-                var inteModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleInteraction).FirstOrDefault()?.ModuleInteraction;
 
                 if (userModule != null)
                 {
@@ -116,11 +117,13 @@ namespace Richasy.Bili.App.Controls
                 {
                     if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynPgc)
                     {
+                        instance.AddViewLaterButton.IsEnabled = false;
                         instance.MainContentPresenter.Content = new SeasonViewModel(mainModule.DynPgc);
                         instance.MainContentPresenter.ContentTemplate = instance.PgcTemplate;
                     }
                     else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArchive)
                     {
+                        instance.AddViewLaterButton.IsEnabled = !mainModule.DynArchive.IsPGC;
                         instance.MainContentPresenter.Content = new VideoViewModel(mainModule.DynArchive);
                         instance.MainContentPresenter.ContentTemplate = instance.VideoTemplate;
                     }
@@ -128,22 +131,17 @@ namespace Richasy.Bili.App.Controls
 
                 if (dataModule != null)
                 {
-                    instance.LikeCountBlock.Text = dataModule.Like.ToString();
+                    var numberToolkit = ServiceLocator.Instance.GetService<INumberToolkit>();
+                    instance.LikeCountBlock.Text = numberToolkit.GetCountText(dataModule.Like);
                     instance.ReplyCountBlock.Text = dataModule.Reply.ToString();
+                    instance.LikeButton.IsChecked = dataModule.LikeInfo.IsLike;
                 }
             }
         }
 
         private void OnCardClick(object sender, RoutedEventArgs e)
         {
-            if (MainContentPresenter.Content is VideoViewModel videoVM)
-            {
-                AppViewModel.Instance.OpenPlayer(videoVM);
-            }
-            else if (MainContentPresenter.Content is SeasonViewModel seasonVM)
-            {
-                AppViewModel.Instance.OpenPlayer(seasonVM);
-            }
+            OpenPlayer();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -157,6 +155,52 @@ namespace Richasy.Bili.App.Controls
             if (child is IDynamicLayoutItem item)
             {
                 item.Orientation = Orientation;
+            }
+        }
+
+        private void OnReplyButtonClick(object sender, RoutedEventArgs e)
+        {
+            OpenPlayer();
+            PlayerViewModel.Instance.InitializeSection = AppConstants.ReplySection;
+        }
+
+        private void OpenPlayer()
+        {
+            if (MainContentPresenter.Content is VideoViewModel videoVM)
+            {
+                AppViewModel.Instance.OpenPlayer(videoVM);
+            }
+            else if (MainContentPresenter.Content is SeasonViewModel seasonVM)
+            {
+                AppViewModel.Instance.OpenPlayer(seasonVM);
+            }
+        }
+
+        private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var dataModule = Data.Modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleStat).FirstOrDefault()?.ModuleStat;
+            var isLike = dataModule?.LikeInfo?.IsLike ?? false;
+            LikeButton.IsChecked = isLike;
+
+            LikeButton.IsEnabled = false;
+            var result = await DynamicModuleViewModel.Instance.LikeDynamicAsync(Data, !isLike);
+            if (result)
+            {
+                LikeButton.IsChecked = !isLike;
+                dataModule.Like = !isLike ? dataModule.Like + 1 : dataModule.Like - 1;
+                dataModule.LikeInfo.IsLike = !isLike;
+                var numberToolkit = ServiceLocator.Instance.GetService<INumberToolkit>();
+                LikeCountBlock.Text = numberToolkit.GetCountText(dataModule.Like);
+            }
+
+            LikeButton.IsEnabled = true;
+        }
+
+        private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (MainContentPresenter.Content is VideoViewModel videoVM)
+            {
+                await ViewLaterViewModel.Instance.AddAsync(videoVM);
             }
         }
     }

@@ -490,6 +490,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 未登录时的动态推荐.
             /// </summary>
             public const string DynamicWhenUnlogin = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynUnLoginRcmd";
+
+            /// <summary>
+            /// 点赞/取消点赞动态.
+            /// </summary>
+            public const string LikeDynamic = _grpcBase + "/bilibili.app.dynamic.v2.Dynamic/DynThumb";
         }
     }
 #pragma warning restore SA1401 // Fields should be private

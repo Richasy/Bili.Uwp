@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using Richasy.Bili.Models.App.Constants;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -41,7 +42,11 @@ namespace Richasy.Bili.App.Controls
                     return;
                 }
 
-                if (ViewModel.IsPgc && ViewModel.IsCurrentEpisodeInPgcSection)
+                if (!string.IsNullOrEmpty(ViewModel.InitializeSection))
+                {
+                    InitializeSelectedSection();
+                }
+                else if (ViewModel.IsPgc && ViewModel.IsCurrentEpisodeInPgcSection)
                 {
                     Nav.SelectedItem = SectionItem;
                 }
@@ -76,7 +81,11 @@ namespace Richasy.Bili.App.Controls
             }
             else if (e.PropertyName == nameof(ViewModel.IsCurrentEpisodeInPgcSection))
             {
-                if (ViewModel.IsCurrentEpisodeInPgcSection)
+                if (!string.IsNullOrEmpty(ViewModel.InitializeSection))
+                {
+                    InitializeSelectedSection();
+                }
+                else if (ViewModel.IsCurrentEpisodeInPgcSection)
                 {
                     Nav.SelectedItem = SectionItem;
                 }
@@ -85,6 +94,11 @@ namespace Richasy.Bili.App.Controls
             {
                 if (ViewModel.IsDetailCanLoaded)
                 {
+                    if (!string.IsNullOrEmpty(ViewModel.InitializeSection))
+                    {
+                        InitializeSelectedSection();
+                    }
+
                     InitializeLayoutAsync();
                 }
             }
@@ -143,6 +157,20 @@ namespace Richasy.Bili.App.Controls
                     await ReplyView.CheckInitializeAsync();
                 }
             }
+        }
+
+        private void InitializeSelectedSection()
+        {
+            switch (ViewModel.InitializeSection)
+            {
+                case AppConstants.ReplySection:
+                    Nav.SelectedItem = ReplyItem;
+                    break;
+                default:
+                    break;
+            }
+
+            ViewModel.InitializeSection = string.Empty;
         }
     }
 }

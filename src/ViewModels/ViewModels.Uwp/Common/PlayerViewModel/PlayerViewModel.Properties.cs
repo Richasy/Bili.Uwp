@@ -82,6 +82,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsAutoPlay => SettingViewModel.Instance.IsAutoPlayWhenLoaded;
 
         /// <summary>
+        /// 初始选中的分区.
+        /// </summary>
+        public string InitializeSection { get; set; } = string.Empty;
+
+        /// <summary>
         /// 调度器.
         /// </summary>
         public CoreDispatcher Dispatcher { get; set; }

@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -63,6 +65,20 @@
                     Background="Transparent"
                     BorderThickness="0">
                     <icons:RegularFluentIcon Symbol="MoreHorizontal16" />
+                    <Button.Flyout>
+                        <muxc:CommandBarFlyout Placement="Bottom">
+                            <muxc:CommandBarFlyout.SecondaryCommands>
+                                <AppBarButton
+                                    x:Name="AddViewLaterButton"
+                                    Click="OnAddToViewLaterItemClickAsync"
+                                    Label="{loc:LocaleLocator Name=AddToViewLater}">
+                                    <AppBarButton.Icon>
+                                        <icons:RegularFluentIcon Symbol="Add16" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+                            </muxc:CommandBarFlyout.SecondaryCommands>
+                        </muxc:CommandBarFlyout>
+                    </Button.Flyout>
                 </Button>
             </Grid>
 
@@ -88,7 +104,11 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <ToggleButton x:Name="LikeButton" BorderThickness="0">
+                <ToggleButton
+                    x:Name="LikeButton"
+                    Height="28"
+                    BorderThickness="0"
+                    Click="OnLikeButtonClickAsync">
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <icons:RegularFluentIcon
                             VerticalAlignment="Center"
@@ -104,7 +124,9 @@
                 <Button
                     x:Name="ReplyButton"
                     Grid.Column="1"
-                    BorderThickness="0">
+                    Height="28"
+                    BorderThickness="0"
+                    Click="OnReplyButtonClick">
                     <local:IconTextBlock
                         x:Name="ReplyCountBlock"
                         FontSize="12"
@@ -114,6 +136,7 @@
                 <Button
                     x:Name="ShareButton"
                     Grid.Column="3"
+                    Height="28"
                     BorderThickness="0">
                     <icons:RegularFluentIcon FontSize="14" Symbol="Share20" />
                 </Button>

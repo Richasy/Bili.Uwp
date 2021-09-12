@@ -52,5 +52,15 @@ namespace Richasy.Bili.App.Pages
         {
             await ViewModel.InitializeRequestAsync();
         }
+
+        private async void OnLoginButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            LoginButton.IsEnabled = false;
+            await AccountViewModel.Instance.TrySignInAsync();
+            if (LoginButton != null)
+            {
+                LoginButton.IsEnabled = true;
+            }
+        }
     }
 }

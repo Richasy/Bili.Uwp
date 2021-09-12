@@ -31,5 +31,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowEmpty { get; set; }
+
+        /// <summary>
+        /// 是否显示需要登录的提示.
+        /// </summary>
+        [Reactive]
+        public bool IsShowLogin { get; set; }
     }
 }
