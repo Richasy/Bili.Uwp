@@ -29,6 +29,9 @@
     <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
       <DependentUpon>DynamicItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Dynamic\DynamicPgcItem.xaml.cs">
+      <DependentUpon>DynamicPgcItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Dynamic\DynamicVideoItem.xaml.cs">
       <DependentUpon>DynamicVideoItem.xaml</DependentUpon>
     </Compile>
@@ -470,6 +473,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Dynamic\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicPgcItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

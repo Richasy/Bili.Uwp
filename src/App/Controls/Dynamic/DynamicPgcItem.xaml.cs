@@ -7,37 +7,37 @@ using Windows.UI.Xaml.Controls;
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
-    /// 动态视频条目.
+    /// 动态PGC条目.
     /// </summary>
-    public sealed partial class DynamicVideoItem : UserControl, IDynamicLayoutItem
+    public sealed partial class DynamicPgcItem : UserControl, IDynamicLayoutItem
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(DynamicVideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewModel), typeof(SeasonViewModel), typeof(DynamicPgcItem), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Orientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicVideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicPgcItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicVideoItem"/> class.
         /// </summary>
-        public DynamicVideoItem()
+        public DynamicPgcItem()
         {
             this.InitializeComponent();
             this.Loaded += OnLoaded;
         }
 
         /// <summary>
-        /// 视频视图模型.
+        /// 剧集视图模型.
         /// </summary>
-        public VideoViewModel ViewModel
+        public SeasonViewModel ViewModel
         {
-            get { return (VideoViewModel)GetValue(ViewModelProperty); }
+            get { return (SeasonViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
@@ -52,7 +52,7 @@ namespace Richasy.Bili.App.Controls
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as DynamicVideoItem;
+            var instance = d as DynamicPgcItem;
             instance.CheckOrientation();
         }
 

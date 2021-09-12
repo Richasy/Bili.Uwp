@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.DynamicVideoItem"
+    x:Class="Richasy.Bili.App.Controls.DynamicPgcItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local1="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -67,7 +67,7 @@
                 Background="{ThemeResource AppMaskBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 RequestedTheme="Dark">
-                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Duration, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}" />
             </Grid>
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -93,7 +93,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="ContentRow" Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock
@@ -109,30 +108,15 @@
                 </ToolTipService.ToolTip>
             </TextBlock>
 
-            <local:IconTextBlock
+            <local1:IconTextBlock
                 x:Name="InlineDurationBlock"
                 Grid.Row="1"
                 FontSize="12"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                 IconFontSize="12"
                 Symbol="Timer16"
-                Text="{x:Bind ViewModel.Duration, Mode=OneWay}"
+                Text="{x:Bind ViewModel.AdditionalText, Mode=OneWay}"
                 Visibility="Collapsed" />
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <local:IconTextBlock
-                    Margin="0,0,12,0"
-                    Opacity="0.6"
-                    Symbol="PlayCircle16"
-                    Text="{x:Bind ViewModel.PlayCount, Mode=OneWay}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}" />
-                <local:IconTextBlock
-                    Margin="0,0,12,0"
-                    Opacity="0.6"
-                    Symbol="SlideText16"
-                    Text="{x:Bind ViewModel.DanmakuCount, Mode=OneWay}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}" />
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

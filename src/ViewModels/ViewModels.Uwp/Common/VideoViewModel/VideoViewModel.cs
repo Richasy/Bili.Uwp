@@ -51,10 +51,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(archive.Duration));
             PlayCount = _numberToolkit.GetCountText(archive.View);
             DanmakuCount = archive.CoverLeftText3.Replace("弹幕", string.Empty).Trim();
-            VideoId = archive.Avid.ToString();
             Source = archive;
-            VideoType = Models.Enums.VideoType.Video;
             LimitCover(archive.Cover);
+
+            if (archive.IsPGC)
+            {
+                VideoType = Models.Enums.VideoType.Pgc;
+                var episodeId = new Uri(archive.Uri).Segments.Last().Replace("ep", string.Empty);
+                VideoId = episodeId;
+            }
+            else
+            {
+                VideoType = Models.Enums.VideoType.Video;
+                VideoId = archive.Avid.ToString();
+            }
         }
 
         /// <summary>

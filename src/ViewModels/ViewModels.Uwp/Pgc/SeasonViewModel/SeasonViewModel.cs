@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using Bilibili.App.Dynamic.V2;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -166,6 +168,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowBadge = !string.IsNullOrEmpty(item.BadgeText);
             IsShowTags = !string.IsNullOrEmpty(item.SeasonTypeName);
             IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SeasonViewModel"/> class.
+        /// </summary>
+        /// <param name="item">PGC动态条目.</param>
+        public SeasonViewModel(MdlDynPGC item)
+        {
+            var numberToolkit = ServiceLocator.Instance.GetService<INumberToolkit>();
+            Title = item.Title;
+            SeasonId = Convert.ToInt32(item.SeasonId);
+            EpisodeId = Convert.ToInt32(item.Epid);
+            CoverUrl = item.Cover + "@400w_250h_1c_100q.jpg";
+            AdditionalText = numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
+            SourceCoverUrl = item.Cover;
+            Source = item;
+
+            IsShowBadge = false;
+            IsShowAdditionalText = !string.IsNullOrEmpty(AdditionalText);
+            IsShowRating = false;
         }
     }
 }

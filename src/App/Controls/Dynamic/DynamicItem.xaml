@@ -15,10 +15,15 @@
         <DataTemplate x:Name="VideoTemplate" x:DataType="uwp:VideoViewModel">
             <local:DynamicVideoItem ViewModel="{x:Bind}" />
         </DataTemplate>
+        <DataTemplate x:Name="PgcTemplate" x:DataType="uwp:SeasonViewModel">
+            <local:DynamicPgcItem ViewModel="{x:Bind}" />
+        </DataTemplate>
     </UserControl.Resources>
 
-    <local:CardPanel x:Name="RootCard" IsEnableHoverAnimation="False"
-                     Click="OnCardClick">
+    <local:CardPanel
+        x:Name="RootCard"
+        Click="OnCardClick"
+        IsEnableHoverAnimation="False">
         <Grid Padding="12" RowSpacing="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -110,7 +115,7 @@
                     x:Name="ShareButton"
                     Grid.Column="3"
                     BorderThickness="0">
-                    <icons:RegularFluentIcon FontSize="12" Symbol="Share20" />
+                    <icons:RegularFluentIcon FontSize="14" Symbol="Share20" />
                 </Button>
             </Grid>
         </Grid>
