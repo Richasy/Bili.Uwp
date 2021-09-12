@@ -25,7 +25,7 @@
             Orientation="Vertical"
             Spacing="8" />
 
-        <controls:StaggeredLayout
+        <local:StaggeredLayout
             x:Name="StaggeredLayout"
             ColumnSpacing="16"
             DesiredColumnWidth="{x:Bind MinWideItemWidth, Mode=OneWay}"

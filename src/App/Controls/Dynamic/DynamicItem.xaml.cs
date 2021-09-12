@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -77,11 +78,12 @@ namespace Richasy.Bili.App.Controls
                 {
                     if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynPgc)
                     {
-                        instance.CoverImage.ImageUrl = mainModule.DynPgc.Cover + "@500w_350h_1c_100q.jpg";
+                        // instance.CoverImage.ImageUrl = mainModule.DynPgc.Cover + "@500w_350h_1c_100q.jpg";
                     }
                     else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArchive)
                     {
-                        instance.CoverImage.ImageUrl = mainModule.DynArchive.Cover + "@500w_350h_1c_100q.jpg";
+                        instance.MainContentPresenter.Content = new VideoViewModel(mainModule.DynArchive);
+                        instance.MainContentPresenter.ContentTemplate = instance.VideoTemplate;
                     }
                 }
 

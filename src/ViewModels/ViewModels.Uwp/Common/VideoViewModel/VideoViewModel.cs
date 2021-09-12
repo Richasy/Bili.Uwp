@@ -3,13 +3,13 @@
 using System;
 using System.Linq;
 using Bilibili.App.Card.V1;
+using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
 using Bilibili.App.Show.V1;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -36,7 +36,25 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = video.PartitionName;
             PartitionId = video.PartitionId;
             Source = video;
+            VideoType = Models.Enums.VideoType.Video;
             LimitCover(video.Cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="archive">稿件.</param>
+        public VideoViewModel(MdlDynArchive archive)
+            : this()
+        {
+            Title = archive.Title ?? string.Empty;
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(archive.Duration));
+            PlayCount = _numberToolkit.GetCountText(archive.View);
+            DanmakuCount = archive.CoverLeftText3.Replace("弹幕", string.Empty).Trim();
+            VideoId = archive.Avid.ToString();
+            Source = archive;
+            VideoType = Models.Enums.VideoType.Video;
+            LimitCover(archive.Cover);
         }
 
         /// <summary>
@@ -117,7 +135,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 DanmakuCount = string.Empty;
                 Publisher = new UserViewModel(card.Description?.Text);
                 Duration = "--";
-                VideoType = VideoType.Pgc;
+                VideoType = Models.Enums.VideoType.Pgc;
             }
 
             AdditionalText = card.RecommendReason ?? string.Empty;
@@ -159,7 +177,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionId = Convert.ToInt32(followRoom.DisplayAreaId);
             LimitCover(followRoom.Cover);
             Source = followRoom;
-            VideoType = VideoType.Live;
+            VideoType = Models.Enums.VideoType.Live;
         }
 
         /// <summary>
@@ -177,7 +195,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionId = Convert.ToInt32(card.AreaId);
             LimitCover(card.Cover);
             Source = card;
-            VideoType = VideoType.Live;
+            VideoType = Models.Enums.VideoType.Live;
         }
 
         /// <summary>
@@ -200,7 +218,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LimitCover(relate.Pic);
             Source = relate;
             VideoType = relate.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase) ?
-                VideoType.Video : VideoType.Pgc;
+                Models.Enums.VideoType.Video : Models.Enums.VideoType.Pgc;
         }
 
         /// <summary>
@@ -210,7 +228,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(VideoSearchItem item)
             : this()
         {
-            VideoType = VideoType.Video;
+            VideoType = Models.Enums.VideoType.Video;
             Title = item.Title;
             VideoId = item.Parameter;
             PlayCount = _numberToolkit.GetCountText(item.PlayCount);
@@ -228,7 +246,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(LiveSearchItem item)
             : this()
         {
-            VideoType = VideoType.Live;
+            VideoType = Models.Enums.VideoType.Live;
             Title = item.Title;
             VideoId = item.RoomId.ToString();
             Publisher = new UserViewModel(item.Name, userId: item.UserId);
@@ -236,7 +254,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PartitionName = item.AreaName;
             LimitCover(item.Cover);
             Source = item;
-            VideoType = VideoType.Live;
+            VideoType = Models.Enums.VideoType.Live;
         }
 
         /// <summary>
@@ -246,7 +264,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(UserSpaceVideoItem item)
             : this()
         {
-            VideoType = item.IsPgc ? VideoType.Pgc : VideoType.Video;
+            VideoType = item.IsPgc ? Models.Enums.VideoType.Pgc : Models.Enums.VideoType.Video;
             Title = item.Title;
             VideoId = item.Id;
             PartitionName = item.PartitionName;
@@ -265,10 +283,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(CursorItem item)
             : this()
         {
-            VideoType = item.CardItemCase == CursorItem.CardItemOneofCase.CardUgc ? VideoType.Video : VideoType.Pgc;
+            VideoType = item.CardItemCase == CursorItem.CardItemOneofCase.CardUgc ? Models.Enums.VideoType.Video : Models.Enums.VideoType.Pgc;
             Title = item.Title;
             VideoId = item.Kid.ToString();
-            if (VideoType == VideoType.Video)
+            if (VideoType == Models.Enums.VideoType.Video)
             {
                 var video = item.CardUgc;
                 PlayCount = _numberToolkit.GetCountText(video.View);
@@ -276,7 +294,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Publisher = new UserViewModel(video.Name, userId: Convert.ToInt32(video.Mid));
                 LimitCover(video.Cover);
             }
-            else if (VideoType == VideoType.Pgc)
+            else if (VideoType == Models.Enums.VideoType.Pgc)
             {
                 var pgc = item.CardOgv;
                 var uri = new Uri(item.Uri);
@@ -302,7 +320,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(FavoriteMedia media)
             : this()
         {
-            VideoType = VideoType.Video;
+            VideoType = Models.Enums.VideoType.Video;
             Title = media.Title;
             VideoId = media.Id.ToString();
             PlayCount = _numberToolkit.GetCountText(media.Stat.PlayCount);
@@ -316,7 +334,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);
-            VideoType = VideoType.Video;
+            VideoType = Models.Enums.VideoType.Video;
         }
 
         /// <summary>

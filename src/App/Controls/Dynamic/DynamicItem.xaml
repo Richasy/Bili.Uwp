@@ -6,9 +6,16 @@
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Name="VideoTemplate" x:DataType="uwp:VideoViewModel">
+            <local:DynamicVideoItem ViewModel="{x:Bind}" />
+        </DataTemplate>
+    </UserControl.Resources>
 
     <local:CardPanel x:Name="RootCard" IsEnableHoverAnimation="False">
         <Grid Padding="12" RowSpacing="12">
@@ -64,22 +71,7 @@
 
             <!-- 主体内容，比如视频封面 -->
             <Grid x:Name="MainContainer" Grid.Row="2">
-                <Grid CornerRadius="{StaticResource ControlCornerRadius}">
-                    <local:CommonImageEx x:Name="CoverImage" Height="200" />
-                </Grid>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Ellipse
-                        Width="40"
-                        Height="40"
-                        Fill="{ThemeResource SystemAccentColorLight2}"
-                        Opacity="0.8" />
-                    <icons:RegularFluentIcon
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                        Symbol="Play16" />
-                </Grid>
+                <ContentPresenter x:Name="MainContentPresenter" />
             </Grid>
 
             <!-- 操作 -->

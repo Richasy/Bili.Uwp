@@ -26,8 +26,11 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
-    <Compile Include="Controls\Common\DynamicItem.xaml.cs">
+    <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
       <DependentUpon>DynamicItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicVideoItem.xaml.cs">
+      <DependentUpon>DynamicVideoItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
@@ -66,6 +69,10 @@
     <Compile Include="Controls\Common\ReaderView.xaml.cs">
       <DependentUpon>ReaderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -462,7 +469,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\DynamicItem.xaml">
+    <Page Include="Controls\Dynamic\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicVideoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
