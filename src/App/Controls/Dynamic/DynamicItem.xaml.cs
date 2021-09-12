@@ -94,5 +94,13 @@ namespace Richasy.Bili.App.Controls
                 }
             }
         }
+
+        private void OnCardClick(object sender, RoutedEventArgs e)
+        {
+            if (MainContentPresenter.Content is VideoViewModel videoVM)
+            {
+                AppViewModel.Instance.OpenPlayer(videoVM);
+            }
+        }
     }
 }

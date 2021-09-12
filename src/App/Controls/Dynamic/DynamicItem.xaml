@@ -17,7 +17,8 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <local:CardPanel x:Name="RootCard" IsEnableHoverAnimation="False">
+    <local:CardPanel x:Name="RootCard" IsEnableHoverAnimation="False"
+                     Click="OnCardClick">
         <Grid Padding="12" RowSpacing="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
