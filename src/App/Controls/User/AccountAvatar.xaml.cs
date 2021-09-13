@@ -122,5 +122,10 @@ namespace Richasy.Bili.App.Controls
         {
             FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
         }
+
+        private async void OnFlyoutOpenedAsync(object sender, object e)
+        {
+            await ViewModel.InitCommunityInformationAsync();
+        }
     }
 }

@@ -471,5 +471,57 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>结果.</returns>
         public Task<bool> RemoveFavoriteArticleAsync(int articleId)
             => _accountProvider.RemoveFavoriteArticleAsync(articleId);
+
+        /// <summary>
+        /// 获取未读消息.
+        /// </summary>
+        /// <returns>未读消息.</returns>
+        public Task<UnreadMessage> GetUnreadMessageAsync()
+            => _accountProvider.GetUnreadMessageAsync();
+
+        /// <summary>
+        /// 请求消息列表.
+        /// </summary>
+        /// <param name="type">消息类型.</param>
+        /// <param name="id">消息偏移Id.</param>
+        /// <param name="offsetTime">偏移时间.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestMessageAsync(MessageType type, long id = 0, long offsetTime = 0)
+        {
+            MessageIterationEventArgs args = null;
+
+            try
+            {
+                switch (type)
+                {
+                    case MessageType.Like:
+                        var likeResponse = await _accountProvider.GetLikeMessagesAsync(id, offsetTime);
+                        args = new MessageIterationEventArgs(likeResponse);
+                        break;
+                    case MessageType.At:
+                        var atResponse = await _accountProvider.GetAtMessagesAsync(id, offsetTime);
+                        args = new MessageIterationEventArgs(atResponse);
+                        break;
+                    case MessageType.Reply:
+                        var replyResponse = await _accountProvider.GetReplyMessagesAsync(id, offsetTime);
+                        args = new MessageIterationEventArgs(replyResponse);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                if (id == 0)
+                {
+                    throw;
+                }
+            }
+
+            if (args != null)
+            {
+                MessageIteration?.Invoke(this, args);
+            }
+        }
     }
 }

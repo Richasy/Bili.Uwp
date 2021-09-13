@@ -108,5 +108,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsConnected { get; set; }
+
+        /// <summary>
+        /// 未读消息数.
+        /// </summary>
+        [Reactive]
+        public int UnreadMessageCount { get; set; }
+
+        /// <summary>
+        /// 是否显示未读消息数.
+        /// </summary>
+        [Reactive]
+        public bool IsShowUnreadMessage { get; set; }
     }
 }

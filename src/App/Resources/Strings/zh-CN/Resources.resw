@@ -147,6 +147,12 @@
   <data name="AppTip" xml:space="preserve">
     <value>应用提示</value>
   </data>
+  <data name="AtMe" xml:space="preserve">
+    <value>@我的</value>
+  </data>
+  <data name="AtMessageTypeDescription" xml:space="preserve">
+    <value>在{0}中@了我</value>
+  </data>
   <data name="Automatic" xml:space="preserve">
     <value>自动</value>
   </data>
@@ -415,6 +421,9 @@
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
+  <data name="Lastest" xml:space="preserve">
+    <value>最新</value>
+  </data>
   <data name="LastestReply" xml:space="preserve">
     <value>最新评论</value>
   </data>
@@ -426,6 +435,15 @@
   </data>
   <data name="LikeCount" xml:space="preserve">
     <value>点赞数</value>
+  </data>
+  <data name="LikeMe" xml:space="preserve">
+    <value>收到的赞</value>
+  </data>
+  <data name="LikeMessageMultipleDescription" xml:space="preserve">
+    <value>{0}, {1} 等{2}人赞了我的{3}</value>
+  </data>
+  <data name="LikeMessageSingleDescription" xml:space="preserve">
+    <value>{0} 赞了我的{1}</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
@@ -453,6 +471,9 @@
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
+  </data>
+  <data name="MorePeople" xml:space="preserve">
+    <value>等人</value>
   </data>
   <data name="MoreReplyDisplay" xml:space="preserve">
     <value>共{0}条回复 ⪢</value>
@@ -655,6 +676,12 @@
   <data name="ReplyDetail" xml:space="preserve">
     <value>评论详情</value>
   </data>
+  <data name="ReplyMe" xml:space="preserve">
+    <value>回复我的</value>
+  </data>
+  <data name="ReplyMessageTypeDescription" xml:space="preserve">
+    <value>对我的{0}发表了{1}条评论</value>
+  </data>
   <data name="ReplyPlaceholderText" xml:space="preserve">
     <value>写下你的评论吧~</value>
   </data>
@@ -702,6 +729,9 @@
   </data>
   <data name="RequestLivePlayInformationFailed" xml:space="preserve">
     <value>请求直播播放信息失败</value>
+  </data>
+  <data name="RequestMessageFailed" xml:space="preserve">
+    <value>请求消息失败</value>
   </data>
   <data name="RequestPgcFailed" xml:space="preserve">
     <value>PGC内容请求失败</value>

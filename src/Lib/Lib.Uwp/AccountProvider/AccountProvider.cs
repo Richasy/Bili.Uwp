@@ -379,5 +379,26 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
         }
+
+        /// <inheritdoc/>
+        public async Task<UnreadMessage> GetUnreadMessageAsync()
+        {
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MessageUnread, null, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UnreadMessage>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public Task<LikeMessageResponse> GetLikeMessagesAsync(long id, long likeTime)
+            => GetMessageInternalAsync<LikeMessageResponse>(Models.Enums.App.MessageType.Like, id, likeTime);
+
+        /// <inheritdoc/>
+        public Task<AtMessageResponse> GetAtMessagesAsync(long id, long atTime)
+            => GetMessageInternalAsync<AtMessageResponse>(Models.Enums.App.MessageType.At, id, atTime);
+
+        /// <inheritdoc/>
+        public Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime)
+            => GetMessageInternalAsync<ReplyMessageResponse>(Models.Enums.App.MessageType.Reply, id, replyTime);
     }
 }

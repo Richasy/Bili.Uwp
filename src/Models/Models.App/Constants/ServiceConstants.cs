@@ -160,6 +160,9 @@ namespace Richasy.Bili.Models.App.Constants
             public const string ReplyId = "rpid";
             public const string Parent = "parent";
             public const string Root = "root";
+            public const string LikeTime = "like_time";
+            public const string AtTime = "at_time";
+            public const string ReplyTime = "reply_time";
         }
 
         public static class Sort

@@ -17,6 +17,7 @@
         <Flyout
             x:Key="AvatarFlyout"
             FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}"
+            Opened="OnFlyoutOpenedAsync"
             Placement="Bottom">
             <Grid>
                 <Grid.RowDefinitions>
@@ -46,8 +47,32 @@
                     <Button Click="OnNavigateToMyHomePageButtonClickAsync">
                         <local:IconTextBlock Symbol="Globe16" Text="{loc:LocaleLocator Name=MyWebPage}" />
                     </Button>
-                    <Button ext:NavigationExtension.PageId="Message" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="Chat16" Text="{loc:LocaleLocator Name=Message}" />
+                    <Button
+                        HorizontalContentAlignment="Stretch"
+                        ext:NavigationExtension.PageId="Message"
+                        Click="OnNavigateButtonClick">
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <local:IconTextBlock
+                                VerticalAlignment="Center"
+                                Symbol="Chat16"
+                                Text="{loc:LocaleLocator Name=Message}" />
+                            <Border
+                                Grid.Column="1"
+                                Padding="4"
+                                VerticalAlignment="Center"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                CornerRadius="2"
+                                Visibility="{x:Bind ViewModel.IsShowUnreadMessage, Mode=OneWay}">
+                                <TextBlock
+                                    FontSize="10"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Text="{x:Bind ViewModel.UnreadMessageCount, Mode=OneWay}" />
+                            </Border>
+                        </Grid>
                     </Button>
                     <Button ext:NavigationExtension.PageId="Favorite" Click="OnNavigateButtonClick">
                         <local:IconTextBlock Symbol="StarLineHorizontal320" Text="{loc:LocaleLocator Name=MyFavorite}" />
@@ -94,6 +119,13 @@
             FlyoutBase.AttachedFlyout="{StaticResource AvatarFlyout}"
             Tapped="OnUserAvatarTappedAsync"
             UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
+        <Ellipse
+            Width="8"
+            Height="8"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Fill="{ThemeResource SystemFillColorCritical}"
+            Visibility="{x:Bind ViewModel.IsShowUnreadMessage, Mode=OneWay}" />
         <Viewbox x:Name="LoadingContainer" Visibility="Collapsed">
             <muxc:ProgressRing x:Name="LoadingRing" Style="{StaticResource PageProgressRingStyle}" />
         </Viewbox>

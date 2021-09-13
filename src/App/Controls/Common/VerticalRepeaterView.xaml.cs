@@ -318,10 +318,15 @@ namespace Richasy.Bili.App.Controls
 
         private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
         {
-            if (args.Element != null && args.Element is IDynamicLayoutItem dynamicLayoutItem && args.Element is IRepeaterItem repeaterItem)
+            if (args.Element != null)
             {
-                dynamicLayoutItem.Orientation = ItemOrientation;
+                if (args.Element is IDynamicLayoutItem dynamicLayoutItem)
+                {
+                    dynamicLayoutItem.Orientation = ItemOrientation;
+                }
+
                 if (IsAutoFillEnable &&
+                    args.Element is IRepeaterItem repeaterItem &&
                     ItemsSource is ICollection collectionSource &&
                     (_parentScrollViewer != null || _parentScrollView != null) &&
                     args.Index >= collectionSource.Count - 1)

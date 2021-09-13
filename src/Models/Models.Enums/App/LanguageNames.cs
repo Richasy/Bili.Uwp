@@ -287,6 +287,16 @@ namespace Richasy.Bili.Models.Enums
         RequestArticleFailed,
         DynamicNeedLoginFirst,
         Login,
+        RequestMessageFailed,
+        AtMe,
+        ReplyMe,
+        LikeMe,
+        Lastest,
+        LikeMessageMultipleDescription,
+        LikeMessageSingleDescription,
+        AtMessageTypeDescription,
+        ReplyMessageTypeDescription,
+        MorePeople,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

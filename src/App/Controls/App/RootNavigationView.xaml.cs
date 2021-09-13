@@ -214,6 +214,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.TimeLine:
                     pageType = typeof(TimeLinePage);
                     break;
+                case PageIds.Message:
+                    pageType = typeof(MessagePage);
+                    break;
                 default:
                     break;
             }
