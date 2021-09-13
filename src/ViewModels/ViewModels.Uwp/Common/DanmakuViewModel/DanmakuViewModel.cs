@@ -92,6 +92,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             _danmakuList = new List<DanmakuElem>();
             FontCollection = new ObservableCollection<string>();
             StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
+            LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
@@ -114,7 +115,13 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.Stroke);
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.Shadow);
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.NoStroke);
+
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Scroll);
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Top);
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Bottom);
+
             DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Stroke);
+            Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -150,6 +157,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(IsStandardSize):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuStandardSize, IsStandardSize);
+                    break;
+                case nameof(Location):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuLocation, Location);
                     break;
                 default:
                     break;

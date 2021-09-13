@@ -31,6 +31,7 @@ namespace Richasy.Bili.Models.Enums
         IsDanmakuBold,
         Volume,
         IsDanmakuStandardSize,
+        DanmakuLocation,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

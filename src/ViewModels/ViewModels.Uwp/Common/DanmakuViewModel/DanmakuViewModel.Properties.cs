@@ -105,6 +105,18 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         [Reactive]
         public bool IsStandardSize { get; set; }
 
+        /// <summary>
+        /// 弹幕位置.
+        /// </summary>
+        [Reactive]
+        public DanmakuLocation Location { get; set; }
+
+        /// <summary>
+        /// 弹幕位置可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<DanmakuLocation> LocationCollection { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

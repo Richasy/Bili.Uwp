@@ -171,6 +171,9 @@
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
   </data>
+  <data name="BottomDanmaku" xml:space="preserve">
+    <value>底部弹幕</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -379,6 +382,9 @@
   <data name="FollowSystem" xml:space="preserve">
     <value>跟随系统</value>
   </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>字号</value>
+  </data>
   <data name="FullScreenMode" xml:space="preserve">
     <value>全屏模式</value>
   </data>
@@ -447,6 +453,9 @@
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>位置</value>
   </data>
   <data name="LoggerFolder" xml:space="preserve">
     <value>日志文件夹</value>
@@ -778,6 +787,9 @@
   <data name="Score" xml:space="preserve">
     <value>评分</value>
   </data>
+  <data name="ScrollDanmaku" xml:space="preserve">
+    <value>滚动弹幕</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>搜索</value>
   </data>
@@ -915,6 +927,9 @@
   </data>
   <data name="Top" xml:space="preserve">
     <value>置顶</value>
+  </data>
+  <data name="TopDanmaku" xml:space="preserve">
+    <value>置顶弹幕</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>专题</value>

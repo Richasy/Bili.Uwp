@@ -47,8 +47,9 @@
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
                 <icons:RegularFluentIcon Symbol="TextEffects24" />
                 <Button.Flyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
-                        <local:DanmakuSendOptions />
+                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}"
+                            Opened="OnSendFlyoutOpened">
+                        <local:DanmakuSendOptions x:Name="SendOptions"/>
                     </Flyout>
                 </Button.Flyout>
             </Button>

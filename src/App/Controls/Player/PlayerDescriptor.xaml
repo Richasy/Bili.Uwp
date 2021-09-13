@@ -98,28 +98,14 @@
                         ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
                         Visibility="{x:Bind ViewModel.ViewerCount, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                 </StackPanel>
-                <TextBlock
+                <local:TrimTextBlock
                     x:Name="DescriptionBlock"
-                    Style="{StaticResource BodyTextBlockStyle}"
                     MaxWidth="600"
                     HorizontalAlignment="Left"
-                    FontSize="12"
+                    FontSize="13"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    LineHeight="20"
-                    MaxLines="6"
-                    Text="{x:Bind ViewModel.Description, Mode=OneWay}"
-                    TextTrimming="CharacterEllipsis"
-                    TextWrapping="Wrap">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="{x:Bind ViewModel.Description, Mode=OneWay}" IsEnabled="{Binding ElementName=DescriptionBlock, Mode=OneWay, Path=IsTextTrimmed}" />
-                    </ToolTipService.ToolTip>
-                </TextBlock>
-                <TextBlock
-                    Margin="0,-8,0,0"
-                    HorizontalAlignment="Left"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="..."
-                    Visibility="{Binding ElementName=DescriptionBlock, Path=IsTextTrimmed}" />
+                    MaxLines="5"
+                    Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
             </StackPanel>
         </Grid>
 

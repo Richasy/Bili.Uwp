@@ -299,6 +299,11 @@ namespace Richasy.Bili.Models.Enums
         MorePeople,
         Standard,
         Small,
+        FontSize,
+        Location,
+        ScrollDanmaku,
+        TopDanmaku,
+        BottomDanmaku,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
