@@ -40,8 +40,9 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private void OnDynamicButtonClick(object sender, RoutedEventArgs e)
+        private async void OnDynamicButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            await UserView.Instance.ShowAsync(AccountViewModel.Instance.Mid.Value);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 

@@ -26,6 +26,12 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\Message\AtMessageView.xaml.cs">
+      <DependentUpon>AtMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Message\AtMessageItem.xaml.cs">
+      <DependentUpon>AtMessageItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
       <DependentUpon>DynamicItem.xaml</DependentUpon>
     </Compile>
@@ -48,6 +54,13 @@
     <Compile Include="Controls\Favorite\PgcFavoritePanel.xaml.cs">
       <DependentUpon>PgcFavoritePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Message\LikeMessageItem.xaml.cs">
+      <DependentUpon>LikeMessageItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Message\LikeMessageView.xaml.cs">
+      <DependentUpon>LikeMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Message\MessageComponent.cs" />
     <Compile Include="Controls\Pgc\PgcDetailView.xaml.cs">
       <DependentUpon>PgcDetailView.xaml</DependentUpon>
     </Compile>
@@ -76,6 +89,12 @@
     <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
+    <Compile Include="Controls\Message\ReplyMessageItem.xaml.cs">
+      <DependentUpon>ReplyMessageItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Message\ReplyMessageView.xaml.cs">
+      <DependentUpon>ReplyMessageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -257,6 +276,9 @@
     </Compile>
     <Compile Include="Pages\Overlay\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Overlay\MessagePage.xaml.cs">
+      <DependentUpon>MessagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
@@ -472,6 +494,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Message\AtMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Message\AtMessageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Dynamic\DynamicItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -497,6 +527,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Favorite\PgcFavoritePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Message\LikeMessageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Message\LikeMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -529,6 +567,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\ReaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Message\ReplyMessageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Message\ReplyMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -765,6 +811,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\HistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\MessagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

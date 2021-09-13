@@ -204,5 +204,35 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="articleId">文章Id.</param>
         /// <returns>结果.</returns>
         Task<bool> RemoveFavoriteArticleAsync(int articleId);
+
+        /// <summary>
+        /// 获取未读消息.
+        /// </summary>
+        /// <returns>未读消息.</returns>
+        Task<UnreadMessage> GetUnreadMessageAsync();
+
+        /// <summary>
+        /// 获取点赞消息列表.
+        /// </summary>
+        /// <param name="id">偏移值Id.</param>
+        /// <param name="likeTime">点赞的时间，偏移的标识符.</param>
+        /// <returns>点赞消息响应结果.</returns>
+        Task<LikeMessageResponse> GetLikeMessagesAsync(long id, long likeTime);
+
+        /// <summary>
+        /// 获取@我的消息列表.
+        /// </summary>
+        /// <param name="id">偏移值Id.</param>
+        /// <param name="atTime">At的时间，偏移的标识符.</param>
+        /// <returns>@我的消息响应结果.</returns>
+        Task<AtMessageResponse> GetAtMessagesAsync(long id, long atTime);
+
+        /// <summary>
+        /// 获取回复我的消息列表.
+        /// </summary>
+        /// <param name="id">偏移值Id.</param>
+        /// <param name="replyTime">回复的时间，偏移的标识符.</param>
+        /// <returns>回复我的消息响应结果.</returns>
+        Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime);
     }
 }

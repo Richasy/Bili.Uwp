@@ -68,6 +68,37 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 初始化用户社交信息.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitCommunityInformationAsync()
+        {
+            var data = await _controller.GetMyDataAsync();
+            DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
+            FollowCount = _numberToolkit.GetCountText(data.FollowCount);
+            FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
+
+            await InitUnreadAsync();
+        }
+
+        /// <summary>
+        /// 加载未读消息数据.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitUnreadAsync()
+        {
+            try
+            {
+                var unread = await _controller.GetUnreadMessageAsync();
+                UnreadMessageCount = unread.At + unread.Like + unread.Reply;
+                IsShowUnreadMessage = UnreadMessageCount != 0;
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         private void OnLoggedOut(object sender, EventArgs e)
         {
             this.Status = AccountViewModelStatus.Logout;
@@ -107,10 +138,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 TipText = $"{e.Name} Lv.{e.Level}";
                 IsVip = e.VIP.Status == 1;
 
-                var data = await _controller.GetMyDataAsync();
-                DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
-                FollowCount = _numberToolkit.GetCountText(data.FollowCount);
-                FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
+                await InitUnreadAsync();
             }
         }
 
@@ -123,6 +151,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             TipText = _resourceToolkit.GetLocaleString(LanguageNames.PleaseSignIn);
             IsVip = false;
             IsConnected = false;
+            IsShowUnreadMessage = false;
+            UnreadMessageCount = 0;
         }
     }
 }

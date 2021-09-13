@@ -196,6 +196,26 @@ namespace Richasy.Bili.Models.App.Constants
             /// 删除视频收藏夹.
             /// </summary>
             public const string DeleteFavoriteFolder = _apiBase + "/x/v3/fav/folder/del";
+
+            /// <summary>
+            /// 获取未读消息.
+            /// </summary>
+            public const string MessageUnread = _apiBase + "/x/msgfeed/unread";
+
+            /// <summary>
+            /// 获取点赞消息.
+            /// </summary>
+            public const string MessageLike = _apiBase + "/x/msgfeed/like";
+
+            /// <summary>
+            /// 获取@我的消息.
+            /// </summary>
+            public const string MessageAt = _apiBase + "/x/msgfeed/at";
+
+            /// <summary>
+            /// 获取回复我的消息.
+            /// </summary>
+            public const string MessageReply = _apiBase + "/x/msgfeed/reply";
         }
 
         public static class Partition

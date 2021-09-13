@@ -250,6 +250,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<DynamicVideoIterationEventArgs> DynamicVideoIteration;
 
         /// <summary>
+        /// 在消息更新时发生.
+        /// </summary>
+        public event EventHandler<MessageIterationEventArgs> MessageIteration;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
