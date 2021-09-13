@@ -40,6 +40,7 @@
                         <Setter Target="MainGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
                         <Setter Target="MainGrid.CornerRadius" Value="0" />
+                        <Setter Target="HeaderContainer.Margin" Value="{StaticResource NarrowContainerPadding}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -131,13 +132,29 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                    <Grid
+                        x:Name="HeaderContainer"
+                        Margin="{StaticResource DefaultContainerPadding}"
+                        ColumnSpacing="12"
+                        Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                        <Button
+                            x:Name="RefreshButton"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Click="OnRefreshButtonClickAsync"
+                            Visibility="Collapsed">
+                            <local:IconTextBlock Symbol="ArrowSync16" Text="{loc:LocaleLocator Name=Refresh}" />
+                        </Button>
+                    </Grid>
                     <Frame
                         x:Name="MainFrame"
                         Grid.Row="1"
+                        Navigated="OnMainFrameNavigated"
                         Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                     <Frame
                         x:Name="OverlayFrame"

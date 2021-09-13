@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 番剧页面.
     /// </summary>
-    public sealed partial class BangumiPage : Page
+    public sealed partial class BangumiPage : Page, IRefreshPage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BangumiPage"/> class.
@@ -22,6 +22,10 @@ namespace Richasy.Bili.App.Pages
             this.InitializeComponent();
             this.Loaded += OnLoaded;
         }
+
+        /// <inheritdoc/>
+        public Task RefreshAsync()
+            => (RootFrame.Content as IRefreshPage).RefreshAsync();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {

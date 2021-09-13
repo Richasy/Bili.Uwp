@@ -28,6 +28,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="RefreshButton.Margin" Value="{StaticResource NarrowContainerPadding}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -52,6 +53,16 @@
                 <muxc:NavigationViewItem x:Name="AtMeNavItem" Content="{loc:LocaleLocator Name=AtMe}" />
                 <muxc:NavigationViewItem x:Name="LikeMeNavItem" Content="{loc:LocaleLocator Name=LikeMe}" />
             </muxc:NavigationView.MenuItems>
+
+            <muxc:NavigationView.PaneFooter>
+                <Button
+                    x:Name="RefreshButton"
+                    Margin="{StaticResource DefaultContainerPadding}"
+                    VerticalAlignment="Center"
+                    Click="OnRefreshButtonClickAsync">
+                    <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:LocaleLocator Name=Refresh}" />
+                </Button>
+            </muxc:NavigationView.PaneFooter>
 
             <Grid>
                 <ScrollViewer

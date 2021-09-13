@@ -13,7 +13,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 动漫页面，属于番剧和国创的共有页面.
     /// </summary>
-    public sealed partial class AnimePage : Page
+    public sealed partial class AnimePage : Page, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -38,6 +38,10 @@ namespace Richasy.Bili.App.Pages
             get { return (AnimeViewModelBase)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
+
+        /// <inheritdoc/>
+        public Task RefreshAsync()
+            => ViewModel.CurrentTab.InitializePartitionRequestAsync();
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -68,20 +72,9 @@ namespace Richasy.Bili.App.Pages
             CheckCurrentTabAsync(true);
         }
 
-        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
-        {
-            if (!ViewModel.CurrentTab.IsInitializeLoading && !ViewModel.CurrentTab.IsDeltaLoading)
-            {
-                await ViewModel.CurrentTab.DeltaPartitionRequestAsync();
-            }
-        }
-
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.CurrentTab.IsInitializeLoading && !ViewModel.CurrentTab.IsDeltaLoading)
-            {
-                await ViewModel.CurrentTab.InitializePartitionRequestAsync();
-            }
+            await RefreshAsync();
         }
 
         private async void CheckCurrentTabAsync(bool needDelay = false)
@@ -120,6 +113,11 @@ namespace Richasy.Bili.App.Pages
         private void OnTimeChartButtonClick(object sender, RoutedEventArgs e)
         {
             AppViewModel.Instance.SetOverlayContentId(PageIds.TimeLine, ViewModel);
+        }
+
+        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        {
+            await ViewModel.CurrentTab.DeltaPartitionRequestAsync();
         }
     }
 }

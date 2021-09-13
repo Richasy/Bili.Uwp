@@ -78,7 +78,7 @@
                 Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
         </Grid>
 
-        <muxc:RefreshContainer RefreshRequested="OnRefreshRequestedAsync">
+        <Grid>
             <ScrollViewer
                 x:Name="RootScrollViewer"
                 Padding="0,0,24,0"
@@ -152,7 +152,7 @@
                     </Grid>
                 </Grid>
             </ScrollViewer>
-        </muxc:RefreshContainer>
+        </Grid>
 
 
         <controls:ErrorPanel

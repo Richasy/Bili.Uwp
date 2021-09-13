@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +12,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 首页.
     /// </summary>
-    public sealed partial class RecommendPage : Page
+    public sealed partial class RecommendPage : Page, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -36,6 +38,10 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <inheritdoc/>
+        public Task RefreshAsync()
+            => ViewModel.InitializeRequestAsync();
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             if (!ViewModel.VideoCollection.Any())
@@ -50,22 +56,9 @@ namespace Richasy.Bili.App.Pages
             await ViewModel.RequestDataAsync();
         }
 
-        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
-        {
-            var def = args.GetDeferral();
-            if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
-            {
-                ViewModel.Reset();
-                await ViewModel.RequestDataAsync();
-            }
-
-            def.Complete();
-            def.Dispose();
-        }
-
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await ViewModel.RequestDataAsync();
+            await RefreshAsync();
         }
     }
 }

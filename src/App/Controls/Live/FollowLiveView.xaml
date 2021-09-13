@@ -58,7 +58,7 @@
                 Text="{loc:LocaleLocator Name=FollowLiveRoom}"
                 TextTrimming="CharacterEllipsis" />
 
-            <Button
+            <!--<Button
                 x:Name="SeeAllButton"
                 Grid.Column="1"
                 VerticalAlignment="Center">
@@ -68,7 +68,7 @@
                         Symbol="List16"
                         Text="{loc:LocaleLocator Name=SeeAll}" />
                 </StackPanel>
-            </Button>
+            </Button>-->
         </Grid>
 
 

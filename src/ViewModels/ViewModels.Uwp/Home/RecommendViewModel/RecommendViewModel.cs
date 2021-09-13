@@ -12,7 +12,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 视频推荐视图模型.
     /// </summary>
-    public partial class RecommendViewModel : WebRequestViewModelBase
+    public partial class RecommendViewModel : WebRequestViewModelBase, IDeltaRequestViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecommendViewModel"/> class.

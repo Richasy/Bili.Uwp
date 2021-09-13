@@ -3,7 +3,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Pages;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,7 +12,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 视频收藏夹视图.
     /// </summary>
-    public sealed partial class FavoriteVideoView : UserControl
+    public sealed partial class FavoriteVideoView : CenterPopup
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -46,8 +45,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowAsync(FavoriteVideoViewModel vm)
         {
-            Container.IsOpen = true;
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            Show();
             if (ViewModel == null || ViewModel.Id != vm.Id)
             {
                 // 请求用户数据.
@@ -69,14 +67,9 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.RequestDataAsync();
         }
 
-        private void OnContainerClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
-        {
-            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
-        }
-
         private void OnVideoItemClick(object sender, VideoViewModel e)
         {
-            this.Container.IsOpen = false;
+            Hide();
         }
 
         private async void OnAddToViewLaterButtonClickAsync(object sender, RoutedEventArgs e)

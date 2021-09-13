@@ -57,7 +57,10 @@
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     TextWrapping="Wrap" />
-                <TextBlock x:Name="DetailBlock" TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="DetailBlock"
+                    LineHeight="22"
+                    TextWrapping="Wrap" />
             </StackPanel>
             <Border
                 Grid.Row="2"

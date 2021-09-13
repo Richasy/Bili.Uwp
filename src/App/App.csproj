@@ -26,6 +26,7 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\IRefreshPage.cs" />
     <Compile Include="Controls\Message\AtMessageView.xaml.cs">
       <DependentUpon>AtMessageView.xaml</DependentUpon>
     </Compile>

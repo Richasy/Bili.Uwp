@@ -30,7 +30,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <muxc:RefreshContainer RefreshRequested="OnRefreshRequestedAsync">
+        <Grid>
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Padding="{StaticResource DefaultContainerPadding}"
@@ -68,7 +68,7 @@
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
             </ScrollViewer>
-        </muxc:RefreshContainer>
+        </Grid>
 
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
 
