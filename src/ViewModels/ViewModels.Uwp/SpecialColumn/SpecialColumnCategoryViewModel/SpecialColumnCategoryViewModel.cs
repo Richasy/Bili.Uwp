@@ -15,7 +15,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 专栏分类视图模型.
     /// </summary>
-    public partial class SpecialColumnCategoryViewModel : WebRequestViewModelBase
+    public partial class SpecialColumnCategoryViewModel : WebRequestViewModelBase, IDeltaRequestViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecialColumnCategoryViewModel"/> class.

@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<local:CenterPopup
     x:Class="Richasy.Bili.App.Controls.FavoriteVideoView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,100 +9,68 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    Title="{x:Bind ViewModel.Name, Mode=OneWay}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="LayoutGroup">
-                <VisualState x:Name="CenterState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="BottomState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Container.PreferredPlacement" Value="Bottom" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <muxc:TeachingTip
-            x:Name="Container"
-            VerticalAlignment="Stretch"
-            Closed="OnContainerClosed"
-            IsLightDismissEnabled="True"
-            PreferredPlacement="Center"
-            ShouldConstrainToRootBounds="False">
-            <muxc:TeachingTip.HeroContent>
-                <Grid
-                    Padding="20,0,20,12"
-                    RowSpacing="8"
-                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Grid.ColumnSpan="2"
-                        Margin="0,16,0,0"
-                        HorizontalAlignment="Left"
-                        Text="{x:Bind ViewModel.Name, Mode=OneWay}" />
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="0,0,0,4"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        MaxLines="3"
-                        Text="{x:Bind ViewModel.Description, Mode=OneWay}"
-                        TextWrapping="Wrap"
-                        Visibility="{x:Bind ViewModel.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                    <StackPanel
-                        Grid.Row="2"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="8">
-                        <local:UserAvatar
-                            Width="28"
-                            Height="28"
-                            Avatar="{x:Bind ViewModel.User.Avatar, Mode=OneWay}"
-                            UserName="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
-                        <TextBlock
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            VerticalAlignment="Center"
-                            Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
-                            TextTrimming="CharacterEllipsis"
-                            TextWrapping="Wrap" />
-                    </StackPanel>
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid RowSpacing="8" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Grid.ColumnSpan="2"
+                Margin="0,0,0,4"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                MaxLines="3"
+                Text="{x:Bind ViewModel.Description, Mode=OneWay}"
+                TextWrapping="Wrap"
+                Visibility="{x:Bind ViewModel.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+            <StackPanel
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <local:UserAvatar
+                    Width="28"
+                    Height="28"
+                    Avatar="{x:Bind ViewModel.User.Avatar, Mode=OneWay}"
+                    UserName="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    VerticalAlignment="Center"
+                    Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap" />
+            </StackPanel>
 
-                    <StackPanel
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
-                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                            <Run Text="{loc:LocaleLocator Name=VideoCount}" />
-                            <Run Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}" />
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-            </muxc:TeachingTip.HeroContent>
-            <Grid Width="400" Margin="0,-12,0,0">
-                <Grid>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                    <Run Text="{loc:LocaleLocator Name=VideoCount}" />
+                    <Run Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
+                <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
-                        Grid.Row="2"
                         Margin="0,0,0,12"
                         Background="Transparent"
                         HeaderVisibility="Collapsed"
@@ -140,22 +108,23 @@
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>
-                    <local:OverlayLoadingPanel
-                        MinHeight="80"
-                        IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
-                        IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-                    <local:ErrorPanel
-                        x:Name="ErrorPanel"
-                        ActionButtonClick="OnRefreshButtonClickAsync"
-                        ActionContent="{loc:LocaleLocator Name=Refresh}"
-                        Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-                    <local:ErrorPanel
-                        x:Name="EmptyPanel"
-                        Text="{loc:LocaleLocator Name=FavoriteHaveNoVideos}"
-                        Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
-                </Grid>
+                </muxc:ScrollView>
+
+                <local:OverlayLoadingPanel
+                    MinHeight="80"
+                    IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+                    IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+                <local:ErrorPanel
+                    x:Name="ErrorPanel"
+                    ActionButtonClick="OnRefreshButtonClickAsync"
+                    ActionContent="{loc:LocaleLocator Name=Refresh}"
+                    Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+                <local:ErrorPanel
+                    x:Name="EmptyPanel"
+                    Text="{loc:LocaleLocator Name=FavoriteHaveNoVideos}"
+                    Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
             </Grid>
-        </muxc:TeachingTip>
+        </Grid>
     </Grid>
-</UserControl>
+</local:CenterPopup>

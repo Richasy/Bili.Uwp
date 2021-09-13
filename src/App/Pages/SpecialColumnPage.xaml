@@ -156,6 +156,6 @@
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
 
-        <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+        <controls:OverlayLoadingPanel IsRingActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
     </Grid>
 </Page>

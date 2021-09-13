@@ -12,7 +12,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Name="WideTemplate" x:DataType="uwp:PgcTimeLineItemViewModel">
-            <Grid RowSpacing="8">
+            <Grid DataContext="{x:Bind}" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -58,7 +58,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Name="NarrowTemplate" x:DataType="uwp:PgcTimeLineItemViewModel">
-            <Grid RowSpacing="8">
+            <Grid DataContext="{x:Bind}" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -107,42 +107,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Spacing="4">
-            <TextBlock
-                Style="{StaticResource TitleTextBlockStyle}"
-                HorizontalAlignment="Left"
-                Text="{x:Bind ViewModel.TimeLineTitle, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
-            <TextBlock
-                Style="{StaticResource BodyTextBlockStyle}"
-                HorizontalAlignment="Left"
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="{x:Bind ViewModel.TimeLineSubtitle, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <ScrollViewer
-                x:Name="ContentScrollViewer"
-                Padding="{StaticResource DefaultContainerPadding}"
-                HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Auto">
-                <muxc:ItemsRepeater
-                    x:Name="TimeLineView"
-                    ItemTemplate="{StaticResource WideTemplate}"
-                    ItemsSource="{x:Bind ViewModel.TimeLineCollection, Mode=OneWay}">
-                    <muxc:ItemsRepeater.Layout>
-                        <muxc:StackLayout Spacing="20" />
-                    </muxc:ItemsRepeater.Layout>
-                </muxc:ItemsRepeater>
-            </ScrollViewer>
-
-            <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsTimeLineInitializing, Mode=OneWay}" />
-            <controls:ErrorPanel
-                ActionButtonClick="OnTimeLineRefreshButtonClickAsync"
-                ActionContent="{loc:LocaleLocator Name=Refresh}"
-                Text="{x:Bind ViewModel.TimeLineErrorText, Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsTimeLineError, Mode=OneWay}" />
-        </Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
@@ -161,5 +125,42 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <StackPanel Spacing="4">
+            <TextBlock
+                Style="{StaticResource TitleTextBlockStyle}"
+                HorizontalAlignment="Left"
+                Text="{x:Bind ViewModel.TimeLineTitle, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis" />
+            <TextBlock
+                Style="{StaticResource BodyTextBlockStyle}"
+                HorizontalAlignment="Left"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.TimeLineSubtitle, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <muxc:ScrollView
+                x:Name="ContentScrollViewer"
+                Padding="{StaticResource DefaultContainerPadding}"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <muxc:ItemsRepeater
+                    x:Name="TimeLineView"
+                    Margin="0,0,0,12"
+                    ItemTemplate="{StaticResource WideTemplate}"
+                    ItemsSource="{x:Bind ViewModel.TimeLineCollection, Mode=OneWay}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:StackLayout Spacing="20" />
+                    </muxc:ItemsRepeater.Layout>
+                </muxc:ItemsRepeater>
+            </muxc:ScrollView>
+
+            <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsTimeLineInitializing, Mode=OneWay}" />
+            <controls:ErrorPanel
+                ActionButtonClick="OnTimeLineRefreshButtonClickAsync"
+                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                Text="{x:Bind ViewModel.TimeLineErrorText, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsTimeLineError, Mode=OneWay}" />
+        </Grid>
     </Grid>
 </Page>

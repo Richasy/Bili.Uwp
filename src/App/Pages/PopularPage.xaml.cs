@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,22 +51,9 @@ namespace Richasy.Bili.App.Pages
             await this.ViewModel.RequestDataAsync();
         }
 
-        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
-        {
-            var def = args.GetDeferral();
-            if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
-            {
-                ViewModel.Reset();
-                await this.ViewModel.RequestDataAsync();
-            }
-
-            def.Complete();
-            def.Dispose();
-        }
-
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await ViewModel.RequestDataAsync();
+            await ViewModel.InitializeRequestAsync();
         }
     }
 }

@@ -194,6 +194,7 @@
                 Click="OnShareButtonClick">
                 <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
             </Button>
+
             <StackPanel
                 Orientation="Horizontal"
                 Spacing="8"

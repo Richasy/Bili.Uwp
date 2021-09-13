@@ -7,10 +7,11 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <ScrollViewer x:Name="ContentScrollViewer">
+    <muxc:ScrollView x:Name="ContentScrollViewer">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -87,5 +88,5 @@
                 Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
         </Grid>
-    </ScrollViewer>
+    </muxc:ScrollView>
 </Page>

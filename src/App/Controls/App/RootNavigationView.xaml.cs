@@ -226,5 +226,20 @@ namespace Richasy.Bili.App.Controls
                 OverlayFrame.Navigate(pageType, param, new EntranceNavigationTransitionInfo());
             }
         }
+
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.Content is IRefreshPage page)
+            {
+                RefreshButton.IsEnabled = false;
+                await page.RefreshAsync();
+                RefreshButton.IsEnabled = true;
+            }
+        }
+
+        private void OnMainFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

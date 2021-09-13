@@ -13,7 +13,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 直播视图模型.
     /// </summary>
-    public partial class LiveModuleViewModel : WebRequestViewModelBase
+    public partial class LiveModuleViewModel : WebRequestViewModelBase, IDeltaRequestViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveModuleViewModel"/> class.
@@ -33,15 +33,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 请求直播源列表.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestFeedsAsync()
+        public async Task RequestDataAsync()
         {
             if (!IsRequested)
             {
-                await InitializeRequestFeedsAsync();
+                await InitializeRequestAsync();
             }
             else
             {
-                await DeltaRequestFeedsAsync();
+                await DeltaRequestAsync();
             }
 
             IsRequested = _currentPage > 1;
@@ -51,7 +51,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 初始化直播源列表请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task InitializeRequestFeedsAsync()
+        public async Task InitializeRequestAsync()
         {
             if (!IsInitializeLoading && !IsDeltaLoading)
             {
@@ -85,7 +85,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsRequested = _currentPage > 1;
         }
 
-        internal async Task DeltaRequestFeedsAsync()
+        internal async Task DeltaRequestAsync()
         {
             if (!IsInitializeLoading && !IsDeltaLoading)
             {

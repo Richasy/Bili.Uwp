@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -11,7 +13,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 数据源PGC页面.
     /// </summary>
-    public sealed partial class FeedPage : Page
+    public sealed partial class FeedPage : Page, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -35,6 +37,13 @@ namespace Richasy.Bili.App.Pages
         {
             get { return (FeedPgcViewModelBase)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
+        }
+
+        /// <inheritdoc/>
+        public async Task RefreshAsync()
+        {
+            await ViewModel.InitializeRequestAsync();
+            ContentScrollViewer.ScrollTo(0, 0);
         }
 
         /// <inheritdoc/>
@@ -69,10 +78,7 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.IsInitializeLoading && !ViewModel.IsDeltaLoading)
-            {
-                await ViewModel.InitializeRequestAsync();
-            }
+            await RefreshAsync();
         }
 
         private async void OnFeedViewRequestLoadMoreAsync(object sender, System.EventArgs e)

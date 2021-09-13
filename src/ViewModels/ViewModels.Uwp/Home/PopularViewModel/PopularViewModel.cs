@@ -12,7 +12,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 热门视图模型.
     /// </summary>
-    public partial class PopularViewModel : WebRequestViewModelBase
+    public partial class PopularViewModel : WebRequestViewModelBase, IDeltaRequestViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularViewModel"/> class.

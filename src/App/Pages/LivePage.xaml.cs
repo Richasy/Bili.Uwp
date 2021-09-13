@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +12,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class LivePage : Page
+    public sealed partial class LivePage : Page, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -37,11 +39,15 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <inheritdoc/>
+        public Task RefreshAsync()
+            => ViewModel.InitializeRequestAsync();
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             if (this.ViewModel.BannerCollection.Count == 0)
             {
-                await ViewModel.RequestFeedsAsync();
+                await ViewModel.RequestDataAsync();
             }
 
             this.FindName(nameof(FollowLiveView));
@@ -54,17 +60,12 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
-            await ViewModel.RequestFeedsAsync();
+            await ViewModel.RequestDataAsync();
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await ViewModel.InitializeRequestFeedsAsync();
-        }
-
-        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
-        {
-            await ViewModel.InitializeRequestFeedsAsync();
+            await RefreshAsync();
         }
     }
 }

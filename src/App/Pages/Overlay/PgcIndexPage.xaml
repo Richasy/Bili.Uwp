@@ -87,7 +87,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Margin="0,12,0,0">
-            <ScrollViewer
+            <muxc:ScrollView
                 x:Name="ContentScrollViewer"
                 Padding="{StaticResource DefaultContainerPadding}"
                 HorizontalScrollMode="Disabled"
@@ -107,7 +107,7 @@
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
-            </ScrollViewer>
+            </muxc:ScrollView>
 
             <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIndexDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsIndexInitializeLoading, Mode=OneWay}" />
             <controls:ErrorPanel
