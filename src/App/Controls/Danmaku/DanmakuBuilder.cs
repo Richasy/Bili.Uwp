@@ -134,6 +134,11 @@ namespace Richasy.Bili.App.Controls
             var container = new Grid();
             var device = CanvasDevice.GetSharedDevice();
             var format = new CanvasTextFormat() { FontSize = (float)size, WordWrapping = CanvasWordWrapping.NoWrap, FontFamily = _fontFamily };
+            if (_isBold)
+            {
+                format.FontWeight = FontWeights.Bold;
+            }
+
             var holderBlock = new TextBlock()
             {
                 Text = _model.Text,

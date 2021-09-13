@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Shadow.Uwp;
 using Windows.Foundation;
@@ -204,40 +205,29 @@ namespace Richasy.Bili.App.Controls
             SetRows(this.ActualHeight);
             foreach (var item in _scrollContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
-                {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
-                }
+                SetItemZoom(item);
             }
 
             foreach (var item in _topContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
-                {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
-                }
+                SetItemZoom(item);
             }
 
             foreach (var item in _bottomContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
+                SetItemZoom(item);
+            }
+        }
+
+        private void SetItemZoom(UIElement element)
+        {
+            if (element is Grid grid)
+            {
+                var model = grid.Tag as DanmakuModel;
+                var textBlock = grid.FindDescendantElementByType<TextBlock>();
+                if (textBlock != null)
                 {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
+                    textBlock.FontSize = Convert.ToInt32(model.Size) * DanmakuSizeZoom;
                 }
             }
         }
