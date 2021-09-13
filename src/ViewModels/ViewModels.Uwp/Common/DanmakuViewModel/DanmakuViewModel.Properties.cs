@@ -99,6 +99,12 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         [Reactive]
         public bool UseCloudShieldSettings { get; set; }
 
+        /// <summary>
+        /// 是否为标准字号.
+        /// </summary>
+        [Reactive]
+        public bool IsStandardSize { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

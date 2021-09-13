@@ -26,6 +26,9 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\Player\DanmakuSendOptions.xaml.cs">
+      <DependentUpon>DanmakuSendOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IRefreshPage.cs" />
     <Compile Include="Controls\Message\AtMessageView.xaml.cs">
       <DependentUpon>AtMessageView.xaml</DependentUpon>
@@ -492,6 +495,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\DanmakuSendOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

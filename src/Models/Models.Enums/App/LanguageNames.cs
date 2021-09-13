@@ -297,6 +297,8 @@ namespace Richasy.Bili.Models.Enums
         AtMessageTypeDescription,
         ReplyMessageTypeDescription,
         MorePeople,
+        Standard,
+        Small,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

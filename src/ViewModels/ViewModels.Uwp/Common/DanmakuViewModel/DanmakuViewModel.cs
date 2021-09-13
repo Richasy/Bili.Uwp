@@ -102,6 +102,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
 
+            IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
+
             Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
             PropertyChanged += OnPropertyChanged;
 
@@ -145,6 +147,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(DanmakuStyle):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuStyle, DanmakuStyle);
+                    break;
+                case nameof(IsStandardSize):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuStandardSize, IsStandardSize);
                     break;
                 default:
                     break;

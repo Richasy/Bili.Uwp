@@ -832,6 +832,9 @@
   <data name="SingleFastForwardAndRewindSpanDescription" xml:space="preserve">
     <value>单次按下键盘左右方向键时的快进/快退跳跃时长（秒）</value>
   </data>
+  <data name="Small" xml:space="preserve">
+    <value>小号</value>
+  </data>
   <data name="SortByDanmaku" xml:space="preserve">
     <value>弹幕最多</value>
   </data>
@@ -873,6 +876,9 @@
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>标准</value>
   </data>
   <data name="StartMethod" xml:space="preserve">
     <value>启动方式</value>
