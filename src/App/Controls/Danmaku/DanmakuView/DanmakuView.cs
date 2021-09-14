@@ -146,7 +146,8 @@ namespace Richasy.Bili.App.Controls
             var ts = TimeSpan.Zero;
             if (m.Location == DanmakuLocation.Scroll)
             {
-                moveTransform.X = _rootGrid.ActualWidth;
+                danmaku.Measure(_rootGrid.DesiredSize);
+                moveTransform.X = _rootGrid.ActualWidth + danmaku.DesiredSize.Width;
                 danmaku.RenderTransform = moveTransform;
                 ts = TimeSpan.FromSeconds(DanmakuDuration);
             }
