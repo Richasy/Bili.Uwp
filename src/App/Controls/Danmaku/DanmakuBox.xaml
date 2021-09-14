@@ -28,7 +28,8 @@
         <AutoSuggestBox
             x:Name="DanmakuInputBox"
             Grid.Column="1"
-            Padding="8,6,8,4"
+            Height="32"
+            Padding="8,0"
             HorizontalAlignment="Stretch"
             PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}"
             QuerySubmitted="OnDanmakuInputBoxSubmittedAsync" />
@@ -46,6 +47,11 @@
                 BorderThickness="0"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
                 <icons:RegularFluentIcon Symbol="TextEffects24" />
+                <Button.Flyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}" Opened="OnSendFlyoutOpened">
+                        <local:DanmakuSendOptions x:Name="SendOptions" />
+                    </Flyout>
+                </Button.Flyout>
             </Button>
             <Button
                 x:Name="DanmakuOptionButton"

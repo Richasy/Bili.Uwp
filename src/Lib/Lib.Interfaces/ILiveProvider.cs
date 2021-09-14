@@ -2,6 +2,7 @@
 
 using System.Threading.Tasks;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 
 namespace Richasy.Bili.Lib.Interfaces
 {
@@ -44,7 +45,10 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
         /// <param name="message">消息内容.</param>
+        /// <param name="color">弹幕颜色.</param>
+        /// <param name="isStandardSize">是否为标准字体大小.</param>
+        /// <param name="location">弹幕位置.</param>
         /// <returns>是否发送成功.</returns>
-        Task<bool> SendMessageAsync(int roomId, string message);
+        Task<bool> SendMessageAsync(int roomId, string message, string color, bool isStandardSize, DanmakuLocation location);
     }
 }

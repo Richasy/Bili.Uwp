@@ -134,6 +134,11 @@ namespace Richasy.Bili.App.Controls
             var container = new Grid();
             var device = CanvasDevice.GetSharedDevice();
             var format = new CanvasTextFormat() { FontSize = (float)size, WordWrapping = CanvasWordWrapping.NoWrap, FontFamily = _fontFamily };
+            if (_isBold)
+            {
+                format.FontWeight = FontWeights.Bold;
+            }
+
             var holderBlock = new TextBlock()
             {
                 Text = _model.Text,
@@ -204,7 +209,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// 创建无边框弹幕.
+        /// 创建阴影弹幕.
         /// </summary>
         /// <returns>弹幕容器.</returns>
         public Grid CreateShadowDanmaku()
@@ -234,10 +239,10 @@ namespace Richasy.Bili.App.Controls
             var grid = new Grid();
             var dropShadowPanel = new DropShadowPanel()
             {
-                BlurRadius = 6,
-                ShadowOpacity = 0.6,
-                OffsetX = 0,
-                OffsetY = 0,
+                BlurRadius = 2,
+                ShadowOpacity = 0.8,
+                OffsetX = 1,
+                OffsetY = 1,
                 Color = _model.Color.R <= 80 ? Colors.White : Colors.Black,
             };
 

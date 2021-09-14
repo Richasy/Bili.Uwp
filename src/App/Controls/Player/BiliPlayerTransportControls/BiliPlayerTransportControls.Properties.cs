@@ -44,6 +44,7 @@ namespace Richasy.Bili.App.Controls
         private const string BackButtonName = "BackButton";
         private const string BackSkipButtonName = "BackSkipButton";
         private const string ForwardSkipButtonName = "ForwardSkipButton";
+        private const string PlayPauseButtonName = "PlayPauseButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -61,6 +62,7 @@ namespace Richasy.Bili.App.Controls
         private Button _backButton;
         private AppBarButton _backSkipButton;
         private AppBarButton _forwardSkipButton;
+        private AppBarButton _playPauseButton;
         private int _segmentIndex;
         private double _cursorStayTime;
 

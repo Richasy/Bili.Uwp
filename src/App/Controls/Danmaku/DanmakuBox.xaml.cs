@@ -38,5 +38,10 @@ namespace Richasy.Bili.App.Controls
                 }
             }
         }
+
+        private void OnSendFlyoutOpened(object sender, object e)
+        {
+            SendOptions.Initialize();
+        }
     }
 }

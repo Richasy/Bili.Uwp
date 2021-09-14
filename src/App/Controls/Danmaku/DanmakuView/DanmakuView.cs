@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums.App;
-using Richasy.Shadow.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -103,8 +103,7 @@ namespace Richasy.Bili.App.Controls
             {
                 danmaku.BorderBrush = new SolidColorBrush(m.Color);
                 danmaku.BorderThickness = new Thickness(1);
-                danmaku.Padding = new Thickness(8, 4, 8, 4);
-                danmaku.CornerRadius = new CornerRadius(4);
+                danmaku.CornerRadius = new CornerRadius(2);
             }
 
             var rowNumber = -1;
@@ -136,20 +135,28 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            Grid.SetRow(danmaku, rowNumber);
             danmaku.HorizontalAlignment = m.Location == DanmakuLocation.Scroll ?
                 HorizontalAlignment.Left : HorizontalAlignment.Center;
             danmaku.VerticalAlignment = m.Location == DanmakuLocation.Scroll ?
                 VerticalAlignment.Center : VerticalAlignment.Top;
             container.Children.Add(danmaku);
-            container.UpdateLayout();
+            Grid.SetRow(danmaku, rowNumber);
 
             var moveTransform = new TranslateTransform();
-            moveTransform.X = _rootGrid.ActualWidth;
-            danmaku.RenderTransform = moveTransform;
+            var ts = TimeSpan.Zero;
+            if (m.Location == DanmakuLocation.Scroll)
+            {
+                moveTransform.X = _rootGrid.ActualWidth;
+                danmaku.RenderTransform = moveTransform;
+                ts = TimeSpan.FromSeconds(DanmakuDuration);
+            }
+            else
+            {
+                ts = TimeSpan.FromSeconds(5);
+            }
 
             // 创建动画
-            var duration = new Duration(TimeSpan.FromSeconds(DanmakuDuration));
+            var duration = new Duration(ts);
             var danmakuAnimationX = new DoubleAnimation();
             danmakuAnimationX.Duration = duration;
 
@@ -171,18 +178,6 @@ namespace Richasy.Bili.App.Controls
 
             moveStoryboard.Completed += new EventHandler<object>((senders, obj) =>
             {
-                var danmakuContent = danmaku.Children.FirstOrDefault();
-                if (danmakuContent is TextBlock txt)
-                {
-                    var shadow = Shadows.GetAttachedShadow(txt);
-                    if (shadow != null)
-                    {
-                        var shadowContext = shadow.GetElementContext(txt);
-                        shadowContext?.ClearAndDisposeResources();
-                        shadow.DisconnectElement(txt);
-                    }
-                }
-
                 container.Children.Remove(danmaku);
                 danmaku.Children.Clear();
                 danmaku = null;
@@ -204,40 +199,29 @@ namespace Richasy.Bili.App.Controls
             SetRows(this.ActualHeight);
             foreach (var item in _scrollContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
-                {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
-                }
+                SetItemZoom(item);
             }
 
             foreach (var item in _topContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
-                {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
-                }
+                SetItemZoom(item);
             }
 
             foreach (var item in _bottomContainer.Children)
             {
-                var grid = item as Grid;
-                var m = grid.Tag as DanmakuModel;
-                foreach (var tb in grid.Children)
+                SetItemZoom(item);
+            }
+        }
+
+        private void SetItemZoom(UIElement element)
+        {
+            if (element is Grid grid)
+            {
+                var model = grid.Tag as DanmakuModel;
+                var textBlock = grid.FindDescendantElementByType<TextBlock>();
+                if (textBlock != null)
                 {
-                    if (tb is TextBlock)
-                    {
-                        (tb as TextBlock).FontSize = Convert.ToInt32(m.Size) * DanmakuSizeZoom;
-                    }
+                    textBlock.FontSize = Convert.ToInt32(model.Size) * DanmakuSizeZoom;
                 }
             }
         }

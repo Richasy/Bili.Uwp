@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp.Common
@@ -22,7 +24,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         internal DanmakuViewModel()
         {
             ServiceLocator.Instance.LoadService(out _settingsToolkit)
-                                   .LoadService(out _fontToolkit);
+                                   .LoadService(out _fontToolkit)
+                                   .LoadService(out _resourceToolkit);
             Initialize();
         }
 
@@ -30,6 +33,11 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// 弹幕列表已添加.
         /// </summary>
         public event EventHandler<List<DanmakuElem>> DanmakuListAdded;
+
+        /// <summary>
+        /// 已成功发送弹幕.
+        /// </summary>
+        public event EventHandler<string> SendDanmakuSucceeded;
 
         /// <summary>
         /// 请求清除弹幕列表.
@@ -81,7 +89,33 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             var playerVM = PlayerViewModel.Instance;
             if (playerVM.IsLive)
             {
-                result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText);
+                result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText, ToDanmakuColor(Color), IsStandardSize, Location);
+            }
+            else
+            {
+                var videoId = 0;
+                var partId = 0;
+                if (playerVM.IsPgc)
+                {
+                    videoId = playerVM.CurrentPgcEpisode.Aid;
+                    partId = playerVM.CurrentPgcEpisode.PartId;
+                }
+                else
+                {
+                    videoId = Convert.ToInt32(playerVM.AvId);
+                    partId = Convert.ToInt32(playerVM.CurrentVideoPart.Page.Cid);
+                }
+
+                var player = playerVM.BiliPlayer.MediaPlayer;
+                if (player != null && player.PlaybackSession != null)
+                {
+                    result = await Controller.SendDanmakuAsync(danmakuText, videoId, partId, player.PlaybackSession.Position, ToDanmakuColor(Color), IsStandardSize, Location);
+                }
+
+                if (result)
+                {
+                    SendDanmakuSucceeded?.Invoke(this, danmakuText);
+                }
             }
 
             return result;
@@ -92,6 +126,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             _danmakuList = new List<DanmakuElem>();
             FontCollection = new ObservableCollection<string>();
             StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
+            LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
+            ColorCollection = new ObservableCollection<KeyValue<string>>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
@@ -101,6 +137,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
+
+            IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
 
             Controller.SegmentDanmakuIteration += OnSegmentDanmakuIteration;
             PropertyChanged += OnPropertyChanged;
@@ -112,7 +150,25 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.Stroke);
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.Shadow);
             StyleCollection.Add(Models.Enums.App.DanmakuStyle.NoStroke);
+
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Scroll);
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Top);
+            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Bottom);
+
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.White), "#FFFFFF"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Red), "#FE0302"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Orange), "#FFAA02"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Khaki), "#FFD302"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Yellow), "#FFFF00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Grass), "#A0EE00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Green), "#00CD00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Blue), "#019899"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Purple), "#4266BE"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.LightBlue), "#89D5FF"));
+
             DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Stroke);
+            Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
+            Color = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuColor, ColorCollection.First().Value);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -145,6 +201,15 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(DanmakuStyle):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuStyle, DanmakuStyle);
+                    break;
+                case nameof(IsStandardSize):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuStandardSize, IsStandardSize);
+                    break;
+                case nameof(Location):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuLocation, Location);
+                    break;
+                case nameof(Color):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuColor, Color);
                     break;
                 default:
                     break;

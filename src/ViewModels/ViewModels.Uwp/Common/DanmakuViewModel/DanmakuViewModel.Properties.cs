@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Bilibili.Community.Service.Dm.V1;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 
@@ -18,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
     {
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFontToolkit _fontToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
 
         private List<DanmakuElem> _danmakuList;
         private long _videoId;
@@ -98,6 +100,36 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// </summary>
         [Reactive]
         public bool UseCloudShieldSettings { get; set; }
+
+        /// <summary>
+        /// 是否为标准字号.
+        /// </summary>
+        [Reactive]
+        public bool IsStandardSize { get; set; }
+
+        /// <summary>
+        /// 弹幕位置.
+        /// </summary>
+        [Reactive]
+        public DanmakuLocation Location { get; set; }
+
+        /// <summary>
+        /// 弹幕位置可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<DanmakuLocation> LocationCollection { get; set; }
+
+        /// <summary>
+        /// 弹幕颜色.
+        /// </summary>
+        [Reactive]
+        public string Color { get; set; }
+
+        /// <summary>
+        /// 弹幕颜色集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<KeyValue<string>> ColorCollection { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

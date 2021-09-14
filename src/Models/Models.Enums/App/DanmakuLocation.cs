@@ -10,26 +10,26 @@ namespace Richasy.Bili.Models.Enums.App
         /// <summary>
         /// 滚动弹幕Model1-3.
         /// </summary>
-        Scroll,
+        Scroll = 1,
 
         /// <summary>
         /// 顶部弹幕Model5.
         /// </summary>
-        Top,
+        Top = 5,
 
         /// <summary>
         /// 底部弹幕Model4.
         /// </summary>
-        Bottom,
+        Bottom = 4,
 
         /// <summary>
         /// 定位弹幕Model7.
         /// </summary>
-        Position,
+        Position = 7,
 
         /// <summary>
         /// 其它暂未支持的类型.
         /// </summary>
-        Other,
+        Other = 9,
     }
 }

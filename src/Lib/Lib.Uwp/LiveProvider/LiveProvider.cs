@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
-
+using Richasy.Bili.Models.Enums.App;
 using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
@@ -94,19 +94,19 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> SendMessageAsync(int roomId, string message)
+        public async Task<bool> SendMessageAsync(int roomId, string message, string color, bool isStandardSize, DanmakuLocation location)
         {
             var queryParameter = new Dictionary<string, string>
             {
                 { Query.Cid, roomId.ToString() },
                 { Query.MyId, _accountProvider.UserId.ToString() },
                 { Query.MessageSlim, message },
-                { Query.Rnd, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
-                { Query.Mode, "1" },
+                { Query.Rnd, DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds().ToString() },
+                { Query.Mode, ((int)location).ToString() },
                 { Query.Pool, "0" },
                 { Query.Type, "json" },
-                { Query.Color, "16777215" },
-                { Query.FontSize, "25" },
+                { Query.Color, color },
+                { Query.FontSize, isStandardSize ? "25" : "18" },
                 { Query.PlayTime, "0.0" },
             };
 

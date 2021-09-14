@@ -11,6 +11,7 @@ using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Models.Enums.Bili;
 
 using static Richasy.Bili.Models.App.Constants.ApiConstants;
@@ -224,6 +225,35 @@ namespace Richasy.Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request, GetExpiryToken());
             var result = await _httpProvider.ParseAsync<ServerResponse<TripleResult>>(response);
             return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SendDanmakuAsync(string content, int videoId, int partId, int progress, string color, bool isStandardSize, DanmakuLocation location)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+                { Query.Type, "1" },
+                { Query.Oid, partId.ToString() },
+                { Query.MessageSlim, content },
+                { Query.Progress, progress.ToString() },
+                { Query.Color, color },
+                { Query.FontSize, isStandardSize ? "25" : "18" },
+                { Query.Mode, ((int)location).ToString() },
+                { Query.Rnd, DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds().ToString() },
+            };
+
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.SendDanmaku, queryParameters, needToken: true);
+                var response = await _httpProvider.SendAsync(request);
+                var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+                return result.IsSuccess();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
