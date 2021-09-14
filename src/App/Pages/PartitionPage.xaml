@@ -30,7 +30,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="RootContainer"
             Padding="{StaticResource DefaultContainerWithBottomPadding}"
             VerticalAlignment="Stretch"
@@ -57,7 +57,7 @@
                         Orientation="Horizontal" />
                 </muxc:ItemsRepeater.Layout>
             </muxc:ItemsRepeater>
-        </ScrollViewer>
+        </muxc:ScrollView>
         <StackPanel
             Margin="{StaticResource DefaultContainerPadding}"
             HorizontalAlignment="Center"

@@ -70,7 +70,7 @@
             </muxc:NavigationView.PaneFooter>
             <muxc:NavigationView.Content>
                 <Grid>
-                    <ScrollViewer
+                    <muxc:ScrollView
                         x:Name="ContentScrollViewer"
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
@@ -176,7 +176,10 @@
                                                     </controls:HorizontalRepeaterView.WideItemTemplate>
                                                     <controls:HorizontalRepeaterView.NarrowItemTemplate>
                                                         <DataTemplate x:DataType="uwp:SeasonViewModel">
-                                                            <controls:PgcItem Orientation="Horizontal" ViewModel="{x:Bind}" Height="168" />
+                                                            <controls:PgcItem
+                                                                Height="168"
+                                                                Orientation="Horizontal"
+                                                                ViewModel="{x:Bind}" />
                                                         </DataTemplate>
                                                     </controls:HorizontalRepeaterView.NarrowItemTemplate>
                                                 </controls:HorizontalRepeaterView>
@@ -215,7 +218,7 @@
 
                             </Grid>
                         </Grid>
-                    </ScrollViewer>
+                    </muxc:ScrollView>
 
                     <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.CurrentTab.IsInitializeLoading, Mode=OneWay}" />
 

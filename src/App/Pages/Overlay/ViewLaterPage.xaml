@@ -56,7 +56,7 @@
                     Severity="Error" />
             </Grid>
             <Grid Grid.Row="2">
-                <ScrollViewer
+                <muxc:ScrollView
                     x:Name="ContentScrollViewer"
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
@@ -111,7 +111,7 @@
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
                     </Grid>
-                </ScrollViewer>
+                </muxc:ScrollView>
 
                 <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
                 <controls:ErrorPanel

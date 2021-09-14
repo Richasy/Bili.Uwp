@@ -74,7 +74,7 @@
             </muxc:NavigationView.MenuItemTemplate>
             <muxc:NavigationView.Content>
                 <Grid>
-                    <ScrollViewer
+                    <muxc:ScrollView
                         x:Name="ContentScrollViewer"
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
@@ -139,7 +139,7 @@
                                 </controls:VerticalRepeaterView.ItemTemplate>
                             </controls:VerticalRepeaterView>
                         </Grid>
-                    </ScrollViewer>
+                    </muxc:ScrollView>
 
                     <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
                     <controls:ErrorPanel

@@ -90,7 +90,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <ScrollViewer
+        <muxc:ScrollView
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Hidden">
@@ -148,9 +148,9 @@
                         FontWeight="Bold"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Text="{loc:LocaleLocator Name=CastAndCrew}" />
-                    <ScrollViewer
+                    <muxc:ScrollView
                         HorizontalScrollBarVisibility="Hidden"
-                        HorizontalScrollMode="Auto"
+                        HorizontalScrollMode="Enabled"
                         VerticalScrollMode="Disabled">
                         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.CelebrityCollection, Mode=OneWay}">
                             <muxc:ItemsRepeater.Layout>
@@ -190,7 +190,7 @@
                                 </DataTemplate>
                             </muxc:ItemsRepeater.ItemTemplate>
                         </muxc:ItemsRepeater>
-                    </ScrollViewer>
+                    </muxc:ScrollView>
                 </StackPanel>
 
                 <StackPanel
@@ -241,6 +241,6 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Grid>
-        </ScrollViewer>
+        </muxc:ScrollView>
     </Grid>
 </local:CenterPopup>

@@ -64,11 +64,6 @@ namespace Richasy.Bili.App.Pages.Overlay
             await ViewModel.DeleteItemAsync(context);
         }
 
-        private async void OnRefreshRequestedAsync(Microsoft.UI.Xaml.Controls.RefreshContainer sender, Microsoft.UI.Xaml.Controls.RefreshRequestedEventArgs args)
-        {
-            await ViewModel.InitializeRequestAsync();
-        }
-
         private async void OnClearButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var isClear = false;
