@@ -444,6 +444,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 一键三连.
             /// </summary>
             public const string Triple = _appBase + "/x/v2/view/like/triple";
+
+            /// <summary>
+            /// 发送弹幕.
+            /// </summary>
+            public const string SendDanmaku = _apiBase + "/x/v2/dm/post";
         }
 
         public static class Search

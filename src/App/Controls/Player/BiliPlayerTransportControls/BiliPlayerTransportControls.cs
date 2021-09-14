@@ -34,6 +34,7 @@ namespace Richasy.Bili.App.Controls
             this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
+            this.DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
             this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -58,6 +59,7 @@ namespace Richasy.Bili.App.Controls
             _backButton = GetTemplateChild(BackButtonName) as Button;
             _backSkipButton = GetTemplateChild(BackSkipButtonName) as AppBarButton;
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as AppBarButton;
+            _playPauseButton = GetTemplateChild(PlayPauseButtonName) as AppBarButton;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -113,6 +115,19 @@ namespace Richasy.Bili.App.Controls
             _cursorStayTime = 0;
         }
 
+        private void OnSendDanmakuSucceeded(object sender, string e)
+        {
+            var model = new DanmakuModel
+            {
+                Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(DanmakuViewModel.Color),
+                Size = DanmakuViewModel.IsStandardSize ? 25 : 18,
+                Text = e,
+                Location = DanmakuViewModel.Location,
+            };
+
+            _danmakuView.AddScreenDanmaku(model, true);
+        }
+
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
@@ -156,6 +171,7 @@ namespace Richasy.Bili.App.Controls
         {
             if (this.ShowAndHideAutomatically)
             {
+                _playPauseButton.Focus(FocusState.Programmatic);
                 return;
             }
 
@@ -165,6 +181,7 @@ namespace Richasy.Bili.App.Controls
             }
             else if (_controlPanel.Opacity == 1)
             {
+                _playPauseButton.Focus(FocusState.Programmatic);
                 Hide();
             }
         }

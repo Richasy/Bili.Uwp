@@ -101,7 +101,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Cid, roomId.ToString() },
                 { Query.MyId, _accountProvider.UserId.ToString() },
                 { Query.MessageSlim, message },
-                { Query.Rnd, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
+                { Query.Rnd, DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds().ToString() },
                 { Query.Mode, "1" },
                 { Query.Pool, "0" },
                 { Query.Type, "json" },

@@ -104,8 +104,7 @@ namespace Richasy.Bili.App.Controls
             {
                 danmaku.BorderBrush = new SolidColorBrush(m.Color);
                 danmaku.BorderThickness = new Thickness(1);
-                danmaku.Padding = new Thickness(8, 4, 8, 4);
-                danmaku.CornerRadius = new CornerRadius(4);
+                danmaku.CornerRadius = new CornerRadius(2);
             }
 
             var rowNumber = -1;

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Models.Enums.Bili;
 
 namespace Richasy.Bili.Lib.Interfaces
@@ -61,6 +62,19 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="segmentIndex">分段索引，6分钟为一段.</param>
         /// <returns><see cref="DmSegMobileReply"/>.</returns>
         Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex);
+
+        /// <summary>
+        /// 发送弹幕.
+        /// </summary>
+        /// <param name="content">弹幕内容.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <param name="progress">播放进度.</param>
+        /// <param name="color">弹幕颜色.</param>
+        /// <param name="isStandardSize">是否为标准字体大小.</param>
+        /// <param name="location">弹幕位置.</param>
+        /// <returns>是否发送成功.</returns>
+        Task<bool> SendDanmakuAsync(string content, int videoId, int partId, int progress, string color, bool isStandardSize, DanmakuLocation location);
 
         /// <summary>
         /// 报告播放进度记录.

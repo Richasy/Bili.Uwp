@@ -35,6 +35,11 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public event EventHandler<List<DanmakuElem>> DanmakuListAdded;
 
         /// <summary>
+        /// 已成功发送弹幕.
+        /// </summary>
+        public event EventHandler<string> SendDanmakuSucceeded;
+
+        /// <summary>
         /// 请求清除弹幕列表.
         /// </summary>
         public event EventHandler RequestClearDanmaku;
@@ -85,6 +90,32 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             if (playerVM.IsLive)
             {
                 result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText);
+            }
+            else
+            {
+                var videoId = 0;
+                var partId = 0;
+                if (playerVM.IsPgc)
+                {
+                    videoId = playerVM.CurrentPgcEpisode.Aid;
+                    partId = playerVM.CurrentPgcEpisode.PartId;
+                }
+                else
+                {
+                    videoId = Convert.ToInt32(playerVM.AvId);
+                    partId = Convert.ToInt32(playerVM.CurrentVideoPart.Page.Cid);
+                }
+
+                var player = playerVM.BiliPlayer.MediaPlayer;
+                if (player != null && player.PlaybackSession != null)
+                {
+                    result = await Controller.SendDanmakuAsync(danmakuText, videoId, partId, player.PlaybackSession.Position, ToDanmakuColor(Color), IsStandardSize, Location);
+                }
+
+                if (result)
+                {
+                    SendDanmakuSucceeded?.Invoke(this, danmakuText);
+                }
             }
 
             return result;

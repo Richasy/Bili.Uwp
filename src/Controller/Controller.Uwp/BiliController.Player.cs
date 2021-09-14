@@ -7,6 +7,7 @@ using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Models.Enums.Bili;
 
 namespace Richasy.Bili.Controller.Uwp
@@ -190,5 +191,19 @@ namespace Richasy.Bili.Controller.Uwp
 
             return null;
         }
+
+        /// <summary>
+        /// 发送弹幕.
+        /// </summary>
+        /// <param name="content">弹幕内容.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <param name="progress">播放进度.</param>
+        /// <param name="color">弹幕颜色.</param>
+        /// <param name="isStandardSize">是否为标准字体大小.</param>
+        /// <param name="location">弹幕位置.</param>
+        /// <returns>是否发送成功.</returns>
+        public Task<bool> SendDanmakuAsync(string content, int videoId, int partId, TimeSpan progress, string color, bool isStandardSize, DanmakuLocation location)
+            => _playerProvider.SendDanmakuAsync(content, videoId, partId, Convert.ToInt32(progress.TotalMilliseconds), color, isStandardSize, location);
     }
 }

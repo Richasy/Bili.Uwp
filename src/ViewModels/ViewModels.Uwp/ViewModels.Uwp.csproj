@@ -134,6 +134,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>7.0.2</Version>
+    </PackageReference>
     <PackageReference Include="ReactiveUI">
       <Version>14.3.1</Version>
     </PackageReference>
