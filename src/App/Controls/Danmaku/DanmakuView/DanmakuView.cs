@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.Enums.App;
-using Richasy.Shadow.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -136,20 +135,28 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            Grid.SetRow(danmaku, rowNumber);
             danmaku.HorizontalAlignment = m.Location == DanmakuLocation.Scroll ?
                 HorizontalAlignment.Left : HorizontalAlignment.Center;
             danmaku.VerticalAlignment = m.Location == DanmakuLocation.Scroll ?
                 VerticalAlignment.Center : VerticalAlignment.Top;
             container.Children.Add(danmaku);
-            container.UpdateLayout();
+            Grid.SetRow(danmaku, rowNumber);
 
             var moveTransform = new TranslateTransform();
-            moveTransform.X = _rootGrid.ActualWidth;
-            danmaku.RenderTransform = moveTransform;
+            var ts = TimeSpan.Zero;
+            if (m.Location == DanmakuLocation.Scroll)
+            {
+                moveTransform.X = _rootGrid.ActualWidth;
+                danmaku.RenderTransform = moveTransform;
+                ts = TimeSpan.FromSeconds(DanmakuDuration);
+            }
+            else
+            {
+                ts = TimeSpan.FromSeconds(5);
+            }
 
             // 创建动画
-            var duration = new Duration(TimeSpan.FromSeconds(DanmakuDuration));
+            var duration = new Duration(ts);
             var danmakuAnimationX = new DoubleAnimation();
             danmakuAnimationX.Duration = duration;
 
@@ -171,18 +178,6 @@ namespace Richasy.Bili.App.Controls
 
             moveStoryboard.Completed += new EventHandler<object>((senders, obj) =>
             {
-                var danmakuContent = danmaku.Children.FirstOrDefault();
-                if (danmakuContent is TextBlock txt)
-                {
-                    var shadow = Shadows.GetAttachedShadow(txt);
-                    if (shadow != null)
-                    {
-                        var shadowContext = shadow.GetElementContext(txt);
-                        shadowContext?.ClearAndDisposeResources();
-                        shadow.DisconnectElement(txt);
-                    }
-                }
-
                 container.Children.Remove(danmaku);
                 danmaku.Children.Clear();
                 danmaku = null;
