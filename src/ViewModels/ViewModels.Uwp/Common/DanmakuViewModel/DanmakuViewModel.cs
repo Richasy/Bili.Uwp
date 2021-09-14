@@ -89,7 +89,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             var playerVM = PlayerViewModel.Instance;
             if (playerVM.IsLive)
             {
-                result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText);
+                result = await Controller.SendLiveDanmakuAsync(Convert.ToInt32(playerVM.RoomId), danmakuText, ToDanmakuColor(Color), IsStandardSize, Location);
             }
             else
             {

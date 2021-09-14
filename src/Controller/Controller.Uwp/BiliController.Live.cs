@@ -15,6 +15,7 @@ using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 using Websocket.Client;
 
 using static Richasy.Bili.Models.App.Constants.ControllerConstants.Live;
@@ -123,11 +124,12 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
         /// <param name="text">弹幕文本.</param>
+        /// <param name="color">弹幕颜色.</param>
+        /// <param name="isStandardSize">是否为标准字体大小.</param>
+        /// <param name="location">弹幕位置.</param>
         /// <returns>发送结果.</returns>
-        public async Task<bool> SendLiveDanmakuAsync(int roomId, string text)
-        {
-            return await _liveProvider.SendMessageAsync(roomId, text);
-        }
+        public Task<bool> SendLiveDanmakuAsync(int roomId, string text, string color, bool isStandardSize, DanmakuLocation location)
+             => _liveProvider.SendMessageAsync(roomId, text, color, isStandardSize, location);
 
         private void InitializeLiveSocket()
         {
@@ -183,8 +185,8 @@ namespace Richasy.Bili.Controller.Uwp
                 }
                 catch (Exception)
                 {
-                    // Log.
-                }
+                // Log.
+            }
             });
         }
 
