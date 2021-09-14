@@ -315,6 +315,11 @@ namespace Richasy.Bili.Models.Enums
         Purple,
         LightBlue,
         Color,
+        IsNeedFeedback,
+        IsNeedFeedbackDescription,
+        AskIssue,
+        BiliHomePage,
+        ProjectHomePage,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
