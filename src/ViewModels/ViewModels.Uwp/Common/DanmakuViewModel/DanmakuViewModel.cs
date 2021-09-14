@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp.Common
@@ -22,7 +24,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         internal DanmakuViewModel()
         {
             ServiceLocator.Instance.LoadService(out _settingsToolkit)
-                                   .LoadService(out _fontToolkit);
+                                   .LoadService(out _fontToolkit)
+                                   .LoadService(out _resourceToolkit);
             Initialize();
         }
 
@@ -93,6 +96,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             FontCollection = new ObservableCollection<string>();
             StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
             LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
+            ColorCollection = new ObservableCollection<KeyValue<string>>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
@@ -120,8 +124,20 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             LocationCollection.Add(Models.Enums.App.DanmakuLocation.Top);
             LocationCollection.Add(Models.Enums.App.DanmakuLocation.Bottom);
 
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.White), "#FFFFFF"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Red), "#FE0302"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Orange), "#FFAA02"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Khaki), "#FFD302"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Yellow), "#FFFF00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Grass), "#A0EE00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Green), "#00CD00"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Blue), "#019899"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Purple), "#4266BE"));
+            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.LightBlue), "#89D5FF"));
+
             DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Stroke);
             Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
+            Color = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuColor, ColorCollection.First().Value);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -160,6 +176,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(Location):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuLocation, Location);
+                    break;
+                case nameof(Color):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuColor, Color);
                     break;
                 default:
                     break;

@@ -171,6 +171,9 @@
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
   </data>
+  <data name="Blue" xml:space="preserve">
+    <value>青色</value>
+  </data>
   <data name="BottomDanmaku" xml:space="preserve">
     <value>底部弹幕</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="CollectTime" xml:space="preserve">
     <value>收藏时间</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>颜色</value>
   </data>
   <data name="CompactOverlayMode" xml:space="preserve">
     <value>小窗模式</value>
@@ -394,6 +400,12 @@
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
   </data>
+  <data name="Grass" xml:space="preserve">
+    <value>草绿色</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>绿色</value>
+  </data>
   <data name="H264" xml:space="preserve">
     <value>AVC/H.264</value>
   </data>
@@ -427,6 +439,9 @@
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
+  <data name="Khaki" xml:space="preserve">
+    <value>土黄色</value>
+  </data>
   <data name="Lastest" xml:space="preserve">
     <value>最新</value>
   </data>
@@ -435,6 +450,9 @@
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>浅蓝色</value>
   </data>
   <data name="Like" xml:space="preserve">
     <value>点赞</value>
@@ -550,6 +568,9 @@
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
   </data>
+  <data name="Orange" xml:space="preserve">
+    <value>橘黄色</value>
+  </data>
   <data name="Original" xml:space="preserve">
     <value>原创</value>
   </data>
@@ -643,6 +664,9 @@
   <data name="PublishInInstalments" xml:space="preserve">
     <value>连载中</value>
   </data>
+  <data name="Purple" xml:space="preserve">
+    <value>紫色</value>
+  </data>
   <data name="QRCodeExpired" xml:space="preserve">
     <value>二维码已过期，请刷新</value>
   </data>
@@ -663,6 +687,9 @@
   </data>
   <data name="Recommend" xml:space="preserve">
     <value>推荐</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>红色</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
@@ -1000,7 +1027,13 @@
   <data name="Vip" xml:space="preserve">
     <value>大会员</value>
   </data>
+  <data name="White" xml:space="preserve">
+    <value>白色</value>
+  </data>
   <data name="WholePartitions" xml:space="preserve">
     <value>全区</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>黄色</value>
   </data>
 </root>

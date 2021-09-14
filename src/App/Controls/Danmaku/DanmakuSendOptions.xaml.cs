@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,6 +50,12 @@ namespace Richasy.Bili.App.Controls
                 StandardItem.IsChecked = false;
                 SmallItem.IsChecked = true;
             }
+        }
+
+        private void OnColorItemClick(object sender, RoutedEventArgs e)
+        {
+            var item = (sender as FrameworkElement).DataContext as KeyValue<string>;
+            ViewModel.Color = item.Value;
         }
     }
 }

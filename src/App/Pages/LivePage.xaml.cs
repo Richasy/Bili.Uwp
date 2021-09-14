@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Threading.Tasks;
-using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,7 +10,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class LivePage : Page, IRefreshPage
+    public sealed partial class LivePage : Page
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -39,10 +37,6 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
-        /// <inheritdoc/>
-        public Task RefreshAsync()
-            => ViewModel.InitializeRequestAsync();
-
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             if (this.ViewModel.BannerCollection.Count == 0)
@@ -65,7 +59,7 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await RefreshAsync();
+            await ViewModel.InitializeRequestAsync();
         }
     }
 }

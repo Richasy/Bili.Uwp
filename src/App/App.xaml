@@ -32,7 +32,7 @@
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
             <converter:DanmakuStyleConverter x:Key="DanmakuStyleConverter" />
-            <converter:ColorConverter x:Key="ColorConverter" />
+            <converter:ColorConverter x:Key="ColorConverter" IsBrush="False" />
             <converter:ColorConverter x:Key="BrushConverter" IsBrush="True" />
             <converter:FavoriteTypeConverter x:Key="FavoriteTypeConverter" />
             <converter:DanmakuLocationConverter x:Key="DanmakuLocationConverter" />

@@ -24,7 +24,14 @@ namespace Richasy.Bili.App.Resources.Converter
             var color = Colors.Transparent;
             if (value is string hexColor)
             {
-                color = hexColor.ToColor();
+                if (int.TryParse(hexColor, out var test))
+                {
+                    color = hexColor.ToColor();
+                }
+                else
+                {
+                    color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(hexColor);
+                }
             }
 
             return IsBrush ? new SolidColorBrush(color) : (object)color;

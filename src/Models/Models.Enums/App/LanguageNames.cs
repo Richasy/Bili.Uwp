@@ -304,6 +304,17 @@ namespace Richasy.Bili.Models.Enums
         ScrollDanmaku,
         TopDanmaku,
         BottomDanmaku,
+        White,
+        Red,
+        Orange,
+        Khaki,
+        Yellow,
+        Grass,
+        Green,
+        Blue,
+        Purple,
+        LightBlue,
+        Color,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
