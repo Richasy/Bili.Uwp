@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Globalization;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
@@ -26,6 +27,13 @@ namespace Richasy.Bili.Toolkit.Uwp
         {
             _app = Application.Current;
             ServiceLocator.Instance.LoadService(out _settingsToolkit);
+        }
+
+        /// <inheritdoc/>
+        public string GetLanguageCode(bool isWindowsName = false)
+        {
+            var culture = CultureInfo.CurrentUICulture;
+            return isWindowsName ? culture.ThreeLetterWindowsLanguageName : culture.Name;
         }
 
         /// <inheritdoc/>

@@ -1,0 +1,90 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.QuestionPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:other="using:Richasy.Bili.Models.App.Other"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:CardPanel IsEnableHoverAnimation="False">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="QuestionScrollView.VerticalScrollMode" Value="Disabled" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid Padding="16,0,16,16">
+            <muxc:NavigationView
+                x:Name="Nav"
+                IsBackButtonVisible="Collapsed"
+                IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
+                MenuItemsSource="{x:Bind ViewModel.QuestionCollection, Mode=OneWay}"
+                PaneDisplayMode="Top"
+                SelectedItem="{x:Bind ViewModel.CurrentQuestionModule, Mode=TwoWay}">
+                <muxc:NavigationView.MenuItemTemplate>
+                    <DataTemplate x:DataType="other:QuestionModule">
+                        <muxc:NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Id}" />
+                    </DataTemplate>
+                </muxc:NavigationView.MenuItemTemplate>
+                <muxc:ScrollView
+                    x:Name="QuestionScrollView"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Hidden">
+                    <muxc:ItemsRepeater
+                        x:Name="QuestionRepeater"
+                        Margin="0,12"
+                        ItemsSource="{x:Bind ViewModel.CurrentQuestionModule.Questions, Mode=OneWay}">
+                        <muxc:ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="other:QuestionItem">
+                                <exp:ExpanderEx ForceUseExpander="True">
+                                    <exp:ExpanderEx.Header>
+                                        <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                                            <exp:ExpanderExWrapper.MainContent>
+                                                <exp:ExpanderExDescriptor
+                                                    Title="{x:Bind Title}"
+                                                    DescriptionVisibility="Collapsed"
+                                                    IconVisibility="Collapsed" />
+                                            </exp:ExpanderExWrapper.MainContent>
+                                        </exp:ExpanderExWrapper>
+                                    </exp:ExpanderEx.Header>
+                                    <exp:ExpanderEx.Content>
+                                        <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                                            <exp:ExpanderExWrapper.MainContent>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    LineHeight="24"
+                                                    Text="{x:Bind Answer}"
+                                                    TextWrapping="Wrap" />
+                                            </exp:ExpanderExWrapper.MainContent>
+                                        </exp:ExpanderExWrapper>
+                                    </exp:ExpanderEx.Content>
+                                </exp:ExpanderEx>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater.ItemTemplate>
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Spacing="8" />
+                        </muxc:ItemsRepeater.Layout>
+                    </muxc:ItemsRepeater>
+                </muxc:ScrollView>
+            </muxc:NavigationView>
+        </Grid>
+    </local:CardPanel>
+</UserControl>

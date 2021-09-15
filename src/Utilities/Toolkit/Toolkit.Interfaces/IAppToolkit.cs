@@ -20,5 +20,17 @@ namespace Richasy.Bili.Toolkit.Interfaces
         /// </summary>
         /// <returns>Toolkit self.</returns>
         IAppToolkit InitializeTitleBar();
+
+        /// <summary>
+        /// Get the current environment language code.
+        /// </summary>
+        /// <param name="isWindowsName">
+        /// Whether it is the Windows display name,
+        /// for example, Simplified Chinese is CHS,
+        /// if not, it is displayed as the default name,
+        /// for example, Simplified Chinese is zh-Hans.
+        /// </param>
+        /// <returns>Language code.</returns>
+        string GetLanguageCode(bool isWindowsName = false);
     }
 }

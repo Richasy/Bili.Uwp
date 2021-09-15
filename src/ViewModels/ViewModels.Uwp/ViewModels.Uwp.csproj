@@ -30,6 +30,8 @@
     <Compile Include="Account\FavoriteListDetailViewModel.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
+    <Compile Include="Common\HelpViewModel\HelpViewModel.cs" />
+    <Compile Include="Common\HelpViewModel\HelpViewModel.Properties.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />

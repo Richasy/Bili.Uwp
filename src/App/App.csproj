@@ -99,6 +99,9 @@
     <Compile Include="Controls\Message\ReplyMessageView.xaml.cs">
       <DependentUpon>ReplyMessageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\QuestionPanel.xaml.cs">
+      <DependentUpon>QuestionPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -587,6 +590,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\App\QuestionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\User\AccountPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1033,6 +1040,9 @@
       <Project>{1af20fdc-36d5-450e-9461-0f78aeb89716}</Project>
       <Name>ViewModels.Uwp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Misc\Question.CHS.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

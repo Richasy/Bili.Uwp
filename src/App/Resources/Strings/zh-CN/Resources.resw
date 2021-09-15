@@ -713,6 +713,9 @@
   <data name="RefreshCurrentSection" xml:space="preserve">
     <value>刷新当前分区</value>
   </data>
+  <data name="RelatedProjects" xml:space="preserve">
+    <value>关联项目</value>
+  </data>
   <data name="RelatedVideos" xml:space="preserve">
     <value>关联视频</value>
   </data>
