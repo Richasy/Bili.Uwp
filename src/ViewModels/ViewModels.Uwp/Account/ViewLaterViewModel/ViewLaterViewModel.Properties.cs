@@ -35,17 +35,5 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsClearButtonEnabled { get; set; }
-
-        /// <summary>
-        /// 运行时错误文本（比如删除条目失败）.
-        /// </summary>
-        [Reactive]
-        public string RuntimeErrorText { get; set; }
-
-        /// <summary>
-        /// 是否显示运行时错误.
-        /// </summary>
-        [Reactive]
-        public bool IsShowRuntimeError { get; set; }
     }
 }

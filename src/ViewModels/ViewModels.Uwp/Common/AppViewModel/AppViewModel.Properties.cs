@@ -2,9 +2,11 @@
 
 using System;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.System.Display;
+using Windows.UI.Xaml;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -14,6 +16,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     public partial class AppViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly ISettingsToolkit _settingToolkit;
         private readonly DisplayRequest _displayRequest;
 
         /// <summary>
@@ -25,6 +28,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 请求播放视频.
         /// </summary>
         public event EventHandler<object> RequestPlay;
+
+        /// <summary>
+        /// 请求显示提醒.
+        /// </summary>
+        public event EventHandler<AppTipNotificationEventArgs> RequestShowTip;
 
         /// <summary>
         /// <see cref="AppViewModel"/>的单例.
@@ -78,5 +86,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsOverLayerExtendToTitleBar { get; set; }
+
+        /// <summary>
+        /// 主题.
+        /// </summary>
+        [Reactive]
+        public ElementTheme Theme { get; set; }
     }
 }

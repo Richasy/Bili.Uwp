@@ -7,6 +7,7 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:v2="using:Bilibili.App.Dynamic.V2"
     mc:Ignorable="d">
 
@@ -31,7 +32,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="ContentScrollViewer"
             Grid.Row="1"
             Padding="{StaticResource DefaultContainerPadding}"
@@ -51,7 +52,7 @@
                     </DataTemplate>
                 </controls:VerticalRepeaterView.ItemTemplate>
             </controls:VerticalRepeaterView>
-        </ScrollViewer>
+        </muxc:ScrollView>
 
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
         <controls:ErrorPanel

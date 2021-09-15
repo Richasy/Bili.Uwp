@@ -7,6 +7,7 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid>
@@ -27,7 +28,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="ContentScrollViewer"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
@@ -55,6 +56,6 @@
                 <controls:PlayerControlSettingSection />
                 <controls:MTCSettingSection />
             </StackPanel>
-        </ScrollViewer>
+        </muxc:ScrollView>
     </Grid>
 </Page>

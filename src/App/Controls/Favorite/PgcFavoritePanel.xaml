@@ -33,7 +33,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="ContentScrollViewer"
             Padding="{StaticResource DefaultContainerPadding}"
             HorizontalScrollMode="Disabled"
@@ -65,7 +65,7 @@
                     </DataTemplate>
                 </local:VerticalRepeaterView.ItemTemplate>
             </local:VerticalRepeaterView>
-        </ScrollViewer>
+        </muxc:ScrollView>
 
         <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
         <local:ErrorPanel

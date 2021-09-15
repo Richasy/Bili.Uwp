@@ -20,7 +20,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
 
         private void OnRequestLiveMessageScrollToBottom(object sender, EventArgs e)
         {
-            ScrollViewer.ChangeView(0, ScrollViewer.ExtentHeight + ScrollViewer.ScrollableHeight + ScrollViewer.VerticalOffset, 1);
+            ScrollViewer.ChangeView(0, (ScrollViewer.ExtentHeight + ScrollViewer.ScrollableHeight) * 2, 1);
         }
     }
 }

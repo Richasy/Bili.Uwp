@@ -123,6 +123,12 @@
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>
+  <data name="AddViewLaterFailed" xml:space="preserve">
+    <value>添加到稍后再看失败</value>
+  </data>
+  <data name="AddViewLaterSucceseded" xml:space="preserve">
+    <value>视频已添加至稍后再看</value>
+  </data>
   <data name="Alias" xml:space="preserve">
     <value>别名</value>
   </data>
@@ -147,6 +153,9 @@
   <data name="AppTip" xml:space="preserve">
     <value>应用提示</value>
   </data>
+  <data name="AskIssue" xml:space="preserve">
+    <value>Github issue</value>
+  </data>
   <data name="AtMe" xml:space="preserve">
     <value>@我的</value>
   </data>
@@ -167,6 +176,9 @@
   </data>
   <data name="BelikeCount" xml:space="preserve">
     <value>获赞数</value>
+  </data>
+  <data name="BiliHomePage" xml:space="preserve">
+    <value>开发者B站主页</value>
   </data>
   <data name="Billion" xml:space="preserve">
     <value>亿</value>
@@ -439,6 +451,13 @@
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
+  <data name="IsNeedFeedback" xml:space="preserve">
+    <value>需要反馈？</value>
+  </data>
+  <data name="IsNeedFeedbackDescription" xml:space="preserve">
+    <value>需要反馈应用使用过程中的问题？
+想提供一些建议？</value>
+  </data>
   <data name="Khaki" xml:space="preserve">
     <value>土黄色</value>
   </data>
@@ -658,6 +677,9 @@
   <data name="PreviousView" xml:space="preserve">
     <value>上次观看：</value>
   </data>
+  <data name="ProjectHomePage" xml:space="preserve">
+    <value>项目主页</value>
+  </data>
   <data name="PublishFinished" xml:space="preserve">
     <value>已完结</value>
   </data>
@@ -696,6 +718,9 @@
   </data>
   <data name="RefreshCurrentSection" xml:space="preserve">
     <value>刷新当前分区</value>
+  </data>
+  <data name="RelatedProjects" xml:space="preserve">
+    <value>关联项目</value>
   </data>
   <data name="RelatedVideos" xml:space="preserve">
     <value>关联视频</value>

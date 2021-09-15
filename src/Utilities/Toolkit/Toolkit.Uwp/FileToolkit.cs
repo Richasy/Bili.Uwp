@@ -126,8 +126,15 @@ namespace Richasy.Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public async Task<string> ReadPackageFile(string filePath)
         {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
-            return await FileIO.ReadTextAsync(file);
+            try
+            {
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
+                return await FileIO.ReadTextAsync(file);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
     }
 }

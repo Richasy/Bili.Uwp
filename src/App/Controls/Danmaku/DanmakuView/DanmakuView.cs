@@ -146,8 +146,7 @@ namespace Richasy.Bili.App.Controls
             var ts = TimeSpan.Zero;
             if (m.Location == DanmakuLocation.Scroll)
             {
-                danmaku.Measure(_rootGrid.DesiredSize);
-                moveTransform.X = _rootGrid.ActualWidth + danmaku.DesiredSize.Width;
+                moveTransform.X = _rootGrid.ActualWidth;
                 danmaku.RenderTransform = moveTransform;
                 ts = TimeSpan.FromSeconds(DanmakuDuration);
             }
@@ -167,7 +166,8 @@ namespace Richasy.Bili.App.Controls
 
             if (m.Location == DanmakuLocation.Scroll)
             {
-                danmakuAnimationX.To = -danmaku.ActualWidth;
+                danmaku.Measure(_rootGrid.DesiredSize);
+                danmakuAnimationX.To = -danmaku.ActualWidth - danmaku.DesiredSize.Width - 40;
             }
 
             moveStoryboard.Children.Add(danmakuAnimationX);

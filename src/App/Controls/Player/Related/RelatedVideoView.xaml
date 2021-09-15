@@ -12,11 +12,14 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+    <muxc:ScrollView
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Hidden"
+        VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
         <controls:VerticalRepeaterView
+            EnableDetectParentScrollViewer="False"
             HeaderVisibility="Collapsed"
             ItemOrientation="Horizontal"
-            EnableDetectParentScrollViewer="False"
             ItemsSource="{x:Bind ViewModel.RelatedVideoCollection}">
             <controls:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:VideoViewModel">

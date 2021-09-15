@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Controls;
 using Richasy.Bili.App.Pages;
+using Richasy.Bili.Models.Enums.App;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -50,23 +50,23 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 显示内容.
         /// </summary>
-        /// <param name="severity">信息级别.</param>
+        /// <param name="type">信息级别.</param>
         /// <param name="displaySeconds">显示的时间.</param>
-        public async void ShowAsync(InfoBarSeverity severity = InfoBarSeverity.Informational, double displaySeconds = 2)
+        public async void ShowAsync(InfoType type = InfoType.Information, double displaySeconds = 2)
         {
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
-            switch (severity)
+            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this, false);
+            switch (type)
             {
-                case InfoBarSeverity.Informational:
+                case InfoType.Information:
                     InformationIcon.Visibility = Visibility.Visible;
                     break;
-                case InfoBarSeverity.Success:
+                case InfoType.Success:
                     SuccessIcon.Visibility = Visibility.Visible;
                     break;
-                case InfoBarSeverity.Warning:
+                case InfoType.Warning:
                     WarningIcon.Visibility = Visibility.Visible;
                     break;
-                case InfoBarSeverity.Error:
+                case InfoType.Error:
                     ErrorIcon.Visibility = Visibility.Visible;
                     break;
                 default:
@@ -76,7 +76,7 @@ namespace Richasy.Bili.App.Controls
             PopupContainer.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(displaySeconds));
             PopupContainer.Visibility = Visibility.Collapsed;
-            ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
+            ((Window.Current.Content as Frame).Content as RootPage).RemoveFromHolder(this);
         }
     }
 }

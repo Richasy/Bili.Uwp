@@ -35,7 +35,6 @@
         <Grid RowSpacing="6">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock
@@ -43,20 +42,8 @@
                 HorizontalAlignment="Left"
                 Text="{loc:LocaleLocator Name=ViewLater}"
                 TextTrimming="CharacterEllipsis" />
-            <Grid
-                x:Name="InfoContainer"
-                Grid.Row="1"
-                Padding="{StaticResource DefaultContainerPadding}">
-                <muxc:InfoBar
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    IsClosable="True"
-                    IsOpen="{x:Bind ViewModel.IsShowRuntimeError, Mode=OneWay}"
-                    Message="{x:Bind ViewModel.RuntimeErrorText, Mode=OneWay}"
-                    Severity="Error" />
-            </Grid>
-            <Grid Grid.Row="2">
-                <ScrollViewer
+            <Grid Grid.Row="1">
+                <muxc:ScrollView
                     x:Name="ContentScrollViewer"
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
@@ -64,7 +51,6 @@
                     <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                         <controls:VerticalRepeaterView
                             x:Name="VideoView"
-                            Grid.Row="1"
                             Margin="0,0,0,12"
                             HeaderText="{loc:LocaleLocator Name=Videos}"
                             ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
@@ -111,7 +97,7 @@
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
                     </Grid>
-                </ScrollViewer>
+                </muxc:ScrollView>
 
                 <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
                 <controls:ErrorPanel

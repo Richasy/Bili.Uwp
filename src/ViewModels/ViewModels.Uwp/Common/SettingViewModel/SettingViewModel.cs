@@ -52,6 +52,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(AppTheme):
                     WriteSetting(SettingNames.AppTheme, AppTheme);
                     IsShowThemeRestartTip = AppTheme != _initializeTheme;
+                    AppViewModel.Instance.InitializeTheme();
                     break;
                 case nameof(IsPrelaunch):
                     SetPrelaunch();

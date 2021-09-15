@@ -72,12 +72,11 @@
         </Grid>
 
 
-        <ScrollViewer
+        <muxc:ScrollView
             x:Name="ContentScrollViewer"
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Hidden"
-            VerticalScrollMode="Auto">
+            VerticalScrollBarVisibility="Hidden">
             <muxc:ItemsRepeater
                 x:Name="LiveRepeater"
                 Margin="0,4,0,12"
@@ -94,6 +93,6 @@
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
             </muxc:ItemsRepeater>
-        </ScrollViewer>
+        </muxc:ScrollView>
     </Grid>
 </UserControl>

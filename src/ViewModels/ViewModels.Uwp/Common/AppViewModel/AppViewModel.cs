@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
 
@@ -23,8 +24,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsNavigatePaneOpen = true;
             IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            ServiceLocator.Instance.LoadService(out _resourceToolkit)
+                                   .LoadService(out _settingToolkit);
             _displayRequest = new Windows.System.Display.DisplayRequest();
+            InitializeTheme();
+        }
+
+        /// <summary>
+        /// 显示提示.
+        /// </summary>
+        /// <param name="message">消息内容.</param>
+        /// <param name="type">消息类型.</param>
+        public void ShowTip(string message, InfoType type = InfoType.Information)
+        {
+            RequestShowTip?.Invoke(this, new Models.App.Args.AppTipNotificationEventArgs(message, type));
         }
 
         /// <summary>
@@ -99,6 +112,28 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     await targetVM.InitializeRequestAsync();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 初始化主题.
+        /// </summary>
+        public void InitializeTheme()
+        {
+            var theme = _settingToolkit.ReadLocalSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
+            switch (theme)
+            {
+                case AppConstants.ThemeLight:
+                    Theme = Windows.UI.Xaml.ElementTheme.Light;
+                    break;
+                case AppConstants.ThemeDark:
+                    Theme = Windows.UI.Xaml.ElementTheme.Dark;
+                    break;
+                case AppConstants.ThemeDefault:
+                    Theme = Windows.UI.Xaml.ElementTheme.Default;
+                    break;
+                default:
+                    break;
             }
         }
     }

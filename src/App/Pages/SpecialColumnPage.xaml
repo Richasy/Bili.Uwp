@@ -50,7 +50,7 @@
             </muxc:NavigationView.MenuItemTemplate>
 
             <muxc:NavigationView.Content>
-                <ScrollViewer
+                <muxc:ScrollView
                     x:Name="ContentScrollViewer"
                     Margin="0,8,0,0"
                     Padding="{StaticResource DefaultContainerPadding}"
@@ -152,7 +152,7 @@
 
                         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.CurrentCategory.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay}" />
                     </Grid>
-                </ScrollViewer>
+                </muxc:ScrollView>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
 

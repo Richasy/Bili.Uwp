@@ -52,7 +52,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsInitializeLoading = true;
                 IsShowEmpty = false;
-                IsShowRuntimeError = false;
                 _isLoadCompleted = false;
                 VideoCollection.Clear();
                 _pageNumber = 0;
@@ -85,12 +84,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ClearAsync()
         {
-            IsShowRuntimeError = false;
             var result = await Controller.ClearViewLaterAsync();
             if (!result)
             {
-                IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearViewLater);
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearViewLater), Models.Enums.App.InfoType.Error);
             }
             else
             {
@@ -106,12 +103,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RemoveAsync(VideoViewModel vm)
         {
-            IsShowRuntimeError = false;
             var result = await Controller.RemoveVideoFromViewLaterAsync(Convert.ToInt32(vm.VideoId));
             if (!result)
             {
-                IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromViewLater);
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromViewLater), Models.Enums.App.InfoType.Error);
             }
             else
             {
@@ -127,7 +122,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns>添加的结果.</returns>
         public async Task<bool> AddAsync(VideoViewModel vm)
         {
-            return await Controller.AddVideoToViewLaterAsync(Convert.ToInt32(vm.VideoId));
+            var result = await Controller.AddVideoToViewLaterAsync(Convert.ToInt32(vm.VideoId));
+            if (result)
+            {
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterSucceseded), Models.Enums.App.InfoType.Success);
+            }
+            else
+            {
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterFailed), Models.Enums.App.InfoType.Error);
+            }
+
+            return result;
         }
 
         /// <summary>

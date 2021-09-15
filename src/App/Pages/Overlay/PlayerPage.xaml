@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid x:Name="RootGrid">
@@ -138,7 +139,7 @@
                 </Grid>
             </Grid>
 
-            <ScrollViewer
+            <muxc:ScrollView
                 x:Name="RootScrollViewer"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"

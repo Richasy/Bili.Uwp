@@ -79,7 +79,7 @@
         </Grid>
 
         <Grid>
-            <ScrollViewer
+            <muxc:ScrollView
                 x:Name="RootScrollViewer"
                 Padding="0,0,24,0"
                 HorizontalScrollMode="Disabled"
@@ -151,7 +151,7 @@
                         </controls:VerticalRepeaterView>
                     </Grid>
                 </Grid>
-            </ScrollViewer>
+            </muxc:ScrollView>
         </Grid>
 
 
