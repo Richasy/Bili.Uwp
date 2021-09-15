@@ -44,7 +44,7 @@
             x:Name="WideContainer"
             Grid.Row="1"
             CornerRadius="{StaticResource ControlCornerRadius}">
-            <controls:ScrollView
+            <ScrollViewer
                 x:Name="WideScrollViewer"
                 HorizontalScrollBarVisibility="Hidden"
                 HorizontalScrollMode="Enabled"
@@ -61,7 +61,7 @@
                         <controls:StackLayout Orientation="Horizontal" Spacing="12" />
                     </controls:ItemsRepeater.Layout>
                 </controls:ItemsRepeater>
-            </controls:ScrollView>
+            </ScrollViewer>
 
             <local:OffsetButton
                 x:Name="LeftOffsetButton"

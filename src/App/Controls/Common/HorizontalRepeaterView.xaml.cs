@@ -178,7 +178,7 @@ namespace Richasy.Bili.App.Controls
                 leftOffset = 0;
             }
 
-            WideScrollViewer.ScrollTo(leftOffset, 0);
+            WideScrollViewer.ChangeView(leftOffset, 0, 1);
         }
 
         private void OnRightOffsetButtonClick(object sender, RoutedEventArgs e)
@@ -189,10 +189,10 @@ namespace Richasy.Bili.App.Controls
                 rightOffset = WideScrollViewer.ScrollableWidth - WideScrollViewer.HorizontalOffset;
             }
 
-            WideScrollViewer.ScrollTo(rightOffset, 0);
+            WideScrollViewer.ChangeView(rightOffset, 0, 1);
         }
 
-        private void OnWideScrollViewerChanged(Microsoft.UI.Xaml.Controls.ScrollView sender, object args)
+        private void OnWideScrollViewerChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             CheckOffsetButtonStatus();
         }

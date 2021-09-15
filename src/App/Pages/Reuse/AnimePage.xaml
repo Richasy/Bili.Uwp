@@ -109,7 +109,7 @@
                                     ItemsSource="{x:Bind ViewModel.CurrentTab.RankCollection, Mode=OneWay}">
                                     <controls:HorizontalRepeaterView.WideItemTemplate>
                                         <DataTemplate x:DataType="uwp:PgcModuleViewModel">
-                                            <controls:CardPanel IsEnableHoverAnimation="False">
+                                            <controls:CardPanel MaxWidth="340" IsEnableHoverAnimation="False">
                                                 <Grid Padding="8">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto" />

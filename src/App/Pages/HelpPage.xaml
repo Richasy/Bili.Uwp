@@ -46,10 +46,7 @@
             </Grid.RowDefinitions>
 
             <!-- 提交问题导引模块 -->
-            <controls:CardPanel
-                x:Name="AskQuestionContainer"
-                BorderThickness="0"
-                IsEnableHoverAnimation="False">
+            <controls:CardPanel x:Name="AskQuestionContainer" IsEnableHoverAnimation="False">
                 <Grid Padding="16" RowSpacing="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
