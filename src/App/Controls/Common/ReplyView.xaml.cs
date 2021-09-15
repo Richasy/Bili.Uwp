@@ -163,11 +163,6 @@ namespace Richasy.Bili.App.Controls
                     await ViewModel.InitializeRequestAsync();
                 }
             }
-            else
-            {
-                new TipPopup(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed))
-                    .ShowAsync(Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error);
-            }
         }
 
         private void CheckReplyPlaceholder()

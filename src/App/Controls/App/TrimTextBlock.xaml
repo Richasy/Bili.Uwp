@@ -21,6 +21,7 @@
             FontSize="{x:Bind FontSize, Mode=OneWay}"
             FontWeight="{x:Bind FontWeight, Mode=OneWay}"
             Foreground="{x:Bind Foreground, Mode=OneWay}"
+            IsTextSelectionEnabled="True"
             IsTextTrimmedChanged="OnIsTextTrimmedChanged"
             LineHeight="24"
             MaxLines="{x:Bind MaxLines, Mode=OneWay}"

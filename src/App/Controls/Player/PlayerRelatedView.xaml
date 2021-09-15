@@ -37,6 +37,11 @@
                     <VisualState.Setters>
                         <Setter Target="DetailGrid.Width" Value="Auto" />
                         <Setter Target="DetailGrid.MaxWidth" Value="999" />
+                        <Setter Target="RelatedVideoView.VerticalScrollMode" Value="Disabled" />
+                        <Setter Target="VideoPartView.VerticalScrollMode" Value="Disabled" />
+                        <Setter Target="EpisodeView.VerticalScrollMode" Value="Disabled" />
+                        <Setter Target="SeasonView.VerticalScrollMode" Value="Disabled" />
+                        <Setter Target="SectionView.VerticalScrollMode" Value="Disabled" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -105,9 +105,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="rootId">根评论Id.</param>
         /// <param name="parentId">正在回复的评论Id.</param>
         /// <returns>发布结果.</returns>
-        public Task<bool> AddReplyAsync(string message, long rootId, long parentId)
+        public async Task<bool> AddReplyAsync(string message, long rootId, long parentId)
         {
-            return Controller.AddReplyAsync(message, TargetId, Type, rootId, parentId);
+            var result = await Controller.AddReplyAsync(message, TargetId, Type, rootId, parentId);
+            if (!result)
+            {
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
+            }
+
+            return result;
         }
 
         internal async Task DeltaRequestAsync()

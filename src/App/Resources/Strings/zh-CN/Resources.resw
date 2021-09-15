@@ -123,6 +123,12 @@
   <data name="AddToViewLater" xml:space="preserve">
     <value>添加到稍后再看</value>
   </data>
+  <data name="AddViewLaterFailed" xml:space="preserve">
+    <value>添加到稍后再看失败</value>
+  </data>
+  <data name="AddViewLaterSucceseded" xml:space="preserve">
+    <value>视频已添加至稍后再看</value>
+  </data>
   <data name="Alias" xml:space="preserve">
     <value>别名</value>
   </data>

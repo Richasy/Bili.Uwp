@@ -321,6 +321,8 @@ namespace Richasy.Bili.Models.Enums
         BiliHomePage,
         ProjectHomePage,
         RelatedProjects,
+        AddViewLaterSucceseded,
+        AddViewLaterFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

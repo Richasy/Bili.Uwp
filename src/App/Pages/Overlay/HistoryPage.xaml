@@ -15,7 +15,6 @@
     <Grid RowSpacing="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="1" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
@@ -41,20 +40,7 @@
             HorizontalAlignment="Left"
             FontWeight="Bold"
             Text="{loc:LocaleLocator Name=ViewHistory}" />
-        <Grid
-            x:Name="InfoContainer"
-            Grid.Row="1"
-            Padding="{StaticResource DefaultContainerPadding}">
-            <muxc:InfoBar
-                x:Name="ErrorInfoBar"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                IsClosable="True"
-                IsOpen="{x:Bind ViewModel.IsShowRuntimeError, Mode=OneWay}"
-                Message="{x:Bind ViewModel.RuntimeErrorText, Mode=OneWay}"
-                Severity="Error" />
-        </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <muxc:ScrollView
                 x:Name="ContentScrollViewer"
                 Padding="{StaticResource DefaultContainerPadding}"
@@ -63,7 +49,6 @@
                 <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView
                         x:Name="VideoView"
-                        Grid.Row="1"
                         Margin="0,0,0,12"
                         HeaderText="{loc:LocaleLocator Name=Videos}"
                         ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"

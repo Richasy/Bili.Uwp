@@ -55,7 +55,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsError = false;
                 ErrorText = string.Empty;
                 IsShowEmpty = false;
-                IsShowRuntimeError = false;
                 _isLoadCompleted = false;
                 try
                 {
@@ -85,7 +84,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task DeleteItemAsync(VideoViewModel vm)
         {
-            IsShowRuntimeError = false;
             var source = vm.Source as CursorItem;
             var result = await Controller.RemoveHistoryItemAsync(source.Kid);
             if (result)
@@ -95,8 +93,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory);
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -106,12 +103,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ClearAsync()
         {
-            IsShowRuntimeError = false;
             var result = await Controller.ClearHistoryAsync();
             if (!result)
             {
-                IsShowRuntimeError = true;
-                RuntimeErrorText = ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry);
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry), Models.Enums.App.InfoType.Error);
             }
             else
             {

@@ -11,7 +11,10 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
+    <muxc:ScrollView
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Hidden"
+        VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PgcSectionCollection, Mode=OneWay}">
             <muxc:ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="uwp:PgcSectionViewModel">

@@ -524,7 +524,6 @@
                                                     <icons:RegularFluentIcon x:Name="PlayPauseSymbol" Glyph="&#x002B;" />
                                                 </AppBarButton.Icon>
                                                 <AppBarButton.KeyboardAccelerators>
-                                                    <KeyboardAccelerator Key="Space" IsEnabled="True" />
                                                     <KeyboardAccelerator
                                                         Key="P"
                                                         IsEnabled="True"

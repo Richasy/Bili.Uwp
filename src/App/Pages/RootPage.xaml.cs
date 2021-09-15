@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
+using Richasy.Bili.App.Controls;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +28,7 @@ namespace Richasy.Bili.App.Pages
         {
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
+            this.ViewModel.RequestShowTip += OnRequestShowTip;
         }
 
         /// <summary>
@@ -41,7 +44,8 @@ namespace Richasy.Bili.App.Pages
         /// 显示顶层视图.
         /// </summary>
         /// <param name="element">要显示的元素.</param>
-        public void ShowOnHolder(UIElement element)
+        /// <param name="needDisableBackButton">是否需要禁用返回按钮.</param>
+        public void ShowOnHolder(UIElement element, bool needDisableBackButton = true)
         {
             if (!HolderContainer.Children.Contains(element))
             {
@@ -49,7 +53,11 @@ namespace Richasy.Bili.App.Pages
             }
 
             HolderContainer.Visibility = Visibility.Visible;
-            ViewModel.IsBackButtonEnabled = false;
+
+            if (needDisableBackButton)
+            {
+                ViewModel.IsBackButtonEnabled = false;
+            }
         }
 
         /// <summary>
@@ -59,6 +67,15 @@ namespace Richasy.Bili.App.Pages
         {
             HolderContainer.Children.Clear();
             ViewModel.IsBackButtonEnabled = true;
+        }
+
+        /// <summary>
+        /// 从顶层视图中移除元素.
+        /// </summary>
+        /// <param name="element">UI元素.</param>
+        public void RemoveFromHolder(UIElement element)
+        {
+            HolderContainer.Children.Remove(element);
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -92,6 +109,11 @@ namespace Richasy.Bili.App.Pages
                 var stateName = ViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
                 VisualStateManager.GoToState(this, stateName, false);
             }
+        }
+
+        private void OnRequestShowTip(object sender, AppTipNotificationEventArgs e)
+        {
+            new TipPopup(e.Message).ShowAsync(e.Type);
         }
     }
 }

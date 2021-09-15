@@ -2,6 +2,7 @@
 
 using System;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.System.Display;
@@ -27,6 +28,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 请求播放视频.
         /// </summary>
         public event EventHandler<object> RequestPlay;
+
+        /// <summary>
+        /// 请求显示提醒.
+        /// </summary>
+        public event EventHandler<AppTipNotificationEventArgs> RequestShowTip;
 
         /// <summary>
         /// <see cref="AppViewModel"/>的单例.
