@@ -323,6 +323,9 @@ namespace Richasy.Bili.Models.Enums
         RelatedProjects,
         AddViewLaterSucceseded,
         AddViewLaterFailed,
+        FollowRoom,
+        FailedToGetUserRelation,
+        NoRoomDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

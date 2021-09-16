@@ -49,9 +49,21 @@
             ItemInvoked="OnNavItemInvokedAsync"
             PaneDisplayMode="Top">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Name="ReplyMeNavItem" Content="{loc:LocaleLocator Name=ReplyMe}" />
-                <muxc:NavigationViewItem x:Name="AtMeNavItem" Content="{loc:LocaleLocator Name=AtMe}" />
-                <muxc:NavigationViewItem x:Name="LikeMeNavItem" Content="{loc:LocaleLocator Name=LikeMe}" />
+                <muxc:NavigationViewItem x:Name="ReplyMeNavItem" Content="{loc:LocaleLocator Name=ReplyMe}">
+                    <muxc:NavigationViewItem.InfoBadge>
+                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewReplyMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewReplyMessageCount, Mode=OneWay}" />
+                    </muxc:NavigationViewItem.InfoBadge>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="AtMeNavItem" Content="{loc:LocaleLocator Name=AtMe}">
+                    <muxc:NavigationViewItem.InfoBadge>
+                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewAtMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewAtMessageCount, Mode=OneWay}" />
+                    </muxc:NavigationViewItem.InfoBadge>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="LikeMeNavItem" Content="{loc:LocaleLocator Name=LikeMe}">
+                    <muxc:NavigationViewItem.InfoBadge>
+                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewLikeMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewLikeMessageCount, Mode=OneWay}" />
+                    </muxc:NavigationViewItem.InfoBadge>
+                </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.PaneFooter>

@@ -78,6 +78,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string VideoCursor = _appBase + "/x/v2/space/archive/cursor";
 
             /// <summary>
+            /// 获取与用户间的关系（关注与否）.
+            /// </summary>
+            public const string Relation = _apiBase + "/x/relation";
+
+            /// <summary>
             /// 修改与用户间的关系（关注/取消关注）.
             /// </summary>
             public const string ModifyRelation = _apiBase + "/x/relation/modify";

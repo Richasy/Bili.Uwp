@@ -26,14 +26,43 @@
             HorizontalAlignment="Left"
             Orientation="Horizontal"
             Spacing="12"
-            Tapped="OnUserTappedAsync"
             Visibility="{x:Bind ViewModel.Publisher, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
             <local:UserAvatar
-                Width="32"
-                Height="32"
+                Width="36"
+                Height="36"
                 Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                Tapped="OnUserTappedAsync"
                 UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-            <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+            <StackPanel Spacing="4">
+                <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                <Grid HorizontalAlignment="Left">
+                    <Button
+                        x:Name="FollowButton"
+                        Style="{StaticResource AccentButtonStyle}"
+                        Padding="8,2"
+                        Click="OnFollowButtonClickAsync"
+                        Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <local:IconTextBlock
+                            FontSize="10"
+                            IconFontSize="12"
+                            Spacing="2"
+                            Symbol="Add12"
+                            Text="{loc:LocaleLocator Name=Follow}" />
+                    </Button>
+                    <Button
+                        x:Name="UnfollowButton"
+                        Padding="8,2"
+                        Click="OnFollowButtonClickAsync"
+                        Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay}">
+                        <local:IconTextBlock
+                            FontSize="10"
+                            IconFontSize="12"
+                            Spacing="2"
+                            Symbol="EyeShow12"
+                            Text="{loc:LocaleLocator Name=Followed}" />
+                    </Button>
+                </Grid>
+            </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1">

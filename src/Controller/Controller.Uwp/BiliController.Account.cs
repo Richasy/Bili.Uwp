@@ -523,5 +523,13 @@ namespace Richasy.Bili.Controller.Uwp
                 MessageIteration?.Invoke(this, args);
             }
         }
+
+        /// <summary>
+        /// 获取与用户间的关系.
+        /// </summary>
+        /// <param name="targetUserId">目标用户Id.</param>
+        /// <returns>用户关系响应.</returns>
+        public Task<UserRelationResponse> GetRelationAsync(int targetUserId)
+            => _accountProvider.GetRelationAsync(targetUserId);
     }
 }

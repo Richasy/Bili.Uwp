@@ -63,5 +63,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowReplyEmpty { get; set; }
+
+        /// <summary>
+        /// 新的点赞消息数.
+        /// </summary>
+        [Reactive]
+        public int NewLikeMessageCount { get; set; }
+
+        /// <summary>
+        /// 新的@消息数.
+        /// </summary>
+        [Reactive]
+        public int NewAtMessageCount { get; set; }
+
+        /// <summary>
+        /// 新的回复消息数.
+        /// </summary>
+        [Reactive]
+        public int NewReplyMessageCount { get; set; }
     }
 }

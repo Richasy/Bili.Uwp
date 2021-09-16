@@ -99,6 +99,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Cid = "cid";
             public const string OType = "otype";
             public const string Progress = "progress";
+            public const string RealTime = "realtime";
             public const string Like = "like";
             public const string Multiply = "multiply";
             public const string AlsoLike = "select_like";

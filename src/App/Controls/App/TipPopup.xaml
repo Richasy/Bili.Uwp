@@ -56,13 +56,13 @@
                 <icons:RegularFluentIcon
                     x:Name="WarningIcon"
                     FontSize="14"
-                    Foreground="{ThemeResource InfoBarSuccessSeverityIconBackground}"
+                    Foreground="{ThemeResource InfoBarWarningSeverityIconBackground}"
                     Symbol="Warning16"
                     Visibility="Collapsed" />
                 <icons:RegularFluentIcon
                     x:Name="SuccessIcon"
                     FontSize="14"
-                    Foreground="{ThemeResource InfoBarWarningSeverityIconBackground}"
+                    Foreground="{ThemeResource InfoBarSuccessSeverityIconBackground}"
                     Symbol="CheckmarkCircle20"
                     Visibility="Collapsed" />
                 <icons:RegularFluentIcon

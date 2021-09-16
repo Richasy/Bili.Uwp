@@ -88,11 +88,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <summary>
         /// 报告播放进度记录.
         /// </summary>
+        /// <param name="aid">视频Id.</param>
+        /// <param name="cid">分P Id.</param>
         /// <param name="episodeId">分集Id.</param>
         /// <param name="seasonId">剧集Id.</param>
         /// <param name="progress">播放进度.</param>
         /// <returns>进度上报是否成功.</returns>
-        Task<bool> ReportProgressAsync(int episodeId, int seasonId, long progress);
+        Task<bool> ReportProgressAsync(long aid, long cid, int episodeId, int seasonId, long progress);
 
         /// <summary>
         /// 点赞视频.

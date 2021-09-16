@@ -601,6 +601,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsShowRating { get; set; }
 
+        /// <summary>
+        /// 直播分区.
+        /// </summary>
+        [Reactive]
+        public string LivePartition { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }
