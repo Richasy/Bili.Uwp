@@ -14,7 +14,7 @@
 
 ---
 
-`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 系统。以设计和易用性为主，广受用户好评。
+`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 系统。主打设计和易用性，广受用户好评。
 
 ## 🙌 简单的开始
 
@@ -40,4 +40,4 @@
 
 ## 🌏 路线图
 
-哔哩会逐步完善，请查看 [哔哩里程碑](https://github.com/Richasy/Bili.Uwp/milestones) 来了解哔哩下一步打算做的事情。于此同时，欢迎各位开发者加入，让我们我们一起打造哔哩的未来。
+哔哩会逐步完善，请查看 [哔哩里程碑](https://github.com/Richasy/Bili.Uwp/milestones) 来了解哔哩下一步打算做的事情。于此同时，欢迎各位开发者加入，让我们一起打造哔哩的未来。
