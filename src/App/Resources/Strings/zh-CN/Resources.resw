@@ -343,6 +343,9 @@
   <data name="FailedToClearViewLater" xml:space="preserve">
     <value>清除稍后再看列表失败，请稍后重试</value>
   </data>
+  <data name="FailedToGetUserRelation" xml:space="preserve">
+    <value>获取用户关系信息失败</value>
+  </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
   </data>
@@ -571,6 +574,9 @@
   </data>
   <data name="NormalUser" xml:space="preserve">
     <value>普通用户</value>
+  </data>
+  <data name="NoRoomDescription" xml:space="preserve">
+    <value>暂无直播间文本介绍</value>
   </data>
   <data name="NoSpecificData" xml:space="preserve">
     <value>没有找到指定的数据</value>

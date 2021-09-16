@@ -234,5 +234,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="replyTime">回复的时间，偏移的标识符.</param>
         /// <returns>回复我的消息响应结果.</returns>
         Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime);
+
+        /// <summary>
+        /// 查询我与某用户之间的关系（是否关注）.
+        /// </summary>
+        /// <param name="targetUserId">目标用户Id.</param>
+        /// <returns>是否关注.</returns>
+        Task<UserRelationResponse> GetRelationAsync(int targetUserId);
     }
 }

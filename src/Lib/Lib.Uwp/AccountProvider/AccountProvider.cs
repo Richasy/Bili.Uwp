@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Lib.Interfaces;
@@ -400,5 +401,19 @@ namespace Richasy.Bili.Lib.Uwp
         /// <inheritdoc/>
         public Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime)
             => GetMessageInternalAsync<ReplyMessageResponse>(Models.Enums.App.MessageType.Reply, id, replyTime);
+
+        /// <inheritdoc/>
+        public async Task<UserRelationResponse> GetRelationAsync(int targetUserId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Fid, targetUserId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Relation, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<UserRelationResponse>>(response);
+            return result.Data;
+        }
     }
 }

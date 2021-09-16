@@ -68,6 +68,7 @@
             <Grid
                 x:Name="CoverContainer"
                 Height="124"
+                Margin="1,1,1,0"
                 VerticalAlignment="Stretch"
                 CornerRadius="4,4,0,0">
                 <local:CommonImageEx x:Name="CoverImage" ImageUrl="{x:Bind ViewModel.CoverUrl, Mode=OneWay}" />

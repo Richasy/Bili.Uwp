@@ -89,6 +89,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             var partId = CurrentVideoPart == null ? 0 : CurrentVideoPart.Page.Cid;
+            await InitializeUserRelationAsync();
             await ChangeVideoPartAsync(partId);
         }
 
@@ -165,6 +166,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 InitializeLiveDetail();
                 IsDetailLoading = false;
 
+                await InitializeUserRelationAsync();
                 await Controller.ConnectToLiveRoomAsync(roomId);
                 await ChangeLiveQualityAsync(4);
                 await Controller.SendLiveHeartBeatAsync();
@@ -364,6 +366,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             var descRegex = new Regex(@"<[^>]*>");
             var desc = descRegex.Replace(_liveDetail.RoomInformation.Description, string.Empty).Trim();
             Description = WebUtility.HtmlDecode(desc);
+            if (string.IsNullOrEmpty(Description.Trim()))
+            {
+                Description = _resourceToolkit.GetLocaleString(LanguageNames.NoRoomDescription);
+            }
+
             RoomId = _liveDetail.RoomInformation.RoomId.ToString();
             AvId = string.Empty;
             BvId = string.Empty;
@@ -380,6 +387,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CoverUrl = _liveDetail.RoomInformation.Cover ?? _liveDetail.RoomInformation.Keyframe;
             var user = _liveDetail.AnchorInformation.UserBasicInformation;
             Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);
+            LivePartition = (_liveDetail.RoomInformation.ParentAreaName ?? "--") + " · " + _liveDetail.RoomInformation.AreaName;
             IsShowChat = true;
         }
 
@@ -604,6 +612,25 @@ namespace Richasy.Bili.ViewModels.Uwp
             player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
 
             return player;
+        }
+
+        private async Task InitializeUserRelationAsync()
+        {
+            if (AccountViewModel.Instance.Status != AccountViewModelStatus.Login ||
+                AccountViewModel.Instance.Mid.Value == Publisher.Id)
+            {
+                return;
+            }
+
+            try
+            {
+                var relation = await Controller.GetRelationAsync(Publisher.Id);
+                Publisher.IsFollow = relation.IsFollow();
+            }
+            catch (Exception)
+            {
+                AppViewModel.Instance.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToGetUserRelation), Models.Enums.App.InfoType.Warning);
+            }
         }
 
         private async void OnMediaPlayerVolumeChangedAsync(MediaPlayer sender, object args)

@@ -28,8 +28,8 @@
             Spacing="12"
             Visibility="{x:Bind ViewModel.Publisher, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
             <local:UserAvatar
-                Width="32"
-                Height="32"
+                Width="36"
+                Height="36"
                 Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                 Tapped="OnUserTappedAsync"
                 UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
@@ -58,7 +58,7 @@
                             FontSize="10"
                             IconFontSize="12"
                             Spacing="2"
-                            Symbol="EyeTrackingOn16"
+                            Symbol="EyeShow12"
                             Text="{loc:LocaleLocator Name=Followed}" />
                     </Button>
                 </Grid>

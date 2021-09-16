@@ -191,10 +191,16 @@
                 x:Name="LiveControlContainer"
                 Margin="0,0,0,4"
                 HorizontalAlignment="Stretch"
-                Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay}" />
+                Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay}">
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{x:Bind ViewModel.LivePartition, Mode=OneWay}" />
+            </StackPanel>
 
             <Button
                 x:Name="ShareButton"
+                MinWidth="120"
                 Margin="0,0,0,8"
                 HorizontalAlignment="Stretch"
                 Click="OnShareButtonClick">
