@@ -12,7 +12,9 @@ using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Media.Playback;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -426,6 +428,45 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsRequestingFavorites = false;
+        }
+
+        /// <summary>
+        /// 使用本机组件分享当前正在播放的内容.
+        /// </summary>
+        public void Share()
+        {
+            var dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += OnDataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            var url = string.Empty;
+            switch (_videoType)
+            {
+                case VideoType.Video:
+                    url = _videoDetail.ShortLink;
+                    break;
+                case VideoType.Pgc:
+                    url = CurrentPgcEpisode.Link;
+                    break;
+                case VideoType.Live:
+                    url = $"https://live.bilibili.com/{_liveDetail.RoomInformation.RoomId}";
+                    break;
+                default:
+                    break;
+            }
+
+            request.Data.Properties.Title = Title;
+            request.Data.Properties.Description = Description;
+            request.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl));
+            request.Data.Properties.ContentSourceWebLink = new Uri(url);
+
+            request.Data.SetText(Description);
+            request.Data.SetWebLink(new Uri(url));
+            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl)));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)

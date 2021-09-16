@@ -394,6 +394,9 @@
   <data name="FollowLiveRoom" xml:space="preserve">
     <value>关注的直播间</value>
   </data>
+  <data name="FollowRoom" xml:space="preserve">
+    <value>关注直播间</value>
+  </data>
   <data name="FollowsSuffix" xml:space="preserve">
     <value>关注的人</value>
   </data>

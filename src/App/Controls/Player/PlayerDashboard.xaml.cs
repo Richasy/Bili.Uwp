@@ -31,6 +31,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnShareButtonClick(object sender, RoutedEventArgs e)
         {
+            ViewModel.Share();
         }
 
         private void OnPgcDetailButtonClick(object sender, RoutedEventArgs e)
