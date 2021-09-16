@@ -36,6 +36,7 @@
             <converter:ColorConverter x:Key="BrushConverter" IsBrush="True" />
             <converter:FavoriteTypeConverter x:Key="FavoriteTypeConverter" />
             <converter:DanmakuLocationConverter x:Key="DanmakuLocationConverter" />
+            <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

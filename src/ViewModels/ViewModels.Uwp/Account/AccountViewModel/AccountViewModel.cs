@@ -91,6 +91,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             try
             {
                 var unread = await _controller.GetUnreadMessageAsync();
+                MessageModuleViewModel.Instance.InitializeUnreadCount(unread);
                 UnreadMessageCount = unread.At + unread.Like + unread.Reply;
                 IsShowUnreadMessage = UnreadMessageCount != 0;
             }

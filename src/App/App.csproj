@@ -366,6 +366,7 @@
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
+    <Compile Include="Resources\Converter\NumberToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
     <Compile Include="Resources\Converter\MTCControlModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />

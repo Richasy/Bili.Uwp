@@ -118,6 +118,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Aid, videoId.ToString() },
                 { Query.Cid, partId.ToString() },
                 { Query.Progress, progress.ToString() },
+                { Query.Type, "3" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
@@ -127,13 +128,17 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ReportProgressAsync(int episodeId, int seasonId, long progress)
+        public async Task<bool> ReportProgressAsync(long videoId, long partId, int episodeId, int seasonId, long progress)
         {
             var queryParameters = new Dictionary<string, string>
             {
+                { Query.Aid, videoId.ToString() },
+                { Query.Cid, partId.ToString() },
                 { Query.EpisodeIdSlim, episodeId.ToString() },
                 { Query.SeasonIdSlim, seasonId.ToString() },
+                { Query.RealTime, progress.ToString() },
                 { Query.Progress, progress.ToString() },
+                { Query.Type, "4" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);

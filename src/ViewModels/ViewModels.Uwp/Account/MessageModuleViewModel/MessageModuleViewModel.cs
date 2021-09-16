@@ -30,6 +30,17 @@ namespace Richasy.Bili.ViewModels.Uwp
             Reset(true);
         }
 
+        /// <summary>
+        /// 初始化未读数.
+        /// </summary>
+        /// <param name="unread">未读数.</param>
+        public void InitializeUnreadCount(UnreadMessage unread)
+        {
+            NewLikeMessageCount = unread.Like;
+            NewAtMessageCount = unread.At;
+            NewReplyMessageCount = unread.Reply;
+        }
+
         /// <inheritdoc/>
         public async Task InitializeRequestAsync()
         {

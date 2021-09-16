@@ -580,8 +580,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             var progress = _currentVideoPlayer.PlaybackSession.Position;
             if (progress != _lastReportProgress)
             {
-                var videoId = IsPgc ? 0 : _videoId;
-                var partId = IsPgc ? 0 : CurrentVideoPart?.Page?.Cid ?? 0;
+                var videoId = IsPgc ? CurrentPgcEpisode.Aid : _videoId;
+                var partId = IsPgc ? CurrentPgcEpisode.PartId : CurrentVideoPart?.Page?.Cid ?? 0;
                 var episodeId = IsPgc ? Convert.ToInt32(EpisodeId) : 0;
                 var seasonId = IsPgc ? Convert.ToInt32(SeasonId) : 0;
                 await Controller.ReportHistoryAsync(videoId, partId, episodeId, seasonId, _currentVideoPlayer.PlaybackSession.Position);

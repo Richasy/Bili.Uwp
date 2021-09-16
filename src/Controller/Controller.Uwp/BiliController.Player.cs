@@ -109,13 +109,13 @@ namespace Richasy.Bili.Controller.Uwp
                 try
                 {
                     var isSuccess = false;
-                    if (videoId > 0)
-                    {
-                        isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
-                    }
-                    else if (episodeId > 0)
+                    if (episodeId > 0)
                     {
                         isSuccess = await _playerProvider.ReportProgressAsync(episodeId, seasonId, Convert.ToInt64(progress.TotalSeconds));
+                    }
+                    else if (videoId > 0)
+                    {
+                        isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
                     }
 
                     // Record.
