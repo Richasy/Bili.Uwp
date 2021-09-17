@@ -17,7 +17,6 @@
     <ShortcutGenericAnalysis>true</ShortcutGenericAnalysis>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>8DF9E1B8CAD190A4C406FB31BCD5083920463FB8</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>D:\Package\Bili</AppxPackageDir>
