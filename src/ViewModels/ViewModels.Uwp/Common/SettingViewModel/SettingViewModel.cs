@@ -42,6 +42,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             MTCControlModeInit();
             StartupInitAsync();
 
+            var appVersion = Package.Current.Id.Version;
+            Version = $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
+
             PropertyChanged += OnPropertyChangedAsync;
         }
 

@@ -10,6 +10,13 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="TipTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorDisabledBrush}" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
@@ -55,6 +62,17 @@
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
                 <controls:MTCSettingSection />
+                <StackPanel
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Left"
+                    Spacing="4">
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=AboutThisApp}" />
+                    <TextBlock Style="{StaticResource TipTextStyle}">
+                        <Run Text="{loc:LocaleLocator Name=AppName}" />
+                        <Run Text="{x:Bind ViewModel.Version}" />
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=License}" />
+                </StackPanel>
             </StackPanel>
         </muxc:ScrollView>
     </Grid>

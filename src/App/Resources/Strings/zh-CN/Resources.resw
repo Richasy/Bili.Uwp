@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutThisApp" xml:space="preserve">
+    <value>关于此应用</value>
+  </data>
   <data name="AddReplyFailed" xml:space="preserve">
     <value>添加评论失败，请稍后再试</value>
   </data>
@@ -475,6 +478,9 @@
   </data>
   <data name="LastestReply" xml:space="preserve">
     <value>最新评论</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>©2021 Richasy. MIT 许可证</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>

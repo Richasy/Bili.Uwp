@@ -105,5 +105,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public double SingleFastForwardAndRewindSpan { get; set; }
+
+        /// <summary>
+        /// 应用版本.
+        /// </summary>
+        [Reactive]
+        public string Version { get; set; }
     }
 }
