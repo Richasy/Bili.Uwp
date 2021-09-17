@@ -17,12 +17,18 @@ namespace Richasy.Bili.App.Pages
         public SettingPage()
         {
             this.InitializeComponent();
+            ViewModel = SettingViewModel.Instance;
         }
+
+        /// <summary>
+        /// 视图模型.
+        /// </summary>
+        public SettingViewModel ViewModel { get; private set; }
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SettingViewModel.Instance.InitializeSettings();
+            ViewModel.InitializeSettings();
         }
     }
 }
