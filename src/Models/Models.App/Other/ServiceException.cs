@@ -28,7 +28,7 @@ namespace Richasy.Bili.Models.App.Other
         /// <param name="responseHeaders">The HTTP response headers from the response.</param>
         /// <param name="statusCode">The HTTP status code from the response.</param>
         public ServiceException(ServerResponse error, System.Net.Http.Headers.HttpResponseHeaders responseHeaders, System.Net.HttpStatusCode statusCode, Exception innerException = null)
-            : base(error?.ToString(), innerException)
+            : base(error?.Message, innerException)
         {
             this.Error = error;
             this.ResponseHeaders = responseHeaders;

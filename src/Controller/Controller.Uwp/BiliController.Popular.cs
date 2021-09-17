@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,8 +29,9 @@ namespace Richasy.Bili.Controller.Uwp
                     .ToList();
                 PopularVideoIteration?.Invoke(this, new Models.App.Args.PopularVideoIterationEventArgs(cards));
             }
-            catch
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, offsetIndex > 0);
                 if (offsetIndex == 0)
                 {
                     throw;

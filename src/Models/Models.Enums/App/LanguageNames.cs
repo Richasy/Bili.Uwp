@@ -326,6 +326,8 @@ namespace Richasy.Bili.Models.Enums
         FollowRoom,
         FailedToGetUserRelation,
         NoRoomDescription,
+        LogEmptied,
+        FailedToClearLog,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -19,8 +19,16 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task<List<Item>> GetRankAsync(int partitionId)
         {
             ThrowWhenNetworkUnavaliable();
-            var rank = await _rankProvider.GetRankDetailAsync(partitionId);
-            return rank;
+
+            try
+            {
+                return await _rankProvider.GetRankDetailAsync(partitionId);
+            }
+            catch (System.Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
     }
 }

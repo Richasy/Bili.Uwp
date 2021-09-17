@@ -1,7 +1,7 @@
 ---
 name: 功能需求
 about: 给项目提供建议或点子
-title: ''
+title: '[Feature]'
 labels: 功能, 待分配
 assignees: Richasy
 

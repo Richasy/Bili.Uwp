@@ -21,7 +21,15 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>热搜列表.</returns>
         public async Task<List<SearchRecommendItem>> GetHotSearchListAsync()
         {
-            return await _searchProvider.GetHotSearchListAsync();
+            try
+            {
+                return await _searchProvider.GetHotSearchListAsync();
+            }
+            catch (System.Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -50,8 +58,9 @@ namespace Richasy.Bili.Controller.Uwp
 
                         VideoSearchIteration?.Invoke(this, new VideoSearchIterationEventArgs(videoData, pageNumber));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;
@@ -66,8 +75,9 @@ namespace Richasy.Bili.Controller.Uwp
                         var bangumiData = await _searchProvider.GetBangumiSearchResultAsync(keyword, TotalRank, pageNumber);
                         BangumiSearchIteration?.Invoke(this, new PgcSearchIterationEventArgs(bangumiData, pageNumber, keyword));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;
@@ -81,8 +91,9 @@ namespace Richasy.Bili.Controller.Uwp
                         var movieData = await _searchProvider.GetMovieSearchResultAsync(keyword, TotalRank, pageNumber);
                         MovieSearchIteration?.Invoke(this, new PgcSearchIterationEventArgs(movieData, pageNumber, keyword));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;
@@ -96,8 +107,9 @@ namespace Richasy.Bili.Controller.Uwp
                         var liveData = await _searchProvider.GetLiveSearchResultAsync(keyword, pageNumber);
                         LiveSearchIteration?.Invoke(this, new LiveSearchIterationEventArgs(liveData, keyword, pageNumber));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;
@@ -114,8 +126,9 @@ namespace Richasy.Bili.Controller.Uwp
                         var userData = await _searchProvider.GetUserSearchResultAsync(keyword, u_orderType, u_orderSort, u_userType, pageNumber);
                         UserSearchIteration?.Invoke(this, new UserSearchIterationEventArgs(userData, pageNumber, keyword));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;
@@ -131,8 +144,9 @@ namespace Richasy.Bili.Controller.Uwp
                         var articleData = await _searchProvider.GetArticleSearchResultAsync(keyword, a_orderType, a_partitionId, pageNumber);
                         ArticleSearchIteration?.Invoke(this, new ArticleSearchIterationEventArgs(articleData, pageNumber, keyword));
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
+                        _loggerModule.LogError(ex, pageNumber > 1);
                         if (pageNumber == 1)
                         {
                             throw;

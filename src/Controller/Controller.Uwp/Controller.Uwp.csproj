@@ -8,6 +8,11 @@
     <AssemblyName>Richasy.Bili.Controller.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SuppressXamlWarnings>
+    </SuppressXamlWarnings>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="BiliController.Auth.cs" />
     <Compile Include="BiliController.Community.cs" />
@@ -22,7 +27,9 @@
     <Compile Include="BiliController.Popular.cs" />
     <Compile Include="BiliController.Rank.cs" />
     <Compile Include="BiliController.Player.cs" />
+    <Compile Include="Interfaces\ILoggerModule.cs" />
     <Compile Include="Interfaces\INetworkModule.cs" />
+    <Compile Include="Modules\LoggerModule.cs" />
     <Compile Include="Modules\NetworkModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
@@ -32,8 +39,14 @@
     <Content Include="Properties\Controller.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging">
+      <Version>5.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Extensions.Logging.File">
+      <Version>2.0.0</Version>
     </PackageReference>
     <PackageReference Include="Websocket.Client">
       <Version>4.3.36</Version>

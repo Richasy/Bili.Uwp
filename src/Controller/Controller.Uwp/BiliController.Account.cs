@@ -44,10 +44,12 @@ namespace Richasy.Bili.Controller.Uwp
                 {
                     var profile = await _accountProvider.GetMyInformationAsync();
                     this.MyInfo = profile;
+                    _loggerModule.LogError(new Exception("测试一下"));
+                    _loggerModule.LogError(new Exception("测试一下2"), true);
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    _loggerModule.LogError(ex);
                 }
             }
         }
@@ -59,8 +61,17 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task<Mine> GetMyDataAsync()
         {
             ThrowWhenNetworkUnavaliable();
-            var data = await _accountProvider.GetMyDataAsync();
-            return data;
+
+            try
+            {
+                var data = await _accountProvider.GetMyDataAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex, true);
+                throw;
+            }
         }
 
         /// <summary>
@@ -91,8 +102,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new HistoryVideoIterationEventArgs(data);
                 HistoryVideoIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, cursor.Max > 0);
                 if (cursor.Max == 0)
                 {
                     throw;
@@ -112,8 +124,9 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 return await _accountProvider.RemoveHistoryItemAsync("archive", historyId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -129,8 +142,9 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 return await _accountProvider.ClearHistoryAsync("archive");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -143,14 +157,23 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task<UserSpaceInformation> RequestUserSpaceInformationAsync(int userId)
         {
             ThrowWhenNetworkUnavaliable();
-            var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
-            if (data.VideoSet != null)
-            {
-                var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
-                UserSpaceVideoIteration?.Invoke(this, args);
-            }
 
-            return data.User;
+            try
+            {
+                var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
+                if (data.VideoSet != null)
+                {
+                    var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
+                    UserSpaceVideoIteration?.Invoke(this, args);
+                }
+
+                return data.User;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -162,9 +185,18 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task RequestUserSpaceVideoSetAsync(int userId, string offsetId)
         {
             ThrowWhenNetworkUnavaliable();
-            var data = await _accountProvider.GetUserSpaceVideoSetAsync(userId, offsetId);
-            var args = new UserSpaceVideoIterationEventArgs(data, userId);
-            UserSpaceVideoIteration?.Invoke(this, args);
+
+            try
+            {
+                var data = await _accountProvider.GetUserSpaceVideoSetAsync(userId, offsetId);
+                var args = new UserSpaceVideoIterationEventArgs(data, userId);
+                UserSpaceVideoIteration?.Invoke(this, args);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -176,8 +208,17 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
         {
             ThrowWhenNetworkUnavaliable();
-            var result = await _accountProvider.ModifyUserRelationAsync(userId, isFollow);
-            return result;
+
+            try
+            {
+                var result = await _accountProvider.ModifyUserRelationAsync(userId, isFollow);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -196,8 +237,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
                 FansIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;
@@ -221,8 +263,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
                 FollowsIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;
@@ -245,8 +288,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new ViewLaterVideoIterationEventArgs(result, pageNumber);
                 ViewLaterVideoIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;
@@ -267,8 +311,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var result = await _accountProvider.ClearViewLaterAsync();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -287,8 +332,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var result = await _accountProvider.AddVideoToViewLaterAsync(videoId);
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -307,8 +353,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var result = await _accountProvider.RemoveVideoFromViewLaterAsync(videoIds);
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -323,8 +370,16 @@ namespace Richasy.Bili.Controller.Uwp
         {
             ThrowWhenNetworkUnavaliable();
 
-            var list = await _accountProvider.GetFavoriteListAsync(userId, videoId);
-            return list.List;
+            try
+            {
+                var list = await _accountProvider.GetFavoriteListAsync(userId, videoId);
+                return list.List;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -336,8 +391,16 @@ namespace Richasy.Bili.Controller.Uwp
         {
             ThrowWhenNetworkUnavaliable();
 
-            var response = await _accountProvider.GetFavoriteVideoGalleryAsync(userId);
-            return response;
+            try
+            {
+                var response = await _accountProvider.GetFavoriteVideoGalleryAsync(userId);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -350,8 +413,16 @@ namespace Richasy.Bili.Controller.Uwp
         {
             ThrowWhenNetworkUnavaliable();
 
-            var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber);
-            return response;
+            try
+            {
+                var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -369,8 +440,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var response = await _accountProvider.GetFavoriteVideoListAsync(favoriteId, pageNumber);
                 return response;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;
@@ -405,8 +477,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new FavoritePgcIterationEventArgs(response, pageNumber, type);
                 PgcFavoriteIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;
@@ -429,8 +502,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new FavoriteArticleIterationEventArgs(response, pageNumber);
                 ArticleFavoriteIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber <= 1)
                 {
                     throw;

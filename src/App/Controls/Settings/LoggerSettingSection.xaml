@@ -37,7 +37,7 @@
                         <Button
                             x:Name="OpenLoggerFolderButton"
                             MinWidth="120"
-                            Click="OnOpenLoggerFolderButtonClick"
+                            Click="OnOpenLoggerFolderButtonClickAsync"
                             Content="{loc:LocaleLocator Name=OpenFolder}" />
                     </uwp:ExpanderExWrapper.WrapContent>
                 </uwp:ExpanderExWrapper>
@@ -53,7 +53,7 @@
                         <Button
                             x:Name="CleanLoggerButton"
                             MinWidth="120"
-                            Click="OnCleanLoggerButtonClick"
+                            Click="OnCleanLoggerButtonClickAsync"
                             Content="{loc:LocaleLocator Name=Clean}" />
                     </uwp:ExpanderExWrapper.WrapContent>
                 </uwp:ExpanderExWrapper>

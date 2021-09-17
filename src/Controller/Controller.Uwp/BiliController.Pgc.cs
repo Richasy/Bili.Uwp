@@ -40,10 +40,18 @@ namespace Richasy.Bili.Controller.Uwp
             if (needRequest)
             {
                 ThrowWhenNetworkUnavaliable();
-                var webResult = await _pgcProvider.GetTabAsync(type);
-                data = webResult;
-                var localCache = new LocalCache<List<PgcTab>>(DateTimeOffset.Now.AddDays(1), data);
-                await _fileToolkit.WriteLocalDataAsync($"{type}Tab.json", localCache, Names.ServerFolder);
+                try
+                {
+                    var webResult = await _pgcProvider.GetTabAsync(type);
+                    data = webResult;
+                    var localCache = new LocalCache<List<PgcTab>>(DateTimeOffset.Now.AddDays(1), data);
+                    await _fileToolkit.WriteLocalDataAsync($"{type}Tab.json", localCache, Names.ServerFolder);
+                }
+                catch (Exception ex)
+                {
+                    _loggerModule.LogError(ex);
+                    throw;
+                }
             }
             else
             {
@@ -62,9 +70,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestPgcPageDetailAsync(int tabId)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var response = await _pgcProvider.GetPageDetailAsync(tabId);
 
                 var additionalArgs = PgcModuleAdditionalDataChangedEventArgs.Create(response, tabId);
@@ -76,8 +84,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var iterationArgs = PgcModuleIterationEventArgs.Create(response, tabId);
                 PgcModuleIteration?.Invoke(this, iterationArgs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex);
                 throw;
             }
         }
@@ -90,9 +99,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestPgcPageDetailAsync(PgcType type, string cursor = null)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var response = await _pgcProvider.GetPageDetailAsync(type, cursor);
 
                 if (string.IsNullOrEmpty(cursor))
@@ -107,8 +116,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var iterationArgs = PgcModuleIterationEventArgs.Create(response, type);
                 PgcModuleIteration?.Invoke(this, iterationArgs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, !string.IsNullOrEmpty(cursor));
                 if (string.IsNullOrEmpty(cursor))
                 {
                     throw;
@@ -124,15 +134,16 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestSubPartitionDataAsync(int partitionId, int offsetId = 0)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var requestDateTime = DateTimeOffset.Now;
                 var data = await _pgcProvider.GetPartitionRecommendVideoAsync(partitionId, offsetId);
                 SubPartitionVideoIteration?.Invoke(this, new PartitionVideoIterationEventArgs(partitionId, requestDateTime, data, 1));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, offsetId > 0);
                 if (offsetId == 0)
                 {
                     throw;
@@ -158,7 +169,15 @@ namespace Richasy.Bili.Controller.Uwp
                 throw new ArgumentException("无效的参数");
             }
 
-            return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId);
+            try
+            {
+                return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -167,9 +186,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="episodeId">分集Id.</param>
         /// <returns>分集交互信息.</returns>
         public async Task<EpisodeInteraction> GetPgcEpisodeInteractionAsync(int episodeId)
-        {
-            return await _pgcProvider.GetEpisodeInteractionAsync(episodeId);
-        }
+            => await _pgcProvider.GetEpisodeInteractionAsync(episodeId);
 
         /// <summary>
         /// 追番/取消追番.
@@ -185,8 +202,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var result = await _pgcProvider.FollowAsync(seasonId, isFollow);
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -197,10 +215,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="type">PGC类型.</param>
         /// <returns>索引结果.</returns>
         public async Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type)
-        {
-            ThrowWhenNetworkUnavaliable();
-            return await _pgcProvider.GetPgcIndexConditionsAsync(type);
-        }
+            => await _pgcProvider.GetPgcIndexConditionsAsync(type);
 
         /// <summary>
         /// 请求PGC索引内容.
@@ -219,8 +234,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new PgcIndexResultIterationEventArgs(data, type);
                 PgcIndexResultIteration?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber <= 1);
                 if (pageNumber > 1)
                 {
                     throw;
@@ -236,7 +252,16 @@ namespace Richasy.Bili.Controller.Uwp
         public Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type)
         {
             ThrowWhenNetworkUnavaliable();
-            return _pgcProvider.GetPgcTimeLineAsync(type);
+
+            try
+            {
+                return _pgcProvider.GetPgcTimeLineAsync(type);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -247,7 +272,16 @@ namespace Richasy.Bili.Controller.Uwp
         public Task<PgcPlayListResponse> GetPgcPlayListAsync(int listId)
         {
             ThrowWhenNetworkUnavaliable();
-            return _pgcProvider.GetPgcPlayListAsync(listId);
+
+            try
+            {
+                return _pgcProvider.GetPgcPlayListAsync(listId);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
     }
 }

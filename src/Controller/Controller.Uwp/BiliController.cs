@@ -22,7 +22,6 @@ namespace Richasy.Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
-        private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
 
         private readonly IAuthorizeProvider _authorizeProvider;
@@ -39,6 +38,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly ICommunityProvider _communityProvider;
 
         private readonly INetworkModule _networkModule;
+        private readonly ILoggerModule _loggerModule;
 
         /// <summary>
         /// 直播间套接字.
@@ -54,9 +54,9 @@ namespace Richasy.Bili.Controller.Uwp
         internal BiliController()
         {
             RegisterToolkitServices();
-            ServiceLocator.Instance.LoadService(out _settingsToolkit)
-                .LoadService(out _fileToolkit)
+            ServiceLocator.Instance.LoadService(out _fileToolkit)
                 .LoadService(out _networkModule)
+                .LoadService(out _loggerModule)
                 .LoadService(out _authorizeProvider)
                 .LoadService(out _accountProvider)
                 .LoadService(out _partitionProvider)
@@ -72,6 +72,7 @@ namespace Richasy.Bili.Controller.Uwp
 
             InitializeLiveSocket();
             RegisterEvents();
+            _loggerModule.LogInformation("控制器加载完成");
         }
 
         /// <summary>
@@ -275,6 +276,7 @@ namespace Richasy.Bili.Controller.Uwp
         private void RegisterToolkitServices()
         {
             var serviceCollection = new ServiceCollection()
+                .AddLogging()
                 .AddSingleton<IAppToolkit, AppToolkit>()
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
@@ -283,6 +285,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IMD5Toolkit, MD5Toolkit>()
                 .AddSingleton<IFontToolkit, FontToolkit>()
                 .AddSingleton<INetworkModule, NetworkModule>()
+                .AddSingleton<ILoggerModule, LoggerModule>()
                 .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
@@ -296,6 +299,7 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IPlayerProvider, PlayerProvider>()
                 .AddSingleton<ISearchProvider, SearchProvider>()
                 .AddSingleton<ICommunityProvider, CommunityProvider>();
+
             _ = new ServiceLocator(serviceCollection);
         }
 
@@ -303,7 +307,9 @@ namespace Richasy.Bili.Controller.Uwp
         {
             if (!IsNetworkAvailable)
             {
-                throw new InvalidOperationException("网络连接异常");
+                var ex = new InvalidOperationException("网络连接异常");
+                _loggerModule.LogError(ex, true);
+                throw ex;
             }
         }
     }
