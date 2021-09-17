@@ -1,5 +1,5 @@
 ---
-name: 文档
+name: 文档库
 about: 我有关于文档的建议或问题
 title: '[Doc]'
 labels: 文档, 待分配
