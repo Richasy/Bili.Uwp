@@ -15,6 +15,17 @@
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <Use64BitCompiler>true</Use64BitCompiler>
     <ShortcutGenericAnalysis>true</ShortcutGenericAnalysis>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint>8DF9E1B8CAD190A4C406FB31BCD5083920463FB8</PackageCertificateThumbprint>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>D:\Package\Bili</AppxPackageDir>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>arm64</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateKeyFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
@@ -1047,6 +1058,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Misc\Question.CHS.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
