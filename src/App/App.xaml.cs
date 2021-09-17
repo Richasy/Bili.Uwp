@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -153,7 +154,8 @@ namespace Richasy.Bili.App
         {
             e.Handled = true;
 
-            // TODO: Handle e.Exception
+            var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
+            logger.LogError(e.Exception);
         }
     }
 }

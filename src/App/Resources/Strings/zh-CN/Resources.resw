@@ -340,6 +340,9 @@
   <data name="FailedToClearHisotry" xml:space="preserve">
     <value>尝试清空历史记录失败，请稍后重试</value>
   </data>
+  <data name="FailedToClearLog" xml:space="preserve">
+    <value>清除日志失败，请稍后重试</value>
+  </data>
   <data name="FailedToClearViewLater" xml:space="preserve">
     <value>清除稍后再看列表失败，请稍后重试</value>
   </data>
@@ -499,6 +502,9 @@
   </data>
   <data name="Location" xml:space="preserve">
     <value>位置</value>
+  </data>
+  <data name="LogEmptied" xml:space="preserve">
+    <value>已清除日志记录</value>
   </data>
   <data name="LoggerFolder" xml:space="preserve">
     <value>日志文件夹</value>

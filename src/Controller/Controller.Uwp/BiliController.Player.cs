@@ -118,11 +118,11 @@ namespace Richasy.Bili.Controller.Uwp
                         isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
                     }
 
-                    // Record.
+                    _loggerModule.LogInformation("播放历史记录" + (isSuccess ? "成功" : "失败"));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Record.
+                    _loggerModule.LogError(ex);
                 }
             }
         }

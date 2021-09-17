@@ -49,8 +49,9 @@ namespace Richasy.Bili.Controller.Uwp
 
                 LiveFeedRoomIteration?.Invoke(this, new LiveFeedRoomIterationEventArgs(data, pageNumber + 1));
             }
-            catch (ServiceException)
+            catch (ServiceException ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber == 1)
                 {
                     throw;
@@ -63,10 +64,8 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
         /// <returns><see cref="LiveRoomDetail"/>.</returns>
-        public async Task<LiveRoomDetail> GetLiveRoomDetailAsync(int roomId)
-        {
-            return await _liveProvider.GetLiveRoomDetailAsync(roomId);
-        }
+        public Task<LiveRoomDetail> GetLiveRoomDetailAsync(int roomId)
+            => _liveProvider.GetLiveRoomDetailAsync(roomId);
 
         /// <summary>
         /// 获取直播间播放信息.
@@ -74,11 +73,8 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="roomId">直播间Id.</param>
         /// <param name="quality">清晰度.</param>
         /// <returns>播放信息.</returns>
-        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality = 4)
-        {
-            var result = await _liveProvider.GetLivePlayInformationAsync(roomId, quality);
-            return result;
-        }
+        public Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality = 4)
+            => _liveProvider.GetLivePlayInformationAsync(roomId, quality);
 
         /// <summary>
         /// 连接到直播间.
@@ -180,13 +176,14 @@ namespace Richasy.Bili.Controller.Uwp
                     }
                     else if (result.IsFaulted)
                     {
+                        _loggerModule.LogError(result.Exception);
                         throw result.Exception;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                // Log.
-            }
+                    _loggerModule.LogError(ex);
+                }
             });
         }
 
@@ -431,9 +428,9 @@ namespace Richasy.Bili.Controller.Uwp
                     // 暂不支持.
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // 记录日志.
+                _loggerModule.LogError(ex);
             }
         }
 

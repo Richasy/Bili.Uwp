@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
@@ -26,8 +27,9 @@ namespace Richasy.Bili.Controller.Uwp
 
                 RecommendVideoIteration?.Invoke(this, new Models.App.Args.RecommendVideoIterationEventArgs(result));
             }
-            catch
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, offsetIndex > 0);
                 if (offsetIndex == 0)
                 {
                     throw;

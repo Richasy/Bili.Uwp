@@ -14,6 +14,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PartitionIndex = "partitionIndex.json";
             public const string DocumentaryCategories = "documentaryCategories.json";
             public const string ServerFolder = "Server";
+            public const string LoggerFolder = "Logger";
+            public const string LoggerName = "AppLog.log";
         }
 
         public static class Search

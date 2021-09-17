@@ -39,6 +39,7 @@ namespace Richasy.Bili.Controller.Uwp
             }
             catch (Exception ex)
             {
+                _loggerModule.LogError(ex);
                 LoggedFailed?.Invoke(this, ex);
             }
         }

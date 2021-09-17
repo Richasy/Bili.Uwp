@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Lib.Interfaces;

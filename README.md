@@ -43,3 +43,7 @@
 ## 🌏 路线图
 
 哔哩会逐步完善，请查看 [哔哩里程碑](https://github.com/Richasy/Bili.Uwp/milestones) 来了解哔哩下一步打算做的事情。于此同时，欢迎各位开发者加入，让我们一起打造哔哩的未来。
+
+## 🧩 截图
+
+![截图](./assets/image/guide/screenshot.png)

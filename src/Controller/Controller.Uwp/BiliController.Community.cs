@@ -29,8 +29,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new ReplyIterationEventArgs(response, targetId);
                 ReplyIteration?.Invoke(this, args);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _loggerModule.LogError(ex, cursor.Next > 0);
                 if (cursor.Next == 0)
                 {
                     throw;
@@ -56,8 +57,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new ReplyIterationEventArgs(response, targetId);
                 ReplyDetailIteration?.Invoke(this, args);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _loggerModule.LogError(ex, cursor.Next > 0);
                 if (cursor.Next == 0)
                 {
                     throw;
@@ -81,8 +83,9 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 return await _communityProvider.LikeReplyAsync(isLike, replyId, targetId, type);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -102,8 +105,9 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 return await _communityProvider.AddReplyAsync(message, targetId, type, rootId, parentId);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _loggerModule.LogError(ex, true);
                 return false;
             }
         }
@@ -123,8 +127,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var args = new DynamicVideoIterationEventArgs(reply);
                 DynamicVideoIteration?.Invoke(this, args);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _loggerModule.LogError(ex, !string.IsNullOrEmpty(offset));
                 if (string.IsNullOrEmpty(offset))
                 {
                     throw;

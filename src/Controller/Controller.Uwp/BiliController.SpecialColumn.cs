@@ -33,9 +33,17 @@ namespace Richasy.Bili.Controller.Uwp
             if (needRequest)
             {
                 ThrowWhenNetworkUnavaliable();
-                data = await _specialColumnProvider.GetCategoriesAsync();
-                var localCache = new LocalCache<List<ArticleCategory>>(DateTimeOffset.Now.AddDays(1), data);
-                await _fileToolkit.WriteLocalDataAsync(Names.DocumentaryCategories, localCache, Names.ServerFolder);
+                try
+                {
+                    data = await _specialColumnProvider.GetCategoriesAsync();
+                    var localCache = new LocalCache<List<ArticleCategory>>(DateTimeOffset.Now.AddDays(1), data);
+                    await _fileToolkit.WriteLocalDataAsync(Names.DocumentaryCategories, localCache, Names.ServerFolder);
+                }
+                catch (Exception ex)
+                {
+                    _loggerModule.LogError(ex);
+                    throw;
+                }
             }
             else
             {
@@ -54,15 +62,16 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestCategoryArticlesAsync(int categoryId, int pageNumber, ArticleSortType sortType)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var data = await _specialColumnProvider.GetCategoryArticlesAsync(categoryId, pageNumber, sortType);
                 var iterationArgs = SpecialColumnArticleIterationEventArgs.Create(data, categoryId, pageNumber + 1);
                 SpecialColumnArticleIteration?.Invoke(this, iterationArgs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber == 1)
                 {
                     throw;
@@ -77,9 +86,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestRecommendArticlesAsync(int pageNumber)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var data = await _specialColumnProvider.GetRecommendArticlesAsync(pageNumber);
                 var additionalArgs = SpecialColumnAdditionalDataChangedEventArgs.Create(data);
                 if (additionalArgs != null && pageNumber == 1)
@@ -90,8 +99,9 @@ namespace Richasy.Bili.Controller.Uwp
                 var iterationArgs = SpecialColumnArticleIterationEventArgs.Create(data, pageNumber + 1);
                 SpecialColumnArticleIteration?.Invoke(this, iterationArgs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, pageNumber > 1);
                 if (pageNumber == 1)
                 {
                     throw;
@@ -107,8 +117,16 @@ namespace Richasy.Bili.Controller.Uwp
         public async Task<string> GetArticleContentAsync(int articleId)
         {
             ThrowWhenNetworkUnavaliable();
-            var content = await _specialColumnProvider.GetArticleContentAsync(articleId);
-            return content;
+
+            try
+            {
+                return await _specialColumnProvider.GetArticleContentAsync(articleId);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
         }
     }
 }

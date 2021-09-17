@@ -25,7 +25,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             var cacheData = await _fileToolkit.ReadLocalDataAsync<LocalCache<List<Partition>>>(Names.PartitionIndex, folderName: Names.ServerFolder);
             var needRequest = true;
-            List<Partition> data;
+            List<Partition> data = null;
             if (cacheData != null)
             {
                 needRequest = cacheData.ExpiryTime < DateTimeOffset.Now;
@@ -34,10 +34,18 @@ namespace Richasy.Bili.Controller.Uwp
             if (needRequest)
             {
                 ThrowWhenNetworkUnavaliable();
-                var webResult = await _partitionProvider.GetPartitionIndexAsync();
-                data = webResult.ToList();
-                var localCache = new LocalCache<List<Partition>>(DateTimeOffset.Now.AddDays(1), data);
-                await _fileToolkit.WriteLocalDataAsync(Names.PartitionIndex, localCache, Names.ServerFolder);
+
+                try
+                {
+                    var webResult = await _partitionProvider.GetPartitionIndexAsync();
+                    data = webResult.ToList();
+                    var localCache = new LocalCache<List<Partition>>(DateTimeOffset.Now.AddDays(1), data);
+                    await _fileToolkit.WriteLocalDataAsync(Names.PartitionIndex, localCache, Names.ServerFolder);
+                }
+                catch (Exception ex)
+                {
+                    _loggerModule.LogError(ex);
+                }
             }
             else
             {
@@ -63,9 +71,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestSubPartitionDataAsync(int subPartitionId, bool isRecommend, int offsetId = 0, VideoSortType sortType = VideoSortType.Default, int pageNumber = 1)
         {
+            ThrowWhenNetworkUnavaliable();
             try
             {
-                ThrowWhenNetworkUnavaliable();
                 var requestDateTime = DateTimeOffset.Now;
                 var data = await _partitionProvider.GetSubPartitionDataAsync(subPartitionId, isRecommend, offsetId, sortType, pageNumber);
                 pageNumber = !isRecommend && sortType != VideoSortType.Default ? pageNumber + 1 : 1;
@@ -90,8 +98,9 @@ namespace Richasy.Bili.Controller.Uwp
                             tagList: defaultData.TopTags));
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                _loggerModule.LogError(ex, offsetId > 0);
                 if (offsetId == 0)
                 {
                     throw;
