@@ -1,0 +1,24 @@
+# 此模板包含为单一架构构建应用程序的步骤。
+# 包含这些步骤的 job 必须设置变量 BuildConfiguration 和 BuildPlatform 
+
+steps:
+- template: ./restore-packages.yaml
+  parameters:
+    versionNumber: '$(Build.BuildNumber)'
+
+- task: VSBuild@1
+  displayName: 'Build Bili.UWP.sln'
+  inputs:
+    solution: Bili.UWP.sln
+    msbuildArgs: /bl:"$(Build.BinariesDirectory)\$(BuildConfiguration)\$(BuildPlatform)\Bili.binlog"
+    platform: $(BuildPlatform)
+    configuration: $(BuildConfiguration)
+    clean: true
+    maximumCpuCount: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 发布 drop
+  inputs:
+    artifactName: drop
+    pathToPublish: $(Build.BinariesDirectory)
+    parallel: true

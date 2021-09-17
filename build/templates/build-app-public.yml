@@ -1,0 +1,34 @@
+# 该模板包含为单个架构构建的 job
+
+parameters:
+  configuration: ''
+  platform: ''
+  condition: ''
+  runRoslynAnalyzers: false
+
+jobs:
+- job: Build${{ parameters.configuration }}_${{ parameters.platform }}
+  displayName: 构建 ${{ parameters.configuration }} ${{ parameters.platform }}
+  condition: ${{ parameters.condition }}
+  timeoutInMinutes: 60
+  pool:
+    vmImage: windows-2019
+  variables:
+    BuildConfiguration: ${{ parameters.configuration }}
+    BuildPlatform: ${{ parameters.platform }}
+  workspace:
+    clean: outputs
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+
+  - template: ./build-single-architecture.yml
+
+  - ${{ if eq(parameters.runRoslynAnalyzers, true) }}:
+    - task: securedevelopmentteam.vss-secure-development-tools.build-task-roslynanalyzers.RoslynAnalyzers@3
+      displayName: '运行 Roslyn Analyzers'
+      env:
+        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      inputs:
+        userProvideBuildInfo: autoMsBuildInfo

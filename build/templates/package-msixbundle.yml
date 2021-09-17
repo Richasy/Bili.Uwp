@@ -1,0 +1,21 @@
+parameters:
+  platforms: ''
+
+jobs:
+- job: BuildPackage
+  displayName: 构建包 ${{ parameters.platforms }}
+  timeoutInMinutes: 120
+  pool:
+    vmImage: windows-2019
+  variables:
+    Platforms: ${{ parameters.platforms }}
+    PackageVersion: $(Build.BuildNumber)
+  workspace:
+    clean: outputs
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+
+  - powershell: Write-Host "##vso[task.setvariable variable=PackageVersion;]$("$(PackageVersion)".Split("-")[0])"
+    displayName: 标准化版本号

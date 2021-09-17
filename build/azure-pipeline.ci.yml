@@ -1,0 +1,43 @@
+#
+# 该管道用于在每次主分支更新时生成 msixbundle 包
+#
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+
+# 版本格式: 2.yyMM9.1ddii.0           其中 yy = 当前年份 (后两位)
+#                                        MM = 当前月份 (两位)
+#                                        dd = 当前天数 (1位或2位)
+#                                        ii = 构建迭代次数
+#
+# 举例而言，2021年10月1日触发构建的版本为：2.21109.10101.0
+#
+
+name: 2.$(Date:yyMM)9.1$(Date:dd)$(Rev:rr).0
+
+jobs:
+- template: ./templates/build-app-public.yml
+  parameters:
+    configuration: release
+    platform: x86
+
+- template: ./templates/build-app-public.yml
+  parameters:
+    configuration: release
+    platform: x64
+    runRoslynAnalyzers: true
+
+- template: ./templates/build-app-public.yml
+  parameters:
+    configuration: release
+    platform: ARM64
+    runRoslynAnalyzers: true
+
+- template: ./templates/package-msixbundle.yml
+  parameters:
+    platforms: x86|x64|ARM64
+
+- template: ./templates/run-compliance-analysis.yml

@@ -1,0 +1,25 @@
+parameters:
+  - name: versionNumber
+    displayName: '版本号'
+    type: string
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Use NuGet 5.8.0
+  inputs:
+    versionSpec: 5.8.0
+    checkLatest: true
+
+- task: NuGetCommand@2
+  displayName: NuGet restore Bili.UWP.sln
+  inputs:
+    restoreSolution: 'Bili.UWP.sln'
+    feedsToUse: config
+    nugetConfigPath: nuget.config
+
+- task: PowerShell@2
+  displayName: 'Update package and binaries versions (PowerShell Script)'
+  inputs:
+    targetType: filePath
+    filePath: ./tools/updateAppVersion.ps1
+    arguments: 'src/App/Package.appxmanifest src/Shared/SharedAssemblyInfo.cs ${{ parameters.versionNumber }}'

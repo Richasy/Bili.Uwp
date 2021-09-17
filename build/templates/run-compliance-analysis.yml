@@ -1,0 +1,35 @@
+# 运行完整的来源合规分析
+
+jobs:
+- job: ComplianceAnalysis
+  displayName: 运行合规性分析
+  timeoutInMinutes: 120
+  pool:
+    vmImage: windows-2019
+  workspace:
+    clean: outputs
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+
+  - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+    displayName: '检查开源组件'
+    continueOnError: true
+    inputs:
+      sourceScanPath: $(Build.SourcesDirectory)
+
+  - template: ./restore-packages.yml 
+    parameters:
+      versionNumber: '$(Build.BuildNumber)'
+ 
+  # 使用 Package 配置以跳过测试项目
+  - task: VSBuild@1
+    displayName: '构建 Bili.UWP.sln'
+    inputs:
+      solution: Bili.UWP.sln
+      platform: x64
+      configuration: Package
+      clean: true
+      maximumCpuCount: true
+  
