@@ -2,7 +2,7 @@
 # 包含这些步骤的 job 必须设置变量 BuildConfiguration 和 BuildPlatform 
 
 steps:
-- template: ./restore-packages.yaml
+- template: ./restore-packages.yml
   parameters:
     versionNumber: '$(Build.BuildNumber)'
 
