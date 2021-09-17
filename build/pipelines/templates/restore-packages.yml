@@ -10,7 +10,7 @@ steps:
     versionSpec: 5.8.0
     checkLatest: true
 
-- task: NuGetCommand@2
+- task: NuGetCommand@1
   displayName: NuGet restore Bili.UWP.sln
   inputs:
     restoreSolution: 'Bili.UWP.sln'

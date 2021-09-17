@@ -16,7 +16,7 @@ steps:
     clean: true
     maximumCpuCount: true
 
-- task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@2
   displayName: 发布 drop
   inputs:
     artifactName: drop
