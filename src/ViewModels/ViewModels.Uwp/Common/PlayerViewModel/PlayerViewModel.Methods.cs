@@ -705,5 +705,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
             });
         }
+
+        private void OnUserLoggedOut(object sender, EventArgs e)
+        {
+            IsCoinChecked = false;
+            IsLikeChecked = false;
+            IsFollow = false;
+            IsFavoriteChecked = false;
+        }
     }
 }
