@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Microsoft.Extensions.Logging;
 
 namespace Richasy.Bili.Controller.Uwp.Interfaces
 {
@@ -10,11 +9,6 @@ namespace Richasy.Bili.Controller.Uwp.Interfaces
     /// </summary>
     public interface ILoggerModule
     {
-        /// <summary>
-        /// 日志记录工厂.
-        /// </summary>
-        ILoggerFactory LoggerFactory { get; }
-
         /// <summary>
         /// 记录信息.
         /// </summary>
