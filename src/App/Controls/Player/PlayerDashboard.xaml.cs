@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -77,8 +78,11 @@ namespace Richasy.Bili.App.Controls
             ViewModel.IsCoinChecked = !ViewModel.IsCoinChecked;
             ViewModel.IsCoinChecked = !ViewModel.IsCoinChecked;
 
-            AlsoLikeCheckBox.IsChecked = true;
-            CoinFlyout.ShowAt(CoinButton);
+            if (!ViewModel.IsCoinChecked)
+            {
+                AlsoLikeCheckBox.IsChecked = true;
+                CoinFlyout.ShowAt(CoinButton);
+            }
         }
 
         private async void OnRefreshFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
@@ -97,8 +101,11 @@ namespace Richasy.Bili.App.Controls
             ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
             ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
 
-            FavoriteFlyout.ShowAt(FavoriteButton);
-            await ViewModel.LoadFavoritesAsync();
+            if (AccountViewModel.Instance.Status == AccountViewModelStatus.Login)
+            {
+                FavoriteFlyout.ShowAt(FavoriteButton);
+                await ViewModel.LoadFavoritesAsync();
+            }
         }
     }
 }

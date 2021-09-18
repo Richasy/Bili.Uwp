@@ -214,7 +214,7 @@ namespace Richasy.Bili.Controller.Uwp
             catch (Exception ex)
             {
                 _loggerModule.LogError(ex);
-                throw;
+                return false;
             }
         }
 

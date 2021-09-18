@@ -58,6 +58,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             this.PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
+            Controller.LoggedOut += OnUserLoggedOut;
         }
 
         /// <summary>
@@ -114,6 +115,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsDetailCanLoaded = true;
+            DanmakuViewModel.Instance.Reset();
 
             switch (_videoType)
             {
@@ -238,9 +240,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsPlayInformationLoading = true;
                 var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType));
-                if (play != null)
+                if (play != null && play.VideoInformation != null)
                 {
                     _dashInformation = play;
+                }
+                else
+                {
+                    IsPlayInformationError = true;
+                    PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestPgcFailed);
                 }
             }
             catch (Exception ex)

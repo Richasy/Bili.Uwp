@@ -54,8 +54,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         {
             _videoId = videoId;
             _partId = partId;
-            _danmakuList.Clear();
-            RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
+            Reset();
 
             if (UseCloudShieldSettings)
             {
@@ -76,6 +75,15 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             catch (Exception)
             {
             }
+        }
+
+        /// <summary>
+        /// 重置.
+        /// </summary>
+        public void Reset()
+        {
+            _danmakuList.Clear();
+            RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
