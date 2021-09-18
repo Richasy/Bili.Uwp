@@ -276,7 +276,6 @@ namespace Richasy.Bili.Controller.Uwp
         private void RegisterToolkitServices()
         {
             var serviceCollection = new ServiceCollection()
-                .AddLogging()
                 .AddSingleton<IAppToolkit, AppToolkit>()
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()

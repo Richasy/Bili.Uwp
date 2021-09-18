@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
@@ -44,8 +43,6 @@ namespace Richasy.Bili.Controller.Uwp
                 {
                     var profile = await _accountProvider.GetMyInformationAsync();
                     this.MyInfo = profile;
-                    _loggerModule.LogError(new Exception("测试一下"));
-                    _loggerModule.LogError(new Exception("测试一下2"), true);
                 }
                 catch (Exception ex)
                 {

@@ -4,7 +4,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Models.App.Constants;
 using Windows.ApplicationModel;
@@ -25,26 +24,21 @@ namespace Richasy.Bili.Controller.Uwp.Modules
         private string _deviceFamily;
         private string _architecture;
 
-        private ILogger _logger;
+        private NLog.Logger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoggerModule"/> class.
         /// </summary>
-        /// <param name="factory">日志构造工厂.</param>
-        public LoggerModule(ILoggerFactory factory)
+        public LoggerModule()
         {
-            LoggerFactory = factory;
             Initialize();
         }
-
-        /// <inheritdoc/>
-        public ILoggerFactory LoggerFactory { get; private set; }
 
         /// <inheritdoc/>
         public void LogInformation(string message)
         {
             var header = GetHeader();
-            _logger.LogInformation(header + message + "\n");
+            _logger.Log(NLog.LogLevel.Info, header + message + "\n");
         }
 
         /// <inheritdoc/>
@@ -53,12 +47,11 @@ namespace Richasy.Bili.Controller.Uwp.Modules
             var header = GetHeader();
             if (isWarning)
             {
-                _logger.LogWarning(header + ex.Message + "\n");
-                _logger.LogTrace(ex, "Warning 堆栈");
+                _logger.Log(NLog.LogLevel.Warn, ex, header + ex.Message);
             }
             else
             {
-                _logger.LogError(ex, header);
+                _logger.Log(NLog.LogLevel.Error, ex, header);
             }
         }
 
@@ -81,11 +74,9 @@ namespace Richasy.Bili.Controller.Uwp.Modules
 
             var rootFolder = ApplicationData.Current.LocalFolder;
             var logFolderName = ControllerConstants.Names.LoggerFolder;
-            var logFileName = ControllerConstants.Names.LoggerName;
-            var fullPath = $"{rootFolder.Path}\\{logFolderName}\\{logFileName}";
-
-            LoggerFactory.AddFile(fullPath);
-            _logger = LoggerFactory.CreateLogger("Richasy.Bili");
+            var fullPath = $"{rootFolder.Path}\\{logFolderName}\\";
+            NLog.GlobalDiagnosticsContext.Set("LogPath", fullPath);
+            _logger = NLog.LogManager.GetLogger("Richasy.Bili");
         }
 
         private string GetHeader()
