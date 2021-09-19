@@ -57,7 +57,7 @@
 
             <muxc:NavigationView.Content>
                 <Grid Margin="0,4,0,0">
-                    <muxc:ScrollView
+                    <ScrollViewer
                         x:Name="ContentScrollViewer"
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
@@ -89,7 +89,7 @@
                                 </DataTemplate>
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
-                    </muxc:ScrollView>
+                    </ScrollViewer>
                     <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsRankLoading, Mode=OneWay}" />
                     <controls:ErrorPanel
                         x:Name="ErrorPanel"

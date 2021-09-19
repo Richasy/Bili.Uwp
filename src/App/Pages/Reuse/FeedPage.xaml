@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <muxc:ScrollView x:Name="ContentScrollViewer">
+        <ScrollViewer x:Name="ContentScrollViewer">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="LayoutGroup">
                     <VisualState x:Name="WideState">
@@ -74,7 +74,7 @@
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
             </Grid>
-        </muxc:ScrollView>
+        </ScrollViewer>
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
 
         <controls:ErrorPanel

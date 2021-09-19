@@ -2,8 +2,8 @@
 
 using System;
 using System.Numerics;
+using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Richasy.Shadow.Uwp;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -70,11 +70,11 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            var attachedShadow = Shadows.GetAttachedShadow(instance._rootContainer);
+            var attachedShadow = Effects.GetShadow(instance._rootContainer);
             var isEnabled = Convert.ToBoolean(e.NewValue);
             if (isEnabled && attachedShadow != null)
             {
-                instance._rootContainer.ClearValue(Shadows.AttachedShadowProperty);
+                instance._rootContainer.ClearValue(Effects.ShadowProperty);
                 instance.DestroyShadow();
             }
             else
@@ -113,10 +113,10 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            var attachedShadow = Shadows.GetAttachedShadow(this._rootContainer);
+            var attachedShadow = Effects.GetShadow(this._rootContainer);
             if (!this.IsEnableShadow && attachedShadow != null)
             {
-                this._rootContainer.ClearValue(Shadows.AttachedShadowProperty);
+                this._rootContainer.ClearValue(Effects.ShadowProperty);
                 return;
             }
 
@@ -163,7 +163,7 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            var shadowContext = Shadows.GetAttachedShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
 
             if (shadowContext?.SpriteVisual != null)
             {
@@ -210,7 +210,7 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            var shadowContext = Shadows.GetAttachedShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
 
             if (shadowContext?.SpriteVisual != null)
             {
@@ -278,7 +278,7 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
 
-            var shadowContext = Shadows.GetAttachedShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
 
             if (shadowContext?.Shadow != null)
             {
@@ -314,7 +314,7 @@ namespace Richasy.Bili.App.Controls
                 batch.Dispose();
             }
 
-            var shadowContext = Shadows.GetAttachedShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
 
             // Set SpriteVisible.IsVisible to false when the hide animation is complete to make sure it doesn't use GPU resources.
             if (!this.IsPointerOver && this._shadowCreated && shadowContext?.SpriteVisual != null)
