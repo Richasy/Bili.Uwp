@@ -59,6 +59,8 @@
                 <VisualState x:Name="FullModeState">
                     <VisualState.Setters>
                         <Setter Target="ContentContainer.Visibility" Value="Collapsed" />
+                        <Setter Target="PlayErrorContainer.CornerRadius" Value="0" />
+                        <Setter Target="BiliPlayer.CornerRadius" Value="0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

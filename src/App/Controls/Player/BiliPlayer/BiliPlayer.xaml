@@ -7,13 +7,14 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Style TargetType="local:BiliPlayer">
+        <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliPlayer">
                     <Grid>
                         <Grid
                             x:Name="PlayerContainer"
-                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <!-- Media player -->
                             <MediaPlayerElement
