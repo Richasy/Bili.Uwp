@@ -39,6 +39,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowChat = false;
             IsShowReply = true;
             IsShowHistory = false;
+            IsPlayInformationError = false;
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
             CurrentPlayLine = null;
@@ -607,6 +608,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var player = new MediaPlayer();
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
+            player.MediaFailed += OnMediaPlayerFailedAsync;
             player.AutoPlay = IsAutoPlay;
             player.Volume = Volume;
             player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
@@ -641,6 +643,39 @@ namespace Richasy.Bili.ViewModels.Uwp
             });
         }
 
+        private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                PlayerStatus = PlayerStatus.End;
+                IsPlayInformationError = true;
+                var message = string.Empty;
+                switch (args.Error)
+                {
+                    case MediaPlayerError.Unknown:
+                        message = _resourceToolkit.GetLocaleString(LanguageNames.UnknownError);
+                        break;
+                    case MediaPlayerError.Aborted:
+                        message = _resourceToolkit.GetLocaleString(LanguageNames.Aborted);
+                        break;
+                    case MediaPlayerError.NetworkError:
+                        message = _resourceToolkit.GetLocaleString(LanguageNames.NetworkError);
+                        break;
+                    case MediaPlayerError.DecodingError:
+                        message = _resourceToolkit.GetLocaleString(LanguageNames.DecodingError);
+                        break;
+                    case MediaPlayerError.SourceNotSupported:
+                        message = _resourceToolkit.GetLocaleString(LanguageNames.SourceNotSupported);
+                        break;
+                    default:
+                        break;
+                }
+
+                PlayInformationErrorText = message;
+                _logger.LogError(new Exception($"播放失败: {args.Error} | {args.ErrorMessage} | {args.ExtendedErrorCode}"));
+            });
+        }
+
         private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
@@ -671,11 +706,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                             PlayerStatus = PlayerStatus.End;
                             break;
                         case MediaPlaybackState.Opening:
+                            IsPlayInformationError = false;
                             PlayerStatus = PlayerStatus.Playing;
                             break;
                         case MediaPlaybackState.Playing:
                             PlayerStatus = PlayerStatus.Playing;
-
+                            IsPlayInformationError = false;
                             if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero)
                             {
                                 IsShowHistory = true;

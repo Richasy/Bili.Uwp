@@ -23,11 +23,11 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public CardPanel()
         {
-            this.DefaultStyleKey = typeof(CardPanel);
-            this.Loading += this.OnCardPanelLoading;
-            this.Unloaded += this.OnCardPanelUnloaded;
-            this._compositor = Window.Current.Compositor;
-            this.IsThreeState = false;
+            DefaultStyleKey = typeof(CardPanel);
+            Loading += OnCardPanelLoading;
+            Unloaded += OnCardPanelUnloaded;
+            _compositor = Window.Current.Compositor;
+            IsThreeState = false;
         }
 
         /// <summary>
@@ -44,21 +44,21 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override void OnToggle()
         {
-            if (!this.IsEnableCheck)
+            if (!IsEnableCheck)
             {
-                this.IsChecked = false;
+                IsChecked = false;
             }
         }
 
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
-            this._rootContainer = this.GetTemplateChild("RootContainer") as Grid;
+            _rootContainer = GetTemplateChild("RootContainer") as Grid;
 
-            ElementCompositionPreview.SetIsTranslationEnabled(this._rootContainer, true);
+            ElementCompositionPreview.SetIsTranslationEnabled(_rootContainer, true);
 
-            this._templateApplied = true;
-            this.ApplyShadowAnimation();
+            _templateApplied = true;
+            ApplyShadowAnimation();
             base.OnApplyTemplate();
         }
 
@@ -85,47 +85,47 @@ namespace Richasy.Bili.App.Controls
 
         private void OnCardPanelLoading(FrameworkElement sender, object args)
         {
-            this.ActualThemeChanged += this.OnActualThemeChanged;
+            ActualThemeChanged += OnActualThemeChanged;
 
-            this._pointerOverToken = this.RegisterPropertyChangedCallback(IsPointerOverProperty, this.OnPanelStateChanged);
-            this._pressedToken = this.RegisterPropertyChangedCallback(IsPressedProperty, this.OnPanelStateChanged);
+            _pointerOverToken = RegisterPropertyChangedCallback(IsPointerOverProperty, OnPanelStateChanged);
+            _pressedToken = RegisterPropertyChangedCallback(IsPressedProperty, OnPanelStateChanged);
 
-            this._loaded = true;
-            this.ApplyShadowAnimation();
+            _loaded = true;
+            ApplyShadowAnimation();
         }
 
         private void OnCardPanelUnloaded(object sender, RoutedEventArgs e)
         {
-            this.ActualThemeChanged -= this.OnActualThemeChanged;
+            ActualThemeChanged -= OnActualThemeChanged;
 
-            this.UnregisterPropertyChangedCallback(IsPointerOverProperty, this._pointerOverToken);
-            this.UnregisterPropertyChangedCallback(IsPressedProperty, this._pressedToken);
+            UnregisterPropertyChangedCallback(IsPointerOverProperty, _pointerOverToken);
+            UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);
 
-            this._loaded = false;
-            this.DestroyShadow();
+            _loaded = false;
+            DestroyShadow();
         }
 
         private void CreateShadow()
         {
-            if (this._shadowCreated || !this._loaded || !this._templateApplied)
+            if (_shadowCreated || !_loaded || !_templateApplied)
             {
                 // The shadow is either already created, or we're not ready to create it yet
                 return;
             }
 
-            var attachedShadow = Effects.GetShadow(this._rootContainer);
-            if (!this.IsEnableShadow && attachedShadow != null)
+            var attachedShadow = Effects.GetShadow(_rootContainer);
+            if (!IsEnableShadow && attachedShadow != null)
             {
-                this._rootContainer.ClearValue(Effects.ShadowProperty);
+                _rootContainer.ClearValue(Effects.ShadowProperty);
                 return;
             }
 
-            var shadowContext = attachedShadow?.GetElementContext(this._rootContainer);
+            var shadowContext = attachedShadow?.GetElementContext(_rootContainer);
             shadowContext?.CreateResources();
 
             if (shadowContext?.Shadow != null)
             {
-                switch (this.ActualTheme)
+                switch (ActualTheme)
                 {
                     case ElementTheme.Light:
                         shadowContext.Shadow.BlurRadius = LightPointerRestShadowRadius;
@@ -140,43 +140,43 @@ namespace Richasy.Bili.App.Controls
                 }
             }
 
-            this._shadowCreated = true;
+            _shadowCreated = true;
         }
 
         private void DestroyShadow()
         {
-            if (!this._shadowCreated)
+            if (!_shadowCreated)
             {
                 // The shadow has not yet been created or it has already been destroyed
                 return;
             }
 
-            this._shadowCreated = false;
+            _shadowCreated = false;
         }
 
         private void ShowPointerOverShadow()
         {
-            this.CreateShadow();
+            CreateShadow();
 
-            if (!this.IsPointerOver || !this._shadowCreated || !this.IsEnableHoverAnimation)
+            if (!IsPointerOver || !_shadowCreated || !IsEnableHoverAnimation)
             {
                 return;
             }
 
-            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(_rootContainer)?.GetElementContext(_rootContainer);
 
             if (shadowContext?.SpriteVisual != null)
             {
                 shadowContext.SpriteVisual.IsVisible = true;
             }
 
-            AnimationBuilder.Create().Translation(Axis.Y, PointerOverOffsetY, duration: ShowShadowDuration).Start(this._rootContainer);
+            AnimationBuilder.Create().Translation(Axis.Y, PointerOverOffsetY, duration: ShowShadowDuration).Start(_rootContainer);
 
             var shadowRadius = 0f;
             var shadowOffset = Vector3.Zero;
             var shadowOpacity = 0f;
 
-            switch (this.ActualTheme)
+            switch (ActualTheme)
             {
                 case ElementTheme.Default:
                 case ElementTheme.Dark:
@@ -193,37 +193,37 @@ namespace Richasy.Bili.App.Controls
 
             if (shadowContext?.Shadow != null)
             {
-                var shadowAnimationGroup = this._compositor.CreateAnimationGroup();
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: ShowShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: ShowShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: ShowShadowDuration));
+                var shadowAnimationGroup = _compositor.CreateAnimationGroup();
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: ShowShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: ShowShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: ShowShadowDuration));
                 shadowContext.Shadow.StartAnimationGroup(shadowAnimationGroup);
             }
         }
 
         private void ShowPointerPressedShadow()
         {
-            this.CreateShadow();
+            CreateShadow();
 
-            if (!this.IsPressed || !this._shadowCreated || !this.IsEnableHoverAnimation)
+            if (!IsPressed || !_shadowCreated || !IsEnableHoverAnimation)
             {
                 return;
             }
 
-            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(_rootContainer)?.GetElementContext(_rootContainer);
 
             if (shadowContext?.SpriteVisual != null)
             {
                 shadowContext.SpriteVisual.IsVisible = true;
             }
 
-            AnimationBuilder.Create().Translation(Axis.Y, 0, duration: PressShadowDuration).Start(this._rootContainer);
+            AnimationBuilder.Create().Translation(Axis.Y, 0, duration: PressShadowDuration).Start(_rootContainer);
 
             var shadowRadius = 0f;
             var shadowOffset = Vector3.Zero;
             var shadowOpacity = 0f;
 
-            switch (this.ActualTheme)
+            switch (ActualTheme)
             {
                 case ElementTheme.Default:
                 case ElementTheme.Dark:
@@ -240,30 +240,30 @@ namespace Richasy.Bili.App.Controls
 
             if (shadowContext?.Shadow != null)
             {
-                var shadowAnimationGroup = this._compositor.CreateAnimationGroup();
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: PressShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: PressShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: PressShadowDuration));
+                var shadowAnimationGroup = _compositor.CreateAnimationGroup();
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: PressShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: PressShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: PressShadowDuration));
                 shadowContext.Shadow.StartAnimationGroup(shadowAnimationGroup);
             }
         }
 
         private void HideShadow()
         {
-            this.CreateShadow();
+            CreateShadow();
 
-            if (this.IsPointerOver || !this._shadowCreated)
+            if (IsPointerOver || !_shadowCreated)
             {
                 return;
             }
 
-            AnimationBuilder.Create().Translation(Axis.Y, 0, duration: HideShadowDuration).Start(this._rootContainer);
+            AnimationBuilder.Create().Translation(Axis.Y, 0, duration: HideShadowDuration).Start(_rootContainer);
 
             var shadowRadius = 0f;
             var shadowOffset = Vector3.Zero;
             var shadowOpacity = 0f;
 
-            switch (this.ActualTheme)
+            switch (ActualTheme)
             {
                 case ElementTheme.Default:
                 case ElementTheme.Dark:
@@ -278,31 +278,31 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
 
-            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(_rootContainer)?.GetElementContext(_rootContainer);
 
             if (shadowContext?.Shadow != null)
             {
-                var shadowAnimationGroup = this._compositor.CreateAnimationGroup();
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: HideShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: HideShadowDuration));
-                shadowAnimationGroup.Add(this._compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: HideShadowDuration));
+                var shadowAnimationGroup = _compositor.CreateAnimationGroup();
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.BlurRadius), shadowRadius, duration: HideShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateVector3KeyFrameAnimation(nameof(DropShadow.Offset), shadowOffset, duration: HideShadowDuration));
+                shadowAnimationGroup.Add(_compositor.CreateScalarKeyFrameAnimation(nameof(DropShadow.Opacity), shadowOpacity, duration: HideShadowDuration));
                 shadowContext.Shadow.StartAnimationGroup(shadowAnimationGroup);
             }
         }
 
         private void ApplyShadowAnimation()
         {
-            if (this.IsPressed)
+            if (IsPressed)
             {
-                this.ShowPointerPressedShadow();
+                ShowPointerPressedShadow();
             }
-            else if (this.IsPointerOver)
+            else if (IsPointerOver)
             {
-                this.ShowPointerOverShadow();
+                ShowPointerOverShadow();
             }
             else
             {
-                this.HideShadow();
+                HideShadow();
             }
         }
 
@@ -310,14 +310,14 @@ namespace Richasy.Bili.App.Controls
         {
             if (sender is CompositionScopedBatch batch)
             {
-                batch.Completed -= this.OnHideAnimationCompleted;
+                batch.Completed -= OnHideAnimationCompleted;
                 batch.Dispose();
             }
 
-            var shadowContext = Effects.GetShadow(this._rootContainer)?.GetElementContext(this._rootContainer);
+            var shadowContext = Effects.GetShadow(_rootContainer)?.GetElementContext(_rootContainer);
 
             // Set SpriteVisible.IsVisible to false when the hide animation is complete to make sure it doesn't use GPU resources.
-            if (!this.IsPointerOver && this._shadowCreated && shadowContext?.SpriteVisual != null)
+            if (!IsPointerOver && _shadowCreated && shadowContext?.SpriteVisual != null)
             {
                 shadowContext.SpriteVisual.IsVisible = false;
             }
@@ -325,14 +325,14 @@ namespace Richasy.Bili.App.Controls
 
         private void OnActualThemeChanged(FrameworkElement sender, object args)
         {
-            this.ApplyShadowAnimation();
+            ApplyShadowAnimation();
         }
 
         private void OnPanelStateChanged(DependencyObject sender, DependencyProperty dp)
         {
-            var changedArgs = new CardPanelStateChangedEventArgs(this.IsPointerOver, this.IsPressed);
-            this.StateChanged?.Invoke(this, changedArgs);
-            this.ApplyShadowAnimation();
+            var changedArgs = new CardPanelStateChangedEventArgs(IsPointerOver, IsPressed);
+            StateChanged?.Invoke(this, changedArgs);
+            ApplyShadowAnimation();
         }
     }
 }

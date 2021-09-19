@@ -330,6 +330,11 @@ namespace Richasy.Bili.Models.Enums
         FailedToClearLog,
         AboutThisApp,
         License,
+        UnknownError,
+        Aborted,
+        NetworkError,
+        DecodingError,
+        SourceNotSupported,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

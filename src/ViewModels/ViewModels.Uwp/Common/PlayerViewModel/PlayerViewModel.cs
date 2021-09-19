@@ -51,7 +51,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
-                                   .LoadService(out _fileToolkit);
+                                   .LoadService(out _fileToolkit)
+                                   .LoadService(out _logger);
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             InitializeTimer();
@@ -116,6 +117,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             IsDetailCanLoaded = true;
             DanmakuViewModel.Instance.Reset();
+            IsPlayInformationError = false;
 
             switch (_videoType)
             {
@@ -493,6 +495,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                         _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
                     }
 
+                    break;
+                case nameof(IsPlayInformationError):
+                case nameof(IsDetailError):
+                    PlayerDisplayMode = PlayerDisplayMode.Default;
                     break;
                 default:
                     break;

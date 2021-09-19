@@ -7,6 +7,7 @@ using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -26,6 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
+        private readonly ILoggerModule _logger;
 
         private readonly FFmpegInteropConfig _liveFFConfig;
 
