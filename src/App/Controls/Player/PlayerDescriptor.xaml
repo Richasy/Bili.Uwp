@@ -34,7 +34,10 @@
                 Tapped="OnUserTappedAsync"
                 UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
             <StackPanel Spacing="4">
-                <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 <Grid HorizontalAlignment="Left">
                     <Button
                         x:Name="FollowButton"
@@ -86,11 +89,13 @@
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                    IsTextSelectionEnabled="True"
                     Text="{x:Bind ViewModel.Subtitle, Mode=OneWay}" />
                 <TextBlock
                     x:Name="TitleBlock"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     HorizontalAlignment="Left"
+                    IsTextSelectionEnabled="True"
                     MaxLines="2"
                     Text="{x:Bind ViewModel.Title, Mode=OneWay}"
                     TextWrapping="Wrap">

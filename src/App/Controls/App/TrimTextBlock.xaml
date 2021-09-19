@@ -38,6 +38,7 @@
                 <Flyout>
                     <TextBlock
                         MaxWidth="320"
+                        IsTextSelectionEnabled="True"
                         LineHeight="24"
                         Text="{x:Bind Text, Mode=OneWay}"
                         TextWrapping="Wrap" />
