@@ -85,8 +85,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 视频加载.
         /// </summary>
         /// <param name="vm">视图模型.</param>
+        /// <param name="isRefresh">是否刷新.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(object vm)
+        public async Task LoadAsync(object vm, bool isRefresh = false)
         {
             var videoId = string.Empty;
             var seasonId = 0;
@@ -122,13 +123,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             switch (_videoType)
             {
                 case VideoType.Video:
-                    await LoadVideoDetailAsync(videoId);
+                    await LoadVideoDetailAsync(videoId, isRefresh);
                     break;
                 case VideoType.Pgc:
-                    await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId);
+                    await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId, isRefresh);
                     break;
                 case VideoType.Live:
-                    await LoadLiveDetailAsync(Convert.ToInt32(videoId));
+                    await LoadLiveDetailAsync(Convert.ToInt32(videoId), isRefresh);
                     break;
                 default:
                     break;

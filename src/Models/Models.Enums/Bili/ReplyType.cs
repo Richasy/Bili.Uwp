@@ -26,5 +26,10 @@ namespace Richasy.Bili.Models.Enums.Bili
         /// 动态.
         /// </summary>
         Dynamic = 17,
+
+        /// <summary>
+        /// 不设置.
+        /// </summary>
+        None = 99,
     }
 }

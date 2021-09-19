@@ -29,12 +29,12 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public PlayerPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            ViewModel.Dispatcher = this.Dispatcher;
-            this.Loaded += OnLoadedAsync;
-            this.Unloaded += OnUnloaded;
-            this.SizeChanged += OnSizeChanged;
+            ViewModel.Dispatcher = Dispatcher;
+            Loaded += OnLoadedAsync;
+            Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -113,8 +113,14 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 if (ContentContainer.Children.Contains(ContentGrid))
                 {
-                    this.ContentContainer.Children.Remove(ContentGrid);
+                    ContentContainer.Children.Remove(ContentGrid);
                     RootScrollViewer.Content = ContentGrid;
+                }
+
+                if (BiliPlayer != null)
+                {
+                    var maxHeight = e.NewSize.Height * 0.7;
+                    BiliPlayer.MaxHeight = maxHeight;
                 }
             }
             else
@@ -122,7 +128,12 @@ namespace Richasy.Bili.App.Pages.Overlay
                 if (RootScrollViewer.Content != null)
                 {
                     RootScrollViewer.Content = null;
-                    this.ContentContainer.Children.Insert(0, ContentGrid);
+                    ContentContainer.Children.Insert(0, ContentGrid);
+                }
+
+                if (BiliPlayer != null)
+                {
+                    BiliPlayer.MaxHeight = double.PositiveInfinity;
                 }
             }
         }
@@ -131,7 +142,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (_navigateVM != null)
             {
-                await ViewModel.LoadAsync(_navigateVM);
+                await ViewModel.LoadAsync(_navigateVM, true);
             }
         }
 
