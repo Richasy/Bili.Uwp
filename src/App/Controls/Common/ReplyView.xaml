@@ -43,7 +43,7 @@
             </ComboBox>
         </Grid>
         <Grid Grid.Row="1">
-            <muxc:ScrollView
+            <ScrollViewer
                 x:Name="ContentScrollViewer"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Hidden">
@@ -58,7 +58,7 @@
                         </DataTemplate>
                     </local:VerticalRepeaterView.ItemTemplate>
                 </local:VerticalRepeaterView>
-            </muxc:ScrollView>
+            </ScrollViewer>
             <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
             <local:ErrorPanel
                 ActionButtonClick="OnReplyRefreshButtonClickAsync"

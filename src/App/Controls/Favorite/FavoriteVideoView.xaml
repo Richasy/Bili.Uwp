@@ -68,7 +68,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
-                <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
                         Margin="0,0,0,12"
@@ -108,7 +108,7 @@
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>
-                </muxc:ScrollView>
+                </ScrollViewer>
 
                 <local:OverlayLoadingPanel
                     MinHeight="80"

@@ -70,7 +70,7 @@
             </muxc:NavigationView.PaneFooter>
             <muxc:NavigationView.Content>
                 <Grid>
-                    <muxc:ScrollView
+                    <ScrollViewer
                         x:Name="ContentScrollViewer"
                         Padding="{StaticResource DefaultContainerPadding}"
                         HorizontalScrollMode="Disabled"
@@ -218,7 +218,7 @@
 
                             </Grid>
                         </Grid>
-                    </muxc:ScrollView>
+                    </ScrollViewer>
 
                     <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.CurrentTab.IsInitializeLoading, Mode=OneWay}" />
 

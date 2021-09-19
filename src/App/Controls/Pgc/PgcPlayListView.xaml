@@ -25,7 +25,7 @@
             Text="{x:Bind ViewModel.TotalCount, Mode=OneWay}"
             TextWrapping="Wrap" />
         <Grid Grid.Row="1">
-            <muxc:ScrollView HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                 <Grid>
                     <local:VerticalRepeaterView
                         x:Name="SeasonView"
@@ -46,7 +46,7 @@
                     </local:VerticalRepeaterView>
 
                 </Grid>
-            </muxc:ScrollView>
+            </ScrollViewer>
             <local:OverlayLoadingPanel
                 MinHeight="80"
                 IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"

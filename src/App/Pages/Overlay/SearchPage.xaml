@@ -109,7 +109,7 @@
                     <controls:SearchUserFilter x:Name="UserFilter" Visibility="Collapsed" />
                 </Grid>
 
-                <muxc:ScrollView
+                <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Grid.Row="1"
                     Padding="{StaticResource DefaultContainerPadding}"
@@ -129,7 +129,7 @@
                         <controls:SearchUserView x:Name="UserView" Visibility="Collapsed" />
                         <controls:SearchLiveView x:Name="LiveView" Visibility="Collapsed" />
                     </Grid>
-                </muxc:ScrollView>
+                </ScrollViewer>
             </Grid>
         </muxc:NavigationView>
     </Grid>

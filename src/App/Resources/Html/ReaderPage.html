@@ -47,7 +47,7 @@
                         Key: 'LinkClick',
                         Value: link
                     }
-                    chrome.webview.postMessage(JSON.stringify(data));
+                    window.external.notify(JSON.stringify(data));
                 })
             }
         }
@@ -63,7 +63,7 @@
                         Key: 'ImageClick',
                         Value: src
                     };
-                    chrome.webview.postMessage(JSON.stringify(obj));
+                    window.external.notify(JSON.stringify(obj));
                 })
             }
         }

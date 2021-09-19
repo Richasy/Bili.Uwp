@@ -77,7 +77,7 @@
             </muxc:NavigationView.PaneFooter>
 
             <Grid>
-                <muxc:ScrollView
+                <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
@@ -87,7 +87,7 @@
                         <controls:AtMessageView x:Name="AtMessageView" Visibility="Collapsed" />
                         <controls:ReplyMessageView x:Name="ReplyMessageView" Visibility="Collapsed" />
                     </Grid>
-                </muxc:ScrollView>
+                </ScrollViewer>
                 <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
                 <controls:ErrorPanel
                     ActionButtonClick="OnRefreshButtonClickAsync"

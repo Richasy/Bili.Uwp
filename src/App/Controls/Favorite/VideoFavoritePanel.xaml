@@ -34,7 +34,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <muxc:ScrollView
+        <ScrollViewer
             x:Name="ContentScrollViewer"
             Padding="{StaticResource DefaultContainerPadding}"
             HorizontalScrollMode="Disabled"
@@ -238,7 +238,7 @@
                     </muxc:ItemsRepeater.ItemTemplate>
                 </muxc:ItemsRepeater>
             </Grid>
-        </muxc:ScrollView>
+        </ScrollViewer>
         <local:OverlayLoadingPanel IsRingActive="{x:Bind ViewModel.IsVideoInitializeLoading, Mode=OneWay}" />
 
         <local:ErrorPanel

@@ -44,7 +44,7 @@
                         <muxc:NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Id}" />
                     </DataTemplate>
                 </muxc:NavigationView.MenuItemTemplate>
-                <muxc:ScrollView
+                <ScrollViewer
                     x:Name="QuestionScrollView"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Hidden">
@@ -83,7 +83,7 @@
                             <muxc:StackLayout Spacing="8" />
                         </muxc:ItemsRepeater.Layout>
                     </muxc:ItemsRepeater>
-                </muxc:ScrollView>
+                </ScrollViewer>
             </muxc:NavigationView>
         </Grid>
     </local:CardPanel>

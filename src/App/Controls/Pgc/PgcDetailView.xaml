@@ -90,7 +90,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <muxc:ScrollView
+        <ScrollViewer
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Hidden">
@@ -148,7 +148,7 @@
                         FontWeight="Bold"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Text="{loc:LocaleLocator Name=CastAndCrew}" />
-                    <muxc:ScrollView
+                    <ScrollViewer
                         HorizontalScrollBarVisibility="Hidden"
                         HorizontalScrollMode="Enabled"
                         VerticalScrollMode="Disabled">
@@ -190,7 +190,7 @@
                                 </DataTemplate>
                             </muxc:ItemsRepeater.ItemTemplate>
                         </muxc:ItemsRepeater>
-                    </muxc:ScrollView>
+                    </ScrollViewer>
                 </StackPanel>
 
                 <StackPanel
@@ -241,6 +241,6 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Grid>
-        </muxc:ScrollView>
+        </ScrollViewer>
     </Grid>
 </local:CenterPopup>

@@ -2,9 +2,10 @@
 
 using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.System;
@@ -59,7 +60,6 @@ namespace Richasy.Bili.App.Controls
             Title = vm.Title;
             if (!_isPreLoaded)
             {
-                await ReaderWebView.EnsureCoreWebView2Async().AsTask();
                 ReaderWebView.NavigateToString(string.Empty);
                 _isPreLoaded = true;
             }
@@ -101,21 +101,14 @@ namespace Richasy.Bili.App.Controls
             await LoadContentAsync();
         }
 
-        private void OnClosed(object sender, EventArgs e)
-        {
-            ReaderWebView.NavigateToString(string.Empty);
-        }
+        private void OnClosed(object sender, EventArgs e) => ReaderWebView.NavigateToString(string.Empty);
 
-        private async void OnWebMessageReceivedAsync(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
+        private async void OnScriptNotifyAsync(object sender, Windows.UI.Xaml.Controls.NotifyEventArgs e)
         {
-            var str = args.TryGetWebMessageAsString();
-            var jobj = JObject.Parse(str);
-            var key = jobj["Key"].ToString();
-            var value = jobj["Value"].ToString();
-
-            if (key == AppConstants.LinkClickEvent)
+            var data = JsonConvert.DeserializeObject<KeyValue<string>>(e.Value);
+            if (data.Key == AppConstants.LinkClickEvent)
             {
-                await Launcher.LaunchUriAsync(new Uri(value));
+                await Launcher.LaunchUriAsync(new Uri(data.Value));
             }
         }
     }

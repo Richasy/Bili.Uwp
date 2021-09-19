@@ -35,7 +35,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <muxc:ScrollView
+        <ScrollViewer
             x:Name="ContentScrollViewer"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
@@ -74,6 +74,6 @@
                     <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=License}" />
                 </StackPanel>
             </StackPanel>
-        </muxc:ScrollView>
+        </ScrollViewer>
     </Grid>
 </Page>
