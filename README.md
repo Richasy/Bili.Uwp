@@ -22,7 +22,7 @@
 
 然后打开 [系统设置](ms-settings:developers)，打开 `开发者模式` ，并等待系统安装一些必要的扩展项。
 
-在应用压缩包下载完成后，解压压缩包，并在管理员模式下，使用 PowerShell 运行解压后的 `install.ps1` 脚本，根据提示进行安装。
+在应用压缩包下载完成后，解压压缩包，并在管理员模式下，使用 **Windows PowerShell** *(不是PowerShell Core)* 运行解压后的 `install.ps1` 脚本，根据提示进行安装。
 
 **Watch** 项目，以获取应用的更新动态。
 

@@ -32,6 +32,10 @@
 
 ## 推荐：使用 PowerShell 安装应用
 
+> 需要特别注意的是，应使用 Windows PowerShell 而不是 PowerShell Core 来安装。  
+> 在涉及到本机操作时，PowerShell Core 并没有提供相应的功能。  
+> 关联问题 [#62](https://github.com/Richasy/Bili.Uwp/issues/62)
+
 优势：通过脚本安装，可以自动安装证书，方便快捷。
 
 1. 解压上一步骤下载的应用压缩包。
