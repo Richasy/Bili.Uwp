@@ -61,6 +61,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.Clear();
             FavoriteMetaCollection.Clear();
 
+            ReplyModuleViewModel.Instance.Reset();
+
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
         }

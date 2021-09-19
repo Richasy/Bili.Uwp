@@ -66,6 +66,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsInitializeLoading = true;
                 Reset();
+                IsShowEmpty = false;
                 _cursor.Mode = CurrentMode;
                 try
                 {
@@ -85,6 +86,24 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 IsInitializeLoading = false;
             }
+        }
+
+        /// <summary>
+        /// 重置.
+        /// </summary>
+        public void Reset()
+        {
+            _isCompleted = false;
+            IsShowEmpty = true;
+            IsRequested = false;
+            IsError = false;
+            ReplyCollection.Clear();
+            _cursor = new CursorReq
+            {
+                Prev = 0,
+                Next = 0,
+                Mode = CurrentMode,
+            };
         }
 
         /// <summary>
@@ -129,21 +148,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await Controller.RequestMainReplyListAsync(TargetId, Type, _cursor);
                 IsDeltaLoading = false;
             }
-        }
-
-        private void Reset()
-        {
-            _isCompleted = false;
-            IsShowEmpty = false;
-            IsRequested = false;
-            IsError = false;
-            ReplyCollection.Clear();
-            _cursor = new CursorReq
-            {
-                Prev = 0,
-                Next = 0,
-                Mode = CurrentMode,
-            };
         }
 
         private void OnReplyIteration(object sender, ReplyIterationEventArgs e)

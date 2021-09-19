@@ -37,7 +37,7 @@
             <VisualStateGroup x:Name="DashboardGroup">
                 <VisualState x:Name="DashboardSplitState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideWindowThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="DashboardCombineState">
