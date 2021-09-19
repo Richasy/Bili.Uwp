@@ -142,7 +142,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (_navigateVM != null)
             {
-                await ViewModel.LoadAsync(_navigateVM);
+                await ViewModel.LoadAsync(_navigateVM, true);
             }
         }
 

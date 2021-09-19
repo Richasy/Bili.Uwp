@@ -335,6 +335,7 @@ namespace Richasy.Bili.Models.Enums
         NetworkError,
         DecodingError,
         SourceNotSupported,
+        NoEpisode,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

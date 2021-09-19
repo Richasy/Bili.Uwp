@@ -61,15 +61,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.Clear();
             FavoriteMetaCollection.Clear();
 
-            ReplyModuleViewModel.Instance.Reset();
-
+            ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
         }
 
-        private async Task LoadVideoDetailAsync(string videoId)
+        private async Task LoadVideoDetailAsync(string videoId, bool isRefresh)
         {
-            if (_videoDetail == null || videoId != AvId)
+            if (_videoDetail == null || videoId != AvId || isRefresh)
             {
                 Reset();
                 IsDetailLoading = true;
@@ -96,11 +95,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangeVideoPartAsync(partId);
         }
 
-        private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0)
+        private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0, bool isRefresh = false)
         {
             if (_pgcDetail == null ||
                 episodeId.ToString() != EpisodeId ||
-                seasonId.ToString() != SeasonId)
+                seasonId.ToString() != SeasonId ||
+                isRefresh)
             {
                 Reset();
                 IsPgc = true;
@@ -143,9 +143,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangePgcEpisodeAsync(id);
         }
 
-        private async Task LoadLiveDetailAsync(int roomId)
+        private async Task LoadLiveDetailAsync(int roomId, bool isRefresh)
         {
-            if (_liveDetail == null || RoomId != roomId.ToString())
+            if (_liveDetail == null || RoomId != roomId.ToString() || isRefresh)
             {
                 Reset();
                 IsLive = true;
@@ -339,6 +339,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                     foreach (var item in episodeModule.Data.Episodes)
                     {
                         EpisodeCollection.Add(new PgcEpisodeViewModel(item, false));
+                    }
+
+                    if (EpisodeCollection.Count == 0)
+                    {
+                        IsPlayInformationError = true;
+                        PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.NoEpisode);
                     }
                 }
 

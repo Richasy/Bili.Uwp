@@ -57,9 +57,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <inheritdoc/>
         public override async Task InitializeRequestAsync()
         {
-            if (TargetId == 0 || _cursor == null)
+            if (TargetId == 0 || _cursor == null || Type == ReplyType.None)
             {
-                throw new ArgumentException("需要先设置初始信息.");
+                IsShowEmpty = true;
+                return;
             }
 
             if (!IsInitializeLoading)

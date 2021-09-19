@@ -578,6 +578,9 @@
   <data name="NetworkError" xml:space="preserve">
     <value>网络连接错误，请稍后重试</value>
   </data>
+  <data name="NoEpisode" xml:space="preserve">
+    <value>没有可供播放的分集</value>
+  </data>
   <data name="NoFans" xml:space="preserve">
     <value>该用户还木有粉丝哟~</value>
   </data>
