@@ -43,7 +43,7 @@ namespace Richasy.Bili.App.Pages
         public async Task RefreshAsync()
         {
             await ViewModel.InitializeRequestAsync();
-            ContentScrollViewer.ScrollTo(0, 0);
+            ContentScrollViewer.ChangeView(0, 0, 1);
         }
 
         /// <inheritdoc/>

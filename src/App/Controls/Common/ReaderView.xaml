@@ -21,10 +21,10 @@
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <muxc:WebView2
+        <WebView
             x:Name="ReaderWebView"
             VerticalAlignment="Stretch"
-            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}"
-            WebMessageReceived="OnWebMessageReceivedAsync" />
+            ScriptNotify="OnScriptNotifyAsync"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
     </Grid>
 </local:CenterPopup>

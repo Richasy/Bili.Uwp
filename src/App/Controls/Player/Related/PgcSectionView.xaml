@@ -11,7 +11,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <muxc:ScrollView
+    <ScrollViewer
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Hidden"
         VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
@@ -74,5 +74,5 @@
                 <muxc:StackLayout Spacing="20" />
             </muxc:ItemsRepeater.Layout>
         </muxc:ItemsRepeater>
-    </muxc:ScrollView>
+    </ScrollViewer>
 </controls:PlayerComponent>

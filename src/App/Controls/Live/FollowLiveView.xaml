@@ -72,7 +72,7 @@
         </Grid>
 
 
-        <muxc:ScrollView
+        <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
@@ -93,6 +93,6 @@
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
             </muxc:ItemsRepeater>
-        </muxc:ScrollView>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -133,7 +133,7 @@
             </Border>
         </Grid>
         <Grid Grid.Row="1">
-            <muxc:ScrollView
+            <ScrollViewer
                 x:Name="ContentScrollViewer"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Hidden">
@@ -159,7 +159,7 @@
                         </DataTemplate>
                     </local:VerticalRepeaterView.ItemTemplate>
                 </local:VerticalRepeaterView>
-            </muxc:ScrollView>
+            </ScrollViewer>
 
             <local:OverlayLoadingPanel
                 MinHeight="80"

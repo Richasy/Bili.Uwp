@@ -43,7 +43,7 @@
                 Text="{loc:LocaleLocator Name=ViewLater}"
                 TextTrimming="CharacterEllipsis" />
             <Grid Grid.Row="1">
-                <muxc:ScrollView
+                <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Padding="{StaticResource DefaultContainerPadding}"
                     HorizontalScrollMode="Disabled"
@@ -97,7 +97,7 @@
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
                     </Grid>
-                </muxc:ScrollView>
+                </ScrollViewer>
 
                 <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
                 <controls:ErrorPanel

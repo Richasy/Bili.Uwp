@@ -128,7 +128,7 @@
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Text="{loc:LocaleLocator Name=RelatedProjects}"
                                 TextTrimming="CharacterEllipsis" />
-                            <muxc:ScrollView
+                            <ScrollViewer
                                 x:Name="LinkScrollViewer"
                                 Grid.Row="1"
                                 HorizontalScrollBarVisibility="Hidden"
@@ -147,7 +147,7 @@
                                         </DataTemplate>
                                     </muxc:ItemsRepeater.ItemTemplate>
                                 </muxc:ItemsRepeater>
-                            </muxc:ScrollView>
+                            </ScrollViewer>
                         </Grid>
                     </controls:CardPanel>
                 </Grid>
@@ -159,7 +159,7 @@
         </Grid>
 
 
-        <muxc:ScrollView
+        <ScrollViewer
             x:Name="NarrowScrollView"
             Padding="{StaticResource NarrowContainerPadding}"
             HorizontalScrollMode="Disabled"
@@ -173,6 +173,6 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
             </Grid>
-        </muxc:ScrollView>
+        </ScrollViewer>
     </Grid>
 </Page>

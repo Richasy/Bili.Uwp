@@ -70,7 +70,7 @@ namespace Richasy.Bili.App.Pages
         private async void OnDetailNavigationViewItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             var item = args.InvokedItem as RankPartition;
-            ContentScrollViewer.ScrollTo(0, 0);
+            ContentScrollViewer.ChangeView(0, 0, 1);
             await ViewModel.SetSelectedRankPartitionAsync(item);
         }
 

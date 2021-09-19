@@ -139,7 +139,7 @@
                 </Grid>
             </Grid>
 
-            <muxc:ScrollView
+            <ScrollViewer
                 x:Name="RootScrollViewer"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"

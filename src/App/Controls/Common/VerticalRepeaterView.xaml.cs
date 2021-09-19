@@ -81,7 +81,6 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsStaggered), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(false, new PropertyChangedCallback(OnIsStaggeredChanged)));
 
         private ScrollViewer _parentScrollViewer;
-        private ScrollView _parentScrollView;
         private double _itemHolderHeight = 0d;
 
         /// <summary>
@@ -241,18 +240,10 @@ namespace Richasy.Bili.App.Controls
         {
             if (EnableDetectParentScrollViewer)
             {
-                _parentScrollView = this.FindAscendantElementByType<ScrollView>();
-                if (_parentScrollView == null)
+                _parentScrollViewer = this.FindAscendantElementByType<ScrollViewer>();
+                if (_parentScrollViewer != null)
                 {
-                    _parentScrollViewer = this.FindAscendantElementByType<ScrollViewer>();
-                    if (_parentScrollViewer != null)
-                    {
-                        _parentScrollViewer.ViewChanged += OnParentScrollViewerViewChanged;
-                    }
-                }
-                else
-                {
-                    _parentScrollView.ViewChanged += OnParentScrollViewViewChanged;
+                    _parentScrollViewer.ViewChanged += OnParentScrollViewerViewChanged;
                 }
             }
         }
@@ -264,12 +255,6 @@ namespace Richasy.Bili.App.Controls
                 _parentScrollViewer.ViewChanged -= OnParentScrollViewerViewChanged;
                 _parentScrollViewer = null;
             }
-
-            if (_parentScrollView != null)
-            {
-                _parentScrollView.ViewChanged -= OnParentScrollViewViewChanged;
-                _parentScrollView = null;
-            }
         }
 
         private void OnParentScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -278,19 +263,6 @@ namespace Richasy.Bili.App.Controls
             {
                 var currentPosition = _parentScrollViewer.VerticalOffset;
                 if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
-                    this.Visibility == Visibility.Visible)
-                {
-                    RequestLoadMore?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        private void OnParentScrollViewViewChanged(ScrollView sender, object args)
-        {
-            if (_parentScrollView != null)
-            {
-                var currentPosition = _parentScrollView.VerticalOffset;
-                if (_parentScrollView.ScrollableHeight - currentPosition <= _itemHolderHeight &&
                     this.Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
@@ -328,13 +300,13 @@ namespace Richasy.Bili.App.Controls
                 if (IsAutoFillEnable &&
                     args.Element is IRepeaterItem repeaterItem &&
                     ItemsSource is ICollection collectionSource &&
-                    (_parentScrollViewer != null || _parentScrollView != null) &&
+                    (_parentScrollViewer != null) &&
                     args.Index >= collectionSource.Count - 1)
                 {
                     var size = repeaterItem.GetHolderSize();
                     _itemHolderHeight = size.Height;
-                    var viewportWidth = _parentScrollView != null ? _parentScrollView.ViewportWidth : _parentScrollViewer.ViewportWidth;
-                    var viewportHeight = _parentScrollView != null ? _parentScrollView.ViewportHeight : _parentScrollViewer.ViewportHeight;
+                    var viewportWidth = _parentScrollViewer.ViewportWidth;
+                    var viewportHeight = _parentScrollViewer.ViewportHeight;
                     bool isNeedLoadMore;
                     if (double.IsInfinity(size.Width))
                     {
