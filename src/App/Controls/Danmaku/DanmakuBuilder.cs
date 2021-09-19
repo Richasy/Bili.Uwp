@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Geometry;
 using Microsoft.Graphics.Canvas.Text;
-using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.Toolkit.Uwp.UI;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Text;
@@ -237,17 +237,21 @@ namespace Richasy.Bili.App.Controls
             tx.FontSize = size;
 
             var grid = new Grid();
-            var dropShadowPanel = new DropShadowPanel()
+            var hostGrid = new Grid();
+
+            var shadow = new AttachedDropShadow();
+            shadow.BlurRadius = 2;
+            shadow.Opacity = 0.8;
+            shadow.Offset = "1,1,0";
+            shadow.Color = _model.Color.R <= 80 ? Colors.White : Colors.Black;
+            grid.Children.Add(hostGrid);
+            grid.Children.Add(tx);
+            grid.Loaded += (s, e) =>
             {
-                BlurRadius = 2,
-                ShadowOpacity = 0.8,
-                OffsetX = 1,
-                OffsetY = 1,
-                Color = _model.Color.R <= 80 ? Colors.White : Colors.Black,
+                shadow.CastTo = hostGrid;
             };
 
-            dropShadowPanel.Content = tx;
-            grid.Children.Add(dropShadowPanel);
+            Effects.SetShadow(tx, shadow);
             grid.Tag = _model;
             return grid;
         }

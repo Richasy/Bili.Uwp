@@ -109,6 +109,11 @@
                                 HorizontalAlignment="Center"
                                 Text="{x:Bind ViewModel.PlayInformationErrorText, Mode=OneWay}"
                                 TextAlignment="Center" />
+                            <Button
+                                x:Name="RefreshButton"
+                                HorizontalAlignment="Center"
+                                Click="OnRefreshButtonClickAsync"
+                                Content="{loc:LocaleLocator Name=Refresh}" />
                         </StackPanel>
                     </Grid>
                 </Grid>
