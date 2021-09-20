@@ -195,18 +195,18 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
             {
-                if (RootGrid.Children.Count > 1)
+                if (RootGrid.Children.Contains(PlayerContainer))
                 {
-                    RootGrid.Children.Remove(BiliPlayer);
-                    PlayerContainer.Children.Add(BiliPlayer);
+                    RootGrid.Children.Remove(PlayerContainer);
+                    ContentGrid.Children.Insert(0, PlayerContainer);
                 }
             }
             else
             {
-                if (PlayerContainer.Children.Count > 0)
+                if (ContentGrid.Children.Contains(PlayerContainer))
                 {
-                    PlayerContainer.Children.Remove(BiliPlayer);
-                    RootGrid.Children.Add(BiliPlayer);
+                    ContentGrid.Children.Remove(PlayerContainer);
+                    RootGrid.Children.Add(PlayerContainer);
                 }
             }
         }

@@ -11,8 +11,10 @@
         x:Key="MTCAppBarButtonStyle"
         BasedOn="{StaticResource DefaultAppBarButtonStyle}"
         TargetType="AppBarButton">
-        <Setter Property="Height" Value="{ThemeResource MediaTransportControlsAppBarButtonHeight}" />
-        <Setter Property="Width" Value="{ThemeResource MediaTransportControlsAppBarButtonWidth}" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="AllowFocusOnInteraction" Value="True" />
     </Style>
     <!-- New AppBarToggle button style 40x40 pixels in size -->
@@ -20,7 +22,7 @@
         x:Key="MTCAppBarToggleButtonStyle"
         BasedOn="{StaticResource DefaultAppBarToggleButtonStyle}"
         TargetType="AppBarToggleButton">
-        <Setter Property="Height" Value="{ThemeResource MediaTransportControlsAppBarButtonHeight}" />
+        <Setter Property="Height" Value="48" />
         <Setter Property="Width" Value="{ThemeResource MediaTransportControlsAppBarButtonWidth}" />
         <Setter Property="AllowFocusOnInteraction" Value="True" />
     </Style>
@@ -289,7 +291,7 @@
                                 Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </Grid>
-                        <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
+                        <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border" MaxWidth="820">
                             <Grid
                                 x:Name="ControlPanelGrid"
                                 VerticalAlignment="Bottom"
@@ -395,26 +397,20 @@
                                 <Grid
                                     x:Name="MediaTransportControls_Command_Border"
                                     Grid.Row="2"
-                                    Grid.Column="1">
+                                    Grid.Column="1"
+                                    Margin="0,-8,0,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <CommandBar
-                                        x:Name="MediaControlsCommandBar"
-                                        Style="{StaticResource MTCCommandBarStyle}"
-                                        IsDynamicOverflowEnabled="False">
-                                        <CommandBar.Resources>
-                                            <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
-                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                            <x:Double x:Key="AppBarThemeCompactHeight">40</x:Double>
-                                            <x:Double x:Key="AppBarMoreButtonColumnMinWidth">0</x:Double>
-                                        </CommandBar.Resources>
-                                        <CommandBar.PrimaryCommands>
-                                            <AppBarButton
-                                                x:Name="VolumeMuteButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="19">
+                                    <Grid x:Name="MediaControlsCommandBar">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
+                                            <AppBarButton x:Name="VolumeMuteButton" Style="{StaticResource MTCAppBarButtonStyle}">
                                                 <AppBarButton.Flyout>
                                                     <Flyout
                                                         x:Name="VolumeFlyout"
@@ -462,7 +458,6 @@
                                                 x:Name="FormatButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="13"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}"
                                                 Visibility="Collapsed">
                                                 <AppBarButton.Icon>
@@ -493,22 +488,22 @@
                                             <AppBarButton
                                                 x:Name="PlaybackRateButton"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="10"
                                                 Visibility="Collapsed">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEC57;" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarSeparator
-                                                x:Name="LeftSeparator"
-                                                Width="0"
-                                                Height="0"
-                                                Margin="0,0" />
+                                        </StackPanel>
+                                        <StackPanel
+                                            x:Name="CenterContainer"
+                                            Grid.ColumnSpan="3"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
                                             <AppBarButton
                                                 x:Name="BackSkipButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=BackSkip}"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="2"
-                                                Visibility="Collapsed">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackSkip}">
                                                 <AppBarButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Left" IsEnabled="True" />
                                                 </AppBarButton.KeyboardAccelerators>
@@ -516,10 +511,7 @@
                                                     <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowReply48" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton
-                                                x:Name="PlayPauseButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="23">
+                                            <AppBarButton x:Name="PlayPauseButton" Style="{StaticResource MTCAppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon x:Name="PlayPauseSymbol" Glyph="&#x002B;" />
                                                 </AppBarButton.Icon>
@@ -532,9 +524,9 @@
                                             </AppBarButton>
                                             <AppBarButton
                                                 x:Name="ForwardSkipButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="2"
-                                                Visibility="Collapsed">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}">
                                                 <AppBarButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Right" IsEnabled="True" />
                                                 </AppBarButton.KeyboardAccelerators>
@@ -542,15 +534,12 @@
                                                     <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowForward48" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarSeparator
-                                                x:Name="RightSeparator"
-                                                Width="0"
-                                                Height="0"
-                                                Margin="0,0" />
-                                            <AppBarButton
-                                                x:Name="CastButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="11">
+                                        </StackPanel>
+                                        <StackPanel
+                                            Name="RightContainer"
+                                            Grid.Column="2"
+                                            Orientation="Horizontal">
+                                            <AppBarButton x:Name="CastButton" Style="{StaticResource MTCAppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEC15;" />
                                                 </AppBarButton.Icon>
@@ -559,7 +548,6 @@
                                                 x:Name="CompactOverlayModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
                                                 Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="17"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
@@ -575,7 +563,6 @@
                                                 x:Name="FullWindowModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
                                                 Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="15"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullWindowMode}">
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
@@ -588,7 +575,6 @@
                                                 x:Name="FullScreenModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
                                                 Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="16"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
@@ -597,8 +583,8 @@
                                                     <KeyboardAccelerator Key="F11" IsEnabled="True" />
                                                 </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
-                                        </CommandBar.PrimaryCommands>
-                                    </CommandBar>
+                                        </StackPanel>
+                                    </Grid>
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
@@ -775,7 +761,6 @@
                                         <Setter Target="MediaTransportControls_Command_Border.(Grid.Column)" Value="2" />
                                         <Setter Target="MediaTransportControls_Command_Border.(Grid.Row)" Value="1" />
                                         <Setter Target="ControlPanelGrid.Height" Value="48" />
-                                        <Setter Target="MediaControlsCommandBar.Margin" Value="0" />
                                         <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
                                         <Setter Target="ControlPanelGrid.Padding" Value="3" />
                                     </VisualState.Setters>
@@ -846,6 +831,7 @@
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
                             <Grid
                                 x:Name="ControlPanelGrid"
+                                MaxWidth="820"
                                 VerticalAlignment="Bottom"
                                 Background="{ThemeResource MediaTransportControlsPanelBackground}"
                                 BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
@@ -897,17 +883,13 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <CommandBar
-                                        x:Name="MediaControlsCommandBar"
-                                        Style="{StaticResource MTCCommandBarStyle}"
-                                        IsDynamicOverflowEnabled="False">
-                                        <CommandBar.Resources>
-                                            <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
-                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                            <x:Double x:Key="AppBarThemeCompactHeight">40</x:Double>
-                                            <x:Double x:Key="AppBarMoreButtonColumnMinWidth">0</x:Double>
-                                        </CommandBar.Resources>
-                                        <CommandBar.PrimaryCommands>
+                                    <Grid x:Name="MediaControlsCommandBar">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
                                             <AppBarButton
                                                 x:Name="VolumeMuteButton"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
@@ -1021,11 +1003,11 @@
                                                         Modifiers="Control" />
                                                 </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
-                                            <AppBarSeparator
-                                                x:Name="LeftSeparator"
-                                                Width="0"
-                                                Height="0"
-                                                Margin="0,0" />
+                                        </StackPanel>
+                                        <StackPanel
+                                            x:Name="CenterContaienr"
+                                            Grid.ColumnSpan="3"
+                                            HorizontalAlignment="Center">
                                             <AppBarButton
                                                 x:Name="PlayPauseButton"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
@@ -1041,11 +1023,11 @@
                                                         Modifiers="Control" />
                                                 </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
-                                            <AppBarSeparator
-                                                x:Name="RightSeparator"
-                                                Width="0"
-                                                Height="0"
-                                                Margin="0,0" />
+                                        </StackPanel>
+                                        <StackPanel
+                                            x:Name="RightContainer"
+                                            Grid.Column="2"
+                                            Orientation="Horizontal">
                                             <AppBarButton
                                                 x:Name="CastButton"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
@@ -1096,8 +1078,8 @@
                                                     <KeyboardAccelerator Key="F11" IsEnabled="True" />
                                                 </AppBarToggleButton.KeyboardAccelerators>
                                             </AppBarToggleButton>
-                                        </CommandBar.PrimaryCommands>
-                                    </CommandBar>
+                                        </StackPanel>
+                                    </Grid>
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
