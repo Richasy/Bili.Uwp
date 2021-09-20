@@ -655,6 +655,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                // 在视频未加载时不对报错进行处理.
+                if (PlayerStatus == PlayerStatus.NotLoad)
+                {
+                    return;
+                }
+
                 PlayerStatus = PlayerStatus.End;
                 IsPlayInformationError = true;
                 var message = string.Empty;

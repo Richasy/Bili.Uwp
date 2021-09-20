@@ -588,7 +588,7 @@
                                                 x:Name="FullScreenModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
                                                 Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="16"
+                                                MediaTransportControlsHelper.DropoutOrder="18"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
                                                 <AppBarToggleButton.Icon>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />

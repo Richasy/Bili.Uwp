@@ -25,6 +25,7 @@
                                 <MediaPlayerElement.TransportControls>
                                     <local:BiliPlayerTransportControls
                                         x:Name="MTC"
+                                        MaxWidth="820"
                                         IsCompactOverlayButtonVisible="True"
                                         IsCompactOverlayEnabled="True"
                                         IsFullWindowButtonVisible="False"

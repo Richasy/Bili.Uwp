@@ -61,6 +61,7 @@
                         <Setter Target="ContentContainer.Visibility" Value="Collapsed" />
                         <Setter Target="PlayErrorContainer.CornerRadius" Value="0" />
                         <Setter Target="BiliPlayer.CornerRadius" Value="0" />
+                        <Setter Target="PlayerContainer.Margin" Value="0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -89,10 +90,11 @@
                     <Grid
                         x:Name="PlayErrorContainer"
                         MinHeight="200"
+                        HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        x:Load="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay}"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        CornerRadius="{StaticResource OverlayCornerRadius}">
+                        CornerRadius="{StaticResource OverlayCornerRadius}"
+                        Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay}">
                         <StackPanel
                             Padding="20,12"
                             HorizontalAlignment="Center"
