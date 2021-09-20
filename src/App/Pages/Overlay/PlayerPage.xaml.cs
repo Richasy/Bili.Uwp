@@ -119,8 +119,15 @@ namespace Richasy.Bili.App.Pages.Overlay
 
                 if (BiliPlayer != null)
                 {
-                    var maxHeight = e.NewSize.Height * 0.7;
-                    BiliPlayer.MaxHeight = maxHeight;
+                    if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
+                    {
+                        var maxHeight = e.NewSize.Height * 0.7;
+                        BiliPlayer.MaxHeight = maxHeight;
+                    }
+                    else
+                    {
+                        BiliPlayer.MaxHeight = double.PositiveInfinity;
+                    }
                 }
             }
             else
@@ -152,14 +159,13 @@ namespace Richasy.Bili.App.Pages.Overlay
 
             if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
             {
-                VisualStateManager.GoToState(this, nameof(DefaultModeState), false);
                 EnterDefaultModeAsync();
                 AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
             }
             else
             {
-                VisualStateManager.GoToState(this, nameof(FullModeState), false);
                 AppViewModel.Instance.IsOverLayerExtendToTitleBar = true;
+                ViewModel.BiliPlayer.IsFullWindow = true;
                 if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.FullScreen)
                 {
                     appView.TryEnterFullScreenMode();
@@ -180,7 +186,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         private async void EnterDefaultModeAsync()
         {
             var appView = ApplicationView.GetForCurrentView();
-
+            ViewModel.BiliPlayer.IsFullWindow = false;
             if (appView.ViewMode == ApplicationViewMode.CompactOverlay)
             {
                 await appView.TryEnterViewModeAsync(ApplicationViewMode.Default);
