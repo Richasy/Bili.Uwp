@@ -1,3 +1,7 @@
+template: |
+  ## 更改记录
+
+  $CHANGES
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
@@ -13,7 +17,3 @@ categories:
     label: '维护 ⚒️'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-template: |
-  ## 更改记录
-
-  $CHANGES
