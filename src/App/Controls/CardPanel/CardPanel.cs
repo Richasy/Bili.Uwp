@@ -48,6 +48,10 @@ namespace Richasy.Bili.App.Controls
             {
                 IsChecked = false;
             }
+            else
+            {
+                IsChecked = !IsChecked;
+            }
         }
 
         /// <inheritdoc/>

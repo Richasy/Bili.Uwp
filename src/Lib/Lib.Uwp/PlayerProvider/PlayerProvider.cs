@@ -201,7 +201,7 @@ namespace Richasy.Bili.Lib.Uwp
 
             if (needRemoveFavoriteList?.Any() ?? false)
             {
-                queryParameters.Add(Query.DeleteFavoriteIds, string.Join(',', needAddFavoriteList));
+                queryParameters.Add(Query.DeleteFavoriteIds, string.Join(',', needRemoveFavoriteList));
             }
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);
