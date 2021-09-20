@@ -19,7 +19,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="type">评论区类型.</param>
         /// <param name="cursor">游标.</param>
         /// <returns>评论列表响应.</returns>
-        Task<MainListReply> GetReplyMainListAsync(int targetId, ReplyType type, CursorReq cursor);
+        Task<MainListReply> GetReplyMainListAsync(long targetId, ReplyType type, CursorReq cursor);
 
         /// <summary>
         /// 获取单层评论详情列表.
@@ -29,7 +29,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="rootId">根评论Id.</param>
         /// <param name="cursor">游标.</param>
         /// <returns>评论列表响应.</returns>
-        Task<DetailListReply> GetReplyDetailListAsync(int targetId, ReplyType type, long rootId, CursorReq cursor);
+        Task<DetailListReply> GetReplyDetailListAsync(long targetId, ReplyType type, long rootId, CursorReq cursor);
 
         /// <summary>
         /// 给评论点赞/取消点赞.
@@ -39,7 +39,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
         /// <returns>结果.</returns>
-        Task<bool> LikeReplyAsync(bool isLike, long replyId, int targetId, ReplyType type);
+        Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, ReplyType type);
 
         /// <summary>
         /// 添加评论.
@@ -50,7 +50,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="rootId">根评论Id.</param>
         /// <param name="parentId">正在回复的评论Id.</param>
         /// <returns>发布结果.</returns>
-        Task<bool> AddReplyAsync(string message, int targetId, ReplyType type, long rootId, long parentId);
+        Task<bool> AddReplyAsync(string message, long targetId, ReplyType type, long rootId, long parentId);
 
         /// <summary>
         /// 获取视频动态列表.

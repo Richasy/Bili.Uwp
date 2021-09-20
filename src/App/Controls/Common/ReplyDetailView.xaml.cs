@@ -2,9 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Bilibili.Main.Community.Reply.V1;
-using Richasy.Bili.ViewModels.Uwp;
-using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
 {

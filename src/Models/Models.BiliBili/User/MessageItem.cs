@@ -36,6 +36,12 @@ namespace Richasy.Bili.Models.BiliBili
         public string Business { get; set; }
 
         /// <summary>
+        /// 消息对象Id.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "business_id", Required = Required.Default)]
+        public string BusinessId { get; set; }
+
+        /// <summary>
         /// 标题.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "title", Required = Required.Default)]

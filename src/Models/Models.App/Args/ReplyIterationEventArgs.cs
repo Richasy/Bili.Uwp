@@ -17,7 +17,7 @@ namespace Richasy.Bili.Models.App.Args
         /// </summary>
         /// <param name="reply">评论响应结果.</param>
         /// <param name="targetId">目标区Id.</param>
-        public ReplyIterationEventArgs(MainListReply reply, int targetId)
+        public ReplyIterationEventArgs(MainListReply reply, long targetId)
         {
             TargetId = targetId;
             Cursor = reply.Cursor;
@@ -30,7 +30,7 @@ namespace Richasy.Bili.Models.App.Args
         /// </summary>
         /// <param name="reply">评论响应结果.</param>
         /// <param name="targetId">目标区Id.</param>
-        public ReplyIterationEventArgs(DetailListReply reply, int targetId)
+        public ReplyIterationEventArgs(DetailListReply reply, long targetId)
         {
             TargetId = targetId;
             Cursor = reply.Cursor;
@@ -41,7 +41,7 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// 目标区Id.
         /// </summary>
-        public int TargetId { get; set; }
+        public long TargetId { get; set; }
 
         /// <summary>
         /// 游标.
