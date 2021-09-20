@@ -24,7 +24,6 @@ namespace Richasy.Bili.App.Controls.Player.Related
         public PlayerReplyView()
         {
             this.InitializeComponent();
-            ReplyView.ViewModel = ViewModel;
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// <returns><see cref="Task"/>.</returns>
         public Task CheckInitializeAsync()
         {
-            return ReplyView.CheckInitializeAsync();
+            return ReplyView.InitializeAsync(ReplyModuleViewModel.Instance);
         }
     }
 }

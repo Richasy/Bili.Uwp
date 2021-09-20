@@ -38,6 +38,8 @@ namespace Richasy.Bili.App.Controls
             Orientation = Orientation.Horizontal;
         }
 
+        public event EventHandler<ReplyInfo> MoreButtonClick;
+
         /// <summary>
         /// 条目被点击时发生.
         /// </summary>
@@ -93,9 +95,9 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnMoreButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
-            await ReplyDetailView.Instance.ShowAsync(Data);
+            MoreButtonClick?.Invoke(this, Data);
         }
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)

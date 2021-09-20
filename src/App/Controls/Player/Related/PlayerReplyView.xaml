@@ -31,7 +31,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="StandardContainer" RowSpacing="12">
-            <controls:ReplyView x:Name="ReplyView" />
+            <controls:ReplyModuleView x:Name="ReplyView" />
         </Grid>
         <Grid x:Name="NarrowContainer" Visibility="Collapsed">
             <StackPanel

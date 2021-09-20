@@ -177,6 +177,9 @@
   <data name="BackToDefaultView" xml:space="preserve">
     <value>返回标准视图</value>
   </data>
+  <data name="BackToPrevious" xml:space="preserve">
+    <value>返回上一级</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
