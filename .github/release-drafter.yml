@@ -1,0 +1,19 @@
+name-template: 'v$RESOLVED_VERSION 🌈'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 功能'
+    labels:
+      - '功能 💡'
+  - title: '🐛 Bug 修复'
+    labels:
+      - 'bug 🐛'
+      - '操作与体验 🧤'
+      - 'bug'
+  - title: '🧰 管理与维护'
+    label: '维护 ⚒️'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+template: |
+  ## 更改记录
+
+  $CHANGES
