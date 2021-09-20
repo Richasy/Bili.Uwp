@@ -338,6 +338,8 @@ namespace Richasy.Bili.Models.Enums
         NoEpisode,
         BackToPrevious,
         NotSupportReplyType,
+        ForwardSkip,
+        BackSkip,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

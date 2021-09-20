@@ -70,7 +70,6 @@
             <Grid
                 x:Name="ContentGrid"
                 Margin="{StaticResource DefaultContainerWithBottomPadding}"
-                x:Load="False"
                 ColumnSpacing="48"
                 Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <Grid.RowDefinitions>
