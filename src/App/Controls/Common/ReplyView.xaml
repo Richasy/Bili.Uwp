@@ -54,7 +54,10 @@
                     RequestLoadMore="OnReplyRequestLoadMoreAsync">
                     <local:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="v1:ReplyInfo">
-                            <local:ReplyItem Click="OnReplyItemClick" Data="{x:Bind}" />
+                            <local:ReplyItem
+                                Click="OnReplyItemClick"
+                                Data="{x:Bind}"
+                                MoreButtonClick="OnMoreButtonClick" />
                         </DataTemplate>
                     </local:VerticalRepeaterView.ItemTemplate>
                 </local:VerticalRepeaterView>

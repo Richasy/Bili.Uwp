@@ -13,15 +13,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <local:ReplyItem x:Name="RootReplyItem" DetailCountVisibility="Collapsed" />
-        <local:ReplyView
-            x:Name="ReplyView"
-            Grid.Row="1"
-            HorizontalAlignment="Stretch"
-            HeaderVisibility="Collapsed" />
+        <local:ReplyModuleView x:Name="ModuleView" />
     </Grid>
 </local:CenterPopup>

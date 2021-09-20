@@ -30,7 +30,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<DetailListReply> GetReplyDetailListAsync(int targetId, ReplyType type, long rootId, CursorReq cursor)
+        public async Task<DetailListReply> GetReplyDetailListAsync(long targetId, ReplyType type, long rootId, CursorReq cursor)
         {
             var req = new DetailListReq
             {
@@ -48,7 +48,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<MainListReply> GetReplyMainListAsync(int targetId, ReplyType type, CursorReq cursor)
+        public async Task<MainListReply> GetReplyMainListAsync(long targetId, ReplyType type, CursorReq cursor)
         {
             var req = new MainListReq
             {
@@ -65,7 +65,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AddReplyAsync(string message, int targetId, ReplyType type, long rootId, long parentId)
+        public async Task<bool> AddReplyAsync(string message, long targetId, ReplyType type, long rootId, long parentId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -84,7 +84,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, int targetId, ReplyType type)
+        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, ReplyType type)
         {
             var queryParameters = new Dictionary<string, string>
             {

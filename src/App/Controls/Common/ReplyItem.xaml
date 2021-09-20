@@ -11,7 +11,10 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <local:CardPanel IsEnableHoverAnimation="False" IsEnableShadow="False" Click="OnCardClick">
+    <local:CardPanel
+        Click="OnCardClick"
+        IsEnableHoverAnimation="False"
+        IsEnableShadow="False">
         <Grid Padding="12" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -68,7 +71,7 @@
                         Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
                 </Grid>
                 <Grid Grid.Row="1">
-                    <local:TrimTextBlock x:Name="ReplyContentBlock" HorizontalAlignment="Stretch" />
+                    <local:TrimTextBlock x:Name="ReplyContentBlock" HorizontalAlignment="Left" />
                 </Grid>
                 <Grid Grid.Row="2" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
@@ -95,7 +98,7 @@
                         Grid.Column="1"
                         HorizontalAlignment="Left"
                         Visibility="{x:Bind DetailCountVisibility, Mode=OneWay}">
-                        <HyperlinkButton x:Name="MoreButton" Click="OnMoreButtonClickAsync">
+                        <HyperlinkButton x:Name="MoreButton" Click="OnMoreButtonClick">
                             <TextBlock x:Name="MoreBlock" FontSize="12" />
                         </HyperlinkButton>
                     </StackPanel>

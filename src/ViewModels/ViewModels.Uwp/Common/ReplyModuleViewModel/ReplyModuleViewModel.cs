@@ -33,11 +33,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
-        public void SetInformation(int targetId, ReplyType type)
+        /// <param name="currentMode">当前显示模式.</param>
+        public void SetInformation(long targetId, ReplyType type, Mode currentMode = Mode.MainListHot)
         {
             TargetId = targetId;
             Type = type;
-            CurrentMode = Mode.MainListHot;
+            CurrentMode = currentMode;
             Reset();
         }
 

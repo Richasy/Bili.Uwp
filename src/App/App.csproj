@@ -115,6 +115,9 @@
     <Compile Include="Controls\App\QuestionPanel.xaml.cs">
       <DependentUpon>QuestionPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\ReplyModuleView.xaml.cs">
+      <DependentUpon>ReplyModuleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
     </Compile>
@@ -605,6 +608,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\QuestionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ReplyModuleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

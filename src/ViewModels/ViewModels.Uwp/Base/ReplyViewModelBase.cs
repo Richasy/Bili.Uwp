@@ -17,7 +17,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 目标Id.
         /// </summary>
-        public int TargetId { get; set; }
+        public long TargetId { get; set; }
 
         /// <summary>
         /// 评论区类型.

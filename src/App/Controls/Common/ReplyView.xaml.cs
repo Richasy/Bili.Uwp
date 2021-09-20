@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Locator.Uwp;
@@ -37,6 +38,8 @@ namespace Richasy.Bili.App.Controls
             this.InitializeComponent();
         }
 
+        public event EventHandler<ReplyInfo> RequestDetailView;
+
         /// <summary>
         /// 依赖属性.
         /// </summary>
@@ -69,8 +72,8 @@ namespace Richasy.Bili.App.Controls
             OrderTypeComboBox.SelectedIndex = ViewModel.CurrentMode == Mode.MainListHot ? 0 : 1;
             if (!ViewModel.IsRequested)
             {
-                ContentScrollViewer.ChangeView(0, 0, 1);
                 await ViewModel.InitializeRequestAsync();
+                ContentScrollViewer.ChangeView(0, 0, 1);
             }
         }
 
@@ -187,6 +190,11 @@ namespace Richasy.Bili.App.Controls
             {
                 await SendReplyAsync();
             }
+        }
+
+        private void OnMoreButtonClick(object sender, ReplyInfo e)
+        {
+            RequestDetailView?.Invoke(this, e);
         }
     }
 }

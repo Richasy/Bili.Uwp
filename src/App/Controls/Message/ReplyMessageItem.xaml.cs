@@ -2,7 +2,10 @@
 
 using System;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.Toolkit.Interfaces;
+using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -69,7 +72,26 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnMessageItemClickAsync(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri(Data.Item.Uri));
+            var type = ReplyType.None;
+            var isParseFaield = false;
+            try
+            {
+                type = (ReplyType)Convert.ToInt32(Data.Item.BusinessId);
+            }
+            catch (Exception)
+            {
+                isParseFaield = true;
+            }
+
+            if (isParseFaield || type == ReplyType.None)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
+            ReplyModuleViewModel.Instance.SetInformation(Data.Item.SubjectId, type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
+            await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
     }
 }

@@ -13,6 +13,11 @@ namespace Richasy.Bili.Models.Enums.Bili
         Video = 1,
 
         /// <summary>
+        /// 相簿/图片动态.
+        /// </summary>
+        Album = 11,
+
+        /// <summary>
         /// 专栏文章.
         /// </summary>
         Article = 12,
@@ -23,9 +28,14 @@ namespace Richasy.Bili.Models.Enums.Bili
         Music = 14,
 
         /// <summary>
-        /// 动态.
+        /// 纯文本动态/分享.
         /// </summary>
         Dynamic = 17,
+
+        /// <summary>
+        /// 课程.
+        /// </summary>
+        Course = 33,
 
         /// <summary>
         /// 不设置.
