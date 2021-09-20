@@ -29,7 +29,7 @@
                         <Setter Target="ContentGrid.RowSpacing" Value="16" />
                         <Setter Target="RelatedContainer.(Grid.Row)" Value="2" />
                         <Setter Target="RelatedContainer.(Grid.Column)" Value="0" />
-                        <Setter Target="PlayerContainer.Margin" Value="0,0,0,12" />
+                        <Setter Target="InformationContainer.Margin" Value="0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -53,18 +53,6 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-
-            <VisualStateGroup x:Name="PlayerModeGroup">
-                <VisualState x:Name="DefaultModeState" />
-                <VisualState x:Name="FullModeState">
-                    <VisualState.Setters>
-                        <Setter Target="ContentContainer.Visibility" Value="Collapsed" />
-                        <Setter Target="PlayErrorContainer.CornerRadius" Value="0" />
-                        <Setter Target="BiliPlayer.CornerRadius" Value="0" />
-                        <Setter Target="PlayerContainer.Margin" Value="0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="ContentContainer" Padding="{StaticResource DefaultPagePadding}">
             <Grid
@@ -81,10 +69,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid
-                    x:Name="PlayerContainer"
-                    Margin="0,0,0,24"
-                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <Grid x:Name="PlayerContainer" Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:BiliPlayer x:Name="BiliPlayer" Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                     <Grid
                         x:Name="PlayErrorContainer"
@@ -122,6 +107,7 @@
                 <Grid
                     x:Name="InformationContainer"
                     Grid.Row="1"
+                    Margin="0,24,0,0"
                     ColumnSpacing="20"
                     Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <Grid.RowDefinitions>

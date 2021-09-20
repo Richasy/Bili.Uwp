@@ -233,15 +233,6 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
-                            <!-- FullWindow states -->
-                            <VisualStateGroup x:Name="FullWindowStates">
-                                <VisualState x:Name="NonFullWindowState" />
-                                <VisualState x:Name="FullWindowState">
-                                    <VisualState.Setters>
-                                        <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
                             <!-- Repeat states -->
                             <VisualStateGroup x:Name="RepeatStates">
                                 <VisualState x:Name="RepeatNoneState" />
@@ -458,8 +449,7 @@
                                                 x:Name="FormatButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}"
-                                                Visibility="Collapsed">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
                                                 </AppBarButton.Icon>
@@ -485,10 +475,7 @@
                                                         Modifiers="Control" />
                                                 </AppBarButton.KeyboardAccelerators>
                                             </AppBarButton>
-                                            <AppBarButton
-                                                x:Name="PlaybackRateButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                Visibility="Collapsed">
+                                            <AppBarButton x:Name="PlaybackRateButton" Style="{StaticResource MTCAppBarButtonStyle}">
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xEC57;" />
                                                 </AppBarButton.Icon>
@@ -785,15 +772,6 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
-                            <!-- FullWindow states -->
-                            <VisualStateGroup x:Name="FullWindowStates">
-                                <VisualState x:Name="NonFullWindowState" />
-                                <VisualState x:Name="FullWindowState">
-                                    <VisualState.Setters>
-                                        <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
                             <!-- Danmaku states -->
                             <VisualStateGroup x:Name="DanmakuStates">
                                 <VisualState x:Name="DanmakuDefaultState">
@@ -942,8 +920,7 @@
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
                                                 MediaTransportControlsHelper.DropoutOrder="17"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}"
-                                                Visibility="Collapsed">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
                                                 </AppBarButton.Icon>
@@ -973,8 +950,7 @@
                                                 x:Name="LivePlayLineButton"
                                                 Style="{StaticResource MTCAppBarButtonStyle}"
                                                 MediaTransportControlsHelper.DropoutOrder="18"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayLine}"
-                                                Visibility="Collapsed">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayLine}">
                                                 <AppBarButton.Icon>
                                                     <icons:RegularFluentIcon Symbol="DeviceEq24" />
                                                 </AppBarButton.Icon>
