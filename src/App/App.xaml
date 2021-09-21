@@ -2,8 +2,7 @@
     x:Class="Richasy.Bili.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
-    xmlns:uwp="using:Richasy.Shadow.Uwp">
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

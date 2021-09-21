@@ -168,11 +168,18 @@ namespace Richasy.Bili.App.Pages.Overlay
                 ViewModel.BiliPlayer.IsFullWindow = true;
                 if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.FullScreen)
                 {
-                    appView.TryEnterFullScreenMode();
+                    if (appView.TryEnterFullScreenMode())
+                    {
+                        VisualStateManager.GoToState(this, nameof(FullPlayerState), false);
+                    }
+
                 }
                 else if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.CompactOverlay)
                 {
-                    await appView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+                    if (await appView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay).AsTask())
+                    {
+                        VisualStateManager.GoToState(this, nameof(FullPlayerState), false);
+                    }
                 }
                 else
                 {
@@ -186,6 +193,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         private async void EnterDefaultModeAsync()
         {
             var appView = ApplicationView.GetForCurrentView();
+            VisualStateManager.GoToState(this, nameof(StandardPlayerState), false);
             ViewModel.BiliPlayer.IsFullWindow = false;
             if (appView.ViewMode == ApplicationViewMode.CompactOverlay)
             {

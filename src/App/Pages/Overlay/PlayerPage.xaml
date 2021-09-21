@@ -53,6 +53,16 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+
+            <VisualStateGroup x:Name="PlayerGroup">
+                <VisualState x:Name="StandardPlayerState" />
+                <VisualState x:Name="FullPlayerState">
+                    <VisualState.Setters>
+                        <Setter Target="BiliPlayer.CornerRadius" Value="0" />
+                        <Setter Target="PlayErrorContainer.CornerRadius" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="ContentContainer" Padding="{StaticResource DefaultPagePadding}">
             <Grid
