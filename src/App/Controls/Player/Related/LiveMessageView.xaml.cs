@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
 
         private async void OnRequestLiveMessageScrollToBottomAsync(object sender, EventArgs e)
         {
-            await Task.Delay(100);
+            await Task.Delay(50);
             ScrollViewer.ChangeView(0, double.MaxValue, 1);
         }
 
