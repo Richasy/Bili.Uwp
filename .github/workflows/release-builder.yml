@@ -46,23 +46,20 @@ jobs:
         $manifest.save(".\$env:UWP_Project_Directory\Package.appxmanifest")
         
     - name: Build x86
-      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
-        AppxBundle: Always
         BuildMode: SideloadOnly
         Configuration: Release
         
     - name: Build x64
-      run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
-        AppxBundle: Always
         BuildMode: SideloadOnly
         Configuration: Release
         
     - name: Build ARM64
-      run: msbuild $env:Solution_Path /p:Platform=ARM64 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="ARM64" /p:AppxPackageDir=C:\Package\ARM64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=ARM64 /p:AppxBundlePlatforms="ARM64" /p:AppxPackageDir=C:\Package\ARM64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
-        AppxBundle: Always
         BuildMode: SideloadOnly
         Configuration: Release
    
