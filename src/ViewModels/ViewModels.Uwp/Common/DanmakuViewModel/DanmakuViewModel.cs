@@ -202,7 +202,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
                     break;
                 case nameof(IsDanmakuBold):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuBold);
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuBold, IsDanmakuBold);
                     break;
                 case nameof(UseCloudShieldSettings):
                     _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);

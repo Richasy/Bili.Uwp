@@ -138,7 +138,7 @@
                     HorizontalAlignment="Left"
                     FontSize="13"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    MaxLines="2"
+                    MaxLines="3"
                     Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
             </StackPanel>
         </Grid>
