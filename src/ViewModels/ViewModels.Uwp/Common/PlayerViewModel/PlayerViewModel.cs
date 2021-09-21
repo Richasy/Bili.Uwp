@@ -511,7 +511,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var count = LiveDanmakuCollection.Count;
             IsShowEmptyLiveMessage = count == 0;
 
-            if (count > 0)
+            if (count > 0 && IsLiveMessageAutoScroll)
             {
                 RequestLiveMessageScrollToBottom?.Invoke(this, EventArgs.Empty);
             }

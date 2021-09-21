@@ -1057,7 +1057,7 @@
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
-                                        Padding="4"
+                                        Padding="4,4,8,4"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                                         BorderThickness="0,1,0,0">
                                         <local:DanmakuBox />

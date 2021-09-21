@@ -42,6 +42,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPlayInformationError = false;
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
+            IsLiveMessageAutoScroll = true;
             CurrentPlayLine = null;
             CurrentLiveQuality = null;
             _audioList.Clear();
