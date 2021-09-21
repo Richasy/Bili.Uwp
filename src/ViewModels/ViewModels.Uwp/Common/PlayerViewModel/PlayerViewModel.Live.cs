@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -25,6 +27,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                     var data = e.Data as LiveDanmakuMessage;
                     LiveDanmakuCollection.Add(data);
                     NewLiveDanmakuAdded?.Invoke(this, data);
+                    if (LiveDanmakuCollection.Count > 1000)
+                    {
+                        var saveMessages = LiveDanmakuCollection.ToList().Skip(600);
+                        LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>(saveMessages);
+                    }
                 }
             });
         }

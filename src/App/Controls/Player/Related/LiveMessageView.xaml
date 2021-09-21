@@ -36,6 +36,7 @@
         <ScrollViewer
             x:Name="ScrollViewer"
             HorizontalScrollMode="Disabled"
+            ViewChanged="OnViewChanged"
             VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid x:Name="StandardContainer">

@@ -609,6 +609,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public string LivePartition { get; set; }
 
+        /// <summary>
+        /// 直播消息是否自动滚动.
+        /// </summary>
+        [Reactive]
+        public bool IsLiveMessageAutoScroll { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

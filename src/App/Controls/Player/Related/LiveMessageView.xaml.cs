@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Threading.Tasks;
 
 namespace Richasy.Bili.App.Controls.Player.Related
 {
@@ -15,12 +16,23 @@ namespace Richasy.Bili.App.Controls.Player.Related
         public LiveMessageView()
         {
             this.InitializeComponent();
-            ViewModel.RequestLiveMessageScrollToBottom += OnRequestLiveMessageScrollToBottom;
+            ViewModel.RequestLiveMessageScrollToBottom += OnRequestLiveMessageScrollToBottomAsync;
         }
 
-        private void OnRequestLiveMessageScrollToBottom(object sender, EventArgs e)
+        private async void OnRequestLiveMessageScrollToBottomAsync(object sender, EventArgs e)
         {
-            ScrollViewer.ChangeView(0, (ScrollViewer.ExtentHeight + ScrollViewer.ScrollableHeight) * 2, 1);
+            await Task.Delay(100);
+            ScrollViewer.ChangeView(0, double.MaxValue, 1);
+        }
+
+        private void OnViewChanged(object sender, Windows.UI.Xaml.Controls.ScrollViewerViewChangedEventArgs e)
+        {
+            if (!e.IsIntermediate)
+            {
+                // 这里的逻辑是，如果滚动到了底部，则表示允许视图自动滚动，
+                // 如果不在底部，表示用户自己滚动了视图，此时则不再自动滚动.
+                ViewModel.IsLiveMessageAutoScroll = ScrollViewer.VerticalOffset + ScrollViewer.ViewportHeight >= ScrollViewer.ExtentHeight - 50;
+            }
         }
     }
 }
