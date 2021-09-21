@@ -8,23 +8,26 @@
 
     <!-- New AppBar button style 40x40 pixels in size -->
     <Style
-        x:Key="MTCAppBarButtonStyle"
-        BasedOn="{StaticResource DefaultAppBarButtonStyle}"
-        TargetType="AppBarButton">
-        <Setter Property="Height" Value="48" />
-        <Setter Property="Width" Value="40" />
+        x:Key="MTCButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="32" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="AllowFocusOnInteraction" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
     <!-- New AppBarToggle button style 40x40 pixels in size -->
     <Style
-        x:Key="MTCAppBarToggleButtonStyle"
-        BasedOn="{StaticResource DefaultAppBarToggleButtonStyle}"
-        TargetType="AppBarToggleButton">
-        <Setter Property="Height" Value="48" />
-        <Setter Property="Width" Value="{ThemeResource MediaTransportControlsAppBarButtonWidth}" />
+        x:Key="MTCToggleButtonStyle"
+        BasedOn="{StaticResource DefaultToggleButtonStyle}"
+        TargetType="ToggleButton">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Height" Value="32" />
         <Setter Property="AllowFocusOnInteraction" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
     <!-- New CommandBar Style -->
     <Style
@@ -58,9 +61,9 @@
         BasedOn="{StaticResource DefaultSliderStyle}"
         TargetType="Slider" />
     <Style
-        x:Key="MediaControlAppBarButtonStyle"
-        BasedOn="{StaticResource DefaultAppBarButtonStyle}"
-        TargetType="AppBarButton" />
+        x:Key="MediaControlButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button" />
 
     <Style BasedOn="{StaticResource DefaultMTCStyle}" TargetType="local:BiliPlayerTransportControls" />
 
@@ -76,6 +79,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliPlayerTransportControls">
                     <Grid x:Name="RootGrid" Background="Transparent">
+                        <Grid.Resources>
+                            <Style TargetType="icons:RegularFluentIcon">
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </Grid.Resources>
                         <VisualStateManager.VisualStateGroups>
                             <!-- ControlPanel Visibility states -->
                             <VisualStateGroup x:Name="ControlPanelVisibilityStates">
@@ -371,56 +379,55 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Visibility="Collapsed">
-                                    <AppBarButton
+                                    <Button
                                         x:Name="PlayPauseButtonOnLeft"
-                                        Style="{StaticResource MTCAppBarButtonStyle}"
+                                        Style="{StaticResource MTCButtonStyle}"
                                         Margin="0"
                                         VerticalAlignment="Center">
-                                        <AppBarButton.Resources>
-                                            <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
-                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                        </AppBarButton.Resources>
-                                        <AppBarButton.Icon>
+                                        <Button.Resources>
+                                            <Thickness x:Key="ButtonInnerBorderMargin">5</Thickness>
+                                            <Thickness x:Key="ButtonContentViewboxCollapsedMargin">0,12</Thickness>
+                                        </Button.Resources>
+                                        <Button.Content>
                                             <FontIcon x:Name="PlayPauseSymbolLeft" Glyph="&#xF5B0;" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
+                                        </Button.Content>
+                                    </Button>
                                 </Border>
                                 <Grid
                                     x:Name="MediaTransportControls_Command_Border"
                                     Grid.Row="2"
-                                    Grid.Column="1"
-                                    Margin="0,-8,0,0">
+                                    Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid x:Name="MediaControlsCommandBar">
+                                    <Grid x:Name="MediaControlsCommandBar" Padding="4,0,4,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
-                                            <AppBarButton x:Name="VolumeMuteButton" Style="{StaticResource MTCAppBarButtonStyle}">
-                                                <AppBarButton.Flyout>
+                                            <Button x:Name="VolumeMuteButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Flyout>
                                                     <Flyout
                                                         x:Name="VolumeFlyout"
                                                         contract8Present:ShouldConstrainToRootBounds="False"
                                                         FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}">
                                                         <StackPanel Padding="4,0,16,0" Orientation="Horizontal">
-                                                            <AppBarButton
+                                                            <Button
                                                                 x:Name="AudioMuteButton"
-                                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                                Style="{StaticResource MTCButtonStyle}"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center">
-                                                                <AppBarButton.Resources>
-                                                                    <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                                                    <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
-                                                                </AppBarButton.Resources>
-                                                                <AppBarButton.Icon>
+                                                                <Button.Resources>
+                                                                    <Thickness x:Key="ButtonContentViewboxCollapsedMargin">0,12</Thickness>
+                                                                    <Thickness x:Key="ButtonInnerBorderMargin">5</Thickness>
+                                                                </Button.Resources>
+                                                                <Button.Content>
                                                                     <SymbolIcon x:Name="AudioMuteSymbol" Symbol="Volume" />
-                                                                </AppBarButton.Icon>
-                                                            </AppBarButton>
+                                                                </Button.Content>
+                                                            </Button>
                                                             <Slider
                                                                 x:Name="VolumeSlider"
                                                                 Width="{ThemeResource MediaTransportControlsSliderWidth}"
@@ -440,20 +447,20 @@
                                                                 TextAlignment="Right" />
                                                         </StackPanel>
                                                     </Flyout>
-                                                </AppBarButton.Flyout>
-                                                <AppBarButton.Icon>
-                                                    <SymbolIcon x:Name="VolumeMuteSymbol" Symbol="Volume" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarButton
+                                                </Button.Flyout>
+                                                <Button.Content>
+                                                    <icons:RegularFluentIcon Symbol="Speaker220" />
+                                                </Button.Content>
+                                            </Button>
+                                            <Button
                                                 x:Name="FormatButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                Style="{StaticResource MTCButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
-                                                <AppBarButton.Icon>
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.Flyout>
+                                                </Button.Content>
+                                                <Button.Flyout>
                                                     <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
                                                         <ListView
                                                             x:Name="FormatListView"
@@ -467,115 +474,115 @@
                                                             </ListView.ItemTemplate>
                                                         </ListView>
                                                     </Flyout>
-                                                </AppBarButton.Flyout>
-                                                <AppBarButton.KeyboardAccelerators>
+                                                </Button.Flyout>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="Q"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                            </AppBarButton>
-                                            <AppBarButton x:Name="PlaybackRateButton" Style="{StaticResource MTCAppBarButtonStyle}">
-                                                <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xEC57;" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
+                                            <Button x:Name="PlaybackRateButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Content>
+                                                    <icons:RegularFluentIcon Symbol="Replay20" />
+                                                </Button.Content>
+                                            </Button>
                                         </StackPanel>
                                         <StackPanel
                                             x:Name="CenterContainer"
                                             Grid.ColumnSpan="3"
                                             HorizontalAlignment="Center"
                                             Orientation="Horizontal">
-                                            <AppBarButton
+                                            <Button
                                                 x:Name="BackSkipButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=BackSkip}"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                Style="{StaticResource MTCButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=BackSkip}">
-                                                <AppBarButton.KeyboardAccelerators>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Left" IsEnabled="True" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                                <AppBarButton.Icon>
+                                                </Button.KeyboardAccelerators>
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowReply48" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarButton x:Name="PlayPauseButton" Style="{StaticResource MTCAppBarButtonStyle}">
-                                                <AppBarButton.Icon>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="PlayPauseButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon x:Name="PlayPauseSymbol" Glyph="&#x002B;" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.KeyboardAccelerators>
+                                                </Button.Content>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="P"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                            </AppBarButton>
-                                            <AppBarButton
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
+                                            <Button
                                                 x:Name="ForwardSkipButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                Style="{StaticResource MTCButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}">
-                                                <AppBarButton.KeyboardAccelerators>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Right" IsEnabled="True" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                                <AppBarButton.Icon>
+                                                </Button.KeyboardAccelerators>
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowForward48" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
+                                                </Button.Content>
+                                            </Button>
                                         </StackPanel>
                                         <StackPanel
                                             Name="RightContainer"
                                             Grid.Column="2"
                                             Orientation="Horizontal">
-                                            <AppBarButton x:Name="CastButton" Style="{StaticResource MTCAppBarButtonStyle}">
-                                                <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xEC15;" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarToggleButton
+                                            <Button x:Name="CastButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Content>
+                                                    <icons:RegularFluentIcon Symbol="Cast20" />
+                                                </Button.Content>
+                                            </Button>
+                                            <ToggleButton
                                                 x:Name="CompactOverlayModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="M"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
-                                            <AppBarToggleButton
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
+                                            <ToggleButton
                                                 x:Name="FullWindowModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullWindowMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="F10" IsEnabled="True" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
-                                            <AppBarToggleButton
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
+                                            <ToggleButton
                                                 x:Name="FullScreenModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="F11" IsEnabled="True" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
                                         </StackPanel>
                                     </Grid>
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
-                                        Padding="4,8"
+                                        Padding="4,4,8,4"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                                         BorderThickness="0,1,0,0">
                                         <local:DanmakuBox />
@@ -623,6 +630,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliPlayerTransportControls">
                     <Grid x:Name="RootGrid" Background="Transparent">
+                        <Grid.Resources>
+                            <Style TargetType="icons:RegularFluentIcon">
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </Grid.Resources>
                         <VisualStateManager.VisualStateGroups>
                             <!-- ControlPanel Visibility states -->
                             <VisualStateGroup x:Name="ControlPanelVisibilityStates">
@@ -861,36 +873,33 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid x:Name="MediaControlsCommandBar">
+                                    <Grid x:Name="MediaControlsCommandBar" Padding="4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
-                                            <AppBarButton
-                                                x:Name="VolumeMuteButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="19">
-                                                <AppBarButton.Flyout>
+                                            <Button x:Name="VolumeMuteButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Flyout>
                                                     <Flyout
                                                         x:Name="VolumeFlyout"
                                                         contract8Present:ShouldConstrainToRootBounds="False"
                                                         FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}">
                                                         <StackPanel Padding="4,0,16,0" Orientation="Horizontal">
-                                                            <AppBarButton
+                                                            <Button
                                                                 x:Name="AudioMuteButton"
-                                                                Style="{StaticResource MTCAppBarButtonStyle}"
+                                                                Style="{StaticResource MTCButtonStyle}"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center">
-                                                                <AppBarButton.Resources>
-                                                                    <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                                                    <Thickness x:Key="AppBarButtonInnerBorderMargin">5</Thickness>
-                                                                </AppBarButton.Resources>
-                                                                <AppBarButton.Icon>
+                                                                <Button.Resources>
+                                                                    <Thickness x:Key="ButtonContentViewboxCollapsedMargin">0,12</Thickness>
+                                                                    <Thickness x:Key="ButtonInnerBorderMargin">5</Thickness>
+                                                                </Button.Resources>
+                                                                <Button.Content>
                                                                     <SymbolIcon x:Name="AudioMuteSymbol" Symbol="Volume" />
-                                                                </AppBarButton.Icon>
-                                                            </AppBarButton>
+                                                                </Button.Content>
+                                                            </Button>
                                                             <Slider
                                                                 x:Name="VolumeSlider"
                                                                 Width="{ThemeResource MediaTransportControlsSliderWidth}"
@@ -910,21 +919,20 @@
                                                                 TextAlignment="Right" />
                                                         </StackPanel>
                                                     </Flyout>
-                                                </AppBarButton.Flyout>
-                                                <AppBarButton.Icon>
-                                                    <SymbolIcon x:Name="VolumeMuteSymbol" Symbol="Volume" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarButton
+                                                </Button.Flyout>
+                                                <Button.Content>
+                                                    <icons:RegularFluentIcon Symbol="Speaker220" />
+                                                </Button.Content>
+                                            </Button>
+                                            <Button
                                                 x:Name="LiveQualityButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="17"
+                                                Style="{StaticResource MTCButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
-                                                <AppBarButton.Icon>
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon Symbol="Hd24" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.Flyout>
+                                                </Button.Content>
+                                                <Button.Flyout>
                                                     <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
                                                         <ListView
                                                             x:Name="LiveQualityListView"
@@ -938,23 +946,22 @@
                                                             </ListView.ItemTemplate>
                                                         </ListView>
                                                     </Flyout>
-                                                </AppBarButton.Flyout>
-                                                <AppBarButton.KeyboardAccelerators>
+                                                </Button.Flyout>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="Q"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                            </AppBarButton>
-                                            <AppBarButton
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
+                                            <Button
                                                 x:Name="LivePlayLineButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="18"
+                                                Style="{StaticResource MTCButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayLine}">
-                                                <AppBarButton.Icon>
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon Symbol="DeviceEq24" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.Flyout>
+                                                </Button.Content>
+                                                <Button.Flyout>
                                                     <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
                                                         <ListView
                                                             x:Name="LivePlayLineListView"
@@ -971,95 +978,86 @@
                                                             </ListView.ItemTemplate>
                                                         </ListView>
                                                     </Flyout>
-                                                </AppBarButton.Flyout>
-                                                <AppBarButton.KeyboardAccelerators>
+                                                </Button.Flyout>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="L"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                            </AppBarButton>
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
                                         </StackPanel>
                                         <StackPanel
                                             x:Name="CenterContaienr"
                                             Grid.ColumnSpan="3"
                                             HorizontalAlignment="Center">
-                                            <AppBarButton
-                                                x:Name="PlayPauseButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="23">
-                                                <AppBarButton.Icon>
+                                            <Button x:Name="PlayPauseButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Content>
                                                     <icons:RegularFluentIcon x:Name="PlayPauseSymbol" Glyph="&#x002B;" />
-                                                </AppBarButton.Icon>
-                                                <AppBarButton.KeyboardAccelerators>
+                                                </Button.Content>
+                                                <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Space" IsEnabled="True" />
                                                     <KeyboardAccelerator
                                                         Key="P"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarButton.KeyboardAccelerators>
-                                            </AppBarButton>
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
                                         </StackPanel>
                                         <StackPanel
                                             x:Name="RightContainer"
                                             Grid.Column="2"
                                             Orientation="Horizontal">
-                                            <AppBarButton
-                                                x:Name="CastButton"
-                                                Style="{StaticResource MTCAppBarButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="11">
-                                                <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xEC15;" />
-                                                </AppBarButton.Icon>
-                                            </AppBarButton>
-                                            <AppBarToggleButton
+                                            <Button x:Name="CastButton" Style="{StaticResource MTCButtonStyle}">
+                                                <Button.Content>
+                                                    <icons:RegularFluentIcon Symbol="Cast20" />
+                                                </Button.Content>
+                                            </Button>
+                                            <ToggleButton
                                                 x:Name="CompactOverlayModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="17"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator
                                                         Key="M"
                                                         IsEnabled="True"
                                                         Modifiers="Control" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
-                                            <AppBarToggleButton
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
+                                            <ToggleButton
                                                 x:Name="FullWindowModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="15"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullWindowMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="F10" IsEnabled="True" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
-                                            <AppBarToggleButton
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
+                                            <ToggleButton
                                                 x:Name="FullScreenModeButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
-                                                Style="{StaticResource MTCAppBarToggleButtonStyle}"
-                                                MediaTransportControlsHelper.DropoutOrder="16"
+                                                Style="{StaticResource MTCToggleButtonStyle}"
                                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
-                                                <AppBarToggleButton.Icon>
+                                                <ToggleButton.Content>
                                                     <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
-                                                </AppBarToggleButton.Icon>
-                                                <AppBarToggleButton.KeyboardAccelerators>
+                                                </ToggleButton.Content>
+                                                <ToggleButton.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="F11" IsEnabled="True" />
-                                                </AppBarToggleButton.KeyboardAccelerators>
-                                            </AppBarToggleButton>
+                                                </ToggleButton.KeyboardAccelerators>
+                                            </ToggleButton>
                                         </StackPanel>
                                     </Grid>
                                     <Grid
                                         x:Name="Danmaku_Command_Border"
                                         Grid.Row="1"
-                                        Padding="4,8"
+                                        Padding="4"
                                         BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                                         BorderThickness="0,1,0,0">
                                         <local:DanmakuBox />

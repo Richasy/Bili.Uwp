@@ -13,6 +13,7 @@ using Richasy.Bili.ViewModels.Uwp;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Shapes;
 
@@ -48,18 +49,18 @@ namespace Richasy.Bili.App.Controls
         protected override void OnApplyTemplate()
         {
             _danmakuView = GetTemplateChild(DanmakuViewName) as DanmakuView;
-            _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as AppBarToggleButton;
-            _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as AppBarToggleButton;
-            _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as AppBarToggleButton;
+            _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as ToggleButton;
+            _fullScreenPlayModeButton = GetTemplateChild(FullScreenPlayModeButtonName) as ToggleButton;
+            _compactOverlayPlayModeButton = GetTemplateChild(CompactOverlayPlayModeButtonName) as ToggleButton;
             _interactionControl = GetTemplateChild(InteractionControlName) as Rectangle;
             _controlPanel = GetTemplateChild(ControlPanelName) as Border;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
             _livePlayLineListView = GetTemplateChild(LivePlayLineListViewName) as ListView;
             _liveQualityListView = GetTemplateChild(LiveQualityListViewName) as ListView;
             _backButton = GetTemplateChild(BackButtonName) as Button;
-            _backSkipButton = GetTemplateChild(BackSkipButtonName) as AppBarButton;
-            _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as AppBarButton;
-            _playPauseButton = GetTemplateChild(PlayPauseButtonName) as AppBarButton;
+            _backSkipButton = GetTemplateChild(BackSkipButtonName) as Button;
+            _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as Button;
+            _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -210,7 +211,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
         {
-            var btn = sender as AppBarToggleButton;
+            var btn = sender as ToggleButton;
             PlayerDisplayMode mode = default;
             switch (btn.Name)
             {
