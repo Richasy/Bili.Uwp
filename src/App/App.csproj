@@ -142,10 +142,10 @@
     <Compile Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.Properties.cs" />
     <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.cs" />
     <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.Properties.cs" />
-    <Compile Include="Controls\CardPanel\CardPanel.Fields.cs" />
-    <Compile Include="Controls\CardPanel\CardPanel.Properties.cs" />
-    <Compile Include="Controls\CardPanel\CardPanelAutomationPeer.cs" />
-    <Compile Include="Controls\CardPanel\CardPanelStateChangedEventArgs.cs" />
+    <Compile Include="Controls\App\CardPanel\CardPanel.Fields.cs" />
+    <Compile Include="Controls\App\CardPanel\CardPanel.Properties.cs" />
+    <Compile Include="Controls\App\CardPanel\CardPanelAutomationPeer.cs" />
+    <Compile Include="Controls\App\CardPanel\CardPanelStateChangedEventArgs.cs" />
     <Compile Include="Controls\Common\ArticleItem.xaml.cs">
       <DependentUpon>ArticleItem.xaml</DependentUpon>
     </Compile>
@@ -255,7 +255,7 @@
     <Compile Include="Controls\Banner\BannerView.xaml.cs">
       <DependentUpon>BannerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CardPanel\CardPanel.cs" />
+    <Compile Include="Controls\App\CardPanel\CardPanel.cs" />
     <Compile Include="Controls\App\ErrorPanel.xaml.cs">
       <DependentUpon>ErrorPanel.xaml</DependentUpon>
     </Compile>
@@ -803,7 +803,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CardPanel\CardPanel.xaml">
+    <Page Include="Controls\App\CardPanel\CardPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

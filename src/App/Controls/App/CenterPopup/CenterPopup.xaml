@@ -53,6 +53,8 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="{TemplateBinding PresenterVerticalAlignment}"
                             Background="{ThemeResource CenterPopupPresenterBackground}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
                             CornerRadius="{ThemeResource OverlayCornerRadius}"
                             RowSpacing="12">
                             <Grid.RowDefinitions>

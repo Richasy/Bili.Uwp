@@ -26,7 +26,7 @@
   </Resources>
   <Applications>
     <Application Id="vstest.executionengine.universal.App"
-        Executable="Controller.Uwp.UnitTests.exe"
+        Executable="$targetnametoken$.exe"
         EntryPoint="Controller.Uwp.UnitTests.App">
       <uap:VisualElements
         DisplayName="Controller.Uwp.UnitTests"
