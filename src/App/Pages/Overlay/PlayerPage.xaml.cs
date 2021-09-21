@@ -172,7 +172,6 @@ namespace Richasy.Bili.App.Pages.Overlay
                     {
                         VisualStateManager.GoToState(this, nameof(FullPlayerState), false);
                     }
-
                 }
                 else if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.CompactOverlay)
                 {

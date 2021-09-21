@@ -5,6 +5,7 @@ using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Shapes;
 
 namespace Richasy.Bili.App.Controls
@@ -51,18 +52,18 @@ namespace Richasy.Bili.App.Controls
         private DispatcherTimer _danmakuTimer;
         private DispatcherTimer _cursorTimer;
         private DanmakuView _danmakuView;
-        private AppBarToggleButton _fullWindowPlayModeButton;
-        private AppBarToggleButton _fullScreenPlayModeButton;
-        private AppBarToggleButton _compactOverlayPlayModeButton;
+        private ToggleButton _fullWindowPlayModeButton;
+        private ToggleButton _fullScreenPlayModeButton;
+        private ToggleButton _compactOverlayPlayModeButton;
         private Rectangle _interactionControl;
         private Border _controlPanel;
         private ListView _formatListView;
         private ListView _liveQualityListView;
         private ListView _livePlayLineListView;
         private Button _backButton;
-        private AppBarButton _backSkipButton;
-        private AppBarButton _forwardSkipButton;
-        private AppBarButton _playPauseButton;
+        private Button _backSkipButton;
+        private Button _forwardSkipButton;
+        private Button _playPauseButton;
         private int _segmentIndex;
         private double _cursorStayTime;
 
