@@ -1,0 +1,109 @@
+name: Release Builder
+
+on:
+  workflow_dispatch:
+    inputs:
+      version: 
+        description: '版本号（不含v）'
+        required: true
+        default: '0.0.0.0'
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    env:
+      SigningCertificate: App_TemporaryKey.pfx
+      Solution_Path: .\Bili.UWP.sln
+      UWP_Project_Directory: src\App
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    
+    - name: Configure Pagefile
+      uses: al-cheb/configure-pagefile-action@v1.2
+      with:
+        minimum-size: 32GB
+        maximum-size: 32GB
+        disk-root: "C:"
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - uses: release-drafter/release-drafter@v5
+      name: Create release draft
+      id: release-drafter
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.3
+
+    - name: Update manifest version
+      run: |
+        [xml]$manifest = get-content ".\$env:UWP_Project_Directory\Package.appxmanifest"
+        $manifest.Package.Identity.Version = "${{github.event.inputs.version}}"
+        $manifest.save(".\$env:UWP_Project_Directory\Package.appxmanifest")
+        
+    - name: Build x86
+      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      env:
+        AppxBundle: Always
+        BuildMode: SideloadOnly
+        Configuration: Release
+        
+    - name: Build x64
+      run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      env:
+        AppxBundle: Always
+        BuildMode: SideloadOnly
+        Configuration: Release
+        
+    - name: Build ARM64
+      run: msbuild $env:Solution_Path /p:Platform=ARM64 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="ARM64" /p:AppxPackageDir=C:\Package\ARM64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      env:
+        AppxBundle: Always
+        BuildMode: SideloadOnly
+        Configuration: Release
+   
+    - name: Create x86 archive
+      run: Compress-Archive -Path C:\Package\x86 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
+      
+    - name: Create x64 archive
+      run: Compress-Archive -Path C:\Package\x64 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x64.zip
+      
+    - name: Create ARM64 archive
+      run: Compress-Archive -Path C:\Package\ARM64 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
+
+    - name: Update x86 release asset
+      id: upload-release-asset-x86
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release-drafter.outputs.upload_url }}
+        asset_path: C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
+        asset_name: Bili.Uwp_${{github.event.inputs.version}}_x86.zip
+        asset_content_type: application/zip
+        
+    - name: Update x64 release asset
+      id: upload-release-asset-x64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release-drafter.outputs.upload_url }}
+        asset_path: C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x64.zip
+        asset_name: Bili.Uwp_${{github.event.inputs.version}}_x64.zip
+        asset_content_type: application/zip
+        
+    - name: Update ARM64 release asset
+      id: upload-release-asset-ARM64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release-drafter.outputs.upload_url }}
+        asset_path: C:\Package\Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
+        asset_name: Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
+        asset_content_type: application/zip
