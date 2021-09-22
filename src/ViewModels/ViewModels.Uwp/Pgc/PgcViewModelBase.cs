@@ -106,6 +106,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsIndexRequested { get; set; }
 
         /// <summary>
+        /// 是否显示为空白.
+        /// </summary>
+        [Reactive]
+        public bool IsEmpty { get; set; }
+
+        /// <summary>
         /// 加载索引.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -192,7 +198,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 if (condition.SelectedItem != null)
                 {
-                    queryPrameters.Add(condition.Id, condition.SelectedItem.Id);
+                    var id = condition.SelectedItem.Id;
+                    if (condition.Id == "year")
+                    {
+                        id = Uri.EscapeDataString(condition.SelectedItem.Id);
+                    }
+
+                    queryPrameters.Add(condition.Id, id);
                 }
             }
 
@@ -203,10 +215,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (e.Type == Type)
             {
-                e.List.ForEach(p => ItemCollection.Add(new SeasonViewModel(p)));
+                if (e.List != null)
+                {
+                    e.List.ForEach(p => ItemCollection.Add(new SeasonViewModel(p)));
+                }
 
                 _isIndexLoadCompleted = !e.HasNext || e.TotalCount <= ItemCollection.Count;
                 _indexPageNumber = e.NextPageNumber;
+                IsEmpty = ItemCollection.Count == 0;
             }
         }
     }

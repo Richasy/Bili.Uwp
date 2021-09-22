@@ -115,6 +115,7 @@
                 ActionContent="{loc:LocaleLocator Name=Refresh}"
                 Text="{x:Bind ViewModel.IndexErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsIndexError, Mode=OneWay}" />
+            <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
         </Grid>
     </Grid>
 </Page>
