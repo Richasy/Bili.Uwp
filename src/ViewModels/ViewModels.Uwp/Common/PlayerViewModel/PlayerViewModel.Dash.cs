@@ -115,6 +115,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
+                if (_interopMSS != null)
+                {
+                    _interopMSS.Dispose();
+                    _interopMSS = null;
+                }
+
                 _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
             }
             catch (Exception)

@@ -14,7 +14,7 @@ jobs:
 
     env:
       SigningCertificate: App_TemporaryKey.pfx
-      App_Path: .\src\App\App.csproj
+      Solution_Path: .\Bili.UWP.sln
       UWP_Project_Directory: src\App
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -46,31 +46,31 @@ jobs:
         $manifest.save(".\$env:UWP_Project_Directory\Package.appxmanifest")
         
     - name: Build x86
-      run: msbuild $env:App_Path /p:Platform=x86 /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
         BuildMode: SideloadOnly
         Configuration: Release
         
     - name: Build x64
-      run: msbuild $env:App_Path /p:Platform=x64 /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
         BuildMode: SideloadOnly
         Configuration: Release
         
     - name: Build ARM64
-      run: msbuild $env:App_Path /p:Platform=ARM64 /p:AppxBundlePlatforms="ARM64" /p:AppxPackageDir=C:\Package\ARM64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      run: msbuild $env:Solution_Path /p:Platform=ARM64 /p:AppxBundlePlatforms="ARM64" /p:AppxPackageDir=C:\Package\ARM64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
         BuildMode: SideloadOnly
         Configuration: Release
    
     - name: Create x86 archive
-      run: Compress-Archive -Path C:\Package\x86 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
+      run: Compress-Archive -Path C:\Package\x86\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
       
     - name: Create x64 archive
-      run: Compress-Archive -Path C:\Package\x64 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x64.zip
+      run: Compress-Archive -Path C:\Package\x64\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x64.zip
       
     - name: Create ARM64 archive
-      run: Compress-Archive -Path C:\Package\ARM64 -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
+      run: Compress-Archive -Path C:\Package\ARM64\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
 
     - name: Update x86 release asset
       id: upload-release-asset-x86

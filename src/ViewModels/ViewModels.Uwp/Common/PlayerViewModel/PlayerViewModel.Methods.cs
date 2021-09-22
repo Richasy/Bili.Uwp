@@ -172,7 +172,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 await InitializeUserRelationAsync();
                 await Controller.ConnectToLiveRoomAsync(roomId);
-                await ChangeLiveQualityAsync(4);
+                await ChangeLiveQualityAsync(0);
                 await Controller.SendLiveHeartBeatAsync();
             }
         }

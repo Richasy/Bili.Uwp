@@ -47,6 +47,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _liveFFConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
             _liveFFConfig.FFmpegOptions.Add("user_agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
+            _liveFFConfig.VideoDecoderMode = VideoDecoderMode.ForceSystemDecoder;
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
@@ -60,6 +61,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
+
+            SYEngine.Core.Initialize();
         }
 
         /// <summary>
@@ -322,7 +325,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task ChangeLiveQualityAsync(int quality)
         {
             var playInfo = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(RoomId), quality);
-            await InitializeLivePlayInformationAsync(playInfo);
+
+            if (playInfo != null)
+            {
+                await InitializeLivePlayInformationAsync(playInfo);
+            }
+            else
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLivePlayInformationFailed);
+                CurrentLiveQuality = LiveQualityCollection.FirstOrDefault()?.Data;
+            }
         }
 
         /// <summary>
