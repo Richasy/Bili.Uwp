@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Diagnostics;
+using FFmpegInterop;
 using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
@@ -19,7 +21,7 @@ namespace Richasy.Bili.App
     /// <summary>
     /// Provide application-specific behaviors to supplement the default application classes.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : Application, ILogProvider
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
@@ -32,6 +34,15 @@ namespace Richasy.Bili.App
             _ = AppViewModel.Instance;
             ServiceLocator.Instance.GetService<IAppToolkit>()
                                    .InitializeTheme();
+
+            FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
+            FFmpegInteropLogging.SetLogProvider(this);
+        }
+
+        /// <inheritdoc/>
+        public void Log(LogLevel level, string message)
+        {
+            Debug.WriteLine($"{level} | {message}");
         }
 
         /// <summary>
@@ -57,6 +68,7 @@ namespace Richasy.Bili.App
         {
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(AppConstants.AppMinWidth, AppConstants.AppMinHeight));
+            _ = SYEngine.Core.Initialize();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

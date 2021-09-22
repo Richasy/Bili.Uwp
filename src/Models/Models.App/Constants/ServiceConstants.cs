@@ -164,6 +164,10 @@ namespace Richasy.Bili.Models.App.Constants
             public const string LikeTime = "like_time";
             public const string AtTime = "at_time";
             public const string ReplyTime = "reply_time";
+            public const string Protocol = "protocal";
+            public const string Codec = "codec";
+            public const string PType = "ptype";
+            public const string Format = "format";
         }
 
         public static class Sort
