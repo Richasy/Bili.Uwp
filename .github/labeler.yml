@@ -1,0 +1,25 @@
+# Number of labels to fetch (optional). Defaults to 100
+numLabels: 100
+# These labels will not be used even if the issue contains them (optional).
+# Pass a blank array if no labels are to be excluded.
+# excludeLabels: []
+excludeLabels:
+  - 通知 📣
+# custom configuration to override default behaviour
+# control explicitly what gets added and when
+custom:
+  - location: title
+    keywords:
+      - 'Feature'
+    labels:
+      - 功能 💡
+  - location: title
+    keywords:
+      - 'Bug'
+    labels:
+      - bug 🐛
+  - location: title
+    keywords:
+      - 'Doc'
+    labels:
+      - 文档 📃
