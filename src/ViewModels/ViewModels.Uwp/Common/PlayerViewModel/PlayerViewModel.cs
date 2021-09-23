@@ -60,8 +60,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
-
-            SYEngine.Core.Initialize();
         }
 
         /// <summary>

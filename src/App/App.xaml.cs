@@ -68,7 +68,6 @@ namespace Richasy.Bili.App
         {
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(AppConstants.AppMinWidth, AppConstants.AppMinHeight));
-            _ = SYEngine.Core.Initialize();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

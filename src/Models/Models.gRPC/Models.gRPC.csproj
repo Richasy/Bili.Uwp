@@ -71,7 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.17.3" />
     <PackageReference Include="Grpc.Core" Version="2.34.0" />
     <PackageReference Include="Grpc.Tools" Version="2.34.0">
       <PrivateAssets>all</PrivateAssets>
