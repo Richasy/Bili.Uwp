@@ -29,8 +29,22 @@
             <VisualStateGroup x:Name="LayoutVisualGroups">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootNavView.PaneDisplayMode" Value="Auto"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
                     </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.RowSpacing" Value="4" />
+                        <Setter Target="MainGrid.CornerRadius" Value="0" />
+                        <Setter Target="HeaderContainer.Margin" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="RootNavView.PaneDisplayMode" Value="LeftCompact"/>
+                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
@@ -41,6 +55,7 @@
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
                         <Setter Target="MainGrid.CornerRadius" Value="0" />
                         <Setter Target="HeaderContainer.Margin" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="RootNavView.PaneDisplayMode" Value="LeftMinimal"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -51,6 +66,7 @@
             CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
             ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
             IsPaneOpen="{x:Bind ViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
+            PaneDisplayMode="Auto"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />
