@@ -9,11 +9,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 
@@ -45,7 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _liveFFConfig = new FFmpegInteropConfig();
             _liveFFConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
-            _liveFFConfig.FFmpegOptions.Add("user_agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
+            _liveFFConfig.FFmpegOptions.Add("user_agent", ServiceConstants.DefaultUserAgentString);
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
@@ -60,6 +60,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
+
+            SYEngine.Core.Initialize();
         }
 
         /// <summary>
@@ -322,7 +324,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task ChangeLiveQualityAsync(int quality)
         {
             var playInfo = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(RoomId), quality);
-            await InitializeLivePlayInformationAsync(playInfo);
+
+            if (playInfo != null)
+            {
+                await InitializeLivePlayInformationAsync(playInfo);
+            }
+            else
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLivePlayInformationFailed);
+                CurrentLiveQuality = LiveQualityCollection.FirstOrDefault()?.Data;
+            }
         }
 
         /// <summary>
@@ -357,13 +369,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _currentVideoPlayer.Pause();
                 }
 
-                if (_currentVideoPlayer.Source != null)
+                if (_currentPlaybackItem != null)
                 {
-                    (_currentVideoPlayer.Source as MediaPlaybackItem).Source.Dispose();
+                    _currentPlaybackItem.Source.Dispose();
+                    _currentPlaybackItem = null;
                 }
 
-                _currentVideoPlayer.Dispose();
-                _currentVideoPlayer = null;
+                _currentVideoPlayer.Source = null;
             }
 
             _lastReportProgress = TimeSpan.Zero;

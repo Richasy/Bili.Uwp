@@ -18,6 +18,12 @@ namespace Richasy.Bili.Models.BiliBili
         public int CurrentQuality { get; set; }
 
         /// <summary>
+        /// 当前播放清晰度（网络标识）.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_qn", Required = Required.Default)]
+        public int CurrentQuality2 { get; set; }
+
+        /// <summary>
         /// 支持的播放清晰度.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "accept_quality", Required = Required.Default)]

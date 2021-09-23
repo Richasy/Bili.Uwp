@@ -65,6 +65,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
+            Controller.CleanupLiveSocket();
         }
 
         private async Task LoadVideoDetailAsync(string videoId, bool isRefresh)
@@ -460,15 +461,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
             }
 
-            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
-
             var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
             if (currentQuality == null)
             {
-                currentQuality = LiveQualityCollection.First();
+                currentQuality = LiveQualityCollection.Where(p => p.Data.Quality == livePlayInfo.CurrentQuality2).FirstOrDefault() ?? LiveQualityCollection.First();
             }
 
             CurrentLiveQuality = currentQuality.Data;
+            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
 
             if (CurrentPlayLine != null)
             {
@@ -481,7 +481,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                CurrentPlayLine = LivePlayLineCollection.First().Data;
+                CurrentPlayLine = LivePlayLineCollection.Where(p => p.Data.Url.Contains("sid")).FirstOrDefault()?.Data ?? LivePlayLineCollection.First().Data;
             }
 
             if (CurrentPlayLine == null)
@@ -615,6 +615,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private MediaPlayer InitializeMediaPlayer()
         {
             var player = new MediaPlayer();
+            player.MediaOpened += OnMediaPlayerOpened;
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
@@ -650,6 +651,23 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Volume = sender.Volume;
             });
+        }
+
+        private void OnMediaPlayerOpened(MediaPlayer sender, object args)
+        {
+            var session = sender.PlaybackSession;
+            if (session != null && IsLive && _interopMSS != null)
+            {
+                _interopMSS.PlaybackSession = session;
+            }
+
+            var props = _currentPlaybackItem.GetDisplayProperties();
+            props.Type = Windows.Media.MediaPlaybackType.Video;
+            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
+            props.VideoProperties.Title = Title;
+            props.VideoProperties.Subtitle = GetSlimDescription(IsPgc ? Subtitle : Description);
+            props.VideoProperties.Genres.Add(_videoType.ToString());
+            _currentPlaybackItem.ApplyDisplayProperties(props);
         }
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)

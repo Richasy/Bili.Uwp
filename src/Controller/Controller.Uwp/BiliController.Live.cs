@@ -127,6 +127,22 @@ namespace Richasy.Bili.Controller.Uwp
         public Task<bool> SendLiveDanmakuAsync(int roomId, string text, string color, bool isStandardSize, DanmakuLocation location)
              => _liveProvider.SendMessageAsync(roomId, text, color, isStandardSize, location);
 
+        /// <summary>
+        /// 清理直播长连接.
+        /// </summary>
+        public void CleanupLiveSocket()
+        {
+            if (_liveCancellationToken != null)
+            {
+                _liveCancellationToken.Cancel();
+            }
+
+            _liveCancellationToken = new CancellationTokenSource();
+
+            _isLiveSocketConnected = false;
+            _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
+        }
+
         private void InitializeLiveSocket()
         {
             CleanupLiveSocket();
@@ -138,19 +154,6 @@ namespace Richasy.Bili.Controller.Uwp
                 _liveWebSocket.DisconnectionHappened.Subscribe(info => OnLiveSocketDisconnected(info));
                 _liveWebSocket.MessageReceived.Subscribe(msg => OnLiveSocketMessageReceived(msg));
             }
-        }
-
-        private void CleanupLiveSocket()
-        {
-            if (_liveCancellationToken != null)
-            {
-                _liveCancellationToken.Cancel();
-            }
-
-            _liveCancellationToken = new CancellationTokenSource();
-
-            _isLiveSocketConnected = false;
-            _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
         }
 
         private void ConnectLiveSocket()
