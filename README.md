@@ -26,7 +26,11 @@
 
 **Watch** 项目，以获取应用的更新动态。
 
-关于如何一步步地使用侧加载 (Sideload) 方式安装 UWP 应用及订阅应用更新，请参见 [下载并安装哔哩的详细说明](./how_to_install.md) 。
+关于如何一步步地使用侧加载 (Sideload) 方式安装 UWP 应用及订阅应用更新，请参见 [下载并安装哔哩的详细说明](https://github.com/Richasy/Bili.Uwp/wiki/%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85%E5%93%94%E5%93%A9%E7%9A%84%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E) 。
+
+## ❓ 常见问题
+
+在应用的安装使用过程中，你可能会碰到一些问题，这篇文档也许可以帮助你解决遇到的困难：[常见问题](https://github.com/Richasy/Bili.Uwp/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 ## 📃 文档
 
@@ -46,4 +50,4 @@
 
 ## 🧩 截图
 
-![截图](./assets/image/guide/screenshot.png)
+![截图](./assets/screenshot.png)
