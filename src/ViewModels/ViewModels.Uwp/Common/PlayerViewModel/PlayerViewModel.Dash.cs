@@ -90,16 +90,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
-                var playbackItem = new MediaPlaybackItem(mediaSource);
-                _currentVideoPlayer.Source = playbackItem;
-
-                var props = playbackItem.GetDisplayProperties();
-                props.Type = Windows.Media.MediaPlaybackType.Video;
-                props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
-                props.VideoProperties.Title = Title;
-                props.VideoProperties.Subtitle = GetSlimDescription(IsPgc ? Subtitle : Description);
-                props.VideoProperties.Genres.Add(_videoType.ToString());
-                playbackItem.ApplyDisplayProperties(props);
+                _currentPlaybackItem = new MediaPlaybackItem(mediaSource);
+                _currentVideoPlayer.Source = _currentPlaybackItem;
 
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
@@ -130,21 +122,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
-            var playbackItem = _interopMSS.CreateMediaPlaybackItem();
-
-            var props = playbackItem.GetDisplayProperties();
-            props.Type = Windows.Media.MediaPlaybackType.Video;
-            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
-            props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = GetSlimDescription(string.IsNullOrEmpty(Subtitle) ? Subtitle : Description);
-            props.VideoProperties.Genres.Add(_videoType.ToString());
-            playbackItem.ApplyDisplayProperties(props);
+            _currentPlaybackItem = _interopMSS.CreateMediaPlaybackItem();
             if (_currentVideoPlayer == null)
             {
                 _currentVideoPlayer = InitializeMediaPlayer();
             }
 
-            _currentVideoPlayer.Source = playbackItem;
+            _currentVideoPlayer.Source = _currentPlaybackItem;
             BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
             MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
         }

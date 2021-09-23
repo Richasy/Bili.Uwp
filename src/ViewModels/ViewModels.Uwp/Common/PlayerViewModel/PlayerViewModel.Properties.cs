@@ -41,6 +41,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private VideoType _videoType;
         private TimeSpan _initializeProgress;
         private FFmpegInteropMSS _interopMSS;
+        private MediaPlaybackItem _currentPlaybackItem;
 
         private DashItem _currentAudio;
         private DashItem _currentVideo;

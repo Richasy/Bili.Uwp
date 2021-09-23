@@ -9,11 +9,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 
@@ -45,9 +45,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _liveFFConfig = new FFmpegInteropConfig();
             _liveFFConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
-            _liveFFConfig.FFmpegOptions.Add("user_agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36");
+            _liveFFConfig.FFmpegOptions.Add("user_agent", ServiceConstants.DefaultUserAgentString);
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
-            _liveFFConfig.VideoDecoderMode = VideoDecoderMode.ForceSystemDecoder;
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
@@ -370,13 +369,13 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _currentVideoPlayer.Pause();
                 }
 
-                if (_currentVideoPlayer.Source != null)
+                if (_currentPlaybackItem != null)
                 {
-                    (_currentVideoPlayer.Source as MediaPlaybackItem).Source.Dispose();
+                    _currentPlaybackItem.Source.Dispose();
+                    _currentPlaybackItem = null;
                 }
 
-                _currentVideoPlayer.Dispose();
-                _currentVideoPlayer = null;
+                _currentVideoPlayer.Source = null;
             }
 
             _lastReportProgress = TimeSpan.Zero;
