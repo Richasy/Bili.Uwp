@@ -65,6 +65,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
+            Controller.CleanupLiveSocket();
         }
 
         private async Task LoadVideoDetailAsync(string videoId, bool isRefresh)
@@ -465,7 +466,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
             if (currentQuality == null)
             {
-                currentQuality = LiveQualityCollection.First();
+                currentQuality = LiveQualityCollection.Where(p => p.Data.Quality == livePlayInfo.CurrentQuality2).FirstOrDefault() ?? LiveQualityCollection.First();
             }
 
             CurrentLiveQuality = currentQuality.Data;
