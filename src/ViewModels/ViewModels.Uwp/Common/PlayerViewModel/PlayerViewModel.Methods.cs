@@ -173,7 +173,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 await InitializeUserRelationAsync();
                 await Controller.ConnectToLiveRoomAsync(roomId);
-                await ChangeLiveQualityAsync(0);
+                await ChangeLiveQualityAsync(4);
                 await Controller.SendLiveHeartBeatAsync();
             }
         }
@@ -461,8 +461,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
             }
 
-            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
-
             var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
             if (currentQuality == null)
             {
@@ -470,6 +468,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             CurrentLiveQuality = currentQuality.Data;
+            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
 
             if (CurrentPlayLine != null)
             {
@@ -482,7 +481,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else
             {
-                CurrentPlayLine = LivePlayLineCollection.First().Data;
+                CurrentPlayLine = LivePlayLineCollection.Where(p => p.Data.Url.Contains("sid")).FirstOrDefault()?.Data ?? LivePlayLineCollection.First().Data;
             }
 
             if (CurrentPlayLine == null)

@@ -14,9 +14,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="data">播放线路数据.</param>
         /// <param name="isSelected">是否被选中.</param>
-        public LivePlayLineViewModel(LivePlayLine data, bool isSelected = false)
+        /// <param name="sid">会话标识Id.</param>
+        public LivePlayLineViewModel(LivePlayLine data, bool isSelected = false, string sid = null)
             : base(data, isSelected)
         {
+            if (!data.Url.Contains("sid") && !string.IsNullOrEmpty(sid))
+            {
+                data.Url += $"&sid={sid}";
+            }
         }
     }
 }
