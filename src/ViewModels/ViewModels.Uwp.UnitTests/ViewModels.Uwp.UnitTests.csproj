@@ -47,6 +47,9 @@
     <PackageReference Include="SpecFlow">
       <Version>3.9.22</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.SDK">
+      <Version>16.7.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ViewModels.Uwp\ViewModels.Uwp.csproj">
