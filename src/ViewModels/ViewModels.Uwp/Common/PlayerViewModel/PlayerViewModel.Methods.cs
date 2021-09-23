@@ -616,6 +616,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private MediaPlayer InitializeMediaPlayer()
         {
             var player = new MediaPlayer();
+            player.MediaOpened += OnMediaPlayerOpened;
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
@@ -651,6 +652,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Volume = sender.Volume;
             });
+        }
+
+        private void OnMediaPlayerOpened(MediaPlayer sender, object args)
+        {
+            var session = sender.PlaybackSession;
+            if (session != null && IsLive && _interopMSS != null)
+            {
+                _interopMSS.PlaybackSession = session;
+            }
         }
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)

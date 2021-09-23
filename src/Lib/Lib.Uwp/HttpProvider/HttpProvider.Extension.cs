@@ -91,11 +91,12 @@ namespace Richasy.Bili.Lib.Uwp
 
         private void InitHttpClient()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             _cookieContainer = new CookieContainer();
             var handler = new HttpClientHandler
             {
-                AllowAutoRedirect = false,
-                AutomaticDecompression = DecompressionMethods.None,
+                AllowAutoRedirect = true,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.None,
                 UseCookies = true,
                 CookieContainer = _cookieContainer,
             };
