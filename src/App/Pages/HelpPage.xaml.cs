@@ -1,4 +1,4 @@
-﻿// Copyright (c) Richasy. All rights reserved.
+﻿// Copyright (c) GodLeaveMe. All rights reserved.
 
 using System;
 using Richasy.Bili.ViewModels.Uwp;
@@ -38,17 +38,17 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnAskIssueButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://github.com/Richasy/Bili.Uwp/issues/new")).AsTask();
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/GodLeaveMe/BilibiliUWP2/issues/new")).AsTask();
         }
 
         private async void OnProjectHomePageClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://github.com/Richasy/Bili.Uwp/")).AsTask();
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/GodLeaveMe/BilibiliUWP2/releases")).AsTask();
         }
 
         private async void OnBiliHomePageClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://space.bilibili.com/5992670")).AsTask();
+            await Launcher.LaunchUriAsync(new Uri("https://space.bilibili.com/166740145")).AsTask();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)

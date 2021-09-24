@@ -1,4 +1,4 @@
-﻿// Copyright (c) Richasy. All rights reserved.
+﻿// Copyright (c) GodLeaveMe. All rights reserved.
 
 using System;
 using Windows.UI.Xaml.Data;

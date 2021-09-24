@@ -9,15 +9,15 @@
   IgnorableNamespaces="uap mp uap5 uap3">
 
   <Identity
-    Name="Richasy.Bili"
-    Publisher="CN=云之幻"
-    Version="1.0.0.0" />
+    Name="GodLeaveMe.BiliUWP2"
+    Publisher="CN=GodLeaveMe"
+    Version="1.0.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="1c288bc0-72f3-4c4c-90ad-a05b52e937b0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>哔哩</DisplayName>
-    <PublisherDisplayName>云之幻</PublisherDisplayName>
+    <DisplayName>BiliUWP2</DisplayName>
+    <PublisherDisplayName>GodLeaveMe</PublisherDisplayName>
     <Logo>Assets\Logo\StoreLogo.png</Logo>
   </Properties>
 

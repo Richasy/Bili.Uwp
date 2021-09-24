@@ -6,6 +6,10 @@
     <RootNamespace>Richasy.Bili.Toolkit.Interfaces</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\Models\Models.Enums\Models.Enums.csproj" />
   </ItemGroup>

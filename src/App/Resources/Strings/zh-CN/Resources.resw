@@ -145,10 +145,10 @@
     <value>动漫</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
+    <value>BiliUWP2基于云之幻的哔哩，是一个第三方哔哩哔哩UWP客户端。</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>哔哩</value>
+    <value>BiliUWP2</value>
   </data>
   <data name="AppTheme" xml:space="preserve">
     <value>应用主题</value>
@@ -495,7 +495,7 @@
     <value>最新评论</value>
   </data>
   <data name="License" xml:space="preserve">
-    <value>©2021 Richasy. MIT 许可证</value>
+    <value>©2021 GodLeaveMe. MIT 许可证</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
@@ -720,7 +720,7 @@
     <value>上次观看：</value>
   </data>
   <data name="ProjectHomePage" xml:space="preserve">
-    <value>项目主页</value>
+    <value>获取更新</value>
   </data>
   <data name="PublishFinished" xml:space="preserve">
     <value>已完结</value>

@@ -6,6 +6,10 @@
     <AssemblyName>Richasy.Bili.Models.gRPC</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="bilibili\account\fission\v1\fission.proto" />
     <None Remove="bilibili\ad\v1\ad.proto" />

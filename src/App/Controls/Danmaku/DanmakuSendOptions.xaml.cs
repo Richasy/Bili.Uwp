@@ -1,4 +1,4 @@
-﻿// Copyright (c) Richasy. All rights reserved.
+﻿// Copyright (c) GodLeaveMe. All rights reserved.
 
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.ViewModels.Uwp.Common;

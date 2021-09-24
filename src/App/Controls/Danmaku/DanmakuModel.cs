@@ -1,4 +1,4 @@
-﻿// Copyright (c) Richasy. All rights reserved.
+﻿// Copyright (c) GodLeaveMe. All rights reserved.
 
 using Richasy.Bili.Models.Enums.App;
 using Windows.UI;

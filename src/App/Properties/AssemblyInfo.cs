@@ -1,14 +1,14 @@
-﻿// Copyright (c) Richasy. All rights reserved.
+﻿// Copyright (c) GodLeaveMe. All rights reserved.
 
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("App")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("BiliUWP2")]
+[assembly: AssemblyDescription("BiliUWP2")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("App")]
-[assembly: AssemblyCopyright("Copyright Richasy ©  2021")]
+[assembly: AssemblyCompany("GodLeaveMe")]
+[assembly: AssemblyProduct("BiliUWP2")]
+[assembly: AssemblyCopyright("Copyright GodLeaveMe ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
