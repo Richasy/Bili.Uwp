@@ -511,6 +511,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsDetailError):
                     PlayerDisplayMode = PlayerDisplayMode.Default;
                     break;
+                case nameof(IsLikeChecked):
+                case nameof(IsCoinChecked):
+                case nameof(IsFavoriteChecked):
+                    IsEnableLikeHolding = !IsLikeChecked || !IsCoinChecked || !IsFavoriteChecked;
+                    break;
                 default:
                     break;
             }

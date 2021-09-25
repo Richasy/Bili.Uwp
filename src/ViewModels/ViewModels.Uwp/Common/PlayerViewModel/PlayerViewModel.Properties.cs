@@ -413,6 +413,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsCoinChecked { get; set; }
 
         /// <summary>
+        /// 是否允许长按点赞.
+        /// </summary>
+        [Reactive]
+        public bool IsEnableLikeHolding { get; set; }
+
+        /// <summary>
         /// 收藏按钮是否被选中.
         /// </summary>
         [Reactive]

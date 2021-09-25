@@ -201,11 +201,6 @@ namespace Richasy.Bili.App.Controls
 
             if (IsPressed)
             {
-                if (Convert.ToBoolean(IsChecked))
-                {
-                    return;
-                }
-
                 _isHolding = false;
                 _holdingTime = 0d;
                 _timer.Start();
