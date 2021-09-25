@@ -2,7 +2,6 @@
 name: Bug 报告
 about: 提交 Bug 以帮助我们提高应用体验
 title: '[Bug]'
-labels: bug, 待分配
 assignees: Richasy
 
 ---
@@ -18,6 +17,8 @@ assignees: Richasy
 - [ ] 这个问题是否能在最新版本中复现？（如果你的应用不是最新版，请在 [Release](https://github.com/Richasy/Bili.Uwp/releases) 中下载最新版）
 
 重现问题的步骤：
+
+<!-- 将下面的内容替换为实际的复现步骤 -->
 
 1. 打开应用
 2. 进入 '...'
@@ -62,12 +63,15 @@ assignees: Richasy
 - [ ] ARM64 设备 <!-- 比如 Surface Pro X -->
 - [ ] IoT
 
-<!-- 如果你正在使用 Visual Studio 构建应用，请选择 VS 版本；如果不是，请忽略 -->
+<!-- 如果你正在使用 Visual Studio 构建应用，请取消下面的注释并选择 VS 版本；如果不是，请忽略 -->
+
+<!-- 
 Visual Studio 版本:
 
 - [ ] 2017 (15.{版本号})
 - [ ] 2019 (16.{版本号})
 - [ ] 2022 (17.{版本号})
+-->
 
 ## 日志记录
 
