@@ -145,37 +145,34 @@ namespace Richasy.Bili.ViewModels.Uwp
             await ChangePgcEpisodeAsync(id);
         }
 
-        private async Task LoadLiveDetailAsync(int roomId, bool isRefresh)
+        private async Task LoadLiveDetailAsync(int roomId)
         {
-            if (_liveDetail == null || RoomId != roomId.ToString() || isRefresh)
+            Reset();
+            IsLive = true;
+            IsDetailLoading = true;
+            IsShowReply = false;
+            RoomId = roomId.ToString();
+
+            try
             {
-                Reset();
-                IsLive = true;
-                IsDetailLoading = true;
-                IsShowReply = false;
-                RoomId = roomId.ToString();
-
-                try
-                {
-                    var detail = await Controller.GetLiveRoomDetailAsync(roomId);
-                    _liveDetail = detail;
-                }
-                catch (Exception ex)
-                {
-                    IsDetailError = true;
-                    DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLiveFailed) + $"\n{ex.Message}";
-                    IsDetailLoading = false;
-                    return;
-                }
-
-                InitializeLiveDetail();
-                IsDetailLoading = false;
-
-                await InitializeUserRelationAsync();
-                await Controller.ConnectToLiveRoomAsync(roomId);
-                await ChangeLiveQualityAsync(4);
-                await Controller.SendLiveHeartBeatAsync();
+                var detail = await Controller.GetLiveRoomDetailAsync(roomId);
+                _liveDetail = detail;
             }
+            catch (Exception ex)
+            {
+                IsDetailError = true;
+                DetailErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLiveFailed) + $"\n{ex.Message}";
+                IsDetailLoading = false;
+                return;
+            }
+
+            InitializeLiveDetail();
+            IsDetailLoading = false;
+
+            await InitializeUserRelationAsync();
+            await Controller.ConnectToLiveRoomAsync(roomId);
+            await ChangeLiveQualityAsync(4);
+            await Controller.SendLiveHeartBeatAsync();
         }
 
         private void InitializeVideoDetail()
