@@ -35,7 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _initializeTheme = AppTheme;
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-            IsPrefer4K = ReadSetting(SettingNames.IsPrefer4K, false);
+            IsPreferHighQuality = ReadSetting(SettingNames.IsPreferHighQuality, false);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PreferCodecInit();
             DoubleClickInit();
@@ -70,8 +70,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(DefaultPlayerDisplayMode):
                     WriteSetting(SettingNames.DefaultPlayerDisplayMode, DefaultPlayerDisplayMode);
                     break;
-                case nameof(IsPrefer4K):
-                    WriteSetting(SettingNames.IsPrefer4K, IsPrefer4K);
+                case nameof(IsPreferHighQuality):
+                    WriteSetting(SettingNames.IsPreferHighQuality, IsPreferHighQuality);
                     break;
                 case nameof(PreferCodec):
                     WriteSetting(SettingNames.PreferCodec, PreferCodec);

@@ -438,11 +438,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoFormat, 64) :
                 CurrentFormat.Quality;
 
-            // 如果用户选择了4K优先，则优先播放4K片源.
-            if (_settingsToolkit.ReadLocalSetting(SettingNames.IsPrefer4K, false) &&
-                FormatCollection.Any(p => p.Data.Quality == 120))
+            // 如果用户选择了画质优先，则优先播放高画质片源.
+            if (_settingsToolkit.ReadLocalSetting(SettingNames.IsPreferHighQuality, false))
             {
-                formatId = 120;
+                formatId = FormatCollection.Max(p => p.Data.Quality);
             }
 
             await ChangeFormatAsync(formatId);

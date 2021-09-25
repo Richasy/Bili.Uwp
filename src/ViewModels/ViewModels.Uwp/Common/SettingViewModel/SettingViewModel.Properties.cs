@@ -95,10 +95,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public MTCControlMode DefaultMTCControlMode { get; set; }
 
         /// <summary>
-        /// 优先4K.
+        /// 优先高画质.
         /// </summary>
         [Reactive]
-        public bool IsPrefer4K { get; set; }
+        public bool IsPreferHighQuality { get; set; }
 
         /// <summary>
         /// 偏好的解码模式.

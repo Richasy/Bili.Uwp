@@ -37,13 +37,13 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=Prefer4K}"
-                            Description="{loc:LocaleLocator Name=Prefer4KDescription}"
+                            Title="{loc:LocaleLocator Name=PreferHighQuality}"
+                            Description="{loc:LocaleLocator Name=PreferHighQualityDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPrefer4K, Mode=TwoWay}" />
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPreferHighQuality, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 
