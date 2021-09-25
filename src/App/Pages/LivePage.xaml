@@ -4,22 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
-    <Grid
-        x:Name="RootContainer"
-        Padding="{StaticResource DefaultContainerPadding}"
-        ColumnSpacing="12">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition x:Name="Column2" Width="Auto" />
-        </Grid.ColumnDefinitions>
-
+    <Grid x:Name="RootContainer">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -32,61 +24,24 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootContainer.ColumnSpacing" Value="0" />
-                        <Setter Target="StandardFollowContainer.Visibility" Value="Collapsed" />
-                        <Setter Target="InlineFollowContainer.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="PaddingGroup">
-                <VisualState x:Name="DefaultPaddingState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="MediumPaddingState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootContainer.Padding" Value="0" />
-                        <Setter Target="RootScrollViewer.Padding" Value="{StaticResource DefaultContainerPadding}" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NarrowPaddingState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootContainer.Padding" Value="0" />
                         <Setter Target="RootScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
+                        <Setter Target="FollowListButton.Visibility" Value="Collapsed" />
+                        <Setter Target="InlineFollowContainer.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid
-            x:Name="StandardFollowContainer"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-            <controls:FollowLiveView
-                x:Name="FollowLiveView"
-                MinWidth="200"
-                ItemOrientation="Horizontal"
-                Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
-        </Grid>
-
         <Grid>
             <ScrollViewer
                 x:Name="RootScrollViewer"
-                Padding="0,0,24,0"
+                Padding="{StaticResource DefaultContainerPadding}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <Grid
                     x:Name="RootGrid"
-                    RowSpacing="12"
+                    RowSpacing="8"
                     Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="Row1" Height="Auto" />
@@ -112,18 +67,18 @@
                     <Grid
                         x:Name="FeedsContainer"
                         Grid.Row="2"
-                        Grid.Column="0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
                         <controls:VerticalRepeaterView
                             x:Name="VideoView"
+                            Margin="0,0,0,12"
                             HeaderText="{loc:LocaleLocator Name=Recommend}"
                             ItemsSource="{x:Bind ViewModel.RecommendLiveRoomCollection, Mode=OneWay}"
                             MinWideItemHeight="208"
                             MinWideItemWidth="200"
                             RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                             <controls:VerticalRepeaterView.AdditionalContent>
-                                <Grid>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
                                     <Button
                                         x:Name="RefreshButton"
                                         VerticalAlignment="Center"
@@ -133,7 +88,37 @@
                                             Symbol="ArrowSyncCircle16"
                                             Text="{loc:LocaleLocator Name=Refresh}" />
                                     </Button>
-                                </Grid>
+                                    <Button
+                                        x:Name="FollowListButton"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        VerticalAlignment="Center">
+                                        <StackPanel
+                                            Margin="0,1"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                            <icons:RegularFluentIcon
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Symbol="EyeShow16" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Text="{loc:LocaleLocator Name=FollowLiveRoom}"
+                                                TextLineBounds="Tight" />
+                                        </StackPanel>
+                                        <Button.Flyout>
+                                            <Flyout>
+                                                <Grid>
+                                                    <controls:FollowLiveView
+                                                        x:Name="FollowLiveView"
+                                                        MinWidth="200"
+                                                        ItemOrientation="Horizontal"
+                                                        Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
+                                                    <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                                                </Grid>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </StackPanel>
                             </controls:VerticalRepeaterView.AdditionalContent>
                             <controls:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
