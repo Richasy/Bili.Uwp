@@ -343,6 +343,8 @@ namespace Richasy.Bili.Models.Enums
         PlayPause,
         DoubleClickBehavior,
         DoubleClickBehaviorDescription,
+        PreferHighQuality,
+        PreferHighQualityDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -455,7 +455,7 @@
     <value>AVC/H.264</value>
   </data>
   <data name="H265" xml:space="preserve">
-    <value>HVEC/H.265</value>
+    <value>HEVC/H.265</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
@@ -718,6 +718,12 @@
   </data>
   <data name="PreferCodecDescription" xml:space="preserve">
     <value>优先选择该编码的视频流，HEVC/H.265需要额外安装解码器</value>
+  </data>
+  <data name="PreferHighQuality" xml:space="preserve">
+    <value>画质优先</value>
+  </data>
+  <data name="PreferHighQualityDescription" xml:space="preserve">
+    <value>优先播放最高清画质的视频源</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
     <value>预启动</value>

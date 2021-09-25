@@ -15,7 +15,7 @@ namespace Richasy.Bili.Models.Enums
         IsStartup,
         IsAutoPlayWhenLoaded,
         DefaultPlayerDisplayMode,
-        IsPrefer4K,
+        IsPreferHighQuality,
         PreferCodec,
         SingleFastForwardAndRewindSpan,
         DefaultMTCControlMode,
