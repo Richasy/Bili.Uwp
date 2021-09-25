@@ -33,6 +33,7 @@ namespace Richasy.Bili.Models.Enums
         IsDanmakuStandardSize,
         DanmakuLocation,
         DanmakuColor,
+        DoubleClickBehavior,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

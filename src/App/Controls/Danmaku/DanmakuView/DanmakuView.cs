@@ -366,15 +366,24 @@ namespace Richasy.Bili.App.Controls
                 .WithBold(DanmakuBold)
                 .WithFontFamily(DanmakuFontFamily)
                 .WithDanmakuModel(m);
+
+            Grid element;
+
             switch (DanmakuStyle)
             {
                 case DanmakuStyle.NoStroke:
-                    return builder.CreateNoStrokeDanmaku();
+                    element = builder.CreateNoStrokeDanmaku();
+                    break;
                 case DanmakuStyle.Shadow:
-                    return builder.CreateShadowDanmaku();
+                    element = builder.CreateShadowDanmaku();
+                    break;
                 default:
-                    return await builder.CreateStrokeDanmakuAsync();
+                    element = await builder.CreateStrokeDanmakuAsync();
+                    break;
             }
+
+            element.IsHitTestVisible = false;
+            return element;
         }
     }
 }

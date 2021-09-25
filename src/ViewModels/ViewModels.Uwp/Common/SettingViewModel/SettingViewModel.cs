@@ -38,6 +38,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPrefer4K = ReadSetting(SettingNames.IsPrefer4K, false);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PreferCodecInit();
+            DoubleClickInit();
             PlayerModeInit();
             MTCControlModeInit();
             StartupInitAsync();
@@ -74,6 +75,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(PreferCodec):
                     WriteSetting(SettingNames.PreferCodec, PreferCodec);
+                    break;
+                case nameof(DoubleClickBehavior):
+                    WriteSetting(SettingNames.DoubleClickBehavior, DoubleClickBehavior);
                     break;
                 case nameof(SingleFastForwardAndRewindSpan):
                     WriteSetting(SettingNames.SingleFastForwardAndRewindSpan, SingleFastForwardAndRewindSpan);
@@ -134,6 +138,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H264);
+        }
+
+        private void DoubleClickInit()
+        {
+            if (DoubleClickBehaviorCollection == null || DoubleClickBehaviorCollection.Count == 0)
+            {
+                DoubleClickBehaviorCollection = new ObservableCollection<DoubleClickBehavior>
+                {
+                    DoubleClickBehavior.PlayPause,
+                    DoubleClickBehavior.FullScreen,
+                };
+            }
+
+            DoubleClickBehavior = ReadSetting(SettingNames.DoubleClickBehavior, DoubleClickBehavior.PlayPause);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

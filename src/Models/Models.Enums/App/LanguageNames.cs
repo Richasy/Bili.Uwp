@@ -340,6 +340,9 @@ namespace Richasy.Bili.Models.Enums
         NotSupportReplyType,
         ForwardSkip,
         BackSkip,
+        PlayPause,
+        DoubleClickBehavior,
+        DoubleClickBehaviorDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

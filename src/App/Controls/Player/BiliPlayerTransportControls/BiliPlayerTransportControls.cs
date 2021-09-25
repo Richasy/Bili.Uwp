@@ -193,7 +193,19 @@ namespace Richasy.Bili.App.Controls
             var canDoubleTapped = playerStatus == PlayerStatus.Playing || playerStatus == PlayerStatus.Pause;
             if (canDoubleTapped)
             {
-                ViewModel.TogglePlayPause();
+                var behavior = SettingViewModel.DoubleClickBehavior;
+                switch (behavior)
+                {
+                    case DoubleClickBehavior.FullScreen:
+                        _fullScreenPlayModeButton.IsChecked = !_fullScreenPlayModeButton.IsChecked;
+                        OnPlayModeButtonClick(_fullScreenPlayModeButton, null);
+                        break;
+                    case DoubleClickBehavior.PlayPause:
+                        ViewModel.TogglePlayPause();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

@@ -339,6 +339,12 @@
   <data name="DomesticAnime" xml:space="preserve">
     <value>国创</value>
   </data>
+  <data name="DoubleClickBehavior" xml:space="preserve">
+    <value>双击行为</value>
+  </data>
+  <data name="DoubleClickBehaviorDescription" xml:space="preserve">
+    <value>双击播放器空白区域的行为</value>
+  </data>
   <data name="DynamicCount" xml:space="preserve">
     <value>动态数</value>
   </data>
@@ -691,6 +697,9 @@
   </data>
   <data name="PlayLine" xml:space="preserve">
     <value>线路</value>
+  </data>
+  <data name="PlayPause" xml:space="preserve">
+    <value>播放/暂停</value>
   </data>
   <data name="PleaseSignIn" xml:space="preserve">
     <value>请登录</value>

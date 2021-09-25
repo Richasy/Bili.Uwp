@@ -41,6 +41,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<PreferCodec> PreferCodecCollection { get; set; }
 
         /// <summary>
+        /// 双击行为可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<DoubleClickBehavior> DoubleClickBehaviorCollection { get; set; }
+
+        /// <summary>
         /// 应用主题.
         /// </summary>
         [Reactive]
@@ -99,6 +105,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public PreferCodec PreferCodec { get; set; }
+
+        /// <summary>
+        /// 双击行为.
+        /// </summary>
+        [Reactive]
+        public DoubleClickBehavior DoubleClickBehavior { get; set; }
 
         /// <summary>
         /// 单次快进/快退时长.
