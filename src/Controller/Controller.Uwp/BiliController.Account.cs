@@ -405,14 +405,15 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="isCreated">是否是该用户创建的收藏夹.</param>
         /// <returns>列表信息.</returns>
-        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber)
+        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber, bool isCreated = false)
         {
             ThrowWhenNetworkUnavaliable();
 
             try
             {
-                var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber);
+                var response = await _accountProvider.GetFavoriteFolderListAsync(userId, pageNumber, isCreated);
                 return response;
             }
             catch (Exception ex)

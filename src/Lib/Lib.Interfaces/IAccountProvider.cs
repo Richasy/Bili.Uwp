@@ -151,8 +151,9 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="isCreated">是否是该用户创建的收藏夹.</param>
         /// <returns>视频收藏夹列表响应.</returns>
-        Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber);
+        Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber, bool isCreated);
 
         /// <summary>
         /// 获取追番列表.
