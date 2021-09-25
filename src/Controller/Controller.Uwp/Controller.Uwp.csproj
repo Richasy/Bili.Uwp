@@ -46,7 +46,7 @@
       <Version>4.7.11</Version>
     </PackageReference>
     <PackageReference Include="Websocket.Client">
-      <Version>4.3.36</Version>
+      <Version>4.3.38</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
