@@ -19,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="FavoriteVideoFolderViewModel"/> class.
         /// </summary>
         /// <param name="folder">收藏夹分类.</param>
+        /// <param name="isCreated">是否是用户创建的.</param>
         public FavoriteVideoFolderViewModel(FavoriteFolder folder)
         {
             Name = folder.Name;
@@ -73,6 +74,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowEmpty { get; set; }
 
         /// <summary>
+        /// 是否是该用户创建的.
+        /// </summary>
+        [Reactive]
+        public bool IsCreated { get; set; }
+
+        /// <summary>
         /// 加载更多.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -83,7 +90,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDeltaLoading = true;
                 try
                 {
-                    var response = await BiliController.Instance.GetFavoriteFolderListAsync(AccountViewModel.Instance.Mid.Value, _pageNumber);
+                    var response = await BiliController.Instance.GetFavoriteFolderListAsync(AccountViewModel.Instance.Mid.Value, _pageNumber, IsMine);
                     HandleMediaList(response);
                 }
                 catch (System.Exception)

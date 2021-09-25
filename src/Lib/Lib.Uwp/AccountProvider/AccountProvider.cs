@@ -300,7 +300,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber)
+        public async Task<FavoriteMediaList> GetFavoriteFolderListAsync(int userId, int pageNumber, bool isCreated)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -309,7 +309,8 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.PageNumber, pageNumber.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteFolderDelta, queryParameters, needToken: true);
+            var url = isCreated ? Account.CreatedVideoFavoriteFolderDelta : Account.CollectedVideoFavoriteFolderDelta;
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<FavoriteMediaList>>(response);
             return result.Data;

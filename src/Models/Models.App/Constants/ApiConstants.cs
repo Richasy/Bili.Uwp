@@ -153,9 +153,14 @@ namespace Richasy.Bili.Models.App.Constants
             public const string VideoFavoriteDelta = _apiBase + "/x/v3/fav/resource/list";
 
             /// <summary>
-            /// 获取视频收藏夹分类的增量信息.
+            /// 获取用户收集的视频收藏夹分类的增量信息.
             /// </summary>
-            public const string VideoFavoriteFolderDelta = _apiBase + "/x/v3/fav/folder/collected/list";
+            public const string CollectedVideoFavoriteFolderDelta = _apiBase + "/x/v3/fav/folder/collected/list";
+
+            /// <summary>
+            /// 获取用户创建的视频收藏夹分类的增量信息.
+            /// </summary>
+            public const string CreatedVideoFavoriteFolderDelta = _apiBase + "/x/v3/fav/folder/created/list";
 
             /// <summary>
             /// 获取动漫收藏信息.
