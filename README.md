@@ -9,6 +9,8 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Richasy/Bili.Uwp)](https://github.com/Richasy/Bili.Uwp/releases) ![GitHub Release Date](https://img.shields.io/github/release-date/Richasy/Bili.Uwp) ![GitHub All Releases](https://img.shields.io/github/downloads/Richasy/Bili.Uwp/total) ![GitHub stars](https://img.shields.io/github/stars/Richasy/Bili.Uwp?style=flat) ![GitHub forks](https://img.shields.io/github/forks/Richasy/Bili.Uwp)
 
 `哔哩` 现在为 Windows 11 设计！
+  
+[![Release Builder](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml/badge.svg)](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml)
 
 </div>
 
