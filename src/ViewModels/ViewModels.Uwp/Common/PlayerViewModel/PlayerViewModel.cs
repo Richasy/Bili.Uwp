@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
@@ -61,12 +60,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
-
-            // 用于解析Flv视频
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
-            {
-                SYEngine.Core.Initialize();
-            }
         }
 
         /// <summary>
