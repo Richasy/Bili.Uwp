@@ -131,7 +131,7 @@
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                 HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
                 IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
-                IsHoldingEnabled="True"
+                IsHoldingEnabled="{x:Bind ViewModel.IsEnableLikeHolding}"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
                 <icons:RegularFluentIcon Symbol="ThumbLike16" />
             </local:ProgressButton>

@@ -51,6 +51,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPgc = false;
             IsLive = false;
 
+            IsLikeChecked = false;
+            IsCoinChecked = false;
+            IsFollow = false;
+            IsFavoriteChecked = false;
+            IsEnableLikeHolding = true;
+
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
             RelatedVideoCollection.Clear();
