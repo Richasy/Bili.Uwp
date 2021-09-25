@@ -378,6 +378,7 @@
     <Compile Include="Resources\Converter\ColorConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuStyleConverter.cs" />
+    <Compile Include="Resources\Converter\DoubleClickTextConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
