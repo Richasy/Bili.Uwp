@@ -358,7 +358,7 @@
     <value>下载</value>
   </data>
   <data name="DownloadTip" xml:space="preserve">
-    <value>应用本身不提供下载功能，但支持生成BBDown命令，具体的使用方法参见 帮助&amp;支持</value>
+    <value>应用本身不提供下载功能，但支持生成 BBDown 命令，具体的使用方法参见 帮助&amp;支持</value>
   </data>
   <data name="DownloadType" xml:space="preserve">
     <value>下载类型</value>
@@ -1107,7 +1107,7 @@
     <value>使用云屏蔽配置</value>
   </data>
   <data name="UseMp4Box" xml:space="preserve">
-    <value>使用MP4Box混流</value>
+    <value>使用 MP4Box 混流</value>
   </data>
   <data name="UseMultiThread" xml:space="preserve">
     <value>使用多线程下载</value>
