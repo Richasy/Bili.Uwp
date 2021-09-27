@@ -165,6 +165,9 @@
   <data name="AskIssue" xml:space="preserve">
     <value>Github issue</value>
   </data>
+  <data name="AtLeastChooseOnePart" xml:space="preserve">
+    <value>至少应选择一个分P</value>
+  </data>
   <data name="AtMe" xml:space="preserve">
     <value>@我的</value>
   </data>
@@ -351,8 +354,8 @@
   <data name="DoubleClickBehaviorDescription" xml:space="preserve">
     <value>双击播放器空白区域的行为</value>
   </data>
-  <data name="DownloadCommand" xml:space="preserve">
-    <value>生成下载命令</value>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
   </data>
   <data name="DownloadTip" xml:space="preserve">
     <value>应用本身不提供下载功能，但支持生成BBDown命令，具体的使用方法参见 帮助&amp;支持</value>

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
@@ -26,6 +27,7 @@ namespace Richasy.Bili.App.Controls
         public DownloadOptionsPanel()
         {
             this.InitializeComponent();
+            Initialize();
         }
 
         /// <summary>
@@ -124,12 +126,19 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnGenerateButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var appVM = AppViewModel.Instance;
+            if (ViewModel.TotalPartCollection.Where(p => p.IsSelected).Count() == 0)
+            {
+                appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
             var command = await ViewModel.CreateDownloadCommandAsync();
             var package = new DataPackage();
             package.SetText(command);
             Clipboard.SetContent(package);
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied));
+            appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied));
         }
     }
 }

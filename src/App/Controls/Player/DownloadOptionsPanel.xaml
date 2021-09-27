@@ -12,7 +12,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="12">
+    <StackPanel MaxWidth="320" Spacing="8">
         <TextBlock
             Style="{StaticResource CaptionTextBlockStyle}"
             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -47,7 +47,7 @@
             HorizontalAlignment="Left"
             Header="{loc:LocaleLocator Name=UseMultiThread}"
             IsOn="{x:Bind ViewModel.UseMultiThread, Mode=TwoWay}" />
-        <StackPanel>
+        <StackPanel Spacing="8">
             <TextBlock Text="{loc:LocaleLocator Name=Parts}" />
             <ScrollViewer
                 MaxHeight="132"
@@ -57,7 +57,7 @@
                     <muxc:ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="uwp:NumberPartViewModel">
                             <local:CardPanel
-                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
                                 IsEnableCheck="True"
                                 IsEnableHoverAnimation="False"
                                 IsEnableShadow="False">
@@ -81,6 +81,7 @@
         </StackPanel>
         <Button
             Style="{StaticResource AccentButtonStyle}"
+            Margin="0,4,0,0"
             HorizontalAlignment="Stretch"
             Click="OnGenerateButtonClickAsync"
             Content="{loc:LocaleLocator Name=GenerateCommand}" />

@@ -345,7 +345,7 @@ namespace Richasy.Bili.Models.Enums
         DoubleClickBehaviorDescription,
         PreferHighQuality,
         PreferHighQualityDescription,
-        DownloadCommand,
+        Download,
         Copied,
         Any,
         DownloadType,
@@ -357,6 +357,7 @@ namespace Richasy.Bili.Models.Enums
         UseMultiThread,
         GenerateCommand,
         DownloadTip,
+        AtLeastChooseOnePart,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -137,7 +137,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 list.Add("-mt");
             }
 
-            var selectedPages = TotalPartCollection.Where(p => p.IsSelected).ToList();
+            var selectedPages = TotalPartCollection.Where(p => p.IsSelected).Select(p => p.Data).ToList();
             if (selectedPages.Count > 0)
             {
                 var pageStr = string.Join(',', selectedPages);
@@ -157,6 +157,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 list.Add("--sub-only");
             }
+
+            list.Add($"\"{DownloadParameter}\"");
 
             return string.Join(' ', list);
         }

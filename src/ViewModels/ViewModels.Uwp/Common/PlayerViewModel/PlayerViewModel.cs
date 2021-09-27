@@ -137,7 +137,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _progressTimer.Start();
-
+            InitDownload();
             Loaded?.Invoke(this, EventArgs.Empty);
         }
 

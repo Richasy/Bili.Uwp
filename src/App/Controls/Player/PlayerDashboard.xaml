@@ -213,7 +213,7 @@
                 Margin="0,0,0,8"
                 HorizontalAlignment="Stretch"
                 Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <local:IconTextBlock Symbol="ArrowDownload16" Text="{loc:LocaleLocator Name=DownloadCommand}" />
+                <local:IconTextBlock Symbol="ArrowDownload16" Text="{loc:LocaleLocator Name=Download}" />
                 <Button.Flyout>
                     <Flyout>
                         <local:DownloadOptionsPanel />
