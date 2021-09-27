@@ -59,6 +59,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     AppViewModel.Instance.InitializeTheme();
                     break;
                 case nameof(IsPrelaunch):
+                    WriteSetting(SettingNames.IsPrelaunch, IsPrelaunch);
                     SetPrelaunch();
                     break;
                 case nameof(IsStartup):
