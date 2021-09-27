@@ -207,6 +207,20 @@
                 <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
             </Button>
 
+            <Button
+                x:Name="CreateDownloadCommandButton"
+                MinWidth="120"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Stretch"
+                Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <local:IconTextBlock Symbol="ArrowDownload16" Text="{loc:LocaleLocator Name=Download}" />
+                <Button.Flyout>
+                    <Flyout>
+                        <local:DownloadOptionsPanel />
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+
             <StackPanel
                 Orientation="Horizontal"
                 Spacing="8"

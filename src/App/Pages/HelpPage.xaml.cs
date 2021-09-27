@@ -36,17 +36,17 @@ namespace Richasy.Bili.App.Pages
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private async void OnAskIssueButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnAskIssueButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://github.com/Richasy/Bili.Uwp/issues/new")).AsTask();
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/Richasy/Bili.Uwp/issues/new/choose")).AsTask();
         }
 
-        private async void OnProjectHomePageClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnProjectHomePageClickAsync(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri("https://github.com/Richasy/Bili.Uwp/")).AsTask();
         }
 
-        private async void OnBiliHomePageClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnBiliHomePageClickAsync(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri("https://space.bilibili.com/5992670")).AsTask();
         }

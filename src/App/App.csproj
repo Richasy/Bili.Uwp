@@ -42,6 +42,9 @@
     <Compile Include="Controls\Danmaku\DanmakuSendOptions.xaml.cs">
       <DependentUpon>DanmakuSendOptions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\DownloadOptionsPanel.xaml.cs">
+      <DependentUpon>DownloadOptionsPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IRefreshPage.cs" />
     <Compile Include="Controls\Message\AtMessageView.xaml.cs">
       <DependentUpon>AtMessageView.xaml</DependentUpon>
@@ -521,6 +524,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Danmaku\DanmakuSendOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\DownloadOptionsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

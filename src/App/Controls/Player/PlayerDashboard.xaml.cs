@@ -1,7 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls

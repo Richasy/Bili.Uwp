@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
+using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -136,7 +137,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _progressTimer.Start();
-
+            InitDownload();
             Loaded?.Invoke(this, EventArgs.Empty);
         }
 
@@ -458,6 +459,38 @@ namespace Richasy.Bili.ViewModels.Uwp
             var dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += OnDataRequested;
             DataTransferManager.ShowShareUI();
+        }
+
+        /// <summary>
+        /// 初始化BBDown下载命令.
+        /// </summary>
+        public void InitDownload()
+        {
+            var para = string.Empty;
+            if (IsPgc)
+            {
+                if (CurrentPgcEpisode != null)
+                {
+                    para = $"ep{CurrentPgcEpisode.Id}";
+                }
+                else if (_pgcDetail != null)
+                {
+                    para = $"ss{_pgcDetail.SeasonId}";
+                }
+            }
+            else if (!IsLive)
+            {
+                if (!string.IsNullOrEmpty(BvId))
+                {
+                    para = BvId;
+                }
+                else if (!string.IsNullOrEmpty(AvId))
+                {
+                    para = $"av{AvId}";
+                }
+            }
+
+            DownloadViewModel.Instance.Load(para, VideoPartCollection.Select((p, index) => index + 1).ToList());
         }
 
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
