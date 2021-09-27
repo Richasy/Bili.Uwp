@@ -70,6 +70,7 @@
                                             <exp:ExpanderExWrapper.MainContent>
                                                 <TextBlock
                                                     HorizontalAlignment="Left"
+                                                    IsTextSelectionEnabled="True"
                                                     LineHeight="24"
                                                     Text="{x:Bind Answer}"
                                                     TextWrapping="Wrap" />
