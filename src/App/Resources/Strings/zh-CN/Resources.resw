@@ -1014,7 +1014,7 @@
     <value>自启动</value>
   </data>
   <data name="StartupDescription" xml:space="preserve">
-    <value>将应用添加到开启启动项，应用将在系统启动后自动打开，并以最小化形式显示在任务栏</value>
+    <value>将应用添加到开机启动项，应用将在系统启动后自动打开，并以最小化形式显示在任务栏</value>
   </data>
   <data name="StartupDisabledByPolicy" xml:space="preserve">
     <value>启动项由您的组织或组策略管理，应用启动项已被禁用</value>
