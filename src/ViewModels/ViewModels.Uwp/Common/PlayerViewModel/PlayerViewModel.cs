@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
-using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -55,6 +54,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _logger);
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
@@ -548,6 +548,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsCoinChecked):
                 case nameof(IsFavoriteChecked):
                     IsEnableLikeHolding = !IsLikeChecked || !IsCoinChecked || !IsFavoriteChecked;
+                    break;
+                case nameof(IsShowDanmakuBar):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsShowDanmakuBar, IsShowDanmakuBar);
                     break;
                 default:
                     break;

@@ -270,6 +270,7 @@
                                     <VisualState.Setters>
                                         <Setter Target="DanmakuContainer.Visibility" Value="Collapsed" />
                                         <Setter Target="Danmaku_Command_Border.Visibility" Value="Collapsed" />
+                                        <Setter Target="ToggleDanmakuVisibilityButton.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -329,7 +330,8 @@
                                 <Border
                                     x:Name="MediaTransportControls_Timeline_Border"
                                     Grid.Row="1"
-                                    Grid.Column="1">
+                                    Grid.Column="1"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                     <Grid
                                         x:Name="MediaTransportControls_Timeline_Grid"
                                         Padding="12,0"
@@ -408,6 +410,31 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
+                                            <Button
+                                                x:Name="ToggleDanmakuBarVisibilityButton"
+                                                AutomationProperties.Name="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}"
+                                                Style="{StaticResource MTCButtonStyle}"
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}">
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <icons:RegularFluentIcon
+                                                            FontSize="16"
+                                                            Symbol="ChevronDown16"
+                                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDanmakuBar, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                                                        <icons:RegularFluentIcon
+                                                            FontSize="16"
+                                                            Symbol="ChevronUp16"
+                                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDanmakuBar, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                    </Grid>
+                                                </Button.Content>
+                                                <Button.KeyboardAccelerators>
+                                                    <KeyboardAccelerator
+                                                        Key="D"
+                                                        IsEnabled="True"
+                                                        Modifiers="Control" />
+                                                </Button.KeyboardAccelerators>
+                                            </Button>
+
                                             <Button x:Name="VolumeMuteButton" Style="{StaticResource MTCButtonStyle}">
                                                 <Button.Flyout>
                                                     <Flyout
@@ -452,41 +479,107 @@
                                                     <icons:RegularFluentIcon Symbol="Speaker220" />
                                                 </Button.Content>
                                             </Button>
-                                            <Button
-                                                x:Name="FormatButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
-                                                Style="{StaticResource MTCButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="Hd24" />
-                                                </Button.Content>
-                                                <Button.Flyout>
-                                                    <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
-                                                        <ListView
-                                                            x:Name="FormatListView"
-                                                            MinWidth="120"
-                                                            Margin="4"
-                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FormatCollection}">
-                                                            <ListView.ItemTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding Data.Description}" />
-                                                                </DataTemplate>
-                                                            </ListView.ItemTemplate>
-                                                        </ListView>
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                                <Button.KeyboardAccelerators>
-                                                    <KeyboardAccelerator
-                                                        Key="Q"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
-                                                </Button.KeyboardAccelerators>
-                                            </Button>
-                                            <Button x:Name="PlaybackRateButton" Style="{StaticResource MTCButtonStyle}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="Replay20" />
-                                                </Button.Content>
-                                            </Button>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                                <Button
+                                                    x:Name="FormatButton"
+                                                    AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
+                                                    Style="{StaticResource MTCButtonStyle}"
+                                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
+                                                    <Button.Content>
+                                                        <icons:RegularFluentIcon Symbol="Hd24" />
+                                                    </Button.Content>
+                                                    <Button.Flyout>
+                                                        <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
+                                                            <ListView
+                                                                x:Name="FormatListView"
+                                                                MinWidth="120"
+                                                                Margin="4"
+                                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FormatCollection}">
+                                                                <ListView.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding Data.Description}" />
+                                                                    </DataTemplate>
+                                                                </ListView.ItemTemplate>
+                                                            </ListView>
+                                                        </Flyout>
+                                                    </Button.Flyout>
+                                                    <Button.KeyboardAccelerators>
+                                                        <KeyboardAccelerator
+                                                            Key="Q"
+                                                            IsEnabled="True"
+                                                            Modifiers="Control" />
+                                                    </Button.KeyboardAccelerators>
+                                                </Button>
+                                                <Button x:Name="PlaybackRateButton" Style="{StaticResource MTCButtonStyle}">
+                                                    <Button.Content>
+                                                        <icons:RegularFluentIcon Symbol="Replay20" />
+                                                    </Button.Content>
+                                                </Button>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive}">
+                                                <Button
+                                                    x:Name="LiveQualityButton"
+                                                    AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
+                                                    Style="{StaticResource MTCButtonStyle}"
+                                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
+                                                    <Button.Content>
+                                                        <icons:RegularFluentIcon Symbol="Hd24" />
+                                                    </Button.Content>
+                                                    <Button.Flyout>
+                                                        <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
+                                                            <ListView
+                                                                x:Name="LiveQualityListView"
+                                                                MinWidth="120"
+                                                                Margin="4"
+                                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LiveQualityCollection}">
+                                                                <ListView.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding Data.Description}" />
+                                                                    </DataTemplate>
+                                                                </ListView.ItemTemplate>
+                                                            </ListView>
+                                                        </Flyout>
+                                                    </Button.Flyout>
+                                                    <Button.KeyboardAccelerators>
+                                                        <KeyboardAccelerator
+                                                            Key="Q"
+                                                            IsEnabled="True"
+                                                            Modifiers="Control" />
+                                                    </Button.KeyboardAccelerators>
+                                                </Button>
+                                                <Button
+                                                    x:Name="LivePlayLineButton"
+                                                    Style="{StaticResource MTCButtonStyle}"
+                                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayLine}">
+                                                    <Button.Content>
+                                                        <icons:RegularFluentIcon Symbol="DeviceEq24" />
+                                                    </Button.Content>
+                                                    <Button.Flyout>
+                                                        <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
+                                                            <ListView
+                                                                x:Name="LivePlayLineListView"
+                                                                MinWidth="120"
+                                                                Margin="4"
+                                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LivePlayLineCollection}">
+                                                                <ListView.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock>
+                                                                            <Run Text="{loc:LocaleLocator Name=PlayLine}" />
+                                                                            <Run Text="{Binding Data.Order}" />
+                                                                        </TextBlock>
+                                                                    </DataTemplate>
+                                                                </ListView.ItemTemplate>
+                                                            </ListView>
+                                                        </Flyout>
+                                                    </Button.Flyout>
+                                                    <Button.KeyboardAccelerators>
+                                                        <KeyboardAccelerator
+                                                            Key="L"
+                                                            IsEnabled="True"
+                                                            Modifiers="Control" />
+                                                    </Button.KeyboardAccelerators>
+                                                </Button>
+                                            </StackPanel>
                                         </StackPanel>
                                         <StackPanel
                                             x:Name="CenterContainer"
@@ -497,7 +590,8 @@
                                                 x:Name="BackSkipButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=BackSkip}"
                                                 Style="{StaticResource MTCButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackSkip}">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackSkip}"
+                                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityReverseConverter}, Path=ViewModel.IsLive}">
                                                 <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Left" IsEnabled="True" />
                                                 </Button.KeyboardAccelerators>
@@ -520,7 +614,8 @@
                                                 x:Name="ForwardSkipButton"
                                                 AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
                                                 Style="{StaticResource MTCButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}">
+                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}"
+                                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityReverseConverter}, Path=ViewModel.IsLive}">
                                                 <Button.KeyboardAccelerators>
                                                     <KeyboardAccelerator Key="Right" IsEnabled="True" />
                                                 </Button.KeyboardAccelerators>
@@ -579,488 +674,14 @@
                                             </ToggleButton>
                                         </StackPanel>
                                     </Grid>
-                                    <Grid
-                                        x:Name="Danmaku_Command_Border"
-                                        Grid.Row="1"
-                                        Padding="4,4,8,4"
-                                        BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                        BorderThickness="0,1,0,0">
-                                        <local:DanmakuBox />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <Grid
-                            x:Name="HeaderCommandsPanel"
-                            Padding="12,32,12,0"
-                            VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Button
-                                x:Name="BackButton"
-                                AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
-                                Width="32"
-                                Height="32"
-                                Padding="0"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}">
-                                <icons:RegularFluentIcon FontSize="14" Symbol="ChevronLeft48" />
-                                <Button.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Escape" />
-                                </Button.KeyboardAccelerators>
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="LiveMTCStyle" TargetType="local:BiliPlayerTransportControls">
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="FlowDirection" Value="LeftToRight" />
-        <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
-        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
-        <Setter Property="IsTextScaleFactorEnabled" Value="False" />
-        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:BiliPlayerTransportControls">
-                    <Grid x:Name="RootGrid" Background="Transparent">
-                        <Grid.Resources>
-                            <Style TargetType="icons:RegularFluentIcon">
-                                <Setter Property="FontSize" Value="16" />
-                            </Style>
-                        </Grid.Resources>
-                        <VisualStateManager.VisualStateGroups>
-                            <!-- ControlPanel Visibility states -->
-                            <VisualStateGroup x:Name="ControlPanelVisibilityStates">
-                                <VisualState x:Name="ControlPanelFadeIn">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="TranslateVertical"
-                                            Storyboard.TargetProperty="Y"
-                                            From="50"
-                                            To="0.5"
-                                            Duration="0:0:0.2" />
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="ControlPanelFadeOut">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="IsHitTestVisible">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="TranslateVertical"
-                                            Storyboard.TargetProperty="Y"
-                                            From="0.5"
-                                            To="50"
-                                            Duration="0:0:0.4" />
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="IsHitTestVisible">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <!-- ControlPanel Visibility states -->
-                            <!-- Media state visual states -->
-                            <VisualStateGroup x:Name="MediaStates">
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="Buffering">
-                                    <VisualState.Setters>
-                                        <Setter Target="BufferingProgressBar.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Loading">
-                                    <VisualState.Setters>
-                                        <Setter Target="BufferingProgressBar.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MediaControlsCommandBar"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="0"
-                                            Duration="0" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Error">
-                                    <VisualState.Setters>
-                                        <Setter Target="ErrorBorder.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard />
-                                </VisualState>
-                            </VisualStateGroup>
-                            <!-- Media state visual states -->
-                            <!-- Audio Selection Button visibility states -->
-                            <VisualStateGroup x:Name="AudioSelectionAvailablityStates">
-                                <VisualState x:Name="AudioSelectionAvailable">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioTracksSelectionButton.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="AudioSelectionUnavailable" />
-                            </VisualStateGroup>
-                            <!-- Video volume visibility states -->
-                            <!-- Closed Captioning Selection Button visibility states -->
-                            <VisualStateGroup x:Name="CCSelectionAvailablityStates">
-                                <VisualState x:Name="CCSelectionAvailable">
-                                    <VisualState.Setters>
-                                        <Setter Target="CCSelectionButton.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="CCSelectionUnavailable" />
-                            </VisualStateGroup>
-                            <!-- Closed Captioning  visibility states -->
-                            <!-- Focus states -->
-                            <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualWhite"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualBlack"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Unfocused" />
-                                <VisualState x:Name="PointerFocused" />
-                            </VisualStateGroup>
-                            <!-- Focus states -->
-                            <VisualStateGroup x:Name="MediaTransportControlMode">
-                                <VisualState x:Name="NormalMode" />
-                                <VisualState x:Name="CompactMode">
-                                    <VisualState.Setters>
-                                        <Setter Target="TimeTextGrid.Visibility" Value="Collapsed" />
-                                        <Setter Target="MediaTransportControls_Command_Border.(Grid.Column)" Value="2" />
-                                        <Setter Target="MediaTransportControls_Command_Border.(Grid.Row)" Value="1" />
-                                        <Setter Target="ControlPanelGrid.Height" Value="48" />
-                                        <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="ControlPanelGrid.Padding" Value="3" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <!-- PlayPause states -->
-                            <VisualStateGroup x:Name="PlayPauseStates">
-                                <VisualState x:Name="PlayState" />
-                                <VisualState x:Name="PauseState">
-                                    <VisualState.Setters>
-                                        <Setter Target="PlayPauseSymbol.Glyph" Value="&#xF5A2;" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <!-- VolumeMute states -->
-                            <VisualStateGroup x:Name="VolumeMuteStates">
-                                <VisualState x:Name="VolumeState" />
-                                <VisualState x:Name="MuteState">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioMuteSymbol.Symbol" Value="Mute" />
-                                        <Setter Target="VolumeMuteSymbol.Symbol" Value="Mute" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <!-- Danmaku states -->
-                            <VisualStateGroup x:Name="DanmakuStates">
-                                <VisualState x:Name="DanmakuDefaultState">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowWindowThresholdWidth}" />
-                                    </VisualState.StateTriggers>
-                                </VisualState>
-                                <VisualState x:Name="DanmakuInvisibleState">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="DanmakuContainer.Visibility" Value="Collapsed" />
-                                        <Setter Target="Danmaku_Command_Border.Visibility" Value="Collapsed" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Rectangle
-                            x:Name="InteractionControl"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Fill="Transparent" />
-                        <Grid x:Name="DanmakuContainer">
-                            <local:DanmakuView
-                                x:Name="DanmakuView"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                DanmakuBold="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsDanmakuBold}"
-                                DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
-                                DanmakuStyle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuStyle}"
-                                Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        </Grid>
-                        <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
-                            <Grid
-                                x:Name="ControlPanelGrid"
-                                MaxWidth="820"
-                                VerticalAlignment="Bottom"
-                                Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
-                                BorderThickness="{ThemeResource MediaTransportControlsBorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                RenderTransformOrigin="0.5,0.5">
-                                <Grid.RenderTransform>
-                                    <TranslateTransform x:Name="TranslateVertical" />
-                                </Grid.RenderTransform>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Border
-                                    x:Name="ErrorBorder"
-                                    Grid.ColumnSpan="3"
-                                    Width="320"
-                                    Height="96"
-                                    HorizontalAlignment="Center"
-                                    Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                    Visibility="Collapsed">
-                                    <TextBlock
-                                        x:Name="ErrorTextBlock"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Margin="12"
-                                        TextWrapping="WrapWholeWords" />
-                                </Border>
-                                <ProgressBar
-                                    x:Name="BufferingProgressBar"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="3"
-                                    Height="4"
-                                    Margin="0,2,0,0"
-                                    VerticalAlignment="Top"
-                                    IsHitTestVisible="False"
-                                    IsIndeterminate="True"
-                                    Visibility="Collapsed" />
-                                <Grid
-                                    x:Name="MediaTransportControls_Command_Border"
-                                    Grid.Row="2"
-                                    Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid x:Name="MediaControlsCommandBar" Padding="4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
-                                            <Button x:Name="VolumeMuteButton" Style="{StaticResource MTCButtonStyle}">
-                                                <Button.Flyout>
-                                                    <Flyout
-                                                        x:Name="VolumeFlyout"
-                                                        contract8Present:ShouldConstrainToRootBounds="False"
-                                                        FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}">
-                                                        <StackPanel Padding="4,0,16,0" Orientation="Horizontal">
-                                                            <Button
-                                                                x:Name="AudioMuteButton"
-                                                                Style="{StaticResource MTCButtonStyle}"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center">
-                                                                <Button.Resources>
-                                                                    <Thickness x:Key="ButtonContentViewboxCollapsedMargin">0,12</Thickness>
-                                                                    <Thickness x:Key="ButtonInnerBorderMargin">5</Thickness>
-                                                                </Button.Resources>
-                                                                <Button.Content>
-                                                                    <SymbolIcon x:Name="AudioMuteSymbol" Symbol="Volume" />
-                                                                </Button.Content>
-                                                            </Button>
-                                                            <Slider
-                                                                x:Name="VolumeSlider"
-                                                                Width="{ThemeResource MediaTransportControlsSliderWidth}"
-                                                                Height="{ThemeResource MediaTransportControlsSliderHeight}"
-                                                                Margin="12,0"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"
-                                                                IsThumbToolTipEnabled="False"
-                                                                Value="50" />
-                                                            <TextBlock
-                                                                x:Name="VolumeValue"
-                                                                Style="{StaticResource MediaTextBlockStyle}"
-                                                                Width="24"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"
-                                                                Text="{Binding ElementName=VolumeSlider, Path=Value}"
-                                                                TextAlignment="Right" />
-                                                        </StackPanel>
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="Speaker220" />
-                                                </Button.Content>
-                                            </Button>
-                                            <Button
-                                                x:Name="LiveQualityButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
-                                                Style="{StaticResource MTCButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="Hd24" />
-                                                </Button.Content>
-                                                <Button.Flyout>
-                                                    <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
-                                                        <ListView
-                                                            x:Name="LiveQualityListView"
-                                                            MinWidth="120"
-                                                            Margin="4"
-                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LiveQualityCollection}">
-                                                            <ListView.ItemTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding Data.Description}" />
-                                                                </DataTemplate>
-                                                            </ListView.ItemTemplate>
-                                                        </ListView>
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                                <Button.KeyboardAccelerators>
-                                                    <KeyboardAccelerator
-                                                        Key="Q"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
-                                                </Button.KeyboardAccelerators>
-                                            </Button>
-                                            <Button
-                                                x:Name="LivePlayLineButton"
-                                                Style="{StaticResource MTCButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayLine}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="DeviceEq24" />
-                                                </Button.Content>
-                                                <Button.Flyout>
-                                                    <Flyout FlyoutPresenterStyle="{StaticResource MTCFlyoutStyle}" Placement="Top">
-                                                        <ListView
-                                                            x:Name="LivePlayLineListView"
-                                                            MinWidth="120"
-                                                            Margin="4"
-                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LivePlayLineCollection}">
-                                                            <ListView.ItemTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock>
-                                                                        <Run Text="{loc:LocaleLocator Name=PlayLine}" />
-                                                                        <Run Text="{Binding Data.Order}" />
-                                                                    </TextBlock>
-                                                                </DataTemplate>
-                                                            </ListView.ItemTemplate>
-                                                        </ListView>
-                                                    </Flyout>
-                                                </Button.Flyout>
-                                                <Button.KeyboardAccelerators>
-                                                    <KeyboardAccelerator
-                                                        Key="L"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
-                                                </Button.KeyboardAccelerators>
-                                            </Button>
-                                        </StackPanel>
-                                        <StackPanel
-                                            x:Name="CenterContaienr"
-                                            Grid.ColumnSpan="3"
-                                            HorizontalAlignment="Center">
-                                            <Button x:Name="PlayPauseButton" Style="{StaticResource MTCButtonStyle}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon x:Name="PlayPauseSymbol" Glyph="&#x002B;" />
-                                                </Button.Content>
-                                                <Button.KeyboardAccelerators>
-                                                    <KeyboardAccelerator Key="Space" IsEnabled="True" />
-                                                    <KeyboardAccelerator
-                                                        Key="P"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
-                                                </Button.KeyboardAccelerators>
-                                            </Button>
-                                        </StackPanel>
-                                        <StackPanel
-                                            x:Name="RightContainer"
-                                            Grid.Column="2"
-                                            Orientation="Horizontal">
-                                            <Button x:Name="CastButton" Style="{StaticResource MTCButtonStyle}">
-                                                <Button.Content>
-                                                    <icons:RegularFluentIcon Symbol="Cast20" />
-                                                </Button.Content>
-                                            </Button>
-                                            <ToggleButton
-                                                x:Name="CompactOverlayModeButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=CompactOverlayMode}"
-                                                Style="{StaticResource MTCToggleButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=CompactOverlayMode}">
-                                                <ToggleButton.Content>
-                                                    <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
-                                                </ToggleButton.Content>
-                                                <ToggleButton.KeyboardAccelerators>
-                                                    <KeyboardAccelerator
-                                                        Key="M"
-                                                        IsEnabled="True"
-                                                        Modifiers="Control" />
-                                                </ToggleButton.KeyboardAccelerators>
-                                            </ToggleButton>
-                                            <ToggleButton
-                                                x:Name="FullWindowModeButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=FullWindowMode}"
-                                                Style="{StaticResource MTCToggleButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullWindowMode}">
-                                                <ToggleButton.Content>
-                                                    <icons:RegularFluentIcon FontSize="16" Symbol="AutoFitWidth24" />
-                                                </ToggleButton.Content>
-                                                <ToggleButton.KeyboardAccelerators>
-                                                    <KeyboardAccelerator Key="F10" IsEnabled="True" />
-                                                </ToggleButton.KeyboardAccelerators>
-                                            </ToggleButton>
-                                            <ToggleButton
-                                                x:Name="FullScreenModeButton"
-                                                AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
-                                                Style="{StaticResource MTCToggleButtonStyle}"
-                                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
-                                                <ToggleButton.Content>
-                                                    <icons:RegularFluentIcon FontSize="16" Symbol="FullScreenMaximize24" />
-                                                </ToggleButton.Content>
-                                                <ToggleButton.KeyboardAccelerators>
-                                                    <KeyboardAccelerator Key="F11" IsEnabled="True" />
-                                                </ToggleButton.KeyboardAccelerators>
-                                            </ToggleButton>
-                                        </StackPanel>
-                                    </Grid>
-                                    <Grid
-                                        x:Name="Danmaku_Command_Border"
-                                        Grid.Row="1"
-                                        Padding="4,4,8,4"
-                                        BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                        BorderThickness="0,1,0,0">
-                                        <local:DanmakuBox />
+                                    <Grid Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDanmakuBar, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Grid
+                                            x:Name="Danmaku_Command_Border"
+                                            Padding="4,4,8,4"
+                                            BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                            BorderThickness="0,1,0,0">
+                                            <local:DanmakuBox />
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

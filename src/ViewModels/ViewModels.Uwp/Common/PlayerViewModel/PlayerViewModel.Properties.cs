@@ -622,6 +622,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsLiveMessageAutoScroll { get; set; }
 
+        /// <summary>
+        /// 是否显示弹幕条.
+        /// </summary>
+        [Reactive]
+        public bool IsShowDanmakuBar { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }
