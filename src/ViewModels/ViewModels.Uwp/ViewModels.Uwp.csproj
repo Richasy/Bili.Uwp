@@ -32,9 +32,11 @@
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
     <Compile Include="Common\HelpViewModel\HelpViewModel.cs" />
     <Compile Include="Common\HelpViewModel\HelpViewModel.Properties.cs" />
+    <Compile Include="Common\DownloadViewModel.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />
+    <Compile Include="Common\NumberPartViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
     <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />

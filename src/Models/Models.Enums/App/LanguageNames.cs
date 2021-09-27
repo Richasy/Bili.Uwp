@@ -345,6 +345,18 @@ namespace Richasy.Bili.Models.Enums
         DoubleClickBehaviorDescription,
         PreferHighQuality,
         PreferHighQualityDescription,
+        DownloadCommand,
+        Copied,
+        Any,
+        DownloadType,
+        OnlyVideo,
+        OnlyAudio,
+        OnlySubtitle,
+        Full,
+        UseMp4Box,
+        UseMultiThread,
+        GenerateCommand,
+        DownloadTip,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

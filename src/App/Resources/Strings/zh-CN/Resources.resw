@@ -144,6 +144,9 @@
   <data name="Anime" xml:space="preserve">
     <value>动漫</value>
   </data>
+  <data name="Any" xml:space="preserve">
+    <value>任意</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
@@ -264,6 +267,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="Copied" xml:space="preserve">
+    <value>已复制</value>
+  </data>
   <data name="Danmaku" xml:space="preserve">
     <value>弹幕</value>
   </data>
@@ -344,6 +350,15 @@
   </data>
   <data name="DoubleClickBehaviorDescription" xml:space="preserve">
     <value>双击播放器空白区域的行为</value>
+  </data>
+  <data name="DownloadCommand" xml:space="preserve">
+    <value>生成下载命令</value>
+  </data>
+  <data name="DownloadTip" xml:space="preserve">
+    <value>应用本身不提供下载功能，但支持生成BBDown命令，具体的使用方法参见 帮助&amp;支持</value>
+  </data>
+  <data name="DownloadType" xml:space="preserve">
+    <value>下载类型</value>
   </data>
   <data name="DynamicCount" xml:space="preserve">
     <value>动态数</value>
@@ -436,11 +451,17 @@
   <data name="ForwardSkip" xml:space="preserve">
     <value>向前跳转</value>
   </data>
+  <data name="Full" xml:space="preserve">
+    <value>完整</value>
+  </data>
   <data name="FullScreenMode" xml:space="preserve">
     <value>全屏模式</value>
   </data>
   <data name="FullWindowMode" xml:space="preserve">
     <value>全窗口模式</value>
+  </data>
+  <data name="GenerateCommand" xml:space="preserve">
+    <value>生成命令</value>
   </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
@@ -631,6 +652,15 @@
   </data>
   <data name="OfficialUser" xml:space="preserve">
     <value>认证用户</value>
+  </data>
+  <data name="OnlyAudio" xml:space="preserve">
+    <value>仅音频</value>
+  </data>
+  <data name="OnlySubtitle" xml:space="preserve">
+    <value>仅字幕</value>
+  </data>
+  <data name="OnlyVideo" xml:space="preserve">
+    <value>仅视频</value>
   </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
@@ -1072,6 +1102,12 @@
   </data>
   <data name="UseCloudShieldSettings" xml:space="preserve">
     <value>使用云屏蔽配置</value>
+  </data>
+  <data name="UseMp4Box" xml:space="preserve">
+    <value>使用MP4Box混流</value>
+  </data>
+  <data name="UseMultiThread" xml:space="preserve">
+    <value>使用多线程下载</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>用户</value>
