@@ -61,6 +61,7 @@ namespace Richasy.Bili.App.Controls
             _backSkipButton = GetTemplateChild(BackSkipButtonName) as Button;
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as Button;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
+            _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -68,6 +69,7 @@ namespace Richasy.Bili.App.Controls
             _interactionControl.Tapped += OnInteractionControlTapped;
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
             _backButton.Click += OnBackButtonClick;
+            _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
 
             if (_formatListView != null)
             {
@@ -377,6 +379,11 @@ namespace Richasy.Bili.App.Controls
                     this.Hide();
                 }
             });
+        }
+
+        private void OnDanmakuBarVisibilityButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsShowDanmakuBar = !ViewModel.IsShowDanmakuBar;
         }
 
         private void InitializeDanmakuTimer()

@@ -358,6 +358,7 @@ namespace Richasy.Bili.Models.Enums
         GenerateCommand,
         DownloadTip,
         AtLeastChooseOnePart,
+        ToggleDanmakuBarVisibility,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

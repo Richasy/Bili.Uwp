@@ -19,7 +19,6 @@ namespace Richasy.Bili.App.Controls
         public BiliPlayer()
         {
             this.DefaultStyleKey = typeof(BiliPlayer);
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         /// <inheritdoc/>
@@ -32,25 +31,6 @@ namespace Richasy.Bili.App.Controls
             }
 
             _mediaTransport = GetTemplateChild(MTCName) as BiliPlayerTransportControls;
-            CheckMTCStyle();
-        }
-
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ViewModel.IsLive))
-            {
-                CheckMTCStyle();
-            }
-        }
-
-        private void CheckMTCStyle()
-        {
-            var styleName = ViewModel.IsLive ? "LiveMTCStyle" : "DefaultMTCStyle";
-            var style = ServiceLocator.Instance.GetService<IResourceToolkit>().GetResource<Style>(styleName);
-            if (_mediaTransport != null)
-            {
-                _mediaTransport.Style = style;
-            }
         }
     }
 }

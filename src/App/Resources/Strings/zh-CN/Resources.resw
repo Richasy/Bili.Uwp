@@ -1070,6 +1070,9 @@
   <data name="TimeChart" xml:space="preserve">
     <value>时间表</value>
   </data>
+  <data name="ToggleDanmakuBarVisibility" xml:space="preserve">
+    <value>切换弹幕控制器显隐</value>
+  </data>
   <data name="Top" xml:space="preserve">
     <value>置顶</value>
   </data>
