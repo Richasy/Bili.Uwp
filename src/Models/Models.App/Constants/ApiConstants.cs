@@ -459,6 +459,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 发送弹幕.
             /// </summary>
             public const string SendDanmaku = _apiBase + "/x/v2/dm/post";
+
+            /// <summary>
+            /// 获取视频字幕
+            /// </summary>
+            public const string Subtitle = _apiBase + "/x/player.so";
         }
 
         public static class Search

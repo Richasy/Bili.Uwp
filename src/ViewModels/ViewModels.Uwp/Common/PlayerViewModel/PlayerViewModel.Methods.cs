@@ -48,9 +48,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsLiveMessageAutoScroll = true;
             CurrentPlayLine = null;
             CurrentLiveQuality = null;
+            CurrentSubtitleIndex = null;
+            CurrentSubtitle = string.Empty;
+            IsShowSubtitle = false;
             _audioList.Clear();
             _videoList.Clear();
             _flvList.Clear();
+            _subtitleList.Clear();
             ClearPlayer();
             IsPgc = false;
             IsLive = false;
@@ -71,6 +75,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LivePlayLineCollection.Clear();
             LiveDanmakuCollection.Clear();
             FavoriteMetaCollection.Clear();
+            SubtitleIndexCollection.Clear();
 
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
@@ -513,16 +518,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (_progressTimer == null)
             {
-                _progressTimer = new Windows.UI.Xaml.DispatcherTimer();
+                _progressTimer = new DispatcherTimer();
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
                 _progressTimer.Tick += OnProgressTimerTickAsync;
             }
 
             if (_heartBeatTimer == null)
             {
-                _heartBeatTimer = new Windows.UI.Xaml.DispatcherTimer();
+                _heartBeatTimer = new DispatcherTimer();
                 _heartBeatTimer.Interval = TimeSpan.FromSeconds(25);
                 _heartBeatTimer.Tick += OnHeartBeatTimerTickAsync;
+            }
+
+            if (_subtitleTimer == null)
+            {
+                _subtitleTimer = new DispatcherTimer();
+                _subtitleTimer.Interval = TimeSpan.FromSeconds(0.5);
+                _subtitleTimer.Tick += OnSubtitleTimerTickAsync;
             }
         }
 
@@ -623,6 +635,25 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (_videoType == VideoType.Live)
             {
                 await Controller.SendLiveHeartBeatAsync();
+            }
+        }
+
+        private void OnSubtitleTimerTickAsync(object sender, object e)
+        {
+            if (PlayerStatus == PlayerStatus.Playing && _subtitleList.Count > 0 && CanShowSubtitle)
+            {
+                var progress = IsClassicPlayer ? ClassicPlayer.Position : _currentVideoPlayer.PlaybackSession.Position;
+                var sec = progress.TotalSeconds;
+                var subtitle = _subtitleList.Where(p => p.From <= sec && p.To >= sec).FirstOrDefault();
+                if (subtitle != null && !string.IsNullOrEmpty(subtitle.Content))
+                {
+                    IsShowSubtitle = true;
+                    CurrentSubtitle = subtitle.Content;
+                }
+                else
+                {
+                    IsShowSubtitle = false;
+                }
             }
         }
 

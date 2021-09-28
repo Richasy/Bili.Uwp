@@ -54,6 +54,7 @@ namespace Richasy.Bili.App.Controls
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as Button;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
             _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
+            _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -99,6 +100,7 @@ namespace Richasy.Bili.App.Controls
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
+            CheckSubtitleZoom();
             CheckMTCControlMode();
             base.OnApplyTemplate();
         }
@@ -459,6 +461,7 @@ namespace Richasy.Bili.App.Controls
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             CheckDanmakuZoom();
+            CheckSubtitleZoom();
         }
 
         private void CheckDanmakuZoom()
@@ -482,6 +485,28 @@ namespace Richasy.Bili.App.Controls
 
             scale *= DanmakuViewModel.DanmakuZoom;
             _danmakuView.DanmakuSizeZoom = scale;
+        }
+
+        private void CheckSubtitleZoom()
+        {
+            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _subtitleBlock == null)
+            {
+                return;
+            }
+
+            var baseWidth = 800d;
+            var baseHeight = 600d;
+            var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
+            if (scale > 2.2)
+            {
+                scale = 2.2;
+            }
+            else if (scale < 0.4)
+            {
+                scale = 0.4;
+            }
+
+            _subtitleBlock.FontSize = 24 * scale;
         }
 
         private void CheckMTCControlMode()

@@ -35,6 +35,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuColor,
         DoubleClickBehavior,
         IsShowDanmakuBar,
+        CanShowSubtitle,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

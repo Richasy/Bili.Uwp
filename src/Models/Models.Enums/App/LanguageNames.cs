@@ -359,6 +359,9 @@ namespace Richasy.Bili.Models.Enums
         DownloadTip,
         AtLeastChooseOnePart,
         ToggleDanmakuBarVisibility,
+        Subtitle,
+        ShowSubtitle,
+        SubtitleList,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
