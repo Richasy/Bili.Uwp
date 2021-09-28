@@ -127,7 +127,7 @@
     <Compile Include="Common\VideoFormatViewModel.cs" />
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.cs" />
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.Properties.cs" />
-    <Compile Include="SubtitleIndexItemViewModel.cs" />
+    <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

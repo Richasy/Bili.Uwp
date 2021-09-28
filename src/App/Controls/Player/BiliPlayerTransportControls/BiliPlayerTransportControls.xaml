@@ -4,7 +4,9 @@
     xmlns:contract8Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls">
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp">
 
     <!-- New AppBar button style 40x40 pixels in size -->
     <Style
@@ -102,7 +104,7 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="SubtitleVertical"
                                             Storyboard.TargetProperty="Y"
-                                            From="50"
+                                            From="80"
                                             To="0.5"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
@@ -124,7 +126,7 @@
                                             Storyboard.TargetName="SubtitleVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
-                                            To="50"
+                                            To="80"
                                             Duration="0:0:0.4" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="TranslateVertical"
@@ -619,6 +621,27 @@
                                                             </Button.KeyboardAccelerators>
                                                         </Button>
                                                     </StackPanel>
+                                                    <Button
+                                                        x:Name="SubtitleButton"
+                                                        AutomationProperties.Name="{loc:LocaleLocator Name=Subtitle}"
+                                                        Style="{StaticResource MTCButtonStyle}"
+                                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Subtitle}"
+                                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowSubtitleButton}">
+                                                        <Button.Content>
+                                                            <icons:RegularFluentIcon FontSize="16" Symbol="TextboxAlignBottom20" />
+                                                        </Button.Content>
+                                                        <Button.KeyboardAccelerators>
+                                                            <KeyboardAccelerator
+                                                                Key="S"
+                                                                IsEnabled="True"
+                                                                Modifiers="Control" />
+                                                        </Button.KeyboardAccelerators>
+                                                        <Button.Flyout>
+                                                            <Flyout>
+                                                                <local:SubtitleConfigPanel />
+                                                            </Flyout>
+                                                        </Button.Flyout>
+                                                    </Button>
                                                 </StackPanel>
                                                 <StackPanel
                                                     x:Name="CenterContainer"

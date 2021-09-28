@@ -28,8 +28,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                     var index = await Controller.GetSubtitleIndexAsync(aid, cid);
                     if (index != null && index.Subtitles != null)
                     {
+                        IsShowSubtitleButton = true;
                         index.Subtitles.ForEach(p => SubtitleIndexCollection.Add(new SubtitleIndexItemViewModel(p, false)));
                         var first = SubtitleIndexCollection.FirstOrDefault();
+                        CurrentSubtitleIndex = first.Data;
                         if (first != null)
                         {
                             first.IsSelected = true;
@@ -49,7 +51,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private async Task InitializeSubtitleAsync(SubtitleIndexItem item)
+        /// <summary>
+        /// 初始化字幕.
+        /// </summary>
+        /// <param name="item">字幕索引条目.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeSubtitleAsync(SubtitleIndexItem item)
         {
             _subtitleTimer.Stop();
             _subtitleList.Clear();
@@ -70,6 +77,17 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 var exception = new Exception($"字幕加载失败。\n地址：{item.Url}\n错误信息：{ex.Message}");
                 _logger.LogError(exception, true);
+            }
+        }
+
+        /// <summary>
+        /// 检查字幕选中状态.
+        /// </summary>
+        public void CheckSubtitleSelection()
+        {
+            foreach (var item in SubtitleIndexCollection)
+            {
+                item.IsSelected = item.Data.Id == CurrentSubtitleIndex.Id;
             }
         }
     }

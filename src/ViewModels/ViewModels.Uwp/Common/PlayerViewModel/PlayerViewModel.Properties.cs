@@ -649,6 +649,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string CurrentSubtitle { get; set; }
 
         /// <summary>
+        /// 当前字幕索引.
+        /// </summary>
+        [Reactive]
+        public SubtitleIndexItem CurrentSubtitleIndex { get; set; }
+
+        /// <summary>
         /// 是否显示字幕.
         /// </summary>
         [Reactive]

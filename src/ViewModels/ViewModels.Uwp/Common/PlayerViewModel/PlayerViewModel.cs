@@ -589,6 +589,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsShowDanmakuBar):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsShowDanmakuBar, IsShowDanmakuBar);
                     break;
+                case nameof(CanShowSubtitle):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.CanShowSubtitle, CanShowSubtitle);
+                    break;
                 default:
                     break;
             }

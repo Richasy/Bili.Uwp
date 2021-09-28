@@ -48,6 +48,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsLiveMessageAutoScroll = true;
             CurrentPlayLine = null;
             CurrentLiveQuality = null;
+            CurrentSubtitleIndex = null;
+            CurrentSubtitle = string.Empty;
+            IsShowSubtitle = false;
             _audioList.Clear();
             _videoList.Clear();
             _flvList.Clear();

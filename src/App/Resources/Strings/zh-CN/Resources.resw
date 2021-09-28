@@ -971,6 +971,9 @@
   <data name="ShowMore" xml:space="preserve">
     <value>显示更多</value>
   </data>
+  <data name="ShowSubtitle" xml:space="preserve">
+    <value>显示字幕</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>登录</value>
   </data>
@@ -1057,6 +1060,12 @@
   </data>
   <data name="Stroke" xml:space="preserve">
     <value>描边</value>
+  </data>
+  <data name="Subtitle" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="SubtitleList" xml:space="preserve">
+    <value>字幕列表</value>
   </data>
   <data name="SwitchToPasswordLogin" xml:space="preserve">
     <value>用密码登录</value>
