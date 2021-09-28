@@ -27,7 +27,7 @@ namespace Richasy.Bili.Lib.Uwp
             return source.Token;
         }
 
-        private async Task<PlayerDashInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "")
+        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "")
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
@@ -60,17 +60,17 @@ namespace Richasy.Bili.Lib.Uwp
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.Web);
             var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PlayerDashInformation>, ServerResponse2<PlayerDashInformation>>(response, (str) =>
+            var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {
                 var jobj = JObject.Parse(str);
                 return jobj.ContainsKey("data");
             });
 
-            if (data is ServerResponse<PlayerDashInformation> res1)
+            if (data is ServerResponse<PlayerInformation> res1)
             {
                 return res1.Data;
             }
-            else if (data is ServerResponse2<PlayerDashInformation> res2)
+            else if (data is ServerResponse2<PlayerInformation> res2)
             {
                 return res2.Result;
             }

@@ -23,7 +23,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _videoDetail = null;
             _pgcDetail = null;
             IsDetailError = false;
-            _dashInformation = null;
+            _playerInformation = null;
             CurrentFormat = null;
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
@@ -47,6 +47,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentLiveQuality = null;
             _audioList.Clear();
             _videoList.Clear();
+            _flvList.Clear();
             ClearPlayer();
             IsPgc = false;
             IsLive = false;
@@ -405,10 +406,18 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowChat = true;
         }
 
-        private async Task InitializeVideoPlayInformationAsync(PlayerDashInformation videoPlayView)
+        private async Task InitializeVideoPlayInformationAsync(PlayerInformation videoPlayView)
         {
-            _audioList = videoPlayView.VideoInformation.Audio.ToList();
-            _videoList = videoPlayView.VideoInformation.Video.ToList();
+            if (videoPlayView.VideoInformation != null)
+            {
+                _videoList = videoPlayView.VideoInformation.Video.ToList();
+                _audioList = videoPlayView.VideoInformation.Audio.ToList();
+            }
+
+            if (videoPlayView.FlvInformation?.Any() ?? false)
+            {
+                _flvList = videoPlayView.FlvInformation;
+            }
 
             _currentAudio = null;
             _currentVideo = null;
@@ -658,9 +667,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void OnMediaPlayerOpened(MediaPlayer sender, object args)
         {
             var session = sender.PlaybackSession;
-            if (session != null && IsLive && _interopMSS != null)
+            if (session != null)
             {
-                _interopMSS.PlaybackSession = session;
+                if (IsLive && _interopMSS != null)
+                {
+                    _interopMSS.PlaybackSession = session;
+                }
+                else if (_initializeProgress != TimeSpan.Zero)
+                {
+                    session.Position = _initializeProgress;
+                    _initializeProgress = TimeSpan.Zero;
+                }
             }
 
             var props = _currentPlaybackItem.GetDisplayProperties();

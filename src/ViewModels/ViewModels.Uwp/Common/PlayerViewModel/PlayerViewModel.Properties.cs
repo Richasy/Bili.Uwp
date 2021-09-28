@@ -35,7 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private ViewReply _videoDetail;
         private PgcDisplayInformation _pgcDetail;
         private LiveRoomDetail _liveDetail;
-        private PlayerDashInformation _dashInformation;
+        private PlayerInformation _playerInformation;
 
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
@@ -48,6 +48,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private List<DashItem> _audioList;
         private List<DashItem> _videoList;
+        private List<FlvItem> _flvList;
 
         private MediaPlayer _currentVideoPlayer;
 

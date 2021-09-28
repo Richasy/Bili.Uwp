@@ -41,6 +41,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
+            _flvList = new List<FlvItem>();
             _lastReportProgress = TimeSpan.Zero;
 
             _liveFFConfig = new FFmpegInteropConfig();
@@ -166,7 +167,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentVideoPart?.Page.Cid));
                 if (play != null)
                 {
-                    _dashInformation = play;
+                    _playerInformation = play;
                 }
             }
             catch (Exception ex)
@@ -177,7 +178,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             IsPlayInformationLoading = false;
 
-            if (_dashInformation != null)
+            if (_playerInformation != null)
             {
                 ClearPlayer();
 
@@ -186,7 +187,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _initializeProgress = TimeSpan.FromSeconds(_videoDetail.History.Progress);
                 }
 
-                await InitializeVideoPlayInformationAsync(_dashInformation);
+                await InitializeVideoPlayInformationAsync(_playerInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
                 ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
             }
@@ -246,7 +247,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType));
                 if (play != null && play.VideoInformation != null)
                 {
-                    _dashInformation = play;
+                    _playerInformation = play;
                 }
                 else
                 {
@@ -262,10 +263,10 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             IsPlayInformationLoading = false;
 
-            if (_dashInformation != null)
+            if (_playerInformation != null)
             {
                 ClearPlayer();
-                await InitializeVideoPlayInformationAsync(_dashInformation);
+                await InitializeVideoPlayInformationAsync(_playerInformation);
                 await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
             }
 
@@ -290,29 +291,54 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task ChangeFormatAsync(int formatId)
         {
             var preferCodecId = GetPreferCodecId();
-            var conditionStreams = _videoList.Where(p => p.Id == formatId).ToList();
-            if (conditionStreams.Count == 0)
+
+            var hasFlv = _flvList != null && _flvList.Count > 0;
+            var isFlv = false;
+
+            // 在首选Flv的情况下，或者没有dash仅有flv的情况下，使用flv播放。
+            if ((PreferCodec == PreferCodec.Flv && hasFlv) || ((_videoList == null || _videoList.Count == 0) && hasFlv))
             {
-                var maxQuality = _videoList.Max(p => p.Id);
-                _currentVideo = _videoList.Where(p => p.Id == maxQuality).FirstOrDefault();
+                isFlv = true;
+                CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _playerInformation.Quality).First().Data;
             }
-            else
+            else if (_videoList != null && _videoList.Count > 0)
             {
-                var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
-                if (tempVideo == null)
+                var conditionStreams = _videoList.Where(p => p.Id == formatId).ToList();
+                if (conditionStreams.Count == 0)
                 {
-                    tempVideo = conditionStreams.First();
+                    var maxQuality = _videoList.Max(p => p.Id);
+                    _currentVideo = _videoList.Where(p => p.Id == maxQuality).FirstOrDefault();
+                }
+                else
+                {
+                    var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
+                    if (tempVideo == null)
+                    {
+                        tempVideo = conditionStreams.First();
+                    }
+
+                    _currentVideo = tempVideo;
                 }
 
-                _currentVideo = tempVideo;
+                CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _currentVideo.Id).FirstOrDefault().Data;
+                _currentAudio = _audioList.FirstOrDefault();
             }
-
-            CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _currentVideo.Id).FirstOrDefault().Data;
-            _currentAudio = _audioList.FirstOrDefault();
 
             CheckFormatSelection();
 
-            await InitializeOnlineDashVideoAsync();
+            if (isFlv)
+            {
+                await InitializeFlvVideoAsync();
+            }
+            else if (_currentVideo != null)
+            {
+                await InitializeOnlineDashVideoAsync();
+            }
+            else
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.SourceNotSupported);
+            }
         }
 
         /// <summary>

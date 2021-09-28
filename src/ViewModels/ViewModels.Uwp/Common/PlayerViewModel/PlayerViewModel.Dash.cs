@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Models.App.Constants;
+using Windows.ApplicationModel;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
+using Windows.Storage;
 using Windows.Web.Http;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -61,7 +63,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 mpdStr = mpdStr.Replace("{video}", videoStr)
                              .Replace("{audio}", audioStr)
-                             .Replace("{bufferTime}", $"PT{_dashInformation.VideoInformation.MinBufferTime}S");
+                             .Replace("{bufferTime}", $"PT{_playerInformation.VideoInformation.MinBufferTime}S");
 
                 var stream = new MemoryStream(Encoding.UTF8.GetBytes(mpdStr)).AsInputStream();
                 var soure = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_currentVideo.BaseUrl), "application/dash+xml", httpClient);
@@ -79,14 +81,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _currentVideoPlayer = InitializeMediaPlayer();
                 }
 
-                var position = TimeSpan.Zero;
                 if (_currentVideoPlayer.PlaybackSession != null)
                 {
-                    position = _currentVideoPlayer.PlaybackSession.Position;
-                }
-                else if (_initializeProgress != TimeSpan.Zero)
-                {
-                    position = _initializeProgress;
+                    _initializeProgress = _currentVideoPlayer.PlaybackSession.Position;
                 }
 
                 var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
@@ -95,11 +92,61 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
-                _currentVideoPlayer.PlaybackSession.Position = position;
             }
             catch (Exception)
             {
-                // Show error.
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
+            }
+        }
+
+        private async Task InitializeFlvVideoAsync()
+        {
+            try
+            {
+                var playList = new SYEngine.Playlist(SYEngine.PlaylistTypes.NetworkHttp);
+                var config = default(SYEngine.PlaylistNetworkConfigs);
+                config.DownloadRetryOnFail = true;
+                config.HttpCookie = string.Empty;
+                config.UniqueId = string.Empty;
+                config.HttpUserAgent = ServiceConstants.DefaultUserAgentString;
+                if (IsPgc && CurrentPgcEpisode != null)
+                {
+                    config.HttpReferer = $"https://www.bilibili.com/bangumi/play/ep{CurrentPgcEpisode.Id}";
+                }
+                else
+                {
+                    config.HttpReferer = string.Empty;
+                }
+
+                playList.NetworkConfigs = config;
+                foreach (var item in _flvList)
+                {
+                    playList.Append(item.Url, 0, float.Parse((item.Length / 1000.0).ToString()));
+                }
+
+                if (_currentVideoPlayer == null)
+                {
+                    _currentVideoPlayer = InitializeMediaPlayer();
+                }
+
+                if (_currentVideoPlayer.PlaybackSession != null)
+                {
+                    _initializeProgress = _currentVideoPlayer.PlaybackSession.Position;
+                }
+
+                var playUri = await playList.SaveAndGetFileUriAsync();
+                var path = ApplicationData.Current.LocalCacheFolder.Path;
+                var mediaSource = await AdaptiveMediaSource.CreateFromUriAsync(playUri);
+                _currentPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromAdaptiveMediaSource(mediaSource.MediaSource));
+                _currentVideoPlayer.Source = _currentPlaybackItem;
+                BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
+                MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
             }
         }
 

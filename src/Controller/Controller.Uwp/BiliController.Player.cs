@@ -46,7 +46,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">分P Id.</param>
         /// <returns>播放信息.</returns>
-        public async Task<PlayerDashInformation> GetVideoPlayInformationAsync(long videoId, long partId)
+        public async Task<PlayerInformation> GetVideoPlayInformationAsync(long videoId, long partId)
         {
             var result = await _playerProvider.GetDashAsync(videoId, partId);
             return result;
@@ -58,7 +58,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="partId">分集Id.</param>
         /// <param name="seasonType">剧集类型.</param>
         /// <returns>播放信息.</returns>
-        public async Task<PlayerDashInformation> GetPgcPlayInformationAsync(int partId, int seasonType)
+        public async Task<PlayerInformation> GetPgcPlayInformationAsync(int partId, int seasonType)
         {
             var result = await _playerProvider.GetDashAsync(partId, seasonType);
             return result;
