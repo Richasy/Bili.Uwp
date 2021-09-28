@@ -82,11 +82,9 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick"
-                IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}">
+                Click="OnBackButtonClick">
                 <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Back" IsEnabled="True" />
-                    <KeyboardAccelerator Key="XButton2" IsEnabled="True" />
+                    <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
                 </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation

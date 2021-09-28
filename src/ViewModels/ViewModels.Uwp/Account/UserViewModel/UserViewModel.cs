@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
@@ -36,7 +37,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             Level = item.Level;
             FollowerCount = _numberToolkit.GetCountText(item.FollowerCount);
-            CheckFollowButtonVisibility();
         }
 
         /// <summary>
@@ -52,8 +52,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Sign = _resourceToolkit.GetLocaleString(LanguageNames.UserEmptySign);
             }
-
-            CheckFollowButtonVisibility();
         }
 
         /// <summary>
@@ -63,6 +61,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         public UserViewModel(PublisherInfo info)
             : this(info.Publisher, info.PublisherAvatar, info.Mid)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
+        /// <param name="staff">参演人员.</param>
+        public UserViewModel(Staff staff)
+            : this(staff.Name, staff.Face, Convert.ToInt32(staff.Mid))
+        {
+            AdditionalText = staff.Title;
+            IsFollow = staff.Attention == 1;
         }
 
         /// <summary>
@@ -79,6 +88,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Avatar = avatar + "@60w_60h_1c_100q.jpg";
             }
+
+            CheckFollowButtonVisibility();
         }
 
         /// <summary>

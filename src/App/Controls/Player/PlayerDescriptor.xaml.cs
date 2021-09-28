@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Richasy.Bili.ViewModels.Uwp;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Controls
@@ -19,10 +21,11 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await UserView.Instance.ShowAsync(ViewModel.Publisher);
+            var dataContext = (sender as FrameworkElement).DataContext as UserViewModel;
+            await UserView.Instance.ShowAsync(dataContext);
         }
 
-        private async void OnFollowButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
             btn.IsEnabled = false;
