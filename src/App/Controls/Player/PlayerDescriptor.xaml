@@ -9,6 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -20,53 +21,103 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel
-            x:Name="SinglePublisherContainer"
-            Margin="0,0,0,12"
-            HorizontalAlignment="Left"
-            Orientation="Horizontal"
-            Spacing="12"
-            Visibility="{x:Bind ViewModel.Publisher, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
-            <local:UserAvatar
-                Width="36"
-                Height="36"
-                Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
-                Tapped="OnUserTappedAsync"
-                UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-            <StackPanel Spacing="4">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    IsTextSelectionEnabled="True"
-                    Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-                <Grid HorizontalAlignment="Left" Visibility="{x:Bind ViewModel.Publisher.IsShowFollowButton, Mode=OneWay}">
-                    <Button
-                        x:Name="FollowButton"
-                        Style="{StaticResource AccentButtonStyle}"
-                        Padding="8,2"
-                        Click="OnFollowButtonClickAsync"
-                        Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                        <local:IconTextBlock
-                            FontSize="10"
-                            IconFontSize="12"
-                            Spacing="2"
-                            Symbol="Add12"
-                            Text="{loc:LocaleLocator Name=Follow}" />
-                    </Button>
-                    <Button
-                        x:Name="UnfollowButton"
-                        Padding="8,2"
-                        Click="OnFollowButtonClickAsync"
-                        Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay}">
-                        <local:IconTextBlock
-                            FontSize="10"
-                            IconFontSize="12"
-                            Spacing="2"
-                            Symbol="EyeShow12"
-                            Text="{loc:LocaleLocator Name=Followed}" />
-                    </Button>
-                </Grid>
+        <Grid>
+            <StackPanel
+                x:Name="SinglePublisherContainer"
+                Margin="0,0,0,12"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Spacing="12"
+                Visibility="{x:Bind ViewModel.IsShowStaff, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <local:UserAvatar
+                    Width="36"
+                    Height="36"
+                    Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
+                    DataContext="{x:Bind ViewModel.Publisher, Mode=OneWay}"
+                    Tapped="OnUserTappedAsync"
+                    UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                <StackPanel Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        IsTextSelectionEnabled="True"
+                        Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                    <Grid HorizontalAlignment="Left" Visibility="{x:Bind ViewModel.Publisher.IsShowFollowButton, Mode=OneWay}">
+                        <Button
+                            x:Name="FollowButton"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Padding="8,2"
+                            Click="OnFollowButtonClickAsync"
+                            Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <local:IconTextBlock
+                                FontSize="10"
+                                IconFontSize="12"
+                                Spacing="2"
+                                Symbol="Add12"
+                                Text="{loc:LocaleLocator Name=Follow}" />
+                        </Button>
+                        <Button
+                            x:Name="UnfollowButton"
+                            Padding="8,2"
+                            Click="OnFollowButtonClickAsync"
+                            Visibility="{x:Bind ViewModel.Publisher.IsFollow, Mode=OneWay}">
+                            <local:IconTextBlock
+                                FontSize="10"
+                                IconFontSize="12"
+                                Spacing="2"
+                                Symbol="EyeShow12"
+                                Text="{loc:LocaleLocator Name=Followed}" />
+                        </Button>
+                    </Grid>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+            <StackPanel
+                x:Name="StaffContainer"
+                Margin="0,0,0,8"
+                Orientation="Horizontal"
+                Visibility="{x:Bind ViewModel.IsShowStaff, Mode=OneWay}">
+                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.StaffCollection, Mode=OneWay}">
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:UserViewModel">
+                            <Grid>
+                                <StackPanel Spacing="4">
+                                    <local:UserAvatar
+                                        Width="36"
+                                        Height="36"
+                                        Avatar="{x:Bind Avatar, Mode=OneWay}"
+                                        DataContext="{x:Bind}"
+                                        Tapped="OnUserTappedAsync"
+                                        UserName="{x:Bind Name, Mode=OneWay}" />
+                                    <TextBlock
+                                        MaxWidth="52"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        Text="{x:Bind Name}"
+                                        TextAlignment="Center"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTipService.ToolTip="{x:Bind Name}" />
+                                </StackPanel>
+                                <Border
+                                    Margin="0,-8,-8,0"
+                                    Padding="4"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="{StaticResource ControlCornerRadius}">
+                                    <TextBlock FontSize="10" Text="{x:Bind AdditionalText, Mode=OneWay}" />
+                                </Border>
+                            </Grid>
+
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                    </muxc:ItemsRepeater.Layout>
+                </muxc:ItemsRepeater>
+            </StackPanel>
+        </Grid>
+
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

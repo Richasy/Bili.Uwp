@@ -223,10 +223,22 @@ namespace Richasy.Bili.ViewModels.Uwp
         public UserViewModel Publisher { get; set; }
 
         /// <summary>
+        /// 是否显示为参演人员列表.
+        /// </summary>
+        [Reactive]
+        public bool IsShowStaff { get; set; }
+
+        /// <summary>
         /// 音量.
         /// </summary>
         [Reactive]
         public double Volume { get; set; }
+
+        /// <summary>
+        /// 参演人员集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<UserViewModel> StaffCollection { get; set; }
 
         /// <summary>
         /// 关联视频集合.

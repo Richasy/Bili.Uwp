@@ -76,6 +76,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection.Clear();
             FavoriteMetaCollection.Clear();
             SubtitleIndexCollection.Clear();
+            StaffCollection.Clear();
 
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
@@ -200,8 +201,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             Title = _videoDetail.Arc.Title;
             Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
             Description = _videoDetail.Arc.Desc;
-            var author = _videoDetail.Arc.Author;
-            Publisher = new UserViewModel(author.Name, author.Face, Convert.ToInt32(author.Mid));
             AvId = _videoDetail.Arc.Aid.ToString();
             BvId = _videoDetail.Bvid;
             SeasonId = string.Empty;
@@ -217,6 +216,24 @@ namespace Richasy.Bili.ViewModels.Uwp
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
             ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.ReplyType.Video);
+
+            if (_videoDetail.Staff.Count > 0)
+            {
+                // 联合创作.
+                IsShowStaff = true;
+                foreach (var user in _videoDetail.Staff)
+                {
+                    var vm = new UserViewModel(user);
+                    StaffCollection.Add(vm);
+                }
+            }
+            else
+            {
+                // 独立创作.
+                IsShowStaff = false;
+                var author = _videoDetail.Arc.Author;
+                Publisher = new UserViewModel(author.Name, author.Face, Convert.ToInt32(author.Mid));
+            }
 
             IsLikeChecked = _videoDetail.ReqUser.Like == 1;
             IsCoinChecked = _videoDetail.ReqUser.Coin == 1;
@@ -674,6 +691,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private async Task InitializeUserRelationAsync()
         {
             if (AccountViewModel.Instance.Status != AccountViewModelStatus.Login ||
+                IsShowStaff ||
                 AccountViewModel.Instance.Mid.Value == Publisher.Id)
             {
                 return;

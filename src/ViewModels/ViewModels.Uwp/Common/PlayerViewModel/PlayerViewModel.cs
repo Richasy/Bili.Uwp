@@ -40,6 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
             FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
             SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
+            StaffCollection = new ObservableCollection<UserViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _flvList = new List<FlvItem>();

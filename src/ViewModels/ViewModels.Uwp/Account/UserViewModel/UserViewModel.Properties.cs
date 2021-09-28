@@ -82,6 +82,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowVideoEmpty { get; set; }
 
         /// <summary>
+        /// 附加文本.
+        /// </summary>
+        [Reactive]
+        public string AdditionalText { get; set; }
+
+        /// <summary>
         /// 用户Id.
         /// </summary>
         [Reactive]
