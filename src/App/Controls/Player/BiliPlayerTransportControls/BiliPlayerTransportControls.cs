@@ -32,14 +32,6 @@ namespace Richasy.Bili.App.Controls
             this.DefaultStyleKey = typeof(BiliPlayerTransportControls);
             this._danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
             this._segmentIndex = 1;
-            this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
-            this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
-            this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
-            this.DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
-            this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
-            this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             this.SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
@@ -95,6 +87,15 @@ namespace Richasy.Bili.App.Controls
             {
                 _forwardSkipButton.Click += OnForwardSkipButtonClick;
             }
+
+            this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
+            this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
+            this.DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
+            this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
+            this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
+            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -331,6 +332,7 @@ namespace Richasy.Bili.App.Controls
             if (e.PropertyName == nameof(ViewModel.CurrentFormat))
             {
                 if (ViewModel.CurrentFormat != null &&
+                    _formatListView != null &&
                     (_formatListView.SelectedItem == null ||
                     (_formatListView.SelectedItem as VideoFormatViewModel).Data.Quality != ViewModel.CurrentFormat.Quality))
                 {
@@ -340,6 +342,7 @@ namespace Richasy.Bili.App.Controls
             else if (e.PropertyName == nameof(ViewModel.CurrentLiveQuality))
             {
                 if (ViewModel.CurrentLiveQuality != null &&
+                    _liveQualityListView != null &&
                     (_liveQualityListView.SelectedItem == null ||
                     (_liveQualityListView.SelectedItem as LiveQualityViewModel).Data.Quality != ViewModel.CurrentLiveQuality.Quality))
                 {
@@ -349,6 +352,7 @@ namespace Richasy.Bili.App.Controls
             else if (e.PropertyName == nameof(ViewModel.CurrentPlayLine))
             {
                 if (ViewModel.CurrentPlayLine != null &&
+                    _liveQualityListView != null &&
                     (_livePlayLineListView.SelectedItem == null ||
                     (_livePlayLineListView.SelectedItem as LivePlayLineViewModel).Data.Order != ViewModel.CurrentPlayLine.Order))
                 {

@@ -10,6 +10,8 @@ using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Windows.Media.Playback;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -20,6 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private void Reset()
         {
+            IsClassicPlayer = false;
             _videoDetail = null;
             _pgcDetail = null;
             IsDetailError = false;
@@ -792,6 +795,89 @@ namespace Richasy.Bili.ViewModels.Uwp
                     PlayerStatus = PlayerStatus.NotLoad;
                 }
             });
+        }
+
+        private async void OnClassicStateChangedAsync(object sender, RoutedEventArgs e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                try
+                {
+                    switch (ClassicPlayer.CurrentState)
+                    {
+                        case MediaElementState.Closed:
+                            PlayerStatus = PlayerStatus.End;
+                            break;
+                        case MediaElementState.Opening:
+                            IsPlayInformationError = false;
+                            PlayerStatus = PlayerStatus.Playing;
+                            break;
+                        case MediaElementState.Playing:
+                            PlayerStatus = PlayerStatus.Playing;
+                            IsPlayInformationError = false;
+                            if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero)
+                            {
+                                IsShowHistory = true;
+                            }
+
+                            if (ClassicPlayer.Position < _initializeProgress)
+                            {
+                                ClassicPlayer.Position = _initializeProgress;
+                                _initializeProgress = TimeSpan.Zero;
+                            }
+
+                            break;
+                        case MediaElementState.Buffering:
+                            PlayerStatus = PlayerStatus.Buffering;
+                            break;
+                        case MediaElementState.Paused:
+                            PlayerStatus = PlayerStatus.Pause;
+                            break;
+                        default:
+                            PlayerStatus = PlayerStatus.NotLoad;
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    PlayerStatus = PlayerStatus.NotLoad;
+                }
+            });
+        }
+
+        private async void OnClassicMediaEndedAsync(object sender, RoutedEventArgs e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                PlayerStatus = PlayerStatus.End;
+            });
+        }
+
+        private async void OnClassicMediaFailedAsync(object sender, ExceptionRoutedEventArgs e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                // 在视频未加载时不对报错进行处理.
+                if (PlayerStatus == PlayerStatus.NotLoad)
+                {
+                    return;
+                }
+
+                PlayerStatus = PlayerStatus.End;
+                IsPlayInformationError = true;
+                var message = e.ErrorMessage;
+                PlayInformationErrorText = message;
+                _logger.LogError(new Exception($"播放失败（经典播放器）: {message}"));
+            });
+        }
+
+        private void OnClassicMediaOpened(object sender, RoutedEventArgs e)
+        {
+            if (_initializeProgress != TimeSpan.Zero)
+            {
+                ClassicPlayer.Position = _initializeProgress;
+                _initializeProgress = TimeSpan.Zero;
+            }
         }
 
         private void OnUserLoggedOut(object sender, EventArgs e)

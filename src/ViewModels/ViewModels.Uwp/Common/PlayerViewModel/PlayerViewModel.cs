@@ -77,10 +77,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 保存媒体控件.
         /// </summary>
-        /// <param name="playerControl">播放器控件.</param>
-        public void ApplyMediaControl(MediaPlayerElement playerControl)
+        /// <param name="playerControl">标准播放器控件.</param>
+        /// <param name="classicPlayer">经典播放器控件.</param>
+        public void ApplyMediaControl(MediaPlayerElement playerControl, MediaElement classicPlayer)
         {
             BiliPlayer = playerControl;
+            ClassicPlayer = classicPlayer;
+            ClassicPlayer.MediaOpened += OnClassicMediaOpened;
+            ClassicPlayer.MediaFailed += OnClassicMediaFailedAsync;
+            ClassicPlayer.MediaEnded += OnClassicMediaEndedAsync;
+            ClassicPlayer.CurrentStateChanged += OnClassicStateChangedAsync;
         }
 
         /// <summary>

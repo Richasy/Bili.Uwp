@@ -8,11 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Models.App.Constants;
-using Windows.ApplicationModel;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
-using Windows.Storage;
 using Windows.Web.Http;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -90,6 +88,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _currentPlaybackItem = new MediaPlaybackItem(mediaSource);
                 _currentVideoPlayer.Source = _currentPlaybackItem;
 
+                IsClassicPlayer = false;
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
             }
@@ -122,25 +121,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 playList.NetworkConfigs = config;
                 foreach (var item in _flvList)
                 {
-                    playList.Append(item.Url, 0, float.Parse((item.Length / 1000.0).ToString()));
+                    playList.Append(item.Url, item.Size, float.Parse((item.Length / 1000.0).ToString()));
                 }
 
-                if (_currentVideoPlayer == null)
+                if (ClassicPlayer != null)
                 {
-                    _currentVideoPlayer = InitializeMediaPlayer();
+                    _initializeProgress = ClassicPlayer.Position;
                 }
 
-                if (_currentVideoPlayer.PlaybackSession != null)
-                {
-                    _initializeProgress = _currentVideoPlayer.PlaybackSession.Position;
-                }
-
-                var playUri = await playList.SaveAndGetFileUriAsync();
-                var path = ApplicationData.Current.LocalCacheFolder.Path;
-                var mediaSource = await AdaptiveMediaSource.CreateFromUriAsync(playUri);
-                _currentPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromAdaptiveMediaSource(mediaSource.MediaSource));
-                _currentVideoPlayer.Source = _currentPlaybackItem;
-                BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
+                IsClassicPlayer = true;
+                ClassicPlayer.AutoPlay = IsAutoPlay;
+                ClassicPlayer.Source = await playList.SaveAndGetFileUriAsync();
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception)

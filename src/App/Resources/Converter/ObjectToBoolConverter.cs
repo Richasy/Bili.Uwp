@@ -31,6 +31,10 @@ namespace Richasy.Bili.App.Resources.Converter
                 {
                     result = !string.IsNullOrEmpty(str);
                 }
+                else if (value is bool b)
+                {
+                    result = b;
+                }
                 else
                 {
                     result = true;
