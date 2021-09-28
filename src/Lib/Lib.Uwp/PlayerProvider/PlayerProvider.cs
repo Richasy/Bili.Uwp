@@ -66,13 +66,13 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PlayerDashInformation> GetDashAsync(long videoId, long partId)
+        public async Task<PlayerInformation> GetDashAsync(long videoId, long partId)
         {
             return await InternalGetDashAsync(partId.ToString(), videoId.ToString());
         }
 
         /// <inheritdoc/>
-        public async Task<PlayerDashInformation> GetDashAsync(int partId, int seasonType)
+        public async Task<PlayerInformation> GetDashAsync(int partId, int seasonType)
         {
             return await InternalGetDashAsync(partId.ToString(), seasonType: seasonType.ToString());
         }
