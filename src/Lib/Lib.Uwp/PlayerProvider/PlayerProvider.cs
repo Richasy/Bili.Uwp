@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
+using Newtonsoft.Json;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -259,6 +261,42 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 return false;
             }
+        }
+
+        /// <inheritdoc/>
+        public async Task<SubtitleIndexResponse> GetSubtitleIndexAsync(long videoId, int partId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Id, $"cid:{partId}" },
+                { Query.Aid, videoId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Subtitle, queryParameters);
+            var response = await _httpProvider.SendAsync(request);
+            var text = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(text) && text.Contains("subtitle"))
+            {
+                var json = Regex.Match(text, @"<subtitle>(.*?)</subtitle>").Groups[1].Value;
+                var index = JsonConvert.DeserializeObject<SubtitleIndexResponse>(json);
+                return index;
+            }
+
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public async Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url)
+        {
+            if (!url.StartsWith("http"))
+            {
+                url = "https:" + url;
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<SubtitleDetailResponse>(response);
+            return result;
         }
     }
 }

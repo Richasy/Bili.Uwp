@@ -33,6 +33,7 @@
     <Compile Include="Common\HelpViewModel\HelpViewModel.cs" />
     <Compile Include="Common\HelpViewModel\HelpViewModel.Properties.cs" />
     <Compile Include="Common\DownloadViewModel.cs" />
+    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Common\VideoFormatViewModel.cs" />
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.cs" />
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.Properties.cs" />
+    <Compile Include="SubtitleIndexItemViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

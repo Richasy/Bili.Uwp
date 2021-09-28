@@ -129,6 +129,13 @@ namespace Richasy.Bili.Lib.Uwp
 
                     return;
                 }
+                else if (response.Content.Headers.ContentType?.MediaType != ServiceConstants.Headers.JsonContentType)
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return;
+                    }
+                }
 
                 var errorResponseStr = await response.Content.ReadAsStringAsync();
                 errorResponse = JsonConvert.DeserializeObject<ServerResponse>(errorResponseStr);

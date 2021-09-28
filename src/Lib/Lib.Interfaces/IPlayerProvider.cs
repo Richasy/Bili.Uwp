@@ -128,5 +128,20 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <returns>三连结果.</returns>
         Task<TripleResult> TripleAsync(long videoId);
+
+        /// <summary>
+        /// 获取视频字幕索引.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <returns>字幕索引.</returns>
+        Task<SubtitleIndexResponse> GetSubtitleIndexAsync(long videoId, int partId);
+
+        /// <summary>
+        /// 获取视频字幕详情.
+        /// </summary>
+        /// <param name="url">字幕地址.</param>
+        /// <returns>字幕详情.</returns>
+        Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url);
     }
 }

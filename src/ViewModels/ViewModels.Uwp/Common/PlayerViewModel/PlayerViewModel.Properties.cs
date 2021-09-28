@@ -49,11 +49,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         private List<DashItem> _audioList;
         private List<DashItem> _videoList;
         private List<FlvItem> _flvList;
+        private List<SubtitleItem> _subtitleList;
 
         private MediaPlayer _currentVideoPlayer;
 
         private DispatcherTimer _progressTimer;
         private DispatcherTimer _heartBeatTimer;
+        private DispatcherTimer _subtitleTimer;
 
         /// <summary>
         /// 让直播消息视图滚动到底部.
@@ -639,6 +641,35 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowDanmakuBar { get; set; }
+
+        /// <summary>
+        /// 当前字幕.
+        /// </summary>
+        [Reactive]
+        public string CurrentSubtitle { get; set; }
+
+        /// <summary>
+        /// 是否显示字幕.
+        /// </summary>
+        [Reactive]
+        public bool IsShowSubtitle { get; set; }
+
+        /// <summary>
+        /// 是否显示字幕按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowSubtitleButton { get; set; }
+
+        /// <summary>
+        /// 是否可以显示字幕.
+        /// </summary>
+        [Reactive]
+        public bool CanShowSubtitle { get; set; }
+
+        /// <summary>
+        /// 索引列表.
+        /// </summary>
+        public ObservableCollection<SubtitleIndexItemViewModel> SubtitleIndexCollection { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

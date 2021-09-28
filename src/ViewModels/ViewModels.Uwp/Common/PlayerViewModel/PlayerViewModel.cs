@@ -39,9 +39,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
             LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
             FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
+            SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _flvList = new List<FlvItem>();
+            _subtitleList = new List<SubtitleItem>();
             _lastReportProgress = TimeSpan.Zero;
 
             _liveFFConfig = new FFmpegInteropConfig();
@@ -56,6 +58,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _logger);
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
+            CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
@@ -195,6 +198,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 await InitializeVideoPlayInformationAsync(_playerInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
+                await InitializeSubtitleIndexAsync();
                 ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
             }
         }
@@ -412,6 +416,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer.Stop();
             _heartBeatTimer.Stop();
+            _subtitleTimer.Stop();
 
             if (_interopMSS != null)
             {

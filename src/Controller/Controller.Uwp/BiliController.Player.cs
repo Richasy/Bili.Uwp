@@ -203,5 +203,22 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>是否发送成功.</returns>
         public Task<bool> SendDanmakuAsync(string content, int videoId, int partId, TimeSpan progress, string color, bool isStandardSize, DanmakuLocation location)
             => _playerProvider.SendDanmakuAsync(content, videoId, partId, Convert.ToInt32(progress.TotalMilliseconds), color, isStandardSize, location);
+
+        /// <summary>
+        /// 获取视频字幕索引.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <returns>字幕索引.</returns>
+        public Task<SubtitleIndexResponse> GetSubtitleIndexAsync(int videoId, int partId)
+            => _playerProvider.GetSubtitleIndexAsync(videoId, partId);
+
+        /// <summary>
+        /// 获取视频字幕详情.
+        /// </summary>
+        /// <param name="url">字幕地址.</param>
+        /// <returns>字幕详情.</returns>
+        public Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url)
+            => _playerProvider.GetSubtitleDetailAsync(url);
     }
 }
