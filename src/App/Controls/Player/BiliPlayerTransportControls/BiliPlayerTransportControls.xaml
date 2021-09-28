@@ -626,7 +626,7 @@
                                                         AutomationProperties.Name="{loc:LocaleLocator Name=Subtitle}"
                                                         Style="{StaticResource MTCButtonStyle}"
                                                         ToolTipService.ToolTip="{loc:LocaleLocator Name=Subtitle}"
-                                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowSubtitleButton}">
+                                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowSubtitleButton, Converter={StaticResource BoolToVisibilityConverter}}">
                                                         <Button.Content>
                                                             <icons:RegularFluentIcon FontSize="16" Symbol="TextboxAlignBottom20" />
                                                         </Button.Content>

@@ -38,7 +38,7 @@
                     VerticalAlignment="Center"
                     IsTextSelectionEnabled="True"
                     Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
-                <Grid HorizontalAlignment="Left">
+                <Grid HorizontalAlignment="Left" Visibility="{x:Bind ViewModel.Publisher.IsShowFollowButton, Mode=OneWay}">
                     <Button
                         x:Name="FollowButton"
                         Style="{StaticResource AccentButtonStyle}"
