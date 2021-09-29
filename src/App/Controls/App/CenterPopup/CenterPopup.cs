@@ -5,6 +5,7 @@ using Richasy.Bili.App.Pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -38,6 +39,18 @@ namespace Richasy.Bili.App.Controls
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequest;
             ((Window.Current.Content as Frame).Content as RootPage).ClearHolder();
             Closed?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
+            {
+                e.Handled = true;
+                Hide();
+            }
+
+            base.OnPointerReleased(e);
         }
 
         /// <inheritdoc/>

@@ -82,7 +82,14 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
             {
                 e.Handled = true;
-                AppViewModel.Instance.Back();
+                if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
+                {
+                    ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
+                }
+                else
+                {
+                    AppViewModel.Instance.Back();
+                }
             }
 
             base.OnPointerReleased(e);
