@@ -40,6 +40,6 @@
             Grid.Row="1"
             Visibility="Collapsed" />
 
-        <controls:AppTitleBar Canvas.ZIndex="1" />
+        <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
     </Grid>
 </Page>

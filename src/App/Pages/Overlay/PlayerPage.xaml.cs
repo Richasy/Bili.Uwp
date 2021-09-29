@@ -7,6 +7,7 @@ using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -73,6 +74,18 @@ namespace Richasy.Bili.App.Pages.Overlay
             _navigateVM = null;
             EnterDefaultModeAsync();
             AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
+        }
+
+        /// <inheritdoc/>
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
+            {
+                e.Handled = true;
+                AppViewModel.Instance.Back();
+            }
+
+            base.OnPointerReleased(e);
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
