@@ -93,9 +93,6 @@ namespace Richasy.Bili.App.Pages.Overlay
                 case nameof(ViewModel.PlayerDisplayMode):
                     CheckPlayerDisplayModeAsync();
                     break;
-                case nameof(ViewModel.IsDetailCanLoaded):
-                    FindName("ContentGrid");
-                    break;
                 default:
                     break;
             }
@@ -109,6 +106,11 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (!ViewModel.IsDetailCanLoaded)
+            {
+                return;
+            }
+
             if (e.NewSize.Width < AppViewModel.Instance.MediumWindowThresholdWidth)
             {
                 if (ContentContainer.Children.Contains(ContentGrid))
@@ -175,6 +177,11 @@ namespace Richasy.Bili.App.Pages.Overlay
                 }
                 else if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.FullWindow)
                 {
+                    if (appView.IsFullScreenMode)
+                    {
+                        appView.ExitFullScreenMode();
+                    }
+
                     VisualStateManager.GoToState(this, nameof(FullPlayerState), false);
                 }
                 else if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.CompactOverlay)

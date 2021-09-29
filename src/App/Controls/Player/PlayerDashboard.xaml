@@ -204,7 +204,10 @@
                 Margin="0,0,0,8"
                 HorizontalAlignment="Stretch"
                 Click="OnShareButtonClick">
-                <local:IconTextBlock Symbol="Share16" Text="{loc:LocaleLocator Name=Share}" />
+                <local:IconTextBlock
+                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    Symbol="Share16"
+                    Text="{loc:LocaleLocator Name=Share}" />
             </Button>
 
             <Button
@@ -213,7 +216,10 @@
                 Margin="0,0,0,8"
                 HorizontalAlignment="Stretch"
                 Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <local:IconTextBlock Symbol="ArrowDownload16" Text="{loc:LocaleLocator Name=Download}" />
+                <local:IconTextBlock
+                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    Symbol="ArrowDownload16"
+                    Text="{loc:LocaleLocator Name=Download}" />
                 <Button.Flyout>
                     <Flyout>
                         <local:DownloadOptionsPanel />
