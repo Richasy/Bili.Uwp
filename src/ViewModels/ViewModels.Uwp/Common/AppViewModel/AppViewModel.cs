@@ -31,6 +31,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 返回.
+        /// </summary>
+        public void Back()
+        {
+            RequestBack?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
         /// 显示提示.
         /// </summary>
         /// <param name="message">消息内容.</param>

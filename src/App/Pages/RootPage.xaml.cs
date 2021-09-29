@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Pages
@@ -29,6 +32,8 @@ namespace Richasy.Bili.App.Pages
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
             this.ViewModel.RequestShowTip += OnRequestShowTip;
+            this.ViewModel.RequestBack += OnRequestBack;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
 
         /// <summary>
@@ -78,11 +83,51 @@ namespace Richasy.Bili.App.Pages
             HolderContainer.Children.Remove(element);
         }
 
+        /// <inheritdoc/>
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
+            {
+                e.Handled = true;
+                ViewModel.Back();
+            }
+
+            base.OnPointerReleased(e);
+        }
+
+        private bool TryBack()
+        {
+            if (ViewModel.IsBackButtonEnabled)
+            {
+                return TitleBar.TryBack();
+            }
+            else if (HolderContainer.Children.Count > 0)
+            {
+                HolderContainer.Children.Remove(HolderContainer.Children.Last());
+                return true;
+            }
+
+            return false;
+        }
+
+        private void OnRequestBack(object sender, System.EventArgs e)
+        {
+            TryBack();
+        }
+
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             this.ViewModel.RequestPlay += OnRequestPlay;
             await AccountViewModel.Instance.TrySignInAsync(true);
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (TryBack())
+            {
+                e.Handled = true;
+            }
         }
 
         private void OnRequestPlay(object sender, object e)

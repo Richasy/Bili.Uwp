@@ -30,6 +30,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler<object> RequestPlay;
 
         /// <summary>
+        /// 请求返回.
+        /// </summary>
+        public event EventHandler RequestBack;
+
+        /// <summary>
         /// 请求显示提醒.
         /// </summary>
         public event EventHandler<AppTipNotificationEventArgs> RequestShowTip;

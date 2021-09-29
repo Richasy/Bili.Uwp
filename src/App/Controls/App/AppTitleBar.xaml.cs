@@ -36,6 +36,31 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <summary>
+        /// 尝试回退.
+        /// </summary>
+        /// <returns>是否调用了返回命令.</returns>
+        public bool TryBack()
+        {
+            if (BackButton.Visibility != Visibility.Visible)
+            {
+                return false;
+            }
+
+            if (ViewModel.IsOpenPlayer)
+            {
+                ViewModel.IsOpenPlayer = false;
+                return true;
+            }
+            else if (ViewModel.IsShowOverlay)
+            {
+                ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
+                return true;
+            }
+
+            return false;
+        }
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             Window.Current.SetTitleBar(TitleBarHost);
@@ -58,14 +83,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.IsOpenPlayer)
-            {
-                ViewModel.IsOpenPlayer = false;
-            }
-            else if (ViewModel.IsShowOverlay)
-            {
-                ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
-            }
+            TryBack();
         }
 
         private void CheckBackButtonVisibility()
