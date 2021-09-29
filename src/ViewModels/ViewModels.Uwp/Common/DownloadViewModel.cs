@@ -103,6 +103,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; set; }
 
         /// <summary>
+        /// 是否显示分P.
+        /// </summary>
+        [Reactive]
+        public bool IsShowPart { get; set; }
+
+        /// <summary>
         /// 加载.
         /// </summary>
         /// <param name="downloadUrl">下载地址.</param>
@@ -115,6 +121,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 TotalPartCollection.Add(new NumberPartViewModel(item, true));
             }
+
+            IsShowPart = TotalPartCollection.Count > 1;
         }
 
         /// <summary>

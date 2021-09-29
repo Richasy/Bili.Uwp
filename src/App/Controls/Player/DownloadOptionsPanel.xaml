@@ -57,7 +57,7 @@
             HorizontalAlignment="Left"
             Header="{loc:LocaleLocator Name=UseMultiThread}"
             IsOn="{x:Bind ViewModel.UseMultiThread, Mode=TwoWay}" />
-        <StackPanel Spacing="8">
+        <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsShowPart, Mode=OneWay}">
             <TextBlock Text="{loc:LocaleLocator Name=Parts}" />
             <ScrollViewer
                 MaxHeight="132"
