@@ -505,6 +505,12 @@
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
   </data>
+  <data name="InterfaceType" xml:space="preserve">
+    <value>接口类型</value>
+  </data>
+  <data name="InternationalApp" xml:space="preserve">
+    <value>国际应用</value>
+  </data>
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
@@ -581,6 +587,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
   </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>移动应用</value>
+  </data>
   <data name="MorePeople" xml:space="preserve">
     <value>等人</value>
   </data>
@@ -631,6 +640,9 @@
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>正在等待发言</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
   </data>
   <data name="NoReply" xml:space="preserve">
     <value>目前还没有评论</value>
@@ -1099,6 +1111,9 @@
   </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
+  </data>
+  <data name="TVApp" xml:space="preserve">
+    <value>电视</value>
   </data>
   <data name="UnFavorite" xml:space="preserve">
     <value>取消收藏</value>
