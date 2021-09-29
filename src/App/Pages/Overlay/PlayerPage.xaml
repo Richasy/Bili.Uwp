@@ -65,91 +65,92 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="ContentContainer" Padding="{StaticResource DefaultPagePadding}">
-            <Grid
-                x:Name="ContentGrid"
-                Margin="{StaticResource DefaultContainerWithBottomPadding}"
-                x:Load="False"
-                ColumnSpacing="48"
-                Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <Grid.RowDefinitions>
-                    <RowDefinition x:Name="PlayerRow" Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid x:Name="PlayerContainer" Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <controls:BiliPlayer x:Name="BiliPlayer" Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                    <Grid
-                        x:Name="PlayErrorContainer"
-                        MinHeight="200"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        CornerRadius="{StaticResource OverlayCornerRadius}"
-                        Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay}">
-                        <StackPanel
-                            Padding="20,12"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                            CornerRadius="{StaticResource OverlayCornerRadius}"
-                            Spacing="8">
-                            <Image
-                                Width="120"
-                                HorizontalAlignment="Center"
-                                Source="ms-appx:///Assets/ERROR_rgba.png"
-                                Stretch="Uniform" />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Text="{x:Bind ViewModel.PlayInformationErrorText, Mode=OneWay}"
-                                TextAlignment="Center" />
-                            <Button
-                                x:Name="RefreshButton"
-                                HorizontalAlignment="Center"
-                                Click="OnRefreshButtonClickAsync"
-                                Content="{loc:LocaleLocator Name=Refresh}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-
+            <Grid x:Name="LoadContainer" x:Load="{x:Bind ViewModel.IsDetailCanLoaded, Mode=OneWay}">
                 <Grid
-                    x:Name="InformationContainer"
-                    Grid.Row="1"
-                    Margin="0,24,0,0"
-                    ColumnSpacing="20"
-                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    x:Name="ContentGrid"
+                    Margin="{StaticResource DefaultContainerWithBottomPadding}"
+                    ColumnSpacing="48"
+                    Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <Grid.RowDefinitions>
+                        <RowDefinition x:Name="PlayerRow" Height="*" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition x:Name="RelatedRow" Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <controls:PlayerDescriptor />
-                    <controls:PlayerDashboard
-                        x:Name="Dashboard"
+                    <Grid x:Name="PlayerContainer" Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <controls:BiliPlayer x:Name="BiliPlayer" Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                        <Grid
+                            x:Name="PlayErrorContainer"
+                            MinHeight="200"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{x:Bind ViewModel.IsPlayInformationError, Mode=OneWay}">
+                            <StackPanel
+                                Padding="20,12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                CornerRadius="{StaticResource OverlayCornerRadius}"
+                                Spacing="8">
+                                <Image
+                                    Width="120"
+                                    HorizontalAlignment="Center"
+                                    Source="ms-appx:///Assets/ERROR_rgba.png"
+                                    Stretch="Uniform" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="{x:Bind ViewModel.PlayInformationErrorText, Mode=OneWay}"
+                                    TextAlignment="Center" />
+                                <Button
+                                    x:Name="RefreshButton"
+                                    HorizontalAlignment="Center"
+                                    Click="OnRefreshButtonClickAsync"
+                                    Content="{loc:LocaleLocator Name=Refresh}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        x:Name="InformationContainer"
+                        Grid.Row="1"
+                        Margin="0,24,0,0"
+                        ColumnSpacing="20"
+                        Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <controls:PlayerDescriptor />
+                        <controls:PlayerDashboard
+                            x:Name="Dashboard"
+                            Grid.Column="1"
+                            VerticalAlignment="Top" />
+                    </Grid>
+                    <Grid
+                        x:Name="RelatedContainer"
+                        Grid.RowSpan="3"
                         Grid.Column="1"
-                        VerticalAlignment="Top" />
+                        Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <controls:PlayerRelatedView />
+                    </Grid>
                 </Grid>
-                <Grid
-                    x:Name="RelatedContainer"
-                    Grid.RowSpan="3"
-                    Grid.Column="1"
-                    Visibility="{x:Bind ViewModel.IsDetailLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <controls:PlayerRelatedView />
-                </Grid>
+
+                <ScrollViewer
+                    x:Name="RootScrollViewer"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto"
+                    Visibility="Collapsed" />
+
             </Grid>
-
-            <ScrollViewer
-                x:Name="RootScrollViewer"
-                HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Auto"
-                Visibility="Collapsed" />
-
 
             <controls:ErrorPanel
                 x:Name="ErrorPanel"
