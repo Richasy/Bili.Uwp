@@ -19,6 +19,16 @@
             Text="{loc:LocaleLocator Name=DownloadTip}"
             TextWrapping="Wrap" />
         <ComboBox
+            x:Name="InterfaceComboBox"
+            HorizontalAlignment="Stretch"
+            Header="{loc:LocaleLocator Name=InterfaceType}"
+            SelectionChanged="OnInterfaceComboBoxSelectionChanged">
+            <ComboBoxItem Content="{loc:LocaleLocator Name=None}" Tag="None" />
+            <ComboBoxItem Content="{loc:LocaleLocator Name=MobileApp}" Tag="App" />
+            <ComboBoxItem Content="{loc:LocaleLocator Name=TVApp}" Tag="TV" />
+            <ComboBoxItem Content="{loc:LocaleLocator Name=InternationalApp}" Tag="International" />
+        </ComboBox>
+        <ComboBox
             x:Name="CodecComboBox"
             HorizontalAlignment="Stretch"
             Header="{loc:LocaleLocator Name=PreferCodec}"

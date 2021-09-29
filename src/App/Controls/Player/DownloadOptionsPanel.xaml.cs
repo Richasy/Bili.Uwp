@@ -70,6 +70,23 @@ namespace Richasy.Bili.App.Controls
             {
                 CodecComboBox.SelectedIndex = 0;
             }
+
+            if (ViewModel.UseAppInterface)
+            {
+                InterfaceComboBox.SelectedIndex = 1;
+            }
+            else if (ViewModel.UseTvInterface)
+            {
+                InterfaceComboBox.SelectedIndex = 2;
+            }
+            else if (ViewModel.UseInternationalInterface)
+            {
+                InterfaceComboBox.SelectedIndex = 3;
+            }
+            else
+            {
+                InterfaceComboBox.SelectedIndex = 0;
+            }
         }
 
         private void OnDownloadTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -139,6 +156,36 @@ namespace Richasy.Bili.App.Controls
             package.SetText(command);
             Clipboard.SetContent(package);
             appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied));
+        }
+
+        private void OnInterfaceComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = InterfaceComboBox.SelectedItem as ComboBoxItem;
+            switch (item.Tag)
+            {
+                case "None":
+                    ViewModel.UseAppInterface = false;
+                    ViewModel.UseTvInterface = false;
+                    ViewModel.UseInternationalInterface = false;
+                    break;
+                case "App":
+                    ViewModel.UseAppInterface = true;
+                    ViewModel.UseTvInterface = false;
+                    ViewModel.UseInternationalInterface = false;
+                    break;
+                case "TV":
+                    ViewModel.UseAppInterface = false;
+                    ViewModel.UseTvInterface = true;
+                    ViewModel.UseInternationalInterface = false;
+                    break;
+                case "International":
+                    ViewModel.UseAppInterface = false;
+                    ViewModel.UseTvInterface = false;
+                    ViewModel.UseInternationalInterface = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

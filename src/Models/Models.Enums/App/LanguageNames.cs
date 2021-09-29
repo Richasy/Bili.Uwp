@@ -362,6 +362,11 @@ namespace Richasy.Bili.Models.Enums
         Subtitle,
         ShowSubtitle,
         SubtitleList,
+        InterfaceType,
+        None,
+        MobileApp,
+        TVApp,
+        InternationalApp,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

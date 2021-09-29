@@ -22,6 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         protected DownloadViewModel()
         {
             UseMultiThread = true;
+            UseAppInterface = true;
             TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
         }
 
@@ -78,6 +79,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool UseMultiThread { get; set; }
 
         /// <summary>
+        /// 使用TV接口.
+        /// </summary>
+        [Reactive]
+        public bool UseTvInterface { get; set; }
+
+        /// <summary>
+        /// 使用App接口.
+        /// </summary>
+        [Reactive]
+        public bool UseAppInterface { get; set; }
+
+        /// <summary>
+        /// 使用国际版接口.
+        /// </summary>
+        [Reactive]
+        public bool UseInternationalInterface { get; set; }
+
+        /// <summary>
         /// 全部分P集合.
         /// </summary>
         [Reactive]
@@ -113,9 +132,24 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 var authProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>();
                 var token = await authProvider.GetTokenAsync();
-                list.Add("-app");
-                list.Add("-token");
-                list.Add(token);
+                if (UseAppInterface)
+                {
+                    list.Add("-app");
+                }
+                else if (UseTvInterface)
+                {
+                    list.Add("-tv");
+                }
+                else if (UseInternationalInterface)
+                {
+                    list.Add("-intl");
+                }
+
+                if (UseAppInterface || UseInternationalInterface || UseTvInterface)
+                {
+                    list.Add("-token");
+                    list.Add(token);
+                }
             }
 
             if (UseMp4Box)
