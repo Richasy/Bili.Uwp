@@ -137,7 +137,8 @@
                     x:Name="ShareButton"
                     Grid.Column="3"
                     Height="28"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    Click="OnShareButtonClick">
                     <icons:RegularFluentIcon FontSize="14" Symbol="Share20" />
                 </Button>
             </Grid>
