@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -202,6 +205,51 @@ namespace Richasy.Bili.App.Controls
             {
                 await ViewLaterViewModel.Instance.AddAsync(videoVM);
             }
+        }
+
+        private void OnShareButtonClick(object sender, RoutedEventArgs e)
+        {
+            var dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += OnDataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            var url = string.Empty;
+            var coverUrl = string.Empty;
+            var title = string.Empty;
+            var mainModule = Data.Modules.ToList().Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
+            var descModule = Data.Modules.ToList().Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDesc).FirstOrDefault();
+            if (mainModule != null)
+            {
+                request.Data.SetText(DescriptionBlock.Text);
+                if (mainModule.ModuleItemCase == Bilibili.App.Dynamic.V2.ModuleDynamic.ModuleItemOneofCase.DynPgc)
+                {
+                    var pgc = mainModule.DynPgc;
+                    url = $"https://www.bilibili.com/bangumi/play/ss{pgc.SeasonId}/";
+                    title = pgc.Title;
+                    coverUrl = pgc.Cover;
+                }
+                else if (mainModule.ModuleItemCase == Bilibili.App.Dynamic.V2.ModuleDynamic.ModuleItemOneofCase.DynArchive)
+                {
+                    var archive = mainModule.DynArchive;
+                    url = archive.IsPGC ?
+                        $"https://www.bilibili.com/bangumi/play/ss{archive.PgcSeasonId}/" :
+                        $"https://www.bilibili.com/video/{archive.Bvid}";
+                    title = archive.Title;
+                    coverUrl = archive.Cover;
+                }
+            }
+
+            request.Data.Properties.Title = title;
+            if (!string.IsNullOrEmpty(url))
+            {
+                request.Data.SetWebLink(new Uri(url));
+            }
+
+            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(coverUrl)));
         }
     }
 }
