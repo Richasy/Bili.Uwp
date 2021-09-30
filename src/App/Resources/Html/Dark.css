@@ -7,17 +7,12 @@
     background-color: transparent !important;
 }
 
-html::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-}
-
 body {
     margin: 0 auto;
     color: #FFFFFF;
     padding-top: 30px;
     padding-bottom: 30px;
-    overflow-y: auto;
-    background-color: #1b1b1b !important;
+    overflow: auto;
 }
 video {
     width: 100%;
@@ -116,7 +111,8 @@ ul, menu, dir {
 
 p {
     display: block;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    text-indent: 2em;
 }
 
     a, p a code {

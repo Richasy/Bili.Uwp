@@ -24,6 +24,8 @@
         <WebView
             x:Name="ReaderWebView"
             VerticalAlignment="Stretch"
+            DefaultBackgroundColor="Transparent"
+            DOMContentLoaded="OnDOMContentLoaded"
             ScriptNotify="OnScriptNotifyAsync"
             Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
     </Grid>
