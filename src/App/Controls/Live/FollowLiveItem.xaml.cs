@@ -36,6 +36,11 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 条目被点击时触发.
+        /// </summary>
+        public event EventHandler ItemClick;
+
+        /// <summary>
         /// 视图模型.
         /// </summary>
         public VideoViewModel ViewModel
@@ -86,7 +91,13 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnCardClickAsync(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri((ViewModel.Source as LiveFeedFollowRoom).Link));
+            ItemClick?.Invoke(this, EventArgs.Empty);
+            await PlayerViewModel.Instance.LoadAsync(ViewModel);
+        }
+
+        private void OnItemClick(object sender, VideoViewModel e)
+        {
+            ItemClick?.Invoke(this, EventArgs.Empty);
         }
     }
 }

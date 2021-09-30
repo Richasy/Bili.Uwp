@@ -106,11 +106,12 @@
                                                 TextLineBounds="Tight" />
                                         </StackPanel>
                                         <Button.Flyout>
-                                            <Flyout>
+                                            <Flyout x:Name="StandardFollowFlyout">
                                                 <Grid>
                                                     <controls:FollowLiveView
                                                         x:Name="FollowLiveView"
                                                         MinWidth="200"
+                                                        ItemClick="OnFollowListViewItemClick"
                                                         ItemOrientation="Horizontal"
                                                         Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
                                                     <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
