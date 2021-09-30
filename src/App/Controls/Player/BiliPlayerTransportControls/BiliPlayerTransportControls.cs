@@ -54,6 +54,7 @@ namespace Richasy.Bili.App.Controls
             _forwardSkipButton = GetTemplateChild(ForwardSkipButtonName) as Button;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
             _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
+            _homeButton = GetTemplateChild(HomeButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
@@ -63,6 +64,7 @@ namespace Richasy.Bili.App.Controls
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
             _backButton.Click += OnBackButtonClick;
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
+            _homeButton.Click += OnHomeButtonClickAsync;
 
             if (_formatListView != null)
             {
@@ -255,6 +257,11 @@ namespace Richasy.Bili.App.Controls
             }
 
             ViewModel.PlayerDisplayMode = mode;
+        }
+
+        private async void OnHomeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.BackToInteractionStartAsync();
         }
 
         private void CheckCurrentPlayerMode()

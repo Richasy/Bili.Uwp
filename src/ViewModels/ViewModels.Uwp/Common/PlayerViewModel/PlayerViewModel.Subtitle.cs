@@ -21,7 +21,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsLive)
             {
                 var aid = IsPgc ? CurrentPgcEpisode.Aid : Convert.ToInt32(_videoId);
-                var cid = IsPgc ? CurrentPgcEpisode.PartId : Convert.ToInt32(CurrentVideoPart.Page.Cid);
+                var cid = IsPgc ? CurrentPgcEpisode.PartId : Convert.ToInt32(GetCurrentPartId());
 
                 try
                 {

@@ -165,17 +165,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var targetPart = VideoPartCollection.Where(p => p.Data.Page.Cid == partId).FirstOrDefault();
                 CurrentVideoPart = targetPart.Data;
             }
-            else
+            else if (!IsInteraction)
             {
                 CurrentVideoPart = VideoPartCollection.First().Data;
             }
 
             CheckPartSelection();
 
+            var id = GetCurrentPartId();
             try
             {
                 IsPlayInformationLoading = true;
-                var play = await Controller.GetVideoPlayInformationAsync(_videoId, Convert.ToInt64(CurrentVideoPart?.Page.Cid));
+                var play = await Controller.GetVideoPlayInformationAsync(_videoId, id);
                 if (play != null)
                 {
                     _playerInformation = play;
@@ -199,9 +200,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 await InitializeVideoPlayInformationAsync(_playerInformation);
-                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, CurrentVideoPart.Page.Cid);
+                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, id);
                 await InitializeSubtitleIndexAsync();
-                ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(CurrentVideoPart.Page.Cid));
+                ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(id));
             }
         }
 
