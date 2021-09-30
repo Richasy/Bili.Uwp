@@ -256,6 +256,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _interactionPartId = _videoDetail.Interaction.HistoryNode.Cid;
                     _interactionNodeId = _videoDetail.Interaction.HistoryNode.NodeId;
                 }
+                else
+                {
+                    _interactionPartId = _videoDetail.Pages.First().Page.Cid;
+                }
             }
 
             IsLikeChecked = _videoDetail.ReqUser.Like == 1;
@@ -662,7 +666,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (progress != _lastReportProgress)
             {
                 var videoId = IsPgc ? CurrentPgcEpisode.Aid : _videoId;
-                var partId = IsPgc ? CurrentPgcEpisode.PartId : CurrentVideoPart?.Page?.Cid ?? 0;
+                var partId = IsPgc ? CurrentPgcEpisode.PartId : GetCurrentPartId();
                 var episodeId = IsPgc ? Convert.ToInt32(EpisodeId) : 0;
                 var seasonId = IsPgc ? Convert.ToInt32(SeasonId) : 0;
                 await Controller.ReportHistoryAsync(videoId, partId, episodeId, seasonId, _currentVideoPlayer.PlaybackSession.Position);
