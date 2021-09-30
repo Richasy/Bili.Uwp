@@ -89,6 +89,7 @@
                         <local:FollowLiveItem
                             DataContext="{x:Bind}"
                             Orientation="Horizontal"
+                            ItemClick="OnItemClick"
                             ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>

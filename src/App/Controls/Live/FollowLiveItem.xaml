@@ -24,6 +24,7 @@
                 IsShowReplayCount="False"
                 IsShowViewerCount="True"
                 Orientation="Horizontal"
+                ItemClick="OnItemClick"
                 ViewModel="{x:Bind ViewModel, Mode=OneWay}" />
         </Grid>
         <Grid x:Name="VerticalContainer" Visibility="Collapsed">

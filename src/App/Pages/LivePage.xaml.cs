@@ -61,5 +61,10 @@ namespace Richasy.Bili.App.Pages
         {
             await ViewModel.InitializeRequestAsync();
         }
+
+        private void OnFollowListViewItemClick(object sender, EventArgs e)
+        {
+            StandardFollowFlyout.Hide();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -32,6 +33,8 @@ namespace Richasy.Bili.App.Controls
             Current = this;
             Loaded += OnLoaded;
         }
+
+        public event EventHandler ItemClick;
 
         /// <summary>
         /// <see cref="FollowLiveView"/>的实例.
@@ -103,6 +106,11 @@ namespace Richasy.Bili.App.Controls
             {
                 item.Orientation = ItemOrientation;
             }
+        }
+
+        private void OnItemClick(object sender, System.EventArgs e)
+        {
+            ItemClick?.Invoke(this, EventArgs.Empty);
         }
     }
 }
