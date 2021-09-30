@@ -111,5 +111,10 @@ namespace Richasy.Bili.App.Controls
                 await Launcher.LaunchUriAsync(new Uri(data.Value));
             }
         }
+
+        private void OnDOMContentLoaded(Windows.UI.Xaml.Controls.WebView sender, Windows.UI.Xaml.Controls.WebViewDOMContentLoadedEventArgs args)
+        {
+            ReaderWebView.Focus(FocusState.Programmatic);
+        }
     }
 }

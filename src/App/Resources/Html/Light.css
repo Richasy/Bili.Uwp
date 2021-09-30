@@ -1,13 +1,9 @@
 ﻿html {
     padding: 0;
-    overflow-y: auto;
+    overflow: auto;
     width: 90vw;
-    max-width:700px;
-    margin:0 auto;
-}
-
-html::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 body {
@@ -16,15 +12,18 @@ body {
     padding-top: 30px;
     padding-bottom: 30px;
 }
-figcaption{
-    display:block;
-    margin:0 auto;
+
+figcaption {
+    display: block;
+    margin: 0 auto;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     line-height: 1.25;
     display: block;
 }
+
 video {
     width: 100%;
     max-width: 100% !important;
@@ -33,16 +32,19 @@ video {
     display: block;
     margin: 0 auto;
 }
+
 iframe {
     max-width: 100%;
     text-align: center;
     display: block;
     margin: 0 auto;
 }
+
 h1 {
     font-size: 1.5rem;
     margin: 0 0 .5rem 0;
 }
+
 button {
     background-color: #5473E8;
     border: none;
@@ -52,14 +54,16 @@ button {
     text-decoration: none;
     display: block;
     font-size: 13px;
-    border-radius:3px;
+    border-radius: 3px;
     transition: all .2s;
-    margin-top:8px;
-    margin-bottom:8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
+
     button:hover {
         background-color: #2940B0;
     }
+
 h2 {
     font-size: 1.4rem;
     padding-bottom: .3rem;
@@ -84,7 +88,7 @@ h6 {
 
 img {
     max-width: 100% !important;
-    height:auto !important;
+    height: auto !important;
     text-align: center;
     display: block;
     margin: 0 auto;
@@ -110,7 +114,8 @@ ul, menu, dir {
 
 p {
     display: block;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    text-indent: 2em;
 }
 
     a, p a code {
@@ -161,7 +166,7 @@ pre {
         border: 0;
         margin: 0;
         padding: 0;
-        background:transparent;
+        background: transparent;
     }
 
 table {
@@ -228,6 +233,7 @@ tbody > tr:nth-child(2n+1) > td, tbody > tr:nth-child(2n+1) > th {
     border-left-style: solid;
     margin: 1rem 0;
 }
+
 #content_progress {
     /* Positioning */
     position: fixed;
@@ -255,5 +261,3 @@ tbody > tr:nth-child(2n+1) > td, tbody > tr:nth-child(2n+1) > th {
     #content_progress::-moz-progress-bar {
         background-color: #5473E8;
     }
-
-
