@@ -27,6 +27,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             _pgcDetail = null;
             IsDetailError = false;
             _playerInformation = null;
+            _interactionNodeId = 0;
+            _interactionPartId = 0;
             CurrentFormat = null;
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
@@ -58,12 +60,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             ClearPlayer();
             IsPgc = false;
             IsLive = false;
+            IsInteraction = false;
 
             IsLikeChecked = false;
             IsCoinChecked = false;
             IsFollow = false;
             IsFavoriteChecked = false;
             IsEnableLikeHolding = true;
+            IsShowChoice = false;
+            IsShowInteractionEnd = false;
 
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
@@ -77,7 +82,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteMetaCollection.Clear();
             SubtitleIndexCollection.Clear();
             StaffCollection.Clear();
-
+            ChoiceCollection.Clear();
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
@@ -108,9 +113,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = false;
             }
 
-            var partId = CurrentVideoPart == null ? 0 : CurrentVideoPart.Page.Cid;
             await InitializeUserRelationAsync();
-            await ChangeVideoPartAsync(partId);
+
+            if (IsInteraction)
+            {
+                await InitializeInteractionVideoAsync();
+            }
+            else
+            {
+                var partId = CurrentVideoPart == null ? 0 : CurrentVideoPart.Page.Cid;
+                await ChangeVideoPartAsync(partId);
+            }
         }
 
         private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0, bool isRefresh = false)
@@ -215,6 +228,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ReplyCount = _numberToolkit.GetCountText(_videoDetail.Arc.Stat.Reply);
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
+            IsInteraction = _videoDetail.Interaction != null;
             ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.ReplyType.Video);
 
             if (_videoDetail.Staff.Count > 0)
@@ -233,6 +247,15 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsShowStaff = false;
                 var author = _videoDetail.Arc.Author;
                 Publisher = new UserViewModel(author.Name, author.Face, Convert.ToInt32(author.Mid));
+            }
+
+            if (IsInteraction)
+            {
+                if (_videoDetail.Interaction.HistoryNode != null)
+                {
+                    _interactionPartId = _videoDetail.Interaction.HistoryNode.Cid;
+                    _interactionNodeId = _videoDetail.Interaction.HistoryNode.NodeId;
+                }
             }
 
             IsLikeChecked = _videoDetail.ReqUser.Like == 1;
@@ -794,6 +817,29 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
 
                     await ChangeLivePlayLineAsync(currentOrder + 1);
+                }
+                else if (IsInteraction)
+                {
+                    if (ChoiceCollection.Count > 0)
+                    {
+                        if (ChoiceCollection.Count == 1 && string.IsNullOrEmpty(ChoiceCollection.First().Option))
+                        {
+                            var first = ChoiceCollection.First();
+                            _interactionPartId = first.PartId;
+                            _interactionNodeId = first.Id;
+                            await InitializeInteractionVideoAsync();
+                        }
+                        else
+                        {
+                            IsShowInteractionEnd = false;
+                            IsShowChoice = true;
+                        }
+                    }
+                    else
+                    {
+                        IsShowChoice = false;
+                        IsShowInteractionEnd = true;
+                    }
                 }
             });
         }

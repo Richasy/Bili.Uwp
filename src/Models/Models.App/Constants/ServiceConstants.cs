@@ -168,6 +168,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Codec = "codec";
             public const string PType = "ptype";
             public const string Format = "format";
+            public const string GraphVersion = "graph_version";
+            public const string EdgeId = "edge_id";
         }
 
         public static class Sort

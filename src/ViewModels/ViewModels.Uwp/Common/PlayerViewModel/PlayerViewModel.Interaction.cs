@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums;
 
@@ -167,6 +168,64 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsFollow = !IsFollow;
             }
+        }
+
+        /// <summary>
+        /// 初始化互动视频选项.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeInteractionVideoAsync()
+        {
+            if (_isInteractionChanging)
+            {
+                return;
+            }
+
+            _isInteractionChanging = true;
+            try
+            {
+                var response = await Controller.GetInteractionEdgeAsync(Convert.ToInt32(_videoId), _videoDetail.Interaction.GraphVersion.ToString(), _interactionNodeId);
+                _interactionDetail = response;
+                ChoiceCollection.Clear();
+                if (_interactionDetail?.Edges?.Questions?.Any() ?? false)
+                {
+                    var choices = _interactionDetail.Edges.Questions.First().Choices;
+                    foreach (var choice in choices)
+                    {
+                        if (!string.IsNullOrEmpty(choice.Condition))
+                        {
+                            var variables = _interactionDetail.HiddenVariables.Where(p => choice.Condition.Contains(p.Id));
+                            if (variables != null)
+                            {
+                                var minString = Regex.Match(choice.Condition, ">=([0-9]{1,}[.][0-9]*)").Value.Replace(">=", string.Empty);
+                                var maxString = Regex.Match(choice.Condition, "<=([0-9]{1,}[.][0-9]*)").Value.Replace("<=", string.Empty);
+                                var min = string.IsNullOrEmpty(minString) ? 0 : Convert.ToDouble(minString);
+                                var max = string.IsNullOrEmpty(maxString) ? -1 : Convert.ToDouble(maxString);
+                                var variable = variables.Where(p => choice.Condition.Contains(p.Id)).FirstOrDefault();
+                                if (variable != null)
+                                {
+                                    if (variable.Value >= min && (max == -1 || variable.Value <= max))
+                                    {
+                                        ChoiceCollection.Add(choice);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ChoiceCollection.Add(choice);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                IsPlayInformationError = true;
+                PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.FailedToLoadInteractionVideo);
+                _logger.LogError(ex);
+            }
+
+            _isInteractionChanging = false;
         }
 
         private long GetAid()

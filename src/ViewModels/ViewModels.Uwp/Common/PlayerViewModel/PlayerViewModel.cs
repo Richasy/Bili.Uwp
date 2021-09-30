@@ -41,6 +41,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
             SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
             StaffCollection = new ObservableCollection<UserViewModel>();
+            ChoiceCollection = new ObservableCollection<InteractionChoice>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _flvList = new List<FlvItem>();

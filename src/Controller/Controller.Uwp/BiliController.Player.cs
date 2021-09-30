@@ -220,5 +220,15 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>字幕详情.</returns>
         public Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url)
             => _playerProvider.GetSubtitleDetailAsync(url);
+
+        /// <summary>
+        /// 获取互动视频选区.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="graphVersion">版本号.</param>
+        /// <param name="edgeId">选区Id.</param>
+        /// <returns>选区响应.</returns>
+        public Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId)
+            => _playerProvider.GetInteractionEdgeAsync(videoId, graphVersion, edgeId);
     }
 }

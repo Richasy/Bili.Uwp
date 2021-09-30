@@ -57,6 +57,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         private DispatcherTimer _heartBeatTimer;
         private DispatcherTimer _subtitleTimer;
 
+        private long _interactionPartId;
+        private long _interactionNodeId;
+        private bool _isInteractionChanging;
+        private InteractionEdgeResponse _interactionDetail;
+
         /// <summary>
         /// 让直播消息视图滚动到底部.
         /// </summary>
@@ -469,6 +474,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsLive { get; set; }
 
         /// <summary>
+        /// 是否是互动视频.
+        /// </summary>
+        [Reactive]
+        public bool IsInteraction { get; set; }
+
+        /// <summary>
         /// 播放器状态.
         /// </summary>
         [Reactive]
@@ -685,9 +696,28 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool CanShowSubtitle { get; set; }
 
         /// <summary>
+        /// 是否显示选项.
+        /// </summary>
+        [Reactive]
+        public bool IsShowChoice { get; set; }
+
+        /// <summary>
+        /// 是否显示互动视频结束.
+        /// </summary>
+        [Reactive]
+        public bool IsShowInteractionEnd { get; set; }
+
+        /// <summary>
         /// 索引列表.
         /// </summary>
+        [Reactive]
         public ObservableCollection<SubtitleIndexItemViewModel> SubtitleIndexCollection { get; set; }
+
+        /// <summary>
+        /// 选项集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<InteractionChoice> ChoiceCollection { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

@@ -143,5 +143,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="url">字幕地址.</param>
         /// <returns>字幕详情.</returns>
         Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url);
+
+        /// <summary>
+        /// 获取互动视频选区.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="graphVersion">版本号.</param>
+        /// <param name="edgeId">选区Id.</param>
+        /// <returns>选区响应.</returns>
+        Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId);
     }
 }

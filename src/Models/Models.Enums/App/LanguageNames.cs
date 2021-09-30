@@ -367,6 +367,7 @@ namespace Richasy.Bili.Models.Enums
         MobileApp,
         TVApp,
         InternationalApp,
+        FailedToLoadInteractionVideo,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
