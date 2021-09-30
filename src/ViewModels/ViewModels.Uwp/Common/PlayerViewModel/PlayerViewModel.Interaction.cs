@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -171,6 +172,27 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 改变选项.
+        /// </summary>
+        /// <param name="choice">选项.</param>
+        public void ChangeChoice(InteractionChoice choice)
+        {
+            _interactionPartId = choice.PartId;
+            _interactionNodeId = choice.Id;
+        }
+
+        /// <summary>
+        /// 回到互动视频起点.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task BackToInteractionStartAsync()
+        {
+            _interactionPartId = _videoDetail.Pages.First().Page.Cid;
+            _interactionNodeId = 0;
+            await InitializeInteractionVideoAsync();
+        }
+
+        /// <summary>
         /// 初始化互动视频选项.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -187,6 +209,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var response = await Controller.GetInteractionEdgeAsync(Convert.ToInt32(_videoId), _videoDetail.Interaction.GraphVersion.ToString(), _interactionNodeId);
                 _interactionDetail = response;
                 ChoiceCollection.Clear();
+                IsShowChoice = false;
+                IsShowInteractionEnd = false;
                 if (_interactionDetail?.Edges?.Questions?.Any() ?? false)
                 {
                     var choices = _interactionDetail.Edges.Questions.First().Choices;
@@ -217,6 +241,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                         }
                     }
                 }
+
+                await ChangeVideoPartAsync(_interactionPartId);
             }
             catch (Exception ex)
             {

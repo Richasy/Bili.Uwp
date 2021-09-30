@@ -601,6 +601,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private long GetCurrentPartId()
+        {
+            return IsInteraction ? _interactionPartId : CurrentVideoPart?.Page?.Cid ?? 0;
+        }
+
         private void CheckEpisodeSelection()
         {
             foreach (var item in EpisodeCollection)
@@ -630,7 +635,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private async Task CheckVideoHistoryAsync()
         {
             var history = _videoDetail.History;
-            if (CurrentVideoPart == null || history.Cid != CurrentVideoPart?.Page.Cid)
+            if (CurrentVideoPart == null || history.Cid != GetCurrentPartId())
             {
                 await ChangeVideoPartAsync(history.Cid);
                 _initializeProgress = TimeSpan.FromSeconds(history.Progress);
@@ -824,9 +829,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     {
                         if (ChoiceCollection.Count == 1 && string.IsNullOrEmpty(ChoiceCollection.First().Option))
                         {
-                            var first = ChoiceCollection.First();
-                            _interactionPartId = first.PartId;
-                            _interactionNodeId = first.Id;
+                            ChangeChoice(ChoiceCollection.First());
                             await InitializeInteractionVideoAsync();
                         }
                         else

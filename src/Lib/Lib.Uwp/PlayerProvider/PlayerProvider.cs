@@ -311,8 +311,8 @@ namespace Richasy.Bili.Lib.Uwp
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.InteractionEdge, queryParameters);
             var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<InteractionEdgeResponse>(response);
-            return result;
+            var result = await _httpProvider.ParseAsync<ServerResponse<InteractionEdgeResponse>>(response);
+            return result.Data;
         }
     }
 }

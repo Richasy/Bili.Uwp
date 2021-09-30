@@ -104,7 +104,13 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="SubtitleVertical"
                                             Storyboard.TargetProperty="Y"
-                                            From="80"
+                                            From="50"
+                                            To="0.5"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="ChoiceVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="50"
                                             To="0.5"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
@@ -124,6 +130,12 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation
                                             Storyboard.TargetName="SubtitleVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="0.5"
+                                            To="80"
+                                            Duration="0:0:0.4" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="ChoiceVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="80"
@@ -307,7 +319,7 @@
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </Grid>
 
-                        <StackPanel VerticalAlignment="Bottom" Spacing="12">
+                        <StackPanel VerticalAlignment="Bottom" Spacing="6">
                             <Grid x:Name="SubtitleContainer" HorizontalAlignment="Center">
                                 <Grid.RenderTransform>
                                     <TranslateTransform x:Name="SubtitleVertical" />
@@ -329,6 +341,13 @@
                                     </Grid>
                                 </Grid>
                             </Grid>
+                            <Grid HorizontalAlignment="Center" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteraction, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Grid.RenderTransform>
+                                    <TranslateTransform x:Name="ChoiceVertical" />
+                                </Grid.RenderTransform>
+                                <local:InteractionChoicePanel x:Name="ChoiceContainer" />
+                            </Grid>
+
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border" MaxWidth="820">
                                 <Grid
                                     x:Name="ControlPanelGrid"
@@ -761,18 +780,34 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Button
-                                x:Name="BackButton"
-                                AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
-                                Width="32"
-                                Height="32"
-                                Padding="0"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}">
-                                <icons:RegularFluentIcon FontSize="14" Symbol="ChevronLeft48" />
-                                <Button.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Escape" />
-                                </Button.KeyboardAccelerators>
-                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    x:Name="BackButton"
+                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="0,0,8,0"
+                                    Padding="0"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}">
+                                    <icons:RegularFluentIcon FontSize="14" Symbol="ChevronLeft48" />
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="Escape" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
+                                <Button
+                                    x:Name="HomeButton"
+                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToStart}"
+                                    Width="32"
+                                    Height="32"
+                                    Padding="0"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToStart}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteraction, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <icons:RegularFluentIcon FontSize="14" Symbol="Home16" />
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="H" Modifiers="Control" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </ControlTemplate>

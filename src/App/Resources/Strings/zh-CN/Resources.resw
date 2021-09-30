@@ -189,6 +189,9 @@
   <data name="BackToPrevious" xml:space="preserve">
     <value>返回上一级</value>
   </data>
+  <data name="BackToStart" xml:space="preserve">
+    <value>返回互动视频开头</value>
+  </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -504,6 +507,9 @@
   </data>
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
+  </data>
+  <data name="InteractionEnd" xml:space="preserve">
+    <value>互动视频结束，可点击左上角“🏘”按钮返回开头</value>
   </data>
   <data name="InterfaceType" xml:space="preserve">
     <value>接口类型</value>
