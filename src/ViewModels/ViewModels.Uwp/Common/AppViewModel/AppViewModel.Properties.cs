@@ -97,5 +97,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ElementTheme Theme { get; set; }
+
+        /// <summary>
+        /// 是否在Xbox上运行.
+        /// </summary>
+        public bool IsXbox { get; set; }
     }
 }

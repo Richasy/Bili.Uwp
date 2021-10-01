@@ -38,6 +38,11 @@ namespace Richasy.Bili.App
 
             FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
+
+            if (AppViewModel.Instance.IsXbox)
+            {
+                RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+            }
         }
 
         /// <inheritdoc/>
@@ -75,6 +80,7 @@ namespace Richasy.Bili.App
 
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(AppConstants.AppMinWidth, AppConstants.AppMinHeight));
+            appView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

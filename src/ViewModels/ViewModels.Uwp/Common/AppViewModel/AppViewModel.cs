@@ -21,12 +21,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         internal AppViewModel()
         {
             _ = BiliController.Instance;
-            IsNavigatePaneOpen = true;
             IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
                                    .LoadService(out _settingToolkit);
             _displayRequest = new Windows.System.Display.DisplayRequest();
+            IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             InitializeTheme();
         }
 
