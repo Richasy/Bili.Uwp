@@ -84,8 +84,8 @@
                     HorizontalAlignment="Left"
                     MaxLines="1"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.Subtitle}"
-                    ToolTipService.ToolTip="{x:Bind ViewModel.Subtitle}" />
+                    Text="{x:Bind ViewModel.Subtitle, Mode=OneWay}"
+                    ToolTipService.ToolTip="{x:Bind ViewModel.Subtitle, Mode=OneWay}" />
 
                 <Grid
                     Grid.Row="2"
