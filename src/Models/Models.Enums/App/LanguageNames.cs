@@ -370,6 +370,7 @@ namespace Richasy.Bili.Models.Enums
         FailedToLoadInteractionVideo,
         InteractionEnd,
         BackToStart,
+        PlaybackRate,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -728,6 +728,9 @@
   <data name="PgcNotFollow" xml:space="preserve">
     <value>追</value>
   </data>
+  <data name="PlaybackRate" xml:space="preserve">
+    <value>播放速率</value>
+  </data>
   <data name="PlayCount" xml:space="preserve">
     <value>播放量</value>
   </data>

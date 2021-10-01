@@ -714,6 +714,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<SubtitleIndexItemViewModel> SubtitleIndexCollection { get; set; }
 
         /// <summary>
+        /// 播放速率.
+        /// </summary>
+        [Reactive]
+        public double PlaybackRate { get; set; }
+
+        /// <summary>
         /// 选项集合.
         /// </summary>
         [Reactive]
