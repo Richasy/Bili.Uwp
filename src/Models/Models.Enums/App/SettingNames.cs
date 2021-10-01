@@ -36,6 +36,7 @@ namespace Richasy.Bili.Models.Enums
         DoubleClickBehavior,
         IsShowDanmakuBar,
         CanShowSubtitle,
+        PlaybackRate,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

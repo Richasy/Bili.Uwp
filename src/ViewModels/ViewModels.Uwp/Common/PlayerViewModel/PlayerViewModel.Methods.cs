@@ -762,6 +762,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                     session.Position = _initializeProgress;
                     _initializeProgress = TimeSpan.Zero;
                 }
+
+                session.PlaybackRate = PlaybackRate;
             }
 
             var props = _currentPlaybackItem.GetDisplayProperties();

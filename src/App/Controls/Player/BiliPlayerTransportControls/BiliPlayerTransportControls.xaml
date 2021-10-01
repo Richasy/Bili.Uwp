@@ -570,10 +570,33 @@
                                                                     Modifiers="Control" />
                                                             </Button.KeyboardAccelerators>
                                                         </Button>
-                                                        <Button x:Name="PlaybackRateButton" Style="{StaticResource MTCButtonStyle}">
+                                                        <Button
+                                                            x:Name="RateButton"
+                                                            AutomationProperties.Name="{loc:LocaleLocator Name=PlaybackRate}"
+                                                            Style="{StaticResource MTCButtonStyle}"
+                                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=PlaybackRate}">
                                                             <Button.Content>
                                                                 <icons:RegularFluentIcon Symbol="Replay20" />
                                                             </Button.Content>
+                                                            <Button.Flyout>
+                                                                <Flyout>
+                                                                    <StackPanel Spacing="4">
+                                                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" HorizontalAlignment="Left">
+                                                                            <Run Text="{loc:LocaleLocator Name=PlaybackRate}" />
+                                                                            <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
+                                                                        </TextBlock>
+                                                                        <Slider
+                                                                            x:Name="RateSlider"
+                                                                            Width="200"
+                                                                            Maximum="3"
+                                                                            Minimum="0.5"
+                                                                            StepFrequency="0.1"
+                                                                            TickFrequency="0.1"
+                                                                            TickPlacement="Outside"
+                                                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
+                                                                    </StackPanel>
+                                                                </Flyout>
+                                                            </Button.Flyout>
                                                         </Button>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive}">
