@@ -1,4 +1,4 @@
-﻿<Page
+﻿<pages:AppPage
     x:Class="Richasy.Bili.App.Pages.Overlay.MessagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pages="using:Richasy.Bili.App.Pages"
     mc:Ignorable="d">
 
     <Grid>
@@ -27,7 +28,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="RefreshButton.Margin" Value="{StaticResource NarrowContainerPadding}" />
                     </VisualState.Setters>
                 </VisualState>
@@ -79,7 +79,7 @@
             <Grid>
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
-                    Padding="{StaticResource DefaultContainerPadding}"
+                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid Margin="0,-12,0,12" VerticalAlignment="Top">
@@ -97,4 +97,4 @@
             </Grid>
         </muxc:NavigationView>
     </Grid>
-</Page>
+</pages:AppPage>

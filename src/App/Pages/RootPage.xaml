@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:AppPage
     x:Class="Richasy.Bili.App.Pages.RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -29,11 +29,11 @@
         <controls:RootNavigationView
             x:Name="RootNavView"
             Grid.Row="1"
-            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+            Visibility="{x:Bind CoreViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
         <Frame
             x:Name="OverFrame"
             Grid.Row="1"
-            Visibility="{x:Bind ViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            Visibility="{x:Bind CoreViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
 
         <Grid
             x:Name="HolderContainer"
@@ -42,4 +42,4 @@
 
         <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
     </Grid>
-</Page>
+</local:AppPage>

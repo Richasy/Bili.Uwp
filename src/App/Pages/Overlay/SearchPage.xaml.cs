@@ -3,7 +3,6 @@
 using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -11,7 +10,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 搜索页面.
     /// </summary>
-    public sealed partial class SearchPage : Page
+    public sealed partial class SearchPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

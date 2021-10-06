@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:AppPage
     x:Class="Richasy.Bili.App.Pages.SettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,30 +18,13 @@
     </Page.Resources>
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="LayoutGroup">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootPanel.Margin" Value="{StaticResource NarrowContainerPadding}" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <ScrollViewer
             x:Name="ContentScrollViewer"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
             <StackPanel
                 x:Name="RootPanel"
-                Margin="{StaticResource DefaultContainerPadding}"
+                Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                 Padding="0,0,0,24"
                 Spacing="4">
 
@@ -76,4 +59,4 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-</Page>
+</local:AppPage>

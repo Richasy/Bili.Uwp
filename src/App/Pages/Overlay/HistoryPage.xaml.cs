@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 历史记录页面.
     /// </summary>
-    public sealed partial class HistoryPage : Page
+    public sealed partial class HistoryPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

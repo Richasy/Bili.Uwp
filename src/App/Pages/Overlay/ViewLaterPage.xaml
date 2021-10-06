@@ -1,4 +1,4 @@
-﻿<Page
+﻿<pages:AppPage
     x:Class="Richasy.Bili.App.Pages.Overlay.ViewLaterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,6 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pages="using:Richasy.Bili.App.Pages"
     xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
@@ -25,8 +26,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
-                        <Setter Target="InfoContainer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="VideoView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
@@ -45,7 +44,7 @@
             <Grid Grid.Row="1">
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
-                    Padding="{StaticResource DefaultContainerPadding}"
+                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -110,4 +109,4 @@
             </Grid>
         </Grid>
     </Grid>
-</Page>
+</pages:AppPage>

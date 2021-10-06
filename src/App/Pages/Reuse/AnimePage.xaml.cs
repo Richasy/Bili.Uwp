@@ -13,7 +13,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 动漫页面，属于番剧和国创的共有页面.
     /// </summary>
-    public sealed partial class AnimePage : Page, IRefreshPage
+    public sealed partial class AnimePage : AppPage, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

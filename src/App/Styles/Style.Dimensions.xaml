@@ -5,6 +5,8 @@
     <Thickness x:Key="NarrowContainerPadding">0,0,12,0</Thickness>
     <Thickness x:Key="DefaultContainerWithBottomPadding">0,0,52,28</Thickness>
     <Thickness x:Key="NarrowContainerWithBottomPadding">0,0,12,16</Thickness>
+    <Thickness x:Key="XboxPagePadding">24,12,0,0</Thickness>
+    <Thickness x:Key="XboxContainerPadding">0,0,24,0</Thickness>
 
     <x:Double x:Key="WideWindowThresholdWidth">1200</x:Double>
     <x:Double x:Key="MediumWindowThresholdWidth">720</x:Double>

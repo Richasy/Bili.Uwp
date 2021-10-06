@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:AppPage
     x:Class="Richasy.Bili.App.Pages.HelpPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -36,7 +36,8 @@
 
         <Grid
             x:Name="WideContainer"
-            Padding="{StaticResource DefaultContainerWithBottomPadding}"
+            Margin="0,0,0,28"
+            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
             ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -161,7 +162,7 @@
 
         <ScrollViewer
             x:Name="NarrowScrollView"
-            Padding="{StaticResource NarrowContainerPadding}"
+            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             Visibility="Collapsed">
             <Grid
@@ -175,4 +176,4 @@
             </Grid>
         </ScrollViewer>
     </Grid>
-</Page>
+</local:AppPage>

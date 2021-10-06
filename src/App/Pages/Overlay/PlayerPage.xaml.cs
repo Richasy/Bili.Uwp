@@ -6,7 +6,6 @@ using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -15,7 +14,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 播放器页面.
     /// </summary>
-    public sealed partial class PlayerPage : Page
+    public sealed partial class PlayerPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -73,7 +72,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             _navigateVM = null;
             EnterDefaultModeAsync();
-            AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
+            CoreViewModel.IsOverLayerExtendToTitleBar = false;
         }
 
         /// <inheritdoc/>
@@ -88,7 +87,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                 }
                 else
                 {
-                    AppViewModel.Instance.Back();
+                    CoreViewModel.Back();
                 }
             }
 
@@ -131,7 +130,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                 return;
             }
 
-            if (e.NewSize.Width < AppViewModel.Instance.MediumWindowThresholdWidth)
+            if (e.NewSize.Width < CoreViewModel.MediumWindowThresholdWidth)
             {
                 if (ContentContainer.Children.Contains(ContentGrid))
                 {
@@ -182,11 +181,11 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
             {
                 EnterDefaultModeAsync();
-                AppViewModel.Instance.IsOverLayerExtendToTitleBar = false;
+                CoreViewModel.IsOverLayerExtendToTitleBar = false;
             }
             else
             {
-                AppViewModel.Instance.IsOverLayerExtendToTitleBar = true;
+                CoreViewModel.IsOverLayerExtendToTitleBar = true;
                 ViewModel.BiliPlayer.IsFullWindow = true;
                 if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.FullScreen)
                 {

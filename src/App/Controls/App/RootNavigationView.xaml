@@ -37,10 +37,8 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.Padding" Value="{StaticResource NarrowPagePadding}" />
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
                         <Setter Target="MainGrid.CornerRadius" Value="0" />
-                        <Setter Target="HeaderContainer.Margin" Value="{StaticResource NarrowContainerPadding}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -122,7 +120,7 @@
             <muxc:NavigationView.Content>
                 <Grid
                     x:Name="MainGrid"
-                    Padding="{StaticResource DefaultPagePadding}"
+                    Padding="{x:Bind ViewModel.PageLeftPadding, Mode=OneWay}"
                     Background="{ThemeResource LayerFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1,1,0,0"
@@ -134,7 +132,7 @@
                     </Grid.RowDefinitions>
                     <Grid
                         x:Name="HeaderContainer"
-                        Margin="{StaticResource DefaultContainerPadding}"
+                        Margin="{x:Bind ViewModel.PageRightPadding, Mode=OneWay}"
                         ColumnSpacing="12"
                         Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                         <Grid.ColumnDefinitions>
