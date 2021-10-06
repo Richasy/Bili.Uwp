@@ -30,9 +30,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public RootNavigationView()
         {
-            this.InitializeComponent();
-            this.Loaded += this.OnLoaded;
-            this.Unloaded += this.OnUnloaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -46,15 +46,19 @@ namespace Richasy.Bili.App.Controls
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.PropertyChanged -= this.OnAppViewModelPropertyChanged;
-            ViewModel.RequestOverlayNavigation -= this.OnRequestOverlayNavigation;
+            ViewModel.PropertyChanged -= OnAppViewModelPropertyChanged;
+            ViewModel.RequestOverlayNavigation -= OnRequestOverlayNavigation;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.PropertyChanged += this.OnAppViewModelPropertyChanged;
-            ViewModel.RequestOverlayNavigation += this.OnRequestOverlayNavigation;
+            ViewModel.PropertyChanged += OnAppViewModelPropertyChanged;
+            ViewModel.RequestOverlayNavigation += OnRequestOverlayNavigation;
             CheckMainContentNavigation();
+            if (ViewModel.IsXbox)
+            {
+                RootNavView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftMinimal;
+            }
         }
 
         private void OnRequestOverlayNavigation(object sender, object e)

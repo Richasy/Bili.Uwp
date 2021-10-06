@@ -39,6 +39,11 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
+        /// 点击时触发.
+        /// </summary>
+        public event EventHandler Click;
+
+        /// <summary>
         /// 用户名.
         /// </summary>
         public string UserName
@@ -76,6 +81,11 @@ namespace Richasy.Bili.App.Controls
             {
                 instance.PersonPicture.ProfilePicture = null;
             }
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            Click?.Invoke(this, EventArgs.Empty);
         }
     }
 }

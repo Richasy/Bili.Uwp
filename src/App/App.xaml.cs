@@ -41,7 +41,8 @@ namespace Richasy.Bili.App
 
             if (AppViewModel.Instance.IsXbox)
             {
-                RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+                // RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+                FocusVisualKind = FocusVisualKind.Reveal;
             }
         }
 

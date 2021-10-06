@@ -41,17 +41,19 @@
             PaneDisplayMode="Top">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="other:RankPartition">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Image
-                            Width="20"
-                            Height="20"
-                            VerticalAlignment="Center"
-                            Source="{x:Bind Logo}" />
-                        <TextBlock
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            VerticalAlignment="Center"
-                            Text="{x:Bind PartitionName}" />
-                    </StackPanel>
+                    <muxc:NavigationViewItem>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Image
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Center"
+                                Source="{x:Bind Logo}" />
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                VerticalAlignment="Center"
+                                Text="{x:Bind PartitionName}" />
+                        </StackPanel>
+                    </muxc:NavigationViewItem>
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
 

@@ -27,6 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _settingToolkit);
             _displayRequest = new Windows.System.Display.DisplayRequest();
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
+            IsNavigatePaneOpen = !IsXbox;
             InitializeTheme();
         }
 

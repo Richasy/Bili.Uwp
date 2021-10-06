@@ -50,6 +50,7 @@
             Style="{StaticResource BiliNavigationViewStyle}"
             CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
             ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
+            IsPaneOpen="{x:Bind ViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />

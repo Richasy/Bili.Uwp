@@ -101,6 +101,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 是否在Xbox上运行.
         /// </summary>
+        [Reactive]
         public bool IsXbox { get; set; }
     }
 }
