@@ -92,6 +92,7 @@ namespace Richasy.Bili.App.Pages
                 HolderContainer.Children.Remove(HolderContainer.Children.Last());
                 return true;
             }
+            else if()
 
             return false;
         }

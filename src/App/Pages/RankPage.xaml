@@ -40,7 +40,7 @@
             PaneDisplayMode="Top">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="other:RankPartition">
-                    <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem DataContext="{x:Bind}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Image
                                 Width="20"
