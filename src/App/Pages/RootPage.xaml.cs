@@ -83,16 +83,19 @@ namespace Richasy.Bili.App.Pages
 
         private bool TryBack()
         {
-            if (CoreViewModel.IsBackButtonEnabled)
-            {
-                return TitleBar.TryBack();
-            }
-            else if (HolderContainer.Children.Count > 0)
+            if (HolderContainer.Children.Count > 0)
             {
                 HolderContainer.Children.Remove(HolderContainer.Children.Last());
                 return true;
             }
-            else if()
+            else if (BiliPlayerTransportControls.Instance != null && BiliPlayerTransportControls.Instance.CheckBack())
+            {
+                return true;
+            }
+            else if (CoreViewModel.IsBackButtonEnabled)
+            {
+                return TitleBar.TryBack();
+            }
 
             return false;
         }

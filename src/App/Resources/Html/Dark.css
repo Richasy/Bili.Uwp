@@ -4,7 +4,7 @@
     width: 90vw;
     max-width: 700px;
     margin: 0 auto;
-    background-color: transparent !important;
+    background: #222222;
 }
 
 body {
@@ -365,5 +365,19 @@ tbody > tr:nth-child(2n+1) > td, tbody > tr:nth-child(2n+1) > th {
     overflow: hidden;
     pointer-events: none;
     z-index: -1;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #555555;
 }
 

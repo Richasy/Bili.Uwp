@@ -29,12 +29,28 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public BiliPlayerTransportControls()
         {
-            this.DefaultStyleKey = typeof(BiliPlayerTransportControls);
-            this._danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
-            this._segmentIndex = 1;
-            this.SizeChanged += OnSizeChanged;
+            DefaultStyleKey = typeof(BiliPlayerTransportControls);
+            _danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
+            _segmentIndex = 1;
+            Instance = this;
+            SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
+        }
+
+        /// <summary>
+        /// 检查后退操作.
+        /// </summary>
+        /// <returns>是否处理了后退操作.</returns>
+        public bool CheckBack()
+        {
+            if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
+            {
+                ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
+                return true;
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>
@@ -91,14 +107,14 @@ namespace Richasy.Bili.App.Controls
                 _forwardSkipButton.Click += OnForwardSkipButtonClick;
             }
 
-            this.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
-            this.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
-            this.DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
-            this.DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
-            this.ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
-            this.SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
+            DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
+            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
+            DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
+            ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
+            SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -177,7 +193,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
         {
-            if (this.ShowAndHideAutomatically)
+            if (ShowAndHideAutomatically)
             {
                 _playPauseButton.Focus(FocusState.Programmatic);
                 return;
@@ -300,14 +316,14 @@ namespace Richasy.Bili.App.Controls
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
         {
             InitializeDanmaku(e);
-            this._danmakuTimer.Start();
+            _danmakuTimer.Start();
         }
 
         private void OnRequestClearDanmaku(object sender, EventArgs e)
         {
-            this._segmentIndex = 1;
-            this._danmakuDictionary.Clear();
-            this._danmakuTimer.Stop();
+            _segmentIndex = 1;
+            _danmakuDictionary.Clear();
+            _danmakuTimer.Stop();
             _danmakuView.ClearAll();
         }
 
@@ -389,7 +405,7 @@ namespace Richasy.Bili.App.Controls
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
                     _danmakuView.ResumeDanmaku();
-                    this.Hide();
+                    Hide();
                 }
             });
         }
@@ -473,14 +489,14 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckDanmakuZoom()
         {
-            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _danmakuView == null)
+            if (ActualWidth == 0 || ActualHeight == 0 || _danmakuView == null)
             {
                 return;
             }
 
             var baseWidth = 800d;
             var baseHeight = 600d;
-            var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
+            var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
             if (scale > 1)
             {
                 scale = 1;
@@ -496,14 +512,14 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckSubtitleZoom()
         {
-            if (this.ActualWidth == 0 || this.ActualHeight == 0 || _subtitleBlock == null)
+            if (ActualWidth == 0 || ActualHeight == 0 || _subtitleBlock == null)
             {
                 return;
             }
 
             var baseWidth = 800d;
             var baseHeight = 600d;
-            var scale = Math.Min(this.ActualWidth / baseWidth, ActualHeight / baseHeight);
+            var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
             if (scale > 2.2)
             {
                 scale = 2.2;
@@ -521,10 +537,10 @@ namespace Richasy.Bili.App.Controls
             switch (SettingViewModel.DefaultMTCControlMode)
             {
                 case MTCControlMode.Automatic:
-                    this.ShowAndHideAutomatically = true;
+                    ShowAndHideAutomatically = true;
                     break;
                 case MTCControlMode.Manual:
-                    this.ShowAndHideAutomatically = false;
+                    ShowAndHideAutomatically = false;
                     break;
                 default:
                     break;

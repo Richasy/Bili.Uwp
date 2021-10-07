@@ -10,6 +10,7 @@ using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -60,7 +61,7 @@ namespace Richasy.Bili.App.Controls
             Title = vm.Title;
             if (!_isPreLoaded)
             {
-                ReaderWebView.NavigateToString(string.Empty);
+                await ReaderWebView.EnsureCoreWebView2Async();
                 _isPreLoaded = true;
             }
 
@@ -89,9 +90,9 @@ namespace Richasy.Bili.App.Controls
                 var html = readerContainerStr.Replace("$theme$", theme.ToLower())
                                             .Replace("$style$", css)
                                             .Replace("$body$", content)
-                                            .Replace("$noscroll$", "style=\"-ms-overflow-style: none;\"")
-                                            .Replace("$return$", string.Empty);
+                                            .Replace("$noscroll$", "style=\"-ms-overflow-style: none;\"");
                 ReaderWebView.NavigateToString(html);
+                ReaderWebView.Focus(FocusState.Pointer);
             }
         }
 
@@ -112,9 +113,18 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnDOMContentLoaded(Windows.UI.Xaml.Controls.WebView sender, Windows.UI.Xaml.Controls.WebViewDOMContentLoadedEventArgs args)
+        private async void OnDOMContentLoadedAsync(Windows.UI.Xaml.Controls.WebView sender, Windows.UI.Xaml.Controls.WebViewDOMContentLoadedEventArgs args)
         {
-            ReaderWebView.Focus(FocusState.Programmatic);
+            await FocusManager.TryFocusAsync(sender, FocusState.Programmatic);
+        }
+
+        private async void OnWebMessageReceivedAsync(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
+        {
+            var data = JsonConvert.DeserializeObject<KeyValue<string>>(args.WebMessageAsJson);
+            if (data.Key == AppConstants.LinkClickEvent)
+            {
+                await Launcher.LaunchUriAsync(new Uri(data.Value));
+            }
         }
     }
 }

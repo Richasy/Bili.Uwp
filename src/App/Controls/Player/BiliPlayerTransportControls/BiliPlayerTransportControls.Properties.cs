@@ -74,6 +74,11 @@ namespace Richasy.Bili.App.Controls
         private double _cursorStayTime;
 
         /// <summary>
+        /// 实例.
+        /// </summary>
+        public static BiliPlayerTransportControls Instance { get; private set; }
+
+        /// <summary>
         /// 视图模型.
         /// </summary>
         public PlayerViewModel ViewModel

@@ -1,16 +1,17 @@
 ﻿html {
     padding: 0;
-    overflow: auto;
+    overflow-y: auto;
     width: 90vw;
     max-width: 700px;
     margin: 0 auto;
+    background: white;
 }
 
 body {
     margin: 0 auto;
     color: #2c3e50;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
 figcaption {
@@ -261,3 +262,17 @@ tbody > tr:nth-child(2n+1) > td, tbody > tr:nth-child(2n+1) > th {
     #content_progress::-moz-progress-bar {
         background-color: #5473E8;
     }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #EEEEEE;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #DDDDDD;
+}
