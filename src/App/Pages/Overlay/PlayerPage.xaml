@@ -143,14 +143,15 @@
                         <controls:PlayerRelatedView />
                     </Grid>
                 </Grid>
-
-                <ScrollViewer
-                    x:Name="RootScrollViewer"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto"
-                    Visibility="Collapsed" />
-
             </Grid>
+
+            <ScrollViewer
+                x:Name="RootScrollViewer"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Visibility="Collapsed">
+                <Grid x:Name="ScrollGrid" />
+            </ScrollViewer>
 
             <controls:ErrorPanel
                 x:Name="ErrorPanel"
