@@ -103,6 +103,11 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
 
             CheckPlayerDisplayModeAsync();
+
+            if (ViewModel.IsDetailCanLoaded)
+            {
+                CheckLayout();
+            }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -111,6 +116,13 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 case nameof(ViewModel.PlayerDisplayMode):
                     CheckPlayerDisplayModeAsync();
+                    break;
+                case nameof(ViewModel.IsDetailCanLoaded):
+                    if (ViewModel.IsDetailCanLoaded)
+                    {
+                        CheckLayout();
+                    }
+
                     break;
                 default:
                     break;
@@ -130,40 +142,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                 return;
             }
 
-            if (e.NewSize.Width < CoreViewModel.MediumWindowThresholdWidth)
-            {
-                if (ContentContainer.Children.Contains(ContentGrid))
-                {
-                    ContentContainer.Children.Remove(ContentGrid);
-                    RootScrollViewer.Content = ContentGrid;
-                }
-
-                if (BiliPlayer != null)
-                {
-                    if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
-                    {
-                        var maxHeight = e.NewSize.Height * 0.7;
-                        BiliPlayer.MaxHeight = maxHeight;
-                    }
-                    else
-                    {
-                        BiliPlayer.MaxHeight = double.PositiveInfinity;
-                    }
-                }
-            }
-            else
-            {
-                if (RootScrollViewer.Content != null)
-                {
-                    RootScrollViewer.Content = null;
-                    ContentContainer.Children.Insert(0, ContentGrid);
-                }
-
-                if (BiliPlayer != null)
-                {
-                    BiliPlayer.MaxHeight = double.PositiveInfinity;
-                }
-            }
+            CheckLayout();
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
@@ -250,6 +229,51 @@ namespace Richasy.Bili.App.Pages.Overlay
                 {
                     ContentGrid.Children.Remove(PlayerContainer);
                     RootGrid.Children.Add(PlayerContainer);
+                }
+            }
+        }
+
+        private void CheckLayout()
+        {
+            var width = Window.Current.Bounds.Width;
+            var height = Window.Current.Bounds.Height;
+            if (width < CoreViewModel.MediumWindowThresholdWidth)
+            {
+                if (LayoutGroup.CurrentState != NarrowState)
+                {
+                    VisualStateManager.GoToState(this, nameof(NarrowState), false);
+                }
+
+                if (LoadContainer.Children.Contains(ContentGrid))
+                {
+                    LoadContainer.Children.Remove(ContentGrid);
+                    ScrollGrid.Children.Add(ContentGrid);
+                }
+
+                if (BiliPlayer != null)
+                {
+                    if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
+                    {
+                        var maxHeight = height * 0.7;
+                        BiliPlayer.MaxHeight = maxHeight;
+                    }
+                    else
+                    {
+                        BiliPlayer.MaxHeight = double.PositiveInfinity;
+                    }
+                }
+            }
+            else
+            {
+                if (ScrollGrid.Children.Count > 0)
+                {
+                    ScrollGrid.Children.Clear();
+                    LoadContainer.Children.Insert(0, ContentGrid);
+                }
+
+                if (BiliPlayer != null)
+                {
+                    BiliPlayer.MaxHeight = double.PositiveInfinity;
                 }
             }
         }
