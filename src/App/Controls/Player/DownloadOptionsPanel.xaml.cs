@@ -145,7 +145,7 @@ namespace Richasy.Bili.App.Controls
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             var appVM = AppViewModel.Instance;
-            if (ViewModel.TotalPartCollection.Where(p => p.IsSelected).Count() == 0)
+            if (ViewModel.TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && ViewModel.TotalPartCollection.Count > 1)
             {
                 appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
                 return;
