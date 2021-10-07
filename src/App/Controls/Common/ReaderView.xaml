@@ -15,18 +15,15 @@
     mc:Ignorable="d">
 
     <Grid CornerRadius="{StaticResource ControlCornerRadius}">
+        <muxc:WebView2
+            x:Name="ReaderWebView"
+            VerticalAlignment="Stretch"
+            WebMessageReceived="OnWebMessageReceivedAsync" />
         <local:OverlayLoadingPanel IsRingActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
         <local:ErrorPanel
             ActionButtonClick="OnArticleRefreshButtonClickAsync"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <WebView
-            x:Name="ReaderWebView"
-            VerticalAlignment="Stretch"
-            DefaultBackgroundColor="Transparent"
-            DOMContentLoaded="OnDOMContentLoaded"
-            ScriptNotify="OnScriptNotifyAsync"
-            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
     </Grid>
 </local:CenterPopup>
