@@ -19,6 +19,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly ISettingsToolkit _settingToolkit;
         private readonly DisplayRequest _displayRequest;
 
+        private bool? _isWide;
+
         /// <summary>
         /// 请求导航至二级页面时发生
         /// </summary>
@@ -97,5 +99,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public ElementTheme Theme { get; set; }
+
+        /// <summary>
+        /// 是否在Xbox上运行.
+        /// </summary>
+        [Reactive]
+        public bool IsXbox { get; set; }
+
+        /// <summary>
+        /// 页面左侧或上部的边距.
+        /// </summary>
+        [Reactive]
+        public Thickness PageLeftPadding { get; set; }
+
+        /// <summary>
+        /// 页面右侧或下部的边距.
+        /// </summary>
+        [Reactive]
+        public Thickness PageRightPadding { get; set; }
     }
 }

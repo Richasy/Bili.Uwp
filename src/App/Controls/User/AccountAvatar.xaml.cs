@@ -76,18 +76,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnUserAvatarTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (ViewModel.Status == AccountViewModelStatus.Logout)
-            {
-                await ViewModel.TrySignInAsync();
-            }
-            else
-            {
-                FlyoutBase.ShowAttachedFlyout(UserAvatar);
-            }
-        }
-
         private void OnNavigateButtonClick(object sender, RoutedEventArgs e)
         {
             var btn = sender as FrameworkElement;
@@ -126,6 +114,18 @@ namespace Richasy.Bili.App.Controls
         private async void OnFlyoutOpenedAsync(object sender, object e)
         {
             await ViewModel.InitCommunityInformationAsync();
+        }
+
+        private async void OnUserAvatarClickAsync(object sender, EventArgs e)
+        {
+            if (ViewModel.Status == AccountViewModelStatus.Logout)
+            {
+                await ViewModel.TrySignInAsync();
+            }
+            else
+            {
+                FlyoutBase.ShowAttachedFlyout(UserAvatar);
+            }
         }
     }
 }

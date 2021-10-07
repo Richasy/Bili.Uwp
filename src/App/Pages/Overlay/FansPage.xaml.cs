@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 粉丝详情页面.
     /// </summary>
-    public sealed partial class FansPage : Page
+    public sealed partial class FansPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

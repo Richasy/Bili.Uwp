@@ -5,7 +5,6 @@ using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages
@@ -13,7 +12,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 数据源PGC页面.
     /// </summary>
-    public sealed partial class FeedPage : Page, IRefreshPage
+    public sealed partial class FeedPage : AppPage, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

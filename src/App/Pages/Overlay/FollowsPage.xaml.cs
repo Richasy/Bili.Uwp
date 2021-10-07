@@ -4,7 +4,6 @@ using System;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -12,7 +11,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 关注用户页面.
     /// </summary>
-    public sealed partial class FollowsPage : Page
+    public sealed partial class FollowsPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

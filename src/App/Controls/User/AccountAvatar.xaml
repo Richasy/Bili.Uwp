@@ -19,7 +19,7 @@
             FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}"
             Opened="OnFlyoutOpenedAsync"
             Placement="Bottom">
-            <Grid>
+            <Grid TabFocusNavigation="Local">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -30,7 +30,8 @@
                     Padding="0,4,0,0"
                     BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                     BorderThickness="0,1,0,0"
-                    Spacing="4">
+                    Spacing="4"
+                    TabFocusNavigation="Local">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -98,7 +99,7 @@
         </Flyout>
     </UserControl.Resources>
 
-    <Grid ToolTipService.ToolTip="{x:Bind ViewModel.TipText, Mode=OneWay}">
+    <Grid TabFocusNavigation="Local" ToolTipService.ToolTip="{x:Bind ViewModel.TipText, Mode=OneWay}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="NormalState" />
@@ -116,8 +117,10 @@
             Width="{x:Bind Width, Mode=OneWay}"
             Height="{x:Bind Height, Mode=OneWay}"
             Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+            Click="OnUserAvatarClickAsync"
             FlyoutBase.AttachedFlyout="{StaticResource AvatarFlyout}"
-            Tapped="OnUserAvatarTappedAsync"
+            IsTabStop="True"
+            IsTapEnabled="True"
             UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
         <Ellipse
             Width="8"

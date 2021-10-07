@@ -11,7 +11,7 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// PGC索引页面.
     /// </summary>
-    public sealed partial class PgcIndexPage : Page
+    public sealed partial class PgcIndexPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

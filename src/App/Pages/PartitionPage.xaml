@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:AppPage
     x:Class="Richasy.Bili.App.Pages.PartitionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,33 +13,16 @@
     mc:Ignorable="d">
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootContainer.Padding" Value="{StaticResource NarrowContainerWithBottomPadding}" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <ScrollViewer
             x:Name="RootContainer"
-            Padding="{StaticResource DefaultContainerWithBottomPadding}"
+            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
             VerticalAlignment="Stretch"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             VerticalScrollMode="Enabled">
             <muxc:ItemsRepeater
                 x:Name="PartitionView"
-                Margin="0,4,0,0"
+                Margin="0,4,0,20"
                 ItemsSource="{x:Bind ViewModel.PartitionCollection}"
                 Loaded="OnItemsRepeaterLoadedAsync">
                 <muxc:ItemsRepeater.ItemTemplate>
@@ -72,4 +55,4 @@
                 Text="{loc:LocaleLocator Name=PartitionLoading}" />
         </StackPanel>
     </Grid>
-</Page>
+</local:AppPage>

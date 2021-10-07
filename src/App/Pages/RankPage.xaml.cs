@@ -4,14 +4,13 @@ using System.ComponentModel;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Pages
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class RankPage : Page
+    public sealed partial class RankPage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
@@ -69,7 +68,7 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnDetailNavigationViewItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var item = args.InvokedItem as RankPartition;
+            var item = args.InvokedItemContainer.DataContext as RankPartition;
             ContentScrollViewer.ChangeView(0, 0, 1);
             await ViewModel.SetSelectedRankPartitionAsync(item);
         }

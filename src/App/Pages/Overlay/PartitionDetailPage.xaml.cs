@@ -13,7 +13,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 分区详情页面.
     /// </summary>
-    public sealed partial class PartitionDetailPage : Page
+    public sealed partial class PartitionDetailPage : AppPage
     {
         /// <summary>
         /// Dependency property of <see cref="ViewModel"/>.

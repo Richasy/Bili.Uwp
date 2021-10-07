@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Pages
 {
     /// <summary>
     /// 首页.
     /// </summary>
-    public sealed partial class RecommendPage : Page, IRefreshPage
+    public sealed partial class RecommendPage : AppPage, IRefreshPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

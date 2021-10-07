@@ -3,7 +3,6 @@
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Pages
@@ -11,21 +10,21 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class PartitionPage : Page, IConnectedAnimationPage
+    public sealed partial class PartitionPage : AppPage, IConnectedAnimationPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register("ViewModel", typeof(PartitionModuleViewModel), typeof(PartitionPage), new PropertyMetadata(PartitionModuleViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(PartitionModuleViewModel), typeof(PartitionPage), new PropertyMetadata(PartitionModuleViewModel.Instance));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitionPage"/> class.
         /// </summary>
         public PartitionPage()
         {
-            this.InitializeComponent();
-            this.Loaded += this.OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -40,9 +39,9 @@ namespace Richasy.Bili.App.Pages
         /// <inheritdoc/>
         public void TryStartConnectedAnimation()
         {
-            if (this.PartitionView != null && this.ViewModel.CurrentPartition != null)
+            if (PartitionView != null && ViewModel.CurrentPartition != null)
             {
-                var element = this.PartitionView.GetOrCreateElement(this.ViewModel.PartitionCollection.IndexOf(this.ViewModel.CurrentPartition));
+                var element = PartitionView.GetOrCreateElement(ViewModel.PartitionCollection.IndexOf(ViewModel.CurrentPartition));
                 if (element != null)
                 {
                     var animateService = ConnectedAnimationService.GetForCurrentView();
@@ -61,13 +60,13 @@ namespace Richasy.Bili.App.Pages
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            this.FindName("PartitionView");
+            FindName("PartitionView");
         }
 
         private async void OnPartitionItemClickAsync(object sender, PartitionViewModel e)
         {
             AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.PartitionDetail, e);
-            await this.ViewModel.SelectPartitionAsync(e);
+            await ViewModel.SelectPartitionAsync(e);
         }
     }
 }

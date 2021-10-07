@@ -297,6 +297,7 @@
       <DependentUpon>VideoFavoritePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VisualExtensions.cs" />
+    <Compile Include="Pages\AppPage.cs" />
     <Compile Include="Pages\Overlay\FansPage.xaml.cs">
       <DependentUpon>FansPage.xaml</DependentUpon>
     </Compile>
@@ -1020,7 +1021,7 @@
       <Version>7.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.7.0</Version>
+      <Version>2.8.0-prerelease.210927001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

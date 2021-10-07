@@ -11,6 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
+    TabFocusNavigation="Local"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -96,8 +97,10 @@
             PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
             QueryIcon="Find"
             QuerySubmitted="OnSearchBoxSubmitted"
+            TabIndex="2"
             Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
-            UpdateTextOnSelect="False">
+            UpdateTextOnSelect="False"
+            XYFocusLeftNavigationStrategy="Auto">
             <AutoSuggestBox.TextBoxStyle>
                 <Style TargetType="TextBox">
                     <Setter Property="Padding" Value="40,8,0,8" />
@@ -115,6 +118,8 @@
             Background="Transparent"
             BorderThickness="0"
             Click="OnHotSearchButtonClick"
+            IsTabStop="True"
+            TabIndex="1"
             ToolTipService.ToolTip="{loc:LocaleLocator Name=HotSearch}">
             <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
         </Button>

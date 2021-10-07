@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -23,8 +24,10 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public AppTitleBar()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -65,14 +68,40 @@ namespace Richasy.Bili.App.Controls
         {
             Window.Current.SetTitleBar(TitleBarHost);
             CheckBackButtonVisibility();
+            CheckDevice();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e) => CheckDevice();
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.IsOpenPlayer) || e.PropertyName == nameof(ViewModel.IsShowOverlay))
             {
                 CheckBackButtonVisibility();
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsXbox))
+            {
+                CheckDevice();
+            }
+        }
+
+        private void CheckDevice()
+        {
+            var width = Window.Current.Bounds.Width;
+            if (ViewModel.IsXbox)
+            {
+                MenuButton.Visibility = Visibility.Visible;
+                AppNameBlock.Visibility = Visibility.Visible;
+                RightPaddingColumn.Width = new GridLength(24);
+            }
+            else
+            {
+                RightPaddingColumn.Width = new GridLength(172);
+                MenuButton.Visibility = width >= ViewModel.MediumWindowThresholdWidth ? Visibility.Collapsed : Visibility.Visible;
+                AppNameBlock.Visibility = width >= ViewModel.MediumWindowThresholdWidth ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 

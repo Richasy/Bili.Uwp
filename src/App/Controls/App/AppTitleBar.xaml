@@ -9,6 +9,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -28,7 +29,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" TabFocusNavigation="Local">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
                 <VisualStateGroup.States>
@@ -42,8 +43,6 @@
                             <AdaptiveTrigger MinWindowWidth="0" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
-                            <Setter Target="MenuButton.Visibility" Value="Visible" />
-                            <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
                             <Setter Target="BackgroundHost.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
                         </VisualState.Setters>
@@ -82,7 +81,8 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick">
+                Click="OnBackButtonClick"
+                TabIndex="1">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
                 </Button.KeyboardAccelerators>
@@ -125,6 +125,7 @@
                 Style="{StaticResource TitleBarButtonStyle}"
                 Grid.Column="1"
                 Click="OnMenuButtonClick"
+                TabIndex="2"
                 Visibility="Collapsed">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
@@ -182,7 +183,7 @@
                 Grid.Column="3"
                 MaxWidth="520"
                 VerticalAlignment="Center">
-                <local:SearchSuggestBox />
+                <local:SearchSuggestBox x:Name="SearchBox" TabIndex="3" />
             </Grid>
 
             <local:AccountAvatar
@@ -191,7 +192,8 @@
                 Width="28"
                 Height="28"
                 Margin="12,0"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                TabIndex="4" />
         </Grid>
     </Grid>
 

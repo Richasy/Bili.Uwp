@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 消息页面.
     /// </summary>
-    public sealed partial class MessagePage : Page
+    public sealed partial class MessagePage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

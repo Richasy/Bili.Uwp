@@ -8,9 +8,22 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    IsTabStop="False"
     mc:Ignorable="d">
 
-    <Grid>
+    <local:CardPanel
+        Width="{x:Bind Width, Mode=OneWay}"
+        Height="{x:Bind Height, Mode=OneWay}"
+        Padding="0"
+        Background="Transparent"
+        BorderThickness="0"
+        Click="OnClick"
+        CornerRadius="32"
+        DisabledBackground="Transparent"
+        IsEnableHoverAnimation="False"
+        IsEnableShadow="False"
+        PointerOverBackground="Transparent"
+        PressedBackground="Transparent">
         <muxc:PersonPicture
             x:Name="PersonPicture"
             Width="{x:Bind Width, Mode=OneWay}"
@@ -19,5 +32,5 @@
             BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
             DisplayName="{x:Bind UserName, Mode=OneWay}"
             ToolTipService.ToolTip="{x:Bind UserName, Mode=OneWay}" />
-    </Grid>
+    </local:CardPanel>
 </UserControl>

@@ -2,7 +2,6 @@
 
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -10,7 +9,7 @@ namespace Richasy.Bili.App.Pages.Overlay
     /// <summary>
     /// 时间线页面.
     /// </summary>
-    public sealed partial class TimeLinePage : Page
+    public sealed partial class TimeLinePage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

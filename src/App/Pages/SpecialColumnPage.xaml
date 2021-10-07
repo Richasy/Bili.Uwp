@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:AppPage
     x:Class="Richasy.Bili.App.Pages.SpecialColumnPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -25,7 +25,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="ArticleView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
@@ -53,7 +52,7 @@
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Margin="0,8,0,0"
-                    Padding="{StaticResource DefaultContainerPadding}"
+                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -158,4 +157,4 @@
 
         <controls:OverlayLoadingPanel IsRingActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
     </Grid>
-</Page>
+</local:AppPage>

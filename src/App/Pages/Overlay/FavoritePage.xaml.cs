@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 收藏夹页面.
     /// </summary>
-    public sealed partial class FavoritePage : Page
+    public sealed partial class FavoritePage : AppPage
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.

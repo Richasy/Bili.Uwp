@@ -16,14 +16,8 @@ namespace Richasy.Bili.App.Pages
     /// <summary>
     /// The page is used for default loading.
     /// </summary>
-    public sealed partial class RootPage : Page
+    public sealed partial class RootPage : AppPage
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(RootPage), new PropertyMetadata(AppViewModel.Instance));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RootPage"/> class.
         /// </summary>
@@ -31,18 +25,10 @@ namespace Richasy.Bili.App.Pages
         {
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
-            this.ViewModel.RequestShowTip += OnRequestShowTip;
-            this.ViewModel.RequestBack += OnRequestBack;
+            this.CoreViewModel.RequestShowTip += OnRequestShowTip;
+            this.CoreViewModel.RequestBack += OnRequestBack;
+            SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-        }
-
-        /// <summary>
-        /// 应用视图模型.
-        /// </summary>
-        public AppViewModel ViewModel
-        {
-            get { return (AppViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
         }
 
         /// <summary>
@@ -61,7 +47,7 @@ namespace Richasy.Bili.App.Pages
 
             if (needDisableBackButton)
             {
-                ViewModel.IsBackButtonEnabled = false;
+                CoreViewModel.IsBackButtonEnabled = false;
             }
         }
 
@@ -71,7 +57,7 @@ namespace Richasy.Bili.App.Pages
         public void ClearHolder()
         {
             HolderContainer.Children.Clear();
-            ViewModel.IsBackButtonEnabled = true;
+            CoreViewModel.IsBackButtonEnabled = true;
         }
 
         /// <summary>
@@ -89,7 +75,7 @@ namespace Richasy.Bili.App.Pages
             if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
             {
                 e.Handled = true;
-                ViewModel.Back();
+                CoreViewModel.Back();
             }
 
             base.OnPointerReleased(e);
@@ -97,7 +83,7 @@ namespace Richasy.Bili.App.Pages
 
         private bool TryBack()
         {
-            if (ViewModel.IsBackButtonEnabled)
+            if (CoreViewModel.IsBackButtonEnabled)
             {
                 return TitleBar.TryBack();
             }
@@ -106,19 +92,18 @@ namespace Richasy.Bili.App.Pages
                 HolderContainer.Children.Remove(HolderContainer.Children.Last());
                 return true;
             }
+            else if()
 
             return false;
         }
 
-        private void OnRequestBack(object sender, System.EventArgs e)
-        {
-            TryBack();
-        }
+        private void OnRequestBack(object sender, System.EventArgs e) => TryBack();
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.ViewModel.RequestPlay += OnRequestPlay;
+            this.CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            this.CoreViewModel.RequestPlay += OnRequestPlay;
+            CoreViewModel.InitializePadding();
             await AccountViewModel.Instance.TrySignInAsync(true);
         }
 
@@ -131,34 +116,33 @@ namespace Richasy.Bili.App.Pages
         }
 
         private void OnRequestPlay(object sender, object e)
-        {
-            OverFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
-        }
+            => OverFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+            => CoreViewModel.InitializePadding();
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.IsOpenPlayer))
+            if (e.PropertyName == nameof(CoreViewModel.IsOpenPlayer))
             {
-                if (!ViewModel.IsOpenPlayer)
+                if (!CoreViewModel.IsOpenPlayer)
                 {
-                    ViewModel.ReleaseDisplayRequest();
+                    CoreViewModel.ReleaseDisplayRequest();
                     OverFrame.Navigate(typeof(Page));
                 }
                 else
                 {
-                    ViewModel.ActiveDisplayRequest();
+                    CoreViewModel.ActiveDisplayRequest();
                 }
             }
-            else if (e.PropertyName == nameof(ViewModel.IsOverLayerExtendToTitleBar))
+            else if (e.PropertyName == nameof(CoreViewModel.IsOverLayerExtendToTitleBar))
             {
-                var stateName = ViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
+                var stateName = CoreViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
                 VisualStateManager.GoToState(this, stateName, false);
             }
         }
 
         private void OnRequestShowTip(object sender, AppTipNotificationEventArgs e)
-        {
-            new TipPopup(e.Message).ShowAsync(e.Type);
-        }
+            => new TipPopup(e.Message).ShowAsync(e.Type);
     }
 }
