@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <StackPanel
                 x:Name="SinglePublisherContainer"
                 Margin="0,0,0,12"
