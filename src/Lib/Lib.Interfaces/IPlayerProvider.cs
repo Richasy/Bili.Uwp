@@ -152,5 +152,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="edgeId">选区Id.</param>
         /// <returns>选区响应.</returns>
         Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId);
+
+        /// <summary>
+        /// 获取视频的参数.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>视频参数.</returns>
+        Task<VideoStatusInfo> GetVideoStatusAsync(long videoId);
     }
 }

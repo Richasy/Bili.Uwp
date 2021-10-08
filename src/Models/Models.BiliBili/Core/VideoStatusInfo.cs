@@ -36,8 +36,8 @@ namespace Richasy.Bili.Models.BiliBili
         /// <summary>
         /// 视频收藏数.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favourite", Required = Required.Default)]
-        public int FavouriteCount { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favorite", Required = Required.Default)]
+        public int FavoriteCount { get; set; }
 
         /// <summary>
         /// 投币数.

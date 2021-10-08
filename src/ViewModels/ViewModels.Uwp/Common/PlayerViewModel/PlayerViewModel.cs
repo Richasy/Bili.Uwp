@@ -534,6 +534,38 @@ namespace Richasy.Bili.ViewModels.Uwp
             DownloadViewModel.Instance.Load(para, VideoPartCollection.Select((p, index) => index + 1).ToList());
         }
 
+        /// <summary>
+        /// 加载视频参数信息.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitVideoStatusAsync()
+        {
+            if (IsPgc || IsLive)
+            {
+                return;
+            }
+
+            if (_videoId > 0)
+            {
+                try
+                {
+                    // 延迟1s以等待数据同步.
+                    await Task.Delay(500);
+                    var info = await Controller.GetVideoStatusAsync(_videoId);
+                    LikeCount = _numberToolkit.GetCountText(info.LikeCount);
+                    CoinCount = _numberToolkit.GetCountText(info.CoinCount);
+                    FavoriteCount = _numberToolkit.GetCountText(info.FavoriteCount);
+                    DanmakuCount = _numberToolkit.GetCountText(info.DanmakuCount);
+                    PlayCount = _numberToolkit.GetCountText(info.PlayCount);
+                    ReplyCount = _numberToolkit.GetCountText(info.ReplyCount);
+                    ShareCount = _numberToolkit.GetCountText(info.ShareCount);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var request = args.Request;

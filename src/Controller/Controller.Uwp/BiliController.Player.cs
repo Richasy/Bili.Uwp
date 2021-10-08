@@ -230,5 +230,13 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>选区响应.</returns>
         public Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId)
             => _playerProvider.GetInteractionEdgeAsync(videoId, graphVersion, edgeId);
+
+        /// <summary>
+        /// 获取视频的参数.
+        /// </summary>
+        /// <param name="videoId">视频Id.</param>
+        /// <returns>视频参数.</returns>
+        public Task<VideoStatusInfo> GetVideoStatusAsync(long videoId)
+            => _playerProvider.GetVideoStatusAsync(videoId);
     }
 }

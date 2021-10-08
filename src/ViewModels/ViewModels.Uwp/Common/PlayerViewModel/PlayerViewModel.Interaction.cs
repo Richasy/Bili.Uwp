@@ -89,6 +89,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsLikeChecked = result.IsLike;
                 IsCoinChecked = result.IsCoin;
                 IsFavoriteChecked = result.IsFavorite;
+                await InitVideoStatusAsync();
             }
         }
 
@@ -105,6 +106,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (isSuccess)
             {
                 IsLikeChecked = isLike;
+                await InitVideoStatusAsync();
             }
         }
 
@@ -125,6 +127,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     IsLikeChecked = true;
                 }
+
+                await InitVideoStatusAsync();
             }
         }
 
@@ -146,6 +150,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case Models.Enums.Bili.FavoriteResult.Success:
                 case Models.Enums.Bili.FavoriteResult.InsufficientAccess:
                     IsFavoriteChecked = selectedIds.Count > 0;
+                    await InitVideoStatusAsync();
                     break;
                 default:
                     break;
