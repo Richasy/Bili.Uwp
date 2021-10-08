@@ -195,7 +195,7 @@ namespace Richasy.Bili.App.Controls
                 tx.FontWeight = FontWeights.Bold;
             }
 
-            if (string.IsNullOrEmpty(_fontFamily))
+            if (!string.IsNullOrEmpty(_fontFamily))
             {
                 tx.FontFamily = new FontFamily(_fontFamily);
             }
@@ -227,7 +227,7 @@ namespace Richasy.Bili.App.Controls
                 tx.FontWeight = FontWeights.Bold;
             }
 
-            if (string.IsNullOrEmpty(_fontFamily))
+            if (!string.IsNullOrEmpty(_fontFamily))
             {
                 tx.FontFamily = new FontFamily(_fontFamily);
             }
