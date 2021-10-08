@@ -42,6 +42,12 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public bool IsShowDanmaku { get; set; }
 
         /// <summary>
+        /// 是否可以显示弹幕.
+        /// </summary>
+        [Reactive]
+        public bool CanShowDanmaku { get; set; }
+
+        /// <summary>
         /// 弹幕透明度.
         /// </summary>
         [Reactive]
