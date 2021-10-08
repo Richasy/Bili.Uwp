@@ -23,7 +23,7 @@
                     ItemsJustification="Center"
                     MinColumnSpacing="12"
                     MinItemHeight="48"
-                    MinItemWidth="200"
+                    MinItemWidth="280"
                     MinRowSpacing="12" />
             </muxc:ItemsRepeater.Layout>
             <muxc:ItemsRepeater.ItemTemplate>
@@ -33,6 +33,7 @@
                         Click="OnChoiceClickAsync"
                         DataContext="{x:Bind}">
                         <Grid
+                            Padding="12,0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="{ThemeResource MediaTransportControlsPanelBackground}"
@@ -42,7 +43,9 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 FontWeight="Bold"
-                                Text="{x:Bind Option}" />
+                                Text="{x:Bind Option}"
+                                TextTrimming="CharacterEllipsis"
+                                ToolTipService.ToolTip="{x:Bind Option}" />
                         </Grid>
                     </local:CardPanel>
                 </DataTemplate>
