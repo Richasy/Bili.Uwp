@@ -469,6 +469,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 获取互动视频选项.
             /// </summary>
             public const string InteractionEdge = _apiBase + "/x/stein/edgeinfo_v2";
+
+            /// <summary>
+            /// 获取视频参数.
+            /// </summary>
+            public const string Stat = _apiBase + "/x/web-interface/archive/stat";
         }
 
         public static class Search

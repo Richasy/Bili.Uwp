@@ -314,5 +314,19 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<InteractionEdgeResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<VideoStatusInfo> GetVideoStatusAsync(long videoId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Aid, videoId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Stat, queryParameters);
+            var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(3)).Token);
+            var result = await _httpProvider.ParseAsync<ServerResponse<VideoStatusInfo>>(response);
+            return result.Data;
+        }
     }
 }
