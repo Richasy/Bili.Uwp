@@ -71,6 +71,7 @@ namespace Richasy.Bili.App.Controls
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
             _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
             _homeButton = GetTemplateChild(HomeButtonName) as Button;
+            _backToDefaultButton = GetTemplateChild(BackToDefaultButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
@@ -81,6 +82,7 @@ namespace Richasy.Bili.App.Controls
             _backButton.Click += OnBackButtonClick;
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
             _homeButton.Click += OnHomeButtonClickAsync;
+            _backToDefaultButton.Click += OnBackButtonClick;
 
             if (_formatListView != null)
             {
@@ -485,6 +487,9 @@ namespace Richasy.Bili.App.Controls
         {
             CheckDanmakuZoom();
             CheckSubtitleZoom();
+
+            DanmakuViewModel.CanShowDanmaku = e.NewSize.Width >= 480;
+            IsCompact = e.NewSize.Width < 480;
         }
 
         private void CheckDanmakuZoom()

@@ -49,6 +49,7 @@ namespace Richasy.Bili.App.Controls
         private const string DanmakuBarVisibilityButtonName = "ToggleDanmakuBarVisibilityButton";
         private const string SubtitleBlockName = "SubtitleBlock";
         private const string HomeButtonName = "HomeButton";
+        private const string BackToDefaultButtonName = "BackToDefaultButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -69,6 +70,7 @@ namespace Richasy.Bili.App.Controls
         private Button _playPauseButton;
         private Button _danmakuBarVisibilityButton;
         private Button _homeButton;
+        private Button _backToDefaultButton;
         private TextBlock _subtitleBlock;
         private int _segmentIndex;
         private double _cursorStayTime;

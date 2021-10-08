@@ -236,15 +236,11 @@
                                 <VisualState x:Name="NormalMode" />
                                 <VisualState x:Name="CompactMode">
                                     <VisualState.Setters>
-                                        <Setter Target="LeftSidePlayBorder.Visibility" Value="Visible" />
-                                        <Setter Target="TimeTextGrid.Visibility" Value="Collapsed" />
-                                        <Setter Target="MediaTransportControls_Command_Border.(Grid.Column)" Value="2" />
-                                        <Setter Target="MediaTransportControls_Command_Border.(Grid.Row)" Value="1" />
-                                        <Setter Target="ControlPanelGrid.Height" Value="48" />
-                                        <Setter Target="MediaControlsCommandBar.Margin" Value="0" />
-                                        <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="ProgressSlider.Margin" Value="{ThemeResource MediaTransportControlsProgressSliderCompactMargin}" />
-                                        <Setter Target="ControlPanelGrid.Padding" Value="3" />
+                                        <Setter Target="LeftContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="CenterContainer.(Grid.Column)" Value="2" />
+                                        <Setter Target="CenterContainer.(Grid.ColumnSpan)" Value="1" />
+                                        <Setter Target="RightContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="BackToDefaultButton.Visibility" Value="Visible" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -307,7 +303,7 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Fill="Transparent" />
-                        <Grid x:Name="DanmakuContainer">
+                        <Grid x:Name="DanmakuContainer" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.CanShowDanmaku}">
                             <local:DanmakuView
                                 x:Name="DanmakuView"
                                 HorizontalAlignment="Stretch"
@@ -469,6 +465,14 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
+                                                <Button
+                                                    x:Name="BackToDefaultButton"
+                                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
+                                                    Style="{StaticResource MTCButtonStyle}"
+                                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}"
+                                                    Visibility="Collapsed">
+                                                    <icons:RegularFluentIcon Symbol="ArrowMoveInward20" />
+                                                </Button>
                                                 <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
                                                     <Button
                                                         x:Name="ToggleDanmakuBarVisibilityButton"
@@ -539,6 +543,7 @@
                                                             <icons:RegularFluentIcon Symbol="Speaker220" />
                                                         </Button.Content>
                                                     </Button>
+
                                                     <StackPanel Orientation="Horizontal" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                                         <Button
                                                             x:Name="FormatButton"
@@ -599,6 +604,7 @@
                                                             </Button.Flyout>
                                                         </Button>
                                                     </StackPanel>
+
                                                     <StackPanel Orientation="Horizontal" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLive}">
                                                         <Button
                                                             x:Name="LiveQualityButton"
@@ -663,6 +669,7 @@
                                                             </Button.KeyboardAccelerators>
                                                         </Button>
                                                     </StackPanel>
+
                                                     <Button
                                                         x:Name="SubtitleButton"
                                                         AutomationProperties.Name="{loc:LocaleLocator Name=Subtitle}"
