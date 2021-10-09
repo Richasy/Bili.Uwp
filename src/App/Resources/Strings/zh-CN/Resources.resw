@@ -273,6 +273,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="ContinuePreviousView" xml:space="preserve">
+    <value>继续观看</value>
+  </data>
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
   </data>

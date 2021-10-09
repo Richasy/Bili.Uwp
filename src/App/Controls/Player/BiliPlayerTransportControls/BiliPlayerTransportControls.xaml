@@ -344,6 +344,31 @@
                                 <local:InteractionChoicePanel x:Name="ChoiceContainer" />
                             </Grid>
 
+                            <Border x:Name="PreviousViewInformer_Border">
+                                <muxc:InfoBar
+                                    x:Name="PreviousViewInformer"
+                                    Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                    BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
+                                    BorderThickness="{ThemeResource MediaTransportControlsBorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    HorizontalAlignment="Left"
+                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistory, Mode=TwoWay}"
+                                    IsIconVisible="False"
+                                    IsClosable="True" 
+                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryText}">
+                                    <muxc:InfoBar.ActionButton>
+                                        <Button
+                                            x:Name="ContinuePreviousViewButton"
+                                            MinWidth="120"
+                                            Click="JumpToHistoryAsync"
+                                            Content="{loc:LocaleLocator Name=ContinuePreviousView}"
+                                            >
+                                        </Button>
+                                    </muxc:InfoBar.ActionButton>
+                                </muxc:InfoBar>
+                            </Border>
+
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border" MaxWidth="820">
                                 <Grid
                                     x:Name="ControlPanelGrid"

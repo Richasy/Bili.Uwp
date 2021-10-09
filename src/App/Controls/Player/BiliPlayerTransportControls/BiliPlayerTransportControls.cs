@@ -72,6 +72,7 @@ namespace Richasy.Bili.App.Controls
             _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
             _homeButton = GetTemplateChild(HomeButtonName) as Button;
             _backToDefaultButton = GetTemplateChild(BackToDefaultButtonName) as Button;
+            _continuePreviousViewButton = GetTemplateChild(ContinuePreviousViewButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
@@ -83,6 +84,7 @@ namespace Richasy.Bili.App.Controls
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
             _homeButton.Click += OnHomeButtonClickAsync;
             _backToDefaultButton.Click += OnBackButtonClick;
+            _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickedAsync;
 
             if (_formatListView != null)
             {
@@ -280,6 +282,13 @@ namespace Richasy.Bili.App.Controls
         private async void OnHomeButtonClickAsync(object sender, RoutedEventArgs e)
         {
             await ViewModel.BackToInteractionStartAsync();
+        }
+
+        private async void OnContinuePreviousViewButtonClickedAsync(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsShowHistory = false;
+            ViewModel.HistoryText = string.Empty;
+            await ViewModel.JumpToHistoryAsync();
         }
 
         private void CheckCurrentPlayerMode()
