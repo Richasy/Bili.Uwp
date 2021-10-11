@@ -23,8 +23,7 @@ namespace Richasy.Bili.App.Controls
             if (ViewModel.BiliPlayer == null)
             {
                 var mediaPlayerElement = GetTemplateChild("MediaPlayerElement") as MediaPlayerElement;
-                var mediaElement = GetTemplateChild("MediaElement") as MediaElement;
-                ViewModel.ApplyMediaControl(mediaPlayerElement, mediaElement);
+                ViewModel.ApplyMediaControl(mediaPlayerElement);
             }
         }
     }

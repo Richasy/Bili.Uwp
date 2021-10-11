@@ -48,7 +48,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private List<DashItem> _audioList;
         private List<DashItem> _videoList;
-        private List<FlvItem> _flvList;
         private List<SubtitleItem> _subtitleList;
 
         private MediaPlayer _currentVideoPlayer;
@@ -106,12 +105,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 调度器.
         /// </summary>
         public CoreDispatcher Dispatcher { get; set; }
-
-        /// <summary>
-        /// 是否使用经典播放器.
-        /// </summary>
-        [Reactive]
-        public bool IsClassicPlayer { get; set; }
 
         /// <summary>
         /// 详情是否可以加载（用于优化页面跳转的加载时间）.

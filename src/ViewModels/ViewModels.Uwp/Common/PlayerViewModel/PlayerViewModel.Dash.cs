@@ -88,50 +88,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _currentPlaybackItem = new MediaPlaybackItem(mediaSource);
                 _currentVideoPlayer.Source = _currentPlaybackItem;
 
-                IsClassicPlayer = false;
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
-                MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception)
-            {
-                IsPlayInformationError = true;
-                PlayInformationErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
-            }
-        }
-
-        private async Task InitializeFlvVideoAsync()
-        {
-            try
-            {
-                var playList = new SYEngine.Playlist(SYEngine.PlaylistTypes.NetworkHttp);
-                var config = default(SYEngine.PlaylistNetworkConfigs);
-                config.DownloadRetryOnFail = true;
-                config.HttpCookie = string.Empty;
-                config.UniqueId = string.Empty;
-                config.HttpUserAgent = ServiceConstants.DefaultUserAgentString;
-                if (IsPgc && CurrentPgcEpisode != null)
-                {
-                    config.HttpReferer = $"https://www.bilibili.com/bangumi/play/ep{CurrentPgcEpisode.Id}";
-                }
-                else
-                {
-                    config.HttpReferer = string.Empty;
-                }
-
-                playList.NetworkConfigs = config;
-                foreach (var item in _flvList)
-                {
-                    playList.Append(item.Url, item.Size, float.Parse((item.Length / 1000.0).ToString()));
-                }
-
-                if (ClassicPlayer != null)
-                {
-                    _initializeProgress = ClassicPlayer.Position;
-                }
-
-                IsClassicPlayer = true;
-                ClassicPlayer.AutoPlay = IsAutoPlay;
-                ClassicPlayer.Source = await playList.SaveAndGetFileUriAsync();
                 MediaPlayerUpdated?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception)

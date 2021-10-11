@@ -78,6 +78,7 @@ namespace Richasy.Bili.Lib.Uwp
             else if (clientType == RequestClientType.Web)
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
+                queryParameters.Add(ServiceConstants.Query.Platform, "web");
                 queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
             }
             else
