@@ -44,14 +44,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             ChoiceCollection = new ObservableCollection<InteractionChoice>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
-            _flvList = new List<FlvItem>();
             _subtitleList = new List<SubtitleItem>();
             _lastReportProgress = TimeSpan.Zero;
 
             _liveFFConfig = new FFmpegInteropConfig();
-            _liveFFConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
-            _liveFFConfig.FFmpegOptions.Add("user_agent", ServiceConstants.DefaultUserAgentString);
+            _liveFFConfig.FFmpegOptions.Add("rtsp-transport", "tcp");
+
+            // _liveFFConfig.FFmpegOptions.Add("user_agent", ServiceConstants.DefaultUserAgentString);
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
+            _liveFFConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
@@ -84,15 +85,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 保存媒体控件.
         /// </summary>
         /// <param name="playerControl">标准播放器控件.</param>
-        /// <param name="classicPlayer">经典播放器控件.</param>
-        public void ApplyMediaControl(MediaPlayerElement playerControl, MediaElement classicPlayer)
+        public void ApplyMediaControl(MediaPlayerElement playerControl)
         {
             BiliPlayer = playerControl;
-            ClassicPlayer = classicPlayer;
-            ClassicPlayer.MediaOpened += OnClassicMediaOpened;
-            ClassicPlayer.MediaFailed += OnClassicMediaFailedAsync;
-            ClassicPlayer.MediaEnded += OnClassicMediaEndedAsync;
-            ClassicPlayer.CurrentStateChanged += OnClassicStateChangedAsync;
         }
 
         /// <summary>
@@ -306,16 +301,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             var preferCodecId = GetPreferCodecId();
 
-            var hasFlv = _flvList != null && _flvList.Count > 0;
-            var isFlv = false;
-
-            // 在首选Flv的情况下，或者没有dash仅有flv的情况下，使用flv播放。
-            if ((PreferCodec == PreferCodec.Flv && hasFlv) || ((_videoList == null || _videoList.Count == 0) && hasFlv))
-            {
-                isFlv = true;
-                CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _playerInformation.Quality).First().Data;
-            }
-            else if (_videoList != null && _videoList.Count > 0)
+            if (_videoList != null && _videoList.Count > 0)
             {
                 var conditionStreams = _videoList.Where(p => p.Id == formatId).ToList();
                 if (conditionStreams.Count == 0)
@@ -340,11 +326,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             CheckFormatSelection();
 
-            if (isFlv)
-            {
-                await InitializeFlvVideoAsync();
-            }
-            else if (_currentVideo != null)
+            if (_currentVideo != null)
             {
                 await InitializeOnlineDashVideoAsync();
             }

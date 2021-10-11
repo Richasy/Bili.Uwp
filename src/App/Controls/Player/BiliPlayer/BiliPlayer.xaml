@@ -18,8 +18,7 @@
                                 x:Name="MediaPlayerElement"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                AreTransportControlsEnabled="True"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsClassicPlayer, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                AreTransportControlsEnabled="True">
                                 <MediaPlayerElement.TransportControls>
                                     <local:BiliPlayerTransportControls
                                         x:Name="MTC"
@@ -30,22 +29,6 @@
                                         IsPlaybackRateEnabled="True" />
                                 </MediaPlayerElement.TransportControls>
                             </MediaPlayerElement>
-                            <MediaElement
-                                x:Name="MediaElement"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                AreTransportControlsEnabled="True"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsClassicPlayer, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <MediaElement.TransportControls>
-                                    <local:BiliPlayerTransportControls
-                                        x:Name="ClassicMTC"
-                                        IsCompactOverlayButtonVisible="True"
-                                        IsCompactOverlayEnabled="True"
-                                        IsFullWindowButtonVisible="False"
-                                        IsPlaybackRateButtonVisible="True"
-                                        IsPlaybackRateEnabled="True" />
-                                </MediaElement.TransportControls>
-                            </MediaElement>
                         </Grid>
 
                         <Grid
