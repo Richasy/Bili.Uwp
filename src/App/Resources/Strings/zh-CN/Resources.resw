@@ -312,6 +312,9 @@
   <data name="DanmakuSendSettings" xml:space="preserve">
     <value>弹幕发送设置</value>
   </data>
+  <data name="DanmakuSpeed" xml:space="preserve">
+    <value>弹幕速度</value>
+  </data>
   <data name="DanmakuStyle" xml:space="preserve">
     <value>弹幕样式</value>
   </data>

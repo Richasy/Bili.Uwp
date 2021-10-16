@@ -69,8 +69,9 @@ namespace Richasy.Bili.App.Controls
             if (value <= 0)
             {
                 value = 1;
-                ((DanmakuView)d).DanmakuDuration = value;
             }
+
+            ((DanmakuView)d).DanmakuDuration = value;
         }
 
         private static void OnDanmakuAreaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

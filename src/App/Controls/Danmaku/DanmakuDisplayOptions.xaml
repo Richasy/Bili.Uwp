@@ -43,6 +43,13 @@
             Minimum="0.25"
             StepFrequency="0.25"
             Value="{x:Bind ViewModel.DanmakuArea, Mode=TwoWay}" />
+        <Slider
+            x:Name="SpeedSlider"
+            Header="{loc:LocaleLocator Name=DanmakuSpeed}"
+            Maximum="2"
+            Minimum="0.1"
+            StepFrequency="0.1"
+            Value="{x:Bind ViewModel.DanmakuSpeed, Mode=TwoWay}" />
         <ComboBox
             x:Name="DanmakuStyleComboBox"
             HorizontalAlignment="Stretch"

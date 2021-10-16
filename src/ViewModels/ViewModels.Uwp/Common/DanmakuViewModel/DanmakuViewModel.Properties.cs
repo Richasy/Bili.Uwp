@@ -72,6 +72,12 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public double DanmakuArea { get; set; }
 
         /// <summary>
+        /// 弹幕显示区域.
+        /// </summary>
+        [Reactive]
+        public double DanmakuSpeed { get; set; }
+
+        /// <summary>
         /// 弹幕字体.
         /// </summary>
         [Reactive]
