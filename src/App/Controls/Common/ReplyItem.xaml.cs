@@ -38,6 +38,9 @@ namespace Richasy.Bili.App.Controls
             Orientation = Orientation.Horizontal;
         }
 
+        /// <summary>
+        /// 更多按钮被点击时触发.
+        /// </summary>
         public event EventHandler<ReplyInfo> MoreButtonClick;
 
         /// <summary>
@@ -92,6 +95,15 @@ namespace Richasy.Bili.App.Controls
                 instance.LikeCountBlock.Text = ServiceLocator.Instance.GetService<INumberToolkit>().GetCountText(data.Like);
                 instance.MoreButton.Visibility = data.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
                 instance.MoreBlock.Text = string.Format(ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.MoreReplyDisplay), data.Count);
+
+                if (PlayerViewModel.Instance.Publisher != null)
+                {
+                    instance.IsUpBorder.Visibility = data.Member.Mid.ToString() == PlayerViewModel.Instance.Publisher.Id.ToString() ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    instance.IsUpBorder.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
