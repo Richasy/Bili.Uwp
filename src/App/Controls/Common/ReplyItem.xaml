@@ -21,10 +21,25 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Top">
-                <local:UserAvatar
-                    x:Name="UserAvatar"
-                    Width="32"
-                    Height="32" />
+                <Grid>
+                    <Border
+                        x:Name="IsUpBorder"
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                        BorderThickness="2"
+                        CornerRadius="18"
+                        Visibility="Collapsed" />
+                    <local:UserAvatar
+                        x:Name="UserAvatar"
+                        Width="32"
+                        Height="32"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                </Grid>
+
                 <Border
                     x:Name="TopContainer"
                     Width="32"
