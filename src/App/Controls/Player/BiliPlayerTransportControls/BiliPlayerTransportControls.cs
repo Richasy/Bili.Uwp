@@ -130,14 +130,6 @@ namespace Richasy.Bili.App.Controls
             base.OnApplyTemplate();
         }
 
-        private async void OnLiveRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.CurrentPlayLine != null)
-            {
-                await ViewModel.ChangeLivePlayLineAsync(ViewModel.CurrentPlayLine.Order);
-            }
-        }
-
         /// <inheritdoc/>
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
@@ -170,6 +162,14 @@ namespace Richasy.Bili.App.Controls
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
+        }
+
+        private async void OnLiveRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentPlayLine != null)
+            {
+                await ViewModel.ChangeLivePlayLineAsync(ViewModel.CurrentPlayLine.Order);
+            }
         }
 
         private void OnNewLiveDanmakuAdded(object sender, LiveDanmakuMessage e)
