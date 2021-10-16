@@ -124,6 +124,7 @@ namespace Richasy.Bili.App.Controls
             CheckDanmakuZoom();
             CheckSubtitleZoom();
             CheckMTCControlMode();
+
             base.OnApplyTemplate();
         }
 
@@ -360,6 +361,10 @@ namespace Richasy.Bili.App.Controls
             if (e.PropertyName == nameof(DanmakuViewModel.DanmakuZoom))
             {
                 CheckDanmakuZoom();
+            }
+            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea))
+            {
+                _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
             }
         }
 

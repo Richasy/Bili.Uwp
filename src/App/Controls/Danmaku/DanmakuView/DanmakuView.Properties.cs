@@ -47,7 +47,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="DanmakuArea"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuAreaProperty =
-            DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(1, OnDanmakuAreaChanged));
+            DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(0d, OnDanmakuAreaChanged));
 
         private const string RootGridName = "RootGrid";
         private const string CanvasName = "Canvas";
