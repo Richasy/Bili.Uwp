@@ -25,7 +25,6 @@ namespace Richasy.Bili.App.Controls
         public DanmakuView()
         {
             DefaultStyleKey = typeof(DanmakuView);
-            DanmakuArea = 1.0;
             DanmakuBold = false;
             DanmakuFontFamily = string.Empty;
         }

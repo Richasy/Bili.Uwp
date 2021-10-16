@@ -158,6 +158,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuOpacity,
         DanmakuZoom,
         DanmakuDensity,
+        DanmakuArea,
         DanmakuFont,
         DanmakuMerge,
         UseCloudShieldSettings,

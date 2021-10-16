@@ -141,6 +141,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
             DanmakuZoom = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuZoom, 1d);
             DanmakuDensity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuDensity, 400d);
+            DanmakuArea = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuArea, 1d);
             DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
@@ -194,6 +195,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(DanmakuDensity):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuDensity, DanmakuDensity);
+                    break;
+                case nameof(DanmakuArea):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuArea, DanmakuArea);
                     break;
                 case nameof(DanmakuFont):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuFont, DanmakuFont);

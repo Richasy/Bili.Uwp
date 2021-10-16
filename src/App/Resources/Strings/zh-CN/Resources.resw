@@ -282,6 +282,9 @@
   <data name="Danmaku" xml:space="preserve">
     <value>弹幕</value>
   </data>
+  <data name="DanmakuArea" xml:space="preserve">
+    <value>弹幕显示区域</value>
+  </data>
   <data name="DanmakuBold" xml:space="preserve">
     <value>弹幕加粗</value>
   </data>

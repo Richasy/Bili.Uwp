@@ -36,6 +36,13 @@
             Minimum="10"
             StepFrequency="10"
             Value="{x:Bind ViewModel.DanmakuDensity, Mode=TwoWay}" />
+        <Slider
+            x:Name="AreaSlider"
+            Header="{loc:LocaleLocator Name=DanmakuArea}"
+            Maximum="1"
+            Minimum="0.25"
+            StepFrequency="0.25"
+            Value="{x:Bind ViewModel.DanmakuArea, Mode=TwoWay}" />
         <ComboBox
             x:Name="DanmakuStyleComboBox"
             HorizontalAlignment="Stretch"
