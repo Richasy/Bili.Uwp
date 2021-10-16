@@ -73,6 +73,7 @@ namespace Richasy.Bili.App.Controls
             _homeButton = GetTemplateChild(HomeButtonName) as Button;
             _backToDefaultButton = GetTemplateChild(BackToDefaultButtonName) as Button;
             _continuePreviousViewButton = GetTemplateChild(ContinuePreviousViewButtonName) as Button;
+            _liveRefreshButton = GetTemplateChild(LiveRefreshButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
@@ -84,6 +85,7 @@ namespace Richasy.Bili.App.Controls
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
             _homeButton.Click += OnHomeButtonClickAsync;
             _backToDefaultButton.Click += OnBackButtonClick;
+            _liveRefreshButton.Click += OnLiveRefreshButtonClickAsync;
             _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickedAsync;
 
             if (_formatListView != null)
@@ -126,6 +128,14 @@ namespace Richasy.Bili.App.Controls
             CheckMTCControlMode();
 
             base.OnApplyTemplate();
+        }
+
+        private async void OnLiveRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentPlayLine != null)
+            {
+                await ViewModel.ChangeLivePlayLineAsync(ViewModel.CurrentPlayLine.Order);
+            }
         }
 
         /// <inheritdoc/>

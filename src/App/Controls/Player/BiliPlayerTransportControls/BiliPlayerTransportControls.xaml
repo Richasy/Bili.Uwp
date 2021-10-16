@@ -692,6 +692,20 @@
                                                                     Modifiers="Control" />
                                                             </Button.KeyboardAccelerators>
                                                         </Button>
+                                                        <Button
+                                                            x:Name="LiveRefreshButton"
+                                                            Style="{StaticResource MTCButtonStyle}"
+                                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Refresh}">
+                                                            <Button.Content>
+                                                                <icons:RegularFluentIcon Symbol="ArrowSync16" />
+                                                            </Button.Content>
+                                                            <Button.KeyboardAccelerators>
+                                                                <KeyboardAccelerator
+                                                                    Key="F5"
+                                                                    IsEnabled="True"
+                                                                    Modifiers="Control" />
+                                                            </Button.KeyboardAccelerators>
+                                                        </Button>
                                                     </StackPanel>
 
                                                     <Button

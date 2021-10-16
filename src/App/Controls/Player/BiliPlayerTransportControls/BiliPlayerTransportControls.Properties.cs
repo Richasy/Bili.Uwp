@@ -51,6 +51,7 @@ namespace Richasy.Bili.App.Controls
         private const string HomeButtonName = "HomeButton";
         private const string BackToDefaultButtonName = "BackToDefaultButton";
         private const string ContinuePreviousViewButtonName = "ContinuePreviousViewButton";
+        private const string LiveRefreshButtonName = "LiveRefreshButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -73,6 +74,7 @@ namespace Richasy.Bili.App.Controls
         private Button _homeButton;
         private Button _backToDefaultButton;
         private Button _continuePreviousViewButton;
+        private Button _liveRefreshButton;
         private TextBlock _subtitleBlock;
         private int _segmentIndex;
         private double _cursorStayTime;
