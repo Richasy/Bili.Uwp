@@ -15,6 +15,7 @@ namespace Richasy.Bili.App.Controls
     public sealed partial class PlayerDashboard : PlayerComponent
     {
         private bool _isLikeHoldCompleted;
+        private bool _isLikeHoldSuspend;
         private PgcDetailView _detailView;
 
         /// <summary>
@@ -58,9 +59,10 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (_isLikeHoldCompleted)
+            if (_isLikeHoldCompleted || _isLikeHoldSuspend)
             {
                 _isLikeHoldCompleted = false;
+                _isLikeHoldSuspend = false;
                 return;
             }
 
@@ -109,6 +111,11 @@ namespace Richasy.Bili.App.Controls
                 FavoriteFlyout.ShowAt(FavoriteButton);
                 await ViewModel.LoadFavoritesAsync();
             }
+        }
+
+        private void OnLikeButtonHoldingSuspend(object sender, EventArgs e)
+        {
+            _isLikeHoldSuspend = true;
         }
     }
 }

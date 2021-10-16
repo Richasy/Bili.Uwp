@@ -38,7 +38,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// B币数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bcoin", Required = Required.Default)]
-        public int BcoinCount { get; set; }
+        public double BcoinCount { get; set; }
 
         /// <summary>
         /// 性别，0-保密，1-男性，2-女性.

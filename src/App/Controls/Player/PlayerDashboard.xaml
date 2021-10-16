@@ -130,6 +130,7 @@
                 Click="OnLikeButtonClickAsync"
                 Description="{x:Bind ViewModel.LikeCount, Mode=OneWay}"
                 HoldingCompleted="OnLikeButtonHoldingCompletedAsync"
+                HoldingSuspend="OnLikeButtonHoldingSuspend"
                 IsChecked="{x:Bind ViewModel.IsLikeChecked, Mode=OneWay}"
                 IsHoldingEnabled="{x:Bind ViewModel.IsEnableLikeHolding}"
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
