@@ -122,10 +122,12 @@ namespace Richasy.Bili.App.Controls
                     container = _bottomContainer;
                     locationStoryList = _topBottomStoryList;
                     break;
-                default:
+                case DanmakuLocation.Scroll:
                     rowNumber = GetScrollAvailableRow(danmaku);
                     container = _scrollContainer;
                     locationStoryList = _scrollStoryList;
+                    break;
+                default:
                     break;
             }
 
