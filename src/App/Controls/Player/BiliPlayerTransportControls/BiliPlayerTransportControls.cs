@@ -366,6 +366,10 @@ namespace Richasy.Bili.App.Controls
             {
                 _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
             }
+            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed))
+            {
+                _danmakuView.DanmakuDuration = Convert.ToInt32(2.1 - DanmakuViewModel.DanmakuSpeed) * 10;
+            }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
