@@ -104,15 +104,17 @@
                             x:Name="BiliHomePage"
                             Height="40"
                             HorizontalAlignment="Stretch"
-                            Click="OnBiliHomePageClickAsync"
-                            Content="{loc:LocaleLocator Name=BiliHomePage}" />
+                            Click="OnBiliHomePageClickAsync">
+                            <TextBlock Text="{loc:LocaleLocator Name=BiliHomePage}" TextTrimming="CharacterEllipsis" />
+                        </Button>
                         <Button
                             x:Name="ProjectHomePage"
                             Grid.Column="1"
                             Height="40"
                             HorizontalAlignment="Stretch"
-                            Click="OnProjectHomePageClickAsync"
-                            Content="{loc:LocaleLocator Name=ProjectHomePage}" />
+                            Click="OnProjectHomePageClickAsync">
+                            <TextBlock Text="{loc:LocaleLocator Name=ProjectHomePage}" TextTrimming="CharacterEllipsis" />
+                        </Button>
                     </Grid>
                     <controls:CardPanel
                         x:Name="RelatedProjectContainer"
