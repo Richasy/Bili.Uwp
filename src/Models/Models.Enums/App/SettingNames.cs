@@ -39,6 +39,7 @@ namespace Richasy.Bili.Models.Enums
         PlaybackRate,
         DanmakuArea,
         DanmakuSpeed,
+        DisableP2PCdn,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

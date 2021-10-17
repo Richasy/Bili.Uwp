@@ -101,6 +101,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsPreferHighQuality { get; set; }
 
         /// <summary>
+        /// 禁用 P2P CDN.
+        /// </summary>
+        [Reactive]
+        public bool DisableP2PCdn { get; set; }
+
+        /// <summary>
         /// 偏好的解码模式.
         /// </summary>
         [Reactive]

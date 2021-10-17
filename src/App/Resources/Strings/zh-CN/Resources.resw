@@ -354,6 +354,12 @@
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
   </data>
+  <data name="DisableP2PCdn" xml:space="preserve">
+    <value>禁用 P2P CDN</value>
+  </data>
+  <data name="DisableP2PCdnDescription" xml:space="preserve">
+    <value>优先通过非 P2P CDN 加载视频，提升新视频和冷门视频的加载速度</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>
