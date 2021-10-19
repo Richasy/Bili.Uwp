@@ -374,6 +374,8 @@ namespace Richasy.Bili.Models.Enums
         BackToStart,
         PlaybackRate,
         ContinuePreviousView,
+        DisableP2PCdn,
+        DisableP2PCdnDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
