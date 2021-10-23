@@ -415,6 +415,12 @@ namespace Richasy.Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "report", Required = Required.Default)]
         public PgcModuleReport Report { get; set; }
+
+        /// <summary>
+        /// 徽章文本.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "badge", Required = Required.Default)]
+        public string BadgeText { get; set; }
     }
 
     /// <summary>
