@@ -44,8 +44,8 @@
                     x:Name="UserAvatar"
                     Width="32"
                     Height="32"
-                    Click="OnAvatarClickAsync"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Click="OnAvatarClickAsync" />
                 <StackPanel Grid.Column="1" Spacing="2">
                     <TextBlock
                         x:Name="UserNameBlock"
