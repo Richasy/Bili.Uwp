@@ -107,6 +107,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool DisableP2PCdn { get; set; }
 
         /// <summary>
+        /// 连续播放.
+        /// </summary>
+        [Reactive]
+        public bool IsContinusPlay { get; set; }
+
+        /// <summary>
         /// 偏好的解码模式.
         /// </summary>
         [Reactive]

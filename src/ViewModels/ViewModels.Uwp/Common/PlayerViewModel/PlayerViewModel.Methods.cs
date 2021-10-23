@@ -807,6 +807,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 PlayerStatus = PlayerStatus.End;
+                var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
                 if (IsLive)
                 {
                     var currentOrder = CurrentPlayLine == null ? -1 : CurrentPlayLine.Order;
@@ -836,6 +837,31 @@ namespace Richasy.Bili.ViewModels.Uwp
                     {
                         IsShowChoice = false;
                         IsShowInteractionEnd = true;
+                    }
+                }
+                else if (IsPgc)
+                {
+                    var canContinue = !IsCurrentEpisodeInPgcSection && EpisodeCollection.Count > 1 && CurrentPgcEpisode.Index < EpisodeCollection.Last().Data.Index;
+                    if (isContinue && canContinue)
+                    {
+                        var episode = EpisodeCollection.Where(p => p.Data.Index == CurrentPgcEpisode.Index + 1).FirstOrDefault();
+                        if (episode != null)
+                        {
+                            await ChangePgcEpisodeAsync(episode.Data.Id);
+                        }
+                    }
+                }
+                else
+                {
+                    // Video
+                    var canContinue = VideoPartCollection.Count > 1 && CurrentVideoPart.Page.Page_ < VideoPartCollection.Last().Data.Page.Page_;
+                    if (isContinue && canContinue)
+                    {
+                        var part = VideoPartCollection.Where(p => p.Data.Page.Page_ == CurrentVideoPart.Page.Page_ + 1).FirstOrDefault();
+                        if (part != null)
+                        {
+                            await ChangeVideoPartAsync(part.Data.Page.Cid);
+                        }
                     }
                 }
             });

@@ -276,6 +276,12 @@
   <data name="ContinuePreviousView" xml:space="preserve">
     <value>继续观看</value>
   </data>
+  <data name="ContinuousPlay" xml:space="preserve">
+    <value>连续播放</value>
+  </data>
+  <data name="ContinuousPlayDescription" xml:space="preserve">
+    <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）</value>
+  </data>
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
   </data>

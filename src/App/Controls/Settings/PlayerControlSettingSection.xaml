@@ -48,7 +48,7 @@
                 </exp:ExpanderExWrapper>
 
                 <exp:ExpanderExItemSeparator />
-                
+
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
@@ -59,6 +59,21 @@
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.DisableP2PCdn, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:LocaleLocator Name=ContinuousPlay}"
+                            Description="{loc:LocaleLocator Name=ContinuousPlayDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsContinusPlay, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 
@@ -107,6 +122,8 @@
                             Value="{x:Bind ViewModel.SingleFastForwardAndRewindSpan, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
