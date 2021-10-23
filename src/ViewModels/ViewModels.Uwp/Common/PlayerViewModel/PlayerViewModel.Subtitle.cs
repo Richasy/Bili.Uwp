@@ -28,6 +28,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     var index = await Controller.GetSubtitleIndexAsync(aid, cid);
                     if (index != null && index.Subtitles != null && index.Subtitles.Count > 0)
                     {
+                        SubtitleIndexCollection.Clear();
                         IsShowSubtitleButton = true;
                         index.Subtitles.ForEach(p => SubtitleIndexCollection.Add(new SubtitleIndexItemViewModel(p, false)));
                         var first = SubtitleIndexCollection.FirstOrDefault();
