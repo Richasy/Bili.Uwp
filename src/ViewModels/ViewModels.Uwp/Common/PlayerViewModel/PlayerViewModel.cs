@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;

@@ -202,7 +202,12 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             var appView = ApplicationView.GetForCurrentView();
             VisualStateManager.GoToState(this, nameof(StandardPlayerState), false);
-            ViewModel.BiliPlayer.IsFullWindow = false;
+
+            if (ViewModel.BiliPlayer != null)
+            {
+                ViewModel.BiliPlayer.IsFullWindow = false;
+            }
+
             if (appView.ViewMode == ApplicationViewMode.CompactOverlay)
             {
                 await appView.TryEnterViewModeAsync(ApplicationViewMode.Default);

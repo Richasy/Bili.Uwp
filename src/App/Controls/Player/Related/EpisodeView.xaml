@@ -43,6 +43,21 @@
                                 VerticalAlignment="Center"
                                 CornerRadius="{StaticResource ControlCornerRadius}">
                                 <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
+                                <Grid
+                                    x:Name="BadgeContainer"
+                                    Margin="4,4,0,0"
+                                    Padding="6,4"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="{ThemeResource AccentFillColorTertiaryBrush}"
+                                    CornerRadius="{StaticResource ControlCornerRadius}"
+                                    Visibility="{x:Bind Data.BadgeText, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        FontSize="10"
+                                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                        Text="{x:Bind Data.BadgeText}" />
+                                </Grid>
                             </Grid>
                             <StackPanel
                                 Grid.Column="1"
