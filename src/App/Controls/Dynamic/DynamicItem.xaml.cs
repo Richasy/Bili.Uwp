@@ -251,5 +251,14 @@ namespace Richasy.Bili.App.Controls
 
             request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(coverUrl)));
         }
+
+        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        {
+            var userModule = Data.Modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleAuthor).FirstOrDefault()?.ModuleAuthor;
+            if (userModule != null)
+            {
+                await UserView.Instance.ShowAsync(Convert.ToInt32(userModule.Author.Mid));
+            }
+        }
     }
 }
