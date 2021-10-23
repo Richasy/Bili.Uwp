@@ -37,6 +37,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
             IsPreferHighQuality = ReadSetting(SettingNames.IsPreferHighQuality, false);
             DisableP2PCdn = ReadSetting(SettingNames.DisableP2PCdn, false);
+            IsContinusPlay = ReadSetting(SettingNames.IsContinusPlay, true);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             PreferCodecInit();
             DoubleClickInit();
@@ -77,6 +78,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(DisableP2PCdn):
                     WriteSetting(SettingNames.DisableP2PCdn, DisableP2PCdn);
+                    break;
+                case nameof(IsContinusPlay):
+                    WriteSetting(SettingNames.IsContinusPlay, IsContinusPlay);
                     break;
                 case nameof(PreferCodec):
                     WriteSetting(SettingNames.PreferCodec, PreferCodec);
