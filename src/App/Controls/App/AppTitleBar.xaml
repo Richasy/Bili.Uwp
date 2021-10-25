@@ -81,7 +81,7 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
-                Click="OnBackButtonClick"
+                Click="OnBackButtonClickAsync"
                 TabIndex="1">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />

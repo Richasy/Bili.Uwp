@@ -2,6 +2,7 @@
 
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.ViewModels.Uwp;
@@ -26,9 +27,9 @@ namespace Richasy.Bili.App.Pages
             this.InitializeComponent();
             this.Loaded += OnLoadedAsync;
             this.CoreViewModel.RequestShowTip += OnRequestShowTip;
-            this.CoreViewModel.RequestBack += OnRequestBack;
+            this.CoreViewModel.RequestBack += OnRequestBackAsync;
             SizeChanged += OnSizeChanged;
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Richasy.Bili.App.Pages
             base.OnPointerReleased(e);
         }
 
-        private bool TryBack()
+        private async Task<bool> TryBackAsync()
         {
             if (HolderContainer.Children.Count > 0)
             {
@@ -94,13 +95,13 @@ namespace Richasy.Bili.App.Pages
             }
             else if (CoreViewModel.IsBackButtonEnabled)
             {
-                return TitleBar.TryBack();
+                return await TitleBar.TryBackAsync();
             }
 
             return false;
         }
 
-        private void OnRequestBack(object sender, System.EventArgs e) => TryBack();
+        private async void OnRequestBackAsync(object sender, System.EventArgs e) => await TryBackAsync();
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
@@ -110,9 +111,9 @@ namespace Richasy.Bili.App.Pages
             await AccountViewModel.Instance.TrySignInAsync(true);
         }
 
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        private async void OnBackRequestedAsync(object sender, BackRequestedEventArgs e)
         {
-            if (TryBack())
+            if (await TryBackAsync())
             {
                 e.Handled = true;
             }

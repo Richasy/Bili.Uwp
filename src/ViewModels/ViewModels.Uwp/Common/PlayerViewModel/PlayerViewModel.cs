@@ -45,6 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _videoList = new List<DashItem>();
             _subtitleList = new List<SubtitleItem>();
             _lastReportProgress = TimeSpan.Zero;
+            _historyVideoList = new List<string>();
 
             _liveFFConfig = new FFmpegInteropConfig();
             _liveFFConfig.FFmpegOptions.Add("rtsp-transport", "tcp");
@@ -90,6 +91,32 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 检查是否可以返回到主页，或是返回至上一个视频.
+        /// </summary>
+        /// <returns>是否可以返回到主页.</returns>
+        public async Task<bool> CheckBackAsync()
+        {
+            _progressTimer.Stop();
+            if (_historyVideoList.Count > 0)
+            {
+                var lastVideo = _historyVideoList.Last();
+                _historyVideoList.Remove(lastVideo);
+                IsDetailCanLoaded = true;
+                DanmakuViewModel.Instance.Reset();
+                IsPlayInformationError = false;
+
+                await LoadVideoDetailAsync(lastVideo, true);
+
+                _progressTimer.Start();
+                InitDownload();
+                Loaded?.Invoke(this, EventArgs.Empty);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// 视频加载.
         /// </summary>
         /// <param name="vm">视图模型.</param>
@@ -100,10 +127,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             var videoId = string.Empty;
             var seasonId = 0;
 
+            var isReleated = false;
+
             if (vm is VideoViewModel videoVM)
             {
                 videoId = videoVM.VideoId;
                 _videoType = videoVM.VideoType;
+                isReleated = videoVM.IsRelated;
             }
             else if (vm is SeasonViewModel seasonVM)
             {
@@ -127,6 +157,20 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsDetailCanLoaded = true;
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
+
+            if (!isReleated)
+            {
+                _historyVideoList.Clear();
+            }
+            else
+            {
+                if (_historyVideoList.Contains(AvId))
+                {
+                    _historyVideoList.Remove(AvId);
+                }
+
+                _historyVideoList.Add(AvId);
+            }
 
             switch (_videoType)
             {

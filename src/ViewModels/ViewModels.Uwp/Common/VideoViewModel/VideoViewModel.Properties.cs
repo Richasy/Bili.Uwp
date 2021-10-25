@@ -105,6 +105,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public string SourceCoverUrl { get; set; }
 
+        /// <summary>
+        /// 是否为关联视频.
+        /// </summary>
+        public bool IsRelated { get; set; }
+
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoViewModel model && VideoId == model.VideoId;
 

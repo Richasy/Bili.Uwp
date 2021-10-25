@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,7 +44,7 @@ namespace Richasy.Bili.App.Controls
         /// 尝试回退.
         /// </summary>
         /// <returns>是否调用了返回命令.</returns>
-        public bool TryBack()
+        public async Task<bool> TryBackAsync()
         {
             if (BackButton.Visibility != Visibility.Visible)
             {
@@ -52,8 +53,11 @@ namespace Richasy.Bili.App.Controls
 
             if (ViewModel.IsOpenPlayer)
             {
-                ViewModel.IsOpenPlayer = false;
-                return true;
+                if (await PlayerViewModel.Instance.CheckBackAsync())
+                {
+                    ViewModel.IsOpenPlayer = false;
+                    return true;
+                }
             }
             else if (ViewModel.IsShowOverlay)
             {
@@ -110,9 +114,9 @@ namespace Richasy.Bili.App.Controls
             ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
         }
 
-        private void OnBackButtonClick(object sender, RoutedEventArgs e)
+        private async void OnBackButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            TryBack();
+            await TryBackAsync();
         }
 
         private void CheckBackButtonVisibility()
