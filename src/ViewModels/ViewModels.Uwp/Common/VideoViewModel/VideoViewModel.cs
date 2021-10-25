@@ -227,6 +227,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             AdditionalText = relate.Rating.ToString();
             LimitCover(relate.Pic);
             Source = relate;
+            IsRelated = true;
             VideoType = relate.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase) ?
                 Models.Enums.VideoType.Video : Models.Enums.VideoType.Pgc;
         }

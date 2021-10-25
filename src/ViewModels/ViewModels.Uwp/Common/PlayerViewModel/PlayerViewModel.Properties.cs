@@ -29,6 +29,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IFileToolkit _fileToolkit;
         private readonly ILoggerModule _logger;
 
+        private readonly List<string> _historyVideoList;
         private readonly FFmpegInteropConfig _liveFFConfig;
 
         private long _videoId;
