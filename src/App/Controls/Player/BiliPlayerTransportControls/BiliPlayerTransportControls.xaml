@@ -108,6 +108,12 @@
                                             To="0.5"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
+                                            Storyboard.TargetName="TempMessageVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="50"
+                                            To="0.5"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
                                             Storyboard.TargetName="ChoiceVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="50"
@@ -130,6 +136,12 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation
                                             Storyboard.TargetName="SubtitleVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="0.5"
+                                            To="80"
+                                            Duration="0:0:0.4" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TempMessageVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="80"
@@ -345,28 +357,53 @@
                                 <local:InteractionChoicePanel x:Name="ChoiceContainer" />
                             </Grid>
 
-                            <Border x:Name="PreviousViewInformer_Border">
-                                <muxc:InfoBar
-                                    x:Name="PreviousViewInformer"
-                                    HorizontalAlignment="Right"
-                                    Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                    BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
-                                    BorderThickness="{ThemeResource MediaTransportControlsBorderThickness}"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    IsClosable="True"
-                                    IsIconVisible="False"
-                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistory, Mode=TwoWay}"
-                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryText}"
-                                    RenderTransformOrigin="0.5,0.5">
-                                    <muxc:InfoBar.ActionButton>
-                                        <Button
-                                            x:Name="ContinuePreviousViewButton"
-                                            MinWidth="120"
-                                            Click="JumpToHistoryAsync"
-                                            Content="{loc:LocaleLocator Name=ContinuePreviousView}" />
-                                    </muxc:InfoBar.ActionButton>
-                                </muxc:InfoBar>
-                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    x:Name="TempMessageContainer"
+                                    HorizontalAlignment="Left"
+                                    Visibility="Collapsed">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="TempMessageVertical" />
+                                    </Grid.RenderTransform>
+                                    <Grid
+                                        x:Name="TempMessageGrid"
+                                        Margin="24,0"
+                                        Padding="16,8"
+                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock
+                                            x:Name="TempMessageBlock"
+                                            MaxWidth="320"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+                                </Grid>
+                                <Border x:Name="PreviousViewInformer_Border" Grid.Column="1">
+                                    <muxc:InfoBar
+                                        x:Name="PreviousViewInformer"
+                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                        BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
+                                        BorderThickness="{ThemeResource MediaTransportControlsBorderThickness}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        IsClosable="True"
+                                        IsIconVisible="False"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistory, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryText}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <muxc:InfoBar.ActionButton>
+                                            <Button
+                                                x:Name="ContinuePreviousViewButton"
+                                                MinWidth="120"
+                                                Click="JumpToHistoryAsync"
+                                                Content="{loc:LocaleLocator Name=ContinuePreviousView}" />
+                                        </muxc:InfoBar.ActionButton>
+                                    </muxc:InfoBar>
+                                </Border>
+                            </Grid>
+
 
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border" MaxWidth="820">
                                 <Grid
