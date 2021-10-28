@@ -72,32 +72,37 @@
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                             Text="{loc:LocaleLocator Name=ChooseFavorite}" />
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FavoriteMetaCollection}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Spacing="4" />
-                            </muxc:ItemsRepeater.Layout>
-                            <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:FavoriteMetaViewModel">
-                                    <local:CardPanel
-                                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
-                                        IsEnableCheck="True"
-                                        IsEnableHoverAnimation="False"
-                                        IsEnableShadow="False">
-                                        <Grid
-                                            Width="240"
-                                            Height="40"
-                                            Padding="12,8">
-                                            <TextBlock
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                VerticalAlignment="Center"
-                                                FontWeight="Bold"
-                                                Text="{x:Bind Data.Title}"
-                                                TextTrimming="CharacterEllipsis" />
-                                        </Grid>
-                                    </local:CardPanel>
-                                </DataTemplate>
-                            </muxc:ItemsRepeater.ItemTemplate>
-                        </muxc:ItemsRepeater>
+                        <ScrollViewer
+                            MaxHeight="320"
+                            HorizontalScrollMode="Disabled"
+                            VerticalScrollBarVisibility="Hidden">
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FavoriteMetaCollection}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Spacing="4" />
+                                </muxc:ItemsRepeater.Layout>
+                                <muxc:ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="uwp:FavoriteMetaViewModel">
+                                        <local:CardPanel
+                                            IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                            IsEnableCheck="True"
+                                            IsEnableHoverAnimation="False"
+                                            IsEnableShadow="False">
+                                            <Grid
+                                                Width="240"
+                                                Height="40"
+                                                Padding="12,8">
+                                                <TextBlock
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Text="{x:Bind Data.Title}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </Grid>
+                                        </local:CardPanel>
+                                    </DataTemplate>
+                                </muxc:ItemsRepeater.ItemTemplate>
+                            </muxc:ItemsRepeater>
+                        </ScrollViewer>
                         <Button
                             x:Name="RequestFavoriteButton"
                             Style="{StaticResource AccentButtonStyle}"
