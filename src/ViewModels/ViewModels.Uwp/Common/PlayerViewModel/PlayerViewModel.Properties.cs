@@ -714,6 +714,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         public double PlaybackRate { get; set; }
 
         /// <summary>
+        /// 是否显示切换集数的按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowSwitchEpisodeButton { get; set; }
+
+        /// <summary>
+        /// 是否启用切换至上一集按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsPreviousEpisodeButtonEnabled { get; set; }
+
+        /// <summary>
+        /// 是否启用切换至下一集按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsNextEpisodeButtonEnabled { get; set; }
+
+        /// <summary>
         /// 选项集合.
         /// </summary>
         [Reactive]

@@ -662,6 +662,9 @@
   <data name="NetworkError" xml:space="preserve">
     <value>网络连接错误，请稍后重试</value>
   </data>
+  <data name="NextEpisode" xml:space="preserve">
+    <value>下一集</value>
+  </data>
   <data name="NoEpisode" xml:space="preserve">
     <value>没有可供播放的分集</value>
   </data>
@@ -814,6 +817,9 @@
   </data>
   <data name="PrelaunchDescription" xml:space="preserve">
     <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
+  </data>
+  <data name="PreviousEpisode" xml:space="preserve">
+    <value>上一集</value>
   </data>
   <data name="PreviousView" xml:space="preserve">
     <value>上次观看：</value>

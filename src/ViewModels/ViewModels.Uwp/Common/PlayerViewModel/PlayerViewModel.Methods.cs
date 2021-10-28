@@ -58,7 +58,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPgc = false;
             IsLive = false;
             IsInteraction = false;
-
             IsLikeChecked = false;
             IsCoinChecked = false;
             IsFollow = false;
@@ -66,6 +65,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsEnableLikeHolding = true;
             IsShowChoice = false;
             IsShowInteractionEnd = false;
+            IsShowSwitchEpisodeButton = false;
+            IsNextEpisodeButtonEnabled = false;
+            IsPreviousEpisodeButtonEnabled = false;
 
             PgcSectionCollection.Clear();
             VideoPartCollection.Clear();
@@ -269,6 +271,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsShowParts = VideoPartCollection.Count > 1;
+            IsShowSwitchEpisodeButton = IsShowParts;
 
             var relates = _videoDetail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Pgc, StringComparison.OrdinalIgnoreCase) || p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
             IsShowRelatedVideos = relates.Count() > 0;
@@ -388,6 +391,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 var episodeModule = _pgcDetail.Modules.Where(p => p.Style == ServiceConstants.Positive).FirstOrDefault();
                 IsShowEpisode = episodeModule != null && episodeModule.Data?.Episodes?.Count > 1;
+                IsShowSwitchEpisodeButton = IsShowEpisode;
 
                 if (episodeModule != null && episodeModule.Data.Episodes != null)
                 {
@@ -591,6 +595,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 item.IsSelected = item.Data.Equals(CurrentVideoPart);
             }
+
+            if (VideoPartCollection.Count > 0)
+            {
+                IsPreviousEpisodeButtonEnabled = CurrentVideoPart.Page.Page_ != VideoPartCollection.First().Data.Page.Page_;
+                IsNextEpisodeButtonEnabled = CurrentVideoPart.Page.Page_ != VideoPartCollection.Last().Data.Page.Page_;
+            }
         }
 
         private long GetCurrentPartId()
@@ -614,6 +624,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsCurrentEpisodeInPgcSection = !EpisodeCollection.Any(p => p.Data.Equals(CurrentPgcEpisode));
+
+            if (EpisodeCollection.Count > 0)
+            {
+                IsPreviousEpisodeButtonEnabled = CurrentPgcEpisode.Index != EpisodeCollection.First().Data.Index;
+                IsNextEpisodeButtonEnabled = CurrentPgcEpisode.Index != EpisodeCollection.Last().Data.Index;
+            }
         }
 
         private void CheckFormatSelection()

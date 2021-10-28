@@ -381,6 +381,8 @@ namespace Richasy.Bili.Models.Enums
         CurrentVolume,
         CurrentProgress,
         Muted,
+        PreviousEpisode,
+        NextEpisode,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
