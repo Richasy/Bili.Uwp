@@ -80,6 +80,8 @@ namespace Richasy.Bili.App.Controls
             _backToDefaultButton = GetTemplateChild(BackToDefaultButtonName) as Button;
             _continuePreviousViewButton = GetTemplateChild(ContinuePreviousViewButtonName) as Button;
             _liveRefreshButton = GetTemplateChild(LiveRefreshButtonName) as Button;
+            _previousEpisodeButton = GetTemplateChild(PreviousEpisodeButtonName) as Button;
+            _nextEpisodeButton = GetTemplateChild(NextEpisodeButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
@@ -98,7 +100,9 @@ namespace Richasy.Bili.App.Controls
             _homeButton.Click += OnHomeButtonClickAsync;
             _backToDefaultButton.Click += OnBackButtonClick;
             _liveRefreshButton.Click += OnLiveRefreshButtonClickAsync;
-            _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickedAsync;
+            _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickAsync;
+            _previousEpisodeButton.Click += OnPreviousEpisodeButtonClickAsync;
+            _nextEpisodeButton.Click += OnNextEpisodeButtonClickAsync;
 
             if (_formatListView != null)
             {
@@ -307,11 +311,51 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.BackToInteractionStartAsync();
         }
 
-        private async void OnContinuePreviousViewButtonClickedAsync(object sender, RoutedEventArgs e)
+        private async void OnContinuePreviousViewButtonClickAsync(object sender, RoutedEventArgs e)
         {
             ViewModel.IsShowHistory = false;
             ViewModel.HistoryText = string.Empty;
             await ViewModel.JumpToHistoryAsync();
+        }
+
+        private async void OnNextEpisodeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsPgc)
+            {
+                var next = ViewModel.EpisodeCollection.Where(p => p.Data.Index == ViewModel.CurrentPgcEpisode.Index + 1).FirstOrDefault();
+                if (next != null)
+                {
+                    await ViewModel.ChangePgcEpisodeAsync(next.Data.Id);
+                }
+            }
+            else
+            {
+                var next = ViewModel.VideoPartCollection.Where(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ + 1).FirstOrDefault();
+                if (next != null)
+                {
+                    await ViewModel.ChangeVideoPartAsync(next.Data.Page.Cid);
+                }
+            }
+        }
+
+        private async void OnPreviousEpisodeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsPgc)
+            {
+                var prev = ViewModel.EpisodeCollection.Where(p => p.Data.Index == ViewModel.CurrentPgcEpisode.Index - 1).FirstOrDefault();
+                if (prev != null)
+                {
+                    await ViewModel.ChangePgcEpisodeAsync(prev.Data.Id);
+                }
+            }
+            else
+            {
+                var prev = ViewModel.VideoPartCollection.Where(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ - 1).FirstOrDefault();
+                if (prev != null)
+                {
+                    await ViewModel.ChangeVideoPartAsync(prev.Data.Page.Cid);
+                }
+            }
         }
 
         private void CheckCurrentPlayerMode()

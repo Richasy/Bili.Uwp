@@ -357,7 +357,7 @@
                                 <local:InteractionChoicePanel x:Name="ChoiceContainer" />
                             </Grid>
 
-                            <Grid>
+                            <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -365,13 +365,13 @@
                                 <Grid
                                     x:Name="TempMessageContainer"
                                     HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
                                     Visibility="Collapsed">
                                     <Grid.RenderTransform>
                                         <TranslateTransform x:Name="TempMessageVertical" />
                                     </Grid.RenderTransform>
                                     <Grid
                                         x:Name="TempMessageGrid"
-                                        Margin="24,0"
                                         Padding="16,8"
                                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
@@ -403,7 +403,6 @@
                                     </muxc:InfoBar>
                                 </Border>
                             </Grid>
-
 
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border" MaxWidth="820">
                                 <Grid
@@ -773,6 +772,23 @@
                                                     HorizontalAlignment="Center"
                                                     Orientation="Horizontal">
                                                     <Button
+                                                        x:Name="PreviousEpisodeButton"
+                                                        AutomationProperties.Name="{loc:LocaleLocator Name=PreviousEpisode}"
+                                                        Style="{StaticResource MTCButtonStyle}"
+                                                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPreviousEpisodeButtonEnabled}"
+                                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=PreviousEpisode}"
+                                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}, Path=ViewModel.IsShowSwitchEpisodeButton}">
+                                                        <Button.KeyboardAccelerators>
+                                                            <KeyboardAccelerator
+                                                                Key="Left"
+                                                                IsEnabled="True"
+                                                                Modifiers="Menu" />
+                                                        </Button.KeyboardAccelerators>
+                                                        <Button.Content>
+                                                            <icons:RegularFluentIcon Symbol="Previous16" />
+                                                        </Button.Content>
+                                                    </Button>
+                                                    <Button
                                                         x:Name="BackSkipButton"
                                                         AutomationProperties.Name="{loc:LocaleLocator Name=BackSkip}"
                                                         Style="{StaticResource MTCButtonStyle}"
@@ -807,6 +823,23 @@
                                                         </Button.KeyboardAccelerators>
                                                         <Button.Content>
                                                             <icons:RegularFluentIcon FontWeight="Bold" Symbol="ArrowForward48" />
+                                                        </Button.Content>
+                                                    </Button>
+                                                    <Button
+                                                        x:Name="NextEpisodeButton"
+                                                        AutomationProperties.Name="{loc:LocaleLocator Name=NextEpisode}"
+                                                        Style="{StaticResource MTCButtonStyle}"
+                                                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsNextEpisodeButtonEnabled}"
+                                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=NextEpisode}"
+                                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}, Path=ViewModel.IsShowSwitchEpisodeButton}">
+                                                        <Button.KeyboardAccelerators>
+                                                            <KeyboardAccelerator
+                                                                Key="Right"
+                                                                IsEnabled="True"
+                                                                Modifiers="Menu" />
+                                                        </Button.KeyboardAccelerators>
+                                                        <Button.Content>
+                                                            <icons:RegularFluentIcon Symbol="Next16" />
                                                         </Button.Content>
                                                     </Button>
                                                 </StackPanel>
