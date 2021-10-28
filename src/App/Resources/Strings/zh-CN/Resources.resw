@@ -285,6 +285,12 @@
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
   </data>
+  <data name="CurrentProgress" xml:space="preserve">
+    <value>当前进度</value>
+  </data>
+  <data name="CurrentVolume" xml:space="preserve">
+    <value>当前音量</value>
+  </data>
   <data name="Danmaku" xml:space="preserve">
     <value>弹幕</value>
   </data>
@@ -631,6 +637,9 @@
   </data>
   <data name="MTCControlModeDescription" xml:space="preserve">
     <value>选择媒体传输控件（包含播放进度的播放控制栏）显隐的方式</value>
+  </data>
+  <data name="Muted" xml:space="preserve">
+    <value>已静音</value>
   </data>
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>

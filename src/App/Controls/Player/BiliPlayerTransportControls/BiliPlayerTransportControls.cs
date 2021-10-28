@@ -6,10 +6,13 @@ using System.ComponentModel;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,6 +39,9 @@ namespace Richasy.Bili.App.Controls
             SizeChanged += OnSizeChanged;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
+            InitializeNormalTimer();
+
+            _normalTimer.Start();
         }
 
         /// <summary>
@@ -75,12 +81,18 @@ namespace Richasy.Bili.App.Controls
             _continuePreviousViewButton = GetTemplateChild(ContinuePreviousViewButtonName) as Button;
             _liveRefreshButton = GetTemplateChild(LiveRefreshButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
+            _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
+            _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
             _compactOverlayPlayModeButton.Click += OnPlayModeButtonClick;
+            _interactionControl.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _interactionControl.Tapped += OnInteractionControlTapped;
             _interactionControl.DoubleTapped += OnInteractionControlDoubleTapped;
+            _interactionControl.ManipulationStarted += OnInteractionControlManipulationStarted;
+            _interactionControl.ManipulationDelta += OnInteractionControlManipulationDelta;
+            _interactionControl.ManipulationCompleted += OnInteractionControlManipulationCompleted;
             _backButton.Click += OnBackButtonClick;
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
             _homeButton.Click += OnHomeButtonClickAsync;
@@ -465,6 +477,16 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        private void InitializeNormalTimer()
+        {
+            if (_normalTimer == null)
+            {
+                _normalTimer = new DispatcherTimer();
+                _normalTimer.Interval = TimeSpan.FromSeconds(0.5);
+                _normalTimer.Tick += OnNormalTimerTick;
+            }
+        }
+
         private void InitializeDanmaku(List<DanmakuElem> elements)
         {
             var list = new List<DanmakuModel>();
@@ -662,6 +684,123 @@ namespace Richasy.Bili.App.Controls
                 _cursorTimer.Stop();
                 _cursorStayTime = 0;
             }
+        }
+
+        private void OnNormalTimerTick(object sender, object e)
+        {
+            if (_tempMessageHoldSeconds >= 2)
+            {
+                HideTempMessage();
+            }
+            else if (_tempMessageHoldSeconds != -1)
+            {
+                _tempMessageHoldSeconds += 0.5;
+            }
+        }
+
+        private void OnInteractionControlManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            _manipulationVolume = 0;
+            _manipulationProgress = 0;
+            _manipulationDeltaX = 0;
+            _manipulationDeltaY = 0;
+            _manipulationStartPoint = new Point(0, 0);
+            _manipulationType = PlayerManipulationType.None;
+
+            if (_manipulationBeforeIsPlay)
+            {
+                ViewModel.BiliPlayer.MediaPlayer.Play();
+            }
+
+            _manipulationBeforeIsPlay = false;
+        }
+
+        private void OnInteractionControlManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (ViewModel.PlayerStatus != PlayerStatus.Playing && ViewModel.PlayerStatus != PlayerStatus.Pause)
+            {
+                return;
+            }
+
+            _manipulationDeltaX += e.Delta.Translation.X;
+            _manipulationDeltaY -= e.Delta.Translation.Y;
+            if (Math.Abs(_manipulationDeltaX) > 15 || Math.Abs(_manipulationDeltaY) > 15)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                if (_manipulationType == PlayerManipulationType.None)
+                {
+                    var isVolume = Math.Abs(_manipulationDeltaY) > Math.Abs(_manipulationDeltaX);
+                    _manipulationType = isVolume ? PlayerManipulationType.Volume : PlayerManipulationType.Progress;
+                    if (!isVolume)
+                    {
+                        ViewModel.BiliPlayer.MediaPlayer.Pause();
+                    }
+                }
+
+                if (_manipulationType == PlayerManipulationType.Volume)
+                {
+                    var volume = _manipulationVolume + (_manipulationDeltaY / 2.0);
+                    if (volume > 100)
+                    {
+                        volume = 100;
+                    }
+                    else if (volume < 0)
+                    {
+                        volume = 0;
+                    }
+
+                    ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}");
+                    ViewModel.BiliPlayer.MediaPlayer.Volume = volume / 100.0;
+                    if (volume == 0)
+                    {
+                        ShowTempMessage(resourceToolkit.GetLocaleString(LanguageNames.Muted));
+                    }
+                }
+                else
+                {
+                    var progress = _manipulationProgress + (_manipulationDeltaX * _manipulationUnitLength);
+                    if (progress > ViewModel.BiliPlayer.MediaPlayer.PlaybackSession.NaturalDuration.TotalSeconds)
+                    {
+                        progress = ViewModel.BiliPlayer.MediaPlayer.PlaybackSession.NaturalDuration.TotalSeconds;
+                    }
+                    else if (progress < 0)
+                    {
+                        progress = 0;
+                    }
+
+                    ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentProgress)}: {TimeSpan.FromSeconds(progress):g}");
+                    ViewModel.BiliPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(progress);
+                }
+            }
+        }
+
+        private void OnInteractionControlManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            var player = ViewModel.BiliPlayer.MediaPlayer;
+            _manipulationStartPoint = e.Position;
+            _manipulationProgress = player.PlaybackSession.Position.TotalSeconds;
+            _manipulationVolume = player.Volume * 100.0;
+            _manipulationBeforeIsPlay = ViewModel.PlayerStatus == PlayerStatus.Playing;
+            if (player.PlaybackSession != null && player.PlaybackSession.NaturalDuration.TotalSeconds > 0)
+            {
+                // 获取单位像素对应的时长
+                var unit = player.PlaybackSession.NaturalDuration.TotalSeconds / this.ActualWidth;
+                _manipulationUnitLength = unit / 1.5;
+            }
+        }
+
+        private void ShowTempMessage(string message)
+        {
+            _tempMessageContainer.Visibility = Visibility.Visible;
+            _tempMessageBlock.Text = message;
+            _tempMessageHoldSeconds = 0;
+        }
+
+        private void HideTempMessage()
+        {
+            _tempMessageContainer.Visibility = Visibility.Collapsed;
+            _tempMessageBlock.Text = string.Empty;
+            _tempMessageHoldSeconds = -1;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -52,11 +54,14 @@ namespace Richasy.Bili.App.Controls
         private const string BackToDefaultButtonName = "BackToDefaultButton";
         private const string ContinuePreviousViewButtonName = "ContinuePreviousViewButton";
         private const string LiveRefreshButtonName = "LiveRefreshButton";
+        private const string TempMessageContaienrName = "TempMessageContainer";
+        private const string TempMessageBlockName = "TempMessageBlock";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
         private DispatcherTimer _danmakuTimer;
         private DispatcherTimer _cursorTimer;
+        private DispatcherTimer _normalTimer;
         private DanmakuView _danmakuView;
         private ToggleButton _fullWindowPlayModeButton;
         private ToggleButton _fullScreenPlayModeButton;
@@ -76,8 +81,20 @@ namespace Richasy.Bili.App.Controls
         private Button _continuePreviousViewButton;
         private Button _liveRefreshButton;
         private TextBlock _subtitleBlock;
+        private Grid _tempMessageContainer;
+        private TextBlock _tempMessageBlock;
         private int _segmentIndex;
         private double _cursorStayTime;
+        private double _tempMessageHoldSeconds;
+
+        private Point _manipulationStartPoint = new Point(0, 0);
+        private double _manipulationDeltaX = 0d;
+        private double _manipulationDeltaY = 0d;
+        private double _manipulationProgress = 0d;
+        private double _manipulationVolume = 0d;
+        private double _manipulationUnitLength = 0d;
+        private bool _manipulationBeforeIsPlay = false;
+        private PlayerManipulationType _manipulationType = PlayerManipulationType.None;
 
         /// <summary>
         /// 实例.
