@@ -16,23 +16,33 @@ namespace Richasy.Bili.Toolkit.Uwp
         public List<string> GetSystemFontList()
         {
             var defaultLan = "en-us";
-            var fonts = CanvasFontSet.GetSystemFontSet();
-            var result = new List<string>();
-            foreach (var font in fonts.Fonts)
+            try
             {
-                font.FamilyNames.TryGetValue(defaultLan, out var fontName);
-                if (string.IsNullOrEmpty(fontName) && font.FamilyNames.Count > 0)
+                var fonts = CanvasFontSet.GetSystemFontSet();
+                var result = new List<string>();
+                foreach (var font in fonts.Fonts)
                 {
-                    fontName = font.FamilyNames.First().Value;
+                    font.FamilyNames.TryGetValue(defaultLan, out var fontName);
+                    if (string.IsNullOrEmpty(fontName) && font.FamilyNames.Count > 0)
+                    {
+                        fontName = font.FamilyNames.First().Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(fontName) && !result.Contains(fontName))
+                    {
+                        result.Add(fontName);
+                    }
                 }
 
-                if (!string.IsNullOrEmpty(fontName) && !result.Contains(fontName))
-                {
-                    result.Add(fontName);
-                }
+                return result;
             }
-
-            return result;
+            catch (System.Exception)
+            {
+                return new List<string>
+                {
+                    "Segoe UI",
+                };
+            }
         }
     }
 }
