@@ -23,6 +23,7 @@ namespace Richasy.Bili.Controller.Uwp
     public partial class BiliController
     {
         private readonly IFileToolkit _fileToolkit;
+        private readonly ISettingsToolkit _settingToolkit;
 
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
@@ -36,6 +37,7 @@ namespace Richasy.Bili.Controller.Uwp
         private readonly IPlayerProvider _playerProvider;
         private readonly ISearchProvider _searchProvider;
         private readonly ICommunityProvider _communityProvider;
+        private readonly IUpdateProvider _updateProvider;
 
         private readonly INetworkModule _networkModule;
         private readonly ILoggerModule _loggerModule;
@@ -55,6 +57,7 @@ namespace Richasy.Bili.Controller.Uwp
         {
             RegisterToolkitServices();
             ServiceLocator.Instance.LoadService(out _fileToolkit)
+                .LoadService(out _settingToolkit)
                 .LoadService(out _networkModule)
                 .LoadService(out _loggerModule)
                 .LoadService(out _authorizeProvider)
@@ -68,7 +71,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .LoadService(out _pgcProvider)
                 .LoadService(out _playerProvider)
                 .LoadService(out _searchProvider)
-                .LoadService(out _communityProvider);
+                .LoadService(out _communityProvider)
+                .LoadService(out _updateProvider);
 
             InitializeLiveSocket();
             RegisterEvents();
@@ -256,6 +260,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<MessageIterationEventArgs> MessageIteration;
 
         /// <summary>
+        /// 收到更新消息时发生.
+        /// </summary>
+        public event EventHandler<UpdateEventArgs> UpdateReceived;
+
+        /// <summary>
         /// 控制器实例.
         /// </summary>
         public static BiliController Instance { get; } = new Lazy<BiliController>(() => new BiliController()).Value;
@@ -297,7 +306,8 @@ namespace Richasy.Bili.Controller.Uwp
                 .AddSingleton<IPgcProvider, PgcProvider>()
                 .AddSingleton<IPlayerProvider, PlayerProvider>()
                 .AddSingleton<ISearchProvider, SearchProvider>()
-                .AddSingleton<ICommunityProvider, CommunityProvider>();
+                .AddSingleton<ICommunityProvider, CommunityProvider>()
+                .AddSingleton<IUpdateProvider, UpdateProvider>();
 
             _ = new ServiceLocator(serviceCollection);
         }

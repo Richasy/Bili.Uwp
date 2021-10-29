@@ -42,6 +42,9 @@
     <Compile Include="Controls\Danmaku\DanmakuSendOptions.xaml.cs">
       <DependentUpon>DanmakuSendOptions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Dialogs\UpgradeDialog.xaml.cs">
+      <DependentUpon>UpgradeDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\InteractionChoicePanel.xaml.cs">
       <DependentUpon>InteractionChoicePanel.xaml</DependentUpon>
     </Compile>
@@ -531,6 +534,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Danmaku\DanmakuSendOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dialogs\UpgradeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

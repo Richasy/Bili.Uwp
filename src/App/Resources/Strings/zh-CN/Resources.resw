@@ -511,6 +511,9 @@
   <data name="H265" xml:space="preserve">
     <value>HEVC/H.265</value>
   </data>
+  <data name="HasUpdate" xml:space="preserve">
+    <value>新版本发布</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
   </data>
@@ -528,6 +531,9 @@
   </data>
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
+  </data>
+  <data name="IgnoreVersion" xml:space="preserve">
+    <value>忽略该版本</value>
   </data>
   <data name="Index" xml:space="preserve">
     <value>索引</value>
@@ -716,6 +722,9 @@
   <data name="OnlyVideo" xml:space="preserve">
     <value>仅视频</value>
   </data>
+  <data name="OpenDownloadPage" xml:space="preserve">
+    <value>前往下载</value>
+  </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
   </data>
@@ -817,6 +826,9 @@
   </data>
   <data name="PrelaunchDescription" xml:space="preserve">
     <value>开启预启动，应用将在系统启动后在后台静默启动，应用打开的速度会很快</value>
+  </data>
+  <data name="PreRelease" xml:space="preserve">
+    <value>预览版</value>
   </data>
   <data name="PreviousEpisode" xml:space="preserve">
     <value>上一集</value>

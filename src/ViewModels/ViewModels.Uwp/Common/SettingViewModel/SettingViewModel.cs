@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
@@ -45,9 +46,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             MTCControlModeInit();
             StartupInitAsync();
 
-            var appVersion = Package.Current.Id.Version;
-            Version = $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
-
+            Version = BiliController.Instance.GetCurrentAppVersion();
             PropertyChanged += OnPropertyChangedAsync;
         }
 

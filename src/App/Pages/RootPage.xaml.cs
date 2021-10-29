@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Controls;
+using Richasy.Bili.App.Controls.Dialogs;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Core;
@@ -28,6 +30,7 @@ namespace Richasy.Bili.App.Pages
             this.Loaded += OnLoadedAsync;
             this.CoreViewModel.RequestShowTip += OnRequestShowTip;
             this.CoreViewModel.RequestBack += OnRequestBackAsync;
+            this.CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
         }
@@ -109,6 +112,9 @@ namespace Richasy.Bili.App.Pages
             this.CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
             await AccountViewModel.Instance.TrySignInAsync(true);
+#if !DEBUG
+            await CoreViewModel.CheckUpdateAsync();
+#endif
         }
 
         private async void OnBackRequestedAsync(object sender, BackRequestedEventArgs e)
@@ -148,5 +154,8 @@ namespace Richasy.Bili.App.Pages
 
         private void OnRequestShowTip(object sender, AppTipNotificationEventArgs e)
             => new TipPopup(e.Message).ShowAsync(e.Type);
+
+        private async void OnRequestShowUpdateDialogAsync(object sender, UpdateEventArgs e)
+            => await new UpgradeDialog(e).ShowAsync();
     }
 }

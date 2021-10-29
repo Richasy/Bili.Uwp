@@ -41,6 +41,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuSpeed,
         DisableP2PCdn,
         IsContinusPlay,
+        IgnoreVersion,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

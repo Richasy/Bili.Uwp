@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
@@ -21,7 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         internal AppViewModel()
         {
-            _ = BiliController.Instance;
+            _controller = BiliController.Instance;
             IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
@@ -30,6 +31,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;
             _isWide = null;
+            _controller.UpdateReceived += OnUpdateReceived;
             InitializeTheme();
         }
 
@@ -179,5 +181,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
             }
         }
+
+        /// <summary>
+        /// 检查更新.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public Task CheckUpdateAsync()
+            => _controller.CheckUpdateAsync();
+
+        private void OnUpdateReceived(object sender, UpdateEventArgs e) => RequestShowUpdateDialog?.Invoke(this, e);
     }
 }

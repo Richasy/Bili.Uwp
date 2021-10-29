@@ -383,6 +383,10 @@ namespace Richasy.Bili.Models.Enums
         Muted,
         PreviousEpisode,
         NextEpisode,
+        HasUpdate,
+        OpenDownloadPage,
+        IgnoreVersion,
+        PreRelease,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

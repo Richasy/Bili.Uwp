@@ -2,6 +2,7 @@
 
 using System;
 using ReactiveUI.Fody.Helpers;
+using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -18,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingToolkit;
         private readonly DisplayRequest _displayRequest;
+        private readonly BiliController _controller;
 
         private bool? _isWide;
 
@@ -40,6 +42,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 请求显示提醒.
         /// </summary>
         public event EventHandler<AppTipNotificationEventArgs> RequestShowTip;
+
+        /// <summary>
+        /// 请求显示升级提示.
+        /// </summary>
+        public event EventHandler<UpdateEventArgs> RequestShowUpdateDialog;
 
         /// <summary>
         /// <see cref="AppViewModel"/>的单例.
