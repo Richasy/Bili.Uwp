@@ -42,6 +42,7 @@
     <Compile Include="RankProvider\RankProvider.Extension.cs" />
     <Compile Include="PlayerProvider\PlayerProvider.cs" />
     <Compile Include="PlayerProvider\PlayerProvider.Extension.cs" />
+    <Compile Include="UpdateProvider.cs" />
     <Content Include="Properties\Lib.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

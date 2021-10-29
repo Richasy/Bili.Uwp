@@ -27,6 +27,7 @@
     <Compile Include="BiliController.Popular.cs" />
     <Compile Include="BiliController.Rank.cs" />
     <Compile Include="BiliController.Player.cs" />
+    <Compile Include="BiliController.Update.cs" />
     <Compile Include="Interfaces\ILoggerModule.cs" />
     <Compile Include="Interfaces\INetworkModule.cs" />
     <Compile Include="Modules\LoggerModule.cs" />
