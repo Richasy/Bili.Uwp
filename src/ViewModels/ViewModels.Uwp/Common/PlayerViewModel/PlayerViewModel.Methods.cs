@@ -27,6 +27,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _playerInformation = null;
             _interactionNodeId = 0;
             _interactionPartId = 0;
+            _isFirstShowHistory = true;
             CurrentFormat = null;
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
@@ -901,9 +902,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                         case MediaPlaybackState.Playing:
                             PlayerStatus = PlayerStatus.Playing;
                             IsPlayInformationError = false;
-                            if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero)
+                            if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero && _isFirstShowHistory)
                             {
                                 IsShowHistory = true;
+                                _isFirstShowHistory = false;
                             }
 
                             if (sender.PlaybackSession.Position < _initializeProgress)

@@ -49,8 +49,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _liveFFConfig = new FFmpegInteropConfig();
             _liveFFConfig.FFmpegOptions.Add("rtsp-transport", "tcp");
-
-            // _liveFFConfig.FFmpegOptions.Add("user_agent", ServiceConstants.DefaultUserAgentString);
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveFFConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 

@@ -62,6 +62,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         private bool _isInteractionChanging;
         private InteractionEdgeResponse _interactionDetail;
 
+        private bool _isFirstShowHistory;
+
         /// <summary>
         /// 让直播消息视图滚动到底部.
         /// </summary>
