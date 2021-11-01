@@ -338,6 +338,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_playerInformation);
                 await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
+                await InitializeSubtitleIndexAsync();
             }
 
             try
