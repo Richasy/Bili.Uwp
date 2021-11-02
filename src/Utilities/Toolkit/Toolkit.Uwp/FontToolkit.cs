@@ -15,26 +15,13 @@ namespace Richasy.Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public List<string> GetSystemFontList()
         {
-            var defaultLan = "en-us";
             try
             {
-                var fonts = CanvasFontSet.GetSystemFontSet();
-                var result = new List<string>();
-                foreach (var font in fonts.Fonts)
+                var localeList = new List<string>
                 {
-                    font.FamilyNames.TryGetValue(defaultLan, out var fontName);
-                    if (string.IsNullOrEmpty(fontName) && font.FamilyNames.Count > 0)
-                    {
-                        fontName = font.FamilyNames.First().Value;
-                    }
-
-                    if (!string.IsNullOrEmpty(fontName) && !result.Contains(fontName))
-                    {
-                        result.Add(fontName);
-                    }
-                }
-
-                return result;
+                    "zh-cn",
+                };
+                return CanvasTextFormat.GetSystemFontFamilies(localeList).OrderBy(x => x).ToList();
             }
             catch (System.Exception)
             {
