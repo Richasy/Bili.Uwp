@@ -62,6 +62,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
+            IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
             InitializeTimer();
             this.PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
@@ -679,6 +680,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
 
                     _settingsToolkit.WriteLocalSetting(SettingNames.PlaybackRate, PlaybackRate);
+                    break;
+                case nameof(IsOnlyShowIndex):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, IsOnlyShowIndex);
                     break;
                 default:
                     break;

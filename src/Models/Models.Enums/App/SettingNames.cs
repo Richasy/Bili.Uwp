@@ -42,6 +42,7 @@ namespace Richasy.Bili.Models.Enums
         DisableP2PCdn,
         IsContinusPlay,
         IgnoreVersion,
+        IsOnlyShowIndex,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

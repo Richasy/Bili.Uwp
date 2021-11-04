@@ -704,6 +704,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowInteractionEnd { get; set; }
 
         /// <summary>
+        /// 是否仅显示分集索引.
+        /// </summary>
+        [Reactive]
+        public bool IsOnlyShowIndex { get; set; }
+
+        /// <summary>
         /// 索引列表.
         /// </summary>
         [Reactive]
