@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls.Player.Related"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -12,48 +13,107 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <ScrollViewer
-        HorizontalScrollMode="Disabled"
-        VerticalScrollBarVisibility="Hidden"
-        VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
-        <controls:VerticalRepeaterView
-            EnableDetectParentScrollViewer="False"
-            HeaderVisibility="Collapsed"
-            ItemOrientation="Horizontal"
-            ItemsSource="{x:Bind ViewModel.VideoPartCollection}">
-            <controls:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="uwp:VideoPartViewModel">
-                    <controls:CardPanel
-                        Click="OnPartItemClickAsync"
-                        DataContext="{x:Bind}"
-                        IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                        IsEnableCheck="True"
-                        IsEnableHoverAnimation="False">
-                        <Grid Padding="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="36" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontWeight="Bold"
-                                Text="{x:Bind Data.Page.Page_}" />
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    FontWeight="Bold"
-                                    Text="{x:Bind Data.Page.Part}" />
-                                <TextBlock
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Margin="0,4,0,0"
-                                    FontWeight="Bold"
-                                    Text="{x:Bind Data.Page.Desc}"
-                                    Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                            </StackPanel>
-                        </Grid>
-                    </controls:CardPanel>
-                </DataTemplate>
-            </controls:VerticalRepeaterView.ItemTemplate>
-        </controls:VerticalRepeaterView>
-    </ScrollViewer>
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{loc:LocaleLocator Name=OnlyIndex}"
+                TextTrimming="CharacterEllipsis" />
+            <ToggleSwitch
+                x:Name="OnlyIndexSwitch"
+                Grid.Column="1"
+                MinWidth="0"
+                MinHeight="0"
+                VerticalAlignment="Center"
+                IsOn="{x:Bind ViewModel.IsOnlyShowIndex, Mode=TwoWay}" />
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Hidden"
+            VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
+            <Grid>
+                <controls:VerticalRepeaterView
+                    EnableDetectParentScrollViewer="False"
+                    HeaderVisibility="Collapsed"
+                    ItemOrientation="Horizontal"
+                    ItemsSource="{x:Bind ViewModel.VideoPartCollection}"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:VideoPartViewModel">
+                            <controls:CardPanel
+                                Click="OnPartItemClickAsync"
+                                DataContext="{x:Bind}"
+                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                IsEnableCheck="True"
+                                IsEnableHoverAnimation="False">
+                                <Grid Padding="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="36" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="{x:Bind Data.Page.Page_}" />
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            FontWeight="Bold"
+                                            Text="{x:Bind Data.Page.Part}" />
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Margin="0,4,0,0"
+                                            FontWeight="Bold"
+                                            Text="{x:Bind Data.Page.Desc}"
+                                            Visibility="{x:Bind Data.Page.Desc, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </controls:CardPanel>
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.VideoPartCollection, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="8"
+                            MinItemHeight="48"
+                            MinItemWidth="48"
+                            MinRowSpacing="8" />
+                    </muxc:ItemsRepeater.Layout>
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="uwp:VideoPartViewModel">
+                            <controls:CardPanel
+                                AutomationProperties.Name="{x:Bind Data.Page.Part}"
+                                Click="OnPartItemClickAsync"
+                                DataContext="{x:Bind}"
+                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                IsEnableCheck="True"
+                                IsEnableHoverAnimation="False"
+                                IsEnableShadow="False"
+                                ToolTipService.ToolTip="{x:Bind Data.Page.Part}">
+                                <Grid>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="{x:Bind Data.Page.Page_, Mode=OneWay}" />
+                                </Grid>
+                            </controls:CardPanel>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                </muxc:ItemsRepeater>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </controls:PlayerComponent>

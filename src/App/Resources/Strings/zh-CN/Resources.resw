@@ -716,6 +716,9 @@
   <data name="OnlyAudio" xml:space="preserve">
     <value>仅音频</value>
   </data>
+  <data name="OnlyIndex" xml:space="preserve">
+    <value>仅显示序号</value>
+  </data>
   <data name="OnlySubtitle" xml:space="preserve">
     <value>仅字幕</value>
   </data>
