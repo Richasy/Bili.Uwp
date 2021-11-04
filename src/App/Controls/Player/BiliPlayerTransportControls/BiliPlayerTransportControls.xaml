@@ -305,7 +305,6 @@
                                         <Setter Target="DanmakuContainer.Visibility" Value="Collapsed" />
                                         <Setter Target="Danmaku_Command_Border.Visibility" Value="Collapsed" />
                                         <Setter Target="ToggleDanmakuVisibilityButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="SubtitleContainer.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
