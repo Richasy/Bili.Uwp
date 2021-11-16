@@ -97,7 +97,7 @@
             PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
             QueryIcon="Find"
             TextChanged ="AutoSuggestBox_TextChangedAsync"
-            QuerySubmitted="OnSearchBoxSubmitted"
+            QuerySubmitted="AutoSuggestBox_QuerySubmittedAsync"
             TabIndex="2"
             Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
             UpdateTextOnSelect="False"

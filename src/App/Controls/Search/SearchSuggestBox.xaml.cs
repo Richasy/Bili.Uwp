@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -67,14 +68,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (!string.IsNullOrEmpty(sender.Text))
-            {
-                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
-            }
-        }
-
         private void OnHotSearchButtonClick(object sender, RoutedEventArgs e)
         {
             HotSearchFlyout.ShowAt(AppSearchBox);
@@ -85,20 +78,26 @@ namespace Richasy.Bili.App.Controls
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput && !string.IsNullOrEmpty(sender.Text))
             {
                 await ViewModel.GetSearchSuggestTagAsync(sender.Text);
+
+                sender.ItemsSource = ViewModel.SuggestTagList.Select(x => x.Value);
             }
         }
 
-        private void AutoSuggestBox_QuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+        private async void AutoSuggestBox_QuerySubmittedAsync(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (args.ChosenSuggestion != null && args.ChosenSuggestion is SearchSuggestTag)
+            if (args.ChosenSuggestion != null)
             {
-                var tag = args.ChosenSuggestion as SearchSuggestTag;
-                ViewModel.InputWords = tag.Value;
+                ViewModel.InputWords = args.ChosenSuggestion as string;
+                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+                await ViewModel.SearchAsync();
             }
-            else if (!string.IsNullOrEmpty(args.QueryText))
+            else
             {
                 ViewModel.InputWords = args.QueryText;
+                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+                await ViewModel.SearchAsync();
             }
+
         }
 
         private void AutoSuggestBox_SuggestionChosen(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs args)
