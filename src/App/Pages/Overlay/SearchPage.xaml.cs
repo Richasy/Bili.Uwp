@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -119,7 +117,5 @@ namespace Richasy.Bili.App.Pages.Overlay
                     break;
             }
         }
-
-        
     }
 }
