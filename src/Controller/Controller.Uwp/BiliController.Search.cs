@@ -43,7 +43,7 @@ namespace Richasy.Bili.Controller.Uwp
             try
             {
                 var dict = await _searchProvider.GetSearchSuggestTagsAsync(keyword);
-                return dict.Select(a=>a.Value).ToList();
+                return dict.Select(a => a.Value).ToList();
             }
             catch (System.Exception ex)
             {
