@@ -106,7 +106,7 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<SearchSuggestResponse> GetSearchSuggestTagsAsync(string keyword)
+        public async Task<Dictionary<string, SearchSuggestTag>> GetSearchSuggestTagsAsync(string keyword)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -114,7 +114,7 @@ namespace Richasy.Bili.Lib.Uwp
             };
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.SearchSuggest, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<SearchSuggestResponse>(response);
+            var result = await _httpProvider.ParseAsync<Dictionary<string, SearchSuggestTag>>(response);
             return result;
         }
     }

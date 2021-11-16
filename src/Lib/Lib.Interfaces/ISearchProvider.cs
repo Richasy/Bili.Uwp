@@ -80,6 +80,6 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="keyword">搜索关键词.</param>
         /// <returns>搜索建议结果.</returns>
-        Task<SearchSuggestResponse> GetSearchSuggestTagsAsync(string keyword);
+        Task<Dictionary<string, SearchSuggestTag>> GetSearchSuggestTagsAsync(string keyword);
     }
 }

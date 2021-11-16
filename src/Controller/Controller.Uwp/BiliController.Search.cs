@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
@@ -41,7 +42,8 @@ namespace Richasy.Bili.Controller.Uwp
         {
             try
             {
-                return (await _searchProvider.GetSearchSuggestTagsAsync(keyword))?.Result;
+                var dict = await _searchProvider.GetSearchSuggestTagsAsync(keyword);
+                return dict.Select(a=>a.Value).ToList();
             }
             catch (System.Exception ex)
             {
