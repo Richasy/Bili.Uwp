@@ -120,30 +120,6 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
         }
 
-        private async void AutoSuggestBox_TextChanged(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs args)
-        {
-
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput && !string.IsNullOrEmpty(sender.Text))
-            {
-                await ViewModel.GetSearchSuggestTagAsync(sender.Text);
-            }
-        }
-
-        private void AutoSuggestBox_QuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (args.ChosenSuggestion != null && args.ChosenSuggestion is SearchSuggestTag)
-            {
-                var tag = args.ChosenSuggestion as SearchSuggestTag;
-                ViewModel.InputWords = tag.Value;
-            }
-            else if (!string.IsNullOrEmpty(args.QueryText))
-            {
-                ViewModel.InputWords = args.QueryText;
-            }
-        }
-
-        private void AutoSuggestBox_SuggestionChosen(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-        }
+        
     }
 }
