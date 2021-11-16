@@ -170,6 +170,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Format = "format";
             public const string GraphVersion = "graph_version";
             public const string EdgeId = "edge_id";
+            public const string Term = "term";
         }
 
         public static class Sort

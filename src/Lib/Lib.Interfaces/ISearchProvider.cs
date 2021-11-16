@@ -74,5 +74,12 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>直播搜索结果.</returns>
         Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, int pageNumber);
+
+        /// <summary>
+        /// 获取搜索建议Tags.
+        /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <returns>搜索建议结果.</returns>
+        Task<SearchSuggestResponse> GetSearchSuggestTagsAsync(string keyword);
     }
 }

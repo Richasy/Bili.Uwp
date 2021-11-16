@@ -116,4 +116,22 @@ namespace Richasy.Bili.Models.BiliBili
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items", Required = Required.Default)]
         public List<LiveSearchItem> Items { get; set; }
     }
+
+    /// <summary>
+    /// 搜索建议结果.
+    /// </summary>
+    public class SearchSuggestResponse
+    {
+        /// <summary>
+        /// 返回值.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code", Required = Required.Default)]
+        public int Code { get; set; }
+
+        /// <summary>
+        /// 搜索建议结果.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "result", Required = Required.Default)]
+        public List<SearchSuggestTag> Result { get; set; }
+    }
 }

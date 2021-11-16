@@ -33,6 +33,24 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取搜索建议.
+        /// </summary>
+        /// <param name="keyword">关键字</param>
+        /// <returns>关键字列表</returns>
+        public async Task<List<SearchSuggestTag>> GetSearchSuggestTagsAsync(string keyword)
+        {
+            try
+            {
+                return (await _searchProvider.GetSearchSuggestTagsAsync(keyword))?.Result;
+            }
+            catch (System.Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 请求搜索模块数据.
         /// </summary>
         /// <param name="type">模块类型.</param>

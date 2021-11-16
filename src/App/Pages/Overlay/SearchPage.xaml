@@ -41,7 +41,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <TextBlock
+        <!--<TextBlock
             Style="{StaticResource TitleTextBlockStyle}"
             Margin="0,0,0,8"
             HorizontalAlignment="Left"
@@ -51,7 +51,12 @@
                 FontWeight="Bold"
                 Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                 Text="{x:Bind ViewModel.Keyword, Mode=OneWay}" />
-        </TextBlock>
+        </TextBlock>-->
+        <!--<AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
+                TextChanged="AutoSuggestBox_TextChanged"
+                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                ItemsSource="{x:Bind ViewModel.SuggestTagList}" />-->
         <muxc:NavigationView
             x:Name="Nav"
             Grid.Row="1"

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Models.App.Args;
@@ -46,6 +48,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsHotSearchFlyoutEnabled = HotSearchCollection.Count > 0;
+        }
+
+        /// <summary>
+        /// 获取搜索建议.
+        /// </summary>
+        /// <param name="keyWord">关键字.</param>
+        /// <returns>关键字列表.</returns>
+        public async Task GetSearchSuggestTagAsync(string keyWord)
+        {
+            try
+            {
+                var list = await Controller.GetSearchSuggestTagsAsync(keyWord);
+                if (list?.Any() ?? false)
+                {
+                    SuggestTagList = list;
+                }
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         /// <summary>

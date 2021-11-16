@@ -17,6 +17,8 @@ namespace Richasy.Bili.Models.App.Constants
         public const string _bangumiBase = "https://bangumi.bilibili.com";
         public const string _grpcBase = "https://grpc.biliapi.net";
 
+        public const string _searchBase = "http://s.search.bilibili.com";
+
         public static class Passport
         {
             /// <summary>
@@ -497,6 +499,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 直播搜索.
             /// </summary>
             public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
+
+            /// <summary>
+            /// 搜索建议.
+            /// </summary>
+            public const string SearchSuggest = _searchBase + "/main/suggest";
         }
 
         public static class Community

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
@@ -84,6 +85,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public SearchModuleType CurrentType { get; set; }
+
+        /// <summary>
+        /// 建议列表.
+        /// </summary>
+        [Reactive]
+        public List<SearchSuggestTag> SuggestTagList { get; set; }
 
         private BiliController Controller { get; }
     }

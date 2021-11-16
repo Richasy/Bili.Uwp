@@ -104,5 +104,18 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveSearchResultResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<SearchSuggestResponse> GetSearchSuggestTagsAsync(string keyword)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Term, keyword },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.SearchSuggest, queryParameters, Models.Enums.RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<SearchSuggestResponse>(response);
+            return result;
+        }
     }
 }
