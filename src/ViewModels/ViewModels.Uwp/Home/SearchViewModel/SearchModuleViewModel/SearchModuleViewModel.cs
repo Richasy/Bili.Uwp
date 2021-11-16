@@ -60,7 +60,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             try
             {
                 var list = await Controller.GetSearchSuggestTagsAsync(keyWord);
-                if (list?.Any() ?? false)
+                if (list.Any())
                 {
                     SuggestTagList = list;
                 }
