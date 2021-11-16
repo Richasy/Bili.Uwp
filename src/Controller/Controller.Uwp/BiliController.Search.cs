@@ -36,8 +36,8 @@ namespace Richasy.Bili.Controller.Uwp
         /// <summary>
         /// 获取搜索建议.
         /// </summary>
-        /// <param name="keyword">关键字</param>
-        /// <returns>关键字列表</returns>
+        /// <param name="keyword">关键字.</param>
+        /// <returns>关键字列表.</returns>
         public async Task<List<SearchSuggestTag>> GetSearchSuggestTagsAsync(string keyword)
         {
             try
