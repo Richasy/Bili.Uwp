@@ -8,6 +8,7 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v1="using:Bilibili.App.Interfaces.V1"
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
@@ -94,9 +95,11 @@
             x:Name="AppSearchBox"
             HorizontalAlignment="Stretch"
             IsTabStop="True"
+            ItemsSource="{x:Bind ViewModel.SuggestionCollection, Mode=OneWay}"
             PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
             QueryIcon="Find"
             QuerySubmitted="OnSearchBoxSubmitted"
+            TextChanged="OnTextChangedAsync"
             TabIndex="2"
             Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
             UpdateTextOnSelect="False"
@@ -106,6 +109,11 @@
                     <Setter Property="Padding" Value="40,8,0,8" />
                 </Style>
             </AutoSuggestBox.TextBoxStyle>
+            <AutoSuggestBox.ItemTemplate>
+                <DataTemplate x:DataType="v1:ResultItem">
+                    <TextBlock Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
+                </DataTemplate>
+            </AutoSuggestBox.ItemTemplate>
         </AutoSuggestBox>
         <Button
             x:Name="HotSearchButton"

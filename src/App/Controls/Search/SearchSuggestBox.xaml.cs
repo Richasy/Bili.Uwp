@@ -1,7 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -69,6 +75,12 @@ namespace Richasy.Bili.App.Controls
 
         private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (args.ChosenSuggestion is ResultItem item)
+            {
+                ViewModel.InputWords = item.Keyword;
+                ViewModel.SuggestionCollection.Clear();
+            }
+
             if (!string.IsNullOrEmpty(sender.Text))
             {
                 AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
@@ -78,6 +90,18 @@ namespace Richasy.Bili.App.Controls
         private void OnHotSearchButtonClick(object sender, RoutedEventArgs e)
         {
             HotSearchFlyout.ShowAt(AppSearchBox);
+        }
+
+        private async void OnTextChangedAsync(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                ViewModel.SuggestionCollection.Clear();
+            }
+            else
+            {
+                await ViewModel.RequestSearchSuggestionAsync();
+            }
         }
     }
 }

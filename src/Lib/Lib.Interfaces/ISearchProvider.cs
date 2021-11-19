@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
 
 namespace Richasy.Bili.Lib.Interfaces
@@ -74,5 +76,13 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>直播搜索结果.</returns>
         Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, int pageNumber);
+
+        /// <summary>
+        /// 获取搜索建议.
+        /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="cancellationToken">异步中止令牌.</param>
+        /// <returns>搜索建议列表.</returns>
+        Task<List<ResultItem>> GetSearchSuggestion(string keyword, CancellationToken cancellationToken);
     }
 }
