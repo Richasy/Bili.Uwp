@@ -141,9 +141,10 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.RealTime, progress.ToString() },
                 { Query.Progress, progress.ToString() },
                 { Query.Type, "4" },
+                { Query.SubType, "1" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.Android, true);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;

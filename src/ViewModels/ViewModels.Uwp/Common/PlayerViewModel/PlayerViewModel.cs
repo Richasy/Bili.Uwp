@@ -504,6 +504,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 await CheckVideoHistoryAsync();
             }
+            else if (_videoType == VideoType.Pgc)
+            {
+                await CheckPgcHistoryAsync();
+            }
         }
 
         /// <summary>

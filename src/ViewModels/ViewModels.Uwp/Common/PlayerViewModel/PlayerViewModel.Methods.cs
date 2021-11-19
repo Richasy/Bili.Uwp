@@ -655,9 +655,23 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private async Task CheckPgcHistoryAsync()
+        {
+            var history = _pgcDetail.UserStatus.Progress;
+            if (CurrentPgcEpisode == null || history.LastEpisodeId != CurrentPgcEpisode.Id)
+            {
+                await ChangePgcEpisodeAsync(history.LastEpisodeId);
+                _initializeProgress = TimeSpan.FromSeconds(history.LastTime);
+            }
+            else
+            {
+                _currentVideoPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(history.LastTime);
+            }
+        }
+
         private async void OnProgressTimerTickAsync(object sender, object e)
         {
-            if (_videoDetail == null || CurrentVideoPart == null)
+            if (_videoDetail == null && CurrentVideoPart == null && _pgcDetail == null && CurrentPgcEpisode == null)
             {
                 return;
             }

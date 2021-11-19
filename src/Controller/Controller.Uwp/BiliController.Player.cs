@@ -111,7 +111,7 @@ namespace Richasy.Bili.Controller.Uwp
                     var isSuccess = false;
                     if (episodeId > 0)
                     {
-                        isSuccess = await _playerProvider.ReportProgressAsync(episodeId, seasonId, Convert.ToInt64(progress.TotalSeconds));
+                        isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, episodeId, seasonId, Convert.ToInt64(progress.TotalSeconds));
                     }
                     else if (videoId > 0)
                     {
