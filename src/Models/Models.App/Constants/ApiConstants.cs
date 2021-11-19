@@ -497,6 +497,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 直播搜索.
             /// </summary>
             public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
+
+            /// <summary>
+            /// 搜索建议.
+            /// </summary>
+            public const string Suggestion = _grpcBase + "/bilibili.app.interface.v1.Search/Suggest3";
         }
 
         public static class Community

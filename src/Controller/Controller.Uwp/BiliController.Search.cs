@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
@@ -15,6 +16,8 @@ namespace Richasy.Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
+        private CancellationTokenSource _suggestionTokenSource;
+
         /// <summary>
         /// 获取热搜列表.
         /// </summary>
@@ -157,6 +160,39 @@ namespace Richasy.Bili.Controller.Uwp
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// 获取搜索建议.
+        /// </summary>
+        /// <param name="keyword">关键词.</param>
+        /// <returns>搜索建议.</returns>
+        public async Task<List<Bilibili.App.Interfaces.V1.ResultItem>> GetSearchSuggestionAsync(string keyword)
+        {
+            if (_suggestionTokenSource != null && !_suggestionTokenSource.IsCancellationRequested)
+            {
+                _suggestionTokenSource.Cancel();
+                _suggestionTokenSource.Dispose();
+                _suggestionTokenSource = null;
+            }
+
+            try
+            {
+                _suggestionTokenSource = new CancellationTokenSource();
+                var result = await _searchProvider.GetSearchSuggestion(keyword, _suggestionTokenSource.Token);
+                _suggestionTokenSource.Dispose();
+                _suggestionTokenSource = null;
+                return result;
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            catch (System.Exception ex)
+            {
+                _loggerModule.LogError(ex, true);
+            }
+
+            return null;
         }
     }
 }

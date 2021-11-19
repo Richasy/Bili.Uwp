@@ -204,6 +204,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             VideoCollection.Clear();
             IsRequested = false;
+            IsError = false;
             _isFollowRequesting = false;
             _isVideoLoadCompleted = false;
         }
