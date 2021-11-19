@@ -74,12 +74,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task InitCommunityInformationAsync()
         {
-            var data = await _controller.GetMyDataAsync();
-            DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
-            FollowCount = _numberToolkit.GetCountText(data.FollowCount);
-            FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
+            try
+            {
+                var data = await _controller.GetMyDataAsync();
+                DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
+                FollowCount = _numberToolkit.GetCountText(data.FollowCount);
+                FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
 
-            await InitUnreadAsync();
+                await InitUnreadAsync();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         /// <summary>

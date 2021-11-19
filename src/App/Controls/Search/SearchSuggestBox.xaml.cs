@@ -1,13 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
