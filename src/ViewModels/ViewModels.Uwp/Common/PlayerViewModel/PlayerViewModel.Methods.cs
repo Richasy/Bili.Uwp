@@ -657,7 +657,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnProgressTimerTickAsync(object sender, object e)
         {
-            if (_videoDetail == null || CurrentVideoPart == null)
+            if (_videoDetail == null && CurrentVideoPart == null && _pgcDetail == null && CurrentPgcEpisode == null)
             {
                 return;
             }

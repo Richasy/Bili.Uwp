@@ -72,6 +72,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PageNumber = "pn";
             public const string PageSizeSlim = "ps";
             public const string Type = "type";
+            public const string SubType = "sub_type";
             public const string Idx = "idx";
             public const string Flush = "flush";
             public const string Device = "device";
