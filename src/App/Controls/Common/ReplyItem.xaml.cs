@@ -137,5 +137,13 @@ namespace Richasy.Bili.App.Controls
         {
             Click?.Invoke(this, EventArgs.Empty);
         }
+
+        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        {
+            if (Data.Member != null)
+            {
+                await UserView.Instance.ShowAsync(Convert.ToInt32(Data.Member.Mid));
+            }
+        }
     }
 }

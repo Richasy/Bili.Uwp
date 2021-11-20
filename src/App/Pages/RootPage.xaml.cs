@@ -71,6 +71,10 @@ namespace Richasy.Bili.App.Pages
         public void RemoveFromHolder(UIElement element)
         {
             HolderContainer.Children.Remove(element);
+            if (HolderContainer.Children.Count == 0)
+            {
+                CoreViewModel.IsBackButtonEnabled = true;
+            }
         }
 
         /// <inheritdoc/>

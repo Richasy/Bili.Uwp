@@ -36,6 +36,7 @@
                         x:Name="UserAvatar"
                         Width="32"
                         Height="32"
+                        Click="OnAvatarClickAsync"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                 </Grid>
