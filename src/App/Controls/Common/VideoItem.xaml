@@ -125,6 +125,7 @@
                         Height="36"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        Click="OnAvatarClickAsync"
                         Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                         UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 </Grid>

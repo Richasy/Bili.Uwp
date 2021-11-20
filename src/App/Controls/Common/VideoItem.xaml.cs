@@ -302,5 +302,13 @@ namespace Richasy.Bili.App.Controls
                 ContextFlyout.Hide();
             }
         }
+
+        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        {
+            if (ViewModel.Publisher != null)
+            {
+                await UserView.Instance.ShowAsync(ViewModel.Publisher);
+            }
+        }
     }
 }
