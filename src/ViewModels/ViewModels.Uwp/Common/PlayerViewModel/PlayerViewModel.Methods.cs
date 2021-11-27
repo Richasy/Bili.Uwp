@@ -182,6 +182,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowReply = false;
             RoomId = roomId.ToString();
 
+            if (PlaybackRate != 1)
+            {
+                PlaybackRate = 1;
+            }
+
             try
             {
                 var detail = await Controller.GetLiveRoomDetailAsync(roomId);
