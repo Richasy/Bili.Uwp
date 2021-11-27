@@ -801,6 +801,12 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
+            if (args.ExtendedErrorCode?.HResult == -1072873851)
+            {
+                // 不处理 Shutdown 造成的错误.
+                return;
+            }
+
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // 在视频未加载时不对报错进行处理.

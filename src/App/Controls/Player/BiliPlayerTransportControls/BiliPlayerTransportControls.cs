@@ -224,20 +224,31 @@ namespace Richasy.Bili.App.Controls
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
         {
+            var behavior = SettingViewModel.DoubleClickBehavior;
+            switch (behavior)
+            {
+                case DoubleClickBehavior.FullScreen:
+                    ViewModel.TogglePlayPause();
+                    break;
+                default:
+                    break;
+            }
+
             if (ShowAndHideAutomatically)
             {
                 _playPauseButton.Focus(FocusState.Programmatic);
-                return;
             }
-
-            if (_controlPanel.Opacity == 0d)
+            else
             {
-                Show();
-            }
-            else if (_controlPanel.Opacity == 1)
-            {
-                _playPauseButton.Focus(FocusState.Programmatic);
-                Hide();
+                if (_controlPanel.Opacity == 0d)
+                {
+                    Show();
+                }
+                else if (_controlPanel.Opacity == 1)
+                {
+                    _playPauseButton.Focus(FocusState.Programmatic);
+                    Hide();
+                }
             }
         }
 
@@ -253,6 +264,7 @@ namespace Richasy.Bili.App.Controls
                     case DoubleClickBehavior.FullScreen:
                         _fullScreenPlayModeButton.IsChecked = !_fullScreenPlayModeButton.IsChecked;
                         OnPlayModeButtonClick(_fullScreenPlayModeButton, null);
+                        ViewModel.TogglePlayPause();
                         break;
                     case DoubleClickBehavior.PlayPause:
                         ViewModel.TogglePlayPause();
