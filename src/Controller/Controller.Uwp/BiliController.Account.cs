@@ -37,7 +37,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestMyProfileAsync()
         {
-            if (await _authorizeProvider.IsTokenValidAsync() && IsNetworkAvailable)
+            if (IsNetworkAvailable && await _authorizeProvider.IsTokenValidAsync())
             {
                 try
                 {

@@ -22,7 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             _controller = BiliController.Instance;
             _controller.Logged += OnLoggedAsync;
-            _controller.LoggedFailed += OnLoggedFailed;
+            _controller.LoggedFailed += OnLoggedFailedAsync;
             _controller.LoggedOut += OnLoggedOut;
             _controller.AccountChanged += OnAccountChangedAsync;
             Status = AccountViewModelStatus.Logout;
@@ -110,9 +110,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             this.Status = AccountViewModelStatus.Logout;
             Reset();
+            _failedCount = 0;
         }
 
-        private void OnLoggedFailed(object sender, Exception e)
+        private async void OnLoggedFailedAsync(object sender, Exception e)
         {
             Debug.WriteLine($"Login failed: {e.Message}");
 
@@ -121,6 +122,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Reset();
                 this.Status = AccountViewModelStatus.Logout;
+                _failedCount++;
+                if (_failedCount > 1)
+                {
+                    await _controller.SignOutAsync();
+                }
             }
         }
 
@@ -132,6 +138,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await GetMyProfileAsync();
                 this.Status = AccountViewModelStatus.Login;
             }
+
+            _failedCount = 0;
         }
 
         private async void OnAccountChangedAsync(object sender, MyInfo e)
