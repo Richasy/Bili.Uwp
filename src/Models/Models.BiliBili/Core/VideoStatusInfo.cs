@@ -19,37 +19,37 @@ namespace Richasy.Bili.Models.BiliBili
         /// 视频播放数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "view", Required = Required.Default)]
-        public int PlayCount { get; set; }
+        public long PlayCount { get; set; }
 
         /// <summary>
         /// 弹幕数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "danmaku", Required = Required.Default)]
-        public int DanmakuCount { get; set; }
+        public long DanmakuCount { get; set; }
 
         /// <summary>
         /// 视频评论数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reply", Required = Required.Default)]
-        public int ReplyCount { get; set; }
+        public long ReplyCount { get; set; }
 
         /// <summary>
         /// 视频收藏数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favorite", Required = Required.Default)]
-        public int FavoriteCount { get; set; }
+        public long FavoriteCount { get; set; }
 
         /// <summary>
         /// 投币数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "coin", Required = Required.Default)]
-        public int CoinCount { get; set; }
+        public long CoinCount { get; set; }
 
         /// <summary>
         /// 分享数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "share", Required = Required.Default)]
-        public int ShareCount { get; set; }
+        public long ShareCount { get; set; }
 
         /// <summary>
         /// 当前排名.
@@ -67,12 +67,12 @@ namespace Richasy.Bili.Models.BiliBili
         /// 点赞数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "like", Required = Required.Default)]
-        public int LikeCount { get; set; }
+        public long LikeCount { get; set; }
 
         /// <summary>
         /// 点踩数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "dislike", Required = Required.Default)]
-        public int DislikeCount { get; set; }
+        public long DislikeCount { get; set; }
     }
 }
