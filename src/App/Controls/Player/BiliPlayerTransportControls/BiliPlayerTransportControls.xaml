@@ -271,7 +271,7 @@
                                 <VisualState x:Name="MuteState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteSymbol.Symbol" Value="Mute" />
-                                        <Setter Target="VolumeMuteSymbol.Symbol" Value="Mute" />
+                                        <Setter Target="VolumeMuteIcon.Symbol" Value="SpeakerMute20" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -599,7 +599,7 @@
                                                             </Flyout>
                                                         </Button.Flyout>
                                                         <Button.Content>
-                                                            <icons:RegularFluentIcon Symbol="Speaker220" />
+                                                            <icons:RegularFluentIcon x:Name="VolumeMuteIcon" Symbol="Speaker220" />
                                                         </Button.Content>
                                                     </Button>
 

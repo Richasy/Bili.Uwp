@@ -20,7 +20,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// 视频发布时间 (Unix时间戳).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pubdate", Required = Required.Default)]
-        public int PublishDateTime { get; set; }
+        public long PublishDateTime { get; set; }
 
         /// <summary>
         /// 视频时长 (秒).

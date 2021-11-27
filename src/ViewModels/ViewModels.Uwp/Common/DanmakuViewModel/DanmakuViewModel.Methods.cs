@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Richasy.Bili.Models.App.Args;
 
 namespace Richasy.Bili.ViewModels.Uwp.Common
@@ -22,8 +23,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         {
             if (e.VideoId == _videoId && e.PartId == _partId)
             {
-                e.DanmakuList.ForEach(p => _danmakuList.Add(p));
-                DanmakuListAdded?.Invoke(this, e.DanmakuList);
+                var list = e.DanmakuList.Where(p => p.Mode != 7).ToList();
+                list.ForEach(p => _danmakuList.Add(p));
+                DanmakuListAdded?.Invoke(this, list);
             }
         }
 

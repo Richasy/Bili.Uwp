@@ -502,25 +502,25 @@ namespace Richasy.Bili.Models.BiliBili
         /// 投币数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "coins", Required = Required.Default)]
-        public int CoinCount { get; set; }
+        public long CoinCount { get; set; }
 
         /// <summary>
         /// 弹幕数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "danmakus", Required = Required.Default)]
-        public int DanmakuCount { get; set; }
+        public long DanmakuCount { get; set; }
 
         /// <summary>
         /// 单集收藏数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favorite", Required = Required.Default)]
-        public int FavoriteCount { get; set; }
+        public long FavoriteCount { get; set; }
 
         /// <summary>
         /// 系列追番/收藏数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "favorites", Required = Required.Default)]
-        public int SeriesFavoriteCount { get; set; }
+        public long SeriesFavoriteCount { get; set; }
 
         /// <summary>
         /// 追番/收藏显示文本.
@@ -532,7 +532,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// 点赞数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "likes", Required = Required.Default)]
-        public int LikeCount { get; set; }
+        public long LikeCount { get; set; }
 
         /// <summary>
         /// 播放量显示文本.
@@ -544,19 +544,19 @@ namespace Richasy.Bili.Models.BiliBili
         /// 回复数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reply", Required = Required.Default)]
-        public int ReplyCount { get; set; }
+        public long ReplyCount { get; set; }
 
         /// <summary>
         /// 分享数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "share", Required = Required.Default)]
-        public int ShareCount { get; set; }
+        public long ShareCount { get; set; }
 
         /// <summary>
         /// 播放次数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "views", Required = Required.Default)]
-        public int PlayCount { get; set; }
+        public long PlayCount { get; set; }
     }
 
     /// <summary>
