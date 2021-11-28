@@ -164,7 +164,7 @@ namespace Richasy.Bili.App.Pages
         private async void OnRequestShowUpdateDialogAsync(object sender, UpdateEventArgs e)
             => await new UpgradeDialog(e).ShowAsync();
 
-        private async void OnRequestContinuePlayAsync(object sender, EventArgs e) 
+        private async void OnRequestContinuePlayAsync(object sender, EventArgs e)
             => await new ContinuePlayDialog().ShowAsync();
     }
 }
