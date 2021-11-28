@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;
@@ -58,6 +59,10 @@ namespace Richasy.Bili.App.Pages.Overlay
                 else if (e.Parameter is SeasonViewModel ssVM)
                 {
                     _navigateVM = ssVM;
+                }
+                else if (e.Parameter is CurrentPlayingRecord record)
+                {
+                    _navigateVM = record;
                 }
 
                 if (IsLoaded)

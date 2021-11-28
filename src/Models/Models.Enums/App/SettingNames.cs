@@ -43,6 +43,9 @@ namespace Richasy.Bili.Models.Enums
         IsContinusPlay,
         IgnoreVersion,
         IsOnlyShowIndex,
+        CanContinuePlay,
+        ContinuePlayTitle,
+        SupportContinuePlay,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

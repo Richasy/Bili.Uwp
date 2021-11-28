@@ -31,6 +31,7 @@ namespace Richasy.Bili.App.Pages
             this.CoreViewModel.RequestShowTip += OnRequestShowTip;
             this.CoreViewModel.RequestBack += OnRequestBackAsync;
             this.CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
+            CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
         }
@@ -115,6 +116,7 @@ namespace Richasy.Bili.App.Pages
             this.CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
             this.CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
+            CoreViewModel.CheckContinuePlay();
             await AccountViewModel.Instance.TrySignInAsync(true);
 #if !DEBUG
             await CoreViewModel.CheckUpdateAsync();
@@ -161,5 +163,8 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnRequestShowUpdateDialogAsync(object sender, UpdateEventArgs e)
             => await new UpgradeDialog(e).ShowAsync();
+
+        private async void OnRequestContinuePlayAsync(object sender, EventArgs e) 
+            => await new ContinuePlayDialog().ShowAsync();
     }
 }

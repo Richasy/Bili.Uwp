@@ -388,6 +388,10 @@ namespace Richasy.Bili.Models.Enums
         IgnoreVersion,
         PreRelease,
         OnlyIndex,
+        ContinuePlayTitle,
+        ContinuePlayDescription,
+        InitialCheckTitle,
+        InitialCheckDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -135,5 +135,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string Version { get; set; }
+
+        /// <summary>
+        /// 是否支持初始检查继续播放.
+        /// </summary>
+        [Reactive]
+        public bool IsSupportContinuePlay { get; set; }
     }
 }

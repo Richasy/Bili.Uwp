@@ -40,6 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             DisableP2PCdn = ReadSetting(SettingNames.DisableP2PCdn, false);
             IsContinusPlay = ReadSetting(SettingNames.IsContinusPlay, true);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
+            IsSupportContinuePlay = ReadSetting(SettingNames.SupportContinuePlay, true);
             PreferCodecInit();
             DoubleClickInit();
             PlayerModeInit();
@@ -92,6 +93,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(DefaultMTCControlMode):
                     WriteSetting(SettingNames.DefaultMTCControlMode, DefaultMTCControlMode);
+                    break;
+                case nameof(IsSupportContinuePlay):
+                    WriteSetting(SettingNames.SupportContinuePlay, IsSupportContinuePlay);
                     break;
                 default:
                     break;

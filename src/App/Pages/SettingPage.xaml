@@ -45,6 +45,7 @@
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
                 <controls:MTCSettingSection />
+                <controls:InitialCheckSection />
                 <StackPanel
                     Margin="0,12,0,0"
                     HorizontalAlignment="Left"

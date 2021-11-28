@@ -273,6 +273,12 @@
   <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="ContinuePlayDescription" xml:space="preserve">
+    <value>上次应用关闭时您仍在播放视频，你可以继续播放该视频：</value>
+  </data>
+  <data name="ContinuePlayTitle" xml:space="preserve">
+    <value>是否继续播放？</value>
+  </data>
   <data name="ContinuePreviousView" xml:space="preserve">
     <value>继续观看</value>
   </data>
@@ -537,6 +543,12 @@
   </data>
   <data name="Index" xml:space="preserve">
     <value>索引</value>
+  </data>
+  <data name="InitialCheckDescription" xml:space="preserve">
+    <value>是否在应用启动时检查上次关闭时正在播放的视频，并提醒继续播放</value>
+  </data>
+  <data name="InitialCheckTitle" xml:space="preserve">
+    <value>初始化检查</value>
   </data>
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
