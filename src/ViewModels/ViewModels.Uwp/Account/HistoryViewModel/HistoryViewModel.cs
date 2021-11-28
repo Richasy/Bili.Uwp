@@ -136,7 +136,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 foreach (var item in e.List)
                 {
-                    VideoCollection.Add(new VideoViewModel(item));
+                    if (item.CardItemCase == CursorItem.CardItemOneofCase.CardUgc || item.CardItemCase == CursorItem.CardItemOneofCase.CardOgv)
+                    {
+                        VideoCollection.Add(new VideoViewModel(item));
+                    }
                 }
             }
             else

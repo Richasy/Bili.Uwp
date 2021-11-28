@@ -513,6 +513,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             await ChangeFormatAsync(formatId);
+
+            if (_progressTimer != null && !_progressTimer.IsEnabled)
+            {
+                _progressTimer.Start();
+            }
         }
 
         private async Task InitializeLivePlayInformationAsync(LivePlayInformation livePlayInfo)
