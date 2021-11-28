@@ -23,6 +23,8 @@ namespace Richasy.Bili.Models.App.Constants
         public const string LinkClickEvent = "LinkClick";
 
         public const string ReplySection = "Reply";
+
+        public const string LastOpenVideoFileName = "LastOpenVideo.json";
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

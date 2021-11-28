@@ -42,6 +42,9 @@
     <Compile Include="Controls\Danmaku\DanmakuSendOptions.xaml.cs">
       <DependentUpon>DanmakuSendOptions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Dialogs\ContinuePlayDialog.xaml.cs">
+      <DependentUpon>ContinuePlayDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Dialogs\UpgradeDialog.xaml.cs">
       <DependentUpon>UpgradeDialog.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,9 @@
     </Compile>
     <Compile Include="Controls\Player\SubtitleConfigPanel.xaml.cs">
       <DependentUpon>SubtitleConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\InitialCheckSection.xaml.cs">
+      <DependentUpon>InitialCheckSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\AccountPanel.xaml.cs">
       <DependentUpon>AccountPanel.xaml</DependentUpon>
@@ -537,6 +543,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Dialogs\ContinuePlayDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Dialogs\UpgradeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -642,6 +652,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\SubtitleConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\InitialCheckSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

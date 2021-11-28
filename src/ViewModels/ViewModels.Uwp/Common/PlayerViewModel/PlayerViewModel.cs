@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
@@ -111,6 +113,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Loaded?.Invoke(this, EventArgs.Empty);
                 return false;
             }
+            else
+            {
+                await ClearInitViewModelAsync();
+            }
 
             return true;
         }
@@ -127,32 +133,62 @@ namespace Richasy.Bili.ViewModels.Uwp
             var seasonId = 0;
 
             var isReleated = false;
+            var type = VideoType.Video;
+
+            CurrentPlayingRecord record = null;
 
             if (vm is VideoViewModel videoVM)
             {
                 videoId = videoVM.VideoId;
-                _videoType = videoVM.VideoType;
+                type = videoVM.VideoType;
                 isReleated = videoVM.IsRelated;
             }
             else if (vm is SeasonViewModel seasonVM)
             {
                 videoId = seasonVM.EpisodeId.ToString();
                 seasonId = seasonVM.SeasonId;
-                _videoType = VideoType.Pgc;
+                type = VideoType.Pgc;
             }
             else if (vm is PgcSeason seasonData)
             {
                 videoId = "0";
                 seasonId = seasonData.SeasonId;
-                _videoType = VideoType.Pgc;
+                type = VideoType.Pgc;
             }
             else if (vm is PgcEpisodeDetail episodeData)
             {
                 videoId = episodeData.Id.ToString();
                 seasonId = 0;
-                _videoType = VideoType.Pgc;
+                type = VideoType.Pgc;
+            }
+            else if (vm is CurrentPlayingRecord r)
+            {
+                record = r;
             }
 
+            if (record == null)
+            {
+                record = new CurrentPlayingRecord(videoId, seasonId, type)
+                {
+                    IsRelated = isReleated,
+                };
+            }
+
+            await LoadAsync(record, isRefresh);
+        }
+
+        /// <summary>
+        /// 视频加载.
+        /// </summary>
+        /// <param name="record">播放快照.</param>
+        /// <param name="isRefresh">是否刷新.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task LoadAsync(CurrentPlayingRecord record, bool isRefresh = false)
+        {
+            _videoType = record.VideoType;
+            var isReleated = record.IsRelated;
+            var videoId = record.VideoId;
+            var seasonId = record.SeasonId;
             IsDetailCanLoaded = true;
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
@@ -188,6 +224,12 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             _progressTimer.Start();
             InitDownload();
+
+            if (_videoType != VideoType.Live)
+            {
+                await RecordInitViewModelToLocalAsync(videoId, seasonId, _videoType, Title);
+            }
+
             Loaded?.Invoke(this, EventArgs.Empty);
         }
 
@@ -613,6 +655,27 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取本地的初始化视图模型.
+        /// </summary>
+        /// <returns>视图模型.</returns>
+        public async Task<object> GetInitViewModelFromLocalAsync()
+        {
+            var data = await _fileToolkit.ReadLocalDataAsync<CurrentPlayingRecord>(AppConstants.LastOpenVideoFileName);
+            return data;
+        }
+
+        /// <summary>
+        /// 清除本地的继续播放视图模型.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ClearInitViewModelAsync()
+        {
+            await _fileToolkit.DeleteLocalDataAsync(AppConstants.LastOpenVideoFileName);
+            _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, false);
+            _settingsToolkit.DeleteLocalSetting(SettingNames.ContinuePlayTitle);
         }
 
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)

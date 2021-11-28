@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Windows.Media.Playback;
@@ -19,7 +20,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class PlayerViewModel
     {
-        private void Reset()
+        private async void ResetAsync()
         {
             _videoDetail = null;
             _pgcDetail = null;
@@ -87,13 +88,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
             Controller.CleanupLiveSocket();
+            await ClearInitViewModelAsync();
         }
 
         private async Task LoadVideoDetailAsync(string videoId, bool isRefresh)
         {
             if (_videoDetail == null || videoId != AvId || isRefresh)
             {
-                Reset();
+                ResetAsync();
                 IsDetailLoading = true;
                 _videoId = Convert.ToInt64(videoId);
                 try
@@ -133,7 +135,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 seasonId.ToString() != SeasonId ||
                 isRefresh)
             {
-                Reset();
+                ResetAsync();
                 IsPgc = true;
                 IsDetailLoading = true;
                 EpisodeId = episodeId.ToString();
@@ -176,7 +178,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async Task LoadLiveDetailAsync(int roomId)
         {
-            Reset();
+            ResetAsync();
             IsLive = true;
             IsDetailLoading = true;
             IsShowReply = false;
@@ -964,6 +966,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsLikeChecked = false;
             IsFollow = false;
             IsFavoriteChecked = false;
+        }
+
+        private async Task RecordInitViewModelToLocalAsync(string vid, int sid, VideoType type, string title)
+        {
+            var data = new CurrentPlayingRecord(vid, sid, type);
+            await _fileToolkit.WriteLocalDataAsync(AppConstants.LastOpenVideoFileName, data);
+            _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, true);
+            _settingsToolkit.WriteLocalSetting(SettingNames.ContinuePlayTitle, title);
         }
     }
 }

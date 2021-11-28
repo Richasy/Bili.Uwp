@@ -189,6 +189,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         public Task CheckUpdateAsync()
             => _controller.CheckUpdateAsync();
 
+        /// <summary>
+        /// 检查是否可以继续播放.
+        /// </summary>
+        public void CheckContinuePlay()
+        {
+            var supportCheck = _settingToolkit.ReadLocalSetting(SettingNames.SupportContinuePlay, true);
+            var canPlay = _settingToolkit.ReadLocalSetting(SettingNames.CanContinuePlay, false);
+            if (supportCheck && canPlay)
+            {
+                RequestContinuePlay?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private void OnUpdateReceived(object sender, UpdateEventArgs e) => RequestShowUpdateDialog?.Invoke(this, e);
     }
 }

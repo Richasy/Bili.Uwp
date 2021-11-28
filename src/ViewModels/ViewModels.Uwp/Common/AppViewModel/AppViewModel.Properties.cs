@@ -49,6 +49,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler<UpdateEventArgs> RequestShowUpdateDialog;
 
         /// <summary>
+        /// 请求进行之前的播放.
+        /// </summary>
+        public event EventHandler RequestContinuePlay;
+
+        /// <summary>
         /// <see cref="AppViewModel"/>的单例.
         /// </summary>
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;
