@@ -7,73 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="bilibili\account\fission\v1\fission.proto" />
-    <None Remove="bilibili\ad\v1\ad.proto" />
-    <None Remove="bilibili\api\probe\v1\probe.proto" />
-    <None Remove="bilibili\app\archive\middleware\v1\preload.proto" />
-    <None Remove="bilibili\app\archive\v1\archive.proto" />
-    <None Remove="bilibili\app\card\v1\ad.proto" />
-    <None Remove="bilibili\app\card\v1\card.proto" />
-    <None Remove="bilibili\app\card\v1\common.proto" />
-    <None Remove="bilibili\app\card\v1\double.proto" />
-    <None Remove="bilibili\app\card\v1\single.proto" />
-    <None Remove="bilibili\app\dynamic\v1\dynamic.proto" />
-    <None Remove="bilibili\app\dynamic\v2\dynamic.proto" />
-    <None Remove="bilibili\app\interfaces\v1\history.proto" />
-    <None Remove="bilibili\app\interfaces\v1\search.proto" />
-    <None Remove="bilibili\app\playurl\v1\playurl.proto" />
-    <None Remove="bilibili\app\resource\privacy\v1\api.proto" />
-    <None Remove="bilibili\app\resource\v1\module.proto" />
-    <None Remove="bilibili\app\show\gateway\v1\service.proto" />
-    <None Remove="bilibili\app\show\popular\v1\popular.proto" />
-    <None Remove="bilibili\app\show\rank\v1\rank.proto" />
-    <None Remove="bilibili\app\show\region\v1\region.proto" />
-    <None Remove="bilibili\app\space\v1\space.proto" />
-    <None Remove="bilibili\app\splash\v1\splash.proto" />
-    <None Remove="bilibili\app\view\v1\view.proto" />
-    <None Remove="bilibili\app\wall\v1\wall.proto" />
-    <None Remove="bilibili\broadcast\message\editor\notify.proto" />
-    <None Remove="bilibili\broadcast\message\esports\notify.proto" />
-    <None Remove="bilibili\broadcast\message\fission\notify.proto" />
-    <None Remove="bilibili\broadcast\message\im\notify.proto" />
-    <None Remove="bilibili\broadcast\message\main\dm.proto" />
-    <None Remove="bilibili\broadcast\message\main\native.proto" />
-    <None Remove="bilibili\broadcast\message\main\resource.proto" />
-    <None Remove="bilibili\broadcast\message\note\sync.proto" />
-    <None Remove="bilibili\broadcast\message\ogv\freya.proto" />
-    <None Remove="bilibili\broadcast\message\ogv\live.proto" />
-    <None Remove="bilibili\broadcast\message\ticket\activitygame.proto" />
-    <None Remove="bilibili\broadcast\message\tv\proj.proto" />
-    <None Remove="bilibili\broadcast\v1\broadcast.proto" />
-    <None Remove="bilibili\broadcast\v1\laser.proto" />
-    <None Remove="bilibili\broadcast\v1\mod.proto" />
-    <None Remove="bilibili\broadcast\v1\push.proto" />
-    <None Remove="bilibili\broadcast\v1\room.proto" />
-    <None Remove="bilibili\broadcast\v1\test.proto" />
-    <None Remove="bilibili\broadcast\v2\laser.proto" />
-    <None Remove="bilibili\cheese\gateway\player\v1\playurl.proto" />
-    <None Remove="bilibili\community\service\dm\v1\dm.proto" />
-    <None Remove="bilibili\im\interfaces\inner-interface\v1\api.proto" />
-    <None Remove="bilibili\im\interfaces\v1\im.proto" />
-    <None Remove="bilibili\im\type\im.proto" />
-    <None Remove="bilibili\main\common\arch\doll\v1\doll.proto" />
-    <None Remove="bilibili\main\community\reply\v1\reply.proto" />
-    <None Remove="bilibili\metadata\device\device.proto" />
-    <None Remove="bilibili\metadata\fawkes\fawkes.proto" />
-    <None Remove="bilibili\metadata\locale\locale.proto" />
-    <None Remove="bilibili\metadata\metadata.proto" />
-    <None Remove="bilibili\metadata\network\network.proto" />
-    <None Remove="bilibili\metadata\restriction\restriction.proto" />
-    <None Remove="bilibili\pgc\gateway\player\v1\playurl.proto" />
-    <None Remove="bilibili\pgc\gateway\player\v2\playurl.proto" />
-    <None Remove="bilibili\pgc\service\premiere\v1\premiere.proto" />
-    <None Remove="bilibili\rpc\status.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.17.3" />
-    <PackageReference Include="Grpc.Core" Version="2.34.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.34.0">
+    <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.41.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.42.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

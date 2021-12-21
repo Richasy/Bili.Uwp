@@ -144,10 +144,10 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>14.3.1</Version>
+      <Version>17.1.9</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>14.3.1</Version>
+      <Version>17.1.9</Version>
     </PackageReference>
     <PackageReference Include="Richasy.SYEnginePackage">
       <Version>1.0.0</Version>
