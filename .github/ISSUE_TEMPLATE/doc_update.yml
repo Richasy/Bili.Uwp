@@ -1,0 +1,32 @@
+name: 文档更新
+description: 我有关于文档的建议或问题
+title: "标题"
+labels: [doc]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        🚨 请不要跳过或删除下面的信息，它们都是评估与测试所需的信息，完整填写有助于更快通过评审 🚨
+  - type: textarea
+    validations:
+      required: false
+    attributes:
+      label: 关联文档
+      description: 请使用 Markdown 的方式插入与该问题有关的文档链接，如果你的问题与某个具体文档无关，请忽略
+      placeholder: <!-- ![文档名称](文档链接) -->
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: 描述
+      desciption: 在这里描述你对文档的建议或者问题
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: 预期的内容
+      desciption: 请描述你希望文档进行修改的内容，并说明符合预期的内容是怎样的
+  - type: textarea
+    attributes:
+      label: 备注
+      desciption: 添加你觉得有必要的信息
