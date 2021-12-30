@@ -86,6 +86,15 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(soure.MediaSource);
                 _currentPlaybackItem = new MediaPlaybackItem(mediaSource);
+
+                var props = _currentPlaybackItem.GetDisplayProperties();
+                props.Type = Windows.Media.MediaPlaybackType.Video;
+                props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(CoverUrl + "@100w_100h_1c_100q.jpg"));
+                props.VideoProperties.Title = Title;
+                props.VideoProperties.Subtitle = GetSlimDescription(IsPgc ? Subtitle : Description);
+                props.VideoProperties.Genres.Add(_videoType.ToString());
+                _currentPlaybackItem.ApplyDisplayProperties(props);
+
                 _currentVideoPlayer.Source = _currentPlaybackItem;
 
                 BiliPlayer.SetMediaPlayer(_currentVideoPlayer);
