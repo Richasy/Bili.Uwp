@@ -101,6 +101,6 @@ namespace Richasy.Bili.Models.BiliBili
         /// 建议的Id（在搜索推荐中有效，通常为标签Id）.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id", Required = Required.Default)]
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }
