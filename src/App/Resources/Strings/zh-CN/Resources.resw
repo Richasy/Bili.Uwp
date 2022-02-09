@@ -186,6 +186,9 @@
   <data name="BackToDefaultView" xml:space="preserve">
     <value>返回标准视图</value>
   </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>返回主页</value>
+  </data>
   <data name="BackToPrevious" xml:space="preserve">
     <value>返回上一级</value>
   </data>
