@@ -210,6 +210,9 @@
   <data name="BottomDanmaku" xml:space="preserve">
     <value>底部弹幕</value>
   </data>
+  <data name="CacheCleared" xml:space="preserve">
+    <value>已清理缓存</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -242,6 +245,15 @@
   </data>
   <data name="CleanLogger" xml:space="preserve">
     <value>清除日志记录</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
+  <data name="ClearCacheDescription" xml:space="preserve">
+    <value>清理本地的图片缓存以减少应用数据占用</value>
   </data>
   <data name="ClearHistory" xml:space="preserve">
     <value>清空历史记录</value>

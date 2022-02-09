@@ -392,6 +392,10 @@ namespace Richasy.Bili.Models.Enums
         ContinuePlayDescription,
         InitialCheckTitle,
         InitialCheckDescription,
+        ClearCache,
+        ClearCacheDescription,
+        Clear,
+        CacheCleared,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
