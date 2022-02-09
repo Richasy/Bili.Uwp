@@ -43,6 +43,9 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\Settings\CacheSettingSection.xaml.cs">
+      <DependentUpon>CacheSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Danmaku\DanmakuSendOptions.xaml.cs">
       <DependentUpon>DanmakuSendOptions.xaml</DependentUpon>
     </Compile>
@@ -540,6 +543,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\CacheSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

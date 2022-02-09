@@ -36,6 +36,7 @@
                 <controls:ThemeSettingSection />
                 <controls:StartupSettingSection />
                 <controls:LoggerSettingSection />
+                <controls:CacheSettingSection />
 
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
