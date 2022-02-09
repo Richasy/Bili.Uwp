@@ -105,6 +105,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailCanLoaded = true;
                 DanmakuViewModel.Instance.Reset();
                 IsPlayInformationError = false;
+                AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
 
                 await LoadVideoDetailAsync(lastVideo, true);
 
@@ -119,6 +120,19 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 直接返回首页.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task BackToHomeAsync()
+        {
+            _progressTimer.Stop();
+            _historyVideoList.Clear();
+            DanmakuViewModel.Instance.Reset();
+            IsPlayInformationError = false;
+            await ClearInitViewModelAsync();
         }
 
         /// <summary>
@@ -206,6 +220,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 _historyVideoList.Add(AvId);
             }
+
+            AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
 
             switch (_videoType)
             {

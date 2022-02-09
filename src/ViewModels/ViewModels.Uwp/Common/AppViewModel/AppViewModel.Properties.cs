@@ -83,6 +83,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsNavigatePaneOpen { get; set; }
 
         /// <summary>
+        /// 是否可以显示返回首页按钮.
+        /// </summary>
+        [Reactive]
+        public bool CanShowHomeButton { get; set; }
+
+        /// <summary>
         /// 页面标题文本.
         /// </summary>
         [Reactive]

@@ -396,6 +396,7 @@ namespace Richasy.Bili.Models.Enums
         ClearCacheDescription,
         Clear,
         CacheCleared,
+        BackToHome,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

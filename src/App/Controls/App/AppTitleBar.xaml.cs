@@ -82,7 +82,9 @@ namespace Richasy.Bili.App.Controls
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.IsOpenPlayer) || e.PropertyName == nameof(ViewModel.IsShowOverlay))
+            if (e.PropertyName == nameof(ViewModel.IsOpenPlayer)
+                || e.PropertyName == nameof(ViewModel.IsShowOverlay)
+                || e.PropertyName == nameof(ViewModel.CanShowHomeButton))
             {
                 CheckBackButtonVisibility();
             }
@@ -110,19 +112,23 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnMenuButtonClick(object sender, RoutedEventArgs e)
-        {
-            ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
-        }
+            => ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
 
         private async void OnBackButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await TryBackAsync();
-        }
+            => await TryBackAsync();
 
         private void CheckBackButtonVisibility()
         {
             BackButton.Visibility = (ViewModel.IsShowOverlay || ViewModel.IsOpenPlayer) ?
                 Visibility.Visible : Visibility.Collapsed;
+            HomeButton.Visibility = (ViewModel.IsOpenPlayer && ViewModel.CanShowHomeButton) ?
+                Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private async void OnHomeButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await PlayerViewModel.Instance.BackToHomeAsync();
+            ViewModel.IsOpenPlayer = false;
         }
     }
 }
