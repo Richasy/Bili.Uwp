@@ -110,7 +110,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             this.Status = AccountViewModelStatus.Logout;
             Reset();
-            _failedCount = 0;
         }
 
         private async void OnLoggedFailedAsync(object sender, Exception e)
@@ -118,28 +117,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             Debug.WriteLine($"Login failed: {e.Message}");
 
             // 它仅在用户未登录时触发.
-            if (this.Status != AccountViewModelStatus.Login)
+            if (Status != AccountViewModelStatus.Login)
             {
                 Reset();
-                this.Status = AccountViewModelStatus.Logout;
-                _failedCount++;
-                if (_failedCount > 1)
-                {
-                    await _controller.SignOutAsync();
-                }
+                Status = AccountViewModelStatus.Logout;
+                await _controller.SignOutAsync();
             }
         }
 
         private async void OnLoggedAsync(object sender, EventArgs e)
         {
-            if (this.Status != AccountViewModelStatus.Login)
+            if (Status != AccountViewModelStatus.Login)
             {
                 IsConnected = true;
                 await GetMyProfileAsync();
-                this.Status = AccountViewModelStatus.Login;
+                Status = AccountViewModelStatus.Login;
             }
-
-            _failedCount = 0;
         }
 
         private async void OnAccountChangedAsync(object sender, MyInfo e)

@@ -38,7 +38,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private MyInfo _myInfo;
-        private int _failedCount;
 
         /// <summary>
         /// <see cref="AccountViewModel"/>的实例.
