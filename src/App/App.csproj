@@ -1025,7 +1025,7 @@
       <Version>0.9.2</Version>
     </PackageReference>
     <PackageReference Include="HN.Controls.ImageEx.Uwp">
-      <Version>2.0.3</Version>
+      <Version>1.0.33</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
