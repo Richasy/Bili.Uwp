@@ -43,6 +43,7 @@
     <Compile Include="Controls\App\TwoLineButton\TwoLineButton.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
+    <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
     <Compile Include="Controls\Settings\CacheSettingSection.xaml.cs">
       <DependentUpon>CacheSettingSection.xaml</DependentUpon>
     </Compile>
@@ -283,9 +284,6 @@
     <Compile Include="Controls\App\CardPanel\CardPanel.cs" />
     <Compile Include="Controls\App\ErrorPanel.xaml.cs">
       <DependentUpon>ErrorPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\App\IconTextBlock.xaml.cs">
-      <DependentUpon>IconTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -535,6 +533,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\App\CenterPopup\CenterPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\IconTextBlock\IconTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -863,10 +865,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\ErrorPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\App\IconTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
