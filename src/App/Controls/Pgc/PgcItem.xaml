@@ -38,7 +38,7 @@
                         <Setter Target="TitleContainer.Height" Value="20" />
                         <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
                         <Setter Target="RootCard.IsEnableShadow" Value="False" />
-                        <Setter Target="RootCard.BorderThickness" Value="0" />
+                        <Setter Target="RootCard.StrokeThickness" Value="0" />
                         <Setter Target="RootCard.Background" Value="Transparent" />
                     </VisualState.Setters>
                 </VisualState>

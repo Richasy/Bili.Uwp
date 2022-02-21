@@ -9,7 +9,7 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 带图标的文本.
     /// </summary>
-    public sealed partial class IconTextBlock : UserControl
+    public sealed class IconTextBlock : Control
     {
         /// <summary>
         /// <see cref="IconFontSize"/>的依赖属性.
@@ -38,10 +38,7 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="IconTextBlock"/> class.
         /// </summary>
-        public IconTextBlock()
-        {
-            this.InitializeComponent();
-        }
+        public IconTextBlock() => DefaultStyleKey = typeof(IconTextBlock);
 
         /// <summary>
         /// 图标字体大小.

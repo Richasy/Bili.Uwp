@@ -66,6 +66,7 @@
             ElementPrepared="OnElementPrepared"
             ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
-            Layout="{StaticResource GridLayout}" />
+            Layout="{StaticResource GridLayout}"
+            VerticalCacheLength="2" />
     </Grid>
 </UserControl>

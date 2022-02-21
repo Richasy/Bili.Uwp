@@ -6,24 +6,24 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Style="{StaticResource HandwritingViewCandidateStyle}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     IsTabStop="False"
     mc:Ignorable="d">
 
-    <local:CardPanel
+    <Button
         Width="{x:Bind Width, Mode=OneWay}"
         Height="{x:Bind Height, Mode=OneWay}"
         Padding="0"
         Background="Transparent"
         BorderThickness="0"
-        Click="OnClick"
-        CornerRadius="32"
-        DisabledBackground="Transparent"
-        IsEnableHoverAnimation="False"
-        IsEnableShadow="False"
-        PointerOverBackground="Transparent"
-        PressedBackground="Transparent">
+        Click="OnClick">
+        <Button.Resources>
+            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent" />
+            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent" />
+            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+        </Button.Resources>
         <muxc:PersonPicture
             x:Name="PersonPicture"
             Width="{x:Bind Width, Mode=OneWay}"
@@ -32,5 +32,5 @@
             BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
             DisplayName="{x:Bind UserName, Mode=OneWay}"
             ToolTipService.ToolTip="{x:Bind UserName, Mode=OneWay}" />
-    </local:CardPanel>
+    </Button>
 </UserControl>

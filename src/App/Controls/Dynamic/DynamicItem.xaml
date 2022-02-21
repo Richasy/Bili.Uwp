@@ -84,13 +84,12 @@
             </Grid>
 
             <!-- 描述文本 -->
-            <Grid Grid.Row="1">
-                <TextBlock
-                    x:Name="DescriptionBlock"
-                    FontSize="13"
-                    LineHeight="20"
-                    TextWrapping="Wrap" />
-            </Grid>
+            <TextBlock
+                x:Name="DescriptionBlock"
+                Grid.Row="1"
+                FontSize="13"
+                LineHeight="20"
+                TextWrapping="Wrap" />
 
             <!-- 主体内容，比如视频封面 -->
             <Grid x:Name="MainContainer" Grid.Row="2">
