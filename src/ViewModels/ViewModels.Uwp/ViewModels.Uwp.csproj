@@ -132,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FFmpegInteropX">
-      <Version>0.9.2</Version>
+      <Version>0.9.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>6.0.0</Version>
@@ -144,10 +144,10 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>14.3.1</Version>
+      <Version>17.1.50</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>14.3.1</Version>
+      <Version>17.1.50</Version>
     </PackageReference>
     <PackageReference Include="Richasy.SYEnginePackage">
       <Version>1.0.0</Version>

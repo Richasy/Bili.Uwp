@@ -44,10 +44,10 @@
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.11</Version>
+      <Version>4.7.13</Version>
     </PackageReference>
     <PackageReference Include="Websocket.Client">
-      <Version>4.4.39</Version>
+      <Version>4.4.43</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
