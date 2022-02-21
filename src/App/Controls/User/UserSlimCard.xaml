@@ -21,6 +21,7 @@
             <local:UserAvatar
                 Width="40"
                 Height="40"
+                HorizontalAlignment="Center"
                 Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
                 DecodeSize="40"
                 UserName="{x:Bind ViewModel.Name, Mode=OneWay}" />
