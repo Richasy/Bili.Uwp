@@ -62,6 +62,9 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty CheckedDisabledBackgroundProperty =
             DependencyProperty.Register(nameof(CheckedDisabledBackground), typeof(Brush), typeof(CardPanel), new PropertyMetadata(default));
 
+        public static readonly DependencyProperty StrokeThicknessProperty =
+            DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(CardPanel), new PropertyMetadata(1d));
+
         /// <summary>
         /// 是否支持鼠标移入/移出动画.
         /// </summary>
@@ -171,6 +174,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (Brush)this.GetValue(CheckedDisabledBackgroundProperty); }
             set { this.SetValue(CheckedDisabledBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// 边框厚度.
+        /// </summary>
+        public double StrokeThickness
+        {
+            get { return (double)GetValue(StrokeThicknessProperty); }
+            set { SetValue(StrokeThicknessProperty, value); }
         }
 
 #pragma warning restore SA1600 // Elements should be documented

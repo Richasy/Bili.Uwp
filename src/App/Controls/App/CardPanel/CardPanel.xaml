@@ -11,7 +11,7 @@
 
     <Style TargetType="local:CardPanel">
         <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
@@ -123,16 +123,13 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Grid
+                        <Rectangle
                             x:Name="HostContainer"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}">
-                            <Grid.BackgroundTransition>
-                                <BrushTransition Duration="0:0:0.083" />
-                            </Grid.BackgroundTransition>
-                        </Grid>
+                            Fill="{TemplateBinding Background}"
+                            RadiusX="4"
+                            RadiusY="4"
+                            Stroke="{TemplateBinding BorderBrush}"
+                            StrokeThickness="{TemplateBinding StrokeThickness}" />
                         <ContentPresenter
                             x:Name="ContentPresenter"
                             HorizontalAlignment="Stretch"

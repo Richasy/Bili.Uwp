@@ -10,10 +10,7 @@
         TintColor="{ThemeResource SystemAccentColorLight2}"
         TintOpacity="0.8" />
 
-    <SolidColorBrush
-        x:Key="AppMaskBrush"
-        Opacity="0.6"
-        Color="White" />
+    <SolidColorBrush x:Key="AppMaskBrush" Color="#CCFFFFFF" />
 
     <SolidColorBrush
         x:Key="AccentMaskBrush"
