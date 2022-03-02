@@ -52,9 +52,12 @@ namespace Richasy.Bili.Controller.Uwp
                 data = cacheData.Data;
             }
 
-            foreach (var partion in data)
+            if (data != null)
             {
-                partion.Children.Insert(0, null);
+                foreach (var partion in data)
+                {
+                    partion.Children.Insert(0, null);
+                }
             }
 
             return data;

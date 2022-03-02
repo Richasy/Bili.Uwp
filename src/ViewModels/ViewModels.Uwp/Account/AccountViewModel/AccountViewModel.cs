@@ -1,10 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -20,6 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         internal AccountViewModel()
         {
+            FixedPublisherCollection = new ObservableCollection<FixedPublisher>();
             _controller = BiliController.Instance;
             _controller.Logged += OnLoggedAsync;
             _controller.LoggedFailed += OnLoggedFailedAsync;
@@ -27,7 +33,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             _controller.AccountChanged += OnAccountChangedAsync;
             Status = AccountViewModelStatus.Logout;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _numberToolkit);
+                                   .LoadService(out _numberToolkit)
+                                   .LoadService(out _fileToolkit);
             Reset();
         }
 
@@ -38,7 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task TrySignInAsync(bool isSlientOnly = false)
         {
-            this.Status = AccountViewModelStatus.Logging;
+            Status = AccountViewModelStatus.Logging;
             await _controller.TrySignInAsync(isSlientOnly);
         }
 
@@ -47,9 +54,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         public async Task SignOutAsync()
-        {
-            await _controller.SignOutAsync();
-        }
+            => await _controller.SignOutAsync();
 
         /// <summary>
         /// 获取我的账户资料.
@@ -106,9 +111,49 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 新增固定的UP主.
+        /// </summary>
+        /// <param name="publisher">UP主信息.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task AddFixedPublisherAsync(FixedPublisher publisher)
+        {
+            if (!IsConnected || _myInfo == null || FixedPublisherCollection.Contains(publisher))
+            {
+                return;
+            }
+
+            FixedPublisherCollection.Add(publisher);
+            await _fileToolkit.WriteLocalDataAsync(
+                string.Format(AppConstants.FixedPublisherFileName, _myInfo.Mid),
+                FixedPublisherCollection.ToList(),
+                AppConstants.FixedPublisherFolderName);
+            IsShowFixedPublisher = true;
+        }
+
+        /// <summary>
+        /// 移除固定的UP主.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RemoveFixedPublisherAsync(string userId)
+        {
+            if (!IsConnected || _myInfo == null || !FixedPublisherCollection.Any(p => p.UserId == userId))
+            {
+                return;
+            }
+
+            FixedPublisherCollection.Remove(FixedPublisherCollection.FirstOrDefault(p => p.UserId == userId));
+            await _fileToolkit.WriteLocalDataAsync(
+                string.Format(AppConstants.FixedPublisherFileName, _myInfo.Mid),
+                FixedPublisherCollection.ToList(),
+                AppConstants.FixedPublisherFolderName);
+            IsShowFixedPublisher = FixedPublisherCollection.Count > 0;
+        }
+
         private void OnLoggedOut(object sender, EventArgs e)
         {
-            this.Status = AccountViewModelStatus.Logout;
+            Status = AccountViewModelStatus.Logout;
             Reset();
         }
 
@@ -131,6 +176,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsConnected = true;
                 await GetMyProfileAsync();
+                await InitializeFixedPublisherAsync();
                 Status = AccountViewModelStatus.Login;
             }
         }
@@ -160,7 +206,29 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsVip = false;
             IsConnected = false;
             IsShowUnreadMessage = false;
+            IsShowFixedPublisher = false;
+            FixedPublisherCollection.Clear();
             UnreadMessageCount = 0;
+        }
+
+        private async Task InitializeFixedPublisherAsync()
+        {
+            if (IsConnected && _myInfo != null)
+            {
+                var data = await _fileToolkit.ReadLocalDataAsync<List<FixedPublisher>>(
+                    string.Format(AppConstants.FixedPublisherFileName, _myInfo.Mid),
+                    "[]",
+                    AppConstants.FixedPublisherFolderName);
+                FixedPublisherCollection.Clear();
+                if (data.Count > 0)
+                {
+                    data.ForEach(p => FixedPublisherCollection.Add(p));
+                    IsShowFixedPublisher = true;
+                    return;
+                }
+            }
+
+            IsShowFixedPublisher = false;
         }
     }
 }

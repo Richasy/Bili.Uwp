@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.RootNavigationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Richasy.Bili.Models.App"
     xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Richasy.Bili.App.Resources.Extension"
@@ -160,6 +161,46 @@
                         Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay}" />
                 </Grid>
             </muxc:NavigationView.Content>
+
+            <!-- 用于展示固定的UP主 -->
+            <muxc:NavigationView.PaneCustomContent>
+                <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedPublisher, Mode=OneWay}">
+                    <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=FixedPublishers}" />
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedPublisherCollection}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout />
+                        </muxc:ItemsRepeater.Layout>
+                        <muxc:ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="app:FixedPublisher">
+                                <Button
+                                    Margin="4,0"
+                                    Padding="12,8"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="OnFixedPublisherClickAsync"
+                                    DataContext="{x:Bind}"
+                                    ToolTipService.ToolTip="{x:Bind UserName}">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <muxc:PersonPicture
+                                            Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            DisplayName="{x:Bind UserName}"
+                                            ProfilePicture="{x:Bind AvatarPath}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Text="{x:Bind UserName}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater.ItemTemplate>
+                    </muxc:ItemsRepeater>
+                </StackPanel>
+
+            </muxc:NavigationView.PaneCustomContent>
 
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:LocaleLocator Name=HelpAndSupport}">

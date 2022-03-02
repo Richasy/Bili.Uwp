@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -100,6 +101,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             : this()
         {
             Id = userId;
+            CanFixPublisher = AccountViewModel.Instance.IsConnected && AccountViewModel.Instance.Mid != null;
+            if (CanFixPublisher)
+            {
+                IsPublisherFixed = AccountViewModel.Instance.FixedPublisherCollection.Any(p => p.UserId == userId.ToString());
+            }
         }
 
         /// <summary>
@@ -195,6 +201,31 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _isFollowRequesting = false;
+        }
+
+        /// <summary>
+        /// 切换固定状态.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleFixStateAsync()
+        {
+            if (IsPublisherFixed)
+            {
+                await AccountViewModel.Instance.RemoveFixedPublisherAsync(Id.ToString());
+            }
+            else
+            {
+                var p = new FixedPublisher
+                {
+                    UserId = Id.ToString(),
+                    AvatarPath = Avatar,
+                    UserName = Name,
+                };
+
+                await AccountViewModel.Instance.AddFixedPublisherAsync(p);
+            }
+
+            IsPublisherFixed = !IsPublisherFixed;
         }
 
         /// <summary>

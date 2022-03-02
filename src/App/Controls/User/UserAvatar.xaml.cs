@@ -84,8 +84,6 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
-        {
-            Click?.Invoke(this, EventArgs.Empty);
-        }
+            => Click?.Invoke(this, EventArgs.Empty);
     }
 }

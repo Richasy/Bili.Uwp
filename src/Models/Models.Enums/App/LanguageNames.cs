@@ -397,6 +397,9 @@ namespace Richasy.Bili.Models.Enums
         Clear,
         CacheCleared,
         BackToHome,
+        FixedPublishers,
+        FixPublisher,
+        UnfixPublisher,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
