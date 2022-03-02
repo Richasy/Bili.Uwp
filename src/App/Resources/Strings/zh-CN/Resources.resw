@@ -764,6 +764,9 @@
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
   </data>
+  <data name="OpenInBroswer" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
   <data name="Orange" xml:space="preserve">
     <value>橘黄色</value>
   </data>

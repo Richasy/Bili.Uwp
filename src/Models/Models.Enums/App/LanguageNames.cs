@@ -235,6 +235,7 @@ namespace Richasy.Bili.Models.Enums
         NoHistoryVideos,
         ClearHistoryWarning,
         AddToViewLater,
+        OpenInBroswer,
         PlayCount,
         DanmakuCount,
         ReplyCount,
