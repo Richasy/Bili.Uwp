@@ -3,6 +3,7 @@
 using System;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -309,6 +310,25 @@ namespace Richasy.Bili.App.Controls
             {
                 await UserView.Instance.ShowAsync(ViewModel.Publisher);
             }
+        }
+
+        private async void OnOpenInBroswerItemClickAsync(object sender, RoutedEventArgs e)
+        {
+            var uri = string.Empty;
+            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
+            {
+                uri = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
+            }
+            else if (ViewModel.VideoType == Models.Enums.VideoType.Pgc)
+            {
+                uri = $"https://www.bilibili.com/bangumi/play/{ViewModel.VideoId}";
+            }
+            else if (ViewModel.VideoType == Models.Enums.VideoType.Live)
+            {
+                uri = $"https://live.bilibili.com/{ViewModel.VideoId}";
+            }
+
+            await Launcher.LaunchUriAsync(new Uri(uri));
         }
     }
 }

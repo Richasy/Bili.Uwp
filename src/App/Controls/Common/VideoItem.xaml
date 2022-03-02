@@ -20,6 +20,11 @@
                         <icons:RegularFluentIcon Symbol="Add16" />
                     </AppBarButton.Icon>
                 </AppBarButton>
+                <AppBarButton Click="OnOpenInBroswerItemClickAsync" Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                    <AppBarButton.Icon>
+                        <icons:RegularFluentIcon Symbol="Globe16" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </muxc:CommandBarFlyout.SecondaryCommands>
         </muxc:CommandBarFlyout>
     </UserControl.ContextFlyout>
