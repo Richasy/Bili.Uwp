@@ -6,6 +6,7 @@ using System.Linq;
 using Richasy.Bili.App.Pages;
 using Richasy.Bili.App.Pages.Overlay;
 using Richasy.Bili.App.Resources.Extension;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -24,6 +25,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(RootNavigationView), new PropertyMetadata(AppViewModel.Instance));
+
+        private readonly AccountViewModel _accountViewModel = AccountViewModel.Instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RootNavigationView"/> class.
@@ -62,9 +65,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnRequestOverlayNavigation(object sender, object e)
-        {
-            CheckOverlayContentNavigation(e);
-        }
+            => CheckOverlayContentNavigation(e);
 
         private void OnAppViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -242,8 +243,12 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnMainFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+            => RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+
+        private async void OnFixedPublisherClickAsync(object sender, RoutedEventArgs e)
         {
-            RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+            var context = (sender as FrameworkElement).DataContext as FixedPublisher;
+            await UserView.Instance.ShowAsync(Convert.ToInt32(context.UserId));
         }
     }
 }

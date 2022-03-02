@@ -96,8 +96,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 投稿视频集合.
         /// </summary>
+        public ObservableCollection<VideoViewModel> VideoCollection { get; }
+
+        /// <summary>
+        /// 用户是否已被固定，<c>true</c> 意味着显示固定按钮，<c>false</c> 意味着显示取消固定按钮.
+        /// </summary>
         [Reactive]
-        public ObservableCollection<VideoViewModel> VideoCollection { get; set; }
+        public bool IsPublisherFixed { get; set; }
+
+        /// <summary>
+        /// 是否可以显示固定用户相关的操作（意味着用户是否已经登录）.
+        /// </summary>
+        [Reactive]
+        public bool CanFixPublisher { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is UserViewModel model && Id == model.Id;

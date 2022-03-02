@@ -25,6 +25,8 @@ namespace Richasy.Bili.Models.App.Constants
         public const string ReplySection = "Reply";
 
         public const string LastOpenVideoFileName = "LastOpenVideo.json";
+        public const string FixedPublisherFolderName = "Fixed publisher";
+        public const string FixedPublisherFileName = "User-{0}.json";
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

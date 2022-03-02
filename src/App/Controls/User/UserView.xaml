@@ -44,7 +44,11 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -87,6 +91,22 @@
                             Click="OnFollowButtonClickAsync"
                             Content="{loc:LocaleLocator Name=Followed}"
                             Visibility="{x:Bind ViewModel.IsFollow, Mode=OneWay}" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Visibility="{x:Bind ViewModel.CanFixPublisher, Mode=OneWay}">
+                        <Button
+                            MinWidth="120"
+                            Click="OnFixButtonClickAsync"
+                            Content="{loc:LocaleLocator Name=FixPublisher}"
+                            Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                        <Button
+                            MinWidth="120"
+                            Click="OnFixButtonClickAsync"
+                            Content="{loc:LocaleLocator Name=UnfixPublisher}"
+                            Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay}" />
                     </Grid>
                 </Grid>
             </Grid>

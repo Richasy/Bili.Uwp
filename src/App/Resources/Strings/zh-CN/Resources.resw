@@ -475,6 +475,12 @@
   <data name="FilterByTotalDuration" xml:space="preserve">
     <value>全部时长</value>
   </data>
+  <data name="FixedPublishers" xml:space="preserve">
+    <value>固定的UP</value>
+  </data>
+  <data name="FixPublisher" xml:space="preserve">
+    <value>固定UP</value>
+  </data>
   <data name="Flv" xml:space="preserve">
     <value>流媒体/FLV</value>
   </data>
@@ -1207,6 +1213,9 @@
   </data>
   <data name="UnFavoriteWarning" xml:space="preserve">
     <value>是否不再关注该收藏夹？</value>
+  </data>
+  <data name="UnfixPublisher" xml:space="preserve">
+    <value>取消固定UP</value>
   </data>
   <data name="UnknownError" xml:space="preserve">
     <value>未知错误发生了</value>

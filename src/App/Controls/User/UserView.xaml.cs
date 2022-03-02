@@ -4,7 +4,6 @@ using System;
 using System.Threading.Tasks;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -89,24 +88,15 @@ namespace Richasy.Bili.App.Controls
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.InitializeUserDetailAsync();
-        }
+            => await ViewModel.InitializeUserDetailAsync();
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
-        {
-            await ViewModel.DeltaRequestVideoAsync();
-        }
+            => await ViewModel.DeltaRequestVideoAsync();
 
-        private void OnVideoItemClick(object sender, VideoViewModel e)
-        {
-            this.Container.Hide();
-        }
+        private void OnVideoItemClick(object sender, VideoViewModel e) => Container.Hide();
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.ToggleFollowStateAsync();
-        }
+            => await ViewModel.ToggleFollowStateAsync();
 
         private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
         {
@@ -121,8 +111,9 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnClosed(object sender, System.EventArgs e)
-        {
-            ViewModel.Deactive();
-        }
+            => ViewModel.Deactive();
+
+        private async void OnFixButtonClickAsync(object sender, RoutedEventArgs e)
+            => await ViewModel.ToggleFixStateAsync();
     }
 }
