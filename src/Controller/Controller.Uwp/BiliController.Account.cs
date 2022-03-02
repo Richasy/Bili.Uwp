@@ -197,6 +197,35 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 请求搜索用户空间视频.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="keyword">关键词.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestSearchUserVideoAsync(int userId, string keyword, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                if (pageNumber < 1)
+                {
+                    pageNumber = 1;
+                }
+
+                var data = await _accountProvider.SearchUserSpaceVideoAsync(userId, keyword, pageNumber);
+                var args = new UserSpaceSearchVideoIterationEventArgs(data, userId);
+                UserSpaceSearchVideoIteration?.Invoke(this, args);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 修改用户关系(关注/取消关注).
         /// </summary>
         /// <param name="userId">用户Id.</param>

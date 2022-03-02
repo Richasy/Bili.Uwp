@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+
+package bilibili.app.interfaces.v1;
+
+import "bilibili/app/archive/middleware/v1/preload.proto";
+import "bilibili/app/archive/v1/archive.proto";
+
+//
+service Space {
+    //
+    rpc SearchArchive(SearchArchiveReq) returns (SearchArchiveReply);
+}
+
+//
+message Arc {
+    //
+    bilibili.app.archive.v1.Arc archive = 1;
+    //
+    string uri = 2;
+}
+
+//
+message SearchArchiveReply {
+    //
+    repeated Arc archives = 1;
+    //
+    int64 total = 2;
+}
+
+//
+message SearchArchiveReq {
+    //
+    string keyword = 1;
+    //
+    int64 mid = 2;
+    //
+    int64 pn = 3;
+    //
+    int64 ps = 4;
+    //
+    bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;
+}

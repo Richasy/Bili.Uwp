@@ -427,6 +427,9 @@
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
+  <data name="ExitSearch" xml:space="preserve">
+    <value>退出搜索</value>
+  </data>
   <data name="FailedToClearHisotry" xml:space="preserve">
     <value>尝试清空历史记录失败，请稍后重试</value>
   </data>
@@ -740,6 +743,9 @@
   <data name="NotUpdate" xml:space="preserve">
     <value>即将更新</value>
   </data>
+  <data name="NoUserVideoSearchResult" xml:space="preserve">
+    <value>没有在该用户下找到指定关键词的视频</value>
+  </data>
   <data name="NoViewLaterVideos" xml:space="preserve">
     <value>没有视频被加入稍后再看列表</value>
   </data>
@@ -1009,6 +1015,9 @@
   </data>
   <data name="RequestReplyFailed" xml:space="preserve">
     <value>请求评论失败</value>
+  </data>
+  <data name="RequestSearchResultFailed" xml:space="preserve">
+    <value>没有查找到相关的搜索结果</value>
   </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分区视频请求失败</value>

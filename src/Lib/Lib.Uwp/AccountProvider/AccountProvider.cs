@@ -415,5 +415,22 @@ namespace Richasy.Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<UserRelationResponse>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public async Task<SearchArchiveReply> SearchUserSpaceVideoAsync(int userId, string keyword, int pageNumber, int pageSize = 20)
+        {
+            var req = new SearchArchiveReq
+            {
+                Mid = userId,
+                Keyword = keyword,
+                Pn = pageNumber,
+                Ps = pageSize,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Account.SpaceVideoSearch, req, false);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, SearchArchiveReply.Parser);
+            return data;
+        }
     }
 }

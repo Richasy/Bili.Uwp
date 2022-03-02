@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,6 +15,20 @@
     d:DesignWidth="400"
     Closed="OnClosed"
     mc:Ignorable="d">
+
+    <local:CenterPopup.Resources>
+        <DataTemplate x:Key="VideoItemTemplate" x:DataType="uwp:VideoViewModel">
+            <local:VideoItem
+                IsShowAvatar="False"
+                IsShowDanmakuCount="True"
+                IsShowDuration="True"
+                IsShowPlayCount="True"
+                ItemClick="OnVideoItemClick"
+                Orientation="Horizontal"
+                ViewModel="{x:Bind}" />
+        </DataTemplate>
+    </local:CenterPopup.Resources>
+
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -156,45 +171,94 @@
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Hidden">
+                VerticalScrollBarVisibility="Hidden"
+                Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <local:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     Background="Transparent"
                     HeaderText="{loc:LocaleLocator Name=Videos}"
                     ItemOrientation="Horizontal"
+                    ItemTemplate="{StaticResource VideoItemTemplate}"
                     ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
                     RequestLoadMore="OnVideoViewRequestLoadMoreAsync"
                     Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                    <local:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <local:VideoItem
-                                IsShowAvatar="False"
-                                IsShowDanmakuCount="True"
-                                IsShowDuration="True"
-                                IsShowPlayCount="True"
-                                ItemClick="OnVideoItemClick"
-                                Orientation="Horizontal"
-                                ViewModel="{x:Bind}" />
-                        </DataTemplate>
-                    </local:VerticalRepeaterView.ItemTemplate>
+                    <local:VerticalRepeaterView.AdditionalContent>
+                        <Button
+                            x:Name="SearchButton"
+                            AutomationProperties.Name="{loc:LocaleLocator Name=Search}"
+                            Click="OnSearchButtonClick"
+                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Search}">
+                            <icons:RegularFluentIcon Symbol="Search16" />
+                        </Button>
+                    </local:VerticalRepeaterView.AdditionalContent>
                 </local:VerticalRepeaterView>
             </ScrollViewer>
+
+            <Grid ColumnSpacing="12" Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <AutoSuggestBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsEnabled="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+                    PlaceholderText="{loc:LocaleLocator Name=SearchTipSlim}"
+                    QueryIcon="Find"
+                    QuerySubmitted="OnSearchBoxQuerySubmittedAsync"
+                    Text="{x:Bind ViewModel.SearchKeyword, Mode=TwoWay}" />
+
+                <Button
+                    x:Name="ExitSearchButton"
+                    AutomationProperties.Name="{loc:LocaleLocator Name=ExitSearch}"
+                    Grid.Column="1"
+                    Click="OnExitSearchButtonClick"
+                    Content="{loc:LocaleLocator Name=ExitSearch}" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    MinHeight="300" />
+
+                <ScrollViewer
+                    x:Name="SearchScrollViewer"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="0,12,0,0"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Hidden">
+                    <local:VerticalRepeaterView
+                        x:Name="SearchView"
+                        Margin="0,0,0,12"
+                        Background="Transparent"
+                        HeaderVisibility="Collapsed"
+                        ItemOrientation="Horizontal"
+                        ItemTemplate="{StaticResource VideoItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.SearchCollection, Mode=OneWay}"
+                        RequestLoadMore="OnSearchViewRequestLoadMoreAsync"
+                        Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                </ScrollViewer>
+            </Grid>
 
             <local:OverlayLoadingPanel
                 MinHeight="80"
                 IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
                 IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-            <local:ErrorPanel
-                x:Name="ErrorPanel"
-                ActionButtonClick="OnRefreshButtonClickAsync"
-                ActionContent="{loc:LocaleLocator Name=Refresh}"
-                Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-            <local:ErrorPanel
-                x:Name="EmptyPanel"
-                Text="{loc:LocaleLocator Name=UserHaveNoVideos}"
-                Visibility="{x:Bind ViewModel.IsShowVideoEmpty, Mode=OneWay}" />
+            <Grid Margin="0,80,0,0">
+                <local:ErrorPanel
+                    x:Name="ErrorPanel"
+                    ActionButtonClick="OnRefreshButtonClickAsync"
+                    ActionContent="{loc:LocaleLocator Name=Refresh}"
+                    Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+                <local:ErrorPanel Text="{loc:LocaleLocator Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsShowVideoEmpty, Mode=OneWay}" />
+                <local:ErrorPanel Text="{loc:LocaleLocator Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsShowSearchEmpty, Mode=OneWay}" />
+            </Grid>
         </Grid>
     </Grid>
 </local:CenterPopup>

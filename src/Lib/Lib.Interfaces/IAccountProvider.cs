@@ -44,6 +44,16 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId);
 
         /// <summary>
+        /// 搜索用户空间的视频.
+        /// </summary>
+        /// <param name="userId">用户Id.</param>
+        /// <param name="keyword">关键词.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <param name="pageSize">每页容量.</param>
+        /// <returns><see cref="SearchArchiveReply"/>.</returns>
+        Task<SearchArchiveReply> SearchUserSpaceVideoAsync(int userId, string keyword, int pageNumber, int pageSize = 20);
+
+        /// <summary>
         /// 关注/取消关注用户.
         /// </summary>
         /// <param name="userId">用户Id.</param>
