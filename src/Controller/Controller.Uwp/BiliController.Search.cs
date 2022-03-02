@@ -171,8 +171,8 @@ namespace Richasy.Bili.Controller.Uwp
         {
             if (_suggestionTokenSource != null && !_suggestionTokenSource.IsCancellationRequested)
             {
-                _suggestionTokenSource.Cancel();
-                _suggestionTokenSource.Dispose();
+                _suggestionTokenSource?.Cancel();
+                _suggestionTokenSource?.Dispose();
                 _suggestionTokenSource = null;
             }
 
@@ -180,7 +180,7 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 _suggestionTokenSource = new CancellationTokenSource();
                 var result = await _searchProvider.GetSearchSuggestion(keyword, _suggestionTokenSource.Token);
-                _suggestionTokenSource.Dispose();
+                _suggestionTokenSource?.Dispose();
                 _suggestionTokenSource = null;
                 return result;
             }

@@ -72,6 +72,8 @@ namespace Richasy.Bili.Models.App.Constants
             /// </summary>
             public const string Space = _appBase + "/x/v2/space";
 
+            public const string SpaceVideoSearch = _grpcBase + "/bilibili.app.interface.v1.Space/SearchArchive";
+
             /// <summary>
             /// 用户空间中视频的增量请求.
             /// </summary>

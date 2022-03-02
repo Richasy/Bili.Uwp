@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bilibili\app\interfaces\v1\space.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.19.4" />
     <PackageReference Include="Grpc.Net.Client" Version="2.42.0" />
     <PackageReference Include="Grpc.Tools" Version="2.44.0">
@@ -30,6 +34,7 @@
     <Protobuf Include="bilibili\app\dynamic\v2\dynamic.proto" />
     <Protobuf Include="bilibili\app\interfaces\v1\history.proto" />
     <Protobuf Include="bilibili\app\interfaces\v1\search.proto" />
+    <Protobuf Include="bilibili\app\interfaces\v1\space.proto" GrpcServices="Both" />
     <Protobuf Include="bilibili\app\playurl\v1\playurl.proto" />
     <Protobuf Include="bilibili\app\resource\privacy\v1\api.proto" />
     <Protobuf Include="bilibili\app\resource\v1\module.proto" />

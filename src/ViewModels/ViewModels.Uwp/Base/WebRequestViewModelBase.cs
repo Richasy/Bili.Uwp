@@ -29,6 +29,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 是否正在搜索.
+        /// </summary>
+        [Reactive]
+        public bool IsSearching { get; set; }
+
+        /// <summary>
         /// 是否已经完成了初始化请求.
         /// </summary>
         [Reactive]

@@ -3,8 +3,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
+using ReactiveUI;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Args;
@@ -118,6 +120,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _resourceToolkit);
 
             VideoCollection = new ObservableCollection<VideoViewModel>();
+            SearchCollection = new ObservableCollection<VideoViewModel>();
+
+            this.WhenAnyValue(x => x.IsSearching)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    IsError = false;
+                });
         }
 
         /// <summary>
@@ -127,6 +137,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
             Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
+            Controller.UserSpaceSearchVideoIteration -= OnUserSpaceSearchVideoIteration;
+            Controller.UserSpaceSearchVideoIteration += OnUserSpaceSearchVideoIteration;
         }
 
         /// <summary>
@@ -135,6 +147,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void Deactive()
         {
             Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
+            Controller.UserSpaceSearchVideoIteration -= OnUserSpaceSearchVideoIteration;
         }
 
         /// <summary>
@@ -143,9 +156,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task InitializeUserDetailAsync()
         {
-            if (!IsInitializeLoading && !IsDeltaLoading)
+            if (!IsInitializeLoading && !IsDeltaLoading && !IsSearching)
             {
-                Reset();
+                ResetArchives();
                 Active();
                 IsInitializeLoading = true;
 
@@ -160,8 +173,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     IsError = true;
                     ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestUserInformationFailed) + $"\n{ex.Message}";
-                    IsInitializeLoading = false;
-                    return;
                 }
 
                 IsInitializeLoading = false;
@@ -174,10 +185,56 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task DeltaRequestVideoAsync()
         {
-            if (!IsDeltaLoading && !_isVideoLoadCompleted)
+            if (!IsDeltaLoading && !_isVideoLoadCompleted && !IsSearching)
             {
                 IsDeltaLoading = true;
                 await Controller.RequestUserSpaceVideoSetAsync(Id, _videoOffsetId);
+                IsDeltaLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// 初始化搜索结果.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task InitializeSearchResultAsync()
+        {
+            if (!string.IsNullOrEmpty(SearchKeyword.Trim())
+                && !IsInitializeLoading
+                && !IsDeltaLoading
+                && IsSearching)
+            {
+                ResetSearch();
+                Active();
+
+                IsInitializeLoading = true;
+                try
+                {
+                    await Controller.RequestSearchUserVideoAsync(Id, SearchKeyword, _searchPageNumber);
+                }
+                catch (Exception ex)
+                {
+                    IsError = true;
+                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestSearchResultFailed) + $"\n{ex.Message}";
+                }
+
+                IsInitializeLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// 执行增量请求.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task DeltaRequestSearchAsync()
+        {
+            if (!IsDeltaLoading
+                && !_isSearchLoadCompleted
+                && !string.IsNullOrEmpty(SearchKeyword)
+                && IsSearching)
+            {
+                IsDeltaLoading = true;
+                await Controller.RequestSearchUserVideoAsync(Id, SearchKeyword, _searchPageNumber);
                 IsDeltaLoading = false;
             }
         }
@@ -229,15 +286,28 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 清除数据.
+        /// 清除空间数据.
         /// </summary>
-        public void Reset()
+        public void ResetArchives()
         {
             VideoCollection.Clear();
             IsRequested = false;
             IsError = false;
+            _videoOffsetId = string.Empty;
             _isFollowRequesting = false;
             _isVideoLoadCompleted = false;
+            SearchKeyword = string.Empty;
+        }
+
+        /// <summary>
+        /// 清除搜索数据.
+        /// </summary>
+        public void ResetSearch()
+        {
+            SearchCollection.Clear();
+            _searchPageNumber = 1;
+            _isSearchLoadCompleted = false;
+            IsShowSearchEmpty = false;
         }
 
         private void InitializeUserInformation()
@@ -287,6 +357,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             _videoOffsetId = e.NextOffsetId;
             _isVideoLoadCompleted = VideoCollection.Count >= e.TotalCount;
             IsShowVideoEmpty = VideoCollection.Count == 0;
+        }
+
+        private void OnUserSpaceSearchVideoIteration(object sender, UserSpaceSearchVideoIterationEventArgs e)
+        {
+            if (e.UserId != Id)
+            {
+                return;
+            }
+
+            foreach (var item in e.List)
+            {
+                if (!SearchCollection.Any(p => p.VideoId == item.Archive.Aid.ToString()))
+                {
+                    SearchCollection.Add(new VideoViewModel(item));
+                }
+            }
+
+            _searchPageNumber += 1;
+            _isSearchLoadCompleted = SearchCollection.Count >= e.TotalCount;
+            IsShowSearchEmpty = SearchCollection.Count == 0;
         }
     }
 }

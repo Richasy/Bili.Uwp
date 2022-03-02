@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
@@ -331,7 +332,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoViewModel(FavoriteMedia media)
             : this()
         {
-            VideoType = Models.Enums.VideoType.Video;
             Title = media.Title;
             VideoId = media.Id.ToString();
             PlayCount = _numberToolkit.GetCountText(media.Stat.PlayCount);
@@ -340,6 +340,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(media.Duration));
             LimitCover(media.Cover);
             Source = media;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="arc">视频条目.</param>
+        public VideoViewModel(Arc arc)
+            : this()
+        {
+            var item = arc.Archive;
+            VideoType = Models.Enums.VideoType.Video;
+            Title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
+            VideoId = item.Aid.ToString();
+            PartitionName = item.TypeName;
+            PlayCount = _numberToolkit.GetCountText(item.Stat.View);
+            DanmakuCount = _numberToolkit.GetCountText(item.Stat.Danmaku);
+            Publisher = new UserViewModel(item.Author.Name, item.Author.Face, Convert.ToInt32(item.Author.Mid));
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
+            LimitCover(item.Pic);
+            Source = item;
         }
 
         internal VideoViewModel()

@@ -76,19 +76,22 @@ namespace Richasy.Bili.App.Controls
                 {
                     await ViewModel.InitializeUserDetailAsync();
                 }
-                else
-                {
-                    ViewModel.Active();
-                }
             }
-            else
-            {
-                ViewModel.Active();
-            }
+
+            ViewModel.Active();
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-            => await ViewModel.InitializeUserDetailAsync();
+        {
+            if (ViewModel.IsSearching)
+            {
+                await ViewModel.InitializeSearchResultAsync();
+            }
+            else
+            {
+                await ViewModel.InitializeUserDetailAsync();
+            }
+        }
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
             => await ViewModel.DeltaRequestVideoAsync();
@@ -115,5 +118,17 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnFixButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ToggleFixStateAsync();
+
+        private void OnSearchButtonClick(object sender, RoutedEventArgs e)
+            => ViewModel.IsSearching = true;
+
+        private void OnExitSearchButtonClick(object sender, RoutedEventArgs e)
+            => ViewModel.IsSearching = false;
+
+        private async void OnSearchViewRequestLoadMoreAsync(object sender, EventArgs e)
+            => await ViewModel.DeltaRequestSearchAsync();
+
+        private async void OnSearchBoxQuerySubmittedAsync(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+            => await ViewModel.InitializeSearchResultAsync();
     }
 }
