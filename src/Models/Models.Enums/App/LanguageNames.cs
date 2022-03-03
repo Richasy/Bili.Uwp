@@ -359,6 +359,10 @@ namespace Richasy.Bili.Models.Enums
         UseMp4Box,
         UseMultiThread,
         GenerateCommand,
+        DownloadDanmaku,
+        PartPrefix,
+        QualitySuffix,
+        DownloadFolder,
         DownloadTip,
         AtLeastChooseOnePart,
         ToggleDanmakuBarVisibility,
@@ -404,6 +408,10 @@ namespace Richasy.Bili.Models.Enums
         RequestSearchResultFailed,
         ExitSearch,
         NoUserVideoSearchResult,
+        NoSpecifiedDownloadPath,
+        ChooseDownloadFolder,
+        AdvancedOptions,
+        InteractionQuality,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

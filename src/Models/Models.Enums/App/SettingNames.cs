@@ -46,6 +46,21 @@ namespace Richasy.Bili.Models.Enums
         CanContinuePlay,
         ContinuePlayTitle,
         SupportContinuePlay,
+        Download_UseMp4Box,
+        Download_OnlyHevc,
+        Download_OnlyAvc,
+        Download_OnlyAudio,
+        Download_OnlyVideo,
+        Download_OnlySubtitle,
+        Download_UseMultiThread,
+        Download_UseAppInterface,
+        Download_UseTvInterface,
+        Download_UseInternationalInterface,
+        Download_DownloadDanmaku,
+        Download_DownloadFolder,
+        Download_UsePartPerfix,
+        Download_UseQualitySuffix,
+        Download_UseInteractionQuality,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }
