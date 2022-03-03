@@ -10,5 +10,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/CenterPopup/CenterPopup.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Common/EmotiTextBlock/EmotiTextBlock.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

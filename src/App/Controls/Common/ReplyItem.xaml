@@ -36,9 +36,9 @@
                         x:Name="UserAvatar"
                         Width="32"
                         Height="32"
-                        Click="OnAvatarClickAsync"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Click="OnAvatarClickAsync" />
                 </Grid>
 
                 <Border
@@ -87,7 +87,10 @@
                         Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
                 </Grid>
                 <Grid Grid.Row="1">
-                    <local:TrimTextBlock x:Name="ReplyContentBlock" HorizontalAlignment="Left" />
+                    <local:EmotiTextBlock
+                        x:Name="ReplyContentBlock"
+                        HorizontalAlignment="Left"
+                        ReplyInfo="{x:Bind Data, Mode=OneWay}" />
                 </Grid>
                 <Grid Grid.Row="2" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>

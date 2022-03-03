@@ -44,6 +44,7 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
+    <Compile Include="Controls\Common\EmotiTextBlock\EmotiTextBlock.cs" />
     <Compile Include="Controls\Settings\CacheSettingSection.xaml.cs">
       <DependentUpon>CacheSettingSection.xaml</DependentUpon>
     </Compile>
@@ -545,6 +546,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\EmotiTextBlock\EmotiTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

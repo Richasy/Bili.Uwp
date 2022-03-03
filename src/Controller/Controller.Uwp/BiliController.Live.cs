@@ -141,6 +141,8 @@ namespace Richasy.Bili.Controller.Uwp
 
             _isLiveSocketConnected = false;
             _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
+            _liveWebSocket?.Dispose();
+            _liveWebSocket = null;
         }
 
         private void InitializeLiveSocket()
