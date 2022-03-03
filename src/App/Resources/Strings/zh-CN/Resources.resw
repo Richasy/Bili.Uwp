@@ -135,6 +135,9 @@
   <data name="AddViewLaterSucceseded" xml:space="preserve">
     <value>视频已添加至稍后再看</value>
   </data>
+  <data name="AdvancedOptions" xml:space="preserve">
+    <value>高级选项</value>
+  </data>
   <data name="Alias" xml:space="preserve">
     <value>别名</value>
   </data>
@@ -236,6 +239,9 @@
   </data>
   <data name="ChooseCoinNumber" xml:space="preserve">
     <value>打算投几个币？</value>
+  </data>
+  <data name="ChooseDownloadFolder" xml:space="preserve">
+    <value>选择下载文件夹</value>
   </data>
   <data name="ChooseFavorite" xml:space="preserve">
     <value>选择收藏夹</value>
@@ -407,6 +413,12 @@
   </data>
   <data name="Download" xml:space="preserve">
     <value>下载</value>
+  </data>
+  <data name="DownloadDanmaku" xml:space="preserve">
+    <value>下载弹幕</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>下载文件夹</value>
   </data>
   <data name="DownloadTip" xml:space="preserve">
     <value>应用本身不提供下载功能，但支持生成 BBDown 命令，具体的使用方法参见 帮助&amp;支持</value>
@@ -580,6 +592,9 @@
   <data name="InteractionEnd" xml:space="preserve">
     <value>互动视频结束，可点击左上角“🏘”按钮返回开头</value>
   </data>
+  <data name="InteractionQuality" xml:space="preserve">
+    <value>交互式清晰度选择</value>
+  </data>
   <data name="InterfaceType" xml:space="preserve">
     <value>接口类型</value>
   </data>
@@ -737,6 +752,9 @@
   <data name="NoSpecificData" xml:space="preserve">
     <value>没有找到指定的数据</value>
   </data>
+  <data name="NoSpecifiedDownloadPath" xml:space="preserve">
+    <value>没有指定的下载文件夹</value>
+  </data>
   <data name="NoStroke" xml:space="preserve">
     <value>无描边</value>
   </data>
@@ -790,6 +808,9 @@
   </data>
   <data name="PartitionRequestFailed" xml:space="preserve">
     <value>分区请求失败</value>
+  </data>
+  <data name="PartPrefix" xml:space="preserve">
+    <value>加入分P前缀</value>
   </data>
   <data name="Parts" xml:space="preserve">
     <value>分集</value>
@@ -901,6 +922,9 @@
   </data>
   <data name="Quality" xml:space="preserve">
     <value>清晰度</value>
+  </data>
+  <data name="QualitySuffix" xml:space="preserve">
+    <value>加入清晰度后缀</value>
   </data>
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>

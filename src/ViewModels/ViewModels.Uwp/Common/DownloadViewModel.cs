@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Toolkit.Interfaces;
+using Windows.Storage.Pickers;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -16,14 +20,62 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public class DownloadViewModel : ViewModelBase
     {
+        private readonly ISettingsToolkit _settingsToolkit;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DownloadViewModel"/> class.
         /// </summary>
         protected DownloadViewModel()
         {
-            UseMultiThread = true;
-            UseAppInterface = true;
             TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
+            ServiceLocator.Instance.LoadService(out _settingsToolkit);
+
+            UseMp4Box = ReadSetting(SettingNames.Download_UseMp4Box, false);
+            OnlyHevc = ReadSetting(SettingNames.Download_OnlyHevc, false);
+            OnlyAvc = ReadSetting(SettingNames.Download_OnlyAvc, false);
+            OnlyAudio = ReadSetting(SettingNames.Download_OnlyAudio, false);
+            OnlyVideo = ReadSetting(SettingNames.Download_OnlyVideo, false);
+            OnlySubtitle = ReadSetting(SettingNames.Download_OnlySubtitle, false);
+            UseMultiThread = ReadSetting(SettingNames.Download_UseMultiThread, true);
+            UseAppInterface = ReadSetting(SettingNames.Download_UseAppInterface, true);
+            UseTvInterface = ReadSetting(SettingNames.Download_UseTvInterface, false);
+            UseInternationalInterface = ReadSetting(SettingNames.Download_UseInternationalInterface, false);
+            DownloadDanmaku = ReadSetting(SettingNames.Download_DownloadDanmaku, false);
+            DownloadFolder = ReadSetting(SettingNames.Download_DownloadFolder, string.Empty);
+            UsePartPerfix = ReadSetting(SettingNames.Download_UsePartPerfix, true);
+            UseQualitySuffix = ReadSetting(SettingNames.Download_UseQualitySuffix, false);
+            UseInteractionQuality = ReadSetting(SettingNames.Download_UseInteractionQuality, false);
+
+            this.WhenAnyValue(x => x.UseMp4Box)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseMp4Box, x));
+            this.WhenAnyValue(x => x.OnlyVideo)
+                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyVideo, x));
+            this.WhenAnyValue(x => x.OnlyAudio)
+                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyAudio, x));
+            this.WhenAnyValue(x => x.OnlyAvc)
+                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyAvc, x));
+            this.WhenAnyValue(x => x.OnlyHevc)
+                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyHevc, x));
+            this.WhenAnyValue(x => x.OnlySubtitle)
+                .Subscribe(x => WriteSetting(SettingNames.Download_OnlySubtitle, x));
+            this.WhenAnyValue(x => x.UseAppInterface)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseAppInterface, x));
+            this.WhenAnyValue(x => x.UseInternationalInterface)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseInternationalInterface, x));
+            this.WhenAnyValue(x => x.UseMultiThread)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseMultiThread, x));
+            this.WhenAnyValue(x => x.UsePartPerfix)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UsePartPerfix, x));
+            this.WhenAnyValue(x => x.UseQualitySuffix)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseQualitySuffix, x));
+            this.WhenAnyValue(x => x.UseTvInterface)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseTvInterface, x));
+            this.WhenAnyValue(x => x.DownloadDanmaku)
+                .Subscribe(x => WriteSetting(SettingNames.Download_DownloadDanmaku, x));
+            this.WhenAnyValue(x => x.DownloadFolder)
+                .Subscribe(x => WriteSetting(SettingNames.Download_DownloadFolder, x));
+            this.WhenAnyValue(x => x.UseInteractionQuality)
+                .Subscribe(x => WriteSetting(SettingNames.Download_UseInteractionQuality, x));
         }
 
         /// <summary>
@@ -97,10 +149,39 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool UseInternationalInterface { get; set; }
 
         /// <summary>
-        /// 全部分P集合.
+        /// 是否下载弹幕.
         /// </summary>
         [Reactive]
-        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; set; }
+        public bool DownloadDanmaku { get; set; }
+
+        /// <summary>
+        /// 下载文件夹.
+        /// </summary>
+        [Reactive]
+        public string DownloadFolder { get; set; }
+
+        /// <summary>
+        /// 使用分P前缀.
+        /// </summary>
+        [Reactive]
+        public bool UsePartPerfix { get; set; }
+
+        /// <summary>
+        /// 使用分P后缀.
+        /// </summary>
+        [Reactive]
+        public bool UseQualitySuffix { get; set; }
+
+        /// <summary>
+        /// 使用交互式清晰度选择.
+        /// </summary>
+        [Reactive]
+        public bool UseInteractionQuality { get; set; }
+
+        /// <summary>
+        /// 全部分P集合.
+        /// </summary>
+        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; }
 
         /// <summary>
         /// 是否显示分P.
@@ -123,6 +204,21 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             IsShowPart = TotalPartCollection.Count > 1;
+        }
+
+        /// <summary>
+        /// 设置下载文件夹.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task SetDownloadFolderAsync()
+        {
+            var folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.VideosLibrary;
+            var folder = await folderPicker.PickSingleFolderAsync().AsTask();
+            if (folder != null)
+            {
+                DownloadFolder = folder.Path;
+            }
         }
 
         /// <summary>
@@ -179,6 +275,32 @@ namespace Richasy.Bili.ViewModels.Uwp
                 list.Add("-mt");
             }
 
+            if (DownloadDanmaku)
+            {
+                list.Add("-dd");
+            }
+
+            if (!string.IsNullOrEmpty(DownloadFolder))
+            {
+                list.Add("--work-dir");
+                list.Add($"\"{DownloadFolder}\"");
+            }
+
+            if (!UsePartPerfix)
+            {
+                list.Add("--no-part-prefix");
+            }
+
+            if (UseQualitySuffix)
+            {
+                list.Add("--add-dfn-subfix");
+            }
+
+            if (UseInteractionQuality)
+            {
+                list.Add("-ia");
+            }
+
             var selectedPages = TotalPartCollection.Where(p => p.IsSelected).Select(p => p.Data).ToList();
             if (selectedPages.Count > 0)
             {
@@ -204,5 +326,11 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             return string.Join(' ', list);
         }
+
+        private void WriteSetting<T>(SettingNames name, T value)
+            => _settingsToolkit.WriteLocalSetting(name, value);
+
+        private T ReadSetting<T>(SettingNames name, T defaultValue)
+            => _settingsToolkit.ReadLocalSetting(name, defaultValue);
     }
 }

@@ -187,5 +187,8 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
         }
+
+        private async void OnOpenFolderButtonClickAsync(object sender, RoutedEventArgs e)
+            => await ViewModel.SetDownloadFolderAsync();
     }
 }

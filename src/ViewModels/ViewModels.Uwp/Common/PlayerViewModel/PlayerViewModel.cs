@@ -615,6 +615,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public void InitDownload()
         {
             var para = string.Empty;
+            var partList = new List<int>();
             if (IsPgc)
             {
                 if (CurrentPgcEpisode != null)
@@ -625,6 +626,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     para = $"ss{_pgcDetail.SeasonId}";
                 }
+
+                partList = EpisodeCollection.Select((_, index) => index + 1).ToList();
             }
             else if (!IsLive)
             {
@@ -636,9 +639,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     para = $"av{AvId}";
                 }
+
+                partList = VideoPartCollection.Select((_, index) => index + 1).ToList();
             }
 
-            DownloadViewModel.Instance.Load(para, VideoPartCollection.Select((p, index) => index + 1).ToList());
+            DownloadViewModel.Instance.Load(para, partList);
         }
 
         /// <summary>
