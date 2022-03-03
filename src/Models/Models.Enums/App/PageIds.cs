@@ -131,5 +131,10 @@ namespace Richasy.Bili.Models.Enums
         /// 时间线页面.
         /// </summary>
         TimeLine,
+
+        /// <summary>
+        /// 工具箱.
+        /// </summary>
+        Toolbox,
     }
 }

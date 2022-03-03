@@ -23,6 +23,13 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<ViewReply> GetVideoDetailAsync(long videoId);
 
         /// <summary>
+        /// 获取视频详细信息，包括分P内容.
+        /// </summary>
+        /// <param name="videoId">视频Bv Id.</param>
+        /// <returns><see cref="ViewReply"/>.</returns>
+        Task<ViewReply> GetVideoDetailAsync(string videoId);
+
+        /// <summary>
         /// 获取同时在线观看人数.
         /// </summary>
         /// <param name="videoId">视频Id.</param>

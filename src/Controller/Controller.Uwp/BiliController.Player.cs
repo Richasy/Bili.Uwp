@@ -23,10 +23,15 @@ namespace Richasy.Bili.Controller.Uwp
         /// <param name="videoId">视频Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
         public async Task<ViewReply> GetVideoDetailAsync(long videoId)
-        {
-            var result = await _playerProvider.GetVideoDetailAsync(videoId);
-            return result;
-        }
+            => await _playerProvider.GetVideoDetailAsync(videoId);
+
+        /// <summary>
+        /// 获取视频详情信息.
+        /// </summary>
+        /// <param name="videoId">视频 Bv Id.</param>
+        /// <returns><see cref="ViewReply"/>.</returns>
+        public async Task<ViewReply> GetVideoDetailAsync(string videoId)
+            => await _playerProvider.GetVideoDetailAsync(videoId);
 
         /// <summary>
         /// 获取在线观看人数.

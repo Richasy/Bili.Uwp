@@ -151,6 +151,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Help:
                     pageType = typeof(HelpPage);
                     break;
+                case PageIds.Toolbox:
+                    pageType = typeof(ToolboxPage);
+                    break;
                 case PageIds.Settings:
                     pageType = typeof(SettingPage);
                     break;

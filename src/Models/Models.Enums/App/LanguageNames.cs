@@ -412,6 +412,19 @@ namespace Richasy.Bili.Models.Enums
         ChooseDownloadFolder,
         AdvancedOptions,
         InteractionQuality,
+        Toolbox,
+        AvBvConverter,
+        AvBvConverterDescription,
+        CoverDownloader,
+        CoverDownloaderDescription,
+        InvalidVideoId,
+        AvBvConverterIntroduce,
+        Convert,
+        Input,
+        Output,
+        AvBvId,
+        SaveToPictureLibrary,
+        CoverDownloaderIntroduce,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

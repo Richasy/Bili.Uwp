@@ -203,6 +203,11 @@
             </muxc:NavigationView.PaneCustomContent>
 
             <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:LocaleLocator Name=Toolbox}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Toolbox24" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:LocaleLocator Name=HelpAndSupport}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="BookQuestionMark24" />
