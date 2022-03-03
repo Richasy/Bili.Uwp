@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
+    <Compile Include="Toolbox\AvBvConverterViewModel.cs" />
     <Compile Include="Base\SelectableViewModelBase{T}.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
@@ -128,6 +130,9 @@
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.cs" />
     <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.Properties.cs" />
     <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
+    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
+    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
+    <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -183,6 +183,20 @@
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
+  <data name="AvBvConverter" xml:space="preserve">
+    <value>AV/BV 互转</value>
+  </data>
+  <data name="AvBvConverterDescription" xml:space="preserve">
+    <value>视频AV号与BV号相互转换</value>
+  </data>
+  <data name="AvBvConverterIntroduce" xml:space="preserve">
+    <value>应用将根据输入的 Id 自动判断输入的是 AV 号还是 BV 号。
+AV号是一串数字，如 170001
+BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</value>
+  </data>
+  <data name="AvBvId" xml:space="preserve">
+    <value>AV或BV号</value>
+  </data>
   <data name="BackSkip" xml:space="preserve">
     <value>向后跳转</value>
   </data>
@@ -309,8 +323,20 @@
   <data name="ContinuousPlayDescription" xml:space="preserve">
     <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）</value>
   </data>
+  <data name="Convert" xml:space="preserve">
+    <value>转换</value>
+  </data>
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
+  </data>
+  <data name="CoverDownloader" xml:space="preserve">
+    <value>封面下载</value>
+  </data>
+  <data name="CoverDownloaderDescription" xml:space="preserve">
+    <value>下载指定视频的封面到本地文件</value>
+  </data>
+  <data name="CoverDownloaderIntroduce" xml:space="preserve">
+    <value>输入视频的 AV 或 BV 号，应用会尝试获取其封面并提供预览，确认后请点击下载按钮，应用会将其下载到图库并打开</value>
   </data>
   <data name="CurrentProgress" xml:space="preserve">
     <value>当前进度</value>
@@ -586,6 +612,9 @@
   <data name="InitialCheckTitle" xml:space="preserve">
     <value>初始化检查</value>
   </data>
+  <data name="Input" xml:space="preserve">
+    <value>输入</value>
+  </data>
   <data name="InputCaptchaTip" xml:space="preserve">
     <value>请输入验证码</value>
   </data>
@@ -603,6 +632,9 @@
   </data>
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
+  </data>
+  <data name="InvalidVideoId" xml:space="preserve">
+    <value>不是有效的视频Id</value>
   </data>
   <data name="IsNeedFeedback" xml:space="preserve">
     <value>需要反馈？</value>
@@ -799,6 +831,9 @@
   </data>
   <data name="OriginName" xml:space="preserve">
     <value>原名</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>输出</value>
   </data>
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
@@ -1067,6 +1102,9 @@
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
   </data>
+  <data name="SaveToPictureLibrary" xml:space="preserve">
+    <value>保存到图库</value>
+  </data>
   <data name="Score" xml:space="preserve">
     <value>评分</value>
   </data>
@@ -1222,6 +1260,9 @@
   </data>
   <data name="ToggleDanmakuBarVisibility" xml:space="preserve">
     <value>切换弹幕控制器显隐</value>
+  </data>
+  <data name="Toolbox" xml:space="preserve">
+    <value>工具箱</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>置顶</value>

@@ -52,6 +52,20 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<ViewReply> GetVideoDetailAsync(string videoId)
+        {
+            var viewRequest = new ViewReq()
+            {
+                Bvid = videoId,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Video.Detail, viewRequest);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, ViewReply.Parser);
+            return data;
+        }
+
+        /// <inheritdoc/>
         public async Task<string> GetOnlineViewerCountAsync(long videoId, long partId)
         {
             var queryParameters = new Dictionary<string, string>
