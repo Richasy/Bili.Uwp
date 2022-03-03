@@ -441,7 +441,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     _currentVideo = tempVideo;
                 }
 
-                CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _currentVideo.Id).FirstOrDefault().Data;
+                CurrentFormat = FormatCollection.Where(p => p.Data.Quality == _currentVideo.Id).FirstOrDefault()?.Data;
                 _currentAudio = _audioList.FirstOrDefault();
             }
 

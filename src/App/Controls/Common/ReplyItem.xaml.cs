@@ -34,7 +34,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ReplyItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Orientation = Orientation.Horizontal;
         }
 
@@ -87,7 +87,6 @@ namespace Richasy.Bili.App.Controls
                 instance.UserAvatar.UserName = instance.UserNameBlock.Text = data.Member.Name;
                 instance.UserAvatar.Avatar = data.Member.Face;
                 instance.LevelImage.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Level/level_{data.Member.Level}.png"));
-                instance.ReplyContentBlock.Text = data.Content.Message;
                 var time = DateTimeOffset.FromUnixTimeSeconds(data.Ctime).ToLocalTime();
                 instance.PublishTimeBlock.Text = time.ToString("HH:mm");
                 ToolTipService.SetToolTip(instance.PublishTimeBlock, time.ToString("yyyy/MM/dd HH:mm:ss"));
@@ -108,14 +107,12 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
-        {
-            MoreButtonClick?.Invoke(this, Data);
-        }
+            => MoreButtonClick?.Invoke(this, Data);
 
         private async void OnLikeButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var isLike = !(Data.ReplyControl.Action == 1);
-            this.Focus(FocusState.Programmatic);
+            Focus(FocusState.Programmatic);
             LikeButton.IsEnabled = false;
             var result = await ReplyModuleViewModel.Instance.LikeReplyAysnc(isLike, Data.Id);
             LikeButton.IsEnabled = true;
@@ -134,9 +131,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnCardClick(object sender, RoutedEventArgs e)
-        {
-            Click?.Invoke(this, EventArgs.Empty);
-        }
+            => Click?.Invoke(this, EventArgs.Empty);
 
         private async void OnAvatarClickAsync(object sender, EventArgs e)
         {
