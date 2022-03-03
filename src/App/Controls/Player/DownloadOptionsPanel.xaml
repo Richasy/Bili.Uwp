@@ -76,35 +76,30 @@
         </StackPanel>
         <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsShowPart, Mode=OneWay}">
             <TextBlock Text="{loc:LocaleLocator Name=Parts}" />
-            <ScrollViewer
-                MaxHeight="132"
-                HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Hidden">
-                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.TotalPartCollection, Mode=OneWay}">
-                    <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:NumberPartViewModel">
-                            <local:CardPanel
-                                IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
-                                IsEnableCheck="True"
-                                IsEnableHoverAnimation="False"
-                                IsEnableShadow="False">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontWeight="Bold"
-                                    Text="{x:Bind Data, Mode=OneWay}" />
-                            </local:CardPanel>
-                        </DataTemplate>
-                    </muxc:ItemsRepeater.ItemTemplate>
-                    <muxc:ItemsRepeater.Layout>
-                        <muxc:UniformGridLayout
-                            MinColumnSpacing="4"
-                            MinItemHeight="40"
-                            MinItemWidth="40"
-                            MinRowSpacing="4" />
-                    </muxc:ItemsRepeater.Layout>
-                </muxc:ItemsRepeater>
-            </ScrollViewer>
+            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.TotalPartCollection, Mode=OneWay}">
+                <muxc:ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="uwp:NumberPartViewModel">
+                        <local:CardPanel
+                            IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                            IsEnableCheck="True"
+                            IsEnableHoverAnimation="False"
+                            IsEnableShadow="False">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="{x:Bind Data, Mode=OneWay}" />
+                        </local:CardPanel>
+                    </DataTemplate>
+                </muxc:ItemsRepeater.ItemTemplate>
+                <muxc:ItemsRepeater.Layout>
+                    <muxc:UniformGridLayout
+                        MinColumnSpacing="4"
+                        MinItemHeight="40"
+                        MinItemWidth="40"
+                        MinRowSpacing="4" />
+                </muxc:ItemsRepeater.Layout>
+            </muxc:ItemsRepeater>
         </StackPanel>
         <muxc:Expander
             HorizontalAlignment="Stretch"

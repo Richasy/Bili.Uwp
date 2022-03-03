@@ -181,8 +181,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 全部分P集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; set; }
+        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; }
 
         /// <summary>
         /// 是否显示分P.
