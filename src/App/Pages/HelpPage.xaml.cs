@@ -77,5 +77,11 @@ namespace Richasy.Bili.App.Pages
                 }
             }
         }
+
+        private async void OnLinkViewItemClickAsync(object sender, ItemClickEventArgs e)
+        {
+            var data = e.ClickedItem as Models.App.Other.KeyValue<string>;
+            await Launcher.LaunchUriAsync(new Uri(data.Value));
+        }
     }
 }
