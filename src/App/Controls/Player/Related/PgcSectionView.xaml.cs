@@ -21,6 +21,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         {
             var card = sender as CardPanel;
             var data = card.DataContext as PgcEpisodeViewModel;
+            data.Data.IsPV = 1;
             if (!data.Data.Id.ToString().Equals(ViewModel.EpisodeId))
             {
                 await ViewModel.LoadAsync(data.Data);

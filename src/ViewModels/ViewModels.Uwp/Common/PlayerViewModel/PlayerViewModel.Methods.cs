@@ -169,8 +169,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else if (_pgcDetail.UserStatus?.Progress != null)
             {
-                id = _pgcDetail.UserStatus.Progress.LastEpisodeId;
-                _initializeProgress = TimeSpan.FromSeconds(_pgcDetail.UserStatus.Progress.LastTime);
+                var lastId = _pgcDetail.UserStatus.Progress.LastEpisodeId;
+
+                if (EpisodeCollection.Any(p => p.Data.Id == id))
+                {
+                    id = lastId;
+                    _initializeProgress = TimeSpan.FromSeconds(_pgcDetail.UserStatus.Progress.LastTime);
+                }
             }
 
             await ChangePgcEpisodeAsync(id);
