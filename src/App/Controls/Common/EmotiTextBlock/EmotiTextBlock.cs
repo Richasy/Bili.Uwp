@@ -31,6 +31,7 @@ namespace Richasy.Bili.App.Controls
         private RichTextBlock _richBlock;
         private RichTextBlock _flyoutRichBlock;
         private Button _overflowButton;
+        private bool _isOverflowInitialized;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmotiTextBlock"/> class.
@@ -63,6 +64,7 @@ namespace Richasy.Bili.App.Controls
             _overflowButton = GetTemplateChild("OverflowButton") as Button;
 
             _richBlock.IsTextTrimmedChanged += OnIsTextTrimmedChanged;
+            _overflowButton.Click += OnOverflowButtonClick;
 
             InitializeReplyContent();
             base.OnApplyTemplate();
@@ -71,23 +73,17 @@ namespace Richasy.Bili.App.Controls
         private static void OnReplyInfoChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as EmotiTextBlock;
+            instance._isOverflowInitialized = false;
             instance.InitializeReplyContent();
+
+            if (instance._overflowButton != null && instance._richBlock != null)
+            {
+                instance._overflowButton.Visibility = instance._richBlock.IsTextTrimmed ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         private void OnIsTextTrimmedChanged(RichTextBlock sender, IsTextTrimmedChangedEventArgs args)
-        {
-            _overflowButton.Visibility = sender.IsTextTrimmed ? Visibility.Visible : Visibility.Collapsed;
-            if (sender.IsTextTrimmed)
-            {
-                _flyoutRichBlock.Blocks.Clear();
-
-                if (ReplyInfo != null)
-                {
-                    var para = ParseReplyInfo();
-                    _flyoutRichBlock.Blocks.Add(para);
-                }
-            }
-        }
+            => _overflowButton.Visibility = sender.IsTextTrimmed ? Visibility.Visible : Visibility.Collapsed;
 
         private void InitializeReplyContent()
         {
@@ -96,6 +92,20 @@ namespace Richasy.Bili.App.Controls
                 _richBlock.Blocks.Clear();
                 var para = ParseReplyInfo();
                 _richBlock.Blocks.Add(para);
+            }
+        }
+
+        private void OnOverflowButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!_isOverflowInitialized)
+            {
+                _flyoutRichBlock.Blocks.Clear();
+
+                if (ReplyInfo != null)
+                {
+                    var para = ParseReplyInfo();
+                    _flyoutRichBlock.Blocks.Add(para);
+                }
             }
         }
 
