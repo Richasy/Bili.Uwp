@@ -148,6 +148,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             var isReleated = false;
             var type = VideoType.Video;
+            IsPv = false;
 
             CurrentPlayingRecord record = null;
 
@@ -173,6 +174,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 videoId = episodeData.Id.ToString();
                 seasonId = 0;
+                IsPv = episodeData.IsPV == 1;
                 type = VideoType.Pgc;
             }
             else if (vm is CurrentPlayingRecord r)

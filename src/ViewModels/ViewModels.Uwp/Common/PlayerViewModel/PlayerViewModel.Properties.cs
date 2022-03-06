@@ -110,6 +110,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public CoreDispatcher Dispatcher { get; set; }
 
         /// <summary>
+        /// 当前是否为PV.
+        /// </summary>
+        public bool IsPv { get; private set; }
+
+        /// <summary>
         /// 详情是否可以加载（用于优化页面跳转的加载时间）.
         /// </summary>
         [Reactive]
