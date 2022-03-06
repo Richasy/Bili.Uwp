@@ -131,26 +131,19 @@
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Text="{loc:LocaleLocator Name=RelatedProjects}"
                                 TextTrimming="CharacterEllipsis" />
-                            <ScrollViewer
-                                x:Name="LinkScrollViewer"
+                            <ListView
+                                x:Name="LinkView"
                                 Grid.Row="1"
-                                HorizontalScrollBarVisibility="Hidden"
-                                HorizontalScrollMode="Disabled">
-                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.LinkCollection, Mode=OneWay}">
-                                    <muxc:ItemsRepeater.Layout>
-                                        <muxc:StackLayout Spacing="4" />
-                                    </muxc:ItemsRepeater.Layout>
-                                    <muxc:ItemsRepeater.ItemTemplate>
-                                        <DataTemplate>
-                                            <HyperlinkButton
-                                                HorizontalAlignment="Stretch"
-                                                HorizontalContentAlignment="Left"
-                                                Content="{Binding Key}"
-                                                NavigateUri="{Binding Value}" />
-                                        </DataTemplate>
-                                    </muxc:ItemsRepeater.ItemTemplate>
-                                </muxc:ItemsRepeater>
-                            </ScrollViewer>
+                                IsItemClickEnabled="True"
+                                ItemClick="OnLinkViewItemClickAsync"
+                                ItemsSource="{x:Bind ViewModel.LinkCollection}"
+                                SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Foreground="{ThemeResource AccentTextFillColorSecondaryBrush}" Text="{Binding Key}" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
                     </controls:CardPanel>
                 </Grid>
