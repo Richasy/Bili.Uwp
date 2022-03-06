@@ -446,7 +446,7 @@ namespace Richasy.Bili.App.Controls
             }
             else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed))
             {
-                _danmakuView.DanmakuDuration = Convert.ToInt32(2.1 - DanmakuViewModel.DanmakuSpeed) * 10;
+                _danmakuView.DanmakuDuration = Convert.ToInt32((2.1 - DanmakuViewModel.DanmakuSpeed) * 10);
             }
         }
 
