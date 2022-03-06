@@ -94,7 +94,7 @@ namespace Richasy.Bili.App.Controls
             var item = DownloadTypeComboBox.SelectedItem as ComboBoxItem;
             switch (item.Tag)
             {
-                case "Full":
+                case "Any":
                     ViewModel.OnlyVideo = false;
                     ViewModel.OnlyAudio = false;
                     ViewModel.OnlySubtitle = false;
