@@ -141,5 +141,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsSupportContinuePlay { get; set; }
+
+        /// <summary>
+        /// 是否复制截图.
+        /// </summary>
+        [Reactive]
+        public bool IsCopyScreenshot { get; set; }
+
+        /// <summary>
+        /// 是否打开截图文件.
+        /// </summary>
+        [Reactive]
+        public bool IsOpenScreenshotFile { get; set; }
     }
 }

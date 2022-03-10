@@ -425,6 +425,13 @@ namespace Richasy.Bili.Models.Enums
         AvBvId,
         SaveToPictureLibrary,
         CoverDownloaderIntroduce,
+        ScreenshotSuccess,
+        Screenshot,
+        ScreenshotSettings,
+        ScreenshotSettingsDescription,
+        ScreenshotFolder,
+        CopyToClipboardAfterScreenshot,
+        OpenFileAfterScreenshot,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
