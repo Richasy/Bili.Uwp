@@ -44,6 +44,9 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
+    <Compile Include="Controls\Settings\ScreenshotSettingSection.xaml.cs">
+      <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Toolbox\CoverDownloaderView.xaml.cs">
       <DependentUpon>CoverDownloaderView.xaml</DependentUpon>
     </Compile>
@@ -556,6 +559,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\ScreenshotSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

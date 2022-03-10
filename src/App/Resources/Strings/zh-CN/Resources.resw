@@ -329,6 +329,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
   </data>
+  <data name="CopyToClipboardAfterScreenshot" xml:space="preserve">
+    <value>截图后复制到剪切板</value>
+  </data>
   <data name="CoverDownloader" xml:space="preserve">
     <value>封面下载</value>
   </data>
@@ -817,6 +820,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="OpenDownloadPage" xml:space="preserve">
     <value>前往下载</value>
   </data>
+  <data name="OpenFileAfterScreenshot" xml:space="preserve">
+    <value>截图后打开图片</value>
+  </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>打开文件夹</value>
   </data>
@@ -1107,6 +1113,21 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Score" xml:space="preserve">
     <value>评分</value>
+  </data>
+  <data name="Screenshot" xml:space="preserve">
+    <value>截图</value>
+  </data>
+  <data name="ScreenshotFolder" xml:space="preserve">
+    <value>截图文件夹</value>
+  </data>
+  <data name="ScreenshotSettings" xml:space="preserve">
+    <value>截图设置</value>
+  </data>
+  <data name="ScreenshotSettingsDescription" xml:space="preserve">
+    <value>包含对截图后行为的一些设置</value>
+  </data>
+  <data name="ScreenshotSuccess" xml:space="preserve">
+    <value>已成功截图</value>
   </data>
   <data name="ScrollDanmaku" xml:space="preserve">
     <value>滚动弹幕</value>

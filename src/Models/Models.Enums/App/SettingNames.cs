@@ -61,6 +61,9 @@ namespace Richasy.Bili.Models.Enums
         Download_UsePartPerfix,
         Download_UseQualitySuffix,
         Download_UseInteractionQuality,
+        CanSaveScreenshot,
+        OpenScreenshotAfterSave,
+        CopyScreenshotAfterSave,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

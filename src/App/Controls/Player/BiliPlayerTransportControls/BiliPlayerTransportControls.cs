@@ -82,6 +82,7 @@ namespace Richasy.Bili.App.Controls
             _liveRefreshButton = GetTemplateChild(LiveRefreshButtonName) as Button;
             _previousEpisodeButton = GetTemplateChild(PreviousEpisodeButtonName) as Button;
             _nextEpisodeButton = GetTemplateChild(NextEpisodeButtonName) as Button;
+            _screenshotButton = GetTemplateChild(ScreenshotButtonName) as Button;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
@@ -103,6 +104,7 @@ namespace Richasy.Bili.App.Controls
             _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickAsync;
             _previousEpisodeButton.Click += OnPreviousEpisodeButtonClickAsync;
             _nextEpisodeButton.Click += OnNextEpisodeButtonClickAsync;
+            _screenshotButton.Click += OnScreenshotButtonClickAsync;
 
             if (_formatListView != null)
             {
@@ -369,6 +371,9 @@ namespace Richasy.Bili.App.Controls
                 }
             }
         }
+
+        private async void OnScreenshotButtonClickAsync(object sender, RoutedEventArgs e)
+            => await ViewModel.ScreenshotAsync();
 
         private void CheckCurrentPlayerMode()
         {

@@ -764,6 +764,22 @@
                                                             </Flyout>
                                                         </Button.Flyout>
                                                     </Button>
+
+                                                    <Button
+                                                        x:Name="ScreenshotButton"
+                                                        AutomationProperties.Name="{loc:LocaleLocator Name=Screenshot}"
+                                                        Style="{StaticResource MTCButtonStyle}"
+                                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Screenshot}">
+                                                        <Button.Content>
+                                                            <icons:RegularFluentIcon FontSize="16" Symbol="Screenshot20" />
+                                                        </Button.Content>
+                                                        <Button.KeyboardAccelerators>
+                                                            <KeyboardAccelerator
+                                                                Key="S"
+                                                                IsEnabled="True"
+                                                                Modifiers="Shift" />
+                                                        </Button.KeyboardAccelerators>
+                                                    </Button>
                                                 </StackPanel>
                                                 <StackPanel
                                                     x:Name="CenterContainer"

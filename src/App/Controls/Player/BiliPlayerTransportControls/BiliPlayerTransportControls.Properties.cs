@@ -58,6 +58,7 @@ namespace Richasy.Bili.App.Controls
         private const string TempMessageBlockName = "TempMessageBlock";
         private const string PreviousEpisodeButtonName = "PreviousEpisodeButton";
         private const string NextEpisodeButtonName = "NextEpisodeButton";
+        private const string ScreenshotButtonName = "ScreenshotButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -84,6 +85,7 @@ namespace Richasy.Bili.App.Controls
         private Button _liveRefreshButton;
         private Button _previousEpisodeButton;
         private Button _nextEpisodeButton;
+        private Button _screenshotButton;
         private TextBlock _subtitleBlock;
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;

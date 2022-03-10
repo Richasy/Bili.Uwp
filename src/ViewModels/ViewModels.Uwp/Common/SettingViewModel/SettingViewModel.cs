@@ -41,6 +41,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsContinusPlay = ReadSetting(SettingNames.IsContinusPlay, true);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
             IsSupportContinuePlay = ReadSetting(SettingNames.SupportContinuePlay, true);
+            IsCopyScreenshot = ReadSetting(SettingNames.CopyScreenshotAfterSave, true);
+            IsOpenScreenshotFile = ReadSetting(SettingNames.OpenScreenshotAfterSave, false);
             PreferCodecInit();
             DoubleClickInit();
             PlayerModeInit();
@@ -96,6 +98,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(IsSupportContinuePlay):
                     WriteSetting(SettingNames.SupportContinuePlay, IsSupportContinuePlay);
+                    break;
+                case nameof(IsCopyScreenshot):
+                    WriteSetting(SettingNames.CopyScreenshotAfterSave, IsCopyScreenshot);
+                    break;
+                case nameof(IsOpenScreenshotFile):
+                    WriteSetting(SettingNames.OpenScreenshotAfterSave, IsOpenScreenshotFile);
                     break;
                 default:
                     break;

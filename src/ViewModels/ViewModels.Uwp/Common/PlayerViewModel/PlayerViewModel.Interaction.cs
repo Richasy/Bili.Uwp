@@ -4,8 +4,14 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Graphics.Canvas;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.System;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -257,6 +263,48 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             _isInteractionChanging = false;
+        }
+
+        /// <summary>
+        /// 截图.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ScreenshotAsync()
+        {
+            if (_currentVideoPlayer != null
+                && _currentVideoPlayer.PlaybackSession != null
+                && _currentPlaybackItem != null)
+            {
+                var rendertarget = new CanvasRenderTarget(
+                    CanvasDevice.GetSharedDevice(),
+                    _currentVideoPlayer.PlaybackSession.NaturalVideoWidth,
+                    _currentVideoPlayer.PlaybackSession.NaturalVideoHeight,
+                    96);
+                _currentVideoPlayer.CopyFrameToVideoSurface(rendertarget);
+
+                var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync(AppConstants.ScreenshotFolderName, CreationCollisionOption.OpenIfExists);
+                var file = await folder.CreateFileAsync(Guid.NewGuid().ToString("N") + ".png", CreationCollisionOption.OpenIfExists);
+                using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
+                }
+
+                AppViewModel.Instance.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
+
+                var shouldCopy = _settingsToolkit.ReadLocalSetting(SettingNames.CopyScreenshotAfterSave, true);
+                if (shouldCopy)
+                {
+                    var dataPackage = new DataPackage();
+                    dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromFile(file));
+                    Clipboard.SetContent(dataPackage);
+                }
+
+                var shouldOpenFile = _settingsToolkit.ReadLocalSetting(SettingNames.OpenScreenshotAfterSave, false);
+                if (shouldOpenFile)
+                {
+                    await Launcher.LaunchFileAsync(file).AsTask();
+                }
+            }
         }
 
         private long GetAid()
