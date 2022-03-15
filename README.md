@@ -36,7 +36,7 @@
 
 ## 📃 文档
 
-所有关于 `哔哩` 的文档，包括架构、使用说明等，都放在仓库的 [Wiki](https://github.com/Richasy/Bili.Uwp/wiki) 中，如果你发现有文档缺失或错误，请提交 [Issue](https://github.com/Richasy/Bili.Uwp/issue/new/choose) 说明错漏的内容。
+所有关于 `哔哩` 的文档，包括架构、使用说明等，都放在仓库的 [Wiki](https://github.com/Richasy/Bili.Uwp/wiki) 中，如果你发现有文档缺失或错误，请提交 [Issue](https://github.com/Richasy/Bili.Uwp/issues/new/choose) 说明错漏的内容。
 
 ## 🚀 协作
 
