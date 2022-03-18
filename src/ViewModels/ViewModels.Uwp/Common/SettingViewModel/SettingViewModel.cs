@@ -154,6 +154,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     PreferCodec.H264,
                     PreferCodec.H265,
+                    PreferCodec.Av1,
                 };
             }
 

@@ -21,5 +21,10 @@ namespace Richasy.Bili.Models.Enums
         /// FLV.
         /// </summary>
         Flv,
+
+        /// <summary>
+        /// AV1.
+        /// </summary>
+        Av1,
     }
 }

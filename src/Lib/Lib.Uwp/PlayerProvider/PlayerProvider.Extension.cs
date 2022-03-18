@@ -38,7 +38,7 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Fnver, "0" },
                 { Query.Cid, cid.ToString() },
                 { Query.Fourk, "1" },
-                { Query.Fnval, "16" },
+                { Query.Fnval, "4048" },
                 { Query.Qn, "64" },
                 { Query.OType, "json" },
             };
