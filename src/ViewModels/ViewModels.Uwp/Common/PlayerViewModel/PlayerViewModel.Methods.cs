@@ -592,13 +592,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private int GetPreferCodecId()
+        private string GetPreferCodecId()
         {
-            var id = 7;
+            var id = "avc";
             switch (PreferCodec)
             {
                 case PreferCodec.H265:
-                    id = 12;
+                    id = "hev";
+                    break;
+                case PreferCodec.Av1:
+                    id = "av01";
                     break;
                 default:
                     break;

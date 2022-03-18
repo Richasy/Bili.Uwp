@@ -434,7 +434,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
                 else
                 {
-                    var tempVideo = conditionStreams.Where(p => p.CodecId == preferCodecId).FirstOrDefault();
+                    var tempVideo = conditionStreams.Where(p => p.Codecs.Contains(preferCodecId)).FirstOrDefault(p => p.Id == formatId);
                     if (tempVideo == null)
                     {
                         tempVideo = conditionStreams.First();

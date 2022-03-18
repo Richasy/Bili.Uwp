@@ -183,6 +183,9 @@
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
+  <data name="Av1" xml:space="preserve">
+    <value>AV1</value>
+  </data>
   <data name="AvBvConverter" xml:space="preserve">
     <value>AV/BV 互转</value>
   </data>
@@ -920,7 +923,7 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>解码器偏好</value>
   </data>
   <data name="PreferCodecDescription" xml:space="preserve">
-    <value>优先选择该编码的视频流，HEVC/H.265需要额外安装解码器</value>
+    <value>优先选择该编码的视频流，HEVC/H.265 和 AV1 需要额外安装解码器</value>
   </data>
   <data name="PreferHighQuality" xml:space="preserve">
     <value>画质优先</value>
