@@ -745,6 +745,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsNextEpisodeButtonEnabled { get; set; }
 
         /// <summary>
+        /// 最大播放倍率.
+        /// </summary>
+        [Reactive]
+        public double MaxPlaybackRate { get; set; }
+
+        /// <summary>
+        /// 播放倍率步幅.
+        /// </summary>
+        [Reactive]
+        public double PlaybackRateStep { get; set; }
+
+        /// <summary>
         /// 选项集合.
         /// </summary>
         [Reactive]

@@ -652,10 +652,10 @@
                                                                         <Slider
                                                                             x:Name="RateSlider"
                                                                             Width="200"
-                                                                            Maximum="3"
+                                                                            Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.MaxPlaybackRate, Mode=OneWay}"
                                                                             Minimum="0.5"
-                                                                            StepFrequency="0.1"
-                                                                            TickFrequency="0.1"
+                                                                            StepFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
+                                                                            TickFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
                                                                             TickPlacement="Outside"
                                                                             Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
                                                                     </StackPanel>

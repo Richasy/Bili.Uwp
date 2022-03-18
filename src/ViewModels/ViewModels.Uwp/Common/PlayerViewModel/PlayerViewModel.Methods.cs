@@ -980,5 +980,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, true);
             _settingsToolkit.WriteLocalSetting(SettingNames.ContinuePlayTitle, title);
         }
+
+        private void InitializePlaybackRateProperties()
+        {
+            var isEnhancement = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRateEnhancement, false);
+            MaxPlaybackRate = isEnhancement ? 6d : 3d;
+            PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
+            PlaybackRate = 1d;
+        }
     }
 }

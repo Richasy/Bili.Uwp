@@ -64,6 +64,7 @@ namespace Richasy.Bili.Models.Enums
         CanSaveScreenshot,
         OpenScreenshotAfterSave,
         CopyScreenshotAfterSave,
+        PlaybackRateEnhancement,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

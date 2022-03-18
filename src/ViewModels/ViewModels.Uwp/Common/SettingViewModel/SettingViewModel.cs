@@ -43,6 +43,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsSupportContinuePlay = ReadSetting(SettingNames.SupportContinuePlay, true);
             IsCopyScreenshot = ReadSetting(SettingNames.CopyScreenshotAfterSave, true);
             IsOpenScreenshotFile = ReadSetting(SettingNames.OpenScreenshotAfterSave, false);
+            PlaybackRateEnhancement = ReadSetting(SettingNames.PlaybackRateEnhancement, false);
             PreferCodecInit();
             DoubleClickInit();
             PlayerModeInit();
@@ -104,6 +105,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(IsOpenScreenshotFile):
                     WriteSetting(SettingNames.OpenScreenshotAfterSave, IsOpenScreenshotFile);
+                    break;
+                case nameof(PlaybackRateEnhancement):
+                    WriteSetting(SettingNames.PlaybackRateEnhancement, PlaybackRateEnhancement);
                     break;
                 default:
                     break;
