@@ -128,6 +128,21 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
+                            Title="{loc:LocaleLocator Name=PlaybackRateEnhancement}"
+                            Description="{loc:LocaleLocator Name=PlaybackRateEnhancementDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.PlaybackRateEnhancement, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
                             Title="{loc:LocaleLocator Name=DoubleClickBehavior}"
                             Description="{loc:LocaleLocator Name=DoubleClickBehaviorDescription}"
                             IconVisibility="Collapsed"

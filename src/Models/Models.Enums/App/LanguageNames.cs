@@ -433,6 +433,8 @@ namespace Richasy.Bili.Models.Enums
         CopyToClipboardAfterScreenshot,
         OpenFileAfterScreenshot,
         Av1,
+        PlaybackRateEnhancement,
+        PlaybackRateEnhancementDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -131,6 +131,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public double SingleFastForwardAndRewindSpan { get; set; }
 
         /// <summary>
+        /// 是否开启播放速率增强.
+        /// </summary>
+        [Reactive]
+        public bool PlaybackRateEnhancement { get; set; }
+
+        /// <summary>
         /// 应用版本.
         /// </summary>
         [Reactive]

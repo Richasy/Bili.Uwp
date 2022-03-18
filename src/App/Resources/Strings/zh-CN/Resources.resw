@@ -883,6 +883,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="PlaybackRate" xml:space="preserve">
     <value>播放速率</value>
   </data>
+  <data name="PlaybackRateEnhancement" xml:space="preserve">
+    <value>播放速率增强 (实验)</value>
+  </data>
+  <data name="PlaybackRateEnhancementDescription" xml:space="preserve">
+    <value>开启后，播放速率最高支持6倍速，步幅增加为0.2，但较高的速率可能导致视频卡帧，请谨慎调整</value>
+  </data>
   <data name="PlayCount" xml:space="preserve">
     <value>播放量</value>
   </data>

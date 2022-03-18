@@ -208,6 +208,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsDetailCanLoaded = true;
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
+            InitializePlaybackRateProperties();
 
             if (!isReleated)
             {
