@@ -899,6 +899,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                             await ChangePgcEpisodeAsync(episode.Data.Id);
                         }
                     }
+                    else
+                    {
+                        PlayerDisplayMode = PlayerDisplayMode.Default;
+                    }
                 }
                 else
                 {
@@ -911,6 +915,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                         {
                             await ChangeVideoPartAsync(part.Data.Page.Cid);
                         }
+                    }
+                    else
+                    {
+                        PlayerDisplayMode = PlayerDisplayMode.Default;
                     }
                 }
             });
