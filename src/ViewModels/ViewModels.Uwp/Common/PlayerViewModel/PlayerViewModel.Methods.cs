@@ -224,7 +224,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             Title = _videoDetail.Arc.Title;
-            Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToString("yy/MM/dd HH:mm");
+            Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToLocalTime().ToString("yy/MM/dd HH:mm");
             Description = _videoDetail.Arc.Desc;
             AvId = _videoDetail.Arc.Aid.ToString();
             BvId = _videoDetail.Bvid;
