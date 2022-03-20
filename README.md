@@ -20,9 +20,17 @@
 
 ## 🙌 简单的开始
 
+> **商店版本** 和 **侧加载版本** 可以共存
+
+### 从商店安装
+
+将链接 `ms-windows-store://pdp/?productid=9mvn4nslt150` 复制到浏览器地址栏打开，从 Microsoft Store 下载。
+
+商店版本仅支持 Windows 11 及以上的系统，更新频率为每月一次（如果当月有更新的话），时间是月底。
+
 ### 侧加载 (Sideload)
 
-如果你想本地安装哔哩，请打开右侧的 [Release](https://github.com/Richasy/Bili.Uwp/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
+如果你想本地安装哔哩，或者尝试当月的最新功能。请打开右侧的 [Release](https://github.com/Richasy/Bili.Uwp/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
 然后打开 [系统设置](ms-settings:developers)，打开 `开发者模式` ，并等待系统安装一些必要的扩展项。
 
