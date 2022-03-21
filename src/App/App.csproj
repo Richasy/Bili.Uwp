@@ -37,6 +37,7 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
     <Compile Include="Controls\App\TipPopup.xaml.cs">
       <DependentUpon>TipPopup.xaml</DependentUpon>
     </Compile>
@@ -161,9 +162,6 @@
     <Compile Include="Controls\App\BubbleView\Bubble.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
-    <Compile Include="Controls\App\CommonImageEx.xaml.cs">
-      <DependentUpon>CommonImageEx.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Danmaku\DanmakuBox.xaml.cs">
       <DependentUpon>DanmakuBox.xaml</DependentUpon>
     </Compile>
@@ -549,6 +547,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\App\CommonImageEx\CommonImageEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\App\IconTextBlock\IconTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -718,10 +720,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\BubbleView\BubbleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\App\CommonImageEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

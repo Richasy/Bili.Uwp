@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using HN.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -7,9 +8,9 @@ using Windows.UI.Xaml.Media;
 namespace Richasy.Bili.App.Controls
 {
     /// <summary>
-    /// 共用ImageEx.
+    /// 通用图片扩展.
     /// </summary>
-    public sealed partial class CommonImageEx : UserControl
+    public sealed class CommonImageEx : Control
     {
         /// <summary>
         /// <see cref="ImageUrl"/>的依赖属性.
@@ -29,12 +30,15 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty RetryCountProperty =
             DependencyProperty.Register(nameof(RetryCount), typeof(int), typeof(CommonImageEx), new PropertyMetadata(2));
 
+        private ImageEx _image;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
         /// </summary>
         public CommonImageEx()
         {
-            this.InitializeComponent();
+            DefaultStyleKey = typeof(CommonImageEx);
+            this.Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -64,10 +68,26 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(RetryCountProperty, value); }
         }
 
+        /// <inheritdoc/>
+        protected override void OnApplyTemplate()
+            => _image = GetTemplateChild("Image") as ImageEx;
+
         private static void OnImageUrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as CommonImageEx;
-            instance.CoverImage.Source = e.NewValue;
+
+            if (instance._image != null)
+            {
+                instance._image.Source = e.NewValue;
+            }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_image != null && !string.IsNullOrEmpty(ImageUrl))
+            {
+                _image.Source = ImageUrl;
+            }
         }
     }
 }

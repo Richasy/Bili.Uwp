@@ -12,5 +12,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Common/EmotiTextBlock/EmotiTextBlock.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Common/VerticalRepeaterView/VerticalRepeaterView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
