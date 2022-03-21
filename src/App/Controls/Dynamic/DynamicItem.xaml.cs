@@ -62,14 +62,9 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         public Size GetHolderSize()
         {
-            if (Orientation == Orientation.Horizontal)
-            {
-                return new Size(double.PositiveInfinity, 180);
-            }
-            else
-            {
-                return new Size(320, 248);
-            }
+            return Orientation == Orientation.Horizontal
+                ? new Size(double.PositiveInfinity, 180)
+                : new Size(320, 248);
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -143,21 +138,20 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnCardClick(object sender, RoutedEventArgs e)
-        {
-            OpenPlayer();
-        }
+            => OpenPlayer();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            CheckOrientation();
-        }
+            => CheckOrientation();
 
         private void CheckOrientation()
         {
-            var child = VisualTreeHelper.GetChild(MainContentPresenter, 0);
-            if (child is IDynamicLayoutItem item)
+            if (VisualTreeHelper.GetChildrenCount(MainContentPresenter) > 0)
             {
-                item.Orientation = Orientation;
+                var child = VisualTreeHelper.GetChild(MainContentPresenter, 0);
+                if (child is IDynamicLayoutItem item)
+                {
+                    item.Orientation = Orientation;
+                }
             }
         }
 

@@ -44,6 +44,7 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
+    <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Settings\ScreenshotSettingSection.xaml.cs">
       <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
     </Compile>
@@ -311,15 +312,13 @@
     <Compile Include="Controls\Common\VideoItem.xaml.cs">
       <DependentUpon>VideoItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\VerticalRepeaterView.xaml.cs">
-      <DependentUpon>VerticalRepeaterView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Favorite\VideoFavoritePanel.xaml.cs">
       <DependentUpon>VideoFavoritePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
     <Compile Include="Pages\Overlay\FansPage.xaml.cs">
@@ -559,6 +558,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -903,10 +906,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\VideoItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
