@@ -4,7 +4,6 @@ using System;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -25,8 +24,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public FansPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

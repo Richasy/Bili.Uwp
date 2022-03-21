@@ -26,8 +26,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public AnimePage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>
@@ -69,13 +69,12 @@ namespace Richasy.Bili.App.Pages
                 await ViewModel.InitializeRequestAsync();
             }
 
+            ViewModel.IsShowMyFavoriteButton = AccountViewModel.Instance.Status == AccountViewModelStatus.Login;
             CheckCurrentTabAsync(true);
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await RefreshAsync();
-        }
+            => await RefreshAsync();
 
         private async void CheckCurrentTabAsync(bool needDelay = false)
         {
@@ -106,18 +105,28 @@ namespace Richasy.Bili.App.Pages
         }
 
         private void OnIndexButtonClick(object sender, RoutedEventArgs e)
-        {
-            AppViewModel.Instance.SetOverlayContentId(PageIds.PgcIndex, ViewModel);
-        }
+            => AppViewModel.Instance.SetOverlayContentId(PageIds.PgcIndex, ViewModel);
 
         private void OnTimeChartButtonClick(object sender, RoutedEventArgs e)
-        {
-            AppViewModel.Instance.SetOverlayContentId(PageIds.TimeLine, ViewModel);
-        }
+            => AppViewModel.Instance.SetOverlayContentId(PageIds.TimeLine, ViewModel);
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+            => await ViewModel.CurrentTab.DeltaPartitionRequestAsync();
+
+        private async void OnMyFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await ViewModel.CurrentTab.DeltaPartitionRequestAsync();
+            var accVM = AccountViewModel.Instance;
+
+            if (accVM.Status == AccountViewModelStatus.Login)
+            {
+                FavoriteViewModel.Instance.SetUser(accVM.Mid.Value, accVM.DisplayName);
+                FavoriteViewModel.Instance.CurrentType = Models.Enums.App.FavoriteType.Anime;
+                AppViewModel.Instance.SetOverlayContentId(PageIds.Favorite);
+            }
+            else
+            {
+                await accVM.TrySignInAsync();
+            }
         }
     }
 }

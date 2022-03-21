@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public DanmakuSendOptions()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

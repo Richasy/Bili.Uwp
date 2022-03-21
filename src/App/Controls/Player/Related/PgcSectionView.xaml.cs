@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public PgcSectionView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnEpisodeItemClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

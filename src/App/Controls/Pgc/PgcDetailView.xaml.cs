@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PgcDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public BannerView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

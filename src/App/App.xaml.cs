@@ -29,9 +29,9 @@ namespace Richasy.Bili.App
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
-            this.UnhandledException += this.OnUnhandledException;
+            InitializeComponent();
+            Suspending += OnSuspending;
+            UnhandledException += OnUnhandledException;
             _ = AppViewModel.Instance;
             ServiceLocator.Instance.GetService<IAppToolkit>()
                                    .InitializeTheme();
@@ -59,7 +59,7 @@ namespace Richasy.Bili.App
         /// <param name="e">Detailed information about the start request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            this.OnLaunchedOrActivated(e);
+            OnLaunchedOrActivated(e);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Richasy.Bili.App
         /// <param name="args">Detailed information about the active request and process.</param>
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            this.OnLaunchedOrActivated(args);
+            OnLaunchedOrActivated(args);
         }
 
         private void OnLaunchedOrActivated(IActivatedEventArgs e)
@@ -90,7 +90,7 @@ namespace Richasy.Bili.App
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += this.OnNavigationFailed;
+                rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

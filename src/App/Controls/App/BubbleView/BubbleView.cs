@@ -33,10 +33,10 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public BubbleView()
         {
-            this.DefaultStyleKey = typeof(BubbleView);
+            DefaultStyleKey = typeof(BubbleView);
             _foregroundPropertyChangedToken = RegisterPropertyChangedCallback(ForegroundProperty, ForegroundPropertyChanged);
-            this.Unloaded += OnBubbleViewUnloaded;
-            this.Loaded += OnBubbleViewLoaded;
+            Unloaded += OnBubbleViewUnloaded;
+            Loaded += OnBubbleViewLoaded;
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            if (_foregroundColor != Colors.Transparent && this.ActualWidth > 0 && this.ActualHeight > 0)
+            if (_foregroundColor != Colors.Transparent && ActualWidth > 0 && ActualHeight > 0)
             {
                 var count = 20;
                 _bubbles = new List<Bubble>();
@@ -182,7 +182,7 @@ namespace Richasy.Bili.App.Controls
                         _compositor,
                         _canvasDevice,
                         _graphicsDevice,
-                        new Size(this.ActualWidth, this.ActualHeight),
+                        new Size(ActualWidth, ActualHeight),
                         _foregroundColor,
                         duration,
                         true);
@@ -196,7 +196,7 @@ namespace Richasy.Bili.App.Controls
                         _compositor,
                         _canvasDevice,
                         _graphicsDevice,
-                        new Size(this.ActualWidth, this.ActualHeight),
+                        new Size(ActualWidth, ActualHeight),
                         _foregroundColor,
                         duration,
                         false);

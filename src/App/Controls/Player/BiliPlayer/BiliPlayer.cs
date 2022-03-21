@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public BiliPlayer()
         {
-            this.DefaultStyleKey = typeof(BiliPlayer);
+            DefaultStyleKey = typeof(BiliPlayer);
         }
 
         /// <inheritdoc/>

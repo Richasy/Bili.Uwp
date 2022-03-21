@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public AccountPanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

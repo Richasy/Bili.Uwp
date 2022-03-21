@@ -103,9 +103,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public VideoItem()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
-            this.AppViewModel = AppViewModel.Instance;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            AppViewModel = AppViewModel.Instance;
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Richasy.Bili.App.Controls
                     break;
                 case Orientation.Horizontal:
                     VisualStateManager.GoToState(this, nameof(HorizontalState), false);
-                    CoverContainer.Width = this.HorizontalCoverWidth;
+                    CoverContainer.Width = HorizontalCoverWidth;
                     break;
                 default:
                     break;
@@ -285,7 +285,7 @@ namespace Richasy.Bili.App.Controls
         private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
             AppViewModel.OpenPlayer(ViewModel);
-            ItemClick?.Invoke(this, this.ViewModel);
+            ItemClick?.Invoke(this, ViewModel);
         }
 
         private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)

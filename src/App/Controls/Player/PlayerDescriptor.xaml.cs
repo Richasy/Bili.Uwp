@@ -16,7 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PlayerDescriptor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

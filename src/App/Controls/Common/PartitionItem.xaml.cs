@@ -25,7 +25,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PartitionItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Richasy.Bili.App.Controls
         private void OnItemClick(object sender, RoutedEventArgs e)
         {
             var animationService = ConnectedAnimationService.GetForCurrentView();
-            animationService.PrepareToAnimate("PartitionAnimate", this.ContentContainer);
+            animationService.PrepareToAnimate("PartitionAnimate", ContentContainer);
             ItemClick?.Invoke(this, Data);
         }
     }

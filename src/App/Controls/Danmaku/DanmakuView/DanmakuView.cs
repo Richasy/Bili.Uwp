@@ -199,7 +199,7 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            SetRows(this.ActualHeight);
+            SetRows(ActualHeight);
             foreach (var item in _scrollContainer.Children)
             {
                 SetItemZoom(item);

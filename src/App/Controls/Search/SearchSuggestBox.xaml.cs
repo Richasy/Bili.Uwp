@@ -24,8 +24,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchSuggestBox()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchArticleView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnArticleRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

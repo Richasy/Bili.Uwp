@@ -24,9 +24,9 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public FavoritePage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
-            this.Unloaded += OnUnloaded;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
+            Unloaded += OnUnloaded;
             AnimePanel.ViewModel = FavoriteAnimeViewModel.Instance;
             CinemaPanel.ViewModel = FavoriteCinemaViewModel.Instance;
         }
@@ -41,9 +41,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
-        }
+            => ViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
@@ -63,7 +61,6 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private async Task CheckFavoriteTypeAsync()
         {
-            var canInit = false;
             VideoPanel.Visibility = ViewModel.CurrentType == FavoriteType.Video ? Visibility.Visible : Visibility.Collapsed;
             AnimePanel.Visibility = ViewModel.CurrentType == FavoriteType.Anime ? Visibility.Visible : Visibility.Collapsed;
             CinemaPanel.Visibility = ViewModel.CurrentType == FavoriteType.Cinema ? Visibility.Visible : Visibility.Collapsed;
@@ -72,8 +69,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 case FavoriteType.Video:
                     VideoItem.IsSelected = true;
-                    canInit = !ViewModel.IsVideoRequested;
-                    if (canInit)
+                    if (!ViewModel.IsVideoRequested)
                     {
                         await ViewModel.InitializeRequestAsync(FavoriteType.Video);
                     }
@@ -81,8 +77,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                     break;
                 case FavoriteType.Anime:
                     AnimeItem.IsSelected = true;
-                    canInit = !FavoriteAnimeViewModel.Instance.IsRequested;
-                    if (canInit)
+                    if (!FavoriteAnimeViewModel.Instance.IsRequested)
                     {
                         await FavoriteAnimeViewModel.Instance.InitializeRequestAsync();
                     }
@@ -90,8 +85,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                     break;
                 case FavoriteType.Cinema:
                     CinemaItem.IsSelected = true;
-                    canInit = !FavoriteCinemaViewModel.Instance.IsRequested;
-                    if (canInit)
+                    if (!FavoriteCinemaViewModel.Instance.IsRequested)
                     {
                         await FavoriteCinemaViewModel.Instance.InitializeRequestAsync();
                     }
@@ -99,8 +93,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                     break;
                 case FavoriteType.Article:
                     ArticleItem.IsSelected = true;
-                    canInit = !FavoriteArticleViewModel.Instance.IsRequested;
-                    if (canInit)
+                    if (!FavoriteArticleViewModel.Instance.IsRequested)
                     {
                         await FavoriteArticleViewModel.Instance.InitializeRequestAsync();
                     }

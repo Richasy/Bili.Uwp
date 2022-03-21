@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public RelatedVideoView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

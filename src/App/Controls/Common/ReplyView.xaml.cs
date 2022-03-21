@@ -35,7 +35,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ReplyView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public event EventHandler<ReplyInfo> RequestDetailView;

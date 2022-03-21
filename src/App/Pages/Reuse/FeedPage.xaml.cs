@@ -25,8 +25,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public FeedPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

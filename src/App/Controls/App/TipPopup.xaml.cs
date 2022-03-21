@@ -25,7 +25,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public TipPopup()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

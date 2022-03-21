@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public TwoLineButton()
         {
-            this.DefaultStyleKey = typeof(TwoLineButton);
+            DefaultStyleKey = typeof(TwoLineButton);
         }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ReplyModuleView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             MainView.ViewModel = ReplyModuleViewModel.Instance;
             DetailView.ViewModel = ReplyDetailViewModel.Instance;
         }

@@ -11,14 +11,14 @@ namespace Richasy.Bili.App.Controls
     /// </summary>
     public class CardPanelAutomationPeer : ToggleButtonAutomationPeer
     {
-        private readonly CardPanel owner;
+        private readonly CardPanel _owner;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CardPanelAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">对象.</param>
         public CardPanelAutomationPeer(CardPanel owner)
-            : base(owner) => this.owner = owner;
+            : base(owner) => _owner = owner;
 
         /// <inheritdoc/>
         protected override AutomationControlType GetAutomationControlTypeCore()
@@ -29,12 +29,12 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override int GetPositionInSetCore()
         {
-            var element = this.owner as FrameworkElement;
-            var parent = this.owner.Parent;
+            var element = _owner as FrameworkElement;
+            var parent = _owner.Parent;
             if (!(parent is ItemsRepeater) && parent != null)
             {
                 parent = (parent as FrameworkElement).Parent;
-                element = this.owner.Parent as FrameworkElement;
+                element = _owner.Parent as FrameworkElement;
             }
 
             return (parent as ItemsRepeater)?.GetElementIndex(element) + 1
@@ -44,7 +44,7 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override int GetSizeOfSetCore()
         {
-            var parent = this.owner.Parent;
+            var parent = _owner.Parent;
             if (!(parent is ItemsRepeater) && parent != null)
             {
                 parent = (parent as FrameworkElement).Parent;

@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchVideoView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnVideoRefreshButtonClickAsync(object sender, RoutedEventArgs e)

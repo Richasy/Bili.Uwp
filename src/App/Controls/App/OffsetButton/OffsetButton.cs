@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public OffsetButton()
         {
-            this.DefaultStyleKey = typeof(OffsetButton);
+            DefaultStyleKey = typeof(OffsetButton);
         }
 
         /// <summary>

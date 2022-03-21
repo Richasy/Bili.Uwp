@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public PlayerReplyView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

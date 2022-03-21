@@ -22,7 +22,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PgcFavoritePanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

@@ -153,14 +153,14 @@ namespace Richasy.Bili.App.Controls
 
             if (toX < 1 && toY < 1)
             {
-                toX = this.ActualWidth * toX;
-                toY = this.ActualHeight * toY;
+                toX = ActualWidth * toX;
+                toY = ActualHeight * toY;
             }
 
             if (x < 1 && y < 1)
             {
-                x = this.ActualWidth * x;
-                y = this.ActualHeight * y;
+                x = ActualWidth * x;
+                y = ActualHeight * y;
             }
 
             if (data.Length >= 7)

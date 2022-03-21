@@ -57,5 +57,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string TimeLineErrorText { get; set; }
+
+        /// <summary>
+        /// 是否显示我的追番按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowMyFavoriteButton { get; set; }
     }
 }

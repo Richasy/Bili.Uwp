@@ -24,8 +24,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public RecommendPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Richasy.Bili.App.Pages
         {
             if (!ViewModel.VideoCollection.Any())
             {
-                await this.ViewModel.RequestDataAsync();
-                this.FindName(nameof(VideoView));
+                await ViewModel.RequestDataAsync();
+                FindName(nameof(VideoView));
             }
         }
 

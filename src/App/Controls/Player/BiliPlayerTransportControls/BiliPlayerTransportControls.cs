@@ -845,7 +845,7 @@ namespace Richasy.Bili.App.Controls
             if (player.PlaybackSession != null && player.PlaybackSession.NaturalDuration.TotalSeconds > 0)
             {
                 // 获取单位像素对应的时长
-                var unit = player.PlaybackSession.NaturalDuration.TotalSeconds / this.ActualWidth;
+                var unit = player.PlaybackSession.NaturalDuration.TotalSeconds / ActualWidth;
                 _manipulationUnitLength = unit / 1.5;
             }
         }

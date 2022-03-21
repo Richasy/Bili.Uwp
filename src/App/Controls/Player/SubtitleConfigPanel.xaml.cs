@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SubtitleConfigPanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnSubtitleIndexClickAsync(object sender, RoutedEventArgs e)

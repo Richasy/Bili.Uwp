@@ -22,8 +22,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public QuestionPanel()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

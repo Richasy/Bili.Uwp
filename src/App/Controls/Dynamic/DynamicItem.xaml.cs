@@ -37,7 +37,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public DynamicItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Loaded += OnLoaded;
         }
 

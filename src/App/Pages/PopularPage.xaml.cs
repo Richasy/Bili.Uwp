@@ -22,8 +22,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public PopularPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>
@@ -37,15 +37,15 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            if (!this.ViewModel.VideoCollection.Any())
+            if (!ViewModel.VideoCollection.Any())
             {
-                await this.ViewModel.RequestDataAsync();
+                await ViewModel.RequestDataAsync();
             }
         }
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
-            await this.ViewModel.RequestDataAsync();
+            await ViewModel.RequestDataAsync();
         }
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)

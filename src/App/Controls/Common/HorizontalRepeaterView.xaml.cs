@@ -59,9 +59,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public HorizontalRepeaterView()
         {
-            this.InitializeComponent();
-            this.SizeChanged += OnSizeChanged;
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            SizeChanged += OnSizeChanged;
+            Loaded += OnLoaded;
         }
 
         /// <summary>

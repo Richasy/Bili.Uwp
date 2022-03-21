@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public LiveMessageView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel.RequestLiveMessageScrollToBottom += OnRequestLiveMessageScrollToBottomAsync;
         }
 

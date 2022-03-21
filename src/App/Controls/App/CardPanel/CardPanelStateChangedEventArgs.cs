@@ -16,8 +16,8 @@ namespace Richasy.Bili.App.Controls
         /// <param name="isPressed">是否处于按压状态.</param>
         public CardPanelStateChangedEventArgs(bool isPointerOver, bool isPressed)
         {
-            this.IsPointerOver = isPointerOver;
-            this.IsPressed = isPressed;
+            IsPointerOver = isPointerOver;
+            IsPressed = isPressed;
         }
 
         /// <summary>

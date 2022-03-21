@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         protected UserView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

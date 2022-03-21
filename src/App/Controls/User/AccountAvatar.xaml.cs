@@ -27,9 +27,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public AccountAvatar()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
-            this.Unloaded += OnUnloaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>

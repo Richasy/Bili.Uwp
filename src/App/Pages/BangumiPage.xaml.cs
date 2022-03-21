@@ -19,8 +19,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public BangumiPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         /// <inheritdoc/>

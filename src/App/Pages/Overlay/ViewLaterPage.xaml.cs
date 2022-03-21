@@ -27,8 +27,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public ViewLaterPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>
