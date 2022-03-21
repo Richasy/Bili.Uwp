@@ -537,16 +537,17 @@
                                                         x:Name="ToggleDanmakuBarVisibilityButton"
                                                         AutomationProperties.Name="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}"
                                                         Style="{StaticResource MTCButtonStyle}"
+                                                        BorderThickness="0,0,1,0"
                                                         ToolTipService.ToolTip="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}">
                                                         <Button.Content>
                                                             <Grid>
                                                                 <icons:RegularFluentIcon
                                                                     FontSize="16"
-                                                                    Symbol="ChevronDown16"
+                                                                    Symbol="TextboxMore24"
                                                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDanmakuBar, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                                                 <icons:RegularFluentIcon
                                                                     FontSize="16"
-                                                                    Symbol="ChevronUp16"
+                                                                    Symbol="ArrowCollapseAll20"
                                                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDanmakuBar, Converter={StaticResource BoolToVisibilityConverter}}" />
                                                             </Grid>
                                                         </Button.Content>
