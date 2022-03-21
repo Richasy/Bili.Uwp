@@ -171,7 +171,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 var lastId = _pgcDetail.UserStatus.Progress.LastEpisodeId;
 
-                if (EpisodeCollection.Any(p => p.Data.Id == id))
+                if (EpisodeCollection.Any(p => p.Data.Id == lastId))
                 {
                     id = lastId;
                     _initializeProgress = TimeSpan.FromSeconds(_pgcDetail.UserStatus.Progress.LastTime);
