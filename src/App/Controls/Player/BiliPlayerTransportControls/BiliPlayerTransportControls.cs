@@ -559,7 +559,7 @@ namespace Richasy.Bili.App.Controls
             if (_focusTimer == null)
             {
                 _focusTimer = new DispatcherTimer();
-                _focusTimer.Interval = TimeSpan.FromSeconds(2);
+                _focusTimer.Interval = TimeSpan.FromSeconds(5);
                 _focusTimer.Tick += OnFocusTimerTick;
             }
         }
