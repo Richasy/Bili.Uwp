@@ -994,7 +994,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             var isEnhancement = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRateEnhancement, false);
             MaxPlaybackRate = isEnhancement ? 6d : 3d;
             PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
-            PlaybackRate = 1d;
+
+            var isGlobal = _settingsToolkit.ReadLocalSetting(SettingNames.GlobalPlaybackRate, false);
+            if (!isGlobal)
+            {
+                PlaybackRate = 1d;
+            }
         }
     }
 }

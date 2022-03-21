@@ -435,6 +435,8 @@ namespace Richasy.Bili.Models.Enums
         Av1,
         PlaybackRateEnhancement,
         PlaybackRateEnhancementDescription,
+        GlobalPlaybackRate,
+        GlobalPlaybackRateDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
