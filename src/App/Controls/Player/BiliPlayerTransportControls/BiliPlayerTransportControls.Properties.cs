@@ -65,6 +65,7 @@ namespace Richasy.Bili.App.Controls
         private DispatcherTimer _danmakuTimer;
         private DispatcherTimer _cursorTimer;
         private DispatcherTimer _normalTimer;
+        private DispatcherTimer _focusTimer;
         private DanmakuView _danmakuView;
         private ToggleButton _fullWindowPlayModeButton;
         private ToggleButton _fullScreenPlayModeButton;
