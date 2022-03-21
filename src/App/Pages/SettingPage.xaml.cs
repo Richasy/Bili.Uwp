@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public SettingPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = SettingViewModel.Instance;
         }
 

@@ -24,8 +24,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public FollowsPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

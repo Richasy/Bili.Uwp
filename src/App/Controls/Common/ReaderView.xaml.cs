@@ -32,7 +32,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         protected ReaderView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

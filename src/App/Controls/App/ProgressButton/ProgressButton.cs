@@ -71,9 +71,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ProgressButton()
         {
-            this.DefaultStyleKey = typeof(ProgressButton);
-            this.Loading += OnLoading;
-            this.Unloaded += OnUnloaded;
+            DefaultStyleKey = typeof(ProgressButton);
+            Loading += OnLoading;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public double Diameter
         {
-            get { return (double)this.GetValue(DiameterProperty); }
-            set { this.SetValue(DiameterProperty, value); }
+            get { return (double)GetValue(DiameterProperty); }
+            set { SetValue(DiameterProperty, value); }
         }
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace Richasy.Bili.App.Controls
             }
 
             _isHolding = false;
-            this.UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);
-            this.UnregisterPropertyChangedCallback(IsCheckedProperty, _isCheckedToken);
+            UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);
+            UnregisterPropertyChangedCallback(IsCheckedProperty, _isCheckedToken);
         }
 
         private void OnLoading(FrameworkElement sender, object args)
@@ -177,8 +177,8 @@ namespace Richasy.Bili.App.Controls
             }
 
             _isHolding = false;
-            _pressedToken = this.RegisterPropertyChangedCallback(IsPressedProperty, new DependencyPropertyChangedCallback(OnIsPressedChanged));
-            _isCheckedToken = this.RegisterPropertyChangedCallback(IsCheckedProperty, new DependencyPropertyChangedCallback(OnIsCheckedChanged));
+            _pressedToken = RegisterPropertyChangedCallback(IsPressedProperty, new DependencyPropertyChangedCallback(OnIsPressedChanged));
+            _isCheckedToken = RegisterPropertyChangedCallback(IsCheckedProperty, new DependencyPropertyChangedCallback(OnIsCheckedChanged));
         }
 
         private void OnTimerTick(object sender, object e)
@@ -231,7 +231,7 @@ namespace Richasy.Bili.App.Controls
             if (_currentProgressValue >= 99.9)
             {
                 _bubbleView.ShowBubbles();
-                this.IsChecked = true;
+                IsChecked = true;
                 HoldingCompleted?.Invoke(this, EventArgs.Empty);
             }
             else if (!IsPressed)

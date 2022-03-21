@@ -17,9 +17,9 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PlayerRelatedView()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
-            this.ViewModel.Loaded += OnViewModelLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            ViewModel.Loaded += OnViewModelLoaded;
         }
 
         private void OnViewModelLoaded(object sender, EventArgs e)

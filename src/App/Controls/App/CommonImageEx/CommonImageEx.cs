@@ -38,7 +38,7 @@ namespace Richasy.Bili.App.Controls
         public CommonImageEx()
         {
             DefaultStyleKey = typeof(CommonImageEx);
-            this.Loaded += OnLoaded;
+            Loaded += OnLoaded;
         }
 
         /// <summary>

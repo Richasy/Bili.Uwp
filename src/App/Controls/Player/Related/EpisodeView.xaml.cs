@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public EpisodeView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)

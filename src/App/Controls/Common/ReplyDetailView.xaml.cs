@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         protected ReplyDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

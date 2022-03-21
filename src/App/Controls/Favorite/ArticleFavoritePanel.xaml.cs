@@ -22,7 +22,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ArticleFavoritePanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

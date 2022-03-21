@@ -22,8 +22,8 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public TimeLinePage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

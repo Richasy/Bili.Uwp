@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchUserFilter()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

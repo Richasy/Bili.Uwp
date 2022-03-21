@@ -21,7 +21,7 @@ namespace Richasy.Bili.App.Controls.Dialogs
         /// </summary>
         public UpgradeDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

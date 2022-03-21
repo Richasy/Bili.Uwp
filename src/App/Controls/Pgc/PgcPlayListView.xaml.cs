@@ -22,7 +22,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PgcPlayListView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

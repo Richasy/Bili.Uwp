@@ -24,8 +24,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public PgcIndexPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

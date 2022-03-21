@@ -17,8 +17,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ThemeSettingSection()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

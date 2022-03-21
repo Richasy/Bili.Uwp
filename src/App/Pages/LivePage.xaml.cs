@@ -22,9 +22,9 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public LivePage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
-            this.SizeChanged += OnSizeChanged;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -38,18 +38,18 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            if (this.ViewModel.BannerCollection.Count == 0)
+            if (ViewModel.BannerCollection.Count == 0)
             {
                 await ViewModel.RequestDataAsync();
             }
 
-            this.FindName(nameof(FollowLiveView));
-            this.FindName(nameof(RootGrid));
+            FindName(nameof(FollowLiveView));
+            FindName(nameof(RootGrid));
 
-            this.UpdateLayout();
+            UpdateLayout();
         }
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e) => this.UpdateLayout();
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e) => UpdateLayout();
 
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {

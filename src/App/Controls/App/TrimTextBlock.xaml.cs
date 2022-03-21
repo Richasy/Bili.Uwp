@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public TrimTextBlock()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

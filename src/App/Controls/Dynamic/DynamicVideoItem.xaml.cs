@@ -28,8 +28,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public DynamicVideoItem()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         /// <summary>

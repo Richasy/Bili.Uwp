@@ -26,9 +26,9 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public PartitionDetailPage()
         {
-            this.InitializeComponent();
-            this.Loaded += this.OnLoaded;
-            this.Unloaded += this.OnUnloaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (e.Parameter != null && e.Parameter is PartitionViewModel data)
             {
-                this.ViewModel = data;
+                ViewModel = data;
                 var animationService = ConnectedAnimationService.GetForCurrentView();
                 var animate = animationService.GetAnimation("PartitionAnimate");
                 if (animate != null)
@@ -62,7 +62,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (e.SourcePageType.Name == nameof(Page))
             {
                 var animationService = ConnectedAnimationService.GetForCurrentView();
-                var animate = animationService.PrepareToAnimate("PartitionBackAnimate", this.RootContainer);
+                var animate = animationService.PrepareToAnimate("PartitionBackAnimate", RootContainer);
                 animate.Configuration = new DirectConnectedAnimationConfiguration();
             }
         }
@@ -75,7 +75,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.FindName(nameof(ContentGrid));
+            FindName(nameof(ContentGrid));
             CheckCurrentSubPartition();
         }
 

@@ -41,8 +41,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ArticleItem()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         /// <summary>

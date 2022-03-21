@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public DanmakuBox()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = DanmakuViewModel.Instance;
         }
 

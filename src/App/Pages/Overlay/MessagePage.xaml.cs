@@ -25,10 +25,10 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public MessagePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.Loaded += OnLoaded;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            Loaded += OnLoaded;
         }
 
         /// <summary>

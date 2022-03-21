@@ -20,8 +20,8 @@ namespace Richasy.Bili.App.Controls.Dialogs
         /// </summary>
         public ContinuePlayDialog()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)

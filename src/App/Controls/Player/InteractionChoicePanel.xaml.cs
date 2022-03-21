@@ -16,7 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public InteractionChoicePanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnChoiceClickAsync(object sender, RoutedEventArgs e)

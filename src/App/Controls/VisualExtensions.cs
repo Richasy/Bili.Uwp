@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Windows.UI;
 using Windows.UI.Composition;
 
 namespace Richasy.Bili.App.Controls
@@ -28,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// <param name="target">目标视图.</param>
         public static void BindCenterPoint(this Visual target)
         {
-            var exp = target.Compositor.CreateExpressionAnimation("Vector3(this.Target.Size.X / 2, this.Target.Size.Y / 2, 0f)");
+            var exp = target.Compositor.CreateExpressionAnimation("Vector3(Target.Size.X / 2, Target.Size.Y / 2, 0f)");
             target.StartAnimation("CenterPoint", exp);
         }
     }

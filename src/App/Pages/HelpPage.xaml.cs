@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public HelpPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

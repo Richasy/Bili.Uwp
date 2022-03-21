@@ -23,9 +23,9 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public RankPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
-            this.Unloaded += OnUnloaded;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -39,14 +39,14 @@ namespace Richasy.Bili.App.Pages
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             await ViewModel.InitializeAsync();
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.FindName(nameof(VideoView));
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            FindName(nameof(VideoView));
             CheckSelectedItem();
         }
 

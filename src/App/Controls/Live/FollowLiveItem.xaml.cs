@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,8 +29,8 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public FollowLiveItem()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         /// <summary>

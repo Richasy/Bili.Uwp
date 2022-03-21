@@ -23,8 +23,8 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public DynamicFeedPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>

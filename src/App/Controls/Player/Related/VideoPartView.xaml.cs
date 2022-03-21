@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls.Player.Related
         /// </summary>
         public VideoPartView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnPartItemClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

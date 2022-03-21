@@ -2,12 +2,10 @@
 
 using System;
 using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -29,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public ReplyMessageItem()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

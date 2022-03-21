@@ -22,7 +22,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public LoggerSettingSection()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnOpenLoggerFolderButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

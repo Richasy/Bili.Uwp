@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchUserView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnUserRefreshButtonClickAsync(object sender, RoutedEventArgs e)

@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
@@ -23,7 +20,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public PlayerDashboard()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnLikeButtonHoldingCompletedAsync(object sender, System.EventArgs e)

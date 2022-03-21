@@ -26,7 +26,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public DownloadOptionsPanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Initialize();
         }
 

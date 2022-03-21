@@ -23,10 +23,10 @@ namespace Richasy.Bili.App.Pages.Overlay
         /// </summary>
         public SearchPage()
         {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
+            Loaded += OnLoaded;
         }
 
         /// <summary>

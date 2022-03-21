@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public VideoFavoritePanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             _tempFavoriteList = new List<FavoriteVideoViewModel>();
         }
 

@@ -26,7 +26,7 @@ namespace Richasy.Bili.App.Controls
         /// <param name="vm">视图模型.</param>
         public FavoriteVideoView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

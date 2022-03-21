@@ -26,11 +26,11 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public RootPage()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoadedAsync;
-            this.CoreViewModel.RequestShowTip += OnRequestShowTip;
-            this.CoreViewModel.RequestBack += OnRequestBackAsync;
-            this.CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
+            InitializeComponent();
+            Loaded += OnLoadedAsync;
+            CoreViewModel.RequestShowTip += OnRequestShowTip;
+            CoreViewModel.RequestBack += OnRequestBackAsync;
+            CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
@@ -113,8 +113,8 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            this.CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            this.CoreViewModel.RequestPlay += OnRequestPlay;
+            CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
             CoreViewModel.CheckContinuePlay();
             await AccountViewModel.Instance.TrySignInAsync(true);

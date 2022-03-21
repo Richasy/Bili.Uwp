@@ -25,9 +25,9 @@ namespace Richasy.Bili.App.Pages
         /// </summary>
         public SpecialColumnPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-            this.Loaded += OnLoadedAsync;
+            Loaded += OnLoadedAsync;
         }
 
         /// <summary>
@@ -45,9 +45,9 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            if (this.ViewModel.CategoryCollection.Count == 0)
+            if (ViewModel.CategoryCollection.Count == 0)
             {
-                await this.ViewModel.RequestCategoriesAsync();
+                await ViewModel.RequestCategoriesAsync();
             }
 
             CheckCurrentTabAsync(true);
@@ -55,9 +55,9 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnArticleViewRequestLoadMoreAsync(object sender, System.EventArgs e)
         {
-            if (!this.ViewModel.CurrentCategory.IsInitializeLoading && !this.ViewModel.CurrentCategory.IsDeltaLoading)
+            if (!ViewModel.CurrentCategory.IsInitializeLoading && !ViewModel.CurrentCategory.IsDeltaLoading)
             {
-                await this.ViewModel.CurrentCategory.RequestDataAsync();
+                await ViewModel.CurrentCategory.RequestDataAsync();
             }
         }
 

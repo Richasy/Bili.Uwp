@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public StartupSettingSection()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

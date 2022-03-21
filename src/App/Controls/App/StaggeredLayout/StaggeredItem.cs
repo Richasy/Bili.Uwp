@@ -8,7 +8,7 @@ namespace Richasy.Bili.App.Controls
     {
         public StaggeredItem(int index)
         {
-            this.Index = index;
+            Index = index;
         }
 
         public double Top { get; internal set; }

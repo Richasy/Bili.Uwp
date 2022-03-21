@@ -27,7 +27,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public OverlayLoadingPanel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

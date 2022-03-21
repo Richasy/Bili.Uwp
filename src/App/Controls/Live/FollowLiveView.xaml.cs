@@ -29,7 +29,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public FollowLiveView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
             Loaded += OnLoaded;
         }

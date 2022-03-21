@@ -106,7 +106,7 @@ namespace Richasy.Bili.App.Controls
             {
                 var currentPosition = _parentScrollViewer.VerticalOffset;
                 if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
-                    this.Visibility == Visibility.Visible)
+                    Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
                 }

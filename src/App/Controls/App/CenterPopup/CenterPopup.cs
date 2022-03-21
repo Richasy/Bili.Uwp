@@ -19,7 +19,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public CenterPopup()
         {
-            this.DefaultStyleKey = typeof(CenterPopup);
+            DefaultStyleKey = typeof(CenterPopup);
         }
 
         /// <summary>

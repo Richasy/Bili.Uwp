@@ -12,7 +12,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public SearchLiveView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void OnLiveRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

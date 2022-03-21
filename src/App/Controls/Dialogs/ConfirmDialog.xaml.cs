@@ -14,7 +14,7 @@ namespace Richasy.Bili.App.Controls.Dialogs
         /// </summary>
         public ConfirmDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>

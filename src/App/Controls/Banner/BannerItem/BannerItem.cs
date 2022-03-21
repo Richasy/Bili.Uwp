@@ -4,7 +4,6 @@ using System;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -60,7 +59,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public BannerItem()
         {
-            this.DefaultStyleKey = typeof(BannerItem);
+            DefaultStyleKey = typeof(BannerItem);
         }
 
         /// <summary>
