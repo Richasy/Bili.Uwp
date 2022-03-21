@@ -537,6 +537,7 @@
                                                         x:Name="ToggleDanmakuBarVisibilityButton"
                                                         AutomationProperties.Name="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}"
                                                         Style="{StaticResource MTCButtonStyle}"
+                                                        BorderThickness="0,0,1,0"
                                                         ToolTipService.ToolTip="{loc:LocaleLocator Name=ToggleDanmakuBarVisibility}">
                                                         <Button.Content>
                                                             <Grid>
