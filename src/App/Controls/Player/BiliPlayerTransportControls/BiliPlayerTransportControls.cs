@@ -40,8 +40,10 @@ namespace Richasy.Bili.App.Controls
             InitializeDanmakuTimer();
             InitializeCursorTimer();
             InitializeNormalTimer();
+            InitializeFocusTimer();
 
             _normalTimer.Start();
+            _focusTimer.Start();
         }
 
         /// <summary>
@@ -406,6 +408,8 @@ namespace Richasy.Bili.App.Controls
                 default:
                     break;
             }
+
+            _playPauseButton.Focus(FocusState.Programmatic);
         }
 
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
@@ -510,6 +514,8 @@ namespace Richasy.Bili.App.Controls
                     _danmakuView.ResumeDanmaku();
                     Hide();
                 }
+
+                _playPauseButton.Focus(FocusState.Programmatic);
             });
         }
 
@@ -545,6 +551,16 @@ namespace Richasy.Bili.App.Controls
                 _normalTimer = new DispatcherTimer();
                 _normalTimer.Interval = TimeSpan.FromSeconds(0.5);
                 _normalTimer.Tick += OnNormalTimerTick;
+            }
+        }
+
+        private void InitializeFocusTimer()
+        {
+            if (_focusTimer == null)
+            {
+                _focusTimer = new DispatcherTimer();
+                _focusTimer.Interval = TimeSpan.FromSeconds(5);
+                _focusTimer.Tick += OnFocusTimerTick;
             }
         }
 
@@ -756,6 +772,14 @@ namespace Richasy.Bili.App.Controls
             else if (_tempMessageHoldSeconds != -1)
             {
                 _tempMessageHoldSeconds += 0.5;
+            }
+        }
+
+        private void OnFocusTimerTick(object sender, object e)
+        {
+            if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
+            {
+                _playPauseButton.Focus(FocusState.Programmatic);
             }
         }
 
