@@ -137,6 +137,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool PlaybackRateEnhancement { get; set; }
 
         /// <summary>
+        /// 是否开启全局播放速率.
+        /// </summary>
+        [Reactive]
+        public bool GlobalPlaybackRate { get; set; }
+
+        /// <summary>
         /// 应用版本.
         /// </summary>
         [Reactive]
