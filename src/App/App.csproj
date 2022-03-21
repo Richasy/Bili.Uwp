@@ -37,6 +37,7 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
     <Compile Include="Controls\App\TipPopup.xaml.cs">
       <DependentUpon>TipPopup.xaml</DependentUpon>
     </Compile>
@@ -44,6 +45,7 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
+    <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Settings\ScreenshotSettingSection.xaml.cs">
       <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
     </Compile>
@@ -160,9 +162,6 @@
     <Compile Include="Controls\App\BubbleView\Bubble.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.cs" />
     <Compile Include="Controls\App\BubbleView\BubbleView.Properties.cs" />
-    <Compile Include="Controls\App\CommonImageEx.xaml.cs">
-      <DependentUpon>CommonImageEx.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Danmaku\DanmakuBox.xaml.cs">
       <DependentUpon>DanmakuBox.xaml</DependentUpon>
     </Compile>
@@ -311,15 +310,13 @@
     <Compile Include="Controls\Common\VideoItem.xaml.cs">
       <DependentUpon>VideoItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\VerticalRepeaterView.xaml.cs">
-      <DependentUpon>VerticalRepeaterView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Favorite\VideoFavoritePanel.xaml.cs">
       <DependentUpon>VideoFavoritePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
     <Compile Include="Pages\Overlay\FansPage.xaml.cs">
@@ -550,6 +547,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\App\CommonImageEx\CommonImageEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\App\IconTextBlock\IconTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -559,6 +560,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -715,10 +720,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\BubbleView\BubbleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\App\CommonImageEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -903,10 +904,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\VideoItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
