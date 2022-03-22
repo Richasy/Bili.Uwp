@@ -309,6 +309,43 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+
+                        <!-- 用来放置隐藏按钮的容器，按钮被隐藏是因为只想用它的快捷键绑定，而不想让用户与这个按钮交互 -->
+                        <Grid Width="0" Height="0">
+                            <Button
+                                x:Name="IncreasePlayRateButton"
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F1" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="DecreasePlayRateButton"
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F2" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="IncreaseVolumeButton"
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Up" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="DecreaseVolumeButton"
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Down" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                        </Grid>
+
                         <Rectangle
                             x:Name="InteractionControl"
                             HorizontalAlignment="Stretch"

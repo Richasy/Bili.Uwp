@@ -89,6 +89,10 @@ namespace Richasy.Bili.App.Controls
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
             _playbackRateNodeComboBox = GetTemplateChild(PlaybackRateNodeComboBoxName) as ComboBox;
+            _increasePlayRateButton = GetTemplateChild(IncreasePlayRateButtonName) as Button;
+            _decreasePlayRateButton = GetTemplateChild(DecreasePlayRateButtonName) as Button;
+            _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
+            _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -109,6 +113,10 @@ namespace Richasy.Bili.App.Controls
             _nextEpisodeButton.Click += OnNextEpisodeButtonClickAsync;
             _screenshotButton.Click += OnScreenshotButtonClickAsync;
             _playbackRateNodeComboBox.SelectionChanged += OnPlaybackRateNodeComboBoxSelectionChanged;
+            _increasePlayRateButton.Click += OnIncreasePlayRateButtonClick;
+            _decreasePlayRateButton.Click += OnDecreasePlayRateButtonClick;
+            _increaseVolumeButton.Click += OnIncreaseVolumeButtonClick;
+            _decreaseVolumeButton.Click += OnDecreaseVolumeButtonClick;
 
             if (_formatListView != null)
             {
@@ -886,6 +894,70 @@ namespace Richasy.Bili.App.Controls
             {
                 ViewModel.PlaybackRate = rate;
                 _playbackRateNodeComboBox.SelectedItem = null;
+            }
+        }
+
+        private void OnDecreasePlayRateButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.IsLive)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var rate = ViewModel.PlaybackRate - ViewModel.PlaybackRateStep;
+                if (rate < 0.5)
+                {
+                    rate = 0.5;
+                }
+
+                ViewModel.PlaybackRate = rate;
+                ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
+            }
+        }
+
+        private void OnIncreasePlayRateButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.IsLive)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var rate = ViewModel.PlaybackRate + ViewModel.PlaybackRateStep;
+                if (rate > ViewModel.MaxPlaybackRate)
+                {
+                    rate = ViewModel.MaxPlaybackRate;
+                }
+
+                ViewModel.PlaybackRate = rate;
+                ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
+            }
+        }
+
+        private void OnDecreaseVolumeButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.BiliPlayer?.MediaPlayer != null)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var volume = ViewModel.BiliPlayer.MediaPlayer.Volume - 0.05;
+                if (volume < 0)
+                {
+                    volume = 0;
+                }
+
+                ViewModel.BiliPlayer.MediaPlayer.Volume = volume;
+                ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume * 100)}");
+            }
+        }
+
+        private void OnIncreaseVolumeButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.BiliPlayer?.MediaPlayer != null)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var volume = ViewModel.BiliPlayer.MediaPlayer.Volume + 0.05;
+                if (volume > 1)
+                {
+                    volume = 1;
+                }
+
+                ViewModel.BiliPlayer.MediaPlayer.Volume = volume;
+                ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume * 100)}");
             }
         }
 

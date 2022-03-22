@@ -60,6 +60,10 @@ namespace Richasy.Bili.App.Controls
         private const string NextEpisodeButtonName = "NextEpisodeButton";
         private const string ScreenshotButtonName = "ScreenshotButton";
         private const string PlaybackRateNodeComboBoxName = "PlaybackRateNodeComboBox";
+        private const string IncreasePlayRateButtonName = "IncreasePlayRateButton";
+        private const string DecreasePlayRateButtonName = "DecreasePlayRateButton";
+        private const string IncreaseVolumeButtonName = "IncreaseVolumeButton";
+        private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -92,6 +96,10 @@ namespace Richasy.Bili.App.Controls
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;
         private ComboBox _playbackRateNodeComboBox;
+        private Button _increasePlayRateButton;
+        private Button _decreasePlayRateButton;
+        private Button _increaseVolumeButton;
+        private Button _decreaseVolumeButton;
         private int _segmentIndex;
         private double _cursorStayTime;
         private double _tempMessageHoldSeconds;

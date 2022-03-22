@@ -517,8 +517,6 @@
     <Content Include="Resources\Html\Dark.css" />
     <Content Include="Resources\Html\Light.css" />
     <Content Include="Resources\Html\ReaderPage.html" />
-    <Content Include="Resources\Misc\Update.en_US.txt" />
-    <Content Include="Resources\Misc\Update.zh_CN.txt" />
     <Content Include="$(SolutionDir)\ffmpeg\*.dll" />
   </ItemGroup>
   <Choose>
