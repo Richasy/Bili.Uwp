@@ -438,6 +438,7 @@ namespace Richasy.Bili.Models.Enums
         GlobalPlaybackRate,
         GlobalPlaybackRateDescription,
         MyFavoriteAnime,
+        FirstClickTagTip,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

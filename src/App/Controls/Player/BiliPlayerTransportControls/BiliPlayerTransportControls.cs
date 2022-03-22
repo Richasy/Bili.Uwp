@@ -410,6 +410,9 @@ namespace Richasy.Bili.App.Controls
             }
 
             _playPauseButton.Focus(FocusState.Programmatic);
+            _backToDefaultButton.Visibility = ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
