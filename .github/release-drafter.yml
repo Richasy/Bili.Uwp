@@ -11,8 +11,6 @@ categories:
   - title: '🐛 Bug 修复'
     labels:
       - 'bug 🐛'
-      - '操作与体验 🧤'
-      - 'bug'
   - title: '🧰 管理与维护'
     label: '维护 ⚒️'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
