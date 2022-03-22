@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -43,6 +44,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
             StaffCollection = new ObservableCollection<UserViewModel>();
             ChoiceCollection = new ObservableCollection<InteractionChoice>();
+            TagCollection = new ObservableCollection<VideoTag>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _subtitleList = new List<SubtitleItem>();
@@ -68,6 +70,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             InitializeTimer();
             PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
+            TagCollection.CollectionChanged += OnTagCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
         }
@@ -790,5 +793,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 RequestLiveMessageScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
+
+        private void OnTagCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            => IsShowTags = TagCollection.Count > 0;
     }
 }

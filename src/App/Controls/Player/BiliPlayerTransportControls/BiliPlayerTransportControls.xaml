@@ -252,7 +252,7 @@
                                         <Setter Target="CenterContainer.(Grid.Column)" Value="2" />
                                         <Setter Target="CenterContainer.(Grid.ColumnSpan)" Value="1" />
                                         <Setter Target="RightContainer.Visibility" Value="Collapsed" />
-                                        <Setter Target="BackToDefaultButton.Visibility" Value="Visible" />
+                                        <Setter Target="BackToDefaultContainer.Visibility" Value="Visible" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -524,14 +524,15 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Button
-                                                    x:Name="BackToDefaultButton"
-                                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
-                                                    Style="{StaticResource MTCButtonStyle}"
-                                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}"
-                                                    Visibility="Collapsed">
-                                                    <icons:RegularFluentIcon Symbol="ArrowMoveInward20" />
-                                                </Button>
+                                                <StackPanel x:Name="BackToDefaultContainer" Visibility="Collapsed">
+                                                    <Button
+                                                        x:Name="BackToDefaultButton"
+                                                        AutomationProperties.Name="{loc:LocaleLocator Name=BackToDefaultView}"
+                                                        Style="{StaticResource MTCButtonStyle}"
+                                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToDefaultView}">
+                                                        <icons:RegularFluentIcon Symbol="ArrowMoveInward20" />
+                                                    </Button>
+                                                </StackPanel>
                                                 <StackPanel x:Name="LeftContainer" Orientation="Horizontal">
                                                     <Button
                                                         x:Name="ToggleDanmakuBarVisibilityButton"

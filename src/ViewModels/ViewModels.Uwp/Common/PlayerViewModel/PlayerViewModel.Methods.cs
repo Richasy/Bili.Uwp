@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -84,6 +85,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             SubtitleIndexCollection.Clear();
             StaffCollection.Clear();
             ChoiceCollection.Clear();
+            TagCollection.Clear();
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             PlayerDisplayMode = preferPlayerMode;
@@ -241,6 +243,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
             IsInteraction = _videoDetail.Interaction != null;
+            _videoDetail.Tag.Select(p => new VideoTag { Id = p.Id.ToString(), Name = p.Name.TrimStart('#'), Uri = p.Uri })
+                .ToList()
+                .ForEach(p => TagCollection.Add(p));
             ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.ReplyType.Video);
 
             if (_videoDetail.Staff.Count > 0)

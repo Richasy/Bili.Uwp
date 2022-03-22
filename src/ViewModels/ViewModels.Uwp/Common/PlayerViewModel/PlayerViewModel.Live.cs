@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.BiliBili;
@@ -29,8 +28,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     NewLiveDanmakuAdded?.Invoke(this, data);
                     if (LiveDanmakuCollection.Count > 1000)
                     {
-                        var saveMessages = LiveDanmakuCollection.ToList().Skip(600);
-                        LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>(saveMessages);
+                        var saveMessages = LiveDanmakuCollection.Skip(600).ToList();
+                        LiveDanmakuCollection.Clear();
+                        saveMessages.ForEach(x => LiveDanmakuCollection.Add(x));
                     }
                 }
             });

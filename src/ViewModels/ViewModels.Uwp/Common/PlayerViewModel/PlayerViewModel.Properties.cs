@@ -8,6 +8,7 @@ using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Controller.Uwp.Interfaces;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -243,68 +244,67 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 参演人员集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<UserViewModel> StaffCollection { get; set; }
+        public ObservableCollection<UserViewModel> StaffCollection { get; }
 
         /// <summary>
         /// 关联视频集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<VideoViewModel> RelatedVideoCollection { get; set; }
+        public ObservableCollection<VideoViewModel> RelatedVideoCollection { get; }
 
         /// <summary>
         /// 分集视频集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<VideoPartViewModel> VideoPartCollection { get; set; }
+        public ObservableCollection<VideoPartViewModel> VideoPartCollection { get; }
 
         /// <summary>
         /// 视频清晰度集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<VideoFormatViewModel> FormatCollection { get; set; }
+        public ObservableCollection<VideoFormatViewModel> FormatCollection { get; }
 
         /// <summary>
         /// 直播清晰度集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<LiveQualityViewModel> LiveQualityCollection { get; set; }
+        public ObservableCollection<LiveQualityViewModel> LiveQualityCollection { get; }
 
         /// <summary>
         /// 直播播放线路集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<LivePlayLineViewModel> LivePlayLineCollection { get; set; }
+        public ObservableCollection<LivePlayLineViewModel> LivePlayLineCollection { get; }
 
         /// <summary>
         /// PGC区块（比如PV）集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PgcSectionViewModel> PgcSectionCollection { get; set; }
+        public ObservableCollection<PgcSectionViewModel> PgcSectionCollection { get; }
 
         /// <summary>
         /// PGC分集集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PgcEpisodeViewModel> EpisodeCollection { get; set; }
+        public ObservableCollection<PgcEpisodeViewModel> EpisodeCollection { get; }
 
         /// <summary>
         /// PGC剧集/系列集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; set; }
+        public ObservableCollection<PgcSeasonViewModel> SeasonCollection { get; }
 
         /// <summary>
         /// 直播弹幕集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<LiveDanmakuMessage> LiveDanmakuCollection { get; set; }
+        public ObservableCollection<LiveDanmakuMessage> LiveDanmakuCollection { get; }
 
         /// <summary>
         /// 收藏夹集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<FavoriteMetaViewModel> FavoriteMetaCollection { get; set; }
+        public ObservableCollection<FavoriteMetaViewModel> FavoriteMetaCollection { get; }
+
+        /// <summary>
+        /// 标签集合.
+        /// </summary>
+        public ObservableCollection<VideoTag> TagCollection { get; set; }
+
+        /// <summary>
+        /// 选项集合.
+        /// </summary>
+        public ObservableCollection<InteractionChoice> ChoiceCollection { get; }
 
         /// <summary>
         /// 当前分P.
@@ -757,10 +757,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public double PlaybackRateStep { get; set; }
 
         /// <summary>
-        /// 选项集合.
+        /// 是否显示标签.
         /// </summary>
         [Reactive]
-        public ObservableCollection<InteractionChoice> ChoiceCollection { get; set; }
+        public bool IsShowTags { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

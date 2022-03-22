@@ -1,5 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using Richasy.Bili.App.Controls.Dialogs;
+using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.App;
+using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,6 +36,29 @@ namespace Richasy.Bili.App.Controls
             btn.IsEnabled = false;
             await ViewModel.Publisher.ToggleFollowStateAsync();
             btn.IsEnabled = true;
+        }
+
+        private async void OnTagButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var tag = (sender as FrameworkElement).DataContext as VideoTag;
+            var settingsToolkit = ServiceLocator.Instance.GetService<ISettingsToolkit>();
+            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var isFirstClick = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, true);
+
+            if (isFirstClick)
+            {
+                var dialog = new ConfirmDialog(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FirstClickTagTip));
+                var result = await dialog.ShowAsync();
+                if (result != ContentDialogResult.Primary)
+                {
+                    return;
+                }
+
+                settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, false);
+            }
+
+            SearchModuleViewModel.Instance.InputWords = tag.Name;
+            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
         }
     }
 }

@@ -9,8 +9,8 @@
     <Thickness x:Key="XboxContainerPadding">0,0,24,0</Thickness>
 
     <x:Double x:Key="WideWindowThresholdWidth">1200</x:Double>
-    <x:Double x:Key="MediumWindowThresholdWidth">720</x:Double>
-    <x:Double x:Key="NarrowWindowThresholdWidth">640</x:Double>
+    <x:Double x:Key="MediumWindowThresholdWidth">920</x:Double>
+    <x:Double x:Key="NarrowWindowThresholdWidth">740</x:Double>
     <x:Double x:Key="MinimumWindowThresholdWidth">500</x:Double>
 
     <x:Double x:Key="WidePageThresholdWidth">958</x:Double>

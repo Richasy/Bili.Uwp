@@ -85,7 +85,7 @@ namespace Richasy.Bili.App.Controls
             _visual.Size = _size;
             _visual.Offset = _offset;
             _visual.Scale = Vector3.Zero;
-            _visual.BindCenterPoint();
+            // _visual.BindCenterPoint();
             CreateAnimation(targetSize, _visual.Offset, onTop, duration);
         }
 
@@ -111,15 +111,15 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void Start()
         {
-            _visual.StopAnimationGroup(_animations);
-            _visual.StartAnimationGroup(_animations);
+            if (_animations != null)
+            {
+                _visual.StopAnimationGroup(_animations);
+                _visual.StartAnimationGroup(_animations);
+            }
         }
 
         /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        public void Dispose() => Dispose(true);
 
         private void Draw(bool isFill, Color color)
         {
