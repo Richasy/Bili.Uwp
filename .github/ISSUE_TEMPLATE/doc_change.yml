@@ -1,0 +1,55 @@
+name: 文档修改
+description: 关于文档的建议或问题
+title: "[Doc] 我的标题"
+labels:
+  - "文档 📃"
+assignees: Richasy
+body:
+- type: markdown
+  attributes: 
+    value: |
+      ## 写在开头
+      🚨 请务必完整填写下面的内容，如果缺少必要的信息，开发者可能会在未调查的情况下直接关闭问题  🚨
+
+- type: textarea
+  id: problem-description
+  validations: 
+    required: true
+  attributes: 
+    label: 问题描述
+    description: 描述当前文档存在的问题
+    placeholder: |
+      请描述你遇到的问题，以及为什么会对你造成困扰
+
+- type: textarea
+  id: expect-document
+  validations: 
+    required: true
+  attributes: 
+    label: 预期内容
+    description: 说说对于该问题, 你预期的文档内容是怎样的
+    placeholder: |
+      尽量清晰地描述你所预期的文档内容，这有助于开发者做出符合你预期的修改
+
+- type: textarea
+  id: alternatives
+  attributes: 
+    label: 对应文档
+    description: 如果文档已存在，请添加文档链接
+    placeholder: |
+      ![文档名称](文档链接)
+
+- type: textarea
+  id: additional-info
+  attributes:
+    label: 附加信息
+    description: 添加一些你认为有必要的备注信息，或者展示一些能表现你思路的草图
+
+- type: dropdown
+  id: contribution
+  attributes:
+     label: 人人为我，我为人人
+     description: 哔哩变得更好，我们所有参与者都将受益，你是否愿意帮助完善文档？
+     options:
+       - 是的，我希望其他人看到我写的文档
+       - 我还没想好
