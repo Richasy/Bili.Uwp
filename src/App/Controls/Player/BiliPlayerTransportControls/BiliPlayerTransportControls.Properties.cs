@@ -59,6 +59,7 @@ namespace Richasy.Bili.App.Controls
         private const string PreviousEpisodeButtonName = "PreviousEpisodeButton";
         private const string NextEpisodeButtonName = "NextEpisodeButton";
         private const string ScreenshotButtonName = "ScreenshotButton";
+        private const string PlaybackRateNodeComboBoxName = "PlaybackRateNodeComboBox";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -90,6 +91,7 @@ namespace Richasy.Bili.App.Controls
         private TextBlock _subtitleBlock;
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;
+        private ComboBox _playbackRateNodeComboBox;
         private int _segmentIndex;
         private double _cursorStayTime;
         private double _tempMessageHoldSeconds;

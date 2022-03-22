@@ -989,6 +989,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="QualitySuffix" xml:space="preserve">
     <value>加入清晰度后缀</value>
   </data>
+  <data name="QuickSelection" xml:space="preserve">
+    <value>快速选择</value>
+  </data>
   <data name="Rank" xml:space="preserve">
     <value>排行榜</value>
   </data>

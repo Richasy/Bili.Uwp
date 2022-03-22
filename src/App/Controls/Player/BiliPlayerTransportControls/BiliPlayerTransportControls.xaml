@@ -651,6 +651,20 @@
                                                                             <Run Text="{loc:LocaleLocator Name=PlaybackRate}" />
                                                                             <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
                                                                         </TextBlock>
+                                                                        <ComboBox
+                                                                            x:Name="PlaybackRateNodeComboBox"
+                                                                            HorizontalAlignment="Stretch"
+                                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateNodeCollection}"
+                                                                            PlaceholderText="{loc:LocaleLocator Name=QuickSelection}">
+                                                                            <ComboBox.ItemTemplate>
+                                                                                <DataTemplate>
+                                                                                    <TextBlock>
+                                                                                        <Run Text="{Binding}" />
+                                                                                        <Run Text="x" />
+                                                                                    </TextBlock>
+                                                                                </DataTemplate>
+                                                                            </ComboBox.ItemTemplate>
+                                                                        </ComboBox>
                                                                         <Slider
                                                                             x:Name="RateSlider"
                                                                             Width="200"
