@@ -344,6 +344,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="CoverDownloaderIntroduce" xml:space="preserve">
     <value>输入视频的 AV 或 BV 号，应用会尝试获取其封面并提供预览，确认后请点击下载按钮，应用会将其下载到图库并打开</value>
   </data>
+  <data name="CurrentPlaybackRate" xml:space="preserve">
+    <value>当前播放速率</value>
+  </data>
   <data name="CurrentProgress" xml:space="preserve">
     <value>当前进度</value>
   </data>
