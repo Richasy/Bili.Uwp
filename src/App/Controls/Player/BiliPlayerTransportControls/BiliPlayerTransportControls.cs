@@ -88,6 +88,7 @@ namespace Richasy.Bili.App.Controls
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
+            _playbackRateNodeComboBox = GetTemplateChild(PlaybackRateNodeComboBoxName) as ComboBox;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -107,6 +108,7 @@ namespace Richasy.Bili.App.Controls
             _previousEpisodeButton.Click += OnPreviousEpisodeButtonClickAsync;
             _nextEpisodeButton.Click += OnNextEpisodeButtonClickAsync;
             _screenshotButton.Click += OnScreenshotButtonClickAsync;
+            _playbackRateNodeComboBox.SelectionChanged += OnPlaybackRateNodeComboBoxSelectionChanged;
 
             if (_formatListView != null)
             {
@@ -874,6 +876,16 @@ namespace Richasy.Bili.App.Controls
                 // 获取单位像素对应的时长
                 var unit = player.PlaybackSession.NaturalDuration.TotalSeconds / ActualWidth;
                 _manipulationUnitLength = unit / 1.5;
+            }
+        }
+
+        private void OnPlaybackRateNodeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = _playbackRateNodeComboBox.SelectedItem;
+            if (item is double rate)
+            {
+                ViewModel.PlaybackRate = rate;
+                _playbackRateNodeComboBox.SelectedItem = null;
             }
         }
 

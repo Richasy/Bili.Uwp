@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
@@ -999,6 +1000,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             var isEnhancement = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRateEnhancement, false);
             MaxPlaybackRate = isEnhancement ? 6d : 3d;
             PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
+
+            PlaybackRateNodeCollection.Clear();
+            var defaultList = new List<double> { 0.5, 0.75, 1.0, 1.25, 1.5, 2.0 };
+            if (isEnhancement)
+            {
+                defaultList = defaultList.Union(new List<double> { 2.5, 3.0, 3.5, 5.0 }).ToList();
+            }
+
+            defaultList.ForEach(p => PlaybackRateNodeCollection.Add(p));
 
             var isGlobal = _settingsToolkit.ReadLocalSetting(SettingNames.GlobalPlaybackRate, false);
             if (!isGlobal)

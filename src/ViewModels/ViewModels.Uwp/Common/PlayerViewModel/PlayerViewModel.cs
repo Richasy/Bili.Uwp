@@ -45,6 +45,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             StaffCollection = new ObservableCollection<UserViewModel>();
             ChoiceCollection = new ObservableCollection<InteractionChoice>();
             TagCollection = new ObservableCollection<VideoTag>();
+            PlaybackRateNodeCollection = new ObservableCollection<double>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
             _subtitleList = new List<SubtitleItem>();

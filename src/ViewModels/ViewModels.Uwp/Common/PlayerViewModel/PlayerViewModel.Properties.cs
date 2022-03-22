@@ -307,6 +307,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<InteractionChoice> ChoiceCollection { get; }
 
         /// <summary>
+        /// 播放速率节点集合.
+        /// </summary>
+        public ObservableCollection<double> PlaybackRateNodeCollection { get; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
