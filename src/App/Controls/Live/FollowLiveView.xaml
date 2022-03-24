@@ -57,18 +57,6 @@
                 FontSize="16"
                 Text="{loc:LocaleLocator Name=FollowLiveRoom}"
                 TextTrimming="CharacterEllipsis" />
-
-            <!--<Button
-                x:Name="SeeAllButton"
-                Grid.Column="1"
-                VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <local:IconTextBlock
-                        Spacing="8"
-                        Symbol="List16"
-                        Text="{loc:LocaleLocator Name=SeeAll}" />
-                </StackPanel>
-            </Button>-->
         </Grid>
 
 
@@ -88,8 +76,8 @@
                     <DataTemplate x:DataType="uwp:VideoViewModel">
                         <local:FollowLiveItem
                             DataContext="{x:Bind}"
-                            Orientation="Horizontal"
                             ItemClick="OnItemClick"
+                            Orientation="Horizontal"
                             ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>

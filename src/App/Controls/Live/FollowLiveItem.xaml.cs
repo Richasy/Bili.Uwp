@@ -66,9 +66,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            CheckOrientation();
-        }
+            => CheckOrientation();
 
         private void CheckOrientation()
         {
@@ -87,15 +85,13 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnCardClickAsync(object sender, RoutedEventArgs e)
+        private void OnCardClick(object sender, RoutedEventArgs e)
         {
             ItemClick?.Invoke(this, EventArgs.Empty);
-            await PlayerViewModel.Instance.LoadAsync(ViewModel);
+            AppViewModel.Instance.OpenPlayer(ViewModel);
         }
 
         private void OnItemClick(object sender, VideoViewModel e)
-        {
-            ItemClick?.Invoke(this, EventArgs.Empty);
-        }
+            => ItemClick?.Invoke(this, EventArgs.Empty);
     }
 }
