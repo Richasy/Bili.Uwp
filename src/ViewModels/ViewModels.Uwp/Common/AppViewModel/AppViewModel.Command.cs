@@ -25,25 +25,22 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
-            await Parser.Default.ParseArguments<CommandLineViewModel>(arguments.Split(' '))
+            await Parser.Default.ParseArguments<CommandLineViewModel>(ParseArguments(arguments))
                 .MapResult(
                     async (CommandLineViewModel vm) =>
                         {
-                            var needPlay = false;
+                            CurrentPlayingRecord record = null;
                             if (!string.IsNullOrEmpty(vm.VideoId))
                             {
-                                needPlay = true;
-                                var record = new CurrentPlayingRecord(vm.VideoId, 0, VideoType.Video);
-                                OpenPlayer(record);
+                                record = new CurrentPlayingRecord(vm.VideoId, 0, VideoType.Video);
                             }
                             else if (!string.IsNullOrEmpty(vm.SeasonId))
                             {
-                                needPlay = true;
                                 var seasonResult = int.TryParse(vm.SeasonId.Replace("ss", string.Empty), out var seasonId);
 
                                 if (seasonResult)
                                 {
-                                    var record = new CurrentPlayingRecord("0", seasonId, VideoType.Pgc);
+                                    record = new CurrentPlayingRecord("0", seasonId, VideoType.Pgc);
                                     if (!string.IsNullOrEmpty(vm.EpisodeId))
                                     {
                                         if (int.TryParse(vm.EpisodeId.Replace("ep", string.Empty), out var episodeId))
@@ -51,20 +48,16 @@ namespace Richasy.Bili.ViewModels.Uwp
                                             record.VideoId = episodeId.ToString();
                                         }
                                     }
-
-                                    OpenPlayer(record);
                                 }
                             }
                             else if (!string.IsNullOrEmpty(vm.LiveId))
                             {
-                                needPlay = true;
-                                await AccountViewModel.Instance.TrySignInAsync(true);
-                                var record = new CurrentPlayingRecord(vm.LiveId, 0, VideoType.Live);
-                                OpenPlayer(record);
+                                record = new CurrentPlayingRecord(vm.LiveId, 0, VideoType.Live);
                             }
                             else if (!string.IsNullOrEmpty(vm.SearchWord))
                             {
-                                SearchModuleViewModel.Instance.InputWords = vm.SearchWord;
+                                SearchModuleViewModel.Instance.InputWords = vm.SearchWord.Replace("\"", string.Empty);
+                                await Task.Delay(500);
                                 SetOverlayContentId(PageIds.Search);
                             }
                             else if (!string.IsNullOrEmpty(vm.PageId))
@@ -90,23 +83,48 @@ namespace Richasy.Bili.ViewModels.Uwp
                                 }
                             }
 
-                            if (needPlay)
+                            if (record != null)
                             {
-                                if (vm.IsMiniPlay)
+                                if (!string.IsNullOrEmpty(vm.PlayerMode))
                                 {
-                                    PlayerViewModel.Instance.PlayerDisplayMode = PlayerDisplayMode.CompactOverlay;
+                                    if (vm.PlayerMode.Equals("mini", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        record.DisplayMode = PlayerDisplayMode.CompactOverlay;
+                                    }
+                                    else if (vm.PlayerMode.Equals("screen", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        record.DisplayMode = PlayerDisplayMode.FullScreen;
+                                    }
+                                    else if (vm.PlayerMode.Equals("window", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        record.DisplayMode = PlayerDisplayMode.FullWindow;
+                                    }
                                 }
-                                else if (vm.IsFullScreenPlay)
-                                {
-                                    PlayerViewModel.Instance.PlayerDisplayMode = PlayerDisplayMode.FullScreen;
-                                }
-                                else if (vm.IsFullWindowPlay)
-                                {
-                                    PlayerViewModel.Instance.PlayerDisplayMode = PlayerDisplayMode.FullWindow;
-                                }
+
+                                OpenPlayer(record);
                             }
                         },
                     _ => Task.FromResult(-1));
+
+            string[] ParseArguments(string commandLine)
+            {
+                var parmChars = commandLine.ToCharArray();
+                var inQuote = false;
+                for (var index = 0; index < parmChars.Length; index++)
+                {
+                    if (parmChars[index] == '"')
+                    {
+                        inQuote = !inQuote;
+                    }
+
+                    if (!inQuote && parmChars[index] == ' ')
+                    {
+                        parmChars[index] = '\n';
+                    }
+                }
+
+                return new string(parmChars).Split('\n');
+            }
         }
     }
 }

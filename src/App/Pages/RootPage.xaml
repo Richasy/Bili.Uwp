@@ -29,6 +29,7 @@
         <controls:RootNavigationView
             x:Name="RootNavView"
             Grid.Row="1"
+            Loaded="OnRootNavViewLoadedAsync"
             Visibility="{x:Bind CoreViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
         <Frame
             x:Name="OverFrame"

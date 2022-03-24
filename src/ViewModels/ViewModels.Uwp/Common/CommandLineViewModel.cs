@@ -43,21 +43,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string SearchWord { get; set; }
 
         /// <summary>
-        /// 是否在迷你视窗中播放视频.
+        /// 视频播放模式.
         /// </summary>
-        [Option(longName: "mini", HelpText = "是否在迷你视窗中播放视频")]
-        public bool IsMiniPlay { get; set; }
-
-        /// <summary>
-        /// 是否全屏播放视频.
-        /// </summary>
-        [Option(longName: "screen", HelpText = "是否全屏播放视频")]
-        public bool IsFullScreenPlay { get; set; }
-
-        /// <summary>
-        /// 是否全窗口播放视频.
-        /// </summary>
-        [Option(longName: "window", HelpText = "是否全窗口播放视频")]
-        public bool IsFullWindowPlay { get; set; }
+        [Option(shortName: 'm', longName: "mode", Required = false, HelpText = "播放模式")]
+        public string PlayerMode { get; set; }
     }
 }

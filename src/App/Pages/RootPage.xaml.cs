@@ -83,7 +83,7 @@ namespace Richasy.Bili.App.Pages
         }
 
         /// <inheritdoc/>
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is CommandLineActivatedEventArgs args)
             {
@@ -129,17 +129,6 @@ namespace Richasy.Bili.App.Pages
             CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
             CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
-
-            if (!string.IsNullOrEmpty(_initialCommandParameters))
-            {
-                await CoreViewModel.InitializeCommandFromArgumentsAsync(_initialCommandParameters);
-                _initialCommandParameters = null;
-            }
-            else
-            {
-                CoreViewModel.CheckContinuePlay();
-            }
-
             await AccountViewModel.Instance.TrySignInAsync(true);
 #if !DEBUG
             await CoreViewModel.CheckUpdateAsync();
@@ -189,5 +178,18 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnRequestContinuePlayAsync(object sender, EventArgs e)
             => await new ContinuePlayDialog().ShowAsync();
+
+        private async void OnRootNavViewLoadedAsync(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_initialCommandParameters))
+            {
+                await CoreViewModel.InitializeCommandFromArgumentsAsync(_initialCommandParameters);
+                _initialCommandParameters = null;
+            }
+            else
+            {
+                CoreViewModel.CheckContinuePlay();
+            }
+        }
     }
 }
