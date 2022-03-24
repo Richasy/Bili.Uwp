@@ -23,12 +23,12 @@
                 IsShowPlayCount="False"
                 IsShowReplayCount="False"
                 IsShowViewerCount="True"
-                Orientation="Horizontal"
                 ItemClick="OnItemClick"
+                Orientation="Horizontal"
                 ViewModel="{x:Bind ViewModel, Mode=OneWay}" />
         </Grid>
         <Grid x:Name="VerticalContainer" Visibility="Collapsed">
-            <local:CardPanel Width="120" Click="OnCardClickAsync">
+            <local:CardPanel Width="120" Click="OnCardClick">
                 <Grid Padding="12" RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -38,6 +38,7 @@
                     <local:UserAvatar
                         Width="52"
                         Height="52"
+                        HorizontalAlignment="Center"
                         Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                         DecodeSize="40"
                         UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
