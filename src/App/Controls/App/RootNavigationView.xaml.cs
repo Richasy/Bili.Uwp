@@ -145,7 +145,7 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Live:
                     pageType = typeof(LivePage);
                     break;
-                case PageIds.DynamicFeed:
+                case PageIds.Dynamic:
                     pageType = typeof(DynamicFeedPage);
                     break;
                 case PageIds.Help:

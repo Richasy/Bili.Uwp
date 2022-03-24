@@ -100,11 +100,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 ResetAsync();
                 IsDetailLoading = true;
-                _videoId = Convert.ToInt64(videoId);
                 try
                 {
-                    var detail = await Controller.GetVideoDetailAsync(_videoId);
-                    _videoDetail = detail;
+                    if (videoId.StartsWith("bv", StringComparison.OrdinalIgnoreCase))
+                    {
+                        _videoDetail = await Controller.GetVideoDetailAsync(videoId);
+                    }
+                    else
+                    {
+                        _videoDetail = await Controller.GetVideoDetailAsync(Convert.ToInt64(videoId.Replace("av", string.Empty)));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -226,6 +231,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
+            _videoId = _videoDetail.Arc.Aid;
             Title = _videoDetail.Arc.Title;
             Subtitle = DateTimeOffset.FromUnixTimeSeconds(_videoDetail.Arc.Pubdate).ToLocalTime().ToString("yy/MM/dd HH:mm");
             Description = _videoDetail.Arc.Desc;

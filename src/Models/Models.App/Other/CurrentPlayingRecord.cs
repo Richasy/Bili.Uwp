@@ -48,5 +48,10 @@ namespace Richasy.Bili.Models.App.Other
         /// 是否为关联视频.
         /// </summary>
         public bool IsRelated { get; set; }
+
+        /// <summary>
+        /// 显示模式.
+        /// </summary>
+        public PlayerDisplayMode DisplayMode { get; set; }
     }
 }

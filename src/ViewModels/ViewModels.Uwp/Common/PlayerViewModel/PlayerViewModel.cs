@@ -253,6 +253,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await RecordInitViewModelToLocalAsync(videoId, seasonId, _videoType, Title);
             }
 
+            if (record.DisplayMode != PlayerDisplayMode.Default)
+            {
+                PlayerDisplayMode = record.DisplayMode;
+            }
+
             Loaded?.Invoke(this, EventArgs.Empty);
         }
 

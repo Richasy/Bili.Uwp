@@ -169,11 +169,11 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task SignInAsync()
+        public async Task<bool> TrySignInAsync()
         {
             if (await IsTokenValidAsync() || State != AuthorizeState.SignedOut)
             {
-                return;
+                return true;
             }
 
             State = AuthorizeState.Loading;
@@ -183,7 +183,10 @@ namespace Richasy.Bili.Lib.Uwp
             if (string.IsNullOrEmpty(token))
             {
                 await SignOutAsync();
+                return false;
             }
+
+            return true;
         }
 
         /// <inheritdoc/>

@@ -3,6 +3,7 @@
 using System;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
+using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -18,6 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingToolkit;
+        private readonly ILoggerModule _loggerModule;
         private readonly DisplayRequest _displayRequest;
         private readonly BiliController _controller;
 
