@@ -71,7 +71,7 @@ namespace Richasy.Bili.App
             OnLaunchedOrActivated(args);
         }
 
-        private void OnLaunchedOrActivated(IActivatedEventArgs e)
+        private async void OnLaunchedOrActivated(IActivatedEventArgs e)
         {
             // 用于解析Flv视频
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -126,6 +126,18 @@ namespace Richasy.Bili.App
                 if (rootFrame.Content == null)
                 {
                     rootFrame.Navigate(typeof(Pages.RootPage));
+                }
+            }
+            else if (e.Kind == ActivationKind.CommandLineLaunch)
+            {
+                if (rootFrame.Content == null)
+                {
+                    rootFrame.Navigate(typeof(Pages.RootPage), e);
+                }
+                else
+                {
+                    var args = e as CommandLineActivatedEventArgs;
+                    await AppViewModel.Instance.InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }
 

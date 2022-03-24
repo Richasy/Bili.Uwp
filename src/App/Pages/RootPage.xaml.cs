@@ -8,11 +8,13 @@ using Richasy.Bili.App.Controls;
 using Richasy.Bili.App.Controls.Dialogs;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages
 {
@@ -21,6 +23,8 @@ namespace Richasy.Bili.App.Pages
     /// </summary>
     public sealed partial class RootPage : AppPage
     {
+        private string _initialCommandParameters = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RootPage"/> class.
         /// </summary>
@@ -79,6 +83,15 @@ namespace Richasy.Bili.App.Pages
         }
 
         /// <inheritdoc/>
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is CommandLineActivatedEventArgs args)
+            {
+                _initialCommandParameters = args.Operation.Arguments;
+            }
+        }
+
+        /// <inheritdoc/>
         protected override void OnPointerReleased(PointerRoutedEventArgs e)
         {
             if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
@@ -116,7 +129,17 @@ namespace Richasy.Bili.App.Pages
             CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
             CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
-            CoreViewModel.CheckContinuePlay();
+
+            if (!string.IsNullOrEmpty(_initialCommandParameters))
+            {
+                await CoreViewModel.InitializeCommandFromArgumentsAsync(_initialCommandParameters);
+                _initialCommandParameters = null;
+            }
+            else
+            {
+                CoreViewModel.CheckContinuePlay();
+            }
+
             await AccountViewModel.Instance.TrySignInAsync(true);
 #if !DEBUG
             await CoreViewModel.CheckUpdateAsync();

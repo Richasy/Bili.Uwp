@@ -78,7 +78,7 @@
                         <icons:RegularFluentIcon Symbol="Video16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DynamicFeed" Content="{loc:LocaleLocator Name=DynamicFeed}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:LocaleLocator Name=DynamicFeed}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="DesignIdeas16" />
                     </muxc:NavigationViewItem.Icon>

@@ -26,7 +26,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _settingToolkit);
+                                   .LoadService(out _settingToolkit)
+                                   .LoadService(out _loggerModule);
             _displayRequest = new Windows.System.Display.DisplayRequest();
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;

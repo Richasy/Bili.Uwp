@@ -85,7 +85,6 @@ namespace Richasy.Bili.App.Controls
             _visual.Size = _size;
             _visual.Offset = _offset;
             _visual.Scale = Vector3.Zero;
-            // _visual.BindCenterPoint();
             CreateAnimation(targetSize, _visual.Offset, onTop, duration);
         }
 

@@ -51,7 +51,7 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 用户登录.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        Task SignInAsync();
+        Task<bool> TrySignInAsync();
 
         /// <summary>
         /// 用户退出.

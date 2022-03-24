@@ -19,7 +19,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="isSlientOnly">是否只静默登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task TrySignInAsync(bool isSlientOnly = false)
+        public async Task<bool> TrySignInAsync(bool isSlientOnly = false)
         {
             try
             {
@@ -27,20 +27,23 @@ namespace Richasy.Bili.Controller.Uwp
                 if (isTokenValid)
                 {
                     Logged?.Invoke(this, EventArgs.Empty);
+                    return true;
                 }
                 else if (IsNetworkAvailable && !isSlientOnly)
                 {
-                    await _authorizeProvider.SignInAsync();
+                    return await _authorizeProvider.TrySignInAsync();
                 }
                 else
                 {
                     LoggedFailed?.Invoke(this, new Exception());
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 _loggerModule.LogError(ex);
                 LoggedFailed?.Invoke(this, ex);
+                return false;
             }
         }
 

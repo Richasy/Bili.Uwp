@@ -43,10 +43,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="isSlientOnly">是否只进行静默登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task TrySignInAsync(bool isSlientOnly = false)
+        public async Task<bool> TrySignInAsync(bool isSlientOnly = false)
         {
+            if (Status != AccountViewModelStatus.Logout)
+            {
+                return Status == AccountViewModelStatus.Login;
+            }
+
             Status = AccountViewModelStatus.Logging;
-            await _controller.TrySignInAsync(isSlientOnly);
+            return await _controller.TrySignInAsync(isSlientOnly);
         }
 
         /// <summary>
