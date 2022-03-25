@@ -16,20 +16,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <Style
-            x:Key="TitleBarButtonStyle"
-            BasedOn="{StaticResource DefaultButtonStyle}"
-            TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Width" Value="36" />
-            <Setter Property="Height" Value="32" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-    </UserControl.Resources>
-
     <Grid x:Name="RootGrid" TabFocusNavigation="Local">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
@@ -59,10 +45,7 @@
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid
-            x:Name="ContentGrid"
-            Padding="6,0,0,0"
-            Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+        <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->
@@ -82,6 +65,7 @@
             <Button
                 x:Name="BackButton"
                 Style="{StaticResource TitleBarButtonStyle}"
+                Padding="6,0,0,0"
                 Click="OnBackButtonClickAsync"
                 TabIndex="1">
                 <Button.KeyboardAccelerators>
