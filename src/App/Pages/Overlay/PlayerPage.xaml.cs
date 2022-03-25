@@ -80,25 +80,6 @@ namespace Richasy.Bili.App.Pages.Overlay
             CoreViewModel.IsOverLayerExtendToTitleBar = false;
         }
 
-        /// <inheritdoc/>
-        protected override void OnPointerReleased(PointerRoutedEventArgs e)
-        {
-            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
-            {
-                e.Handled = true;
-                if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
-                {
-                    ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
-                }
-                else
-                {
-                    CoreViewModel.Back();
-                }
-            }
-
-            base.OnPointerReleased(e);
-        }
-
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;

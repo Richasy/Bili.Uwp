@@ -94,7 +94,9 @@ namespace Richasy.Bili.App.Pages
         /// <inheritdoc/>
         protected override void OnPointerReleased(PointerRoutedEventArgs e)
         {
-            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
+            var kind = e.GetCurrentPoint(this).Properties.PointerUpdateKind;
+            if (kind == Windows.UI.Input.PointerUpdateKind.XButton1Released
+                || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
                 CoreViewModel.Back();
