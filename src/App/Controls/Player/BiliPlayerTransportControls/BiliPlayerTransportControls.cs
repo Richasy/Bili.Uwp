@@ -786,6 +786,16 @@ namespace Richasy.Bili.App.Controls
             {
                 _tempMessageHoldSeconds += 0.5;
             }
+
+            if (ViewModel.IsShowHistory)
+            {
+                _historyMessageHoldSeconds += 0.5;
+                if (_historyMessageHoldSeconds > 4)
+                {
+                    ViewModel.IsShowHistory = false;
+                    _historyMessageHoldSeconds = 0;
+                }
+            }
         }
 
         private void OnFocusTimerTick(object sender, object e)
@@ -802,7 +812,6 @@ namespace Richasy.Bili.App.Controls
             _manipulationProgress = 0;
             _manipulationDeltaX = 0;
             _manipulationDeltaY = 0;
-            _manipulationStartPoint = new Point(0, 0);
             _manipulationType = PlayerManipulationType.None;
 
             if (_manipulationBeforeIsPlay)
@@ -875,7 +884,6 @@ namespace Richasy.Bili.App.Controls
         private void OnInteractionControlManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
             var player = ViewModel.BiliPlayer.MediaPlayer;
-            _manipulationStartPoint = e.Position;
             _manipulationProgress = player.PlaybackSession.Position.TotalSeconds;
             _manipulationVolume = player.Volume * 100.0;
             _manipulationBeforeIsPlay = ViewModel.PlayerStatus == PlayerStatus.Playing;
