@@ -69,6 +69,15 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
+        /// <param name="avatar">发布者信息.</param>
+        public UserViewModel(RecommendAvatar avatar)
+            : this(avatar.UserName, avatar.Cover, avatar.UserId)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
         /// <param name="staff">参演人员.</param>
         public UserViewModel(Staff staff)
             : this(staff.Name, staff.Face, Convert.ToInt32(staff.Mid))
