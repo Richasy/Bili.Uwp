@@ -81,6 +81,11 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(ServiceConstants.Query.Platform, "web");
                 queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
             }
+            else if (clientType == RequestClientType.Login)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.LoginKey);
+                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
+            }
             else
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
@@ -89,7 +94,6 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             }
 
-            var query = string.Empty;
             var token = string.Empty;
             if (await IsTokenValidAsync())
             {

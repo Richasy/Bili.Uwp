@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.QueryStringDotNET;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Other;
@@ -9,6 +12,7 @@ using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
 namespace Richasy.Bili.Lib.Uwp
 {
@@ -17,9 +21,16 @@ namespace Richasy.Bili.Lib.Uwp
     /// </summary>
     public sealed partial class AccountLoginDialog : ContentDialog
     {
+        /// <summary>
+        /// <see cref="IsShowWebView"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowWebViewProperty =
+            DependencyProperty.Register(nameof(IsShowWebView), typeof(bool), typeof(AccountLoginDialog), new PropertyMetadata(false));
+
         private readonly TaskCompletionSource<AuthorizeResult> _taskCompletionSource;
         private readonly AuthorizeProvider _authorizeProvider;
         private LoginType _loginType;
+        private string _sessionId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountLoginDialog"/> class.
@@ -31,6 +42,15 @@ namespace Richasy.Bili.Lib.Uwp
             this.Closed += OnClosed;
             _authorizeProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>() as AuthorizeProvider;
             _taskCompletionSource = taskCompletionSource;
+        }
+
+        /// <summary>
+        /// 是否显示网页视图.
+        /// </summary>
+        public bool IsShowWebView
+        {
+            get { return (bool)GetValue(IsShowWebViewProperty); }
+            set { SetValue(IsShowWebViewProperty, value); }
         }
 
         private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
@@ -77,10 +97,11 @@ namespace Richasy.Bili.Lib.Uwp
 
         private void OnCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            IsShowWebView = false;
             _taskCompletionSource.SetCanceled();
         }
 
-        private async Task HandlePasswordLoginAsync()
+        private async Task HandlePasswordLoginAsync(Dictionary<string, string> loginParamters = null)
         {
             var userName = UserNameBox.Text;
             var password = PasswordBox.Password;
@@ -94,10 +115,21 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 try
                 {
+                    if (loginParamters == null)
+                    {
+                        _sessionId = Guid.NewGuid().ToString("N");
+                        loginParamters = new Dictionary<string, string>
+                        {
+                            { Query.LoginSessionId, _sessionId },
+                        };
+                    }
+
                     IsPrimaryButtonEnabled = false;
-                    var result = await _authorizeProvider?.InternalLoginAsync(userName, password);
-                    _taskCompletionSource.SetResult(result);
-                    this.Hide();
+                    var result = await _authorizeProvider?.InternalLoginAsync(userName, password, additionalParams: loginParamters);
+                    if (HandleAuthorizeResult(result))
+                    {
+                        Hide();
+                    }
                 }
                 catch (ServiceException se)
                 {
@@ -116,9 +148,9 @@ namespace Richasy.Bili.Lib.Uwp
                             ShowError(se.Error?.Message ?? se.ToString());
                             break;
                     }
-
-                    IsPrimaryButtonEnabled = true;
                 }
+
+                IsPrimaryButtonEnabled = true;
             }
         }
 
@@ -177,6 +209,9 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
+            AuthorizeProgressBar.Visibility = Visibility.Collapsed;
+            UserNameBox.IsEnabled = true;
+            PasswordBox.IsEnabled = true;
             ShowError(msg);
         }
 
@@ -200,13 +235,75 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         private async void OnSwitchButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await SwitchLoginTypeAsync(_loginType == LoginType.Password ? LoginType.QRCode : LoginType.Password);
-        }
+            => await SwitchLoginTypeAsync(_loginType == LoginType.Password ? LoginType.QRCode : LoginType.Password);
 
         private async void OnRefreshQRButtonClickAsync(object sender, RoutedEventArgs e)
+            => await LoadQRCodeAsync();
+
+        private void OnSessionWebViewNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
-            await LoadQRCodeAsync();
+            var query = QueryString.Parse(args.Uri.Query.TrimStart('?'));
+            if (query.TryGetValue("access_key", out var token))
+            {
+                // 登录成功.
+                IsShowWebView = false;
+                query.TryGetValue("mid", out var mid);
+                var tokenResult = new AuthorizeResult()
+                {
+                    Status = 0,
+                    TokenInfo = new TokenInfo
+                    {
+                        AccessToken = token,
+                        Mid = Convert.ToInt64(mid),
+                        ExpiresIn = Convert.ToInt32(DateTimeOffset.Now.AddDays(1).ToUnixTimeSeconds()),
+                    },
+                };
+
+                _taskCompletionSource.SetResult(tokenResult);
+                Hide();
+            }
+            else if (IsRedirectUrl(args.Uri.AbsoluteUri))
+            {
+                AuthorizeProgressBar.Visibility = Visibility.Visible;
+                UserNameBox.IsEnabled = false;
+                PasswordBox.IsEnabled = false;
+                IsShowWebView = false;
+            }
         }
+
+        private bool HandleAuthorizeResult(AuthorizeResult result)
+        {
+            if (result.Status == 0)
+            {
+                _taskCompletionSource.SetResult(result);
+            }
+            else if (result.Status == 1 || result.Status == 2)
+            {
+                // 需要安全验证
+                IsShowWebView = true;
+                SessionWebView.Navigate(new Uri(result.Url));
+            }
+
+            return result.Status == 0;
+        }
+
+        private async void OnSessionWebViewNavigationCompletedAsync(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            if (IsRedirectUrl(args.Uri.AbsoluteUri))
+            {
+                var uri = await _authorizeProvider.GetConfirmUriAsync();
+                if (!string.IsNullOrEmpty(uri))
+                {
+                    SessionWebView.Navigate(new Uri(uri));
+                }
+                else
+                {
+                    ShowError(LanguageNames.LoginFailed);
+                }
+            }
+        }
+
+        private bool IsRedirectUrl(string url)
+            => url == "https://passport.bilibili.com/ajax/miniLogin/redirect" || url == "https://www.bilibili.com/";
     }
 }

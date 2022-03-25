@@ -27,7 +27,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 登录.
             /// </summary>
-            public const string Login = _passBase + "/api/v3/oauth2/login";
+            public const string Login = _passBase + "/x/passport-login/oauth2/login";
 
             /// <summary>
             /// 刷新令牌信息.

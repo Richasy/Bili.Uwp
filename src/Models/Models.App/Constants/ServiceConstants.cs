@@ -44,6 +44,8 @@ namespace Richasy.Bili.Models.App.Constants
             public const string IOSSecret = "8cb98205e9b2ad3669aad0fce12a4c13";
             public const string WebKey = "84956560bc028eb7";
             public const string WebSecret = "94aba54af9065f71de72f5508f1cd42e";
+            public const string LoginKey = "783bbb7264451d82";
+            public const string LoginSecret = "2653583c8873dea268ab9386918b1d65";
         }
 
         public static class Query
@@ -171,6 +173,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Format = "format";
             public const string GraphVersion = "graph_version";
             public const string EdgeId = "edge_id";
+            public const string LoginSessionId = "login_session_id";
+            public const string GeeSeccode = "gee_seccode";
+            public const string GeeValidate = "gee_validate";
+            public const string GeeChallenge = "gee_challenge";
+            public const string RecaptchaToken = "recaptcha_token";
         }
 
         public static class Sort
