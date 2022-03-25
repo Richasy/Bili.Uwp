@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
@@ -33,8 +34,8 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Idx, offsetIdx.ToString() },
                 { Query.Flush, "5" },
                 { Query.Column, "4" },
-                { Query.Device, "phone" },
-                { Query.DeviceName, "iPhone 12" },
+                { Query.Device, "pad" },
+                { Query.DeviceName, "iPad 6" },
                 { Query.Pull, (offsetIdx == 0).ToString().ToLower() },
             };
 
@@ -45,7 +46,7 @@ namespace Richasy.Bili.Lib.Uwp
                 Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<HomeRecommendInfo>>(response);
-            return data.Data.Items;
+            return data.Data.Items.Where(p => !string.IsNullOrEmpty(p.Goto)).ToList();
         }
     }
 }

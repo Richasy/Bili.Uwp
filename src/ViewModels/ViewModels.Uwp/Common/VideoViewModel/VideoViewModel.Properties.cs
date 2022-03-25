@@ -86,6 +86,24 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string AdditionalText { get; set; }
 
         /// <summary>
+        /// 描述文本.
+        /// </summary>
+        [Reactive]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 是否显示描述文本.
+        /// </summary>
+        [Reactive]
+        public bool IsShowDescription { get; set; }
+
+        /// <summary>
+        /// 是否可以显示头像.
+        /// </summary>
+        [Reactive]
+        public bool CanShowAvatar { get; set; }
+
+        /// <summary>
         /// 视频类型.
         /// </summary>
         public VideoType VideoType { get; set; }

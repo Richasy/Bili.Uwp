@@ -120,7 +120,7 @@
                 Margin="0,0,12,-18"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Visibility="{x:Bind IsShowAvatar, Mode=OneWay}">
+                Visibility="{x:Bind ViewModel.CanShowAvatar, Mode=OneWay}">
                 <Ellipse
                     Width="40"
                     Height="40"
@@ -148,12 +148,20 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
+                <Grid Visibility="{x:Bind ViewModel.IsShowDescription, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <TextBlock
+                        x:Name="NoAvatarUserName"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        VerticalAlignment="Center"
+                        Opacity="0.6"
+                        Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                </Grid>
                 <TextBlock
-                    x:Name="NoAvatarUserName"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
                     Opacity="0.6"
-                    Text="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.Description}"
+                    Visibility="{x:Bind ViewModel.IsShowDescription, Mode=OneWay}" />
 
                 <StackPanel
                     x:Name="InlineUserContainer"
@@ -168,7 +176,7 @@
                             VerticalAlignment="Center"
                             Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                             UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}"
-                            Visibility="{x:Bind IsShowAvatar, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.CanShowAvatar, Mode=OneWay}" />
                     </Grid>
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"

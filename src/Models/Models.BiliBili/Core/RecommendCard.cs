@@ -80,25 +80,25 @@ namespace Richasy.Bili.Models.BiliBili
         /// <summary>
         /// 播放数文本.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_text_1", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_text_2", Required = Required.Default)]
         public string PlayCountText { get; set; }
 
         /// <summary>
         /// 状态副文本，对于视频来说是弹幕数，对于番剧来说是点赞数.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_text_2", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_text_3", Required = Required.Default)]
         public string SubStatusText { get; set; }
 
         /// <summary>
         /// 时长文本.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_right_text", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover_left_text_1", Required = Required.Default)]
         public string DurationText { get; set; }
 
         /// <summary>
         /// 推荐原因.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "rcmd_reason", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "top_rcmd_reason", Required = Required.Default)]
         public string RecommendReason { get; set; }
 
         /// <summary>
@@ -110,8 +110,14 @@ namespace Richasy.Bili.Models.BiliBili
         /// <summary>
         /// 说明文本.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "desc_button", Required = Required.Default)]
-        public RecommendDescription Description { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "desc", Required = Required.Default)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 遮罩内容.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mask", Required = Required.Default)]
+        public RecommendCardMask Mask { get; set; }
     }
 
     /// <summary>
@@ -251,14 +257,40 @@ namespace Richasy.Bili.Models.BiliBili
     }
 
     /// <summary>
-    /// 推荐辅助说明.
+    /// 推荐卡片的遮罩内容.
     /// </summary>
-    public class RecommendDescription
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class RecommendCardMask
     {
         /// <summary>
-        /// 显示的说明文本.
+        /// 推荐卡片的头像.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "text", Required = Required.Default)]
-        public string Text { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "avatar", Required = Required.Default)]
+        public RecommendAvatar Avatar { get; set; }
+    }
+
+    /// <summary>
+    /// 推荐卡片的头像.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class RecommendAvatar
+    {
+        /// <summary>
+        /// 头像.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cover", Required = Required.Default)]
+        public string Cover { get; set; }
+
+        /// <summary>
+        /// 用户名.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Text", Required = Required.Default)]
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 用户Id.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "up_id", Required = Required.Default)]
+        public int UserId { get; set; }
     }
 }

@@ -64,10 +64,12 @@
 
             <Button
                 x:Name="BackButton"
+                AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Padding="6,0,0,0"
                 Click="OnBackButtonClickAsync"
-                TabIndex="1">
+                TabIndex="1"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
                 </Button.KeyboardAccelerators>
@@ -150,6 +152,7 @@
                 x:Name="MenuButton"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Grid.Column="1"
+                Padding="6,0,0,0"
                 Click="OnMenuButtonClick"
                 TabIndex="3"
                 Visibility="Collapsed">
@@ -189,7 +192,7 @@
 
             <StackPanel
                 Grid.Column="2"
-                Margin="8,0,12,0"
+                Margin="16,0,12,0"
                 VerticalAlignment="Center"
                 IsHitTestVisible="False"
                 Orientation="Horizontal"
