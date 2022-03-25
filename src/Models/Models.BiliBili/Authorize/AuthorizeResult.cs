@@ -18,6 +18,18 @@ namespace Richasy.Bili.Models.BiliBili
         public int Status { get; set; }
 
         /// <summary>
+        /// 错误消息.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "message", Required = Required.Default)]
+        public string Message { get; set; }
+
+        /// <summary>
+        /// 导航地址.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "url", Required = Required.Default)]
+        public string Url { get; set; }
+
+        /// <summary>
         /// 授权令牌信息.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "token_info", Required = Required.Default)]

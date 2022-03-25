@@ -21,5 +21,10 @@ namespace Richasy.Bili.Models.Enums
         /// 网页.
         /// </summary>
         Web,
+
+        /// <summary>
+        /// 登录专属.
+        /// </summary>
+        Login,
     }
 }

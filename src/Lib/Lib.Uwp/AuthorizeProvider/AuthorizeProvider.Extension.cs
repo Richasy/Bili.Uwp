@@ -41,7 +41,7 @@ namespace Richasy.Bili.Lib.Uwp
         private DispatcherTimer _qrTimer;
         private CancellationTokenSource _qrPollCancellationTokenSource;
 
-        internal async Task<AuthorizeResult> InternalLoginAsync(string userName, string password, int geeType = 10)
+        internal async Task<AuthorizeResult> InternalLoginAsync(string userName, string password, int geeType = 10, Dictionary<string, string> additionalParams = null)
         {
             var encryptedPwd = await EncryptedPasswordAsync(password);
             var queryParameters = new Dictionary<string, string>
@@ -51,8 +51,19 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.GeeType, geeType.ToString() },
             };
 
+            if (additionalParams != null)
+            {
+                foreach (var item in additionalParams)
+                {
+                    if (!queryParameters.ContainsKey(item.Key))
+                    {
+                        queryParameters.Add(item.Key, item.Value);
+                    }
+                }
+            }
+
             var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
-            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Android);
+            var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Login);
             query[Query.UserName] = userName;
             query[Query.Password] = encryptedPwd;
             var request = new HttpRequestMessage(HttpMethod.Post, Passport.Login);
@@ -107,6 +118,9 @@ namespace Richasy.Bili.Lib.Uwp
                 case Keys.AndroidKey:
                     apiSecret = Keys.AndroidSecret;
                     break;
+                case Keys.LoginKey:
+                    apiSecret = Keys.LoginSecret;
+                    break;
                 default:
                     apiSecret = Keys.WebSecret;
                     break;
@@ -146,6 +160,29 @@ namespace Richasy.Bili.Lib.Uwp
             }
 
             return base64String;
+        }
+
+        internal async Task<string> GetConfirmUriAsync()
+        {
+            var url = "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c";
+
+            try
+            {
+                using (var httpClient = new Windows.Web.Http.HttpClient())
+                {
+                    var result = await httpClient.GetStringAsync(new Uri(url));
+                    var jobj = JObject.Parse(result);
+                    if (Convert.ToInt32(jobj["code"].ToString()) == 0)
+                    {
+                        return jobj["data"]["confirm_uri"].ToString();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return null;
         }
 
         internal async Task<WriteableBitmap> GetQRImageAsync()
@@ -329,7 +366,7 @@ namespace Richasy.Bili.Lib.Uwp
                 var compositeValue = new ApplicationDataCompositeValue
                 {
                     [Settings.AccessTokenKey] = result.AccessToken,
-                    [Settings.RefreshTokenKey] = result.RefreshToken,
+                    [Settings.RefreshTokenKey] = result.RefreshToken ?? string.Empty,
                     [Settings.UserIdKey] = result.Mid,
                     [Settings.ExpiresInKey] = result.ExpiresIn,
                     [Settings.LastSaveAuthTimeKey] = saveTime.ToUnixTimeSeconds(),

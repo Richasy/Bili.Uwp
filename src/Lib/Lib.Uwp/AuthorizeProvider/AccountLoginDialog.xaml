@@ -71,6 +71,11 @@
                 HorizontalAlignment="Stretch"
                 Header="{loc:LocaleLocator Name=Password}"
                 PlaceholderText="{loc:LocaleLocator Name=PasswordHolder}" />
+            <ProgressBar
+                x:Name="AuthorizeProgressBar"
+                HorizontalAlignment="Stretch"
+                IsIndeterminate="True"
+                Visibility="Collapsed" />
         </StackPanel>
 
         <Grid
@@ -121,6 +126,20 @@
                 HorizontalAlignment="Stretch"
                 Click="OnRefreshQRButtonClickAsync"
                 Content="{loc:LocaleLocator Name=Refresh}" />
+        </Grid>
+
+        <Grid
+            x:Name="WebViewContainer"
+            Grid.Row="2"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            Visibility="{x:Bind IsShowWebView, Mode=OneWay}">
+            <WebView
+                x:Name="SessionWebView"
+                MinHeight="340"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                NavigationCompleted="OnSessionWebViewNavigationCompletedAsync"
+                NavigationStarting="OnSessionWebViewNavigationStartingAsync" />
         </Grid>
     </Grid>
 
