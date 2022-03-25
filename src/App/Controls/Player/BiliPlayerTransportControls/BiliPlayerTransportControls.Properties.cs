@@ -102,9 +102,9 @@ namespace Richasy.Bili.App.Controls
         private Button _decreaseVolumeButton;
         private int _segmentIndex;
         private double _cursorStayTime;
+        private double _historyMessageHoldSeconds;
         private double _tempMessageHoldSeconds;
 
-        private Point _manipulationStartPoint = new Point(0, 0);
         private double _manipulationDeltaX = 0d;
         private double _manipulationDeltaY = 0d;
         private double _manipulationProgress = 0d;
