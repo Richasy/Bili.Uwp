@@ -240,7 +240,7 @@ namespace Richasy.Bili.Lib.Uwp
         private async void OnRefreshQRButtonClickAsync(object sender, RoutedEventArgs e)
             => await LoadQRCodeAsync();
 
-        private async void OnSessionWebViewNavigationStartingAsync(WebView sender, WebViewNavigationStartingEventArgs args)
+        private void OnSessionWebViewNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             var query = QueryString.Parse(args.Uri.Query.TrimStart('?'));
             if (query.TryGetValue("access_key", out var token))
@@ -261,40 +261,6 @@ namespace Richasy.Bili.Lib.Uwp
 
                 _taskCompletionSource.SetResult(tokenResult);
                 Hide();
-            }
-            else if (args.Uri.AbsolutePath.Contains("geetest.result"))
-            {
-                query.TryGetValue("success", out var successCodeStr);
-                var successCode = int.Parse(successCodeStr);
-                if (successCode == 0)
-                {
-                    // 验证失败.
-                    IsShowWebView = false;
-                }
-                else if (successCode == 1)
-                {
-                    IsShowWebView = false;
-
-                    // 验证成功
-                    query.TryGetValue("geetest_challenge", out var challenge);
-                    query.TryGetValue("geetest_validate", out var validate);
-                    query.TryGetValue("geetest_seccode", out var seccode);
-                    query.TryGetValue("recaptcha_token", out var recaptchaToken);
-
-                    if (_loginType == LoginType.Password)
-                    {
-                        var dict = new Dictionary<string, string>
-                        {
-                            { Query.LoginSessionId,  _sessionId },
-                            { Query.GeeSeccode,  seccode },
-                            { Query.GeeValidate,  validate },
-                            { Query.GeeChallenge,  challenge },
-                            { Query.RecaptchaToken,  recaptchaToken },
-                        };
-
-                        await HandlePasswordLoginAsync(dict);
-                    }
-                }
             }
             else if (IsRedirectUrl(args.Uri.AbsoluteUri))
             {

@@ -139,7 +139,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 NavigationCompleted="OnSessionWebViewNavigationCompletedAsync"
-                NavigationStarting="OnSessionWebViewNavigationStartingAsync" />
+                NavigationStarting="OnSessionWebViewNavigationStarting" />
         </Grid>
     </Grid>
 
