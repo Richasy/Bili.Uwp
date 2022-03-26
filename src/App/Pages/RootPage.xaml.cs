@@ -136,9 +136,10 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnBackRequestedAsync(object sender, BackRequestedEventArgs e)
         {
-            if (await TryBackAsync())
+            e.Handled = true;
+            if (!await TryBackAsync() && CoreViewModel.IsXbox)
             {
-                e.Handled = true;
+                App.Current.Exit();
             }
         }
 
