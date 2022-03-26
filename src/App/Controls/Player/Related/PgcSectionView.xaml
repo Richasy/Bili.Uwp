@@ -28,7 +28,7 @@
                                     Click="OnEpisodeItemClickAsync"
                                     DataContext="{x:Bind}"
                                     IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                    IsEnableCheck="True"
+                                    IsEnableCheck="False"
                                     IsEnableHoverAnimation="False">
                                     <Grid
                                         Padding="12"

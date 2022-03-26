@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Threading.Tasks;
 using Richasy.Bili.ViewModels.Uwp;
 
 namespace Richasy.Bili.App.Controls.Player.Related
@@ -25,10 +26,6 @@ namespace Richasy.Bili.App.Controls.Player.Related
             if (!data.Data.Id.ToString().Equals(ViewModel.EpisodeId))
             {
                 await ViewModel.LoadAsync(data.Data);
-            }
-            else
-            {
-                data.IsSelected = true;
             }
         }
     }

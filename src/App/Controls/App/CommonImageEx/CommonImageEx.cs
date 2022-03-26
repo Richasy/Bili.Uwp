@@ -16,7 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ImageUrl"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ImageUrlProperty =
-            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnImageUrlChanged)));
+            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Stretch"/>的依赖属性.
@@ -30,15 +30,12 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty RetryCountProperty =
             DependencyProperty.Register(nameof(RetryCount), typeof(int), typeof(CommonImageEx), new PropertyMetadata(2));
 
-        private ImageEx _image;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
         /// </summary>
         public CommonImageEx()
         {
             DefaultStyleKey = typeof(CommonImageEx);
-            Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -66,28 +63,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(RetryCountProperty); }
             set { SetValue(RetryCountProperty, value); }
-        }
-
-        /// <inheritdoc/>
-        protected override void OnApplyTemplate()
-            => _image = GetTemplateChild("Image") as ImageEx;
-
-        private static void OnImageUrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as CommonImageEx;
-
-            if (instance._image != null)
-            {
-                instance._image.Source = e.NewValue;
-            }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_image != null && !string.IsNullOrEmpty(ImageUrl))
-            {
-                _image.Source = ImageUrl;
-            }
         }
     }
 }

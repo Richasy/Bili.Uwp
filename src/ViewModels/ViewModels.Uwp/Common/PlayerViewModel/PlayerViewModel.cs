@@ -32,6 +32,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public PlayerViewModel()
         {
             RelatedVideoCollection = new ObservableCollection<VideoViewModel>();
+            ViewLaterVideoCollection = new ObservableCollection<VideoViewModel>();
             VideoPartCollection = new ObservableCollection<VideoPartViewModel>();
             FormatCollection = new ObservableCollection<VideoFormatViewModel>();
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
@@ -62,6 +63,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _logger);
+
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
@@ -144,8 +146,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="vm">视图模型.</param>
         /// <param name="isRefresh">是否刷新.</param>
+        /// <param name="clearAdditionalList">是否清除附加列表 (比如稍后再看) 的数据.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(object vm, bool isRefresh = false)
+        public async Task LoadAsync(object vm, bool isRefresh = false, bool clearAdditionalList = true)
         {
             var videoId = string.Empty;
             var seasonId = 0;
@@ -156,11 +159,15 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             CurrentPlayingRecord record = null;
 
+            if (clearAdditionalList)
+            {
+                IsShowViewLater = false;
+                ViewLaterVideoCollection.Clear();
+            }
+
             if (vm is VideoViewModel videoVM)
             {
-                videoId = videoVM.VideoId;
-                type = videoVM.VideoType;
-                isReleated = videoVM.IsRelated;
+                HandleVideoViewModel(videoVM);
             }
             else if (vm is SeasonViewModel seasonVM)
             {
@@ -185,6 +192,14 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 record = r;
             }
+            else if (vm is List<VideoViewModel> viewLaterItems)
+            {
+                IsShowViewLater = true;
+                ViewLaterVideoCollection.Clear();
+                viewLaterItems.ForEach(p => ViewLaterVideoCollection.Add(p));
+                var first = viewLaterItems.First();
+                HandleVideoViewModel(first);
+            }
 
             if (record == null)
             {
@@ -195,6 +210,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             await LoadAsync(record, isRefresh);
+
+            void HandleVideoViewModel(VideoViewModel internalVM)
+            {
+                videoId = internalVM.VideoId;
+                type = internalVM.VideoType;
+                isReleated = internalVM.IsRelated;
+
+                if (ViewLaterVideoCollection.Contains(internalVM))
+                {
+                    IsShowViewLater = true;
+                    foreach (var item in ViewLaterVideoCollection)
+                    {
+                        item.IsSelected = item.VideoId == internalVM.VideoId;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -717,7 +748,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task PlayNextVideoAsync()
         {
-            if (RelatedVideoCollection.Count > 0)
+            if (IsShowViewLater)
+            {
+                var index = ViewLaterVideoCollection.IndexOf(ViewLaterVideoCollection.FirstOrDefault(p => p.IsSelected));
+                if (index != -1 && index < ViewLaterVideoCollection.Count)
+                {
+                    var nextVideo = ViewLaterVideoCollection[index + 1];
+                    await LoadAsync(nextVideo, clearAdditionalList: false);
+                }
+            }
+            else if (RelatedVideoCollection.Count > 0)
             {
                 var first = RelatedVideoCollection.First();
                 await LoadAsync(first);

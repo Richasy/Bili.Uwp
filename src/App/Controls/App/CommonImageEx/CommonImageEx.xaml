@@ -14,6 +14,7 @@
                         LazyLoadingEnabled="True"
                         RetryCount="{TemplateBinding RetryCount}"
                         RetryDelay="0:0:5"
+                        Source="{TemplateBinding ImageUrl}"
                         Stretch="{TemplateBinding Stretch}">
                         <hn:ImageEx.LoadingTemplate>
                             <DataTemplate>

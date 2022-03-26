@@ -56,6 +56,10 @@
             SelectionChanged="OnNavSelectionChanged">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
+                    x:Name="ViewLaterItem"
+                    Content="{loc:LocaleLocator Name=ViewLater}"
+                    Visibility="{x:Bind ViewModel.IsShowViewLater, Mode=OneWay}" />
+                <muxc:NavigationViewItem
                     x:Name="PartsItem"
                     Content="{loc:LocaleLocator Name=Parts}"
                     Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
@@ -86,6 +90,10 @@
             </muxc:NavigationView.MenuItems>
 
             <Grid x:Name="DetailGrid" Width="360">
+                <related:ViewLaterView
+                    x:Name="ViewLaterVideoView"
+                    x:Load="{x:Bind ViewModel.IsShowViewLater, Mode=OneWay}"
+                    Visibility="Collapsed" />
                 <related:RelatedVideoView
                     x:Name="RelatedVideoView"
                     x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}"

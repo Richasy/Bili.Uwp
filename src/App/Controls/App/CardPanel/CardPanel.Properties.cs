@@ -184,7 +184,6 @@ namespace Richasy.Bili.App.Controls
             get { return (double)GetValue(StrokeThicknessProperty); }
             set { SetValue(StrokeThicknessProperty, value); }
         }
-
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

@@ -1038,15 +1038,33 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private bool HasNextVideo()
         {
-            var result = !IsInteraction
+            var result = IsShowViewLater
+                ? ViewLaterVideoCollection.FirstOrDefault(p => p.IsSelected) != ViewLaterVideoCollection.Last()
+                : !IsInteraction
                 && _videoType == VideoType.Video
                 && IsShowRelatedVideos
                 && RelatedVideoCollection.Count > 0;
 
             if (result)
             {
-                var nextVideo = RelatedVideoCollection.First();
-                NextVideoTipText = nextVideo.Title;
+                if (IsShowViewLater)
+                {
+                    var index = ViewLaterVideoCollection.IndexOf(ViewLaterVideoCollection.FirstOrDefault(p => p.IsSelected));
+                    if (index != -1)
+                    {
+                        var nextVideo = ViewLaterVideoCollection[index + 1];
+                        NextVideoTipText = nextVideo.Title;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                else
+                {
+                    var nextVideo = RelatedVideoCollection.First();
+                    NextVideoTipText = nextVideo.Title;
+                }
             }
 
             return result;

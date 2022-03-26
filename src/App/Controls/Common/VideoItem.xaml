@@ -40,7 +40,9 @@
     <local:CardPanel
         x:Name="RootCard"
         AutomationProperties.Name="{x:Bind ViewModel.Title, Mode=OneWay}"
-        Click="OnContainerClickAsync">
+        Click="OnContainerClickAsync"
+        IsChecked="{x:Bind ViewModel.IsSelected, Mode=OneWay}"
+        IsEnableCheck="False">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">

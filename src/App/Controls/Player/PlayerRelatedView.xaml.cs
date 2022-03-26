@@ -23,9 +23,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnViewModelLoaded(object sender, EventArgs e)
-        {
-            InitializeLayoutAsync();
-        }
+            => InitializeLayoutAsync();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -45,6 +43,10 @@ namespace Richasy.Bili.App.Controls
                 if (!string.IsNullOrEmpty(ViewModel.InitializeSection))
                 {
                     InitializeSelectedSection();
+                }
+                else if (ViewModel.IsShowViewLater)
+                {
+                    Nav.SelectedItem = ViewLaterItem;
                 }
                 else if (ViewModel.IsPgc && ViewModel.IsCurrentEpisodeInPgcSection)
                 {
@@ -111,6 +113,12 @@ namespace Richasy.Bili.App.Controls
 
         private async void InitializeLayoutAsync()
         {
+            if (ViewModel.IsShowViewLater && ViewLaterVideoView != null)
+            {
+                ViewLaterVideoView.Visibility = Nav.SelectedItem == ViewLaterItem ?
+                Visibility.Visible : Visibility.Collapsed;
+            }
+
             if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
             {
                 RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
@@ -165,6 +173,9 @@ namespace Richasy.Bili.App.Controls
             {
                 case AppConstants.ReplySection:
                     Nav.SelectedItem = ReplyItem;
+                    break;
+                case AppConstants.ViewLaterSection:
+                    Nav.SelectedItem = ViewLaterItem;
                     break;
                 default:
                     break;
