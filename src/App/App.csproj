@@ -48,6 +48,8 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
+    <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
+    <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
     <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
       <DependentUpon>ViewLaterView.xaml</DependentUpon>
     </Compile>
@@ -568,6 +570,10 @@
     <Page Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Player\Related\ViewLaterView.xaml">
       <SubType>Designer</SubType>
