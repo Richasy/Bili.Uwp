@@ -23,6 +23,7 @@ namespace Richasy.Bili.Models.App.Constants
         public const string LinkClickEvent = "LinkClick";
 
         public const string ReplySection = "Reply";
+        public const string ViewLaterSection = "ViewLater";
 
         public const string LastOpenVideoFileName = "LastOpenVideo.json";
         public const string FixedPublisherFolderName = "Fixed publisher";

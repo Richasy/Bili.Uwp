@@ -52,18 +52,7 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             if (e.Parameter != null)
             {
-                if (e.Parameter is VideoViewModel videoVM)
-                {
-                    _navigateVM = videoVM;
-                }
-                else if (e.Parameter is SeasonViewModel ssVM)
-                {
-                    _navigateVM = ssVM;
-                }
-                else if (e.Parameter is CurrentPlayingRecord record)
-                {
-                    _navigateVM = record;
-                }
+                _navigateVM = e.Parameter;
 
                 if (IsLoaded)
                 {
@@ -77,6 +66,14 @@ namespace Richasy.Bili.App.Pages.Overlay
         {
             _navigateVM = null;
             EnterDefaultModeAsync();
+            if (ViewModel.IsShowViewLater)
+            {
+                foreach (var item in ViewModel.ViewLaterVideoCollection)
+                {
+                    item.IsSelected = false;
+                }
+            }
+
             CoreViewModel.IsOverLayerExtendToTitleBar = false;
         }
 

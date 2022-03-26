@@ -57,6 +57,14 @@
                             <controls:VerticalRepeaterView.AdditionalContent>
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <Button
+                                        x:Name="PlayAllButton"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        VerticalAlignment="Center"
+                                        Click="OnPlayAllButtonClick"
+                                        Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                        <controls:IconTextBlock Symbol="Play16" Text="{loc:LocaleLocator Name=PlayAll}" />
+                                    </Button>
+                                    <Button
                                         x:Name="RefreshButton"
                                         VerticalAlignment="Center"
                                         Click="OnRefreshButtonClickAsync">

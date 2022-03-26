@@ -312,6 +312,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<double> PlaybackRateNodeCollection { get; }
 
         /// <summary>
+        /// 稍后再看视频集合.
+        /// </summary>
+        public ObservableCollection<VideoViewModel> ViewLaterVideoCollection { get; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
@@ -436,6 +441,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowReply { get; set; }
+
+        /// <summary>
+        /// 是否显示稍后再看列表.
+        /// </summary>
+        [Reactive]
+        public bool IsShowViewLater { get; set; }
 
         /// <summary>
         /// 点赞按钮是否被选中.

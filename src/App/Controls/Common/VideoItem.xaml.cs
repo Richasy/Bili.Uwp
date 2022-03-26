@@ -284,7 +284,11 @@ namespace Richasy.Bili.App.Controls
 
         private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            AppViewModel.OpenPlayer(ViewModel);
+            if (!ViewModel.IsSelected)
+            {
+                AppViewModel.OpenPlayer(ViewModel);
+            }
+
             ItemClick?.Invoke(this, ViewModel);
         }
 

@@ -44,11 +44,7 @@ namespace Richasy.Bili.App.Controls
         /// <inheritdoc/>
         protected override void OnToggle()
         {
-            if (!IsEnableCheck)
-            {
-                IsChecked = false;
-            }
-            else
+            if (IsEnableCheck)
             {
                 IsChecked = !IsChecked;
             }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Threading.Tasks;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
@@ -28,6 +29,8 @@ namespace Richasy.Bili.App.Controls.Player.Related
             }
             else
             {
+                data.IsSelected = false;
+                await Task.Delay(100);
                 data.IsSelected = true;
             }
         }

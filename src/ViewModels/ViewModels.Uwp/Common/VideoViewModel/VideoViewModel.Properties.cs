@@ -104,6 +104,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool CanShowAvatar { get; set; }
 
         /// <summary>
+        /// 是否被选中.
+        /// </summary>
+        [Reactive]
+        public bool IsSelected { get; set; }
+
+        /// <summary>
         /// 视频类型.
         /// </summary>
         public VideoType VideoType { get; set; }
