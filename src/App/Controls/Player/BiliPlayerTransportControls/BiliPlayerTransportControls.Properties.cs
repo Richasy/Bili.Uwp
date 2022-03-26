@@ -64,6 +64,7 @@ namespace Richasy.Bili.App.Controls
         private const string DecreasePlayRateButtonName = "DecreasePlayRateButton";
         private const string IncreaseVolumeButtonName = "IncreaseVolumeButton";
         private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
+        private const string PlayNextVideoButtonName = "PlayNextVideoButton";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -100,10 +101,13 @@ namespace Richasy.Bili.App.Controls
         private Button _decreasePlayRateButton;
         private Button _increaseVolumeButton;
         private Button _decreaseVolumeButton;
+        private HyperlinkButton _playNextVideoButton;
+
         private int _segmentIndex;
         private double _cursorStayTime;
         private double _historyMessageHoldSeconds;
         private double _tempMessageHoldSeconds;
+        private double _nextVideoHoldSeconds;
 
         private double _manipulationDeltaX = 0d;
         private double _manipulationDeltaY = 0d;

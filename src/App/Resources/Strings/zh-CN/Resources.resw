@@ -180,6 +180,12 @@
   <data name="Automatic" xml:space="preserve">
     <value>自动</value>
   </data>
+  <data name="AutoNextRelatedVideo" xml:space="preserve">
+    <value>自动播放关联视频</value>
+  </data>
+  <data name="AutoNextRelatedVideoDescription" xml:space="preserve">
+    <value>在视频播放结束后，如果有关联视频，则在 5 秒倒计时结束后自动播放下一个视频</value>
+  </data>
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
     <value>加载完成后自动播放</value>
   </data>
@@ -925,6 +931,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="PlayLine" xml:space="preserve">
     <value>线路</value>
+  </data>
+  <data name="PlayNextVideo" xml:space="preserve">
+    <value>即将播放下一个视频</value>
+  </data>
+  <data name="PlayNow" xml:space="preserve">
+    <value>立即播放</value>
   </data>
   <data name="PlayPause" xml:space="preserve">
     <value>播放/暂停</value>

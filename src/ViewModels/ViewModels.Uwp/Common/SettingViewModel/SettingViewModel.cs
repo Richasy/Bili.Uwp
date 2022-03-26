@@ -36,6 +36,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _initializeTheme = AppTheme;
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+            IsAutoPlayNextRelatedVideo = ReadSetting(SettingNames.IsAutoPlayNextRelatedVideo, false);
             IsPreferHighQuality = ReadSetting(SettingNames.IsPreferHighQuality, false);
             DisableP2PCdn = ReadSetting(SettingNames.DisableP2PCdn, false);
             IsContinusPlay = ReadSetting(SettingNames.IsContinusPlay, true);
@@ -112,6 +113,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(GlobalPlaybackRate):
                     WriteSetting(SettingNames.GlobalPlaybackRate, GlobalPlaybackRate);
+                    break;
+                case nameof(IsAutoPlayNextRelatedVideo):
+                    WriteSetting(SettingNames.IsAutoPlayNextRelatedVideo, IsAutoPlayNextRelatedVideo);
                     break;
                 default:
                     break;

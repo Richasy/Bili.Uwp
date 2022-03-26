@@ -37,6 +37,7 @@
                 <controls:StartupSettingSection />
                 <controls:LoggerSettingSection />
                 <controls:CacheSettingSection />
+                <controls:InitialCheckSection />
 
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
@@ -47,7 +48,6 @@
                 <controls:PlayerControlSettingSection />
                 <controls:MTCSettingSection />
                 <controls:ScreenshotSettingSection />
-                <controls:InitialCheckSection />
                 <StackPanel
                     Margin="0,12,0,0"
                     HorizontalAlignment="Left"

@@ -83,6 +83,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsAutoPlayWhenLoaded { get; set; }
 
         /// <summary>
+        /// 自动播放下一个关联视频.
+        /// </summary>
+        [Reactive]
+        public bool IsAutoPlayNextRelatedVideo { get; set; }
+
+        /// <summary>
         /// 默认播放器显示模式.
         /// </summary>
         [Reactive]

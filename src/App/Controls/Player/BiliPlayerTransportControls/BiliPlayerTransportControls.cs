@@ -93,6 +93,7 @@ namespace Richasy.Bili.App.Controls
             _decreasePlayRateButton = GetTemplateChild(DecreasePlayRateButtonName) as Button;
             _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
             _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
+            _playNextVideoButton = GetTemplateChild(PlayNextVideoButtonName) as HyperlinkButton;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -117,6 +118,7 @@ namespace Richasy.Bili.App.Controls
             _decreasePlayRateButton.Click += OnDecreasePlayRateButtonClick;
             _increaseVolumeButton.Click += OnIncreaseVolumeButtonClick;
             _decreaseVolumeButton.Click += OnDecreaseVolumeButtonClick;
+            _playNextVideoButton.Click += OnPlayNextVideoButtonClickAsync;
 
             if (_formatListView != null)
             {
@@ -339,8 +341,8 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnContinuePreviousViewButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            ViewModel.IsShowHistory = false;
-            ViewModel.HistoryText = string.Empty;
+            ViewModel.IsShowHistoryTip = false;
+            ViewModel.HistoryTipText = string.Empty;
             await ViewModel.JumpToHistoryAsync();
         }
 
@@ -563,7 +565,7 @@ namespace Richasy.Bili.App.Controls
             {
                 _normalTimer = new DispatcherTimer();
                 _normalTimer.Interval = TimeSpan.FromSeconds(0.5);
-                _normalTimer.Tick += OnNormalTimerTick;
+                _normalTimer.Tick += OnNormalTimerTickAsync;
             }
         }
 
@@ -776,7 +778,7 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnNormalTimerTick(object sender, object e)
+        private async void OnNormalTimerTickAsync(object sender, object e)
         {
             if (_tempMessageHoldSeconds >= 2)
             {
@@ -787,14 +789,40 @@ namespace Richasy.Bili.App.Controls
                 _tempMessageHoldSeconds += 0.5;
             }
 
-            if (ViewModel.IsShowHistory)
+            if (ViewModel.IsShowHistoryTip)
             {
                 _historyMessageHoldSeconds += 0.5;
                 if (_historyMessageHoldSeconds > 4)
                 {
-                    ViewModel.IsShowHistory = false;
+                    ViewModel.IsShowHistoryTip = false;
                     _historyMessageHoldSeconds = 0;
                 }
+            }
+            else
+            {
+                _historyMessageHoldSeconds = 0;
+            }
+
+            if (ViewModel.IsShowNextVideoTip)
+            {
+                _nextVideoHoldSeconds += 0.5;
+
+                if (_nextVideoHoldSeconds > 5)
+                {
+                    _nextVideoHoldSeconds = 0;
+                    ViewModel.NextVideoCountdown = 0;
+                    ViewModel.IsShowNextVideoTip = false;
+
+                    await ViewModel.PlayNextVideoAsync();
+                }
+                else
+                {
+                    ViewModel.NextVideoCountdown = Math.Ceiling(5 - _nextVideoHoldSeconds);
+                }
+            }
+            else
+            {
+                _nextVideoHoldSeconds = 0;
             }
         }
 
@@ -967,6 +995,13 @@ namespace Richasy.Bili.App.Controls
                 ViewModel.BiliPlayer.MediaPlayer.Volume = volume;
                 ShowTempMessage($"{resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume * 100)}");
             }
+        }
+
+        private async void OnPlayNextVideoButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsShowNextVideoTip = false;
+            _nextVideoHoldSeconds = 0;
+            await ViewModel.PlayNextVideoAsync();
         }
 
         private void ShowTempMessage(string message)

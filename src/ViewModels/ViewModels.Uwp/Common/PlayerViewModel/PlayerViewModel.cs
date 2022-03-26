@@ -711,6 +711,19 @@ namespace Richasy.Bili.ViewModels.Uwp
             _settingsToolkit.DeleteLocalSetting(SettingNames.ContinuePlayTitle);
         }
 
+        /// <summary>
+        /// 播放下一个视频.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task PlayNextVideoAsync()
+        {
+            if (RelatedVideoCollection.Count > 0)
+            {
+                var first = RelatedVideoCollection.First();
+                await LoadAsync(first);
+            }
+        }
+
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var request = args.Request;
