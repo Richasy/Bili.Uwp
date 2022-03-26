@@ -71,7 +71,7 @@
                 HorizontalAlignment="Stretch"
                 Header="{loc:LocaleLocator Name=Password}"
                 PlaceholderText="{loc:LocaleLocator Name=PasswordHolder}" />
-            <ProgressBar
+            <muxc:ProgressBar
                 x:Name="AuthorizeProgressBar"
                 HorizontalAlignment="Stretch"
                 IsIndeterminate="True"

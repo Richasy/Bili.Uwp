@@ -203,15 +203,16 @@ namespace Richasy.Bili.Lib.Uwp
         {
             ErrorBlock.Visibility = Visibility.Visible;
             ErrorBlock.Text = msg;
+            AuthorizeProgressBar.Visibility = Visibility.Collapsed;
+            IsPrimaryButtonEnabled = true;
+            UserNameBox.IsEnabled = true;
+            PasswordBox.IsEnabled = true;
         }
 
         private void ShowError(LanguageNames name)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
-            AuthorizeProgressBar.Visibility = Visibility.Collapsed;
-            UserNameBox.IsEnabled = true;
-            PasswordBox.IsEnabled = true;
             ShowError(msg);
         }
 
@@ -255,7 +256,7 @@ namespace Richasy.Bili.Lib.Uwp
                     {
                         AccessToken = token,
                         Mid = Convert.ToInt64(mid),
-                        ExpiresIn = Convert.ToInt32(DateTimeOffset.Now.AddDays(1).ToUnixTimeSeconds()),
+                        ExpiresIn = Convert.ToInt32(DateTimeOffset.Now.AddDays(14).ToUnixTimeSeconds()),
                     },
                 };
 
@@ -265,6 +266,7 @@ namespace Richasy.Bili.Lib.Uwp
             else if (IsRedirectUrl(args.Uri.AbsoluteUri))
             {
                 AuthorizeProgressBar.Visibility = Visibility.Visible;
+                IsPrimaryButtonEnabled = false;
                 UserNameBox.IsEnabled = false;
                 PasswordBox.IsEnabled = false;
                 IsShowWebView = false;
