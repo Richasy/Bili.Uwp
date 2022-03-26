@@ -38,7 +38,7 @@
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                    <local:VideoItem
+                    <local:VideoCard
                         IsShowAvatar="False"
                         IsShowDuration="False"
                         IsShowViewerCount="True"

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:hn="using:HN.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
@@ -9,35 +9,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CommonImageEx">
-                    <hn:ImageEx
+                    <controls:ImageEx
                         x:Name="Image"
-                        LazyLoadingEnabled="True"
-                        RetryCount="{TemplateBinding RetryCount}"
-                        RetryDelay="0:0:5"
+                        EnableLazyLoading="True"
+                        PlaceholderSource="/Assets/img_holder_rect.png"
+                        PlaceholderStretch="Uniform"
                         Source="{TemplateBinding ImageUrl}"
-                        Stretch="{TemplateBinding Stretch}">
-                        <hn:ImageEx.LoadingTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <muxc:ProgressRing
-                                        Style="{StaticResource PageProgressRingStyle}"
-                                        Width="28"
-                                        Height="28" />
-                                </Grid>
-                            </DataTemplate>
-                        </hn:ImageEx.LoadingTemplate>
-                        <hn:ImageEx.FailedTemplate>
-                            <DataTemplate>
-                                <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                    <icons:RegularFluentIcon
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                        Symbol="Image28" />
-                                </Grid>
-                            </DataTemplate>
-                        </hn:ImageEx.FailedTemplate>
-                    </hn:ImageEx>
+                        Stretch="{TemplateBinding Stretch}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

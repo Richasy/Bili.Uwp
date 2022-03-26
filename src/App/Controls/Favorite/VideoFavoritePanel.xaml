@@ -75,13 +75,13 @@
                             ItemsSource="{x:Bind ViewModel.DefaultVideoViewModel.VideoCollection, Mode=OneWay}">
                             <local:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <local:VideoItem
+                                    <local:VideoCard
                                         DataContext="{x:Bind}"
                                         IsShowAvatar="True"
                                         IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
                                         IsShowPlayCount="True"
                                         ViewModel="{x:Bind Mode=OneWay}">
-                                        <local:VideoItem.ContextFlyout>
+                                        <local:VideoCard.ContextFlyout>
                                             <muxc:CommandBarFlyout>
                                                 <muxc:CommandBarFlyout.SecondaryCommands>
                                                     <AppBarButton Click="OnAddToViewLaterButtonClickAsync" Label="{loc:LocaleLocator Name=AddToViewLater}">
@@ -96,8 +96,8 @@
                                                     </AppBarButton>
                                                 </muxc:CommandBarFlyout.SecondaryCommands>
                                             </muxc:CommandBarFlyout>
-                                        </local:VideoItem.ContextFlyout>
-                                    </local:VideoItem>
+                                        </local:VideoCard.ContextFlyout>
+                                    </local:VideoCard>
                                 </DataTemplate>
                             </local:VerticalRepeaterView.ItemTemplate>
                         </local:VerticalRepeaterView>

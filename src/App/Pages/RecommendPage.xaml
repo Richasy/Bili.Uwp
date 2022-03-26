@@ -44,14 +44,14 @@
                     RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <controls:VideoItem
+                            <controls:VideoCard
                                 AdditionalOverlayContentVisibility="{x:Bind AdditionalText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}"
-                                IsShowAvatar="False"
+                                IsShowAvatar="{x:Bind CanShowAvatar, Mode=OneWay}"
                                 IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
                                 IsShowLikeCount="{x:Bind LikeCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
                                 IsShowPlayCount="True"
                                 ViewModel="{x:Bind Mode=OneWay}">
-                                <controls:VideoItem.AdditionalOverlayContent>
+                                <controls:VideoCard.AdditionalOverlayContent>
                                     <Grid
                                         Padding="8,4"
                                         HorizontalAlignment="Left"
@@ -62,8 +62,8 @@
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
                                             Text="{x:Bind AdditionalText, Mode=OneWay}" />
                                     </Grid>
-                                </controls:VideoItem.AdditionalOverlayContent>
-                            </controls:VideoItem>
+                                </controls:VideoCard.AdditionalOverlayContent>
+                            </controls:VideoCard>
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>

@@ -84,13 +84,13 @@
                             </controls:VerticalRepeaterView.AdditionalContent>
                             <controls:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoItem
+                                    <controls:VideoCard
                                         DataContext="{x:Bind}"
                                         IsShowDanmakuCount="True"
                                         IsShowLikeCount="True"
                                         IsShowPlayCount="True"
                                         ViewModel="{x:Bind}">
-                                        <controls:VideoItem.ContextFlyout>
+                                        <controls:VideoCard.ContextFlyout>
                                             <MenuFlyout>
                                                 <MenuFlyoutItem Click="OnRemoveItemClickAsync" Text="{loc:LocaleLocator Name=Remove}">
                                                     <MenuFlyoutItem.Icon>
@@ -98,8 +98,8 @@
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
                                             </MenuFlyout>
-                                        </controls:VideoItem.ContextFlyout>
-                                    </controls:VideoItem>
+                                        </controls:VideoCard.ContextFlyout>
+                                    </controls:VideoCard>
                                 </DataTemplate>
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>

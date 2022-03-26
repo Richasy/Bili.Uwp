@@ -213,7 +213,7 @@
                                     </controls:VerticalRepeaterView.AdditionalContent>
                                     <controls:VerticalRepeaterView.ItemTemplate>
                                         <DataTemplate x:DataType="uwp:VideoViewModel">
-                                            <controls:VideoItem
+                                            <controls:VideoCard
                                                 IsShowDanmakuCount="True"
                                                 IsShowLikeCount="True"
                                                 IsShowPlayCount="True"

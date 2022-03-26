@@ -312,9 +312,6 @@
     <Compile Include="Controls\App\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\VideoItem.xaml.cs">
-      <DependentUpon>VideoItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
@@ -908,10 +905,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\RootNavigationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\VideoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

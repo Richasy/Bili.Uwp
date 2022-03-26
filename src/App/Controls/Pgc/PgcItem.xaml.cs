@@ -23,7 +23,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Orientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoCard), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// <see cref="TagVisibility"/>的依赖属性.

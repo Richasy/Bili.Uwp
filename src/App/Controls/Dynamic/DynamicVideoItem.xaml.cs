@@ -9,24 +9,24 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 动态视频条目.
     /// </summary>
-    public sealed partial class DynamicVideoItem : UserControl, IDynamicLayoutItem
+    public sealed partial class DynamicVideoCard : UserControl, IDynamicLayoutItem
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(DynamicVideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(DynamicVideoCard), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Orientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicVideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicVideoCard), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicVideoItem"/> class.
+        /// Initializes a new instance of the <see cref="DynamicVideoCard"/> class.
         /// </summary>
-        public DynamicVideoItem()
+        public DynamicVideoCard()
         {
             InitializeComponent();
             Loaded += OnLoaded;
@@ -52,7 +52,7 @@ namespace Richasy.Bili.App.Controls
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as DynamicVideoItem;
+            var instance = d as DynamicVideoCard;
             instance.CheckOrientation();
         }
 

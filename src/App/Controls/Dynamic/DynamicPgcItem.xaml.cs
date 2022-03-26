@@ -24,7 +24,7 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicPgcItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicVideoItem"/> class.
+        /// Initializes a new instance of the <see cref="DynamicVideoCard"/> class.
         /// </summary>
         public DynamicPgcItem()
         {

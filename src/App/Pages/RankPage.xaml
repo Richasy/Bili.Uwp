@@ -73,12 +73,12 @@
                             Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <controls:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoItem
+                                    <controls:VideoCard
                                         IsShowDanmakuCount="True"
                                         IsShowLikeCount="True"
                                         IsShowPlayCount="True"
                                         ViewModel="{x:Bind}">
-                                        <controls:VideoItem.AdditionalFooterContent>
+                                        <controls:VideoCard.AdditionalFooterContent>
                                             <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Margin="0,0,0,8">
                                                 <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{loc:LocaleLocator Name=Score}" />
                                                 <Run
@@ -86,8 +86,8 @@
                                                     Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                                                     Text="{x:Bind AdditionalText, Mode=OneWay}" />
                                             </TextBlock>
-                                        </controls:VideoItem.AdditionalFooterContent>
-                                    </controls:VideoItem>
+                                        </controls:VideoCard.AdditionalFooterContent>
+                                    </controls:VideoCard>
                                 </DataTemplate>
                             </controls:VerticalRepeaterView.ItemTemplate>
                         </controls:VerticalRepeaterView>
