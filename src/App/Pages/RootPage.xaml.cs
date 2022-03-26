@@ -132,9 +132,6 @@ namespace Richasy.Bili.App.Pages
             CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
             await AccountViewModel.Instance.TrySignInAsync(true);
-#if !DEBUG
-            await CoreViewModel.CheckUpdateAsync();
-#endif
         }
 
         private async void OnBackRequestedAsync(object sender, BackRequestedEventArgs e)

@@ -9,11 +9,11 @@
   IgnorableNamespaces="uap mp uap5 uap3">
 
   <Identity
-    Name="Richasy.Bili"
-    Publisher="CN=云之幻"
-    Version="1.0.0.0" />
+    Name="60520B029E250.4264454043325"
+    Publisher="CN=9EFA2047-A580-400B-A5B2-0C7ABB0DB5C0"
+    Version="0.0.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="1c288bc0-72f3-4c4c-90ad-a05b52e937b0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="2c8fd058-51b4-45be-ba59-7d7e5cfd8cf5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>哔哩</DisplayName>
