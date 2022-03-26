@@ -123,7 +123,7 @@
                             </controls:VerticalRepeaterView.AdditionalContent>
                             <controls:VerticalRepeaterView.ItemTemplate>
                                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoItem
+                                    <controls:VideoCard
                                         IsShowAvatar="False"
                                         IsShowDanmakuCount="False"
                                         IsShowDuration="False"

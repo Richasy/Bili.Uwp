@@ -2,8 +2,6 @@
 
 using System;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -12,101 +10,91 @@ namespace Richasy.Bili.App.Controls
     /// <summary>
     /// 视频条目.
     /// </summary>
-    public sealed partial class VideoItem : UserControl, IRepeaterItem, IDynamicLayoutItem
+    public sealed partial class VideoCard
     {
         /// <summary>
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(VideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewModel), typeof(VideoViewModel), typeof(VideoCard), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Orientation"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(VideoCard), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
         /// <summary>
         /// <see cref="IsShowPublishDateTime"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowPublishDateTimeProperty =
-            DependencyProperty.Register(nameof(IsShowPublishDateTime), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowPublishDateTime), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowReplayCount"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowReplayCountProperty =
-            DependencyProperty.Register(nameof(IsShowReplayCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowReplayCount), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowDanmakuCount"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowDanmakuCountProperty =
-            DependencyProperty.Register(nameof(IsShowDanmakuCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowDanmakuCount), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowPlayCount"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowPlayCountProperty =
-            DependencyProperty.Register(nameof(IsShowPlayCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowPlayCount), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowLikeCount"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowLikeCountProperty =
-            DependencyProperty.Register(nameof(IsShowLikeCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowLikeCount), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowViewerCount"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowViewerCountProperty =
-            DependencyProperty.Register(nameof(IsShowViewerCount), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowViewerCount), typeof(bool), typeof(VideoCard), new PropertyMetadata(false));
 
         /// <summary>
         /// <see cref="IsShowDuration"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowDurationProperty =
-            DependencyProperty.Register(nameof(IsShowDuration), typeof(bool), typeof(VideoItem), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsShowDuration), typeof(bool), typeof(VideoCard), new PropertyMetadata(true));
 
         /// <summary>
         /// <see cref="IsShowAvatar"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowAvatarProperty =
-            DependencyProperty.Register(nameof(IsShowAvatar), typeof(bool), typeof(VideoItem), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsShowAvatar), typeof(bool), typeof(VideoCard), new PropertyMetadata(true));
 
         /// <summary>
         /// <see cref="AdditionalFooterContent"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty AdditionalFooterContentProperty =
-            DependencyProperty.Register(nameof(AdditionalFooterContent), typeof(object), typeof(VideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AdditionalFooterContent), typeof(object), typeof(VideoCard), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="AdditionalOverlayContent"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty AdditionalOverlayContentProperty =
-            DependencyProperty.Register(nameof(AdditionalOverlayContent), typeof(object), typeof(VideoItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AdditionalOverlayContent), typeof(object), typeof(VideoCard), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="AdditionalOverlayContentVisibility"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty AdditionalOverlayContentVisibilityProperty =
-            DependencyProperty.Register(nameof(AdditionalOverlayContentVisibility), typeof(Visibility), typeof(VideoItem), new PropertyMetadata(Visibility.Collapsed));
+            DependencyProperty.Register(nameof(AdditionalOverlayContentVisibility), typeof(Visibility), typeof(VideoCard), new PropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
         /// <see cref="HorizontalCoverWidth"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty HorizontalCoverWidthProperty =
-            DependencyProperty.Register(nameof(HorizontalCoverWidth), typeof(double), typeof(VideoItem), new PropertyMetadata(160d));
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VideoItem"/> class.
-        /// </summary>
-        public VideoItem()
-        {
-            InitializeComponent();
-            Loaded += OnLoaded;
-            AppViewModel = AppViewModel.Instance;
-        }
+            DependencyProperty.Register(nameof(HorizontalCoverWidth), typeof(double), typeof(VideoCard), new PropertyMetadata(160d));
 
         /// <summary>
         /// 条目被点击时触发.
@@ -242,97 +230,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (double)GetValue(HorizontalCoverWidthProperty); }
             set { SetValue(HorizontalCoverWidthProperty, value); }
-        }
-
-        /// <inheritdoc/>
-        public Size GetHolderSize()
-        {
-            if (Orientation == Orientation.Horizontal)
-            {
-                return new Size(double.PositiveInfinity, 180);
-            }
-            else
-            {
-                return new Size(210, 248);
-            }
-        }
-
-        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as VideoItem;
-            instance.CheckOrientation();
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e) => CheckOrientation();
-
-        private void CheckOrientation()
-        {
-            switch (Orientation)
-            {
-                case Orientation.Vertical:
-                    VisualStateManager.GoToState(this, nameof(VerticalState), false);
-                    CoverContainer.Width = double.NaN;
-                    break;
-                case Orientation.Horizontal:
-                    VisualStateManager.GoToState(this, nameof(HorizontalState), false);
-                    CoverContainer.Width = HorizontalCoverWidth;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void OnContainerClickAsync(object sender, RoutedEventArgs e)
-        {
-            if (!ViewModel.IsSelected)
-            {
-                AppViewModel.OpenPlayer(ViewModel);
-            }
-
-            ItemClick?.Invoke(this, ViewModel);
-        }
-
-        private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
-            {
-                await ViewLaterViewModel.Instance.AddAsync(ViewModel);
-            }
-        }
-
-        private void OnFlyoutOpening(object sender, object e)
-        {
-            if (ViewModel.VideoType != Models.Enums.VideoType.Video)
-            {
-                ContextFlyout.Hide();
-            }
-        }
-
-        private async void OnAvatarClickAsync(object sender, EventArgs e)
-        {
-            if (ViewModel.Publisher != null)
-            {
-                await UserView.Instance.ShowAsync(ViewModel.Publisher);
-            }
-        }
-
-        private async void OnOpenInBroswerItemClickAsync(object sender, RoutedEventArgs e)
-        {
-            var uri = string.Empty;
-            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
-            {
-                uri = $"https://www.bilibili.com/video/av{ViewModel.VideoId}";
-            }
-            else if (ViewModel.VideoType == Models.Enums.VideoType.Pgc)
-            {
-                uri = $"https://www.bilibili.com/bangumi/play/{ViewModel.VideoId}";
-            }
-            else if (ViewModel.VideoType == Models.Enums.VideoType.Live)
-            {
-                uri = $"https://live.bilibili.com/{ViewModel.VideoId}";
-            }
-
-            await Launcher.LaunchUriAsync(new Uri(uri));
         }
     }
 }

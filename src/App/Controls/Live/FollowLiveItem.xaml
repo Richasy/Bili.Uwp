@@ -11,8 +11,8 @@
 
     <Grid>
         <Grid x:Name="HorizontalContainer">
-            <local:VideoItem
-                x:Name="VideoItem"
+            <local:VideoCard
+                x:Name="VideoCard"
                 Width="320"
                 Height="100"
                 HorizontalCoverWidth="100"

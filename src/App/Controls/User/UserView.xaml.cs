@@ -96,7 +96,7 @@ namespace Richasy.Bili.App.Controls
         private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
             => await ViewModel.DeltaRequestVideoAsync();
 
-        private void OnVideoItemClick(object sender, VideoViewModel e) => Container.Hide();
+        private void OnVideoCardClick(object sender, VideoViewModel e) => Container.Hide();
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ToggleFollowStateAsync();

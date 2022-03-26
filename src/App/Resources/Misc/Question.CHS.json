@@ -74,6 +74,11 @@
         "id": 303,
         "title": "下载视频",
         "answer": "应用不提供下载功能，但是支持生成BBDown命令。\nBBDown是一款开源的命令行下载工具，可用于BiliBili的视频下载，详情可以在Github的nilaoda/BBDown中查看。\n通过可视化配置，你可以获取BBDown的命令行指令，将其粘贴到PowerShell中即可下载视频（需提前配置FFMpeg）"
+      },
+      {
+        "id": 304,
+        "title": "命令行启动",
+        "answer": "具体的命令可以在项目的 Github 仓库 Wiki 中查看"
       }
     ]
   }

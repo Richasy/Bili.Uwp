@@ -15,7 +15,7 @@
 
     <UserControl.Resources>
         <DataTemplate x:Name="VideoTemplate" x:DataType="uwp:VideoViewModel">
-            <local:DynamicVideoItem ViewModel="{x:Bind}" />
+            <local:DynamicVideoCard ViewModel="{x:Bind}" />
         </DataTemplate>
         <DataTemplate x:Name="PgcTemplate" x:DataType="uwp:SeasonViewModel">
             <local:DynamicPgcItem ViewModel="{x:Bind}" />

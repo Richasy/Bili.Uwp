@@ -22,7 +22,7 @@
             ItemsSource="{x:Bind ViewModel.ViewLaterVideoCollection}">
             <controls:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:VideoViewModel">
-                    <controls:VideoItem
+                    <controls:VideoCard
                         MaxHeight="100"
                         HorizontalCoverWidth="120"
                         IsShowDanmakuCount="True"
