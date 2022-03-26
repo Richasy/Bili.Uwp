@@ -1,5 +1,0 @@
-﻿<Application
-    x:Class="Richasy.Bili.ViewModels.Uwp.UnitTests.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Richasy.Bili.ViewModels.Uwp.UnitTests.UnitTests" />
