@@ -441,6 +441,10 @@ namespace Richasy.Bili.Models.Enums
         FirstClickTagTip,
         QuickSelection,
         CurrentPlaybackRate,
+        AutoNextRelatedVideo,
+        AutoNextRelatedVideoDescription,
+        PlayNow,
+        PlayNextVideo,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

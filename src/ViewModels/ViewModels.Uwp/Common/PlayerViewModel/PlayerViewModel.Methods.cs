@@ -35,7 +35,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
             Publisher = null;
-            HistoryText = string.Empty;
+            HistoryTipText = string.Empty;
             _initializeProgress = TimeSpan.Zero;
             _lastReportProgress = TimeSpan.Zero;
             IsShowEpisode = false;
@@ -45,7 +45,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowRelatedVideos = false;
             IsShowChat = false;
             IsShowReply = true;
-            IsShowHistory = false;
+            IsShowHistoryTip = false;
+            IsShowNextVideoTip = false;
             IsPlayInformationError = false;
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
@@ -318,7 +319,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 var ts = TimeSpan.FromSeconds(_videoDetail.History.Progress);
-                HistoryText = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{title} {ts}";
+                HistoryTipText = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{title} {ts}";
             }
         }
 
@@ -930,7 +931,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
                     else
                     {
-                        PlayerDisplayMode = PlayerDisplayMode.Default;
+                        if (HasNextVideo() && _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayNextRelatedVideo, false))
+                        {
+                            IsShowNextVideoTip = true;
+                        }
+                        else
+                        {
+                            PlayerDisplayMode = PlayerDisplayMode.Default;
+                        }
                     }
                 }
             });
@@ -954,9 +962,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                         case MediaPlaybackState.Playing:
                             PlayerStatus = PlayerStatus.Playing;
                             IsPlayInformationError = false;
-                            if (!string.IsNullOrEmpty(HistoryText) && _initializeProgress == TimeSpan.Zero && _isFirstShowHistory)
+                            if (!string.IsNullOrEmpty(HistoryTipText) && _initializeProgress == TimeSpan.Zero && _isFirstShowHistory)
                             {
-                                IsShowHistory = true;
+                                IsShowHistoryTip = true;
                                 _isFirstShowHistory = false;
                             }
 
@@ -964,6 +972,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                             {
                                 sender.PlaybackSession.Position = _initializeProgress;
                                 _initializeProgress = TimeSpan.Zero;
+                            }
+
+                            if (IsShowNextVideoTip)
+                            {
+                                IsShowNextVideoTip = false;
                             }
 
                             break;
@@ -1021,6 +1034,22 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 PlaybackRate = 1d;
             }
+        }
+
+        private bool HasNextVideo()
+        {
+            var result = !IsInteraction
+                && _videoType == VideoType.Video
+                && IsShowRelatedVideos
+                && RelatedVideoCollection.Count > 0;
+
+            if (result)
+            {
+                var nextVideo = RelatedVideoCollection.First();
+                NextVideoTipText = nextVideo.Title;
+            }
+
+            return result;
         }
     }
 }

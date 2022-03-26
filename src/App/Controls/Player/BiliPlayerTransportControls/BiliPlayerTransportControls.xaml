@@ -66,6 +66,13 @@
         x:Key="MediaControlButtonStyle"
         BasedOn="{StaticResource DefaultButtonStyle}"
         TargetType="Button" />
+    <Style x:Key="MediaControlInfoBarStyle" TargetType="muxc:InfoBar">
+        <Setter Property="Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource MediaTransportControlsBorderBrush}" />
+        <Setter Property="IsClosable" Value="True" />
+        <Setter Property="IsIconVisible" Value="False" />
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+    </Style>
 
     <Style BasedOn="{StaticResource DefaultMTCStyle}" TargetType="local:BiliPlayerTransportControls" />
 
@@ -420,21 +427,37 @@
                                 <Border x:Name="PreviousViewInformer_Border" Grid.Column="1">
                                     <muxc:InfoBar
                                         x:Name="PreviousViewInformer"
-                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                        BorderBrush="{ThemeResource MediaTransportControlsBorderBrush}"
-                                        BorderThickness="{ThemeResource MediaTransportControlsBorderThickness}"
+                                        Style="{StaticResource MediaControlInfoBarStyle}"
                                         CornerRadius="{TemplateBinding CornerRadius}"
-                                        IsClosable="True"
-                                        IsIconVisible="False"
-                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistory, Mode=TwoWay}"
-                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryText}"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistoryTip, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryTipText}"
                                         RenderTransformOrigin="0.5,0.5">
                                         <muxc:InfoBar.ActionButton>
                                             <Button
                                                 x:Name="ContinuePreviousViewButton"
                                                 MinWidth="120"
-                                                Click="JumpToHistoryAsync"
                                                 Content="{loc:LocaleLocator Name=ContinuePreviousView}" />
+                                        </muxc:InfoBar.ActionButton>
+                                    </muxc:InfoBar>
+                                </Border>
+
+                                <Border x:Name="NextVideoInformer_Border" Grid.Column="1">
+                                    <muxc:InfoBar
+                                        x:Name="NextVideoInformer"
+                                        Title="{loc:LocaleLocator Name=PlayNextVideo}"
+                                        Style="{StaticResource MediaControlInfoBarStyle}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        IsIconVisible="True"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}"
+                                        Severity="Informational">
+                                        <muxc:InfoBar.ActionButton>
+                                            <HyperlinkButton x:Name="PlayNextVideoButton">
+                                                <TextBlock>
+                                                    <Run Text="{loc:LocaleLocator Name=PlayNow}" />
+                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}" />
+                                                </TextBlock>
+                                            </HyperlinkButton>
                                         </muxc:InfoBar.ActionButton>
                                     </muxc:InfoBar>
                                 </Border>
