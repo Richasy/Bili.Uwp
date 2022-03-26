@@ -17,14 +17,15 @@
     mc:Ignorable="d">
 
     <local:CenterPopup.Resources>
-        <DataTemplate x:Key="VideoItemTemplate" x:DataType="uwp:VideoViewModel">
-            <local:VideoItem
+        <DataTemplate x:Key="VideoCardTemplate" x:DataType="uwp:VideoViewModel">
+            <local:VideoCard
                 IsShowAvatar="False"
                 IsShowDanmakuCount="True"
                 IsShowDuration="True"
                 IsShowPlayCount="True"
-                ItemClick="OnVideoItemClick"
+                ItemClick="OnVideoCardClick"
                 Orientation="Horizontal"
+                Height="120"
                 ViewModel="{x:Bind}" />
         </DataTemplate>
     </local:CenterPopup.Resources>
@@ -179,7 +180,7 @@
                     Background="Transparent"
                     HeaderText="{loc:LocaleLocator Name=Videos}"
                     ItemOrientation="Horizontal"
-                    ItemTemplate="{StaticResource VideoItemTemplate}"
+                    ItemTemplate="{StaticResource VideoCardTemplate}"
                     ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
                     RequestLoadMore="OnVideoViewRequestLoadMoreAsync"
                     Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -238,7 +239,7 @@
                         Background="Transparent"
                         HeaderVisibility="Collapsed"
                         ItemOrientation="Horizontal"
-                        ItemTemplate="{StaticResource VideoItemTemplate}"
+                        ItemTemplate="{StaticResource VideoCardTemplate}"
                         ItemsSource="{x:Bind ViewModel.SearchCollection, Mode=OneWay}"
                         RequestLoadMore="OnSearchViewRequestLoadMoreAsync"
                         Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />

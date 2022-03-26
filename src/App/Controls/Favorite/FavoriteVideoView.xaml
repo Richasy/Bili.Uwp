@@ -80,15 +80,16 @@
                         Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                         <local:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:VideoViewModel">
-                                <local:VideoItem
+                                <local:VideoCard
+                                    Height="132"
                                     DataContext="{x:Bind}"
                                     IsShowAvatar="False"
                                     IsShowDanmakuCount="True"
                                     IsShowDuration="True"
                                     IsShowPlayCount="True"
-                                    ItemClick="OnVideoItemClick"
+                                    ItemClick="OnVideoCardClick"
                                     ViewModel="{x:Bind}">
-                                    <local:VideoItem.ContextFlyout>
+                                    <local:VideoCard.ContextFlyout>
                                         <muxc:CommandBarFlyout Opening="OnVideoFlyoutOpening">
                                             <muxc:CommandBarFlyout.SecondaryCommands>
                                                 <AppBarButton Click="OnAddToViewLaterButtonClickAsync" Label="{loc:LocaleLocator Name=AddToViewLater}">
@@ -103,8 +104,8 @@
                                                 </AppBarButton>
                                             </muxc:CommandBarFlyout.SecondaryCommands>
                                         </muxc:CommandBarFlyout>
-                                    </local:VideoItem.ContextFlyout>
-                                </local:VideoItem>
+                                    </local:VideoCard.ContextFlyout>
+                                </local:VideoCard>
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>

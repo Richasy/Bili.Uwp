@@ -68,7 +68,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             switch (ViewModel.CurrentType)
             {
                 case FavoriteType.Video:
-                    VideoItem.IsSelected = true;
+                    VideoCard.IsSelected = true;
                     if (!ViewModel.IsVideoRequested)
                     {
                         await ViewModel.InitializeRequestAsync(FavoriteType.Video);
@@ -110,7 +110,7 @@ namespace Richasy.Bili.App.Pages.Overlay
             {
                 switch (item.Name)
                 {
-                    case nameof(VideoItem):
+                    case nameof(VideoCard):
                         ViewModel.CurrentType = FavoriteType.Video;
                         break;
                     case nameof(AnimeItem):

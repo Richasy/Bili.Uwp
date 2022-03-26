@@ -21,7 +21,7 @@
             PaneDisplayMode="Top"
             SelectionChanged="OnNavSelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Name="VideoItem" Content="{loc:LocaleLocator Name=Videos}" />
+                <muxc:NavigationViewItem x:Name="VideoCard" Content="{loc:LocaleLocator Name=Videos}" />
                 <muxc:NavigationViewItem x:Name="AnimeItem" Content="{loc:LocaleLocator Name=Anime}" />
                 <muxc:NavigationViewItem x:Name="CinemaItem" Content="{loc:LocaleLocator Name=Cinema}" />
                 <muxc:NavigationViewItem x:Name="ArticleItem" Content="{loc:LocaleLocator Name=SpecialColumn}" />

@@ -67,7 +67,7 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.RequestDataAsync();
         }
 
-        private void OnVideoItemClick(object sender, VideoViewModel e)
+        private void OnVideoCardClick(object sender, VideoViewModel e)
         {
             Hide();
         }
