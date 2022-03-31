@@ -48,6 +48,8 @@
                                         <Setter Target="AdditionalOverlayContainer.VerticalAlignment" Value="Top" />
                                         <Setter Target="AdditionalOverlayContainer.HorizontalAlignment" Value="Left" />
                                         <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
+                                        <Setter Target="DescriptionBlock.(Grid.Row)" Value="3" />
+                                        <Setter Target="RootCard.MaxHeight" Value="140" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -111,9 +113,9 @@
 
                                     <Grid
                                         x:Name="AdditionalOverlayContainer"
-                                        Margin="0,0,8,8"
+                                        Margin="0,8,8,0"
                                         HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
+                                        VerticalAlignment="Top"
                                         Visibility="{TemplateBinding AdditionalOverlayContentVisibility}">
                                         <ContentPresenter Content="{TemplateBinding AdditionalOverlayContent}" />
                                     </Grid>
@@ -161,6 +163,7 @@
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.Name}" />
                                     </Grid>
                                     <TextBlock
+                                        x:Name="DescriptionBlock"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         VerticalAlignment="Center"
                                         Opacity="0.6"
