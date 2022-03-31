@@ -49,7 +49,7 @@
                                         <Setter Target="AdditionalOverlayContainer.HorizontalAlignment" Value="Left" />
                                         <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
                                         <Setter Target="DescriptionBlock.(Grid.Row)" Value="3" />
-                                        <Setter Target="RootCard.MaxHeight" Value="140" />
+                                        <Setter Target="RootCard.MaxHeight" Value="132" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

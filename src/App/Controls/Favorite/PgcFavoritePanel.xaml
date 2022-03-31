@@ -28,7 +28,6 @@
                     <VisualState.Setters>
                         <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="PgcView.ItemOrientation" Value="Horizontal" />
-                        <Setter Target="PgcView.ItemTemplate" Value="{StaticResource NarrowSeasonItemTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -25,7 +25,6 @@
                 IsShowPlayCount="True"
                 ItemClick="OnVideoCardClick"
                 Orientation="Horizontal"
-                Height="120"
                 ViewModel="{x:Bind}" />
         </DataTemplate>
     </local:CenterPopup.Resources>
