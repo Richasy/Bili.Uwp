@@ -81,7 +81,6 @@
                         <local:VerticalRepeaterView.ItemTemplate>
                             <DataTemplate x:DataType="uwp:VideoViewModel">
                                 <local:VideoCard
-                                    Height="132"
                                     DataContext="{x:Bind}"
                                     IsShowAvatar="False"
                                     IsShowDanmakuCount="True"
