@@ -33,6 +33,7 @@ namespace Richasy.Bili.App.Controls
         public BiliPlayerTransportControls()
         {
             DefaultStyleKey = typeof(BiliPlayerTransportControls);
+            ShowAndHideAutomatically = false;
             _danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
             _segmentIndex = 1;
             Instance = this;
@@ -44,6 +45,7 @@ namespace Richasy.Bili.App.Controls
 
             _normalTimer.Start();
             _focusTimer.Start();
+            _cursorTimer.Start();
         }
 
         /// <summary>
@@ -94,6 +96,7 @@ namespace Richasy.Bili.App.Controls
             _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
             _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
             _playNextVideoButton = GetTemplateChild(PlayNextVideoButtonName) as HyperlinkButton;
+            _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -145,6 +148,8 @@ namespace Richasy.Bili.App.Controls
                 _forwardSkipButton.Click += OnForwardSkipButtonClick;
             }
 
+            _visibilityStateGroup = VisualStateManager.GetVisualStateGroups(_rootGrid).FirstOrDefault(p => p.Name == VisibilityStateGroupName);
+
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
@@ -163,18 +168,39 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <inheritdoc/>
+        protected override void OnPointerEntered(PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            if (!IsControlPanelShown())
+            {
+                Show();
+            }
+
+            _cursorStayTime = 0;
+        }
+
+        /// <inheritdoc/>
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
-            _cursorTimer.Start();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            if (!IsControlPanelShown())
+            {
+                Show();
+            }
+
             _cursorStayTime = 0;
         }
 
         /// <inheritdoc/>
         protected override void OnPointerExited(PointerRoutedEventArgs e)
         {
-            _cursorTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+
+            if (IsControlPanelShown())
+            {
+                Hide();
+            }
+
             _cursorStayTime = 0;
         }
 
@@ -240,30 +266,19 @@ namespace Richasy.Bili.App.Controls
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
         {
-            var behavior = SettingViewModel.DoubleClickBehavior;
-            switch (behavior)
+            if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                case DoubleClickBehavior.FullScreen:
-                    ViewModel.TogglePlayPause();
-                    break;
-                default:
-                    break;
-            }
-
-            if (ShowAndHideAutomatically)
-            {
-                _playPauseButton.Focus(FocusState.Programmatic);
+                ViewModel.TogglePlayPause();
             }
             else
             {
-                if (_controlPanel.Opacity == 0d)
+                if (IsControlPanelShown())
+                {
+                    Hide();
+                }
+                else
                 {
                     Show();
-                }
-                else if (_controlPanel.Opacity == 1)
-                {
-                    _playPauseButton.Focus(FocusState.Programmatic);
-                    Hide();
                 }
             }
         }
@@ -274,19 +289,15 @@ namespace Richasy.Bili.App.Controls
             var canDoubleTapped = playerStatus == PlayerStatus.Playing || playerStatus == PlayerStatus.Pause;
             if (canDoubleTapped)
             {
-                var behavior = SettingViewModel.DoubleClickBehavior;
-                switch (behavior)
+                if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
-                    case DoubleClickBehavior.FullScreen:
-                        _fullScreenPlayModeButton.IsChecked = !_fullScreenPlayModeButton.IsChecked;
-                        OnPlayModeButtonClick(_fullScreenPlayModeButton, null);
-                        ViewModel.TogglePlayPause();
-                        break;
-                    case DoubleClickBehavior.PlayPause:
-                        ViewModel.TogglePlayPause();
-                        break;
-                    default:
-                        break;
+                    ViewModel.PlayerDisplayMode = ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default
+                        ? PlayerDisplayMode.FullScreen
+                        : PlayerDisplayMode.Default;
+                }
+                else
+                {
+                    ViewModel.TogglePlayPause();
                 }
             }
         }
@@ -770,10 +781,17 @@ namespace Richasy.Bili.App.Controls
         private void OnCursorTimerTickAsync(object sender, object e)
         {
             _cursorStayTime += 500;
-            if (_cursorStayTime > 1500)
+            if (_cursorStayTime > 2000)
             {
-                Window.Current.CoreWindow.PointerCursor = null;
-                _cursorTimer.Stop();
+                if (!IsCursorInControlPanel())
+                {
+                    Window.Current.CoreWindow.PointerCursor = null;
+                    if (IsControlPanelShown())
+                    {
+                        Hide();
+                    }
+                }
+
                 _cursorStayTime = 0;
             }
         }
@@ -1016,6 +1034,29 @@ namespace Richasy.Bili.App.Controls
             _tempMessageContainer.Visibility = Visibility.Collapsed;
             _tempMessageBlock.Text = string.Empty;
             _tempMessageHoldSeconds = -1;
+        }
+
+        private bool IsControlPanelShown()
+        {
+            if (_visibilityStateGroup == null)
+            {
+                _visibilityStateGroup = VisualStateManager.GetVisualStateGroups(_rootGrid).FirstOrDefault(p => p.Name == VisibilityStateGroupName);
+            }
+
+            return _visibilityStateGroup?.CurrentState?.Name == "ControlPanelFadeIn";
+        }
+
+        private bool IsCursorInControlPanel()
+        {
+            if (IsControlPanelShown())
+            {
+                var pointerPosition = Window.Current.CoreWindow.PointerPosition;
+                var controlPanelBounds = _controlPanel.TransformToVisual(Window.Current.Content)
+                    .TransformBounds(Window.Current.Bounds);
+                return controlPanelBounds.Contains(pointerPosition);
+            }
+
+            return false;
         }
     }
 }

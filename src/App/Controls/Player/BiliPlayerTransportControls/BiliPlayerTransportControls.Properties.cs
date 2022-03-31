@@ -35,6 +35,7 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty SettingViewModelProperty =
             DependencyProperty.Register(nameof(SettingViewModel), typeof(SettingViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(SettingViewModel.Instance));
 
+        private const string RootGridName = "RootGrid";
         private const string DanmakuViewName = "DanmakuView";
         private const string FullWindowPlayModeButtonName = "FullWindowModeButton";
         private const string FullScreenPlayModeButtonName = "FullScreenModeButton";
@@ -65,6 +66,7 @@ namespace Richasy.Bili.App.Controls
         private const string IncreaseVolumeButtonName = "IncreaseVolumeButton";
         private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
         private const string PlayNextVideoButtonName = "PlayNextVideoButton";
+        private const string VisibilityStateGroupName = "ControlPanelVisibilityStates";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -102,6 +104,8 @@ namespace Richasy.Bili.App.Controls
         private Button _increaseVolumeButton;
         private Button _decreaseVolumeButton;
         private HyperlinkButton _playNextVideoButton;
+        private Grid _rootGrid;
+        private VisualStateGroup _visibilityStateGroup;
 
         private int _segmentIndex;
         private double _cursorStayTime;
@@ -116,6 +120,8 @@ namespace Richasy.Bili.App.Controls
         private double _manipulationUnitLength = 0d;
         private bool _manipulationBeforeIsPlay = false;
         private PlayerManipulationType _manipulationType = PlayerManipulationType.None;
+
+        private bool _isPointerInControlPanel = false;
 
         /// <summary>
         /// 实例.

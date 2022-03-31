@@ -136,7 +136,7 @@
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel_ControlPanelVisibilityStates_Border" Storyboard.TargetProperty="IsHitTestVisible">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
@@ -146,28 +146,28 @@
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="80"
-                                            Duration="0:0:0.4" />
+                                            Duration="0:0:0.2" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="TempMessageVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="80"
-                                            Duration="0:0:0.4" />
+                                            Duration="0:0:0.2" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="ChoiceVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="80"
-                                            Duration="0:0:0.4" />
+                                            Duration="0:0:0.2" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="50"
-                                            Duration="0:0:0.4" />
+                                            Duration="0:0:0.2" />
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderCommandsPanel" Storyboard.TargetProperty="IsHitTestVisible">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
