@@ -181,6 +181,12 @@ namespace Richasy.Bili.App.Controls
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+
+            if (!_cursorTimer.IsEnabled)
+            {
+                _cursorTimer.Start();
+            }
+
             if (!IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 Show();

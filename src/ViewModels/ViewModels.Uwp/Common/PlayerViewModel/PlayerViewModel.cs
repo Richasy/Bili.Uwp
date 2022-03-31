@@ -17,6 +17,7 @@ using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -76,6 +77,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             TagCollection.CollectionChanged += OnTagCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
             Controller.LoggedOut += OnUserLoggedOut;
+
+            ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnAppViewVisibleBoundsChanged;
         }
 
         /// <summary>
@@ -854,5 +857,13 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private void OnTagCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
             => IsShowTags = TagCollection.Count > 0;
+
+        private void OnAppViewVisibleBoundsChanged(ApplicationView sender, object args)
+        {
+            if (!sender.IsFullScreenMode && PlayerDisplayMode == PlayerDisplayMode.FullScreen)
+            {
+                PlayerDisplayMode = PlayerDisplayMode.FullWindow;
+            }
+        }
     }
 }
