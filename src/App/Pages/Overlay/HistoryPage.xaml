@@ -84,6 +84,7 @@
                                     <controls:VideoCard.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem
+                                                MinWidth="160"
                                                 Click="OnDeleteItemClickAsync"
                                                 DataContext="{x:Bind}"
                                                 Text="{loc:LocaleLocator Name=Delete}">

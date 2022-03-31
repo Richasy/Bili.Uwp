@@ -92,7 +92,10 @@
                                         ViewModel="{x:Bind}">
                                         <controls:VideoCard.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem Click="OnRemoveItemClickAsync" Text="{loc:LocaleLocator Name=Remove}">
+                                                <MenuFlyoutItem
+                                                    MinWidth="160"
+                                                    Click="OnRemoveItemClickAsync"
+                                                    Text="{loc:LocaleLocator Name=Remove}">
                                                     <MenuFlyoutItem.Icon>
                                                         <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete20" />
                                                     </MenuFlyoutItem.Icon>
