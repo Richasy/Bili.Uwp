@@ -138,6 +138,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             _historyVideoList.Clear();
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
+            IsShowNextVideoTip = false;
             await ClearInitViewModelAsync();
         }
 
@@ -146,9 +147,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="vm">视图模型.</param>
         /// <param name="isRefresh">是否刷新.</param>
-        /// <param name="clearAdditionalList">是否清除附加列表 (比如稍后再看) 的数据.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(object vm, bool isRefresh = false, bool clearAdditionalList = true)
+        public async Task LoadAsync(object vm, bool isRefresh = false)
         {
             var videoId = string.Empty;
             var seasonId = 0;
@@ -158,12 +158,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsPv = false;
 
             CurrentPlayingRecord record = null;
-
-            if (clearAdditionalList)
-            {
-                IsShowViewLater = false;
-                ViewLaterVideoCollection.Clear();
-            }
 
             if (vm is VideoViewModel videoVM)
             {
@@ -224,6 +218,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                     {
                         item.IsSelected = item.VideoId == internalVM.VideoId;
                     }
+                }
+                else
+                {
+                    IsShowViewLater = false;
+                    ViewLaterVideoCollection.Clear();
                 }
             }
         }
@@ -754,7 +753,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 if (index != -1 && index < ViewLaterVideoCollection.Count)
                 {
                     var nextVideo = ViewLaterVideoCollection[index + 1];
-                    await LoadAsync(nextVideo, clearAdditionalList: false);
+                    await LoadAsync(nextVideo);
                 }
             }
             else if (RelatedVideoCollection.Count > 0)
