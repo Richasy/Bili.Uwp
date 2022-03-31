@@ -33,17 +33,17 @@ namespace Richasy.Bili.App.Controls
         public BiliPlayerTransportControls()
         {
             DefaultStyleKey = typeof(BiliPlayerTransportControls);
+            ShowAndHideAutomatically = false;
             _danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
             _segmentIndex = 1;
             Instance = this;
             SizeChanged += OnSizeChanged;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
             InitializeNormalTimer();
             InitializeFocusTimer();
-
-            _normalTimer.Start();
-            _focusTimer.Start();
         }
 
         /// <summary>
@@ -94,6 +94,9 @@ namespace Richasy.Bili.App.Controls
             _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
             _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
             _playNextVideoButton = GetTemplateChild(PlayNextVideoButtonName) as HyperlinkButton;
+            _formatButton = GetTemplateChild(FormatButtonName) as Button;
+            _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
+            _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -145,36 +148,57 @@ namespace Richasy.Bili.App.Controls
                 _forwardSkipButton.Click += OnForwardSkipButtonClick;
             }
 
+            _visibilityStateGroup = VisualStateManager.GetVisualStateGroups(_rootGrid).FirstOrDefault(p => p.Name == VisibilityStateGroupName);
+
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
-            SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
             CheckSubtitleZoom();
-            CheckMTCControlMode();
 
             base.OnApplyTemplate();
         }
 
         /// <inheritdoc/>
+        protected override void OnPointerEntered(PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            if (!IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                Show();
+            }
+
+            _cursorStayTime = 0;
+        }
+
+        /// <inheritdoc/>
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
-            _cursorTimer.Start();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            if (!IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                Show();
+            }
+
             _cursorStayTime = 0;
         }
 
         /// <inheritdoc/>
         protected override void OnPointerExited(PointerRoutedEventArgs e)
         {
-            _cursorTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+
+            if (IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                Hide();
+            }
+
             _cursorStayTime = 0;
         }
 
@@ -219,6 +243,7 @@ namespace Richasy.Bili.App.Controls
             if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
+                _formatButton.Flyout.Hide();
             }
         }
 
@@ -235,36 +260,21 @@ namespace Richasy.Bili.App.Controls
             if (_liveQualityListView.SelectedItem is LiveQualityViewModel data && ViewModel.CurrentLiveQuality != data.Data)
             {
                 await ViewModel.ChangeLiveQualityAsync(data.Data.Quality);
+                _liveQualityButton.Flyout.Hide();
             }
         }
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
         {
-            var behavior = SettingViewModel.DoubleClickBehavior;
-            switch (behavior)
+            if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                case DoubleClickBehavior.FullScreen:
-                    ViewModel.TogglePlayPause();
-                    break;
-                default:
-                    break;
-            }
-
-            if (ShowAndHideAutomatically)
-            {
-                _playPauseButton.Focus(FocusState.Programmatic);
+                _isTouch = false;
+                ViewModel.TogglePlayPause();
             }
             else
             {
-                if (_controlPanel.Opacity == 0d)
-                {
-                    Show();
-                }
-                else if (_controlPanel.Opacity == 1)
-                {
-                    _playPauseButton.Focus(FocusState.Programmatic);
-                    Hide();
-                }
+                _isTouch = true;
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
             }
         }
 
@@ -274,20 +284,14 @@ namespace Richasy.Bili.App.Controls
             var canDoubleTapped = playerStatus == PlayerStatus.Playing || playerStatus == PlayerStatus.Pause;
             if (canDoubleTapped)
             {
-                var behavior = SettingViewModel.DoubleClickBehavior;
-                switch (behavior)
+                if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
-                    case DoubleClickBehavior.FullScreen:
-                        _fullScreenPlayModeButton.IsChecked = !_fullScreenPlayModeButton.IsChecked;
-                        OnPlayModeButtonClick(_fullScreenPlayModeButton, null);
-                        ViewModel.TogglePlayPause();
-                        break;
-                    case DoubleClickBehavior.PlayPause:
-                        ViewModel.TogglePlayPause();
-                        break;
-                    default:
-                        break;
+                    ViewModel.PlayerDisplayMode = ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default
+                        ? PlayerDisplayMode.FullScreen
+                        : PlayerDisplayMode.Default;
                 }
+
+                ViewModel.TogglePlayPause();
             }
         }
 
@@ -447,14 +451,6 @@ namespace Richasy.Bili.App.Controls
             if (player != null && player.PlaybackSession != null)
             {
                 player.PlaybackSession.PlaybackStateChanged += OnPlaybackStateChangedAsync;
-            }
-        }
-
-        private void OnSettingViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(SettingViewModel.DefaultMTCControlMode))
-            {
-                CheckMTCControlMode();
             }
         }
 
@@ -667,9 +663,9 @@ namespace Richasy.Bili.App.Controls
             var baseWidth = 800d;
             var baseHeight = 600d;
             var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
-            if (scale > 2.2)
+            if (scale > 2.0)
             {
-                scale = 2.2;
+                scale = 2.0;
             }
             else if (scale < 0.4)
             {
@@ -677,21 +673,6 @@ namespace Richasy.Bili.App.Controls
             }
 
             _subtitleBlock.FontSize = 24 * scale;
-        }
-
-        private void CheckMTCControlMode()
-        {
-            switch (SettingViewModel.DefaultMTCControlMode)
-            {
-                case MTCControlMode.Automatic:
-                    ShowAndHideAutomatically = true;
-                    break;
-                case MTCControlMode.Manual:
-                    ShowAndHideAutomatically = false;
-                    break;
-                default:
-                    break;
-            }
         }
 
         private async void OnDanmkuTimerTickAsync(object sender, object e)
@@ -770,10 +751,17 @@ namespace Richasy.Bili.App.Controls
         private void OnCursorTimerTickAsync(object sender, object e)
         {
             _cursorStayTime += 500;
-            if (_cursorStayTime > 1500)
+            if (_cursorStayTime > 2000)
             {
-                Window.Current.CoreWindow.PointerCursor = null;
-                _cursorTimer.Stop();
+                if (IsCursorInMediaElement() && (!IsCursorInControlPanel() || _isTouch))
+                {
+                    Window.Current.CoreWindow.PointerCursor = null;
+                    if (IsControlPanelShown())
+                    {
+                        Hide();
+                    }
+                }
+
                 _cursorStayTime = 0;
             }
         }
@@ -1004,6 +992,20 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.PlayNextVideoAsync();
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _cursorTimer.Start();
+            _normalTimer.Start();
+            _focusTimer.Start();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _normalTimer.Stop();
+            _cursorTimer.Stop();
+            _focusTimer.Stop();
+        }
+
         private void ShowTempMessage(string message)
         {
             _tempMessageContainer.Visibility = Visibility.Visible;
@@ -1016,6 +1018,43 @@ namespace Richasy.Bili.App.Controls
             _tempMessageContainer.Visibility = Visibility.Collapsed;
             _tempMessageBlock.Text = string.Empty;
             _tempMessageHoldSeconds = -1;
+        }
+
+        private bool IsControlPanelShown()
+        {
+            if (_visibilityStateGroup == null)
+            {
+                _visibilityStateGroup = VisualStateManager.GetVisualStateGroups(_rootGrid).FirstOrDefault(p => p.Name == VisibilityStateGroupName);
+            }
+
+            return _visibilityStateGroup?.CurrentState?.Name == "ControlPanelFadeIn";
+        }
+
+        private bool IsCursorInControlPanel()
+        {
+            if (IsControlPanelShown())
+            {
+                var pointerPosition = Window.Current.CoreWindow.PointerPosition;
+                pointerPosition.X -= Window.Current.Bounds.X;
+                pointerPosition.Y -= Window.Current.Bounds.Y;
+                var rect = new Rect(0, 0, ActualWidth, ActualHeight);
+                var controlPanelBounds = _controlPanel.TransformToVisual(Window.Current.Content)
+                    .TransformBounds(rect);
+                return controlPanelBounds.Contains(pointerPosition);
+            }
+
+            return false;
+        }
+
+        private bool IsCursorInMediaElement()
+        {
+            var pointerPosition = Window.Current.CoreWindow.PointerPosition;
+            pointerPosition.X -= Window.Current.Bounds.X;
+            pointerPosition.Y -= Window.Current.Bounds.Y;
+            var rect = new Rect(0, 0, ActualWidth, ActualHeight);
+            var rootBounds = _rootGrid.TransformToVisual(Window.Current.Content)
+                    .TransformBounds(rect);
+            return rootBounds.Contains(pointerPosition);
         }
     }
 }
