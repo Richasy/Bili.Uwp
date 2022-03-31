@@ -121,7 +121,7 @@ namespace Richasy.Bili.App.Controls
         private bool _manipulationBeforeIsPlay = false;
         private PlayerManipulationType _manipulationType = PlayerManipulationType.None;
 
-        private bool _isPointerInControlPanel = false;
+        private bool _isTouch = false;
 
         /// <summary>
         /// 实例.

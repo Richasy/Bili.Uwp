@@ -12,7 +12,6 @@ using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -155,14 +154,12 @@ namespace Richasy.Bili.App.Controls
             DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
-            SettingViewModel.PropertyChanged += OnSettingViewModelPropertyChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
             CheckSubtitleZoom();
-            CheckMTCControlMode();
 
             base.OnApplyTemplate();
         }
@@ -171,7 +168,7 @@ namespace Richasy.Bili.App.Controls
         protected override void OnPointerEntered(PointerRoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            if (!IsControlPanelShown())
+            if (!IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 Show();
             }
@@ -183,7 +180,7 @@ namespace Richasy.Bili.App.Controls
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            if (!IsControlPanelShown())
+            if (!IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 Show();
             }
@@ -196,7 +193,7 @@ namespace Richasy.Bili.App.Controls
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
 
-            if (IsControlPanelShown())
+            if (IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 Hide();
             }
@@ -268,18 +265,13 @@ namespace Richasy.Bili.App.Controls
         {
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
+                _isTouch = false;
                 ViewModel.TogglePlayPause();
             }
             else
             {
-                if (IsControlPanelShown())
-                {
-                    Hide();
-                }
-                else
-                {
-                    Show();
-                }
+                _isTouch = true;
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
             }
         }
 
@@ -458,14 +450,6 @@ namespace Richasy.Bili.App.Controls
             if (player != null && player.PlaybackSession != null)
             {
                 player.PlaybackSession.PlaybackStateChanged += OnPlaybackStateChangedAsync;
-            }
-        }
-
-        private void OnSettingViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(SettingViewModel.DefaultMTCControlMode))
-            {
-                CheckMTCControlMode();
             }
         }
 
@@ -678,9 +662,9 @@ namespace Richasy.Bili.App.Controls
             var baseWidth = 800d;
             var baseHeight = 600d;
             var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
-            if (scale > 2.2)
+            if (scale > 2.0)
             {
-                scale = 2.2;
+                scale = 2.0;
             }
             else if (scale < 0.4)
             {
@@ -688,21 +672,6 @@ namespace Richasy.Bili.App.Controls
             }
 
             _subtitleBlock.FontSize = 24 * scale;
-        }
-
-        private void CheckMTCControlMode()
-        {
-            switch (SettingViewModel.DefaultMTCControlMode)
-            {
-                case MTCControlMode.Automatic:
-                    ShowAndHideAutomatically = true;
-                    break;
-                case MTCControlMode.Manual:
-                    ShowAndHideAutomatically = false;
-                    break;
-                default:
-                    break;
-            }
         }
 
         private async void OnDanmkuTimerTickAsync(object sender, object e)
@@ -783,7 +752,7 @@ namespace Richasy.Bili.App.Controls
             _cursorStayTime += 500;
             if (_cursorStayTime > 2000)
             {
-                if (!IsCursorInControlPanel())
+                if (!IsCursorInControlPanel() || _isTouch)
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
