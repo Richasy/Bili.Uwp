@@ -67,6 +67,8 @@ namespace Richasy.Bili.App.Controls
         private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
         private const string PlayNextVideoButtonName = "PlayNextVideoButton";
         private const string VisibilityStateGroupName = "ControlPanelVisibilityStates";
+        private const string FormatButtonName = "FormatButtonName";
+        private const string LiveQualityButtonName = "LiveQualityButtonName";
 
         private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
@@ -106,6 +108,8 @@ namespace Richasy.Bili.App.Controls
         private HyperlinkButton _playNextVideoButton;
         private Grid _rootGrid;
         private VisualStateGroup _visibilityStateGroup;
+        private Button _formatButton;
+        private Button _liveQualityButton;
 
         private int _segmentIndex;
         private double _cursorStayTime;

@@ -12,6 +12,7 @@ using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,14 +38,12 @@ namespace Richasy.Bili.App.Controls
             _segmentIndex = 1;
             Instance = this;
             SizeChanged += OnSizeChanged;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
             InitializeNormalTimer();
             InitializeFocusTimer();
-
-            _normalTimer.Start();
-            _focusTimer.Start();
-            _cursorTimer.Start();
         }
 
         /// <summary>
@@ -95,6 +94,8 @@ namespace Richasy.Bili.App.Controls
             _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
             _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
             _playNextVideoButton = GetTemplateChild(PlayNextVideoButtonName) as HyperlinkButton;
+            _formatButton = GetTemplateChild(FormatButtonName) as Button;
+            _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
@@ -242,6 +243,7 @@ namespace Richasy.Bili.App.Controls
             if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
+                _formatButton.Flyout.Hide();
             }
         }
 
@@ -258,6 +260,7 @@ namespace Richasy.Bili.App.Controls
             if (_liveQualityListView.SelectedItem is LiveQualityViewModel data && ViewModel.CurrentLiveQuality != data.Data)
             {
                 await ViewModel.ChangeLiveQualityAsync(data.Data.Quality);
+                _liveQualityButton.Flyout.Hide();
             }
         }
 
@@ -287,10 +290,8 @@ namespace Richasy.Bili.App.Controls
                         ? PlayerDisplayMode.FullScreen
                         : PlayerDisplayMode.Default;
                 }
-                else
-                {
-                    ViewModel.TogglePlayPause();
-                }
+
+                ViewModel.TogglePlayPause();
             }
         }
 
@@ -752,7 +753,7 @@ namespace Richasy.Bili.App.Controls
             _cursorStayTime += 500;
             if (_cursorStayTime > 2000)
             {
-                if (!IsCursorInControlPanel() || _isTouch)
+                if (IsCursorInMediaElement() && (!IsCursorInControlPanel() || _isTouch))
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
@@ -991,6 +992,20 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.PlayNextVideoAsync();
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _cursorTimer.Start();
+            _normalTimer.Start();
+            _focusTimer.Start();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _normalTimer.Stop();
+            _cursorTimer.Stop();
+            _focusTimer.Stop();
+        }
+
         private void ShowTempMessage(string message)
         {
             _tempMessageContainer.Visibility = Visibility.Visible;
@@ -1020,12 +1035,26 @@ namespace Richasy.Bili.App.Controls
             if (IsControlPanelShown())
             {
                 var pointerPosition = Window.Current.CoreWindow.PointerPosition;
+                pointerPosition.X -= Window.Current.Bounds.X;
+                pointerPosition.Y -= Window.Current.Bounds.Y;
+                var rect = new Rect(0, 0, ActualWidth, ActualHeight);
                 var controlPanelBounds = _controlPanel.TransformToVisual(Window.Current.Content)
-                    .TransformBounds(Window.Current.Bounds);
+                    .TransformBounds(rect);
                 return controlPanelBounds.Contains(pointerPosition);
             }
 
             return false;
+        }
+
+        private bool IsCursorInMediaElement()
+        {
+            var pointerPosition = Window.Current.CoreWindow.PointerPosition;
+            pointerPosition.X -= Window.Current.Bounds.X;
+            pointerPosition.Y -= Window.Current.Bounds.Y;
+            var rect = new Rect(0, 0, ActualWidth, ActualHeight);
+            var rootBounds = _rootGrid.TransformToVisual(Window.Current.Content)
+                    .TransformBounds(rect);
+            return rootBounds.Contains(pointerPosition);
         }
     }
 }

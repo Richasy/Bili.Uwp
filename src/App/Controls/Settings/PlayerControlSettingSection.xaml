@@ -17,7 +17,6 @@
 
     <local:SettingSectionControl.Resources>
         <converter:PreferCodecConverter x:Key="PreferCodecConverter" />
-        <converter:DoubleClickTextConverter x:Key="DoubleClickConverter" />
     </local:SettingSectionControl.Resources>
 
     <exp:ExpanderEx>
@@ -150,30 +149,6 @@
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.GlobalPlaybackRate, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
-
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=DoubleClickBehavior}"
-                            Description="{loc:LocaleLocator Name=DoubleClickBehaviorDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ComboBox
-                            MinWidth="120"
-                            ItemsSource="{x:Bind ViewModel.DoubleClickBehaviorCollection, Mode=OneWay}"
-                            SelectedItem="{x:Bind ViewModel.DoubleClickBehavior, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="enums:DoubleClickBehavior">
-                                    <TextBlock Text="{x:Bind Converter={StaticResource DoubleClickConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
             </exp:ExpanderExMenuPanel>
