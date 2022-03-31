@@ -212,8 +212,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task SetDownloadFolderAsync()
         {
-            var folderPicker = new FolderPicker();
-            folderPicker.SuggestedStartLocation = PickerLocationId.VideosLibrary;
+            var folderPicker = new FolderPicker
+            {
+                SuggestedStartLocation = PickerLocationId.VideosLibrary,
+            };
+
+            folderPicker.FileTypeFilter.Add("*");
+
             var folder = await folderPicker.PickSingleFolderAsync().AsTask();
             if (folder != null)
             {
