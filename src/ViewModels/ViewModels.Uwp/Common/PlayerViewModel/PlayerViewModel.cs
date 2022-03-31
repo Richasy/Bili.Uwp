@@ -138,6 +138,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             _historyVideoList.Clear();
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
+            IsShowNextVideoTip = false;
+            IsShowViewLater = false;
+            ViewLaterVideoCollection.Clear();
             await ClearInitViewModelAsync();
         }
 
