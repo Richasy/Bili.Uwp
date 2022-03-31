@@ -72,7 +72,14 @@ namespace Richasy.Bili.App.Controls
             instance.CheckOrientation();
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => CheckOrientation();
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            CheckOrientation();
+            if (ContextFlyout != null)
+            {
+                _rootCard.ContextFlyout = null;
+            }
+        }
 
         private void CheckOrientation()
         {
