@@ -796,6 +796,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public double NextVideoCountdown { get; set; }
 
+        /// <summary>
+        /// 光标是否在播放器范围内.
+        /// </summary>
+        public bool IsPointerInMediaElement { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

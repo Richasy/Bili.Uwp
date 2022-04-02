@@ -779,13 +779,21 @@ namespace Richasy.Bili.App.Controls
             _cursorStayTime += 500;
             if (_cursorStayTime > 2000)
             {
-                if (IsCursorInMediaElement() && (!IsCursorInControlPanel() || _isTouch))
+                if (_isTouch && IsControlPanelShown())
+                {
+                    Hide();
+                }
+                else if (IsCursorInMediaElement() && !IsCursorInControlPanel())
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
                     {
                         Hide();
                     }
+                }
+                else if (!ViewModel.IsPointerInMediaElement && IsControlPanelShown())
+                {
+                    Hide();
                 }
 
                 _cursorStayTime = 0;
@@ -1044,7 +1052,7 @@ namespace Richasy.Bili.App.Controls
 
         private bool IsCursorInControlPanel()
         {
-            if (IsControlPanelShown())
+            if (IsControlPanelShown() && ViewModel.IsPointerInMediaElement)
             {
                 var pointerPosition = Window.Current.CoreWindow.PointerPosition;
                 pointerPosition.X -= Window.Current.Bounds.X;
@@ -1060,6 +1068,11 @@ namespace Richasy.Bili.App.Controls
 
         private bool IsCursorInMediaElement()
         {
+            if (!ViewModel.IsPointerInMediaElement)
+            {
+                return false;
+            }
+
             var pointerPosition = Window.Current.CoreWindow.PointerPosition;
             pointerPosition.X -= Window.Current.Bounds.X;
             pointerPosition.Y -= Window.Current.Bounds.Y;
