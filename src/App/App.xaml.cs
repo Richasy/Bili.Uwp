@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using FFmpegInterop;
 using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Locator.Uwp;
@@ -73,12 +72,6 @@ namespace Richasy.Bili.App
 
         private async void OnLaunchedOrActivatedAsync(IActivatedEventArgs e)
         {
-            // 用于解析Flv视频
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
-            {
-                _ = SYEngine.Core.Initialize();
-            }
-
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(AppConstants.AppMinWidth, AppConstants.AppMinHeight));
             appView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
