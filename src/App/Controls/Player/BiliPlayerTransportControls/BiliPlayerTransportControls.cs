@@ -38,12 +38,14 @@ namespace Richasy.Bili.App.Controls
             _segmentIndex = 1;
             Instance = this;
             SizeChanged += OnSizeChanged;
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
             InitializeDanmakuTimer();
             InitializeCursorTimer();
             InitializeNormalTimer();
             InitializeFocusTimer();
+
+            _cursorTimer.Start();
+            _normalTimer.Start();
+            _focusTimer.Start();
         }
 
         /// <summary>
@@ -157,6 +159,7 @@ namespace Richasy.Bili.App.Controls
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
+            AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
 
             CheckCurrentPlayerMode();
             CheckDanmakuZoom();
@@ -537,8 +540,25 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnDanmakuBarVisibilityButtonClick(object sender, RoutedEventArgs e)
+            => ViewModel.IsShowDanmakuBar = !ViewModel.IsShowDanmakuBar;
+
+        private void OnAppViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ViewModel.IsShowDanmakuBar = !ViewModel.IsShowDanmakuBar;
+            if (e.PropertyName == nameof(AppViewModel.Instance.IsOpenPlayer))
+            {
+                if (AppViewModel.Instance.IsOpenPlayer)
+                {
+                    _cursorTimer.Start();
+                    _normalTimer.Start();
+                    _focusTimer.Start();
+                }
+                else
+                {
+                    _cursorTimer.Stop();
+                    _normalTimer.Stop();
+                    _focusTimer.Stop();
+                }
+            }
         }
 
         private void InitializeDanmakuTimer()
@@ -996,20 +1016,6 @@ namespace Richasy.Bili.App.Controls
             ViewModel.IsShowNextVideoTip = false;
             _nextVideoHoldSeconds = 0;
             await ViewModel.PlayNextVideoAsync();
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            _cursorTimer.Start();
-            _normalTimer.Start();
-            _focusTimer.Start();
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            _normalTimer.Stop();
-            _cursorTimer.Stop();
-            _focusTimer.Stop();
         }
 
         private void ShowTempMessage(string message)
