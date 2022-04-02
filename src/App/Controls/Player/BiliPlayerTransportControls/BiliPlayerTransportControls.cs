@@ -63,6 +63,17 @@ namespace Richasy.Bili.App.Controls
             return false;
         }
 
+        /// <summary>
+        /// 检查播放暂停按钮是否聚焦.
+        /// </summary>
+        public void CheckPlayPauseButtonFocus()
+        {
+            if (_playPauseButton != null)
+            {
+                _playPauseButton.Focus(FocusState.Programmatic);
+            }
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
