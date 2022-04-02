@@ -19,7 +19,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -161,8 +160,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="vm">视图模型.</param>
         /// <param name="isRefresh">是否刷新.</param>
+        /// <param name="shouldResetMode">是否需要重置播放模式.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(object vm, bool isRefresh = false)
+        public async Task LoadAsync(object vm, bool isRefresh = false, bool shouldResetMode = true)
         {
             var videoId = string.Empty;
             var seasonId = 0;
@@ -217,7 +217,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 };
             }
 
-            await LoadAsync(record, isRefresh);
+            await LoadAsync(record, isRefresh, shouldResetMode);
 
             void HandleVideoViewModel(VideoViewModel internalVM)
             {
@@ -246,8 +246,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="record">播放快照.</param>
         /// <param name="isRefresh">是否刷新.</param>
+        /// <param name="shouldResetMode">是否需要重置播放模式.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadAsync(CurrentPlayingRecord record, bool isRefresh = false)
+        public async Task LoadAsync(CurrentPlayingRecord record, bool isRefresh = false, bool shouldResetMode = true)
         {
             _videoType = record.VideoType;
             var isReleated = record.IsRelated;
@@ -257,6 +258,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
             InitializePlaybackRateProperties();
+
+            if (shouldResetMode)
+            {
+                var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+                PlayerDisplayMode = preferPlayerMode;
+            }
 
             if (!isReleated)
             {
@@ -761,19 +768,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task PlayNextVideoAsync()
         {
+            var previousDisplayMode = PlayerDisplayMode;
             if (IsShowViewLater)
             {
                 var index = ViewLaterVideoCollection.IndexOf(ViewLaterVideoCollection.FirstOrDefault(p => p.IsSelected));
                 if (index != -1 && index < ViewLaterVideoCollection.Count)
                 {
                     var nextVideo = ViewLaterVideoCollection[index + 1];
-                    await LoadAsync(nextVideo);
+                    await LoadAsync(nextVideo, shouldResetMode: false);
                 }
             }
             else if (RelatedVideoCollection.Count > 0)
             {
                 var first = RelatedVideoCollection.First();
-                await LoadAsync(first);
+                await LoadAsync(first, shouldResetMode: false);
+                PlayerDisplayMode = previousDisplayMode;
             }
         }
 
