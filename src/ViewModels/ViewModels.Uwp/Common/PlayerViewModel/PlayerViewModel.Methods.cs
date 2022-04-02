@@ -90,8 +90,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             ChoiceCollection.Clear();
             TagCollection.Clear();
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
-            var preferPlayerMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
-            PlayerDisplayMode = preferPlayerMode;
             Controller.CleanupLiveSocket();
             await ClearInitViewModelAsync();
         }
@@ -104,14 +102,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsDetailLoading = true;
                 try
                 {
-                    if (videoId.StartsWith("bv", StringComparison.OrdinalIgnoreCase))
-                    {
-                        _videoDetail = await Controller.GetVideoDetailAsync(videoId);
-                    }
-                    else
-                    {
-                        _videoDetail = await Controller.GetVideoDetailAsync(Convert.ToInt64(videoId.Replace("av", string.Empty)));
-                    }
+                    _videoDetail = videoId.StartsWith("bv", StringComparison.OrdinalIgnoreCase)
+                        ? await Controller.GetVideoDetailAsync(videoId)
+                        : await Controller.GetVideoDetailAsync(Convert.ToInt64(videoId.Replace("av", string.Empty)));
                 }
                 catch (Exception ex)
                 {
