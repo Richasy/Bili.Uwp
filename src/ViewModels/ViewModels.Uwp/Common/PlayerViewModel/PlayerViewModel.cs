@@ -19,6 +19,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -97,7 +98,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="playerControl">标准播放器控件.</param>
         public void ApplyMediaControl(MediaPlayerElement playerControl)
         {
+            if (BiliPlayer != null)
+            {
+                BiliPlayer.PointerEntered -= OnBiliPlayerPointerEntered;
+                BiliPlayer.PointerExited -= OnBiliPlayerPointerExited;
+                BiliPlayer.PointerMoved -= OnBiliPlayerPointerMoved;
+            }
+
             BiliPlayer = playerControl;
+            BiliPlayer.PointerEntered += OnBiliPlayerPointerEntered;
+            BiliPlayer.PointerExited += OnBiliPlayerPointerExited;
+            BiliPlayer.PointerMoved += OnBiliPlayerPointerMoved;
         }
 
         /// <summary>

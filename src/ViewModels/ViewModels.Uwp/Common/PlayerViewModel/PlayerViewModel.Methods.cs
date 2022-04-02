@@ -14,6 +14,7 @@ using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -1069,5 +1070,14 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             return result;
         }
+
+        private void OnBiliPlayerPointerMoved(object sender, PointerRoutedEventArgs e)
+            => IsPointerInMediaElement = true;
+
+        private void OnBiliPlayerPointerExited(object sender, PointerRoutedEventArgs e)
+            => IsPointerInMediaElement = false;
+
+        private void OnBiliPlayerPointerEntered(object sender, PointerRoutedEventArgs e)
+            => IsPointerInMediaElement = true;
     }
 }
