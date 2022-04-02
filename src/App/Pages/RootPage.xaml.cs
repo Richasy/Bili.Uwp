@@ -177,10 +177,26 @@ namespace Richasy.Bili.App.Pages
             => new TipPopup(e.Message).ShowAsync(e.Type);
 
         private async void OnRequestShowUpdateDialogAsync(object sender, UpdateEventArgs e)
-            => await new UpgradeDialog(e).ShowAsync();
+        {
+            try
+            {
+                await new UpgradeDialog(e).ShowAsync();
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         private async void OnRequestContinuePlayAsync(object sender, EventArgs e)
-            => await new ContinuePlayDialog().ShowAsync();
+        {
+            try
+            {
+                await new ContinuePlayDialog().ShowAsync();
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         private async void OnRootNavViewLoadedAsync(object sender, RoutedEventArgs e)
         {
