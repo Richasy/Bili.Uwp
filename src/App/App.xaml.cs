@@ -59,7 +59,7 @@ namespace Richasy.Bili.App
         /// <param name="e">Detailed information about the start request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            OnLaunchedOrActivated(e);
+            OnLaunchedOrActivatedAsync(e);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace Richasy.Bili.App
         /// <param name="args">Detailed information about the active request and process.</param>
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            OnLaunchedOrActivated(args);
+            OnLaunchedOrActivatedAsync(args);
         }
 
-        private async void OnLaunchedOrActivated(IActivatedEventArgs e)
+        private async void OnLaunchedOrActivatedAsync(IActivatedEventArgs e)
         {
             // 用于解析Flv视频
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)

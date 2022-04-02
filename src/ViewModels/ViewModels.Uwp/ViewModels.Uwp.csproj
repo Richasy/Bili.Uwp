@@ -159,6 +159,9 @@
     <PackageReference Include="ReactiveUI.Fody">
       <Version>17.1.50</Version>
     </PackageReference>
+    <PackageReference Include="ReactiveUI.Uwp">
+      <Version>17.1.50</Version>
+    </PackageReference>
     <PackageReference Include="Richasy.SYEnginePackage">
       <Version>1.0.0</Version>
     </PackageReference>
