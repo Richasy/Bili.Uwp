@@ -13,5 +13,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/Common/VerticalRepeaterView/VerticalRepeaterView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Danmaku/DanmakuView/DanmakuView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayer/BiliPlayer.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerTip/PlayerTip.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

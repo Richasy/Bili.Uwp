@@ -82,7 +82,6 @@ namespace Richasy.Bili.App.Controls
             _danmakuBarVisibilityButton = GetTemplateChild(DanmakuBarVisibilityButtonName) as Button;
             _homeButton = GetTemplateChild(HomeButtonName) as Button;
             _backToDefaultButton = GetTemplateChild(BackToDefaultButtonName) as Button;
-            _continuePreviousViewButton = GetTemplateChild(ContinuePreviousViewButtonName) as Button;
             _liveRefreshButton = GetTemplateChild(LiveRefreshButtonName) as Button;
             _previousEpisodeButton = GetTemplateChild(PreviousEpisodeButtonName) as Button;
             _nextEpisodeButton = GetTemplateChild(NextEpisodeButtonName) as Button;
@@ -95,7 +94,8 @@ namespace Richasy.Bili.App.Controls
             _decreasePlayRateButton = GetTemplateChild(DecreasePlayRateButtonName) as Button;
             _increaseVolumeButton = GetTemplateChild(IncreaseVolumeButtonName) as Button;
             _decreaseVolumeButton = GetTemplateChild(DecreaseVolumeButtonName) as Button;
-            _playNextVideoButton = GetTemplateChild(PlayNextVideoButtonName) as HyperlinkButton;
+            _nextVidepInformer = GetTemplateChild(NextVideoInformerName) as PlayerTip;
+            _previousViewInformer = GetTemplateChild(PreviousViewInformerName) as PlayerTip;
             _formatButton = GetTemplateChild(FormatButtonName) as Button;
             _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
@@ -114,7 +114,6 @@ namespace Richasy.Bili.App.Controls
             _homeButton.Click += OnHomeButtonClickAsync;
             _backToDefaultButton.Click += OnBackButtonClick;
             _liveRefreshButton.Click += OnLiveRefreshButtonClickAsync;
-            _continuePreviousViewButton.Click += OnContinuePreviousViewButtonClickAsync;
             _previousEpisodeButton.Click += OnPreviousEpisodeButtonClickAsync;
             _nextEpisodeButton.Click += OnNextEpisodeButtonClickAsync;
             _screenshotButton.Click += OnScreenshotButtonClickAsync;
@@ -123,7 +122,8 @@ namespace Richasy.Bili.App.Controls
             _decreasePlayRateButton.Click += OnDecreasePlayRateButtonClick;
             _increaseVolumeButton.Click += OnIncreaseVolumeButtonClick;
             _decreaseVolumeButton.Click += OnDecreaseVolumeButtonClick;
-            _playNextVideoButton.Click += OnPlayNextVideoButtonClickAsync;
+            _previousViewInformer.ActionClick += OnContinuePreviousViewButtonClickAsync;
+            _nextVidepInformer.ActionClick += OnPlayNextVideoButtonClickAsync;
 
             if (_formatListView != null)
             {
@@ -352,7 +352,7 @@ namespace Richasy.Bili.App.Controls
             await ViewModel.BackToInteractionStartAsync();
         }
 
-        private async void OnContinuePreviousViewButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnContinuePreviousViewButtonClickAsync(object sender, EventArgs e)
         {
             ViewModel.IsShowHistoryTip = false;
             ViewModel.HistoryTipText = string.Empty;
@@ -1011,7 +1011,7 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnPlayNextVideoButtonClickAsync(object sender, RoutedEventArgs e)
+        private async void OnPlayNextVideoButtonClickAsync(object sender, EventArgs e)
         {
             ViewModel.IsShowNextVideoTip = false;
             _nextVideoHoldSeconds = 0;

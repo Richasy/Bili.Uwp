@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -53,7 +52,7 @@ namespace Richasy.Bili.App.Controls
         private const string SubtitleBlockName = "SubtitleBlock";
         private const string HomeButtonName = "HomeButton";
         private const string BackToDefaultButtonName = "BackToDefaultButton";
-        private const string ContinuePreviousViewButtonName = "ContinuePreviousViewButton";
+        private const string PreviousViewInformerName = "PreviousViewInformer";
         private const string LiveRefreshButtonName = "LiveRefreshButton";
         private const string TempMessageContaienrName = "TempMessageContainer";
         private const string TempMessageBlockName = "TempMessageBlock";
@@ -65,7 +64,7 @@ namespace Richasy.Bili.App.Controls
         private const string DecreasePlayRateButtonName = "DecreasePlayRateButton";
         private const string IncreaseVolumeButtonName = "IncreaseVolumeButton";
         private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
-        private const string PlayNextVideoButtonName = "PlayNextVideoButton";
+        private const string NextVideoInformerName = "NextVideoInformer";
         private const string VisibilityStateGroupName = "ControlPanelVisibilityStates";
         private const string FormatButtonName = "FormatButtonName";
         private const string LiveQualityButtonName = "LiveQualityButtonName";
@@ -92,7 +91,6 @@ namespace Richasy.Bili.App.Controls
         private Button _danmakuBarVisibilityButton;
         private Button _homeButton;
         private Button _backToDefaultButton;
-        private Button _continuePreviousViewButton;
         private Button _liveRefreshButton;
         private Button _previousEpisodeButton;
         private Button _nextEpisodeButton;
@@ -105,7 +103,8 @@ namespace Richasy.Bili.App.Controls
         private Button _decreasePlayRateButton;
         private Button _increaseVolumeButton;
         private Button _decreaseVolumeButton;
-        private HyperlinkButton _playNextVideoButton;
+        private PlayerTip _previousViewInformer;
+        private PlayerTip _nextVidepInformer;
         private Grid _rootGrid;
         private VisualStateGroup _visibilityStateGroup;
         private Button _formatButton;
