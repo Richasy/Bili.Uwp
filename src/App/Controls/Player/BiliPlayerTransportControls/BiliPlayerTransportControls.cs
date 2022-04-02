@@ -779,7 +779,11 @@ namespace Richasy.Bili.App.Controls
             _cursorStayTime += 500;
             if (_cursorStayTime > 2000)
             {
-                if (IsCursorInMediaElement() && (!IsCursorInControlPanel() || _isTouch))
+                if (_isTouch && IsControlPanelShown())
+                {
+                    Hide();
+                }
+                else if (IsCursorInMediaElement() && !IsCursorInControlPanel())
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
