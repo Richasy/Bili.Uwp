@@ -70,22 +70,22 @@ namespace Richasy.Bili.App.Controls
 
         private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            ViewModel.StopRequestSearchSuggestion();
             if (args.ChosenSuggestion is ResultItem item)
             {
                 ViewModel.InputWords = item.Keyword;
-                ViewModel.SuggestionCollection.Clear();
             }
 
             if (!string.IsNullOrEmpty(sender.Text))
             {
                 AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
             }
+
+            ViewModel.SuggestionCollection.Clear();
         }
 
         private void OnHotSearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            HotSearchFlyout.ShowAt(AppSearchBox);
-        }
+            => HotSearchFlyout.ShowAt(AppSearchBox);
 
         private async void OnTextChangedAsync(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {

@@ -169,12 +169,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>搜索建议.</returns>
         public async Task<List<Bilibili.App.Interfaces.V1.ResultItem>> GetSearchSuggestionAsync(string keyword)
         {
-            if (_suggestionTokenSource != null && !_suggestionTokenSource.IsCancellationRequested)
-            {
-                _suggestionTokenSource?.Cancel();
-                _suggestionTokenSource?.Dispose();
-                _suggestionTokenSource = null;
-            }
+            StopRequestSearchSuggestion();
 
             try
             {
@@ -193,6 +188,19 @@ namespace Richasy.Bili.Controller.Uwp
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 立刻停止请求搜索建议.
+        /// </summary>
+        public void StopRequestSearchSuggestion()
+        {
+            if (_suggestionTokenSource != null && !_suggestionTokenSource.IsCancellationRequested)
+            {
+                _suggestionTokenSource?.Cancel();
+                _suggestionTokenSource?.Dispose();
+                _suggestionTokenSource = null;
+            }
         }
     }
 }
