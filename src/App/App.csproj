@@ -337,6 +337,9 @@
     <Compile Include="Pages\Overlay\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Overlay\LiveAreaDetailPage.xaml.cs">
+      <DependentUpon>LiveAreaDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Overlay\MessagePage.xaml.cs">
       <DependentUpon>MessagePage.xaml</DependentUpon>
     </Compile>
@@ -944,6 +947,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Overlay\HistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\LiveAreaDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

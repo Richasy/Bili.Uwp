@@ -135,6 +135,11 @@ namespace Richasy.Bili.Controller.Uwp
         public event EventHandler<LiveFeedRoomIterationEventArgs> LiveFeedRoomIteration;
 
         /// <summary>
+        /// 在分区视图中有新的直播源数据更改时发生.
+        /// </summary>
+        public event EventHandler<LiveAreaRoomIterationEventArgs> LiveAreaRoomIteration;
+
+        /// <summary>
         /// 在专栏文章的附加数据发生改变时发生.
         /// </summary>
         public event EventHandler<SpecialColumnAdditionalDataChangedEventArgs> SpecialColumnAdditionalDataChanged;

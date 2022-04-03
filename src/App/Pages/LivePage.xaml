@@ -65,7 +65,10 @@
                             ItemsSource="{x:Bind ViewModel.HotTagCollection}">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
                                 <DataTemplate x:DataType="bilibili:LiveFeedHotArea">
-                                    <controls:CardPanel IsEnableHoverAnimation="False">
+                                    <controls:CardPanel
+                                        Click="OnAreaItemClick"
+                                        DataContext="{x:Bind}"
+                                        IsEnableHoverAnimation="False">
                                         <StackPanel
                                             Width="72"
                                             Margin="20,16"

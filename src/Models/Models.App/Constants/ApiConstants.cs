@@ -322,6 +322,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 发送消息.
             /// </summary>
             public const string SendMessage = _liveBase + "/api/sendmsg";
+
+            /// <summary>
+            /// 分区详情.
+            /// </summary>
+            public const string AreaDetail = _liveBase + "/xlive/app-interface/v2/second/getList";
         }
 
         public static class Article

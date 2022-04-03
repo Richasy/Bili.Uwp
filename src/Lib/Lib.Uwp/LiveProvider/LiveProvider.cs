@@ -45,6 +45,30 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<LiveAreaDetailResponse> GetLiveAreaDetailAsync(int areaId, int parentId, string sortType, int pageNumber, int pageSize = 40)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Page, pageNumber.ToString() },
+                { Query.PageSizeUnderline, pageSize.ToString() },
+                { Query.AreaId, areaId.ToString() },
+                { Query.ParentAreaId, parentId.ToString() },
+                { Query.Device, "phone" },
+            };
+
+            if (!string.IsNullOrEmpty(sortType))
+            {
+                queryParameters.Add(Query.SortType, sortType);
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.AreaDetail, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaDetailResponse>>(response);
+
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
         public async Task<LiveAreaResponse> GetLiveAreaIndexAsync()
         {
             var queryParameters = new Dictionary<string, string>

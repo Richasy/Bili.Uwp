@@ -225,6 +225,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.Message:
                     pageType = typeof(MessagePage);
                     break;
+                case PageIds.LiveAreaDetail:
+                    pageType = typeof(LiveAreaDetailPage);
+                    break;
                 default:
                     break;
             }

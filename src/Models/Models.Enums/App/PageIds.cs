@@ -136,5 +136,10 @@ namespace Richasy.Bili.Models.Enums
         /// 时间线页面.
         /// </summary>
         TimeLine = 203,
+
+        /// <summary>
+        /// 直播分区详情页面.
+        /// </summary>
+        LiveAreaDetail = 204,
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using Richasy.Bili.App.Controls;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
@@ -69,5 +70,21 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnSeeAllTagsButtonClickAsync(object sender, RoutedEventArgs e)
             => await new LiveAreaView().ShowAsync();
+
+        private void OnAreaItemClick(object sender, RoutedEventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is LiveFeedHotArea context)
+            {
+                var area = new LiveArea()
+                {
+                    Cover = context.Cover,
+                    Id = context.Id,
+                    ParentId = context.ParentAreaId,
+                    Name = context.Title,
+                };
+
+                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.LiveAreaDetail, area);
+            }
+        }
     }
 }

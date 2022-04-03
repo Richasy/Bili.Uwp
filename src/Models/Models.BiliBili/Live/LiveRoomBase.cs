@@ -66,12 +66,6 @@ namespace Richasy.Bili.Models.BiliBili
         public string H265PlayUrl { get; set; }
 
         /// <summary>
-        /// 支持的清晰度列表.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "accept_quality", Required = Required.Default)]
-        public List<int> AcceptQuality { get; set; }
-
-        /// <summary>
         /// 当前清晰度.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_quality", Required = Required.Default)]

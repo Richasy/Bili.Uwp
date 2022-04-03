@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -30,11 +32,14 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnAreaClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnAreaClick(object sender, RoutedEventArgs e)
         {
+            var data = (sender as FrameworkElement).DataContext as LiveArea;
+            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.LiveAreaDetail, data);
+            Hide();
         }
 
-        private async void OnRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
             => await _viewModel.InitializeAreaIndexAsync();
     }
 }
