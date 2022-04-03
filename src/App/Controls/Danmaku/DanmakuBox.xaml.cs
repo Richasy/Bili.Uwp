@@ -49,5 +49,8 @@ namespace Richasy.Bili.App.Controls
         {
             SendOptions.Initialize();
         }
+
+        private void OnDanmakuInputBoxGotFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+            => PlayerViewModel.Instance.IsFocusInputControl = true;
     }
 }
