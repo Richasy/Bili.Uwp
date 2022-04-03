@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Pages.LivePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
     xmlns:controls="using:Richasy.Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
@@ -47,6 +48,7 @@
                         <RowDefinition x:Name="Row1" Height="Auto" />
                         <RowDefinition x:Name="Row2" Height="Auto" />
                         <RowDefinition x:Name="Row3" Height="Auto" />
+                        <RowDefinition x:Name="Row4" Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid
                         x:Name="BannerContainer"
@@ -56,9 +58,35 @@
                         <controls:BannerView VerticalAlignment="Top" ItemsSource="{x:Bind ViewModel.BannerCollection}" />
                     </Grid>
 
+                    <Grid x:Name="PartitionContainer" Grid.Row="1">
+                        <controls:HorizontalRepeaterView
+                            x:Name="PartitionView"
+                            Header="{loc:LocaleLocator Name=HotTags}"
+                            HeaderVisibility="Visible"
+                            ItemsSource="{x:Bind ViewModel.HotTagCollection}">
+                            <controls:HorizontalRepeaterView.WideItemTemplate>
+                                <DataTemplate x:DataType="bilibili:LiveFeedHotArea">
+                                    <controls:LiveAreaItem
+                                        Title="{x:Bind Title}"
+                                        Width="120"
+                                        Height="116"
+                                        Cover="{x:Bind Cover}"
+                                        DataContext="{x:Bind}"
+                                        ItemClick="OnAreaItemClick" />
+                                </DataTemplate>
+                            </controls:HorizontalRepeaterView.WideItemTemplate>
+                            <controls:HorizontalRepeaterView.AdditionalContent>
+                                <Button
+                                    x:Name="SeeAllTagsButton"
+                                    Click="OnSeeAllTagsButtonClickAsync"
+                                    Content="{loc:LocaleLocator Name=SeeAll}" />
+                            </controls:HorizontalRepeaterView.AdditionalContent>
+                        </controls:HorizontalRepeaterView>
+                    </Grid>
+
                     <Grid
                         x:Name="InlineFollowContainer"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         HorizontalAlignment="Stretch"
                         Visibility="Collapsed">
                         <controls:FollowLiveView ItemOrientation="Vertical" Visibility="{x:Bind ViewModel.IsShowFollowList, Mode=OneWay}" />
@@ -66,7 +94,7 @@
 
                     <Grid
                         x:Name="FeedsContainer"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
                         <controls:VerticalRepeaterView

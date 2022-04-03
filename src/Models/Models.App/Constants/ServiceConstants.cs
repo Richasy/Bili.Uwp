@@ -147,6 +147,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string CopyRight = "copyright";
             public const string IsFinish = "is_finish";
             public const string PageSizeFull = "pagesize";
+            public const string PageSizeUnderline = "page_size";
             public const string SeasonMonth = "season_month";
             public const string SeasonStatus = "season_status";
             public const string SeasonVersion = "season_version";
@@ -178,6 +179,10 @@ namespace Richasy.Bili.Models.App.Constants
             public const string GeeValidate = "gee_validate";
             public const string GeeChallenge = "gee_challenge";
             public const string RecaptchaToken = "recaptcha_token";
+            public const string AreaId = "area_id";
+            public const string CateId = "cate_id";
+            public const string ParentAreaId = "parent_area_id";
+            public const string SortType = "sort_type";
         }
 
         public static class Sort

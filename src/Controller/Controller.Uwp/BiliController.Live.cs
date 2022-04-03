@@ -60,6 +60,44 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 请求分区下直播源列表.
+        /// </summary>
+        /// <param name="area">直播分区.</param>
+        /// <param name="sortType">排序方式.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestLiveAreaRoomsAsync(LiveArea area, string sortType = "", int pageNumber = 1)
+        {
+            try
+            {
+                ThrowWhenNetworkUnavaliable();
+                var id = area.Id;
+                if (area.Id == area.ParentId)
+                {
+                    id = 0;
+                }
+
+                var data = await _liveProvider.GetLiveAreaDetailAsync(id, area.ParentId, sortType, pageNumber);
+                LiveAreaRoomIteration?.Invoke(this, new LiveAreaRoomIterationEventArgs(data, pageNumber + 1, sortType));
+            }
+            catch (ServiceException ex)
+            {
+                _loggerModule.LogError(ex, pageNumber > 1);
+                if (pageNumber == 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取直播间分区索引.
+        /// </summary>
+        /// <returns><see cref="LiveAreaResponse"/>.</returns>
+        public Task<LiveAreaResponse> GetLiveAreaIndexAsync()
+            => _liveProvider.GetLiveAreaIndexAsync();
+
+        /// <summary>
         /// 获取直播间详情.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>

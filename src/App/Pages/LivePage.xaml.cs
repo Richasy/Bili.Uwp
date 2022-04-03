@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Richasy.Bili.App.Controls;
+using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
@@ -64,6 +66,25 @@ namespace Richasy.Bili.App.Pages
         private void OnFollowListViewItemClick(object sender, EventArgs e)
         {
             StandardFollowFlyout.Hide();
+        }
+
+        private async void OnSeeAllTagsButtonClickAsync(object sender, RoutedEventArgs e)
+            => await new LiveAreaView().ShowAsync();
+
+        private void OnAreaItemClick(object sender, EventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is LiveFeedHotArea context)
+            {
+                var area = new LiveArea()
+                {
+                    Cover = context.Cover,
+                    Id = context.Id,
+                    ParentId = context.ParentAreaId,
+                    Name = context.Title,
+                };
+
+                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.LiveAreaDetail, area);
+            }
         }
     }
 }

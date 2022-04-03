@@ -177,7 +177,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
         /// <param name="followRoom">关注的直播间.</param>
-        public VideoViewModel(LiveFeedFollowRoom followRoom)
+        public VideoViewModel(LiveFeedRoom followRoom)
             : this()
         {
             Title = followRoom.Title;

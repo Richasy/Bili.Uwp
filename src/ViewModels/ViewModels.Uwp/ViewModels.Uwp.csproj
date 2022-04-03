@@ -12,6 +12,8 @@
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
     <Compile Include="Common\AppViewModel\AppViewModel.Command.cs" />
     <Compile Include="Common\CommandLineViewModel.cs" />
+    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
+    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
     <Compile Include="Toolbox\AvBvConverterViewModel.cs" />
     <Compile Include="Base\SelectableViewModelBase{T}.cs" />

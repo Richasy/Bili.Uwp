@@ -9,7 +9,7 @@ namespace Richasy.Bili.Models.BiliBili
     /// 直播源推荐中我关注的直播间.
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class LiveFeedFollowRoom : LiveRoomBase
+    public class LiveFeedRoom : LiveRoomBase
     {
         /// <summary>
         /// 直播间Id.
@@ -100,6 +100,6 @@ namespace Richasy.Bili.Models.BiliBili
         /// 列表数据.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "list", Required = Required.Default)]
-        public List<LiveFeedFollowRoom> List { get; set; }
+        public List<LiveFeedRoom> List { get; set; }
     }
 }
