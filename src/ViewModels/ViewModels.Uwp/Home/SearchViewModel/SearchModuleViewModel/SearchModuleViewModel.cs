@@ -156,6 +156,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        /// <summary>
+        /// 立刻停止获取搜索建议.
+        /// </summary>
+        public void StopRequestSearchSuggestion()
+            => Controller.StopRequestSearchSuggestion();
+
         private void LoadModule()
         {
             VideoModule = new SearchSubModuleViewModel(SearchModuleType.Video);
