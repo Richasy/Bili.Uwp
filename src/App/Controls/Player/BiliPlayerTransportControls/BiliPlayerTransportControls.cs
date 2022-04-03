@@ -216,7 +216,7 @@ namespace Richasy.Bili.App.Controls
 
             if (IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                Hide();
+                HideControls();
             }
 
             _cursorStayTime = 0;
@@ -543,7 +543,7 @@ namespace Richasy.Bili.App.Controls
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
                     _danmakuView.ResumeDanmaku();
-                    Hide();
+                    HideControls();
                 }
 
                 _playPauseButton.Focus(FocusState.Programmatic);
@@ -792,19 +792,19 @@ namespace Richasy.Bili.App.Controls
             {
                 if (_isTouch && IsControlPanelShown())
                 {
-                    Hide();
+                    HideControls();
                 }
                 else if (IsCursorInMediaElement() && !IsCursorInControlPanel())
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
                     {
-                        Hide();
+                        HideControls();
                     }
                 }
                 else if (!ViewModel.IsPointerInMediaElement && IsControlPanelShown())
                 {
-                    Hide();
+                    HideControls();
                 }
 
                 _cursorStayTime = 0;
@@ -863,6 +863,11 @@ namespace Richasy.Bili.App.Controls
         {
             if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
             {
+                if (IsControlPanelShown() && ViewModel.IsFocusInputControl)
+                {
+                    return;
+                }
+
                 _playPauseButton.Focus(FocusState.Programmatic);
             }
         }
@@ -1091,6 +1096,12 @@ namespace Richasy.Bili.App.Controls
             var rootBounds = _rootGrid.TransformToVisual(Window.Current.Content)
                     .TransformBounds(rect);
             return rootBounds.Contains(pointerPosition);
+        }
+
+        private void HideControls()
+        {
+            Hide();
+            ViewModel.IsFocusInputControl = false;
         }
     }
 }

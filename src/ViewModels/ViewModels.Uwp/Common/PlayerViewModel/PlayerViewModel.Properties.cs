@@ -801,6 +801,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public bool IsPointerInMediaElement { get; set; }
 
+        /// <summary>
+        /// 焦点此刻是否正位于输入控件上.
+        /// </summary>
+        public bool IsFocusInputControl { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }
