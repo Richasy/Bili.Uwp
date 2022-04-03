@@ -40,27 +40,11 @@
                         </muxc:ItemsRepeater.Layout>
                         <muxc:ItemsRepeater.ItemTemplate>
                             <DataTemplate x:DataType="bilibili:LiveArea">
-                                <local:CardPanel
-                                    Click="OnAreaClick"
+                                <local:LiveAreaItem
+                                    Title="{x:Bind Name}"
+                                    Cover="{x:Bind Cover}"
                                     DataContext="{x:Bind}"
-                                    IsEnableHoverAnimation="False"
-                                    IsEnableShadow="False">
-                                    <StackPanel
-                                        Margin="4"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Spacing="12">
-                                        <local:CommonImageEx
-                                            Width="40"
-                                            HorizontalAlignment="Center"
-                                            ImageUrl="{x:Bind Cover}" />
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Text="{x:Bind Name}"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap" />
-                                    </StackPanel>
-                                </local:CardPanel>
+                                    ItemClick="OnAreaClick" />
                             </DataTemplate>
                         </muxc:ItemsRepeater.ItemTemplate>
                     </muxc:ItemsRepeater>

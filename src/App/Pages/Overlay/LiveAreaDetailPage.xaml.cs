@@ -3,6 +3,9 @@
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.ViewModels.Uwp.Live;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace Richasy.Bili.App.Pages.Overlay
@@ -25,6 +28,13 @@ namespace Richasy.Bili.App.Pages.Overlay
             if (e.Parameter is LiveArea area)
             {
                 _viewModel.SetLiveArea(area);
+                var animationService = ConnectedAnimationService.GetForCurrentView();
+                var animate = animationService.GetAnimation("LiveAreaAnimate");
+                if (animate != null)
+                {
+                    animate.TryStart(PartitionHeader);
+                }
+
                 await _viewModel.RequestDataAsync();
             }
         }

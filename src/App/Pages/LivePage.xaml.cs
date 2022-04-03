@@ -71,7 +71,7 @@ namespace Richasy.Bili.App.Pages
         private async void OnSeeAllTagsButtonClickAsync(object sender, RoutedEventArgs e)
             => await new LiveAreaView().ShowAsync();
 
-        private void OnAreaItemClick(object sender, RoutedEventArgs e)
+        private void OnAreaItemClick(object sender, EventArgs e)
         {
             if ((sender as FrameworkElement)?.DataContext is LiveFeedHotArea context)
             {

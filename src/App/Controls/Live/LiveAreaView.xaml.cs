@@ -32,14 +32,14 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnAreaClick(object sender, RoutedEventArgs e)
+        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+            => await _viewModel.InitializeAreaIndexAsync();
+
+        private void OnAreaClick(object sender, System.EventArgs e)
         {
             var data = (sender as FrameworkElement).DataContext as LiveArea;
             AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.LiveAreaDetail, data);
             Hide();
         }
-
-        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-            => await _viewModel.InitializeAreaIndexAsync();
     }
 }

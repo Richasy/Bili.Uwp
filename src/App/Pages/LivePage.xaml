@@ -60,36 +60,24 @@
 
                     <Grid x:Name="PartitionContainer" Grid.Row="1">
                         <controls:HorizontalRepeaterView
+                            x:Name="PartitionView"
                             Header="{loc:LocaleLocator Name=HotTags}"
                             HeaderVisibility="Visible"
                             ItemsSource="{x:Bind ViewModel.HotTagCollection}">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
                                 <DataTemplate x:DataType="bilibili:LiveFeedHotArea">
-                                    <controls:CardPanel
-                                        Click="OnAreaItemClick"
+                                    <controls:LiveAreaItem
+                                        Title="{x:Bind Title}"
+                                        Width="120"
+                                        Height="116"
+                                        Cover="{x:Bind Cover}"
                                         DataContext="{x:Bind}"
-                                        IsEnableHoverAnimation="False">
-                                        <StackPanel
-                                            Width="72"
-                                            Margin="20,16"
-                                            Spacing="12">
-                                            <controls:CommonImageEx
-                                                Width="40"
-                                                HorizontalAlignment="Center"
-                                                ImageUrl="{x:Bind Cover}" />
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                Text="{x:Bind Title}"
-                                                TextAlignment="Center"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </controls:CardPanel>
+                                        ItemClick="OnAreaItemClick" />
                                 </DataTemplate>
                             </controls:HorizontalRepeaterView.WideItemTemplate>
                             <controls:HorizontalRepeaterView.AdditionalContent>
                                 <Button
                                     x:Name="SeeAllTagsButton"
-                                    MinWidth="120"
                                     Click="OnSeeAllTagsButtonClickAsync"
                                     Content="{loc:LocaleLocator Name=SeeAll}" />
                             </controls:HorizontalRepeaterView.AdditionalContent>
