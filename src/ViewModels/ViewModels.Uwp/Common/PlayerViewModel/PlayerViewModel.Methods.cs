@@ -300,7 +300,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 RelatedVideoCollection.Add(new VideoViewModel(video));
             }
 
-            if (_videoDetail.History != null && _videoDetail.History.Progress > 0)
+            if (_videoDetail.History != null && _videoDetail.History.Progress > 0 && !IsInteraction)
             {
                 var title = string.Empty;
                 if (IsShowParts)
@@ -624,7 +624,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 item.IsSelected = item.Data.Equals(CurrentVideoPart);
             }
 
-            if (VideoPartCollection.Count > 0)
+            if (VideoPartCollection.Count > 0 && CurrentVideoPart != null)
             {
                 IsPreviousEpisodeButtonEnabled = CurrentVideoPart.Page.Page_ != VideoPartCollection.First().Data.Page.Page_;
                 IsNextEpisodeButtonEnabled = CurrentVideoPart.Page.Page_ != VideoPartCollection.Last().Data.Page.Page_;

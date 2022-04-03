@@ -1007,7 +1007,7 @@
                                     Padding="0"
                                     ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToStart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteraction, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <icons:RegularFluentIcon FontSize="14" Symbol="Home16" />
+                                    <icons:RegularFluentIcon FontSize="14" Symbol="EraserMedium24" />
                                     <Button.KeyboardAccelerators>
                                         <KeyboardAccelerator Key="H" Modifiers="Control" />
                                     </Button.KeyboardAccelerators>

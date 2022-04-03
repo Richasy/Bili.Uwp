@@ -650,7 +650,7 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>请输入验证码</value>
   </data>
   <data name="InteractionEnd" xml:space="preserve">
-    <value>互动视频结束，可点击左上角“🏘”按钮返回开头</value>
+    <value>互动视频结束，可点击视频区域内左上角的 “橡皮擦” 按钮返回开头</value>
   </data>
   <data name="InteractionQuality" xml:space="preserve">
     <value>交互式清晰度选择</value>
