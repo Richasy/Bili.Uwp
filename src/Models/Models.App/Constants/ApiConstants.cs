@@ -294,6 +294,11 @@ namespace Richasy.Bili.Models.App.Constants
             public const string LiveFeed = _liveBase + "/xlive/app-interface/v2/index/feed";
 
             /// <summary>
+            /// 直播分区.
+            /// </summary>
+            public const string LiveArea = _liveBase + "/xlive/app-interface/v2/index/getAreaList";
+
+            /// <summary>
             /// 直播间详情.
             /// </summary>
             public const string RoomDetail = _liveBase + "/xlive/app-room/v1/index/getInfoByRoom";

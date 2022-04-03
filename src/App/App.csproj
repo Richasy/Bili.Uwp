@@ -48,6 +48,9 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Live\LiveAreaView.xaml.cs">
+      <DependentUpon>LiveAreaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\PlayerTip\PlayerTip.cs" />
     <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
       <DependentUpon>ViewLaterView.xaml</DependentUpon>
@@ -571,6 +574,10 @@
     <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Live\LiveAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\PlayerTip\PlayerTip.xaml">
       <SubType>Designer</SubType>

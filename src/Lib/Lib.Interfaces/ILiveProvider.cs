@@ -19,6 +19,12 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<LiveFeedResponse> GetLiveFeedsAsync(int page);
 
         /// <summary>
+        /// 获取直播间分区.
+        /// </summary>
+        /// <returns><see cref="LiveAreaResponse"/>.</returns>
+        Task<LiveAreaResponse> GetLiveAreaIndexAsync();
+
+        /// <summary>
         /// 获取直播间详情.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>

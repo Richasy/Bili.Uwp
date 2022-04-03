@@ -1,0 +1,80 @@
+﻿<local:CenterPopup
+    x:Class="Richasy.Bili.App.Controls.LiveAreaView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Title="{loc:LocaleLocator Name=TotalTags}"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid MinHeight="200">
+        <Grid Visibility="{x:Bind _viewModel.IsAreaError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <muxc:NavigationView
+                IsBackButtonVisible="Collapsed"
+                IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
+                MenuItemsSource="{x:Bind _viewModel.LiveAreaGroupCollection}"
+                PaneDisplayMode="Top"
+                SelectedItem="{x:Bind _viewModel.SelectedAreaGroup, Mode=TwoWay}"
+                Visibility="{x:Bind _viewModel.IsLiveAreaRequesting, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <muxc:NavigationView.MenuItemTemplate>
+                    <DataTemplate x:DataType="bilibili:LiveAreaGroup">
+                        <muxc:NavigationViewItem Content="{x:Bind Name}" />
+                    </DataTemplate>
+                </muxc:NavigationView.MenuItemTemplate>
+                <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <muxc:ItemsRepeater Margin="0,8,0,20" ItemsSource="{x:Bind _viewModel.DisplayAreaCollection}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:UniformGridLayout
+                                ItemsStretch="Fill"
+                                MinColumnSpacing="12"
+                                MinItemHeight="118"
+                                MinItemWidth="120"
+                                MinRowSpacing="12" />
+                        </muxc:ItemsRepeater.Layout>
+                        <muxc:ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="bilibili:LiveArea">
+                                <local:CardPanel
+                                    Click="OnAreaClick"
+                                    DataContext="{x:Bind}"
+                                    IsEnableHoverAnimation="False"
+                                    IsEnableShadow="False">
+                                    <StackPanel
+                                        Margin="4"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Spacing="12">
+                                        <local:CommonImageEx
+                                            Width="40"
+                                            HorizontalAlignment="Center"
+                                            ImageUrl="{x:Bind Cover}" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Text="{x:Bind Name}"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </local:CardPanel>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater.ItemTemplate>
+                    </muxc:ItemsRepeater>
+                </ScrollViewer>
+            </muxc:NavigationView>
+        </Grid>
+
+        <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" IsActive="{x:Bind _viewModel.IsLiveAreaRequesting, Mode=OneWay}" />
+
+        <local:ErrorPanel
+            x:Name="ErrorPanel"
+            ActionButtonClick="OnRefreshButtonClickAsync"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{loc:LocaleLocator Name=RequestLiveTagsFailed}"
+            Visibility="{x:Bind _viewModel.IsAreaError, Mode=OneWay}" />
+    </Grid>
+</local:CenterPopup>

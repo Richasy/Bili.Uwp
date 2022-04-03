@@ -299,6 +299,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="ClearViewLaterWarning" xml:space="preserve">
     <value>是否要清空稍后再看列表？</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
@@ -621,6 +624,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="HotSearch" xml:space="preserve">
     <value>搜索热词</value>
+  </data>
+  <data name="HotTags" xml:space="preserve">
+    <value>热门标签</value>
   </data>
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
@@ -1103,6 +1109,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="RequestLivePlayInformationFailed" xml:space="preserve">
     <value>请求直播播放信息失败</value>
   </data>
+  <data name="RequestLiveTagsFailed" xml:space="preserve">
+    <value>请求直播标签失败</value>
+  </data>
   <data name="RequestMessageFailed" xml:space="preserve">
     <value>请求消息失败</value>
   </data>
@@ -1339,6 +1348,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Total" xml:space="preserve">
     <value>全部</value>
+  </data>
+  <data name="TotalTags" xml:space="preserve">
+    <value>全部标签</value>
   </data>
   <data name="TotalUser" xml:space="preserve">
     <value>全部用户</value>

@@ -45,6 +45,20 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<LiveAreaResponse> GetLiveAreaIndexAsync()
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Device, "phone" },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveArea, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaResponse>>(response);
+
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
         public async Task<LiveFeedResponse> GetLiveFeedsAsync(int page)
         {
             var queryParameters = new Dictionary<string, string>

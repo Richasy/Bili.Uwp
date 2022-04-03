@@ -60,6 +60,13 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取直播间分区索引.
+        /// </summary>
+        /// <returns><see cref="LiveAreaResponse"/>.</returns>
+        public Task<LiveAreaResponse> GetLiveAreaIndexAsync()
+            => _liveProvider.GetLiveAreaIndexAsync();
+
+        /// <summary>
         /// 获取直播间详情.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
