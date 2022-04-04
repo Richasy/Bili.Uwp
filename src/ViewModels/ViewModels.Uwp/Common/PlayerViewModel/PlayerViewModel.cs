@@ -39,8 +39,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             EpisodeCollection = new ObservableCollection<PgcEpisodeViewModel>();
             SeasonCollection = new ObservableCollection<PgcSeasonViewModel>();
             PgcSectionCollection = new ObservableCollection<PgcSectionViewModel>();
-            LivePlayLineCollection = new ObservableCollection<LivePlayLineViewModel>();
-            LiveQualityCollection = new ObservableCollection<LiveQualityViewModel>();
+            LiveAppPlayLineCollection = new ObservableCollection<LiveAppPlayLineViewModel>();
+            LiveAppQualityCollection = new ObservableCollection<LiveAppQualityViewModel>();
             LiveDanmakuCollection = new ObservableCollection<LiveDanmakuMessage>();
             FavoriteMetaCollection = new ObservableCollection<FavoriteMetaViewModel>();
             SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
@@ -55,10 +55,9 @@ namespace Richasy.Bili.ViewModels.Uwp
             _historyVideoList = new List<string>();
 
             _liveFFConfig = new FFmpegInteropConfig();
-            _liveFFConfig.FFmpegOptions.Add("rtsp-transport", "tcp");
+
             _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveFFConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
-
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)
@@ -522,38 +521,38 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 修改直播清晰度.
+        /// 修改直播播放行为.
         /// </summary>
         /// <param name="quality">清晰度.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ChangeLiveQualityAsync(int quality)
+        public async Task ChangeLivePlayBehaviorAsync(int quality)
         {
-            var playInfo = await Controller.GetLivePlayInformationAsync(Convert.ToInt32(RoomId), quality);
+            var playInfo = await Controller.GetAppLivePlayInformationAsync(Convert.ToInt32(RoomId), quality, IsLiveAudioOnly);
 
             if (playInfo != null)
             {
-                await InitializeLivePlayInformationAsync(playInfo);
+                await InitializeAppLivePlayInformationAsync(playInfo);
             }
             else
             {
                 IsPlayInformationError = true;
                 PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLivePlayInformationFailed);
-                CurrentLiveQuality = LiveQualityCollection.FirstOrDefault()?.Data;
+                CurrentAppLiveQuality = LiveAppQualityCollection.FirstOrDefault()?.Data;
             }
         }
 
         /// <summary>
         /// 修改直播线路.
         /// </summary>
-        /// <param name="order">线路序号.</param>
+        /// <param name="url">线路数据.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ChangeLivePlayLineAsync(int order)
+        public async Task ChangeAppLivePlayLineAsync(LiveAppPlayUrl url)
         {
-            var playLine = LivePlayLineCollection.Where(p => p.Data.Order == order).FirstOrDefault()?.Data;
-            if (playLine != null)
+            var playUrl = LiveAppPlayLineCollection.Where(p => p.Data.Host == url.Host).FirstOrDefault();
+            if (playUrl != null)
             {
-                CurrentPlayLine = playLine;
-                await InitializeLiveDashAsync(CurrentPlayLine.Url);
+                CurrentPlayUrl = playUrl;
+                await InitializeLiveDashAsync(CurrentPlayUrl.Url);
             }
         }
 

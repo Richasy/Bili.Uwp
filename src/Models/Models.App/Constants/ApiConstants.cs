@@ -327,6 +327,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 分区详情.
             /// </summary>
             public const string AreaDetail = _liveBase + "/xlive/app-interface/v2/second/getList";
+
+            /// <summary>
+            /// 移动应用上的播放信息.
+            /// </summary>
+            public const string AppPlayInformation = _liveBase + "/xlive/app-room/v2/index/getRoomPlayInfo";
         }
 
         public static class Article

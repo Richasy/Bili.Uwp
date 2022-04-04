@@ -262,14 +262,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoFormatViewModel> FormatCollection { get; }
 
         /// <summary>
-        /// 直播清晰度集合.
+        /// 应用直播清晰度集合.
         /// </summary>
-        public ObservableCollection<LiveQualityViewModel> LiveQualityCollection { get; }
+        public ObservableCollection<LiveAppQualityViewModel> LiveAppQualityCollection { get; }
 
         /// <summary>
-        /// 直播播放线路集合.
+        /// 应用直播播放线路集合.
         /// </summary>
-        public ObservableCollection<LivePlayLineViewModel> LivePlayLineCollection { get; }
+        public ObservableCollection<LiveAppPlayLineViewModel> LiveAppPlayLineCollection { get; }
 
         /// <summary>
         /// PGC区块（比如PV）集合.
@@ -335,16 +335,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         public VideoFormat CurrentFormat { get; set; }
 
         /// <summary>
-        /// 当前直播播放线路.
+        /// 当前直播播放地址.
         /// </summary>
         [Reactive]
-        public LivePlayLine CurrentPlayLine { get; set; }
+        public LiveAppPlayLineViewModel CurrentPlayUrl { get; set; }
 
         /// <summary>
-        /// 当前直播清晰度.
+        /// 应用当前直播清晰度.
         /// </summary>
         [Reactive]
-        public LiveQualityDescription CurrentLiveQuality { get; set; }
+        public LiveAppQualityDescription CurrentAppLiveQuality { get; set; }
 
         /// <summary>
         /// 是否正在加载.
@@ -805,6 +805,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 焦点此刻是否正位于输入控件上.
         /// </summary>
         public bool IsFocusInputControl { get; set; }
+
+        /// <summary>
+        /// 直播间仅播放音频.
+        /// </summary>
+        [Reactive]
+        public bool IsLiveAudioOnly { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }

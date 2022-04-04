@@ -731,7 +731,7 @@
                                                                         x:Name="LiveQualityListView"
                                                                         MinWidth="120"
                                                                         Margin="4"
-                                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LiveQualityCollection}">
+                                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LiveAppQualityCollection}">
                                                                         <ListView.ItemTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock Text="{Binding Data.Description}" />
@@ -760,13 +760,10 @@
                                                                         x:Name="LivePlayLineListView"
                                                                         MinWidth="120"
                                                                         Margin="4"
-                                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LivePlayLineCollection}">
+                                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LiveAppPlayLineCollection}">
                                                                         <ListView.ItemTemplate>
                                                                             <DataTemplate>
-                                                                                <TextBlock>
-                                                                                    <Run Text="{loc:LocaleLocator Name=PlayLine}" />
-                                                                                    <Run Text="{Binding Data.Order}" />
-                                                                                </TextBlock>
+                                                                                <TextBlock Text="{Binding Name}" />
                                                                             </DataTemplate>
                                                                         </ListView.ItemTemplate>
                                                                     </ListView>

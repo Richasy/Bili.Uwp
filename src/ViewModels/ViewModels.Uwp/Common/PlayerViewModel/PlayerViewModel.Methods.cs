@@ -52,8 +52,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
             IsLiveMessageAutoScroll = true;
-            CurrentPlayLine = null;
-            CurrentLiveQuality = null;
+            CurrentPlayUrl = null;
             CurrentSubtitleIndex = null;
             CurrentSubtitle = string.Empty;
             IsShowSubtitle = false;
@@ -81,8 +80,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             FormatCollection.Clear();
             EpisodeCollection.Clear();
             SeasonCollection.Clear();
-            LiveQualityCollection.Clear();
-            LivePlayLineCollection.Clear();
+            LiveAppQualityCollection.Clear();
             LiveDanmakuCollection.Clear();
             FavoriteMetaCollection.Clear();
             SubtitleIndexCollection.Clear();
@@ -215,7 +213,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             await InitializeUserRelationAsync();
             await Controller.ConnectToLiveRoomAsync(roomId);
-            await ChangeLiveQualityAsync(4);
+            await ChangeLivePlayBehaviorAsync(150);
             await Controller.SendLiveHeartBeatAsync();
         }
 
@@ -532,39 +530,82 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private async Task InitializeLivePlayInformationAsync(LivePlayInformation livePlayInfo)
+        private async Task InitializeAppLivePlayInformationAsync(LiveAppPlayUrlInfo livePlayInfo)
         {
-            LiveQualityCollection.Clear();
-            LivePlayLineCollection.Clear();
-            foreach (var q in livePlayInfo.QualityDescriptions)
-            {
-                LiveQualityCollection.Add(new LiveQualityViewModel(q, q.Quality == livePlayInfo.CurrentQuality));
-            }
+            LiveAppQualityCollection.Clear();
+            LiveAppPlayLineCollection.Clear();
 
-            var currentQuality = LiveQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
-            if (currentQuality == null)
-            {
-                currentQuality = LiveQualityCollection.Where(p => p.Data.Quality == livePlayInfo.CurrentQuality2).FirstOrDefault() ?? LiveQualityCollection.First();
-            }
+            var qualities = livePlayInfo.PlayUrl.Descriptions;
+            var stream = livePlayInfo.PlayUrl.StreamList.First();
+            var format = stream.FormatList.First();
+            var codec = format.CodecList.First();
 
-            CurrentLiveQuality = currentQuality.Data;
-            livePlayInfo.PlayLines.ForEach(p => LivePlayLineCollection.Add(new LivePlayLineViewModel(p)));
-
-            if (CurrentPlayLine != null)
+            if (PreferCodec != PreferCodec.Flv && livePlayInfo.PlayUrl.StreamList.Any(p => p.ProtocolName.Equals("http_hls")))
             {
-                foreach (var item in LivePlayLineCollection)
+                var hlsStream = livePlayInfo.PlayUrl.StreamList.First(p => p.ProtocolName.Equals("http_hls"));
+                var hlsFormat = hlsStream.FormatList.First();
+                var isInScope = false;
+                if (PreferCodec == PreferCodec.H264 && hlsFormat.CodecList.Any(p => p.CodecName.Equals("avc")))
                 {
-                    item.IsSelected = item.Data.Order == CurrentPlayLine.Order;
+                    isInScope = true;
+                    codec = hlsFormat.CodecList.First(p => p.CodecName.Equals("avc"));
+                }
+                else if (PreferCodec == PreferCodec.H265 && hlsFormat.CodecList.Any(p => p.CodecName.Equals("hevc")))
+                {
+                    isInScope = true;
+                    codec = hlsFormat.CodecList.First(p => p.CodecName.Equals("hevc"));
+                }
+                else if (PreferCodec == PreferCodec.Av1 && hlsFormat.CodecList.Any(p => p.CodecName.Equals("av1")))
+                {
+                    isInScope = true;
+                    codec = hlsFormat.CodecList.First(p => p.CodecName.Equals("av1"));
                 }
 
-                CurrentPlayLine = LivePlayLineCollection.Where(p => p.IsSelected).FirstOrDefault()?.Data ?? LivePlayLineCollection.First().Data;
+                if (isInScope)
+                {
+                    stream = hlsStream;
+                    format = hlsFormat;
+                }
+            }
+
+            foreach (var q in codec.AcceptQualities)
+            {
+                var desc = qualities.First(p => p.Quality == q);
+                LiveAppQualityCollection.Add(new LiveAppQualityViewModel(desc, q == codec.CurrentQuality));
+            }
+
+            var currentQuality = LiveAppQualityCollection.Where(p => p.IsSelected).FirstOrDefault();
+            if (currentQuality == null)
+            {
+                currentQuality = LiveAppQualityCollection.Where(p => p.Data.Quality == codec.CurrentQuality).FirstOrDefault() ?? LiveAppQualityCollection.First();
+            }
+
+            CurrentAppLiveQuality = currentQuality.Data;
+
+            for (var i = 0; i < codec.Urls.Count; i++)
+            {
+                var data = codec.Urls[i];
+                if (data.Host.EndsWith(".com"))
+                {
+                    LiveAppPlayLineCollection.Add(new LiveAppPlayLineViewModel(data, codec.BaseUrl, i + 1));
+                }
+            }
+
+            if (CurrentPlayUrl != null)
+            {
+                foreach (var item in LiveAppPlayLineCollection)
+                {
+                    item.IsSelected = item.Data.Host == CurrentPlayUrl.Data.Host;
+                }
+
+                CurrentPlayUrl = LiveAppPlayLineCollection.Where(p => p.IsSelected).FirstOrDefault() ?? LiveAppPlayLineCollection.FirstOrDefault();
             }
             else
             {
-                CurrentPlayLine = LivePlayLineCollection.FirstOrDefault().Data;
+                CurrentPlayUrl = LiveAppPlayLineCollection.FirstOrDefault();
             }
 
-            if (CurrentPlayLine == null)
+            if (CurrentPlayUrl == null)
             {
                 IsPlayInformationError = true;
                 PlayInformationErrorText = "无法获取正确的播放地址";
@@ -572,7 +613,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 return;
             }
 
-            await InitializeLiveDashAsync(CurrentPlayLine.Url);
+            await InitializeLiveDashAsync(CurrentPlayUrl.Url);
         }
 
         private void InitializeTimer()
@@ -864,17 +905,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 PlayerStatus = PlayerStatus.End;
                 var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
-                if (IsLive)
-                {
-                    var currentOrder = CurrentPlayLine == null ? -1 : CurrentPlayLine.Order;
-                    if (currentOrder == LivePlayLineCollection.Count - 1)
-                    {
-                        currentOrder = -1;
-                    }
-
-                    await ChangeLivePlayLineAsync(currentOrder + 1);
-                }
-                else if (IsInteraction)
+                if (IsInteraction)
                 {
                     if (ChoiceCollection.Count > 0)
                     {

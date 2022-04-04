@@ -168,7 +168,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string LikeTime = "like_time";
             public const string AtTime = "at_time";
             public const string ReplyTime = "reply_time";
-            public const string Protocol = "protocal";
+            public const string Protocol = "protocol";
             public const string Codec = "codec";
             public const string PType = "ptype";
             public const string Format = "format";
@@ -183,6 +183,14 @@ namespace Richasy.Bili.Models.App.Constants
             public const string CateId = "cate_id";
             public const string ParentAreaId = "parent_area_id";
             public const string SortType = "sort_type";
+            public const string NoPlayUrl = "no_playurl";
+            public const string Dolby = "dolby";
+            public const string Http = "http";
+            public const string OnlyAudio = "only_audio";
+            public const string OnlyVideo = "only_video";
+            public const string NeedHdr = "need_hdr";
+            public const string Mask = "mask";
+            public const string PlayType = "play_type";
         }
 
         public static class Sort
