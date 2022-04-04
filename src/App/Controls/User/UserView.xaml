@@ -181,8 +181,7 @@
                     ItemOrientation="Horizontal"
                     ItemTemplate="{StaticResource VideoCardTemplate}"
                     ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
-                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync"
-                    Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
                     <local:VerticalRepeaterView.AdditionalContent>
                         <Button
                             x:Name="SearchButton"
@@ -240,8 +239,7 @@
                         ItemOrientation="Horizontal"
                         ItemTemplate="{StaticResource VideoCardTemplate}"
                         ItemsSource="{x:Bind ViewModel.SearchCollection, Mode=OneWay}"
-                        RequestLoadMore="OnSearchViewRequestLoadMoreAsync"
-                        Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                        RequestLoadMore="OnSearchViewRequestLoadMoreAsync" />
                 </ScrollViewer>
             </Grid>
 
