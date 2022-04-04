@@ -197,7 +197,22 @@
                 x:Name="LiveControlContainer"
                 Margin="0,0,0,4"
                 HorizontalAlignment="Stretch"
+                Spacing="8"
                 Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay}">
+                <ToggleSwitch
+                    x:Name="LiveAudioOnlySwitch"
+                    Header="{loc:LocaleLocator Name=OnlyAudio}"
+                    IsOn="{x:Bind ViewModel.IsLiveAudioOnly, Mode=OneWay}"
+                    Toggled="OnLiveOnlyAudioToggledAsync">
+                    <ToggleSwitch.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{Binding}" />
+                        </DataTemplate>
+                    </ToggleSwitch.HeaderTemplate>
+                </ToggleSwitch>
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"

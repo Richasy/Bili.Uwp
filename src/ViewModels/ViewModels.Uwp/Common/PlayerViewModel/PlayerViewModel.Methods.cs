@@ -581,13 +581,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             CurrentAppLiveQuality = currentQuality.Data;
-
+            var tempUrlIndex = 0;
             for (var i = 0; i < codec.Urls.Count; i++)
             {
                 var data = codec.Urls[i];
+
+                // 直播链接的Host有两种，一种是IP地址，一种是.com结尾的域名。前者解析不出来，只有后者可以正常播放.
                 if (data.Host.EndsWith(".com"))
                 {
-                    LiveAppPlayLineCollection.Add(new LiveAppPlayLineViewModel(data, codec.BaseUrl, i + 1));
+                    tempUrlIndex++;
+                    LiveAppPlayLineCollection.Add(new LiveAppPlayLineViewModel(data, codec.BaseUrl, tempUrlIndex));
                 }
             }
 

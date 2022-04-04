@@ -70,6 +70,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
             IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
+            IsLiveAudioOnly = _settingsToolkit.ReadLocalSetting(SettingNames.IsLiveAudioOnly, false);
             InitializeTimer();
             PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
@@ -539,6 +540,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 PlayInformationErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestLivePlayInformationFailed);
                 CurrentAppLiveQuality = LiveAppQualityCollection.FirstOrDefault()?.Data;
             }
+        }
+
+        /// <summary>
+        /// 切换直播音频.
+        /// </summary>
+        /// <param name="audioOnly">是否仅播放音频.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleLiveAudioAsync(bool audioOnly)
+        {
+            IsLiveAudioOnly = audioOnly;
+            _settingsToolkit.WriteLocalSetting(SettingNames.IsLiveAudioOnly, audioOnly);
+            await ChangeLivePlayBehaviorAsync(CurrentAppLiveQuality.Quality);
         }
 
         /// <summary>
