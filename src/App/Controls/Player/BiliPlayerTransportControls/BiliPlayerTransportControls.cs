@@ -242,9 +242,9 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLiveRefreshButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.CurrentPlayLine != null)
+            if (ViewModel.CurrentPlayUrl != null)
             {
-                await ViewModel.ChangeLivePlayLineAsync(ViewModel.CurrentPlayLine.Order);
+                await ViewModel.ChangeAppLivePlayLineAsync(ViewModel.CurrentPlayUrl.Data);
             }
         }
 
@@ -269,18 +269,18 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnLivePlayLineListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (_livePlayLineListView.SelectedItem is LivePlayLineViewModel data && ViewModel.CurrentPlayLine != data.Data)
+            if (_livePlayLineListView.SelectedItem is LiveAppPlayLineViewModel data2 && ViewModel.CurrentPlayUrl != data2)
             {
-                await ViewModel.ChangeLivePlayLineAsync(data.Data.Order);
+                await ViewModel.ChangeAppLivePlayLineAsync(data2.Data);
             }
         }
 
         private async void OnLiveQualityListViewSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (_liveQualityListView.SelectedItem is LiveQualityViewModel data && ViewModel.CurrentLiveQuality != data.Data)
+            if (_liveQualityListView.SelectedItem is LiveAppQualityViewModel data2 && ViewModel.CurrentAppLiveQuality != data2.Data)
             {
-                await ViewModel.ChangeLiveQualityAsync(data.Data.Quality);
-                _liveQualityButton.Flyout.Hide();
+                await ViewModel.ChangeLivePlayBehaviorAsync(data2.Data.Quality);
+                _liveQualityButton?.Flyout.Hide();
             }
         }
 
@@ -502,24 +502,24 @@ namespace Richasy.Bili.App.Controls
                     _formatListView.SelectedItem = ViewModel.FormatCollection.Where(p => p.Data.Quality == ViewModel.CurrentFormat.Quality).FirstOrDefault();
                 }
             }
-            else if (e.PropertyName == nameof(ViewModel.CurrentLiveQuality))
+            else if (e.PropertyName == nameof(ViewModel.CurrentAppLiveQuality))
             {
-                if (ViewModel.CurrentLiveQuality != null &&
+                if (ViewModel.CurrentAppLiveQuality != null &&
                     _liveQualityListView != null &&
                     (_liveQualityListView.SelectedItem == null ||
-                    (_liveQualityListView.SelectedItem as LiveQualityViewModel).Data.Quality != ViewModel.CurrentLiveQuality.Quality))
+                    (_liveQualityListView.SelectedItem as LiveAppQualityViewModel).Data.Quality != ViewModel.CurrentAppLiveQuality.Quality))
                 {
-                    _liveQualityListView.SelectedItem = ViewModel.LiveQualityCollection.Where(p => p.Data.Quality == ViewModel.CurrentLiveQuality.Quality).FirstOrDefault();
+                    _liveQualityListView.SelectedItem = ViewModel.LiveAppQualityCollection.Where(p => p.Data.Quality == ViewModel.CurrentAppLiveQuality.Quality).FirstOrDefault();
                 }
             }
-            else if (e.PropertyName == nameof(ViewModel.CurrentPlayLine))
+            else if (e.PropertyName == nameof(ViewModel.CurrentPlayUrl))
             {
-                if (ViewModel.CurrentPlayLine != null &&
+                if (ViewModel.CurrentPlayUrl != null &&
                     _liveQualityListView != null &&
                     (_livePlayLineListView.SelectedItem == null ||
-                    (_livePlayLineListView.SelectedItem as LivePlayLineViewModel).Data.Order != ViewModel.CurrentPlayLine.Order))
+                    (_livePlayLineListView.SelectedItem as LiveAppPlayLineViewModel).Data.Host != ViewModel.CurrentPlayUrl.Data.Host))
                 {
-                    _livePlayLineListView.SelectedItem = ViewModel.LivePlayLineCollection.Where(p => p.Data.Order == ViewModel.CurrentPlayLine.Order).FirstOrDefault();
+                    _livePlayLineListView.SelectedItem = ViewModel.LiveAppPlayLineCollection.Where(p => p.Data.Host == ViewModel.CurrentPlayUrl.Data.Host).FirstOrDefault();
                 }
             }
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))

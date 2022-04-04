@@ -68,6 +68,7 @@ namespace Richasy.Bili.Models.Enums
         GlobalPlaybackRate,
         IsFirstClickTag,
         IsAutoPlayNextRelatedVideo,
+        IsLiveAudioOnly,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

@@ -114,5 +114,13 @@ namespace Richasy.Bili.App.Controls
         {
             _isLikeHoldSuspend = true;
         }
+
+        private async void OnLiveOnlyAudioToggledAsync(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsLive && ViewModel.IsLiveAudioOnly != LiveAudioOnlySwitch.IsOn)
+            {
+                await ViewModel.ToggleLiveAudioAsync(LiveAudioOnlySwitch.IsOn);
+            }
+        }
     }
 }
