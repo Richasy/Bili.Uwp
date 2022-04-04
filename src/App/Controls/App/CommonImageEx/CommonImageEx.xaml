@@ -11,6 +11,7 @@
                 <ControlTemplate TargetType="local:CommonImageEx">
                     <controls:ImageEx
                         x:Name="Image"
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         EnableLazyLoading="True"
                         PlaceholderSource="/Assets/img_holder_rect.png"
                         PlaceholderStretch="Uniform"

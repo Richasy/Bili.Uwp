@@ -56,6 +56,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentSubtitleIndex = null;
             CurrentSubtitle = string.Empty;
             IsShowSubtitle = false;
+            IsShowAudioCover = false;
             _audioList.Clear();
             _videoList.Clear();
             _subtitleList.Clear();

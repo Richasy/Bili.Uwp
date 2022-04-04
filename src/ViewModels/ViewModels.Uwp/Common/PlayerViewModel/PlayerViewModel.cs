@@ -528,6 +528,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ChangeLivePlayBehaviorAsync(int quality)
         {
+            IsShowAudioCover = IsLiveAudioOnly;
             var playInfo = await Controller.GetAppLivePlayInformationAsync(Convert.ToInt32(RoomId), quality, IsLiveAudioOnly);
 
             if (playInfo != null)

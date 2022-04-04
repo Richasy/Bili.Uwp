@@ -218,7 +218,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string ViewerCount { get; set; }
 
         /// <summary>
-        /// 播放器地址.
+        /// 封面地址.
         /// </summary>
         [Reactive]
         public string CoverUrl { get; set; }
@@ -811,6 +811,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsLiveAudioOnly { get; set; }
+
+        /// <summary>
+        /// 是否显示音频封面.
+        /// </summary>
+        [Reactive]
+        public bool IsShowAudioCover { get; set; }
 
         private BiliController Controller { get; } = BiliController.Instance;
     }
