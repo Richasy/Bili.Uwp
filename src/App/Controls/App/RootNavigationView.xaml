@@ -187,10 +187,12 @@
                                             <local:CommonImageEx
                                                 Width="20"
                                                 Height="20"
+                                                Margin="-2,0,0,0"
                                                 VerticalAlignment="Center"
                                                 CornerRadius="10"
                                                 ImageUrl="{x:Bind CoverUrl}" />
                                             <TextBlock
+                                                MaxWidth="180"
                                                 VerticalAlignment="Center"
                                                 Text="{x:Bind Name}"
                                                 TextTrimming="CharacterEllipsis" />
