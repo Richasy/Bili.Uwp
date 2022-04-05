@@ -27,7 +27,8 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string LastOpenVideoFileName = "LastOpenVideo.json";
         public const string FixedPublisherFolderName = "Fixed publisher";
-        public const string FixedPublisherFileName = "User-{0}.json";
+        public const string FixedPgcFolderName = "Fixed pgc";
+        public const string FixedContentFileName = "User-{0}.json";
 
         public const string ScreenshotFolderName = "Bili Screenshots";
 #pragma warning restore SA1600 // Elements should be documented
