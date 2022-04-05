@@ -280,7 +280,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
-
             switch (_videoType)
             {
                 case VideoType.Video:
@@ -594,6 +593,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 _currentVideoPlayer.Source = null;
+                _currentVideoPlayer = null;
             }
 
             _lastReportProgress = TimeSpan.Zero;

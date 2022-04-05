@@ -24,6 +24,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
+                if (!AppViewModel.Instance.IsOpenPlayer)
+                {
+                    return;
+                }
+
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
                 httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
@@ -104,6 +109,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
+                if (!AppViewModel.Instance.IsOpenPlayer)
+                {
+                    return;
+                }
+
                 if (_interopMSS != null)
                 {
                     _interopMSS.Dispose();
