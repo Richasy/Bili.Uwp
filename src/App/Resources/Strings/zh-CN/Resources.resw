@@ -538,8 +538,14 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>点击标签后，您将前往搜索页面搜索标签内容，这会中断当前正在播放的视频，是否确认？
 点击确认后，下次点击标签将不会弹出该提示</value>
   </data>
+  <data name="FixedPgcs" xml:space="preserve">
+    <value>固定的剧集</value>
+  </data>
   <data name="FixedPublishers" xml:space="preserve">
     <value>固定的UP</value>
+  </data>
+  <data name="FixPgc" xml:space="preserve">
+    <value>固定剧集</value>
   </data>
   <data name="FixPublisher" xml:space="preserve">
     <value>固定UP</value>
@@ -1366,6 +1372,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="UnFavoriteWarning" xml:space="preserve">
     <value>是否不再关注该收藏夹？</value>
+  </data>
+  <data name="UnfixPgc" xml:space="preserve">
+    <value>取消固定</value>
   </data>
   <data name="UnfixPublisher" xml:space="preserve">
     <value>取消固定UP</value>

@@ -58,6 +58,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<FixedPublisher> FixedPublisherCollection { get; }
 
         /// <summary>
+        /// 固定剧集集合.
+        /// </summary>
+        public ObservableCollection<FixedPgc> FixedPgcCollection { get; }
+
+        /// <summary>
         /// 当前视图模型状态.
         /// </summary>
         [Reactive]
@@ -134,5 +139,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowFixedPublisher { get; set; }
+
+        /// <summary>
+        /// 是否显示固定的剧集.
+        /// </summary>
+        [Reactive]
+        public bool IsShowFixedPgc { get; set; }
     }
 }

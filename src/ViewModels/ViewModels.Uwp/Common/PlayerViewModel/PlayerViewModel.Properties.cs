@@ -818,6 +818,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsShowAudioCover { get; set; }
 
+        /// <summary>
+        /// 该剧集是否已被固定在首页.
+        /// </summary>
+        [Reactive]
+        public bool IsPgcFixed { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }

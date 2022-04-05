@@ -7,6 +7,7 @@ using Richasy.Bili.App.Pages;
 using Richasy.Bili.App.Pages.Overlay;
 using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Models.App;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
@@ -255,6 +256,13 @@ namespace Richasy.Bili.App.Controls
         {
             var context = (sender as FrameworkElement).DataContext as FixedPublisher;
             await UserView.Instance.ShowAsync(Convert.ToInt32(context.UserId));
+        }
+
+        private void OnFixedPgcClickAsync(object sender, RoutedEventArgs e)
+        {
+            var context = (sender as FrameworkElement).DataContext as FixedPgc;
+            var record = new CurrentPlayingRecord("0", context.SeasonId, VideoType.Pgc);
+            AppViewModel.Instance.OpenPlayer(record);
         }
     }
 }
