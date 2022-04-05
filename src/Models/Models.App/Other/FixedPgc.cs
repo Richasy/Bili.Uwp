@@ -22,12 +22,12 @@ namespace Richasy.Bili.Models.App
         /// <summary>
         /// 剧集Id.
         /// </summary>
-        public string SeasonId { get; set; }
+        public int SeasonId { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is FixedPgc pgc && SeasonId == pgc.SeasonId;
 
         /// <inheritdoc/>
-        public override int GetHashCode() => 415255181 + EqualityComparer<string>.Default.GetHashCode(SeasonId);
+        public override int GetHashCode() => 415255181 + EqualityComparer<int>.Default.GetHashCode(SeasonId);
     }
 }

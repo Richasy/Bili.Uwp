@@ -122,5 +122,8 @@ namespace Richasy.Bili.App.Controls
                 await ViewModel.ToggleLiveAudioAsync(LiveAudioOnlySwitch.IsOn);
             }
         }
+
+        private async void OnFixButtonClickAsync(object sender, RoutedEventArgs e)
+            => await ViewModel.ToggleFixStateAsync();
     }
 }

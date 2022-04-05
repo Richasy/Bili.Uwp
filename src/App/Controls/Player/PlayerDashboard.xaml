@@ -176,11 +176,16 @@
             Grid.Row="1"
             HorizontalAlignment="Stretch"
             Spacing="4">
-            <StackPanel
+            <Grid
                 x:Name="PgcControlContainer"
                 Margin="0,0,0,4"
                 HorizontalAlignment="Stretch"
+                ColumnSpacing="8"
                 Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <Button
                     x:Name="PgcDetailButton"
                     Style="{StaticResource AccentButtonStyle}"
@@ -191,7 +196,21 @@
                         Symbol="TextBulletListTree16"
                         Text="{loc:LocaleLocator Name=Detail}" />
                 </Button>
-            </StackPanel>
+                <Button
+                    Grid.Column="1"
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Click="OnFixButtonClickAsync"
+                    Content="{loc:LocaleLocator Name=FixPgc}"
+                    Visibility="{x:Bind ViewModel.IsPgcFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                <Button
+                    Grid.Column="1"
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Click="OnFixButtonClickAsync"
+                    Content="{loc:LocaleLocator Name=UnfixPgc}"
+                    Visibility="{x:Bind ViewModel.IsPgcFixed, Mode=OneWay}" />
+            </Grid>
 
             <StackPanel
                 x:Name="LiveControlContainer"

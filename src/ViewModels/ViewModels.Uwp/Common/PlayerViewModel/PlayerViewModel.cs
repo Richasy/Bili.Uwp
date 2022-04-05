@@ -287,7 +287,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadVideoDetailAsync(videoId, isRefresh);
                     break;
                 case VideoType.Pgc:
-                    await LoadPgcDetailAsync(Convert.ToInt32(videoId), seasonId, isRefresh);
+                    await LoadPgcDetailAsync(string.IsNullOrEmpty(videoId) ? 0 : Convert.ToInt32(videoId), seasonId, isRefresh);
                     break;
                 case VideoType.Live:
                     await LoadLiveDetailAsync(Convert.ToInt32(videoId));
@@ -797,6 +797,31 @@ namespace Richasy.Bili.ViewModels.Uwp
                 await LoadAsync(first, shouldResetMode: false);
                 PlayerDisplayMode = previousDisplayMode;
             }
+        }
+
+        /// <summary>
+        /// 切换固定状态.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ToggleFixStateAsync()
+        {
+            if (IsPgcFixed)
+            {
+                await AccountViewModel.Instance.RemoveFixedPgcAsync(_pgcDetail.SeasonId);
+            }
+            else
+            {
+                var p = new FixedPgc
+                {
+                    Name = _pgcDetail.SeasonTitle,
+                    CoverUrl = _pgcDetail.Cover,
+                    SeasonId = _pgcDetail.SeasonId,
+                };
+
+                await AccountViewModel.Instance.AddFixedPgcAsync(p);
+            }
+
+            IsPgcFixed = !IsPgcFixed;
         }
 
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)

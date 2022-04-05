@@ -182,7 +182,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="seasonId">剧集Id.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RemoveFixedPgcAsync(string seasonId)
+        public async Task RemoveFixedPgcAsync(int seasonId)
         {
             if (!IsConnected || _myInfo == null || !FixedPgcCollection.Any(p => p.SeasonId == seasonId))
             {

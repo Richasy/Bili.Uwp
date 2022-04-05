@@ -162,7 +162,7 @@
                 </Grid>
             </muxc:NavigationView.Content>
 
-            <!-- 用于展示固定的UP主 -->
+            <!-- 用于展示固定的内容 -->
             <muxc:NavigationView.PaneCustomContent>
                 <StackPanel Spacing="4">
                     <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedPgc, Mode=OneWay}">

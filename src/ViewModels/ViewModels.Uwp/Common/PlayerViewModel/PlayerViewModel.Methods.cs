@@ -143,6 +143,8 @@ namespace Richasy.Bili.ViewModels.Uwp
                 EpisodeId = episodeId.ToString();
                 SeasonId = seasonId.ToString();
 
+                IsPgcFixed = AccountViewModel.Instance.FixedPgcCollection.Any(p => p.SeasonId == seasonId);
+
                 try
                 {
                     var detail = await Controller.GetPgcDisplayInformationAsync(episodeId, seasonId);
