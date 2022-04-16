@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -18,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ImageUrl"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ImageUrlProperty =
-            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnImageUrlChanged)));
+            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="Stretch"/>的依赖属性.
@@ -32,16 +29,12 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty DecodePixelWidthProperty =
             DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
 
-        private Image _image;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
         /// </summary>
         public CommonImageEx()
         {
             DefaultStyleKey = typeof(CommonImageEx);
-            Loaded += OnLoaded;
-            Unloaded += OnUnload;
         }
 
         /// <summary>
@@ -69,51 +62,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(DecodePixelWidthProperty); }
             set { SetValue(DecodePixelWidthProperty, value); }
-        }
-
-        /// <inheritdoc/>
-        protected override void OnApplyTemplate()
-            => _image = GetTemplateChild("Image") as Image;
-
-        private static void OnImageUrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as CommonImageEx;
-            if (e.NewValue != null && e.OldValue != null && e.NewValue != e.OldValue)
-            {
-                instance.LoadImage();
-            }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            LoadImage();
-        }
-
-        private void OnUnload(object sender, RoutedEventArgs e)
-        {
-            if (_image != null)
-            {
-                _image.Source = null;
-            }
-        }
-
-        private void LoadImage()
-        {
-            if (_image == null || string.IsNullOrEmpty(ImageUrl))
-            {
-                return;
-            }
-
-            _image.Source = null;
-            var bitmapImage = new BitmapImage();
-            if (DecodePixelWidth != -1)
-            {
-                bitmapImage.DecodePixelWidth = DecodePixelWidth;
-            }
-
-            _image.Source = bitmapImage;
-            var url = ImageUrl;
-            bitmapImage.UriSource = new Uri(url);
         }
     }
 }

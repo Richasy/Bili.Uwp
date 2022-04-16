@@ -2,7 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.CoverDownloaderView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:HN.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Controls"
@@ -47,20 +47,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Source="{x:Bind _viewModel.CoverUrl, Mode=OneWay}"
-                Stretch="Uniform">
-                <controls:ImageEx.PlaceholderTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Image
-                                Width="48"
-                                Height="48"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Source="ms-appx:///Assets/Bili_rgba_80.png" />
-                        </Grid>
-                    </DataTemplate>
-                </controls:ImageEx.PlaceholderTemplate>
-            </controls:ImageEx>
+                Stretch="Uniform" />
         </Grid>
         <Button
             Style="{StaticResource AccentButtonStyle}"

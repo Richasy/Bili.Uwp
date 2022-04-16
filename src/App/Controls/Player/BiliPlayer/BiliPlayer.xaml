@@ -36,9 +36,9 @@
                             x:Name="LoadingContainer"
                             CornerRadius="{StaticResource OverlayCornerRadius}"
                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <local:CommonImageEx
+                            <controls:ImageEx
                                 x:Name="CoverImage"
-                                ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
                                 Stretch="UniformToFill" />
                         </Grid>
                     </Grid>

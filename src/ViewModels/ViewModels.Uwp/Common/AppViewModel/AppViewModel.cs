@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;

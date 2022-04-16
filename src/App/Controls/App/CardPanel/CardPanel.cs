@@ -24,7 +24,6 @@ namespace Richasy.Bili.App.Controls
             DefaultStyleKey = typeof(CardPanel);
             Loading += OnCardPanelLoading;
             Unloaded += OnCardPanelUnloaded;
-            _compositor = Window.Current.Compositor;
             IsThreeState = false;
         }
 
@@ -54,8 +53,6 @@ namespace Richasy.Bili.App.Controls
             _rootContainer = GetTemplateChild("RootContainer") as Grid;
 
             ElementCompositionPreview.SetIsTranslationEnabled(_rootContainer, true);
-
-            _templateApplied = true;
             base.OnApplyTemplate();
         }
 
@@ -63,16 +60,12 @@ namespace Richasy.Bili.App.Controls
         {
             _pointerOverToken = RegisterPropertyChangedCallback(IsPointerOverProperty, OnPanelStateChanged);
             _pressedToken = RegisterPropertyChangedCallback(IsPressedProperty, OnPanelStateChanged);
-
-            _loaded = true;
         }
 
         private void OnCardPanelUnloaded(object sender, RoutedEventArgs e)
         {
             UnregisterPropertyChangedCallback(IsPointerOverProperty, _pointerOverToken);
             UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);
-
-            _loaded = false;
         }
 
         private void ShowPointerOverAnimation()
