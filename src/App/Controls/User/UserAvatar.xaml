@@ -6,7 +6,6 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Style="{StaticResource HandwritingViewCandidateStyle}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     IsTabStop="False"

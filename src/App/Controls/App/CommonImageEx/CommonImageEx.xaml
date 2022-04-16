@@ -9,14 +9,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CommonImageEx">
-                    <controls:ImageEx
-                        x:Name="Image"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        EnableLazyLoading="True"
-                        PlaceholderSource="/Assets/img_holder_rect.png"
-                        PlaceholderStretch="Uniform"
-                        Source="{TemplateBinding ImageUrl}"
-                        Stretch="{TemplateBinding Stretch}" />
+                    <Grid CornerRadius="{TemplateBinding CornerRadius}">
+                        <Image x:Name="Image" Stretch="{TemplateBinding Stretch}" />
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
