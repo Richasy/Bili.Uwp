@@ -263,7 +263,7 @@ namespace Richasy.Bili.App.Controls
             if (_formatListView.SelectedItem is VideoFormatViewModel item && item.Data.Quality != ViewModel.CurrentFormat?.Quality)
             {
                 await ViewModel.ChangeFormatAsync(item.Data.Quality);
-                _formatButton.Flyout.Hide();
+                _formatButton?.Flyout?.Hide();
             }
         }
 
@@ -280,7 +280,7 @@ namespace Richasy.Bili.App.Controls
             if (_liveQualityListView.SelectedItem is LiveAppQualityViewModel data2 && ViewModel.CurrentAppLiveQuality != data2.Data)
             {
                 await ViewModel.ChangeLivePlayBehaviorAsync(data2.Data.Quality);
-                _liveQualityButton?.Flyout.Hide();
+                _liveQualityButton?.Flyout?.Hide();
             }
         }
 
@@ -329,7 +329,11 @@ namespace Richasy.Bili.App.Controls
 
         private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
         {
-            var btn = sender as ToggleButton;
+            if (!(sender is ToggleButton btn))
+            {
+                return;
+            }
+
             PlayerDisplayMode mode = default;
             switch (btn.Name)
             {
@@ -359,9 +363,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         private async void OnHomeButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.BackToInteractionStartAsync();
-        }
+            => await ViewModel.BackToInteractionStartAsync();
 
         private async void OnContinuePreviousViewButtonClickAsync(object sender, EventArgs e)
         {
@@ -546,7 +548,7 @@ namespace Richasy.Bili.App.Controls
                     HideControls();
                 }
 
-                _playPauseButton.Focus(FocusState.Programmatic);
+                _playPauseButton?.Focus(FocusState.Programmatic);
             });
         }
 
@@ -868,7 +870,7 @@ namespace Richasy.Bili.App.Controls
                     return;
                 }
 
-                _playPauseButton.Focus(FocusState.Programmatic);
+                _playPauseButton?.Focus(FocusState.Programmatic);
             }
         }
 

@@ -33,10 +33,10 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(CommonImageEx), new PropertyMetadata(Stretch.UniformToFill));
 
         /// <summary>
-        /// <see cref="RetryCount"/>的依赖属性.
+        /// <see cref="DecodePixelWidth"/>的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty RetryCountProperty =
-            DependencyProperty.Register(nameof(RetryCount), typeof(int), typeof(CommonImageEx), new PropertyMetadata(2));
+        public static readonly DependencyProperty DecodePixelWidthProperty =
+            DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
 
         private Image _image;
         private CancellationTokenSource _loadTokenSource;
@@ -72,12 +72,12 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// 获取数据失败后的重试次数.
+        /// 横向解码宽度.
         /// </summary>
-        public int RetryCount
+        public int DecodePixelWidth
         {
-            get { return (int)GetValue(RetryCountProperty); }
-            set { SetValue(RetryCountProperty, value); }
+            get { return (int)GetValue(DecodePixelWidthProperty); }
+            set { SetValue(DecodePixelWidthProperty, value); }
         }
 
         /// <inheritdoc/>
@@ -113,6 +113,11 @@ namespace Richasy.Bili.App.Controls
 
             _loadTokenSource = new CancellationTokenSource();
             var bitmapImage = new BitmapImage();
+            if (DecodePixelWidth != -1)
+            {
+                bitmapImage.DecodePixelWidth = DecodePixelWidth;
+            }
+
             _image.Source = bitmapImage;
             var url = ImageUrl;
             _isInitializing = true;
