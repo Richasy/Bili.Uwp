@@ -48,7 +48,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             GlobalPlaybackRate = ReadSetting(SettingNames.GlobalPlaybackRate, false);
             PreferCodecInit();
             PlayerModeInit();
-            MTCControlModeInit();
             StartupInitAsync();
 
             Version = BiliController.Instance.GetCurrentAppVersion();
@@ -91,9 +90,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(SingleFastForwardAndRewindSpan):
                     WriteSetting(SettingNames.SingleFastForwardAndRewindSpan, SingleFastForwardAndRewindSpan);
-                    break;
-                case nameof(DefaultMTCControlMode):
-                    WriteSetting(SettingNames.DefaultMTCControlMode, DefaultMTCControlMode);
                     break;
                 case nameof(IsSupportContinuePlay):
                     WriteSetting(SettingNames.SupportContinuePlay, IsSupportContinuePlay);
@@ -138,20 +134,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             DefaultPlayerDisplayMode = ReadSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
-        }
-
-        private void MTCControlModeInit()
-        {
-            if (MTCControlModeCollection == null || MTCControlModeCollection.Count == 0)
-            {
-                MTCControlModeCollection = new ObservableCollection<MTCControlMode>
-                {
-                    MTCControlMode.Automatic,
-                    MTCControlMode.Manual,
-                };
-            }
-
-            DefaultMTCControlMode = ReadSetting(SettingNames.DefaultMTCControlMode, MTCControlMode.Manual);
         }
 
         private void PreferCodecInit()
