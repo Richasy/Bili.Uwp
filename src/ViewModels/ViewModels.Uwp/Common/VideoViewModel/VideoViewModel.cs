@@ -17,7 +17,7 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// <summary>
     /// 视频视图模型.
     /// </summary>
-    public partial class VideoViewModel : ViewModelBase, IIndexViewModel
+    public partial class VideoViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
@@ -372,9 +372,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             ServiceLocator.Instance.LoadService(out _numberToolkit);
             VideoType = Models.Enums.VideoType.Video;
         }
-
-        /// <inheritdoc/>
-        public string Id => VideoId;
 
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.

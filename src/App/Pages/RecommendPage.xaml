@@ -29,7 +29,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <muxc:ItemsRepeaterScrollHost>
+        <Grid>
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
@@ -68,7 +68,7 @@
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
             </ScrollViewer>
-        </muxc:ItemsRepeaterScrollHost>
+        </Grid>
 
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
 

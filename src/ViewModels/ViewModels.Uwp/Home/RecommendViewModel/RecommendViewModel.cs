@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
@@ -18,7 +19,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         internal RecommendViewModel()
         {
-            VideoCollection = new IndexObservableCollection<VideoViewModel>();
+            VideoCollection = new ObservableCollection<VideoViewModel>();
             _offsetIndex = 0;
             Controller.RecommendVideoIteration += OnRecommendVideoIteration;
         }
