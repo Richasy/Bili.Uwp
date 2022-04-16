@@ -126,7 +126,6 @@
                                 IsChecked="{x:Bind IsSelected, Mode=OneWay}"
                                 IsEnableCheck="True"
                                 IsEnableHoverAnimation="False"
-                                IsEnableShadow="False"
                                 ToolTipService.ToolTip="{x:Bind Data.LongTitle}">
                                 <Grid>
                                     <TextBlock

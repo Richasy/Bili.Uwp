@@ -139,8 +139,7 @@
                                                                     <local:CommonImageEx
                                                                         Width="84"
                                                                         Height="56"
-                                                                        ImageUrl="{x:Bind Data.Cover}"
-                                                                        RetryCount="0" />
+                                                                        ImageUrl="{x:Bind Data.Cover}" />
                                                                 </Grid>
                                                                 <StackPanel
                                                                     Grid.Column="1"

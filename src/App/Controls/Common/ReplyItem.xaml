@@ -11,10 +11,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <local:CardPanel
-        Click="OnCardClick"
-        IsEnableHoverAnimation="False"
-        IsEnableShadow="False">
+    <local:CardPanel Click="OnCardClick" IsEnableHoverAnimation="False">
         <Grid Padding="12" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

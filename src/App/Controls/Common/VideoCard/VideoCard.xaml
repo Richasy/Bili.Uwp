@@ -49,7 +49,7 @@
                                         <Setter Target="AdditionalOverlayContainer.HorizontalAlignment" Value="Left" />
                                         <Setter Target="RootCard.IsEnableHoverAnimation" Value="False" />
                                         <Setter Target="DescriptionBlock.(Grid.Row)" Value="3" />
-                                        <Setter Target="RootCard.MaxHeight" Value="132" />
+                                        <Setter Target="RootCard.MaxHeight" Value="128" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -95,6 +95,7 @@
                                     <local:CommonImageEx
                                         x:Name="CoverImage"
                                         VerticalAlignment="Center"
+                                        DecodePixelWidth="300"
                                         ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
                                         Stretch="UniformToFill" />
 

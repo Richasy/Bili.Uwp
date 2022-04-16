@@ -3,7 +3,6 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -22,7 +21,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="Avatar"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty AvatarProperty =
-            DependencyProperty.Register(nameof(Avatar), typeof(string), typeof(UserAvatar), new PropertyMetadata(string.Empty, new PropertyChangedCallback(OnAvatarChanged)));
+            DependencyProperty.Register(nameof(Avatar), typeof(string), typeof(UserAvatar), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// <see cref="DecodeSize"/>的依赖属性.
@@ -68,19 +67,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(DecodeSizeProperty); }
             set { SetValue(DecodeSizeProperty, value); }
-        }
-
-        private static void OnAvatarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as UserAvatar;
-            if (e.NewValue is string url && !string.IsNullOrEmpty(url))
-            {
-                instance.PersonPicture.ProfilePicture = new BitmapImage(new Uri(url)) { DecodePixelWidth = instance.DecodeSize };
-            }
-            else
-            {
-                instance.PersonPicture.ProfilePicture = null;
-            }
         }
 
         private void OnClick(object sender, RoutedEventArgs e)

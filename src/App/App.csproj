@@ -1090,9 +1090,6 @@
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.4</Version>
     </PackageReference>
-    <PackageReference Include="HN.Controls.ImageEx.Uwp">
-      <Version>1.0.33</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
@@ -1113,9 +1110,6 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Nito.AsyncEx.Tasks">
-      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>

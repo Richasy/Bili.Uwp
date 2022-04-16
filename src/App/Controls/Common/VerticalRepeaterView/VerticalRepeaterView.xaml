@@ -41,8 +41,7 @@
                             Grid.Row="1"
                             Margin="0,4,0,0"
                             ItemTemplate="{TemplateBinding ItemTemplate}"
-                            ItemsSource="{TemplateBinding ItemsSource}"
-                            VerticalCacheLength="2" />
+                            ItemsSource="{TemplateBinding ItemsSource}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

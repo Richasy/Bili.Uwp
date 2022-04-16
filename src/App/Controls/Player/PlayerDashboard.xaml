@@ -85,8 +85,7 @@
                                         <local:CardPanel
                                             IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
                                             IsEnableCheck="True"
-                                            IsEnableHoverAnimation="False"
-                                            IsEnableShadow="False">
+                                            IsEnableHoverAnimation="False">
                                             <Grid
                                                 Width="240"
                                                 Height="40"

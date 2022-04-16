@@ -14,9 +14,6 @@ namespace Richasy.Bili.App.Controls
         public static readonly DependencyProperty IsEnableHoverAnimationProperty =
             DependencyProperty.Register(nameof(IsEnableHoverAnimation), typeof(bool), typeof(CardPanel), new PropertyMetadata(true));
 
-        public static readonly DependencyProperty IsEnableShadowProperty =
-            DependencyProperty.Register(nameof(IsEnableShadow), typeof(bool), typeof(CardPanel), new PropertyMetadata(true, new PropertyChangedCallback(OnIsEnableShadowChanged)));
-
         public static readonly DependencyProperty IsEnableCheckProperty =
             DependencyProperty.Register(nameof(IsEnableCheck), typeof(bool), typeof(CardPanel), new PropertyMetadata(false));
 
@@ -72,15 +69,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (bool)GetValue(IsEnableHoverAnimationProperty); }
             set { SetValue(IsEnableHoverAnimationProperty, value); }
-        }
-
-        /// <summary>
-        /// 是否显示阴影.
-        /// </summary>
-        public bool IsEnableShadow
-        {
-            get { return (bool)GetValue(IsEnableShadowProperty); }
-            set { SetValue(IsEnableShadowProperty, value); }
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using HN.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -25,10 +24,10 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(Stretch), typeof(Stretch), typeof(CommonImageEx), new PropertyMetadata(Stretch.UniformToFill));
 
         /// <summary>
-        /// <see cref="RetryCount"/>的依赖属性.
+        /// <see cref="DecodePixelWidth"/>的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty RetryCountProperty =
-            DependencyProperty.Register(nameof(RetryCount), typeof(int), typeof(CommonImageEx), new PropertyMetadata(2));
+        public static readonly DependencyProperty DecodePixelWidthProperty =
+            DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
@@ -57,12 +56,12 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <summary>
-        /// 获取数据失败后的重试次数.
+        /// 横向解码宽度.
         /// </summary>
-        public int RetryCount
+        public int DecodePixelWidth
         {
-            get { return (int)GetValue(RetryCountProperty); }
-            set { SetValue(RetryCountProperty, value); }
+            get { return (int)GetValue(DecodePixelWidthProperty); }
+            set { SetValue(DecodePixelWidthProperty, value); }
         }
     }
 }

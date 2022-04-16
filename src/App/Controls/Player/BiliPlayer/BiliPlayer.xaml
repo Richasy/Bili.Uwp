@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:Richasy.Bili.App.Controls">
 
     <Style TargetType="local:BiliPlayer">
@@ -35,10 +36,9 @@
                             x:Name="LoadingContainer"
                             CornerRadius="{StaticResource OverlayCornerRadius}"
                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsPlayInformationLoading, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <local:CommonImageEx
+                            <controls:ImageEx
                                 x:Name="CoverImage"
-                                ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
-                                RetryCount="1"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}"
                                 Stretch="UniformToFill" />
                         </Grid>
                     </Grid>

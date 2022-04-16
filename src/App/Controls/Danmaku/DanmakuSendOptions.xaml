@@ -79,7 +79,6 @@
                             Background="{Binding Value, Converter={StaticResource BrushConverter}}"
                             BorderThickness="0"
                             Click="OnColorItemClick"
-                            IsEnableShadow="False"
                             PointerOverBackground="{Binding Value, Converter={StaticResource BrushConverter}}"
                             PressedBackground="{Binding Value, Converter={StaticResource BrushConverter}}"
                             ToolTipService.ToolTip="{Binding Key}" />

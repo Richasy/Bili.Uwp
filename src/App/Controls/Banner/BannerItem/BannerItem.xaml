@@ -1,10 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:hn="using:HN.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Richasy.Bili.App.Controls">
 
     <Style TargetType="local:BannerItem">
         <Setter Property="Template">
@@ -12,44 +9,21 @@
                 <ControlTemplate TargetType="local:BannerItem">
                     <local:CardPanel x:Name="RootPanel" Style="{TemplateBinding CardStyle}">
                         <Grid CornerRadius="{StaticResource ControlCornerRadius}">
-                            <hn:ImageEx
+                            <local:CommonImageEx
                                 x:Name="BannerImage"
                                 AutomationProperties.Name="{TemplateBinding Title}"
                                 MinWidth="300"
                                 MinHeight="{TemplateBinding MinImageHeight}"
                                 MaxHeight="{TemplateBinding MaxImageHeight}"
                                 VerticalAlignment="Stretch"
+                                DecodePixelWidth="500"
+                                ImageUrl="{TemplateBinding Source}"
                                 IsTabStop="False"
-                                LazyLoadingEnabled="True"
-                                RetryCount="2"
-                                RetryDelay="0:0:5"
-                                Source="{TemplateBinding Source}"
                                 Stretch="UniformToFill">
                                 <ToolTipService.ToolTip>
                                     <ToolTip Content="{TemplateBinding Title}" IsEnabled="{TemplateBinding IsTooltipEnabled}" />
                                 </ToolTipService.ToolTip>
-                                <hn:ImageEx.LoadingTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <muxc:ProgressRing
-                                                Style="{StaticResource PageProgressRingStyle}"
-                                                Width="28"
-                                                Height="28" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </hn:ImageEx.LoadingTemplate>
-                                <hn:ImageEx.FailedTemplate>
-                                    <DataTemplate>
-                                        <Grid Background="{ThemeResource SystemControlForegroundBaseMediumBrush}" Opacity="0.5">
-                                            <icons:RegularFluentIcon
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                                Symbol="Image28" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </hn:ImageEx.FailedTemplate>
-                            </hn:ImageEx>
+                            </local:CommonImageEx>
                         </Grid>
                     </local:CardPanel>
                 </ControlTemplate>

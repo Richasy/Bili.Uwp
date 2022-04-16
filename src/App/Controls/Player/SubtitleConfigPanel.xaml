@@ -29,8 +29,7 @@
                             DataContext="{x:Bind}"
                             IsChecked="{x:Bind IsSelected, Mode=OneWay}"
                             IsEnableCheck="True"
-                            IsEnableHoverAnimation="False"
-                            IsEnableShadow="False">
+                            IsEnableHoverAnimation="False">
                             <Grid Padding="8">
                                 <TextBlock
                                     FontSize="12"

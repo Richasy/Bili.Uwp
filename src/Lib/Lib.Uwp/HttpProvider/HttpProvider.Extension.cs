@@ -38,7 +38,10 @@ namespace Richasy.Bili.Lib.Uwp
             HttpResponseMessage response = null;
             try
             {
-                response = await this._httpClient.SendAsync(request, cancellationToken);
+                await Task.Run(async () =>
+                {
+                    response = await _httpClient.SendAsync(request, cancellationToken);
+                });
                 await ThrowIfHasExceptionAsync(response);
             }
             catch (TaskCanceledException exception)

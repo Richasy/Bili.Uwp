@@ -40,9 +40,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 返回.
         /// </summary>
         public void Back()
-        {
-            RequestBack?.Invoke(this, EventArgs.Empty);
-        }
+            => RequestBack?.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// 显示提示.
