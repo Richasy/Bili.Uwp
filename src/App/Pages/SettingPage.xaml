@@ -46,7 +46,6 @@
                     Text="{loc:LocaleLocator Name=Player}" />
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
-                <controls:MTCSettingSection />
                 <controls:ScreenshotSettingSection />
                 <StackPanel
                     Margin="0,12,0,0"
