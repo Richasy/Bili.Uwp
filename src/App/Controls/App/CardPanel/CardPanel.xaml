@@ -4,11 +4,6 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:shadow="using:Microsoft.Toolkit.Uwp.UI">
-    <media:AttachedCardShadow
-        x:Key="DefaultCardShadow"
-        BlurRadius="4"
-        CornerRadius="8" />
-
     <Style TargetType="local:CardPanel">
         <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
         <Setter Property="StrokeThickness" Value="1" />
@@ -36,7 +31,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CardPanel">
-                    <Grid x:Name="RootContainer" shadow:Effects.Shadow="{StaticResource DefaultCardShadow}">
+                    <Grid x:Name="RootContainer">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />

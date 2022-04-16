@@ -161,7 +161,6 @@
                                     <local:CardPanel
                                         AutomationProperties.Name="{x:Bind Name}"
                                         IsEnableHoverAnimation="False"
-                                        IsEnableShadow="False"
                                         ToolTipService.ToolTip="{x:Bind Name}">
                                         <Grid Padding="12">
                                             <StackPanel Spacing="4">

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -22,6 +21,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 视频集合.
         /// </summary>
         [Reactive]
-        public ObservableCollection<VideoViewModel> VideoCollection { get; set; }
+        public IndexObservableCollection<VideoViewModel> VideoCollection { get; set; }
     }
 }

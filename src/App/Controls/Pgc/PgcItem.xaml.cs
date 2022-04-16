@@ -136,7 +136,6 @@ namespace Richasy.Bili.App.Controls
         {
             var stateName = IsSlim ? nameof(SlimState) : nameof(StandardState);
             VisualStateManager.GoToState(this, stateName, false);
-            RootCard.IsEnableShadow = !IsSlim;
         }
     }
 }

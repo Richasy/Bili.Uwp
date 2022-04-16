@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
@@ -40,9 +42,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 返回.
         /// </summary>
         public void Back()
-        {
-            RequestBack?.Invoke(this, EventArgs.Empty);
-        }
+            => RequestBack?.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// 显示提示.

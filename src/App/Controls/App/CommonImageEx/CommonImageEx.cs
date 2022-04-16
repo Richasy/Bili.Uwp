@@ -1,13 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using HN.Controls;
 using Richasy.Bili.ViewModels.Uwp;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -24,7 +18,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ImageUrl"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ImageUrlProperty =
-            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnImageUrlChangedAsync)));
+            DependencyProperty.Register(nameof(ImageUrl), typeof(string), typeof(CommonImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnImageUrlChanged)));
 
         /// <summary>
         /// <see cref="Stretch"/>的依赖属性.
@@ -39,9 +33,6 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
 
         private Image _image;
-        private CancellationTokenSource _loadTokenSource;
-        private IRandomAccessStream _imgStream;
-        private bool _isInitializing;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
@@ -49,7 +40,7 @@ namespace Richasy.Bili.App.Controls
         public CommonImageEx()
         {
             DefaultStyleKey = typeof(CommonImageEx);
-            Loaded += OnLoadedAsync;
+            Loaded += OnLoaded;
             Unloaded += OnUnload;
         }
 
@@ -84,34 +75,36 @@ namespace Richasy.Bili.App.Controls
         protected override void OnApplyTemplate()
             => _image = GetTemplateChild("Image") as Image;
 
-        private static async void OnImageUrlChangedAsync(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnImageUrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as CommonImageEx;
             if (e.NewValue != null && e.OldValue != null && e.NewValue != e.OldValue)
             {
-                await instance.LoadImageAsync();
+                instance.LoadImage();
             }
         }
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (!_isInitializing)
+            LoadImage();
+        }
+
+        private void OnUnload(object sender, RoutedEventArgs e)
+        {
+            if (_image != null)
             {
-                await LoadImageAsync();
+                _image.Source = null;
             }
         }
 
-        private void OnUnload(object sender, RoutedEventArgs e) => ClearCache();
-
-        private async Task LoadImageAsync()
+        private void LoadImage()
         {
-            ClearCache();
             if (_image == null || string.IsNullOrEmpty(ImageUrl))
             {
                 return;
             }
 
-            _loadTokenSource = new CancellationTokenSource();
+            _image.Source = null;
             var bitmapImage = new BitmapImage();
             if (DecodePixelWidth != -1)
             {
@@ -120,60 +113,7 @@ namespace Richasy.Bili.App.Controls
 
             _image.Source = bitmapImage;
             var url = ImageUrl;
-            _isInitializing = true;
-            await Task.Run(async () =>
-            {
-                using (var client = new HttpClient())
-                {
-                    var response = await client.GetAsync(url, _loadTokenSource.Token);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var httpStream = await response.Content.ReadAsStreamAsync();
-                        _imgStream = httpStream.AsRandomAccessStream();
-                    }
-                }
-            }).ContinueWith(async t =>
-            {
-                if (t.IsCompletedSuccessfully)
-                {
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                    {
-                        if (_imgStream != null
-                            && _imgStream.CanRead
-                            && (!_loadTokenSource?.IsCancellationRequested ?? false))
-                        {
-                            _imgStream.Seek(0);
-                            await bitmapImage.SetSourceAsync(_imgStream).AsTask();
-                        }
-                    });
-                }
-            }).ContinueWith(t =>
-            {
-                if (!t.IsCompletedSuccessfully)
-                {
-                }
-
-                _isInitializing = false;
-            });
-        }
-
-        private void ClearCache()
-        {
-            if (_loadTokenSource != null && !_loadTokenSource.IsCancellationRequested)
-            {
-                _loadTokenSource?.Cancel();
-                _loadTokenSource?.Dispose();
-                _loadTokenSource = null;
-            }
-
-            if (_imgStream != null)
-            {
-                _imgStream?.Dispose();
-                _imgStream = null;
-            }
-
-            _image.Source = null;
-            _isInitializing = false;
+            bitmapImage.UriSource = new Uri(url);
         }
     }
 }

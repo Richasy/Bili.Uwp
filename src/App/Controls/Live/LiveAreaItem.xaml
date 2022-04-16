@@ -12,8 +12,7 @@
     <local:CardPanel
         x:Name="ContentContainer"
         Click="OnAreaClick"
-        IsEnableHoverAnimation="False"
-        IsEnableShadow="False">
+        IsEnableHoverAnimation="False">
         <StackPanel
             Margin="4"
             HorizontalAlignment="Center"

@@ -12,8 +12,10 @@
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
     <Compile Include="Common\AppViewModel\AppViewModel.Command.cs" />
     <Compile Include="Common\CommandLineViewModel.cs" />
+    <Compile Include="IIndexViewModel.cs" />
     <Compile Include="Common\LiveAppPlayLineViewModel.cs" />
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
+    <Compile Include="IndexObservableCollection.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
