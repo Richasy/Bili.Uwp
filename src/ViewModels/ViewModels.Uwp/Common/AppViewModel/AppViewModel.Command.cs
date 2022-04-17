@@ -101,7 +101,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                                     }
                                 }
 
-                                OpenPlayer(record);
+                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+                                {
+                                    OpenPlayer(record);
+                                });
                             }
                         },
                     _ => Task.FromResult(-1));

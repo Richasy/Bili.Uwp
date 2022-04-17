@@ -89,7 +89,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void ActiveDisplayRequest()
         {
-            _displayRequest.RequestActive();
+            if (_displayRequest != null)
+            {
+                try
+                {
+                    _displayRequest.RequestActive();
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -97,7 +106,16 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         public void ReleaseDisplayRequest()
         {
-            _displayRequest.RequestRelease();
+            if (_displayRequest != null)
+            {
+                try
+                {
+                    _displayRequest.RequestRelease();
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
         /// <summary>

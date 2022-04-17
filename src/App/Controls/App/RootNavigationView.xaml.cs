@@ -28,6 +28,7 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(RootNavigationView), new PropertyMetadata(AppViewModel.Instance));
 
         private readonly AccountViewModel _accountViewModel = AccountViewModel.Instance;
+        private bool _isFirstLoaded;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RootNavigationView"/> class.
@@ -38,6 +39,11 @@ namespace Richasy.Bili.App.Controls
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
+
+        /// <summary>
+        /// 在刚加在首页时发生.
+        /// </summary>
+        public event EventHandler FirstLoaded;
 
         /// <summary>
         /// 视图模型.
@@ -250,7 +256,15 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void OnMainFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-            => RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+        {
+            if (!_isFirstLoaded)
+            {
+                FirstLoaded?.Invoke(this, EventArgs.Empty);
+                _isFirstLoaded = true;
+            }
+
+            RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         private async void OnFixedPublisherClickAsync(object sender, RoutedEventArgs e)
         {

@@ -8,6 +8,7 @@ using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.System.Display;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -59,6 +60,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <see cref="AppViewModel"/>的单例.
         /// </summary>
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;
+
+        /// <summary>
+        /// UI调度器.
+        /// </summary>
+        public CoreDispatcher Dispatcher { get; set; }
 
         /// <summary>
         /// 当前主视图中的页面标识.
