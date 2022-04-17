@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Richasy.Bili.ViewModels.Uwp;
+using Windows.UI.Xaml;
 
 namespace Richasy.Bili.App.Controls.Player.Related
 {
@@ -30,5 +32,29 @@ namespace Richasy.Bili.App.Controls.Player.Related
                 data.IsSelected = true;
             }
         }
+
+        private void RelocateSelectedItem()
+        {
+            var vm = ViewModel.VideoPartCollection.FirstOrDefault(p => p.IsSelected);
+            if (vm != null)
+            {
+                var index = ViewModel.VideoPartCollection.IndexOf(vm);
+                if (index >= 0)
+                {
+                    PartRepeater.ScrollToItem(index);
+                    if (ViewModel.IsOnlyShowIndex)
+                    {
+                        var ele = IndexRepeater.GetOrCreateElement(index);
+                        if (ele != null)
+                        {
+                            ele.StartBringIntoView(new BringIntoViewOptions { VerticalAlignmentRatio = 0f });
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnPartRepeaterLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+            => RelocateSelectedItem();
     }
 }

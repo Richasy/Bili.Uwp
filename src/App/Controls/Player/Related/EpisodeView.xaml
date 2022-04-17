@@ -43,10 +43,12 @@
             VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
             <Grid>
                 <controls:VerticalRepeaterView
+                    x:Name="EpisodeRepeater"
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
                     ItemsSource="{x:Bind ViewModel.EpisodeCollection}"
+                    Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
@@ -108,7 +110,11 @@
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
-                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.EpisodeCollection, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
+                <muxc:ItemsRepeater
+                    x:Name="IndexRepeater"
+                    Loaded="OnEpisodeRepeaterLoaded"
+                    ItemsSource="{x:Bind ViewModel.EpisodeCollection, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:UniformGridLayout
                             ItemsStretch="Fill"

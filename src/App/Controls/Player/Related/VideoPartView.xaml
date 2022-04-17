@@ -43,10 +43,12 @@
             VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
             <Grid>
                 <controls:VerticalRepeaterView
+                    x:Name="PartRepeater"
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
                     ItemsSource="{x:Bind ViewModel.VideoPartCollection}"
+                    Loaded="OnPartRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoPartViewModel">
@@ -82,7 +84,11 @@
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
-                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.VideoPartCollection, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
+                <muxc:ItemsRepeater
+                    x:Name="IndexRepeater"
+                    ItemsSource="{x:Bind ViewModel.VideoPartCollection, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}"
+                    Loaded="OnPartRepeaterLoaded">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:UniformGridLayout
                             ItemsStretch="Fill"
