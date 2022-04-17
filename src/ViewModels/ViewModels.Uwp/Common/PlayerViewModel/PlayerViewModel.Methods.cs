@@ -485,7 +485,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (videoPlayView.VideoInformation != null)
             {
                 _videoList = videoPlayView.VideoInformation.Video.ToList();
-                _audioList = videoPlayView.VideoInformation.Audio.ToList();
+                _audioList = videoPlayView.VideoInformation.Audio?.ToList() ?? new List<DashItem>();
             }
 
             _currentAudio = null;

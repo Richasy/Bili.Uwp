@@ -32,7 +32,11 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
                 httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
-                var mpdStr = await _fileToolkit.ReadPackageFile(AppConstants.DashVideoMPDFile);
+
+                var mpdFilePath = _currentAudio == null
+                    ? AppConstants.DashVideoWithoudAudioMPDFile
+                    : AppConstants.DashVideoMPDFile;
+                var mpdStr = await _fileToolkit.ReadPackageFile(mpdFilePath);
 
                 var videos = _videoList.Where(p => p.Codecs.Contains(GetPreferCodecId())).ToList();
                 if (videos.Count == 0)

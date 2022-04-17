@@ -18,9 +18,11 @@ namespace Richasy.Bili.Models.App.Args
         public VideoSearchIterationEventArgs(ComprehensiveSearchResultResponse response, int currentPageNumber)
         {
             NextPageNumber = currentPageNumber + 1;
-            List = response.ItemList.Where(p => p.Goto == "av").ToList();
             Keyword = response.Keyword;
             HasMore = true;
+            List = response.ItemList != null && response.ItemList.Any(p => p.Goto == "av")
+                ? response.ItemList.Where(p => p.Goto == "av").ToList()
+                : new System.Collections.Generic.List<VideoSearchItem>();
         }
     }
 }
