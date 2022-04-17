@@ -382,12 +382,22 @@ namespace Richasy.Bili.App.Controls
                     await ViewModel.ChangePgcEpisodeAsync(next.Data.Id);
                 }
             }
-            else
+            else if (ViewModel.IsShowUgcSection)
             {
-                var next = ViewModel.VideoPartCollection.Where(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ + 1).FirstOrDefault();
-                if (next != null)
+                var index = ViewModel.CurrentUgcSection.Episodes.IndexOf(ViewModel.CurrentUgcEpisode);
+                if (index > -1 && index < ViewModel.CurrentUgcSection.Episodes.Count - 1)
                 {
-                    await ViewModel.ChangeVideoPartAsync(next.Data.Page.Cid);
+                    var next = ViewModel.CurrentUgcSection.Episodes[index + 1];
+                    await ViewModel.LoadAsync(new VideoViewModel(next));
+                }
+            }
+            else if (ViewModel.IsShowParts)
+            {
+                var part = ViewModel.VideoPartCollection.FirstOrDefault(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ + 1);
+                if (part != null)
+                {
+                    var id = part.Data.Page.Cid;
+                    await ViewModel.ChangeVideoPartAsync(id);
                 }
             }
         }
@@ -402,12 +412,22 @@ namespace Richasy.Bili.App.Controls
                     await ViewModel.ChangePgcEpisodeAsync(prev.Data.Id);
                 }
             }
-            else
+            else if (ViewModel.IsShowUgcSection)
             {
-                var prev = ViewModel.VideoPartCollection.Where(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ - 1).FirstOrDefault();
-                if (prev != null)
+                var index = ViewModel.CurrentUgcSection.Episodes.IndexOf(ViewModel.CurrentUgcEpisode);
+                if (index > 0)
                 {
-                    await ViewModel.ChangeVideoPartAsync(prev.Data.Page.Cid);
+                    var prev = ViewModel.CurrentUgcSection.Episodes[index - 1];
+                    await ViewModel.LoadAsync(new VideoViewModel(prev));
+                }
+            }
+            else if (ViewModel.IsShowParts)
+            {
+                var part = ViewModel.VideoPartCollection.FirstOrDefault(p => p.Data.Page.Page_ == ViewModel.CurrentVideoPart.Page.Page_ - 1);
+                if (part != null)
+                {
+                    var id = part.Data.Page.Cid;
+                    await ViewModel.ChangeVideoPartAsync(id);
                 }
             }
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bilibili.App.View.V1;
 using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
@@ -35,6 +36,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             CurrentFormat = null;
             CurrentPgcEpisode = null;
             CurrentVideoPart = null;
+            CurrentUgcEpisode = null;
+            CurrentUgcSection = null;
             Publisher = null;
             HistoryTipText = string.Empty;
             _initializeProgress = TimeSpan.Zero;
@@ -48,6 +51,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowReply = true;
             IsShowHistoryTip = false;
             IsShowNextVideoTip = false;
+            IsShowUgcSection = false;
+            IsShowSection = false;
             IsPlayInformationError = false;
             IsCurrentEpisodeInPgcSection = false;
             IsShowEmptyLiveMessage = true;
@@ -88,6 +93,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             StaffCollection.Clear();
             ChoiceCollection.Clear();
             TagCollection.Clear();
+            UgcEpisodeCollection.Clear();
+            UgcSectionCollection.Clear();
             ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
             Controller.CleanupLiveSocket();
             await ClearInitViewModelAsync();
@@ -291,6 +298,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 VideoPartCollection.Add(new VideoPartViewModel(page));
             }
 
+            if (_videoDetail.UgcSeason != null && _videoDetail.UgcSeason.Sections?.Count > 0)
+            {
+                IsShowUgcSection = true;
+                foreach (var item in _videoDetail.UgcSeason.Sections)
+                {
+                    UgcSectionCollection.Add(item);
+                }
+
+                CurrentUgcEpisode = _videoDetail.UgcSeason.Sections.SelectMany(p => p.Episodes).FirstOrDefault(j => j.Aid == _videoDetail.Arc.Aid);
+                ChangeUgcSection(_videoDetail.UgcSeason.Sections.FirstOrDefault());
+            }
+
             IsShowParts = VideoPartCollection.Count > 1;
             IsShowSwitchEpisodeButton = IsShowParts;
 
@@ -310,6 +329,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                     if (part != null)
                     {
                         title = part.Data.Page.Part;
+                    }
+                }
+                else if (IsShowUgcSection)
+                {
+                    var ugcEpisode = GetUgcEpisodeFromCid(_videoDetail.History.Cid);
+                    if (ugcEpisode != null)
+                    {
+                        title = ugcEpisode.Title;
                     }
                 }
 
@@ -678,9 +705,36 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
+        private void CheckUgcEpisodeSelection()
+        {
+            foreach (var item in UgcEpisodeCollection)
+            {
+                item.IsSelected = item.VideoId.Equals(CurrentUgcEpisode.Aid.ToString());
+            }
+
+            if (UgcEpisodeCollection.Count > 0 && CurrentUgcEpisode != null)
+            {
+                IsPreviousEpisodeButtonEnabled = CurrentUgcEpisode.Aid.ToString() != UgcEpisodeCollection.First().VideoId;
+                IsNextEpisodeButtonEnabled = CurrentUgcEpisode.Aid.ToString() != UgcEpisodeCollection.Last().VideoId;
+            }
+        }
+
         private long GetCurrentPartId()
         {
-            return IsInteraction ? _interactionPartId : CurrentVideoPart?.Page?.Cid ?? 0;
+            if (IsInteraction)
+            {
+                return _interactionPartId;
+            }
+            else if (UgcEpisodeCollection.Count > 0)
+            {
+                return CurrentUgcEpisode?.Page?.Cid ?? 0;
+            }
+            else if (VideoPartCollection.Count > 0)
+            {
+                return CurrentVideoPart?.Page?.Cid ?? 0;
+            }
+
+            return 0;
         }
 
         private void CheckEpisodeSelection()
@@ -718,10 +772,33 @@ namespace Richasy.Bili.ViewModels.Uwp
         private async Task CheckVideoHistoryAsync()
         {
             var history = _videoDetail.History;
-            if (CurrentVideoPart == null || history.Cid != GetCurrentPartId())
+            if (IsShowParts)
             {
-                await ChangeVideoPartAsync(history.Cid);
-                _initializeProgress = TimeSpan.FromSeconds(history.Progress);
+                if (history.Cid != GetCurrentPartId())
+                {
+                    await ChangeVideoPartAsync(history.Cid);
+                    _initializeProgress = TimeSpan.FromSeconds(history.Progress);
+                }
+                else
+                {
+                    _currentVideoPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(history.Progress);
+                }
+            }
+            else if (IsShowUgcSection)
+            {
+                if (history.Cid != CurrentUgcEpisode?.Cid)
+                {
+                    var episode = GetUgcEpisodeFromCid(history.Cid);
+                    if (episode != null)
+                    {
+                        await LoadAsync(new VideoViewModel(episode));
+                        _initializeProgress = TimeSpan.FromSeconds(history.Progress);
+                    }
+                }
+                else
+                {
+                    _currentVideoPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(history.Progress);
+                }
             }
             else
             {
@@ -951,13 +1028,26 @@ namespace Richasy.Bili.ViewModels.Uwp
                 else
                 {
                     // Video
-                    var canContinue = VideoPartCollection.Count > 1 && CurrentVideoPart.Page.Page_ < VideoPartCollection.Last().Data.Page.Page_;
+                    var canContinue = (VideoPartCollection.Count > 1 && CurrentVideoPart.Page.Page_ < VideoPartCollection.Last().Data.Page.Page_)
+                        || (UgcEpisodeCollection.Count > 1 && CurrentUgcEpisode.Aid.ToString() != UgcEpisodeCollection.Last().VideoId);
                     if (isContinue && canContinue)
                     {
-                        var part = VideoPartCollection.Where(p => p.Data.Page.Page_ == CurrentVideoPart.Page.Page_ + 1).FirstOrDefault();
-                        if (part != null)
+                        if (IsShowParts)
                         {
-                            await ChangeVideoPartAsync(part.Data.Page.Cid);
+                            var part = VideoPartCollection.FirstOrDefault(p => p.Data.Page.Page_ == CurrentVideoPart.Page.Page_ + 1);
+                            if (part != null)
+                            {
+                                await ChangeVideoPartAsync(part.Data.Page.Cid);
+                            }
+                        }
+                        else if (IsShowUgcSection)
+                        {
+                            var index = CurrentUgcSection.Episodes.IndexOf(CurrentUgcEpisode);
+                            if (index > -1 && index < CurrentUgcSection.Episodes.Count - 1)
+                            {
+                                var next = CurrentUgcSection.Episodes[index + 1];
+                                await LoadAsync(new VideoViewModel(next));
+                            }
                         }
                     }
                     else
@@ -1099,6 +1189,16 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             return result;
+        }
+
+        private Episode GetUgcEpisodeFromCid(long cid)
+        {
+            if (_videoDetail.UgcSeason?.Sections != null)
+            {
+                return _videoDetail.UgcSeason.Sections.SelectMany(p => p.Episodes).FirstOrDefault(p => p.Cid == cid);
+            }
+
+            return null;
         }
 
         private void OnBiliPlayerPointerMoved(object sender, PointerRoutedEventArgs e)

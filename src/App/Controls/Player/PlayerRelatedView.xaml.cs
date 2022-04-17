@@ -56,6 +56,10 @@ namespace Richasy.Bili.App.Controls
                 {
                     Nav.SelectedItem = PartsItem;
                 }
+                else if (ViewModel.IsShowUgcSection)
+                {
+                    Nav.SelectedItem = UgcEpisodeItem;
+                }
                 else if (ViewModel.IsShowEpisode)
                 {
                     Nav.SelectedItem = EpisodeItem;
@@ -122,6 +126,12 @@ namespace Richasy.Bili.App.Controls
             if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
             {
                 RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
+                Visibility.Visible : Visibility.Collapsed;
+            }
+
+            if (ViewModel.IsShowUgcSection && UgcEpisodeView != null)
+            {
+                UgcEpisodeView.Visibility = Nav.SelectedItem == UgcEpisodeItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
 

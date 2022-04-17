@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bilibili.App.View.V1;
 using FFmpegInterop;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App;
@@ -47,6 +48,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             StaffCollection = new ObservableCollection<UserViewModel>();
             ChoiceCollection = new ObservableCollection<InteractionChoice>();
             TagCollection = new ObservableCollection<VideoTag>();
+            UgcSectionCollection = new ObservableCollection<Section>();
+            UgcEpisodeCollection = new ObservableCollection<VideoViewModel>();
             PlaybackRateNodeCollection = new ObservableCollection<double>();
             _audioList = new List<DashItem>();
             _videoList = new List<DashItem>();
@@ -312,6 +315,22 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 改变合集分区.
+        /// </summary>
+        /// <param name="section">合集分区.</param>
+        public void ChangeUgcSection(Section section)
+        {
+            UgcEpisodeCollection.Clear();
+            CurrentUgcSection = section;
+            if (section?.Episodes?.Count > 0)
+            {
+                section.Episodes.ToList().ForEach(p => UgcEpisodeCollection.Add(new VideoViewModel(p)));
+            }
+
+            CheckUgcEpisodeSelection();
+        }
+
+        /// <summary>
         /// 改变当前分P.
         /// </summary>
         /// <param name="partId">分P Id.</param>
@@ -325,7 +344,10 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
             else if (!IsInteraction)
             {
-                CurrentVideoPart = VideoPartCollection.First().Data;
+                if (VideoPartCollection.Any())
+                {
+                    CurrentVideoPart = VideoPartCollection.First().Data;
+                }
             }
 
             CheckPartSelection();

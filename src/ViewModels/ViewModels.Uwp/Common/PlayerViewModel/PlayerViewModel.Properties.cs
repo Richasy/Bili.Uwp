@@ -317,10 +317,32 @@ namespace Richasy.Bili.ViewModels.Uwp
         public ObservableCollection<VideoViewModel> ViewLaterVideoCollection { get; }
 
         /// <summary>
+        /// 显示的视频合集分话.
+        /// </summary>
+        public ObservableCollection<VideoViewModel> UgcEpisodeCollection { get; }
+
+        /// <summary>
+        /// 视频合集分区集合.
+        /// </summary>
+        public ObservableCollection<Section> UgcSectionCollection { get; }
+
+        /// <summary>
         /// 当前分P.
         /// </summary>
         [Reactive]
         public ViewPage CurrentVideoPart { get; set; }
+
+        /// <summary>
+        /// 当前合集单话.
+        /// </summary>
+        [Reactive]
+        public Episode CurrentUgcEpisode { get; set; }
+
+        /// <summary>
+        /// 当前合集分区.
+        /// </summary>
+        [Reactive]
+        public Section CurrentUgcSection { get; set; }
 
         /// <summary>
         /// 当前分集.
@@ -437,7 +459,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowChat { get; set; }
 
         /// <summary>
-        /// 是否回复.
+        /// 是否显示评论.
         /// </summary>
         [Reactive]
         public bool IsShowReply { get; set; }
@@ -447,6 +469,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsShowViewLater { get; set; }
+
+        /// <summary>
+        /// 是否显示视频合集.
+        /// </summary>
+        [Reactive]
+        public bool IsShowUgcSection { get; set; }
 
         /// <summary>
         /// 点赞按钮是否被选中.

@@ -55,6 +55,9 @@
       <DependentUpon>LiveAreaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\PlayerTip\PlayerTip.cs" />
+    <Compile Include="Controls\Player\Related\UgcEpisodeView.xaml.cs">
+      <DependentUpon>UgcEpisodeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
       <DependentUpon>ViewLaterView.xaml</DependentUpon>
     </Compile>
@@ -435,6 +438,7 @@
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\ToolboxItemIconConverter.cs" />
+    <Compile Include="Resources\Converter\UgcEpisodeConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
@@ -587,6 +591,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\PlayerTip\PlayerTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\Related\UgcEpisodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
