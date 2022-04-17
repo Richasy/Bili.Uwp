@@ -998,6 +998,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="ProjectHomePage" xml:space="preserve">
     <value>项目主页</value>
   </data>
+  <data name="PublisherApp" xml:space="preserve">
+    <value>开发者的其它应用</value>
+  </data>
   <data name="PublishFinished" xml:space="preserve">
     <value>已完结</value>
   </data>
@@ -1315,6 +1318,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="StartupDisabledByUser" xml:space="preserve">
     <value>启动项由用户手动禁用，您需要手动启用才能生效</value>
+  </data>
+  <data name="StoreComment" xml:space="preserve">
+    <value>求个好评</value>
   </data>
   <data name="Stroke" xml:space="preserve">
     <value>描边</value>
