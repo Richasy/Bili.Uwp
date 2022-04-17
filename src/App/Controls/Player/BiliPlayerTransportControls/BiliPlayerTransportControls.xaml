@@ -391,15 +391,16 @@
                                     <Grid
                                         Name="SubtitleGrid"
                                         Margin="24,0"
-                                        Padding="16,8"
                                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                                         CornerRadius="{StaticResource OverlayCornerRadius}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowSubtitle}">
                                         <TextBlock
                                             x:Name="SubtitleBlock"
                                             MaxWidth="1200"
+                                            Margin="16,8"
                                             FontSize="24"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CurrentSubtitle}"
+                                            TextTrimming="CharacterEllipsis"
                                             TextWrapping="Wrap" />
                                     </Grid>
                                 </Grid>
