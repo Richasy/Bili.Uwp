@@ -164,6 +164,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuMerge,
         UseCloudShieldSettings,
         Episodes,
+        UgcEpisode,
         Seasons,
         Sections,
         Detail,

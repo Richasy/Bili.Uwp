@@ -367,6 +367,25 @@ namespace Richasy.Bili.ViewModels.Uwp
             CanShowAvatar = true;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="episode">视频条目.</param>
+        public VideoViewModel(Episode episode)
+            : this()
+        {
+            VideoType = Models.Enums.VideoType.Video;
+            Title = Regex.Replace(episode.Title, "<[^>]+>", string.Empty);
+            VideoId = episode.Stat.Aid.ToString();
+            PlayCount = _numberToolkit.GetCountText(episode.Stat.View);
+            DanmakuCount = _numberToolkit.GetCountText(episode.Stat.Danmaku);
+            Publisher = new UserViewModel(episode.Author.Name, episode.Author.Face, Convert.ToInt32(episode.Author.Mid));
+            Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(episode.Page.Duration));
+            LimitCover(episode.Cover);
+            Source = episode;
+            CanShowAvatar = true;
+        }
+
         internal VideoViewModel()
         {
             ServiceLocator.Instance.LoadService(out _numberToolkit);

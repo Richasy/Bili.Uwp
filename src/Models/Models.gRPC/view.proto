@@ -2,8 +2,6 @@ syntax = "proto3";
 package bilibili.app.view.v1;
 
 import "google/protobuf/any.proto";
-import "bilibili/app/archive/middleware/v1/preload.proto";
-import "bilibili/app/archive/v1/archive.proto";
 
 service View {
     // 视频页详情页
@@ -52,8 +50,6 @@ message ActivityResource {
 
 // 大型活动合集
 message ActivitySeason {
-    // 稿件信息
-    bilibili.app.archive.v1.Arc arc = 1;
     // 分P信息
     repeated ViewPage pages = 2;
     //("OnwerExt"为源码中拼写错误)
@@ -302,8 +298,6 @@ message CMConfig {
 //
 message CacheViewReply {
     //
-    bilibili.app.archive.v1.Arc arc = 1;
-    //
     repeated ViewPage pages = 2;
     //
     OnwerExt owner_ext = 3;
@@ -406,10 +400,6 @@ message ClickPlayerCardReq {
 message CmIpad {
     //
     CM cm = 1;
-    //
-    bilibili.app.archive.v1.Author author = 2;
-    //
-    bilibili.app.archive.v1.Stat stat = 3;
     //
     int64 duration = 4;
     //
@@ -629,14 +619,8 @@ message Episode {
     string cover = 5;
     // 投稿时间显示文案
     string coverRightText = 6;
-    // 视频分P信息
-    bilibili.app.archive.v1.Page page = 7;
-    // 视频状态数
-    bilibili.app.archive.v1.Stat stat = 8;
     // 稿件bvid
     string bvid = 9;
-    // 稿件UP主信息
-    bilibili.app.archive.v1.Author author = 10;
     //
     string author_desc = 11;
 }
@@ -685,8 +669,6 @@ message FeedViewReq {
     string spmid = 4;
     //
     string from_spmid = 5;
-    //
-    bilibili.app.archive.middleware.v1.PlayerArgs player_args = 6;
     //
     int64 display_id = 7;
     //
@@ -1061,10 +1043,6 @@ message Relate {
     string pic = 2;
     // 标题
     string title = 3;
-    // UP主信息
-    bilibili.app.archive.v1.Author author = 4;
-    // 稿件状态数
-    bilibili.app.archive.v1.Stat stat = 5;
     // 时长
     int64 duration = 6;
     // 跳转类型
@@ -1607,8 +1585,6 @@ message ViewMaterial {
 
 // 分P信息
 message ViewPage {
-    // 分P基本信息
-    bilibili.app.archive.v1.Page page = 1;
     // 分P对应的音频稿件
     Audio audio = 2;
     // 分P弹幕信息
@@ -1655,8 +1631,6 @@ message ViewProgressReq {
 
 // 视频页信息-响应
 message ViewReply {
-    // 稿件信息
-    bilibili.app.archive.v1.Arc arc = 1;
     // 分P信息
     repeated ViewPage pages = 2;
     // UP主扩展信息 ("OnwerExt"为源码中拼写错误)
@@ -1783,8 +1757,6 @@ message ViewReq {
     string from_spmid = 12;
     //
     int32 autoplay = 13;
-    // 视频秒开参数
-    bilibili.app.archive.middleware.v1.PlayerArgs player_args = 14;
     //
     string page_version = 15;
     //

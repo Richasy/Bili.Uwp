@@ -1367,6 +1367,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="TVApp" xml:space="preserve">
     <value>电视</value>
   </data>
+  <data name="UgcEpisode" xml:space="preserve">
+    <value>视频合集</value>
+  </data>
   <data name="UnFavorite" xml:space="preserve">
     <value>取消收藏</value>
   </data>

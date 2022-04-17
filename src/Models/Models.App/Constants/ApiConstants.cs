@@ -420,7 +420,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 视频详情.
             /// </summary>
-            public const string Detail = _appBase + "/bilibili.app.view.v1.View/View";
+            public const string Detail = _grpcBase + "/bilibili.app.view.v1.View/View";
 
             /// <summary>
             /// 在线观看人数.
