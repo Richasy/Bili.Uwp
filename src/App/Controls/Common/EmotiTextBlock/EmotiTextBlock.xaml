@@ -21,7 +21,7 @@
                             IsTextSelectionEnabled="True"
                             LineHeight="24"
                             MaxLines="{TemplateBinding MaxLines}"
-                            TextTrimming="CharacterEllipsis"
+                            TextTrimming="None"
                             TextWrapping="Wrap" />
                         <Button
                             x:Name="OverflowButton"
