@@ -7,7 +7,6 @@
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
     xmlns:local="using:Richasy.Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -57,6 +56,14 @@
                         <Run Text="{x:Bind ViewModel.Version}" />
                     </TextBlock>
                     <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=License}" />
+                    <HyperlinkButton
+                        HorizontalAlignment="Left"
+                        Content="{loc:LocaleLocator Name=StoreComment}"
+                        NavigateUri="ms-windows-store://review/?ProductId=9MVN4NSLT150" />
+                    <HyperlinkButton
+                        HorizontalAlignment="Left"
+                        Content="{loc:LocaleLocator Name=PublisherApp}"
+                        NavigateUri="ms-windows-store://publisher/?name=云之幻" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
