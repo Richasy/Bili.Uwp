@@ -31,6 +31,23 @@ namespace Richasy.Bili.App.Controls
             Unloaded += OnUnloaded;
         }
 
+        /// <summary>
+        /// 滚动到条目.
+        /// </summary>
+        /// <param name="index">条目索引值.</param>
+        public void ScrollToItem(int index)
+        {
+            if (_itemsRepeater != null)
+            {
+                var element = _itemsRepeater.GetOrCreateElement(index);
+                var options = new BringIntoViewOptions
+                {
+                    VerticalAlignmentRatio = 0f,
+                };
+                element.StartBringIntoView(options);
+            }
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {

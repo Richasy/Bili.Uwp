@@ -48,7 +48,8 @@
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.UgcEpisodeCollection}">
+                    ItemsSource="{x:Bind ViewModel.UgcEpisodeCollection}"
+                    Loaded="OnLoadedAsync">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoViewModel">
                             <controls:VideoCard

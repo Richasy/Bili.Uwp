@@ -137,7 +137,6 @@
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
-    <Compile Include="Common\UgcEpisodeViewModel.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

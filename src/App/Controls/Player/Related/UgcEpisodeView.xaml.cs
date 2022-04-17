@@ -24,5 +24,18 @@ namespace Richasy.Bili.App.Controls.Player.Related
                 ViewModel.ChangeUgcSection(item);
             }
         }
+
+        private async void OnLoadedAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            await System.Threading.Tasks.Task.Delay(200);
+            if (ViewModel.IsShowUgcSection)
+            {
+                var index = ViewModel.CurrentUgcSection.Episodes.IndexOf(ViewModel.CurrentUgcEpisode);
+                if (index > 0)
+                {
+                    (sender as VerticalRepeaterView).ScrollToItem(index);
+                }
+            }
+        }
     }
 }
