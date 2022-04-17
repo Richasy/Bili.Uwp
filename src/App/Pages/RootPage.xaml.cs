@@ -31,6 +31,7 @@ namespace Richasy.Bili.App.Pages
         public RootPage()
         {
             InitializeComponent();
+            CoreViewModel.Dispatcher = Dispatcher;
             Loaded += OnLoadedAsync;
             CoreViewModel.RequestShowTip += OnRequestShowTip;
             CoreViewModel.RequestBack += OnRequestBackAsync;
