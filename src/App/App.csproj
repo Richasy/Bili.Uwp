@@ -452,6 +452,7 @@
     <Content Include="Assets\Bili_rgba_25.png" />
     <Content Include="Assets\Bili_rgba_500.png" />
     <Content Include="Assets\DashVideoTemplate.xml" />
+    <Content Include="Assets\DashVideoWithoutAudioTemplate.xml" />
     <Content Include="Assets\ERROR_rgba.png" />
     <Content Include="Assets\img_holder_rect.png" />
     <Content Include="Assets\Level\level_0.png" />

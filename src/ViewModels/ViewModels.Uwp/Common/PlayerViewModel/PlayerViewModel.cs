@@ -343,17 +343,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 // 剔除 P2P CDN URL
                 if (_settingsToolkit.ReadLocalSetting(SettingNames.DisableP2PCdn, false))
                 {
-                    foreach (var item in _playerInformation.VideoInformation.Audio)
+                    if (_playerInformation.VideoInformation.Audio != null)
                     {
-                        if (!item.BaseUrl.Contains("bilivideo.com"))
+                        foreach (var item in _playerInformation.VideoInformation.Audio.Where(p => !p.BaseUrl.Contains("bilivideo.com")))
                         {
                             item.BaseUrl = item.BackupUrl.Find(url => url.Contains("bilivideo.com")) ?? item.BaseUrl;
                         }
                     }
 
-                    foreach (var item in _playerInformation.VideoInformation.Video)
+                    if (_playerInformation.VideoInformation.Video != null)
                     {
-                        if (!item.BaseUrl.Contains("bilivideo.com"))
+                        foreach (var item in _playerInformation.VideoInformation.Video.Where(p => !p.BaseUrl.Contains("bilivideo.com")))
                         {
                             item.BaseUrl = item.BackupUrl.Find(url => url.Contains("bilivideo.com")) ?? item.BaseUrl;
                         }
