@@ -56,6 +56,7 @@ namespace Richasy.Bili.App.Controls
                 if (await PlayerViewModel.Instance.CheckBackAsync())
                 {
                     ViewModel.IsOpenPlayer = false;
+                    CheckDevice();
                     return true;
                 }
             }
@@ -84,12 +85,10 @@ namespace Richasy.Bili.App.Controls
         {
             if (e.PropertyName == nameof(ViewModel.IsOpenPlayer)
                 || e.PropertyName == nameof(ViewModel.IsShowOverlay)
-                || e.PropertyName == nameof(ViewModel.CanShowHomeButton))
+                || e.PropertyName == nameof(ViewModel.CanShowHomeButton)
+                || e.PropertyName == nameof(ViewModel.IsXbox))
             {
                 CheckBackButtonVisibility();
-            }
-            else if (e.PropertyName == nameof(ViewModel.IsXbox))
-            {
                 CheckDevice();
             }
         }
@@ -99,14 +98,14 @@ namespace Richasy.Bili.App.Controls
             var width = Window.Current.Bounds.Width;
             if (ViewModel.IsXbox)
             {
-                MenuButton.Visibility = Visibility.Visible;
+                MenuButton.Visibility = ViewModel.IsOpenPlayer ? Visibility.Collapsed : Visibility.Visible;
                 AppNameBlock.Visibility = Visibility.Visible;
                 RightPaddingColumn.Width = new GridLength(24);
             }
             else
             {
                 RightPaddingColumn.Width = new GridLength(172);
-                MenuButton.Visibility = width >= ViewModel.MediumWindowThresholdWidth ? Visibility.Collapsed : Visibility.Visible;
+                MenuButton.Visibility = width >= ViewModel.MediumWindowThresholdWidth || ViewModel.IsOpenPlayer ? Visibility.Collapsed : Visibility.Visible;
                 AppNameBlock.Visibility = width >= ViewModel.MediumWindowThresholdWidth ? Visibility.Visible : Visibility.Collapsed;
             }
         }
