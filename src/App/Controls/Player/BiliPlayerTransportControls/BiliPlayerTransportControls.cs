@@ -216,7 +216,7 @@ namespace Richasy.Bili.App.Controls
 
             if (IsControlPanelShown() && e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                HideControls();
+                HideControlsAsync();
             }
 
             _cursorStayTime = 0;
@@ -484,7 +484,11 @@ namespace Richasy.Bili.App.Controls
             _segmentIndex = 1;
             _danmakuDictionary.Clear();
             _danmakuTimer.Stop();
-            _danmakuView.ClearAll();
+
+            if (_danmakuView != null)
+            {
+                _danmakuView.ClearAll();
+            }
         }
 
         private void OnMediaPlayerUdpated(object sender, EventArgs e)
@@ -502,11 +506,11 @@ namespace Richasy.Bili.App.Controls
             {
                 CheckDanmakuZoom();
             }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea))
+            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
             {
                 _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
             }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed))
+            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed) && _danmakuView != null)
             {
                 _danmakuView.DanmakuDuration = Convert.ToInt32((2.1 - DanmakuViewModel.DanmakuSpeed) * 10);
             }
@@ -556,16 +560,16 @@ namespace Richasy.Bili.App.Controls
             {
                 if (sender.PlaybackState == MediaPlaybackState.Buffering)
                 {
-                    _danmakuView.PauseDanmaku();
+                    _danmakuView?.PauseDanmaku();
                 }
                 else if (sender.PlaybackState == MediaPlaybackState.Paused && sender.Position < sender.NaturalDuration)
                 {
-                    _danmakuView.PauseDanmaku();
+                    _danmakuView?.PauseDanmaku();
                 }
                 else if (sender.PlaybackState == MediaPlaybackState.Playing)
                 {
-                    _danmakuView.ResumeDanmaku();
-                    HideControls();
+                    _danmakuView?.ResumeDanmaku();
+                    HideControlsAsync();
                 }
 
                 _playPauseButton?.Focus(FocusState.Programmatic);
@@ -797,7 +801,7 @@ namespace Richasy.Bili.App.Controls
                     {
                         foreach (var item in data)
                         {
-                            _danmakuView.AddScreenDanmaku(item, false);
+                            _danmakuView?.AddScreenDanmaku(item, false);
                         }
                     });
                 }
@@ -814,19 +818,19 @@ namespace Richasy.Bili.App.Controls
             {
                 if (_isTouch && IsControlPanelShown())
                 {
-                    HideControls();
+                    HideControlsAsync();
                 }
                 else if (IsCursorInMediaElement() && !IsCursorInControlPanel())
                 {
                     Window.Current.CoreWindow.PointerCursor = null;
                     if (IsControlPanelShown())
                     {
-                        HideControls();
+                        HideControlsAsync();
                     }
                 }
                 else if (!ViewModel.IsPointerInMediaElement && IsControlPanelShown())
                 {
-                    HideControls();
+                    HideControlsAsync();
                 }
 
                 _cursorStayTime = 0;
@@ -1120,10 +1124,13 @@ namespace Richasy.Bili.App.Controls
             return rootBounds.Contains(pointerPosition);
         }
 
-        private void HideControls()
+        private async void HideControlsAsync()
         {
-            Hide();
-            ViewModel.IsFocusInputControl = false;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                Hide();
+                ViewModel.IsFocusInputControl = false;
+            });
         }
     }
 }
