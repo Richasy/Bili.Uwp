@@ -120,12 +120,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public async Task<bool> CheckBackAsync()
         {
             _progressTimer.Stop();
+            DanmakuViewModel.Instance.Reset();
             if (_historyVideoList.Count > 0)
             {
                 var lastVideo = _historyVideoList.Last();
                 _historyVideoList.Remove(lastVideo);
                 IsDetailCanLoaded = true;
-                DanmakuViewModel.Instance.Reset();
                 IsPlayInformationError = false;
                 AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
 

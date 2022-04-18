@@ -16,12 +16,19 @@ namespace Richasy.Bili.App.Controls
         /// 发送弹幕.
         /// </summary>
         /// <param name="items">弹幕列表.</param>
-        public void Prepare(List<DanmakuItem> items)
+        /// <param name="isAdd">是否为添加弹幕.</param>
+        public void Prepare(List<DanmakuItem> items, bool isAdd = false)
         {
-            _danmakuController.SetIsTextBold(DanmakuBold);
-            _danmakuController.SetFontFamilyName(DanmakuFontFamily);
-            _danmakuController.SetDanmakuList(items);
-            _cachedDanmakus = items;
+            if (isAdd)
+            {
+                _danmakuController?.AddDanmakuList(items);
+            }
+            else
+            {
+                _danmakuController?.SetDanmakuList(items);
+            }
+
+            _cachedDanmakus = _danmakuController?.GetDanmakuList();
         }
 
         /// <summary>
@@ -29,15 +36,13 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         /// <param name="item">弹幕条目.</param>
         public void SendDanmu(DanmakuItem item)
-        {
-            _danmakuController.AddRealtimeDanmaku(item, insertToList: false);
-        }
+            => _danmakuController.AddRealtimeDanmaku(item, insertToList: false);
 
         /// <summary>
         /// 更新内部计时.
         /// </summary>
         /// <param name="milliseconds">毫秒时间戳.</param>
-        public void Update(uint milliseconds)
+        public void UpdateTime(uint milliseconds)
         {
             _danmakuController?.UpdateTime(milliseconds);
             _currentTs = milliseconds;
@@ -46,18 +51,12 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 暂停弹幕.
         /// </summary>
-        public void PauseDanmaku()
-        {
-            _danmakuController?.Pause();
-        }
+        public void PauseDanmaku() => _danmakuController?.Pause();
 
         /// <summary>
         /// 继续弹幕.
         /// </summary>
-        public void ResumeDanmaku()
-        {
-            _danmakuController?.Resume();
-        }
+        public void ResumeDanmaku() => _danmakuController?.Resume();
 
         /// <summary>
         /// 重新绘制弹幕区域.
@@ -92,5 +91,11 @@ namespace Richasy.Bili.App.Controls
             _currentTs = 0;
             _danmakuController?.Clear();
         }
+
+        /// <summary>
+        /// 关闭控制器.
+        /// </summary>
+        public void Close()
+            => _danmakuController?.Close();
     }
 }

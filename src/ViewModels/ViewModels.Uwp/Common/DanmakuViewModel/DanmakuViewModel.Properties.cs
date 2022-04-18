@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bilibili.Community.Service.Dm.V1;
 using ReactiveUI.Fody.Helpers;
@@ -21,7 +20,6 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         private readonly IFontToolkit _fontToolkit;
         private readonly IResourceToolkit _resourceToolkit;
 
-        private List<DanmakuElem> _danmakuList;
         private long _videoId;
         private long _partId;
 
@@ -54,16 +52,10 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public double DanmakuOpacity { get; set; }
 
         /// <summary>
-        /// 弹幕缩放大小.
+        /// 弹幕文本大小.
         /// </summary>
         [Reactive]
-        public double DanmakuZoom { get; set; }
-
-        /// <summary>
-        /// 弹幕密度（同屏弹幕数量）.
-        /// </summary>
-        [Reactive]
-        public double DanmakuDensity { get; set; }
+        public double DanmakuFontSize { get; set; }
 
         /// <summary>
         /// 弹幕显示区域.
@@ -84,22 +76,10 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public string DanmakuFont { get; set; }
 
         /// <summary>
-        /// 弹幕样式.
-        /// </summary>
-        [Reactive]
-        public DanmakuStyle DanmakuStyle { get; set; }
-
-        /// <summary>
         /// 系统字体集合.
         /// </summary>
         [Reactive]
         public ObservableCollection<string> FontCollection { get; set; }
-
-        /// <summary>
-        /// 样式集合.
-        /// </summary>
-        [Reactive]
-        public ObservableCollection<DanmakuStyle> StyleCollection { get; set; }
 
         /// <summary>
         /// 是否启用弹幕合并.

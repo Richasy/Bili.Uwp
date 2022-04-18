@@ -22,7 +22,7 @@ namespace Richasy.Bili.Models.Enums
         DefaultVideoFormat,
         IsShowDanmaku,
         DanmakuOpacity,
-        DanmakuZoom,
+        DanmakuFontSize,
         DanmakuDensity,
         DanmakuFont,
         IsDanmakuMerge,

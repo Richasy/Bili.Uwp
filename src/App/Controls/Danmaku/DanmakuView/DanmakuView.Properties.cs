@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using Atelier39;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using Richasy.Bili.Models.Enums.App;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,34 +14,28 @@ namespace Richasy.Bili.App.Controls
     public sealed partial class DanmakuView
     {
         /// <summary>
-        /// <see cref="DanmakuSizeZoom"/>的依赖属性.
+        /// <see cref="DanmakuSize"/>的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty DanmakuSizeZoomProperty =
-            DependencyProperty.Register(nameof(DanmakuSizeZoom), typeof(double), typeof(DanmakuView), new PropertyMetadata(1.0));
+        public static readonly DependencyProperty DanmakuSizeProperty =
+            DependencyProperty.Register(nameof(DanmakuSize), typeof(double), typeof(DanmakuView), new PropertyMetadata(1.5, OnDanmakuSizeChanged));
 
         /// <summary>
         /// <see cref="DanmakuDuration"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuDurationProperty =
-            DependencyProperty.Register(nameof(DanmakuDuration), typeof(int), typeof(DanmakuView), new PropertyMetadata(10, OnDanmakuDurationChanged));
+            DependencyProperty.Register(nameof(DanmakuDuration), typeof(double), typeof(DanmakuView), new PropertyMetadata(1, OnDanmakuDurationChanged));
 
         /// <summary>
         /// <see cref="DanmakuBold"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuBoldProperty =
-            DependencyProperty.Register(nameof(DanmakuBold), typeof(bool), typeof(DanmakuView), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(DanmakuBold), typeof(bool), typeof(DanmakuView), new PropertyMetadata(false, OnDanmakuBoldChanged));
 
         /// <summary>
         /// <see cref="DanmakuFontFamily"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuFontFamilyProperty =
-            DependencyProperty.Register(nameof(DanmakuFontFamily), typeof(string), typeof(DanmakuView), new PropertyMetadata(default));
-
-        /// <summary>
-        /// <see cref="DanmakuStyle"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty DanmakuStyleProperty =
-          DependencyProperty.Register(nameof(DanmakuStyle), typeof(DanmakuStyle), typeof(DanmakuView), new PropertyMetadata(DanmakuStyle.Stroke));
+            DependencyProperty.Register(nameof(DanmakuFontFamily), typeof(string), typeof(DanmakuView), new PropertyMetadata(default, OnDanmakuFontFamilyChanged));
 
         /// <summary>
         /// <see cref="DanmakuArea"/>的依赖属性.
@@ -51,7 +44,6 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(0d, OnDanmakuAreaChanged));
 
         private const string RootGridName = "RootGrid";
-        private const string CanvasName = "DanmakuCanvas";
 
         private Grid _rootGrid;
         private CanvasAnimatedControl _canvas;
@@ -64,18 +56,18 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 字体大小缩放，电脑推荐默认1.0，手机推荐0.5.
         /// </summary>
-        public double DanmakuSizeZoom
+        public double DanmakuSize
         {
-            get { return (double)GetValue(DanmakuSizeZoomProperty); }
-            set { SetValue(DanmakuSizeZoomProperty, value); }
+            get { return (double)GetValue(DanmakuSizeProperty); }
+            set { SetValue(DanmakuSizeProperty, value); }
         }
 
         /// <summary>
         /// 滚动弹幕动画持续时间,单位:秒,越小弹幕移动速度越快.
         /// </summary>
-        public int DanmakuDuration
+        public double DanmakuDuration
         {
-            get { return (int)GetValue(DanmakuDurationProperty); }
+            get { return (double)GetValue(DanmakuDurationProperty); }
             set { SetValue(DanmakuDurationProperty, value); }
         }
 
@@ -95,15 +87,6 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (string)GetValue(DanmakuFontFamilyProperty); }
             set { SetValue(DanmakuFontFamilyProperty, value); }
-        }
-
-        /// <summary>
-        /// 弹幕样式.
-        /// </summary>
-        public DanmakuStyle DanmakuStyle
-        {
-            get { return (DanmakuStyle)GetValue(DanmakuStyleProperty); }
-            set { SetValue(DanmakuStyleProperty, value); }
         }
 
         /// <summary>

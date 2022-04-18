@@ -26,7 +26,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <inheritdoc/>
-        protected override void OnApplyTemplate()
+        protected override async void OnApplyTemplate()
         {
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
@@ -44,15 +44,9 @@ namespace Richasy.Bili.App.Controls
 
         private static void OnDanmakuDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var value = Convert.ToInt32(e.NewValue);
-            if (value <= 0)
-            {
-                value = 1;
-            }
-
             var instance = (DanmakuView)d;
-            instance.DanmakuDuration = value;
-            instance._danmakuController?.SetRollingSpeed(value * 5);
+            var speed = (double)e.NewValue * 5;
+            instance._danmakuController?.SetRollingSpeed(Convert.ToInt32(speed));
         }
 
         private static void OnDanmakuAreaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -73,6 +67,42 @@ namespace Richasy.Bili.App.Controls
             instance._danmakuController?.SetRollingAreaRatio(Convert.ToInt32(value * 10));
         }
 
+        private static void OnDanmakuSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            instance._danmakuController?.SetDanmakuFontSizeOffset(instance.GetFontSize((double)e.NewValue));
+        }
+
+        private static void OnDanmakuFontFamilyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            instance._danmakuController?.SetFontFamilyName(e.NewValue?.ToString() ?? "Segoe UI");
+        }
+
+        private static void OnDanmakuBoldChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            instance._danmakuController?.SetIsTextBold(Convert.ToBoolean(e.NewValue));
+        }
+
+        private DanmakuFontSize GetFontSize(double fontSize)
+        {
+            switch (fontSize)
+            {
+                case 0.5:
+                    return DanmakuFontSize.Smallest;
+                case 1:
+                    return DanmakuFontSize.Smaller;
+                case 1.5:
+                default:
+                    return DanmakuFontSize.Normal;
+                case 2.0:
+                    return DanmakuFontSize.Larger;
+                case 2.5:
+                    return DanmakuFontSize.Largest;
+            }
+        }
+
         private void InitializeController()
         {
             _rootGrid.Children.Clear();
@@ -84,6 +114,10 @@ namespace Richasy.Bili.App.Controls
             _danmakuController.SetRollingDensity(-1);
             _danmakuController.SetBorderColor(Colors.Gray);
             _danmakuController.SetRollingAreaRatio(Convert.ToInt32(DanmakuArea * 10));
+            _danmakuController.SetDanmakuFontSizeOffset(GetFontSize(DanmakuSize));
+            _danmakuController.SetFontFamilyName(DanmakuFontFamily ?? "Segoe UI");
+            _danmakuController.SetRollingSpeed(Convert.ToInt32(DanmakuDuration * 5));
+            _danmakuController.SetIsTextBold(DanmakuBold);
         }
     }
 }

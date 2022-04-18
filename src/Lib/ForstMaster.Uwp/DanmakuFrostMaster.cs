@@ -217,6 +217,7 @@ namespace Atelier39
         public void Clear()
         {
             _danmakuList?.Clear();
+            _render?.Stop();
         }
 
         public void Close()
@@ -262,11 +263,27 @@ namespace Atelier39
             }
         }
 
+        public List<DanmakuItem> GetDanmakuList()
+            => _danmakuList;
+
         /// <param name="danmakuList">Must be pre-ordered by StartMs</param>
         public void SetDanmakuList(List<DanmakuItem> danmakuList)
         {
             Clear();
             _danmakuList = danmakuList ?? new List<DanmakuItem>();
+        }
+
+        public void AddDanmakuList(List<DanmakuItem> danmakuList)
+        {
+            if (_danmakuList == null)
+            {
+                _danmakuList = danmakuList;
+            }
+            else
+            {
+                var items = danmakuList.Where(p => !_danmakuList.Any(v => v.Id == p.Id));
+                _danmakuList.AddRange(items);
+            }
         }
 
         /// <param name="subtitleList">Must be pre-ordered by StartMs</param>

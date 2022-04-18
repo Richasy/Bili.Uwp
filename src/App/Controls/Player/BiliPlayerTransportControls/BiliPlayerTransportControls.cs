@@ -164,7 +164,6 @@ namespace Richasy.Bili.App.Controls
 
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
-            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -172,7 +171,6 @@ namespace Richasy.Bili.App.Controls
             AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
 
             CheckCurrentPlayerModeAsync();
-            CheckDanmakuZoom();
             CheckSubtitleZoom();
 
             base.OnApplyTemplate();
@@ -259,7 +257,7 @@ namespace Richasy.Bili.App.Controls
                 {
                     StartMs = 0,
                     Mode = DanmakuMode.Rolling,
-                    TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(e.ContentColor),
+                    TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(e.ContentColor ?? "#FFFFFF"),
                     BaseFontSize = DanmakuViewModel.IsStandardSize ? 25 : 18,
                     Text = e.Text,
                     HasOutline = isOwn,
@@ -508,22 +506,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnDanmakuViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(DanmakuViewModel.DanmakuZoom))
-            {
-                CheckDanmakuZoom();
-            }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
-            {
-                _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
-            }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed) && _danmakuView != null)
-            {
-                _danmakuView.DanmakuDuration = Convert.ToInt32((2.1 - DanmakuViewModel.DanmakuSpeed) * 10);
-            }
-        }
-
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentFormat))
@@ -611,7 +593,7 @@ namespace Richasy.Bili.App.Controls
             if (_danmakuTimer == null)
             {
                 _danmakuTimer = new DispatcherTimer();
-                _danmakuTimer.Interval = TimeSpan.FromSeconds(0.1);
+                _danmakuTimer.Interval = TimeSpan.FromSeconds(0.5);
                 _danmakuTimer.Tick += OnDanmkuTimerTickAsync;
             }
         }
@@ -647,38 +629,14 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void InitializeDanmaku(List<DanmakuElem> elements)
-            => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(elements, DanmakuViewModel.IsDanmakuMerge));
+            => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(elements, DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            CheckDanmakuZoom();
             CheckSubtitleZoom();
 
             DanmakuViewModel.CanShowDanmaku = e.NewSize.Width >= 480;
             IsCompact = e.NewSize.Width < 480;
-        }
-
-        private void CheckDanmakuZoom()
-        {
-            if (ActualWidth == 0 || ActualHeight == 0 || _danmakuView == null)
-            {
-                return;
-            }
-
-            var baseWidth = 800d;
-            var baseHeight = 600d;
-            var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
-            if (scale > 1)
-            {
-                scale = 1;
-            }
-            else if (scale < 0.4)
-            {
-                scale = 0.4;
-            }
-
-            scale *= DanmakuViewModel.DanmakuZoom;
-            _danmakuView.DanmakuSizeZoom = scale;
         }
 
         private void CheckSubtitleZoom()
@@ -720,10 +678,23 @@ namespace Richasy.Bili.App.Controls
             var position = player.PlaybackSession.Position.TotalSeconds;
 
             var segmentIndex = Convert.ToInt32(Math.Ceiling(position / 360d));
-            if (segmentIndex > _segmentIndex)
+            if (segmentIndex < 1)
             {
+                segmentIndex = 1;
+            }
+
+            if (segmentIndex != _segmentIndex)
+            {
+                var oldSegmentIndex = _segmentIndex;
                 _segmentIndex = segmentIndex;
-                DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                try
+                {
+                    await DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                }
+                catch (Exception)
+                {
+                    _segmentIndex = oldSegmentIndex;
+                }
             }
 
             if (player.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
@@ -733,7 +704,7 @@ namespace Richasy.Bili.App.Controls
 
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                _danmakuView.Update(Convert.ToUInt32(position * 1000));
+                _danmakuView.UpdateTime(Convert.ToUInt32(position * 1000));
             });
         }
 
