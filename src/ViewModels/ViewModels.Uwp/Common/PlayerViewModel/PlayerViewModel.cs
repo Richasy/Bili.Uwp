@@ -258,7 +258,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             var videoId = record.VideoId;
             var seasonId = record.SeasonId;
             IsDetailCanLoaded = true;
-            DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
             InitializePlaybackRateProperties();
 

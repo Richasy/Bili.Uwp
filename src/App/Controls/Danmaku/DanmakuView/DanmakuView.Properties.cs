@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Atelier39;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using Richasy.Bili.Models.Enums.App;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -17,7 +18,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="DanmakuSizeZoom"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuSizeZoomProperty =
-            DependencyProperty.Register(nameof(DanmakuSizeZoom), typeof(double), typeof(DanmakuView), new PropertyMetadata(1.0, OnDanmakuSizeZoomChanged));
+            DependencyProperty.Register(nameof(DanmakuSizeZoom), typeof(double), typeof(DanmakuView), new PropertyMetadata(1.0));
 
         /// <summary>
         /// <see cref="DanmakuDuration"/>的依赖属性.
@@ -50,20 +51,13 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(0d, OnDanmakuAreaChanged));
 
         private const string RootGridName = "RootGrid";
-        private const string CanvasName = "Canvas";
-        private const string ScrollContainerName = "ScrollContainer";
-        private const string TopContainerName = "TopContainer";
-        private const string BottomContainerName = "BottomContainer";
-
-        private readonly List<Storyboard> _topBottomStoryList = new List<Storyboard>();
-        private readonly List<Storyboard> _scrollStoryList = new List<Storyboard>();
-        private readonly List<Storyboard> _positionStoryList = new List<Storyboard>();
+        private const string CanvasName = "DanmakuCanvas";
 
         private Grid _rootGrid;
-        private Canvas _canvas;
-        private Grid _topContainer;
-        private Grid _bottomContainer;
-        private Grid _scrollContainer;
+        private CanvasAnimatedControl _canvas;
+        private DanmakuFrostMaster _danmakuController;
+        private List<DanmakuItem> _cachedDanmakus;
+        private uint _currentTs;
 
         private bool _isApplyTemplate;
 

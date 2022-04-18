@@ -5,6 +5,7 @@ using System.ComponentModel;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
+using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -74,6 +75,7 @@ namespace Richasy.Bili.App.Pages.Overlay
                 }
             }
 
+            DanmakuViewModel.Instance.Reset();
             CoreViewModel.IsOverLayerExtendToTitleBar = false;
         }
 

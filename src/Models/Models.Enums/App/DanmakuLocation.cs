@@ -23,6 +23,11 @@ namespace Richasy.Bili.Models.Enums.App
         Bottom = 4,
 
         /// <summary>
+        /// 反向滚动弹幕.
+        /// </summary>
+        ReverseRolling = 6,
+
+        /// <summary>
         /// 定位弹幕Model7.
         /// </summary>
         Position = 7,
