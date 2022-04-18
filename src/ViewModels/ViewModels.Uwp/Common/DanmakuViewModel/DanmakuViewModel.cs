@@ -140,6 +140,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
+            IsDanmakuLimit = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuLimit, false);
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
 
             IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
@@ -194,6 +195,9 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(IsDanmakuMerge):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
+                    break;
+                case nameof(IsDanmakuLimit):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuLimit, IsDanmakuLimit);
                     break;
                 case nameof(IsDanmakuBold):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuBold, IsDanmakuBold);

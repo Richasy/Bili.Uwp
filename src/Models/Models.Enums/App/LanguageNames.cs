@@ -162,6 +162,7 @@ namespace Richasy.Bili.Models.Enums
         DanmakuSpeed,
         DanmakuFont,
         DanmakuMerge,
+        DanmakuAutoLimit,
         UseCloudShieldSettings,
         Episodes,
         UgcEpisode,

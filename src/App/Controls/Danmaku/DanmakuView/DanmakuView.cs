@@ -85,6 +85,12 @@ namespace Richasy.Bili.App.Controls
             instance._danmakuController?.SetIsTextBold(Convert.ToBoolean(e.NewValue));
         }
 
+        private static void OnIsDanmakuLimitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            instance._danmakuController?.SetAutoControlDensity((bool)e.NewValue);
+        }
+
         private DanmakuFontSize GetFontSize(double fontSize)
         {
             switch (fontSize)
@@ -110,7 +116,7 @@ namespace Richasy.Bili.App.Controls
             _rootGrid.Children.Add(_canvas);
             _danmakuController = new DanmakuFrostMaster(_canvas);
 
-            _danmakuController.SetAutoControlDensity(false);
+            _danmakuController.SetAutoControlDensity(IsDanmakuLimit);
             _danmakuController.SetRollingDensity(-1);
             _danmakuController.SetBorderColor(Colors.Gray);
             _danmakuController.SetRollingAreaRatio(Convert.ToInt32(DanmakuArea * 10));

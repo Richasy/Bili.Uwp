@@ -82,6 +82,12 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         public ObservableCollection<string> FontCollection { get; set; }
 
         /// <summary>
+        /// 是否启用同屏弹幕限制.
+        /// </summary>
+        [Reactive]
+        public bool IsDanmakuLimit { get; set; }
+
+        /// <summary>
         /// 是否启用弹幕合并.
         /// </summary>
         [Reactive]

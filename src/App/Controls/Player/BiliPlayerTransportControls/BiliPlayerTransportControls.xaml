@@ -377,6 +377,7 @@
                                 DanmakuDuration="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuSpeed}"
                                 DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
                                 DanmakuSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFontSize}"
+                                IsDanmakuLimit="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsDanmakuLimit}"
                                 Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </Grid>

@@ -491,7 +491,7 @@ namespace Atelier39
         {
             try
             {
-                var danmakuItem = new DanmakuItem
+                var danmakuItem = new DanmakuItem()
                 {
                     Id = (ulong)danmakuElem.Id,
                     HasBorder = false,

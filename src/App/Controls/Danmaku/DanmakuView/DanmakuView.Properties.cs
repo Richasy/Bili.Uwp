@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Atelier39;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -42,6 +43,12 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty DanmakuAreaProperty =
             DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(0d, OnDanmakuAreaChanged));
+
+        /// <summary>
+        /// <see cref="IsDanmakuLimit"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsDanmakuLimitProperty =
+            DependencyProperty.Register(nameof(IsDanmakuLimit), typeof(bool), typeof(DanmakuView), new PropertyMetadata(default, OnIsDanmakuLimitChanged));
 
         private const string RootGridName = "RootGrid";
 
@@ -96,6 +103,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (double)GetValue(DanmakuAreaProperty); }
             set { SetValue(DanmakuAreaProperty, value); }
+        }
+
+        /// <summary>
+        /// 自动限制同屏弹幕数.
+        /// </summary>
+        public bool IsDanmakuLimit
+        {
+            get { return (bool)GetValue(IsDanmakuLimitProperty); }
+            set { SetValue(IsDanmakuLimitProperty, value); }
         }
     }
 }

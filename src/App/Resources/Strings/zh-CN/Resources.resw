@@ -368,6 +368,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="DanmakuArea" xml:space="preserve">
     <value>弹幕显示区域</value>
   </data>
+  <data name="DanmakuAutoLimit" xml:space="preserve">
+    <value>自动限制同屏弹幕数</value>
+  </data>
   <data name="DanmakuBold" xml:space="preserve">
     <value>弹幕加粗</value>
   </data>

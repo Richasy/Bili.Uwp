@@ -57,6 +57,7 @@
             SelectedItem="{x:Bind ViewModel.DanmakuFont, Mode=TwoWay}" />
         <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuMerge}" IsOn="{x:Bind ViewModel.IsDanmakuMerge, Mode=TwoWay}" />
         <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuBold}" IsOn="{x:Bind ViewModel.IsDanmakuBold, Mode=TwoWay}" />
-        <ToggleSwitch Header="{loc:LocaleLocator Name=UseCloudShieldSettings}" IsOn="{x:Bind ViewModel.UseCloudShieldSettings, Mode=TwoWay}" />
+        <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuAutoLimit}" IsOn="{x:Bind ViewModel.IsDanmakuLimit, Mode=TwoWay}" />
+        <!--<ToggleSwitch Header="{loc:LocaleLocator Name=UseCloudShieldSettings}" IsOn="{x:Bind ViewModel.UseCloudShieldSettings, Mode=TwoWay}" />-->
     </StackPanel>
 </UserControl>
