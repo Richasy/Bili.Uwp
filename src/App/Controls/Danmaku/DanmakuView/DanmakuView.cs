@@ -26,7 +26,7 @@ namespace Richasy.Bili.App.Controls
         }
 
         /// <inheritdoc/>
-        protected override async void OnApplyTemplate()
+        protected override void OnApplyTemplate()
         {
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
 

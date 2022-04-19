@@ -1135,9 +1135,9 @@
       <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
       <Name>Controller.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lib\ForstMaster.Uwp\ForstMaster.Uwp.csproj">
-      <Project>{B9CD5845-2DE3-40FC-BC0F-27C406929551}</Project>
-      <Name>ForstMaster.Uwp</Name>
+    <ProjectReference Include="..\Lib\FrostMaster.Uwp\FrostMaster.Uwp.csproj">
+      <Project>{b9cd5845-2de3-40fc-bc0f-27c406929551}</Project>
+      <Name>FrostMaster.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.App\Models.App.csproj">
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>

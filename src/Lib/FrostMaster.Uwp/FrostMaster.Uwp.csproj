@@ -7,8 +7,8 @@
     <ProjectGuid>{B9CD5845-2DE3-40FC-BC0F-27C406929551}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ForstMaster.Uwp</RootNamespace>
-    <AssemblyName>ForstMaster.Uwp</AssemblyName>
+    <RootNamespace>FrostMaster.Uwp</RootNamespace>
+    <AssemblyName>FrostMaster.Uwp</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
