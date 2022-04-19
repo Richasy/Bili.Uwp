@@ -522,11 +522,6 @@ namespace Richasy.Bili.Models.App.Constants
             public const string ComprehensiveSearch = _appBase + "/x/v2/search";
 
             /// <summary>
-            /// 子模块搜索，包括PGC，用户和文章.
-            /// </summary>
-            public const string SubModuleSearch = _appBase + "/x/v2/search/type";
-
-            /// <summary>
             /// 直播搜索.
             /// </summary>
             public const string LiveModuleSearch = _appBase + "/x/v2/search/live";
@@ -535,6 +530,19 @@ namespace Richasy.Bili.Models.App.Constants
             /// 搜索建议.
             /// </summary>
             public const string Suggestion = _grpcBase + "/bilibili.app.interface.v1.Search/Suggest3";
+
+            /// <summary>
+            /// 子模块搜索，包括PGC，用户和文章.
+            /// </summary>
+            /// <param name="proxy">代理服务器地址.</param>
+            /// <returns>API地址.</returns>
+            public static string SubModuleSearch(string proxy = "")
+            {
+                var prefix = string.IsNullOrEmpty(proxy)
+                    ? _appBase
+                    : proxy;
+                return prefix.TrimEnd('/') + "/x/v2/search/type";
+            }
         }
 
         public static class Community

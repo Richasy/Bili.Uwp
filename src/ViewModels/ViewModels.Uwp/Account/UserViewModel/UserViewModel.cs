@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bilibili.App.View.V1;
 using ReactiveUI;
@@ -27,6 +28,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         public UserViewModel(UserSearchItem item)
             : this(item.Title, item.Cover, item.UserId)
         {
+            item.Title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
             if (item.Relation != null)
             {
                 IsFollow = item.Relation.Status == 2 || item.Relation.Status == 4;

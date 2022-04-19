@@ -1199,6 +1199,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>
+  <data name="RoamingSearchAddress" xml:space="preserve">
+    <value>搜索代理</value>
+  </data>
   <data name="RoamingSetting" xml:space="preserve">
     <value>漫游设置</value>
   </data>

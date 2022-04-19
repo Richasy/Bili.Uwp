@@ -161,15 +161,21 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsGlobeProxy { get; set; }
 
         /// <summary>
-        /// 代理地址.
+        /// 播放代理地址.
         /// </summary>
         [Reactive]
         public string RoamingVideoAddress { get; set; }
 
         /// <summary>
-        /// 代理地址.
+        /// 详情代理地址.
         /// </summary>
         [Reactive]
         public string RoamingViewAddress { get; set; }
+
+        /// <summary>
+        /// 搜索代理地址.
+        /// </summary>
+        [Reactive]
+        public string RoamingSearchAddress { get; set; }
     }
 }

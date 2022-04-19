@@ -74,6 +74,7 @@ namespace Richasy.Bili.Models.Enums
         RoamingVideoAddress,
         IsGlobeProxy,
         RoamingViewAddress,
+        RoamingSearchAddress,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

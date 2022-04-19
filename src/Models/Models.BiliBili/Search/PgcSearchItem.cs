@@ -85,6 +85,6 @@ namespace Richasy.Bili.Models.BiliBili
         /// 投票人数.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "vote", Required = Required.Default)]
-        public int VoteNumber { get; set; }
+        public double VoteNumber { get; set; }
     }
 }

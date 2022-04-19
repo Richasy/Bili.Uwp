@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Other;
@@ -63,7 +64,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 cover = item.Cover;
             }
 
-            Title = item.Title;
+            Title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
             Description = item.Description;
             Publisher = new UserViewModel(item.Name, userId: item.UserId);
             ViewCount = _numberToolkit.GetCountText(item.ViewCount);

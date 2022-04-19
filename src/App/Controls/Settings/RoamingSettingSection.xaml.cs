@@ -63,6 +63,28 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        private void OnSearchAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var text = sender.Text;
+            if (string.IsNullOrEmpty(text?.Trim()))
+            {
+                sender.Text = ViewModel.RoamingSearchAddress;
+            }
+            else
+            {
+                if (Uri.IsWellFormedUriString(text.Trim(), UriKind.Absolute))
+                {
+                    ViewModel.RoamingSearchAddress = text.TrimEnd('/');
+                    ShowTip(LanguageNames.SetAddressSuccess, true);
+                }
+                else
+                {
+                    ShowTip(LanguageNames.InvalidAddress, false);
+                    sender.Text = ViewModel.RoamingSearchAddress;
+                }
+            }
+        }
+
         private void ShowTip(LanguageNames text, bool isSuccess)
         {
             var type = isSuccess

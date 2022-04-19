@@ -471,6 +471,7 @@ namespace Richasy.Bili.Models.Enums
         GlobeProxyDescription,
         FunctionIntroduce,
         SetAddressSuccess,
+        RoamingSearchAddress,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
