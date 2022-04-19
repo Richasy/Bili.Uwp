@@ -486,6 +486,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>想查看关注的UP主的动态吗？
 快登录吧！</value>
   </data>
+  <data name="EnterToEffect" xml:space="preserve">
+    <value>按下回车以生效</value>
+  </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
@@ -607,6 +610,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="GlobalPlaybackRateDescription" xml:space="preserve">
     <value>启用后，所有视频共用一个播放速率</value>
   </data>
+  <data name="GlobeProxy" xml:space="preserve">
+    <value>全局代理</value>
+  </data>
+  <data name="GlobeProxyDescription" xml:space="preserve">
+    <value>不论是否为地区限制的内容，都使用代理服务器解析</value>
+  </data>
   <data name="Grass" xml:space="preserve">
     <value>草绿色</value>
   </data>
@@ -672,6 +681,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="InternationalApp" xml:space="preserve">
     <value>国际应用</value>
+  </data>
+  <data name="InvalidAddress" xml:space="preserve">
+    <value>无效的地址</value>
   </data>
   <data name="InvalidUserNameOrPassword" xml:space="preserve">
     <value>用户名或密码错误</value>
@@ -1013,6 +1025,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="ProjectHomePage" xml:space="preserve">
     <value>项目主页</value>
   </data>
+  <data name="PublicServer" xml:space="preserve">
+    <value>公共服务器</value>
+  </data>
   <data name="PublisherApp" xml:space="preserve">
     <value>开发者的其它应用</value>
   </data>
@@ -1180,6 +1195,15 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
+  </data>
+  <data name="RoamingAddress" xml:space="preserve">
+    <value>漫游服务器地址</value>
+  </data>
+  <data name="RoamingSetting" xml:space="preserve">
+    <value>漫游设置</value>
+  </data>
+  <data name="RoamingSettingDescription" xml:space="preserve">
+    <value>使用自定义的服务器进行代理，以解除地区限制（指定服务器后方可生效）</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>

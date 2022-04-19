@@ -61,6 +61,9 @@
     <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
       <DependentUpon>ViewLaterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\RoamingSettingSection.xaml.cs">
+      <DependentUpon>RoamingSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\ScreenshotSettingSection.xaml.cs">
       <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
     </Compile>
@@ -596,6 +599,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\Related\ViewLaterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\RoamingSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

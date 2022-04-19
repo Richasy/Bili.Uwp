@@ -106,13 +106,19 @@ namespace Richasy.Bili.Lib.Uwp
             return data.Result;
         }
 
-        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId)
+        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId, string area)
         {
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.AutoPlay, "0" },
                 { Query.IsShowAllSeries, "0" },
             };
+
+            if (!string.IsNullOrEmpty(area))
+            {
+                queryParameters.Add(Query.Area, area);
+            }
+
             if (episodeId > 0)
             {
                 queryParameters.Add(Query.EpisodeId, episodeId.ToString());

@@ -84,8 +84,10 @@ namespace Richasy.Bili.App.Controls
                 var mainModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
                 var dataModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleStat).FirstOrDefault()?.ModuleStat;
 
+                UserViewModel publisher = null;
                 if (userModule != null)
                 {
+                    publisher = new UserViewModel(userModule.Author.Name, userModule.Author.Face, Convert.ToInt32(userModule.Mid));
                     instance.UserAvatar.Avatar = userModule.Author.Face;
                     instance.UserAvatar.UserName = userModule.Author.Name;
                     instance.UserNameBlock.Text = userModule.Author.Name;
@@ -122,7 +124,9 @@ namespace Richasy.Bili.App.Controls
                     else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArchive)
                     {
                         instance.AddViewLaterButton.IsEnabled = !mainModule.DynArchive.IsPGC;
-                        instance.MainContentPresenter.Content = new VideoViewModel(mainModule.DynArchive);
+                        var vm = new VideoViewModel(mainModule.DynArchive);
+                        vm.Publisher = publisher;
+                        instance.MainContentPresenter.Content = vm;
                         instance.MainContentPresenter.ContentTemplate = instance.VideoTemplate;
                     }
                 }
