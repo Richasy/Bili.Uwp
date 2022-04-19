@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
@@ -68,8 +67,6 @@ namespace Richasy.Bili.App.Controls
         private const string VisibilityStateGroupName = "ControlPanelVisibilityStates";
         private const string FormatButtonName = "FormatButtonName";
         private const string LiveQualityButtonName = "LiveQualityButtonName";
-
-        private readonly Dictionary<int, List<DanmakuModel>> _danmakuDictionary;
 
         private DispatcherTimer _danmakuTimer;
         private DispatcherTimer _cursorTimer;

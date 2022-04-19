@@ -22,7 +22,7 @@ namespace Richasy.Bili.Models.Enums
         DefaultVideoFormat,
         IsShowDanmaku,
         DanmakuOpacity,
-        DanmakuZoom,
+        DanmakuFontSize,
         DanmakuDensity,
         DanmakuFont,
         IsDanmakuMerge,
@@ -69,6 +69,7 @@ namespace Richasy.Bili.Models.Enums
         IsFirstClickTag,
         IsAutoPlayNextRelatedVideo,
         IsLiveAudioOnly,
+        IsDanmakuLimit,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

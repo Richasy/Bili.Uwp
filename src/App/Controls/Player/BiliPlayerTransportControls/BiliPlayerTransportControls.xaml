@@ -364,23 +364,29 @@
                                 ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CoverUrl}" />
                         </Grid>
 
-                        <Rectangle
-                            x:Name="InteractionControl"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Fill="Transparent" />
-                        <Grid x:Name="DanmakuContainer" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.CanShowDanmaku}">
+                        <Grid
+                            x:Name="DanmakuContainer"
+                            Margin="-12,0"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.CanShowDanmaku}">
                             <local:DanmakuView
                                 x:Name="DanmakuView"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 DanmakuArea="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuArea}"
                                 DanmakuBold="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsDanmakuBold}"
+                                DanmakuDuration="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuSpeed}"
                                 DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
-                                DanmakuStyle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuStyle}"
+                                DanmakuSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFontSize}"
+                                IsDanmakuLimit="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsDanmakuLimit}"
                                 Opacity="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuOpacity}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsShowDanmaku, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </Grid>
+
+                        <Rectangle
+                            x:Name="InteractionControl"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent" />
 
                         <StackPanel VerticalAlignment="Bottom" Spacing="6">
                             <Grid x:Name="SubtitleContainer" HorizontalAlignment="Center">

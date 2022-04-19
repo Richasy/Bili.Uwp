@@ -368,6 +368,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="DanmakuArea" xml:space="preserve">
     <value>弹幕显示区域</value>
   </data>
+  <data name="DanmakuAutoLimit" xml:space="preserve">
+    <value>自动限制同屏弹幕数</value>
+  </data>
   <data name="DanmakuBold" xml:space="preserve">
     <value>弹幕加粗</value>
   </data>
@@ -382,6 +385,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="DanmakuFont" xml:space="preserve">
     <value>弹幕字体</value>
+  </data>
+  <data name="DanmakuFontSize" xml:space="preserve">
+    <value>弹幕大小</value>
   </data>
   <data name="DanmakuMerge" xml:space="preserve">
     <value>弹幕合并</value>
@@ -683,6 +689,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Khaki" xml:space="preserve">
     <value>土黄色</value>
   </data>
+  <data name="Large" xml:space="preserve">
+    <value>大</value>
+  </data>
   <data name="Lastest" xml:space="preserve">
     <value>最新</value>
   </data>
@@ -740,8 +749,14 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Manual" xml:space="preserve">
     <value>手动</value>
   </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>最大</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>消息</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>最小</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>

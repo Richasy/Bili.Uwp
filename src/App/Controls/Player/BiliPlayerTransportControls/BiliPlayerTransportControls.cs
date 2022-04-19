@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Atelier39;
 using Bilibili.Community.Service.Dm.V1;
-using Richasy.Bili.App.Resources.Extension;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
@@ -34,7 +34,6 @@ namespace Richasy.Bili.App.Controls
         {
             DefaultStyleKey = typeof(BiliPlayerTransportControls);
             ShowAndHideAutomatically = false;
-            _danmakuDictionary = new Dictionary<int, List<DanmakuModel>>();
             _segmentIndex = 1;
             Instance = this;
             SizeChanged += OnSizeChanged;
@@ -165,15 +164,13 @@ namespace Richasy.Bili.App.Controls
 
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
-            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
 
-            CheckCurrentPlayerMode();
-            CheckDanmakuZoom();
+            CheckCurrentPlayerModeAsync();
             CheckSubtitleZoom();
 
             base.OnApplyTemplate();
@@ -224,15 +221,17 @@ namespace Richasy.Bili.App.Controls
 
         private void OnSendDanmakuSucceeded(object sender, string e)
         {
-            var model = new DanmakuModel
+            var model = new DanmakuItem
             {
-                Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(DanmakuViewModel.Color),
-                Size = DanmakuViewModel.IsStandardSize ? 25 : 18,
+                StartMs = (uint)ViewModel.BiliPlayer.MediaPlayer.PlaybackSession.Position.TotalMilliseconds,
+                Mode = (DanmakuMode)((int)DanmakuViewModel.Location),
+                TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(DanmakuViewModel.Color),
+                BaseFontSize = DanmakuViewModel.IsStandardSize ? 25 : 18,
                 Text = e,
-                Location = DanmakuViewModel.Location,
+                HasOutline = true,
             };
 
-            _danmakuView.AddScreenDanmaku(model, true);
+            _danmakuView.SendDanmu(model);
         }
 
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
@@ -254,7 +253,17 @@ namespace Richasy.Bili.App.Controls
             {
                 var myName = AccountViewModel.Instance.DisplayName;
                 var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
-                _danmakuView.AddLiveDanmakuAsync(e.Text, isOwn, e.ContentColor?.ToColor());
+                var model = new DanmakuItem
+                {
+                    StartMs = 0,
+                    Mode = DanmakuMode.Rolling,
+                    TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(e.ContentColor ?? "#FFFFFF"),
+                    BaseFontSize = DanmakuViewModel.IsStandardSize ? 25 : 18,
+                    Text = e.Text,
+                    HasOutline = isOwn,
+                };
+
+                _danmakuView.SendDanmu(model);
             }
         }
 
@@ -435,7 +444,7 @@ namespace Richasy.Bili.App.Controls
         private async void OnScreenshotButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ScreenshotAsync();
 
-        private void CheckCurrentPlayerMode()
+        private async void CheckCurrentPlayerModeAsync()
         {
             switch (ViewModel.PlayerDisplayMode)
             {
@@ -471,6 +480,8 @@ namespace Richasy.Bili.App.Controls
             _backToDefaultButton.Visibility = ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default
                 ? Visibility.Visible
                 : Visibility.Collapsed;
+
+            await _danmakuView.RedrawAsync();
         }
 
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
@@ -482,13 +493,8 @@ namespace Richasy.Bili.App.Controls
         private void OnRequestClearDanmaku(object sender, EventArgs e)
         {
             _segmentIndex = 1;
-            _danmakuDictionary.Clear();
             _danmakuTimer.Stop();
-
-            if (_danmakuView != null)
-            {
-                _danmakuView.ClearAll();
-            }
+            _danmakuView?.ClearAll();
         }
 
         private void OnMediaPlayerUdpated(object sender, EventArgs e)
@@ -497,22 +503,6 @@ namespace Richasy.Bili.App.Controls
             if (player != null && player.PlaybackSession != null)
             {
                 player.PlaybackSession.PlaybackStateChanged += OnPlaybackStateChangedAsync;
-            }
-        }
-
-        private void OnDanmakuViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(DanmakuViewModel.DanmakuZoom))
-            {
-                CheckDanmakuZoom();
-            }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
-            {
-                _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
-            }
-            else if (e.PropertyName == nameof(DanmakuViewModel.DanmakuSpeed) && _danmakuView != null)
-            {
-                _danmakuView.DanmakuDuration = Convert.ToInt32((2.1 - DanmakuViewModel.DanmakuSpeed) * 10);
             }
         }
 
@@ -550,7 +540,7 @@ namespace Richasy.Bili.App.Controls
             }
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))
             {
-                CheckCurrentPlayerMode();
+                CheckCurrentPlayerModeAsync();
             }
         }
 
@@ -603,7 +593,7 @@ namespace Richasy.Bili.App.Controls
             if (_danmakuTimer == null)
             {
                 _danmakuTimer = new DispatcherTimer();
-                _danmakuTimer.Interval = TimeSpan.FromSeconds(1);
+                _danmakuTimer.Interval = TimeSpan.FromSeconds(0.5);
                 _danmakuTimer.Tick += OnDanmkuTimerTickAsync;
             }
         }
@@ -639,81 +629,14 @@ namespace Richasy.Bili.App.Controls
         }
 
         private void InitializeDanmaku(List<DanmakuElem> elements)
-        {
-            var list = new List<DanmakuModel>();
-            foreach (var item in elements)
-            {
-                var location = DanmakuLocation.Scroll;
-                if (item.Mode == 4)
-                {
-                    location = DanmakuLocation.Bottom;
-                }
-                else if (item.Mode == 5)
-                {
-                    location = DanmakuLocation.Top;
-                }
-
-                var newDm = new DanmakuModel()
-                {
-                    Color = item.Color.ToString().ToColor(),
-                    Location = location,
-                    Pool = item.Pool.ToString(),
-                    Id = item.IdStr,
-                    SendId = item.MidHash,
-                    Size = item.Fontsize,
-                    Weight = item.Weight,
-                    Text = item.Content,
-                    SendTime = item.Ctime.ToString(),
-                    Time = item.Progress / 1000,
-                };
-
-                list.Add(newDm);
-            }
-
-            var group = list.GroupBy(p => p.Time).ToDictionary(x => x.Key, x => x.ToList());
-            foreach (var g in group)
-            {
-                if (_danmakuDictionary.ContainsKey(g.Key))
-                {
-                    _danmakuDictionary[g.Key] = _danmakuDictionary[g.Key].Concat(g.Value).ToList();
-                }
-                else
-                {
-                    _danmakuDictionary.Add(g.Key, g.Value);
-                }
-            }
-        }
+            => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(elements, DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            CheckDanmakuZoom();
             CheckSubtitleZoom();
 
             DanmakuViewModel.CanShowDanmaku = e.NewSize.Width >= 480;
             IsCompact = e.NewSize.Width < 480;
-        }
-
-        private void CheckDanmakuZoom()
-        {
-            if (ActualWidth == 0 || ActualHeight == 0 || _danmakuView == null)
-            {
-                return;
-            }
-
-            var baseWidth = 800d;
-            var baseHeight = 600d;
-            var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
-            if (scale > 1)
-            {
-                scale = 1;
-            }
-            else if (scale < 0.4)
-            {
-                scale = 0.4;
-            }
-
-            scale *= DanmakuViewModel.DanmakuZoom;
-            _danmakuView.DanmakuSizeZoom = scale;
         }
 
         private void CheckSubtitleZoom()
@@ -755,10 +678,23 @@ namespace Richasy.Bili.App.Controls
             var position = player.PlaybackSession.Position.TotalSeconds;
 
             var segmentIndex = Convert.ToInt32(Math.Ceiling(position / 360d));
-            if (segmentIndex > _segmentIndex)
+            if (segmentIndex < 1)
             {
+                segmentIndex = 1;
+            }
+
+            if (segmentIndex != _segmentIndex)
+            {
+                var oldSegmentIndex = _segmentIndex;
                 _segmentIndex = segmentIndex;
-                DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                try
+                {
+                    await DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                }
+                catch (Exception)
+                {
+                    _segmentIndex = oldSegmentIndex;
+                }
             }
 
             if (player.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
@@ -766,49 +702,10 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            try
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var positionInt = Convert.ToInt32(position);
-                if (_danmakuDictionary.ContainsKey(positionInt))
-                {
-                    var data = _danmakuDictionary[positionInt];
-
-                    if (DanmakuViewModel.IsDanmakuMerge)
-                    {
-                        data = data.Distinct(new DanmakuModelComparer()).ToList();
-                    }
-
-                    if (DanmakuViewModel.UseCloudShieldSettings && DanmakuViewModel.DanmakuConfig != null)
-                    {
-                        var isUseDefault = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuPlayerConfig.PlayerDanmakuUseDefaultConfig;
-                        var defaultConfig = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuDefaultPlayerConfig;
-                        var customCofig = DanmakuViewModel.DanmakuConfig.PlayerConfig.DanmukuPlayerConfig;
-
-                        var isSheldLevel = isUseDefault ?
-                                defaultConfig.PlayerDanmakuAiRecommendedSwitch : customCofig.PlayerDanmakuAiRecommendedSwitch;
-
-                        if (isSheldLevel)
-                        {
-                            var shieldLevel = isUseDefault ?
-                                defaultConfig.PlayerDanmakuAiRecommendedLevel : customCofig.PlayerDanmakuAiRecommendedLevel;
-                            data = data.Where(p => p.Weight >= shieldLevel).ToList();
-                        }
-
-                        var list = DanmakuViewModel.DanmakuConfig.ReportFilterContent.ToList();
-                    }
-
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                    {
-                        foreach (var item in data)
-                        {
-                            _danmakuView?.AddScreenDanmaku(item, false);
-                        }
-                    });
-                }
-            }
-            catch (Exception)
-            {
-            }
+                _danmakuView.UpdateTime(Convert.ToUInt32(position * 1000));
+            });
         }
 
         private void OnCursorTimerTickAsync(object sender, object e)

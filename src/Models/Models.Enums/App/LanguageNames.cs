@@ -156,12 +156,13 @@ namespace Richasy.Bili.Models.Enums
         DanmakuDisplaySettings,
         Parts,
         DanmakuOpacity,
-        DanmakuZoom,
+        DanmakuFontSize,
         DanmakuDensity,
         DanmakuArea,
         DanmakuSpeed,
         DanmakuFont,
         DanmakuMerge,
+        DanmakuAutoLimit,
         UseCloudShieldSettings,
         Episodes,
         UgcEpisode,
@@ -456,6 +457,9 @@ namespace Richasy.Bili.Models.Enums
         UnfixPgc,
         StoreComment,
         PublisherApp,
+        Minimum,
+        Maximum,
+        Large,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

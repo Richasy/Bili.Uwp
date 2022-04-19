@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 
 namespace Richasy.Bili.ViewModels.Uwp.Common
@@ -14,17 +15,15 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// 请求新分片弹幕.
         /// </summary>
         /// <param name="newSegmentIndex">新的分片索引.</param>
-        public async void RequestNewSegmentDanmakuAsync(int newSegmentIndex)
-        {
-            await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, newSegmentIndex);
-        }
+        /// <returns><see cref="Task"/>.</returns>
+        public Task RequestNewSegmentDanmakuAsync(int newSegmentIndex)
+            => Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, newSegmentIndex);
 
         private void OnSegmentDanmakuIteration(object sender, SegmentDanmakuIterationEventArgs e)
         {
             if (e.VideoId == _videoId && e.PartId == _partId)
             {
-                var list = e.DanmakuList.Where(p => p.Mode != 7).ToList();
-                list.ForEach(p => _danmakuList.Add(p));
+                var list = e.DanmakuList.ToList();
                 DanmakuListAdded?.Invoke(this, list);
             }
         }

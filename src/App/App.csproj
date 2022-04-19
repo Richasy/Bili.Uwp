@@ -181,8 +181,6 @@
       <DependentUpon>DanmakuBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Danmaku\DanmakuView\DanmakuView.cs" />
-    <Compile Include="Controls\Danmaku\DanmakuBuilder.cs" />
-    <Compile Include="Controls\Danmaku\DanmakuModel.cs" />
     <Compile Include="Controls\Danmaku\DanmakuView\DanmakuView.Methods.cs" />
     <Compile Include="Controls\Danmaku\DanmakuView\DanmakuView.Properties.cs" />
     <Compile Include="Controls\Danmaku\DanmakuDisplayOptions.xaml.cs">
@@ -422,8 +420,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\ColorConverter.cs" />
+    <Compile Include="Resources\Converter\DanmakuFontSizeConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
-    <Compile Include="Resources\Converter\DanmakuStyleConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
@@ -442,7 +440,6 @@
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
-    <Compile Include="Resources\Extension\DanmakuModelComparer.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
     <Compile Include="Resources\Extension\VisualTreeExtension.cs" />
   </ItemGroup>
@@ -1137,6 +1134,10 @@
     <ProjectReference Include="..\Controller\Controller.Uwp\Controller.Uwp.csproj">
       <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
       <Name>Controller.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\FrostMaster.Uwp\FrostMaster.Uwp.csproj">
+      <Project>{b9cd5845-2de3-40fc-bc0f-27c406929551}</Project>
+      <Name>FrostMaster.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.App\Models.App.csproj">
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>

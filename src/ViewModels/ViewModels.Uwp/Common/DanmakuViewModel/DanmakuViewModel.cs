@@ -81,10 +81,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// 重置.
         /// </summary>
         public void Reset()
-        {
-            _danmakuList.Clear();
-            RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
-        }
+            => RequestClearDanmaku?.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// 发送弹幕.
@@ -131,21 +128,19 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
 
         private void Initialize()
         {
-            _danmakuList = new List<DanmakuElem>();
             FontCollection = new ObservableCollection<string>();
-            StyleCollection = new ObservableCollection<Models.Enums.App.DanmakuStyle>();
             LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
             ColorCollection = new ObservableCollection<KeyValue<string>>();
 
             IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
             DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
-            DanmakuZoom = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuZoom, 1d);
-            DanmakuDensity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuDensity, 400d);
+            DanmakuFontSize = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFontSize, 1.5d);
             DanmakuArea = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuArea, 1d);
             DanmakuSpeed = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuSpeed, 1d);
             DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
+            IsDanmakuLimit = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuLimit, false);
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
 
             IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
@@ -156,10 +151,6 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             FontCollection.Clear();
             var fontList = _fontToolkit.GetSystemFontList();
             fontList.ForEach(p => FontCollection.Add(p));
-
-            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Stroke);
-            StyleCollection.Add(Models.Enums.App.DanmakuStyle.Shadow);
-            StyleCollection.Add(Models.Enums.App.DanmakuStyle.NoStroke);
 
             LocationCollection.Add(Models.Enums.App.DanmakuLocation.Scroll);
             LocationCollection.Add(Models.Enums.App.DanmakuLocation.Top);
@@ -176,7 +167,6 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
             ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Purple), "#4266BE"));
             ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.LightBlue), "#89D5FF"));
 
-            DanmakuStyle = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuStyle, Models.Enums.App.DanmakuStyle.Shadow);
             Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
             Color = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuColor, ColorCollection.First().Value);
         }
@@ -191,11 +181,8 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                 case nameof(DanmakuOpacity):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuOpacity, DanmakuOpacity);
                     break;
-                case nameof(DanmakuZoom):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuZoom, DanmakuZoom);
-                    break;
-                case nameof(DanmakuDensity):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuDensity, DanmakuDensity);
+                case nameof(DanmakuFontSize):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuFontSize, DanmakuFontSize);
                     break;
                 case nameof(DanmakuArea):
                     _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuArea, DanmakuArea);
@@ -209,14 +196,14 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
                 case nameof(IsDanmakuMerge):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
                     break;
+                case nameof(IsDanmakuLimit):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuLimit, IsDanmakuLimit);
+                    break;
                 case nameof(IsDanmakuBold):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuBold, IsDanmakuBold);
                     break;
                 case nameof(UseCloudShieldSettings):
                     _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);
-                    break;
-                case nameof(DanmakuStyle):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuStyle, DanmakuStyle);
                     break;
                 case nameof(IsStandardSize):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuStandardSize, IsStandardSize);
