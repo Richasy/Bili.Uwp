@@ -468,6 +468,7 @@ namespace Richasy.Bili.Models.Enums
         PublicServer,
         GlobeProxy,
         GlobeProxyDescription,
+        FunctionIntroduce,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

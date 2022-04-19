@@ -598,6 +598,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="FullWindowMode" xml:space="preserve">
     <value>全窗口模式</value>
   </data>
+  <data name="FunctionIntroduce" xml:space="preserve">
+    <value>功能说明</value>
+  </data>
   <data name="GenerateCommand" xml:space="preserve">
     <value>生成命令</value>
   </data>

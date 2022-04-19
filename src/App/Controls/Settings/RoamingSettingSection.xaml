@@ -51,8 +51,8 @@
                         <StackPanel>
                             <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingAddress}" />
                             <TextBlock FontSize="12">
-                                <Hyperlink NavigateUri="https://github.com/yujincheng08/BiliRoaming/wiki/%E5%85%AC%E5%85%B1%E8%A7%A3%E6%9E%90%E6%9C%8D%E5%8A%A1%E5%99%A8">
-                                    <Run Text="{loc:LocaleLocator Name=PublicServer}" />
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
+                                    <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
