@@ -56,17 +56,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = archive;
             LimitCover(archive.Cover);
 
-            if (archive.IsPGC)
-            {
-                VideoType = Models.Enums.VideoType.Pgc;
-                var episodeId = new Uri(archive.Uri).Segments.Last().Replace("ep", string.Empty);
-                VideoId = episodeId;
-            }
-            else
-            {
-                VideoType = Models.Enums.VideoType.Video;
-                VideoId = archive.Avid.ToString();
-            }
+            VideoType = archive.IsPGC ? Models.Enums.VideoType.Pgc : Models.Enums.VideoType.Video;
+            VideoId = archive.Avid.ToString();
         }
 
         /// <summary>
@@ -391,6 +382,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             ServiceLocator.Instance.LoadService(out _numberToolkit);
             VideoType = Models.Enums.VideoType.Video;
         }
+
+        /// <summary>
+        /// 是否为地区限制番剧 (在哔哩哔哩番剧出差账户下的视频).
+        /// </summary>
+        /// <returns>检查结果.</returns>
+        internal bool IsRegionalAnime()
+            => Publisher != null && Publisher.Id == AppConstants.RegionalAnimeUserId;
 
         /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.

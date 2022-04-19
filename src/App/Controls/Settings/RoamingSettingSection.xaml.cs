@@ -2,6 +2,7 @@
 
 using System;
 using Richasy.Bili.Locator.Uwp;
+using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 
@@ -18,26 +19,57 @@ namespace Richasy.Bili.App.Controls
         public RoamingSettingSection()
             => InitializeComponent();
 
-        private void OnAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+        private void OnVideoAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             var text = sender.Text;
             if (string.IsNullOrEmpty(text?.Trim()))
             {
-                sender.Text = ViewModel.RoamingAddress;
+                sender.Text = ViewModel.RoamingVideoAddress;
             }
             else
             {
                 if (Uri.IsWellFormedUriString(text.Trim(), UriKind.Absolute))
                 {
-                    ViewModel.RoamingAddress = text.TrimEnd('/');
+                    ViewModel.RoamingVideoAddress = text.TrimEnd('/');
+                    ShowTip(LanguageNames.SetAddressSuccess, true);
                 }
                 else
                 {
-                    var tip = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(Models.Enums.LanguageNames.InvalidAddress);
-                    AppViewModel.Instance.ShowTip(tip, Models.Enums.App.InfoType.Error);
-                    sender.Text = ViewModel.RoamingAddress;
+                    ShowTip(LanguageNames.InvalidAddress, false);
+                    sender.Text = ViewModel.RoamingVideoAddress;
                 }
             }
+        }
+
+        private void OnViewAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var text = sender.Text;
+            if (string.IsNullOrEmpty(text?.Trim()))
+            {
+                sender.Text = ViewModel.RoamingViewAddress;
+            }
+            else
+            {
+                if (Uri.IsWellFormedUriString(text.Trim(), UriKind.Absolute))
+                {
+                    ViewModel.RoamingViewAddress = text.TrimEnd('/');
+                    ShowTip(LanguageNames.SetAddressSuccess, true);
+                }
+                else
+                {
+                    ShowTip(LanguageNames.InvalidAddress, false);
+                    sender.Text = ViewModel.RoamingViewAddress;
+                }
+            }
+        }
+
+        private void ShowTip(LanguageNames text, bool isSuccess)
+        {
+            var type = isSuccess
+                ? Models.Enums.App.InfoType.Success
+                : Models.Enums.App.InfoType.Error;
+            var tip = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(text);
+            AppViewModel.Instance.ShowTip(tip, type);
         }
     }
 }

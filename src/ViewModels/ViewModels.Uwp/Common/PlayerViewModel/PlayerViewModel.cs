@@ -173,6 +173,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var isReleated = false;
             var type = VideoType.Video;
             var title = string.Empty;
+            var needBiliPlus = false;
             IsPv = false;
 
             CurrentPlayingRecord record = null;
@@ -222,6 +223,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     IsRelated = isReleated,
                     Title = title,
+                    NeedBiliPlus = needBiliPlus,
                 };
             }
 
@@ -235,9 +237,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 title = internalVM.Title;
 
                 // 番剧出差账户作为特例，将被归为番剧.
-                if (internalVM.Publisher?.Id == 11783021)
+                if (internalVM.IsRegionalAnime())
                 {
                     type = VideoType.Pgc;
+                    needBiliPlus = true;
                 }
 
                 if (ViewLaterVideoCollection.Contains(internalVM))
@@ -300,6 +303,22 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadVideoDetailAsync(videoId, isRefresh);
                     break;
                 case VideoType.Pgc:
+                    if (record.NeedBiliPlus)
+                    {
+                        // 先通过 BiliPlus 获取真实剧集信息.
+                        IsDetailLoading = true;
+                        var data = await Controller.GetBiliPlusBangumiAsync(record.VideoId);
+                        if (data != null)
+                        {
+                            var epId = data.PlayUrl.Split('/').Last();
+                            videoId = !string.IsNullOrEmpty(epId) && epId.Contains("ep")
+                                ? epId.Replace("ep", string.Empty)
+                                : string.Empty;
+                            seasonId = Convert.ToInt32(data.SeasonId);
+                            record.Title = data.Title;
+                        }
+                    }
+
                     await LoadPgcDetailAsync(string.IsNullOrEmpty(videoId) ? 0 : Convert.ToInt32(videoId), seasonId, isRefresh, record.Title);
                     break;
                 case VideoType.Live:
@@ -468,8 +487,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             try
             {
                 IsPlayInformationLoading = true;
-                var proxyPack = GetProxyAndArea(_pgcDetail?.Title);
-                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType), proxyPack.Item1, proxyPack.Item2);
+                var proxyPack = GetProxyAndArea(_pgcDetail?.Title, true);
+                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, CurrentPgcEpisode.Id, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType), proxyPack.Item1, proxyPack.Item2);
                 if (play != null && play.VideoInformation != null)
                 {
                     _playerInformation = play;

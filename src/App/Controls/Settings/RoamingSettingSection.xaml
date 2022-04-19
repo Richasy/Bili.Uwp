@@ -49,7 +49,7 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <StackPanel>
-                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingAddress}" />
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingVideoAddress}" />
                             <TextBlock FontSize="12">
                                 <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
                                     <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
@@ -63,8 +63,30 @@
                             VerticalAlignment="Center"
                             PlaceholderText="{loc:LocaleLocator Name=EnterToEffect}"
                             QueryIcon="Save"
-                            QuerySubmitted="OnAddressBoxSubmitted"
-                            Text="{x:Bind ViewModel.RoamingAddress, Mode=OneWay}" />
+                            QuerySubmitted="OnVideoAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingVideoAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingViewAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
+                                    <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:LocaleLocator Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnViewAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingViewAddress, Mode=OneWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
             </exp:ExpanderExMenuPanel>

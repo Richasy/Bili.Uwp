@@ -58,5 +58,10 @@ namespace Richasy.Bili.Models.App.Other
         /// 标题.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// 是否需要借助 BiliPlus 服务获取视频对应的剧集信息.
+        /// </summary>
+        public bool NeedBiliPlus { get; set; }
     }
 }

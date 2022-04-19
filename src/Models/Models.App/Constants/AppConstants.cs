@@ -32,6 +32,11 @@ namespace Richasy.Bili.Models.App.Constants
         public const string FixedContentFileName = "User-{0}.json";
 
         public const string ScreenshotFolderName = "Bili Screenshots";
+
+        /// <summary>
+        /// 哔哩哔哩番剧出差账户Id.
+        /// </summary>
+        public const int RegionalAnimeUserId = 11783021;
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

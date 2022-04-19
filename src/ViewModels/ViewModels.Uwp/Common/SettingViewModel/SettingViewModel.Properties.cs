@@ -164,6 +164,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 代理地址.
         /// </summary>
         [Reactive]
-        public string RoamingAddress { get; set; }
+        public string RoamingVideoAddress { get; set; }
+
+        /// <summary>
+        /// 代理地址.
+        /// </summary>
+        [Reactive]
+        public string RoamingViewAddress { get; set; }
     }
 }
