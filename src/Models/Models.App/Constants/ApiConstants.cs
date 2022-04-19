@@ -370,6 +370,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string PageDetail = _apiBase + "/pgc/page";
 
             /// <summary>
+            /// 剧集详情.
+            /// </summary>
+            public const string SeasonDetail = _apiBase + "/pgc/view/v2/app/season";
+
+            /// <summary>
+            /// 剧集播放信息.
+            /// </summary>
+            public const string PlayInformation = _apiBase + "/pgc/player/web/playurl";
+
+            /// <summary>
             /// 分集交互信息.
             /// </summary>
             public const string EpisodeInteraction = _apiBase + "/pgc/season/episode/community";
@@ -403,32 +413,6 @@ namespace Richasy.Bili.Models.App.Constants
             /// 播放列表.
             /// </summary>
             public const string PlayList = _apiBase + "/pgc/web/playlist";
-
-            /// <summary>
-            /// 剧集详情.
-            /// </summary>
-            /// <param name="proxy">代理服务器地址.</param>
-            /// <returns>API地址.</returns>
-            public static string SeasonDetail(string proxy = "")
-            {
-                var prefix = string.IsNullOrEmpty(proxy)
-                    ? _apiBase
-                    : proxy;
-                return prefix.TrimEnd('/') + "/pgc/view/v2/app/season";
-            }
-
-            /// <summary>
-            /// 剧集播放信息.
-            /// </summary>
-            /// <param name="proxy">代理服务器地址.</param>
-            /// <returns>API地址.</returns>
-            public static string PlayInformation(string proxy = "")
-            {
-                var prefix = string.IsNullOrEmpty(proxy)
-                    ? _apiBase
-                    : proxy;
-                return prefix.TrimEnd('/') + "/pgc/player/web/playurl";
-            }
         }
 
         public static class Video

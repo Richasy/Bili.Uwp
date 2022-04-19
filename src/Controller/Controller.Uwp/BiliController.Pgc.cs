@@ -156,10 +156,8 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="episodeId">单集Id.</param>
         /// <param name="seasonId">剧集/系列Id.</param>
-        /// <param name="proxy">代理地址.</param>
-        /// <param name="area">地区.</param>
         /// <returns>详细内容.</returns>
-        public async Task<PgcDisplayInformation> GetPgcDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
+        public async Task<PgcDisplayInformation> GetPgcDisplayInformationAsync(int episodeId = 0, int seasonId = 0)
         {
             if (episodeId < 0 || seasonId < 0)
             {
@@ -173,7 +171,7 @@ namespace Richasy.Bili.Controller.Uwp
 
             try
             {
-                return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId, proxy, area);
+                return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId);
             }
             catch (Exception ex)
             {

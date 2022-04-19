@@ -47,10 +47,8 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="episodeId">(可选项) 单集Id.</param>
         /// <param name="seasonId">(可选项) 剧集/系列Id.</param>
-        /// <param name="proxy">代理地址.</param>
-        /// <param name="area">地区.</param>
         /// <returns>PGC内容详情.</returns>
-        Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "");
+        Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0);
 
         /// <summary>
         /// 获取分集的交互信息，包括用户的投币/点赞/收藏.

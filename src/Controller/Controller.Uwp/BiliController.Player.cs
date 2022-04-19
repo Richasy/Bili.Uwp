@@ -62,12 +62,10 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="partId">分集Id.</param>
         /// <param name="seasonType">剧集类型.</param>
-        /// <param name="proxy">代理地址.</param>
-        /// <param name="area">地区.</param>
         /// <returns>播放信息.</returns>
-        public async Task<PlayerInformation> GetPgcPlayInformationAsync(int partId, int seasonType, string proxy = "", string area = "")
+        public async Task<PlayerInformation> GetPgcPlayInformationAsync(int partId, int seasonType)
         {
-            var result = await _playerProvider.GetDashAsync(partId, seasonType, proxy, area);
+            var result = await _playerProvider.GetDashAsync(partId, seasonType);
             return result;
         }
 

@@ -64,7 +64,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 new KeyValue<string>("FFmpeg", "https://github.com/FFmpeg/FFmpeg"),
                 new KeyValue<string>("FFmpegInteropX", "https://github.com/ffmpeginteropx/FFmpegInteropX"),
                 new KeyValue<string>("BBDown", "https://github.com/nilaoda/BBDown"),
-                new KeyValue<string>("哔哩漫游", "https://github.com/yujincheng08/BiliRoaming"),
             };
         }
     }

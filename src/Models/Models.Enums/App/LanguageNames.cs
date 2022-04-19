@@ -460,14 +460,6 @@ namespace Richasy.Bili.Models.Enums
         Minimum,
         Maximum,
         Large,
-        RoamingSetting,
-        RoamingSettingDescription,
-        RoamingAddress,
-        EnterToEffect,
-        InvalidAddress,
-        PublicServer,
-        GlobeProxy,
-        GlobeProxyDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

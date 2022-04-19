@@ -275,10 +275,7 @@ namespace Richasy.Bili.App.Controls
         private void OnFixedPgcClickAsync(object sender, RoutedEventArgs e)
         {
             var context = (sender as FrameworkElement).DataContext as FixedPgc;
-            var record = new CurrentPlayingRecord("0", context.SeasonId, VideoType.Pgc)
-            {
-                Title = context.Name,
-            };
+            var record = new CurrentPlayingRecord("0", context.SeasonId, VideoType.Pgc);
             AppViewModel.Instance.OpenPlayer(record);
         }
     }

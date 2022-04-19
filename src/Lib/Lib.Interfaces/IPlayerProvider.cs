@@ -50,10 +50,8 @@ namespace Richasy.Bili.Lib.Interfaces
         /// </summary>
         /// <param name="partId">对应剧集的Cid.</param>
         /// <param name="seasonType">剧集类型.</param>
-        /// <param name="proxy">代理地址.</param>
-        /// <param name="area">地区.</param>
         /// <returns><see cref="PlayerInformation"/>.</returns>
-        Task<PlayerInformation> GetDashAsync(int partId, int seasonType, string proxy = "", string area = "");
+        Task<PlayerInformation> GetDashAsync(int partId, int seasonType);
 
         /// <summary>
         /// 获取弹幕元数据信息.

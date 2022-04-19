@@ -88,9 +88,9 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PlayerInformation> GetDashAsync(int partId, int seasonType, string proxy = "", string area = "")
+        public async Task<PlayerInformation> GetDashAsync(int partId, int seasonType)
         {
-            return await InternalGetDashAsync(partId.ToString(), string.Empty, seasonType.ToString(), proxy, area);
+            return await InternalGetDashAsync(partId.ToString(), seasonType: seasonType.ToString());
         }
 
         /// <inheritdoc/>

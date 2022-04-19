@@ -147,23 +147,5 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public bool IsOpenScreenshotFile { get; set; }
-
-        /// <summary>
-        /// 是否打开番剧代理.
-        /// </summary>
-        [Reactive]
-        public bool IsOpenRoaming { get; set; }
-
-        /// <summary>
-        /// 是否打开全局代理.
-        /// </summary>
-        [Reactive]
-        public bool IsGlobeProxy { get; set; }
-
-        /// <summary>
-        /// 代理地址.
-        /// </summary>
-        [Reactive]
-        public string RoamingAddress { get; set; }
     }
 }

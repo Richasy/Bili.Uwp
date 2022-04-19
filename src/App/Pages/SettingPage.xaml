@@ -46,7 +46,6 @@
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
                 <controls:ScreenshotSettingSection />
-                <controls:RoamingSettingSection />
                 <StackPanel
                     Margin="0,12,0,0"
                     HorizontalAlignment="Left"

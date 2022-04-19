@@ -172,7 +172,6 @@ namespace Richasy.Bili.ViewModels.Uwp
 
             var isReleated = false;
             var type = VideoType.Video;
-            var title = string.Empty;
             IsPv = false;
 
             CurrentPlayingRecord record = null;
@@ -185,14 +184,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 videoId = seasonVM.EpisodeId.ToString();
                 seasonId = seasonVM.SeasonId;
-                title = seasonVM.Title;
                 type = VideoType.Pgc;
             }
             else if (vm is PgcSeason seasonData)
             {
                 videoId = "0";
                 seasonId = seasonData.SeasonId;
-                title = seasonData.Title;
                 type = VideoType.Pgc;
             }
             else if (vm is PgcEpisodeDetail episodeData)
@@ -200,7 +197,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 videoId = episodeData.Id.ToString();
                 seasonId = 0;
                 IsPv = episodeData.IsPV == 1;
-                title = episodeData.Title;
                 type = VideoType.Pgc;
             }
             else if (vm is CurrentPlayingRecord r)
@@ -221,7 +217,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 record = new CurrentPlayingRecord(videoId, seasonId, type)
                 {
                     IsRelated = isReleated,
-                    Title = title,
                 };
             }
 
@@ -232,13 +227,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 videoId = internalVM.VideoId;
                 type = internalVM.VideoType;
                 isReleated = internalVM.IsRelated;
-                title = internalVM.Title;
-
-                // 番剧出差账户作为特例，将被归为番剧.
-                if (internalVM.Publisher?.Id == 11783021)
-                {
-                    type = VideoType.Pgc;
-                }
 
                 if (ViewLaterVideoCollection.Contains(internalVM))
                 {
@@ -300,7 +288,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                     await LoadVideoDetailAsync(videoId, isRefresh);
                     break;
                 case VideoType.Pgc:
-                    await LoadPgcDetailAsync(string.IsNullOrEmpty(videoId) ? 0 : Convert.ToInt32(videoId), seasonId, isRefresh, record.Title);
+                    await LoadPgcDetailAsync(string.IsNullOrEmpty(videoId) ? 0 : Convert.ToInt32(videoId), seasonId, isRefresh);
                     break;
                 case VideoType.Live:
                     await LoadLiveDetailAsync(Convert.ToInt32(videoId));
@@ -468,8 +456,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             try
             {
                 IsPlayInformationLoading = true;
-                var proxyPack = GetProxyAndArea(_pgcDetail?.Title);
-                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType), proxyPack.Item1, proxyPack.Item2);
+                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType));
                 if (play != null && play.VideoInformation != null)
                 {
                     _playerInformation = play;

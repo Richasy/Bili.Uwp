@@ -49,7 +49,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             PreferCodecInit();
             PlayerModeInit();
             StartupInitAsync();
-            RoamingInit();
 
             Version = BiliController.Instance.GetCurrentAppVersion();
             PropertyChanged += OnPropertyChangedAsync;
@@ -110,15 +109,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsAutoPlayNextRelatedVideo):
                     WriteSetting(SettingNames.IsAutoPlayNextRelatedVideo, IsAutoPlayNextRelatedVideo);
                     break;
-                case nameof(IsOpenRoaming):
-                    WriteSetting(SettingNames.IsOpenRoaming, IsOpenRoaming);
-                    break;
-                case nameof(IsGlobeProxy):
-                    WriteSetting(SettingNames.IsGlobeProxy, IsGlobeProxy);
-                    break;
-                case nameof(RoamingAddress):
-                    WriteSetting(SettingNames.RoamingAddress, RoamingAddress);
-                    break;
                 default:
                     break;
             }
@@ -159,13 +149,6 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H264);
-        }
-
-        private void RoamingInit()
-        {
-            IsOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
-            IsGlobeProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
-            RoamingAddress = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingAddress, string.Empty);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);
