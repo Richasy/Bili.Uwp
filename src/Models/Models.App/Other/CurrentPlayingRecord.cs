@@ -53,5 +53,10 @@ namespace Richasy.Bili.Models.App.Other
         /// 显示模式.
         /// </summary>
         public PlayerDisplayMode DisplayMode { get; set; }
+
+        /// <summary>
+        /// 标题.
+        /// </summary>
+        public string Title { get; set; }
     }
 }

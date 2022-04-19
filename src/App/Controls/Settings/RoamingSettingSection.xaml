@@ -1,0 +1,73 @@
+﻿<local:SettingSectionControl
+    x:Class="Richasy.Bili.App.Controls.RoamingSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:ico="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <exp:ExpanderEx>
+        <exp:ExpanderEx.Header>
+            <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                <exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=RoamingSetting}" Description="{loc:LocaleLocator Name=RoamingSettingDescription}">
+                        <exp:ExpanderExDescriptor.Icon>
+                            <ico:RegularFluentIcon Symbol="GlobeVideo20" />
+                        </exp:ExpanderExDescriptor.Icon>
+                    </exp:ExpanderExDescriptor>
+                </exp:ExpanderExWrapper.MainContent>
+                <exp:ExpanderExWrapper.WrapContent>
+                    <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsOpenRoaming, Mode=TwoWay}" />
+                </exp:ExpanderExWrapper.WrapContent>
+            </exp:ExpanderExWrapper>
+        </exp:ExpanderEx.Header>
+        <exp:ExpanderEx.Content>
+            <exp:ExpanderExMenuPanel>
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=GlobeProxy}" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{loc:LocaleLocator Name=GlobeProxyDescription}"
+                                TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsGlobeProxy, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/yujincheng08/BiliRoaming/wiki/%E5%85%AC%E5%85%B1%E8%A7%A3%E6%9E%90%E6%9C%8D%E5%8A%A1%E5%99%A8">
+                                    <Run Text="{loc:LocaleLocator Name=PublicServer}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:LocaleLocator Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+            </exp:ExpanderExMenuPanel>
+        </exp:ExpanderEx.Content>
+    </exp:ExpanderEx>
+</local:SettingSectionControl>

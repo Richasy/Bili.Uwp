@@ -58,10 +58,10 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0)
+        public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
         {
-            var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail, queryParameters, RequestClientType.IOS);
+            var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId, area);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
             return data.Data;
