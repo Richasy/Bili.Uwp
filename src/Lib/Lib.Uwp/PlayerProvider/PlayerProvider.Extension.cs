@@ -27,11 +27,11 @@ namespace Richasy.Bili.Lib.Uwp
             return source.Token;
         }
 
-        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "")
+        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "")
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
-            var url = isPgc ? ApiConstants.Pgc.PlayInformation : ApiConstants.Video.PlayInformation;
+            var url = isPgc ? ApiConstants.Pgc.PlayInformation(proxy) : ApiConstants.Video.PlayInformation;
 
             var queryParameters = new Dictionary<string, string>
             {
@@ -42,6 +42,11 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.Qn, "64" },
                 { Query.OType, "json" },
             };
+
+            if (!string.IsNullOrEmpty(area))
+            {
+                queryParameters.Add(Query.Area, area);
+            }
 
             if (isPgc)
             {

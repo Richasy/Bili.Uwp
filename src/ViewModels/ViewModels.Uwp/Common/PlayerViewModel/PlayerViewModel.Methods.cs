@@ -137,7 +137,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
         }
 
-        private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0, bool isRefresh = false)
+        private async Task LoadPgcDetailAsync(int episodeId, int seasonId = 0, bool isRefresh = false, string title = "")
         {
             if (_pgcDetail == null ||
                 episodeId.ToString() != EpisodeId ||
@@ -154,7 +154,8 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 try
                 {
-                    var detail = await Controller.GetPgcDisplayInformationAsync(episodeId, seasonId);
+                    var proxyPack = GetProxyAndArea(title);
+                    var detail = await Controller.GetPgcDisplayInformationAsync(episodeId, seasonId, proxyPack.Item1, proxyPack.Item2);
                     _pgcDetail = detail;
                 }
                 catch (Exception ex)
@@ -1199,6 +1200,38 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             return null;
+        }
+
+        private Tuple<string, string> GetProxyAndArea(string title)
+        {
+            var proxy = string.Empty;
+            var area = string.Empty;
+
+            var isOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
+            var localProxy = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingAddress, string.Empty);
+            if (isOpenRoaming && !string.IsNullOrEmpty(localProxy))
+            {
+                if (!string.IsNullOrEmpty(title))
+                {
+                    if (Regex.IsMatch(title, @"僅.*港.*地區"))
+                    {
+                        area = "hk";
+                    }
+                    else if (Regex.IsMatch(title, @"僅.*台.*地區"))
+                    {
+                        area = "tw";
+                    }
+                }
+
+                var isForceProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
+                if ((isForceProxy && string.IsNullOrEmpty(area))
+                    || !string.IsNullOrEmpty(area))
+                {
+                    proxy = localProxy;
+                }
+            }
+
+            return new Tuple<string, string>(proxy, area);
         }
 
         private void OnBiliPlayerPointerMoved(object sender, PointerRoutedEventArgs e)
