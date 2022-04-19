@@ -49,31 +49,9 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <StackPanel>
-                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingVideoAddress}" />
-                            <TextBlock FontSize="12">
-                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
-                                    <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
-                                </Hyperlink>
-                            </TextBlock>
-                        </StackPanel>
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <AutoSuggestBox
-                            MinWidth="240"
-                            VerticalAlignment="Center"
-                            PlaceholderText="{loc:LocaleLocator Name=EnterToEffect}"
-                            QueryIcon="Save"
-                            QuerySubmitted="OnVideoAddressBoxSubmitted"
-                            Text="{x:Bind ViewModel.RoamingVideoAddress, Mode=OneWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-                <exp:ExpanderExItemSeparator />
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <StackPanel>
                             <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingViewAddress}" />
                             <TextBlock FontSize="12">
-                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8#%E8%AF%A6%E6%83%85%E4%BB%A3%E7%90%86">
                                     <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
                                 </Hyperlink>
                             </TextBlock>
@@ -93,9 +71,31 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingVideoAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8#%E6%92%AD%E6%94%BE%E4%BB%A3%E7%90%86">
+                                    <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:LocaleLocator Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnVideoAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingVideoAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
                             <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=RoamingSearchAddress}" />
                             <TextBlock FontSize="12">
-                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E5%93%94%E5%93%A9%E6%BC%AB%E6%B8%B8#%E6%90%9C%E7%B4%A2%E4%BB%A3%E7%90%86">
                                     <Run Text="{loc:LocaleLocator Name=FunctionIntroduce}" />
                                 </Hyperlink>
                             </TextBlock>
