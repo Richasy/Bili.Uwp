@@ -237,7 +237,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 title = internalVM.Title;
 
                 // 番剧出差账户作为特例，将被归为番剧.
-                if (internalVM.IsRegionalAnime())
+                if (internalVM.Publisher != null && internalVM.Publisher.IsRegionalAnimeUser())
                 {
                     type = VideoType.Pgc;
                     needBiliPlus = true;

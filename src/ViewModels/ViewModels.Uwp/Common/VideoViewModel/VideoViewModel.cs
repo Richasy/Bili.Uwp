@@ -384,13 +384,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 是否为地区限制番剧 (在哔哩哔哩番剧出差账户下的视频).
-        /// </summary>
-        /// <returns>检查结果.</returns>
-        internal bool IsRegionalAnime()
-            => Publisher != null && Publisher.Id == AppConstants.RegionalAnimeUserId;
-
-        /// <summary>
         /// 限制图片分辨率以减轻UI和内存压力.
         /// </summary>
         private void LimitCover(string coverUrl)

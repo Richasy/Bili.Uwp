@@ -11,6 +11,7 @@ using ReactiveUI;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Args;
+using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -320,6 +321,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             _isSearchLoadCompleted = false;
             IsShowSearchEmpty = false;
         }
+
+        /// <summary>
+        /// 是否为哔哩哔哩番剧出差账户.
+        /// </summary>
+        /// <returns>检查结果.</returns>
+        public bool IsRegionalAnimeUser()
+            => Id == AppConstants.RegionalAnimeUserId;
 
         private void InitializeUserInformation()
         {
