@@ -868,7 +868,23 @@ namespace Richasy.Bili.ViewModels.Uwp
                 if (subtitle != null && !string.IsNullOrEmpty(subtitle.Content))
                 {
                     IsShowSubtitle = true;
-                    CurrentSubtitle = subtitle.Content;
+                    var sub = subtitle.Content;
+                    if (SubtitleConvertType != Models.Enums.App.SubtitleConvertType.None)
+                    {
+                        switch (SubtitleConvertType)
+                        {
+                            case Models.Enums.App.SubtitleConvertType.ToSimplifiedChinese:
+                                sub = ToolGood.Words.WordsHelper.ToSimplifiedChinese(sub);
+                                break;
+                            case Models.Enums.App.SubtitleConvertType.ToTraditionalChinese:
+                                sub = ToolGood.Words.WordsHelper.ToTraditionalChinese(sub);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    CurrentSubtitle = sub;
                 }
                 else
                 {

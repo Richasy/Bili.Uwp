@@ -39,6 +39,7 @@
             <converter:FavoriteTypeConverter x:Key="FavoriteTypeConverter" />
             <converter:DanmakuLocationConverter x:Key="DanmakuLocationConverter" />
             <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter" />
+            <converter:SubtitleConvertTypeConverter x:Key="SubtitleConvertTypeConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

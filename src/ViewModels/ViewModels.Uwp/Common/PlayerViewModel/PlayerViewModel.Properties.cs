@@ -11,6 +11,7 @@ using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Media.Playback;
 using Windows.UI.Core;
@@ -729,6 +730,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string CurrentSubtitle { get; set; }
 
         /// <summary>
+        /// 字幕转换类型.
+        /// </summary>
+        [Reactive]
+        public SubtitleConvertType SubtitleConvertType { get; set; }
+
+        /// <summary>
         /// 当前字幕索引.
         /// </summary>
         [Reactive]
@@ -773,8 +780,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 索引列表.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<SubtitleIndexItemViewModel> SubtitleIndexCollection { get; set; }
+        public ObservableCollection<SubtitleIndexItemViewModel> SubtitleIndexCollection { get; }
+
+        /// <summary>
+        /// 字幕转换类型集合.
+        /// </summary>
+        public ObservableCollection<SubtitleConvertType> SubtitleConvertTypeCollection { get; }
 
         /// <summary>
         /// 播放速率.
