@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Richasy.Bili.Lib.Interfaces;
 using Richasy.Bili.Models.BiliBili;
-
+using Richasy.Bili.Toolkit.Interfaces;
 using static Richasy.Bili.Models.App.Constants.ApiConstants;
 using static Richasy.Bili.Models.App.Constants.ServiceConstants;
 
@@ -22,9 +22,11 @@ namespace Richasy.Bili.Lib.Uwp
         /// Initializes a new instance of the <see cref="SearchProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络工具.</param>
-        public SearchProvider(IHttpProvider httpProvider)
+        /// <param name="settingsToolkit">设置工具.</param>
+        public SearchProvider(IHttpProvider httpProvider, ISettingsToolkit settingsToolkit)
         {
             _httpProvider = httpProvider;
+            _settingsToolkit = settingsToolkit;
         }
 
         /// <inheritdoc/>

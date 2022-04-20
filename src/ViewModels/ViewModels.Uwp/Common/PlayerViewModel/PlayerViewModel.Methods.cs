@@ -154,7 +154,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
                 try
                 {
-                    var proxyPack = GetProxyAndArea(title);
+                    var proxyPack = GetProxyAndArea(title, false);
                     var detail = await Controller.GetPgcDisplayInformationAsync(episodeId, seasonId, proxyPack.Item1, proxyPack.Item2);
                     _pgcDetail = detail;
                 }
@@ -167,9 +167,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                 }
 
                 InitializePgcDetail();
-                IsDetailLoading = false;
             }
 
+            IsDetailLoading = false;
             var id = 0;
             if (CurrentPgcEpisode != null)
             {
@@ -1202,13 +1202,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             return null;
         }
 
-        private Tuple<string, string> GetProxyAndArea(string title)
+        private Tuple<string, string> GetProxyAndArea(string title, bool isVideo)
         {
             var proxy = string.Empty;
             var area = string.Empty;
 
             var isOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
-            var localProxy = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingAddress, string.Empty);
+            var localProxy = isVideo
+                ? _settingsToolkit.ReadLocalSetting(SettingNames.RoamingVideoAddress, string.Empty)
+                : _settingsToolkit.ReadLocalSetting(SettingNames.RoamingViewAddress, string.Empty);
             if (isOpenRoaming && !string.IsNullOrEmpty(localProxy))
             {
                 if (!string.IsNullOrEmpty(title))

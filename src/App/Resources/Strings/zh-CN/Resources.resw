@@ -1199,14 +1199,20 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
   </data>
-  <data name="RoamingAddress" xml:space="preserve">
-    <value>漫游服务器地址</value>
+  <data name="RoamingSearchAddress" xml:space="preserve">
+    <value>搜索代理</value>
   </data>
   <data name="RoamingSetting" xml:space="preserve">
     <value>漫游设置</value>
   </data>
   <data name="RoamingSettingDescription" xml:space="preserve">
     <value>使用自定义的服务器进行代理，以解除地区限制（指定服务器后方可生效）</value>
+  </data>
+  <data name="RoamingVideoAddress" xml:space="preserve">
+    <value>播放代理</value>
+  </data>
+  <data name="RoamingViewAddress" xml:space="preserve">
+    <value>详情代理</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
@@ -1261,6 +1267,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="SelectSortType" xml:space="preserve">
     <value>选择排序方式</value>
+  </data>
+  <data name="SetAddressSuccess" xml:space="preserve">
+    <value>成功设置地址</value>
   </data>
   <data name="Shadow" xml:space="preserve">
     <value>阴影</value>

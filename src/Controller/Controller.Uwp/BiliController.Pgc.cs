@@ -3,7 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -283,6 +289,38 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 _loggerModule.LogError(ex);
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// 从 BiliPlus 获取番剧信息.
+        /// </summary>
+        /// <param name="videoId">视频 Aid.</param>
+        /// <returns><see cref="BiliPlusBangumi"/>.</returns>
+        public async Task<BiliPlusBangumi> GetBiliPlusBangumiAsync(string videoId)
+        {
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+                };
+                using (var client = new HttpClient(handler))
+                {
+                    var url = $"https://www.biliplus.com/api/view?id={videoId}";
+                    var response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    var bytes = await response.Content.ReadAsByteArrayAsync();
+                    var str = Encoding.UTF8.GetString(bytes);
+                    var jObj = JObject.Parse(str);
+                    var bangumi = jObj["bangumi"].ToString();
+                    return JsonConvert.DeserializeObject<BiliPlusBangumi>(bangumi);
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex, true);
+                return null;
             }
         }
     }

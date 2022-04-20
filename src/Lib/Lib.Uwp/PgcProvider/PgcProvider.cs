@@ -61,7 +61,13 @@ namespace Richasy.Bili.Lib.Uwp
         public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
         {
             var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId, area);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS);
+            var otherQuery = string.Empty;
+            if (!string.IsNullOrEmpty(area))
+            {
+                otherQuery = $"area={area}";
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
             return data.Data;

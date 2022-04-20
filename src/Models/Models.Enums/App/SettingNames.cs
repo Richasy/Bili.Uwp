@@ -71,8 +71,10 @@ namespace Richasy.Bili.Models.Enums
         IsLiveAudioOnly,
         IsDanmakuLimit,
         IsOpenRoaming,
-        RoamingAddress,
+        RoamingVideoAddress,
         IsGlobeProxy,
+        RoamingViewAddress,
+        RoamingSearchAddress,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

@@ -462,13 +462,16 @@ namespace Richasy.Bili.Models.Enums
         Large,
         RoamingSetting,
         RoamingSettingDescription,
-        RoamingAddress,
+        RoamingVideoAddress,
+        RoamingViewAddress,
         EnterToEffect,
         InvalidAddress,
         PublicServer,
         GlobeProxy,
         GlobeProxyDescription,
         FunctionIntroduce,
+        SetAddressSuccess,
+        RoamingSearchAddress,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
 using FFmpegInterop;
 using Richasy.Bili.Controller.Uwp.Interfaces;
 using Richasy.Bili.Locator.Uwp;
@@ -37,6 +38,8 @@ namespace Richasy.Bili.App
 
             FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
+            var provider = CodePagesEncodingProvider.Instance;
+            Encoding.RegisterProvider(provider);
 
             if (AppViewModel.Instance.IsXbox)
             {

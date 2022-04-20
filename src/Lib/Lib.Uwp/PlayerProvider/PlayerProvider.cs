@@ -83,15 +83,11 @@ namespace Richasy.Bili.Lib.Uwp
 
         /// <inheritdoc/>
         public async Task<PlayerInformation> GetDashAsync(long videoId, long partId)
-        {
-            return await InternalGetDashAsync(partId.ToString(), videoId.ToString());
-        }
+            => await InternalGetDashAsync(partId.ToString(), videoId.ToString());
 
         /// <inheritdoc/>
-        public async Task<PlayerInformation> GetDashAsync(int partId, int seasonType, string proxy = "", string area = "")
-        {
-            return await InternalGetDashAsync(partId.ToString(), string.Empty, seasonType.ToString(), proxy, area);
-        }
+        public async Task<PlayerInformation> GetDashAsync(int partId, int episodeId, int seasonType, string proxy = "", string area = "")
+            => await InternalGetDashAsync(partId.ToString(), string.Empty, seasonType.ToString(), proxy, area, episodeId.ToString());
 
         /// <inheritdoc/>
         public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Text.RegularExpressions;
 using Bilibili.App.Dynamic.V2;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.BiliBili;
@@ -55,7 +56,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <param name="item">条目.</param>
         public SeasonViewModel(PgcSearchItem item)
         {
-            Title = item.Title;
+            Title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
             Subtitle = item.Label;
             SeasonId = item.SeasonId;
             Tags = item.SubTitle;

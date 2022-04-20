@@ -56,17 +56,8 @@ namespace Richasy.Bili.ViewModels.Uwp
             Source = archive;
             LimitCover(archive.Cover);
 
-            if (archive.IsPGC)
-            {
-                VideoType = Models.Enums.VideoType.Pgc;
-                var episodeId = new Uri(archive.Uri).Segments.Last().Replace("ep", string.Empty);
-                VideoId = episodeId;
-            }
-            else
-            {
-                VideoType = Models.Enums.VideoType.Video;
-                VideoId = archive.Avid.ToString();
-            }
+            VideoType = archive.IsPGC ? Models.Enums.VideoType.Pgc : Models.Enums.VideoType.Video;
+            VideoId = archive.Avid.ToString();
         }
 
         /// <summary>

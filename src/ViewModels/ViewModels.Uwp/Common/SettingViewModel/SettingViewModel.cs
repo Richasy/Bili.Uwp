@@ -116,8 +116,14 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(IsGlobeProxy):
                     WriteSetting(SettingNames.IsGlobeProxy, IsGlobeProxy);
                     break;
-                case nameof(RoamingAddress):
-                    WriteSetting(SettingNames.RoamingAddress, RoamingAddress);
+                case nameof(RoamingVideoAddress):
+                    WriteSetting(SettingNames.RoamingVideoAddress, RoamingVideoAddress);
+                    break;
+                case nameof(RoamingViewAddress):
+                    WriteSetting(SettingNames.RoamingViewAddress, RoamingViewAddress);
+                    break;
+                case nameof(RoamingSearchAddress):
+                    WriteSetting(SettingNames.RoamingSearchAddress, RoamingSearchAddress);
                     break;
                 default:
                     break;
@@ -165,7 +171,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             IsOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
             IsGlobeProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
-            RoamingAddress = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingAddress, string.Empty);
+            RoamingVideoAddress = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingVideoAddress, string.Empty);
+            RoamingViewAddress = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingViewAddress, string.Empty);
+            RoamingSearchAddress = _settingsToolkit.ReadLocalSetting(SettingNames.RoamingSearchAddress, string.Empty);
         }
 
         private void WriteSetting(SettingNames name, object value) => _settingsToolkit.WriteLocalSetting(name, value);

@@ -27,7 +27,7 @@ namespace Richasy.Bili.Lib.Uwp
             return source.Token;
         }
 
-        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "")
+        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "", string episodeId = "")
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
@@ -43,15 +43,11 @@ namespace Richasy.Bili.Lib.Uwp
                 { Query.OType, "json" },
             };
 
-            if (!string.IsNullOrEmpty(area))
-            {
-                queryParameters.Add(Query.Area, area);
-            }
-
             if (isPgc)
             {
                 queryParameters.Add(Query.Module, "bangumi");
                 queryParameters.Add(Query.SeasonType, seasonType);
+                queryParameters.Add(Query.EpisodeId, episodeId);
             }
             else
             {
@@ -63,7 +59,13 @@ namespace Richasy.Bili.Lib.Uwp
                 queryParameters.Add(Query.MyId, _accountProvider.UserId.ToString());
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.Web);
+            var otherQuery = string.Empty;
+            if (!string.IsNullOrEmpty(area))
+            {
+                otherQuery = $"area={area}";
+            }
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.Web, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {
