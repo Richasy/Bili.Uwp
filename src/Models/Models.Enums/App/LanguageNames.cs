@@ -476,6 +476,9 @@ namespace Richasy.Bili.Models.Enums
         SC2TC,
         TC2SC,
         SubtitleConvert,
+        NotSupportDynamic,
+        Comprehensive,
+        Video,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

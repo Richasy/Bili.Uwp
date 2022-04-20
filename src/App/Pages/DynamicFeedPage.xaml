@@ -24,24 +24,49 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RepeaterView.IsStaggered" Value="False" />
-                        <Setter Target="RepeaterView.ItemOrientation" Value="Horizontal" />
+                        <Setter Target="VideoRepeaterView.IsStaggered" Value="False" />
+                        <Setter Target="VideoRepeaterView.ItemOrientation" Value="Horizontal" />
+                        <Setter Target="AllRepeaterView.IsStaggered" Value="False" />
+                        <Setter Target="AllRepeaterView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
         <ScrollViewer
-            x:Name="ContentScrollViewer"
+            x:Name="VideoContentScrollViewer"
             Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Auto">
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsVideo, Mode=OneWay}">
             <controls:VerticalRepeaterView
-                x:Name="RepeaterView"
+                x:Name="VideoRepeaterView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
                 IsStaggered="True"
-                ItemsSource="{x:Bind ViewModel.DynamicCollection, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.VideoDynamicCollection, Mode=OneWay}"
+                MinWideItemWidth="320"
+                RequestLoadMore="OnViewRequestLoadMoreAsync">
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="v2:DynamicItem">
+                        <controls:DynamicItem Data="{x:Bind}" />
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <ScrollViewer
+            x:Name="AllContentScrollViewer"
+            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsVideo, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:VerticalRepeaterView
+                x:Name="AllRepeaterView"
+                Margin="0,0,0,12"
+                HeaderVisibility="Collapsed"
+                IsStaggered="True"
+                ItemsSource="{x:Bind ViewModel.AllDynamicCollection, Mode=OneWay}"
                 MinWideItemWidth="320"
                 RequestLoadMore="OnViewRequestLoadMoreAsync">
                 <controls:VerticalRepeaterView.ItemTemplate>

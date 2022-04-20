@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bilibili.App.Dynamic.V2;
 using Richasy.Bili.Models.App.Args;
@@ -21,10 +22,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         protected DynamicModuleViewModel()
         {
-            DynamicCollection = new ObservableCollection<DynamicItem>();
+            VideoDynamicCollection = new ObservableCollection<DynamicItem>();
+            AllDynamicCollection = new ObservableCollection<DynamicItem>();
             Controller.DynamicVideoIteration += OnDynamicVideoIteration;
             Controller.Logged += OnLoggedAsync;
             Controller.LoggedOut += OnLoggedOut;
+            IsVideo = true;
         }
 
         /// <summary>
@@ -65,7 +68,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 Reset();
                 try
                 {
-                    await Controller.RequestDynamicVideoListAsync(_updateOffset, _baseLine);
+                    await RequestAsync();
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -88,16 +91,30 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !_isLoadCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestDynamicVideoListAsync(_updateOffset, _baseLine);
+                await RequestAsync();
                 IsDeltaLoading = false;
+            }
+        }
+
+        private async Task RequestAsync()
+        {
+            if (IsVideo)
+            {
+                await Controller.RequestDynamicVideoListAsync(_videoUpdateOffset, _videoBaseLine);
+            }
+            else
+            {
+                await Controller.RequestDynamicComprehensiveListAsync(_allUpdateOffset, _allBaseLine);
             }
         }
 
         private void Reset()
         {
-            DynamicCollection.Clear();
-            _updateOffset = string.Empty;
-            _baseLine = string.Empty;
+            VideoDynamicCollection.Clear();
+            _videoUpdateOffset = string.Empty;
+            _videoBaseLine = string.Empty;
+            _allUpdateOffset = string.Empty;
+            _allBaseLine = string.Empty;
             _isLoadCompleted = false;
             IsShowLogin = false;
             IsError = false;
@@ -106,27 +123,45 @@ namespace Richasy.Bili.ViewModels.Uwp
         private void OnDynamicVideoIteration(object sender, DynamicVideoIterationEventArgs e)
         {
             _isLoadCompleted = !e.HasMore;
-            _baseLine = e.BaseLine;
-            _updateOffset = e.UpdateOffset;
+
+            if (e.IsComprehensive)
+            {
+                _allBaseLine = e.BaseLine;
+                _allUpdateOffset = e.UpdateOffset;
+            }
+            else
+            {
+                _videoBaseLine = e.BaseLine;
+                _videoUpdateOffset = e.UpdateOffset;
+            }
 
             if (e.List != null && e.List.Count > 0)
             {
                 foreach (var item in e.List)
                 {
-                    if (!DynamicCollection.Any(p => p.Extend.DynIdStr == item.Extend.DynIdStr))
+                    if (e.IsComprehensive)
                     {
-                        DynamicCollection.Add(item);
+                        if (!AllDynamicCollection.Any(p => p.Extend.DynIdStr == item.Extend.DynIdStr))
+                        {
+                            AllDynamicCollection.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (!VideoDynamicCollection.Any(p => p.Extend.DynIdStr == item.Extend.DynIdStr))
+                        {
+                            VideoDynamicCollection.Add(item);
+                        }
                     }
                 }
             }
 
-            IsShowEmpty = DynamicCollection.Count == 0;
+            IsShowEmpty = IsVideo
+                ? VideoDynamicCollection.Count == 0
+                : AllDynamicCollection.Count == 0;
         }
 
-        private async void OnLoggedAsync(object sender, EventArgs e)
-        {
-            await InitializeRequestAsync();
-        }
+        private async void OnLoggedAsync(object sender, EventArgs e) => await InitializeRequestAsync();
 
         private void OnLoggedOut(object sender, EventArgs e)
         {

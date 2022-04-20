@@ -101,6 +101,24 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
+        public async Task<DynAllReply> GetDynamicComprehensiveListAsync(string historyOffset, string baseLine)
+        {
+            var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;
+            var req = new DynAllReq
+            {
+                RefreshType = type,
+                LocalTime = 8,
+                Offset = historyOffset ?? string.Empty,
+                UpdateBaseline = baseLine ?? string.Empty,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicAll, req, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync(response, DynAllReply.Parser);
+            return result;
+        }
+
+        /// <inheritdoc/>
         public async Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine)
         {
             var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;

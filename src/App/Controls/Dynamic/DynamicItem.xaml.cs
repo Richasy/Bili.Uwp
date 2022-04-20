@@ -11,7 +11,6 @@ using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace Richasy.Bili.App.Controls
 {
@@ -84,52 +83,29 @@ namespace Richasy.Bili.App.Controls
                 var mainModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
                 var dataModule = modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleStat).FirstOrDefault()?.ModuleStat;
 
-                UserViewModel publisher = null;
                 if (userModule != null)
                 {
-                    publisher = new UserViewModel(userModule.Author.Name, userModule.Author.Face, Convert.ToInt32(userModule.Mid));
                     instance.UserAvatar.Avatar = userModule.Author.Face;
                     instance.UserAvatar.UserName = userModule.Author.Name;
                     instance.UserNameBlock.Text = userModule.Author.Name;
                     instance.DateBlock.Text = userModule.PtimeLabelText;
+                    instance.UserAvatar.DataContext = new UserViewModel(userModule.Author.Name, userModule.Author.Face, Convert.ToInt32(userModule.Mid));
                 }
 
                 if (descModule != null)
                 {
-                    if (string.IsNullOrEmpty(descModule.Text.Trim()))
-                    {
-                        instance.MainContainer.Margin = new Thickness(0, -36, 0, 0);
-                    }
-                    else
-                    {
-                        instance.MainContainer.Margin = new Thickness(0);
-                    }
-
-                    instance.DescriptionBlock.Text = descModule.Text.Trim();
+                    instance.MainContainer.Margin = string.IsNullOrEmpty(descModule.Text.Trim())
+                        ? new Thickness(0, -40, 0, 0)
+                        : new Thickness(0, -4, 0, 0);
+                    instance.DescriptionBlock.DynamicDescription = descModule;
                 }
                 else
                 {
-                    instance.MainContainer.Margin = new Thickness(0, -36, 0, 0);
-                    instance.DescriptionBlock.Text = string.Empty;
+                    instance.MainContainer.Margin = new Thickness(0, -40, 0, 0);
+                    instance.DescriptionBlock.Reset();
                 }
 
-                if (mainModule != null)
-                {
-                    if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynPgc)
-                    {
-                        instance.AddViewLaterButton.IsEnabled = false;
-                        instance.MainContentPresenter.Content = new SeasonViewModel(mainModule.DynPgc);
-                        instance.MainContentPresenter.ContentTemplate = instance.PgcTemplate;
-                    }
-                    else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArchive)
-                    {
-                        instance.AddViewLaterButton.IsEnabled = !mainModule.DynArchive.IsPGC;
-                        var vm = new VideoViewModel(mainModule.DynArchive);
-                        vm.Publisher = publisher;
-                        instance.MainContentPresenter.Content = vm;
-                        instance.MainContentPresenter.ContentTemplate = instance.VideoTemplate;
-                    }
-                }
+                instance.Presenter.Data = data;
 
                 if (dataModule != null)
                 {
@@ -149,14 +125,7 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckOrientation()
         {
-            if (VisualTreeHelper.GetChildrenCount(MainContentPresenter) > 0)
-            {
-                var child = VisualTreeHelper.GetChild(MainContentPresenter, 0);
-                if (child is IDynamicLayoutItem item)
-                {
-                    item.Orientation = Orientation;
-                }
-            }
+            Presenter.ChangeOrientation(Orientation);
         }
 
         private void OnReplyButtonClick(object sender, RoutedEventArgs e)
@@ -167,13 +136,10 @@ namespace Richasy.Bili.App.Controls
 
         private void OpenPlayer()
         {
-            if (MainContentPresenter.Content is VideoViewModel videoVM)
+            var vm = Presenter.GetPlayViewModel();
+            if (vm != null)
             {
-                AppViewModel.Instance.OpenPlayer(videoVM);
-            }
-            else if (MainContentPresenter.Content is SeasonViewModel seasonVM)
-            {
-                AppViewModel.Instance.OpenPlayer(seasonVM);
+                AppViewModel.Instance.OpenPlayer(vm);
             }
         }
 
@@ -199,7 +165,8 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
         {
-            if (MainContentPresenter.Content is VideoViewModel videoVM)
+            var vm = Presenter.GetPlayViewModel();
+            if (vm is VideoViewModel videoVM)
             {
                 await ViewLaterViewModel.Instance.AddAsync(videoVM);
             }
@@ -222,7 +189,7 @@ namespace Richasy.Bili.App.Controls
             var descModule = Data.Modules.ToList().Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDesc).FirstOrDefault();
             if (mainModule != null)
             {
-                request.Data.SetText(DescriptionBlock.Text);
+                request.Data.SetText(descModule?.ModuleDesc?.Text ?? string.Empty);
                 if (mainModule.ModuleItemCase == Bilibili.App.Dynamic.V2.ModuleDynamic.ModuleItemOneofCase.DynPgc)
                 {
                     var pgc = mainModule.DynPgc;
@@ -252,11 +219,16 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnAvatarClickAsync(object sender, EventArgs e)
         {
-            var userModule = Data.Modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleAuthor).FirstOrDefault()?.ModuleAuthor;
-            if (userModule != null)
+            if ((sender as FrameworkElement).DataContext is UserViewModel data)
             {
-                await UserView.Instance.ShowAsync(Convert.ToInt32(userModule.Author.Mid));
+                await UserView.Instance.ShowAsync(data);
             }
+        }
+
+        private void OnMoreFlyoutOpened(object sender, object e)
+        {
+            var vm = Presenter.GetPlayViewModel();
+            AddViewLaterButton.IsEnabled = vm is VideoViewModel;
         }
     }
 }

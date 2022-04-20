@@ -138,6 +138,31 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 请求综合动态列表.
+        /// </summary>
+        /// <param name="offset">偏移值.</param>
+        /// <param name="baseLine">基线值.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task RequestDynamicComprehensiveListAsync(string offset, string baseLine)
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                var reply = await _communityProvider.GetDynamicComprehensiveListAsync(offset, baseLine);
+                var args = new DynamicVideoIterationEventArgs(reply);
+                DynamicVideoIteration?.Invoke(this, args);
+            }
+            catch (System.Exception ex)
+            {
+                _loggerModule.LogError(ex, !string.IsNullOrEmpty(offset));
+                if (string.IsNullOrEmpty(offset))
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
         /// 点赞/取消点赞动态.
         /// </summary>
         /// <param name="dynamicId">动态Id.</param>

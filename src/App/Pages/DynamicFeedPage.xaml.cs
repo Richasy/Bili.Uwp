@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Controls;
 using Richasy.Bili.ViewModels.Uwp;
@@ -25,6 +27,7 @@ namespace Richasy.Bili.App.Pages
         {
             InitializeComponent();
             Loaded += OnLoadedAsync;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -42,9 +45,30 @@ namespace Richasy.Bili.App.Pages
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             if (!ViewModel.IsRequested)
             {
                 await ViewModel.InitializeRequestAsync();
+            }
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+            => ViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+
+        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsVideo))
+            {
+                if (ViewModel.IsShowLogin)
+                {
+                    return;
+                }
+
+                if ((ViewModel.IsVideo && ViewModel.VideoDynamicCollection.Count == 0)
+                    || (!ViewModel.IsVideo && ViewModel.AllDynamicCollection.Count == 0))
+                {
+                    await ViewModel.InitializeRequestAsync();
+                }
             }
         }
 

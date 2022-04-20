@@ -48,6 +48,15 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Dynamic\DynamicForwardItem.xaml.cs">
+      <DependentUpon>DynamicForwardItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicPresenter.xaml.cs">
+      <DependentUpon>DynamicPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicNotSupportItem.xaml.cs">
+      <DependentUpon>DynamicNotSupportItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Live\LiveAreaItem.xaml.cs">
       <DependentUpon>LiveAreaItem.xaml</DependentUpon>
     </Compile>
@@ -582,6 +591,18 @@
     <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicForwardItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicNotSupportItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Live\LiveAreaItem.xaml">
       <SubType>Designer</SubType>

@@ -314,6 +314,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="CompactOverlayMode" xml:space="preserve">
     <value>小窗模式</value>
   </data>
+  <data name="Comprehensive" xml:space="preserve">
+    <value>综合</value>
+  </data>
   <data name="ComprehensiveDynamics" xml:space="preserve">
     <value>综合动态</value>
   </data>
@@ -862,6 +865,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="NoStroke" xml:space="preserve">
     <value>无描边</value>
+  </data>
+  <data name="NotSupportDynamic" xml:space="preserve">
+    <value>不受支持的动态类型</value>
   </data>
   <data name="NotUpdate" xml:space="preserve">
     <value>即将更新</value>
@@ -1489,6 +1495,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>请输入有效的用户名或密码</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="VideoCount" xml:space="preserve">
     <value>视频数</value>
