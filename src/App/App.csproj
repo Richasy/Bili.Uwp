@@ -437,6 +437,7 @@
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\SubtitleConvertTypeConverter.cs" />
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\ToolboxItemIconConverter.cs" />
     <Compile Include="Resources\Converter\UgcEpisodeConverter.cs" />

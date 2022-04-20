@@ -70,6 +70,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
+            SubtitleConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, Models.Enums.App.SubtitleConvertType.None);
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
             IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
@@ -82,6 +83,12 @@ namespace Richasy.Bili.ViewModels.Uwp
             Controller.LoggedOut += OnUserLoggedOut;
 
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnAppViewVisibleBoundsChanged;
+            SubtitleConvertTypeCollection = new ObservableCollection<Models.Enums.App.SubtitleConvertType>
+            {
+                Models.Enums.App.SubtitleConvertType.None,
+                Models.Enums.App.SubtitleConvertType.ToTraditionalChinese,
+                Models.Enums.App.SubtitleConvertType.ToSimplifiedChinese,
+            };
         }
 
         /// <summary>
@@ -938,6 +945,9 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(CanShowSubtitle):
                     _settingsToolkit.WriteLocalSetting(SettingNames.CanShowSubtitle, CanShowSubtitle);
+                    break;
+                case nameof(SubtitleConvertType):
+                    _settingsToolkit.WriteLocalSetting(SettingNames.SubtitleConvertType, SubtitleConvertType);
                     break;
                 case nameof(PlaybackRate):
                     if (_currentVideoPlayer != null && _currentVideoPlayer.PlaybackSession != null)

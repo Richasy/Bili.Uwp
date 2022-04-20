@@ -472,6 +472,10 @@ namespace Richasy.Bili.Models.Enums
         FunctionIntroduce,
         SetAddressSuccess,
         RoamingSearchAddress,
+        NoConvert,
+        SC2TC,
+        TC2SC,
+        SubtitleConvert,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -824,6 +824,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="NextEpisode" xml:space="preserve">
     <value>下一集</value>
   </data>
+  <data name="NoConvert" xml:space="preserve">
+    <value>不转换</value>
+  </data>
   <data name="NoEpisode" xml:space="preserve">
     <value>没有可供播放的分集</value>
   </data>
@@ -1220,6 +1223,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="SaveToPictureLibrary" xml:space="preserve">
     <value>保存到图库</value>
   </data>
+  <data name="SC2TC" xml:space="preserve">
+    <value>简体 -&gt; 繁体</value>
+  </data>
   <data name="Score" xml:space="preserve">
     <value>评分</value>
   </data>
@@ -1379,6 +1385,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Subtitle" xml:space="preserve">
     <value>字幕</value>
   </data>
+  <data name="SubtitleConvert" xml:space="preserve">
+    <value>字幕转换</value>
+  </data>
   <data name="SubtitleList" xml:space="preserve">
     <value>字幕列表</value>
   </data>
@@ -1387,6 +1396,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="SwitchToQRLogin" xml:space="preserve">
     <value>扫描二维码登录</value>
+  </data>
+  <data name="TC2SC" xml:space="preserve">
+    <value>繁体 -&gt; 简体</value>
   </data>
   <data name="TenThousands" xml:space="preserve">
     <value>万</value>
