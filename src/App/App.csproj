@@ -38,6 +38,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
     <Compile Include="Controls\App\TipPopup.xaml.cs">
       <DependentUpon>TipPopup.xaml</DependentUpon>
     </Compile>
@@ -48,6 +51,24 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Dynamic\DynamicArticleItem.xaml.cs">
+      <DependentUpon>DynamicArticleItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicImageItem.xaml.cs">
+      <DependentUpon>DynamicImageItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicForwardItem.xaml.cs">
+      <DependentUpon>DynamicForwardItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicPresenter.xaml.cs">
+      <DependentUpon>DynamicPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dynamic\DynamicNotSupportItem.xaml.cs">
+      <DependentUpon>DynamicNotSupportItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\App\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Live\LiveAreaItem.xaml.cs">
       <DependentUpon>LiveAreaItem.xaml</DependentUpon>
     </Compile>
@@ -67,6 +88,7 @@
     <Compile Include="Controls\Settings\ScreenshotSettingSection.xaml.cs">
       <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
     <Compile Include="Controls\Toolbox\CoverDownloaderView.xaml.cs">
       <DependentUpon>CoverDownloaderView.xaml</DependentUpon>
     </Compile>
@@ -152,10 +174,6 @@
     <Compile Include="Controls\Common\ReaderView.xaml.cs">
       <DependentUpon>ReaderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
-    <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
-    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
-    <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
     <Compile Include="Controls\Message\ReplyMessageItem.xaml.cs">
       <DependentUpon>ReplyMessageItem.xaml</DependentUpon>
     </Compile>
@@ -434,6 +452,7 @@
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\PreferCodecConverter.cs" />
     <Compile Include="Resources\Converter\SeasonCoverConverter.cs" />
+    <Compile Include="Resources\Converter\SmallImageConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToBoolConverter.cs" />
     <Compile Include="Resources\Converter\ObjectToVisibilityConverter.cs" />
@@ -582,6 +601,30 @@
     <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicArticleItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicImageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicForwardItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicNotSupportItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Live\LiveAreaItem.xaml">
       <SubType>Designer</SubType>

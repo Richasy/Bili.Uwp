@@ -28,6 +28,22 @@ namespace Richasy.Bili.Models.App.Args
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="DynamicVideoIterationEventArgs"/> class.
+        /// </summary>
+        /// <param name="reply">响应结果.</param>
+        /// <param name="pageNumber">页码.</param>
+        public DynamicVideoIterationEventArgs(DynAllReply reply)
+        {
+            var data = reply.DynamicList;
+            List = data.List.ToList();
+            UpdateCount = Convert.ToInt32(data.UpdateNum);
+            HasMore = data.HasMore;
+            BaseLine = data.UpdateBaseline;
+            UpdateOffset = data.HistoryOffset;
+            IsComprehensive = true;
+        }
+
+        /// <summary>
         /// 动态条目列表.
         /// </summary>
         public List<DynamicItem> List { get; set; }
@@ -51,5 +67,10 @@ namespace Richasy.Bili.Models.App.Args
         /// 标识符，更新偏移值.
         /// </summary>
         public string UpdateOffset { get; set; }
+
+        /// <summary>
+        /// 是否为综合动态.
+        /// </summary>
+        public bool IsComprehensive { get; set; }
     }
 }

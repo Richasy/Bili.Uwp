@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bilibili.App.Dynamic.V2;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
@@ -98,6 +99,26 @@ namespace Richasy.Bili.ViewModels.Uwp
             Publisher = new UserViewModel(item.PublisherName, userId: item.PublisherId);
             CollectTime = DateTimeOffset.FromUnixTimeSeconds(item.CollectTime).ToString("yy/MM/dd");
 
+            LimitCover(cover);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
+        /// </summary>
+        /// <param name="item">动态文章.</param>
+        public ArticleViewModel(MdlDynArticle item)
+            : this()
+        {
+            Id = item.Id.ToString();
+            var cover = string.Empty;
+            var hasCover = item.Covers?.Any() ?? false;
+            if (hasCover)
+            {
+                cover = item.Covers.First();
+            }
+
+            Title = item.Title;
+            Description = item.Desc;
             LimitCover(cover);
         }
 

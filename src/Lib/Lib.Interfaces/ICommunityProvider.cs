@@ -53,6 +53,14 @@ namespace Richasy.Bili.Lib.Interfaces
         Task<bool> AddReplyAsync(string message, long targetId, ReplyType type, long rootId, long parentId);
 
         /// <summary>
+        /// 获取综合动态列表.
+        /// </summary>
+        /// <param name="historyOffset">历史偏移值.</param>
+        /// <param name="baseLine">更新基线.</param>
+        /// <returns>综合动态响应.</returns>
+        Task<DynAllReply> GetDynamicComprehensiveListAsync(string historyOffset, string baseLine);
+
+        /// <summary>
         /// 获取视频动态列表.
         /// </summary>
         /// <param name="historyOffset">历史偏移值.</param>

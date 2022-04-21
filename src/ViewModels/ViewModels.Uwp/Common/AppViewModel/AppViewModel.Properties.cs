@@ -57,6 +57,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         public event EventHandler RequestContinuePlay;
 
         /// <summary>
+        /// 请求显示图片列表.
+        /// </summary>
+        public event EventHandler<ShowImageEventArgs> RequestShowImages;
+
+        /// <summary>
         /// <see cref="AppViewModel"/>的单例.
         /// </summary>
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;

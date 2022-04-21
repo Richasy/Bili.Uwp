@@ -264,6 +264,16 @@ namespace Richasy.Bili.App.Controls
             }
 
             RefreshButton.Visibility = MainFrame.Content is IRefreshPage ? Visibility.Visible : Visibility.Collapsed;
+
+            if (MainFrame.Content is DynamicFeedPage)
+            {
+                DynamicNavView.Visibility = Visibility.Visible;
+                DynamicNavView.SelectedItem = DynamicModuleViewModel.Instance.IsVideo ? VideoDynamicItem : AllDynamicItem;
+            }
+            else
+            {
+                DynamicNavView.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void OnFixedPublisherClickAsync(object sender, RoutedEventArgs e)
@@ -280,6 +290,11 @@ namespace Richasy.Bili.App.Controls
                 Title = context.Name,
             };
             AppViewModel.Instance.OpenPlayer(record);
+        }
+
+        private void OnDynamicNavViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            DynamicModuleViewModel.Instance.IsVideo = args.InvokedItemContainer.Equals(VideoDynamicItem);
         }
     }
 }

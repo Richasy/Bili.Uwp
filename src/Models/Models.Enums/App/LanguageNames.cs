@@ -476,6 +476,21 @@ namespace Richasy.Bili.Models.Enums
         SC2TC,
         TC2SC,
         SubtitleConvert,
+        NotSupportDynamic,
+        Comprehensive,
+        Video,
+        ZoomIn,
+        ZoomOut,
+        Rotate,
+        CopyToClipboard,
+        SaveTo,
+        SettingTo,
+        SettingToBackground,
+        SettingToLockScreen,
+        Saved,
+        OriginalSize,
+        SetSuccess,
+        SetFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

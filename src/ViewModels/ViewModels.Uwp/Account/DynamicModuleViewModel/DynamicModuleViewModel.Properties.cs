@@ -12,8 +12,10 @@ namespace Richasy.Bili.ViewModels.Uwp
     /// </summary>
     public partial class DynamicModuleViewModel
     {
-        private string _updateOffset;
-        private string _baseLine;
+        private string _videoUpdateOffset;
+        private string _videoBaseLine;
+        private string _allUpdateOffset;
+        private string _allBaseLine;
         private bool _isLoadCompleted;
 
         /// <summary>
@@ -22,9 +24,20 @@ namespace Richasy.Bili.ViewModels.Uwp
         public static DynamicModuleViewModel Instance { get; } = new Lazy<DynamicModuleViewModel>(() => new DynamicModuleViewModel()).Value;
 
         /// <summary>
-        /// 动态集合.
+        /// 视频动态集合.
         /// </summary>
-        public ObservableCollection<DynamicItem> DynamicCollection { get; set; }
+        public ObservableCollection<DynamicItem> VideoDynamicCollection { get; }
+
+        /// <summary>
+        /// 全部动态集合.
+        /// </summary>
+        public ObservableCollection<DynamicItem> AllDynamicCollection { get; }
+
+        /// <summary>
+        /// 是否为视频动态.
+        /// </summary>
+        [Reactive]
+        public bool IsVideo { get; set; }
 
         /// <summary>
         /// 是否显示空白.

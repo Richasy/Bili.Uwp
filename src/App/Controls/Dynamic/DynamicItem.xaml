@@ -13,18 +13,9 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <DataTemplate x:Name="VideoTemplate" x:DataType="uwp:VideoViewModel">
-            <local:DynamicVideoCard ViewModel="{x:Bind}" />
-        </DataTemplate>
-        <DataTemplate x:Name="PgcTemplate" x:DataType="uwp:SeasonViewModel">
-            <local:DynamicPgcItem ViewModel="{x:Bind}" />
-        </DataTemplate>
-    </UserControl.Resources>
-
     <local:CardPanel
         x:Name="RootCard"
-        Click="OnCardClick"
+        Click="OnCardClickAsync"
         IsEnableHoverAnimation="False">
         <Grid Padding="12" RowSpacing="12">
             <Grid.RowDefinitions>
@@ -67,7 +58,7 @@
                     BorderThickness="0">
                     <icons:RegularFluentIcon Symbol="MoreHorizontal16" />
                     <Button.Flyout>
-                        <muxc:CommandBarFlyout Placement="Bottom">
+                        <muxc:CommandBarFlyout Opened="OnMoreFlyoutOpened" Placement="Bottom">
                             <muxc:CommandBarFlyout.SecondaryCommands>
                                 <AppBarButton
                                     x:Name="AddViewLaterButton"
@@ -84,16 +75,15 @@
             </Grid>
 
             <!-- 描述文本 -->
-            <TextBlock
+            <local:EmotiTextBlock
                 x:Name="DescriptionBlock"
                 Grid.Row="1"
                 FontSize="13"
-                LineHeight="20"
-                TextWrapping="Wrap" />
+                MaxLines="8" />
 
             <!-- 主体内容，比如视频封面 -->
             <Grid x:Name="MainContainer" Grid.Row="2">
-                <ContentPresenter x:Name="MainContentPresenter" />
+                <local:DynamicPresenter x:Name="Presenter" />
             </Grid>
 
             <!-- 操作 -->
@@ -126,7 +116,7 @@
                     Grid.Column="1"
                     Height="28"
                     BorderThickness="0"
-                    Click="OnReplyButtonClick">
+                    Click="OnReplyButtonClickAsync">
                     <local:IconTextBlock
                         x:Name="ReplyCountBlock"
                         FontSize="12"

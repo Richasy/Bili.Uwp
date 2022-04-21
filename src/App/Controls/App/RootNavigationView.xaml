@@ -137,13 +137,29 @@
                         ColumnSpacing="12"
                         Visibility="{x:Bind ViewModel.IsShowOverlay, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                        <Grid Grid.Column="1">
+                            <muxc:NavigationView
+                                x:Name="DynamicNavView"
+                                IsBackButtonVisible="Collapsed"
+                                IsPaneToggleButtonVisible="False"
+                                IsSettingsVisible="False"
+                                ItemInvoked="OnDynamicNavViewItemInvoked"
+                                PaneDisplayMode="Top"
+                                Visibility="Collapsed">
+                                <muxc:NavigationView.MenuItems>
+                                    <muxc:NavigationViewItem x:Name="VideoDynamicItem" Content="{loc:LocaleLocator Name=Video}" />
+                                    <muxc:NavigationViewItem x:Name="AllDynamicItem" Content="{loc:LocaleLocator Name=Comprehensive}" />
+                                </muxc:NavigationView.MenuItems>
+                            </muxc:NavigationView>
+                        </Grid>
                         <Button
                             x:Name="RefreshButton"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Click="OnRefreshButtonClickAsync"
                             Visibility="Collapsed">

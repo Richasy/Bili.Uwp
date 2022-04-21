@@ -19,6 +19,7 @@
     <local:CenterPopup.Resources>
         <DataTemplate x:Key="VideoCardTemplate" x:DataType="uwp:VideoViewModel">
             <local:VideoCard
+                Height="120"
                 IsShowAvatar="False"
                 IsShowDanmakuCount="True"
                 IsShowDuration="True"

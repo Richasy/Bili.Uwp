@@ -78,6 +78,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(IsStaggered), typeof(bool), typeof(VerticalRepeaterView), new PropertyMetadata(false, new PropertyChangedCallback(OnIsStaggeredChanged)));
 
         /// <summary>
+        /// <see cref="VerticalCacheSize"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty VerticalCacheSizeProperty =
+            DependencyProperty.Register(nameof(VerticalCacheSize), typeof(int), typeof(VerticalRepeaterView), new PropertyMetadata(10));
+
+        /// <summary>
         /// 在外部的ScrollViewer滚动到接近底部时发生.
         /// </summary>
         public event EventHandler RequestLoadMore;
@@ -179,6 +185,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (bool)GetValue(IsStaggeredProperty); }
             set { SetValue(IsStaggeredProperty, value); }
+        }
+
+        /// <summary>
+        /// 垂直方向缓存大小.
+        /// </summary>
+        public int VerticalCacheSize
+        {
+            get { return (int)GetValue(VerticalCacheSizeProperty); }
+            set { SetValue(VerticalCacheSizeProperty, value); }
         }
     }
 }

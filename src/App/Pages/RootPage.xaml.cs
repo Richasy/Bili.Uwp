@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace Richasy.Bili.App.Pages
             CoreViewModel.RequestBack += OnRequestBackAsync;
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
+            CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
         }
@@ -152,6 +154,20 @@ namespace Richasy.Bili.App.Pages
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
             => CoreViewModel.InitializePadding();
+
+        private async void OnRequestShowImagesAsync(object sender, ShowImageEventArgs e)
+        {
+            var viewer = ImageViewer.Instance ?? new ImageViewer();
+            if (e != null && e.ImageUrls?.Count != 0)
+            {
+                ShowOnHolder(viewer);
+                await viewer.LoadImagesAsync(e.ImageUrls, e.ShowIndex);
+            }
+            else
+            {
+                RemoveFromHolder(viewer);
+            }
+        }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
