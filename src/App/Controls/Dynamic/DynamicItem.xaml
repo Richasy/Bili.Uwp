@@ -15,7 +15,7 @@
 
     <local:CardPanel
         x:Name="RootCard"
-        Click="OnCardClick"
+        Click="OnCardClickAsync"
         IsEnableHoverAnimation="False">
         <Grid Padding="12" RowSpacing="12">
             <Grid.RowDefinitions>
@@ -116,7 +116,7 @@
                     Grid.Column="1"
                     Height="28"
                     BorderThickness="0"
-                    Click="OnReplyButtonClick">
+                    Click="OnReplyButtonClickAsync">
                     <local:IconTextBlock
                         x:Name="ReplyCountBlock"
                         FontSize="12"

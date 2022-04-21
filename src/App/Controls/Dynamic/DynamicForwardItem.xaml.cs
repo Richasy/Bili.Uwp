@@ -58,6 +58,12 @@ namespace Richasy.Bili.App.Controls
         /// <returns>播放视图模型.</returns>
         public object GetPlayViewModel() => Presenter.GetPlayViewModel();
 
+        /// <summary>
+        /// 获取文章视图模型.
+        /// </summary>
+        /// <returns>文章视图模型.</returns>
+        public object GetArticleViewModel() => Presenter.GetArticleViewModel();
+
         private static void OnDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as DynamicForwardItem;

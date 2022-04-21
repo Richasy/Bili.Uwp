@@ -77,6 +77,25 @@ namespace Richasy.Bili.App.Controls
             return null;
         }
 
+        /// <summary>
+        /// 获取可供播放的视图模型.
+        /// </summary>
+        /// <returns>播放视图模型.</returns>
+        public object GetArticleViewModel()
+        {
+            if (MainPresenter.Content is Bilibili.App.Dynamic.V2.MdlDynArticle article)
+            {
+                return new ArticleViewModel(article);
+            }
+            else if (MainPresenter.Content is Bilibili.App.Dynamic.V2.MdlDynForward)
+            {
+                var forwardItem = MainPresenter.FindDescendantElementByType<DynamicForwardItem>();
+                return forwardItem.GetArticleViewModel();
+            }
+
+            return null;
+        }
+
         private static void DataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as DynamicPresenter;
@@ -120,6 +139,12 @@ namespace Richasy.Bili.App.Controls
             {
                 instance.MainPresenter.Content = mainModule.DynDraw;
                 instance.MainPresenter.ContentTemplate = instance.ImageTemplate;
+            }
+            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArticle)
+            {
+                mainModule.DynArticle.Id = Convert.ToInt64(data.Extend.BusinessId);
+                instance.MainPresenter.Content = mainModule.DynArticle;
+                instance.MainPresenter.ContentTemplate = instance.ArticleTemplate;
             }
             else
             {

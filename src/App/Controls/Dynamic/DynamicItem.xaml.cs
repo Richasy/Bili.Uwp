@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -117,8 +118,8 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnCardClick(object sender, RoutedEventArgs e)
-            => OpenPlayer();
+        private async void OnCardClickAsync(object sender, RoutedEventArgs e)
+            => await JumpAsync();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
             => CheckOrientation();
@@ -128,18 +129,25 @@ namespace Richasy.Bili.App.Controls
             Presenter.ChangeOrientation(Orientation);
         }
 
-        private void OnReplyButtonClick(object sender, RoutedEventArgs e)
+        private async void OnReplyButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            OpenPlayer();
+            await JumpAsync();
             PlayerViewModel.Instance.InitializeSection = AppConstants.ReplySection;
         }
 
-        private void OpenPlayer()
+        private async Task JumpAsync()
         {
             var vm = Presenter.GetPlayViewModel();
             if (vm != null)
             {
                 AppViewModel.Instance.OpenPlayer(vm);
+                return;
+            }
+
+            vm = Presenter.GetArticleViewModel();
+            if (vm != null)
+            {
+                await ReaderView.Instance.ShowAsync(vm as ArticleViewModel);
             }
         }
 

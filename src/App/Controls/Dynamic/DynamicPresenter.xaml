@@ -24,6 +24,9 @@
         <DataTemplate x:Name="ImageTemplate" x:DataType="v2:MdlDynDraw">
             <local:DynamicImageItem Data="{x:Bind}" />
         </DataTemplate>
+        <DataTemplate x:Name="ArticleTemplate" x:DataType="v2:MdlDynArticle">
+            <local:DynamicArticleItem Data="{x:Bind}" />
+        </DataTemplate>
         <DataTemplate x:Name="NoneTemplate">
             <local:DynamicNotSupportItem />
         </DataTemplate>
