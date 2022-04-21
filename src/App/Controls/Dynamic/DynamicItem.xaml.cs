@@ -214,7 +214,10 @@ namespace Richasy.Bili.App.Controls
                 request.Data.SetWebLink(new Uri(url));
             }
 
-            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(coverUrl)));
+            if (!string.IsNullOrEmpty(coverUrl))
+            {
+                request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(coverUrl)));
+            }
         }
 
         private async void OnAvatarClickAsync(object sender, EventArgs e)

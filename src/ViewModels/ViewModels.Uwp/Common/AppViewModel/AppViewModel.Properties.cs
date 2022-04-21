@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using ReactiveUI.Fody.Helpers;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Controller.Uwp.Interfaces;
@@ -55,6 +56,11 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 请求进行之前的播放.
         /// </summary>
         public event EventHandler RequestContinuePlay;
+
+        /// <summary>
+        /// 请求显示图片列表.
+        /// </summary>
+        public event EventHandler<ShowImageEventArgs> RequestShowImages;
 
         /// <summary>
         /// <see cref="AppViewModel"/>的单例.

@@ -344,6 +344,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Copied" xml:space="preserve">
     <value>已复制</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>复制到剪切板</value>
+  </data>
   <data name="CopyToClipboardAfterScreenshot" xml:space="preserve">
     <value>截图后复制到剪切板</value>
   </data>
@@ -1226,6 +1229,15 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
   </data>
+  <data name="Rotate" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="SaveTo" xml:space="preserve">
+    <value>另存为</value>
+  </data>
   <data name="SaveToPictureLibrary" xml:space="preserve">
     <value>保存到图库</value>
   </data>
@@ -1282,6 +1294,21 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="SetAddressSuccess" xml:space="preserve">
     <value>成功设置地址</value>
+  </data>
+  <data name="SetFailed" xml:space="preserve">
+    <value>设置失败</value>
+  </data>
+  <data name="SetSuccess" xml:space="preserve">
+    <value>已成功设置</value>
+  </data>
+  <data name="SettingTo" xml:space="preserve">
+    <value>设置为</value>
+  </data>
+  <data name="SettingToBackground" xml:space="preserve">
+    <value>设置为背景</value>
+  </data>
+  <data name="SettingToLockScreen" xml:space="preserve">
+    <value>设置为锁屏</value>
   </data>
   <data name="Shadow" xml:space="preserve">
     <value>阴影</value>
@@ -1528,5 +1555,11 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Yellow" xml:space="preserve">
     <value>黄色</value>
+  </data>
+  <data name="ZoomIn" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="ZoomOut" xml:space="preserve">
+    <value>缩小</value>
   </data>
 </root>

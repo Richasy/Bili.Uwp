@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
@@ -82,6 +83,23 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             RequestPlay?.Invoke(this, playVM);
             IsOpenPlayer = true;
+        }
+
+        /// <summary>
+        /// 显示图片.
+        /// </summary>
+        /// <param name="images">图片列表.</param>
+        /// <param name="firstIndex">初始索引.</param>
+        public void ShowImages(List<string> images, int firstIndex)
+        {
+            if (images == null)
+            {
+                RequestShowImages?.Invoke(this, null);
+            }
+            else
+            {
+                RequestShowImages?.Invoke(this, new ShowImageEventArgs(images, firstIndex));
+            }
         }
 
         /// <summary>

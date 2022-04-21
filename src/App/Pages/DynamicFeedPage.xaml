@@ -63,7 +63,6 @@
             Visibility="{x:Bind ViewModel.IsVideo, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <controls:VerticalRepeaterView
                 x:Name="AllRepeaterView"
-                Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
                 IsStaggered="True"
                 ItemsSource="{x:Bind ViewModel.AllDynamicCollection, Mode=OneWay}"

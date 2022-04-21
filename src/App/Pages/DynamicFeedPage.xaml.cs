@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Richasy.Bili.App.Controls;

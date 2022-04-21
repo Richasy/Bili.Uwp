@@ -21,6 +21,9 @@
         <DataTemplate x:Name="ForwardTemplate" x:DataType="v2:MdlDynForward">
             <local:DynamicForwardItem Margin="-12,0" Data="{x:Bind}" />
         </DataTemplate>
+        <DataTemplate x:Name="ImageTemplate" x:DataType="v2:MdlDynDraw">
+            <local:DynamicImageItem Data="{x:Bind}" />
+        </DataTemplate>
         <DataTemplate x:Name="NoneTemplate">
             <local:DynamicNotSupportItem />
         </DataTemplate>

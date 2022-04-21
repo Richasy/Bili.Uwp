@@ -116,6 +116,11 @@ namespace Richasy.Bili.App.Controls
                 instance.MainPresenter.Content = mainModule.DynForward;
                 instance.MainPresenter.ContentTemplate = instance.ForwardTemplate;
             }
+            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynDraw)
+            {
+                instance.MainPresenter.Content = mainModule.DynDraw;
+                instance.MainPresenter.ContentTemplate = instance.ImageTemplate;
+            }
             else
             {
                 instance.MainPresenter.Content = mainModule;

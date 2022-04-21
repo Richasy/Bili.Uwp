@@ -40,6 +40,7 @@
             <converter:DanmakuLocationConverter x:Key="DanmakuLocationConverter" />
             <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter" />
             <converter:SubtitleConvertTypeConverter x:Key="SubtitleConvertTypeConverter" />
+            <converter:SmallImageConverter x:Key="SmallImageConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

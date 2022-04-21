@@ -1,0 +1,232 @@
+﻿<UserControl
+    x:Class="Richasy.Bili.App.Controls.ImageViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icon="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style
+            x:Key="CustomButtonStyle"
+            BasedOn="{StaticResource DefaultAppBarButtonStyle}"
+            TargetType="AppBarButton">
+            <Setter Property="Width" Value="40" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="Container" Background="{ThemeResource SystemFillColorSolidNeutralBackgroundBrush}">
+        <animations:Implicit.ShowAnimations>
+            <animations:OpacityAnimation
+                From="0"
+                To="1"
+                Duration="0:0:0.3" />
+        </animations:Implicit.ShowAnimations>
+        <animations:Implicit.HideAnimations>
+            <animations:OpacityAnimation
+                From="1"
+                To="0"
+                Duration="0:0:0.2" />
+        </animations:Implicit.HideAnimations>
+        <Button
+            x:Name="NextButton"
+            Width="0"
+            Height="0"
+            Click="OnNextButtonClickAsync"
+            IsTabStop="False"
+            Opacity="0">
+            <Button.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Right" IsEnabled="True" />
+            </Button.KeyboardAccelerators>
+        </Button>
+        <Button
+            x:Name="PrevButton"
+            Width="0"
+            Height="0"
+            Click="OnPrevButtonClickAsync"
+            IsTabStop="False"
+            Opacity="0">
+            <Button.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Left" IsEnabled="True" />
+            </Button.KeyboardAccelerators>
+        </Button>
+        <ScrollViewer
+            x:Name="ImageScrollViewer"
+            HorizontalScrollBarVisibility="Auto"
+            HorizontalScrollMode="Enabled"
+            MaxZoomFactor="1.5"
+            MinZoomFactor="0.2"
+            RenderTransformOrigin="0.5,0.5"
+            Tapped="OnScrollViewerTapped"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Enabled"
+            ViewChanged="OnScrollViewerViewChanged"
+            ZoomMode="Enabled">
+            <Image
+                x:Name="Image"
+                RenderTransformOrigin="0.5,0.5"
+                Stretch="None">
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="RotateTransform" Angle="0" />
+                </Image.RenderTransform>
+            </Image>
+        </ScrollViewer>
+
+        <!-- 用于进行图片操作 -->
+        <Grid
+            Margin="0,20,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Background="{ThemeResource AppMaskAcrylicBrush}"
+            BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource OverlayCornerRadius}">
+            <CommandBar
+                x:Name="TopBar"
+                VerticalAlignment="Center"
+                DefaultLabelPosition="Collapsed">
+                <AppBarButton
+                    x:Name="ZoomInButton"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="OnZoomInButtonClick"
+                    Label="{loc:LocaleLocator Name=ZoomIn}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ZoomIn}">
+                    <AppBarButton.Icon>
+                        <icon:RegularFluentIcon Symbol="ZoomIn20" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarElementContainer Padding="12,0" VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="FactoryBlock"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        VerticalAlignment="Center" />
+                </AppBarElementContainer>
+                <AppBarButton
+                    x:Name="ZoomOutButton"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="OnZoomOutButtonClick"
+                    Label="{loc:LocaleLocator Name=ZoomOut}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ZoomOut}">
+                    <AppBarButton.Icon>
+                        <icon:RegularFluentIcon Symbol="ZoomOut20" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton
+                    x:Name="RotateButton"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="OnRotateButtonClick"
+                    Label="{loc:LocaleLocator Name=Rotate}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Rotate}">
+                    <AppBarButton.Icon>
+                        <icon:RegularFluentIcon Symbol="RotateRight20" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator
+                            Key="R"
+                            IsEnabled="True"
+                            Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarButton
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="OnCopyButtonClickAysnc"
+                    Label="{loc:LocaleLocator Name=CopyToClipboard}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=CopyToClipboard}">
+                    <AppBarButton.Icon>
+                        <icon:RegularFluentIcon Symbol="Copy20" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="C" Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarButton
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="OnSaveButtonClickAsync"
+                    Label="{loc:LocaleLocator Name=SaveTo}"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=SaveTo}">
+                    <AppBarButton.Icon>
+                        <icon:RegularFluentIcon Symbol="Save20" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="{loc:LocaleLocator Name=Share}">
+                        <AppBarButton.Icon>
+                            <icon:RegularFluentIcon Symbol="Share20" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                    <AppBarButton Label="{loc:LocaleLocator Name=SettingTo}">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="OnSettingToBackgroundClickAsync" Text="{loc:LocaleLocator Name=SettingToBackground}">
+                                    <MenuFlyoutItem.Icon>
+                                        <icon:RegularFluentIcon Symbol="VideoBackgroundEffect20" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem Click="OnSettingToLockScreenClickAsync" Text="{loc:LocaleLocator Name=SettingToLockScreen}">
+                                    <MenuFlyoutItem.Icon>
+                                        <icon:RegularFluentIcon Symbol="LockClosed20" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                        <AppBarButton.Icon>
+                            <icon:RegularFluentIcon Symbol="ImageArrowForward24" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+        </Grid>
+
+        <Grid
+            x:Name="ImageListContainer"
+            Margin="20,0,20,20"
+            Padding="8"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Background="{ThemeResource AppMaskAcrylicBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}">
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Auto"
+                HorizontalScrollMode="Enabled"
+                VerticalScrollMode="Disabled">
+                <muxc:ItemsRepeater x:Name="ImageRepeater" ItemsSource="{x:Bind ImageUrls}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:StackLayout
+                            DisableVirtualization="True"
+                            Orientation="Horizontal"
+                            Spacing="4" />
+                    </muxc:ItemsRepeater.Layout>
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <local:CardPanel
+                                Width="100"
+                                Height="80"
+                                Click="OnImageItemClickAsync"
+                                DataContext="{x:Bind}"
+                                IsEnableHoverAnimation="False"
+                                StrokeThickness="2">
+                                <local:CommonImageEx
+                                    Margin="4"
+                                    CornerRadius="2"
+                                    ImageUrl="{x:Bind Converter={StaticResource SmallImageConverter}}"
+                                    Stretch="UniformToFill" />
+                            </local:CardPanel>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                </muxc:ItemsRepeater>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>
