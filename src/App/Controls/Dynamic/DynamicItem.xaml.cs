@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.ApplicationModel.DataTransfer;
@@ -131,8 +132,43 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnReplyButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await JumpAsync();
-            PlayerViewModel.Instance.InitializeSection = AppConstants.ReplySection;
+            var type = ReplyType.None;
+            switch (Data.CardType)
+            {
+                case Bilibili.App.Dynamic.V2.DynamicType.Forward:
+                case Bilibili.App.Dynamic.V2.DynamicType.Word:
+                case Bilibili.App.Dynamic.V2.DynamicType.Draw:
+                case Bilibili.App.Dynamic.V2.DynamicType.Live:
+                    type = ReplyType.Dynamic;
+                    break;
+                case Bilibili.App.Dynamic.V2.DynamicType.Av:
+                case Bilibili.App.Dynamic.V2.DynamicType.Pgc:
+                case Bilibili.App.Dynamic.V2.DynamicType.UgcSeason:
+                    type = ReplyType.Video;
+                    break;
+                case Bilibili.App.Dynamic.V2.DynamicType.Courses:
+                case Bilibili.App.Dynamic.V2.DynamicType.CoursesSeason:
+                    type = ReplyType.Course;
+                    break;
+                case Bilibili.App.Dynamic.V2.DynamicType.Article:
+                    type = ReplyType.Article;
+                    break;
+                case Bilibili.App.Dynamic.V2.DynamicType.Music:
+                    type = ReplyType.Music;
+                    break;
+                default:
+                    break;
+            }
+
+            if (type == ReplyType.None)
+            {
+                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(Data.Extend.BusinessId), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
+            await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
 
         private async Task JumpAsync()

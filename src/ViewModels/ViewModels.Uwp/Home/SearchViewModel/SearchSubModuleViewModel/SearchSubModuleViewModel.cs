@@ -102,7 +102,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 catch (ServiceException ex)
                 {
                     IsError = true;
-                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestPopularFailed)}\n{ex.Error?.Message ?? ex.Message}";
+                    ErrorText = $"{ResourceToolkit.GetLocaleString(LanguageNames.RequestSearchResultFailed)}\n{ex.Error?.Message ?? ex.Message}";
                 }
                 catch (InvalidOperationException invalidEx)
                 {
