@@ -33,6 +33,8 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string ScreenshotFolderName = "Bili Screenshots";
 
+        public const string NewDynamicTaskName = "Richasy.Bili.Tasks.DynamicNotifyTask";
+
         /// <summary>
         /// 哔哩哔哩番剧出差账户Id.
         /// </summary>

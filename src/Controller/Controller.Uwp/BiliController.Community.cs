@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using System.Threading.Tasks;
 using Bilibili.Main.Community.Reply.V1;
 using Richasy.Bili.Models.App.Args;
@@ -113,6 +114,24 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取最新动态视频列表.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task<Bilibili.App.Dynamic.V2.DynVideoReply> GetLatestDynamicVideoListAsync()
+        {
+            ThrowWhenNetworkUnavaliable();
+            try
+            {
+                var reply = await _communityProvider.GetDynamicVideoListAsync(string.Empty, string.Empty);
+                return reply;
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 请求动态视频列表.
         /// </summary>
         /// <param name="offset">偏移值.</param>
@@ -126,6 +145,12 @@ namespace Richasy.Bili.Controller.Uwp
                 var reply = await _communityProvider.GetDynamicVideoListAsync(offset, baseLine);
                 var args = new DynamicVideoIterationEventArgs(reply);
                 DynamicVideoIteration?.Invoke(this, args);
+
+                // 将最新的动态Id存入本地设置.
+                if (string.IsNullOrEmpty(offset))
+                {
+                    _settingToolkit.WriteLocalSetting(Models.Enums.SettingNames.LastReadVideoDynamicId, args.List.First().Extend.DynIdStr);
+                }
             }
             catch (System.Exception ex)
             {

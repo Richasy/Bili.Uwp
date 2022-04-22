@@ -177,5 +177,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string RoamingSearchAddress { get; set; }
+
+        /// <summary>
+        /// 是否开启动态通知.
+        /// </summary>
+        [Reactive]
+        public bool IsOpenDynamicNotification { get; set; }
+
+        /// <summary>
+        /// 是否允许后台任务.
+        /// </summary>
+        [Reactive]
+        public bool IsEnableBackgroundTask { get; set; }
     }
 }

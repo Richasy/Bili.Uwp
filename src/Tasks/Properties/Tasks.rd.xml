@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    此文件包含运行时指令，应用程序通过反射和其他动态代码模式
+    所访问的类型的规范。运行时指令用于控制
+    .NET Native 优化器，并确保它不会移除你的库所访问的代码。如果你的
+    库不进行任何反射，那么一般而言你无需编辑此文件。但是，
+    如果你的库反射类型，尤其是传递到它或从它的类型所派生的类型，
+       那么就应该编写运行时指令。
+
+    库中反射最常见的使用方式是发现传递到库的
+    类型的信息。运行时指令有三种方式来表达传递给库的
+    类型的要求
+
+    1.  Parameter、GenericParameter、TypeParameter、TypeEnumerableParameter
+        使用这些指令可反射作为参数传递的类型。
+
+    2.  SubTypes
+        使用 SubTypes 指令反射从其他类型派生的类型。
+
+    3.  AttributeImplies
+        使用 AttributeImplies 指令指示你的库需要反射使用
+        属性修饰的类型或方法。
+
+    有关为库编写运行时指令的详细信息，请参阅
+    https://go.microsoft.com/fwlink/?LinkID=391919
+-->
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Library Name="Tasks">
+
+  	<!--在此处为库添加指令-->
+
+  </Library>
+</Directives>

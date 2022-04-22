@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models.gRPC", "src\Models\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrostMaster.Uwp", "src\Lib\FrostMaster.Uwp\FrostMaster.Uwp.csproj", "{B9CD5845-2DE3-40FC-BC0F-27C406929551}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks", "src\Tasks\Tasks.csproj", "{C7BEA810-0F31-4176-99A0-4481733918DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -299,6 +301,26 @@ Global
 		{B9CD5845-2DE3-40FC-BC0F-27C406929551}.Release|x64.Build.0 = Release|x64
 		{B9CD5845-2DE3-40FC-BC0F-27C406929551}.Release|x86.ActiveCfg = Release|x86
 		{B9CD5845-2DE3-40FC-BC0F-27C406929551}.Release|x86.Build.0 = Release|x86
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|ARM.Build.0 = Debug|ARM
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|ARM64.Build.0 = Debug|ARM64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|x64.ActiveCfg = Debug|x64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|x64.Build.0 = Debug|x64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|x86.ActiveCfg = Debug|x86
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Debug|x86.Build.0 = Debug|x86
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|ARM.ActiveCfg = Release|ARM
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|ARM.Build.0 = Release|ARM
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|ARM64.ActiveCfg = Release|ARM64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|ARM64.Build.0 = Release|ARM64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|x64.ActiveCfg = Release|x64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|x64.Build.0 = Release|x64
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|x86.ActiveCfg = Release|x86
+		{C7BEA810-0F31-4176-99A0-4481733918DE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

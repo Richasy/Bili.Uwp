@@ -65,6 +65,12 @@
             <uap:Logo>Assets\Bili_rgba_80.png</uap:Logo>
           </uap:Protocol>
         </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Richasy.Bili.Tasks.DynamicNotifyTask">
+          <BackgroundTasks>
+            <Task Type="timer"/>
+            <Task Type="pushNotification"/>
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

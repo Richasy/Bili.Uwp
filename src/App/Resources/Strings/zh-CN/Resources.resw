@@ -785,6 +785,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="MobileApp" xml:space="preserve">
     <value>移动应用</value>
   </data>
+  <data name="MoreInDynamic" xml:space="preserve">
+    <value>更多内容请在动态页查看</value>
+  </data>
   <data name="MorePeople" xml:space="preserve">
     <value>等人</value>
   </data>
@@ -868,6 +871,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="NoStroke" xml:space="preserve">
     <value>无描边</value>
+  </data>
+  <data name="NotificationSetting" xml:space="preserve">
+    <value>通知设置</value>
+  </data>
+  <data name="NotificationSettingDescription" xml:space="preserve">
+    <value>打开视频动态通知，有新的视频更新时会提醒你，登录后有效</value>
   </data>
   <data name="NotSupportDynamic" xml:space="preserve">
     <value>不受支持的动态类型</value>

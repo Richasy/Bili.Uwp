@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
@@ -9,6 +10,7 @@ using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.Models.Enums.App;
+using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
 
 namespace Richasy.Bili.ViewModels.Uwp
@@ -232,6 +234,63 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (supportCheck && canPlay)
             {
                 RequestContinuePlay?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// 注册新动态通知的后台通知任务.
+        /// </summary>
+        /// <returns>注册结果.</returns>
+        public async Task<bool> RegisterNewDynamicBackgroundTaskAsync()
+        {
+            var taskName = AppConstants.NewDynamicTaskName;
+            var hasRegistered = BackgroundTaskRegistration.AllTasks.Any(p => p.Value.Name.Equals(taskName));
+            if (!hasRegistered)
+            {
+                var status = await BackgroundExecutionManager.RequestAccessAsync();
+                if (!status.ToString().Contains("Allowed"))
+                {
+                    return false;
+                }
+
+                var builder = new BackgroundTaskBuilder();
+                builder.Name = taskName;
+                builder.TaskEntryPoint = taskName;
+                builder.SetTrigger(new TimeTrigger(15, false));
+                builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+                _ = builder.Register();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 注销新动态通知任务.
+        /// </summary>
+        public void UnregisterNewDynamicBackgroundTask()
+        {
+            var taskName = AppConstants.NewDynamicTaskName;
+            var task = BackgroundTaskRegistration.AllTasks.FirstOrDefault(p => p.Value.Name.Equals(taskName)).Value;
+            if (task != null)
+            {
+                task.Unregister(true);
+            }
+        }
+
+        /// <summary>
+        /// 检查新动态通知是否启用.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task CheckNewDynamicRegistrationAsync()
+        {
+            var openDynamicNotify = _settingToolkit.ReadLocalSetting(SettingNames.IsOpenNewDynamicNotify, true);
+            if (openDynamicNotify)
+            {
+                await RegisterNewDynamicBackgroundTaskAsync();
+            }
+            else
+            {
+                UnregisterNewDynamicBackgroundTask();
             }
         }
 
