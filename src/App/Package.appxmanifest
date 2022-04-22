@@ -59,6 +59,12 @@
             <uap5:ExecutionAlias Alias="Bili.exe" />
           </uap5:AppExecutionAlias>
         </uap5:Extension>
+        <uap:Extension Category="windows.protocol" EntryPoint="App.App">
+          <uap:Protocol Name="richasy-bili">
+            <uap:DisplayName>哔哩</uap:DisplayName>
+            <uap:Logo>Assets\Bili_rgba_80.png</uap:Logo>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

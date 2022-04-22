@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +24,7 @@ namespace Richasy.Bili.App.Pages
     public sealed partial class RootPage : AppPage
     {
         private string _initialCommandParameters = null;
+        private Uri _initialUri;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RootPage"/> class.
@@ -88,9 +88,13 @@ namespace Richasy.Bili.App.Pages
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is CommandLineActivatedEventArgs args)
+            if (e.Parameter is CommandLineActivatedEventArgs command)
             {
-                _initialCommandParameters = args.Operation.Arguments;
+                _initialCommandParameters = command.Operation.Arguments;
+            }
+            else if (e.Parameter is IProtocolActivatedEventArgs protocol)
+            {
+                _initialUri = protocol.Uri;
             }
         }
 
@@ -221,6 +225,11 @@ namespace Richasy.Bili.App.Pages
             {
                 await CoreViewModel.InitializeCommandFromArgumentsAsync(_initialCommandParameters);
                 _initialCommandParameters = null;
+            }
+            else if (_initialUri != null)
+            {
+                await CoreViewModel.InitializeProtocolFromQueryAsync(_initialUri);
+                _initialUri = null;
             }
             else
             {

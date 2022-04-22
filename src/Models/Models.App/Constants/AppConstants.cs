@@ -37,6 +37,21 @@ namespace Richasy.Bili.Models.App.Constants
         /// 哔哩哔哩番剧出差账户Id.
         /// </summary>
         public const int RegionalAnimeUserId = 11783021;
+
+        public static class Protocol
+        {
+            public const string PlayHost = "play";
+            public const string FindHost = "find";
+            public const string NavigateHost = "navigate";
+
+            public const string VideoParam = "video";
+            public const string SeasonParam = "season";
+            public const string EpisodeParam = "episode";
+            public const string LiveParam = "live";
+            public const string KeywordParam = "keyword";
+            public const string IdParam = "id";
+            public const string ModeParam = "mode";
+        }
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

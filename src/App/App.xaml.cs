@@ -107,12 +107,15 @@ namespace Richasy.Bili.App
             }
 
             // App launched or activated by link
-            else if (e is ProtocolActivatedEventArgs protocalArgs)
+            else if (e is IProtocolActivatedEventArgs protocalArgs)
             {
-                var arg = protocalArgs.Uri.Query.Replace("?", string.Empty);
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), arg);
+                    rootFrame.Navigate(typeof(Pages.RootPage), protocalArgs);
+                }
+                else
+                {
+                    await AppViewModel.Instance.InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
 
