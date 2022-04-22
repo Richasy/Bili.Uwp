@@ -2,6 +2,7 @@
     x:Class="Richasy.Bili.App.Controls.PgcFavoritePanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Richasy.Bili.Locator.Uwp"
@@ -13,7 +14,15 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid>
+    <UserControl.Resources>
+        <converter:PgcFavoriteStatusConverter x:Key="StatusConverter" />
+    </UserControl.Resources>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -32,8 +41,23 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+
+        <ComboBox
+            x:Name="StatusComboBox"
+            MinWidth="120"
+            HorizontalAlignment="Left"
+            ItemsSource="{x:Bind ViewModel.StatusCollection}"
+            SelectedItem="{x:Bind ViewModel.Status, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="x:Int32">
+                    <TextBlock Text="{x:Bind Converter={StaticResource StatusConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
         <ScrollViewer
             x:Name="ContentScrollViewer"
+            Grid.Row="1"
             Padding="{StaticResource DefaultContainerPadding}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
@@ -50,8 +74,35 @@
                     <DataTemplate x:DataType="uwp:SeasonViewModel">
                         <local:PgcItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
                             <local:PgcItem.ContextFlyout>
-                                <muxc:CommandBarFlyout>
+                                <muxc:CommandBarFlyout Opened="OnItemFlyoutOpened">
                                     <muxc:CommandBarFlyout.SecondaryCommands>
+                                        <AppBarButton
+                                            x:Name="MarkWantWatchButton"
+                                            Click="OnMarkStatusButtonClickAsync"
+                                            Label="{loc:LocaleLocator Name=MarkWantWatch}"
+                                            Tag="1">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="Thinking20" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Name="MarkWatchingButton"
+                                            Click="OnMarkStatusButtonClickAsync"
+                                            Label="{loc:LocaleLocator Name=MarkWatching}"
+                                            Tag="2">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="EyeTrackingOn20" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            x:Name="MarkWatchedButton"
+                                            Click="OnMarkStatusButtonClickAsync"
+                                            Label="{loc:LocaleLocator Name=MarkWatched}"
+                                            Tag="3">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="Folder16" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
                                         <AppBarButton Click="OnUnFavoritePgcButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
                                             <AppBarButton.Icon>
                                                 <icons:RegularFluentIcon Symbol="StarOff16" />
@@ -66,12 +117,19 @@
             </local:VerticalRepeaterView>
         </ScrollViewer>
 
-        <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+        <local:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
         <local:ErrorPanel
+            Grid.Row="1"
             ActionButtonClick="OnPgcRefreshButtonClickAsync"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <local:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
+        <local:ErrorPanel
+            Grid.Row="1"
+            Text="{loc:LocaleLocator Name=NoSpecificData}"
+            Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
     </Grid>
 </UserControl>

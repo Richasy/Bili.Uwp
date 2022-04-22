@@ -169,15 +169,17 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 获取追番列表.
         /// </summary>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="status">状态.</param>
         /// <returns>追番列表响应.</returns>
-        Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber);
+        Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber, int status);
 
         /// <summary>
         /// 获取追剧列表.
         /// </summary>
         /// <param name="pageNumber">页码.</param>
+        /// <param name="status">状态.</param>
         /// <returns>追剧列表响应.</returns>
-        Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber);
+        Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber, int status);
 
         /// <summary>
         /// 获取收藏文章列表.
@@ -185,6 +187,14 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>收藏文章列表响应.</returns>
         Task<ArticleFavoriteListResponse> GetFavortieArticleListAsync(int pageNumber);
+
+        /// <summary>
+        /// 更新收藏的PGC内容状态.
+        /// </summary>
+        /// <param name="seasonId">PGC剧集Id.</param>
+        /// <param name="status">状态代码.</param>
+        /// <returns>是否更新成功.</returns>
+        Task<bool> UpdateFavoritePgcStatusAsync(int seasonId, int status);
 
         /// <summary>
         /// 取消关注收藏夹.
