@@ -53,6 +53,7 @@ namespace Richasy.Bili.Models.App.Constants
             public const string KeywordParam = "keyword";
             public const string IdParam = "id";
             public const string ModeParam = "mode";
+            public const string IsPgcParam = "isPgc";
         }
 #pragma warning restore SA1600 // Elements should be documented
     }
