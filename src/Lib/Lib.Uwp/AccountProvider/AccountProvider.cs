@@ -277,12 +277,28 @@ namespace Richasy.Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber)
-            => GetPgcFavoriteListInternalAsync(Account.AnimeFavorite, pageNumber);
+        public Task<PgcFavoriteListResponse> GetFavoriteAnimeListAsync(int pageNumber, int status)
+            => GetPgcFavoriteListInternalAsync(Account.AnimeFavorite, pageNumber, status);
 
         /// <inheritdoc/>
-        public Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber)
-            => GetPgcFavoriteListInternalAsync(Account.CinemaFavorite, pageNumber);
+        public Task<PgcFavoriteListResponse> GetFavoriteCinemaListAsync(int pageNumber, int status)
+            => GetPgcFavoriteListInternalAsync(Account.CinemaFavorite, pageNumber, status);
+
+        /// <inheritdoc/>
+        public async Task<bool> UpdateFavoritePgcStatusAsync(int seasonId, int status)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.SeasonId, seasonId.ToString() },
+                { Query.Status, status.ToString() },
+                { Query.Device, "phone" },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.UpdatePgcStatus, queryParameters, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse>(response);
+            return result.Message == "success";
+        }
 
         /// <inheritdoc/>
         public async Task<ArticleFavoriteListResponse> GetFavortieArticleListAsync(int pageNumber)

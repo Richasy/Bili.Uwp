@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -48,6 +49,27 @@ namespace Richasy.Bili.App.Controls
         {
             var vm = (sender as FrameworkElement).DataContext as SeasonViewModel;
             await ViewModel.RemoveFavoritePgcAsync(vm);
+        }
+
+        private void OnItemFlyoutOpened(object sender, object e)
+        {
+            var items = (sender as Microsoft.UI.Xaml.Controls.CommandBarFlyout).SecondaryCommands.OfType<AppBarButton>().Take(3);
+            foreach (var item in items)
+            {
+                if (item is AppBarButton btn)
+                {
+                    var status = int.Parse(btn.Tag.ToString());
+                    item.IsEnabled = status != ViewModel.Status;
+                }
+            }
+        }
+
+        private async void OnMarkStatusButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as AppBarButton;
+            var context = btn.DataContext as SeasonViewModel;
+            var status = int.Parse(btn.Tag.ToString());
+            await ViewModel.UpdateItemStatusAsync(context, status);
         }
     }
 }

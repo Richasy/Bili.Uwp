@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Richasy.Bili.Models.App.Args;
 using Richasy.Bili.Models.App.Other;
@@ -23,7 +24,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             Type = type;
             SeasonCollection = new ObservableCollection<SeasonViewModel>();
+            StatusCollection = new ObservableCollection<int> { 1, 2, 3 };
             Controller.PgcFavoriteIteration += OnPgcFavoriteIteration;
+            Status = 2;
+            PropertyChanged += OnPropertyChangedAsync;
         }
 
         /// <summary>
@@ -56,7 +60,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 SeasonCollection.Clear();
                 try
                 {
-                    await Controller.RequestPgcFavoriteListAsync(_pageNumber, Type);
+                    await Controller.RequestPgcFavoriteListAsync(_pageNumber, Type, Status);
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -100,6 +104,33 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
+        /// 更新条目状态.
+        /// </summary>
+        /// <param name="seasonVM">剧集视图模型.</param>
+        /// <param name="status">状态.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task UpdateItemStatusAsync(SeasonViewModel seasonVM, int status)
+        {
+            try
+            {
+                var result = await Controller.UpdateFavoritePgcStatusAsync(seasonVM.SeasonId, status);
+                if (result)
+                {
+                    SeasonCollection.Remove(seasonVM);
+                    AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetSuccess), InfoType.Success);
+                }
+                else
+                {
+                    AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed), InfoType.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed) + $"\n{ex.Message}", InfoType.Error);
+            }
+        }
+
+        /// <summary>
         /// 数据源增量请求.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -108,7 +139,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !IsInitializeLoading && !_isCompleted)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestPgcFavoriteListAsync(_pageNumber, Type);
+                await Controller.RequestPgcFavoriteListAsync(_pageNumber, Type, Status);
                 IsDeltaLoading = false;
             }
         }
@@ -125,6 +156,17 @@ namespace Richasy.Bili.ViewModels.Uwp
                 _pageNumber = e.NextPageNumber;
                 _isCompleted = !e.HasMore || SeasonCollection.Count >= e.TotalCount;
                 IsShowEmpty = SeasonCollection.Count == 0;
+            }
+        }
+
+        private async void OnPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Status))
+            {
+                IsRequested = false;
+                _pageNumber = 0;
+                SeasonCollection.Clear();
+                await RequestDataAsync();
             }
         }
     }

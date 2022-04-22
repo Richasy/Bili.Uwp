@@ -23,8 +23,18 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// 剧集集合.
         /// </summary>
+        public ObservableCollection<SeasonViewModel> SeasonCollection { get; }
+
+        /// <summary>
+        /// 状态集合.
+        /// </summary>
+        public ObservableCollection<int> StatusCollection { get; }
+
+        /// <summary>
+        /// 状态.
+        /// </summary>
         [Reactive]
-        public ObservableCollection<SeasonViewModel> SeasonCollection { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// 是否显示空白.

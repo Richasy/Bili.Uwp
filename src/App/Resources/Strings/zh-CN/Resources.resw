@@ -770,6 +770,15 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Manual" xml:space="preserve">
     <value>手动</value>
   </data>
+  <data name="MarkWantWatch" xml:space="preserve">
+    <value>标记为想看</value>
+  </data>
+  <data name="MarkWatched" xml:space="preserve">
+    <value>标记为已看</value>
+  </data>
+  <data name="MarkWatching" xml:space="preserve">
+    <value>标记为在看</value>
+  </data>
   <data name="Maximum" xml:space="preserve">
     <value>最大</value>
   </data>
@@ -1555,6 +1564,15 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Vip" xml:space="preserve">
     <value>大会员</value>
+  </data>
+  <data name="WantWatch" xml:space="preserve">
+    <value>想看</value>
+  </data>
+  <data name="Watched" xml:space="preserve">
+    <value>看过</value>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>在看</value>
   </data>
   <data name="White" xml:space="preserve">
     <value>白色</value>

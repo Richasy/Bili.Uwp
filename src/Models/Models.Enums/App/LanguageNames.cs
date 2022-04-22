@@ -493,6 +493,12 @@ namespace Richasy.Bili.Models.Enums
         SetFailed,
         NotificationSetting,
         NotificationSettingDescription,
+        WantWatch,
+        Watching,
+        Watched,
+        MarkWantWatch,
+        MarkWatching,
+        MarkWatched,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

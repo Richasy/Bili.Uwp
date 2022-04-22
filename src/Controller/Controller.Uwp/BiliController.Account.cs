@@ -484,8 +484,9 @@ namespace Richasy.Bili.Controller.Uwp
         /// </summary>
         /// <param name="pageNumber">页码.</param>
         /// <param name="type">收藏夹类型.</param>
+        /// <param name="status">状态.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestPgcFavoriteListAsync(int pageNumber, FavoriteType type)
+        public async Task RequestPgcFavoriteListAsync(int pageNumber, FavoriteType type, int status)
         {
             ThrowWhenNetworkUnavaliable();
             PgcFavoriteListResponse response = null;
@@ -494,11 +495,11 @@ namespace Richasy.Bili.Controller.Uwp
             {
                 if (type == FavoriteType.Anime)
                 {
-                    response = await _accountProvider.GetFavoriteAnimeListAsync(pageNumber);
+                    response = await _accountProvider.GetFavoriteAnimeListAsync(pageNumber, status);
                 }
                 else if (type == FavoriteType.Cinema)
                 {
-                    response = await _accountProvider.GetFavoriteCinemaListAsync(pageNumber);
+                    response = await _accountProvider.GetFavoriteCinemaListAsync(pageNumber, status);
                 }
 
                 var args = new FavoritePgcIterationEventArgs(response, pageNumber, type);
@@ -632,5 +633,14 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns>用户关系响应.</returns>
         public Task<UserRelationResponse> GetRelationAsync(int targetUserId)
             => _accountProvider.GetRelationAsync(targetUserId);
+
+        /// <summary>
+        /// 更新收藏的PGC内容状态.
+        /// </summary>
+        /// <param name="seasonId">PGC剧集Id.</param>
+        /// <param name="status">状态代码.</param>
+        /// <returns>是否更新成功.</returns>
+        public Task<bool> UpdateFavoritePgcStatusAsync(int seasonId, int status)
+            => _accountProvider.UpdateFavoritePgcStatusAsync(seasonId, status);
     }
 }

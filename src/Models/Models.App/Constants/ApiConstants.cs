@@ -228,6 +228,11 @@ namespace Richasy.Bili.Models.App.Constants
             /// 获取回复我的消息.
             /// </summary>
             public const string MessageReply = _apiBase + "/x/msgfeed/reply";
+
+            /// <summary>
+            /// 更新PGC收藏状态.
+            /// </summary>
+            public const string UpdatePgcStatus = _apiBase + "/pgc/app/follow/status/update";
         }
 
         public static class Partition

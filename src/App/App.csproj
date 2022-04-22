@@ -451,6 +451,7 @@
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\NumberToVisibilityConverter.cs" />
+    <Compile Include="Resources\Converter\PgcFavoriteStatusConverter.cs" />
     <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\PreferCodecConverter.cs" />

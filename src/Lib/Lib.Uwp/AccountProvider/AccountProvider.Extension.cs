@@ -19,13 +19,13 @@ namespace Richasy.Bili.Lib.Uwp
     {
         private readonly IHttpProvider _httpProvider;
 
-        private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber)
+        private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber, int status)
         {
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.PageNumber, pageNumber.ToString() },
                 { Query.PageSizeSlim, "20" },
-                { Query.Status, "2" },
+                { Query.Status, status.ToString() },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, requestUrl, queryParameters, RequestClientType.IOS, true);
