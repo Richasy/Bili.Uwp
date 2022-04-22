@@ -785,6 +785,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="MobileApp" xml:space="preserve">
     <value>移动应用</value>
   </data>
+  <data name="MoreInDynamic" xml:space="preserve">
+    <value>更多内容请在动态页查看</value>
+  </data>
   <data name="MorePeople" xml:space="preserve">
     <value>等人</value>
   </data>

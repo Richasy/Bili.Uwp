@@ -235,6 +235,8 @@ namespace Richasy.Bili.App.Pages
             {
                 CoreViewModel.CheckContinuePlay();
             }
+
+            await CoreViewModel.CheckNewDynamicRegistrationAsync();
         }
     }
 }

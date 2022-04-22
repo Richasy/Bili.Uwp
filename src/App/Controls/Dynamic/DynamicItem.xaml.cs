@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;

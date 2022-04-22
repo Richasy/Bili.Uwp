@@ -76,6 +76,9 @@ namespace Richasy.Bili.Models.Enums
         RoamingViewAddress,
         RoamingSearchAddress,
         SubtitleConvertType,
+        IsFirstRunDynamicNotifyTask,
+        LastReadVideoDynamicId,
+        IsOpenNewDynamicNotify,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }
