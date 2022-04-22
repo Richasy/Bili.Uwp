@@ -46,6 +46,7 @@ namespace Richasy.Bili.Tasks
             var lastReadCard = cardList.FirstOrDefault(p => p.Extend.DynIdStr == lastReadId);
             var lastReadIndex = cardList.IndexOf(lastReadCard);
             var notifyCards = new List<DynamicItem>();
+
             if (lastReadIndex != -1)
             {
                 for (var i = 0; i < lastReadIndex; i++)
@@ -81,12 +82,12 @@ namespace Richasy.Bili.Tasks
                     ? video.Cover
                     : pgc.Cover;
                 var type = mainModule.ModuleItemCase == ModuleDynamic.ModuleItemOneofCase.DynArchive
-                    && video != null && !video.IsPGC
+                    && video != null
                     ? "video"
                     : "episode";
                 var id = type == "video"
                     ? video.Avid
-                    : video != null ? video.EpisodeId : pgc.Epid;
+                    : video.EpisodeId;
                 var avatar = userModule != null
                     ? userModule.Author.Face
                     : "ms-appx:///Assets/Bili_rgba_80.png";
@@ -100,6 +101,10 @@ namespace Richasy.Bili.Tasks
                 cover += "@400w_250h_1c_100q.jpg";
                 avatar += "@100w_100h_1c_100q.jpg";
                 var protocol = $"richasy-bili://play?{type}={id}";
+                if (video != null && video.IsPGC)
+                {
+                    protocol += "&isPgc=true";
+                }
 
                 new ToastContentBuilder()
                     .AddText(title, hintWrap: true, hintMaxLines: 2)

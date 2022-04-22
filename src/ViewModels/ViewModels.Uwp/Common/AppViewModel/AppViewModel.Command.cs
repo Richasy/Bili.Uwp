@@ -56,10 +56,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                             {
                                 if (int.TryParse(vm.EpisodeId.Replace("ep", string.Empty), out var episodeId))
                                 {
-                                    record = new CurrentPlayingRecord(episodeId.ToString(), 0, VideoType.Pgc)
-                                    {
-                                        NeedBiliPlus = true,
-                                    };
+                                    record = new CurrentPlayingRecord(episodeId.ToString(), 0, VideoType.Pgc);
                                 }
                             }
                             else if (!string.IsNullOrEmpty(vm.LiveId))
@@ -161,6 +158,12 @@ namespace Richasy.Bili.ViewModels.Uwp
                 if (hasVideoId)
                 {
                     record = new CurrentPlayingRecord(videoId, 0, VideoType.Video);
+                    var hasPgcSign = queryList.TryGetValue(AppConstants.Protocol.IsPgcParam, out var isPgc);
+                    if (hasPgcSign && Convert.ToBoolean(isPgc))
+                    {
+                        record.VideoType = VideoType.Pgc;
+                        record.NeedBiliPlus = true;
+                    }
                 }
                 else if (hasSeasonId)
                 {
@@ -181,10 +184,7 @@ namespace Richasy.Bili.ViewModels.Uwp
                 {
                     if (int.TryParse(episodeId.Replace("ep", string.Empty), out var episodeIdNum))
                     {
-                        record = new CurrentPlayingRecord(episodeIdNum.ToString(), 0, VideoType.Pgc)
-                        {
-                            NeedBiliPlus = true,
-                        };
+                        record = new CurrentPlayingRecord(episodeIdNum.ToString(), 0, VideoType.Pgc);
                     }
                 }
                 else if (hasLiveId)

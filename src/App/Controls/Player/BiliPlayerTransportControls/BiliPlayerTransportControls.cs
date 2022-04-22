@@ -446,6 +446,19 @@ namespace Richasy.Bili.App.Controls
 
         private async void CheckCurrentPlayerModeAsync()
         {
+            if (ViewModel.IsDetailError
+                || ViewModel.IsPlayInformationError
+                || _fullScreenPlayModeButton == null
+                || !_fullScreenPlayModeButton.IsLoaded
+                || _fullWindowPlayModeButton == null
+                || !_fullWindowPlayModeButton.IsLoaded
+                || _compactOverlayPlayModeButton == null
+                || !_compactOverlayPlayModeButton.IsLoaded)
+            {
+                ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
+                return;
+            }
+
             switch (ViewModel.PlayerDisplayMode)
             {
                 case PlayerDisplayMode.Default:
