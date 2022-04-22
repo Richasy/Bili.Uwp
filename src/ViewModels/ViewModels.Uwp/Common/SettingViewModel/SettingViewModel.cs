@@ -8,6 +8,7 @@ using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.Enums;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Background;
 
 namespace Richasy.Bili.ViewModels.Uwp
 {
@@ -49,6 +50,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             PreferCodecInit();
             PlayerModeInit();
             StartupInitAsync();
+            BackgroundTaskInitAsync();
             RoamingInit();
 
             Version = BiliController.Instance.GetCurrentAppVersion();
@@ -125,6 +127,10 @@ namespace Richasy.Bili.ViewModels.Uwp
                 case nameof(RoamingSearchAddress):
                     WriteSetting(SettingNames.RoamingSearchAddress, RoamingSearchAddress);
                     break;
+                case nameof(IsOpenDynamicNotification):
+                    WriteSetting(SettingNames.IsOpenNewDynamicNotify, IsOpenDynamicNotification);
+                    await AppViewModel.Instance.CheckNewDynamicRegistrationAsync();
+                    break;
                 default:
                     break;
             }
@@ -135,6 +141,13 @@ namespace Richasy.Bili.ViewModels.Uwp
             var task = await StartupTask.GetAsync(AppConstants.StartupTaskId);
             IsStartup = task.State.ToString().Contains("enable", StringComparison.OrdinalIgnoreCase);
             StartupWarningText = string.Empty;
+        }
+
+        private async void BackgroundTaskInitAsync()
+        {
+            IsOpenDynamicNotification = ReadSetting(SettingNames.IsOpenNewDynamicNotify, true);
+            var status = await BackgroundExecutionManager.RequestAccessAsync();
+            IsEnableBackgroundTask = status.ToString().Contains("Allowed");
         }
 
         private void PlayerModeInit()

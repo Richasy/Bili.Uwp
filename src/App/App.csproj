@@ -75,6 +75,9 @@
     <Compile Include="Controls\Live\LiveAreaView.xaml.cs">
       <DependentUpon>LiveAreaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
+      <DependentUpon>NotificationSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\PlayerTip\PlayerTip.cs" />
     <Compile Include="Controls\Player\Related\UgcEpisodeView.xaml.cs">
       <DependentUpon>UgcEpisodeView.xaml</DependentUpon>
@@ -631,6 +634,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Live\LiveAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\NotificationSettingSection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

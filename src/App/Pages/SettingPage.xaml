@@ -37,6 +37,7 @@
                 <controls:LoggerSettingSection />
                 <controls:CacheSettingSection />
                 <controls:InitialCheckSection />
+                <controls:NotificationSettingSection />
 
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
