@@ -16,6 +16,7 @@
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
+    <Compile Include="Account\MyFollowingViewModel.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
     <Compile Include="Toolbox\AvBvConverterViewModel.cs" />
     <Compile Include="Base\SelectableViewModelBase{T}.cs" />

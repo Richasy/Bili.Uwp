@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.Interfaces.V1;
 using Richasy.Bili.Models.BiliBili;
@@ -105,6 +106,21 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="page">页码（每页上限50个）.</param>
         /// <returns>关注列表.</returns>
         Task<RelatedUserResponse> GetFollowsAsync(int userId, int page);
+
+        /// <summary>
+        /// 获取我的关注分组.
+        /// </summary>
+        /// <returns>分组列表.</returns>
+        Task<List<RelatedTag>> GetMyFollowingTagsAsync();
+
+        /// <summary>
+        /// 获取我的关注分组详情.
+        /// </summary>
+        /// <param name="userId">指定用户的用户Id.</param>
+        /// <param name="tagId">分组Id.</param>
+        /// <param name="page">页码.</param>
+        /// <returns>用户列表.</returns>
+        Task<List<RelatedUser>> GetMyFollowingTagDetailAsync(int userId, int tagId, int page);
 
         /// <summary>
         /// 获取稍后再看列表.
