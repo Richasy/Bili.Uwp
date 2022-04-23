@@ -504,6 +504,7 @@ namespace Richasy.Bili.Models.Enums
         FixContent,
         UnfixContent,
         StartQuickPlay,
+        PublishDate,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

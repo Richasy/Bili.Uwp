@@ -68,6 +68,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string ViewerCount { get; set; }
 
         /// <summary>
+        /// 发布时间.
+        /// </summary>
+        [Reactive]
+        public string PublishDate { get; set; }
+
+        /// <summary>
         /// 发布者.
         /// </summary>
         [Reactive]

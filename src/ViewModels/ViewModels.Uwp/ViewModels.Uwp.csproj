@@ -147,6 +147,9 @@
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.4</Version>
     </PackageReference>
+    <PackageReference Include="Humanizer.Core.zh-CN">
+      <Version>2.14.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>6.0.0</Version>
     </PackageReference>

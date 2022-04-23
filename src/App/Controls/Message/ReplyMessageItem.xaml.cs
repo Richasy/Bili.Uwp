@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Humanizer;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.Enums.Bili;
 using Richasy.Bili.Toolkit.Interfaces;
@@ -62,7 +63,7 @@ namespace Richasy.Bili.App.Controls
                     data.Item.Business,
                     data.Counts);
                 var dateTime = DateTimeOffset.FromUnixTimeSeconds(data.ReplyTime).ToLocalTime();
-                instance.TimeBlock.Text = dateTime.ToString("HH:mm");
+                instance.TimeBlock.Text = dateTime.Humanize();
                 ToolTipService.SetToolTip(instance.TimeBlock, dateTime.ToString("yyyy/MM/dd HH:mm"));
                 instance.TitleBlock.Text = string.IsNullOrEmpty(data.Item.Title) ? data.Item.Description : data.Item.Title;
             }

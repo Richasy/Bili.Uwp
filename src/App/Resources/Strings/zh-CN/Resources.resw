@@ -1067,6 +1067,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="PublicServer" xml:space="preserve">
     <value>公共服务器</value>
   </data>
+  <data name="PublishDate" xml:space="preserve">
+    <value>发布时间</value>
+  </data>
   <data name="PublisherApp" xml:space="preserve">
     <value>开发者的其它应用</value>
   </data>

@@ -45,12 +45,6 @@ jobs:
         $manifest.Package.Identity.Version = "${{github.event.inputs.version}}"
         $manifest.save(".\$env:UWP_Project_Directory\Package.appxmanifest")
         
-    - name: Build x86
-      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundlePlatforms="x86" /p:AppxPackageDir=C:\Package\x86 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
-      env:
-        BuildMode: SideloadOnly
-        Configuration: Release
-        
     - name: Build x64
       run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundlePlatforms="x64" /p:AppxPackageDir=C:\Package\x64 /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
       env:
@@ -62,26 +56,12 @@ jobs:
       env:
         BuildMode: SideloadOnly
         Configuration: Release
-   
-    - name: Create x86 archive
-      run: Compress-Archive -Path C:\Package\x86\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
       
     - name: Create x64 archive
       run: Compress-Archive -Path C:\Package\x64\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x64.zip
       
     - name: Create ARM64 archive
       run: Compress-Archive -Path C:\Package\ARM64\App_${{github.event.inputs.version}}_Test -DestinationPath C:\Package\Bili.Uwp_${{github.event.inputs.version}}_ARM64.zip
-
-    - name: Update x86 release asset
-      id: upload-release-asset-x86
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.release-drafter.outputs.upload_url }}
-        asset_path: C:\Package\Bili.Uwp_${{github.event.inputs.version}}_x86.zip
-        asset_name: Bili.Uwp_${{github.event.inputs.version}}_x86.zip
-        asset_content_type: application/zip
         
     - name: Update x64 release asset
       id: upload-release-asset-x64

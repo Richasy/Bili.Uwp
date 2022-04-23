@@ -8,6 +8,7 @@ using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
 using Bilibili.App.Show.V1;
 using Bilibili.App.View.V1;
+using Humanizer;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.BiliBili;
@@ -278,6 +279,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             DanmakuCount = _numberToolkit.GetCountText(item.DanmakuCount);
             Publisher = new UserViewModel(item.PublisherName);
             Duration = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(item.Duration));
+            PublishDate = DateTimeOffset.FromUnixTimeSeconds(item.CreateTime).ToLocalTime().Humanize();
             LimitCover(item.Cover);
             Source = item;
         }

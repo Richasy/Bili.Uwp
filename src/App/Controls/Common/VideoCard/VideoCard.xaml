@@ -236,11 +236,18 @@
                                             ToolTipService.ToolTip="{loc:LocaleLocator Name=ReplyCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsShowReplayCount, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         <local:IconTextBlock
+                                            Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="People16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCount}"
                                             ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsShowViewerCount}" />
+                                        <local:IconTextBlock
+                                            Opacity="0.6"
+                                            Symbol="CalendarLtr16"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PublishDate}"
+                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=PublishDate}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsShowPublishDateTime}" />
                                     </StackPanel>
                                     <Grid Grid.Row="3" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AdditionalFooterContent, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <ContentPresenter x:Name="AdditionalFooterPresenter" Content="{TemplateBinding AdditionalFooterContent}" />
