@@ -110,8 +110,8 @@ namespace Richasy.Bili.App.Controls
             _formatButton = GetTemplateChild(FormatButtonName) as Button;
             _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
-            _gestureRecognizer = new Windows.UI.Input.GestureRecognizer();
-            _gestureRecognizer.GestureSettings = Windows.UI.Input.GestureSettings.HoldWithMouse;
+            _gestureRecognizer = new GestureRecognizer();
+            _gestureRecognizer.GestureSettings = GestureSettings.HoldWithMouse | GestureSettings.Hold;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
