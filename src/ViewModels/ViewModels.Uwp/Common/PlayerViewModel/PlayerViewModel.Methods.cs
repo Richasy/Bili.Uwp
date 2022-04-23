@@ -13,6 +13,7 @@ using Richasy.Bili.Models.App.Constants;
 using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
+using Richasy.Bili.Models.Enums.App;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -150,8 +151,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 EpisodeId = episodeId.ToString();
                 SeasonId = seasonId.ToString();
 
-                IsPgcFixed = AccountViewModel.Instance.FixedPgcCollection.Any(p => p.SeasonId == seasonId);
-
                 try
                 {
                     var proxyPack = GetProxyAndArea(title, false);
@@ -254,6 +253,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
             IsInteraction = _videoDetail.Interaction != null;
+            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == AvId);
             _videoDetail.Tag.Select(p => new VideoTag { Id = p.Id.ToString(), Name = p.Name.TrimStart('#'), Uri = p.Uri })
                 .ToList()
                 .ForEach(p => TagCollection.Add(p));
@@ -381,6 +381,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsShowAlias = !string.IsNullOrEmpty(_pgcDetail.Alias);
             Alias = _pgcDetail.Alias ?? string.Empty;
             IsShowActor = _pgcDetail.Actor != null && !string.IsNullOrEmpty(_pgcDetail.Actor.Information);
+            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == SeasonId);
             if (IsShowActor)
             {
                 ActorTitle = _pgcDetail.Actor.Title;
@@ -505,6 +506,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             var user = _liveDetail.AnchorInformation.UserBasicInformation;
             Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);
             LivePartition = (_liveDetail.RoomInformation.ParentAreaName ?? "--") + " · " + _liveDetail.RoomInformation.AreaName;
+            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == RoomId.ToString());
             IsShowChat = true;
         }
 
@@ -1250,6 +1252,45 @@ namespace Richasy.Bili.ViewModels.Uwp
             }
 
             return new Tuple<string, string>(proxy, area);
+        }
+
+        /// <summary>
+        /// 获取当前正在播放的内容Id.
+        /// </summary>
+        /// <returns>Id.</returns>
+        private FixedItem ConvertToFixItem()
+        {
+            var item = new FixedItem();
+            var id = string.Empty;
+            switch (_videoType)
+            {
+                case VideoType.Video:
+                    id = AvId;
+                    break;
+                case VideoType.Pgc:
+                    id = SeasonId;
+                    break;
+                case VideoType.Live:
+                    id = RoomId;
+                    break;
+                default:
+                    break;
+            }
+
+            var title = Title;
+            if (_videoType == VideoType.Live)
+            {
+                title = string.Format(_resourceToolkit.GetLocaleString(LanguageNames.SomeoneLiveRoom), Publisher.Name);
+            }
+
+            var cover = CoverUrl;
+            Enum.TryParse(_videoType.ToString(), out FixedType type);
+            item.Id = id;
+            item.Title = title;
+            item.Cover = cover;
+            item.Type = type;
+
+            return item;
         }
 
         private void OnBiliPlayerPointerMoved(object sender, PointerRoutedEventArgs e)

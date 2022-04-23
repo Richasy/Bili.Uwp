@@ -181,14 +181,14 @@
             <!-- 用于展示固定的内容 -->
             <muxc:NavigationView.PaneCustomContent>
                 <StackPanel Spacing="4">
-                    <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedPgc, Mode=OneWay}">
-                        <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=FixedPgcs}" />
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedPgcCollection}">
+                    <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedItem, Mode=OneWay}">
+                        <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=FixedContent}" />
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedItemCollection}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout />
                             </muxc:ItemsRepeater.Layout>
                             <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="app:FixedPgc">
+                                <DataTemplate x:DataType="app:FixedItem">
                                     <Button
                                         Margin="4,0"
                                         Padding="12,8"
@@ -196,9 +196,9 @@
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
                                         BorderThickness="0"
-                                        Click="OnFixedPgcClickAsync"
+                                        Click="OnFixedItemClickAsync"
                                         DataContext="{x:Bind}"
-                                        ToolTipService.ToolTip="{x:Bind Name}">
+                                        ToolTipService.ToolTip="{x:Bind Title}">
                                         <StackPanel Orientation="Horizontal" Spacing="12">
                                             <local:CommonImageEx
                                                 Width="20"
@@ -206,46 +206,11 @@
                                                 Margin="-2,0,0,0"
                                                 VerticalAlignment="Center"
                                                 CornerRadius="10"
-                                                ImageUrl="{x:Bind CoverUrl}" />
+                                                ImageUrl="{x:Bind Cover}" />
                                             <TextBlock
                                                 MaxWidth="180"
                                                 VerticalAlignment="Center"
-                                                Text="{x:Bind Name}"
-                                                TextTrimming="CharacterEllipsis" />
-                                        </StackPanel>
-                                    </Button>
-                                </DataTemplate>
-                            </muxc:ItemsRepeater.ItemTemplate>
-                        </muxc:ItemsRepeater>
-                    </StackPanel>
-                    <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedPublisher, Mode=OneWay}">
-                        <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=FixedPublishers}" />
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedPublisherCollection}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout />
-                            </muxc:ItemsRepeater.Layout>
-                            <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="app:FixedPublisher">
-                                    <Button
-                                        Margin="4,0"
-                                        Padding="12,8"
-                                        HorizontalAlignment="Stretch"
-                                        HorizontalContentAlignment="Left"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Click="OnFixedPublisherClickAsync"
-                                        DataContext="{x:Bind}"
-                                        ToolTipService.ToolTip="{x:Bind UserName}">
-                                        <StackPanel Orientation="Horizontal" Spacing="12">
-                                            <muxc:PersonPicture
-                                                Width="20"
-                                                Height="20"
-                                                VerticalAlignment="Center"
-                                                DisplayName="{x:Bind UserName}"
-                                                ProfilePicture="{x:Bind AvatarPath}" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Text="{x:Bind UserName}"
+                                                Text="{x:Bind Title}"
                                                 TextTrimming="CharacterEllipsis" />
                                         </StackPanel>
                                     </Button>

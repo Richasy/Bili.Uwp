@@ -276,25 +276,45 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnFixedPublisherClickAsync(object sender, RoutedEventArgs e)
-        {
-            var context = (sender as FrameworkElement).DataContext as FixedPublisher;
-            await UserView.Instance.ShowAsync(Convert.ToInt32(context.UserId));
-        }
-
-        private void OnFixedPgcClickAsync(object sender, RoutedEventArgs e)
-        {
-            var context = (sender as FrameworkElement).DataContext as FixedPgc;
-            var record = new CurrentPlayingRecord("0", context.SeasonId, VideoType.Pgc)
-            {
-                Title = context.Name,
-            };
-            AppViewModel.Instance.OpenPlayer(record);
-        }
-
         private void OnDynamicNavViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+            => DynamicModuleViewModel.Instance.IsVideo = args.InvokedItemContainer.Equals(VideoDynamicItem);
+
+        private async void OnFixedItemClickAsync(object sender, RoutedEventArgs e)
         {
-            DynamicModuleViewModel.Instance.IsVideo = args.InvokedItemContainer.Equals(VideoDynamicItem);
+            var context = (sender as FrameworkElement).DataContext as FixedItem;
+            switch (context.Type)
+            {
+                case Models.Enums.App.FixedType.Publisher:
+                    await UserView.Instance.ShowAsync(Convert.ToInt32(context.Id));
+                    break;
+                case Models.Enums.App.FixedType.Pgc:
+                    {
+                        var record = new CurrentPlayingRecord("0", Convert.ToInt32(context.Id), VideoType.Pgc)
+                        {
+                            Title = context.Title,
+                        };
+                        AppViewModel.Instance.OpenPlayer(record);
+                    }
+
+                    break;
+                case Models.Enums.App.FixedType.Video:
+                    {
+                        var record = new CurrentPlayingRecord(context.Id, 0, VideoType.Video);
+                        AppViewModel.Instance.OpenPlayer(record);
+                    }
+
+                    break;
+
+                case Models.Enums.App.FixedType.Live:
+                    {
+                        var record = new CurrentPlayingRecord(context.Id, 0, VideoType.Live);
+                        AppViewModel.Instance.OpenPlayer(record);
+                    }
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
