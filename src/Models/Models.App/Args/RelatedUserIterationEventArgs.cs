@@ -26,6 +26,19 @@ namespace Richasy.Bili.Models.App.Args
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RelatedUserIterationEventArgs"/> class.
+        /// </summary>
+        /// <param name="users">用户列表.</param>
+        /// <param name="pageNumber">页码.</param>
+        public RelatedUserIterationEventArgs(List<RelatedUser> users, int pageNumber)
+        {
+            List = users;
+            NextPageNumber = pageNumber + 1;
+            TotalCount = -1;
+            UserId = -1;
+        }
+
+        /// <summary>
         /// 粉丝列表.
         /// </summary>
         public List<RelatedUser> List { get; set; }

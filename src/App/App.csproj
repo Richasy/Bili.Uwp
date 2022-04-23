@@ -350,6 +350,9 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
+    <Compile Include="Pages\Overlay\MyFollowsPage.xaml.cs">
+      <DependentUpon>MyFollowsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Overlay\FansPage.xaml.cs">
       <DependentUpon>FansPage.xaml</DependentUpon>
     </Compile>
@@ -995,6 +998,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Favorite\VideoFavoritePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Overlay\MyFollowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

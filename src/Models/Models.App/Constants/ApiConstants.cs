@@ -120,6 +120,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string Follows = _apiBase + "/x/relation/followings";
 
             /// <summary>
+            /// 获取我的关注分组.
+            /// </summary>
+            public const string MyFollowingTags = _apiBase + "/x/relation/tags";
+
+            /// <summary>
+            /// 获取我的关注分组详情.
+            /// </summary>
+            public const string MyFollowingTagDetail = _apiBase + "/x/relation/tag";
+
+            /// <summary>
             /// 获取稍后再看列表.
             /// </summary>
             public const string ViewLaterList = _apiBase + "/x/v2/history/toview";

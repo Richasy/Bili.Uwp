@@ -78,4 +78,41 @@ namespace Richasy.Bili.Models.BiliBili
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "vip", Required = Required.Default)]
         public Vip Vip { get; set; }
     }
+
+    /// <summary>
+    /// 关注分组.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class RelatedTag
+    {
+        /// <summary>
+        /// 分组Id.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tagid", Required = Required.Default)]
+        public int TagId { get; set; }
+
+        /// <summary>
+        /// 名称.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name", Required = Required.Default)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 总数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "count", Required = Required.Default)]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 说明.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tip", Required = Required.Default)]
+        public string Tip { get; set; }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is RelatedTag tag && TagId == tag.TagId;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => 1948533646 + TagId.GetHashCode();
+    }
 }

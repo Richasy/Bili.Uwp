@@ -448,5 +448,30 @@ namespace Richasy.Bili.Lib.Uwp
             var data = await _httpProvider.ParseAsync(response, SearchArchiveReply.Parser);
             return data;
         }
+
+        /// <inheritdoc/>
+        public async Task<List<RelatedTag>> GetMyFollowingTagsAsync()
+        {
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyFollowingTags, null, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<List<RelatedTag>>>(response);
+            return result.Data;
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<RelatedUser>> GetMyFollowingTagDetailAsync(int userId, int tagId, int page)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.TagId, tagId.ToString() },
+                { Query.PageNumber, page.ToString() },
+                { Query.MyId, userId.ToString() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyFollowingTagDetail, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<List<RelatedUser>>>(response);
+            return result.Data;
+        }
     }
 }

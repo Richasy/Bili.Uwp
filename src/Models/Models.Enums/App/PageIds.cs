@@ -118,6 +118,11 @@ namespace Richasy.Bili.Models.Enums
         Follows = 106,
 
         /// <summary>
+        /// 我的关注.
+        /// </summary>
+        MyFollows = 107,
+
+        /// <summary>
         /// 分区详情页面.
         /// </summary>
         PartitionDetail = 200,

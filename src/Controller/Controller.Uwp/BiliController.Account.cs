@@ -300,6 +300,39 @@ namespace Richasy.Bili.Controller.Uwp
         }
 
         /// <summary>
+        /// 获取我的关注分组.
+        /// </summary>
+        /// <returns>关注分组.</returns>
+        public Task<List<RelatedTag>> GetMyFollowingTagsAsync()
+            => _accountProvider.GetMyFollowingTagsAsync();
+
+        /// <summary>
+        /// 获取我的关注分组.
+        /// </summary>
+        /// <param name="tagId">分组Id.</param>
+        /// <param name="pageNumber">页码.</param>
+        /// <returns>关注分组.</returns>
+        public async Task GetMyFollowingTagDetailAsync(int tagId, int pageNumber)
+        {
+            ThrowWhenNetworkUnavaliable();
+
+            try
+            {
+                var result = await _accountProvider.GetMyFollowingTagDetailAsync(_accountProvider.UserId, tagId, pageNumber);
+                var args = new RelatedUserIterationEventArgs(result, pageNumber);
+                FollowsIteration?.Invoke(this, args);
+            }
+            catch (Exception ex)
+            {
+                _loggerModule.LogError(ex, pageNumber > 1);
+                if (pageNumber <= 1)
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
         /// 请求稍后再看视频列表.
         /// </summary>
         /// <param name="pageNumber">页码.</param>

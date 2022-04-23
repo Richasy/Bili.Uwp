@@ -235,6 +235,9 @@ namespace Richasy.Bili.App.Controls
                 case PageIds.LiveAreaDetail:
                     pageType = typeof(LiveAreaDetailPage);
                     break;
+                case PageIds.MyFollows:
+                    pageType = typeof(MyFollowsPage);
+                    break;
                 default:
                     break;
             }
