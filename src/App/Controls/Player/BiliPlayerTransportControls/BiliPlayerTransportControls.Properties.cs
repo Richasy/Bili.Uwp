@@ -3,6 +3,7 @@
 using Richasy.Bili.Models.Enums.App;
 using Richasy.Bili.ViewModels.Uwp;
 using Richasy.Bili.ViewModels.Uwp.Common;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -106,6 +107,7 @@ namespace Richasy.Bili.App.Controls
         private VisualStateGroup _visibilityStateGroup;
         private Button _formatButton;
         private Button _liveQualityButton;
+        private GestureRecognizer _gestureRecognizer;
 
         private int _segmentIndex;
         private double _cursorStayTime;
@@ -122,6 +124,7 @@ namespace Richasy.Bili.App.Controls
         private PlayerManipulationType _manipulationType = PlayerManipulationType.None;
 
         private bool _isTouch = false;
+        private bool _isHolding = false;
 
         /// <summary>
         /// 实例.

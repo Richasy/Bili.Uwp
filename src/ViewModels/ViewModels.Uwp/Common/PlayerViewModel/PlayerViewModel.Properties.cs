@@ -66,6 +66,9 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private bool _isFirstShowHistory;
 
+        private double _originalPlayRate;
+        private double _originalDanmakuSpeed;
+
         /// <summary>
         /// 让直播消息视图滚动到底部.
         /// </summary>
