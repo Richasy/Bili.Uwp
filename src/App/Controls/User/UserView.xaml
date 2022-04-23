@@ -24,6 +24,7 @@
                 IsShowDanmakuCount="True"
                 IsShowDuration="True"
                 IsShowPlayCount="True"
+                IsShowPublishDateTime="True"
                 ItemClick="OnVideoCardClick"
                 Orientation="Horizontal"
                 ViewModel="{x:Bind}" />

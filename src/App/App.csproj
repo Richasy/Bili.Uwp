@@ -1154,6 +1154,9 @@
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.4</Version>
     </PackageReference>
+    <PackageReference Include="Humanizer.Core.zh-CN">
+      <Version>2.14.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>

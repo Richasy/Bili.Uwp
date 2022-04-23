@@ -2,6 +2,7 @@
 
 using System;
 using Bilibili.Main.Community.Reply.V1;
+using Humanizer;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
@@ -88,7 +89,7 @@ namespace Richasy.Bili.App.Controls
                 instance.UserAvatar.Avatar = data.Member.Face;
                 instance.LevelImage.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Level/level_{data.Member.Level}.png"));
                 var time = DateTimeOffset.FromUnixTimeSeconds(data.Ctime).ToLocalTime();
-                instance.PublishTimeBlock.Text = time.ToString("HH:mm");
+                instance.PublishTimeBlock.Text = time.Humanize();
                 ToolTipService.SetToolTip(instance.PublishTimeBlock, time.ToString("yyyy/MM/dd HH:mm:ss"));
                 instance.LikeButton.IsChecked = data.ReplyControl.Action == 1;
                 instance.LikeCountBlock.Text = ServiceLocator.Instance.GetService<INumberToolkit>().GetCountText(data.Like);

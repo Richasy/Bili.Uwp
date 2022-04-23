@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Humanizer;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Foundation;
@@ -83,7 +84,7 @@ namespace Richasy.Bili.App.Controls
 
                 instance.DetailBlock.Text = detail;
                 var dateTime = DateTimeOffset.FromUnixTimeSeconds(data.LikeTime).ToLocalTime();
-                instance.TimeBlock.Text = dateTime.ToString("HH:mm");
+                instance.TimeBlock.Text = dateTime.Humanize();
                 ToolTipService.SetToolTip(instance.TimeBlock, dateTime.ToString("yyyy/MM/dd HH:mm"));
                 instance.TitleBlock.Text = string.IsNullOrEmpty(data.Item.Title) ? data.Item.Description : data.Item.Title;
             }
