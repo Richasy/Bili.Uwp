@@ -176,6 +176,24 @@
             HorizontalAlignment="Stretch"
             Spacing="4">
 
+            <RelativePanel Margin="0,0,0,8" Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    VerticalAlignment="Center"
+                    Text="{loc:LocaleLocator Name=InfinityLoop}" />
+                <ToggleSwitch
+                    Style="{StaticResource RightAlignedCompactToggleSwitchStyle}"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    MinWidth="0"
+                    MinHeight="0"
+                    FontSize="12"
+                    IsOn="{x:Bind ViewModel.IsInfiniteLoop, Mode=TwoWay}" />
+            </RelativePanel>
+
+
             <Grid
                 x:Name="PgcControlContainer"
                 Margin="0,0,0,4"
@@ -265,16 +283,6 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
-
-            <ToggleSwitch
-                MinWidth="0"
-                MinHeight="0"
-                Margin="0,0,0,8"
-                HorizontalAlignment="Left"
-                FontSize="12"
-                Header="{loc:LocaleLocator Name=InfinityLoop}"
-                IsOn="{x:Bind ViewModel.IsInfiniteLoop, Mode=TwoWay}"
-                Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
 
             <StackPanel
                 Orientation="Horizontal"
