@@ -81,6 +81,7 @@
 
         <!-- 用于进行图片操作 -->
         <Grid
+            x:Name="TopContainer"
             Margin="0,20,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -161,7 +162,7 @@
                 </AppBarButton>
 
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton Label="{loc:LocaleLocator Name=Share}">
+                    <AppBarButton Click="OnShareButtonClick" Label="{loc:LocaleLocator Name=Share}">
                         <AppBarButton.Icon>
                             <icon:RegularFluentIcon Symbol="Share20" />
                         </AppBarButton.Icon>
@@ -188,6 +189,20 @@
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </Grid>
+
+        <Button
+            x:Name="CloseButton"
+            Width="40"
+            Height="40"
+            Margin="0,20,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="OnCloseButtonClick">
+            <icon:RegularFluentIcon Symbol="Dismiss20" />
+            <Button.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Escape" IsEnabled="True" />
+            </Button.KeyboardAccelerators>
+        </Button>
 
         <Grid
             x:Name="ImageListContainer"
