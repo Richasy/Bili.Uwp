@@ -29,13 +29,14 @@ namespace Richasy.Bili.App.Controls
         private readonly Dictionary<string, byte[]> _images;
         private int _currentIndex;
         private int _currentImageHeight;
+        private bool _isControlShown;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageViewer"/> class.
         /// </summary>
         public ImageViewer()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             _images = new Dictionary<string, byte[]>();
             Instance = this;
             ImageUrls = new ObservableCollection<string>();
@@ -64,8 +65,8 @@ namespace Richasy.Bili.App.Controls
             ImageUrls.Clear();
             urls.ForEach(url => ImageUrls.Add(url));
             FactoryBlock.Text = 1.ToString("p00");
+            ShowControls();
             await ShowImageAsync(firstLoadImage);
-            ImageListContainer.Visibility = urls.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -154,13 +155,14 @@ namespace Richasy.Bili.App.Controls
 
         private void OnScrollViewerTapped(object sender, TappedRoutedEventArgs e)
         {
-            // 关闭控件.
-            _images.Clear();
-            ImageUrls.Clear();
-            _currentIndex = 0;
-            Image.Source = null;
-            Container.Visibility = Visibility.Collapsed;
-            AppViewModel.Instance.ShowImages(null, -1);
+            if (_isControlShown)
+            {
+                HideControls();
+            }
+            else
+            {
+                ShowControls();
+            }
         }
 
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -306,6 +308,46 @@ namespace Richasy.Bili.App.Controls
 
             await Task.Delay(1000);
             await file.DeleteAsync();
+        }
+
+        private void OnShareButtonClick(object sender, RoutedEventArgs e)
+        {
+            var dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += OnDataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var data = args.Request.Data;
+            var url = ImageUrls[_currentIndex];
+            data.Properties.Title = "分享自哔哩的图片";
+            data.SetWebLink(new Uri(url));
+            data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(url)));
+        }
+
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+        {
+            // 关闭控件.
+            _images.Clear();
+            ImageUrls.Clear();
+            _currentIndex = 0;
+            Image.Source = null;
+            Container.Visibility = Visibility.Collapsed;
+            AppViewModel.Instance.ShowImages(null, -1);
+        }
+
+        private void ShowControls()
+        {
+            TopContainer.Visibility = Visibility.Visible;
+            ImageListContainer.Visibility = ImageUrls.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
+            _isControlShown = true;
+        }
+
+        private void HideControls()
+        {
+            TopContainer.Visibility = ImageListContainer.Visibility = Visibility.Collapsed;
+            _isControlShown = false;
         }
     }
 }
