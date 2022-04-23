@@ -865,23 +865,17 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ToggleFixStateAsync()
         {
-            if (IsPgcFixed)
+            var item = ConvertToFixItem();
+            if (IsContentFixed)
             {
-                await AccountViewModel.Instance.RemoveFixedPgcAsync(_pgcDetail.SeasonId);
+                await AccountViewModel.Instance.RemoveFixedItemAsync(item.Id);
             }
             else
             {
-                var p = new FixedPgc
-                {
-                    Name = _pgcDetail.SeasonTitle,
-                    CoverUrl = _pgcDetail.Cover,
-                    SeasonId = _pgcDetail.SeasonId,
-                };
-
-                await AccountViewModel.Instance.AddFixedPgcAsync(p);
+                await AccountViewModel.Instance.AddFixedItemAsync(item);
             }
 
-            IsPgcFixed = !IsPgcFixed;
+            IsContentFixed = !IsContentFixed;
         }
 
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)

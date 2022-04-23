@@ -25,8 +25,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         internal AccountViewModel()
         {
-            FixedPublisherCollection = new ObservableCollection<FixedPublisher>();
-            FixedPgcCollection = new ObservableCollection<FixedPgc>();
+            FixedItemCollection = new ObservableCollection<FixedItem>();
             _controller = BiliController.Instance;
             _controller.Logged += OnLoggedAsync;
             _controller.LoggedFailed += OnLoggedFailedAsync;
@@ -118,83 +117,43 @@ namespace Richasy.Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 新增固定的UP主.
+        /// 新增固定的条目.
         /// </summary>
-        /// <param name="publisher">UP主信息.</param>
+        /// <param name="item">条目信息.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task AddFixedPublisherAsync(FixedPublisher publisher)
+        public async Task AddFixedItemAsync(FixedItem item)
         {
-            if (!IsConnected || _myInfo == null || FixedPublisherCollection.Contains(publisher))
+            if (!IsConnected || _myInfo == null || FixedItemCollection.Contains(item))
             {
                 return;
             }
 
-            FixedPublisherCollection.Add(publisher);
+            FixedItemCollection.Add(item);
             await _fileToolkit.WriteLocalDataAsync(
                 string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
-                FixedPublisherCollection.ToList(),
-                AppConstants.FixedPublisherFolderName);
-            IsShowFixedPublisher = true;
+                FixedItemCollection.ToList(),
+                AppConstants.FixedFolderName);
+            IsShowFixedItem = true;
         }
 
         /// <summary>
-        /// 移除固定的UP主.
+        /// 移除固定的条目.
         /// </summary>
-        /// <param name="userId">用户Id.</param>
+        /// <param name="itemId">条目Id.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RemoveFixedPublisherAsync(string userId)
+        public async Task RemoveFixedItemAsync(string itemId)
         {
-            if (!IsConnected || _myInfo == null || !FixedPublisherCollection.Any(p => p.UserId == userId))
+            if (!IsConnected || _myInfo == null || !FixedItemCollection.Any(p => p.Id == itemId))
             {
                 return;
             }
 
-            FixedPublisherCollection.Remove(FixedPublisherCollection.FirstOrDefault(p => p.UserId == userId));
+            FixedItemCollection.Remove(FixedItemCollection.FirstOrDefault(p => p.Id == itemId));
             await _fileToolkit.WriteLocalDataAsync(
                 string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
-                FixedPublisherCollection.ToList(),
-                AppConstants.FixedPublisherFolderName);
-            IsShowFixedPublisher = FixedPublisherCollection.Count > 0;
-        }
-
-        /// <summary>
-        /// 新增固定的UP主.
-        /// </summary>
-        /// <param name="pgc">剧集信息.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task AddFixedPgcAsync(FixedPgc pgc)
-        {
-            if (!IsConnected || _myInfo == null || FixedPgcCollection.Contains(pgc))
-            {
-                return;
-            }
-
-            FixedPgcCollection.Add(pgc);
-            await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
-                FixedPgcCollection.ToList(),
-                AppConstants.FixedPgcFolderName);
-            IsShowFixedPgc = true;
-        }
-
-        /// <summary>
-        /// 移除固定的剧集.
-        /// </summary>
-        /// <param name="seasonId">剧集Id.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RemoveFixedPgcAsync(int seasonId)
-        {
-            if (!IsConnected || _myInfo == null || !FixedPgcCollection.Any(p => p.SeasonId == seasonId))
-            {
-                return;
-            }
-
-            FixedPgcCollection.Remove(FixedPgcCollection.FirstOrDefault(p => p.SeasonId == seasonId));
-            await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
-                FixedPgcCollection.ToList(),
-                AppConstants.FixedPgcFolderName);
-            IsShowFixedPgc = FixedPgcCollection.Count > 0;
+                FixedItemCollection.ToList(),
+                AppConstants.FixedFolderName);
+            IsShowFixedItem = FixedItemCollection.Count > 0;
         }
 
         private void OnLoggedOut(object sender, EventArgs e)
@@ -222,8 +181,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 IsConnected = true;
                 await GetMyProfileAsync();
-                await InitializeFixedPublisherAsync();
-                await InitializeFixedPgcAsync();
+                await InitializeFixedItemAsync();
                 Status = AccountViewModelStatus.Login;
             }
         }
@@ -253,49 +211,28 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsVip = false;
             IsConnected = false;
             IsShowUnreadMessage = false;
-            IsShowFixedPublisher = false;
-            FixedPublisherCollection.Clear();
+            IsShowFixedItem = false;
             UnreadMessageCount = 0;
         }
 
-        private async Task InitializeFixedPublisherAsync()
+        private async Task InitializeFixedItemAsync()
         {
             if (IsConnected && _myInfo != null)
             {
-                var data = await _fileToolkit.ReadLocalDataAsync<List<FixedPublisher>>(
+                var data = await _fileToolkit.ReadLocalDataAsync<List<FixedItem>>(
                     string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
                     "[]",
-                    AppConstants.FixedPublisherFolderName);
-                FixedPublisherCollection.Clear();
+                    AppConstants.FixedFolderName);
+                FixedItemCollection.Clear();
                 if (data.Count > 0)
                 {
-                    data.ForEach(p => FixedPublisherCollection.Add(p));
-                    IsShowFixedPublisher = true;
+                    data.ForEach(p => FixedItemCollection.Add(p));
+                    IsShowFixedItem = true;
                     return;
                 }
             }
 
-            IsShowFixedPublisher = false;
-        }
-
-        private async Task InitializeFixedPgcAsync()
-        {
-            if (IsConnected && _myInfo != null)
-            {
-                var data = await _fileToolkit.ReadLocalDataAsync<List<FixedPgc>>(
-                    string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
-                    "[]",
-                    AppConstants.FixedPgcFolderName);
-                FixedPgcCollection.Clear();
-                if (data.Count > 0)
-                {
-                    data.ForEach(p => FixedPgcCollection.Add(p));
-                    IsShowFixedPgc = true;
-                    return;
-                }
-            }
-
-            IsShowFixedPgc = false;
+            IsShowFixedItem = false;
         }
     }
 }

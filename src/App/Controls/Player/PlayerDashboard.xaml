@@ -175,16 +175,12 @@
             Grid.Row="1"
             HorizontalAlignment="Stretch"
             Spacing="4">
+
             <Grid
                 x:Name="PgcControlContainer"
                 Margin="0,0,0,4"
                 HorizontalAlignment="Stretch"
-                ColumnSpacing="8"
                 Visibility="{x:Bind ViewModel.IsPgc, Mode=OneWay}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
                 <Button
                     x:Name="PgcDetailButton"
                     Style="{StaticResource AccentButtonStyle}"
@@ -195,20 +191,6 @@
                         Symbol="TextBulletListTree16"
                         Text="{loc:LocaleLocator Name=Detail}" />
                 </Button>
-                <Button
-                    Grid.Column="1"
-                    Padding="8"
-                    HorizontalAlignment="Stretch"
-                    Click="OnFixButtonClickAsync"
-                    Content="{loc:LocaleLocator Name=FixPgc}"
-                    Visibility="{x:Bind ViewModel.IsPgcFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                <Button
-                    Grid.Column="1"
-                    Padding="8"
-                    HorizontalAlignment="Stretch"
-                    Click="OnFixButtonClickAsync"
-                    Content="{loc:LocaleLocator Name=UnfixPgc}"
-                    Visibility="{x:Bind ViewModel.IsPgcFixed, Mode=OneWay}" />
             </Grid>
 
             <StackPanel
@@ -237,17 +219,35 @@
                     Text="{x:Bind ViewModel.LivePartition, Mode=OneWay}" />
             </StackPanel>
 
-            <Button
-                x:Name="ShareButton"
-                MinWidth="120"
-                Margin="0,0,0,8"
-                HorizontalAlignment="Stretch"
-                Click="OnShareButtonClick">
-                <local:IconTextBlock
-                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                    Symbol="Share16"
-                    Text="{loc:LocaleLocator Name=Share}" />
-            </Button>
+            <Grid Margin="0,0,0,8" ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="ShareButton"
+                    HorizontalAlignment="Stretch"
+                    Click="OnShareButtonClick">
+                    <local:IconTextBlock
+                        Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                        Symbol="Share16"
+                        Text="{loc:LocaleLocator Name=Share}" />
+                </Button>
+                <Button
+                    Grid.Column="1"
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Click="OnFixButtonClickAsync"
+                    Content="{loc:LocaleLocator Name=FixContent}"
+                    Visibility="{x:Bind ViewModel.IsContentFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                <Button
+                    Grid.Column="1"
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Click="OnFixButtonClickAsync"
+                    Content="{loc:LocaleLocator Name=UnfixContent}"
+                    Visibility="{x:Bind ViewModel.IsContentFixed, Mode=OneWay}" />
+            </Grid>
 
             <Button
                 x:Name="CreateDownloadCommandButton"

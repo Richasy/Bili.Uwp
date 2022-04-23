@@ -118,7 +118,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             CanFixPublisher = AccountViewModel.Instance.IsConnected && AccountViewModel.Instance.Mid != null;
             if (CanFixPublisher)
             {
-                IsPublisherFixed = AccountViewModel.Instance.FixedPublisherCollection.Any(p => p.UserId == userId.ToString());
+                IsPublisherFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == userId.ToString());
             }
         }
 
@@ -280,18 +280,19 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             if (IsPublisherFixed)
             {
-                await AccountViewModel.Instance.RemoveFixedPublisherAsync(Id.ToString());
+                await AccountViewModel.Instance.RemoveFixedItemAsync(Id.ToString());
             }
             else
             {
-                var p = new FixedPublisher
+                var p = new FixedItem
                 {
-                    UserId = Id.ToString(),
-                    AvatarPath = Avatar,
-                    UserName = Name,
+                    Id = Id.ToString(),
+                    Cover = Avatar,
+                    Title = Name,
+                    Type = Models.Enums.App.FixedType.Publisher,
                 };
 
-                await AccountViewModel.Instance.AddFixedPublisherAsync(p);
+                await AccountViewModel.Instance.AddFixedItemAsync(p);
             }
 
             IsPublisherFixed = !IsPublisherFixed;

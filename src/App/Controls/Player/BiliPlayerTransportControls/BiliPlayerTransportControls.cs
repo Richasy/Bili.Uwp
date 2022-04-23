@@ -455,41 +455,41 @@ namespace Richasy.Bili.App.Controls
                 || _compactOverlayPlayModeButton == null
                 || !_compactOverlayPlayModeButton.IsLoaded)
             {
-                ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
-                return;
             }
-
-            switch (ViewModel.PlayerDisplayMode)
+            else
             {
-                case PlayerDisplayMode.Default:
-                    _fullWindowPlayModeButton.IsChecked = false;
-                    _fullScreenPlayModeButton.IsChecked = false;
-                    _compactOverlayPlayModeButton.IsChecked = false;
-                    _backButton.Visibility = Visibility.Collapsed;
-                    break;
-                case PlayerDisplayMode.FullWindow:
-                    _fullWindowPlayModeButton.IsChecked = true;
-                    _fullScreenPlayModeButton.IsChecked = false;
-                    _compactOverlayPlayModeButton.IsChecked = false;
-                    _backButton.Visibility = Visibility.Visible;
-                    break;
-                case PlayerDisplayMode.FullScreen:
-                    _fullWindowPlayModeButton.IsChecked = false;
-                    _fullScreenPlayModeButton.IsChecked = true;
-                    _compactOverlayPlayModeButton.IsChecked = false;
-                    _backButton.Visibility = Visibility.Visible;
-                    break;
-                case PlayerDisplayMode.CompactOverlay:
-                    _fullWindowPlayModeButton.IsChecked = false;
-                    _fullScreenPlayModeButton.IsChecked = false;
-                    _compactOverlayPlayModeButton.IsChecked = true;
-                    _backButton.Visibility = Visibility.Collapsed;
-                    break;
-                default:
-                    break;
+                switch (ViewModel.PlayerDisplayMode)
+                {
+                    case PlayerDisplayMode.Default:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case PlayerDisplayMode.FullWindow:
+                        _fullWindowPlayModeButton.IsChecked = true;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Visible;
+                        break;
+                    case PlayerDisplayMode.FullScreen:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = true;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Visible;
+                        break;
+                    case PlayerDisplayMode.CompactOverlay:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = true;
+                        _backButton.Visibility = Visibility.Collapsed;
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            _playPauseButton.Focus(FocusState.Programmatic);
+            _playPauseButton?.Focus(FocusState.Programmatic);
             _backToDefaultButton.Visibility = ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default
                 ? Visibility.Visible
                 : Visibility.Collapsed;

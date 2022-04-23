@@ -53,14 +53,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public int? Mid => _myInfo?.Mid;
 
         /// <summary>
-        /// 固定UP主集合.
+        /// 固定条目集合.
         /// </summary>
-        public ObservableCollection<FixedPublisher> FixedPublisherCollection { get; }
-
-        /// <summary>
-        /// 固定剧集集合.
-        /// </summary>
-        public ObservableCollection<FixedPgc> FixedPgcCollection { get; }
+        public ObservableCollection<FixedItem> FixedItemCollection { get; }
 
         /// <summary>
         /// 当前视图模型状态.
@@ -135,15 +130,9 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsShowUnreadMessage { get; set; }
 
         /// <summary>
-        /// 是否显示固定的UP主.
+        /// 是否显示固定的内容.
         /// </summary>
         [Reactive]
-        public bool IsShowFixedPublisher { get; set; }
-
-        /// <summary>
-        /// 是否显示固定的剧集.
-        /// </summary>
-        [Reactive]
-        public bool IsShowFixedPgc { get; set; }
+        public bool IsShowFixedItem { get; set; }
     }
 }
