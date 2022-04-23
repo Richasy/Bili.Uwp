@@ -45,9 +45,11 @@
         <Grid Grid.Row="1">
             <ScrollViewer
                 x:Name="ContentScrollViewer"
+                Margin="-16,0"
                 HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Hidden">
+                VerticalScrollBarVisibility="Auto">
                 <local:VerticalRepeaterView
+                    Margin="16,0,16,12"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
                     ItemsSource="{x:Bind ViewModel.ReplyCollection, Mode=OneWay}"
