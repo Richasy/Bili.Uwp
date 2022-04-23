@@ -68,10 +68,13 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
-                <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer
+                    Margin="-16,0"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto">
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
-                        Margin="0,0,0,12"
+                        Margin="16,0,16,12"
                         Background="Transparent"
                         HeaderVisibility="Collapsed"
                         ItemOrientation="Horizontal"

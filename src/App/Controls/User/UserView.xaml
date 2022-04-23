@@ -173,12 +173,13 @@
             <Grid Grid.Row="1">
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
+                    Margin="-16,0"
                     HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Hidden"
+                    VerticalScrollBarVisibility="Auto"
                     Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <local:VerticalRepeaterView
                         x:Name="VideoView"
-                        Margin="0,0,0,12"
+                        Margin="16,0,16,12"
                         Background="Transparent"
                         HeaderText="{loc:LocaleLocator Name=Videos}"
                         ItemOrientation="Horizontal"
