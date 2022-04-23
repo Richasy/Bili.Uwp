@@ -53,7 +53,7 @@
           <uap5:StartupTask DisplayName="ms-resource:AppName" Enabled="false" TaskId="Richasy.Bili"/>
         </uap5:Extension>
         <uap5:Extension Category="windows.appExecutionAlias"
-                        Executable="Richasy.exe"
+                        Executable="Richasy.Bili.App.exe"
                         EntryPoint="Richasy.Bili.App.App">
           <uap5:AppExecutionAlias>
             <uap5:ExecutionAlias Alias="Bili.exe" />

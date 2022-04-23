@@ -62,10 +62,6 @@ namespace Richasy.Bili.Lib.Uwp
         {
             var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId, area);
             var otherQuery = string.Empty;
-            if (!string.IsNullOrEmpty(area))
-            {
-                otherQuery = $"area={area}";
-            }
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
