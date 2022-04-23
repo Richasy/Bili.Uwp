@@ -1424,6 +1424,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="StartMethodDescription" xml:space="preserve">
     <value>您可以选择应用的启动方式以更快速地打开应用</value>
   </data>
+  <data name="StartQuickPlay" xml:space="preserve">
+    <value>开始倍速播放</value>
+  </data>
   <data name="Startup" xml:space="preserve">
     <value>自启动</value>
   </data>

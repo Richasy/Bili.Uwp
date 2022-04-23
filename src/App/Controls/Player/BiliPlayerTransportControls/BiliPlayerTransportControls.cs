@@ -14,6 +14,7 @@ using Richasy.Bili.Toolkit.Interfaces;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.Media.Playback;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -109,6 +110,8 @@ namespace Richasy.Bili.App.Controls
             _formatButton = GetTemplateChild(FormatButtonName) as Button;
             _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
+            _gestureRecognizer = new GestureRecognizer();
+            _gestureRecognizer.GestureSettings = GestureSettings.HoldWithMouse | GestureSettings.Hold;
 
             _fullWindowPlayModeButton.Click += OnPlayModeButtonClick;
             _fullScreenPlayModeButton.Click += OnPlayModeButtonClick;
@@ -119,6 +122,11 @@ namespace Richasy.Bili.App.Controls
             _interactionControl.ManipulationStarted += OnInteractionControlManipulationStarted;
             _interactionControl.ManipulationDelta += OnInteractionControlManipulationDelta;
             _interactionControl.ManipulationCompleted += OnInteractionControlManipulationCompleted;
+            _interactionControl.PointerPressed += OnInteractionControlPointerPressed;
+            _interactionControl.PointerMoved += OnInteractionControlPointerMoved;
+            _interactionControl.PointerReleased += OnInteractionControlPointerReleased;
+            _interactionControl.PointerCanceled += OnInteractionControlPointerCanceled;
+            _gestureRecognizer.Holding += OnGestureRecognizerHoldingAsync;
             _backButton.Click += OnBackButtonClick;
             _danmakuBarVisibilityButton.Click += OnDanmakuBarVisibilityButtonClick;
             _homeButton.Click += OnHomeButtonClickAsync;
@@ -234,6 +242,18 @@ namespace Richasy.Bili.App.Controls
             _danmakuView.SendDanmu(model);
         }
 
+        private void OnInteractionControlPointerCanceled(object sender, PointerRoutedEventArgs e)
+            => _gestureRecognizer.ProcessUpEvent(e.GetCurrentPoint(this));
+
+        private void OnInteractionControlPointerReleased(object sender, PointerRoutedEventArgs e)
+            => _gestureRecognizer.ProcessUpEvent(e.GetCurrentPoint(this));
+
+        private void OnInteractionControlPointerMoved(object sender, PointerRoutedEventArgs e)
+            => _gestureRecognizer.ProcessMoveEvents(e.GetIntermediatePoints(this));
+
+        private void OnInteractionControlPointerPressed(object sender, PointerRoutedEventArgs e)
+            => _gestureRecognizer.ProcessDownEvent(e.GetCurrentPoint(this));
+
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
@@ -295,6 +315,12 @@ namespace Richasy.Bili.App.Controls
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)
         {
+            if (_isHolding)
+            {
+                _isHolding = false;
+                return;
+            }
+
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 _isTouch = false;
@@ -822,6 +848,30 @@ namespace Richasy.Bili.App.Controls
             }
 
             _manipulationBeforeIsPlay = false;
+        }
+
+        private async void OnGestureRecognizerHoldingAsync(GestureRecognizer sender, HoldingEventArgs args)
+        {
+            if (args.ContactCount == 1)
+            {
+                _isHolding = true;
+                if (args.HoldingState == HoldingState.Started)
+                {
+                    // 开启倍速播放.
+                    var isStarted = await ViewModel.StartTempQuickPlayAsync();
+                    if (isStarted)
+                    {
+                        var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                        ShowTempMessage(resourceToolkit.GetLocaleString(LanguageNames.StartQuickPlay));
+                    }
+                }
+                else
+                {
+                    // 停止倍速播放.
+                    await ViewModel.StopTempQuickPlayAsync();
+                    HideTempMessage();
+                }
+            }
         }
 
         private void OnInteractionControlManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)

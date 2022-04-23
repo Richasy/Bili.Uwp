@@ -503,6 +503,7 @@ namespace Richasy.Bili.Models.Enums
         SomeoneLiveRoom,
         FixContent,
         UnfixContent,
+        StartQuickPlay,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -878,6 +878,51 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsContentFixed = !IsContentFixed;
         }
 
+        /// <summary>
+        /// 开始临时快进.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task<bool> StartTempQuickPlayAsync()
+        {
+            if (_currentVideoPlayer == null
+                || _currentVideoPlayer.PlaybackSession == null
+                || _currentVideoPlayer.PlaybackSession.PlaybackState != Windows.Media.Playback.MediaPlaybackState.Playing
+                || PlaybackRate >= 3)
+            {
+                return false;
+            }
+
+            await AppViewModel.Instance.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                _originalPlayRate = PlaybackRate;
+                _originalDanmakuSpeed = DanmakuViewModel.Instance.DanmakuSpeed;
+                PlaybackRate = PlaybackRate * 2 > 3 ? 3 : PlaybackRate * 2;
+                DanmakuViewModel.Instance.DanmakuSpeed = _originalDanmakuSpeed * 1.5 > 2 ? 2 : _originalDanmakuSpeed * 1.5;
+            });
+
+            return true;
+        }
+
+        /// <summary>
+        /// 停止临时快进.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task StopTempQuickPlayAsync()
+        {
+            if (_originalDanmakuSpeed <= 0 || _originalPlayRate <= 0)
+            {
+                return;
+            }
+
+            await AppViewModel.Instance.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                PlaybackRate = _originalPlayRate;
+                DanmakuViewModel.Instance.DanmakuSpeed = _originalDanmakuSpeed;
+                _originalPlayRate = 0;
+                _originalDanmakuSpeed = 0;
+            });
+        }
+
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var request = args.Request;
