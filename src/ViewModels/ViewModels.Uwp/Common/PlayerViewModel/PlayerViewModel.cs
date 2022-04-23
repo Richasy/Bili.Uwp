@@ -282,6 +282,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsDetailCanLoaded = true;
             IsPlayInformationError = false;
             InitializePlaybackRateProperties();
+            IsInfiniteLoop = false;
 
             if (shouldResetMode)
             {
@@ -998,6 +999,15 @@ namespace Richasy.Bili.ViewModels.Uwp
                     break;
                 case nameof(IsOnlyShowIndex):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, IsOnlyShowIndex);
+                    break;
+                case nameof(IsInfiniteLoop):
+                    {
+                        if (_currentVideoPlayer != null)
+                        {
+                            _currentVideoPlayer.IsLoopingEnabled = IsInfiniteLoop;
+                        }
+                    }
+
                     break;
                 default:
                     break;

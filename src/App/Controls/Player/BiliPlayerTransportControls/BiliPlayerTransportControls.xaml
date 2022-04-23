@@ -275,21 +275,6 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
-                            <!-- Repeat states -->
-                            <VisualStateGroup x:Name="RepeatStates">
-                                <VisualState x:Name="RepeatNoneState" />
-                                <VisualState x:Name="RepeatOneState">
-                                    <VisualState.Setters>
-                                        <Setter Target="RepeatSymbol.Symbol" Value="RepeatOne" />
-                                        <Setter Target="RepeatButton.IsChecked" Value="True" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="RepeatAllState">
-                                    <VisualState.Setters>
-                                        <Setter Target="RepeatButton.IsChecked" Value="True" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
                             <!-- Danmaku states -->
                             <VisualStateGroup x:Name="DanmakuStates">
                                 <VisualState x:Name="DanmakuDefaultState">
