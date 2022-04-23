@@ -905,6 +905,7 @@ namespace Richasy.Bili.ViewModels.Uwp
             player.AutoPlay = IsAutoPlay;
             player.Volume = Volume;
             player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
+            player.IsLoopingEnabled = IsInfiniteLoop;
 
             return player;
         }

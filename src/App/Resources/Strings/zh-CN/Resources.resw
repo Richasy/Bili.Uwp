@@ -673,6 +673,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Index" xml:space="preserve">
     <value>索引</value>
   </data>
+  <data name="InfinityLoop" xml:space="preserve">
+    <value>洗脑循环</value>
+  </data>
   <data name="InitialCheckDescription" xml:space="preserve">
     <value>是否在应用启动时检查上次关闭时正在播放的视频，并提醒继续播放</value>
   </data>

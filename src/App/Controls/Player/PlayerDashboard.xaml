@@ -266,6 +266,16 @@
                 </Button.Flyout>
             </Button>
 
+            <ToggleSwitch
+                MinWidth="0"
+                MinHeight="0"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Left"
+                FontSize="12"
+                Header="{loc:LocaleLocator Name=InfinityLoop}"
+                IsOn="{x:Bind ViewModel.IsInfiniteLoop, Mode=TwoWay}"
+                Visibility="{x:Bind ViewModel.IsLive, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+
             <StackPanel
                 Orientation="Horizontal"
                 Spacing="8"

@@ -866,6 +866,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         [Reactive]
         public bool IsContentFixed { get; set; }
 
+        /// <summary>
+        /// 是否开启洗脑循环.
+        /// </summary>
+        [Reactive]
+        public bool IsInfiniteLoop { get; set; }
+
         private BiliController Controller { get; } = BiliController.Instance;
     }
 }
