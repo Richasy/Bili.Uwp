@@ -173,10 +173,12 @@ namespace Richasy.Bili.App.Controls
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
+            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
+            _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
 
             CheckCurrentPlayerModeAsync();
             CheckSubtitleZoom();
@@ -580,6 +582,14 @@ namespace Richasy.Bili.App.Controls
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))
             {
                 CheckCurrentPlayerModeAsync();
+            }
+        }
+
+        private void OnDanmakuViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
+            {
+                _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
             }
         }
 

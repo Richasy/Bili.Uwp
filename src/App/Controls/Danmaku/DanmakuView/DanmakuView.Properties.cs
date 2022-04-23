@@ -42,7 +42,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="DanmakuArea"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuAreaProperty =
-            DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(0d, OnDanmakuAreaChanged));
+            DependencyProperty.Register(nameof(DanmakuArea), typeof(double), typeof(DanmakuView), new PropertyMetadata(default, OnDanmakuAreaChanged));
 
         /// <summary>
         /// <see cref="IsDanmakuLimit"/>的依赖属性.

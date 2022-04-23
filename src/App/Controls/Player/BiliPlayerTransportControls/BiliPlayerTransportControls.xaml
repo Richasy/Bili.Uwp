@@ -357,7 +357,6 @@
                                 x:Name="DanmakuView"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                DanmakuArea="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuArea}"
                                 DanmakuBold="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.IsDanmakuBold}"
                                 DanmakuDuration="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuSpeed}"
                                 DanmakuFontFamily="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.DanmakuFont}"
