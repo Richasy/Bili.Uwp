@@ -40,6 +40,7 @@ namespace Richasy.Bili.Tasks
             {
                 settingsToolkit.WriteLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, false);
                 settingsToolkit.WriteLocalSetting(SettingNames.LastReadVideoDynamicId, firstCard.Extend.DynIdStr);
+                def.Complete();
                 return;
             }
 
