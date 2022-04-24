@@ -20,7 +20,10 @@ namespace Richasy.Bili.Models.App.Args
         public DynamicVideoIterationEventArgs(DynVideoReply reply)
         {
             var data = reply.DynamicList;
-            List = data.List.ToList();
+            List = data.List.Where(p =>
+                p.CardType == DynamicType.Av
+                || p.CardType == DynamicType.Pgc
+                || p.CardType == DynamicType.UgcSeason).ToList();
             UpdateCount = Convert.ToInt32(data.UpdateNum);
             HasMore = data.HasMore;
             BaseLine = data.UpdateBaseline;
@@ -35,7 +38,9 @@ namespace Richasy.Bili.Models.App.Args
         public DynamicVideoIterationEventArgs(DynAllReply reply)
         {
             var data = reply.DynamicList;
-            List = data.List.ToList();
+            List = data.List.Where(p =>
+                p.CardType != DynamicType.DynNone
+                && p.CardType != DynamicType.Ad).ToList();
             UpdateCount = Convert.ToInt32(data.UpdateNum);
             HasMore = data.HasMore;
             BaseLine = data.UpdateBaseline;
