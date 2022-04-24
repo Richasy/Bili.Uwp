@@ -136,13 +136,16 @@ namespace Richasy.Bili.App.Controls
             {
                 case Bilibili.App.Dynamic.V2.DynamicType.Forward:
                 case Bilibili.App.Dynamic.V2.DynamicType.Word:
-                case Bilibili.App.Dynamic.V2.DynamicType.Draw:
                 case Bilibili.App.Dynamic.V2.DynamicType.Live:
                     type = ReplyType.Dynamic;
+                    break;
+                case Bilibili.App.Dynamic.V2.DynamicType.Draw:
+                    type = ReplyType.Album;
                     break;
                 case Bilibili.App.Dynamic.V2.DynamicType.Av:
                 case Bilibili.App.Dynamic.V2.DynamicType.Pgc:
                 case Bilibili.App.Dynamic.V2.DynamicType.UgcSeason:
+                case Bilibili.App.Dynamic.V2.DynamicType.Medialist:
                     type = ReplyType.Video;
                     break;
                 case Bilibili.App.Dynamic.V2.DynamicType.Courses:
@@ -166,7 +169,8 @@ namespace Richasy.Bili.App.Controls
                 return;
             }
 
-            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(Data.Extend.BusinessId), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
+            var id = type == ReplyType.Dynamic ? Data.Extend.DynIdStr : Data.Extend.BusinessId;
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(id), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
             await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
 
