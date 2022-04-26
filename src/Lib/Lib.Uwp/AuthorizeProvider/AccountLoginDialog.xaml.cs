@@ -192,6 +192,7 @@ namespace Richasy.Bili.Lib.Uwp
                     PrimaryButtonText = string.Empty;
                     TipBlock.Text = resourceToolkit.GetLocaleString(LanguageNames.QRLoginTip);
                     SwitchActionButton.Content = resourceToolkit.GetLocaleString(LanguageNames.SwitchToPasswordLogin);
+                    IsShowWebView = false;
                     await LoadQRCodeAsync();
                     break;
                 default:

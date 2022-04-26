@@ -51,6 +51,7 @@ namespace Richasy.Bili.Lib.Uwp
                         {
                             Code = 408,
                             Message = ServiceConstants.Messages.RequestTimedOut,
+                            IsHttpError = true,
                         },
                         exception);
             }
@@ -64,6 +65,7 @@ namespace Richasy.Bili.Lib.Uwp
                         new ServerResponse
                         {
                             Message = ServiceConstants.Messages.UnexpectedExceptionOnSend,
+                            IsHttpError = true,
                         },
                         exception);
             }
@@ -155,13 +157,18 @@ namespace Richasy.Bili.Lib.Uwp
             {
                 if (response != null && response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    errorResponse = new ServerResponse { Message = ServiceConstants.Messages.NotFound };
+                    errorResponse = new ServerResponse
+                    {
+                        Message = ServiceConstants.Messages.NotFound,
+                        IsHttpError = true,
+                    };
                 }
                 else
                 {
                     errorResponse = new ServerResponse
                     {
                         Message = ServiceConstants.Messages.UnexpectedExceptionResponse,
+                        IsHttpError = true,
                     };
                 }
             }

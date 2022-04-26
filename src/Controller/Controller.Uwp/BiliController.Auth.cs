@@ -35,7 +35,7 @@ namespace Richasy.Bili.Controller.Uwp
                 }
                 else
                 {
-                    LoggedFailed?.Invoke(this, new Exception());
+                    LoggedFailed?.Invoke(this, new OperationCanceledException());
                     return false;
                 }
             }
@@ -53,7 +53,7 @@ namespace Richasy.Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task SignOutAsync()
         {
-            this._isRequestLogout = true;
+            _isRequestLogout = true;
             await _authorizeProvider.SignOutAsync();
         }
 
@@ -61,7 +61,8 @@ namespace Richasy.Bili.Controller.Uwp
         {
             if (e.NewState == AuthorizeState.SignedOut && !_isRequestLogout)
             {
-                LoggedFailed?.Invoke(this, new Exception("请求失败"));
+                LoggedFailed?.Invoke(this, new OperationCanceledException("请求失败"));
+                return;
             }
 
             switch (e.NewState)
@@ -71,7 +72,7 @@ namespace Richasy.Bili.Controller.Uwp
                     break;
                 case AuthorizeState.SignedOut:
                     LoggedOut?.Invoke(this, EventArgs.Empty);
-                    this._isRequestLogout = false;
+                    _isRequestLogout = false;
                     break;
                 default:
                     break;
