@@ -88,7 +88,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         internal async Task DeltaRequestAsync()
         {
-            if (!IsDeltaLoading && !_isLoadCompleted)
+            if (!IsDeltaLoading && !_isLoadCompleted && AccountViewModel.Instance.Status == AccountViewModelStatus.Login)
             {
                 IsDeltaLoading = true;
                 await RequestAsync();

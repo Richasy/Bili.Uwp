@@ -29,6 +29,11 @@ namespace Richasy.Bili.Models.BiliBili
         public int TTL { get; set; }
 
         /// <summary>
+        /// 是否为网络请求错误，而非服务器传回的错误.
+        /// </summary>
+        public bool IsHttpError { get; set; }
+
+        /// <summary>
         /// 响应结果是否为成功.
         /// </summary>
         /// <returns>成功或失败.</returns>

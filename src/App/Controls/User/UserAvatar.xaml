@@ -32,6 +32,7 @@
             CornerRadius="25"
             DecodePixelWidth="{x:Bind DecodeSize, Mode=OneWay}"
             ImageUrl="{x:Bind Avatar, Mode=OneWay}"
+            PlaceholderSource="/Assets/not_login.png"
             ToolTipService.ToolTip="{x:Bind UserName, Mode=OneWay}" />
     </Button>
 </UserControl>

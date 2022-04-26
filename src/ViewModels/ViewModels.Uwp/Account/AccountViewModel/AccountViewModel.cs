@@ -10,6 +10,7 @@ using Richasy.Bili.Controller.Uwp;
 using Richasy.Bili.Locator.Uwp;
 using Richasy.Bili.Models.App;
 using Richasy.Bili.Models.App.Constants;
+using Richasy.Bili.Models.App.Other;
 using Richasy.Bili.Models.BiliBili;
 using Richasy.Bili.Models.Enums;
 
@@ -171,7 +172,11 @@ namespace Richasy.Bili.ViewModels.Uwp
             {
                 Reset();
                 Status = AccountViewModelStatus.Logout;
-                await _controller.SignOutAsync();
+
+                if (e is ServiceException serviceEx && (!serviceEx.Error?.IsHttpError ?? true))
+                {
+                    await _controller.SignOutAsync();
+                }
             }
         }
 
