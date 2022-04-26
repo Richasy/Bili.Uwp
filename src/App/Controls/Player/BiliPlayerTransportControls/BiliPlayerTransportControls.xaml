@@ -329,6 +329,17 @@
                                     <KeyboardAccelerator Key="Down" IsEnabled="True" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <Button
+                                x:Name="MiniViewButton"
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="M"
+                                        IsEnabled="True"
+                                        Modifiers="Control" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
                         </Grid>
 
                         <Grid
@@ -933,12 +944,6 @@
                                                         <ToggleButton.Content>
                                                             <icons:RegularFluentIcon FontSize="16" Symbol="ExpandUpRight48" />
                                                         </ToggleButton.Content>
-                                                        <ToggleButton.KeyboardAccelerators>
-                                                            <KeyboardAccelerator
-                                                                Key="M"
-                                                                IsEnabled="True"
-                                                                Modifiers="Control" />
-                                                        </ToggleButton.KeyboardAccelerators>
                                                     </ToggleButton>
                                                     <ToggleButton
                                                         x:Name="FullWindowModeButton"
