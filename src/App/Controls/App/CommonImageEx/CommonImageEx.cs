@@ -30,6 +30,12 @@ namespace Richasy.Bili.App.Controls
             DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
 
         /// <summary>
+        /// <see cref="PlaceholderSource"/>的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty PlaceholderSourceProperty =
+            DependencyProperty.Register(nameof(PlaceholderSource), typeof(ImageSource), typeof(CommonImageEx), new PropertyMetadata(default));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CommonImageEx"/> class.
         /// </summary>
         public CommonImageEx()
@@ -62,6 +68,15 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(DecodePixelWidthProperty); }
             set { SetValue(DecodePixelWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// 占位符图片.
+        /// </summary>
+        public ImageSource PlaceholderSource
+        {
+            get { return (ImageSource)GetValue(PlaceholderSourceProperty); }
+            set { SetValue(PlaceholderSourceProperty, value); }
         }
     }
 }

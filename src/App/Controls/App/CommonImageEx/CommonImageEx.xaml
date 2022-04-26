@@ -6,6 +6,7 @@
     xmlns:local="using:Richasy.Bili.App.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style TargetType="local:CommonImageEx">
+        <Setter Property="PlaceholderSource" Value="/Assets/img_holder_rect.png" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CommonImageEx">
@@ -14,7 +15,7 @@
                         CornerRadius="{TemplateBinding CornerRadius}"
                         DecodePixelWidth="{TemplateBinding DecodePixelWidth}"
                         EnableLazyLoading="True"
-                        PlaceholderSource="/Assets/img_holder_rect.png"
+                        PlaceholderSource="{TemplateBinding PlaceholderSource}"
                         PlaceholderStretch="Uniform"
                         Source="{TemplateBinding ImageUrl}"
                         Stretch="{TemplateBinding Stretch}" />
