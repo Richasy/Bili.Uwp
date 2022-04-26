@@ -111,19 +111,27 @@ namespace Richasy.Bili.App.Controls
 
         private void InitializeController()
         {
-            _rootGrid.Children.Clear();
-            _canvas = new CanvasAnimatedControl();
-            _rootGrid.Children.Add(_canvas);
-            _danmakuController = new DanmakuFrostMaster(_canvas);
+            if (_rootGrid == null)
+            {
+                _rootGrid = GetTemplateChild(RootGridName) as Grid;
+            }
 
-            _danmakuController.SetAutoControlDensity(IsDanmakuLimit);
-            _danmakuController.SetRollingDensity(-1);
-            _danmakuController.SetBorderColor(Colors.Gray);
-            _danmakuController.SetRollingAreaRatio(Convert.ToInt32(DanmakuArea * 10));
-            _danmakuController.SetDanmakuFontSizeOffset(GetFontSize(DanmakuSize));
-            _danmakuController.SetFontFamilyName(DanmakuFontFamily ?? "Segoe UI");
-            _danmakuController.SetRollingSpeed(Convert.ToInt32(DanmakuDuration * 5));
-            _danmakuController.SetIsTextBold(DanmakuBold);
+            if (_rootGrid != null)
+            {
+                _rootGrid.Children.Clear();
+                _canvas = new CanvasAnimatedControl();
+                _rootGrid.Children.Add(_canvas);
+                _danmakuController = new DanmakuFrostMaster(_canvas);
+
+                _danmakuController.SetAutoControlDensity(IsDanmakuLimit);
+                _danmakuController.SetRollingDensity(-1);
+                _danmakuController.SetBorderColor(Colors.Gray);
+                _danmakuController.SetRollingAreaRatio(Convert.ToInt32(DanmakuArea * 10));
+                _danmakuController.SetDanmakuFontSizeOffset(GetFontSize(DanmakuSize));
+                _danmakuController.SetFontFamilyName(DanmakuFontFamily ?? "Segoe UI");
+                _danmakuController.SetRollingSpeed(Convert.ToInt32(DanmakuDuration * 5));
+                _danmakuController.SetIsTextBold(DanmakuBold);
+            }
         }
     }
 }

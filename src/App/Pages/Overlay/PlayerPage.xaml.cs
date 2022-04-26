@@ -2,6 +2,8 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using Richasy.Bili.App.Controls;
 using Richasy.Bili.Models.Enums;
 using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;
@@ -60,10 +62,10 @@ namespace Richasy.Bili.App.Pages.Overlay
         }
 
         /// <inheritdoc/>
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override async void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigateVM = null;
-            EnterDefaultModeAsync();
+            await EnterDefaultModeAsync();
             if (ViewModel.IsShowViewLater)
             {
                 foreach (var item in ViewModel.ViewLaterVideoCollection)
@@ -77,13 +79,13 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             if (_navigateVM != null)
             {
                 await ViewModel.LoadAsync(_navigateVM);
             }
 
-            CheckPlayerDisplayModeAsync();
+            await CheckPlayerDisplayModeAsync();
 
             if (ViewModel.IsDetailCanLoaded)
             {
@@ -91,12 +93,12 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
         }
 
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(ViewModel.PlayerDisplayMode):
-                    CheckPlayerDisplayModeAsync();
+                    await CheckPlayerDisplayModeAsync();
                     break;
                 case nameof(ViewModel.IsDetailCanLoaded):
                     if (ViewModel.IsDetailCanLoaded)
@@ -112,7 +114,7 @@ namespace Richasy.Bili.App.Pages.Overlay
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
             ViewModel.ClearPlayer();
         }
 
@@ -134,13 +136,13 @@ namespace Richasy.Bili.App.Pages.Overlay
             }
         }
 
-        private async void CheckPlayerDisplayModeAsync()
+        private async Task CheckPlayerDisplayModeAsync()
         {
             var appView = ApplicationView.GetForCurrentView();
 
             if (ViewModel.PlayerDisplayMode == PlayerDisplayMode.Default)
             {
-                EnterDefaultModeAsync();
+                await EnterDefaultModeAsync();
                 CoreViewModel.IsOverLayerExtendToTitleBar = false;
             }
             else
@@ -172,14 +174,17 @@ namespace Richasy.Bili.App.Pages.Overlay
                 }
                 else
                 {
-                    EnterDefaultModeAsync();
+                    await EnterDefaultModeAsync();
                 }
             }
 
             CheckPlayerVisual();
+
+            await Task.Delay(500);
+            await (ViewModel.BiliPlayer.TransportControls as BiliPlayerTransportControls).CheckCurrentPlayerModeAsync();
         }
 
-        private async void EnterDefaultModeAsync()
+        private async Task EnterDefaultModeAsync()
         {
             var appView = ApplicationView.GetForCurrentView();
             VisualStateManager.GoToState(this, nameof(StandardPlayerState), false);

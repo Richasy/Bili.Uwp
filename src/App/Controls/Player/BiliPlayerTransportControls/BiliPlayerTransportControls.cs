@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Atelier39;
 using Bilibili.Community.Service.Dm.V1;
 using Richasy.Bili.Locator.Uwp;
@@ -15,6 +16,7 @@ using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Input;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -74,8 +76,65 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        /// <summary>
+        /// 检查当前的播放器模式.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task CheckCurrentPlayerModeAsync()
+        {
+            if (ViewModel.IsDetailError
+                || ViewModel.IsPlayInformationError
+                || _fullScreenPlayModeButton == null
+                || !_fullScreenPlayModeButton.IsLoaded
+                || _fullWindowPlayModeButton == null
+                || !_fullWindowPlayModeButton.IsLoaded
+                || _compactOverlayPlayModeButton == null
+                || !_compactOverlayPlayModeButton.IsLoaded)
+            {
+            }
+            else
+            {
+                switch (ViewModel.PlayerDisplayMode)
+                {
+                    case PlayerDisplayMode.Default:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case PlayerDisplayMode.FullWindow:
+                        _fullWindowPlayModeButton.IsChecked = true;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Visible;
+                        break;
+                    case PlayerDisplayMode.FullScreen:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = true;
+                        _compactOverlayPlayModeButton.IsChecked = false;
+                        _backButton.Visibility = Visibility.Visible;
+                        break;
+                    case PlayerDisplayMode.CompactOverlay:
+                        _fullWindowPlayModeButton.IsChecked = false;
+                        _fullScreenPlayModeButton.IsChecked = false;
+                        _compactOverlayPlayModeButton.IsChecked = true;
+                        _backButton.Visibility = Visibility.Collapsed;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            _playPauseButton?.Focus(FocusState.Programmatic);
+            _backToDefaultButton.Visibility = ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+
+            await _danmakuView.RedrawAsync();
+        }
+
         /// <inheritdoc/>
-        protected override void OnApplyTemplate()
+        protected override async void OnApplyTemplate()
         {
             _danmakuView = GetTemplateChild(DanmakuViewName) as DanmakuView;
             _fullWindowPlayModeButton = GetTemplateChild(FullWindowPlayModeButtonName) as ToggleButton;
@@ -109,6 +168,7 @@ namespace Richasy.Bili.App.Controls
             _previousViewInformer = GetTemplateChild(PreviousViewInformerName) as PlayerTip;
             _formatButton = GetTemplateChild(FormatButtonName) as Button;
             _liveQualityButton = GetTemplateChild(LiveQualityButtonName) as Button;
+            _miniViewButton = GetTemplateChild(MiniViewButtonName) as Button;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
             _gestureRecognizer = new GestureRecognizer();
             _gestureRecognizer.GestureSettings = GestureSettings.HoldWithMouse | GestureSettings.Hold;
@@ -142,6 +202,7 @@ namespace Richasy.Bili.App.Controls
             _decreaseVolumeButton.Click += OnDecreaseVolumeButtonClick;
             _previousViewInformer.ActionClick += OnContinuePreviousViewButtonClickAsync;
             _nextVidepInformer.ActionClick += OnPlayNextVideoButtonClickAsync;
+            _miniViewButton.Click += OnPlayModeButtonClick;
 
             if (_formatListView != null)
             {
@@ -173,14 +234,14 @@ namespace Richasy.Bili.App.Controls
             DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             DanmakuViewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
-            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChanged;
+            DanmakuViewModel.PropertyChanged += OnDanmakuViewModelPropertyChangedAsync;
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
             AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
             _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
 
-            CheckCurrentPlayerModeAsync();
+            await CheckCurrentPlayerModeAsync();
             CheckSubtitleZoom();
 
             base.OnApplyTemplate();
@@ -366,13 +427,8 @@ namespace Richasy.Bili.App.Controls
 
         private void OnPlayModeButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is ToggleButton btn))
-            {
-                return;
-            }
-
             PlayerDisplayMode mode = default;
-            switch (btn.Name)
+            switch ((sender as FrameworkElement).Name)
             {
                 case FullWindowPlayModeButtonName:
                     _fullScreenPlayModeButton.IsChecked = false;
@@ -391,6 +447,12 @@ namespace Richasy.Bili.App.Controls
                     _fullWindowPlayModeButton.IsChecked = false;
                     mode = _compactOverlayPlayModeButton.IsChecked.Value ?
                         PlayerDisplayMode.CompactOverlay : PlayerDisplayMode.Default;
+                    break;
+                case MiniViewButtonName:
+                    _fullScreenPlayModeButton.IsChecked = false;
+                    _fullWindowPlayModeButton.IsChecked = false;
+                    mode = ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay ?
+                        PlayerDisplayMode.Default : PlayerDisplayMode.CompactOverlay;
                     break;
                 default:
                     break;
@@ -472,59 +534,6 @@ namespace Richasy.Bili.App.Controls
         private async void OnScreenshotButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ScreenshotAsync();
 
-        private async void CheckCurrentPlayerModeAsync()
-        {
-            if (ViewModel.IsDetailError
-                || ViewModel.IsPlayInformationError
-                || _fullScreenPlayModeButton == null
-                || !_fullScreenPlayModeButton.IsLoaded
-                || _fullWindowPlayModeButton == null
-                || !_fullWindowPlayModeButton.IsLoaded
-                || _compactOverlayPlayModeButton == null
-                || !_compactOverlayPlayModeButton.IsLoaded)
-            {
-            }
-            else
-            {
-                switch (ViewModel.PlayerDisplayMode)
-                {
-                    case PlayerDisplayMode.Default:
-                        _fullWindowPlayModeButton.IsChecked = false;
-                        _fullScreenPlayModeButton.IsChecked = false;
-                        _compactOverlayPlayModeButton.IsChecked = false;
-                        _backButton.Visibility = Visibility.Collapsed;
-                        break;
-                    case PlayerDisplayMode.FullWindow:
-                        _fullWindowPlayModeButton.IsChecked = true;
-                        _fullScreenPlayModeButton.IsChecked = false;
-                        _compactOverlayPlayModeButton.IsChecked = false;
-                        _backButton.Visibility = Visibility.Visible;
-                        break;
-                    case PlayerDisplayMode.FullScreen:
-                        _fullWindowPlayModeButton.IsChecked = false;
-                        _fullScreenPlayModeButton.IsChecked = true;
-                        _compactOverlayPlayModeButton.IsChecked = false;
-                        _backButton.Visibility = Visibility.Visible;
-                        break;
-                    case PlayerDisplayMode.CompactOverlay:
-                        _fullWindowPlayModeButton.IsChecked = false;
-                        _fullScreenPlayModeButton.IsChecked = false;
-                        _compactOverlayPlayModeButton.IsChecked = true;
-                        _backButton.Visibility = Visibility.Collapsed;
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            _playPauseButton?.Focus(FocusState.Programmatic);
-            _backToDefaultButton.Visibility = ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default
-                ? Visibility.Visible
-                : Visibility.Collapsed;
-
-            await _danmakuView.RedrawAsync();
-        }
-
         private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
         {
             InitializeDanmaku(e);
@@ -547,7 +556,7 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentFormat))
             {
@@ -581,15 +590,26 @@ namespace Richasy.Bili.App.Controls
             }
             else if (e.PropertyName == nameof(ViewModel.PlayerDisplayMode))
             {
-                CheckCurrentPlayerModeAsync();
+                await CheckCurrentPlayerModeAsync();
             }
         }
 
-        private void OnDanmakuViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnDanmakuViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
             {
                 _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
+            }
+            else if (e.PropertyName == nameof(DanmakuViewModel.IsShowDanmaku))
+            {
+                if (DanmakuViewModel.IsShowDanmaku)
+                {
+                    await _danmakuView.RedrawAsync();
+                }
+                else
+                {
+                    _danmakuView.PauseDanmaku();
+                }
             }
         }
 

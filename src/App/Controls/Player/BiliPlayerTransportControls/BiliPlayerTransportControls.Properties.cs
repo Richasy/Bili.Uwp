@@ -66,8 +66,9 @@ namespace Richasy.Bili.App.Controls
         private const string DecreaseVolumeButtonName = "DecreaseVolumeButton";
         private const string NextVideoInformerName = "NextVideoInformer";
         private const string VisibilityStateGroupName = "ControlPanelVisibilityStates";
-        private const string FormatButtonName = "FormatButtonName";
-        private const string LiveQualityButtonName = "LiveQualityButtonName";
+        private const string FormatButtonName = "FormatButton";
+        private const string LiveQualityButtonName = "LiveQualityButton";
+        private const string MiniViewButtonName = "MiniViewButton";
 
         private DispatcherTimer _danmakuTimer;
         private DispatcherTimer _cursorTimer;
@@ -108,6 +109,7 @@ namespace Richasy.Bili.App.Controls
         private Button _formatButton;
         private Button _liveQualityButton;
         private GestureRecognizer _gestureRecognizer;
+        private Button _miniViewButton;
 
         private int _segmentIndex;
         private double _cursorStayTime;
