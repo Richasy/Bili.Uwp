@@ -543,7 +543,7 @@
     <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\not_login.jpg" />
+    <Content Include="Assets\not_login.png" />
     <Content Include="Assets\Null_rgba.png" />
     <Content Include="Assets\Original_rgba_80.png" />
     <Content Include="Assets\Rookie_rgba_80.png" />
