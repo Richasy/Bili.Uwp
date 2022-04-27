@@ -971,7 +971,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                     }
 
                     break;
-                case nameof(IsPlayInformationError):
                 case nameof(IsDetailError):
                     PlayerDisplayMode = PlayerDisplayMode.Default;
                     break;

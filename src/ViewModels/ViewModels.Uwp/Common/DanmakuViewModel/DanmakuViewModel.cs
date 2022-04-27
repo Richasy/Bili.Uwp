@@ -54,22 +54,13 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         {
             _videoId = videoId;
             _partId = partId;
+            _isRequestingDanmaku = false;
             Reset();
-
-            if (UseCloudShieldSettings)
-            {
-                try
-                {
-                    var danmakuMeta = await Controller.GetDanmakuMetaDataAsync(_videoId, _partId);
-                    DanmakuConfig = danmakuMeta;
-                }
-                catch (Exception)
-                {
-                }
-            }
 
             try
             {
+                var danmakuMeta = await Controller.GetDanmakuMetaDataAsync(_videoId, _partId);
+                DanmakuConfig = danmakuMeta;
                 await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, 1);
             }
             catch (Exception)

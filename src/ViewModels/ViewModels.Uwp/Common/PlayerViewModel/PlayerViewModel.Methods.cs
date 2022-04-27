@@ -959,7 +959,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
-            if (args.ExtendedErrorCode?.HResult == -1072873851)
+            if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)
             {
                 // 不处理 Shutdown 造成的错误.
                 return;
@@ -978,9 +978,6 @@ namespace Richasy.Bili.ViewModels.Uwp
                 var message = string.Empty;
                 switch (args.Error)
                 {
-                    case MediaPlayerError.Unknown:
-                        message = _resourceToolkit.GetLocaleString(LanguageNames.UnknownError);
-                        break;
                     case MediaPlayerError.Aborted:
                         message = _resourceToolkit.GetLocaleString(LanguageNames.Aborted);
                         break;

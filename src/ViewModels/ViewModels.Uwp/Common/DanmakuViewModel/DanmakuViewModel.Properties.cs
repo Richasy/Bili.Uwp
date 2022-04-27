@@ -22,6 +22,7 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
 
         private long _videoId;
         private long _partId;
+        private bool _isRequestingDanmaku;
 
         /// <summary>
         /// 弹幕视图模型单例.

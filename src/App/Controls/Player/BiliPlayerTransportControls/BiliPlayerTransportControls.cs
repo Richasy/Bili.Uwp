@@ -662,7 +662,7 @@ namespace Richasy.Bili.App.Controls
             if (_danmakuTimer == null)
             {
                 _danmakuTimer = new DispatcherTimer();
-                _danmakuTimer.Interval = TimeSpan.FromSeconds(0.5);
+                _danmakuTimer.Interval = TimeSpan.FromSeconds(0.1);
                 _danmakuTimer.Tick += OnDanmkuTimerTickAsync;
             }
         }
