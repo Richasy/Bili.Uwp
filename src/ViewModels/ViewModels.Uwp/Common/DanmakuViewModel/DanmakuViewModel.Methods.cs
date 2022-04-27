@@ -16,8 +16,27 @@ namespace Richasy.Bili.ViewModels.Uwp.Common
         /// </summary>
         /// <param name="newSegmentIndex">新的分片索引.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public Task RequestNewSegmentDanmakuAsync(int newSegmentIndex)
-            => Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, newSegmentIndex);
+        public async Task RequestNewSegmentDanmakuAsync(int newSegmentIndex)
+        {
+            if (_isRequestingDanmaku)
+            {
+                return;
+            }
+
+            _isRequestingDanmaku = true;
+            try
+            {
+                await Controller.RequestNewSegmentDanmakuAsync(_videoId, _partId, newSegmentIndex);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _isRequestingDanmaku = false;
+            }
+        }
 
         private void OnSegmentDanmakuIteration(object sender, SegmentDanmakuIterationEventArgs e)
         {
