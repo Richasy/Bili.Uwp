@@ -7,16 +7,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
+using Bili.Models.gRPC;
 using Google.Protobuf;
 using Newtonsoft.Json;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.gRPC;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 用于网络请求的模块.

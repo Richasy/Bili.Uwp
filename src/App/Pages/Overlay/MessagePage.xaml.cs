@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 消息页面.

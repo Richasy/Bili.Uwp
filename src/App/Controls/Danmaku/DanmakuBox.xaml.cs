@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp;
-using Richasy.Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 弹幕输入控件.

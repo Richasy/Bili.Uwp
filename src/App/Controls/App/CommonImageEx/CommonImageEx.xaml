@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style TargetType="local:CommonImageEx">
         <Setter Property="PlaceholderSource" Value="/Assets/img_holder_rect.png" />

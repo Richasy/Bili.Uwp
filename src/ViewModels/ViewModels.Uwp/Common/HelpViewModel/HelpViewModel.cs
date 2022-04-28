@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Other;
 using Newtonsoft.Json;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Other;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 帮助支持的视图模型.

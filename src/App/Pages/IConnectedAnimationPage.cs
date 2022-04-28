@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 该页包含连接动画相关的操作.

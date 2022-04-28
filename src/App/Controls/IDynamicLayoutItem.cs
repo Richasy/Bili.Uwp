@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 动态调整布局的条目.

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// 控制器使用的常量.

@@ -5,7 +5,7 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 横幅条目.

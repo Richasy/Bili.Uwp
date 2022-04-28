@@ -3,13 +3,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-using static Richasy.Bili.Models.App.Constants.ControllerConstants.Search;
+using static Bili.Models.App.Constants.ControllerConstants.Search;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器的搜索部分.

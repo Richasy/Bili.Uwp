@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     internal class StaggeredItem
     {

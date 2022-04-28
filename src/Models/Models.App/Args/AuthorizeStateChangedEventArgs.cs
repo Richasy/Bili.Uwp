@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 授权验证的事件参数.

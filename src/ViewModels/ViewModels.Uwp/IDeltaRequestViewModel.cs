@@ -2,7 +2,7 @@
 
 using System.Threading.Tasks;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 增量请求视图模型接口.

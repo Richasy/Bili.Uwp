@@ -3,22 +3,22 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Models.App;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

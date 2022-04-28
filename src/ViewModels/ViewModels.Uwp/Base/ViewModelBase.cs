@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using ReactiveUI;
 using Windows.Storage;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// ViewModel的基类.

@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Other
+namespace Bili.Models.App.Other
 {
     /// <summary>
     /// 排行榜分区.

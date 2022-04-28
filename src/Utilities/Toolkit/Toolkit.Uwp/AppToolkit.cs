@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Globalization;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// Application Toolkit.

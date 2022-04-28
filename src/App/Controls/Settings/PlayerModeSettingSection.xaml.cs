@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器模式设置区块.

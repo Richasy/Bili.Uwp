@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Lib.Interfaces;
+using Bili.Lib.Interfaces;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 排行榜相关的属性定义及方法.

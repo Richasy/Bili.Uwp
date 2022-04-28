@@ -3,18 +3,18 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Richasy.Bili.App.Pages;
-using Richasy.Bili.App.Pages.Overlay;
-using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Pages;
+using Bili.App.Pages.Overlay;
+using Bili.App.Resources.Extension;
+using Bili.Models.App;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// Root navigation view.

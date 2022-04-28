@@ -3,7 +3,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Richasy.Bili.Locator.Uwp
+namespace Bili.Locator.Uwp
 {
     /// <summary>
     /// Service locator, used to obtain the container for dependency injection.

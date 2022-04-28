@@ -3,10 +3,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Bili.Models.BiliBili;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC条件视图模型.

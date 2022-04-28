@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums.Bili;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Humanizer;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums.Bili;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 回复我的消息条目.

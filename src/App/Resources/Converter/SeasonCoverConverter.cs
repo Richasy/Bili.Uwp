@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 剧集/系列封面转换器.

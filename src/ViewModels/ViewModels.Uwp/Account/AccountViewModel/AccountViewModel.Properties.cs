@@ -2,13 +2,13 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Models.App;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 当前用户视图模型状态.

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using Bilibili.App.Dynamic.V2;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 动态模块视图模型.

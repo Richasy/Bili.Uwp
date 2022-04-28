@@ -4,8 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{1C288BC0-72F3-4C4C-90AD-A05B52E937B0}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
-    <RootNamespace>Richasy.Bili.App</RootNamespace>
-    <AssemblyName>Richasy.Bili.App</AssemblyName>
+    <RootNamespace>Bili.App</RootNamespace>
+    <AssemblyName>Bili.App</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxOSMaxVersionTestedReplaceManifestVersion>false</AppxOSMaxVersionTestedReplaceManifestVersion>

@@ -2,14 +2,14 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Models.App.Other;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
 using Bilibili.Community.Service.Dm.V1;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp.Common
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 弹幕视图模型.

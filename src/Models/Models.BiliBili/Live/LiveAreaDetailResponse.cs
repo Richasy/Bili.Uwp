@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 直播间分区详情响应结果.

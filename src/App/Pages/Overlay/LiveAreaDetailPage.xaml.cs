@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.ViewModels.Uwp.Live;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Bili.App.Controls;
+using Bili.Models.BiliBili;
+using Bili.ViewModels.Uwp.Live;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 直播分区详情页.

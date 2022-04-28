@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 收藏夹视图模型.

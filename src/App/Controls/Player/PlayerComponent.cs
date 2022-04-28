@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Microsoft.UI.Xaml.Controls;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器组件基类.

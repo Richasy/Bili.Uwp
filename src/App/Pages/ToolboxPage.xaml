@@ -1,15 +1,15 @@
 ﻿<local:AppPage
-    x:Class="Richasy.Bili.App.Pages.ToolboxPage"
+    x:Class="Bili.App.Pages.ToolboxPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Richasy.Bili.App.Controls"
-    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icon="using:Richasy.FluentIcon.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Pages"
+    xmlns:local="using:Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    xmlns:uwp="using:Bili.ViewModels.Uwp"
     mc:Ignorable="d">
 
     <local:AppPage.Resources>

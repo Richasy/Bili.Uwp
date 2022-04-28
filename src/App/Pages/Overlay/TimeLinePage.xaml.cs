@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 时间线页面.

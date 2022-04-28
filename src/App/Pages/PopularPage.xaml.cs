@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 热门视频页面.

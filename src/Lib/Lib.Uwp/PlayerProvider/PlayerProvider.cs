@@ -7,19 +7,18 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Models.Enums.Bili;
+using static Bili.Models.App.Constants.ApiConstants;
+using static Bili.Models.App.Constants.ServiceConstants;
 
-using static Richasy.Bili.Models.App.Constants.ApiConstants;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
-
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 提供视频操作.

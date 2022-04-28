@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Windows.Networking.Connectivity;
 
-namespace Richasy.Bili.Controller.Uwp.Utilities
+namespace Bili.Controller.Uwp.Utilities
 {
     /// <summary>
     /// This class exposes information about the network connectivity.

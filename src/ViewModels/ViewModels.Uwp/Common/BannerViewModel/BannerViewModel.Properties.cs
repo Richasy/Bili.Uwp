@@ -2,7 +2,7 @@
 
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 横幅视图模型.

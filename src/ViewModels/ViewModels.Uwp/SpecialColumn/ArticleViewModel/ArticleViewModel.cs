@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using Bilibili.App.Dynamic.V2;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 文章的视图模型.

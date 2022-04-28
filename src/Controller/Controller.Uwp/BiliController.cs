@@ -3,19 +3,19 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Controller.Uwp.Modules;
+using Bili.Lib.Interfaces;
+using Bili.Lib.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Args;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
+using Bili.Toolkit.Uwp;
 using Microsoft.Extensions.DependencyInjection;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Controller.Uwp.Modules;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Lib.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.Toolkit.Uwp;
 using Websocket.Client;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 应用控制器，连接Lib层与ViewModel层的中间计算层.

@@ -4,12 +4,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC收藏夹视图模型.

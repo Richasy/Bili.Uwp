@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
 using Newtonsoft.Json;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 用于网络请求模块的内部方法.

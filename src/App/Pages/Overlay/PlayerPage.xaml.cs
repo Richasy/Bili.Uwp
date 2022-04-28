@@ -3,14 +3,14 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 播放器页面.

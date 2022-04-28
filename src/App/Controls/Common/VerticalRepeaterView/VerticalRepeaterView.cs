@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections;
+using Bili.App.Resources.Extension;
 using Microsoft.UI.Xaml.Controls;
-using Richasy.Bili.App.Resources.Extension;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 视频视图.

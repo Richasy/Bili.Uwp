@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.Models.App.Other
+namespace Bili.Models.App.Other
 {
     /// <summary>
     /// 本地缓存基本类型.

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC时间线条目视图模型.

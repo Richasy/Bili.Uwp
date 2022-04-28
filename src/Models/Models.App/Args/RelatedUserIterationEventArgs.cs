@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 相关用户（粉丝，关注）列表更改事件参数.

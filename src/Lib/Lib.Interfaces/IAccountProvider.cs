@@ -2,10 +2,10 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.Models.BiliBili;
 using Bilibili.App.Interfaces.V1;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 提供账户相关的操作和功能.

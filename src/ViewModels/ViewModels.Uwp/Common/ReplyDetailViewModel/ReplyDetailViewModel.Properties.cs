@@ -4,7 +4,7 @@ using System;
 using Bilibili.Main.Community.Reply.V1;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 评论回复单层展开详情视图模型.

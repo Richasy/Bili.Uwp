@@ -3,10 +3,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC模块视图模型.

@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// 数字处理工具.

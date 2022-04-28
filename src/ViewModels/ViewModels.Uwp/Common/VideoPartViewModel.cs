@@ -2,7 +2,7 @@
 
 using Bilibili.App.View.V1;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 分P视图模型.

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 专栏分类视图模型.

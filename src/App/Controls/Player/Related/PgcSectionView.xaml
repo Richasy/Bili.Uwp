@@ -1,12 +1,12 @@
 ﻿<controls:PlayerComponent
-    x:Class="Richasy.Bili.App.Controls.Player.Related.PgcSectionView"
+    x:Class="Bili.App.Controls.Player.Related.PgcSectionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
+    xmlns:uwp="using:Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">

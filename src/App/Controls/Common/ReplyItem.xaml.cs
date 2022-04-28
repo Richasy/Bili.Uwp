@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Bilibili.Main.Community.Reply.V1;
 using Humanizer;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 评论条目.

@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:shadow="using:Microsoft.Toolkit.Uwp.UI">
     <Style TargetType="local:CardPanel">

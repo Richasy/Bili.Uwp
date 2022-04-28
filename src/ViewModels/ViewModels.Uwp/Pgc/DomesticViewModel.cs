@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 国创数据视图模型.

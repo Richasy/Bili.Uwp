@@ -6,13 +6,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Atelier39;
+using Bili.Locator.Uwp;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Bilibili.Community.Service.Dm.V1;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Input;
@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Shapes;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 哔哩播放器的媒体传输控件.

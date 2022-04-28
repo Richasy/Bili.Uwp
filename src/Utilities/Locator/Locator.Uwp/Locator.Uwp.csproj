@@ -4,8 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Richasy.Bili.Locator.Uwp</RootNamespace>
-    <AssemblyName>Richasy.Bili.Locator.Uwp</AssemblyName>
+    <RootNamespace>Bili.Locator.Uwp</RootNamespace>
+    <AssemblyName>Bili.Locator.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>

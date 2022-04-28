@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.Storage;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// Settings toolkit.

@@ -3,11 +3,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Show.V1;
-using Richasy.Bili.Lib.Interfaces;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 热门数据处理.

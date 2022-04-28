@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums
+namespace Bili.Models.Enums
 {
     /// <summary>
     /// 页面标识.

@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 搜索模块视图模型.

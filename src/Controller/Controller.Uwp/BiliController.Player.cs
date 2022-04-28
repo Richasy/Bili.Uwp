@@ -3,14 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Models.Enums.Bili;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器的视频处理部分.

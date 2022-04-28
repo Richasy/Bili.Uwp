@@ -2,10 +2,10 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 分区，标签相关的数据操作定义.

@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Richasy.Bili.Locator.Uwp
+namespace Bili.Locator.Uwp
 {
     /// <summary>
     /// <see cref="ServiceLocator"/> extension.

@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.Controller.Uwp.Interfaces
+namespace Bili.Controller.Uwp.Interfaces
 {
     /// <summary>
     /// 日志记录模块.

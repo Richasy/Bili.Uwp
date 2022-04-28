@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Windows.Storage;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 缓存设置.

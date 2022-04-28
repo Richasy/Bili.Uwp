@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.Models.Enums.Bili;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
-using Richasy.Bili.Models.Enums.Bili;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 社区交互处理工具.

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC模块视图模型.

@@ -2,12 +2,12 @@
 
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Controller.Uwp;
+using Bili.Models.App.Args;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 搜索视图模型.

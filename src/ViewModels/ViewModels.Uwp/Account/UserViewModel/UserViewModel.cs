@@ -6,16 +6,16 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App;
+using Bili.Models.App.Args;
+using Bili.Models.App.Constants;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using Bilibili.App.View.V1;
 using ReactiveUI;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 用户视图模型，特指非当前登录账户的其它用户.

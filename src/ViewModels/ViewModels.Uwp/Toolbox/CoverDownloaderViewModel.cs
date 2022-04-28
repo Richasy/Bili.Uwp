@@ -5,16 +5,16 @@ using System.Net.Http;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 封面下载器视图模型.

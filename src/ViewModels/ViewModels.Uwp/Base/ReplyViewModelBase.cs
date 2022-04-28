@@ -2,12 +2,12 @@
 
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Bili.Models.Enums;
+using Bili.Models.Enums.Bili;
 using Bilibili.Main.Community.Reply.V1;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.Bili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 评论回复视图模型的基类.

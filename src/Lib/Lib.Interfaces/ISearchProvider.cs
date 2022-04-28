@@ -3,10 +3,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Models.BiliBili;
 using Bilibili.App.Interfaces.V1;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 搜索操作.

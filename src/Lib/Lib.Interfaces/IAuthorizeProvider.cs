@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 授权验证模块.

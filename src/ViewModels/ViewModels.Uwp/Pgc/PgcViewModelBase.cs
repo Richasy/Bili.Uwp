@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC内容基础视图模型.

@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Controller.Uwp.Utilities;
+using Bili.Controller.Uwp.Utilities;
 
-namespace Richasy.Bili.Controller.Uwp.Interfaces
+namespace Bili.Controller.Uwp.Interfaces
 {
     /// <summary>
     /// 网络连接检测模块的定义.

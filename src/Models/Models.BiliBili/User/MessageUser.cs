@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 发出消息的用户.

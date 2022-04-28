@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 直播搜索事件参数.

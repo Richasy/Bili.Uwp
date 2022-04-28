@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 视频条目.

@@ -3,12 +3,12 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using FFmpegInterop;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App
+namespace Bili.App
 {
     /// <summary>
     /// Provide application-specific behaviors to supplement the default application classes.

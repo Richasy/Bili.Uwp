@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.ViewModels.Uwp;
 using Bilibili.Main.Community.Reply.V1;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 回复模块视图.

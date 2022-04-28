@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.BiliBili;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 直播分区视图.

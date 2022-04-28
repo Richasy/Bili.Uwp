@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// PGC模块附加数据改变事件参数.

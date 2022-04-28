@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 视频推荐视图模型.

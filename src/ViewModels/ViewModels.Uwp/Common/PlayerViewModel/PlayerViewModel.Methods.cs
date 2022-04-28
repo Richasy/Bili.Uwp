@@ -7,18 +7,18 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bili.Models.App;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 using Bilibili.App.View.V1;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

@@ -3,13 +3,13 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 获取专业内容创作数据的工具.

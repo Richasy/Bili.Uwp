@@ -2,12 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Pages;
-using Richasy.Bili.Models.Enums.App;
+using Bili.App.Pages;
+using Bili.Models.Enums.App;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 消息提醒.

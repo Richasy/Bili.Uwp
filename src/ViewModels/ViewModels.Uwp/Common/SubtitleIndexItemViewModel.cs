@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 字幕索引条目视图模型.

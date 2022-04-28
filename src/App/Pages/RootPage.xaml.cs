@@ -4,10 +4,10 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.App.Controls.Dialogs;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls;
+using Bili.App.Controls.Dialogs;
+using Bili.Models.App.Args;
+using Bili.ViewModels.Uwp;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// The page is used for default loading.

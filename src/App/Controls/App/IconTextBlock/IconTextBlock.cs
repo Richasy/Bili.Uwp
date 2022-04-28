@@ -4,7 +4,7 @@ using Richasy.FluentIcon.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 带图标的文本.

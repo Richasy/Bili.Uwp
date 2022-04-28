@@ -4,12 +4,12 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// File Toolkit.

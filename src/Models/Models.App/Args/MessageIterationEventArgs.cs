@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 消息更新事件参数.

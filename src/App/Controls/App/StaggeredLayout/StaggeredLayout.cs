@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// Arranges child elements into a staggered grid pattern where items are added to the column that has used least amount of space.

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using Bilibili.App.Interfaces.V1;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 历史记录视图模型.

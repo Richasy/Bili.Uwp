@@ -2,7 +2,7 @@
 
 using Bilibili.App.Interfaces.V1;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 历史记录标签页视图模型.

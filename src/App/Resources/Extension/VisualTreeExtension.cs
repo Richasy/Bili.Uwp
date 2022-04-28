@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace Richasy.Bili.App.Resources.Extension
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// 视觉树扩展.

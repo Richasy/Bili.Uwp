@@ -3,11 +3,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 文章收藏夹视图模型.

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bilibili.App.Show.V1;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器的排行榜部分.

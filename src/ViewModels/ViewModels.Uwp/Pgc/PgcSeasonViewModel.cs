@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC剧集/系列视图模型.

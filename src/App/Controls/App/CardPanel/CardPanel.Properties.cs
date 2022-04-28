@@ -3,7 +3,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 卡片面板.

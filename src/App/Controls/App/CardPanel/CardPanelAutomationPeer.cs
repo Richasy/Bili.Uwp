@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// <see cref="CardPanel"/>的自动化公开属性.

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 搜索模块视图模型.

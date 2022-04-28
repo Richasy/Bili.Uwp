@@ -10,7 +10,7 @@ using Bilibili.Metadata.Network;
 using Bilibili.Metadata.Restriction;
 using Google.Protobuf;
 
-namespace Richasy.Bili.Models.gRPC
+namespace Bili.Models.gRPC
 {
     /// <summary>
     /// gRPC的请求配置.

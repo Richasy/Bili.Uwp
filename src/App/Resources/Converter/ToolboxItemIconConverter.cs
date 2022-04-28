@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 using Richasy.FluentIcon.Uwp;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     internal class ToolboxItemIconConverter : IValueConverter
     {

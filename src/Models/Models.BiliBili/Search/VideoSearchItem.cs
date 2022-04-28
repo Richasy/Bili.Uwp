@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 视频搜索结果条目.

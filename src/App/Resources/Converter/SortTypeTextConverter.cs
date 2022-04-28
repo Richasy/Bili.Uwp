@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 视频排序方式可读文本转换器.

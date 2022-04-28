@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索用户视图.

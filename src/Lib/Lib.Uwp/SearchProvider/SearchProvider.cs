@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
-using static Richasy.Bili.Models.App.Constants.ApiConstants;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+using Bili.Lib.Interfaces;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
+using static Bili.Models.App.Constants.ApiConstants;
+using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 搜索工具.

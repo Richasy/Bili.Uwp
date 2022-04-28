@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bilibili.App.Dynamic.V2;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 视频动态更新事件参数.

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// 服务相关的常量.

@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Models.BiliBili;
+using Bili.ViewModels.Uwp;
 using Bilibili.App.Interfaces.V1;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索框.

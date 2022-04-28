@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 直播视图模型的属性集.

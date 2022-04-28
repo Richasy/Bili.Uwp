@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 提供直播相关的操作.

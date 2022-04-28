@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player.Related
 {
     /// <summary>
     /// 关联视频视图.

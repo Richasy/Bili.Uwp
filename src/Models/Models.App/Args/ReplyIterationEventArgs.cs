@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bilibili.Main.Community.Reply.V1;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 评论回复更新事件参数.

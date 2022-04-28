@@ -3,17 +3,17 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums.Bili;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums.Bili;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 动态条目.

@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 设置视图模型.

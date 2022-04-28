@@ -2,11 +2,11 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.Controller.Uwp;
+using Bili.Models.BiliBili;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.BiliBili;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 收藏夹详情视图模型.

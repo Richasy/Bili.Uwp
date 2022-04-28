@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.App.Other;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 帮助支持的视图模型.

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Controller.Uwp.Utilities;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Controller.Uwp.Utilities;
 using Windows.Networking.Connectivity;
 
-namespace Richasy.Bili.Controller.Uwp.Modules
+namespace Bili.Controller.Uwp.Modules
 {
     /// <summary>
     /// Module used to detect whether the current network is available.

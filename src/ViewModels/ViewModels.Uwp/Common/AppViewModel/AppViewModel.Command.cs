@@ -2,13 +2,13 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 using CommandLine;
 using Microsoft.QueryStringDotNET;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 应用视图模型.

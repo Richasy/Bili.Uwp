@@ -2,13 +2,13 @@
 
 using System;
 using System.Linq;
-using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Resources.Extension;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 动态展示.

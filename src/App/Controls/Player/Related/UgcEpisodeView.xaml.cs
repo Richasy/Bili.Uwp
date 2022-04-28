@@ -2,7 +2,7 @@
 
 using Bilibili.App.View.V1;
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player.Related
 {
     /// <summary>
     /// 合集视图.

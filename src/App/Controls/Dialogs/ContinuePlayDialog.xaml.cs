@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls.Dialogs
+namespace Bili.App.Controls.Dialogs
 {
     /// <summary>
     /// 继续播放对话框.

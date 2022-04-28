@@ -2,15 +2,15 @@
 
 using System;
 using System.Linq;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
 using Humanizer;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 点赞消息条目.

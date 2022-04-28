@@ -3,9 +3,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using static Richasy.Bili.Models.App.Constants.ServiceConstants;
+using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 首页推荐部分.

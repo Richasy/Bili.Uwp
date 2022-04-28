@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Uwp;
 using Bilibili.App.View.V1;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     internal sealed class UgcEpisodeConverter : IValueConverter
     {

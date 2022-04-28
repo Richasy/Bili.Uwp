@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 搜索模块元数据事件参数.

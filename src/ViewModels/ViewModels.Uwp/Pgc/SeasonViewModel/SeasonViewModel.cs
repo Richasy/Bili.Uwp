@@ -2,12 +2,12 @@
 
 using System;
 using System.Text.RegularExpressions;
+using Bili.Locator.Uwp;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 剧集视图模型.

@@ -2,10 +2,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Bili.Toolkit.Interfaces;
 using Microsoft.Graphics.Canvas.Text;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// 字体处理工具.

@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 动漫视图模型基类.

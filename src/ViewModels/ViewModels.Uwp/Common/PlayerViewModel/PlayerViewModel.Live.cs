@@ -2,11 +2,11 @@
 
 using System;
 using System.Linq;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

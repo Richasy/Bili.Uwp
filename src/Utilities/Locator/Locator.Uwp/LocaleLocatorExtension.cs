@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.UI.Xaml.Markup;
 
-namespace Richasy.Bili.Locator.Uwp
+namespace Bili.Locator.Uwp
 {
     /// <summary>
     /// Localized text extension.

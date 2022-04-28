@@ -2,14 +2,14 @@
 
 using System;
 using System.ComponentModel;
-using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Resources.Extension;
+using Bili.ViewModels.Uwp;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 账户管理中枢.

@@ -3,14 +3,14 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 设置视图模型.

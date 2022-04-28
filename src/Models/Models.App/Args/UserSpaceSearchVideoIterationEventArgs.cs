@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bilibili.App.Interfaces.V1;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 用户空间视频搜索迭代事件参数.

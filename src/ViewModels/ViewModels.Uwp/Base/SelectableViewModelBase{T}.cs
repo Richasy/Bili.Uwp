@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 可选择的视图模型.

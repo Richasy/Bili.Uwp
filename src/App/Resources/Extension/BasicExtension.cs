@@ -3,7 +3,7 @@
 using System;
 using Windows.UI;
 
-namespace Richasy.Bili.App.Resources.Extension
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// 基础扩展.

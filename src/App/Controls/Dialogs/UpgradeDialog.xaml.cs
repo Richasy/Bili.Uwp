@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Args;
+using Bili.Toolkit.Interfaces;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls.Dialogs
+namespace Bili.App.Controls.Dialogs
 {
     /// <summary>
     /// 更新提醒对话框.

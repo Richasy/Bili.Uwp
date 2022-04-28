@@ -6,13 +6,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 
-using static Richasy.Bili.Models.App.Constants.ControllerConstants.Search;
+using static Bili.Models.App.Constants.ControllerConstants.Search;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 搜索模块视图模型.

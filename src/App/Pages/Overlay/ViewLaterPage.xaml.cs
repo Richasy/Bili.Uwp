@@ -2,16 +2,16 @@
 
 using System;
 using System.Linq;
-using Richasy.Bili.App.Controls.Dialogs;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls.Dialogs;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.

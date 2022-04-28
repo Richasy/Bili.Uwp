@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.ViewModels.Uwp.Common;
+using Bili.Models.App.Other;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 弹幕发送设置.

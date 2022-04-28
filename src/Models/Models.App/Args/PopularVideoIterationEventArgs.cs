@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bilibili.App.Card.V1;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 热门视频批量传输事件.

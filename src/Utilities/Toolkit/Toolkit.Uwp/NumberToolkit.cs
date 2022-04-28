@@ -2,10 +2,10 @@
 
 using System;
 using System.Linq;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// 数字处理工具.

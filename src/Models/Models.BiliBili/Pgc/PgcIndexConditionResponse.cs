@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// PGC索引筛选条件响应.

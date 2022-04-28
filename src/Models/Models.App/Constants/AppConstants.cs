@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// 应用常量.
@@ -33,7 +33,7 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string ScreenshotFolderName = "Bili Screenshots";
 
-        public const string NewDynamicTaskName = "Richasy.Bili.Tasks.DynamicNotifyTask";
+        public const string NewDynamicTaskName = "Bili.Tasks.DynamicNotifyTask";
 
         /// <summary>
         /// 哔哩哔哩番剧出差账户Id.

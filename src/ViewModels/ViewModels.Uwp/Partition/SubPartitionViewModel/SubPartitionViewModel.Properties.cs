@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 子分区视图模型属性集.

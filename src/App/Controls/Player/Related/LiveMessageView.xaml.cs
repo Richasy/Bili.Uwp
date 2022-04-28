@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player.Related
 {
     /// <summary>
     /// 直播消息视图.

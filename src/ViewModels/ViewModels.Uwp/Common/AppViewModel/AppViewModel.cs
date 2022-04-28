@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Args;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 应用ViewModel.

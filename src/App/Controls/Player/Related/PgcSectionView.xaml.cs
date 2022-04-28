@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Threading.Tasks;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player.Related
 {
     /// <summary>
     /// PGC区块视图.

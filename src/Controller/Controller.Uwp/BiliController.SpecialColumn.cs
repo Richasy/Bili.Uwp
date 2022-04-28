@@ -3,13 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using static Richasy.Bili.Models.App.Constants.ControllerConstants;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using static Bili.Models.App.Constants.ControllerConstants;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器中处理专栏文档的部分.

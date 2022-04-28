@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using ReactiveUI;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 直播视图模型.

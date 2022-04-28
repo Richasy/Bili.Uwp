@@ -7,21 +7,21 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Common;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.ViewModels.Uwp.Common;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

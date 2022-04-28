@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.ComponentModel;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 分区详情页面.

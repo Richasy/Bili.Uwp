@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 对象到可见性的转换器. 当对象为空时，返回Collapsed.

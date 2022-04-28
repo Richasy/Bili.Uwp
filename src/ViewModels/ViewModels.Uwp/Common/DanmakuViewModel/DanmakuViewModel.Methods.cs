@@ -2,9 +2,9 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
+using Bili.Models.App.Args;
 
-namespace Richasy.Bili.ViewModels.Uwp.Common
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 弹幕视图模型.

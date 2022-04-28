@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// PGC索引页面.

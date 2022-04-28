@@ -3,7 +3,7 @@
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 数据源式PGC视图模型基类.

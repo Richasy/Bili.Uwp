@@ -3,7 +3,7 @@
 using System.Collections.ObjectModel;
 using ReactiveUI.Fody.Helpers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// PGC标签页视图模型.

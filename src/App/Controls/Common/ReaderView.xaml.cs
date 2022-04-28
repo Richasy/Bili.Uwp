@@ -2,17 +2,17 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Newtonsoft.Json;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 阅读器视图.

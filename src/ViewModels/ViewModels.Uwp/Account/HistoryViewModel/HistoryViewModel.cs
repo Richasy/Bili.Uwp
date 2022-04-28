@@ -3,12 +3,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 using Bilibili.App.Interfaces.V1;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 历史记录视图模型.

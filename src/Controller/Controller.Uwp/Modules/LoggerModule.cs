@@ -4,14 +4,14 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Models.App.Constants;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Models.App.Constants;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.System.Profile;
 using Windows.System.UserProfile;
 
-namespace Richasy.Bili.Controller.Uwp.Modules
+namespace Bili.Controller.Uwp.Modules
 {
     /// <summary>
     /// 应用日志记录模块.

@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 数字转可见性，等于0则不显示.

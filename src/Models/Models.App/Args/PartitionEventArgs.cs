@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 分区事件参数基类.

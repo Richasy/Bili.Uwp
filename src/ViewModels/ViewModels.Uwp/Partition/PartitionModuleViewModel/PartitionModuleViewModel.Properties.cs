@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 分区视图模型属性集.

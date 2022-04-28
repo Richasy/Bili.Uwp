@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 关注的直播间视图.
@@ -34,6 +34,9 @@ namespace Richasy.Bili.App.Controls
             Loaded += OnLoaded;
         }
 
+        /// <summary>
+        /// 条目被点击时触发.
+        /// </summary>
         public event EventHandler ItemClick;
 
         /// <summary>

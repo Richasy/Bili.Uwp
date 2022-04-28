@@ -2,11 +2,11 @@
 
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Pages.Overlay
+namespace Bili.App.Pages.Overlay
 {
     /// <summary>
     /// 收藏夹页面.

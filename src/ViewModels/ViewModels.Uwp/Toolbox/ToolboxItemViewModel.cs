@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Locator.Uwp;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 工具箱条目视图模型.

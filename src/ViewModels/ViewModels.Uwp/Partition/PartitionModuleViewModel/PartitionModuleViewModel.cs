@@ -3,7 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 分区视图模型.

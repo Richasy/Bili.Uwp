@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.ObjectModel;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 工具箱页面视图模型.

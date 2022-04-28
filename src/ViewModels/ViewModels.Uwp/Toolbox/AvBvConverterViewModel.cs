@@ -3,14 +3,14 @@
 using System;
 using System.Reactive;
 using System.Threading.Tasks;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.UI.Core;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// AV/BV互转视图模型.

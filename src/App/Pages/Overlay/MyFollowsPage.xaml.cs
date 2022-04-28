@@ -2,11 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 我的关注页面.

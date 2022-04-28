@@ -3,7 +3,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Richasy.Bili.App.Resources.Extension
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// 连接动画扩展类.

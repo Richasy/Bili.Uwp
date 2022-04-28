@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Resources.Extension
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// 导航扩展.

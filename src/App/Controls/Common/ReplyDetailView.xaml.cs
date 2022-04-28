@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 评论回复详情.

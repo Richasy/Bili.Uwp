@@ -6,14 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
 using FFmpegInterop;
-using Richasy.Bili.Models.App.Constants;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
 using Windows.Web.Http;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

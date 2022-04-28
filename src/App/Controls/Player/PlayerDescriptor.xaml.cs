@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.App.Controls.Dialogs;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls.Dialogs;
+using Bili.Locator.Uwp;
+using Bili.Models.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器说明组件，包括发布者，标题和说明文本等.

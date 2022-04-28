@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// Resource related toolkits, including text resources, styles, etc.

@@ -6,12 +6,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
 using Bilibili.Community.Service.Dm.V1;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp.Common
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 弹幕视图模型.

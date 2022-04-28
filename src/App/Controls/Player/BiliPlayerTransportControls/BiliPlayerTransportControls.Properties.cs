@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.ViewModels.Uwp;
-using Richasy.Bili.ViewModels.Uwp.Common;
+using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Shapes;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 哔哩播放器的媒体传输控件.

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.Models.Enums.App;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.Enums.App;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 相关用户的视图模型.

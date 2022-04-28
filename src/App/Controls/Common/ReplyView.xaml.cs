@@ -2,14 +2,14 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Locator.Uwp;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Bilibili.Main.Community.Reply.V1;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 评论回复视图.
@@ -38,6 +38,9 @@ namespace Richasy.Bili.App.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 请求详情视图.
+        /// </summary>
         public event EventHandler<ReplyInfo> RequestDetailView;
 
         /// <summary>

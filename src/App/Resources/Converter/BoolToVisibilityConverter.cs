@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// <see cref="bool"/>到<see cref="Visibility"/>的转换.

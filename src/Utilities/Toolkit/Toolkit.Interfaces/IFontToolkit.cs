@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// 字体处理工具.

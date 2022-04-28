@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Bili.Locator.Uwp;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 应用直播线路视图模型.

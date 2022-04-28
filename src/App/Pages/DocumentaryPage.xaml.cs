@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.Models.Enums;
+using Bili.App.Controls;
+using Bili.Models.Enums;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 纪录片页面.

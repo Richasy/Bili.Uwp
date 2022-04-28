@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 专栏附加数据（横幅，排行榜）更改事件.

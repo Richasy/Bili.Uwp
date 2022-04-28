@@ -1,12 +1,12 @@
 ﻿<pages:AppPage
-    x:Class="Richasy.Bili.App.Pages.Overlay.PlayerPage"
+    x:Class="Bili.App.Pages.Overlay.PlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages="using:Richasy.Bili.App.Pages"
+    xmlns:pages="using:Bili.App.Pages"
     mc:Ignorable="d">
 
     <Grid x:Name="RootGrid">

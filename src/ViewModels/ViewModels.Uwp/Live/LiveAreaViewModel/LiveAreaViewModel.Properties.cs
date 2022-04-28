@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp.Live
+namespace Bili.ViewModels.Uwp.Live
 {
     /// <summary>
     /// 直播间分区视图模型.

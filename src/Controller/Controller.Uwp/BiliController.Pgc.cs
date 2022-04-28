@@ -7,16 +7,16 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Bili.Models.App;
+using Bili.Models.App.Args;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
-using static Richasy.Bili.Models.App.Constants.ControllerConstants;
+using static Bili.Models.App.Constants.ControllerConstants;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器的PGC部分.

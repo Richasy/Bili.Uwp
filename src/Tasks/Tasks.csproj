@@ -7,8 +7,8 @@
     <ProjectGuid>{C7BEA810-0F31-4176-99A0-4481733918DE}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Richasy.Bili.Tasks</RootNamespace>
-    <AssemblyName>Richasy.Bili.Tasks</AssemblyName>
+    <RootNamespace>Bili.Tasks</RootNamespace>
+    <AssemblyName>Bili.Tasks</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>

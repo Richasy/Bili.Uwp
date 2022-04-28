@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Atelier39;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 弹幕视图.

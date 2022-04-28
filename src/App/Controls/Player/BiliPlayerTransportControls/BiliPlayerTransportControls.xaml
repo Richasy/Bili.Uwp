@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:contract8Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp">
+    xmlns:uwp="using:Bili.ViewModels.Uwp">
 
     <!-- New AppBar button style 40x40 pixels in size -->
     <Style

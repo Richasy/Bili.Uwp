@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using System.Text;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// MD5工具.

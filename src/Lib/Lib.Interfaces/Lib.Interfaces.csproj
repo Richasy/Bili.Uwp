@@ -7,8 +7,8 @@
     <ProjectGuid>{CAE9B987-6DB2-42A8-B3F2-3BB700CC4DD8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Richasy.Bili.Lib.Interfaces</RootNamespace>
-    <AssemblyName>Richasy.Bili.Lib.Interfaces</AssemblyName>
+    <RootNamespace>Bili.Lib.Interfaces</RootNamespace>
+    <AssemblyName>Bili.Lib.Interfaces</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>

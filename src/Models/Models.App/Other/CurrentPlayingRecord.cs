@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Models.App.Other
+namespace Bili.Models.App.Other
 {
     /// <summary>
     /// 当前正在播放内容的快照.

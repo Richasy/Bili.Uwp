@@ -2,9 +2,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 首页推荐视频处理程序.

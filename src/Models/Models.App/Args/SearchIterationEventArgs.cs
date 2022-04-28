@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 搜索迭代事件基类.

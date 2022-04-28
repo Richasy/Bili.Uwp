@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// File, IO realated toolkit.

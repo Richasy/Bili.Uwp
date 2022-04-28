@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bilibili.Community.Service.Dm.V1;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 分片弹幕迭代事件参数.

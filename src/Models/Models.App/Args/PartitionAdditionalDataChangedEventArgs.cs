@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 分区附加数据改变时的事件参数.

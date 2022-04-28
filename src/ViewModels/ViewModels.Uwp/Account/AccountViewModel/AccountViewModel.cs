@@ -6,15 +6,15 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.App;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 用户视图模型.

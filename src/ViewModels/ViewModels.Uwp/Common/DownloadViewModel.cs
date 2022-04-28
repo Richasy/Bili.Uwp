@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.Storage.Pickers;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 下载配置视图模型.

@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 专栏模块视图模型.

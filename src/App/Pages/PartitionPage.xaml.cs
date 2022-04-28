@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Resources.Extension;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.

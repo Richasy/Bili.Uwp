@@ -2,9 +2,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 推荐视频批量传输事件，用于推荐视频的增量加载.

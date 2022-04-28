@@ -3,7 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 工具箱页面视图模型.

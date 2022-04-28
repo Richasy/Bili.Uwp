@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 收藏夹类型转换器.

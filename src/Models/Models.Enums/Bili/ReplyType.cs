@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums.Bili
+namespace Bili.Models.Enums.Bili
 {
     /// <summary>
     /// 评论区类型.

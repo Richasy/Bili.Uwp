@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Models.Enums;
 using Google.Protobuf;
-using Richasy.Bili.Models.Enums;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 用于进行网络请求.

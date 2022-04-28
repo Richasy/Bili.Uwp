@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Other
+namespace Bili.Models.App.Other
 {
     /// <summary>
     /// 键值对.

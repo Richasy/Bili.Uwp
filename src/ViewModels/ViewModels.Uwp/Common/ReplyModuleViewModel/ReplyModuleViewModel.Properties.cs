@@ -3,7 +3,7 @@
 using System;
 using Bilibili.Main.Community.Reply.V1;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 评论回复模块视图模型.

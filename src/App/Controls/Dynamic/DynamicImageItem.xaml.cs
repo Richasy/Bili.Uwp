@@ -2,12 +2,12 @@
 
 using System;
 using System.Linq;
+using Bili.ViewModels.Uwp;
 using Bilibili.App.Dynamic.V2;
-using Richasy.Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 图文动态条目.

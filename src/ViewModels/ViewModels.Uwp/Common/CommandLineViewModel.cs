@@ -2,7 +2,7 @@
 
 using CommandLine;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     internal class CommandLineViewModel
     {

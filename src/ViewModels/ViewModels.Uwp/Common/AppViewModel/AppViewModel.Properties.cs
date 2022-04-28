@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.Controller.Uwp;
+using Bili.Controller.Uwp.Interfaces;
+using Bili.Models.App.Args;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// <see cref="AppViewModel"/>的属性集.

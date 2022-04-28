@@ -2,12 +2,12 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Bili.Controller.Uwp;
+using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 文章视图模型.

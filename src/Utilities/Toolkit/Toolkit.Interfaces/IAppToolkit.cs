@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// Application related toolkit.

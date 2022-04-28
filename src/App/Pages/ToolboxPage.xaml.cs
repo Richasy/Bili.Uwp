@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.App.Controls;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Controls;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Pages
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 工具箱页面.

@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.Models.App
+namespace Bili.Models.App
 {
     /// <summary>
     /// 固定在首页的条目.

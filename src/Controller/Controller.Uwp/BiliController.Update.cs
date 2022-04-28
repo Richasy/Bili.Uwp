@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
+using Bili.Models.App.Args;
 using Windows.ApplicationModel;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 控制器的应用更新部分.

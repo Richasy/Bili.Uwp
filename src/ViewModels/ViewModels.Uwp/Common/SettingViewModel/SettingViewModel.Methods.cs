@@ -2,12 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 设置视图模型.

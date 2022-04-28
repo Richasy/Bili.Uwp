@@ -3,12 +3,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bilibili.App.Show.V1;
-using Richasy.Bili.Lib.Interfaces;
+using static Bili.Models.App.Constants.ApiConstants;
 
-using static Richasy.Bili.Models.App.Constants.ApiConstants;
-
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 提供排行榜相关的数据操作.

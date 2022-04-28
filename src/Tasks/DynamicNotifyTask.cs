@@ -3,15 +3,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bili.Controller.Uwp;
+using Bili.Locator.Uwp;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.ApplicationModel.Background;
 
-namespace Richasy.Bili.Tasks
+namespace Bili.Tasks
 {
     /// <summary>
     /// 动态更新通知.

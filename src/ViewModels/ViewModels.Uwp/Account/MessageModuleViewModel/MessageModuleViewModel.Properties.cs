@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums.App;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 消息模块视图模型.

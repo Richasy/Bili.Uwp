@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Richasy.Bili.Models.App
+namespace Bili.Models.App
 {
     /// <summary>
     /// 视频标签.

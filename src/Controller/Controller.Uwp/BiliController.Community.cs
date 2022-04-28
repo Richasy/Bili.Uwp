@@ -2,11 +2,11 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
+using Bili.Models.Enums.Bili;
 using Bilibili.Main.Community.Reply.V1;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.Enums.Bili;
 
-namespace Richasy.Bili.Controller.Uwp
+namespace Bili.Controller.Uwp
 {
     /// <summary>
     /// 社区交互部分.

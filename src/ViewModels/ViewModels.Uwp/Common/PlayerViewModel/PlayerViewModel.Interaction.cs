@@ -4,16 +4,16 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using Microsoft.Graphics.Canvas;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 播放器视图模型.

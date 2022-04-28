@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.BiliBili;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 互动视频选项面板.

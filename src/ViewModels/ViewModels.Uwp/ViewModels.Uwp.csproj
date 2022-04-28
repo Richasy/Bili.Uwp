@@ -4,8 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Richasy.Bili.ViewModels.Uwp</RootNamespace>
-    <AssemblyName>Richasy.Bili.ViewModels.Uwp</AssemblyName>
+    <RootNamespace>Bili.ViewModels.Uwp</RootNamespace>
+    <AssemblyName>Bili.ViewModels.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>

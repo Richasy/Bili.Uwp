@@ -4,8 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Richasy.Bili.Toolkit.Uwp</RootNamespace>
-    <AssemblyName>Richasy.Bili.Toolkit.Uwp</AssemblyName>
+    <RootNamespace>Bili.Toolkit.Uwp</RootNamespace>
+    <AssemblyName>Bili.Toolkit.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>

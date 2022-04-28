@@ -1,10 +1,10 @@
 ﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.Player.Related.PlayerReplyView"
+    x:Class="Bili.App.Controls.Player.Related.PlayerReplyView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     d:DesignHeight="300"

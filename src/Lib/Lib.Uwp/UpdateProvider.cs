@@ -4,12 +4,12 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
 using Newtonsoft.Json;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 应用更新相关.

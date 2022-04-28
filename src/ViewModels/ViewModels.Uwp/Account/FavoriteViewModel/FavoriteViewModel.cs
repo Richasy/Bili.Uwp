@@ -3,12 +3,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Other;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 收藏夹视图模型.

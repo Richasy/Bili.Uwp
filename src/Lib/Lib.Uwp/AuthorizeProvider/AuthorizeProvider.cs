@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Lib.Interfaces;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Lib.Interfaces;
+using Bili.Locator.Uwp;
+using Bili.Models.App.Args;
+using Bili.Models.App.Constants;
+using Bili.Models.BiliBili;
+using Bili.Models.Enums;
 using Windows.Networking.Connectivity;
 
-namespace Richasy.Bili.Lib.Uwp
+namespace Bili.Lib.Uwp
 {
     /// <summary>
     /// 授权模块.

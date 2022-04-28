@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player.Related
 {
     /// <summary>
     /// 分集视图.
