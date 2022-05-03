@@ -2,20 +2,20 @@
 
 using System;
 
-namespace Bili.Models.App.Other
+namespace Bili.Models.Data.Local
 {
     /// <summary>
     /// 本地缓存基本类型.
     /// </summary>
     /// <typeparam name="T">存储的数据类型.</typeparam>
-    public class LocalCache<T>
+    public class Cache<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocalCache{T}"/> class.
+        /// Initializes a new instance of the <see cref="Cache{T}"/> class.
         /// </summary>
         /// <param name="expiryTime">过期时间.</param>
         /// <param name="data">要存储的数据.</param>
-        public LocalCache(DateTimeOffset expiryTime, T data)
+        public Cache(DateTimeOffset expiryTime, T data)
         {
             ExpiryTime = expiryTime;
             Data = data;

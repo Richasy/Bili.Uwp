@@ -2,7 +2,7 @@
 
 using Bili.Models.Enums.App;
 
-namespace Bili.Models.App
+namespace Bili.Models.Data.Local
 {
     /// <summary>
     /// 固定在首页的条目.
