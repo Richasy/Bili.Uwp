@@ -32,17 +32,17 @@ namespace Bili.Models.Data.Community
         /// <summary>
         /// 用户头像.
         /// </summary>
-        public Image Avatar { get; }
+        public Image Avatar { get; set; }
 
         /// <summary>
         /// 用户 Id.
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; }
 
         /// <summary>
         /// 用户名.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// 是否为完全的用户资料，这表示目前我们获得了用户的基本信息.

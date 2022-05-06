@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Richasy.Adapter</RootNamespace>
+        <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Adapter.Interfaces\Adapter.Interfaces.csproj" />
+    </ItemGroup>
+
+</Project>

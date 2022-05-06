@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>Bili.Adapter.UnitTests</RootNamespace>
+        <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
+    </PropertyGroup>
+
+    <Import Project="$(SolutionDir)\UnitTests.targets" />
+
+    <ItemGroup>
+        <ProjectReference Include="..\Adapter.Implementation\Adapter.Implementation.csproj" />
+    </ItemGroup>
+
+</Project>
