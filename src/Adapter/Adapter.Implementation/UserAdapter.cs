@@ -4,6 +4,7 @@ using System;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Enums.App;
 using Bilibili.App.View.V1;
 
 namespace Bili.Adapter
@@ -23,37 +24,37 @@ namespace Bili.Adapter
             => _imageAdapter = imageAdapter;
 
         /// <inheritdoc/>
-        public AccountInformation ConvertToAccountInformation(MyInfo myInfo, bool isSmallSize)
+        public AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(myInfo.Mid, myInfo.Name, myInfo.Avatar, isSmallSize);
+            var user = ConvertToUserProfile(myInfo.Mid, myInfo.Name, myInfo.Avatar, avatarSize);
             return new AccountInformation(user, myInfo.Sign, myInfo.Level, myInfo.VIP.Status == 1);
         }
 
         /// <inheritdoc/>
-        public AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, bool isSmallSize)
+        public AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(Convert.ToInt32(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, isSmallSize);
+            var user = ConvertToUserProfile(Convert.ToInt32(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, avatarSize);
             return new AccountInformation(user, spaceInfo.Sign, spaceInfo.LevelInformation.CurrentLevel, spaceInfo.Vip.Status == 1);
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(PublisherInfo publisher, bool isSmallSize)
+        public PublisherProfile ConvertToPublisherProfile(PublisherInfo publisher, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(publisher.Mid, publisher.Publisher, publisher.PublisherAvatar, isSmallSize);
+            var user = ConvertToUserProfile(publisher.Mid, publisher.Publisher, publisher.PublisherAvatar, avatarSize);
             return new PublisherProfile(user);
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(Staff staff, bool isSmallSize)
+        public PublisherProfile ConvertToPublisherProfile(Staff staff, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, isSmallSize);
+            var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, avatarSize);
             return new PublisherProfile(user, staff.Title);
         }
 
         /// <inheritdoc/>
-        public UserProfile ConvertToUserProfile(int userId, string userName, string avatar, bool isSmallSize)
+        public UserProfile ConvertToUserProfile(int userId, string userName, string avatar, AvatarSize avatarSize)
         {
-            var size = isSmallSize ? 48 : 96;
+            var size = int.Parse(avatarSize.ToString().Replace("Size", string.Empty));
             var image = _imageAdapter.ConvertToImage(avatar, size, size);
             var profile = new UserProfile(userId.ToString(), userName, image);
             return profile;

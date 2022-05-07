@@ -10,7 +10,7 @@ namespace Bili.Adapter.UnitTests
         private const string ImageUrl = "https://xxx.com/11111.png";
 
         [Fact]
-        public void Test_CorrectUrl()
+        public void ConvertToImage_SingleUrl_Valid()
         {
             var adapter = new ImageAdapter();
             var image = adapter.ConvertToImage(ImageUrl);
@@ -18,7 +18,7 @@ namespace Bili.Adapter.UnitTests
         }
 
         [Fact]
-        public void Test_CorrectSize()
+        public void ConvertToImage_WithSize_Valid()
         {
             var adapter = new ImageAdapter();
             var width = 400;
