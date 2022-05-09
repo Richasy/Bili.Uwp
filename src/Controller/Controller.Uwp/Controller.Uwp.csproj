@@ -51,6 +51,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adapter\Adapter.Implementation\Adapter.Implementation.csproj">
+      <Project>{9c3e4744-e870-490b-a7db-1473a0db355f}</Project>
+      <Name>Adapter.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj">
+      <Project>{3046f10c-456e-43d3-8f13-3855ee2d9344}</Project>
+      <Name>Adapter.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
       <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
       <Name>Lib.Interfaces</Name>
@@ -66,6 +74,10 @@
     <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
       <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
       <Name>Models.BiliBili</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj">
+      <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
+      <Name>Models.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-b020-415b-aeab-57adc43b273e}</Project>

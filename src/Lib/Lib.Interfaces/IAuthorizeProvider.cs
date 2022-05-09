@@ -24,6 +24,11 @@ namespace Bili.Lib.Interfaces
         AuthorizeState State { get; }
 
         /// <summary>
+        /// 当前已登录的用户Id.
+        /// </summary>
+        string CurrentUserId { get; }
+
+        /// <summary>
         /// 获取包含授权码的查询字符串.
         /// </summary>
         /// <param name="queryParameters">请求所需的查询参数.</param>

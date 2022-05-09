@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.Networking.Connectivity;
 
 namespace Bili.Lib.Uwp
@@ -22,11 +22,14 @@ namespace Bili.Lib.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizeProvider"/> class.
         /// </summary>
-        public AuthorizeProvider()
+        /// <param name="md5Toolkit">MD5工具箱.</param>
+        /// <param name="settingsToolkit">设置工具箱.</param>
+        public AuthorizeProvider(
+            IMD5Toolkit md5Toolkit,
+            ISettingsToolkit settingsToolkit)
         {
-            ServiceLocator.Instance.LoadService(out _md5Toolkit)
-                                   .LoadService(out _settingsToolkit);
-
+            _md5Toolkit = md5Toolkit;
+            _settingsToolkit = settingsToolkit;
             State = AuthorizeState.SignedOut;
             RetrieveAuthorizeResult();
             _guid = Guid.NewGuid().ToString("N");
@@ -55,6 +58,9 @@ namespace Bili.Lib.Uwp
                 }
             }
         }
+
+        /// <inheritdoc/>
+        public string CurrentUserId { get; private set; }
 
         /// <inheritdoc/>
         public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(
@@ -213,20 +219,14 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<bool> IsTokenValidAsync(bool isNetworkVerify = false)
         {
-            var result = false;
             var isLocalValid = _tokenInfo != null &&
                 !string.IsNullOrEmpty(_tokenInfo.AccessToken) &&
                 _lastAuthorizeTime != null &&
                 (DateTimeOffset.Now - _lastAuthorizeTime).TotalSeconds < _tokenInfo.ExpiresIn;
 
-            if (isLocalValid && isNetworkVerify)
-            {
-                result = await NetworkVerifyTokenAsync();
-            }
-            else
-            {
-                result = isLocalValid;
-            }
+            var result = isLocalValid && isNetworkVerify
+                ? await NetworkVerifyTokenAsync()
+                : isLocalValid;
 
             return result;
         }

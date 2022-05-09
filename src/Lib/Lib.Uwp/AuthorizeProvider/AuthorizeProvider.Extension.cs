@@ -372,6 +372,7 @@ namespace Bili.Lib.Uwp
                     [Settings.LastSaveAuthTimeKey] = saveTime.ToUnixTimeSeconds(),
                 };
 
+                CurrentUserId = result.Mid.ToString();
                 ApplicationData.Current.LocalSettings.Values[Settings.AuthResultKey] = compositeValue;
                 _lastAuthorizeTime = saveTime;
                 _tokenInfo = result;
@@ -393,6 +394,7 @@ namespace Bili.Lib.Uwp
                     ExpiresIn = (int)data[Settings.ExpiresInKey],
                 };
 
+                CurrentUserId = tokenInfo.Mid.ToString();
                 _tokenInfo = tokenInfo;
                 _lastAuthorizeTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(data[Settings.LastSaveAuthTimeKey]));
             }

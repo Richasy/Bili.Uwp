@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Lib.Interfaces
@@ -21,13 +22,13 @@ namespace Bili.Lib.Interfaces
         /// 获取已登录用户的个人资料.
         /// </summary>
         /// <returns>个人资料.</returns>
-        Task<MyInfo> GetMyInformationAsync();
+        Task<AccountInformation> GetMyInformationAsync();
 
         /// <summary>
         /// 获取我的基本数据.
         /// </summary>
         /// <returns>个人数据.</returns>
-        Task<Mine> GetMyDataAsync();
+        Task<UserCommunityInformation> GetMyCommunityInformationAsync();
 
         /// <summary>
         /// 获取用户主页信息.

@@ -31,6 +31,13 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public AccountInformation ConvertToAccountInformation(Mine myInfo, AvatarSize avatarSize)
+        {
+            var user = ConvertToUserProfile(myInfo.Mid, myInfo.Name, myInfo.Avatar, avatarSize);
+            return new AccountInformation(user, string.Empty, myInfo.Level, false);
+        }
+
+        /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(Convert.ToInt32(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, avatarSize);

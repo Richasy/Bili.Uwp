@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="18.0.10" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Models.Enums\Models.Enums.csproj" />
   </ItemGroup>
 

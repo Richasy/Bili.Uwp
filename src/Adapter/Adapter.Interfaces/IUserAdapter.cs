@@ -47,6 +47,14 @@ namespace Bili.Adapter.Interfaces
         AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize);
 
         /// <summary>
+        /// 将个人信息 <see cref="Mine"/> 转换为 <see cref="AccountInformation"/>.
+        /// </summary>
+        /// <param name="myInfo">我的资料.</param>
+        /// <param name="avatarSize">头像尺寸.</param>
+        /// <returns><see cref="AccountInformation"/>.</returns>
+        AccountInformation ConvertToAccountInformation(Mine myInfo, AvatarSize avatarSize);
+
+        /// <summary>
         /// 将用户空间资料 <see cref="UserSpaceInformation"/> 转换为 <see cref="AccountInformation"/>.
         /// </summary>
         /// <param name="spaceInfo">用户空间资料.</param>

@@ -3,13 +3,15 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Adapter;
+using Bili.Adapter.Interfaces;
 using Bili.Controller.Uwp.Interfaces;
 using Bili.Controller.Uwp.Modules;
 using Bili.Lib.Interfaces;
 using Bili.Lib.Uwp;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
-using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
 using Microsoft.Extensions.DependencyInjection;
@@ -97,7 +99,7 @@ namespace Bili.Controller.Uwp
         /// <summary>
         /// 在登录账户数据发生改变时发生.
         /// </summary>
-        public event EventHandler<MyInfo> AccountChanged;
+        public event EventHandler<AccountInformation> AccountChanged;
 
         /// <summary>
         /// 在网络状态改变时发生，将返回网络可用性.
@@ -295,6 +297,9 @@ namespace Bili.Controller.Uwp
         private void RegisterToolkitServices()
         {
             var serviceCollection = new ServiceCollection()
+                .AddSingleton<IImageAdapter, ImageAdapter>()
+                .AddSingleton<IUserAdapter, UserAdapter>()
+                .AddSingleton<ICommunityAdapter, CommunityAdapter>()
                 .AddSingleton<IAppToolkit, AppToolkit>()
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()

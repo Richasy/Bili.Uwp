@@ -151,8 +151,12 @@
       <Name>Models.App</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
-      <Project>{8776A0BD-DBD1-4F11-A022-400D044FF618}</Project>
+      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
       <Name>Models.BiliBili</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj">
+      <Project>{c4dbf0b2-c71a-4528-bf15-b0a7a25b2510}</Project>
+      <Name>Models.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>

@@ -11,7 +11,7 @@ using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
-using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 
 namespace Bili.ViewModels.Uwp
@@ -87,10 +87,10 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                var data = await _controller.GetMyDataAsync();
+                var data = await _controller.GetMyCommunityInformationAsync();
                 DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
                 FollowCount = _numberToolkit.GetCountText(data.FollowCount);
-                FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
+                FollowerCount = _numberToolkit.GetCountText(data.FansCount);
 
                 await InitUnreadAsync();
             }
@@ -124,14 +124,14 @@ namespace Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task AddFixedItemAsync(FixedItem item)
         {
-            if (!IsConnected || _myInfo == null || FixedItemCollection.Contains(item))
+            if (!IsConnected || _accountInformation == null || FixedItemCollection.Contains(item))
             {
                 return;
             }
 
             FixedItemCollection.Add(item);
             await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                string.Format(AppConstants.FixedContentFileName, Mid),
                 FixedItemCollection.ToList(),
                 AppConstants.FixedFolderName);
             IsShowFixedItem = true;
@@ -144,14 +144,14 @@ namespace Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RemoveFixedItemAsync(string itemId)
         {
-            if (!IsConnected || _myInfo == null || !FixedItemCollection.Any(p => p.Id == itemId))
+            if (!IsConnected || _accountInformation == null || !FixedItemCollection.Any(p => p.Id == itemId))
             {
                 return;
             }
 
             FixedItemCollection.Remove(FixedItemCollection.FirstOrDefault(p => p.Id == itemId));
             await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                string.Format(AppConstants.FixedContentFileName, Mid),
                 FixedItemCollection.ToList(),
                 AppConstants.FixedFolderName);
             IsShowFixedItem = FixedItemCollection.Count > 0;
@@ -191,16 +191,16 @@ namespace Bili.ViewModels.Uwp
             }
         }
 
-        private async void OnAccountChangedAsync(object sender, MyInfo e)
+        private async void OnAccountChangedAsync(object sender, AccountInformation e)
         {
             if (e != null)
             {
-                _myInfo = e;
-                Avatar = e.Avatar;
-                DisplayName = e.Name;
+                _accountInformation = e;
+                Avatar = e.User.Avatar.Uri;
+                DisplayName = e.User.Name;
                 Level = e.Level;
-                TipText = $"{e.Name} Lv.{e.Level}";
-                IsVip = e.VIP.Status == 1;
+                TipText = $"{e.User.Name} Lv.{e.Level}";
+                IsVip = e.IsVip;
 
                 await InitUnreadAsync();
             }
@@ -208,7 +208,7 @@ namespace Bili.ViewModels.Uwp
 
         private void Reset()
         {
-            _myInfo = null;
+            _accountInformation = null;
             Avatar = string.Empty;
             DisplayName = string.Empty;
             Level = 0;
@@ -222,10 +222,10 @@ namespace Bili.ViewModels.Uwp
 
         private async Task InitializeFixedItemAsync()
         {
-            if (IsConnected && _myInfo != null)
+            if (IsConnected && _accountInformation != null)
             {
                 var data = await _fileToolkit.ReadLocalDataAsync<List<FixedItem>>(
-                    string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                    string.Format(AppConstants.FixedContentFileName, Mid),
                     "[]",
                     AppConstants.FixedFolderName);
                 FixedItemCollection.Clear();

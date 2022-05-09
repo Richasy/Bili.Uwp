@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -18,6 +19,8 @@ namespace Bili.Lib.Uwp
     public partial class AccountProvider
     {
         private readonly IHttpProvider _httpProvider;
+        private readonly IUserAdapter _userAdapter;
+        private readonly ICommunityAdapter _communityAdapter;
 
         private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber, int status)
         {

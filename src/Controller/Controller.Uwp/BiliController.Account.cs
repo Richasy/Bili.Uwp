@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 
@@ -16,18 +17,18 @@ namespace Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
-        private MyInfo _myInfo;
+        private AccountInformation _accountInformation;
 
         /// <summary>
         /// 已登录用户的账户数据.
         /// </summary>
-        public MyInfo MyInfo
+        public AccountInformation AccountInformation
         {
-            get => _myInfo;
+            get => _accountInformation;
             set
             {
-                _myInfo = value;
-                AccountChanged?.Invoke(this, _myInfo);
+                _accountInformation = value;
+                AccountChanged?.Invoke(this, _accountInformation);
             }
         }
 
@@ -42,7 +43,7 @@ namespace Bili.Controller.Uwp
                 try
                 {
                     var profile = await _accountProvider.GetMyInformationAsync();
-                    this.MyInfo = profile;
+                    AccountInformation = profile;
                 }
                 catch (Exception ex)
                 {
@@ -55,13 +56,13 @@ namespace Bili.Controller.Uwp
         /// 获取我的用户数据.
         /// </summary>
         /// <returns>用户数据.</returns>
-        public async Task<Mine> GetMyDataAsync()
+        public async Task<UserCommunityInformation> GetMyCommunityInformationAsync()
         {
             ThrowWhenNetworkUnavaliable();
 
             try
             {
-                var data = await _accountProvider.GetMyDataAsync();
+                var data = await _accountProvider.GetMyCommunityInformationAsync();
                 return data;
             }
             catch (Exception ex)

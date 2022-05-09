@@ -3,8 +3,10 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -20,22 +22,39 @@ namespace Bili.Lib.Uwp
         /// Initializes a new instance of the <see cref="AccountProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
-        public AccountProvider(IHttpProvider httpProvider)
+        /// <param name="userAdapter">用户适配器.</param>
+        /// <param name="communityAdapter">社区数据适配器.</param>
+        public AccountProvider(
+            IHttpProvider httpProvider,
+            IUserAdapter userAdapter,
+            ICommunityAdapter communityAdapter)
         {
             _httpProvider = httpProvider;
+            _userAdapter = userAdapter;
+            _communityAdapter = communityAdapter;
         }
 
         /// <inheritdoc/>
         public int UserId { get; private set; }
 
         /// <inheritdoc/>
-        public async Task<MyInfo> GetMyInformationAsync()
+        public async Task<AccountInformation> GetMyInformationAsync()
         {
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyInfo, type: Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<MyInfo>>(response);
             UserId = result.Data.Mid;
-            return result.Data;
+            return _userAdapter.ConvertToAccountInformation(result.Data, Models.Enums.App.AvatarSize.Size48);
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserCommunityInformation> GetMyCommunityInformationAsync()
+        {
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Mine, type: Models.Enums.RequestClientType.IOS, needToken: true);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<Mine>>(response);
+            UserId = result.Data.Mid;
+            return _communityAdapter.ConvertToUserCommunityInformation(result.Data);
         }
 
         /// <inheritdoc/>
@@ -138,16 +157,6 @@ namespace Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
 
             return result.IsSuccess();
-        }
-
-        /// <inheritdoc/>
-        public async Task<Mine> GetMyDataAsync()
-        {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Mine, type: Models.Enums.RequestClientType.IOS, needToken: true);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<Mine>>(response);
-            UserId = result.Data.Mid;
-            return result.Data;
         }
 
         /// <inheritdoc/>

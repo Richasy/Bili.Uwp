@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using Bili.Controller.Uwp;
 using Bili.Models.App;
-using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
 
@@ -40,7 +40,7 @@ namespace Bili.ViewModels.Uwp
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly IFileToolkit _fileToolkit;
-        private MyInfo _myInfo;
+        private AccountInformation _accountInformation;
 
         /// <summary>
         /// <see cref="AccountViewModel"/>的实例.
@@ -50,7 +50,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// 登录用户Id.
         /// </summary>
-        public int? Mid => _myInfo?.Mid;
+        public int? Mid => Convert.ToInt32(_accountInformation?.User.Id);
 
         /// <summary>
         /// 固定条目集合.

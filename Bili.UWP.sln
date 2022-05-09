@@ -49,11 +49,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models.Data", "src\Models\M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter", "Adapter", "{8B044ABB-C591-44E5-B7C6-B2F7262F5C1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter.Interfaces", "src\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj", "{3046F10C-456E-43D3-8F13-3855EE2D9344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adapter.Interfaces", "src\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj", "{3046F10C-456E-43D3-8F13-3855EE2D9344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter.Implementation", "src\Adapter\Adapter.Implementation\Adapter.Implementation.csproj", "{9C3E4744-E870-490B-A7DB-1473A0DB355F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adapter.Implementation", "src\Adapter\Adapter.Implementation\Adapter.Implementation.csproj", "{9C3E4744-E870-490B-A7DB-1473A0DB355F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter.UnitTests", "src\Adapter\Adapter.UnitTests\Adapter.UnitTests.csproj", "{B9B87F56-8AFE-4F6E-B2A9-AFA8D118FC67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adapter.UnitTests", "src\Adapter\Adapter.UnitTests\Adapter.UnitTests.csproj", "{B9B87F56-8AFE-4F6E-B2A9-AFA8D118FC67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
