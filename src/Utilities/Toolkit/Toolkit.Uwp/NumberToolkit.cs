@@ -74,26 +74,33 @@ namespace Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public string FormatDurationText(string webDurationText)
         {
-            var colonCount = webDurationText.Count(p => p == ':');
+            var sec = GetDurationSeconds(webDurationText);
+            return GetDurationText(TimeSpan.FromSeconds(sec));
+        }
+
+        /// <inheritdoc/>
+        public int GetDurationSeconds(string durationText)
+        {
+            var colonCount = durationText.Count(p => p == ':');
             var hourStr = string.Empty;
             if (colonCount == 1)
             {
-                webDurationText = "00:" + webDurationText;
+                durationText = "00:" + durationText;
             }
             else if (colonCount == 2)
             {
-                var sp = webDurationText.Split(':');
-                webDurationText = string.Join(':', "00", sp[1], sp[2]);
+                var sp = durationText.Split(':');
+                durationText = string.Join(':', "00", sp[1], sp[2]);
                 hourStr = sp[0];
             }
 
-            var ts = TimeSpan.Parse(webDurationText);
+            var ts = TimeSpan.Parse(durationText);
             if (!string.IsNullOrEmpty(hourStr))
             {
                 ts += TimeSpan.FromHours(Convert.ToInt32(hourStr));
             }
 
-            return GetDurationText(ts);
+            return Convert.ToInt32(ts.TotalSeconds);
         }
     }
 }

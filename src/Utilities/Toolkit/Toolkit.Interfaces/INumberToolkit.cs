@@ -17,6 +17,13 @@ namespace Bili.Toolkit.Interfaces
         string GetDurationText(TimeSpan timeSpan);
 
         /// <summary>
+        /// 将时长文本转化为秒数.
+        /// </summary>
+        /// <param name="durationText">时长文本，比如 0:44，表示 44 秒.</param>
+        /// <returns>对应的秒数.</returns>
+        int GetDurationSeconds(string durationText);
+
+        /// <summary>
         /// 对网络数据的时长字符串进行格式调整，网络数据格式为：hh:mm:ss.
         /// </summary>
         /// <param name="webDurationText">网络时长数据.</param>

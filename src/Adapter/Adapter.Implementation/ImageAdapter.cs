@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Adapter.Interfaces;
+using Bili.Models.App.Constants;
 using Bili.Models.Data.Appearance;
 
 namespace Bili.Adapter
@@ -17,5 +18,9 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public Image ConvertToImage(string uri, double width, double height)
             => new Image(uri, width, height, (w, h) => $"@{w}w_{h}h_1c_100q.jpg");
+
+        /// <inheritdoc/>
+        public Image ConvertToVideoCardCover(string uri)
+            => ConvertToImage(uri, AppConstants.VideoCardCoverWidth, AppConstants.VideoCardCoverHeight);
     }
 }

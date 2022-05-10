@@ -24,5 +24,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="height">图片高度.</param>
         /// <returns><see cref="Image"/>.</returns>
         Image ConvertToImage(string uri, double width, double height);
+
+        /// <summary>
+        /// 根据图片地址生成适用于视频卡片尺寸的缩略图地址.
+        /// </summary>
+        /// <param name="uri">图片地址.</param>
+        /// <returns><see cref="Image"/>.</returns>
+        Image ConvertToVideoCardCover(string uri);
     }
 }

@@ -3,6 +3,7 @@
 using Bili.Models.BiliBili;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
+using Bilibili.App.Archive.V1;
 using Bilibili.App.View.V1;
 
 namespace Bili.Adapter.Interfaces
@@ -37,6 +38,14 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatarSize">头像尺寸.</param>
         /// <returns><see cref="PublisherProfile"/>.</returns>
         PublisherProfile ConvertToPublisherProfile(Staff staff, AvatarSize avatarSize);
+
+        /// <summary>
+        /// 将作者信息 <see cref="Author"/> 转换为发布者资料.
+        /// </summary>
+        /// <param name="author">作者信息.</param>
+        /// <param name="avatarSize">头像大小.</param>
+        /// <returns><see cref="PublisherProfile"/>.</returns>
+        PublisherProfile ConvertToPublisherProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32);
 
         /// <summary>
         /// 将个人信息 <see cref="MyInfo"/> 转换为 <see cref="AccountInformation"/>.

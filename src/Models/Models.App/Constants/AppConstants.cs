@@ -17,8 +17,11 @@ namespace Bili.Models.App.Constants
         public const int AppMinWidth = 500;
         public const int AppMinHeight = 500;
 
-        public const int VideoCardCoverWidth = 400;
-        public const int VideoCardCoverHeight = 250;
+        public const int VideoCardCoverWidth = 200;
+        public const int VideoCardCoverHeight = 125;
+
+        public const int DynamicCoverWidth = 400;
+        public const int DynamicCoverHeight = 250;
 
         public const string DashVideoMPDFile = "ms-appx:///Assets/DashVideoTemplate.xml";
         public const string DashVideoWithoudAudioMPDFile = "ms-appx:///Assets/DashVideoWithoutAudioTemplate.xml";

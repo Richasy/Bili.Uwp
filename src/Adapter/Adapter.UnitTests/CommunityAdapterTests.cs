@@ -98,16 +98,5 @@ namespace Bili.Adapter.UnitTests
             videoCommunity.DanmakuCount.Should().Be(InteractionCount);
             videoCommunity.RecommendReason.Should().Be(RecommendReasonText);
         }
-
-        [Fact]
-        public void ConvertToVideoCommunityInformation_RecommendCard_ThrowArgumentException()
-        {
-            var recommendCard = new RecommendCard
-            {
-                CardGoto = "pgc",
-            };
-
-            Assert.Throws<ArgumentException>(() => _communityAdapter.ConvertToVideoCommunityInformation(recommendCard));
-        }
     }
 }

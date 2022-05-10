@@ -5,6 +5,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
+using Bilibili.App.Archive.V1;
 using Bilibili.App.View.V1;
 
 namespace Bili.Adapter
@@ -62,6 +63,13 @@ namespace Bili.Adapter
         public PublisherProfile ConvertToPublisherProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48)
         {
             var user = ConvertToUserProfile(avatar.UserId, avatar.UserName, avatar.Cover, avatarSize);
+            return new PublisherProfile(user);
+        }
+
+        /// <inheritdoc/>
+        public PublisherProfile ConvertToPublisherProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32)
+        {
+            var user = ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, avatarSize);
             return new PublisherProfile(user);
         }
 

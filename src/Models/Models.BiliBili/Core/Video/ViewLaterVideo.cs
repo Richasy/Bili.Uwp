@@ -11,7 +11,7 @@ namespace Bili.Models.BiliBili
     public class ViewLaterVideo : VideoBase
     {
         /// <summary>
-        /// 视频标题.
+        /// 视频标识符.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "aid", Required = Required.Default)]
         public int VideoId { get; set; }
