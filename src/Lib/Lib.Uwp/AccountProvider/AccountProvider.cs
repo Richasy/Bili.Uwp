@@ -7,6 +7,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;

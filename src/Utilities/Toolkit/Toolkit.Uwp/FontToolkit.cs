@@ -13,7 +13,7 @@ namespace Bili.Toolkit.Uwp
     public class FontToolkit : IFontToolkit
     {
         /// <inheritdoc/>
-        public List<string> GetSystemFontList()
+        public List<string> GetSystemFonts()
         {
             try
             {

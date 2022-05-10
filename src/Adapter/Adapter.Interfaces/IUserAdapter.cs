@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.BiliBili;
-using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
 using Bilibili.App.View.V1;
 
@@ -45,6 +45,14 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatarSize">头像尺寸.</param>
         /// <returns><see cref="AccountInformation"/>.</returns>
         AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize);
+
+        /// <summary>
+        /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为发布者资料.
+        /// </summary>
+        /// <param name="avatar">推荐卡片的头像信息.</param>
+        /// <param name="avatarSize">头像尺寸.</param>
+        /// <returns><see cref="PublisherProfile"/>.</returns>
+        PublisherProfile ConvertToPublisherProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48);
 
         /// <summary>
         /// 将个人信息 <see cref="Mine"/> 转换为 <see cref="AccountInformation"/>.

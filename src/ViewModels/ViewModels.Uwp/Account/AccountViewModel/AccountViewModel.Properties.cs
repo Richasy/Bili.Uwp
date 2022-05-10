@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using Bili.Controller.Uwp;
 using Bili.Models.App;
-using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
 

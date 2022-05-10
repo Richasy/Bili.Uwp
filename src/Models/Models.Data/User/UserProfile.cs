@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Bili.Models.Data.Appearance;
 
-namespace Bili.Models.Data.Community
+namespace Bili.Models.Data.User
 {
     /// <summary>
     /// 用户资料.

@@ -140,7 +140,7 @@ namespace Bili.ViewModels.Uwp.Common
             PropertyChanged += OnPropertyChanged;
 
             FontCollection.Clear();
-            var fontList = _fontToolkit.GetSystemFontList();
+            var fontList = _fontToolkit.GetSystemFonts();
             fontList.ForEach(p => FontCollection.Add(p));
 
             LocationCollection.Add(Models.Enums.App.DanmakuLocation.Scroll);

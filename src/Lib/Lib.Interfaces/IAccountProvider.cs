@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Lib.Interfaces

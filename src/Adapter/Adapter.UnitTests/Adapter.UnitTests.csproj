@@ -12,4 +12,18 @@
         <ProjectReference Include="..\Adapter.Implementation\Adapter.Implementation.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Update="FluentAssertions" Version="6.6.0" />
+      <PackageReference Update="FluentAssertions.Analyzers" Version="0.17.2">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+      <PackageReference Update="Moq" Version="4.17.2" />
+      <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
 </Project>

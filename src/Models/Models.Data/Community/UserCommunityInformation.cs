@@ -71,5 +71,11 @@ namespace Bili.Models.Data.Community
         /// 动态数.
         /// </summary>
         public int DynamicCount { get; set; }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is UserCommunityInformation information && Id == information.Id;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }

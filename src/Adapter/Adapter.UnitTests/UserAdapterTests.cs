@@ -14,8 +14,7 @@ namespace Bili.Adapter.UnitTests
         private const string UserName = "Richasy";
         private const string Avatar = "https://xxx.png";
         private const int UserId = 1;
-        private const int SmallSize = 48;
-        private const int LargeSize = 96;
+        private const int AvatarSize = 48;
 
         private readonly IImageAdapter _imageAdapter;
         private readonly UserAdapter _userAdapter;
@@ -24,29 +23,22 @@ namespace Bili.Adapter.UnitTests
         {
             var imageMock = new Mock<IImageAdapter>();
             imageMock.Setup(_ => _.ConvertToImage(Avatar)).Returns(new Models.Data.Appearance.Image(Avatar));
-            imageMock.Setup(_ => _.ConvertToImage(Avatar, SmallSize, SmallSize)).Returns(new Models.Data.Appearance.Image(Avatar, SmallSize, SmallSize, (w, h) => $"@{w}w_{h}h.jpg"));
-            imageMock.Setup(_ => _.ConvertToImage(Avatar, LargeSize, LargeSize)).Returns(new Models.Data.Appearance.Image(Avatar, LargeSize, LargeSize, (w, h) => $"@{w}w_{h}h.jpg"));
+            imageMock.Setup(_ => _.ConvertToImage(Avatar, It.IsAny<double>(), It.IsAny<double>()))
+                     .Returns(new Models.Data.Appearance.Image(Avatar, AvatarSize, AvatarSize, (w, h) => $"@{w}w_{h}h.jpg"));
+
             _imageAdapter = imageMock.Object;
             _userAdapter = new UserAdapter(_imageAdapter);
         }
 
         [Fact]
-        public void ConvertToUserProfile_SmallAvatar_Valid()
+        public void ConvertToUserProfile_AvatarSize_Valid()
         {
             var user = _userAdapter.ConvertToUserProfile(UserId, UserName, Avatar, Models.Enums.App.AvatarSize.Size48);
-            user.Avatar.Width.Should().Be(SmallSize);
-            user.Avatar.Height.Should().Be(SmallSize);
+            user.Avatar.Width.Should().Be(AvatarSize);
+            user.Avatar.Height.Should().Be(AvatarSize);
             user.Avatar.GetSourceUri().Should().Be(Avatar);
             user.Id.Should().Be(UserId.ToString());
             user.Name.Should().Be(UserName);
-        }
-
-        [Fact]
-        public void ConvertToUserProfile_LargeAvatar_Valid()
-        {
-            var user = _userAdapter.ConvertToUserProfile(UserId, UserName, Avatar, Models.Enums.App.AvatarSize.Size96);
-            user.Avatar.Width.Should().Be(LargeSize);
-            user.Avatar.Height.Should().Be(LargeSize);
         }
 
         [Fact]
@@ -88,6 +80,24 @@ namespace Bili.Adapter.UnitTests
             publisher.User.Name.Should().Be(UserName);
             publisher.User.Avatar.GetSourceUri().Should().Be(Avatar);
             publisher.Role.Should().Be(role);
+        }
+
+        [Fact]
+        public void ConvertToPublisherProfile_RecommendAvatar_Valid()
+        {
+            var avatar = new RecommendAvatar
+            {
+                Cover = Avatar,
+                UserId = UserId,
+                UserName = UserName,
+            };
+            var publisher = _userAdapter.ConvertToPublisherProfile(avatar);
+
+            publisher.Should().NotBeNull();
+            publisher.User.Should().NotBeNull();
+            publisher.User.Id.Should().Be(UserId.ToString());
+            publisher.User.Name.Should().Be(UserName);
+            publisher.User.Avatar.GetSourceUri().Should().Be(Avatar);
         }
 
         [Fact]

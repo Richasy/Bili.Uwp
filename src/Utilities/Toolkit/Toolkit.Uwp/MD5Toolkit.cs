@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.IO;
 using System.Text;
 using Bili.Toolkit.Interfaces;
 
@@ -12,29 +11,11 @@ namespace Bili.Toolkit.Uwp
     /// </summary>
     public class MD5Toolkit : IMD5Toolkit
     {
-        private const int HashSizeValue = 0x80;
-        private const byte S11 = 7;
-        private const byte S12 = 12;
-        private const byte S13 = 0x11;
-        private const byte S14 = 0x16;
-        private const byte S21 = 5;
-        private const byte S22 = 9;
-        private const byte S23 = 14;
-        private const byte S24 = 20;
-        private const byte S31 = 4;
-        private const byte S32 = 11;
-        private const byte S33 = 0x10;
-        private const byte S34 = 0x17;
-        private const byte S41 = 6;
-        private const byte S42 = 10;
-        private const byte S43 = 15;
-        private const byte S44 = 0x15;
         private readonly byte[] _buffer = new byte[0x40];
         private readonly uint[] _count = new uint[2];
         private readonly uint[] _state = new uint[4];
         private readonly byte[] _padding;
         private byte[] _hashValue;
-        private int _currentState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MD5Toolkit"/> class.
@@ -44,71 +25,18 @@ namespace Bili.Toolkit.Uwp
             var buffer = new byte[0x40];
             buffer[0] = 0x80;
             _padding = buffer;
-            this.Initialize();
-        }
-
-        private bool CanReuseTransform
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        private bool CanTransformMultipleBlocks
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        private byte[] Hash
-        {
-            get
-            {
-                if (this._currentState != 0)
-                {
-                    throw new InvalidOperationException();
-                }
-
-                return (byte[])this._hashValue.Clone();
-            }
-        }
-
-        private int HashSize
-        {
-            get
-            {
-                return 0x80;
-            }
-        }
-
-        private int InputBlockSize
-        {
-            get
-            {
-                return 1;
-            }
-        }
-
-        private int OutputBlockSize
-        {
-            get
-            {
-                return 1;
-            }
+            Initialize();
         }
 
         /// <inheritdoc/>
         public string GetMd5String(string source)
         {
             var bytes = new UTF8Encoding().GetBytes(source);
-            var buffer2 = ComputeHash(bytes);
+            var buffer = ComputeHash(bytes);
             var builder = new StringBuilder();
-            foreach (var num in buffer2)
+            foreach (var num in buffer)
             {
-                builder.Append(((byte)num).ToString("x2"));
+                builder.Append(num.ToString("x2"));
             }
 
             return builder.ToString();
@@ -116,49 +44,26 @@ namespace Bili.Toolkit.Uwp
 
         /// <inheritdoc/>
         public void Dispose()
-        {
-            this.Dispose(true);
-        }
+            => Dispose(true);
 
         private void Initialize()
         {
-            this._count[0] = this._count[1] = 0;
-            this._state[0] = 0x67452301;
-            this._state[1] = 0xefcdab89;
-            this._state[2] = 0x98badcfe;
-            this._state[3] = 0x10325476;
-        }
-
-        private void Clear()
-        {
-            this.Dispose(true);
+            _count[0] = _count[1] = 0;
+            _state[0] = 0x67452301;
+            _state[1] = 0xefcdab89;
+            _state[2] = 0x98badcfe;
+            _state[3] = 0x10325476;
         }
 
         private byte[] ComputeHash(byte[] buffer)
-        {
-            return this.ComputeHash(buffer, 0, buffer.Length);
-        }
-
-        private byte[] ComputeHash(Stream inputStream)
-        {
-            int num;
-            this.Initialize();
-            var buffer = new byte[0x1000];
-            while ((num = inputStream.Read(buffer, 0, 0x1000)) > 0)
-            {
-                this.HashCore(buffer, 0, num);
-            }
-
-            this._hashValue = this.HashFinal();
-            return (byte[])this._hashValue.Clone();
-        }
+            => ComputeHash(buffer, 0, buffer.Length);
 
         private byte[] ComputeHash(byte[] buffer, int offset, int count)
         {
-            this.Initialize();
-            this.HashCore(buffer, offset, count);
-            this._hashValue = this.HashFinal();
-            return (byte[])this._hashValue.Clone();
+            Initialize();
+            HashCore(buffer, offset, count);
+            _hashValue = HashFinal();
+            return (byte[])_hashValue.Clone();
         }
 
         private void Decode(uint[] output, int outputOffset, byte[] input, int inputOffset, int count)
@@ -176,7 +81,7 @@ namespace Bili.Toolkit.Uwp
         {
             if (!disposing)
             {
-                this.Initialize();
+                Initialize();
             }
         }
 
@@ -195,9 +100,7 @@ namespace Bili.Toolkit.Uwp
         }
 
         private uint F(uint x, uint y, uint z)
-        {
-            return (x & y) | (~x & z);
-        }
+            => (x & y) | (~x & z);
 
         private void FF(ref uint a, uint b, uint c, uint d, uint x, byte s, uint ac)
         {
@@ -207,14 +110,7 @@ namespace Bili.Toolkit.Uwp
         }
 
         private uint G(uint x, uint y, uint z)
-        {
-            return (x & z) | (y & ~z);
-        }
-
-        private byte[] GetMd5Bytes(byte[] source)
-        {
-            return ComputeHash(source);
-        }
+            => (x & z) | (y & ~z);
 
         private void GG(ref uint a, uint b, uint c, uint d, uint x, byte s, uint ac)
         {
@@ -224,28 +120,26 @@ namespace Bili.Toolkit.Uwp
         }
 
         private uint H(uint x, uint y, uint z)
-        {
-            return x ^ y ^ z;
-        }
+            => x ^ y ^ z;
 
         private void HashCore(byte[] input, int offset, int count)
         {
             var num = 0;
-            var num2 = (int)((this._count[0] >> 3) & 0x3f);
-            if ((this._count[0] += (uint)(count << 3)) < (count << 3))
+            var num2 = (int)((_count[0] >> 3) & 0x3f);
+            if ((_count[0] += (uint)(count << 3)) < (count << 3))
             {
-                this._count[1]++;
+                _count[1]++;
             }
 
-            this._count[1] += (uint)count >> 0x1d;
+            _count[1] += (uint)count >> 0x1d;
             var num3 = 0x40 - num2;
             if (count >= num3)
             {
-                Buffer.BlockCopy(input, offset, this._buffer, num2, num3);
-                this.Transform(this._buffer, 0);
+                Buffer.BlockCopy(input, offset, _buffer, num2, num3);
+                Transform(_buffer, 0);
                 for (num = num3; (num + 0x3f) < count; num += 0x40)
                 {
-                    this.Transform(input, offset + num);
+                    Transform(input, offset + num);
                 }
 
                 num2 = 0;
@@ -255,25 +149,25 @@ namespace Bili.Toolkit.Uwp
                 num = 0;
             }
 
-            Buffer.BlockCopy(input, offset + num, this._buffer, num2, count - num);
+            Buffer.BlockCopy(input, offset + num, _buffer, num2, count - num);
         }
 
         private byte[] HashFinal()
         {
             var output = new byte[0x10];
             var buffer2 = new byte[8];
-            Encode(buffer2, 0, this._count, 0, 8);
-            var num = (int)((this._count[0] >> 3) & 0x3f);
+            Encode(buffer2, 0, _count, 0, 8);
+            var num = (int)((_count[0] >> 3) & 0x3f);
             var count = (num < 0x38) ? (0x38 - num) : (120 - num);
-            this.HashCore(_padding, 0, count);
-            this.HashCore(buffer2, 0, 8);
-            Encode(output, 0, this._state, 0, 0x10);
-            this._count[0] = this._count[1] = 0;
-            this._state[0] = 0;
-            this._state[1] = 0;
-            this._state[2] = 0;
-            this._state[3] = 0;
-            this.Initialize();
+            HashCore(_padding, 0, count);
+            HashCore(buffer2, 0, 8);
+            Encode(output, 0, _state, 0, 0x10);
+            _count[0] = _count[1] = 0;
+            _state[0] = 0;
+            _state[1] = 0;
+            _state[2] = 0;
+            _state[3] = 0;
+            Initialize();
             return output;
         }
 
@@ -284,10 +178,7 @@ namespace Bili.Toolkit.Uwp
             a += b;
         }
 
-        private uint I(uint x, uint y, uint z)
-        {
-            return y ^ (x | ~z);
-        }
+        private uint I(uint x, uint y, uint z) => y ^ (x | ~z);
 
         private void II(ref uint a, uint b, uint c, uint d, uint x, byte s, uint ac)
         {
@@ -296,17 +187,14 @@ namespace Bili.Toolkit.Uwp
             a += b;
         }
 
-        private uint ROTATE_LEFT(uint x, byte n)
-        {
-            return (x << n) | (x >> (0x20 - n));
-        }
+        private uint ROTATE_LEFT(uint x, byte n) => (x << n) | (x >> (0x20 - n));
 
         private void Transform(byte[] block, int offset)
         {
-            var a = this._state[0];
-            var b = this._state[1];
-            var c = this._state[2];
-            var d = this._state[3];
+            var a = _state[0];
+            var b = _state[1];
+            var c = _state[2];
+            var d = _state[3];
             var output = new uint[0x10];
             Decode(output, 0, block, offset, 0x40);
             FF(ref a, b, c, d, output[0], 7, 0xd76aa478);
@@ -373,86 +261,14 @@ namespace Bili.Toolkit.Uwp
             II(ref d, a, b, c, output[11], 10, 0xbd3af235);
             II(ref c, d, a, b, output[2], 15, 0x2ad7d2bb);
             II(ref b, c, d, a, output[9], 0x15, 0xeb86d391);
-            this._state[0] += a;
-            this._state[1] += b;
-            this._state[2] += c;
-            this._state[3] += d;
+            _state[0] += a;
+            _state[1] += b;
+            _state[2] += c;
+            _state[3] += d;
             for (var i = 0; i < output.Length; i++)
             {
                 output[i] = 0;
             }
-        }
-
-        private int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
-        {
-            if (inputBuffer == null)
-            {
-                throw new ArgumentNullException("inputBuffer");
-            }
-
-            if (inputOffset < 0)
-            {
-                throw new ArgumentOutOfRangeException("inputOffset");
-            }
-
-            if ((inputCount < 0) || (inputCount > inputBuffer.Length))
-            {
-                throw new ArgumentException("inputCount");
-            }
-
-            if ((inputBuffer.Length - inputCount) < inputOffset)
-            {
-                throw new ArgumentOutOfRangeException("inputOffset");
-            }
-
-            if (this._currentState == 0)
-            {
-                this.Initialize();
-                this._currentState = 1;
-            }
-
-            this.HashCore(inputBuffer, inputOffset, inputCount);
-            if ((inputBuffer != outputBuffer) || (inputOffset != outputOffset))
-            {
-                Buffer.BlockCopy(inputBuffer, inputOffset, outputBuffer, outputOffset, inputCount);
-            }
-
-            return inputCount;
-        }
-
-        private byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
-        {
-            if (inputBuffer == null)
-            {
-                throw new ArgumentNullException("inputBuffer");
-            }
-
-            if (inputOffset < 0)
-            {
-                throw new ArgumentOutOfRangeException("inputOffset");
-            }
-
-            if ((inputCount < 0) || (inputCount > inputBuffer.Length))
-            {
-                throw new ArgumentException("inputCount");
-            }
-
-            if ((inputBuffer.Length - inputCount) < inputOffset)
-            {
-                throw new ArgumentOutOfRangeException("inputOffset");
-            }
-
-            if (this._currentState == 0)
-            {
-                this.Initialize();
-            }
-
-            this.HashCore(inputBuffer, inputOffset, inputCount);
-            this._hashValue = this.HashFinal();
-            var buffer = new byte[inputCount];
-            Buffer.BlockCopy(inputBuffer, inputOffset, buffer, 0, inputCount);
-            _currentState = 0;
-            return buffer;
         }
     }
 }

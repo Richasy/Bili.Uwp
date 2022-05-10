@@ -3,7 +3,7 @@
 using System;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
-using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
 using Bilibili.App.View.V1;
 
@@ -56,6 +56,13 @@ namespace Bili.Adapter
         {
             var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, avatarSize);
             return new PublisherProfile(user, staff.Title);
+        }
+
+        /// <inheritdoc/>
+        public PublisherProfile ConvertToPublisherProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48)
+        {
+            var user = ConvertToUserProfile(avatar.UserId, avatar.UserName, avatar.Cover, avatarSize);
+            return new PublisherProfile(user);
         }
 
         /// <inheritdoc/>

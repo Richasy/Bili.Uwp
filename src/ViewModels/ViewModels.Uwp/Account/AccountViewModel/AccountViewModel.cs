@@ -11,7 +11,7 @@ using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
-using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bili.Models.Enums;
 
 namespace Bili.ViewModels.Uwp

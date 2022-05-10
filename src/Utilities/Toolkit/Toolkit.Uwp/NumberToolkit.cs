@@ -31,6 +31,29 @@ namespace Bili.Toolkit.Uwp
         }
 
         /// <inheritdoc/>
+        public double GetCountNumber(string text, string removeText = "")
+        {
+            if (!string.IsNullOrEmpty(removeText))
+            {
+                text = text.Replace(removeText, string.Empty).Trim();
+            }
+
+            // 对于目前的B站来说，汉字单位只有 `万` 和 `亿` 两种.
+            if (text.EndsWith("万"))
+            {
+                var num = Convert.ToDouble(text.Replace("万", string.Empty));
+                return num * 10000;
+            }
+            else if (text.EndsWith("亿"))
+            {
+                var num = Convert.ToDouble(text.Replace("亿", string.Empty));
+                return num * 100000000;
+            }
+
+            return Convert.ToDouble(text);
+        }
+
+        /// <inheritdoc/>
         public string GetDurationText(TimeSpan timeSpan)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();

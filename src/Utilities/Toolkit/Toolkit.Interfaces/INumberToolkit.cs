@@ -29,5 +29,13 @@ namespace Bili.Toolkit.Interfaces
         /// <param name="count">次数.</param>
         /// <returns>简写文本.</returns>
         string GetCountText(double count);
+
+        /// <summary>
+        /// 将数字简写文本中转换为大略的次数.
+        /// </summary>
+        /// <param name="text">数字简写文本.</param>
+        /// <param name="removeText">需要先在简写文本中移除的内容.</param>
+        /// <returns>一个大概的次数，比如 <c>3.2万播放</c>，最终会返回 <c>32000</c>.</returns>
+        double GetCountNumber(string text, string removeText = "");
     }
 }

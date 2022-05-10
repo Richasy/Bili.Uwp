@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Bili.Models.Data.Community
+namespace Bili.Models.Data.User
 {
     /// <summary>
     /// 账户信息.

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 

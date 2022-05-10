@@ -1,15 +1,22 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using FluentAssertions;
-using Richasy.Adapter;
+using Moq;
 using Xunit;
 
 namespace Bili.Adapter.UnitTests
 {
     public class CommunityAdapterTests
     {
+        private const string InteractionCountText = "4.5万xx";
+        private const int InteractionCount = 45000;
+        private const string RecommendReasonText = "百万播放";
+
+        private const int VideoId = 111;
         private const int LikeCount = 100;
         private const int CoinCount = 200;
         private const int DynamicCount = 300;
@@ -21,7 +28,12 @@ namespace Bili.Adapter.UnitTests
         private readonly ICommunityAdapter _communityAdapter;
 
         public CommunityAdapterTests()
-            => _communityAdapter = new CommunityAdapter();
+        {
+            var numberToolkitMock = new Mock<INumberToolkit>();
+            numberToolkitMock.Setup(_ => _.GetCountNumber(InteractionCountText, It.IsAny<string>())).Returns(InteractionCount);
+
+            _communityAdapter = new CommunityAdapter(numberToolkitMock.Object);
+        }
 
         [Fact]
         public void ConvertToUserCommunityInformation_Mine_Valid()
@@ -66,6 +78,36 @@ namespace Bili.Adapter.UnitTests
 
             data.DynamicCount.Should().Be(InvalidNumber);
             data.CoinCount.Should().Be(InvalidNumber);
+        }
+
+        [Fact]
+        public void ConvertToVideoCommunityInformation_RecommendCard_Valid()
+        {
+            var recommendCard = new RecommendCard
+            {
+                CardGoto = "av",
+                PlayCountText = InteractionCountText,
+                SubStatusText = InteractionCountText,
+                RecommendReason = RecommendReasonText,
+                Parameter = VideoId.ToString(),
+            };
+
+            var videoCommunity = _communityAdapter.ConvertToVideoCommunityInformation(recommendCard);
+            videoCommunity.Should().NotBeNull();
+            videoCommunity.PlayCount.Should().Be(InteractionCount);
+            videoCommunity.DanmakuCount.Should().Be(InteractionCount);
+            videoCommunity.RecommendReason.Should().Be(RecommendReasonText);
+        }
+
+        [Fact]
+        public void ConvertToVideoCommunityInformation_RecommendCard_ThrowArgumentException()
+        {
+            var recommendCard = new RecommendCard
+            {
+                CardGoto = "pgc",
+            };
+
+            Assert.Throws<ArgumentException>(() => _communityAdapter.ConvertToVideoCommunityInformation(recommendCard));
         }
     }
 }

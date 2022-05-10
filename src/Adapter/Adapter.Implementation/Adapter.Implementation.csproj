@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj" />
+      <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
       <ProjectReference Include="..\Adapter.Interfaces\Adapter.Interfaces.csproj" />
     </ItemGroup>
 
