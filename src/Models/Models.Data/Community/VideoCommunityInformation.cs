@@ -23,6 +23,7 @@ namespace Bili.Models.Data.Community
         /// <param name="favoriteCount">收藏数.</param>
         /// <param name="coinCount">投币数.</param>
         /// <param name="commentCount">评论数.</param>
+        /// <param name="shareCount">分享次数.</param>
         /// <param name="recommendReason">推荐理由.</param>
         /// <param name="tags">标签列表.</param>
         /// <remarks>
@@ -37,8 +38,8 @@ namespace Bili.Models.Data.Community
             double favoriteCount = -1,
             double coinCount = -1,
             double commentCount = -1,
-            string recommendReason = "",
-            IEnumerable<Tag> tags = null)
+            double shareCount = -1,
+            string recommendReason = "")
         {
             Id = videoId;
             PlayCount = playCount;
@@ -48,8 +49,8 @@ namespace Bili.Models.Data.Community
             FavoriteCount = favoriteCount;
             CoinCount = coinCount;
             CommentCount = commentCount;
+            ShareCount = shareCount;
             RecommendReason = recommendReason;
-            Tags = tags;
         }
 
         /// <summary>
@@ -94,6 +95,11 @@ namespace Bili.Models.Data.Community
         public double CommentCount { get; set; }
 
         /// <summary>
+        /// 分享次数.
+        /// </summary>
+        public double ShareCount { get; }
+
+        /// <summary>
         /// 评分.
         /// </summary>
         /// <remarks>
@@ -112,7 +118,7 @@ namespace Bili.Models.Data.Community
         /// <summary>
         /// 视频标签列表.
         /// </summary>
-        public IEnumerable<Tag> Tags { get; }
+        public IEnumerable<Tag> Tags { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoCommunityInformation information && Id == information.Id;

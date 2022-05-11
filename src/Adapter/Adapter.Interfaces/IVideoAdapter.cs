@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.BiliBili;
-using Bili.Models.Data.Player;
+using Bili.Models.Data.Video;
 using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter.Interfaces
@@ -103,5 +103,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="video">用户空间里的视频搜索结果.</param>
         /// <returns><see cref="VideoInformation"/>.</returns>
         VideoInformation ConvertToVideoInformation(Bilibili.App.Interfaces.V1.Arc video);
+
+        /// <summary>
+        /// 将视频详情 <see cref="Bilibili.App.View.V1.ViewReply"/> 转换为视频信息.
+        /// </summary>
+        /// <param name="videoDetail">视频详情.</param>
+        /// <returns><see cref="VideoInformation"/>.</returns>
+        VideoInformation ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
     }
 }

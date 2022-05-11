@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
-using Bili.Models.Data.Player;
 using Bili.Models.Data.User;
+using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Dynamic.V2;
@@ -299,6 +300,38 @@ namespace Bili.Adapter
                 publisher,
                 description: description,
                 publishTime: publishTime.DateTime,
+                communityInformation: communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public VideoInformation ConvertToVideoInformation(ViewReply videoDetail)
+        {
+            var arc = videoDetail.Arc;
+            var title = arc.Title;
+            var id = arc.Aid.ToString();
+            var bvid = videoDetail.Bvid;
+            var duration = Convert.ToInt32(arc.Duration);
+            var cover = _imageAdapter.ConvertToImage(arc.Pic);
+            var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
+            var collaborators = videoDetail.Staff.Count > 0
+                ? videoDetail.Staff.Select(p => _userAdapter.ConvertToPublisherProfile(p, Models.Enums.App.AvatarSize.Size32))
+                : null;
+            var publisher = videoDetail.Staff.Count > 0
+                ? null
+                : _userAdapter.ConvertToPublisherProfile(arc.Author, Models.Enums.App.AvatarSize.Size32);
+            var description = arc.Desc;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).ToLocalTime().DateTime;
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);
+            communityInfo.Tags = tags;
+
+            var identifier = new VideoIdentifier(id, title, duration, cover);
+            return new VideoInformation(
+                identifier,
+                publisher,
+                bvid,
+                description,
+                publishTime: publishTime,
+                collaborators: collaborators,
                 communityInformation: communityInfo);
         }
     }

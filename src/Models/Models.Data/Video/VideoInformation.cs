@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
 
-namespace Bili.Models.Data.Player
+namespace Bili.Models.Data.Video
 {
     /// <summary>
     /// 视频基础信息.

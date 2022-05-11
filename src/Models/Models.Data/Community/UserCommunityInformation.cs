@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Models.Enums.Community;
+
 namespace Bili.Models.Data.Community
 {
     /// <summary>
@@ -26,13 +28,15 @@ namespace Bili.Models.Data.Community
         /// <param name="coinCount">硬币数.</param>
         /// <param name="likeCount">点赞数.</param>
         /// <param name="dynamicCount">动态数.</param>
+        /// <param name="relation">你和这名用户的关系.</param>
         public UserCommunityInformation(
             string userId,
             int followCount,
             int fansCount,
             double coinCount,
             int likeCount,
-            int dynamicCount)
+            int dynamicCount,
+            UserRelationStatus relation = UserRelationStatus.Unknown)
         {
             Id = userId;
             FollowCount = followCount;
@@ -40,6 +44,7 @@ namespace Bili.Models.Data.Community
             CoinCount = coinCount;
             LikeCount = likeCount;
             DynamicCount = dynamicCount;
+            Relation = relation;
         }
 
         /// <summary>
@@ -70,7 +75,12 @@ namespace Bili.Models.Data.Community
         /// <summary>
         /// 动态数.
         /// </summary>
-        public int DynamicCount { get; set; }
+        public int DynamicCount { get; }
+
+        /// <summary>
+        /// 你与 TA 的关系.
+        /// </summary>
+        public UserRelationStatus Relation { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is UserCommunityInformation information && Id == information.Id;

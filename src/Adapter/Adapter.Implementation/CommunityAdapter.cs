@@ -3,6 +3,7 @@
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Archive.V1;
 using Bilibili.App.Card.V1;
@@ -43,7 +44,8 @@ namespace Bili.Adapter
                 spaceInfo.FollowerCount,
                 -1,
                 spaceInfo.LikeInformation.LikeCount,
-                -1);
+                -1,
+                (UserRelationStatus)spaceInfo.Relation.Status);
 
         /// <inheritdoc/>
         public VideoCommunityInformation ConvertToVideoCommunityInformation(RecommendCard videoCard)
@@ -124,7 +126,8 @@ namespace Bili.Adapter
                 videoStat.Like,
                 favoriteCount: videoStat.Fav,
                 coinCount: videoStat.Coin,
-                commentCount: videoStat.Reply);
+                commentCount: videoStat.Reply,
+                shareCount: videoStat.Share);
         }
 
         /// <inheritdoc/>

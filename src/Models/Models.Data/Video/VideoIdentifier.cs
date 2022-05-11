@@ -3,7 +3,7 @@
 using System;
 using Bili.Models.Data.Appearance;
 
-namespace Bili.Models.Data.Player
+namespace Bili.Models.Data.Video
 {
     /// <summary>
     /// 视频标识，表示视频的核心信息.

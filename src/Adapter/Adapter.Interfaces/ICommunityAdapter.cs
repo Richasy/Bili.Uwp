@@ -26,6 +26,13 @@ namespace Bili.Adapter.Interfaces
         UserCommunityInformation ConvertToUserCommunityInformation(UserSpaceInformation spaceInfo);
 
         /// <summary>
+        /// 将用户空间信息 <see cref="UserSpaceInformation"/> 转换为用户社区交互信息.
+        /// </summary>
+        /// <param name="spaceInfo">用户空间信息.</param>
+        /// <returns><see cref="UserCommunityInformation"/>.</returns>
+        UserCommunityInformation ConvertToUserCommunityInformation(UserSpaceInformation spaceInfo);
+
+        /// <summary>
         /// 将推荐卡片 <see cref="RecommendCard"/> 转换为视频交互信息.
         /// </summary>
         /// <param name="videoCard">推荐卡片信息.</param>
