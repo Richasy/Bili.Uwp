@@ -8,6 +8,35 @@ namespace Bili.Models.Data.Community
     public sealed class VideoOpeartionInformation
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="VideoOpeartionInformation"/> class.
+        /// </summary>
+        public VideoOpeartionInformation()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoOpeartionInformation"/> class.
+        /// </summary>
+        /// <param name="id">视频 Id.</param>
+        /// <param name="isLiked">是否点赞.</param>
+        /// <param name="isCoined">是否投币.</param>
+        /// <param name="isFavorited">是否收藏.</param>
+        /// <param name="isFollowing">是否关注.</param>
+        public VideoOpeartionInformation(
+            string id,
+            bool isLiked,
+            bool isCoined,
+            bool isFavorited,
+            bool isFollowing)
+        {
+            Id = id;
+            IsLiked = isLiked;
+            IsCoined = isCoined;
+            IsFollowing = isFollowing;
+            IsFavorited = isFavorited;
+        }
+
+        /// <summary>
         /// 挂载的视频 Id.
         /// </summary>
         public string Id { get; }

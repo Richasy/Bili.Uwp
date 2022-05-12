@@ -109,6 +109,6 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="videoDetail">视频详情.</param>
         /// <returns><see cref="VideoInformation"/>.</returns>
-        VideoInformation ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
+        VideoView ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
     }
 }

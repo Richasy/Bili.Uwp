@@ -1,12 +1,18 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
+using Bili.Models.Data.Player;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums.Community;
+using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Dynamic.V2;
@@ -304,7 +310,57 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public VideoInformation ConvertToVideoInformation(ViewReply videoDetail)
+        public VideoView ConvertToVideoInformation(ViewReply videoDetail)
+        {
+            var videoInfo = GetVideoInformationFromViewReply(videoDetail);
+            var subVideos = GetSubVideosFromViewReply(videoDetail);
+            var interaction = GetInteractionRecordFromViewReply(videoDetail);
+            var publisherCommunity = GetPublisherCommunityFromViewReply(videoDetail);
+            var operation = GetOperationInformationFromViewReply(videoDetail);
+            var relatedVideos = GetRelatedVideosFromViewReply(videoDetail);
+            var sections = GetVideoSectionsFromViewReply(videoDetail);
+            var history = GetHistoryFromViewReply(videoDetail);
+
+            if (subVideos.Count() > 0)
+            {
+                var historyVideo = subVideos.FirstOrDefault(p => p.Id.Equals(history.Identifier.Id));
+                history.Identifier = historyVideo;
+            }
+            else if (sections.Count() > 0)
+            {
+                history.Identifier = sections
+                    .SelectMany(p => p.Videos)
+                    .FirstOrDefault(p => p.AlternateId == history.Identifier.Id)
+                    .Identifier;
+            }
+
+            return new VideoView(
+                videoInfo,
+                publisherCommunity,
+                subVideos,
+                sections,
+                relatedVideos,
+                history,
+                operation,
+                interaction);
+        }
+
+        private VideoInformation GetVideoInformationFromEpisode(Episode episode)
+        {
+            var id = episode.Aid.ToString();
+            var cid = episode.Cid.ToString();
+            var title = Regex.Replace(episode.Title, "<[^>]+>", string.Empty);
+            var duration = Convert.ToInt32(episode.Page.Duration);
+            var publisher = _userAdapter.ConvertToPublisherProfile(episode.Author);
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(episode.Stat);
+            var cover = _imageAdapter.ConvertToVideoCardCover(episode.Cover);
+            var subtitle = episode.CoverRightText;
+
+            var identifier = new VideoIdentifier(id, title, duration, cover);
+            return new VideoInformation(identifier, publisher, cid, subtitle: subtitle, communityInformation: communityInfo);
+        }
+
+        private VideoInformation GetVideoInformationFromViewReply(ViewReply videoDetail)
         {
             var arc = videoDetail.Arc;
             var title = arc.Title;
@@ -333,6 +389,123 @@ namespace Bili.Adapter
                 publishTime: publishTime,
                 collaborators: collaborators,
                 communityInformation: communityInfo);
+        }
+
+        private IEnumerable<VideoIdentifier> GetSubVideosFromViewReply(ViewReply videoDetail)
+        {
+            var subVideos = new List<VideoIdentifier>();
+            foreach (var page in videoDetail.Pages.OrderBy(p => p.Page.Page_))
+            {
+                var cid = page.Page.Cid.ToString();
+                var title = page.Page.Part;
+                var duration = Convert.ToInt32(page.Page.Duration);
+                var identifier = new VideoIdentifier(cid, title, duration, null);
+                subVideos.Add(identifier);
+            }
+
+            return subVideos;
+        }
+
+        private InteractionVideoRecord GetInteractionRecordFromViewReply(ViewReply videoDetail)
+        {
+            var interaction = videoDetail.Interaction;
+            var partId = interaction.HistoryNode != null
+                    ? interaction.HistoryNode.Cid.ToString()
+                    : videoDetail.Pages.First().Page.Cid.ToString();
+            var nodeId = interaction.HistoryNode != null
+                    ? interaction.HistoryNode.NodeId.ToString()
+                    : string.Empty;
+            var graphVersion = interaction.GraphVersion.ToString();
+
+            return new InteractionVideoRecord(graphVersion, partId, nodeId);
+        }
+
+        private UserCommunityInformation GetPublisherCommunityFromViewReply(ViewReply videoDetail)
+        {
+            var relation = UserRelationStatus.Unfollow;
+            if (videoDetail.ReqUser.Attention == 1)
+            {
+                relation = videoDetail.ReqUser.GuestAttention == 1
+                    ? UserRelationStatus.Friends
+                    : UserRelationStatus.Following;
+            }
+            else if (videoDetail.ReqUser.GuestAttention == 1)
+            {
+                relation = UserRelationStatus.BeFollowed;
+            }
+
+            return new UserCommunityInformation()
+            {
+                Id = videoDetail.Arc.Author.Mid.ToString(),
+                Relation = relation,
+            };
+        }
+
+        private VideoOpeartionInformation GetOperationInformationFromViewReply(ViewReply videoDetail)
+        {
+            var reqUser = videoDetail.ReqUser;
+            var isLiked = reqUser.Like == 1;
+            var isCoined = reqUser.Coin == 1;
+            var isFavorited = reqUser.Favorite == 1;
+            return new VideoOpeartionInformation(
+                videoDetail.Arc.Aid.ToString(),
+                isLiked,
+                isCoined,
+                isFavorited,
+                false);
+        }
+
+        private IEnumerable<VideoInformation> GetRelatedVideosFromViewReply(ViewReply videoDetail)
+        {
+            // 将非视频内容过滤掉.
+            var relates = videoDetail.Relates.Where(p => p.Goto.Equals(ServiceConstants.Av, StringComparison.OrdinalIgnoreCase));
+            var relatedVideos = relates.Select(p => ConvertToVideoInformation(p));
+            return relatedVideos;
+        }
+
+        private IEnumerable<VideoSection> GetVideoSectionsFromViewReply(ViewReply videoDetail)
+        {
+            if (videoDetail.UgcSeason == null || videoDetail.UgcSeason.Sections?.Count == 0)
+            {
+                return null;
+            }
+
+            var sections = new List<VideoSection>();
+            foreach (var item in videoDetail.UgcSeason.Sections)
+            {
+                var id = item.Id.ToString();
+                var title = item.Title;
+                var videos = item.Episodes.Select(p => GetVideoInformationFromEpisode(p));
+                var section = new VideoSection(id, title, videos);
+                sections.Add(section);
+            }
+
+            return sections;
+        }
+
+        private PlayedProgress GetHistoryFromViewReply(ViewReply videoDetail)
+        {
+            // 当历史记录为空，或者当前视频为交互视频时（交互视频按照节点记录历史），返回 null.
+            if (videoDetail.History == null || videoDetail.Interaction != null)
+            {
+                return null;
+            }
+
+            var history = videoDetail.History;
+            var historyStatus = history.Progress switch
+            {
+                0 => PlayedProgressStatus.NotStarted,
+                -1 => PlayedProgressStatus.Finish,
+                _ => PlayedProgressStatus.Playing
+            };
+
+            var progress = historyStatus == PlayedProgressStatus.Playing
+                ? history.Progress
+                : 0;
+
+            var id = history.Cid.ToString();
+            var identifier = new VideoIdentifier(id, default, default, default);
+            return new PlayedProgress(progress, historyStatus, identifier);
         }
     }
 }

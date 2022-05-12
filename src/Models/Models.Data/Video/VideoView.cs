@@ -12,9 +12,45 @@ namespace Bili.Models.Data.Video
     public sealed class VideoView
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="VideoView"/> class.
+        /// </summary>
+        /// <param name="information">视频信息.</param>
+        /// <param name="publisherCommunityInformation">发布者的社区信息.</param>
+        /// <param name="subVideos">分集.</param>
+        /// <param name="sections">所属视频合集列表.</param>
+        /// <param name="relatedVideos">关联视频.</param>
+        /// <param name="progress">播放进度.</param>
+        /// <param name="operation">视频操作信息.</param>
+        /// <param name="interactionVideo">互动视频信息.</param>
+        public VideoView(
+            VideoInformation information,
+            UserCommunityInformation publisherCommunityInformation,
+            IEnumerable<VideoIdentifier> subVideos,
+            IEnumerable<VideoSection> sections,
+            IEnumerable<VideoInformation> relatedVideos,
+            PlayedProgress progress,
+            VideoOpeartionInformation operation,
+            InteractionVideoRecord interactionVideo)
+        {
+            Information = information;
+            PublisherCommunityInformation = publisherCommunityInformation;
+            SubVideos = subVideos;
+            Sections = sections;
+            RelatedVideos = relatedVideos;
+            Progress = progress;
+            Operation = operation;
+            InteractionVideo = interactionVideo;
+        }
+
+        /// <summary>
         /// 视频主要信息.
         /// </summary>
         public VideoInformation Information { get; }
+
+        /// <summary>
+        /// 发布者的社区信息.
+        /// </summary>
+        public UserCommunityInformation PublisherCommunityInformation { get; }
 
         /// <summary>
         /// 分集信息.

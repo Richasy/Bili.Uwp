@@ -4,6 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Bili.Adapter</RootNamespace>
         <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
