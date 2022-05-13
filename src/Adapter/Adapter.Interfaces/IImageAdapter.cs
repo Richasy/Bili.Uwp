@@ -31,5 +31,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="uri">图片地址.</param>
         /// <returns><see cref="Image"/>.</returns>
         Image ConvertToVideoCardCover(string uri);
+
+        /// <summary>
+        /// 根据图片地址生成适用于 PGC 的竖式封面.
+        /// </summary>
+        /// <param name="uri">图片地址.</param>
+        /// <returns><see cref="Image"/>.</returns>
+        Image ConvertToPgcCover(string uri);
     }
 }

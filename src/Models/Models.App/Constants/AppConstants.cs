@@ -23,6 +23,9 @@ namespace Bili.Models.App.Constants
         public const int DynamicCoverWidth = 400;
         public const int DynamicCoverHeight = 250;
 
+        public const int PgcCoverWidth = 180;
+        public const int PgcCoverHeight = 240;
+
         public const string DashVideoMPDFile = "ms-appx:///Assets/DashVideoTemplate.xml";
         public const string DashVideoWithoudAudioMPDFile = "ms-appx:///Assets/DashVideoWithoutAudioTemplate.xml";
 

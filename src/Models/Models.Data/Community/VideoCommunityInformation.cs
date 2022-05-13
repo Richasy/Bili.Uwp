@@ -58,7 +58,7 @@ namespace Bili.Models.Data.Community
         /// <summary>
         /// 视频 Id.
         /// </summary>
-        public string Id { get; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 播放数.

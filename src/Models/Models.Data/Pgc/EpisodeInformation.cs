@@ -24,6 +24,7 @@ namespace Bili.Models.Data.Pgc
         /// <param name="isPv">是否为预告片.</param>
         /// <param name="publishTime">发布时间.</param>
         /// <param name="communityInformation">社区信息.</param>
+        /// <param name="highlight">高亮文本.</param>
         public EpisodeInformation(
             VideoIdentifier identifier,
             string seasonId = "",
@@ -33,7 +34,8 @@ namespace Bili.Models.Data.Pgc
             bool isVip = false,
             bool isPv = false,
             DateTime publishTime = default,
-            VideoCommunityInformation communityInformation = default)
+            VideoCommunityInformation communityInformation = default,
+            string highlight = default)
         {
             Identifier = identifier;
             SeasonId = seasonId;
@@ -44,6 +46,7 @@ namespace Bili.Models.Data.Pgc
             IsPreviewVideo = isPv;
             PublishTime = publishTime;
             CommunityInformation = communityInformation;
+            Highlight = highlight;
         }
 
         /// <summary>
@@ -88,6 +91,11 @@ namespace Bili.Models.Data.Pgc
         /// 是否为会员专属剧集.
         /// </summary>
         public bool IsVip { get; set; }
+
+        /// <summary>
+        /// 高亮文本.
+        /// </summary>
+        public string Highlight { get; set; }
 
         /// <summary>
         /// 社区信息.

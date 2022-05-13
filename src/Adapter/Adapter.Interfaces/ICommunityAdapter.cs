@@ -111,5 +111,26 @@ namespace Bili.Adapter.Interfaces
         /// <param name="stat">剧集社区信息.</param>
         /// <returns><see cref="VideoCommunityInformation"/>.</returns>
         VideoCommunityInformation ConvertToVideoCommunityInformation(PgcInformationStat stat);
+
+        /// <summary>
+        /// 将 PGC 条目社区信息 <see cref="PgcItemStat"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="stat">PGC 条目社区信息.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(PgcItemStat stat);
+
+        /// <summary>
+        /// 将 PGC 搜索条目 <see cref="PgcSearchItem"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="item">PGC 搜索条目.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(PgcSearchItem item);
+
+        /// <summary>
+        /// 将 PGC 播放列表条目社区信息 <see cref="PgcPlayListItemStat"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="stat">PGC 搜索条目.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(PgcPlayListItemStat stat);
     }
 }

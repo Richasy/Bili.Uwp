@@ -902,6 +902,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="NotUpdate" xml:space="preserve">
     <value>即将更新</value>
   </data>
+  <data name="NotUpdated" xml:space="preserve">
+    <value>未更新</value>
+  </data>
   <data name="NoUserVideoSearchResult" xml:space="preserve">
     <value>没有在该用户下找到指定关键词的视频</value>
   </data>

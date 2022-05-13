@@ -200,5 +200,33 @@ namespace Bili.Adapter
                 stat.ReplyCount,
                 stat.ShareCount);
         }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(PgcItemStat stat)
+        {
+            return new VideoCommunityInformation(
+                default,
+                stat.ViewCount,
+                stat.DanmakuCount,
+                trackCount: stat.FollowCount);
+        }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(PgcSearchItem item)
+        {
+            return new VideoCommunityInformation(
+                item.SeasonId.ToString(),
+                score: item.Rating);
+        }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(PgcPlayListItemStat stat)
+        {
+            return new VideoCommunityInformation(
+                default,
+                stat.PlayCount,
+                stat.DanmakuCount,
+                favoriteCount: stat.FavoriteCount);
+        }
     }
 }

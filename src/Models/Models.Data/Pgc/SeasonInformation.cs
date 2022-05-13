@@ -30,6 +30,7 @@ namespace Bili.Models.Data.Pgc
         /// <param name="labors">工作人员说明.</param>
         /// <param name="communityInformation">社区交互信息.</param>
         /// <param name="celebrities">参演明星.</param>
+        /// <param name="isTracking">是否已追番/追剧.</param>
         public SeasonInformation(
             VideoIdentifier identifier,
             string subtitle,
@@ -44,7 +45,8 @@ namespace Bili.Models.Data.Pgc
             PgcType type = default,
             Dictionary<string, string> labors = default,
             VideoCommunityInformation communityInformation = default,
-            IEnumerable<RoleProfile> celebrities = default)
+            IEnumerable<RoleProfile> celebrities = default,
+            bool isTracking = false)
         {
             Identifier = identifier;
             Subtitle = subtitle;
@@ -60,6 +62,7 @@ namespace Bili.Models.Data.Pgc
             CommunityInformation = communityInformation;
             Celebrities = celebrities;
             Type = type;
+            IsTracking = isTracking;
         }
 
         /// <summary>
@@ -135,6 +138,11 @@ namespace Bili.Models.Data.Pgc
         /// 参演人员中的明星，他们有自己的头像和角色说明.
         /// </summary>
         public IEnumerable<RoleProfile> Celebrities { get; }
+
+        /// <summary>
+        /// 是否追番/追剧.
+        /// </summary>
+        public bool IsTracking { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SeasonInformation information && EqualityComparer<VideoIdentifier>.Default.Equals(Identifier, information.Identifier);

@@ -3,12 +3,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Models.Enums.Player;
+using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter
 {
@@ -84,11 +88,247 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public SeasonInformation ConvertToSeasonInformation(PgcDisplayInformation display)
+        public EpisodeInformation ConvertToEpisodeInformation(PgcModuleItem item)
+        {
+            var title = item.Title;
+            var epid = item.Aid.ToString();
+            var ssid = item.OriginId.ToString();
+            var cover = _imageAdapter.ConvertToVideoCardCover(item.Cover);
+            var highlight = item.Badge;
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item.Stat);
+            communityInfo.Id = epid;
+            var subtitle = item.Stat?.FollowDisplayText ?? item.DisplayScoreText;
+
+            var identifier = new VideoIdentifier(epid, title, -1, cover);
+            return new EpisodeInformation(
+                identifier,
+                ssid,
+                subtitle: subtitle,
+                communityInformation: communityInfo,
+                highlight: highlight);
+        }
+
+        /// <inheritdoc/>
+        public EpisodeInformation ConvertToEpisodeInformation(MdlDynPGC pgc)
+        {
+            var title = pgc.Title;
+            var ssid = pgc.SeasonId.ToString();
+            var epid = pgc.Epid.ToString();
+            var aid = pgc.Aid.ToString();
+            var isPv = pgc.IsPreview;
+            var cover = _imageAdapter.ConvertToVideoCardCover(pgc.Cover);
+            var duration = Convert.ToInt32(pgc.Duration);
+
+            var identifier = new VideoIdentifier(epid, title, duration, cover);
+            return new EpisodeInformation(identifier, ssid, aid, isPv: isPv);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(PgcModuleItem item, PgcType type)
+        {
+            var title = item.Title;
+            var ssid = item.OriginId.ToString();
+            var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
+            var tags = item.SeasonTags;
+            var highlight = item.Badge;
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item.Stat);
+            communityInfo.Id = ssid;
+            var subtitle = item.Description;
+            var description = item.Stat?.FollowDisplayText ?? item.DisplayScoreText;
+            var isTracking = item.Status.IsFollow == 1;
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(
+                identifier,
+                subtitle,
+                highlight,
+                tags,
+                type: type,
+                description: description,
+                communityInformation: communityInfo,
+                isTracking: isTracking);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(PgcSearchItem item)
+        {
+            var ssid = item.SeasonId.ToString();
+            var title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
+            var subtitle = item.Label;
+            var tags = item.SubTitle;
+            var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
+            var highlight = item.BadgeText;
+            var isTracking = item.IsFollow == 1;
+            var type = GetPgcTypeFromTypeText(item.SeasonTypeName);
+            var description = item.Area;
+            var ratingCount = Convert.ToInt32(item.VoteNumber);
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item);
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(
+                identifier,
+                subtitle,
+                highlight,
+                tags,
+                ratingCount,
+                description: description,
+                type: type,
+                communityInformation: communityInfo,
+                isTracking: isTracking);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(PgcIndexItem item)
+        {
+            var title = item.Title;
+            var ssid = item.SeasonId.ToString();
+            var tags = item.OrderText;
+            var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
+            var highlight = item.BadgeText;
+            var description = item.AdditionalText;
+            var subtitle = item.IsFinish == 1
+                ? "已完结"
+                : "连载中";
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(
+                identifier,
+                subtitle,
+                highlight,
+                tags,
+                description: description);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(TimeLineEpisode item)
+        {
+            var title = item.Title;
+            var ssid = item.SeasonId.ToString();
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(item.PublishTimeStamp).ToLocalTime().DateTime;
+            var tags = item.PublishIndex;
+            var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
+            var description = item.IsPublished == 1
+                ? "已更新"
+                : "待发布";
+            var subtitle = publishTime.ToString("MM/dd HH:mm");
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(identifier, subtitle, tags: tags, description: description);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(PgcPlayListSeason season)
+        {
+            var title = season.Title;
+            var ssid = season.SeasonId.ToString();
+            var tags = season.Styles;
+            var subtitle = season.Subtitle;
+            var description = season.Description;
+            var highlight = season.BadgeText;
+            var cover = _imageAdapter.ConvertToPgcCover(season.Cover);
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(season.Stat);
+            communityInfo.Id = ssid;
+            if (season.Rating != null)
+            {
+                communityInfo.Score = season.Rating.Score;
+            }
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(
+                identifier,
+                subtitle,
+                highlight,
+                tags,
+                description: description,
+                communityInformation: communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public SeasonInformation ConvertToSeasonInformation(FavoritePgcItem item)
+        {
+            var title = item.Title;
+            var subtitle = item.NewEpisode?.DisplayText ?? string.Empty;
+            var ssid = item.SeasonId.ToString();
+            var type = GetPgcTypeFromTypeText(item.SeasonTypeName);
+            var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
+            var highlight = item.BadgeText;
+            var description = item.SeasonTypeName;
+
+            var identifier = new VideoIdentifier(ssid, title, -1, cover);
+            return new SeasonInformation(
+                identifier,
+                subtitle,
+                highlight,
+                type: type,
+                description: description);
+        }
+
+        /// <inheritdoc/>
+        public PgcView ConvertToPgcView(PgcDisplayInformation display)
+        {
+            var seasonInfo = GetSeasonInformationFromDisplayInformation(display);
+            List<VideoIdentifier> seasons = null;
+            List<EpisodeInformation> episodes = null;
+            Dictionary<string, IEnumerable<EpisodeInformation>> extras = null;
+            PlayedProgress history = null;
+
+            if (display.Modules != null)
+            {
+                var seasonModule = display.Modules.FirstOrDefault(p => p.Style == ServiceConstants.Season);
+                if (seasonModule != null)
+                {
+                    seasons = new List<VideoIdentifier>();
+                    foreach (var item in seasonModule.Data.Seasons)
+                    {
+                        var cover = _imageAdapter.ConvertToImage(item.Cover, 240, 320);
+                        seasons.Add(new VideoIdentifier(item.SeasonId.ToString(), item.Title, -1, cover));
+                    }
+                }
+
+                var episodeModule = display.Modules.FirstOrDefault(p => p.Style == ServiceConstants.Positive);
+                if (episodeModule != null)
+                {
+                    episodes = episodeModule.Data.Episodes
+                        .Select(p => ConvertToEpisodeInformation(p))
+                        .ToList();
+                }
+
+                var sectionModules = display.Modules.Where(p => p.Style == ServiceConstants.Section);
+                if (sectionModules.Any())
+                {
+                    extras = new Dictionary<string, IEnumerable<EpisodeInformation>>();
+                    foreach (var section in sectionModules)
+                    {
+                        if (section.Data?.Episodes?.Any() ?? false)
+                        {
+                            extras.Add(section.Title, section.Data.Episodes.Select(p => ConvertToEpisodeInformation(p)));
+                        }
+                    }
+                }
+            }
+
+            if (display.UserStatus?.Progress != null && episodes != null)
+            {
+                var progress = display.UserStatus.Progress;
+                var historyEpid = progress.LastEpisodeId.ToString();
+                var historyEp = episodes.FirstOrDefault(p => p.Identifier.Id == historyEpid);
+                var status = progress.LastTime switch
+                {
+                    -1 => PlayedProgressStatus.Finish,
+                    0 => PlayedProgressStatus.NotStarted,
+                    _ => PlayedProgressStatus.Playing
+                };
+                history = new PlayedProgress(progress.LastTime, status, historyEp.Identifier);
+            }
+
+            return new PgcView(seasonInfo, seasons, episodes, extras, history);
+        }
+
+        private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)
         {
             var ssid = display.SeasonId.ToString();
             var title = display.Title;
-            var cover = _imageAdapter.ConvertToImage(display.Cover, 240, 320);
+            var cover = _imageAdapter.ConvertToPgcCover(display.Cover);
             var subtitle = display.Subtitle;
             var description = display.Evaluate;
             var highlight = display.BadgeText;
@@ -98,6 +338,7 @@ namespace Bili.Adapter
             var alias = display.Alias;
             var typeName = display.TypeName;
             var tags = display.TypeDescription;
+            var isTracking = display.UserStatus.IsFollow == 1;
             var ratingCount = display.Rating != null
                 ? display.Rating.Count
                 : -1;
@@ -114,19 +355,13 @@ namespace Bili.Adapter
 
             var celebrities = display.Celebrity?.Select(p => _userAdapter.ConvertToRoleProfile(p));
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(display.InformationStat);
+            communityInfo.Id = ssid;
             if (display.Rating != null)
             {
                 communityInfo.Score = display.Rating.Score;
             }
 
-            var type = display.TypeName switch
-            {
-                "国创" => PgcType.Domestic,
-                "电影" => PgcType.Movie,
-                "电视剧" => PgcType.TV,
-                "纪录片" => PgcType.Documentary,
-                _ => PgcType.Bangumi,
-            };
+            var type = GetPgcTypeFromTypeText(display.TypeName);
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
             return new SeasonInformation(
@@ -143,7 +378,20 @@ namespace Bili.Adapter
                 type,
                 labors,
                 communityInfo,
-                celebrities);
+                celebrities,
+                isTracking);
+        }
+
+        private PgcType GetPgcTypeFromTypeText(string typeText)
+        {
+            return typeText switch
+            {
+                "国创" => PgcType.Domestic,
+                "电影" => PgcType.Movie,
+                "电视剧" => PgcType.TV,
+                "纪录片" => PgcType.Documentary,
+                _ => PgcType.Bangumi,
+            };
         }
     }
 }
