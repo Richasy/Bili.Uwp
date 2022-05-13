@@ -60,7 +60,7 @@ namespace Bili.Adapter
             }
 
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(videoCard);
-            var publisher = _userAdapter.ConvertToPublisherProfile(videoCard.Mask.Avatar);
+            var publisher = _userAdapter.ConvertToRoleProfile(videoCard.Mask.Avatar);
             var title = videoCard.Title;
             var id = videoCard.Parameter;
             var duration = (videoCard.PlayerArgs?.Duration).HasValue
@@ -128,7 +128,7 @@ namespace Bili.Adapter
             var description = video.Description;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(video.PublishDateTime).ToLocalTime();
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
-            var publisher = _userAdapter.ConvertToPublisherProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
+            var publisher = _userAdapter.ConvertToRoleProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video.StatusInfo);
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -149,7 +149,7 @@ namespace Bili.Adapter
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(rankVideo.PubDate).ToLocalTime();
 
             var user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(rankVideo.Mid), rankVideo.Name, rankVideo.Face, Models.Enums.App.AvatarSize.Size48);
-            var publisher = new PublisherProfile(user);
+            var publisher = new RoleProfile(user);
             var cover = _imageAdapter.ConvertToVideoCardCover(rankVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(rankVideo);
 
@@ -204,7 +204,7 @@ namespace Bili.Adapter
             var id = relatedVideo.Aid.ToString();
             var duration = Convert.ToInt32(relatedVideo.Duration);
             var description = relatedVideo.Desc;
-            var publisher = _userAdapter.ConvertToPublisherProfile(relatedVideo.Author);
+            var publisher = _userAdapter.ConvertToRoleProfile(relatedVideo.Author);
             var cover = _imageAdapter.ConvertToVideoCardCover(relatedVideo.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(relatedVideo.Stat);
             var identifier = new VideoIdentifier(id, title, duration, cover);
@@ -224,7 +224,7 @@ namespace Bili.Adapter
             var cover = _imageAdapter.ConvertToVideoCardCover(searchVideo.Cover);
             var description = searchVideo.Description;
             var user = _userAdapter.ConvertToUserProfile(searchVideo.UserId, searchVideo.Author, searchVideo.Avatar, Models.Enums.App.AvatarSize.Size48);
-            var publisher = new PublisherProfile(user);
+            var publisher = new RoleProfile(user);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(searchVideo);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
@@ -278,7 +278,7 @@ namespace Bili.Adapter
         {
             var title = video.Title;
             var id = video.Id.ToString();
-            var publisher = _userAdapter.ConvertToPublisherProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
+            var publisher = _userAdapter.ConvertToRoleProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
             var duration = video.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video);
@@ -293,7 +293,7 @@ namespace Bili.Adapter
             var archive = video.Archive;
             var title = archive.Title;
             var id = archive.Aid.ToString();
-            var publisher = _userAdapter.ConvertToPublisherProfile(archive.Author);
+            var publisher = _userAdapter.ConvertToRoleProfile(archive.Author);
             var duration = Convert.ToInt32(archive.Duration);
             var cover = _imageAdapter.ConvertToVideoCardCover(archive.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(archive.Stat);
@@ -351,7 +351,7 @@ namespace Bili.Adapter
             var cid = episode.Cid.ToString();
             var title = Regex.Replace(episode.Title, "<[^>]+>", string.Empty);
             var duration = Convert.ToInt32(episode.Page.Duration);
-            var publisher = _userAdapter.ConvertToPublisherProfile(episode.Author);
+            var publisher = _userAdapter.ConvertToRoleProfile(episode.Author);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(episode.Stat);
             var cover = _imageAdapter.ConvertToVideoCardCover(episode.Cover);
             var subtitle = episode.CoverRightText;
@@ -370,11 +370,11 @@ namespace Bili.Adapter
             var cover = _imageAdapter.ConvertToImage(arc.Pic);
             var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
             var collaborators = videoDetail.Staff.Count > 0
-                ? videoDetail.Staff.Select(p => _userAdapter.ConvertToPublisherProfile(p, Models.Enums.App.AvatarSize.Size32))
+                ? videoDetail.Staff.Select(p => _userAdapter.ConvertToRoleProfile(p, Models.Enums.App.AvatarSize.Size32))
                 : null;
             var publisher = videoDetail.Staff.Count > 0
                 ? null
-                : _userAdapter.ConvertToPublisherProfile(arc.Author, Models.Enums.App.AvatarSize.Size32);
+                : _userAdapter.ConvertToRoleProfile(arc.Author, Models.Enums.App.AvatarSize.Size32);
             var description = arc.Desc;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).ToLocalTime().DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);

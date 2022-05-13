@@ -21,9 +21,9 @@ namespace Bili.Models.Data.Video
         /// <param name="otherId">视频的第二Id，对视频来说，指的是 bvid.</param>
         public VideoInformation(
             VideoIdentifier identifier,
-            PublisherProfile publisher,
+            RoleProfile publisher,
             string otherId = "",
-            IEnumerable<PublisherProfile> collaborators = null)
+            IEnumerable<RoleProfile> collaborators = null)
             : this(identifier, publisher, otherId, string.Empty, string.Empty, default, collaborators)
         {
         }
@@ -41,12 +41,12 @@ namespace Bili.Models.Data.Video
         /// <param name="communityInformation">社区信息.</param>
         public VideoInformation(
             VideoIdentifier identifier,
-            PublisherProfile publisher,
+            RoleProfile publisher,
             string otherId = "",
             string description = "",
             string subtitle = "",
             DateTime publishTime = default,
-            IEnumerable<PublisherProfile> collaborators = null,
+            IEnumerable<RoleProfile> collaborators = null,
             VideoCommunityInformation communityInformation = null)
         {
             Identifier = identifier;
@@ -80,7 +80,7 @@ namespace Bili.Models.Data.Video
         /// <summary>
         /// 发布者信息.
         /// </summary>
-        public PublisherProfile Publisher { get; }
+        public RoleProfile Publisher { get; }
 
         /// <summary>
         /// 视频合作者列表.
@@ -88,7 +88,7 @@ namespace Bili.Models.Data.Video
         /// <remarks>
         /// 有时一个视频是由多位作者共同合作发布.
         /// </remarks>
-        public IEnumerable<PublisherProfile> Collaborators { get; }
+        public IEnumerable<RoleProfile> Collaborators { get; }
 
         /// <summary>
         /// 视频描述.

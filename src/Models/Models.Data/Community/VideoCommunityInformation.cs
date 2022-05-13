@@ -24,8 +24,8 @@ namespace Bili.Models.Data.Community
         /// <param name="coinCount">投币数.</param>
         /// <param name="commentCount">评论数.</param>
         /// <param name="shareCount">分享次数.</param>
+        /// <param name="trackCount">追番/追剧数.</param>
         /// <param name="recommendReason">推荐理由.</param>
-        /// <param name="tags">标签列表.</param>
         /// <remarks>
         /// 对于数字类型的参数来说，默认值是 -1，表示暂时没有该类型的值输入.
         /// </remarks>
@@ -39,6 +39,7 @@ namespace Bili.Models.Data.Community
             double coinCount = -1,
             double commentCount = -1,
             double shareCount = -1,
+            double trackCount = -1,
             string recommendReason = "")
         {
             Id = videoId;
@@ -50,6 +51,7 @@ namespace Bili.Models.Data.Community
             CoinCount = coinCount;
             CommentCount = commentCount;
             ShareCount = shareCount;
+            TrackCount = trackCount;
             RecommendReason = recommendReason;
         }
 
@@ -100,12 +102,17 @@ namespace Bili.Models.Data.Community
         public double ShareCount { get; }
 
         /// <summary>
+        /// 追番/追剧数.
+        /// </summary>
+        public double TrackCount { get; set; }
+
+        /// <summary>
         /// 评分.
         /// </summary>
         /// <remarks>
         /// 在排行榜一类的视频中，会有视频综合评分，这也是社区交互数据.
         /// </remarks>
-        public double Score { get; }
+        public double Score { get; set; }
 
         /// <summary>
         /// 视频的推荐理由.

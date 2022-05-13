@@ -421,6 +421,12 @@ namespace Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "badge", Required = Required.Default)]
         public string BadgeText { get; set; }
+
+        /// <summary>
+        /// 单集社区信息.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "stat", Required = Required.Default)]
+        public PgcEpisodeStat Stat { get; set; }
     }
 
     /// <summary>
@@ -557,6 +563,43 @@ namespace Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "views", Required = Required.Default)]
         public long PlayCount { get; set; }
+    }
+
+    /// <summary>
+    /// PGC单集的社区数据.
+    /// </summary>
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class PgcEpisodeStat
+    {
+        /// <summary>
+        /// 投币数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "coins", Required = Required.Default)]
+        public long CoinCount { get; set; }
+
+        /// <summary>
+        /// 弹幕数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "danmakus", Required = Required.Default)]
+        public long DanmakuCount { get; set; }
+
+        /// <summary>
+        /// 点赞数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "likes", Required = Required.Default)]
+        public long LikeCount { get; set; }
+
+        /// <summary>
+        /// 播放量.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "play", Required = Required.Default)]
+        public long PlayCount { get; set; }
+
+        /// <summary>
+        /// 回复数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reply", Required = Required.Default)]
+        public long ReplyCount { get; set; }
     }
 
     /// <summary>

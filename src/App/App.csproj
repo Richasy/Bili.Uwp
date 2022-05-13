@@ -543,10 +543,9 @@
     <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Net_error_rgba.png" />
     <Content Include="Assets\not_login.png" />
     <Content Include="Assets\Null_rgba.png" />
-    <Content Include="Assets\Original_rgba_80.png" />
-    <Content Include="Assets\Rookie_rgba_80.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

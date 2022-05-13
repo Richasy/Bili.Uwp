@@ -26,13 +26,6 @@ namespace Bili.Adapter.Interfaces
         UserCommunityInformation ConvertToUserCommunityInformation(UserSpaceInformation spaceInfo);
 
         /// <summary>
-        /// 将用户空间信息 <see cref="UserSpaceInformation"/> 转换为用户社区交互信息.
-        /// </summary>
-        /// <param name="spaceInfo">用户空间信息.</param>
-        /// <returns><see cref="UserCommunityInformation"/>.</returns>
-        UserCommunityInformation ConvertToUserCommunityInformation(UserSpaceInformation spaceInfo);
-
-        /// <summary>
         /// 将推荐卡片 <see cref="RecommendCard"/> 转换为视频交互信息.
         /// </summary>
         /// <param name="videoCard">推荐卡片信息.</param>
@@ -104,5 +97,19 @@ namespace Bili.Adapter.Interfaces
         /// <param name="video">收藏夹视频条目.</param>
         /// <returns><see cref="VideoCommunityInformation"/>.</returns>
         VideoCommunityInformation ConvertToVideoCommunityInformation(FavoriteMedia video);
+
+        /// <summary>
+        /// 将剧集单集社区信息 <see cref="PgcEpisodeStat"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="stat">剧集单集社区信息.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(PgcEpisodeStat stat);
+
+        /// <summary>
+        /// 将剧集社区信息 <see cref="PgcInformationStat"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="stat">剧集社区信息.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(PgcInformationStat stat);
     }
 }

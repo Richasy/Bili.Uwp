@@ -51,12 +51,27 @@ namespace Bili.Adapter
         public VideoCommunityInformation ConvertToVideoCommunityInformation(RecommendCard videoCard)
         {
             var playCount = _numberToolkit.GetCountNumber(videoCard.PlayCountText, "观看");
-            var danmakuCount = _numberToolkit.GetCountNumber(videoCard.SubStatusText, "弹幕");
+            var danmakuCount = -1d;
+            var trackCount = -1d;
+
+            if (videoCard.SubStatusText.Contains("弹幕"))
+            {
+                danmakuCount = _numberToolkit.GetCountNumber(videoCard.SubStatusText, "弹幕");
+            }
+            else
+            {
+                var tempText = videoCard.SubStatusText
+                    .Replace("追剧", string.Empty)
+                    .Replace("追番", string.Empty);
+                trackCount = _numberToolkit.GetCountNumber(tempText);
+            }
+
             var recommendReason = videoCard.RecommendReason;
             return new VideoCommunityInformation(
                 videoCard.Parameter,
                 playCount: playCount,
                 danmakuCount: danmakuCount,
+                trackCount: trackCount,
                 recommendReason: recommendReason);
         }
 
@@ -156,6 +171,34 @@ namespace Bili.Adapter
                 video.Stat.PlayCount,
                 video.Stat.DanmakuCount,
                 favoriteCount: video.Stat.FavoriteCount);
+        }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(PgcEpisodeStat stat)
+        {
+            return new VideoCommunityInformation(
+                default,
+                stat.PlayCount,
+                stat.DanmakuCount,
+                stat.LikeCount,
+                coinCount: stat.CoinCount,
+                commentCount: stat.ReplyCount);
+        }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(PgcInformationStat stat)
+        {
+            var tracingCount = _numberToolkit.GetCountNumber(stat.FollowerDisplayText);
+            return new VideoCommunityInformation(
+                default,
+                stat.PlayCount,
+                stat.DanmakuCount,
+                stat.LikeCount,
+                -1,
+                stat.FavoriteCount,
+                stat.CoinCount,
+                stat.ReplyCount,
+                stat.ShareCount);
         }
     }
 }

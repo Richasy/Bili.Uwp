@@ -9,7 +9,7 @@ using Bilibili.App.View.V1;
 namespace Bili.Adapter.Interfaces
 {
     /// <summary>
-    /// 用户资料适配器接口，将来自源网站的用户数据转换为 <see cref="UserProfile"/> , <see cref="PublisherProfile"/> 或 <see cref="AccountInformation"/>.
+    /// 用户资料适配器接口，将来自源网站的用户数据转换为 <see cref="UserProfile"/> , <see cref="RoleProfile"/> 或 <see cref="AccountInformation"/>.
     /// </summary>
     public interface IUserAdapter
     {
@@ -28,24 +28,24 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="publisher">BiliBili的视频发布者信息.</param>
         /// <param name="avatarSize">头像尺寸.</param>
-        /// <returns><see cref="PublisherProfile"/>.</returns>
-        PublisherProfile ConvertToPublisherProfile(PublisherInfo publisher, AvatarSize avatarSize);
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(PublisherInfo publisher, AvatarSize avatarSize);
 
         /// <summary>
         /// 将视频合作者信息 <see cref="Staff"/> 转换为发布者资料.
         /// </summary>
         /// <param name="staff">视频合作者信息.</param>
         /// <param name="avatarSize">头像尺寸.</param>
-        /// <returns><see cref="PublisherProfile"/>.</returns>
-        PublisherProfile ConvertToPublisherProfile(Staff staff, AvatarSize avatarSize);
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(Staff staff, AvatarSize avatarSize);
 
         /// <summary>
         /// 将作者信息 <see cref="Author"/> 转换为发布者资料.
         /// </summary>
         /// <param name="author">作者信息.</param>
         /// <param name="avatarSize">头像大小.</param>
-        /// <returns><see cref="PublisherProfile"/>.</returns>
-        PublisherProfile ConvertToPublisherProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32);
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32);
 
         /// <summary>
         /// 将个人信息 <see cref="MyInfo"/> 转换为 <see cref="AccountInformation"/>.
@@ -56,12 +56,20 @@ namespace Bili.Adapter.Interfaces
         AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize);
 
         /// <summary>
-        /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为发布者资料.
+        /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为角色资料.
         /// </summary>
         /// <param name="avatar">推荐卡片的头像信息.</param>
         /// <param name="avatarSize">头像尺寸.</param>
-        /// <returns><see cref="PublisherProfile"/>.</returns>
-        PublisherProfile ConvertToPublisherProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48);
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48);
+
+        /// <summary>
+        /// 将明星信息 <see cref="PgcCelebrity"/> 转换为角色资料.
+        /// </summary>
+        /// <param name="celebrity">明星信息.</param>
+        /// <param name="avatarSize">头像大小.</param>
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48);
 
         /// <summary>
         /// 将个人信息 <see cref="Mine"/> 转换为 <see cref="AccountInformation"/>.

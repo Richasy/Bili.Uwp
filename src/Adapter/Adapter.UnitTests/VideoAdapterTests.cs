@@ -26,7 +26,7 @@ namespace Bili.Adapter.UnitTests
 
             imageAdapterMock.Setup(_ => _.ConvertToImage(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                             .Returns(new Models.Data.Appearance.Image(string.Empty));
-            userAdapterMock.Setup(_ => _.ConvertToPublisherProfile(It.IsAny<RecommendAvatar>(), Models.Enums.App.AvatarSize.Size48)).Returns(new Models.Data.User.PublisherProfile());
+            userAdapterMock.Setup(_ => _.ConvertToPublisherProfile(It.IsAny<RecommendAvatar>(), Models.Enums.App.AvatarSize.Size48)).Returns(new Models.Data.User.RoleProfile());
             communityAdapterMock.Setup(_ => _.ConvertToVideoCommunityInformation(It.IsAny<RecommendCard>())).Returns(new Models.Data.Community.VideoCommunityInformation(VideoId.ToString()));
 
             _videoAdapter = new VideoAdapter(communityAdapterMock.Object, userAdapterMock.Object, imageAdapterMock.Object);

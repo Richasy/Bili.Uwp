@@ -11,7 +11,7 @@ using Bilibili.App.View.V1;
 namespace Bili.Adapter
 {
     /// <summary>
-    /// 用户资料适配器，将来自 BiliBili 的用户数据转换为 <see cref="UserProfile"/> , <see cref="PublisherProfile"/> 或 <see cref="AccountInformation"/>.
+    /// 用户资料适配器，将来自 BiliBili 的用户数据转换为 <see cref="UserProfile"/> , <see cref="RoleProfile"/> 或 <see cref="AccountInformation"/>.
     /// </summary>
     public sealed class UserAdapter : IUserAdapter
     {
@@ -46,31 +46,38 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(PublisherInfo publisher, AvatarSize avatarSize)
+        public RoleProfile ConvertToRoleProfile(PublisherInfo publisher, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(publisher.Mid, publisher.Publisher, publisher.PublisherAvatar, avatarSize);
-            return new PublisherProfile(user);
+            return new RoleProfile(user);
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(Staff staff, AvatarSize avatarSize)
+        public RoleProfile ConvertToRoleProfile(Staff staff, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, avatarSize);
-            return new PublisherProfile(user, staff.Title);
+            return new RoleProfile(user, staff.Title);
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48)
+        public RoleProfile ConvertToRoleProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48)
         {
             var user = ConvertToUserProfile(avatar.UserId, avatar.UserName, avatar.Cover, avatarSize);
-            return new PublisherProfile(user);
+            return new RoleProfile(user);
         }
 
         /// <inheritdoc/>
-        public PublisherProfile ConvertToPublisherProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32)
+        public RoleProfile ConvertToRoleProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32)
         {
             var user = ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, avatarSize);
-            return new PublisherProfile(user);
+            return new RoleProfile(user);
+        }
+
+        /// <inheritdoc/>
+        public RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48)
+        {
+            var user = ConvertToUserProfile(celebrity.Id, celebrity.Name, celebrity.Avatar, avatarSize);
+            return new RoleProfile(user, celebrity.ShortDescription);
         }
 
         /// <inheritdoc/>

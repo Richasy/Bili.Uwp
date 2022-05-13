@@ -13,7 +13,7 @@
 
     <StackPanel Spacing="12">
         <Image
-            Width="100"
+            Width="200"
             HorizontalAlignment="Center"
             Source="ms-appx:///Assets/Null_rgba.png" />
         <TextBlock

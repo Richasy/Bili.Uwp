@@ -42,7 +42,7 @@ namespace Bili.Adapter.UnitTests
         }
 
         [Fact]
-        public void ConvertToPublisherProfile_Staff_Valid()
+        public void ConvertToRoleProfile_Staff_Valid()
         {
             var role = "参演";
             var staff = new Staff
@@ -52,7 +52,7 @@ namespace Bili.Adapter.UnitTests
                 Name = UserName,
                 Title = role,
             };
-            var publisher = _userAdapter.ConvertToPublisherProfile(staff, Models.Enums.App.AvatarSize.Size48);
+            var publisher = _userAdapter.ConvertToRoleProfile(staff, Models.Enums.App.AvatarSize.Size48);
 
             publisher.Should().NotBeNull();
             publisher.User.Should().NotBeNull();
@@ -63,7 +63,7 @@ namespace Bili.Adapter.UnitTests
         }
 
         [Fact]
-        public void ConvertToPublisherProfile_PublisherInfo_Valid()
+        public void ConvertToRoleProfile_PublisherInfo_Valid()
         {
             var role = "Publisher";
             var staff = new PublisherInfo
@@ -72,7 +72,7 @@ namespace Bili.Adapter.UnitTests
                 Mid = UserId,
                 Publisher = UserName,
             };
-            var publisher = _userAdapter.ConvertToPublisherProfile(staff, Models.Enums.App.AvatarSize.Size48);
+            var publisher = _userAdapter.ConvertToRoleProfile(staff, Models.Enums.App.AvatarSize.Size48);
 
             publisher.Should().NotBeNull();
             publisher.User.Should().NotBeNull();
@@ -83,7 +83,7 @@ namespace Bili.Adapter.UnitTests
         }
 
         [Fact]
-        public void ConvertToPublisherProfile_RecommendAvatar_Valid()
+        public void ConvertToRoleProfile_RecommendAvatar_Valid()
         {
             var avatar = new RecommendAvatar
             {
@@ -91,7 +91,7 @@ namespace Bili.Adapter.UnitTests
                 UserId = UserId,
                 UserName = UserName,
             };
-            var publisher = _userAdapter.ConvertToPublisherProfile(avatar);
+            var publisher = _userAdapter.ConvertToRoleProfile(avatar);
 
             publisher.Should().NotBeNull();
             publisher.User.Should().NotBeNull();
