@@ -11,7 +11,7 @@ namespace Bili.Models.Data.Pgc
     /// <summary>
     /// 剧集信息.
     /// </summary>
-    public sealed class SeasonInformation
+    public sealed class SeasonInformation : IVideoBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SeasonInformation"/> class.

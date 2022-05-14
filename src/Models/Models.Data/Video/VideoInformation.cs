@@ -10,7 +10,7 @@ namespace Bili.Models.Data.Video
     /// <summary>
     /// 视频基础信息.
     /// </summary>
-    public sealed class VideoInformation
+    public sealed class VideoInformation : IVideoBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoInformation"/> class.
@@ -59,9 +59,7 @@ namespace Bili.Models.Data.Video
             CommunityInformation = communityInformation;
         }
 
-        /// <summary>
-        /// 标识符.
-        /// </summary>
+        /// <inheritdoc/>
         public VideoIdentifier Identifier { get; }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace Bili.Models.Data.Pgc
     /// <summary>
     /// PGC内容的单集.
     /// </summary>
-    public sealed class EpisodeInformation
+    public sealed class EpisodeInformation : IVideoBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EpisodeInformation"/> class.
