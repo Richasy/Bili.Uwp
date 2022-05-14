@@ -117,11 +117,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<PartitionAdditionalDataChangedEventArgs> SubPartitionAdditionalDataChanged;
 
         /// <summary>
-        /// 在首页推荐中有新的视频列表传入时发生.
-        /// </summary>
-        public event EventHandler<RecommendVideoIterationEventArgs> RecommendVideoIteration;
-
-        /// <summary>
         /// 在热门有新的视频列表传入时发生.
         /// </summary>
         public event EventHandler<PopularVideoIterationEventArgs> PopularVideoIteration;
@@ -297,19 +292,27 @@ namespace Bili.Controller.Uwp
         private void RegisterToolkitServices()
         {
             var serviceCollection = new ServiceCollection()
-                .AddSingleton<IImageAdapter, ImageAdapter>()
-                .AddSingleton<IUserAdapter, UserAdapter>()
-                .AddSingleton<ICommunityAdapter, CommunityAdapter>()
+                .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<IAppToolkit, AppToolkit>()
                 .AddSingleton<IFileToolkit, FileToolkit>()
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
-                .AddSingleton<INumberToolkit, NumberToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>()
                 .AddSingleton<IMD5Toolkit, MD5Toolkit>()
-                .AddSingleton<IFontToolkit, FontToolkit>()
+                .AddSingleton<IFontToolkit, FontToolkit>();
+
+            serviceCollection
+                .AddSingleton<IImageAdapter, ImageAdapter>()
+                .AddSingleton<IUserAdapter, UserAdapter>()
+                .AddSingleton<ICommunityAdapter, CommunityAdapter>()
+                .AddSingleton<IVideoAdapter, VideoAdapter>()
+                .AddSingleton<IPgcAdapter, PgcAdapter>()
+                .AddSingleton<ILiveAdapter, LiveAdapter>();
+
+            serviceCollection
                 .AddSingleton<INetworkModule, NetworkModule>()
-                .AddSingleton<ILoggerModule, LoggerModule>()
-                .AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
+                .AddSingleton<ILoggerModule, LoggerModule>();
+
+            serviceCollection.AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
                 .AddSingleton<IPartitionProvider, PartitionProvider>()

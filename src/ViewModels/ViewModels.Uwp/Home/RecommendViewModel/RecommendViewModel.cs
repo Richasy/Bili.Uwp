@@ -4,106 +4,86 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Bili.Models.App.Args;
+using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
+using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 视频推荐视图模型.
     /// </summary>
-    public partial class RecommendViewModel : WebRequestViewModelBase, IDeltaRequestViewModel
+    public partial class RecommendViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecommendViewModel"/> class.
         /// </summary>
         internal RecommendViewModel()
         {
+            ServiceLocator.Instance.LoadService(out _resourceToolkit)
+                .LoadService(out _recommendProvider);
             VideoCollection = new ObservableCollection<VideoViewModel>();
-            _offsetIndex = 0;
-            Controller.RecommendVideoIteration += OnRecommendVideoIteration;
+
+            var canRequest = this.WhenAnyValue(
+                x => x.IsInitializing,
+                x => x.IsIncrementalLoading,
+                (isInitializing, isIncrementalLoading) => !isInitializing && !isIncrementalLoading);
+
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, canRequest, RxApp.MainThreadScheduler);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, canRequest, RxApp.MainThreadScheduler);
+
+            _isInitializing = InitializeCommand.IsExecuting.ToProperty(
+                this,
+                x => x.IsInitializing,
+                scheduler: RxApp.MainThreadScheduler);
+
+            _isIncrementalLoading = IncrementalCommand.IsExecuting.ToProperty(
+                this,
+                x => x.IsIncrementalLoading,
+                scheduler: RxApp.MainThreadScheduler);
+
+            InitializeCommand.ThrownExceptions.Subscribe(DisplayException);
+            IncrementalCommand.ThrownExceptions.Subscribe(LogException);
         }
 
-        /// <summary>
-        /// 请求数据.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestDataAsync()
+        private async Task InitializeAsync()
         {
-            if (!IsRequested)
-            {
-                await InitializeRequestAsync();
-            }
-            else
-            {
-                await DeltaRequestAsync();
-            }
-
-            IsRequested = _offsetIndex > 0;
+            VideoCollection.Clear();
+            _recommendProvider.Reset();
+            ClearException();
+            await GetDataAsync();
         }
 
-        /// <summary>
-        /// 初始化请求.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task InitializeRequestAsync()
-        {
-            if (!IsInitializeLoading && !IsDeltaLoading)
-            {
-                IsInitializeLoading = true;
-                Reset();
-                try
-                {
-                    await Controller.RequestRecommendCardsAsync(_offsetIndex);
-                }
-                catch (ServiceException ex)
-                {
-                    IsError = true;
-                    ErrorText = $"{ResourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestRecommendFailed)}\n{ex.Error?.Message ?? ex.Message}";
-                }
-                catch (InvalidOperationException invalidEx)
-                {
-                    IsError = true;
-                    ErrorText = invalidEx.Message;
-                }
+        private async Task IncrementalAsync()
+            => await GetDataAsync();
 
-                IsInitializeLoading = false;
+        private async Task GetDataAsync()
+        {
+            var videos = await _recommendProvider.RequestRecommendVideosAsync();
+            if (videos?.Any() ?? false)
+            {
+                videos.ToList().ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
             }
         }
 
-        /// <summary>
-        /// 增量请求.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task DeltaRequestAsync()
+        private void DisplayException(Exception exception)
         {
-            if (!IsInitializeLoading && !IsDeltaLoading)
-            {
-                IsDeltaLoading = true;
-                await Controller.RequestRecommendCardsAsync(_offsetIndex);
-                IsDeltaLoading = false;
-            }
+            IsError = true;
+            var msg = exception is ServiceException se
+                ? se.Error?.Message ?? se.Message
+                : exception.Message;
+            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestRecommendFailed)}\n{msg}";
+            LogException(exception);
         }
 
-        /// <summary>
-        /// 清空视图模型中已缓存的数据.
-        /// </summary>
-        public void Reset()
+        private void LogException(Exception exception)
+            => this.Log().Debug(exception);
+
+        private void ClearException()
         {
-            _offsetIndex = 0;
             IsError = false;
             ErrorText = string.Empty;
-            VideoCollection.Clear();
-        }
-
-        private void OnRecommendVideoIteration(object sender, RecommendVideoIterationEventArgs e)
-        {
-            _offsetIndex = e.OffsetIndex;
-
-            if (e.Cards?.Any() ?? false)
-            {
-                e.Cards.ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
-            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 
 namespace Bili.Lib.Uwp
@@ -10,5 +11,9 @@ namespace Bili.Lib.Uwp
     public partial class RecommendProvider
     {
         private readonly IHttpProvider _httpProvider;
+        private readonly IVideoAdapter _videoAdapter;
+        private readonly IPgcAdapter _pgcAdapter;
+
+        private long _offsetId;
     }
 }

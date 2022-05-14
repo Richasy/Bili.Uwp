@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.App.Controls;
@@ -25,7 +26,7 @@ namespace Bili.App.Pages
         public RecommendPage()
         {
             InitializeComponent();
-            Loaded += OnLoadedAsync;
+            Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -38,26 +39,25 @@ namespace Bili.App.Pages
         }
 
         /// <inheritdoc/>
-        public Task RefreshAsync()
-            => ViewModel.InitializeRequestAsync();
+        public async Task RefreshAsync()
+        {
+            ViewModel.InitializeCommand.Execute().Subscribe();
+            await Task.CompletedTask;
+        }
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (!ViewModel.VideoCollection.Any())
             {
-                await ViewModel.RequestDataAsync();
                 FindName(nameof(VideoView));
+                ViewModel.InitializeCommand.Execute().Subscribe();
             }
         }
 
-        private async void OnVideoViewRequestLoadMoreAsync(object sender, System.EventArgs e)
-        {
-            await ViewModel.RequestDataAsync();
-        }
+        private void OnVideoViewRequestLoadMore(object sender, EventArgs e)
+            => ViewModel.IncrementalCommand.Execute().Subscribe();
 
-        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await RefreshAsync();
-        }
+        private void OnRefreshButtonClick(object sender, RoutedEventArgs e)
+            => ViewModel.InitializeCommand.Execute().Subscribe();
     }
 }

@@ -15,6 +15,11 @@ namespace Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public string GetCountText(double count)
         {
+            if (count < 0)
+            {
+                return string.Empty;
+            }
+
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (count >= 100000000)
             {
@@ -50,7 +55,7 @@ namespace Bili.Toolkit.Uwp
                 return num * 100000000;
             }
 
-            return Convert.ToDouble(text);
+            return double.TryParse(text, out var number) ? number : -1;
         }
 
         /// <inheritdoc/>

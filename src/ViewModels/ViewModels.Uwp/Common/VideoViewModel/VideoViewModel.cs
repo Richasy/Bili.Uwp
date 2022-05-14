@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Live;
+using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
@@ -20,6 +23,33 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class VideoViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
+        /// </summary>
+        /// <param name="videoBase">视频基类.</param>
+        public VideoViewModel(IVideoBase videoBase)
+            : this()
+        {
+            Title = videoBase.Identifier.Title;
+            VideoId = videoBase.Identifier.Id;
+            CoverUrl = videoBase.Identifier.Cover.Uri;
+            Duration = videoBase.Identifier.Duration > 0
+                ? _numberToolkit.GetDurationText(TimeSpan.FromSeconds(videoBase.Identifier.Duration))
+                : "--";
+
+            if (videoBase is VideoInformation video)
+            {
+                InitializeVideoInformation(video);
+            }
+            else if (videoBase is EpisodeInformation episode)
+            {
+                InitializeEpisodeInformation(episode);
+            }
+            else if (videoBase is LiveInformation live)
+            {
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/> class.
         /// </summary>
@@ -392,6 +422,38 @@ namespace Bili.ViewModels.Uwp
         {
             SourceCoverUrl = coverUrl;
             CoverUrl = coverUrl + "@400w_250h_1c_100q.jpg";
+        }
+
+        private void InitializeVideoInformation(VideoInformation video)
+        {
+            PlayCount = _numberToolkit.GetCountText(video.CommunityInformation.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(video.CommunityInformation.DanmakuCount);
+            LikeCount = _numberToolkit.GetCountText(video.CommunityInformation.LikeCount);
+            ReplyCount = _numberToolkit.GetCountText(video.CommunityInformation.CommentCount);
+
+            if (video.Publisher != null)
+            {
+                var user = video.Publisher.User;
+                Publisher = new UserViewModel(user.Name, user.Avatar.Uri, Convert.ToInt32(user.Id));
+                CanShowAvatar = true;
+            }
+
+            Description = video.Subtitle ?? video.Description;
+            IsShowDescription = !string.IsNullOrEmpty(Description);
+            AdditionalText = video.CommunityInformation.RecommendReason;
+            VideoType = Models.Enums.VideoType.Video;
+        }
+
+        private void InitializeEpisodeInformation(EpisodeInformation episode)
+        {
+            PlayCount = _numberToolkit.GetCountText(episode.CommunityInformation.PlayCount);
+            DanmakuCount = _numberToolkit.GetCountText(episode.CommunityInformation.DanmakuCount);
+            LikeCount = _numberToolkit.GetCountText(episode.CommunityInformation.LikeCount);
+            ReplyCount = _numberToolkit.GetCountText(episode.CommunityInformation.CommentCount);
+            Description = episode.Subtitle;
+            IsShowDescription = !string.IsNullOrEmpty(Description);
+            AdditionalText = episode.CommunityInformation.RecommendReason ?? episode.Highlight;
+            VideoType = Models.Enums.VideoType.Pgc;
         }
     }
 }

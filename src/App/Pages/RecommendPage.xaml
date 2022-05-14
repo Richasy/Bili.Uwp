@@ -35,13 +35,13 @@
                 Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"
-                Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}"
-                    RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                    RequestLoadMore="OnVideoViewRequestLoadMore">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:VideoViewModel">
                             <controls:VideoCard
@@ -70,11 +70,11 @@
             </ScrollViewer>
         </Grid>
 
-        <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
+        <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializing, Mode=OneWay}" />
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionButtonClick="OnRefreshButtonClickAsync"
+            ActionButtonClick="OnRefreshButtonClick"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />

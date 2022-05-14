@@ -33,7 +33,7 @@ namespace Bili.Models.BiliBili
         /// 偏移值标识符.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "idx", Required = Required.Default)]
-        public int Index { get; set; }
+        public long Index { get; set; }
 
         /// <summary>
         /// 上下文菜单项列表.

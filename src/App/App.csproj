@@ -1216,6 +1216,10 @@
       <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
       <Name>Models.BiliBili</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models\Models.Data\Models.Data.csproj">
+      <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
+      <Name>Models.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-b020-415b-aeab-57adc43b273e}</Project>
       <Name>Models.Enums</Name>

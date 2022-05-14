@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Models.Enums\Models.Enums.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Response\" />
+  </ItemGroup>
+
 </Project>

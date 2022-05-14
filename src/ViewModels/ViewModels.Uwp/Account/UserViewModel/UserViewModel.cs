@@ -99,7 +99,8 @@ namespace Bili.ViewModels.Uwp
             : this(userId)
         {
             Name = userName ?? "--";
-            if (!string.IsNullOrEmpty(avatar))
+            Avatar = avatar;
+            if (!string.IsNullOrEmpty(avatar) && !avatar.EndsWith("100q.jpg"))
             {
                 Avatar = avatar + "@60w_60h_1c_100q.jpg";
             }
