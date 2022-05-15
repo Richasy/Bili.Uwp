@@ -12,6 +12,7 @@ using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Common;
 using Bilibili.App.View.V1;
@@ -188,6 +189,14 @@ namespace Bili.ViewModels.Uwp
             if (vm is VideoViewModel videoVM)
             {
                 HandleVideoViewModel(videoVM);
+            }
+            else if (vm is VideoInformation videoInfo)
+            {
+                videoId = videoInfo.Identifier.Id;
+                type = VideoType.Video;
+                title = videoInfo.Identifier.Title;
+                IsShowViewLater = false;
+                ViewLaterVideoCollection.Clear();
             }
             else if (vm is SeasonViewModel seasonVM)
             {

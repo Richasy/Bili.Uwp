@@ -69,12 +69,15 @@
     <Compile Include="Controls\App\ImageViewer.xaml.cs">
       <DependentUpon>ImageViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IOrientationControl.cs" />
     <Compile Include="Controls\Live\LiveAreaItem.xaml.cs">
       <DependentUpon>LiveAreaItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Live\LiveAreaView.xaml.cs">
       <DependentUpon>LiveAreaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Pgc\EpisodeItem\EpisodeItem.cs" />
+    <Compile Include="Controls\ReactiveControl.cs" />
     <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
       <DependentUpon>NotificationSettingSection.xaml</DependentUpon>
     </Compile>
@@ -348,6 +351,7 @@
       <DependentUpon>VideoFavoritePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.cs" />
+    <Compile Include="Controls\Videos\VideoItem\VideoItem.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
     <Compile Include="Pages\Overlay\MyFollowsPage.xaml.cs">
@@ -472,6 +476,7 @@
     <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
     <Compile Include="Resources\Extension\VisualTreeExtension.cs" />
+    <Compile Include="Resources\Selector\RecommendDataTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -638,6 +643,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Live\LiveAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Pgc\EpisodeItem\EpisodeItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1001,6 +1010,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Videos\VideoItem\VideoItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Overlay\MyFollowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1175,14 +1188,26 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.0-prerelease.220118001</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI">
+      <Version>18.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI.Uwp">
+      <Version>18.0.10</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>
     </PackageReference>
     <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
       <Version>1.1.150</Version>
+    </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>14.2.8</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

@@ -142,7 +142,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <returns>添加的结果.</returns>
-        Task<bool> AddVideoToViewLaterAsync(int videoId);
+        Task<bool> AddVideoToViewLaterAsync(string videoId);
 
         /// <summary>
         /// 将视频从稍后再看中移除.

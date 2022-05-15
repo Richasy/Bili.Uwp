@@ -6,6 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
+using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
+using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 
@@ -23,7 +27,7 @@ namespace Bili.ViewModels.Uwp
         {
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
                 .LoadService(out _recommendProvider);
-            VideoCollection = new ObservableCollection<VideoViewModel>();
+            VideoCollection = new ObservableCollection<IVideoBaseViewModel>();
 
             var canRequest = this.WhenAnyValue(
                 x => x.IsInitializing,
@@ -63,7 +67,21 @@ namespace Bili.ViewModels.Uwp
             var videos = await _recommendProvider.RequestRecommendVideosAsync();
             if (videos?.Any() ?? false)
             {
-                videos.ToList().ForEach(p => VideoCollection.Add(new VideoViewModel(p)));
+                foreach (var item in videos)
+                {
+                    IVideoBaseViewModel vm = null;
+                    if (item is VideoInformation videoInfo)
+                    {
+                        vm = Splat.Locator.Current.GetService<VideoItemViewModel>();
+                    }
+                    else if (item is EpisodeInformation episodeInfo)
+                    {
+                        vm = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
+                    }
+
+                    vm.SetInformation(item);
+                    VideoCollection.Add(vm);
+                }
             }
         }
 

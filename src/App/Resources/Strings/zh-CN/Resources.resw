@@ -1502,6 +1502,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="TotalUser" xml:space="preserve">
     <value>全部用户</value>
   </data>
+  <data name="TrackCount" xml:space="preserve">
+    <value>追番/追剧数</value>
+  </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>
   </data>

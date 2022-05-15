@@ -8,8 +8,28 @@
     xmlns:local="using:Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc1="using:Bili.App.Controls.Pgc"
+    xmlns:selector="using:Bili.App.Resources.Selector"
     xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
+
+    <local:AppPage.Resources>
+        <DataTemplate x:Key="VideoTemplate" x:DataType="video:VideoItemViewModel">
+            <videos:VideoItem ViewModel="{x:Bind}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="EpisodeTemplate" x:DataType="pgc:EpisodeItemViewModel">
+            <pgc1:EpisodeItem ViewModel="{x:Bind}" />
+        </DataTemplate>
+
+        <selector:RecommendDataTemplateSelector
+            x:Key="Selector"
+            EpisodeTemplate="{StaticResource EpisodeTemplate}"
+            VideoTemplate="{StaticResource VideoTemplate}" />
+    </local:AppPage.Resources>
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -40,33 +60,9 @@
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
+                    ItemTemplate="{StaticResource Selector}"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}"
-                    RequestLoadMore="OnVideoViewRequestLoadMore">
-                    <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <controls:VideoCard
-                                AdditionalOverlayContentVisibility="{x:Bind AdditionalText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}"
-                                IsShowAvatar="{x:Bind CanShowAvatar, Mode=OneWay}"
-                                IsShowDanmakuCount="{x:Bind DanmakuCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
-                                IsShowLikeCount="{x:Bind LikeCount, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}"
-                                IsShowPlayCount="True"
-                                ViewModel="{x:Bind Mode=OneWay}">
-                                <controls:VideoCard.AdditionalOverlayContent>
-                                    <Grid
-                                        Padding="8,4"
-                                        HorizontalAlignment="Left"
-                                        Background="{ThemeResource AccentMaskBrush}"
-                                        CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <TextBlock
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                            Text="{x:Bind AdditionalText, Mode=OneWay}" />
-                                    </Grid>
-                                </controls:VideoCard.AdditionalOverlayContent>
-                            </controls:VideoCard>
-                        </DataTemplate>
-                    </controls:VerticalRepeaterView.ItemTemplate>
-                </controls:VerticalRepeaterView>
+                    RequestLoadMore="OnVideoViewRequestLoadMore" />
             </ScrollViewer>
         </Grid>
 

@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// 视频集合.
         /// </summary>
-        public ObservableCollection<VideoViewModel> VideoCollection { get; }
+        public ObservableCollection<IVideoBaseViewModel> VideoCollection { get; }
 
         /// <summary>
         /// 是否正在初始化.

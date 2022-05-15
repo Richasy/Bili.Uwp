@@ -506,6 +506,7 @@ namespace Bili.Models.Enums
         StartQuickPlay,
         PublishDate,
         InfinityLoop,
+        TrackCount,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

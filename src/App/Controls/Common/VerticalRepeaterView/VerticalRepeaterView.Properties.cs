@@ -33,7 +33,7 @@ namespace Bili.App.Controls
         /// <see cref="ItemTemplate"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(VerticalRepeaterView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(object), typeof(VerticalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="AdditionalContent"/>的依赖属性.
@@ -82,7 +82,6 @@ namespace Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty VerticalCacheSizeProperty =
             DependencyProperty.Register(nameof(VerticalCacheSize), typeof(int), typeof(VerticalRepeaterView), new PropertyMetadata(10));
-
         /// <summary>
         /// 在外部的ScrollViewer滚动到接近底部时发生.
         /// </summary>
@@ -91,7 +90,7 @@ namespace Bili.App.Controls
         /// <summary>
         /// 条目模板.
         /// </summary>
-        public DataTemplate ItemTemplate
+        public object ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }

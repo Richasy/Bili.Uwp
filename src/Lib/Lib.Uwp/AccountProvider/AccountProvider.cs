@@ -214,11 +214,11 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AddVideoToViewLaterAsync(int videoId)
+        public async Task<bool> AddVideoToViewLaterAsync(string videoId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
             };
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterAdd, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);

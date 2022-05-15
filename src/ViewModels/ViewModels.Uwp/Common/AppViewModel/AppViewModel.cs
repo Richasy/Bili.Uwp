@@ -4,12 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Adapter;
+using Bili.Adapter.Interfaces;
 using Bili.Controller.Uwp;
+using Bili.Lib.Interfaces;
+using Bili.Lib.Uwp;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.Toolkit.Uwp;
+using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Uwp.Video;
+using Splat;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
 
@@ -26,6 +35,7 @@ namespace Bili.ViewModels.Uwp
         internal AppViewModel()
         {
             _controller = BiliController.Instance;
+            RegisterServices();
             IsBackButtonEnabled = true;
             CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
@@ -295,5 +305,42 @@ namespace Bili.ViewModels.Uwp
         }
 
         private void OnUpdateReceived(object sender, UpdateEventArgs e) => RequestShowUpdateDialog?.Invoke(this, e);
+
+        private void RegisterServices()
+        {
+            SplatRegistrations.RegisterLazySingleton<INumberToolkit, NumberToolkit>();
+            SplatRegistrations.RegisterLazySingleton<IAppToolkit, AppToolkit>();
+            SplatRegistrations.RegisterLazySingleton<IFileToolkit, FileToolkit>();
+            SplatRegistrations.RegisterLazySingleton<IResourceToolkit, ResourceToolkit>();
+            SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
+            SplatRegistrations.RegisterLazySingleton<IMD5Toolkit, MD5Toolkit>();
+            SplatRegistrations.RegisterLazySingleton<IFontToolkit, FontToolkit>();
+
+            SplatRegistrations.RegisterLazySingleton<IImageAdapter, ImageAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IUserAdapter, UserAdapter>();
+            SplatRegistrations.RegisterLazySingleton<ICommunityAdapter, CommunityAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IVideoAdapter, VideoAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IPgcAdapter, PgcAdapter>();
+            SplatRegistrations.RegisterLazySingleton<ILiveAdapter, LiveAdapter>();
+
+            SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
+            SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
+            SplatRegistrations.RegisterLazySingleton<IAccountProvider, AccountProvider>();
+            SplatRegistrations.RegisterLazySingleton<IPartitionProvider, PartitionProvider>();
+            SplatRegistrations.RegisterLazySingleton<IRankProvider, RankProvider>();
+            SplatRegistrations.RegisterLazySingleton<IRecommendProvider, RecommendProvider>();
+            SplatRegistrations.RegisterLazySingleton<IPopularProvider, PopularProvider>();
+            SplatRegistrations.RegisterLazySingleton<ILiveProvider, LiveProvider>();
+            SplatRegistrations.RegisterLazySingleton<ISpecialColumnProvider, SpecialColumnProvider>();
+            SplatRegistrations.RegisterLazySingleton<IPgcProvider, PgcProvider>();
+            SplatRegistrations.RegisterLazySingleton<IPlayerProvider, PlayerProvider>();
+            SplatRegistrations.RegisterLazySingleton<ISearchProvider, SearchProvider>();
+            SplatRegistrations.RegisterLazySingleton<ICommunityProvider, CommunityProvider>();
+            SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
+
+            SplatRegistrations.Register<VideoItemViewModel>();
+            SplatRegistrations.Register<EpisodeItemViewModel>();
+            SplatRegistrations.SetupIOC();
+        }
     }
 }

@@ -14,9 +14,12 @@
     <Compile Include="Common\CommandLineViewModel.cs" />
     <Compile Include="Common\LiveAppPlayLineViewModel.cs" />
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
+    <Compile Include="IVideoBaseViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowingViewModel.cs" />
+    <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.Properties.cs" />
+    <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
     <Compile Include="Toolbox\AvBvConverterViewModel.cs" />
     <Compile Include="Base\SelectableViewModelBase{T}.cs" />
@@ -138,6 +141,8 @@
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
+    <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.cs" />
+    <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.Properties.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -171,11 +176,27 @@
     <PackageReference Include="ReactiveUI.Uwp">
       <Version>18.0.10</Version>
     </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>14.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Splat.DependencyInjection.SourceGenerator">
+      <Version>1.1.33</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="ToolGood.Words">
       <Version>3.0.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adapter\Adapter.Implementation\Adapter.Implementation.csproj">
+      <Project>{9C3E4744-E870-490B-A7DB-1473A0DB355F}</Project>
+      <Name>Adapter.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj">
+      <Project>{3046F10C-456E-43D3-8F13-3855EE2D9344}</Project>
+      <Name>Adapter.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Controller\Controller.Uwp\Controller.Uwp.csproj">
       <Project>{5213e830-43f5-491e-a8ef-d75083578ef3}</Project>
       <Name>Controller.Uwp</Name>

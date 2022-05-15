@@ -390,7 +390,7 @@ namespace Bili.Controller.Uwp
 
             try
             {
-                var result = await _accountProvider.AddVideoToViewLaterAsync(videoId);
+                var result = await _accountProvider.AddVideoToViewLaterAsync(videoId.ToString());
                 return result;
             }
             catch (Exception ex)

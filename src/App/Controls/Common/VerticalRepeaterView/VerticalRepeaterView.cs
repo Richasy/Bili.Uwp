@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using Bili.App.Resources.Extension;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml;
@@ -74,7 +75,7 @@ namespace Bili.App.Controls
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VerticalRepeaterView;
-            if (e.NewValue is Orientation type)
+            if (e.NewValue is Orientation)
             {
                 instance.CheckOrientationStatus();
             }
@@ -137,11 +138,18 @@ namespace Bili.App.Controls
                 for (var i = 0; i < items.Count; i++)
                 {
                     var element = _itemsRepeater?.TryGetElement(i);
-                    if (element != null && element is IDynamicLayoutItem vi)
+                    if (element != null)
                     {
-                        if (vi.Orientation != ItemOrientation)
+                        if (element is IDynamicLayoutItem vi)
                         {
-                            vi.Orientation = ItemOrientation;
+                            if (vi.Orientation != ItemOrientation)
+                            {
+                                vi.Orientation = ItemOrientation;
+                            }
+                        }
+                        else if (element is IOrientationControl oc)
+                        {
+                            oc.ChangeLayout(ItemOrientation);
                         }
                     }
                 }
@@ -152,6 +160,11 @@ namespace Bili.App.Controls
         {
             if (args.Element != null)
             {
+                if (args.Element is IOrientationControl orientationControl)
+                {
+                    orientationControl.ChangeLayout(ItemOrientation);
+                }
+
                 if (args.Element is IDynamicLayoutItem dynamicLayoutItem)
                 {
                     dynamicLayoutItem.Orientation = ItemOrientation;
