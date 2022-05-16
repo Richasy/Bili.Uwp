@@ -90,7 +90,7 @@
                                     IsShowDuration="True"
                                     IsShowPlayCount="True"
                                     ItemClick="OnVideoCardClick"
-                                    ViewModel="{x:Bind}">
+                                    ViewModel="{x:Bind Mode=OneWay}">
                                     <local:VideoCard.ContextFlyout>
                                         <muxc:CommandBarFlyout Opening="OnVideoFlyoutOpening">
                                             <muxc:CommandBarFlyout.SecondaryCommands>
