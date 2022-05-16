@@ -117,11 +117,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<PartitionAdditionalDataChangedEventArgs> SubPartitionAdditionalDataChanged;
 
         /// <summary>
-        /// 在热门有新的视频列表传入时发生.
-        /// </summary>
-        public event EventHandler<PopularVideoIterationEventArgs> PopularVideoIteration;
-
-        /// <summary>
         /// 在直播源的附加数据发生改变时发生.
         /// </summary>
         public event EventHandler<LiveFeedAdditionalDataChangedEventArgs> LiveFeedAdditionalDataChanged;

@@ -3,7 +3,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.Data.Video;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Show.V1;
 
@@ -19,19 +22,24 @@ namespace Bili.Lib.Uwp
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
         /// <param name="authorizeProvider">授权工具.</param>
-        public PopularProvider(IHttpProvider httpProvider, IAuthorizeProvider authorizeProvider)
+        /// <param name="videoAdapter">视频数据适配工具.</param>
+        public PopularProvider(
+            IHttpProvider httpProvider,
+            IAuthorizeProvider authorizeProvider,
+            IVideoAdapter videoAdapter)
         {
-            this._httpProvider = httpProvider;
-            this._authorizeProvider = authorizeProvider;
+            _httpProvider = httpProvider;
+            _authorizeProvider = authorizeProvider;
+            _videoAdapter = videoAdapter;
         }
 
         /// <inheritdoc/>
-        public async Task<List<Card>> GetPopularDetailAsync(int offsetIndex)
+        public async Task<IEnumerable<VideoInformation>> RequestPopularVideosAsync()
         {
             var isLogin = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             var popularReq = new PopularResultReq()
             {
-                Idx = offsetIndex,
+                Idx = _offsetId,
                 LoginEvent = isLogin ? 2 : 1,
                 Qn = 112,
                 Fnval = 464,
@@ -43,10 +51,19 @@ namespace Bili.Lib.Uwp
                     Fnval = 464,
                 },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(Models.App.Constants.ApiConstants.Home.PopularGRPC, popularReq);
+            var request = await _httpProvider.GetRequestMessageAsync(ApiConstants.Home.PopularGRPC, popularReq);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, PopularReply.Parser);
-            return data.Items.ToList();
+            var result = data.Items
+                .Where(p => p.ItemCase == Card.ItemOneofCase.SmallCoverV5)
+                .Where(p => p.SmallCoverV5 != null)
+                .Where(p => p.SmallCoverV5.Base.CardGoto == ServiceConstants.Av)
+                .Select(p => _videoAdapter.ConvertToVideoInformation(p));
+            _offsetId = data.Items.Where(p => p.SmallCoverV5 != null).Last().SmallCoverV5.Base.Idx;
+            return result;
         }
+
+        /// <inheritdoc/>
+        public void Reset() => _offsetId = 0;
     }
 }

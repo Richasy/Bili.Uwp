@@ -82,10 +82,14 @@ namespace Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty VerticalCacheSizeProperty =
             DependencyProperty.Register(nameof(VerticalCacheSize), typeof(int), typeof(VerticalRepeaterView), new PropertyMetadata(10));
+
         /// <summary>
         /// 在外部的ScrollViewer滚动到接近底部时发生.
         /// </summary>
         public event EventHandler RequestLoadMore;
+
+        /// <inheritdoc/>
+        public event EventHandler IncrementalTriggered;
 
         /// <summary>
         /// 条目模板.

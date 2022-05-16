@@ -1,22 +1,22 @@
-﻿<local:AppPage
+﻿<local:RecommendPageBase
     x:Class="Bili.App.Pages.RecommendPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
     xmlns:pgc1="using:Bili.App.Controls.Pgc"
     xmlns:selector="using:Bili.App.Resources.Selector"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
 
-    <local:AppPage.Resources>
+    <local:RecommendPageBase.Resources>
         <DataTemplate x:Key="VideoTemplate" x:DataType="video:VideoItemViewModel">
             <videos:VideoItem ViewModel="{x:Bind}" />
         </DataTemplate>
@@ -29,7 +29,11 @@
             x:Key="Selector"
             EpisodeTemplate="{StaticResource EpisodeTemplate}"
             VideoTemplate="{StaticResource VideoTemplate}" />
-    </local:AppPage.Resources>
+    </local:RecommendPageBase.Resources>
+
+    <Interactivity:Interaction.Behaviors>
+        <behaviors:InitializeOrReloadBehavior />
+    </Interactivity:Interaction.Behaviors>
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -55,24 +59,26 @@
                 Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"
-                Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
                     ItemTemplate="{StaticResource Selector}"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection}"
-                    RequestLoadMore="OnVideoViewRequestLoadMore" />
+                    ItemsSource="{x:Bind ViewModel.VideoCollection}">
+                    <Interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </Interactivity:Interaction.Behaviors>
+                </controls:VerticalRepeaterView>
             </ScrollViewer>
         </Grid>
 
-        <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializing, Mode=OneWay}" />
+        <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionButtonClick="OnRefreshButtonClick"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
     </Grid>
-</local:AppPage>
+</local:RecommendPageBase>

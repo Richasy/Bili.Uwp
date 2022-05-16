@@ -23,7 +23,6 @@
     <Compile Include="BiliController.SpecialColumn.cs" />
     <Compile Include="BiliController.Live.cs" />
     <Compile Include="BiliController.Partition.cs" />
-    <Compile Include="BiliController.Popular.cs" />
     <Compile Include="BiliController.Rank.cs" />
     <Compile Include="BiliController.Player.cs" />
     <Compile Include="BiliController.Update.cs" />

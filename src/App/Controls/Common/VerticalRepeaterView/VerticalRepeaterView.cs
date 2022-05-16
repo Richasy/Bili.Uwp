@@ -13,7 +13,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// 视频视图.
     /// </summary>
-    public sealed partial class VerticalRepeaterView : Control
+    public sealed partial class VerticalRepeaterView : Control, IIncrementalControl
     {
         private ScrollViewer _parentScrollViewer;
         private ItemsRepeater _itemsRepeater;
@@ -127,6 +127,7 @@ namespace Bili.App.Controls
                     Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                    IncrementalTriggered?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -194,6 +195,7 @@ namespace Bili.App.Controls
                     if (isNeedLoadMore)
                     {
                         RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                        IncrementalTriggered?.Invoke(this, EventArgs.Empty);
                     }
                 }
             }

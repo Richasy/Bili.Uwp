@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -8,7 +9,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// 错误面板，用于显示指定的错误内容.
     /// </summary>
-    public sealed partial class ErrorPanel : UserControl
+    public sealed partial class ErrorPanel : UserControl, IActivatableControl
     {
         /// <summary>
         /// <see cref="Text"/>的依赖属性.
@@ -35,6 +36,9 @@ namespace Bili.App.Controls
         /// </summary>
         public event RoutedEventHandler ActionButtonClick;
 
+        /// <inheritdoc/>
+        public event EventHandler Activated;
+
         /// <summary>
         /// 错误文本.
         /// </summary>
@@ -56,6 +60,7 @@ namespace Bili.App.Controls
         private void OnActionButtonClick(object sender, RoutedEventArgs e)
         {
             ActionButtonClick?.Invoke(sender, e);
+            Activated?.Invoke(sender, EventArgs.Empty);
         }
     }
 }

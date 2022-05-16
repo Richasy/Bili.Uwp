@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 
 namespace Bili.Lib.Uwp
@@ -11,5 +12,8 @@ namespace Bili.Lib.Uwp
     {
         private readonly IHttpProvider _httpProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
+        private readonly IVideoAdapter _videoAdapter;
+
+        private long _offsetId;
     }
 }

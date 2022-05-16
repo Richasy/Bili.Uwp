@@ -2,20 +2,19 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Bilibili.App.Card.V1;
+using Bili.Models.Data.Video;
 
 namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 热门数据处理.
     /// </summary>
-    public interface IPopularProvider
+    public interface IPopularProvider : IResetProvider
     {
         /// <summary>
         /// 获取热门详情.
         /// </summary>
-        /// <param name="offsetIndex">偏移值Id.</param>
-        /// <returns>排行榜信息.</returns>
-        Task<List<Card>> GetPopularDetailAsync(int offsetIndex);
+        /// <returns>热门视频信息.</returns>
+        Task<IEnumerable<VideoInformation>> RequestPopularVideosAsync();
     }
 }

@@ -256,6 +256,11 @@ namespace Bili.App.Controls
                 await page.RefreshAsync();
                 RefreshButton.IsEnabled = true;
             }
+            else if (MainFrame.Content is AppPage appPage
+                && appPage.GetViewModel() is IReloadViewModel reloadVM)
+            {
+                reloadVM.ReloadCommand.Execute().Subscribe();
+            }
         }
 
         private void OnMainFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)

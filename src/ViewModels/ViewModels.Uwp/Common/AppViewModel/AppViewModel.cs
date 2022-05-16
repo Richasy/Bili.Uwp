@@ -338,6 +338,8 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ICommunityProvider, CommunityProvider>();
             SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
 
+            SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.SetupIOC();

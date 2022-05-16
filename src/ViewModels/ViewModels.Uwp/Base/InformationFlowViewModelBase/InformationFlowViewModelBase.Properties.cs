@@ -1,34 +1,31 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Base
 {
     /// <summary>
-    /// 视频推荐视图模型.
+    /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
-    public partial class RecommendViewModel
+    public partial class InformationFlowViewModelBase
     {
-        private readonly IRecommendProvider _recommendProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly ObservableAsPropertyHelper<bool> _isInitializing;
+        private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
-
-        /// <summary>
-        /// <see cref="RecommendViewModel"/>的静态实例.
-        /// </summary>
-        public static RecommendViewModel Instance { get; } = new Lazy<RecommendViewModel>(() => new RecommendViewModel()).Value;
 
         /// <summary>
         /// 初始化命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+
+        /// <summary>
+        /// 重新加载命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
         /// <summary>
         /// 增量请求命令.
@@ -43,7 +40,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// 是否正在初始化.
         /// </summary>
-        public bool IsInitializing => _isInitializing?.Value ?? false;
+        public bool IsReloading => _isReloading?.Value ?? false;
 
         /// <summary>
         /// 是否正在增量加载.
