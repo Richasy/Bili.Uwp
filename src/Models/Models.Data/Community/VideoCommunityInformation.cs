@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
-
 namespace Bili.Models.Data.Community
 {
     /// <summary>
@@ -25,7 +23,6 @@ namespace Bili.Models.Data.Community
         /// <param name="commentCount">评论数.</param>
         /// <param name="shareCount">分享次数.</param>
         /// <param name="trackCount">追番/追剧数.</param>
-        /// <param name="recommendReason">推荐理由.</param>
         /// <remarks>
         /// 对于数字类型的参数来说，默认值是 -1，表示暂时没有该类型的值输入.
         /// </remarks>
@@ -39,8 +36,7 @@ namespace Bili.Models.Data.Community
             double coinCount = -1,
             double commentCount = -1,
             double shareCount = -1,
-            double trackCount = -1,
-            string recommendReason = "")
+            double trackCount = -1)
         {
             Id = videoId;
             PlayCount = playCount;
@@ -52,7 +48,6 @@ namespace Bili.Models.Data.Community
             CommentCount = commentCount;
             ShareCount = shareCount;
             TrackCount = trackCount;
-            RecommendReason = recommendReason;
         }
 
         /// <summary>
@@ -113,19 +108,6 @@ namespace Bili.Models.Data.Community
         /// 在排行榜一类的视频中，会有视频综合评分，这也是社区交互数据.
         /// </remarks>
         public double Score { get; set; }
-
-        /// <summary>
-        /// 视频的推荐理由.
-        /// </summary>
-        /// <remarks>
-        /// 在视频推荐或者热门视频中，会有视频的推荐理由，这相当于一个实时标签.
-        /// </remarks>
-        public string RecommendReason { get; }
-
-        /// <summary>
-        /// 视频标签列表.
-        /// </summary>
-        public IEnumerable<Tag> Tags { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoCommunityInformation information && Id == information.Id;

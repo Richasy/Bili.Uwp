@@ -67,11 +67,11 @@
                                         VerticalAlignment="Top"
                                         Background="{ThemeResource AccentMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowBadge, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.RecommendReason}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight}" />
                                     </Grid>
                                 </Grid>
 
@@ -200,11 +200,11 @@
                                         VerticalAlignment="Top"
                                         Background="{ThemeResource AccentMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowBadge, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.RecommendReason}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight}" />
                                     </Grid>
                                 </Grid>
                                 <Grid

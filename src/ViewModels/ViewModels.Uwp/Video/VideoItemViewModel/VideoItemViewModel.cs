@@ -52,14 +52,10 @@ namespace Bili.ViewModels.Uwp.Video
             LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
 
             IsShowScore = Information.CommunityInformation?.Score > 0;
-            IsShowDuration = Information.Identifier.Duration > 0;
-            if (IsShowDuration)
+            if (Information.Identifier.Duration > 0)
             {
                 DurationText = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(Information.Identifier.Duration));
             }
-
-            IsShowBadge = !string.IsNullOrEmpty(Information.CommunityInformation.RecommendReason);
-            IsShowAvatar = Information.Publisher != null;
         }
 
         private void Play()

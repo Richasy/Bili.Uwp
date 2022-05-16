@@ -51,12 +51,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         public string TrackCountText { get; internal set; }
 
         /// <summary>
-        /// 是否显示徽章内容.
-        /// </summary>
-        [Reactive]
-        public bool IsShowBadge { get; internal set; }
-
-        /// <summary>
         /// 是否被选中.
         /// </summary>
         [Reactive]

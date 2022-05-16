@@ -71,8 +71,7 @@ namespace Bili.Adapter
                 videoCard.Parameter,
                 playCount: playCount,
                 danmakuCount: danmakuCount,
-                trackCount: trackCount,
-                recommendReason: recommendReason);
+                trackCount: trackCount);
         }
 
         /// <inheritdoc/>
@@ -127,8 +126,7 @@ namespace Bili.Adapter
             var playCount = _numberToolkit.GetCountNumber(share.PlayNumber, "次");
             return new VideoCommunityInformation(
                 share.Aid.ToString(),
-                playCount,
-                recommendReason: hotVideo.SmallCoverV5.RcmdReasonStyle?.Text ?? string.Empty);
+                playCount);
         }
 
         /// <inheritdoc/>

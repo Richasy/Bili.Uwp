@@ -68,12 +68,14 @@ namespace Bili.Adapter
                     : 0;
             var subtitle = videoCard.Description;
             var cover = _imageAdapter.ConvertToVideoCardCover(videoCard.Cover);
+            var highlight = videoCard.RecommendReason;
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
                 identifier,
                 publisher,
                 subtitle: subtitle,
+                highlight: highlight,
                 communityInformation: communityInfo);
         }
 
@@ -185,6 +187,7 @@ namespace Bili.Adapter
             var duration = _numberToolkit.GetDurationSeconds(v5.CoverRightText1);
             var cover = _imageAdapter.ConvertToVideoCardCover(card.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(hotVideo);
+            var highlight = hotVideo.SmallCoverV5.RcmdReasonStyle?.Text ?? string.Empty;
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
 
@@ -194,6 +197,7 @@ namespace Bili.Adapter
                 bvId,
                 description: description,
                 subtitle: subtitle,
+                highlight: highlight,
                 communityInformation: communityInfo);
         }
 
@@ -334,6 +338,8 @@ namespace Bili.Adapter
                     .Identifier;
             }
 
+            var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
+
             return new VideoView(
                 videoInfo,
                 publisherCommunity,
@@ -342,7 +348,8 @@ namespace Bili.Adapter
                 relatedVideos,
                 history,
                 operation,
-                interaction);
+                interaction,
+                tags);
         }
 
         private VideoInformation GetVideoInformationFromEpisode(Episode episode)
@@ -368,7 +375,6 @@ namespace Bili.Adapter
             var bvid = videoDetail.Bvid;
             var duration = Convert.ToInt32(arc.Duration);
             var cover = _imageAdapter.ConvertToImage(arc.Pic);
-            var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
             var collaborators = videoDetail.Staff.Count > 0
                 ? videoDetail.Staff.Select(p => _userAdapter.ConvertToRoleProfile(p, Models.Enums.App.AvatarSize.Size32))
                 : null;
@@ -378,7 +384,6 @@ namespace Bili.Adapter
             var description = arc.Desc;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).ToLocalTime().DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);
-            communityInfo.Tags = tags;
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(

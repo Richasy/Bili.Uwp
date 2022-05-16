@@ -42,7 +42,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
             DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
-            IsShowBadge = !string.IsNullOrEmpty(Information.Highlight);
         }
 
         private void Play()

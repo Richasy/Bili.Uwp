@@ -22,6 +22,7 @@ namespace Bili.Models.Data.Video
         /// <param name="progress">播放进度.</param>
         /// <param name="operation">视频操作信息.</param>
         /// <param name="interactionVideo">互动视频信息.</param>
+        /// <param name="tags">视频标签列表.</param>
         public VideoView(
             VideoInformation information,
             UserCommunityInformation publisherCommunityInformation,
@@ -30,7 +31,8 @@ namespace Bili.Models.Data.Video
             IEnumerable<VideoInformation> relatedVideos,
             PlayedProgress progress,
             VideoOpeartionInformation operation,
-            InteractionVideoRecord interactionVideo)
+            InteractionVideoRecord interactionVideo,
+            IEnumerable<Tag> tags)
         {
             Information = information;
             PublisherCommunityInformation = publisherCommunityInformation;
@@ -40,6 +42,7 @@ namespace Bili.Models.Data.Video
             Progress = progress;
             Operation = operation;
             InteractionVideo = interactionVideo;
+            Tags = tags;
         }
 
         /// <summary>
@@ -81,6 +84,11 @@ namespace Bili.Models.Data.Video
         /// 互动视频记录点.
         /// </summary>
         public InteractionVideoRecord InteractionVideo { get; }
+
+        /// <summary>
+        /// 视频标签列表.
+        /// </summary>
+        public IEnumerable<Tag> Tags { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoView view && EqualityComparer<VideoInformation>.Default.Equals(Information, view.Information);

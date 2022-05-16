@@ -39,6 +39,7 @@ namespace Bili.Models.Data.Video
         /// <param name="publishTime">视频发布时间.</param>
         /// <param name="collaborators">视频合作者信息.</param>
         /// <param name="communityInformation">社区信息.</param>
+        /// <param name="highlight">推荐理由.</param>
         public VideoInformation(
             VideoIdentifier identifier,
             RoleProfile publisher,
@@ -47,7 +48,8 @@ namespace Bili.Models.Data.Video
             string subtitle = "",
             DateTime publishTime = default,
             IEnumerable<RoleProfile> collaborators = null,
-            VideoCommunityInformation communityInformation = null)
+            VideoCommunityInformation communityInformation = null,
+            string highlight = default)
         {
             Identifier = identifier;
             Publisher = publisher;
@@ -57,6 +59,7 @@ namespace Bili.Models.Data.Video
             Subtitle = subtitle;
             PublishTime = publishTime;
             CommunityInformation = communityInformation;
+            Highlight = highlight;
         }
 
         /// <inheritdoc/>
@@ -97,6 +100,14 @@ namespace Bili.Models.Data.Video
         /// 视频副标题.
         /// </summary>
         public string Subtitle { get; }
+
+        /// <summary>
+        /// 高亮文本.
+        /// </summary>
+        /// <remarks>
+        /// 在视频推荐或者热门视频中，会有视频的推荐理由，这相当于一个实时标签.
+        /// </remarks>
+        public string Highlight { get; }
 
         /// <summary>
         /// 社区交互数据.

@@ -77,7 +77,7 @@
                                         Background="{ThemeResource AppMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
                                         RequestedTheme="Dark"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDuration, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
                                     </Grid>
 
@@ -89,11 +89,11 @@
                                         VerticalAlignment="Top"
                                         Background="{ThemeResource AccentMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowBadge, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.RecommendReason}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight}" />
                                     </Grid>
                                 </Grid>
 
@@ -101,7 +101,7 @@
                                     Margin="0,0,12,-18"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowAvatar, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
                                     <Ellipse
                                         Width="40"
                                         Height="40"
@@ -263,7 +263,7 @@
                                         Background="{ThemeResource AppMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
                                         RequestedTheme="Dark"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowDuration, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
                                     </Grid>
 
@@ -275,11 +275,11 @@
                                         VerticalAlignment="Top"
                                         Background="{ThemeResource AccentMaskBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowBadge, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.RecommendReason}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight}" />
                                     </Grid>
                                 </Grid>
                                 <Grid

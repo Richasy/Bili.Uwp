@@ -71,24 +71,6 @@ namespace Bili.ViewModels.Uwp.Video
         public bool IsShowScore { get; internal set; }
 
         /// <summary>
-        /// 是否显示时长.
-        /// </summary>
-        [Reactive]
-        public bool IsShowDuration { get; internal set; }
-
-        /// <summary>
-        /// 是否显示徽章内容.
-        /// </summary>
-        [Reactive]
-        public bool IsShowBadge { get; internal set; }
-
-        /// <summary>
-        /// 是否显示头像.
-        /// </summary>
-        [Reactive]
-        public bool IsShowAvatar { get; internal set; }
-
-        /// <summary>
         /// 是否被选中.
         /// </summary>
         [Reactive]
