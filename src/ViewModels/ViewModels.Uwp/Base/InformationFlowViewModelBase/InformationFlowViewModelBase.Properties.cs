@@ -2,10 +2,10 @@
 
 using System.Collections.ObjectModel;
 using System.Reactive;
-using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// </summary>
     public partial class InformationFlowViewModelBase
     {
-        private readonly IResourceToolkit _resourceToolkit;
+        private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
 

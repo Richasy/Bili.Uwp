@@ -7,6 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -18,6 +19,7 @@ namespace Bili.ViewModels.Uwp.Community
     public sealed partial class PartitionDetailPageViewModel
     {
         private readonly IPartitionProvider _partitionProvider;
+        private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
         private readonly ObservableAsPropertyHelper<bool> _isShowBanner;
         private readonly ObservableAsPropertyHelper<bool> _isRecommendPartition;

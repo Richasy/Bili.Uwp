@@ -34,7 +34,7 @@ namespace Bili.ViewModels.Uwp
                     VideoCollection = new ObservableCollection<VideoViewModel>();
                     IsEnabled = true;
                     Controller.VideoSearchIteration += OnVideoSearchIteration;
-                    InitializeVideoFiltersAsync();
+                    InitializeVideoFilters();
                     break;
                 case SearchModuleType.Bangumi:
                     PgcCollection = new ObservableCollection<SeasonViewModel>();
@@ -320,7 +320,7 @@ namespace Bili.ViewModels.Uwp
             return result;
         }
 
-        private async void InitializeVideoFiltersAsync()
+        private void InitializeVideoFilters()
         {
             OrderCollection = new ObservableCollection<KeyValue<string>>();
             VideoDurationCollection = new ObservableCollection<KeyValue<string>>();
@@ -337,15 +337,15 @@ namespace Bili.ViewModels.Uwp
             VideoDurationCollection.Add(new KeyValue<string>("3", ResourceToolkit.GetLocaleString(LanguageNames.FilterByLessThan60Min)));
             VideoDurationCollection.Add(new KeyValue<string>("4", ResourceToolkit.GetLocaleString(LanguageNames.FilterByGreaterThan60Min)));
 
-            var totalPartition = PartitionModuleViewModel.Instance.PartitionCollection;
-            if (totalPartition.Count == 0)
-            {
-                await PartitionModuleViewModel.Instance.InitializeAllPartitionAsync();
-                totalPartition = PartitionModuleViewModel.Instance.PartitionCollection;
-            }
+            // var totalPartition = PartitionModuleViewModel.Instance.PartitionCollection;
+            // if (totalPartition.Count == 0)
+            // {
+            //    await PartitionModuleViewModel.Instance.InitializeAllPartitionAsync();
+            //    totalPartition = PartitionModuleViewModel.Instance.PartitionCollection;
+            // }
 
-            totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.PartitionId.ToString(), p.Title)));
-            PartitionCollection.Insert(0, new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.Total)));
+            // totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.PartitionId.ToString(), p.Title)));
+            // PartitionCollection.Insert(0, new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.Total)));
         }
 
         private async void InitializeArticleFiltersAsync()

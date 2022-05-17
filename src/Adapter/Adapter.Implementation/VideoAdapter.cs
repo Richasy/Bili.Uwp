@@ -19,6 +19,7 @@ using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
 using Bilibili.App.Show.V1;
 using Bilibili.App.View.V1;
+using Humanizer;
 
 namespace Bili.Adapter
 {
@@ -154,11 +155,13 @@ namespace Bili.Adapter
             var publisher = new RoleProfile(user);
             var cover = _imageAdapter.ConvertToVideoCardCover(rankVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(rankVideo);
+            var subtitle = $"{user.Name} · {publishTime.Humanize()}";
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
                 identifier,
                 publisher,
+                subtitle: subtitle,
                 publishTime: publishTime.DateTime,
                 communityInformation: communityInfo);
         }

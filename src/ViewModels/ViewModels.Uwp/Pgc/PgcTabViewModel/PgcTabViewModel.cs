@@ -45,7 +45,6 @@ namespace Bili.ViewModels.Uwp
         {
             Controller.PgcModuleAdditionalDataChanged += OnPgcModuleAdditionalDataChangedAsync;
             Controller.PgcModuleIteration += OnPgcModuleIteration;
-            Controller.SubPartitionVideoIteration += OnVideoIteration;
             IsActivate = true;
         }
 
@@ -56,7 +55,6 @@ namespace Bili.ViewModels.Uwp
         {
             Controller.PgcModuleAdditionalDataChanged -= OnPgcModuleAdditionalDataChangedAsync;
             Controller.PgcModuleIteration -= OnPgcModuleIteration;
-            Controller.SubPartitionVideoIteration -= OnVideoIteration;
             IsActivate = false;
         }
 

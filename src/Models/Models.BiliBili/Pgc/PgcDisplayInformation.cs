@@ -680,7 +680,7 @@ namespace Bili.Models.BiliBili
         /// 综合评分.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "score", Required = Required.Default)]
-        public double Score { get; set; }
+        public long Score { get; set; }
     }
 
     /// <summary>

@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 
 namespace Bili.Lib.Interfaces
@@ -29,5 +30,12 @@ namespace Bili.Lib.Interfaces
             string subPartitionId,
             bool isRecommend,
             VideoSortType sortType = VideoSortType.Default);
+
+        /// <summary>
+        /// 获取排行榜详情.
+        /// </summary>
+        /// <param name="partitionId">分区Id. 如果是全区则为0.</param>
+        /// <returns>排行榜信息.</returns>
+        Task<IEnumerable<VideoInformation>> GetRankDetailAsync(string partitionId);
     }
 }

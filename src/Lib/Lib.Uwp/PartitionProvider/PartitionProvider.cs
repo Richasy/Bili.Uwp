@@ -9,8 +9,10 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bilibili.App.Show.V1;
 using static Bili.Models.App.Constants.AppConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
@@ -172,6 +174,16 @@ namespace Bili.Lib.Uwp
             UpdateCache();
 
             return new PartitionView(id, videos, banners);
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<VideoInformation>> GetRankDetailAsync(string partitionId)
+        {
+            var rankRequst = new RankRegionResultReq() { Rid = System.Convert.ToInt32(partitionId) };
+            var request = await _httpProvider.GetRequestMessageAsync(ApiConstants.Home.RankingGRPC, rankRequst);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, RankListReply.Parser);
+            return data.Items.ToList().Select(p => _videoAdapter.ConvertToVideoInformation(p));
         }
 
         /// <inheritdoc/>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Lib.Interfaces;
+using Bili.Toolkit.Interfaces;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -10,5 +11,6 @@ namespace Bili.ViewModels.Uwp
     public partial class RecommendPageViewModel
     {
         private readonly IRecommendProvider _recommendProvider;
+        private readonly IResourceToolkit _resourceToolkit;
     }
 }

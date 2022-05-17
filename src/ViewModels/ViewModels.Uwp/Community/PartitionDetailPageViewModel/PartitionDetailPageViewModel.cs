@@ -16,6 +16,7 @@ using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -29,11 +30,14 @@ namespace Bili.ViewModels.Uwp.Community
         /// </summary>
         /// <param name="resourceToolkit">本地资源工具.</param>
         /// <param name="partitionProvider">分区服务提供工具.</param>
+        /// <param name="coreDispatcher">UI调度程序.</param>
         public PartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
-            IPartitionProvider partitionProvider)
-            : base(resourceToolkit)
+            IPartitionProvider partitionProvider,
+            CoreDispatcher coreDispatcher)
+            : base(coreDispatcher)
         {
+            _resourceToolkit = resourceToolkit;
             _partitionProvider = partitionProvider;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
@@ -84,6 +88,10 @@ namespace Bili.ViewModels.Uwp.Community
         /// <inheritdoc/>
         protected override void BeforeReload()
             => _partitionProvider.Reset();
+
+        /// <inheritdoc/>
+        protected override string FormatException(string errorMsg)
+            => $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSubPartitionFailed)}\n{errorMsg}";
 
         /// <inheritdoc/>
         protected override async Task GetDataAsync()

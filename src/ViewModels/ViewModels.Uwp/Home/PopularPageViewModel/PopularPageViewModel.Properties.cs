@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Lib.Interfaces;
+using Bili.Toolkit.Interfaces;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -10,5 +11,6 @@ namespace Bili.ViewModels.Uwp
     public sealed partial class PopularPageViewModel
     {
         private readonly IPopularProvider _popularProvider;
+        private readonly IResourceToolkit _resourceToolkit;
     }
 }

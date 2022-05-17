@@ -130,7 +130,6 @@
     <Compile Include="IHttpProvider.cs" />
     <Compile Include="IPartitionProvider.cs" />
     <Compile Include="IPopularProvider.cs" />
-    <Compile Include="IRankProvider.cs" />
     <Compile Include="IResetProvider.cs" />
     <Compile Include="ISearchProvider.cs" />
     <Compile Include="ISpecialColumnProvider.cs" />

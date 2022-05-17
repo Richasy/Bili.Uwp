@@ -30,22 +30,14 @@ namespace Bili.App
         public App()
         {
             InitializeComponent();
+            _ = AppViewModel.Instance;
+            DIInstnace.RegisterServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
-            _ = AppViewModel.Instance;
-            ServiceLocator.Instance.GetService<IAppToolkit>()
-                                   .InitializeTheme();
-
             FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
-
-            if (AppViewModel.Instance.IsXbox)
-            {
-                // RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
-                FocusVisualKind = FocusVisualKind.Reveal;
-            }
         }
 
         /// <inheritdoc/>
@@ -95,6 +87,7 @@ namespace Bili.App
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+                DIInstnace.RegisterConstants();
             }
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)

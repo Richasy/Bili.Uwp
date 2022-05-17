@@ -6,7 +6,6 @@ using Bili.ViewModels.Uwp.Community;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Bili.App.Controls.Community
 {

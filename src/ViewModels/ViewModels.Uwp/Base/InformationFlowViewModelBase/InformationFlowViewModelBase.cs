@@ -5,10 +5,9 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
-using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using ReactiveUI;
-using Splat;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -17,23 +16,19 @@ namespace Bili.ViewModels.Uwp.Base
     /// </summary>
     public abstract partial class InformationFlowViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel
     {
-        internal InformationFlowViewModelBase(IResourceToolkit resourceToolkit)
+        internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
         {
-            _resourceToolkit = resourceToolkit;
+            _dispatcher = dispatcher;
             VideoCollection = new ObservableCollection<IVideoBaseViewModel>();
 
-            var canRequest = this.WhenAnyValue(
+            var canReload = this.WhenAnyValue(
                 x => x.IsReloading,
                 x => x.IsIncrementalLoading,
                 (isInitializing, isIncrementalLoading) => !isInitializing && !isIncrementalLoading);
 
-            var canInitialize = this.WhenAnyValue(
-                x => x.VideoCollection.Count,
-                count => count == 0);
-
-            InitializeCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canInitialize, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canRequest, RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, canRequest, RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canReload, RxApp.MainThreadScheduler);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, canReload, RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting
                 .Merge(InitializeCommand.IsExecuting)
@@ -67,16 +62,23 @@ namespace Bili.ViewModels.Uwp.Base
         /// <returns><see cref="Task"/>.</returns>
         protected virtual Task GetDataAsync() => Task.CompletedTask;
 
-        private async Task ReloadAsync()
-        {
-            BeforeReload();
-            VideoCollection.Clear();
-            ClearException();
-            await GetDataAsync();
-        }
+        /// <summary>
+        /// 拼接错误信息.
+        /// </summary>
+        /// <param name="errorMsg">原始错误信息.</param>
+        /// <returns>格式化后的错误信息.</returns>
+        protected virtual string FormatException(string errorMsg) => errorMsg;
 
-        private async Task IncrementalAsync()
-            => await GetDataAsync();
+        private async Task InitializeAsync()
+        {
+            if (VideoCollection.Count > 0)
+            {
+                await Task.Delay(250);
+                return;
+            }
+
+            await ReloadAsync();
+        }
 
         private void DisplayException(Exception exception)
         {
@@ -84,12 +86,20 @@ namespace Bili.ViewModels.Uwp.Base
             var msg = exception is ServiceException se
                 ? se.Error?.Message ?? se.Message
                 : exception.Message;
-            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestPopularFailed)}\n{msg}";
+            ErrorText = FormatException(msg);
             LogException(exception);
         }
 
-        private void LogException(Exception exception)
-            => this.Log().Debug(exception);
+        private async Task ReloadAsync()
+        {
+            BeforeReload();
+            VideoCollection.Clear();
+            ClearException();
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await GetDataAsync());
+        }
+
+        private async Task IncrementalAsync()
+            => await GetDataAsync();
 
         private void ClearException()
         {

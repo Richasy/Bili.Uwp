@@ -30,7 +30,6 @@ namespace Bili.Controller.Uwp
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
         private readonly IPartitionProvider _partitionProvider;
-        private readonly IRankProvider _rankProvider;
         private readonly IRecommendProvider _homeProvider;
         private readonly IPopularProvider _popularProvider;
         private readonly ILiveProvider _liveProvider;
@@ -65,7 +64,6 @@ namespace Bili.Controller.Uwp
                 .LoadService(out _authorizeProvider)
                 .LoadService(out _accountProvider)
                 .LoadService(out _partitionProvider)
-                .LoadService(out _rankProvider)
                 .LoadService(out _homeProvider)
                 .LoadService(out _popularProvider)
                 .LoadService(out _liveProvider)
@@ -105,16 +103,6 @@ namespace Bili.Controller.Uwp
         /// 在网络状态改变时发生，将返回网络可用性.
         /// </summary>
         public event EventHandler<bool> NetworkChanged;
-
-        /// <summary>
-        /// 在子分区有新的视频列表传入时发生.
-        /// </summary>
-        public event EventHandler<PartitionVideoIterationEventArgs> SubPartitionVideoIteration;
-
-        /// <summary>
-        /// 在子分区的附加数据发生改变时发生.
-        /// </summary>
-        public event EventHandler<PartitionAdditionalDataChangedEventArgs> SubPartitionAdditionalDataChanged;
 
         /// <summary>
         /// 在直播源的附加数据发生改变时发生.
@@ -311,7 +299,6 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
                 .AddSingleton<IPartitionProvider, PartitionProvider>()
-                .AddSingleton<IRankProvider, RankProvider>()
                 .AddSingleton<IRecommendProvider, RecommendProvider>()
                 .AddSingleton<IPopularProvider, PopularProvider>()
                 .AddSingleton<ILiveProvider, LiveProvider>()

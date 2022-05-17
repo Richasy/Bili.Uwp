@@ -24,6 +24,9 @@
     <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.Properties.cs" />
     <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.cs" />
     <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.Properties.cs" />
+    <Compile Include="DIInstnace.cs" />
+    <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
+    <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowingViewModel.cs" />
@@ -124,14 +127,6 @@
     <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.Properties.cs" />
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.cs" />
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.Properties.cs" />
-    <Compile Include="Community\PartitionModuleViewModel\PartitionModuleViewModel.cs" />
-    <Compile Include="Community\PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
-    <Compile Include="Community\PartitionViewModel\PartitionViewModel.cs" />
-    <Compile Include="Community\PartitionViewModel\PartitionViewModel.Properties.cs" />
-    <Compile Include="Home\RankViewModel\RankViewModel.cs" />
-    <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
-    <Compile Include="Community\SubPartitionViewModel\SubPartitionViewModel.cs" />
-    <Compile Include="Community\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
@@ -156,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser">
-      <Version>2.8.0</Version>
+      <Version>2.9.1</Version>
     </PackageReference>
     <PackageReference Include="FFmpegInteropX">
       <Version>0.9.4</Version>

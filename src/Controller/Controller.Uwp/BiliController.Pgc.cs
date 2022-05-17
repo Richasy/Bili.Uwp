@@ -145,7 +145,6 @@ namespace Bili.Controller.Uwp
             {
                 var requestDateTime = DateTimeOffset.Now;
                 var data = await _pgcProvider.GetPartitionRecommendVideoAsync(partitionId, offsetId);
-                SubPartitionVideoIteration?.Invoke(this, new PartitionVideoIterationEventArgs(partitionId, requestDateTime, data, 1));
             }
             catch (Exception ex)
             {

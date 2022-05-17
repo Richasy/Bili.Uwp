@@ -11,6 +11,7 @@ using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -24,9 +25,13 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         internal RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
-            IRecommendProvider recommendProvider)
-            : base(resourceToolkit)
-            => _recommendProvider = recommendProvider;
+            IRecommendProvider recommendProvider,
+            CoreDispatcher coreDispatcher)
+            : base(coreDispatcher)
+        {
+            _resourceToolkit = resourceToolkit;
+            _recommendProvider = recommendProvider;
+        }
 
         /// <inheritdoc/>
         protected override void BeforeReload()
@@ -58,5 +63,9 @@ namespace Bili.ViewModels.Uwp
                 }
             }
         }
+
+        /// <inheritdoc/>
+        protected override string FormatException(string errorMsg)
+            => $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestRecommendFailed)}\n{errorMsg}";
     }
 }

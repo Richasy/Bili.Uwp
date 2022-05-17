@@ -1192,7 +1192,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220118001</Version>
+      <Version>2.8.0-prerelease.220413001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
@@ -1267,10 +1267,6 @@
     <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{ca4fe39c-2379-4966-9940-de738d94e982}</Project>
       <Name>Toolkit.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
-      <Project>{07b6d3b7-0ac0-489b-bf27-588ab6226b1c}</Project>
-      <Name>Toolkit.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
       <Project>{CD9930DC-36A8-45FC-8824-C8B3FA873FAD}</Project>

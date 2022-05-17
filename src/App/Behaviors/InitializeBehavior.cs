@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.App.Controls;
 using Bili.App.Pages;
 using Bili.ViewModels.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Behaviors;
@@ -17,8 +16,7 @@ namespace Bili.App.Behaviors
         /// <inheritdoc/>
         protected override void OnAssociatedObjectLoaded()
         {
-            if (AssociatedObject is AppPage page
-                && page.GetViewModel() is IInitializeViewModel initVM)
+            if (AssociatedObject.DataContext is IInitializeViewModel initVM)
             {
                 initVM.InitializeCommand.Execute().Subscribe();
             }

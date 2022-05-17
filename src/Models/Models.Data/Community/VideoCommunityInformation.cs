@@ -42,7 +42,7 @@ namespace Bili.Models.Data.Community
             PlayCount = playCount;
             DanmakuCount = danmakuCount;
             LikeCount = likeCount;
-            Score = score;
+            Score = System.Convert.ToInt64(score);
             FavoriteCount = favoriteCount;
             CoinCount = coinCount;
             CommentCount = commentCount;
@@ -107,7 +107,7 @@ namespace Bili.Models.Data.Community
         /// <remarks>
         /// 在排行榜一类的视频中，会有视频综合评分，这也是社区交互数据.
         /// </remarks>
-        public double Score { get; set; }
+        public long Score { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoCommunityInformation information && Id == information.Id;

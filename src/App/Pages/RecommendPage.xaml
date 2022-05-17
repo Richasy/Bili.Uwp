@@ -31,10 +31,6 @@
             VideoTemplate="{StaticResource VideoTemplate}" />
     </local:RecommendPageBase.Resources>
 
-    <Interactivity:Interaction.Behaviors>
-        <behaviors:InitializeBehavior />
-    </Interactivity:Interaction.Behaviors>
-
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
@@ -67,6 +63,7 @@
                     ItemTemplate="{StaticResource Selector}"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}">
                     <Interactivity:Interaction.Behaviors>
+                        <behaviors:InitializeBehavior />
                         <behaviors:IncrementalBehavior />
                     </Interactivity:Interaction.Behaviors>
                 </controls:VerticalRepeaterView>
