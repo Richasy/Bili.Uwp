@@ -99,9 +99,9 @@
             PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
             QueryIcon="Find"
             QuerySubmitted="OnSearchBoxSubmitted"
-            TextChanged="OnTextChangedAsync"
             TabIndex="2"
             Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
+            TextChanged="OnTextChangedAsync"
             UpdateTextOnSelect="False"
             XYFocusLeftNavigationStrategy="Auto">
             <AutoSuggestBox.TextBoxStyle>

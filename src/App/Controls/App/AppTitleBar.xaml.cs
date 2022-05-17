@@ -1,8 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Bili.App.Pages;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,12 +23,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(AppTitleBar), new PropertyMetadata(AppViewModel.Instance));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AppTitleBar"/> class.
         /// </summary>
         public AppTitleBar()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
             SizeChanged += OnSizeChanged;
@@ -61,6 +68,13 @@ namespace Bili.App.Controls
             }
             else if (ViewModel.IsShowOverlay)
             {
+                var content = ViewModel.SecondaryFrame.Content;
+                if (content is AppPage page && page.GetViewModel() is IBackPageViewModel pageVM)
+                {
+                    var parameter = pageVM.GetBackParameter();
+                    _navigationViewModel.BackCommand.Execute(parameter).Subscribe();
+                }
+
                 ViewModel.SetMainContentId(ViewModel.CurrentMainContentId);
                 return true;
             }

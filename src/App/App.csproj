@@ -38,7 +38,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Behaviors\IncrementalBehavior.cs" />
-    <Compile Include="Behaviors\InitializeOrReloadBehavior.cs" />
+    <Compile Include="Behaviors\InitializeBehavior.cs" />
+    <Compile Include="Behaviors\ReloadBehavior.cs" />
     <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Community\PartitionItem\PartitionItem.cs" />
     <Compile Include="Controls\Dynamic\DynamicArticleItem.xaml.cs">
       <DependentUpon>DynamicArticleItem.xaml</DependentUpon>
     </Compile>
@@ -341,9 +343,6 @@
     <Compile Include="Controls\App\AppTitleBar.xaml.cs">
       <DependentUpon>AppTitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\PartitionItem.xaml.cs">
-      <DependentUpon>PartitionItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\App\OffsetButton\OffsetButton.cs" />
     <Compile Include="Controls\App\RootNavigationView.xaml.cs">
       <DependentUpon>RootNavigationView.xaml</DependentUpon>
@@ -617,6 +616,10 @@
     <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Community\PartitionItem\PartitionItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Dynamic\DynamicArticleItem.xaml">
       <SubType>Designer</SubType>
@@ -990,10 +993,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\PartitionItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\App\CardPanel\CardPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1272,6 +1271,10 @@
     <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
       <Project>{07b6d3b7-0ac0-489b-bf27-588ab6226b1c}</Project>
       <Name>Toolkit.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
+      <Project>{CD9930DC-36A8-45FC-8824-C8B3FA873FAD}</Project>
+      <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
       <Project>{1af20fdc-36d5-450e-9461-0f78aeb89716}</Project>

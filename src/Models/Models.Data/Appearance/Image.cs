@@ -23,6 +23,13 @@ namespace Bili.Models.Data.Appearance
         /// <summary>
         /// Initializes a new instance of the <see cref="Image"/> class.
         /// </summary>
+        public Image()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Image"/> class.
+        /// </summary>
         /// <param name="uri">图片地址.</param>
         public Image(string uri) => Uri = uri;
 
@@ -51,17 +58,17 @@ namespace Bili.Models.Data.Appearance
         /// <summary>
         /// 预设的宽度.
         /// </summary>
-        public double Width { get; }
+        public double Width { get; set; }
 
         /// <summary>
         /// 预设的高度.
         /// </summary>
-        public double Height { get; }
+        public double Height { get; set; }
 
         /// <summary>
         /// 地址.
         /// </summary>
-        public string Uri { get; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// 获取图片原始链接.

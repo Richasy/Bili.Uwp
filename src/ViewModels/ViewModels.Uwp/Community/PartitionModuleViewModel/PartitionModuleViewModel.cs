@@ -28,16 +28,8 @@ namespace Bili.ViewModels.Uwp
             IsLoading = true;
             IsError = false;
             PartitionCollection.Clear();
-            try
-            {
-                var data = await _controller.RequestPartitionIndexAsync();
-                data.ForEach(p => PartitionCollection.Add(new PartitionViewModel(p)));
-            }
-            catch
-            {
-                IsError = true;
-            }
-
+            await Task.CompletedTask;
+            IsError = true;
             IsLoading = false;
         }
 

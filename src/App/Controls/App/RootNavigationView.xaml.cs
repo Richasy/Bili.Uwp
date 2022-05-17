@@ -7,9 +7,12 @@ using Bili.App.Pages;
 using Bili.App.Pages.Overlay;
 using Bili.App.Resources.Extension;
 using Bili.Models.App;
+using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -28,6 +31,7 @@ namespace Bili.App.Controls
             DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(RootNavigationView), new PropertyMetadata(AppViewModel.Instance));
 
         private readonly AccountViewModel _accountViewModel = AccountViewModel.Instance;
+        private readonly INavigationViewModel _navigationViewModel;
         private bool _isFirstLoaded;
 
         /// <summary>
@@ -36,6 +40,7 @@ namespace Bili.App.Controls
         public RootNavigationView()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
@@ -62,23 +67,39 @@ namespace Bili.App.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            ViewModel.SecondaryFrame = OverlayFrame;
             ViewModel.PropertyChanged += OnAppViewModelPropertyChanged;
             ViewModel.RequestOverlayNavigation += OnRequestOverlayNavigation;
-            CheckMainContentNavigation();
+            _navigationViewModel.Navigating += OnNavigating;
+            NavigateToMainView(ViewModel.CurrentMainContentId);
             if (ViewModel.IsXbox)
             {
                 RootNavView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftMinimal;
             }
         }
 
+        private void OnNavigating(object sender, AppNavigationEventArgs e)
+        {
+            if (e.Type == Models.Enums.App.NavigationType.Main)
+            {
+                NavigateToMainView(e.PageId);
+            }
+            else if (e.Type == Models.Enums.App.NavigationType.Secondary)
+            {
+                ViewModel.SetOverlayContentId(e.PageId, e.Parameter);
+
+                // NavigateToSecondaryView(e.PageId, e.Parameter);
+            }
+        }
+
         private void OnRequestOverlayNavigation(object sender, object e)
-            => CheckOverlayContentNavigation(e);
+            => NavigateToSecondaryView(ViewModel.CurrentOverlayContentId, e);
 
         private void OnAppViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.CurrentMainContentId))
             {
-                CheckMainContentNavigation();
+                NavigateToMainView(ViewModel.CurrentMainContentId);
             }
             else if (e.PropertyName == nameof(ViewModel.IsShowOverlay))
             {
@@ -110,9 +131,8 @@ namespace Bili.App.Controls
             }
         }
 
-        private void CheckMainContentNavigation()
+        private void NavigateToMainView(PageIds pageId, object parameter = null)
         {
-            var pageId = ViewModel.CurrentMainContentId;
             Type pageType = null;
             switch (pageId)
             {
@@ -168,7 +188,7 @@ namespace Bili.App.Controls
 
             if (pageType != null)
             {
-                MainFrame.Navigate(pageType, null, new DrillInNavigationTransitionInfo());
+                MainFrame.Navigate(pageType, parameter, new DrillInNavigationTransitionInfo());
             }
 
             if (RootNavView.SelectedItem == null ||
@@ -195,9 +215,8 @@ namespace Bili.App.Controls
             }
         }
 
-        private void CheckOverlayContentNavigation(object param)
+        private void NavigateToSecondaryView(PageIds pageId, object param)
         {
-            var pageId = ViewModel.CurrentOverlayContentId;
             Type pageType = null;
 
             switch (pageId)

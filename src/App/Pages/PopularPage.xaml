@@ -15,7 +15,7 @@
     mc:Ignorable="d">
 
     <Interactivity:Interaction.Behaviors>
-        <behaviors:InitializeOrReloadBehavior />
+        <behaviors:InitializeBehavior />
     </Interactivity:Interaction.Behaviors>
 
     <Grid>
@@ -66,6 +66,10 @@
             x:Name="ErrorPanel"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <Interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </Interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
     </Grid>
 </local:PopularPageBase>

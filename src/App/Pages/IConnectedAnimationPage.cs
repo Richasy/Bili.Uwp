@@ -11,5 +11,11 @@ namespace Bili.App.Pages
         /// 尝试检查有效的连接动画并启动.
         /// </summary>
         void TryStartConnectedAnimation();
+
+        /// <summary>
+        /// 尝试检查有效的连接动画并启动.
+        /// </summary>
+        /// <param name="data">连接动画所需的数据模型.</param>
+        void TryStartConnectedAnimation(object data);
     }
 }

@@ -112,8 +112,8 @@
                 </controls:VerticalRepeaterView>
                 <muxc:ItemsRepeater
                     x:Name="IndexRepeater"
-                    Loaded="OnEpisodeRepeaterLoaded"
                     ItemsSource="{x:Bind ViewModel.EpisodeCollection, Mode=OneWay}"
+                    Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:UniformGridLayout

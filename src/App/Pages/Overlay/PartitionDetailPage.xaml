@@ -1,18 +1,25 @@
-﻿<pages:AppPage
+﻿<local:PartitionDetailPageBase
     x:Class="Bili.App.Pages.Overlay.PartitionDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Bili.Models.Enums"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pages="using:Bili.App.Pages"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
 
     <Grid x:Name="RootContainer">
         <Grid.RowDefinitions>
@@ -45,12 +52,12 @@
                 x:Name="PartitionLogo"
                 Width="32"
                 Height="32"
-                Source="{x:Bind ViewModel.ImageUrl, Mode=OneWay}" />
+                Source="{x:Bind ViewModel.OriginPartition.Image.Uri, Mode=OneWay}" />
             <TextBlock
                 x:Name="PartitionName"
                 Style="{StaticResource SubtitleTextBlockStyle}"
                 FontWeight="Bold"
-                Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+                Text="{x:Bind ViewModel.OriginPartition.Name, Mode=OneWay}" />
         </StackPanel>
         <muxc:NavigationView
             x:Name="DetailNavigationView"
@@ -58,15 +65,16 @@
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
-            ItemInvoked="OnDetailNavigationViewItemInvokedAsync"
-            MenuItemsSource="{x:Bind ViewModel.SubPartitionCollection}"
-            PaneDisplayMode="Top">
+            ItemInvoked="OnDetailNavigationViewItemInvoked"
+            MenuItemsSource="{x:Bind ViewModel.SubPartitions}"
+            PaneDisplayMode="Top"
+            SelectedItem="{x:Bind ViewModel.CurrentSubPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="uwp:SubPartitionViewModel">
-                    <muxc:NavigationViewItem Content="{x:Bind}" Tag="{x:Bind SubPartitionId}">
+                <DataTemplate x:DataType="community:Partition">
+                    <muxc:NavigationViewItem Content="{x:Bind}">
                         <muxc:NavigationViewItem.ContentTemplate>
-                            <DataTemplate x:DataType="uwp:SubPartitionViewModel">
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Title, Mode=OneWay}" />
+                            <DataTemplate x:DataType="community:Partition">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Name}" />
                             </DataTemplate>
                         </muxc:NavigationViewItem.ContentTemplate>
                     </muxc:NavigationViewItem>
@@ -82,7 +90,7 @@
                         <Grid
                             x:Name="ContentGrid"
                             Padding="0,12,0,0"
-                            Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -92,22 +100,24 @@
                                 x:Name="BannerView"
                                 Margin="0,0,0,12"
                                 VerticalAlignment="Top"
-                                ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.BannerCollection, Mode=OneWay}"
-                                Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsShowBanner, Mode=OneWay}" />
+                                ItemsSource="{x:Bind ViewModel.Banners}"
+                                Visibility="{x:Bind ViewModel.IsShowBanner, Mode=OneWay}" />
 
                             <controls:VerticalRepeaterView
                                 x:Name="VideoView"
                                 Grid.Row="1"
                                 Margin="0,0,0,12"
                                 HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
-                                ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.VideoCollection, Mode=OneWay}"
-                                RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
+                                ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}">
+                                <interactivity:Interaction.Behaviors>
+                                    <behaviors:IncrementalBehavior />
+                                </interactivity:Interaction.Behaviors>
                                 <controls:VerticalRepeaterView.AdditionalContent>
-                                    <Grid>
+                                    <StackPanel Orientation="Horizontal">
                                         <Button
                                             x:Name="RefreshButton"
                                             VerticalAlignment="Center"
-                                            Click="OnRefreshButtonClickAsync">
+                                            Command="{x:Bind ViewModel.ReloadCommand}">
                                             <StackPanel Orientation="Horizontal" Spacing="8">
                                                 <icons:RegularFluentIcon VerticalAlignment="Center" Symbol="ArrowSyncCircle16" />
                                                 <TextBlock Text="{loc:LocaleLocator Name=Refresh}" />
@@ -116,40 +126,42 @@
                                         <ComboBox
                                             x:Name="VideoSortComboBox"
                                             Style="{StaticResource DefaultComboBoxStyle}"
-                                            ItemsSource="{x:Bind ViewModel.CurrentSelectedSubPartition.SortTypeCollection, Mode=OneWay}"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            ItemsSource="{x:Bind ViewModel.SortTypes, Mode=OneWay}"
                                             PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                                            SelectedItem="{x:Bind ViewModel.SortType, Mode=OneWay}"
                                             SelectionChanged="OnVideoSortComboBoxSlectionChanged"
-                                            Visibility="Collapsed">
+                                            Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate x:DataType="enums:VideoSortType">
                                                     <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
-                                    </Grid>
+                                    </StackPanel>
                                 </controls:VerticalRepeaterView.AdditionalContent>
                                 <controls:VerticalRepeaterView.ItemTemplate>
-                                    <DataTemplate x:DataType="uwp:VideoViewModel">
-                                        <controls:VideoCard
-                                            IsShowDanmakuCount="True"
-                                            IsShowLikeCount="True"
-                                            IsShowPlayCount="True"
-                                            ViewModel="{x:Bind}" />
+                                    <DataTemplate x:DataType="video:VideoItemViewModel">
+                                        <videos:VideoItem ViewModel="{x:Bind}" />
                                     </DataTemplate>
                                 </controls:VerticalRepeaterView.ItemTemplate>
                             </controls:VerticalRepeaterView>
                         </Grid>
                     </ScrollViewer>
 
-                    <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.CurrentSelectedSubPartition.IsInitializeLoading, Mode=OneWay}" />
+                    <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
                     <controls:ErrorPanel
                         x:Name="ErrorPanel"
-                        ActionButtonClick="OnRefreshButtonClickAsync"
                         ActionContent="{loc:LocaleLocator Name=Refresh}"
-                        Text="{x:Bind ViewModel.CurrentSelectedSubPartition.ErrorText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.CurrentSelectedSubPartition.IsError, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:ReloadBehavior />
+                        </interactivity:Interaction.Behaviors>
+                    </controls:ErrorPanel>
                 </Grid>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
     </Grid>
-</pages:AppPage>
+</local:PartitionDetailPageBase>

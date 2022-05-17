@@ -1,15 +1,21 @@
-﻿<local:AppPage
+﻿<local:PartitionPageBase
     x:Class="Bili.App.Pages.PartitionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Bili.App.Controls"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:communityControls="using:Bili.App.Controls.Community"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
     mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
 
     <Grid>
         <ScrollViewer
@@ -22,11 +28,10 @@
             <muxc:ItemsRepeater
                 x:Name="PartitionView"
                 Margin="0,4,0,20"
-                ItemsSource="{x:Bind ViewModel.PartitionCollection}"
-                Loaded="OnItemsRepeaterLoadedAsync">
+                ItemsSource="{x:Bind ViewModel.Partitions}">
                 <muxc:ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="uwp:PartitionViewModel">
-                        <controls:PartitionItem Data="{x:Bind}" ItemClick="OnPartitionItemClickAsync" />
+                    <DataTemplate x:DataType="community:Partition">
+                        <communityControls:PartitionItem ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </muxc:ItemsRepeater.ItemTemplate>
                 <muxc:ItemsRepeater.Layout>
@@ -45,7 +50,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Spacing="12"
-            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
+            Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay}">
             <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" />
             <TextBlock
                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -54,4 +59,4 @@
                 Text="{loc:LocaleLocator Name=PartitionLoading}" />
         </StackPanel>
     </Grid>
-</local:AppPage>
+</local:PartitionPageBase>

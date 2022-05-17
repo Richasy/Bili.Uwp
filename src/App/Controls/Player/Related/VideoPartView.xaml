@@ -87,8 +87,8 @@
                 <muxc:ItemsRepeater
                     x:Name="IndexRepeater"
                     ItemsSource="{x:Bind ViewModel.VideoPartCollection, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}"
-                    Loaded="OnPartRepeaterLoaded">
+                    Loaded="OnPartRepeaterLoaded"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:UniformGridLayout
                             ItemsStretch="Fill"

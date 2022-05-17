@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using Splat;
 

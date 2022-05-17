@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -37,7 +38,7 @@ namespace Bili.ViewModels.Uwp
                 ErrorText = string.Empty;
                 try
                 {
-                    var originalPartitions = await Controller.RequestPartitionIndexAsync();
+                    var originalPartitions = new List<Partition>();
                     var rankPartitions = originalPartitions.Select(p => new RankPartition(p)).ToList();
                     rankPartitions.Insert(
                         0,

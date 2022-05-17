@@ -2,27 +2,21 @@
 
 using System;
 using Bili.App.Controls;
-using Bili.App.Pages;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Behaviors;
 using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Behaviors
 {
     /// <summary>
-    /// 初始化行为.
+    /// 重载行为.
     /// </summary>
-    internal sealed class InitializeOrReloadBehavior : BehaviorBase<Control>
+    internal sealed class ReloadBehavior : BehaviorBase<Control>
     {
         /// <inheritdoc/>
         protected override void OnAssociatedObjectLoaded()
         {
-            if (AssociatedObject is AppPage page
-                && page.GetViewModel() is IInitializeViewModel initVM)
-            {
-                initVM.InitializeCommand.Execute().Subscribe();
-            }
-            else if (AssociatedObject is IActivatableControl activatableControl)
+            if (AssociatedObject is IActivatableControl activatableControl)
             {
                 activatableControl.Activated += OnActivatableControlActivated;
             }

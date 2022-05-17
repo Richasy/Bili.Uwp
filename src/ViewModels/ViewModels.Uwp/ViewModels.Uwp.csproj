@@ -16,10 +16,14 @@
     <Compile Include="Common\CommandLineViewModel.cs" />
     <Compile Include="Common\LiveAppPlayLineViewModel.cs" />
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
-    <Compile Include="IIncrementalViewModel.cs" />
-    <Compile Include="IInitializeViewModel.cs" />
-    <Compile Include="IReloadViewModel.cs" />
-    <Compile Include="IVideoBaseViewModel.cs" />
+    <Compile Include="Common\NavigationViewModel\NavigationViewModel.cs" />
+    <Compile Include="Common\NavigationViewModel\NavigationViewModel.Properties.cs" />
+    <Compile Include="Community\PartitionDetailPageViewModel\PartitionDetailPageViewModel.cs" />
+    <Compile Include="Community\PartitionDetailPageViewModel\PartitionDetailPageViewModel.Properties.cs" />
+    <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.cs" />
+    <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.Properties.cs" />
+    <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.cs" />
+    <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.Properties.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowingViewModel.cs" />
@@ -120,14 +124,14 @@
     <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.Properties.cs" />
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.cs" />
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.Properties.cs" />
-    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.cs" />
-    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
-    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.cs" />
-    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.Properties.cs" />
+    <Compile Include="Community\PartitionModuleViewModel\PartitionModuleViewModel.cs" />
+    <Compile Include="Community\PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
+    <Compile Include="Community\PartitionViewModel\PartitionViewModel.cs" />
+    <Compile Include="Community\PartitionViewModel\PartitionViewModel.Properties.cs" />
     <Compile Include="Home\RankViewModel\RankViewModel.cs" />
     <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
-    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
-    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
+    <Compile Include="Community\SubPartitionViewModel\SubPartitionViewModel.cs" />
+    <Compile Include="Community\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.Properties.cs" />
     <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
@@ -245,6 +249,10 @@
     <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
       <Project>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</Project>
       <Name>Toolkit.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
+      <Project>{cd9930dc-36a8-45fc-8824-c8b3fa873fad}</Project>
+      <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

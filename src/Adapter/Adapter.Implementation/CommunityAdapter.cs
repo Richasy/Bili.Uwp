@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
@@ -18,13 +19,47 @@ namespace Bili.Adapter
     public sealed class CommunityAdapter : ICommunityAdapter
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly IImageAdapter _imageAdapter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunityAdapter"/> class.
         /// </summary>
         /// <param name="numberToolkit">数字处理工具.</param>
-        public CommunityAdapter(INumberToolkit numberToolkit)
-            => _numberToolkit = numberToolkit;
+        /// <param name="imageAdapter">图片数据适配器.</param>
+        public CommunityAdapter(
+            INumberToolkit numberToolkit,
+            IImageAdapter imageAdapter)
+        {
+            _numberToolkit = numberToolkit;
+            _imageAdapter = imageAdapter;
+        }
+
+        /// <inheritdoc/>
+        public BannerIdentifier ConvertToBannerIdentifier(PartitionBanner banner)
+        {
+            var id = banner.Id.ToString();
+            var title = banner.Title;
+            var image = _imageAdapter.ConvertToImage(banner.Image, 600, 180);
+            var uri = banner.NavigateUri;
+            return new BannerIdentifier(id, title, image, uri);
+        }
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition)
+        {
+            var id = partition.Tid.ToString();
+            var name = partition.Name;
+            var logo = string.IsNullOrEmpty(partition.Logo)
+                ? null
+                : _imageAdapter.ConvertToImage(partition.Logo);
+            var children = partition.Children?.Select(p => ConvertToPartition(p)).ToList();
+            if (children?.Count > 0)
+            {
+                children.Insert(0, new Models.Data.Community.Partition(partition.Tid.ToString(), "推荐"));
+            }
+
+            return new Models.Data.Community.Partition(id, name, logo, children);
+        }
 
         /// <inheritdoc/>
         public UserCommunityInformation ConvertToUserCommunityInformation(Mine mine)

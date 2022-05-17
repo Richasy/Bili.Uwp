@@ -36,8 +36,8 @@
         <ScrollViewer
             x:Name="ScrollViewer"
             HorizontalScrollMode="Disabled"
-            ViewChanged="OnViewChanged"
-            VerticalScrollBarVisibility="Auto">
+            VerticalScrollBarVisibility="Auto"
+            ViewChanged="OnViewChanged">
             <Grid>
                 <Grid x:Name="StandardContainer">
                     <muxc:ItemsRepeater

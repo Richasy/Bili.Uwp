@@ -102,7 +102,9 @@ namespace Bili.ViewModels.Uwp
                 _lastRequestTime = DateTimeOffset.MinValue;
                 try
                 {
-                    await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                    // await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, 0, CurrentSortType, _pageNumber);
+                    await Task.CompletedTask;
+                    throw new InvalidOperationException();
                 }
                 catch (ServiceException ex)
                 {
@@ -130,7 +132,9 @@ namespace Bili.ViewModels.Uwp
             if (!IsDeltaLoading)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, _offsetId, CurrentSortType, _pageNumber);
+                await Task.CompletedTask;
+
+                // await Controller.RequestSubPartitionDataAsync(SubPartitionId, _isRecommendPartition, _offsetId, CurrentSortType, _pageNumber);
                 IsDeltaLoading = false;
             }
         }

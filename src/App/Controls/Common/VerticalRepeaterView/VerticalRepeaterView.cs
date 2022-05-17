@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections;
-using System.Diagnostics;
 using Bili.App.Resources.Extension;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml;

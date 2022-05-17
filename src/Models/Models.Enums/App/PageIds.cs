@@ -146,5 +146,10 @@ namespace Bili.Models.Enums
         /// 直播分区详情页面.
         /// </summary>
         LiveAreaDetail = 204,
+
+        /// <summary>
+        /// 播放界面.
+        /// </summary>
+        Player = 1001,
     }
 }

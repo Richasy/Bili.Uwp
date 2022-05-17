@@ -16,6 +16,9 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
+using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
@@ -338,8 +341,12 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ICommunityProvider, CommunityProvider>();
             SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
 
+            SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<PartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<PartitionServiceViewModel>();
+            SplatRegistrations.RegisterLazySingleton<PartitionDetailPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.SetupIOC();

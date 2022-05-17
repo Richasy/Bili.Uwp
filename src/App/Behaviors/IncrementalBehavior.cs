@@ -2,7 +2,7 @@
 
 using System;
 using Bili.App.Controls;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Behaviors;
 using Windows.UI.Xaml.Controls;
 

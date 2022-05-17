@@ -6,6 +6,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;

@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 

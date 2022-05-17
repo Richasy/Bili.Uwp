@@ -8,11 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{loc:LocaleLocator Name=ContinuePlayTitle}"
     Style="{StaticResource DefaultContentDialogStyle}"
+    CloseButtonClick="OnContentDialogCloseButtonClickAsync"
     CloseButtonText="{loc:LocaleLocator Name=Cancel}"
     PrimaryButtonClick="OnContentDialogPrimaryButtonClick"
     PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     PrimaryButtonText="{loc:LocaleLocator Name=Confirm}"
-    CloseButtonClick="OnContentDialogCloseButtonClickAsync"
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="300">

@@ -3,7 +3,7 @@
 using System.Reactive;
 using ReactiveUI;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Interfaces
 {
     /// <summary>
     /// 支持刷新重载的视图模型.

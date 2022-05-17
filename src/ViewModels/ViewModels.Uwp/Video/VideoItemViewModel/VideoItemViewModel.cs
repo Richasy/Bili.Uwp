@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using Windows.System;
 

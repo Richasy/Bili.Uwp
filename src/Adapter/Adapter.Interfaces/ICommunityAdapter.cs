@@ -132,5 +132,19 @@ namespace Bili.Adapter.Interfaces
         /// <param name="stat">PGC 搜索条目.</param>
         /// <returns><see cref="VideoCommunityInformation"/>.</returns>
         VideoCommunityInformation ConvertToVideoCommunityInformation(PgcPlayListItemStat stat);
+
+        /// <summary>
+        /// 将分区实例 <see cref="Models.BiliBili.Partition"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="partition">分区实例.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition);
+
+        /// <summary>
+        /// 将分区横幅 <see cref="PartitionBanner"/> 转换为横幅信息.
+        /// </summary>
+        /// <param name="banner">分区横幅条目.</param>
+        /// <returns><see cref="BannerIdentifier"/>.</returns>
+        BannerIdentifier ConvertToBannerIdentifier(PartitionBanner banner);
     }
 }

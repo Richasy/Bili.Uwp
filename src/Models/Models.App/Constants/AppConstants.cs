@@ -64,6 +64,15 @@ namespace Bili.Models.App.Constants
             public const string ModeParam = "mode";
             public const string IsPgcParam = "isPgc";
         }
+
+        public static class Location
+        {
+            public const string PartitionCache = "partitionCache.json";
+            public const string DocumentaryCategories = "documentaryCategories.json";
+            public const string ServerFolder = "Server";
+            public const string LoggerFolder = "Logger";
+            public const string LoggerName = "AppLog.log";
+        }
 #pragma warning restore SA1600 // Elements should be documented
     }
 }

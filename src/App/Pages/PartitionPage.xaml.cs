@@ -1,7 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using Bili.App.Pages.Overlay;
 using Bili.App.Resources.Extension;
-using Bili.ViewModels.Uwp;
+using Bili.Models.Data.Community;
+using Bili.ViewModels.Uwp.Community;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -10,63 +14,49 @@ namespace Bili.App.Pages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class PartitionPage : AppPage, IConnectedAnimationPage
+    public sealed partial class PartitionPage : PartitionPageBase
     {
         /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
+        /// 服务视图模型.
         /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(PartitionModuleViewModel), typeof(PartitionPage), new PropertyMetadata(PartitionModuleViewModel.Instance));
+        private readonly PartitionServiceViewModel _serviceViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PartitionPage"/> class.
         /// </summary>
         public PartitionPage()
+            : base()
         {
+            _serviceViewModel = Splat.Locator.Current.GetService<PartitionServiceViewModel>();
             InitializeComponent();
             Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
-        /// <summary>
-        /// 分区视图模型.
-        /// </summary>
-        public PartitionModuleViewModel ViewModel
-        {
-            get { return (PartitionModuleViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+            => _serviceViewModel.BackRequested -= OnBackRequested;
 
-        /// <inheritdoc/>
-        public void TryStartConnectedAnimation()
+        private void OnLoaded(object sender, RoutedEventArgs e)
+            => _serviceViewModel.BackRequested += OnBackRequested;
+
+        private void OnBackRequested(object sender, Partition e)
         {
-            if (PartitionView != null && ViewModel.CurrentPartition != null)
+            if (PartitionView != null && e != null)
             {
-                var element = PartitionView.GetOrCreateElement(ViewModel.PartitionCollection.IndexOf(ViewModel.CurrentPartition));
+                var element = PartitionView.GetOrCreateElement(ViewModel.Partitions.IndexOf(e));
                 if (element != null)
                 {
                     var animateService = ConnectedAnimationService.GetForCurrentView();
-                    animateService.TryStartAnimation("PartitionBackAnimate", element);
+                    animateService.TryStartAnimation(nameof(PartitionDetailPage), element);
                 }
             }
         }
+    }
 
-        private async void OnItemsRepeaterLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.PartitionCollection.Count == 0)
-            {
-                await ViewModel.InitializeAllPartitionAsync();
-            }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            FindName("PartitionView");
-        }
-
-        private async void OnPartitionItemClickAsync(object sender, PartitionViewModel e)
-        {
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.PartitionDetail, e);
-            await ViewModel.SelectPartitionAsync(e);
-        }
+    /// <summary>
+    /// <see cref="PartitionPage"/> 的基类.
+    /// </summary>
+    public class PartitionPageBase : AppPage<PartitionPageViewModel>
+    {
     }
 }

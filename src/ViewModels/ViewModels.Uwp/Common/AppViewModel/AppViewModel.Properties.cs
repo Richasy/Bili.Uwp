@@ -10,6 +10,7 @@ using ReactiveUI.Fody.Helpers;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -148,5 +149,10 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public Thickness PageRightPadding { get; set; }
+
+        /// <summary>
+        /// 二级页面导航框架.
+        /// </summary>
+        public Frame SecondaryFrame { get; set; }
     }
 }

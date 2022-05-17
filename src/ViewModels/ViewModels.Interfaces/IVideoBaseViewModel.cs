@@ -2,7 +2,7 @@
 
 using Bili.Models.Data.Video;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Interfaces
 {
     /// <summary>
     /// 视频基类视图模型接口.

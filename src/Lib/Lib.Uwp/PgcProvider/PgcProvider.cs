@@ -53,8 +53,8 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<SubPartition> GetPartitionRecommendVideoAsync(int partitionId, int offsetId = 0)
         {
-            var data = await _partitionProvider.GetSubPartitionDataAsync(partitionId, false, offsetId);
-            return data;
+            var data = await _partitionProvider.GetSubPartitionDataAsync(partitionId.ToString(), false);
+            return null;
         }
 
         /// <inheritdoc/>
