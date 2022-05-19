@@ -3,7 +3,9 @@
 using System;
 using System.ComponentModel;
 using Bili.App.Resources.Extension;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,12 +24,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(AccountViewModel.Instance));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountAvatar"/> class.
         /// </summary>
         public AccountAvatar()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
@@ -85,7 +90,7 @@ namespace Bili.App.Controls
                 FavoriteViewModel.Instance.SetUser(ViewModel.Mid.Value, ViewModel.DisplayName);
             }
 
-            AppViewModel.Instance.SetOverlayContentId(pageId);
+            _navigationViewModel.NavigateToSecondaryView(pageId);
             HideFlyout();
         }
 

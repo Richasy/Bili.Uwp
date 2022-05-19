@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,12 +20,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(AccountViewModel.Instance));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountPanel"/> class.
         /// </summary>
         public AccountPanel()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
         }
 
         /// <summary>
@@ -48,13 +53,13 @@ namespace Bili.App.Controls
 
         private void OnFollowButtonClick(object sender, RoutedEventArgs e)
         {
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.MyFollows);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.MyFollows);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
-        private async void OnFollowerButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnFollowerButtonClick(object sender, RoutedEventArgs e)
         {
-            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Mid.Value, ViewModel.DisplayName);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
     }

@@ -20,10 +20,13 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// Initializes a new instance of the <see cref="EpisodeItemViewModel"/> class.
         /// </summary>
         /// <param name="numberToolkit">数字转换工具.</param>
+        /// <param name="navigationViewModel">导航服务.</param>
         public EpisodeItemViewModel(
-            INumberToolkit numberToolkit)
+            INumberToolkit numberToolkit,
+            INavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
+            _navigationViewModel = navigationViewModel;
 
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
             PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
@@ -46,7 +49,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         }
 
         private void Play()
-            => AppViewModel.Instance.OpenPlayer(Information);
+            => _navigationViewModel.NavigateToPlayView(Information);
 
         private async Task OpenInBroswerAsync()
         {

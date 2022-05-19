@@ -7,12 +7,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Atelier39;
 using Bili.Locator.Uwp;
+using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bilibili.Community.Service.Dm.V1;
+using Splat;
 using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Input;
@@ -30,6 +33,8 @@ namespace Bili.App.Controls
     /// </summary>
     public partial class BiliPlayerTransportControls : MediaTransportControls
     {
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliPlayerTransportControls"/> class.
         /// </summary>
@@ -37,6 +42,8 @@ namespace Bili.App.Controls
         {
             DefaultStyleKey = typeof(BiliPlayerTransportControls);
             ShowAndHideAutomatically = false;
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel.Navigating += OnNavigating;
             _segmentIndex = 1;
             Instance = this;
             SizeChanged += OnSizeChanged;
@@ -48,6 +55,23 @@ namespace Bili.App.Controls
             _cursorTimer.Start();
             _normalTimer.Start();
             _focusTimer.Start();
+        }
+
+        // TODO: 在切换播放器时释放
+        private void OnNavigating(object sender, AppNavigationEventArgs e)
+        {
+            if (e.Type == NavigationType.Player)
+            {
+                _cursorTimer.Start();
+                _normalTimer.Start();
+                _focusTimer.Start();
+            }
+            else
+            {
+                _cursorTimer.Stop();
+                _normalTimer.Stop();
+                _focusTimer.Stop();
+            }
         }
 
         /// <summary>
@@ -238,7 +262,6 @@ namespace Bili.App.Controls
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
-            AppViewModel.Instance.PropertyChanged += OnAppViewModelPropertyChanged;
             _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
 
             await CheckCurrentPlayerModeAsync();
@@ -637,25 +660,6 @@ namespace Bili.App.Controls
 
         private void OnDanmakuBarVisibilityButtonClick(object sender, RoutedEventArgs e)
             => ViewModel.IsShowDanmakuBar = !ViewModel.IsShowDanmakuBar;
-
-        private void OnAppViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(AppViewModel.Instance.IsOpenPlayer))
-            {
-                if (AppViewModel.Instance.IsOpenPlayer)
-                {
-                    _cursorTimer.Start();
-                    _normalTimer.Start();
-                    _focusTimer.Start();
-                }
-                else
-                {
-                    _cursorTimer.Stop();
-                    _normalTimer.Stop();
-                    _focusTimer.Stop();
-                }
-            }
-        }
 
         private void InitializeDanmakuTimer()
         {

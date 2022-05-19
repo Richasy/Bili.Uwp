@@ -2,7 +2,9 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls
@@ -18,12 +20,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(UserViewModel), typeof(UserView), new PropertyMetadata(default));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserView"/> class.
         /// </summary>
         protected UserView()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
         }
 
         /// <summary>
@@ -101,15 +106,15 @@ namespace Bili.App.Controls
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ToggleFollowStateAsync();
 
-        private async void OnFansButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnFansButtonClick(object sender, RoutedEventArgs e)
         {
-            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Id, ViewModel.Name);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel);
             Container.Hide();
         }
 
-        private async void OnFollowUserButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnFollowUserButtonClick(object sender, RoutedEventArgs e)
         {
-            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Follows, ViewModel.Id, ViewModel.Name);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Follows, ViewModel);
             Container.Hide();
         }
 

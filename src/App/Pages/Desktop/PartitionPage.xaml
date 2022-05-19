@@ -1,0 +1,62 @@
+﻿<local:PartitionPageBase
+    x:Class="Bili.App.Pages.Desktop.PartitionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:communityControls="using:Bili.App.Controls.Community"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:local="using:Bili.App.Pages.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid>
+        <ScrollViewer
+            x:Name="RootContainer"
+            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            VerticalAlignment="Stretch"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Enabled">
+            <muxc:ItemsRepeater
+                x:Name="PartitionView"
+                Margin="0,4,0,20"
+                ItemsSource="{x:Bind ViewModel.Partitions}">
+                <muxc:ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="community:Partition">
+                        <communityControls:PartitionItem ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </muxc:ItemsRepeater.ItemTemplate>
+                <muxc:ItemsRepeater.Layout>
+                    <muxc:UniformGridLayout
+                        ItemsStretch="Fill"
+                        MinColumnSpacing="12"
+                        MinItemHeight="120"
+                        MinItemWidth="112"
+                        MinRowSpacing="12"
+                        Orientation="Horizontal" />
+                </muxc:ItemsRepeater.Layout>
+            </muxc:ItemsRepeater>
+        </ScrollViewer>
+        <StackPanel
+            Margin="{StaticResource DefaultContainerPadding}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="12"
+            Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay}">
+            <muxc:ProgressRing Style="{StaticResource PageProgressRingStyle}" />
+            <TextBlock
+                Style="{StaticResource CaptionTextBlockStyle}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{loc:LocaleLocator Name=PartitionLoading}" />
+        </StackPanel>
+    </Grid>
+</local:PartitionPageBase>

@@ -10,6 +10,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
@@ -30,6 +31,7 @@ namespace Bili.ViewModels.Uwp
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
         private readonly ILoggerModule _logger;
+        private readonly INavigationViewModel _navigationViewModel;
 
         private readonly List<string> _historyVideoList;
         private readonly FFmpegInteropConfig _liveFFConfig;

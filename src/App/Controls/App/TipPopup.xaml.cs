@@ -2,7 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Bili.App.Pages;
+using Bili.App.Pages.Desktop;
 using Bili.Models.Enums.App;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +54,8 @@ namespace Bili.App.Controls
         /// <param name="displaySeconds">显示的时间.</param>
         public async void ShowAsync(InfoType type = InfoType.Information, double displaySeconds = 2)
         {
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this, false);
+            // TODO: 改变插入地点.
+            RootPage.Current.ShowOnHolder(this);
             switch (type)
             {
                 case InfoType.Information:
@@ -76,7 +77,7 @@ namespace Bili.App.Controls
             PopupContainer.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(displaySeconds));
             PopupContainer.Visibility = Visibility.Collapsed;
-            ((Window.Current.Content as Frame).Content as RootPage).RemoveFromHolder(this);
+            // ((Window.Current.Content as Frame).Content as RootPage).RemoveFromHolder(this);
         }
     }
 }

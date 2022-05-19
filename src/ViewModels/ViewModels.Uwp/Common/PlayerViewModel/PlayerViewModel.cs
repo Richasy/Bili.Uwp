@@ -14,11 +14,14 @@ using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Common;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 
@@ -67,6 +70,7 @@ namespace Bili.ViewModels.Uwp
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _logger);
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
 
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
@@ -902,7 +906,7 @@ namespace Bili.ViewModels.Uwp
                 return false;
             }
 
-            await AppViewModel.Instance.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Splat.Locator.Current.GetService<CoreDispatcher>().RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 _originalPlayRate = PlaybackRate;
                 _originalDanmakuSpeed = DanmakuViewModel.Instance.DanmakuSpeed;
@@ -924,7 +928,7 @@ namespace Bili.ViewModels.Uwp
                 return;
             }
 
-            await AppViewModel.Instance.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Splat.Locator.Current.GetService<CoreDispatcher>().RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 PlaybackRate = _originalPlayRate;
                 DanmakuViewModel.Instance.DanmakuSpeed = _originalDanmakuSpeed;

@@ -344,8 +344,8 @@
       <DependentUpon>AppTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\OffsetButton\OffsetButton.cs" />
-    <Compile Include="Controls\App\RootNavigationView.xaml.cs">
-      <DependentUpon>RootNavigationView.xaml</DependentUpon>
+    <Compile Include="Controls\App\DesktopNavigationView.xaml.cs">
+      <DependentUpon>DesktopNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
@@ -357,98 +357,97 @@
     <Compile Include="Controls\Videos\VideoItem\VideoItem.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
-    <Compile Include="Pages\Overlay\MyFollowsPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\MyFollowsPage.xaml.cs">
       <DependentUpon>MyFollowsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\FansPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\FansPage.xaml.cs">
       <DependentUpon>FansPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\FavoritePage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\FavoritePage.xaml.cs">
       <DependentUpon>FavoritePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\FollowsPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\FollowsPage.xaml.cs">
       <DependentUpon>FollowsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\HistoryPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\LiveAreaDetailPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\LiveAreaDetailPage.xaml.cs">
       <DependentUpon>LiveAreaDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\MessagePage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\MessagePage.xaml.cs">
       <DependentUpon>MessagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\PlayerPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\SearchPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\PgcIndexPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\PgcIndexPage.xaml.cs">
       <DependentUpon>PgcIndexPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\TimeLinePage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\TimeLinePage.xaml.cs">
       <DependentUpon>TimeLinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Reuse\AnimePage.xaml.cs">
+    <Compile Include="Pages\Desktop\Reuse\AnimePage.xaml.cs">
       <DependentUpon>AnimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DocumentaryPage.xaml.cs">
+    <Compile Include="Pages\Desktop\DocumentaryPage.xaml.cs">
       <DependentUpon>DocumentaryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DomesticAnimePage.xaml.cs">
+    <Compile Include="Pages\Desktop\DomesticAnimePage.xaml.cs">
       <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DynamicFeedPage.xaml.cs">
+    <Compile Include="Pages\Desktop\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BangumiPage.xaml.cs">
+    <Compile Include="Pages\Desktop\BangumiPage.xaml.cs">
       <DependentUpon>BangumiPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Reuse\FeedPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Reuse\FeedPage.xaml.cs">
       <DependentUpon>FeedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\HelpPage.xaml.cs">
+    <Compile Include="Pages\Desktop\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PopularPage.xaml.cs">
+    <Compile Include="Pages\Desktop\PopularPage.xaml.cs">
       <DependentUpon>PopularPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RecommendPage.xaml.cs">
+    <Compile Include="Pages\Desktop\RecommendPage.xaml.cs">
       <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\IConnectedAnimationPage.cs" />
-    <Compile Include="Pages\LivePage.xaml.cs">
+    <Compile Include="Pages\Desktop\LivePage.xaml.cs">
       <DependentUpon>LivePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MoviePage.xaml.cs">
+    <Compile Include="Pages\Desktop\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\PartitionDetailPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\PartitionDetailPage.xaml.cs">
       <DependentUpon>PartitionDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartitionPage.xaml.cs">
+    <Compile Include="Pages\Desktop\PartitionPage.xaml.cs">
       <DependentUpon>PartitionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RankPage.xaml.cs">
+    <Compile Include="Pages\Desktop\RankPage.xaml.cs">
       <DependentUpon>RankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RootPage.xaml.cs">
       <DependentUpon>RootPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Overlay\ViewLaterPage.xaml.cs">
+    <Compile Include="Pages\Desktop\Overlay\ViewLaterPage.xaml.cs">
       <DependentUpon>ViewLaterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingPage.xaml.cs">
+    <Compile Include="Pages\Desktop\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SpecialColumnPage.xaml.cs">
+    <Compile Include="Pages\Desktop\SpecialColumnPage.xaml.cs">
       <DependentUpon>SpecialColumnPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ToolboxPage.xaml.cs">
+    <Compile Include="Pages\Desktop\ToolboxPage.xaml.cs">
       <DependentUpon>ToolboxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TVPage.xaml.cs">
+    <Compile Include="Pages\Desktop\TVPage.xaml.cs">
       <DependentUpon>TVPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1001,7 +1000,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\App\RootNavigationView.xaml">
+    <Page Include="Controls\App\DesktopNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1017,103 +1016,103 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\MyFollowsPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\MyFollowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\FansPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\FansPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\FavoritePage.xaml">
+    <Page Include="Pages\Desktop\Overlay\FavoritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\FollowsPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\FollowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\HistoryPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\HistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\LiveAreaDetailPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\LiveAreaDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\MessagePage.xaml">
+    <Page Include="Pages\Desktop\Overlay\MessagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\PlayerPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\PlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\SearchPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\PgcIndexPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\PgcIndexPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\TimeLinePage.xaml">
+    <Page Include="Pages\Desktop\Overlay\TimeLinePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Reuse\AnimePage.xaml">
+    <Page Include="Pages\Desktop\Reuse\AnimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DocumentaryPage.xaml">
+    <Page Include="Pages\Desktop\DocumentaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DomesticAnimePage.xaml">
+    <Page Include="Pages\Desktop\DomesticAnimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DynamicFeedPage.xaml">
+    <Page Include="Pages\Desktop\DynamicFeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BangumiPage.xaml">
+    <Page Include="Pages\Desktop\BangumiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Reuse\FeedPage.xaml">
+    <Page Include="Pages\Desktop\Reuse\FeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\HelpPage.xaml">
+    <Page Include="Pages\Desktop\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PopularPage.xaml">
+    <Page Include="Pages\Desktop\PopularPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\RecommendPage.xaml">
+    <Page Include="Pages\Desktop\RecommendPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LivePage.xaml">
+    <Page Include="Pages\Desktop\LivePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MoviePage.xaml">
+    <Page Include="Pages\Desktop\MoviePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Overlay\PartitionDetailPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\PartitionDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartitionPage.xaml">
+    <Page Include="Pages\Desktop\PartitionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\RankPage.xaml">
+    <Page Include="Pages\Desktop\RankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1121,23 +1120,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Overlay\ViewLaterPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\ViewLaterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SettingPage.xaml">
+    <Page Include="Pages\Desktop\SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SpecialColumnPage.xaml">
+    <Page Include="Pages\Desktop\SpecialColumnPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ToolboxPage.xaml">
+    <Page Include="Pages\Desktop\ToolboxPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\TVPage.xaml">
+    <Page Include="Pages\Desktop\TVPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

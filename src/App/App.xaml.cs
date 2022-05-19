@@ -95,7 +95,7 @@ namespace Bili.App
                 SettingViewModel.Instance.SetPrelaunch();
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), (e as LaunchActivatedEventArgs).Arguments);
+                    rootFrame.Navigate(typeof(Pages.Desktop.RootPage), (e as LaunchActivatedEventArgs).Arguments);
                 }
             }
 
@@ -104,7 +104,7 @@ namespace Bili.App
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), protocalArgs);
+                    NavigateToRootPage(protocalArgs);
                 }
                 else
                 {
@@ -117,14 +117,14 @@ namespace Bili.App
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage));
+                    NavigateToRootPage();
                 }
             }
             else if (e.Kind == ActivationKind.CommandLineLaunch)
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), e);
+                    NavigateToRootPage(e);
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace Bili.App
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(Pages.RootPage));
+                    NavigateToRootPage();
                 }
 
                 // TODO: Parse toastActivationArgs.Argument
@@ -185,6 +185,12 @@ namespace Bili.App
 
             var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
             logger.LogError(e.Exception);
+        }
+
+        private void NavigateToRootPage(object args = null)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(Pages.Desktop.RootPage), args);
         }
     }
 }

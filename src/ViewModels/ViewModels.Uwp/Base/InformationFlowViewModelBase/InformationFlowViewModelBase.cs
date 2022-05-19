@@ -73,7 +73,7 @@ namespace Bili.ViewModels.Uwp.Base
         {
             if (VideoCollection.Count > 0)
             {
-                await Task.Delay(250);
+                await FakeLoadingAsync();
                 return;
             }
 

@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.App.Pages;
-using Windows.UI.Core;
+using Bili.App.Pages.Desktop;
+using Bili.ViewModels.Interfaces;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -14,12 +15,15 @@ namespace Bili.App.Controls
     /// </summary>
     public partial class CenterPopup : ContentControl
     {
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CenterPopup"/> class.
         /// </summary>
         public CenterPopup()
         {
             DefaultStyleKey = typeof(CenterPopup);
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
         }
 
         /// <summary>
@@ -27,8 +31,7 @@ namespace Bili.App.Controls
         /// </summary>
         public void Show()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequest;
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            RootPage.Current.ShowOnHolder(this);
         }
 
         /// <summary>
@@ -36,8 +39,7 @@ namespace Bili.App.Controls
         /// </summary>
         public void Hide()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequest;
-            ((Window.Current.Content as Frame).Content as RootPage).RemoveFromHolder(this);
+            _navigationViewModel.BackCommand.Execute().Subscribe();
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
@@ -63,15 +65,6 @@ namespace Bili.App.Controls
             }
         }
 
-        private void OnBackRequest(object sender, BackRequestedEventArgs e)
-        {
-            e.Handled = true;
-            Hide();
-        }
-
-        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Hide();
     }
 }

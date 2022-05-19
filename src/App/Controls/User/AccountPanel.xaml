@@ -90,7 +90,7 @@
 
             <local:TwoLineButton
                 Grid.Column="2"
-                Click="OnFollowerButtonClickAsync"
+                Click="OnFollowerButtonClick"
                 FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
                 SecondLineText="{loc:LocaleLocator Name=FansCount}" />
         </Grid>

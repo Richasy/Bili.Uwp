@@ -22,8 +22,6 @@
     <Compile Include="Community\PartitionDetailPageViewModel\PartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.cs" />
     <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.Properties.cs" />
-    <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.cs" />
-    <Compile Include="Community\PartitionServiceViewModel\PartitionServiceViewModel.Properties.cs" />
     <Compile Include="DIInstnace.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />

@@ -49,6 +49,11 @@ namespace Bili.Models.App.Constants
         /// </summary>
         public const int RegionalAnimeUserId = 11783021;
 
+        /// <summary>
+        /// 伪加载时间.
+        /// </summary>
+        public const int FakeLoadingMilliseconds = 300;
+
         public static class Protocol
         {
             public const string PlayHost = "play";

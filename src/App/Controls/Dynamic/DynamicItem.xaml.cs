@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage.Streams;
@@ -32,12 +34,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
+        private readonly ViewModels.Interfaces.INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicItem"/> class.
         /// </summary>
         public DynamicItem()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
         }
 
@@ -179,7 +184,7 @@ namespace Bili.App.Controls
             var vm = Presenter.GetPlayViewModel();
             if (vm != null)
             {
-                AppViewModel.Instance.OpenPlayer(vm);
+                _navigationViewModel.NavigateToPlayView(vm);
                 return;
             }
 

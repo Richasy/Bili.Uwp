@@ -24,7 +24,7 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                if (!AppViewModel.Instance.IsOpenPlayer)
+                if (!_navigationViewModel.IsPlayViewShown)
                 {
                     return;
                 }
@@ -113,7 +113,7 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                if (!AppViewModel.Instance.IsOpenPlayer)
+                if (!_navigationViewModel.IsPlayViewShown)
                 {
                     return;
                 }

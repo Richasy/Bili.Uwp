@@ -5,7 +5,9 @@ using Bili.App.Controls.Dialogs;
 using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,12 +18,15 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class PlayerDescriptor : PlayerComponent
     {
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerDescriptor"/> class.
         /// </summary>
         public PlayerDescriptor()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
         }
 
         private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
@@ -58,7 +63,7 @@ namespace Bili.App.Controls
             }
 
             SearchModuleViewModel.Instance.InputWords = tag.Name;
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
         }
     }
 }

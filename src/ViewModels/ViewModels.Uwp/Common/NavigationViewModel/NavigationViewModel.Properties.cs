@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.App.Args;
-using DynamicData;
+using Bili.Models.Enums;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -14,38 +15,34 @@ namespace Bili.ViewModels.Uwp.Common
     /// </summary>
     public sealed partial class NavigationViewModel
     {
-        private readonly SourceList<AppNavigationEventArgs> _history;
-
-        private readonly ObservableAsPropertyHelper<bool> _canBack;
+        private readonly List<AppBackEventArgs> _backStack;
 
         /// <inheritdoc/>
         public event EventHandler<AppNavigationEventArgs> Navigating;
 
         /// <inheritdoc/>
-        public event EventHandler<AppBackEventArgs> Backing;
+        public ReactiveCommand<Unit, Unit> BackCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<object, Unit> BackCommand { get; }
-
-        /// <summary>
-        /// 是否显示主视图.
-        /// </summary>
         [Reactive]
         public bool IsMainViewShown { get; internal set; }
 
-        /// <summary>
-        /// 是否显示二级页面.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSecondaryViewShown { get; internal set; }
 
-        /// <summary>
-        /// 是否显示播放页面.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsPlayViewShown { get; internal set; }
 
         /// <inheritdoc/>
-        public bool CanBack => _canBack.Value;
+        [Reactive]
+        public bool CanBack { get; set; }
+
+        /// <inheritdoc/>
+        public PageIds MainViewId { get; private set; }
+
+        /// <inheritdoc/>
+        public PageIds SecondaryViewId { get; private set; }
     }
 }

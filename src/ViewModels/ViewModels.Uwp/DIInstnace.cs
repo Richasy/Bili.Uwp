@@ -13,6 +13,7 @@ using Bili.ViewModels.Uwp.Home;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
+using Windows.System.Display;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp
@@ -57,11 +58,11 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
 
             SplatRegistrations.RegisterLazySingleton<AppViewModel>();
+            SplatRegistrations.RegisterLazySingleton<AccountViewModel>();
             SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<PartitionServiceViewModel>();
             SplatRegistrations.RegisterLazySingleton<PartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<RankPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
@@ -75,6 +76,7 @@ namespace Bili.ViewModels.Uwp
         public static void RegisterConstants()
         {
             SplatRegistrations.RegisterConstant(Window.Current.CoreWindow.Dispatcher);
+            SplatRegistrations.RegisterConstant(new DisplayRequest());
             SplatRegistrations.SetupIOC();
         }
     }

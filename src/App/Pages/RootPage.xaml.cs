@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.App.Controls.Dialogs;
+using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Common;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -16,12 +17,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages
+namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// The page is used for default loading.
     /// </summary>
-    public sealed partial class RootPage : AppPage
+    public sealed partial class RootPage : RootPageBase
     {
         private string _initialCommandParameters = null;
         private Uri _initialUri;
@@ -32,23 +33,27 @@ namespace Bili.App.Pages
         public RootPage()
         {
             InitializeComponent();
-            CoreViewModel.Dispatcher = Dispatcher;
+            Current = this;
+            ViewModel.Navigating += OnNavigating;
             Loaded += OnLoadedAsync;
             CoreViewModel.RequestShowTip += OnRequestShowTip;
-            CoreViewModel.RequestBack += OnRequestBackAsync;
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
             SizeChanged += OnSizeChanged;
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequestedAsync;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
+
+        /// <summary>
+        /// 根页面实例.
+        /// </summary>
+        public static RootPage Current { get; private set; }
 
         /// <summary>
         /// 显示顶层视图.
         /// </summary>
         /// <param name="element">要显示的元素.</param>
-        /// <param name="needDisableBackButton">是否需要禁用返回按钮.</param>
-        public void ShowOnHolder(UIElement element, bool needDisableBackButton = true)
+        public void ShowOnHolder(UIElement element)
         {
             if (!HolderContainer.Children.Contains(element))
             {
@@ -56,33 +61,15 @@ namespace Bili.App.Pages
             }
 
             HolderContainer.Visibility = Visibility.Visible;
+            CoreViewModel.CanShowBackButton = false;
 
-            if (needDisableBackButton)
-            {
-                CoreViewModel.IsBackButtonEnabled = false;
-            }
-        }
-
-        /// <summary>
-        /// 清除顶层视图.
-        /// </summary>
-        public void ClearHolder()
-        {
-            HolderContainer.Children.Clear();
-            CoreViewModel.IsBackButtonEnabled = true;
-        }
-
-        /// <summary>
-        /// 从顶层视图中移除元素.
-        /// </summary>
-        /// <param name="element">UI元素.</param>
-        public void RemoveFromHolder(UIElement element)
-        {
-            HolderContainer.Children.Remove(element);
-            if (HolderContainer.Children.Count == 0)
-            {
-                CoreViewModel.IsBackButtonEnabled = true;
-            }
+            ViewModel.AddBackStack(
+                BackBehavior.ShowHolder,
+                ele =>
+                {
+                    RemoveFromHolder((UIElement)ele);
+                },
+                element);
         }
 
         /// <inheritdoc/>
@@ -106,37 +93,37 @@ namespace Bili.App.Pages
                 || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
-                CoreViewModel.Back();
+                Back();
             }
 
             base.OnPointerReleased(e);
         }
 
-        private async Task<bool> TryBackAsync()
+        private void OnNavigating(object sender, AppNavigationEventArgs e)
         {
-            if (HolderContainer.Children.Count > 0)
+            if (e.Type == NavigationType.Secondary)
             {
-                HolderContainer.Children.Remove(HolderContainer.Children.Last());
-                return true;
+                var type = GetSecondaryViewType(e.PageId);
+                SecondaryFrame.Navigate(type, e.Parameter, new DrillInNavigationTransitionInfo());
             }
-            else if (BiliPlayerTransportControls.Instance != null && BiliPlayerTransportControls.Instance.CheckBack())
+            else if (e.Type == NavigationType.Player)
             {
-                return true;
+                PlayerFrame.Navigate(typeof(PlayerPage), e.Parameter);
             }
-            else if (CoreViewModel.IsBackButtonEnabled)
-            {
-                return await TitleBar.TryBackAsync();
-            }
-
-            return false;
         }
 
-        private async void OnRequestBackAsync(object sender, System.EventArgs e) => await TryBackAsync();
+        /// <summary>
+        /// 从顶层视图中移除元素.
+        /// </summary>
+        /// <param name="element">UI元素.</param>
+        private void RemoveFromHolder(UIElement element)
+        {
+            HolderContainer.Children.Remove(element);
+            CoreViewModel.CanShowBackButton = HolderContainer.Children.Count == 0;
+        }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            CoreViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            CoreViewModel.RequestPlay += OnRequestPlay;
             CoreViewModel.InitializePadding();
             await AccountViewModel.Instance.TrySignInAsync(true);
 #if !DEBUG
@@ -144,17 +131,11 @@ namespace Bili.App.Pages
 #endif
         }
 
-        private async void OnBackRequestedAsync(object sender, BackRequestedEventArgs e)
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             e.Handled = true;
-            if (!await TryBackAsync() && CoreViewModel.IsXbox)
-            {
-                App.Current.Exit();
-            }
+            Back();
         }
-
-        private void OnRequestPlay(object sender, object e)
-            => OverFrame.Navigate(typeof(Overlay.PlayerPage), e, new DrillInNavigationTransitionInfo());
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
             => CoreViewModel.InitializePadding();
@@ -166,31 +147,6 @@ namespace Bili.App.Pages
             {
                 ShowOnHolder(viewer);
                 await viewer.LoadImagesAsync(e.ImageUrls, e.ShowIndex);
-            }
-            else
-            {
-                RemoveFromHolder(viewer);
-            }
-        }
-
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(CoreViewModel.IsOpenPlayer))
-            {
-                if (!CoreViewModel.IsOpenPlayer)
-                {
-                    CoreViewModel.ReleaseDisplayRequest();
-                    OverFrame.Navigate(typeof(Page));
-                }
-                else
-                {
-                    CoreViewModel.ActiveDisplayRequest();
-                }
-            }
-            else if (e.PropertyName == nameof(CoreViewModel.IsOverLayerExtendToTitleBar))
-            {
-                var stateName = CoreViewModel.IsOverLayerExtendToTitleBar ? nameof(ExtendedOverState) : nameof(DefaultOverState);
-                VisualStateManager.GoToState(this, stateName, false);
             }
         }
 
@@ -219,8 +175,43 @@ namespace Bili.App.Pages
             }
         }
 
-        private async void OnRootNavViewLoadedAsync(object sender, RoutedEventArgs e)
+        private Type GetSecondaryViewType(PageIds pageId)
         {
+            var pageType = pageId switch
+            {
+                PageIds.PartitionDetail => typeof(PartitionDetailPage),
+                PageIds.Search => typeof(SearchPage),
+                PageIds.ViewHistory => typeof(HistoryPage),
+                PageIds.Favorite => typeof(FavoritePage),
+                PageIds.ViewLater => typeof(ViewLaterPage),
+                PageIds.Fans => typeof(FansPage),
+                PageIds.Follows => typeof(FollowsPage),
+                PageIds.PgcIndex => typeof(PgcIndexPage),
+                PageIds.TimeLine => typeof(TimeLinePage),
+                PageIds.Message => typeof(MessagePage),
+                PageIds.LiveAreaDetail => typeof(LiveAreaDetailPage),
+                PageIds.MyFollows => typeof(MyFollowsPage),
+                _ => typeof(Page)
+            };
+
+            return pageType;
+        }
+
+        private void Back()
+        {
+            if (ViewModel.CanBack)
+            {
+                ViewModel.BackCommand.Execute().Subscribe();
+            }
+            else if (CoreViewModel.IsXbox)
+            {
+                Application.Current.Exit();
+            }
+        }
+
+        private async void OnRootNavViewFirstLoadAsync(object sender, EventArgs e)
+        {
+            ViewModel.NavigateToMainView(PageIds.Recommend);
             if (!string.IsNullOrEmpty(_initialCommandParameters))
             {
                 await CoreViewModel.InitializeCommandFromArgumentsAsync(_initialCommandParameters);
@@ -238,5 +229,12 @@ namespace Bili.App.Pages
 
             await CoreViewModel.CheckNewDynamicRegistrationAsync();
         }
+    }
+
+    /// <summary>
+    /// <see cref="RootPage"/> 的基类.
+    /// </summary>
+    public class RootPageBase : AppPage<NavigationViewModel>
+    {
     }
 }

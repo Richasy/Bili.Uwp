@@ -7,6 +7,8 @@ using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using CommandLine;
 using Microsoft.QueryStringDotNET;
+using Splat;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -65,9 +67,10 @@ namespace Bili.ViewModels.Uwp
                             }
                             else if (!string.IsNullOrEmpty(vm.SearchWord))
                             {
-                                SearchModuleViewModel.Instance.InputWords = vm.SearchWord.Replace("\"", string.Empty);
+                                var keyword = vm.SearchWord.Replace("\"", string.Empty);
+                                SearchModuleViewModel.Instance.InputWords = keyword;
                                 await Task.Delay(500);
-                                SetOverlayContentId(PageIds.Search);
+                                _navigationViewModel.NavigateToSecondaryView(PageIds.Search, keyword);
                             }
                             else if (!string.IsNullOrEmpty(vm.PageId))
                             {
@@ -75,20 +78,7 @@ namespace Bili.ViewModels.Uwp
 
                                 if (result && pageId != PageIds.None)
                                 {
-                                    var id = pageId.GetHashCode();
-                                    if (id < 100)
-                                    {
-                                        // 主页面.
-                                        SetMainContentId(pageId);
-                                    }
-                                    else if (id < 200)
-                                    {
-                                        // 需要登录后才能查看的页面.
-                                        if (await AccountViewModel.Instance.TrySignInAsync(true))
-                                        {
-                                            SetOverlayContentId(pageId);
-                                        }
-                                    }
+                                    _navigationViewModel.Navigate(pageId);
                                 }
                             }
 
@@ -110,9 +100,9 @@ namespace Bili.ViewModels.Uwp
                                     }
                                 }
 
-                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+                                await GetDispatcher().RunAsync(CoreDispatcherPriority.High, () =>
                                 {
-                                    OpenPlayer(record);
+                                    _navigationViewModel.NavigateToPlayView(record);
                                 });
                             }
                         },
@@ -199,7 +189,7 @@ namespace Bili.ViewModels.Uwp
                 {
                     SearchModuleViewModel.Instance.InputWords = keyword;
                     await Task.Delay(500);
-                    SetOverlayContentId(PageIds.Search);
+                    _navigationViewModel.NavigateToSecondaryView(PageIds.Search, keyword);
                 }
             }
             else if (link.Host.Equals(AppConstants.Protocol.NavigateHost, StringComparison.OrdinalIgnoreCase))
@@ -209,20 +199,7 @@ namespace Bili.ViewModels.Uwp
 
                 if (result && pageId != PageIds.None)
                 {
-                    var idCode = pageId.GetHashCode();
-                    if (idCode < 100)
-                    {
-                        // 主页面.
-                        SetMainContentId(pageId);
-                    }
-                    else if (idCode < 200)
-                    {
-                        // 需要登录后才能查看的页面.
-                        if (await AccountViewModel.Instance.TrySignInAsync(true))
-                        {
-                            SetOverlayContentId(pageId);
-                        }
-                    }
+                    _navigationViewModel.Navigate(pageId);
                 }
             }
 
@@ -245,11 +222,14 @@ namespace Bili.ViewModels.Uwp
                     }
                 }
 
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+                await GetDispatcher().RunAsync(CoreDispatcherPriority.High, () =>
                 {
-                    OpenPlayer(record);
+                    _navigationViewModel.NavigateToPlayView(record);
                 });
             }
         }
+
+        private CoreDispatcher GetDispatcher()
+            => Splat.Locator.Current.GetService<CoreDispatcher>();
     }
 }

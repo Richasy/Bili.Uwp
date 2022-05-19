@@ -8,7 +8,6 @@ using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Interfaces;
-using DynamicData;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Common
@@ -23,13 +22,10 @@ namespace Bili.ViewModels.Uwp.Common
         /// </summary>
         public NavigationViewModel()
         {
-            _history = new SourceList<AppNavigationEventArgs>();
+            _backStack = new List<AppBackEventArgs>();
 
-            var canBackObserve = _history.CountChanged.Select(_ => _history.Count > 1);
-
-            _canBack = canBackObserve.ToProperty(this, x => x.CanBack, scheduler: RxApp.MainThreadScheduler);
-
-            BackCommand = ReactiveCommand.Create<object>(Back, canBackObserve, RxApp.MainThreadScheduler);
+            var canBack = this.WhenAnyValue(x => x.CanBack);
+            BackCommand = ReactiveCommand.Create(Back, canBack, RxApp.MainThreadScheduler);
 
             this.WhenAnyValue(x => x.IsMainViewShown)
                 .Subscribe(x =>
@@ -87,69 +83,95 @@ namespace Bili.ViewModels.Uwp.Common
         }
 
         /// <inheritdoc/>
-        public void NavigateToMainView(PageIds pageId, object parameter)
+        public void NavigateToMainView(PageIds pageId, object parameter = null)
         {
-            var args = new AppNavigationEventArgs(NavigationType.Main, pageId, parameter);
-            var result = AddNewArgsToHistory(args);
-            IsMainViewShown = true;
-
-            if (result)
+            if (pageId != MainViewId)
             {
+                RemoveBackStack(BackBehavior.MainView);
+                MainViewId = pageId;
+                var args = new AppNavigationEventArgs(NavigationType.Main, pageId, parameter);
+                AddBackStack(BackBehavior.MainView, null, pageId);
                 Navigating?.Invoke(this, args);
             }
+
+            IsMainViewShown = true;
         }
 
         /// <inheritdoc/>
         public void NavigateToPlayView(object parameter)
         {
+            RemoveBackStack(BackBehavior.OpenPlayer);
             var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
-            var result = AddNewArgsToHistory(args);
             IsPlayViewShown = true;
-
-            if (result)
-            {
-                Navigating?.Invoke(this, args);
-            }
+            AddBackStack(BackBehavior.OpenPlayer, _ => TryLayerBack(), parameter);
+            Navigating?.Invoke(this, args);
         }
 
         /// <inheritdoc/>
-        public void NavigateToSecondaryView(PageIds pageId, object parameter)
+        public void NavigateToSecondaryView(PageIds pageId, object parameter = null)
         {
-            var args = new AppNavigationEventArgs(NavigationType.Secondary, pageId, parameter);
-            var result = AddNewArgsToHistory(args);
-            IsSecondaryViewShown = true;
-
-            if (result)
+            if (pageId != SecondaryViewId)
             {
+                SecondaryViewId = pageId;
+                var args = new AppNavigationEventArgs(NavigationType.Secondary, pageId, parameter);
+                AddBackStack(BackBehavior.SecondaryView, _ => TryLayerBack(), pageId);
                 Navigating?.Invoke(this, args);
             }
+
+            IsSecondaryViewShown = true;
         }
 
-        private void Back(object parameter)
+        /// <inheritdoc/>
+        public void AddBackStack(BackBehavior id, Action<object> backBehavior, object parameter = null)
         {
-            var last = _history.Items.Last();
-            var previous = _history.Items.SkipLast(1).LastOrDefault();
-            var backArgs = new AppBackEventArgs(previous?.Type ?? NavigationType.Main, previous?.PageId ?? default, parameter ?? previous.Parameter);
-            if (previous != null)
-            {
-                Navigate(previous.PageId, previous.Parameter);
-            }
-
-            _history.Remove(last);
-            Backing?.Invoke(this, backArgs);
+            var args = new AppBackEventArgs(id, backBehavior, parameter);
+            _backStack.Add(args);
+            CanBack = _backStack.Count > 1;
         }
 
-        private bool AddNewArgsToHistory(AppNavigationEventArgs args)
+        /// <inheritdoc/>
+        public void RemoveBackStack(BackBehavior id)
         {
-            var last = _history.Items.LastOrDefault();
-            if (last?.Equals(args) ?? false)
+            if (_backStack.Any(p => p.Id == id))
             {
-                return false;
+                _backStack.Remove(_backStack.Last(p => p.Id == id));
             }
 
-            _history.RemoveMany(_history.Items.Where(p => p.Type == NavigationType.Main));
-            _history.Add(args);
-            return true;
+            CanBack = _backStack.Count > 1;
+        }
+
+        private void Back()
+        {
+            if (!CanBack)
+            {
+                return;
+            }
+
+            var last = _backStack.Last();
+            RemoveBackStack(last.Id);
+            last.Action?.Invoke(last.Parameter);
+        }
+
+        private void TryLayerBack()
+        {
+            if (_backStack.Count == 0)
+            {
+                return;
+            }
+
+            var last = _backStack.Last();
+            if (last.Id == BackBehavior.MainView)
+            {
+                NavigateToMainView((PageIds)last.Parameter, null);
+            }
+            else if (last.Id == BackBehavior.SecondaryView)
+            {
+                NavigateToSecondaryView((PageIds)last.Parameter, null);
+            }
+            else if (last.Id == BackBehavior.OpenPlayer)
+            {
+                NavigateToPlayView(last.Parameter);
+            }
         }
     }
 }

@@ -37,15 +37,12 @@
                 </VisualStateGroup.States>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid
-            x:Name="BackgroundHost"
-            Background="{ThemeResource NavigationViewExpandedPaneBackground}"
-            Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+        <Grid x:Name="BackgroundHost" Background="{ThemeResource NavigationViewExpandedPaneBackground}" />
         <Rectangle
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+        <Grid x:Name="ContentGrid">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->
@@ -67,11 +64,12 @@
                 AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Padding="6,0,0,0"
-                Click="OnBackButtonClickAsync"
+                Command="{x:Bind _navigationViewModel.BackCommand}"
                 TabIndex="1"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}">
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
+                Visibility="{x:Bind ViewModel.CanShowBackButton, Mode=OneWay}">
                 <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
+                    <KeyboardAccelerator Key="Back" />
                 </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
@@ -117,7 +115,7 @@
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToHome}"
                 Visibility="Collapsed">
                 <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Home" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
+                    <KeyboardAccelerator Key="Home" />
                 </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation

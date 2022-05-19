@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -18,6 +19,9 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly INumberToolkit _numberToolkit;
         private readonly IAccountProvider _accountProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
+        private readonly IResourceToolkit _resourceToolkit;
+        private readonly INavigationViewModel _navigationViewModel;
+        private readonly AppViewModel _appViewModel;
 
         /// <summary>
         /// 添加到稍后再看的命令.

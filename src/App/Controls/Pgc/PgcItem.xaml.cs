@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,12 +39,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty IsSlimProperty =
             DependencyProperty.Register(nameof(IsSlim), typeof(bool), typeof(PgcItem), new PropertyMetadata(false, new PropertyChangedCallback(OnIsSlimChanged)));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcItem"/> class.
         /// </summary>
         public PgcItem()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
         }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace Bili.App.Controls
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
             ItemClick?.Invoke(this, ViewModel);
-            AppViewModel.Instance.OpenPlayer(ViewModel);
+            _navigationViewModel.NavigateToPlayView(ViewModel);
         }
 
         private void CheckOrientation()

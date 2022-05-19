@@ -2,15 +2,11 @@
 
 using System;
 using Bili.Controller.Uwp;
-using Bili.Controller.Uwp.Interfaces;
 using Bili.Models.App.Args;
-using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Windows.System.Display;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -21,26 +17,10 @@ namespace Bili.ViewModels.Uwp
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingToolkit;
-        private readonly ILoggerModule _loggerModule;
-        private readonly DisplayRequest _displayRequest;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly BiliController _controller;
 
         private bool? _isWide;
-
-        /// <summary>
-        /// 请求导航至二级页面时发生
-        /// </summary>
-        public event EventHandler<object> RequestOverlayNavigation;
-
-        /// <summary>
-        /// 请求播放视频.
-        /// </summary>
-        public event EventHandler<object> RequestPlay;
-
-        /// <summary>
-        /// 请求返回.
-        /// </summary>
-        public event EventHandler RequestBack;
 
         /// <summary>
         /// 请求显示提醒.
@@ -68,29 +48,6 @@ namespace Bili.ViewModels.Uwp
         public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;
 
         /// <summary>
-        /// UI调度器.
-        /// </summary>
-        public CoreDispatcher Dispatcher { get; set; }
-
-        /// <summary>
-        /// 当前主视图中的页面标识.
-        /// </summary>
-        [Reactive]
-        public PageIds CurrentMainContentId { get; internal set; }
-
-        /// <summary>
-        /// 当前覆盖视图中的页面标识.
-        /// </summary>
-        [Reactive]
-        public PageIds CurrentOverlayContentId { get; internal set; }
-
-        /// <summary>
-        /// 是否显示覆盖视图.
-        /// </summary>
-        [Reactive]
-        public bool IsShowOverlay { get; internal set; }
-
-        /// <summary>
         /// 导航面板是否已展开.
         /// </summary>
         [Reactive]
@@ -107,24 +64,6 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string HeaderText { get; set; }
-
-        /// <summary>
-        /// 是否开启播放器.
-        /// </summary>
-        [Reactive]
-        public bool IsOpenPlayer { get; set; }
-
-        /// <summary>
-        /// 是否启用回退按钮.
-        /// </summary>
-        [Reactive]
-        public bool IsBackButtonEnabled { get; set; }
-
-        /// <summary>
-        /// 覆盖层是否扩展至TitleBar.
-        /// </summary>
-        [Reactive]
-        public bool IsOverLayerExtendToTitleBar { get; set; }
 
         /// <summary>
         /// 主题.
@@ -151,8 +90,9 @@ namespace Bili.ViewModels.Uwp
         public Thickness PageRightPadding { get; set; }
 
         /// <summary>
-        /// 二级页面导航框架.
+        /// 是否可以显示后退按钮.
         /// </summary>
-        public Frame SecondaryFrame { get; set; }
+        [Reactive]
+        public bool CanShowBackButton { get; set; }
     }
 }

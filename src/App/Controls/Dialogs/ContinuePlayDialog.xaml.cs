@@ -2,7 +2,9 @@
 
 using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -13,6 +15,7 @@ namespace Bili.App.Controls.Dialogs
     /// </summary>
     public sealed partial class ContinuePlayDialog : ContentDialog
     {
+        private readonly INavigationViewModel _navigationViewModel;
         private object _playVM = null;
 
         /// <summary>
@@ -21,6 +24,7 @@ namespace Bili.App.Controls.Dialogs
         public ContinuePlayDialog()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoadedAsync;
         }
 
@@ -41,7 +45,7 @@ namespace Bili.App.Controls.Dialogs
 
         private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            AppViewModel.Instance.OpenPlayer(_playVM);
+            _navigationViewModel.NavigateToPlayView(_playVM);
         }
 
         private async void OnContentDialogCloseButtonClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)

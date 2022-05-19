@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -107,7 +109,7 @@ namespace Bili.App.Controls
         {
             if (!ViewModel.IsSelected)
             {
-                AppViewModel.OpenPlayer(ViewModel);
+                Splat.Locator.Current.GetService<INavigationViewModel>().NavigateToPlayView(ViewModel);
             }
 
             ItemClick?.Invoke(this, ViewModel);

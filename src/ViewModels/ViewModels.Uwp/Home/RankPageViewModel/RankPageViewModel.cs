@@ -61,7 +61,7 @@ namespace Bili.ViewModels.Uwp.Home
         {
             if (Partitions.Count > 0)
             {
-                await Task.Delay(250);
+                await FakeLoadingAsync();
                 return;
             }
 

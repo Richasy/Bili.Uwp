@@ -836,6 +836,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Navigation" xml:space="preserve">
     <value>导航</value>
   </data>
+  <data name="NeedLoginFirst" xml:space="preserve">
+    <value>你需要先登录才能执行操作</value>
+  </data>
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
   </data>

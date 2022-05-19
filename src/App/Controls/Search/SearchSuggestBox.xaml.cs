@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.BiliBili;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bilibili.App.Interfaces.V1;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,12 +21,15 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(SearchModuleViewModel), typeof(SearchSuggestBox), new PropertyMetadata(SearchModuleViewModel.Instance));
 
+        private readonly INavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchSuggestBox"/> class.
         /// </summary>
         public SearchSuggestBox()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoadedAsync;
         }
 
@@ -46,7 +51,7 @@ namespace Bili.App.Controls
         {
             var item = e.ClickedItem as SearchRecommendItem;
             ViewModel.InputWords = item.Keyword;
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
             HotSearchFlyout.Hide();
         }
 
@@ -78,7 +83,7 @@ namespace Bili.App.Controls
 
             if (!string.IsNullOrEmpty(sender.Text))
             {
-                AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.Search);
+                _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
             }
 
             ViewModel.SuggestionCollection.Clear();

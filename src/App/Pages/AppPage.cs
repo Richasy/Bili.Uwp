@@ -6,7 +6,7 @@ using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.App.Pages
+namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// 应用页面基类.
@@ -16,7 +16,7 @@ namespace Bili.App.Pages
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        protected AppViewModel CoreViewModel { get; } = AppViewModel.Instance;
+        protected AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
 
         /// <summary>
         /// 获取页面注册的视图模型.

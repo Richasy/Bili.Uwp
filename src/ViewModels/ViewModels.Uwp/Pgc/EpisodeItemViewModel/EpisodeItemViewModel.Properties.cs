@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     public sealed partial class EpisodeItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 在网页中打开的命令.

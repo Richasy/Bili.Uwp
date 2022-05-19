@@ -507,6 +507,7 @@ namespace Bili.Models.Enums
         PublishDate,
         InfinityLoop,
         TrackCount,
+        NeedLoginFirst,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

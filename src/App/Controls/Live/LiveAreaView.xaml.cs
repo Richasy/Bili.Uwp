@@ -2,7 +2,9 @@
 
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls
@@ -13,11 +15,16 @@ namespace Bili.App.Controls
     public sealed partial class LiveAreaView : CenterPopup
     {
         private readonly LiveModuleViewModel _viewModel = LiveModuleViewModel.Instance;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveAreaView"/> class.
         /// </summary>
-        public LiveAreaView() => InitializeComponent();
+        public LiveAreaView()
+        {
+            InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+        }
 
         /// <summary>
         /// 显示视图.
@@ -38,7 +45,7 @@ namespace Bili.App.Controls
         private void OnAreaClick(object sender, System.EventArgs e)
         {
             var data = (sender as FrameworkElement).DataContext as LiveArea;
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.LiveAreaDetail, data);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.LiveAreaDetail, data);
             Hide();
         }
     }

@@ -74,12 +74,12 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <local:TwoLineButton
-                                Click="OnFansButtonClickAsync"
+                                Click="OnFansButtonClick"
                                 FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
                                 SecondLineText="{loc:LocaleLocator Name=FansCount}" />
                             <local:TwoLineButton
                                 Grid.Column="1"
-                                Click="OnFollowUserButtonClickAsync"
+                                Click="OnFollowUserButtonClick"
                                 FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
                                 SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
                             <StackPanel

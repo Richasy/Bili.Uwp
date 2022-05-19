@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using ReactiveUI;
@@ -22,14 +23,23 @@ namespace Bili.ViewModels.Uwp.Video
         /// <param name="numberToolkit">数字转换工具.</param>
         /// <param name="accountProvider">账户服务提供工具.</param>
         /// <param name="authorizeProvider">授权服务提供工具.</param>
+        /// <param name="resourceToolkit">本地资源工具.</param>
+        /// <param name="navigationViewModel">导航视图模型.</param>
+        /// <param name="appViewModel">应用视图模型.</param>
         public VideoItemViewModel(
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
-            IAuthorizeProvider authorizeProvider)
+            IAuthorizeProvider authorizeProvider,
+            IResourceToolkit resourceToolkit,
+            INavigationViewModel navigationViewModel,
+            AppViewModel appViewModel)
         {
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
             _authorizeProvider = authorizeProvider;
+            _resourceToolkit = resourceToolkit;
+            _navigationViewModel = navigationViewModel;
+            _appViewModel = appViewModel;
 
             PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
             AddToViewLaterCommand = ReactiveCommand.CreateFromTask(AddToViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -60,25 +70,34 @@ namespace Bili.ViewModels.Uwp.Video
         }
 
         private void Play()
-            => AppViewModel.Instance.OpenPlayer(Information);
+            => _navigationViewModel.NavigateToPlayView(Information);
 
         private async Task AddToViewLaterAsync()
         {
-            if (_authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn)
+            if (_authorizeProvider.State == AuthorizeState.SignedIn)
             {
                 var result = await _accountProvider.AddVideoToViewLaterAsync(Information.Identifier.Id);
                 if (result)
                 {
                     // 显示添加成功的消息.
+                    _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.AddViewLaterSucceseded),
+                        Models.Enums.App.InfoType.Success);
                 }
                 else
                 {
                     // 显示添加失败的消息.
+                    _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.AddViewLaterFailed),
+                        Models.Enums.App.InfoType.Error);
                 }
             }
             else
             {
                 // 显示需要登录的消息.
+                _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst),
+                        Models.Enums.App.InfoType.Warning);
             }
         }
 

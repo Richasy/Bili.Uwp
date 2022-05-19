@@ -10,6 +10,9 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
+using Splat;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
 
@@ -26,12 +29,11 @@ namespace Bili.ViewModels.Uwp
         internal AppViewModel()
         {
             _controller = BiliController.Instance;
-            IsBackButtonEnabled = true;
-            CurrentMainContentId = PageIds.Recommend;
             ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _settingToolkit)
-                                   .LoadService(out _loggerModule);
-            _displayRequest = new Windows.System.Display.DisplayRequest();
+                                   .LoadService(out _settingToolkit);
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            _settingToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;
             _isWide = null;
@@ -40,52 +42,12 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 返回.
-        /// </summary>
-        public void Back()
-            => RequestBack?.Invoke(this, EventArgs.Empty);
-
-        /// <summary>
         /// 显示提示.
         /// </summary>
         /// <param name="message">消息内容.</param>
         /// <param name="type">消息类型.</param>
         public void ShowTip(string message, InfoType type = InfoType.Information)
             => RequestShowTip?.Invoke(this, new AppTipNotificationEventArgs(message, type));
-
-        /// <summary>
-        /// 修改当前主内容标识.
-        /// </summary>
-        /// <param name="pageId">主内容标识.</param>
-        public void SetMainContentId(PageIds pageId)
-        {
-            CurrentMainContentId = pageId;
-            CurrentOverlayContentId = PageIds.None;
-            IsShowOverlay = false;
-        }
-
-        /// <summary>
-        /// 修改当前覆盖内容标识.
-        /// </summary>
-        /// <param name="pageId">覆盖内容标识.</param>
-        /// <param name="param">导航参数.</param>
-        public void SetOverlayContentId(PageIds pageId, object param = null)
-        {
-            CurrentOverlayContentId = pageId;
-            IsShowOverlay = true;
-            IsOpenPlayer = false;
-            RequestOverlayNavigation?.Invoke(this, param);
-        }
-
-        /// <summary>
-        /// 打开播放器播放视频.
-        /// </summary>
-        /// <param name="playVM">包含播放信息的视图模型.</param>
-        public void OpenPlayer(object playVM)
-        {
-            RequestPlay?.Invoke(this, playVM);
-            IsOpenPlayer = true;
-        }
 
         /// <summary>
         /// 显示图片.
@@ -105,84 +67,17 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 激活显示请求.
-        /// </summary>
-        public void ActiveDisplayRequest()
-        {
-            if (_displayRequest != null)
-            {
-                try
-                {
-                    _displayRequest.RequestActive();
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
-
-        /// <summary>
-        /// 释放显示请求.
-        /// </summary>
-        public void ReleaseDisplayRequest()
-        {
-            if (_displayRequest != null)
-            {
-                try
-                {
-                    _displayRequest.RequestRelease();
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
-
-        /// <summary>
-        /// 进入相关用户视图.
-        /// </summary>
-        /// <param name="type">粉丝视图或关注视图.</param>
-        /// <param name="userId">用户Id.</param>
-        /// <param name="userName">用户名.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task EnterRelatedUserViewAsync(RelatedUserType type, int userId, string userName)
-        {
-            Enum.TryParse<PageIds>(type.ToString(), out var targetPageId);
-            if (CurrentOverlayContentId != targetPageId)
-            {
-                SetOverlayContentId(targetPageId, new Tuple<int, string>(userId, userName));
-            }
-            else
-            {
-                var targetVM = type == RelatedUserType.Fans ? FansViewModel.Instance : (RelatedUserViewModel)FollowsViewModel.Instance;
-                var canRefresh = targetVM.SetUser(userId, userName);
-                if (canRefresh)
-                {
-                    await targetVM.InitializeRequestAsync();
-                }
-            }
-        }
-
-        /// <summary>
         /// 初始化主题.
         /// </summary>
         public void InitializeTheme()
         {
             var theme = _settingToolkit.ReadLocalSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
-            switch (theme)
+            Theme = theme switch
             {
-                case AppConstants.ThemeLight:
-                    Theme = ElementTheme.Light;
-                    break;
-                case AppConstants.ThemeDark:
-                    Theme = ElementTheme.Dark;
-                    break;
-                case AppConstants.ThemeDefault:
-                    Theme = ElementTheme.Default;
-                    break;
-                default:
-                    break;
-            }
+                AppConstants.ThemeLight => ElementTheme.Light,
+                AppConstants.ThemeDark => ElementTheme.Dark,
+                _ => ElementTheme.Default
+            };
         }
 
         /// <summary>
@@ -253,9 +148,11 @@ namespace Bili.ViewModels.Uwp
                     return false;
                 }
 
-                var builder = new BackgroundTaskBuilder();
-                builder.Name = taskName;
-                builder.TaskEntryPoint = taskName;
+                var builder = new BackgroundTaskBuilder
+                {
+                    Name = taskName,
+                    TaskEntryPoint = taskName,
+                };
                 builder.SetTrigger(new TimeTrigger(15, false));
                 builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
                 _ = builder.Register();

@@ -2,6 +2,7 @@
 
 using System;
 using Bili.Models.Data.Community;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Community;
 using Splat;
 using Windows.UI.Xaml;
@@ -32,8 +33,8 @@ namespace Bili.App.Controls.Community
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var vm = Splat.Locator.Current.GetService<PartitionServiceViewModel>();
-            vm.GotoDetailViewCommand.Execute(ViewModel).Subscribe();
+            var vm = Splat.Locator.Current.GetService<INavigationViewModel>();
+            vm.NavigateToSecondaryView(Models.Enums.PageIds.PartitionDetail, ViewModel);
         }
     }
 }
