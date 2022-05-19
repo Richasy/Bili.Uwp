@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;

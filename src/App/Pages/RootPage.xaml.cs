@@ -1,14 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Bili.App.Controls;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
-using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Core;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -40,8 +42,17 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
+            CoreViewModel.PropertyChanged += OnCoreViewModelPropertyChanged;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        private void OnCoreViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CoreViewModel.IsShowTitleBar))
+            {
+
+            }
         }
 
         /// <summary>
@@ -101,6 +112,11 @@ namespace Bili.App.Pages.Desktop
 
         private void OnNavigating(object sender, AppNavigationEventArgs e)
         {
+            if (e.Type != NavigationType.Player && PlayerFrame.Content is not AppPage)
+            {
+                PlayerFrame.Navigate(typeof(Page));
+            }
+
             if (e.Type == NavigationType.Secondary)
             {
                 var type = GetSecondaryViewType(e.PageId);
@@ -109,6 +125,10 @@ namespace Bili.App.Pages.Desktop
             else if (e.Type == NavigationType.Player)
             {
                 PlayerFrame.Navigate(typeof(PlayerPage), e.Parameter);
+            }
+            else if (e.Type == NavigationType.Main && SecondaryFrame.Content is not AppPage)
+            {
+                SecondaryFrame.Navigate(typeof(Page));
             }
         }
 

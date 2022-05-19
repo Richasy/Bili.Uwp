@@ -5,6 +5,7 @@ using Bili.App.Controls;
 using Bili.Models.BiliBili;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 
@@ -21,7 +22,7 @@ namespace Bili.App.Pages.Desktop
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(LiveModuleViewModel), typeof(LivePage), new PropertyMetadata(LiveModuleViewModel.Instance));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePage"/> class.
@@ -29,7 +30,7 @@ namespace Bili.App.Pages.Desktop
         public LivePage()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoadedAsync;
             SizeChanged += OnSizeChanged;
         }

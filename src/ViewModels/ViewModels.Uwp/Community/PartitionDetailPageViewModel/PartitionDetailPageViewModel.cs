@@ -83,6 +83,7 @@ namespace Bili.ViewModels.Uwp.Community
             partition.Children.ToList().ForEach(p => SubPartitions.Add(p));
             CurrentSubPartition = SubPartitions.First();
             Banners.Clear();
+            VideoCollection.Clear();
         }
 
         /// <inheritdoc/>
@@ -98,7 +99,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             var partition = CurrentSubPartition;
             var isRecommend = partition.Id == OriginPartition.Id;
-            var data = await _partitionProvider.GetSubPartitionDataAsync(partition.Id, isRecommend);
+            var data = await _partitionProvider.GetSubPartitionDataAsync(partition.Id, isRecommend, SortType);
             if (data.Banners?.Count() > 0)
             {
                 foreach (var item in data.Banners)

@@ -61,6 +61,13 @@
         <Setter Property="WrapMargin" Value="16,8" />
     </Style>
 
+    <Style x:Key="TopNavigationViewStyle" TargetType="muxc:NavigationView">
+        <Setter Property="IsBackButtonVisible" Value="Collapsed" />
+        <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+        <Setter Property="IsSettingsVisible" Value="False" />
+        <Setter Property="PaneDisplayMode" Value="Top" />
+    </Style>
+
     <Style
         x:Key="RightAlignedCompactToggleSwitchStyle"
         BasedOn="{StaticResource DefaultToggleSwitchStyle}"

@@ -6,7 +6,7 @@ using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.

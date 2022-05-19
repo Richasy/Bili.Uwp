@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -20,6 +22,7 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         protected ViewLaterViewModel()
         {
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             VideoCollection = new ObservableCollection<VideoViewModel>();
             Controller.ViewLaterVideoIteration += OnViewLaterVideoIteration;
         }
@@ -87,7 +90,7 @@ namespace Bili.ViewModels.Uwp
             var result = await Controller.ClearViewLaterAsync();
             if (!result)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearViewLater), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearViewLater), Models.Enums.App.InfoType.Error);
             }
             else
             {
@@ -106,7 +109,7 @@ namespace Bili.ViewModels.Uwp
             var result = await Controller.RemoveVideoFromViewLaterAsync(Convert.ToInt32(vm.VideoId));
             if (!result)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromViewLater), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromViewLater), Models.Enums.App.InfoType.Error);
             }
             else
             {
@@ -125,11 +128,11 @@ namespace Bili.ViewModels.Uwp
             var result = await Controller.AddVideoToViewLaterAsync(Convert.ToInt32(vm.VideoId));
             if (result)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterSucceseded), Models.Enums.App.InfoType.Success);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterSucceseded), Models.Enums.App.InfoType.Success);
             }
             else
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterFailed), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddViewLaterFailed), Models.Enums.App.InfoType.Error);
             }
 
             return result;

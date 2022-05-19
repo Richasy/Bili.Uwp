@@ -23,7 +23,7 @@
             VerticalScrollBarVisibility="Auto">
             <StackPanel
                 x:Name="RootPanel"
-                Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                 Padding="0,0,0,24"
                 Spacing="4">
 

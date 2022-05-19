@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -39,7 +39,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty IsSlimProperty =
             DependencyProperty.Register(nameof(IsSlim), typeof(bool), typeof(PgcItem), new PropertyMetadata(false, new PropertyChangedCallback(OnIsSlimChanged)));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcItem"/> class.
@@ -47,7 +47,7 @@ namespace Bili.App.Controls
         public PgcItem()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>

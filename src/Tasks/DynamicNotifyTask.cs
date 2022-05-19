@@ -27,6 +27,7 @@ namespace Bili.Tasks
             if (dynamics == null)
             {
                 def.Complete();
+                return;
             }
 
             var settingsToolkit = ServiceLocator.Instance.GetService<ISettingsToolkit>();

@@ -101,7 +101,7 @@
                 <Grid
                     x:Name="FilterContainer"
                     Margin="0,12"
-                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                     HorizontalAlignment="Left">
                     <controls:SearchVideoFilter x:Name="VideoFilter" Visibility="Collapsed" />
                     <controls:SearchArticleFilter x:Name="ArticleFilter" Visibility="Collapsed" />
@@ -111,7 +111,7 @@
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Grid.Row="1"
-                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid Margin="0,0,0,12">

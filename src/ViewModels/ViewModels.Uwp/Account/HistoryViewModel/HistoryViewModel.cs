@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.App.Interfaces.V1;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -20,6 +22,7 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         protected HistoryViewModel()
         {
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             VideoCollection = new ObservableCollection<VideoViewModel>();
             _cursor = null;
             Controller.HistoryVideoIteration += OnHistoryVideoIteration;
@@ -93,7 +96,7 @@ namespace Bili.ViewModels.Uwp
             }
             else
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -106,7 +109,7 @@ namespace Bili.ViewModels.Uwp
             var result = await Controller.ClearHistoryAsync();
             if (!result)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.FailedToClearHisotry), Models.Enums.App.InfoType.Error);
             }
             else
             {

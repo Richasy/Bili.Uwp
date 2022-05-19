@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 
@@ -20,7 +20,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(UserViewModel), typeof(UserView), new PropertyMetadata(default));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserView"/> class.
@@ -28,7 +28,7 @@ namespace Bili.App.Controls
         protected UserView()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>

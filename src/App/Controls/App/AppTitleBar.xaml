@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<local:AppTitleBarBase
     x:Class="Bili.App.Controls.AppTitleBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,14 +9,13 @@
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" TabFocusNavigation="Local">
+    <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsShowTitleBar, Mode=OneWay}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
                 <VisualStateGroup.States>
@@ -59,51 +58,53 @@
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="172" />
             </Grid.ColumnDefinitions>
 
-            <Button
-                x:Name="BackButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
-                Style="{StaticResource TitleBarButtonStyle}"
-                Padding="6,0,0,0"
-                Command="{x:Bind _navigationViewModel.BackCommand}"
-                TabIndex="1"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
-                Visibility="{x:Bind ViewModel.CanShowBackButton, Mode=OneWay}">
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Back" />
-                </Button.KeyboardAccelerators>
-                <animations:Implicit.ShowAnimations>
-                    <animations:OpacityAnimation
-                        From="0"
-                        To="1"
-                        Duration="0:0:0.3" />
-                    <animations:ScaleAnimation
-                        From="0.5"
-                        To="1"
-                        Duration="0:0:0.3" />
-                </animations:Implicit.ShowAnimations>
-                <animations:Implicit.HideAnimations>
-                    <animations:OpacityAnimation
-                        From="1"
-                        To="0"
-                        Duration="0:0:0.2" />
-                    <animations:ScaleAnimation
-                        From="1"
-                        To="0.5"
-                        Duration="0:0:0.2" />
-                </animations:Implicit.HideAnimations>
-                <Viewbox
-                    Width="16"
-                    Height="16"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <muxc:AnimatedIcon>
-                        <animatedVisuals:AnimatedBackVisualSource />
-                        <muxc:AnimatedIcon.FallbackIconSource>
-                            <muxc:SymbolIconSource Symbol="Back" />
-                        </muxc:AnimatedIcon.FallbackIconSource>
-                    </muxc:AnimatedIcon>
-                </Viewbox>
-            </Button>
+            <Grid Visibility="{x:Bind ViewModel.CanShowBackButton}">
+                <Button
+                    x:Name="BackButton"
+                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
+                    Style="{StaticResource TitleBarButtonStyle}"
+                    Padding="6,0,0,0"
+                    Command="{x:Bind _navigationViewModel.BackCommand}"
+                    TabIndex="1"
+                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
+                    Visibility="{x:Bind _navigationViewModel.CanBack, Mode=OneWay}">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="Back" />
+                    </Button.KeyboardAccelerators>
+                    <animations:Implicit.ShowAnimations>
+                        <animations:OpacityAnimation
+                            From="0"
+                            To="1"
+                            Duration="0:0:0.3" />
+                        <animations:ScaleAnimation
+                            From="0.5"
+                            To="1"
+                            Duration="0:0:0.3" />
+                    </animations:Implicit.ShowAnimations>
+                    <animations:Implicit.HideAnimations>
+                        <animations:OpacityAnimation
+                            From="1"
+                            To="0"
+                            Duration="0:0:0.2" />
+                        <animations:ScaleAnimation
+                            From="1"
+                            To="0.5"
+                            Duration="0:0:0.2" />
+                    </animations:Implicit.HideAnimations>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <muxc:AnimatedIcon>
+                            <animatedVisuals:AnimatedBackVisualSource />
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:SymbolIconSource Symbol="Back" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
+                    </Viewbox>
+                </Button>
+            </Grid>
 
             <Button
                 x:Name="HomeButton"
@@ -224,4 +225,4 @@
         </Grid>
     </Grid>
 
-</UserControl>
+</local:AppTitleBarBase>

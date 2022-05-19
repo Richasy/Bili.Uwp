@@ -3,6 +3,7 @@
 using System;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,7 +27,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(FollowLiveItem), new PropertyMetadata(default, new PropertyChangedCallback(OnOrientationChanged)));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FollowLiveItem"/> class.
@@ -34,7 +35,7 @@ namespace Bili.App.Controls
         public FollowLiveItem()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoaded;
         }
 

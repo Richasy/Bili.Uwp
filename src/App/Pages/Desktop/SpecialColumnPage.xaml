@@ -52,7 +52,7 @@
                 <ScrollViewer
                     x:Name="ContentScrollViewer"
                     Margin="0,8,0,0"
-                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                     HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.CurrentCategory.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

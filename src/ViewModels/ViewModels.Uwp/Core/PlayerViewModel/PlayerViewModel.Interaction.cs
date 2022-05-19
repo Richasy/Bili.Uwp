@@ -13,7 +13,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.
@@ -289,7 +289,7 @@ namespace Bili.ViewModels.Uwp
                     await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
                 }
 
-                AppViewModel.Instance.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
 
                 var shouldCopy = _settingsToolkit.ReadLocalSetting(SettingNames.CopyScreenshotAfterSave, true);
                 if (shouldCopy)

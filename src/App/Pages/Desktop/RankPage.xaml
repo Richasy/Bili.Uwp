@@ -2,6 +2,7 @@
     x:Class="Bili.App.Pages.Desktop.RankPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:community="using:Bili.Models.Data.Community"
     xmlns:controls="using:Bili.App.Controls"
@@ -19,7 +20,12 @@
         <behaviors:InitializeBehavior />
     </interactivity:Interaction.Behaviors>
 
-    <Grid>
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
@@ -37,14 +43,14 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <app:PageHeader Title="{loc:LocaleLocator Name=Rank}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
         <muxc:NavigationView
             x:Name="RankNavigationView"
-            IsBackButtonVisible="Collapsed"
-            IsPaneToggleButtonVisible="False"
-            IsSettingsVisible="False"
+            Style="{StaticResource TopNavigationViewStyle}"
+            Grid.Row="1"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             ItemInvoked="OnDetailNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
-            PaneDisplayMode="Top"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="community:Partition">
@@ -67,45 +73,46 @@
                     </muxc:NavigationViewItem>
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
-
-            <muxc:NavigationView.Content>
-                <Grid Margin="0,4,0,0">
-                    <ScrollViewer
-                        x:Name="ContentScrollViewer"
-                        Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
-                        HorizontalScrollMode="Disabled"
-                        VerticalScrollBarVisibility="Auto"
-                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                        <controls:VerticalRepeaterView
-                            x:Name="VideoView"
-                            Margin="0,0,0,12"
-                            HeaderVisibility="Collapsed"
-                            ItemsSource="{x:Bind ViewModel.VideoCollection}"
-                            MinWideItemHeight="252"
-                            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                            <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="video:VideoItemViewModel">
-                                    <videos:VideoItem ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </controls:VerticalRepeaterView.ItemTemplate>
-                        </controls:VerticalRepeaterView>
-                    </ScrollViewer>
-                    <controls:ErrorPanel
-                        x:Name="ErrorPanel"
-                        ActionContent="{loc:LocaleLocator Name=Refresh}"
-                        Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
-                        <interactivity:Interaction.Behaviors>
-                            <behaviors:ReloadBehavior />
-                        </interactivity:Interaction.Behaviors>
-                    </controls:ErrorPanel>
-                </Grid>
-            </muxc:NavigationView.Content>
         </muxc:NavigationView>
+
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="2"
+            Margin="0,-4,0,0"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:VerticalRepeaterView
+                x:Name="VideoView"
+                Margin="0,0,0,12"
+                HeaderVisibility="Collapsed"
+                ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                MinWideItemHeight="252"
+                Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <videos:VideoItem ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="2"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
 
         <muxc:ProgressRing
             x:Name="InitializeRing"
             Style="{StaticResource PageProgressRingStyle}"
+            Grid.Row="2"
             IsActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
     </Grid>
 </local:RankPageBase>

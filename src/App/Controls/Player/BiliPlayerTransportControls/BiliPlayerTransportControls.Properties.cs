@@ -3,6 +3,7 @@
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

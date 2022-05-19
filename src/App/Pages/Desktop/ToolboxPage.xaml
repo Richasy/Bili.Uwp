@@ -17,7 +17,7 @@
     </local:AppPage.Resources>
 
     <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}" Padding="0,0,0,24">
+        <StackPanel Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}" Padding="0,0,0,24">
             <muxc:ItemsRepeater Margin="0,4,0,0" ItemsSource="{x:Bind _viewModel.ToolCollection}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:UniformGridLayout

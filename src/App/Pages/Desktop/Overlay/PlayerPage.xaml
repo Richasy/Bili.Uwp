@@ -62,11 +62,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="ContentContainer" Padding="{x:Bind CoreViewModel.PageLeftPadding, Mode=OneWay}">
-            <Grid x:Name="LoadContainer" x:Load="{x:Bind ViewModel.IsDetailCanLoaded, Mode=OneWay}">
+        <Grid
+            x:Name="ContentContainer"
+            Margin="{x:Bind CoreViewModel.PageTopPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}">
+            <Grid x:Name="LoadContainer" Visibility="{x:Bind ViewModel.IsDetailCanLoaded, Mode=OneWay}">
                 <Grid
                     x:Name="ContentGrid"
-                    Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
                     Padding="0,0,0,20"
                     ColumnSpacing="48"
                     Visibility="{x:Bind ViewModel.IsDetailError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

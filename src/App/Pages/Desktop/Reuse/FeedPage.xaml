@@ -32,7 +32,7 @@
             </VisualStateManager.VisualStateGroups>
             <Grid
                 x:Name="RootGrid"
-                Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

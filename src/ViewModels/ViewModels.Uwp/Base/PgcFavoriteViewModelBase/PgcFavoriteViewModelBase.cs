@@ -8,6 +8,8 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -22,6 +24,7 @@ namespace Bili.ViewModels.Uwp
         /// <param name="type">收藏夹类型.</param>
         public PgcFavoriteViewModelBase(FavoriteType type)
         {
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             Type = type;
             SeasonCollection = new ObservableCollection<SeasonViewModel>();
             StatusCollection = new ObservableCollection<int> { 1, 2, 3 };
@@ -117,16 +120,16 @@ namespace Bili.ViewModels.Uwp
                 if (result)
                 {
                     SeasonCollection.Remove(seasonVM);
-                    AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetSuccess), InfoType.Success);
+                    _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetSuccess), InfoType.Success);
                 }
                 else
                 {
-                    AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed), InfoType.Error);
+                    _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed), InfoType.Error);
                 }
             }
             catch (Exception ex)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed) + $"\n{ex.Message}", InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.SetFailed) + $"\n{ex.Message}", InfoType.Error);
             }
         }
 

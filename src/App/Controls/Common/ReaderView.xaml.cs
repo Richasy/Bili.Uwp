@@ -84,7 +84,7 @@ namespace Bili.App.Controls
                 var content = ViewModel.ArticleContent.Replace("=\"//", "=\"http://")
                     .Replace("data-src", "src");
                 var readerContainerStr = await fileToolkit.ReadPackageFile("ms-appx:///Resources/Html/ReaderPage.html");
-                var theme = App.Current.RequestedTheme.ToString();
+                var theme = Application.Current.RequestedTheme.ToString();
                 var css = await fileToolkit.ReadPackageFile($"ms-appx:///Resources/Html/{theme}.css");
 
                 var html = readerContainerStr.Replace("$theme$", theme.ToLower())

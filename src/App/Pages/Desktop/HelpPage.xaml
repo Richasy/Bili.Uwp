@@ -37,7 +37,7 @@
         <Grid
             x:Name="WideContainer"
             Margin="0,0,0,28"
-            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -157,7 +157,7 @@
 
         <ScrollViewer
             x:Name="NarrowScrollView"
-            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             Visibility="Collapsed">
             <Grid

@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.BiliBili;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.App.Interfaces.V1;
 using Splat;
 using Windows.UI.Xaml;
@@ -21,7 +21,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(SearchModuleViewModel), typeof(SearchSuggestBox), new PropertyMetadata(SearchModuleViewModel.Instance));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchSuggestBox"/> class.
@@ -29,7 +29,7 @@ namespace Bili.App.Controls
         public SearchSuggestBox()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoadedAsync;
         }
 

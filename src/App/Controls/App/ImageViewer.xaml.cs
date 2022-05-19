@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -236,7 +238,7 @@ namespace Bili.App.Controls
             dp.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(url)));
             Clipboard.SetContent(dp);
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
+            Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
         }
 
         private async void OnSaveButtonClickAsync(object sender, RoutedEventArgs e)
@@ -264,7 +266,7 @@ namespace Bili.App.Controls
             {
                 await FileIO.WriteBytesAsync(file, cache);
                 var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
             }
         }
 
@@ -299,11 +301,11 @@ namespace Bili.App.Controls
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (result)
             {
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
             }
             else
             {
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
 
             await Task.Delay(1000);
@@ -334,7 +336,7 @@ namespace Bili.App.Controls
             _currentIndex = 0;
             Image.Source = null;
             Container.Visibility = Visibility.Collapsed;
-            AppViewModel.Instance.ShowImages(null, -1);
+            Splat.Locator.Current.GetService<AppViewModel>().ShowImages(null, -1);
         }
 
         private void ShowControls()

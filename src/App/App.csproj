@@ -41,6 +41,9 @@
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\ReloadBehavior.cs" />
     <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
+    <Compile Include="Controls\App\PageHeader.xaml.cs">
+      <DependentUpon>PageHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
@@ -597,6 +600,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\IconTextBlock\IconTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

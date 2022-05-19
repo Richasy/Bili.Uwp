@@ -3,7 +3,9 @@
 using System;
 using System.Linq;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.App.Dynamic.V2;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -60,7 +62,7 @@ namespace Bili.App.Controls
             var image = sender as CommonImageEx;
             var sources = Data.Items.Select(p => p.Src).ToList();
             var index = sources.IndexOf(image.DataContext as string);
-            AppViewModel.Instance.ShowImages(sources, index);
+            Splat.Locator.Current.GetService<AppViewModel>().ShowImages(sources, index);
         }
     }
 }

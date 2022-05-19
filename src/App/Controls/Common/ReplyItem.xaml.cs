@@ -4,6 +4,7 @@ using System;
 using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.Main.Community.Reply.V1;
 using Humanizer;
 using Windows.Foundation;

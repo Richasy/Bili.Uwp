@@ -9,6 +9,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,7 +27,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(ViewLaterViewModel), typeof(ViewLaterPage), new PropertyMetadata(ViewLaterViewModel.Instance));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewLaterPage"/> class.
@@ -34,7 +35,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         public ViewLaterPage()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoadedAsync;
         }
 

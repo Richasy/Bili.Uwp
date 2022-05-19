@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Uwp
     {
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly AppViewModel _appViewModel;
         private string _initializeTheme;
 
         /// <summary>

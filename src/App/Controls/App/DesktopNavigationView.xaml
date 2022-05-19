@@ -127,10 +127,7 @@
                     BorderThickness="1,1,0,0"
                     CornerRadius="8,0,0,0"
                     RowSpacing="8">
-                    <Frame
-                        x:Name="MainFrame"
-                        Grid.Row="1"
-                        Navigated="OnMainFrameNavigated" />
+                    <Frame x:Name="MainFrame" Loaded="OnFrameLoaded" />
                 </Grid>
             </muxc:NavigationView.Content>
 

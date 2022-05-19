@@ -7,15 +7,14 @@ using System.Reactive.Linq;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 
-namespace Bili.ViewModels.Uwp.Common
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 处理导航的视图模型.
     /// </summary>
-    public sealed partial class NavigationViewModel : ViewModelBase, INavigationViewModel
+    public sealed partial class NavigationViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewModel"/> class.
@@ -24,6 +23,7 @@ namespace Bili.ViewModels.Uwp.Common
         {
             _backStack = new List<AppBackEventArgs>();
 
+            IsMainViewShown = true;
             var canBack = this.WhenAnyValue(x => x.CanBack);
             BackCommand = ReactiveCommand.Create(Back, canBack, RxApp.MainThreadScheduler);
 
@@ -37,13 +37,13 @@ namespace Bili.ViewModels.Uwp.Common
                 });
 
             this.WhenAnyValue(x => x.IsSecondaryViewShown)
-                .Subscribe(x =>
-                {
-                    if (x)
-                    {
-                        IsPlayViewShown = IsMainViewShown = false;
-                    }
-                });
+               .Subscribe(x =>
+               {
+                   if (x)
+                   {
+                       IsPlayViewShown = IsMainViewShown = false;
+                   }
+               });
 
             this.WhenAnyValue(x => x.IsPlayViewShown)
                 .Subscribe(x =>
@@ -55,8 +55,12 @@ namespace Bili.ViewModels.Uwp.Common
                 });
         }
 
-        /// <inheritdoc/>
-        public void Navigate(PageIds pageId, object parameter)
+        /// <summary>
+        /// 传入页面 Id, 并由应用自行判断层级，导航到指定类型的页面.
+        /// </summary>
+        /// <param name="pageId">页面 Id.</param>
+        /// <param name="parameter">导航参数.</param>
+        public void Navigate(PageIds pageId, object parameter = null)
         {
             var type = pageId.GetHashCode() switch
             {
@@ -82,9 +86,15 @@ namespace Bili.ViewModels.Uwp.Common
             }
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// 在主视图中进行导航，传入的 PageIds 应该是主视图的页面 Id.
+        /// </summary>
+        /// <param name="pageId">页面 Id.</param>
+        /// <param name="parameter">导航参数.</param>
         public void NavigateToMainView(PageIds pageId, object parameter = null)
         {
+            IsMainViewShown = true;
+            SecondaryViewId = PageIds.None;
             if (pageId != MainViewId)
             {
                 RemoveBackStack(BackBehavior.MainView);
@@ -93,23 +103,16 @@ namespace Bili.ViewModels.Uwp.Common
                 AddBackStack(BackBehavior.MainView, null, pageId);
                 Navigating?.Invoke(this, args);
             }
-
-            IsMainViewShown = true;
         }
 
-        /// <inheritdoc/>
-        public void NavigateToPlayView(object parameter)
-        {
-            RemoveBackStack(BackBehavior.OpenPlayer);
-            var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
-            IsPlayViewShown = true;
-            AddBackStack(BackBehavior.OpenPlayer, _ => TryLayerBack(), parameter);
-            Navigating?.Invoke(this, args);
-        }
-
-        /// <inheritdoc/>
+        /// <summary>
+        /// 导航到指定的二级页面，传入的 PageIds 应该是二级页面的页面 Id.
+        /// </summary>
+        /// <param name="pageId">页面 Id.</param>
+        /// <param name="parameter">导航参数.</param>
         public void NavigateToSecondaryView(PageIds pageId, object parameter = null)
         {
+            IsSecondaryViewShown = true;
             if (pageId != SecondaryViewId)
             {
                 SecondaryViewId = pageId;
@@ -117,11 +120,33 @@ namespace Bili.ViewModels.Uwp.Common
                 AddBackStack(BackBehavior.SecondaryView, _ => TryLayerBack(), pageId);
                 Navigating?.Invoke(this, args);
             }
-
-            IsSecondaryViewShown = true;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// 导航到播放页，传入播放参数.
+        /// </summary>
+        /// <param name="parameter">播放参数.</param>
+        public void NavigateToPlayView(object parameter)
+        {
+            IsPlayViewShown = true;
+            RemoveBackStack(BackBehavior.OpenPlayer);
+            var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
+            AddBackStack(BackBehavior.OpenPlayer, _ => TryLayerBack(), parameter);
+            Navigating?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// 添加后退栈，应用会按照先进后出的顺序依次执行回退行为.
+        /// </summary>
+        /// <param name="id">行为标识.</param>
+        /// <param name="backBehavior">自定义的后退行为.</param>
+        /// <param name="parameter">后退时携带的参数.</param>
+        /// <remarks>
+        /// 这里的导航服务的主要职能是暂存和转发。应用各个组件定义自己的后退行为，按照顺序依次进入这个栈中，
+        /// 导航服务不必知道 <see cref="Action"/> 是做什么的，只负责在需要后退时按顺序执行这些组件自定义的行为即可.
+        /// 举例来说，当应用进入二级页面，由组件发送一个回退行为给导航服务，当应用点击标题栏的后退按钮时，
+        /// 服务检测到最后一个回退行为是二级页面定义的，那么就执行二级页面预设的 <see cref="Action"/>.
+        /// </remarks>
         public void AddBackStack(BackBehavior id, Action<object> backBehavior, object parameter = null)
         {
             var args = new AppBackEventArgs(id, backBehavior, parameter);
@@ -129,7 +154,10 @@ namespace Bili.ViewModels.Uwp.Common
             CanBack = _backStack.Count > 1;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// 移除已有的后退栈.
+        /// </summary>
+        /// <param name="id">行为标识.</param>
         public void RemoveBackStack(BackBehavior id)
         {
             if (_backStack.Any(p => p.Id == id))

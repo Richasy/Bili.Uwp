@@ -4,11 +4,10 @@ using System;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Xaml;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// <see cref="AppViewModel"/>的属性集.
@@ -17,7 +16,7 @@ namespace Bili.ViewModels.Uwp
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingToolkit;
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private readonly BiliController _controller;
 
         private bool? _isWide;
@@ -41,11 +40,6 @@ namespace Bili.ViewModels.Uwp
         /// 请求显示图片列表.
         /// </summary>
         public event EventHandler<ShowImageEventArgs> RequestShowImages;
-
-        /// <summary>
-        /// <see cref="AppViewModel"/>的单例.
-        /// </summary>
-        public static AppViewModel Instance { get; } = new Lazy<AppViewModel>(() => new AppViewModel()).Value;
 
         /// <summary>
         /// 导航面板是否已展开.
@@ -78,21 +72,27 @@ namespace Bili.ViewModels.Uwp
         public bool IsXbox { get; set; }
 
         /// <summary>
-        /// 页面左侧或上部的边距.
+        /// 页面横向边距.
         /// </summary>
         [Reactive]
-        public Thickness PageLeftPadding { get; set; }
+        public Thickness PageHorizontalPadding { get; set; }
 
         /// <summary>
-        /// 页面右侧或下部的边距.
+        /// 页面顶部边距.
         /// </summary>
         [Reactive]
-        public Thickness PageRightPadding { get; set; }
+        public Thickness PageTopPadding { get; set; }
 
         /// <summary>
         /// 是否可以显示后退按钮.
         /// </summary>
         [Reactive]
         public bool CanShowBackButton { get; set; }
+
+        /// <summary>
+        /// 是否显示标题栏.
+        /// </summary>
+        [Reactive]
+        public bool IsShowTitleBar { get; set; }
     }
 }

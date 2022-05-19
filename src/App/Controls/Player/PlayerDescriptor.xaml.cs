@@ -5,8 +5,8 @@ using Bili.App.Controls.Dialogs;
 using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,7 +18,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class PlayerDescriptor : PlayerComponent
     {
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerDescriptor"/> class.
@@ -26,7 +26,7 @@ namespace Bili.App.Controls
         public PlayerDescriptor()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

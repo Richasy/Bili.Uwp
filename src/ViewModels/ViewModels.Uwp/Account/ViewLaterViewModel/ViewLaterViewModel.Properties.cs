@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp
@@ -11,6 +12,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class ViewLaterViewModel
     {
+        private readonly AppViewModel _appViewModel;
         private int _pageNumber;
         private bool _isLoadCompleted;
 

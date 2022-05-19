@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.ViewModels.Uwp
@@ -10,6 +11,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class ReplyModuleViewModel
     {
+        private readonly AppViewModel _appViewModel;
         private CursorReq _cursor;
         private bool _isCompleted;
 

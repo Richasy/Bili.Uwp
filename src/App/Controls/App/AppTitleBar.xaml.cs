@@ -2,10 +2,8 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
-using Bili.App.Pages.Desktop;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,15 +13,9 @@ namespace Bili.App.Controls
     /// <summary>
     /// 应用标题栏.
     /// </summary>
-    public sealed partial class AppTitleBar : UserControl
+    public sealed partial class AppTitleBar : AppTitleBarBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AppViewModel), typeof(AppTitleBar), new PropertyMetadata(AppViewModel.Instance));
-
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppTitleBar"/> class.
@@ -31,20 +23,22 @@ namespace Bili.App.Controls
         public AppTitleBar()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            ViewModel = Splat.Locator.Current.GetService<AppViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
         }
 
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public AppViewModel ViewModel
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            get { return (AppViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
+            if (e.PropertyName == nameof(ViewModel.IsShowTitleBar))
+            {
+                ChangeTitleBarVisibility();
+            }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(TitleBarHost);
+        private void OnLoaded(object sender, RoutedEventArgs e)
+            => ChangeTitleBarVisibility();
 
         private void OnMenuButtonClick(object sender, RoutedEventArgs e)
             => ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
@@ -54,5 +48,26 @@ namespace Bili.App.Controls
             await PlayerViewModel.Instance.BackToHomeAsync();
             _navigationViewModel.NavigateToMainView(_navigationViewModel.MainViewId);
         }
+
+        private void ChangeTitleBarVisibility()
+        {
+            if (ViewModel.IsShowTitleBar)
+            {
+                Height = 48;
+                Window.Current.SetTitleBar(TitleBarHost);
+            }
+            else
+            {
+                Height = 0;
+                Window.Current.SetTitleBar(null);
+            }
+        }
+    }
+
+    /// <summary>
+    /// <see cref="AppTitleBar"/> 的基类.
+    /// </summary>
+    public class AppTitleBarBase : ReactiveUserControl<AppViewModel>
+    {
     }
 }

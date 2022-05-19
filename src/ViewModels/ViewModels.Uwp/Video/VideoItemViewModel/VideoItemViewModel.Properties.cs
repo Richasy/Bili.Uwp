@@ -6,6 +6,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountProvider _accountProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
 
         /// <summary>

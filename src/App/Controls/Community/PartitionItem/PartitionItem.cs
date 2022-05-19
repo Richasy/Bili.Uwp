@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.Models.Data.Community;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,7 +31,7 @@ namespace Bili.App.Controls.Community
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var vm = Splat.Locator.Current.GetService<INavigationViewModel>();
+            var vm = Splat.Locator.Current.GetService<NavigationViewModel>();
             vm.NavigateToSecondaryView(Models.Enums.PageIds.PartitionDetail, ViewModel);
         }
     }

@@ -72,7 +72,7 @@
                 <Grid>
                     <ScrollViewer
                         x:Name="ContentScrollViewer"
-                        Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                         HorizontalScrollMode="Disabled"
                         VerticalScrollBarVisibility="Auto">
                         <Grid

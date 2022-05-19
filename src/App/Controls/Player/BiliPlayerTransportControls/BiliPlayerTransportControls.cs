@@ -12,8 +12,8 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.Community.Service.Dm.V1;
 using Splat;
 using Windows.Foundation;
@@ -33,7 +33,7 @@ namespace Bili.App.Controls
     /// </summary>
     public partial class BiliPlayerTransportControls : MediaTransportControls
     {
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliPlayerTransportControls"/> class.
@@ -42,7 +42,7 @@ namespace Bili.App.Controls
         {
             DefaultStyleKey = typeof(BiliPlayerTransportControls);
             ShowAndHideAutomatically = false;
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _navigationViewModel.Navigating += OnNavigating;
             _segmentIndex = 1;
             Instance = this;
@@ -72,21 +72,6 @@ namespace Bili.App.Controls
                 _normalTimer.Stop();
                 _focusTimer.Stop();
             }
-        }
-
-        /// <summary>
-        /// 检查后退操作.
-        /// </summary>
-        /// <returns>是否处理了后退操作.</returns>
-        public bool CheckBack()
-        {
-            if (ViewModel.PlayerDisplayMode != PlayerDisplayMode.Default)
-            {
-                ViewModel.PlayerDisplayMode = PlayerDisplayMode.Default;
-                return true;
-            }
-
-            return false;
         }
 
         /// <summary>

@@ -3,6 +3,7 @@
 using System;
 using Bili.App.Pages.Desktop;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,7 +16,7 @@ namespace Bili.App.Controls
     /// </summary>
     public partial class CenterPopup : ContentControl
     {
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CenterPopup"/> class.
@@ -23,7 +24,7 @@ namespace Bili.App.Controls
         public CenterPopup()
         {
             DefaultStyleKey = typeof(CenterPopup);
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>

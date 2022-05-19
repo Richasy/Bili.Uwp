@@ -13,7 +13,7 @@ using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
 using Windows.Web.Http;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.

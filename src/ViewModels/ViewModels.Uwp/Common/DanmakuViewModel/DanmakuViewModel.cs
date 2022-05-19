@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.Community.Service.Dm.V1;
 
 namespace Bili.ViewModels.Uwp.Common

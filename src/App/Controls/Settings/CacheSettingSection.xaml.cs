@@ -5,6 +5,8 @@ using Bili.Locator.Uwp;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.Storage;
 
 namespace Bili.App.Controls
@@ -41,7 +43,7 @@ namespace Bili.App.Controls
                     }
                 }
 
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CacheCleared), InfoType.Success);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CacheCleared), InfoType.Success);
             }
             catch
             {

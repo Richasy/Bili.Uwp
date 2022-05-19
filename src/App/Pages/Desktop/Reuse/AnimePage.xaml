@@ -56,7 +56,7 @@
             <muxc:NavigationView.PaneFooter>
                 <StackPanel
                     x:Name="NavHeaderAdditionalContainer"
-                    Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
@@ -78,7 +78,7 @@
                 <Grid>
                     <ScrollViewer
                         x:Name="ContentScrollViewer"
-                        Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                         HorizontalScrollMode="Disabled"
                         VerticalScrollBarVisibility="Auto">
                         <Grid

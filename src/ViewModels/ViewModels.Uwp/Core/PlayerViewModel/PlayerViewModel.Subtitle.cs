@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.

@@ -16,7 +16,7 @@ using Splat;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 应用ViewModel.
@@ -29,15 +29,14 @@ namespace Bili.ViewModels.Uwp
         internal AppViewModel()
         {
             _controller = BiliController.Instance;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _settingToolkit);
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             _settingToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;
             _isWide = null;
             _controller.UpdateReceived += OnUpdateReceived;
+            CanShowBackButton = true;
             InitializeTheme();
         }
 
@@ -88,8 +87,8 @@ namespace Bili.ViewModels.Uwp
             var width = Window.Current.Bounds.Width;
             if (IsXbox)
             {
-                PageLeftPadding = _resourceToolkit.GetResource<Thickness>("XboxPagePadding");
-                PageRightPadding = _resourceToolkit.GetResource<Thickness>("XboxContainerPadding");
+                PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("XboxPageHorizontalPadding");
+                PageTopPadding = _resourceToolkit.GetResource<Thickness>("XboxPageTopPadding");
             }
             else
             {
@@ -99,15 +98,15 @@ namespace Bili.ViewModels.Uwp
                     if (!isWide)
                     {
                         _isWide = true;
-                        PageLeftPadding = _resourceToolkit.GetResource<Thickness>("DefaultPagePadding");
-                        PageRightPadding = _resourceToolkit.GetResource<Thickness>("DefaultContainerPadding");
+                        PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageHorizontalPadding");
+                        PageTopPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageTopPadding");
                     }
                 }
                 else
                 {
                     _isWide = false;
-                    PageLeftPadding = _resourceToolkit.GetResource<Thickness>("NarrowPagePadding");
-                    PageRightPadding = _resourceToolkit.GetResource<Thickness>("NarrowContainerPadding");
+                    PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageHorizontalPadding");
+                    PageTopPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageTopPadding");
                 }
             }
         }

@@ -21,14 +21,9 @@ namespace Bili.ViewModels.Uwp.Base
             _dispatcher = dispatcher;
             VideoCollection = new ObservableCollection<IVideoBaseViewModel>();
 
-            var canReload = this.WhenAnyValue(
-                x => x.IsReloading,
-                x => x.IsIncrementalLoading,
-                (isInitializing, isIncrementalLoading) => !isInitializing && !isIncrementalLoading);
-
             InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canReload, RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, canReload, RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting
                 .Merge(InitializeCommand.IsExecuting)
@@ -99,7 +94,14 @@ namespace Bili.ViewModels.Uwp.Base
         }
 
         private async Task IncrementalAsync()
-            => await GetDataAsync();
+        {
+            if (IsReloading || IsIncrementalLoading)
+            {
+                return;
+            }
+
+            await GetDataAsync();
+        }
 
         private void ClearException()
         {

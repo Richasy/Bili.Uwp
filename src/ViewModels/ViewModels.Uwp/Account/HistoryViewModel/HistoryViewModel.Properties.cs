@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.App.Interfaces.V1;
 using ReactiveUI.Fody.Helpers;
 
@@ -12,6 +13,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class HistoryViewModel
     {
+        private readonly AppViewModel _appViewModel;
         private Cursor _cursor;
         private bool _isLoadCompleted;
 

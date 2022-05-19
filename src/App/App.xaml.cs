@@ -8,7 +8,9 @@ using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using FFmpegInterop;
+using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -30,18 +32,17 @@ namespace Bili.App
         public App()
         {
             InitializeComponent();
-            _ = AppViewModel.Instance;
             DIInstnace.RegisterServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
-            FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
+            FFmpegInteropLogging.SetLogLevel(FFmpegInterop.LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
         }
 
         /// <inheritdoc/>
-        public void Log(LogLevel level, string message)
+        public void Log(FFmpegInterop.LogLevel level, string message)
         {
             Debug.WriteLine($"{level} | {message}");
         }
@@ -108,7 +109,8 @@ namespace Bili.App
                 }
                 else
                 {
-                    await AppViewModel.Instance.InitializeProtocolFromQueryAsync(protocalArgs.Uri);
+                    await Splat.Locator.Current.GetService<AppViewModel>()
+                        .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
 
@@ -129,7 +131,8 @@ namespace Bili.App
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await AppViewModel.Instance.InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
+                    await Splat.Locator.Current.GetService<AppViewModel>()
+                        .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }
 

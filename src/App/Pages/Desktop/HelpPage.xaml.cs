@@ -2,6 +2,8 @@
 
 using System;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +56,7 @@ namespace Bili.App.Pages.Desktop
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = Window.Current.Bounds.Width;
-            if (width < AppViewModel.Instance.MediumWindowThresholdWidth)
+            if (width < Splat.Locator.Current.GetService<AppViewModel>().MediumWindowThresholdWidth)
             {
                 if (WideContainer.Children.Count > 0)
                 {

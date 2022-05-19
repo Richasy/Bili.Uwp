@@ -8,6 +8,7 @@ using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -34,7 +35,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DynamicItem), new PropertyMetadata(default(Orientation), new PropertyChangedCallback(OnOrientationChanged)));
 
-        private readonly ViewModels.Interfaces.INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicItem"/> class.
@@ -42,7 +43,7 @@ namespace Bili.App.Controls
         public DynamicItem()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoaded;
         }
 
@@ -170,7 +171,7 @@ namespace Bili.App.Controls
             if (type == ReplyType.None)
             {
                 var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
                 return;
             }
 

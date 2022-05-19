@@ -4,9 +4,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Bili.Controller.Uwp;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
@@ -22,8 +24,9 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         public SettingViewModel()
         {
-            ServiceLocator.Instance.LoadService(out _settingsToolkit)
-                                   .LoadService(out _resourceToolkit);
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
+            _settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
+            _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             InitializeSettings();
         }
 
@@ -64,7 +67,7 @@ namespace Bili.ViewModels.Uwp
                 case nameof(AppTheme):
                     WriteSetting(SettingNames.AppTheme, AppTheme);
                     IsShowThemeRestartTip = AppTheme != _initializeTheme;
-                    AppViewModel.Instance.InitializeTheme();
+                    Splat.Locator.Current.GetService<AppViewModel>().InitializeTheme();
                     break;
                 case nameof(IsPrelaunch):
                     WriteSetting(SettingNames.IsPrelaunch, IsPrelaunch);
@@ -129,7 +132,7 @@ namespace Bili.ViewModels.Uwp
                     break;
                 case nameof(IsOpenDynamicNotification):
                     WriteSetting(SettingNames.IsOpenNewDynamicNotify, IsOpenDynamicNotification);
-                    await AppViewModel.Instance.CheckNewDynamicRegistrationAsync();
+                    await _appViewModel.CheckNewDynamicRegistrationAsync();
                     break;
                 default:
                     break;

@@ -14,7 +14,6 @@ using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Common;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
@@ -25,7 +24,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.
@@ -70,9 +69,11 @@ namespace Bili.ViewModels.Uwp
                                    .LoadService(out _settingsToolkit)
                                    .LoadService(out _fileToolkit)
                                    .LoadService(out _logger);
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
 
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            _appViewModel.IsShowTitleBar = PlayerDisplayMode == PlayerDisplayMode.Default;
             IsShowDanmakuBar = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmakuBar, false);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
             SubtitleConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, Models.Enums.App.SubtitleConvertType.None);
@@ -139,7 +140,7 @@ namespace Bili.ViewModels.Uwp
                 _historyVideoList.Remove(lastVideo);
                 IsDetailCanLoaded = true;
                 IsPlayInformationError = false;
-                AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
+                _appViewModel.CanShowHomeButton = _historyVideoList.Count > 0;
 
                 await LoadVideoDetailAsync(lastVideo, true);
 
@@ -317,7 +318,7 @@ namespace Bili.ViewModels.Uwp
                 _historyVideoList.Add(AvId);
             }
 
-            AppViewModel.Instance.CanShowHomeButton = _historyVideoList.Count > 0;
+            _appViewModel.CanShowHomeButton = _historyVideoList.Count > 0;
             switch (_videoType)
             {
                 case VideoType.Video:
@@ -1020,6 +1021,9 @@ namespace Bili.ViewModels.Uwp
                         }
                     }
 
+                    break;
+                case nameof(PlayerDisplayMode):
+                    _appViewModel.IsShowTitleBar = PlayerDisplayMode == PlayerDisplayMode.Default;
                     break;
                 default:
                     break;

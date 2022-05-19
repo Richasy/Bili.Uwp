@@ -35,7 +35,7 @@
 
         <ScrollViewer
             x:Name="VideoContentScrollViewer"
-            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsVideo, Mode=OneWay}">
@@ -57,7 +57,7 @@
 
         <ScrollViewer
             x:Name="AllContentScrollViewer"
-            Padding="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsVideo, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

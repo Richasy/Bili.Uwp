@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp
@@ -11,6 +12,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class PgcFavoriteViewModelBase
     {
+        private readonly AppViewModel _appViewModel;
         private int _pageNumber;
         private bool _isCompleted;
 

@@ -2,8 +2,8 @@
 
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 
@@ -15,7 +15,7 @@ namespace Bili.App.Controls
     public sealed partial class LiveAreaView : CenterPopup
     {
         private readonly LiveModuleViewModel _viewModel = LiveModuleViewModel.Instance;
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveAreaView"/> class.
@@ -23,7 +23,7 @@ namespace Bili.App.Controls
         public LiveAreaView()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>

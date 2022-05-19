@@ -18,7 +18,7 @@ using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.
@@ -926,7 +926,7 @@ namespace Bili.ViewModels.Uwp
             }
             catch (Exception)
             {
-                AppViewModel.Instance.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToGetUserRelation), Models.Enums.App.InfoType.Warning);
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToGetUserRelation), Models.Enums.App.InfoType.Warning);
             }
         }
 

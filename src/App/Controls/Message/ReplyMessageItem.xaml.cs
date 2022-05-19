@@ -5,7 +5,9 @@ using Bili.Locator.Uwp;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Humanizer;
+using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -85,7 +87,7 @@ namespace Bili.App.Controls
             if (isParseFaield || type == ReplyType.None)
             {
                 var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NotSupportReplyType), Models.Enums.App.InfoType.Warning);
                 return;
             }
 

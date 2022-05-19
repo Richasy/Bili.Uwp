@@ -29,7 +29,7 @@
             <muxc:NavigationView.PaneFooter>
                 <Button
                     x:Name="RefreshButton"
-                    Margin="{x:Bind CoreViewModel.PageRightPadding, Mode=OneWay}"
+                    Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
                     Click="OnRefreshButtonClickAsync">
                     <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:LocaleLocator Name=RefreshCurrentSection}" />
                 </Button>

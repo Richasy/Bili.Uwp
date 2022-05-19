@@ -9,7 +9,9 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
+using Bili.ViewModels.Uwp.Core;
 using Bilibili.Main.Community.Reply.V1;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -23,6 +25,7 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         protected ReplyModuleViewModel()
         {
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             ReplyCollection = new ObservableCollection<ReplyInfo>();
             Controller.ReplyIteration += OnReplyIteration;
             PropertyChanged += OnPropertyChanged;
@@ -131,7 +134,7 @@ namespace Bili.ViewModels.Uwp
             var result = await Controller.AddReplyAsync(message, TargetId, Type, rootId, parentId);
             if (!result)
             {
-                AppViewModel.Instance.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
+                _appViewModel.ShowTip(ResourceToolkit.GetLocaleString(LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
             }
 
             return result;

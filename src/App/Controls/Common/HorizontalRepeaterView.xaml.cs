@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -158,7 +160,7 @@ namespace Bili.App.Controls
         private void CheckLayout()
         {
             var windowWidth = Window.Current.Bounds.Width;
-            if (windowWidth < AppViewModel.Instance.NarrowWindowThresholdWidth && NarrowItemTemplate != null)
+            if (windowWidth < Splat.Locator.Current.GetService<AppViewModel>().NarrowWindowThresholdWidth && NarrowItemTemplate != null)
             {
                 WideContainer.Visibility = Visibility.Collapsed;
                 NarrowContainer.Visibility = Visibility.Visible;

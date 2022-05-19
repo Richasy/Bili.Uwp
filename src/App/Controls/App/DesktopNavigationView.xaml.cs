@@ -10,6 +10,7 @@ using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -33,6 +34,7 @@ namespace Bili.App.Controls
         public DesktopNavigationView()
         {
             InitializeComponent();
+            ViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             _accountViewModel = Splat.Locator.Current.GetService<AccountViewModel>();
             Loaded += OnLoaded;
@@ -47,7 +49,7 @@ namespace Bili.App.Controls
         {
             ViewModel.Navigating -= OnNavigating;
             ViewModel.Navigating += OnNavigating;
-            MainFrame.Navigate(typeof(Page));
+
             if (_appViewModel.IsXbox)
             {
                 RootNavView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftMinimal;
@@ -139,16 +141,10 @@ namespace Bili.App.Controls
                 (RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem &&
                 NavigationExtension.GetPageId(navItem) != pageId))
             {
-                Microsoft.UI.Xaml.Controls.NavigationViewItem shouldSelectedItem = null;
-                if (pageId == PageIds.Settings)
-                {
-                    shouldSelectedItem = RootNavView.SettingsItem as Microsoft.UI.Xaml.Controls.NavigationViewItem;
-                }
-                else
-                {
-                    shouldSelectedItem = RootNavView.MenuItems.Concat(RootNavView.FooterMenuItems).OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
-                    .Where(p => NavigationExtension.GetPageId(p) == pageId).FirstOrDefault();
-                }
+                var shouldSelectedItem = pageId == PageIds.Settings
+                    ? RootNavView.SettingsItem as Microsoft.UI.Xaml.Controls.NavigationViewItem
+                    : RootNavView.MenuItems.Concat(RootNavView.FooterMenuItems).OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>()
+                                           .Where(p => NavigationExtension.GetPageId(p) == pageId).FirstOrDefault();
 
                 RootNavView.SelectedItem = shouldSelectedItem;
             }
@@ -156,15 +152,6 @@ namespace Bili.App.Controls
             if (RootNavView.SelectedItem != null && RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem selectItem)
             {
                 _appViewModel.HeaderText = selectItem.Content.ToString();
-            }
-        }
-
-        private void OnMainFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
-            if (!_isFirstLoaded)
-            {
-                FirstLoaded?.Invoke(this, EventArgs.Empty);
-                _isFirstLoaded = true;
             }
         }
 
@@ -199,12 +186,21 @@ namespace Bili.App.Controls
                 ViewModel.NavigateToPlayView(playRecord);
             }
         }
+
+        private void OnFrameLoaded(object sender, RoutedEventArgs e)
+        {
+            if (!_isFirstLoaded)
+            {
+                FirstLoaded?.Invoke(this, EventArgs.Empty);
+                _isFirstLoaded = true;
+            }
+        }
     }
 
     /// <summary>
     /// <see cref="DesktopNavigationView"/> 的基类.
     /// </summary>
-    public class DesktopNavigationViewBase : ReactiveUserControl<INavigationViewModel>
+    public class DesktopNavigationViewBase : ReactiveUserControl<NavigationViewModel>
     {
     }
 }

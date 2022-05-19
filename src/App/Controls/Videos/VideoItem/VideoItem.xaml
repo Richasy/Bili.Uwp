@@ -206,7 +206,7 @@
                         <controls:CardPanel
                             x:Name="RootCard"
                             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
-                            MaxHeight="140"
+                            MaxHeight="148"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                             IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
                             IsEnableCheck="False"

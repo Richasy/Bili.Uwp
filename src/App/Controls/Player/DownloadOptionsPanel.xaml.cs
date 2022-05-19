@@ -4,6 +4,8 @@ using System.Linq;
 using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -144,7 +146,7 @@ namespace Bili.App.Controls
         private async void OnGenerateButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            var appVM = AppViewModel.Instance;
+            var appVM = Splat.Locator.Current.GetService<AppViewModel>();
             if (ViewModel.TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && ViewModel.TotalPartCollection.Count > 1)
             {
                 appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);

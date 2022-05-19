@@ -10,7 +10,6 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
@@ -19,7 +18,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 播放器视图模型.
@@ -31,7 +30,8 @@ namespace Bili.ViewModels.Uwp
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
         private readonly ILoggerModule _logger;
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
+        private readonly AppViewModel _appViewModel;
 
         private readonly List<string> _historyVideoList;
         private readonly FFmpegInteropConfig _liveFFConfig;

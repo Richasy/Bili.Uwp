@@ -3,8 +3,8 @@
 using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.Models.Enums;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -22,7 +22,7 @@ namespace Bili.App.Pages.Desktop
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(FeedPgcViewModelBase), typeof(FeedPage), new PropertyMetadata(null));
 
-        private readonly INavigationViewModel _navigationViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FeedPage"/> class.
@@ -30,7 +30,7 @@ namespace Bili.App.Pages.Desktop
         public FeedPage()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoadedAsync;
         }
 

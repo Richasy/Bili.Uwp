@@ -2,6 +2,7 @@
 
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls

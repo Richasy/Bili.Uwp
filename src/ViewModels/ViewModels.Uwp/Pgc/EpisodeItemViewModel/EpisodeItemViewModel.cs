@@ -6,6 +6,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.System;
 
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <param name="navigationViewModel">导航服务.</param>
         public EpisodeItemViewModel(
             INumberToolkit numberToolkit,
-            INavigationViewModel navigationViewModel)
+            NavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
             _navigationViewModel = navigationViewModel;

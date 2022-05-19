@@ -9,6 +9,7 @@ using Bili.Toolkit.Uwp;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
@@ -59,7 +60,7 @@ namespace Bili.ViewModels.Uwp
 
             SplatRegistrations.RegisterLazySingleton<AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<AccountViewModel>();
-            SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
+            SplatRegistrations.RegisterLazySingleton<NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PartitionPageViewModel>();

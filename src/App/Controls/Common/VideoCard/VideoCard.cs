@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Foundation;
 using Windows.System;
@@ -38,7 +38,7 @@ namespace Bili.App.Controls
         {
             DefaultStyleKey = typeof(VideoCard);
             Loaded += OnLoaded;
-            AppViewModel = AppViewModel.Instance;
+            AppViewModel = Splat.Locator.Current.GetService<AppViewModel>();
         }
 
         /// <inheritdoc/>
@@ -109,7 +109,7 @@ namespace Bili.App.Controls
         {
             if (!ViewModel.IsSelected)
             {
-                Splat.Locator.Current.GetService<INavigationViewModel>().NavigateToPlayView(ViewModel);
+                Splat.Locator.Current.GetService<NavigationViewModel>().NavigateToPlayView(ViewModel);
             }
 
             ItemClick?.Invoke(this, ViewModel);
