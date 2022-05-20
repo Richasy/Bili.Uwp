@@ -49,7 +49,7 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// <see cref="PartitionDetailPage"/> 的基类.
     /// </summary>
-    public class PartitionDetailPageBase : AppPage<PartitionDetailPageViewModel>
+    public class PartitionDetailPageBase : AppPage<VideoPartitionDetailPageViewModel>
     {
     }
 }

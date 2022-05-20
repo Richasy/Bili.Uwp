@@ -27,38 +27,6 @@ namespace Bili.Controller.Uwp
     public partial class BiliController
     {
         /// <summary>
-        /// 请求直播源列表.
-        /// </summary>
-        /// <param name="pageNumber">页码.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestLiveFeedsAsync(int pageNumber)
-        {
-            try
-            {
-                ThrowWhenNetworkUnavaliable();
-                var data = await _liveProvider.GetLiveFeedsAsync(pageNumber);
-                if (pageNumber == 1)
-                {
-                    var additionalArgs = LiveFeedAdditionalDataChangedEventArgs.Create(data);
-                    if (additionalArgs != null)
-                    {
-                        LiveFeedAdditionalDataChanged?.Invoke(this, additionalArgs);
-                    }
-                }
-
-                LiveFeedRoomIteration?.Invoke(this, new LiveFeedRoomIterationEventArgs(data, pageNumber + 1));
-            }
-            catch (ServiceException ex)
-            {
-                _loggerModule.LogError(ex, pageNumber > 1);
-                if (pageNumber == 1)
-                {
-                    throw;
-                }
-            }
-        }
-
-        /// <summary>
         /// 请求分区下直播源列表.
         /// </summary>
         /// <param name="area">直播分区.</param>
@@ -88,13 +56,6 @@ namespace Bili.Controller.Uwp
                 }
             }
         }
-
-        /// <summary>
-        /// 获取直播间分区索引.
-        /// </summary>
-        /// <returns><see cref="LiveAreaResponse"/>.</returns>
-        public Task<LiveAreaResponse> GetLiveAreaIndexAsync()
-            => _liveProvider.GetLiveAreaIndexAsync();
 
         /// <summary>
         /// 获取直播间详情.

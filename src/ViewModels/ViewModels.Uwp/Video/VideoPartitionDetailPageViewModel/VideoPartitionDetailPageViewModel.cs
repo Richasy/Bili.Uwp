@@ -23,15 +23,15 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 分区详情页视图模型.
     /// </summary>
-    public sealed partial class PartitionDetailPageViewModel : InformationFlowViewModelBase, IBackPageViewModel
+    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase, IBackPageViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PartitionDetailPageViewModel"/> class.
+        /// Initializes a new instance of the <see cref="VideoPartitionDetailPageViewModel"/> class.
         /// </summary>
         /// <param name="resourceToolkit">本地资源工具.</param>
         /// <param name="partitionProvider">分区服务提供工具.</param>
         /// <param name="coreDispatcher">UI调度程序.</param>
-        public PartitionDetailPageViewModel(
+        public VideoPartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
             IPartitionProvider partitionProvider,
             CoreDispatcher coreDispatcher)

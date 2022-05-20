@@ -36,6 +36,13 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="detail">直播间详情.</param>
         /// <returns>直播间视图.</returns>
-        LiveView ConvertToLiveView(LiveRoomDetail detail);
+        LiveRoomView ConvertToLiveRoomView(LiveRoomDetail detail);
+
+        /// <summary>
+        /// 将直播首页数据流信息 <see cref="LiveFeedResponse"/> 转换为直播流视图.
+        /// </summary>
+        /// <param name="response">直播首页数据流信息.</param>
+        /// <returns><see cref="LiveFeedView"/>.</returns>
+        LiveFeedView ConvertToLiveFeedView(LiveFeedResponse response);
     }
 }

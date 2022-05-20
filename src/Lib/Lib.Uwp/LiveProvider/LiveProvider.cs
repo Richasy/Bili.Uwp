@@ -2,10 +2,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Live;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using static Bili.Models.App.Constants.ApiConstants;
@@ -23,10 +26,40 @@ namespace Bili.Lib.Uwp
         /// </summary>
         /// <param name="httpProvider">网络请求处理工具.</param>
         /// <param name="accountProvider">账户工具.</param>
-        public LiveProvider(IHttpProvider httpProvider, IAccountProvider accountProvider)
+        /// <param name="liveAdapter">直播数据适配工具.</param>
+        /// <param name="communityAdapter">社区数据适配工具.</param>
+        public LiveProvider(
+            IHttpProvider httpProvider,
+            IAccountProvider accountProvider,
+            ILiveAdapter liveAdapter,
+            ICommunityAdapter communityAdapter)
         {
             _httpProvider = httpProvider;
             _accountProvider = accountProvider;
+            _liveAdapter = liveAdapter;
+            _communityAdapter = communityAdapter;
+
+            _feedPageNumber = 1;
+            _partitionPageNumber = 1;
+        }
+
+        /// <inheritdoc/>
+        public async Task<LiveFeedView> GetLiveFeedsAsync()
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Page, _feedPageNumber.ToString() },
+                { Query.RelationPage, _feedPageNumber.ToString() },
+                { Query.Scale, "2" },
+                { Query.LoginEvent, "1" },
+                { Query.Device, "phone" },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveFeed, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveFeedResponse>>(response);
+            _feedPageNumber += 1;
+
+            return _liveAdapter.ConvertToLiveFeedView(result.Data);
         }
 
         /// <inheritdoc/>
@@ -49,7 +82,7 @@ namespace Bili.Lib.Uwp
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Page, pageNumber.ToString() },
+                { Query.Page, _partitionPageNumber.ToString() },
                 { Query.PageSizeUnderline, pageSize.ToString() },
                 { Query.AreaId, areaId.ToString() },
                 { Query.ParentAreaId, parentId.ToString() },
@@ -64,12 +97,13 @@ namespace Bili.Lib.Uwp
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.AreaDetail, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaDetailResponse>>(response);
+            _partitionPageNumber += 1;
 
             return result.Data;
         }
 
         /// <inheritdoc/>
-        public async Task<LiveAreaResponse> GetLiveAreaIndexAsync()
+        public async Task<IEnumerable<Models.Data.Community.Partition>> GetLiveAreaIndexAsync()
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -79,25 +113,7 @@ namespace Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaResponse>>(response);
 
-            return result.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<LiveFeedResponse> GetLiveFeedsAsync(int page)
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.Page, page.ToString() },
-                { Query.RelationPage, page.ToString() },
-                { Query.Scale, "2" },
-                { Query.LoginEvent, "1" },
-                { Query.Device, "phone" },
-            };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveFeed, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<LiveFeedResponse>>(response);
-
-            return result.Data;
+            return result.Data.List.Select(p => _communityAdapter.ConvertToPartition(p));
         }
 
         /// <inheritdoc/>
@@ -188,5 +204,16 @@ namespace Bili.Lib.Uwp
                 return false;
             }
         }
+
+        /// <inheritdoc/>
+        public void Reset()
+        {
+            _feedPageNumber = 1;
+            _partitionPageNumber = 1;
+        }
+
+        /// <inheritdoc/>
+        public void ResetPartition()
+            => _partitionPageNumber = 1;
     }
 }

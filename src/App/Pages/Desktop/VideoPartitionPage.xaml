@@ -1,5 +1,5 @@
-﻿<local:PartitionPageBase
-    x:Class="Bili.App.Pages.Desktop.PartitionPage"
+﻿<local:VideoPartitionPageBase
+    x:Class="Bili.App.Pages.Desktop.VideoPartitionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
@@ -66,4 +66,4 @@
                 Text="{loc:LocaleLocator Name=PartitionLoading}" />
         </StackPanel>
     </Grid>
-</local:PartitionPageBase>
+</local:VideoPartitionPageBase>

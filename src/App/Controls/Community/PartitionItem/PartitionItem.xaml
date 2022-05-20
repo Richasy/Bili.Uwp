@@ -9,7 +9,7 @@
                 <ControlTemplate TargetType="local:PartitionItem">
                     <controls:CardPanel x:Name="RootCard">
                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid x:Name="ContentContainer" RowSpacing="8">
+                            <Grid x:Name="ContentContainer" RowSpacing="8" Padding="8,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -33,6 +33,7 @@
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Grid.Row="1"
                                     HorizontalAlignment="Center"
+                                    MaxLines="1"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Name}"
                                     TextAlignment="Center" />
                             </Grid>

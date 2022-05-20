@@ -6,12 +6,12 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using ReactiveUI;
 
-namespace Bili.ViewModels.Uwp.Community
+namespace Bili.ViewModels.Uwp.Video
 {
     /// <summary>
     /// 分区页面的视图模型.
     /// </summary>
-    public sealed partial class PartitionPageViewModel
+    public sealed partial class VideoPartitionPageViewModel
     {
         private readonly IPartitionProvider _partitionProvider;
         private readonly ObservableAsPropertyHelper<bool> _isInitializing;

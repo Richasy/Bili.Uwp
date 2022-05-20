@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Live;
 using Bili.Models.Enums.App;
 
 namespace Bili.Lib.Interfaces
@@ -9,20 +11,20 @@ namespace Bili.Lib.Interfaces
     /// <summary>
     /// 提供直播相关的操作.
     /// </summary>
-    public interface ILiveProvider
+    public interface ILiveProvider : IResetProvider
     {
         /// <summary>
         /// 获取直播源列表.
         /// </summary>
         /// <param name="page">页码.</param>
         /// <returns><see cref="LiveFeedResponse"/>.</returns>
-        Task<LiveFeedResponse> GetLiveFeedsAsync(int page);
+        Task<LiveFeedView> GetLiveFeedsAsync();
 
         /// <summary>
         /// 获取直播间分区.
         /// </summary>
         /// <returns><see cref="LiveAreaResponse"/>.</returns>
-        Task<LiveAreaResponse> GetLiveAreaIndexAsync();
+        Task<IEnumerable<Models.Data.Community.Partition>> GetLiveAreaIndexAsync();
 
         /// <summary>
         /// 获取直播间详情.
@@ -76,5 +78,10 @@ namespace Bili.Lib.Interfaces
         /// <param name="pageSize">每页容量.</param>
         /// <returns><see cref="LiveAreaDetailResponse"/>.</returns>
         Task<LiveAreaDetailResponse> GetLiveAreaDetailAsync(int areaId, int parentId, string sortType, int pageNumber, int pageSize = 40);
+
+        /// <summary>
+        /// 重置分区详情的状态信息.
+        /// </summary>
+        void ResetPartition();
     }
 }

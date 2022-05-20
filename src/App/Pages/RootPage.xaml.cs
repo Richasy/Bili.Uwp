@@ -42,17 +42,8 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
-            CoreViewModel.PropertyChanged += OnCoreViewModelPropertyChanged;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-        }
-
-        private void OnCoreViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(CoreViewModel.IsShowTitleBar))
-            {
-
-            }
         }
 
         /// <summary>
@@ -199,7 +190,7 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.PartitionDetail => typeof(PartitionDetailPage),
+                PageIds.VideoPartitionDetail => typeof(PartitionDetailPage),
                 PageIds.Search => typeof(SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
                 PageIds.Favorite => typeof(FavoritePage),
@@ -209,7 +200,8 @@ namespace Bili.App.Pages.Desktop
                 PageIds.PgcIndex => typeof(PgcIndexPage),
                 PageIds.TimeLine => typeof(TimeLinePage),
                 PageIds.Message => typeof(MessagePage),
-                PageIds.LiveAreaDetail => typeof(LiveAreaDetailPage),
+                PageIds.LivePartition => typeof(LivePartitionPage),
+                PageIds.LivePartitionDetail => typeof(LiveAreaDetailPage),
                 PageIds.MyFollows => typeof(MyFollowsPage),
                 _ => typeof(Page)
             };

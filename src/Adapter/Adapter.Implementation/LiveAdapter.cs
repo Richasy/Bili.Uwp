@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
@@ -18,6 +19,7 @@ namespace Bili.Adapter
     {
         private readonly IUserAdapter _userAdapter;
         private readonly IImageAdapter _imageAdapter;
+        private readonly ICommunityAdapter _communityAdapter;
         private readonly INumberToolkit _numberToolkit;
 
         /// <summary>
@@ -25,14 +27,17 @@ namespace Bili.Adapter
         /// </summary>
         /// <param name="userAdapter">用户数据适配器.</param>
         /// <param name="imageAdapter">图片数据适配器.</param>
+        /// <param name="communityAdapter">社区数据适配器.</param>
         /// <param name="numberToolkit">数字转换工具.</param>
         public LiveAdapter(
             IUserAdapter userAdapter,
             IImageAdapter imageAdapter,
+            ICommunityAdapter communityAdapter,
             INumberToolkit numberToolkit)
         {
             _userAdapter = userAdapter;
             _imageAdapter = imageAdapter;
+            _communityAdapter = communityAdapter;
             _numberToolkit = numberToolkit;
         }
 
@@ -80,7 +85,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public LiveView ConvertToLiveView(LiveRoomDetail detail)
+        public LiveRoomView ConvertToLiveRoomView(LiveRoomDetail detail)
         {
             var roomInfo = detail.RoomInformation;
             var title = roomInfo.Title;
@@ -103,7 +108,31 @@ namespace Bili.Adapter
 
             var identifier = new VideoIdentifier(id, title, -1, cover);
             var info = new LiveInformation(identifier, userProfile, viewerCount, subtitle: subtitle, description: description);
-            return new LiveView(info, partition);
+            return new LiveRoomView(info, partition);
+        }
+
+        /// <inheritdoc/>
+        public LiveFeedView ConvertToLiveFeedView(LiveFeedResponse response)
+        {
+            var recommendRooms = response.CardList.Where(p => p.CardType.Contains("small_card"))
+                .Where(p => p.CardData?.LiveCard != null)
+                .Select(p => ConvertToLiveInformation(p.CardData.LiveCard))
+                .ToList();
+            var followRooms = response.CardList.Where(p => p.CardType.Contains("idol"))
+                .SelectMany(p => p.CardData?.FollowList?.List)
+                .Select(p => ConvertToLiveInformation(p))
+                .ToList();
+            var banners = response.CardList.Where(p => p.CardType.Contains("banner"))
+                .SelectMany(p => p.CardData?.Banners?.List)
+                .Select(p => _communityAdapter.ConvertToBannerIdentifier(p))
+                .ToList();
+            var partitions = response.CardList.Where(p => p.CardType.Contains("area"))
+                .SelectMany(p => p.CardData?.HotAreas?.List)
+                .Where(p => p.Id != 0)
+                .Select(p => _communityAdapter.ConvertToPartition(p))
+                .ToList();
+
+            return new LiveFeedView(banners, partitions, followRooms, recommendRooms);
         }
     }
 }

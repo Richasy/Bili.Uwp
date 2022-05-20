@@ -90,7 +90,9 @@ namespace Bili.ViewModels.Uwp.Base
             BeforeReload();
             VideoCollection.Clear();
             ClearException();
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await GetDataAsync());
+
+            var task = _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await GetDataAsync()).AsTask();
+            await RunDelayTask(task);
         }
 
         private async Task IncrementalAsync()

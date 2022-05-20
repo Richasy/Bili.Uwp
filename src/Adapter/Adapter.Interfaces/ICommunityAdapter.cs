@@ -141,10 +141,38 @@ namespace Bili.Adapter.Interfaces
         Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition);
 
         /// <summary>
+        /// 将直播数据流中的热门区域 <see cref="LiveFeedHotArea"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="area">热门区域.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(LiveFeedHotArea area);
+
+        /// <summary>
+        /// 将直播分区 <see cref="LiveArea"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="area">直播分区.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(LiveArea area);
+
+        /// <summary>
+        /// 将直播分区组 <see cref="LiveAreaGroup"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="group">直播分区组.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(LiveAreaGroup group);
+
+        /// <summary>
         /// 将分区横幅 <see cref="PartitionBanner"/> 转换为横幅信息.
         /// </summary>
         /// <param name="banner">分区横幅条目.</param>
         /// <returns><see cref="BannerIdentifier"/>.</returns>
         BannerIdentifier ConvertToBannerIdentifier(PartitionBanner banner);
+
+        /// <summary>
+        /// 将直播数据流横幅 <see cref="LiveFeedBanner"/> 转换为横幅信息.
+        /// </summary>
+        /// <param name="banner">直播数据流横幅条目.</param>
+        /// <returns><see cref="BannerIdentifier"/>.</returns>
+        BannerIdentifier ConvertToBannerIdentifier(LiveFeedBanner banner);
     }
 }

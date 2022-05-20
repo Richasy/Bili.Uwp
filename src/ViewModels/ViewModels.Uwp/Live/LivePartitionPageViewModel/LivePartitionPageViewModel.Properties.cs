@@ -5,25 +5,33 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
-using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp.Home
+namespace Bili.ViewModels.Uwp.Live
 {
     /// <summary>
-    /// 排行榜页面视图模型.
+    /// 直播分区页面视图模型.
     /// </summary>
-    public sealed partial class RankPageViewModel
+    public sealed partial class LivePartitionPageViewModel
     {
+        private readonly ILiveProvider _liveProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly IPartitionProvider _partitionProvider;
         private readonly CoreDispatcher _dispatcher;
+        private readonly List<Partition> _partitions;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
+
+        /// <summary>
+        /// 父分区集合.
+        /// </summary>
+        public ObservableCollection<Partition> ParentPartitions { get; }
+
+        /// <summary>
+        /// 显示的分区集合.
+        /// </summary>
+        public ObservableCollection<Partition> DisplayPartitions { get; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
@@ -37,10 +45,10 @@ namespace Bili.ViewModels.Uwp.Home
         public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
 
         /// <summary>
-        /// 当前的分区.
+        /// 当前选中的父分区.
         /// </summary>
         [Reactive]
-        public Partition CurrentPartition { get; set; }
+        public Partition CurrentParentPartition { get; set; }
 
         /// <summary>
         /// 错误文本.
@@ -55,18 +63,8 @@ namespace Bili.ViewModels.Uwp.Home
         public bool IsError { get; set; }
 
         /// <summary>
-        /// 全部分区.
+        /// 是否正在初始化.
         /// </summary>
-        public ObservableCollection<Partition> Partitions { get; }
-
-        /// <summary>
-        /// 当前展示的视频集合.
-        /// </summary>
-        public ObservableCollection<VideoItemViewModel> VideoCollection { get; }
-
-        /// <summary>
-        /// 是否正在加载.
-        /// </summary>
-        public bool IsReloading => _isReloading?.Value ?? false;
+        public bool IsReloading => _isReloading.Value;
     }
 }

@@ -150,6 +150,7 @@ namespace Bili.Lib.Uwp
                 {
                     if (await IsTokenValidAsync())
                     {
+                        State = AuthorizeState.SignedIn;
                         return _tokenInfo.AccessToken;
                     }
                     else

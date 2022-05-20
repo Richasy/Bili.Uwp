@@ -91,8 +91,8 @@ namespace Bili.App.Controls
                 case PageIds.Rank:
                     pageType = typeof(RankPage);
                     break;
-                case PageIds.Partition:
-                    pageType = typeof(PartitionPage);
+                case PageIds.VideoPartition:
+                    pageType = typeof(VideoPartitionPage);
                     break;
                 case PageIds.Popular:
                     pageType = typeof(PopularPage);
@@ -116,7 +116,7 @@ namespace Bili.App.Controls
                     pageType = typeof(DocumentaryPage);
                     break;
                 case PageIds.Live:
-                    pageType = typeof(LivePage);
+                    pageType = typeof(LiveFeedPage);
                     break;
                 case PageIds.Dynamic:
                     pageType = typeof(DynamicFeedPage);

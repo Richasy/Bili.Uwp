@@ -154,7 +154,7 @@
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>哔哩</value>
+    <value>哔哩 Preview</value>
   </data>
   <data name="AppTheme" xml:space="preserve">
     <value>应用主题</value>

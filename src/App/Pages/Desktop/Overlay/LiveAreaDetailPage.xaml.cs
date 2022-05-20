@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.Models.BiliBili;
 using Bili.ViewModels.Uwp.Live;
@@ -38,7 +39,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         }
 
         private async void OnTotalTagsButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-            => await new LiveAreaView().ShowAsync();
+            => await Task.CompletedTask;
 
         private async void OnRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
             => await _viewModel.InitializeRequestAsync();

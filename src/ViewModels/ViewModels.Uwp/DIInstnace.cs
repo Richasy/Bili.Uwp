@@ -6,11 +6,10 @@ using Bili.Lib.Interfaces;
 using Bili.Lib.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Uwp.Live;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
@@ -63,11 +62,14 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<PartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<PartitionDetailPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<VideoPartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<VideoPartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<RankPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
+            SplatRegistrations.Register<LiveItemViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

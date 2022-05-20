@@ -18,16 +18,22 @@
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />
-    <Compile Include="Community\PartitionDetailPageViewModel\PartitionDetailPageViewModel.cs" />
-    <Compile Include="Community\PartitionDetailPageViewModel\PartitionDetailPageViewModel.Properties.cs" />
-    <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.cs" />
-    <Compile Include="Community\PartitionPageViewModel\PartitionPageViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
+    <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
+    <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.Properties.cs" />
     <Compile Include="DIInstnace.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
     <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowingViewModel.cs" />
+    <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.cs" />
+    <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.Properties.cs" />
+    <Compile Include="Live\LiveItemViewModel\LiveItemViewModel.cs" />
+    <Compile Include="Live\LiveItemViewModel\LiveItemViewModel.Properties.cs" />
+    <Compile Include="Live\LivePartitionPageViewModel\LivePartitionPageViewModel.cs" />
+    <Compile Include="Live\LivePartitionPageViewModel\LivePartitionPageViewModel.Properties.cs" />
     <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.Properties.cs" />
     <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
@@ -119,8 +125,6 @@
     <Compile Include="Core\AppViewModel\AppViewModel.Properties.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.Properties.cs" />
-    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.cs" />
-    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.Properties.cs" />
     <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.cs" />
     <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.Properties.cs" />
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.cs" />
@@ -248,6 +252,8 @@
       <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Community\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

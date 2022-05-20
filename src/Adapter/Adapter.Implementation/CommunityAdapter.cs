@@ -45,6 +45,16 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public BannerIdentifier ConvertToBannerIdentifier(LiveFeedBanner banner)
+        {
+            var id = banner.Id.ToString();
+            var title = banner.Title;
+            var image = _imageAdapter.ConvertToImage(banner.Cover, 600, 180);
+            var uri = banner.Link;
+            return new BannerIdentifier(id, title, image, uri);
+        }
+
+        /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition)
         {
             var id = partition.Tid.ToString();
@@ -59,6 +69,40 @@ namespace Bili.Adapter
             }
 
             return new Models.Data.Community.Partition(id, name, logo, children);
+        }
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(LiveFeedHotArea area)
+        {
+            var id = area.AreaId.ToString();
+            var name = area.Title;
+            var logo = string.IsNullOrEmpty(area.Cover)
+                ? null
+                : _imageAdapter.ConvertToImage(area.Cover);
+
+            return new Models.Data.Community.Partition(id, name, logo);
+        }
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(LiveAreaGroup group)
+        {
+            var id = group.Id.ToString();
+            var name = group.Name;
+            var children = group.AreaList.Select(p => ConvertToPartition(p)).ToList();
+
+            return new Models.Data.Community.Partition(id, name, children: children);
+        }
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(LiveArea area)
+        {
+            var id = area.Id.ToString();
+            var name = area.Name;
+            var logo = string.IsNullOrEmpty(area.Cover)
+                ? null
+                : _imageAdapter.ConvertToImage(area.Cover);
+
+            return new Models.Data.Community.Partition(id, name, logo);
         }
 
         /// <inheritdoc/>

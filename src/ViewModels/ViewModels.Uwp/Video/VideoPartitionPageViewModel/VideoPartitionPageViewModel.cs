@@ -10,18 +10,18 @@ using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using Splat;
 
-namespace Bili.ViewModels.Uwp.Community
+namespace Bili.ViewModels.Uwp.Video
 {
     /// <summary>
     /// 分区页面视图模型.
     /// </summary>
-    public sealed partial class PartitionPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class VideoPartitionPageViewModel : ViewModelBase, IInitializeViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PartitionPageViewModel"/> class.
+        /// Initializes a new instance of the <see cref="VideoPartitionPageViewModel"/> class.
         /// </summary>
         /// <param name="partitionProvider">分区服务提供工具.</param>
-        public PartitionPageViewModel(IPartitionProvider partitionProvider)
+        public VideoPartitionPageViewModel(IPartitionProvider partitionProvider)
         {
             _partitionProvider = partitionProvider;
             Partitions = new ObservableCollection<Partition>();

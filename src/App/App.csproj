@@ -79,12 +79,7 @@
     <Compile Include="Controls\IActivatableControl.cs" />
     <Compile Include="Controls\IIncrementalControl.cs" />
     <Compile Include="Controls\IOrientationControl.cs" />
-    <Compile Include="Controls\Live\LiveAreaItem.xaml.cs">
-      <DependentUpon>LiveAreaItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Live\LiveAreaView.xaml.cs">
-      <DependentUpon>LiveAreaView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\Live\LiveItem\LiveItem.cs" />
     <Compile Include="Controls\Pgc\EpisodeItem\EpisodeItem.cs" />
     <Compile Include="Controls\ReactiveControl.cs" />
     <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
@@ -241,12 +236,6 @@
     </Compile>
     <Compile Include="Controls\IDynamicLayoutItem.cs" />
     <Compile Include="Controls\IRepeaterItem.cs" />
-    <Compile Include="Controls\Live\FollowLiveItem.xaml.cs">
-      <DependentUpon>FollowLiveItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Live\FollowLiveView.xaml.cs">
-      <DependentUpon>FollowLiveView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Pgc\PgcItem.xaml.cs">
       <DependentUpon>PgcItem.xaml</DependentUpon>
     </Compile>
@@ -360,6 +349,9 @@
     <Compile Include="Controls\Videos\VideoItem\VideoItem.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
+    <Compile Include="Pages\Desktop\Overlay\LivePartitionPage.xaml.cs">
+      <DependentUpon>LivePartitionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Desktop\Overlay\MyFollowsPage.xaml.cs">
       <DependentUpon>MyFollowsPage.xaml</DependentUpon>
     </Compile>
@@ -420,8 +412,8 @@
     <Compile Include="Pages\Desktop\RecommendPage.xaml.cs">
       <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\LivePage.xaml.cs">
-      <DependentUpon>LivePage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\LiveFeedPage.xaml.cs">
+      <DependentUpon>LiveFeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
@@ -429,8 +421,8 @@
     <Compile Include="Pages\Desktop\Overlay\PartitionDetailPage.xaml.cs">
       <DependentUpon>PartitionDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\PartitionPage.xaml.cs">
-      <DependentUpon>PartitionPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\VideoPartitionPage.xaml.cs">
+      <DependentUpon>VideoPartitionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\RankPage.xaml.cs">
       <DependentUpon>RankPage.xaml</DependentUpon>
@@ -651,11 +643,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Live\LiveAreaItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Live\LiveAreaView.xaml">
+    <Page Include="Controls\Live\LiveItem\LiveItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -871,14 +859,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Live\FollowLiveItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Live\FollowLiveView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Pgc\PgcItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1023,6 +1003,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Desktop\Overlay\LivePartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Desktop\Overlay\MyFollowsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1103,7 +1087,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\LivePage.xaml">
+    <Page Include="Pages\Desktop\LiveFeedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1115,7 +1099,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\PartitionPage.xaml">
+    <Page Include="Pages\Desktop\VideoPartitionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

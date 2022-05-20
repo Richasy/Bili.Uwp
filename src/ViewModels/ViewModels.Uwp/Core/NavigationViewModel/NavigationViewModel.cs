@@ -150,6 +150,7 @@ namespace Bili.ViewModels.Uwp.Core
         public void AddBackStack(BackBehavior id, Action<object> backBehavior, object parameter = null)
         {
             var args = new AppBackEventArgs(id, backBehavior, parameter);
+            _backStack.RemoveAll(p => p.Equals(args));
             _backStack.Add(args);
             CanBack = _backStack.Count > 1;
         }

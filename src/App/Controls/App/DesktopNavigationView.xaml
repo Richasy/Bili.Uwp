@@ -69,7 +69,7 @@
                         <icons:RegularFluentIcon Symbol="Trophy16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Partition" Content="{loc:LocaleLocator Name=Partition}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:LocaleLocator Name=Partition}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Apps16" />
                     </muxc:NavigationViewItem.Icon>

@@ -29,5 +29,15 @@ namespace Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         protected Task FakeLoadingAsync()
             => Task.Delay(AppConstants.FakeLoadingMilliseconds);
+
+        /// <summary>
+        /// 执行一个具有最小运行时间的任务.
+        /// </summary>
+        /// <param name="work">需要执行的任务.</param>
+        /// <returns><see cref="Task"/>.</returns>
+        protected Task RunDelayTask(Task work)
+            => Task.WhenAll(
+                    Task.Run(async () => await work),
+                    Task.Delay(AppConstants.FakeLoadingMilliseconds));
     }
 }

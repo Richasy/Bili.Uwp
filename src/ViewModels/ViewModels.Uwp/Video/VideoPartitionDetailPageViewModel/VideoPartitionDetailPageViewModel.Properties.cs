@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 分区详情页视图模型.
     /// </summary>
-    public sealed partial class PartitionDetailPageViewModel
+    public sealed partial class VideoPartitionDetailPageViewModel
     {
         private readonly IPartitionProvider _partitionProvider;
         private readonly IResourceToolkit _resourceToolkit;
