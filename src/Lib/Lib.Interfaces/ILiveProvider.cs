@@ -11,7 +11,7 @@ namespace Bili.Lib.Interfaces
     /// <summary>
     /// 提供直播相关的操作.
     /// </summary>
-    public interface ILiveProvider : IResetProvider
+    public interface ILiveProvider
     {
         /// <summary>
         /// 获取直播源列表.
@@ -25,6 +25,15 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <returns><see cref="LiveAreaResponse"/>.</returns>
         Task<IEnumerable<Models.Data.Community.Partition>> GetLiveAreaIndexAsync();
+
+        /// <summary>
+        /// 获取直播分区详情.
+        /// </summary>
+        /// <param name="areaId">分区Id.</param>
+        /// <param name="parentId">父分区Id.</param>
+        /// <param name="sortType">排序方式.</param>
+        /// <returns><see cref="LivePartitionView"/>.</returns>
+        Task<LivePartitionView> GetLiveAreaDetailAsync(string areaId, string parentId, string sortType);
 
         /// <summary>
         /// 获取直播间详情.
@@ -69,19 +78,13 @@ namespace Bili.Lib.Interfaces
         Task<bool> SendMessageAsync(int roomId, string message, string color, bool isStandardSize, DanmakuLocation location);
 
         /// <summary>
-        /// 获取直播分区详情.
+        /// 重置推荐信息流.
         /// </summary>
-        /// <param name="areaId">分区Id.</param>
-        /// <param name="parentId">父分区Id.</param>
-        /// <param name="sortType">排序方式.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <param name="pageSize">每页容量.</param>
-        /// <returns><see cref="LiveAreaDetailResponse"/>.</returns>
-        Task<LiveAreaDetailResponse> GetLiveAreaDetailAsync(int areaId, int parentId, string sortType, int pageNumber, int pageSize = 40);
+        void ResetFeedState();
 
         /// <summary>
         /// 重置分区详情的状态信息.
         /// </summary>
-        void ResetPartition();
+        void ResetPartitionDetailState();
     }
 }

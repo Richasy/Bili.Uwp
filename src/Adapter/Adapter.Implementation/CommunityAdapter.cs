@@ -66,21 +66,23 @@ namespace Bili.Adapter
             if (children?.Count > 0)
             {
                 children.Insert(0, new Models.Data.Community.Partition(partition.Tid.ToString(), "推荐"));
+                children.ForEach(p => p.ParentId = id);
             }
 
-            return new Models.Data.Community.Partition(id, name, logo, children);
+            return new Models.Data.Community.Partition(id, name, logo);
         }
 
         /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(LiveFeedHotArea area)
         {
             var id = area.AreaId.ToString();
+            var parentId = area.ParentAreaId.ToString();
             var name = area.Title;
             var logo = string.IsNullOrEmpty(area.Cover)
                 ? null
                 : _imageAdapter.ConvertToImage(area.Cover);
 
-            return new Models.Data.Community.Partition(id, name, logo);
+            return new Models.Data.Community.Partition(id, name, logo, parentId: parentId);
         }
 
         /// <inheritdoc/>
@@ -97,12 +99,13 @@ namespace Bili.Adapter
         public Models.Data.Community.Partition ConvertToPartition(LiveArea area)
         {
             var id = area.Id.ToString();
+            var parentId = area.ParentId.ToString();
             var name = area.Name;
             var logo = string.IsNullOrEmpty(area.Cover)
                 ? null
                 : _imageAdapter.ConvertToImage(area.Cover);
 
-            return new Models.Data.Community.Partition(id, name, logo);
+            return new Models.Data.Community.Partition(id, name, logo, parentId: parentId);
         }
 
         /// <inheritdoc/>

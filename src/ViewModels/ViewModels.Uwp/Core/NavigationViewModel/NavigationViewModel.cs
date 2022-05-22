@@ -117,7 +117,10 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 SecondaryViewId = pageId;
                 var args = new AppNavigationEventArgs(NavigationType.Secondary, pageId, parameter);
-                AddBackStack(BackBehavior.SecondaryView, _ => TryLayerBack(), pageId);
+                AddBackStack(
+                    BackBehavior.SecondaryView,
+                    _ => TryLayerBack(),
+                    pageId);
                 Navigating?.Invoke(this, args);
             }
         }
@@ -131,7 +134,14 @@ namespace Bili.ViewModels.Uwp.Core
             IsPlayViewShown = true;
             RemoveBackStack(BackBehavior.OpenPlayer);
             var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
-            AddBackStack(BackBehavior.OpenPlayer, _ => TryLayerBack(), parameter);
+            AddBackStack(
+                    BackBehavior.OpenPlayer,
+                    _ =>
+                    {
+                        TryLayerBack();
+                        ExitPlayer?.Invoke(this, EventArgs.Empty);
+                    },
+                    null);
             Navigating?.Invoke(this, args);
         }
 

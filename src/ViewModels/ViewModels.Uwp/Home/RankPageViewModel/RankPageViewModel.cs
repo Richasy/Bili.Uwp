@@ -29,15 +29,15 @@ namespace Bili.ViewModels.Uwp.Home
         /// Initializes a new instance of the <see cref="RankPageViewModel"/> class.
         /// </summary>
         /// <param name="resourceToolkit">本地资源工具.</param>
-        /// <param name="partitionProvider">分区服务提供工具.</param>
+        /// <param name="homeProvider">分区服务提供工具.</param>
         /// <param name="dispatcher">UI 调度器.</param>
         public RankPageViewModel(
             IResourceToolkit resourceToolkit,
-            IPartitionProvider partitionProvider,
+            IHomeProvider homeProvider,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
-            _partitionProvider = partitionProvider;
+            _homeProvider = homeProvider;
             _dispatcher = dispatcher;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
@@ -78,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Home
             Partitions.Clear();
             VideoCollection.Clear();
             _caches.Clear();
-            var partitions = (await _partitionProvider.GetPartitionIndexAsync()).ToList();
+            var partitions = (await _homeProvider.GetVideoPartitionIndexAsync()).ToList();
             var allItem = new Partition("0", _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions), new Image("ms-appx:///Assets/Bili_rgba_80.png"));
             partitions.Insert(0, allItem);
             partitions.ForEach(p => Partitions.Add(p));
@@ -92,7 +92,7 @@ namespace Bili.ViewModels.Uwp.Home
             VideoCollection.Clear();
             var videos = _caches.ContainsKey(partition)
                 ? _caches[partition]
-                : await _partitionProvider.GetRankDetailAsync(partition.Id);
+                : await _homeProvider.GetRankDetailAsync(partition.Id);
 
             if (videos != null)
             {

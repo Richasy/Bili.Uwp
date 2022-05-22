@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Home
     public sealed partial class RankPageViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly IPartitionProvider _partitionProvider;
+        private readonly IHomeProvider _homeProvider;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;

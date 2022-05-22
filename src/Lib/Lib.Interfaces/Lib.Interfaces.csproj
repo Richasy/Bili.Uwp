@@ -121,16 +121,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IAccountProvider.cs" />
-    <Compile Include="IClearProvider.cs" />
     <Compile Include="ICommunityProvider.cs" />
     <Compile Include="IPgcProvider.cs" />
     <Compile Include="IAuthorizeProvider.cs" />
     <Compile Include="ILiveProvider.cs" />
-    <Compile Include="IRecommendProvider.cs" />
     <Compile Include="IHttpProvider.cs" />
-    <Compile Include="IPartitionProvider.cs" />
-    <Compile Include="IPopularProvider.cs" />
-    <Compile Include="IResetProvider.cs" />
+    <Compile Include="IHomeProvider.cs" />
     <Compile Include="ISearchProvider.cs" />
     <Compile Include="ISpecialColumnProvider.cs" />
     <Compile Include="IPlayerProvider.cs" />

@@ -13,7 +13,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// </summary>
     public sealed partial class VideoPartitionPageViewModel
     {
-        private readonly IPartitionProvider _partitionProvider;
+        private readonly IHomeProvider _homeProvider;
         private readonly ObservableAsPropertyHelper<bool> _isInitializing;
 
         /// <summary>

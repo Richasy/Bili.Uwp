@@ -367,8 +367,8 @@
     <Compile Include="Pages\Desktop\Overlay\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\Overlay\LiveAreaDetailPage.xaml.cs">
-      <DependentUpon>LiveAreaDetailPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\Overlay\LivePartitionDetailPage.xaml.cs">
+      <DependentUpon>LivePartitionDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\MessagePage.xaml.cs">
       <DependentUpon>MessagePage.xaml</DependentUpon>
@@ -418,8 +418,8 @@
     <Compile Include="Pages\Desktop\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\Overlay\PartitionDetailPage.xaml.cs">
-      <DependentUpon>PartitionDetailPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\Overlay\VideoPartitionDetailPage.xaml.cs">
+      <DependentUpon>VideoPartitionDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\VideoPartitionPage.xaml.cs">
       <DependentUpon>VideoPartitionPage.xaml</DependentUpon>
@@ -1027,7 +1027,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\Overlay\LiveAreaDetailPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\LivePartitionDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1095,7 +1095,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\Overlay\PartitionDetailPage.xaml">
+    <Page Include="Pages\Desktop\Overlay\VideoPartitionDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

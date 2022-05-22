@@ -12,6 +12,8 @@ using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Live;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Common;
@@ -200,6 +202,23 @@ namespace Bili.ViewModels.Uwp.Core
                 videoId = videoInfo.Identifier.Id;
                 type = VideoType.Video;
                 title = videoInfo.Identifier.Title;
+                IsShowViewLater = false;
+                ViewLaterVideoCollection.Clear();
+            }
+            else if (vm is LiveInformation liveInfo)
+            {
+                videoId = liveInfo.Identifier.Id;
+                type = VideoType.Live;
+                title = liveInfo.Identifier.Title;
+                IsShowViewLater = false;
+                ViewLaterVideoCollection.Clear();
+            }
+            else if (vm is EpisodeInformation episodeInfo)
+            {
+                videoId = episodeInfo.Identifier.Id;
+                type = VideoType.Pgc;
+                title = episodeInfo.Identifier.Title;
+                isReleated = episodeInfo.IsPreviewVideo;
                 IsShowViewLater = false;
                 ViewLaterVideoCollection.Clear();
             }

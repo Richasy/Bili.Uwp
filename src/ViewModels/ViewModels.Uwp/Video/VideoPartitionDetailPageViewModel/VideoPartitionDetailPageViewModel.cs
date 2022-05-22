@@ -11,7 +11,6 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
@@ -23,22 +22,22 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 分区详情页视图模型.
     /// </summary>
-    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase, IBackPageViewModel
+    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionDetailPageViewModel"/> class.
         /// </summary>
         /// <param name="resourceToolkit">本地资源工具.</param>
-        /// <param name="partitionProvider">分区服务提供工具.</param>
+        /// <param name="homeProvider">分区服务提供工具.</param>
         /// <param name="coreDispatcher">UI调度程序.</param>
         public VideoPartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
-            IPartitionProvider partitionProvider,
+            IHomeProvider homeProvider,
             CoreDispatcher coreDispatcher)
             : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
-            _partitionProvider = partitionProvider;
+            _homeProvider = homeProvider;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
             Banners = new ObservableCollection<BannerViewModel>();
@@ -66,10 +65,6 @@ namespace Bili.ViewModels.Uwp.Community
             SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectSubPartition, outputScheduler: RxApp.MainThreadScheduler);
         }
 
-        /// <inheritdoc/>
-        public object GetBackParameter()
-            => OriginPartition;
-
         /// <summary>
         /// 设置初始分区.
         /// </summary>
@@ -78,7 +73,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             OriginPartition = partition;
             _caches.Clear();
-            _partitionProvider.Clear();
+            _homeProvider.ClearPartitionState();
             SubPartitions.Clear();
             partition.Children.ToList().ForEach(p => SubPartitions.Add(p));
             CurrentSubPartition = SubPartitions.First();
@@ -88,7 +83,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         /// <inheritdoc/>
         protected override void BeforeReload()
-            => _partitionProvider.Reset();
+            => _homeProvider.ResetSubPartitionState();
 
         /// <inheritdoc/>
         protected override string FormatException(string errorMsg)
@@ -99,7 +94,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             var partition = CurrentSubPartition;
             var isRecommend = partition.Id == OriginPartition.Id;
-            var data = await _partitionProvider.GetSubPartitionDataAsync(partition.Id, isRecommend, SortType);
+            var data = await _homeProvider.GetVideoSubPartitionDataAsync(partition.Id, isRecommend, SortType);
             if (data.Banners?.Count() > 0)
             {
                 foreach (var item in data.Banners)

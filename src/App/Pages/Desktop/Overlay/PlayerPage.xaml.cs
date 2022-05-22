@@ -67,6 +67,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         {
             _navigateVM = null;
             await EnterDefaultModeAsync();
+            ViewModel.ClearPlayer();
             if (ViewModel.IsShowViewLater)
             {
                 foreach (var item in ViewModel.ViewLaterVideoCollection)

@@ -20,10 +20,10 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionPageViewModel"/> class.
         /// </summary>
-        /// <param name="partitionProvider">分区服务提供工具.</param>
-        public VideoPartitionPageViewModel(IPartitionProvider partitionProvider)
+        /// <param name="homeProvider">分区服务提供工具.</param>
+        public VideoPartitionPageViewModel(IHomeProvider homeProvider)
         {
-            _partitionProvider = partitionProvider;
+            _homeProvider = homeProvider;
             Partitions = new ObservableCollection<Partition>();
 
             var canInitialize = this.WhenAnyValue(
@@ -49,7 +49,7 @@ namespace Bili.ViewModels.Uwp.Video
         private async Task InitializeAsync()
         {
             Partitions.Clear();
-            var items = await _partitionProvider.GetPartitionIndexAsync();
+            var items = await _homeProvider.GetVideoPartitionIndexAsync();
             items.ToList().ForEach(p => Partitions.Add(p));
         }
     }

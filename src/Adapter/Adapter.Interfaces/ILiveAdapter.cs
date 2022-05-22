@@ -44,5 +44,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">直播首页数据流信息.</param>
         /// <returns><see cref="LiveFeedView"/>.</returns>
         LiveFeedView ConvertToLiveFeedView(LiveFeedResponse response);
+
+        /// <summary>
+        /// 将直播分区详情信息 <see cref="LiveAreaDetailResponse"/> 转换为直播分区详情视图.
+        /// </summary>
+        /// <param name="response">直播分区详情视图.</param>
+        /// <returns><see cref="LivePartitionView"/>.</returns>
+        LivePartitionView ConvertToLivePartitionView(LiveAreaDetailResponse response);
     }
 }

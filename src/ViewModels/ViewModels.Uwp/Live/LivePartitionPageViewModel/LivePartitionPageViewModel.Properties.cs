@@ -20,7 +20,6 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly ILiveProvider _liveProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly CoreDispatcher _dispatcher;
-        private readonly List<Partition> _partitions;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace Bili.Lib.Uwp
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
         /// <param name="partitionProvider">分区操作工具.</param>
-        public PgcProvider(IHttpProvider httpProvider, IPartitionProvider partitionProvider)
+        public PgcProvider(IHttpProvider httpProvider, IHomeProvider partitionProvider)
         {
             _httpProvider = httpProvider;
             _partitionProvider = partitionProvider;
@@ -53,7 +53,7 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<SubPartition> GetPartitionRecommendVideoAsync(int partitionId, int offsetId = 0)
         {
-            var data = await _partitionProvider.GetSubPartitionDataAsync(partitionId.ToString(), false);
+            var data = await _partitionProvider.GetVideoSubPartitionDataAsync(partitionId.ToString(), false);
             return null;
         }
 

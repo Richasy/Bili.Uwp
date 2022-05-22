@@ -18,7 +18,7 @@ namespace Bili.Lib.Uwp
     {
         private readonly IHttpProvider _httpProvider;
 
-        private readonly IPartitionProvider _partitionProvider;
+        private readonly IHomeProvider _partitionProvider;
 
         private Dictionary<string, string> GetTabQueryParameters(PgcType type)
         {

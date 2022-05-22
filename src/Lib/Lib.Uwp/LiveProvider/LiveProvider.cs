@@ -78,12 +78,26 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<LiveAreaDetailResponse> GetLiveAreaDetailAsync(int areaId, int parentId, string sortType, int pageNumber, int pageSize = 40)
+        public async Task<IEnumerable<Models.Data.Community.Partition>> GetLiveAreaIndexAsync()
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Device, "phone" },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveArea, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaResponse>>(response);
+
+            return result.Data.List.Select(p => _communityAdapter.ConvertToPartition(p));
+        }
+
+        /// <inheritdoc/>
+        public async Task<LivePartitionView> GetLiveAreaDetailAsync(string areaId, string parentId, string sortType)
         {
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.Page, _partitionPageNumber.ToString() },
-                { Query.PageSizeUnderline, pageSize.ToString() },
+                { Query.PageSizeUnderline, "40" },
                 { Query.AreaId, areaId.ToString() },
                 { Query.ParentAreaId, parentId.ToString() },
                 { Query.Device, "phone" },
@@ -97,23 +111,11 @@ namespace Bili.Lib.Uwp
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.AreaDetail, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaDetailResponse>>(response);
+            var data = _liveAdapter.ConvertToLivePartitionView(result.Data);
+            data.Id = areaId.ToString();
             _partitionPageNumber += 1;
 
-            return result.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<IEnumerable<Models.Data.Community.Partition>> GetLiveAreaIndexAsync()
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.Device, "phone" },
-            };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.LiveArea, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<LiveAreaResponse>>(response);
-
-            return result.Data.List.Select(p => _communityAdapter.ConvertToPartition(p));
+            return data;
         }
 
         /// <inheritdoc/>
@@ -206,14 +208,11 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public void Reset()
-        {
-            _feedPageNumber = 1;
-            _partitionPageNumber = 1;
-        }
+        public void ResetPartitionDetailState()
+            => _partitionPageNumber = 1;
 
         /// <inheritdoc/>
-        public void ResetPartition()
-            => _partitionPageNumber = 1;
+        public void ResetFeedState()
+            => _feedPageNumber = 1;
     }
 }

@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Bili.App.Controls;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Windows.ApplicationModel.Activation;
@@ -37,6 +35,7 @@ namespace Bili.App.Pages.Desktop
             InitializeComponent();
             Current = this;
             ViewModel.Navigating += OnNavigating;
+            ViewModel.ExitPlayer += OnExitPlayer;
             Loaded += OnLoadedAsync;
             CoreViewModel.RequestShowTip += OnRequestShowTip;
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
@@ -103,11 +102,6 @@ namespace Bili.App.Pages.Desktop
 
         private void OnNavigating(object sender, AppNavigationEventArgs e)
         {
-            if (e.Type != NavigationType.Player && PlayerFrame.Content is not AppPage)
-            {
-                PlayerFrame.Navigate(typeof(Page));
-            }
-
             if (e.Type == NavigationType.Secondary)
             {
                 var type = GetSecondaryViewType(e.PageId);
@@ -117,11 +111,14 @@ namespace Bili.App.Pages.Desktop
             {
                 PlayerFrame.Navigate(typeof(PlayerPage), e.Parameter);
             }
-            else if (e.Type == NavigationType.Main && SecondaryFrame.Content is not AppPage)
+            else if (e.Type == NavigationType.Main && SecondaryFrame.Content is AppPage)
             {
                 SecondaryFrame.Navigate(typeof(Page));
             }
         }
+
+        private void OnExitPlayer(object sender, EventArgs e)
+            => PlayerFrame.Navigate(typeof(Page));
 
         /// <summary>
         /// 从顶层视图中移除元素.
@@ -190,7 +187,7 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.VideoPartitionDetail => typeof(PartitionDetailPage),
+                PageIds.VideoPartitionDetail => typeof(VideoPartitionDetailPage),
                 PageIds.Search => typeof(SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
                 PageIds.Favorite => typeof(FavoritePage),
@@ -201,7 +198,7 @@ namespace Bili.App.Pages.Desktop
                 PageIds.TimeLine => typeof(TimeLinePage),
                 PageIds.Message => typeof(MessagePage),
                 PageIds.LivePartition => typeof(LivePartitionPage),
-                PageIds.LivePartitionDetail => typeof(LiveAreaDetailPage),
+                PageIds.LivePartitionDetail => typeof(LivePartitionDetailPage),
                 PageIds.MyFollows => typeof(MyFollowsPage),
                 _ => typeof(Page)
             };

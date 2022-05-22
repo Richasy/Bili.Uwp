@@ -25,22 +25,22 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         internal RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
-            IRecommendProvider recommendProvider,
+            IHomeProvider recommendProvider,
             CoreDispatcher coreDispatcher)
             : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
-            _recommendProvider = recommendProvider;
+            _homeProvider = recommendProvider;
         }
 
         /// <inheritdoc/>
         protected override void BeforeReload()
-            => _recommendProvider.Reset();
+            => _homeProvider.ResetRecommendState();
 
         /// <inheritdoc/>
         protected override async Task GetDataAsync()
         {
-            var videos = await _recommendProvider.RequestRecommendVideosAsync();
+            var videos = await _homeProvider.RequestRecommendVideosAsync();
             if (videos?.Any() ?? false)
             {
                 foreach (var item in videos)

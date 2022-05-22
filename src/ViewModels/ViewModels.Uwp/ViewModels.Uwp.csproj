@@ -18,6 +18,8 @@
     <Compile Include="Common\LiveAppQualityViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />
+    <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.cs" />
+    <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
@@ -25,8 +27,6 @@
     <Compile Include="DIInstnace.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
-    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
-    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowingViewModel.cs" />
     <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.cs" />
     <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.Properties.cs" />

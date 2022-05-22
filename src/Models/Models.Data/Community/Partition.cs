@@ -17,16 +17,19 @@ namespace Bili.Models.Data.Community
         /// <param name="name">分区名.</param>
         /// <param name="image">Logo.</param>
         /// <param name="children">子项.</param>
+        /// <param name="parentId">父分区 Id.</param>
         public Partition(
             string id,
             string name,
             Image image = default,
-            IEnumerable<Partition> children = default)
+            IEnumerable<Partition> children = default,
+            string parentId = default)
         {
             Id = id;
             Name = name;
             Image = image;
             Children = children;
+            ParentId = parentId;
         }
 
         /// <summary>
@@ -43,6 +46,11 @@ namespace Bili.Models.Data.Community
         /// 分区Logo.
         /// </summary>
         public Image Image { get; set; }
+
+        /// <summary>
+        /// 父分区标识符.
+        /// </summary>
+        public string ParentId { get; set; }
 
         /// <summary>
         /// 子分区列表.

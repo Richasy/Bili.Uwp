@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
@@ -35,7 +34,6 @@ namespace Bili.ViewModels.Uwp.Live
             _resourceToolkit = resourceToolkit;
             _liveProvider = liveProvider;
             _dispatcher = dispatcher;
-            _partitions = new List<Partition>();
 
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();

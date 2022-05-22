@@ -10,7 +10,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public sealed partial class PopularPageViewModel
     {
-        private readonly IPopularProvider _popularProvider;
+        private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
     }
 }

@@ -46,9 +46,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
             SplatRegistrations.RegisterLazySingleton<IAccountProvider, AccountProvider>();
-            SplatRegistrations.RegisterLazySingleton<IPartitionProvider, PartitionProvider>();
-            SplatRegistrations.RegisterLazySingleton<IRecommendProvider, RecommendProvider>();
-            SplatRegistrations.RegisterLazySingleton<IPopularProvider, PopularProvider>();
+            SplatRegistrations.RegisterLazySingleton<IHomeProvider, HomeProvider>();
             SplatRegistrations.RegisterLazySingleton<ILiveProvider, LiveProvider>();
             SplatRegistrations.RegisterLazySingleton<ISpecialColumnProvider, SpecialColumnProvider>();
             SplatRegistrations.RegisterLazySingleton<IPgcProvider, PgcProvider>();
@@ -67,6 +65,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<RankPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.Register<LiveItemViewModel>();

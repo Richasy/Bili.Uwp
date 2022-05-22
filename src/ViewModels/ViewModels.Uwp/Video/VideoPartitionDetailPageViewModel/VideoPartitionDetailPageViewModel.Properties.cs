@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// </summary>
     public sealed partial class VideoPartitionDetailPageViewModel
     {
-        private readonly IPartitionProvider _partitionProvider;
+        private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
         private readonly ObservableAsPropertyHelper<bool> _isShowBanner;

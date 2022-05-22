@@ -23,6 +23,11 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler<AppNavigationEventArgs> Navigating;
 
         /// <summary>
+        /// 当退出播放界面时触发.
+        /// </summary>
+        public event EventHandler ExitPlayer;
+
+        /// <summary>
         /// 返回上一级页面的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> BackCommand { get; }

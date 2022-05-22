@@ -12,12 +12,12 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// 分区详情页面.
     /// </summary>
-    public sealed partial class PartitionDetailPage : PartitionDetailPageBase
+    public sealed partial class VideoPartitionDetailPage : VideoPartitionDetailPageBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PartitionDetailPage"/> class.
+        /// Initializes a new instance of the <see cref="VideoPartitionDetailPage"/> class.
         /// </summary>
-        public PartitionDetailPage() => InitializeComponent();
+        public VideoPartitionDetailPage() => InitializeComponent();
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -47,9 +47,9 @@ namespace Bili.App.Pages.Desktop.Overlay
     }
 
     /// <summary>
-    /// <see cref="PartitionDetailPage"/> 的基类.
+    /// <see cref="VideoPartitionDetailPage"/> 的基类.
     /// </summary>
-    public class PartitionDetailPageBase : AppPage<VideoPartitionDetailPageViewModel>
+    public class VideoPartitionDetailPageBase : AppPage<VideoPartitionDetailPageViewModel>
     {
     }
 }

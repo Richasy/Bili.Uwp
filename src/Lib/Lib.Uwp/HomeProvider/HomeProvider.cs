@@ -8,6 +8,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
+using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
@@ -21,30 +22,111 @@ namespace Bili.Lib.Uwp
     /// <summary>
     /// 提供分区及标签的数据操作.
     /// </summary>
-    public partial class PartitionProvider : IPartitionProvider
+    public partial class HomeProvider : IHomeProvider
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PartitionProvider"/> class.
+        /// Initializes a new instance of the <see cref="HomeProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
+        /// <param name="authorizeProvider">授权工具.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
         /// <param name="videoAdapter">视频数据适配器.</param>
+        /// <param name="pgcAdapter">PGC数据适配器.</param>
         /// <param name="fileToolkit">文件管理工具.</param>
-        public PartitionProvider(
+        public HomeProvider(
             IHttpProvider httpProvider,
+            IAuthorizeProvider authorizeProvider,
             ICommunityAdapter communityAdapter,
             IVideoAdapter videoAdapter,
+            IPgcAdapter pgcAdapter,
             IFileToolkit fileToolkit)
         {
             _httpProvider = httpProvider;
+            _authorizeProvider = authorizeProvider;
             _communityAdapter = communityAdapter;
             _videoAdapter = videoAdapter;
+            _pgcAdapter = pgcAdapter;
             _fileToolkit = fileToolkit;
-            _cacheOffsets = new Dictionary<string, (int OffsetId, int PageNumber)>();
+
+            _popularOffsetId = 0;
+            _recommendOffsetId = 0;
+            _cacheVideoPartitionOffsets = new Dictionary<string, (int OffsetId, int PageNumber)>();
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Partition>> GetPartitionIndexAsync()
+        public async Task<IEnumerable<IVideoBase>> RequestRecommendVideosAsync()
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.Idx, _recommendOffsetId.ToString() },
+                { Query.Flush, "5" },
+                { Query.Column, "4" },
+                { Query.Device, "pad" },
+                { Query.DeviceName, "iPad 6" },
+                { Query.Pull, (_recommendOffsetId == 0).ToString().ToLower() },
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(
+                HttpMethod.Get,
+                ApiConstants.Home.Recommend,
+                queryParameters,
+                RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<HomeRecommendInfo>>(response);
+            var offsetId = data.Data.Items.Last().Index;
+            var items = data.Data.Items.Where(p => !string.IsNullOrEmpty(p.Goto)).ToList();
+
+            // 目前只接受视频和剧集.
+            var list = new List<IVideoBase>();
+            foreach (var item in items)
+            {
+                if (item.CardGoto == Av)
+                {
+                    list.Add(_videoAdapter.ConvertToVideoInformation(item));
+                }
+                else if (item.CardGoto == Bangumi
+                    || item.CardGoto == Models.App.Constants.ServiceConstants.Pgc)
+                {
+                    list.Add(_pgcAdapter.ConvertToEpisodeInformation(item));
+                }
+            }
+
+            _recommendOffsetId = offsetId;
+            return list;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<VideoInformation>> RequestPopularVideosAsync()
+        {
+            var isLogin = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
+            var popularReq = new PopularResultReq()
+            {
+                Idx = _popularOffsetId,
+                LoginEvent = isLogin ? 2 : 1,
+                Qn = 112,
+                Fnval = 464,
+                Fourk = 1,
+                Spmid = "creation.hot-tab.0.0",
+                PlayerArgs = new Bilibili.App.Archive.Middleware.V1.PlayerArgs
+                {
+                    Qn = 112,
+                    Fnval = 464,
+                },
+            };
+            var request = await _httpProvider.GetRequestMessageAsync(ApiConstants.Home.PopularGRPC, popularReq);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync(response, PopularReply.Parser);
+            var result = data.Items
+                .Where(p => p.ItemCase == Bilibili.App.Card.V1.Card.ItemOneofCase.SmallCoverV5)
+                .Where(p => p.SmallCoverV5 != null)
+                .Where(p => p.SmallCoverV5.Base.CardGoto == Av)
+                .Select(p => _videoAdapter.ConvertToVideoInformation(p));
+            _popularOffsetId = data.Items.Where(p => p.SmallCoverV5 != null).Last().SmallCoverV5.Base.Idx;
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Models.Data.Community.Partition>> GetVideoPartitionIndexAsync()
         {
             var localCache = await GetPartitionCacheAsync();
 
@@ -68,19 +150,19 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PartitionView> GetSubPartitionDataAsync(
+        public async Task<VideoPartitionView> GetVideoSubPartitionDataAsync(
             string subPartitionId,
             bool isRecommend,
             VideoSortType sortType = VideoSortType.Default)
         {
-            if (_cacheOffsets.ContainsKey(subPartitionId))
+            if (_cacheVideoPartitionOffsets.ContainsKey(subPartitionId))
             {
-                var (oid, pn) = _cacheOffsets[subPartitionId];
-                offsetId = oid;
-                pageNumber = pn;
+                var (oid, pn) = _cacheVideoPartitionOffsets[subPartitionId];
+                videoPartitionOffsetId = oid;
+                videoPartitionPageNumber = pn;
             }
 
-            var isOffset = offsetId > 0;
+            var isOffset = videoPartitionOffsetId > 0;
             var isDefaultOrder = sortType == VideoSortType.Default;
             Models.BiliBili.SubPartition data;
 
@@ -98,7 +180,7 @@ namespace Bili.Lib.Uwp
 
             if (isOffset)
             {
-                queryParameters.Add(Query.CreateTime, offsetId.ToString());
+                queryParameters.Add(Query.CreateTime, videoPartitionOffsetId.ToString());
             }
 
             if (!isDefaultOrder)
@@ -126,7 +208,7 @@ namespace Bili.Lib.Uwp
                 }
 
                 queryParameters.Add(Query.Order, sortStr);
-                queryParameters.Add(Query.PageNumber, pageNumber.ToString());
+                queryParameters.Add(Query.PageNumber, videoPartitionPageNumber.ToString());
                 queryParameters.Add(Query.PageSizeSlim, "30");
             }
 
@@ -134,31 +216,31 @@ namespace Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             if (isOffset)
             {
-                data = (await _httpProvider.ParseAsync<Models.BiliBili.ServerResponse<Models.BiliBili.SubPartition>>(response)).Data;
+                data = (await _httpProvider.ParseAsync<ServerResponse<SubPartition>>(response)).Data;
             }
             else if (!isRecommend)
             {
                 if (!isDefaultOrder)
                 {
-                    var list = (await _httpProvider.ParseAsync<Models.BiliBili.ServerResponse<List<Models.BiliBili.PartitionVideo>>>(response)).Data;
-                    data = new Models.BiliBili.SubPartition()
+                    var list = (await _httpProvider.ParseAsync<ServerResponse<List<PartitionVideo>>>(response)).Data;
+                    data = new SubPartition()
                     {
                         NewVideos = list,
                     };
                 }
                 else
                 {
-                    data = (await _httpProvider.ParseAsync<Models.BiliBili.ServerResponse<Models.BiliBili.SubPartitionDefault>>(response)).Data;
+                    data = (await _httpProvider.ParseAsync<ServerResponse<SubPartitionDefault>>(response)).Data;
                 }
             }
             else
             {
-                data = (await _httpProvider.ParseAsync<Models.BiliBili.ServerResponse<Models.BiliBili.SubPartitionRecommend>>(response)).Data;
+                data = (await _httpProvider.ParseAsync<ServerResponse<Models.BiliBili.SubPartitionRecommend>>(response)).Data;
             }
 
             var id = subPartitionId;
             var videos = data.NewVideos
-                .Concat(data.RecommendVideos ?? new List<Models.BiliBili.PartitionVideo>())
+                .Concat(data.RecommendVideos ?? new List<PartitionVideo>())
                 .Select(p => _videoAdapter.ConvertToVideoInformation(p));
             IEnumerable<BannerIdentifier> banners = null;
             if (data is Models.BiliBili.SubPartitionRecommend recommendView
@@ -167,13 +249,13 @@ namespace Bili.Lib.Uwp
                 banners = recommendView.Banner.TopBanners.Select(p => _communityAdapter.ConvertToBannerIdentifier(p));
             }
 
-            offsetId = data.BottomOffsetId;
-            pageNumber = !isRecommend && sortType != VideoSortType.Default ? pageNumber + 1 : 1;
+            videoPartitionOffsetId = data.BottomOffsetId;
+            videoPartitionPageNumber = !isRecommend && sortType != VideoSortType.Default ? videoPartitionPageNumber + 1 : 1;
             currentPartitionId = subPartitionId;
 
-            UpdateCache();
+            UpdateVideoPartitionCache();
 
-            return new PartitionView(id, videos, banners);
+            return new VideoPartitionView(id, videos, banners);
         }
 
         /// <inheritdoc/>
@@ -187,23 +269,31 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public void Reset()
+        public void ResetSubPartitionState()
         {
-            offsetId = 0;
-            pageNumber = 1;
-            UpdateCache();
+            videoPartitionOffsetId = 0;
+            videoPartitionPageNumber = 1;
+            UpdateVideoPartitionCache();
         }
 
         /// <inheritdoc/>
-        public void Clear()
+        public void ClearPartitionState()
         {
-            Reset();
-            _cacheOffsets.Clear();
+            ResetSubPartitionState();
+            _cacheVideoPartitionOffsets.Clear();
         }
 
-        private async Task<IEnumerable<Partition>> GetPartitionCacheAsync()
+        /// <inheritdoc/>
+        public void ResetRecommendState()
+            => _recommendOffsetId = 0;
+
+        /// <inheritdoc/>
+        public void ResetPopularState()
+            => _popularOffsetId = 0;
+
+        private async Task<IEnumerable<Models.Data.Community.Partition>> GetPartitionCacheAsync()
         {
-            var cacheData = await _fileToolkit.ReadLocalDataAsync<LocalCache<List<Partition>>>(
+            var cacheData = await _fileToolkit.ReadLocalDataAsync<LocalCache<List<Models.Data.Community.Partition>>>(
                 Location.PartitionCache,
                 folderName: Location.ServerFolder);
 
@@ -215,16 +305,16 @@ namespace Bili.Lib.Uwp
             return cacheData.Data;
         }
 
-        private async Task CachePartitionsAsync(IEnumerable<Partition> data)
+        private async Task CachePartitionsAsync(IEnumerable<Models.Data.Community.Partition> data)
         {
-            var localCache = new LocalCache<List<Partition>>(System.DateTimeOffset.Now.AddDays(1), data.ToList());
+            var localCache = new LocalCache<List<Models.Data.Community.Partition>>(System.DateTimeOffset.Now.AddDays(1), data.ToList());
             await _fileToolkit.WriteLocalDataAsync(Location.PartitionCache, localCache, Location.ServerFolder);
         }
 
-        private void UpdateCache()
+        private void UpdateVideoPartitionCache()
         {
-            _cacheOffsets.Remove(currentPartitionId);
-            _cacheOffsets.Add(currentPartitionId, (offsetId, pageNumber));
+            _cacheVideoPartitionOffsets.Remove(currentPartitionId);
+            _cacheVideoPartitionOffsets.Add(currentPartitionId, (videoPartitionOffsetId, videoPartitionPageNumber));
         }
     }
 }

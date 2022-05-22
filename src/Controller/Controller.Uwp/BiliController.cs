@@ -29,9 +29,7 @@ namespace Bili.Controller.Uwp
 
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
-        private readonly IPartitionProvider _partitionProvider;
-        private readonly IRecommendProvider _homeProvider;
-        private readonly IPopularProvider _popularProvider;
+        private readonly IHomeProvider _partitionProvider;
         private readonly ILiveProvider _liveProvider;
         private readonly ISpecialColumnProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
@@ -64,8 +62,6 @@ namespace Bili.Controller.Uwp
                 .LoadService(out _authorizeProvider)
                 .LoadService(out _accountProvider)
                 .LoadService(out _partitionProvider)
-                .LoadService(out _homeProvider)
-                .LoadService(out _popularProvider)
                 .LoadService(out _liveProvider)
                 .LoadService(out _specialColumnProvider)
                 .LoadService(out _pgcProvider)
@@ -298,9 +294,7 @@ namespace Bili.Controller.Uwp
             serviceCollection.AddSingleton<IAuthorizeProvider, AuthorizeProvider>()
                 .AddSingleton<IHttpProvider, HttpProvider>()
                 .AddSingleton<IAccountProvider, AccountProvider>()
-                .AddSingleton<IPartitionProvider, PartitionProvider>()
-                .AddSingleton<IRecommendProvider, RecommendProvider>()
-                .AddSingleton<IPopularProvider, PopularProvider>()
+                .AddSingleton<IHomeProvider, HomeProvider>()
                 .AddSingleton<ILiveProvider, LiveProvider>()
                 .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
                 .AddSingleton<IPgcProvider, PgcProvider>()

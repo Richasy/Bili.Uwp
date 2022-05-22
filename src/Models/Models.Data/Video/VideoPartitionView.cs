@@ -1,22 +1,22 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using Bili.Models.Data.Video;
+using Bili.Models.Data.Community;
 
-namespace Bili.Models.Data.Community
+namespace Bili.Models.Data.Video
 {
     /// <summary>
     /// 分区视频视图.
     /// </summary>
-    public sealed class PartitionView
+    public sealed class VideoPartitionView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PartitionView"/> class.
+        /// Initializes a new instance of the <see cref="VideoPartitionView"/> class.
         /// </summary>
         /// <param name="id">分区标识符.</param>
         /// <param name="videos">视频列表.</param>
         /// <param name="banners">横幅列表.</param>
-        public PartitionView(
+        public VideoPartitionView(
             string id,
             IEnumerable<VideoInformation> videos,
             IEnumerable<BannerIdentifier> banners)
@@ -42,7 +42,7 @@ namespace Bili.Models.Data.Community
         public IEnumerable<BannerIdentifier> Banners { get; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is PartitionView view && EqualityComparer<string>.Default.Equals(Id, view.Id);
+        public override bool Equals(object obj) => obj is VideoPartitionView view && EqualityComparer<string>.Default.Equals(Id, view.Id);
 
         /// <inheritdoc/>
         public override int GetHashCode() => Id.GetHashCode();

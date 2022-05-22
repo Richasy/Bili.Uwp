@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -133,6 +134,16 @@ namespace Bili.Adapter
                 .ToList();
 
             return new LiveFeedView(banners, partitions, followRooms, recommendRooms);
+        }
+
+        /// <inheritdoc/>
+        public LivePartitionView ConvertToLivePartitionView(LiveAreaDetailResponse response)
+        {
+            var lives = response.List.Select(p => ConvertToLiveInformation(p)).ToList();
+            var tags = response.Tags?.Count > 0
+                ? response.Tags.Select(p => new LiveTag(p.Id.ToString(), p.Name, p.SortType)).ToList()
+                : new List<LiveTag>() { new LiveTag(string.Empty, "全部", string.Empty) };
+            return new LivePartitionView(response.Count, lives, tags);
         }
     }
 }

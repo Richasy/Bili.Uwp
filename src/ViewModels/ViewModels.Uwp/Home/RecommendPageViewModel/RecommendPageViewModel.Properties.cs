@@ -10,7 +10,7 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public partial class RecommendPageViewModel
     {
-        private readonly IRecommendProvider _recommendProvider;
+        private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
     }
 }
