@@ -4,6 +4,7 @@ using System;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Xaml;
 
@@ -40,6 +41,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 请求显示图片列表.
         /// </summary>
         public event EventHandler<ShowImageEventArgs> RequestShowImages;
+
+        /// <summary>
+        /// 请求显示 PGC 的播放列表.
+        /// </summary>
+        public event EventHandler<PgcPlaylistViewModel> RequestShowPgcPlaylist;
 
         /// <summary>
         /// 导航面板是否已展开.

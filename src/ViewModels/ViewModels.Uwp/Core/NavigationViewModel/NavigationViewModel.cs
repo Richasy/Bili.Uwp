@@ -95,6 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             IsMainViewShown = true;
             SecondaryViewId = PageIds.None;
+            CloseAllPopup();
             if (pageId != MainViewId)
             {
                 RemoveBackStack(BackBehavior.MainView);
@@ -113,6 +114,7 @@ namespace Bili.ViewModels.Uwp.Core
         public void NavigateToSecondaryView(PageIds pageId, object parameter = null)
         {
             IsSecondaryViewShown = true;
+            CloseAllPopup();
             if (pageId != SecondaryViewId)
             {
                 SecondaryViewId = pageId;
@@ -132,6 +134,7 @@ namespace Bili.ViewModels.Uwp.Core
         public void NavigateToPlayView(object parameter)
         {
             IsPlayViewShown = true;
+            CloseAllPopup();
             RemoveBackStack(BackBehavior.OpenPlayer);
             var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
             AddBackStack(
@@ -211,6 +214,14 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 NavigateToPlayView(last.Parameter);
             }
+        }
+
+        private void CloseAllPopup()
+        {
+            _backStack.Where(p => p.Id == BackBehavior.ShowHolder)
+                .ToList()
+                .ForEach(p => p.Action?.Invoke(p.Parameter));
+            _backStack.RemoveAll(p => p.Id == BackBehavior.ShowHolder);
         }
     }
 }

@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
-using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Show.V1;
-using static Bili.Models.App.Constants.AppConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
 namespace Bili.Lib.Uwp
@@ -155,16 +153,10 @@ namespace Bili.Lib.Uwp
             bool isRecommend,
             VideoSortType sortType = VideoSortType.Default)
         {
-            if (_cacheVideoPartitionOffsets.ContainsKey(subPartitionId))
-            {
-                var (oid, pn) = _cacheVideoPartitionOffsets[subPartitionId];
-                videoPartitionOffsetId = oid;
-                videoPartitionPageNumber = pn;
-            }
-
-            var isOffset = videoPartitionOffsetId > 0;
+            RetriveCachedSubPartitionOffset(subPartitionId);
+            var isOffset = _videoPartitionOffsetId > 0;
             var isDefaultOrder = sortType == VideoSortType.Default;
-            Models.BiliBili.SubPartition data;
+            SubPartition data;
 
             var requestUrl = isRecommend
                 ? isOffset ? ApiConstants.Partition.SubPartitionRecommendOffset : ApiConstants.Partition.SubPartitionRecommend
@@ -180,7 +172,7 @@ namespace Bili.Lib.Uwp
 
             if (isOffset)
             {
-                queryParameters.Add(Query.CreateTime, videoPartitionOffsetId.ToString());
+                queryParameters.Add(Query.CreateTime, _videoPartitionOffsetId.ToString());
             }
 
             if (!isDefaultOrder)
@@ -208,7 +200,7 @@ namespace Bili.Lib.Uwp
                 }
 
                 queryParameters.Add(Query.Order, sortStr);
-                queryParameters.Add(Query.PageNumber, videoPartitionPageNumber.ToString());
+                queryParameters.Add(Query.PageNumber, _videoPartitionPageNumber.ToString());
                 queryParameters.Add(Query.PageSizeSlim, "30");
             }
 
@@ -249,9 +241,8 @@ namespace Bili.Lib.Uwp
                 banners = recommendView.Banner.TopBanners.Select(p => _communityAdapter.ConvertToBannerIdentifier(p));
             }
 
-            videoPartitionOffsetId = data.BottomOffsetId;
-            videoPartitionPageNumber = !isRecommend && sortType != VideoSortType.Default ? videoPartitionPageNumber + 1 : 1;
-            currentPartitionId = subPartitionId;
+            _videoPartitionOffsetId = data.BottomOffsetId;
+            _videoPartitionPageNumber = !isRecommend && sortType != VideoSortType.Default ? _videoPartitionPageNumber + 1 : 1;
 
             UpdateVideoPartitionCache();
 
@@ -269,10 +260,15 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public void ResetSubPartitionState()
+        public void ResetSubPartitionState(string id = default)
         {
-            videoPartitionOffsetId = 0;
-            videoPartitionPageNumber = 1;
+            if (!string.IsNullOrEmpty(id))
+            {
+                RetriveCachedSubPartitionOffset(id);
+            }
+
+            _videoPartitionOffsetId = 0;
+            _videoPartitionPageNumber = 1;
             UpdateVideoPartitionCache();
         }
 
@@ -290,31 +286,5 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetPopularState()
             => _popularOffsetId = 0;
-
-        private async Task<IEnumerable<Models.Data.Community.Partition>> GetPartitionCacheAsync()
-        {
-            var cacheData = await _fileToolkit.ReadLocalDataAsync<LocalCache<List<Models.Data.Community.Partition>>>(
-                Location.PartitionCache,
-                folderName: Location.ServerFolder);
-
-            if (cacheData == null || cacheData.ExpiryTime < System.DateTimeOffset.Now)
-            {
-                return null;
-            }
-
-            return cacheData.Data;
-        }
-
-        private async Task CachePartitionsAsync(IEnumerable<Models.Data.Community.Partition> data)
-        {
-            var localCache = new LocalCache<List<Models.Data.Community.Partition>>(System.DateTimeOffset.Now.AddDays(1), data.ToList());
-            await _fileToolkit.WriteLocalDataAsync(Location.PartitionCache, localCache, Location.ServerFolder);
-        }
-
-        private void UpdateVideoPartitionCache()
-        {
-            _cacheVideoPartitionOffsets.Remove(currentPartitionId);
-            _cacheVideoPartitionOffsets.Add(currentPartitionId, (videoPartitionOffsetId, videoPartitionPageNumber));
-        }
     }
 }

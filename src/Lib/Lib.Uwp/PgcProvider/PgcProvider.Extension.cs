@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
@@ -17,8 +18,11 @@ namespace Bili.Lib.Uwp
     public partial class PgcProvider
     {
         private readonly IHttpProvider _httpProvider;
-
         private readonly IHomeProvider _partitionProvider;
+        private readonly ICommunityAdapter _communityAdapter;
+        private readonly IPgcAdapter _pgcAdapter;
+
+        private readonly Dictionary<PgcType, string> _pgcOffsetCache;
 
         private Dictionary<string, string> GetTabQueryParameters(PgcType type)
         {
@@ -48,7 +52,7 @@ namespace Bili.Lib.Uwp
             return queryParameters;
         }
 
-        private Dictionary<string, string> GetPageDetailQueryParameters(int tabId)
+        private Dictionary<string, string> GetPageDetailQueryParameters(string tabId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -57,7 +61,7 @@ namespace Bili.Lib.Uwp
                 { Query.Fnver, "0" },
                 { Query.Fourk, "1" },
                 { Query.Qn, "112" },
-                { Query.TabId, tabId.ToString() },
+                { Query.TabId, tabId },
                 { Query.TeenagersMode, "0" },
             };
 
@@ -214,11 +218,8 @@ namespace Bili.Lib.Uwp
                     typeStr = "3";
                     break;
                 case PgcType.Movie:
-                    break;
                 case PgcType.Documentary:
-                    break;
                 case PgcType.TV:
-                    break;
                 default:
                     break;
             }
@@ -231,11 +232,11 @@ namespace Bili.Lib.Uwp
             return queryParameters;
         }
 
-        private Dictionary<string, string> GetPgcPlayListQueryParameters(int id)
+        private Dictionary<string, string> GetPgcPlayListQueryParameters(string id)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Id, id.ToString() },
+                { Query.Id, id },
             };
 
             return queryParameters;

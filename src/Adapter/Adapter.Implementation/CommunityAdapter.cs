@@ -55,6 +55,16 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public BannerIdentifier ConvertToBannerIdentifier(PgcModuleItem item)
+        {
+            var id = item.OriginId.ToString();
+            var title = item.Title;
+            var image = _imageAdapter.ConvertToImage(item.Cover, 600, 320);
+            var uri = item.WebLink;
+            return new BannerIdentifier(id, title, image, uri);
+        }
+
+        /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition)
         {
             var id = partition.Tid.ToString();
@@ -107,6 +117,10 @@ namespace Bili.Adapter
 
             return new Models.Data.Community.Partition(id, name, logo, parentId: parentId);
         }
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(PgcTab tab)
+            => new Models.Data.Community.Partition(tab.Id.ToString(), tab.Title);
 
         /// <inheritdoc/>
         public UserCommunityInformation ConvertToUserCommunityInformation(Mine mine)

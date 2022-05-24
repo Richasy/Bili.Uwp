@@ -24,8 +24,6 @@ namespace Bili.ViewModels.Uwp
         {
             SeasonCollection = new ObservableCollection<SeasonViewModel>();
             BannerCollection = new ObservableCollection<BannerViewModel>();
-            Controller.PgcModuleAdditionalDataChanged += OnPgcModuleAdditionalDataChanged;
-            Controller.PgcModuleIteration += OnPgcModuleIteration;
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace Bili.ViewModels.Uwp
                 SeasonCollection.Clear();
                 try
                 {
-                    await Controller.RequestPgcPageDetailAsync(Type, _cursor);
+                    await Task.CompletedTask;
                     IsRequested = true;
                 }
                 catch (ServiceException ex)
@@ -70,7 +68,7 @@ namespace Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !IsInitializeLoading)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestPgcPageDetailAsync(Type, _cursor);
+                await Task.CompletedTask;
                 IsDeltaLoading = false;
             }
         }

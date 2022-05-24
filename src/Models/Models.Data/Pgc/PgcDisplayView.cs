@@ -9,17 +9,17 @@ namespace Bili.Models.Data.Pgc
     /// <summary>
     /// PGC 视图信息.
     /// </summary>
-    public sealed class PgcView
+    public sealed class PgcDisplayView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PgcView"/> class.
+        /// Initializes a new instance of the <see cref="PgcDisplayView"/> class.
         /// </summary>
         /// <param name="information">剧集当季信息.</param>
         /// <param name="seasons">关联剧集信息.</param>
         /// <param name="episodes">分集列表.</param>
         /// <param name="extras">附加内容.</param>
         /// <param name="progress">播放进度.</param>
-        public PgcView(
+        public PgcDisplayView(
             SeasonInformation information,
             IEnumerable<VideoIdentifier> seasons = null,
             IEnumerable<EpisodeInformation> episodes = null,
@@ -59,7 +59,7 @@ namespace Bili.Models.Data.Pgc
         public PlayedProgress Progress { get; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is PgcView view && EqualityComparer<SeasonInformation>.Default.Equals(Information, view.Information);
+        public override bool Equals(object obj) => obj is PgcDisplayView view && EqualityComparer<SeasonInformation>.Default.Equals(Information, view.Information);
 
         /// <inheritdoc/>
         public override int GetHashCode() => Information.GetHashCode();

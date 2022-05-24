@@ -32,7 +32,7 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// <see cref="LivePartitionPage"/> 的基类.
     /// </summary>
-    public class LivePartitionPageBase: AppPage<LivePartitionPageViewModel>
+    public class LivePartitionPageBase : AppPage<LivePartitionPageViewModel>
     {
     }
 }

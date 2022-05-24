@@ -87,7 +87,28 @@ namespace Bili.Adapter.Interfaces
         /// 将 PGC 展示信息 <see cref="PgcDisplayInformation"/> 封装成视图信息.
         /// </summary>
         /// <param name="display">PGC 展示信息.</param>
-        /// <returns><see cref="PgcView"/>.</returns>
-        PgcView ConvertToPgcView(PgcDisplayInformation display);
+        /// <returns><see cref="PgcDisplayView"/>.</returns>
+        PgcDisplayView ConvertToPgcDisplayView(PgcDisplayInformation display);
+
+        /// <summary>
+        /// 将 PGC 模块 <see cref="PgcModule"/> 转换为播放列表.
+        /// </summary>
+        /// <param name="module">PGC 模块.</param>
+        /// <returns><see cref="PgcPlaylist"/>.</returns>
+        PgcPlaylist ConvertToPgcPlaylist(PgcModule module);
+
+        /// <summary>
+        /// 将 PGC 播放列表响应 <see cref="PgcPlayListResponse"/> 转换为播放列表.
+        /// </summary>
+        /// <param name="response">PGC 播放列表响应.</param>
+        /// <returns><see cref="PgcPlaylist"/>.</returns>
+        PgcPlaylist ConvertToPgcPlaylist(PgcPlayListResponse response);
+
+        /// <summary>
+        /// 将 PGC 页面响应 <see cref="PgcResponse"/> 转换为 PGC 页面视图信息.
+        /// </summary>
+        /// <param name="response">PGC 页面响应.</param>
+        /// <returns><see cref="PgcPageView"/>.</returns>
+        PgcPageView ConvertToPgcPageView(PgcResponse response);
     }
 }

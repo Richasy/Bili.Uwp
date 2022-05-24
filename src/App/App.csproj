@@ -80,7 +80,11 @@
     <Compile Include="Controls\IIncrementalControl.cs" />
     <Compile Include="Controls\IOrientationControl.cs" />
     <Compile Include="Controls\Live\LiveItem\LiveItem.cs" />
+    <Compile Include="Controls\Pgc\AnimeView.xaml.cs">
+      <DependentUpon>AnimeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Pgc\EpisodeItem\EpisodeItem.cs" />
+    <Compile Include="Controls\Pgc\SeasonItem\SeasonItem.cs" />
     <Compile Include="Controls\ReactiveControl.cs" />
     <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
       <DependentUpon>NotificationSettingSection.xaml</DependentUpon>
@@ -163,8 +167,8 @@
     <Compile Include="Controls\Pgc\PgcDetailView.xaml.cs">
       <DependentUpon>PgcDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\PgcPlayListView.xaml.cs">
-      <DependentUpon>PgcPlayListView.xaml</DependentUpon>
+    <Compile Include="Controls\Pgc\PgcPlaylistDetailView.xaml.cs">
+      <DependentUpon>PgcPlaylistDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\Related\PlayerReplyView.xaml.cs">
       <DependentUpon>PlayerReplyView.xaml</DependentUpon>
@@ -385,14 +389,11 @@
     <Compile Include="Pages\Desktop\Overlay\TimeLinePage.xaml.cs">
       <DependentUpon>TimeLinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\Reuse\AnimePage.xaml.cs">
-      <DependentUpon>AnimePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Desktop\DocumentaryPage.xaml.cs">
       <DependentUpon>DocumentaryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\DomesticAnimePage.xaml.cs">
-      <DependentUpon>DomesticAnimePage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\DomesticPage.xaml.cs">
+      <DependentUpon>DomesticPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\DynamicFeedPage.xaml.cs">
       <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
@@ -647,7 +648,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Pgc\AnimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Pgc\EpisodeItem\EpisodeItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Pgc\SeasonItem\SeasonItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -759,7 +768,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\PgcPlayListView.xaml">
+    <Page Include="Controls\Pgc\PgcPlaylistDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1051,15 +1060,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\Reuse\AnimePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Desktop\DocumentaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\DomesticAnimePage.xaml">
+    <Page Include="Pages\Desktop\DomesticPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -104,7 +104,7 @@ namespace Bili.App.Controls
                     pageType = typeof(BangumiPage);
                     break;
                 case PageIds.DomesticAnime:
-                    pageType = typeof(DomesticAnimePage);
+                    pageType = typeof(DomesticPage);
                     break;
                 case PageIds.Movie:
                     pageType = typeof(MoviePage);

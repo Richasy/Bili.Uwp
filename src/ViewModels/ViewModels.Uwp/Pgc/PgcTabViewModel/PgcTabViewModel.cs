@@ -43,8 +43,6 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         public void Activate()
         {
-            Controller.PgcModuleAdditionalDataChanged += OnPgcModuleAdditionalDataChangedAsync;
-            Controller.PgcModuleIteration += OnPgcModuleIteration;
             IsActivate = true;
         }
 
@@ -53,8 +51,6 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         public void Deactive()
         {
-            Controller.PgcModuleAdditionalDataChanged -= OnPgcModuleAdditionalDataChangedAsync;
-            Controller.PgcModuleIteration -= OnPgcModuleIteration;
             IsActivate = false;
         }
 
@@ -73,7 +69,7 @@ namespace Bili.ViewModels.Uwp
                 RankCollection.Clear();
                 try
                 {
-                    await Controller.RequestPgcPageDetailAsync(Id);
+                    await Task.CompletedTask;
                     IsRequested = true;
                 }
                 catch (ServiceException ex)

@@ -101,21 +101,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<bool> NetworkChanged;
 
         /// <summary>
-        /// 在直播源的附加数据发生改变时发生.
-        /// </summary>
-        public event EventHandler<LiveFeedAdditionalDataChangedEventArgs> LiveFeedAdditionalDataChanged;
-
-        /// <summary>
-        /// 在直播源有新的直播源数据更改时发生.
-        /// </summary>
-        public event EventHandler<LiveFeedRoomIterationEventArgs> LiveFeedRoomIteration;
-
-        /// <summary>
-        /// 在分区视图中有新的直播源数据更改时发生.
-        /// </summary>
-        public event EventHandler<LiveAreaRoomIterationEventArgs> LiveAreaRoomIteration;
-
-        /// <summary>
         /// 在专栏文章的附加数据发生改变时发生.
         /// </summary>
         public event EventHandler<SpecialColumnAdditionalDataChangedEventArgs> SpecialColumnAdditionalDataChanged;
@@ -124,16 +109,6 @@ namespace Bili.Controller.Uwp
         /// 在专栏有新的文章数据更改时发生.
         /// </summary>
         public event EventHandler<SpecialColumnArticleIterationEventArgs> SpecialColumnArticleIteration;
-
-        /// <summary>
-        /// 在PGC的附加数据发生改变时发生.
-        /// </summary>
-        public event EventHandler<PgcModuleAdditionalDataChangedEventArgs> PgcModuleAdditionalDataChanged;
-
-        /// <summary>
-        /// 在PGC有新的模块数据更改时发生.
-        /// </summary>
-        public event EventHandler<PgcModuleIterationEventArgs> PgcModuleIteration;
 
         /// <summary>
         /// 在有分片弹幕更新时发生.

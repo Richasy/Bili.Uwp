@@ -1,5 +1,5 @@
-﻿<local:BangumiPageBase
-    x:Class="Bili.App.Pages.Desktop.BangumiPage"
+﻿<local:DomesticPageBase
+    x:Class="Bili.App.Pages.Desktop.DomesticPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="using:Bili.App.Behaviors"
@@ -15,4 +15,4 @@
             <behaviors:InitializeBehavior />
         </interactivity:Interaction.Behaviors>
     </pgc:AnimeView>
-</local:BangumiPageBase>
+</local:DomesticPageBase>

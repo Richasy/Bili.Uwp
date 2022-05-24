@@ -3,7 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
@@ -38,9 +37,7 @@ namespace Bili.ViewModels.Uwp
                 IsError = false;
                 try
                 {
-                    var tabs = await Controller.RequestPgcTabsAsync(Type);
-                    tabs.ForEach(p => TabCollection.Add(new PgcTabViewModel(p)));
-                    CurrentTab = TabCollection.First();
+                    await Task.CompletedTask;
                     IsRequested = true;
                 }
                 catch (ServiceException ex)

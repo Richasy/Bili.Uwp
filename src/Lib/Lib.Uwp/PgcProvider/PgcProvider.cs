@@ -1,10 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using static Bili.Models.App.Constants.ApiConstants;
 
@@ -20,34 +23,55 @@ namespace Bili.Lib.Uwp
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
         /// <param name="partitionProvider">分区操作工具.</param>
-        public PgcProvider(IHttpProvider httpProvider, IHomeProvider partitionProvider)
+        /// <param name="communityAdapter">社区数据适配工具.</param>
+        /// <param name="pgcAdapter">PGC数据适配工具.</param>
+        public PgcProvider(
+            IHttpProvider httpProvider,
+            IHomeProvider partitionProvider,
+            ICommunityAdapter communityAdapter,
+            IPgcAdapter pgcAdapter)
         {
             _httpProvider = httpProvider;
             _partitionProvider = partitionProvider;
+            _communityAdapter = communityAdapter;
+            _pgcAdapter = pgcAdapter;
+
+            _pgcOffsetCache = new Dictionary<PgcType, string>();
         }
 
         /// <inheritdoc/>
-        public async Task<PgcResponse> GetPageDetailAsync(int tabId)
-        {
-            var queryParameters = GetPageDetailQueryParameters(tabId);
-            return await GetPgcResponseInternalAsync(queryParameters);
-        }
-
-        /// <inheritdoc/>
-        public async Task<PgcResponse> GetPageDetailAsync(PgcType type, string cursor)
-        {
-            var queryParameters = GetPageDetailQueryParameters(type, cursor);
-            return await GetPgcResponseInternalAsync(queryParameters);
-        }
-
-        /// <inheritdoc/>
-        public async Task<List<PgcTab>> GetTabAsync(PgcType type)
+        public async Task<IEnumerable<Models.Data.Community.Partition>> GetAnimeTabsAsync(PgcType type)
         {
             var queryParameters = GetTabQueryParameters(type);
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.Tab, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<List<PgcTab>>>(response);
-            return data.Data;
+
+            var items = data.Data.Where(p => p.Link.Contains("sub_page_id"))
+                .Select(p => _communityAdapter.ConvertToPartition(p))
+                .ToList();
+            return items;
+        }
+
+        /// <inheritdoc/>
+        public async Task<PgcPageView> GetPageDetailAsync(string tabId)
+        {
+            var queryParameters = GetPageDetailQueryParameters(tabId);
+            var response = await GetPgcResponseInternalAsync(queryParameters);
+            return _pgcAdapter.ConvertToPgcPageView(response);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PgcPageView> GetPageDetailAsync(PgcType type)
+        {
+            var cursor = _pgcOffsetCache.ContainsKey(type)
+                ? _pgcOffsetCache[type]
+                : string.Empty;
+            var queryParameters = GetPageDetailQueryParameters(type, cursor);
+            var response = await GetPgcResponseInternalAsync(queryParameters);
+            _pgcOffsetCache.Remove(type);
+            _pgcOffsetCache.Add(type, response.NextCursor);
+            return _pgcAdapter.ConvertToPgcPageView(response);
         }
 
         /// <inheritdoc/>
@@ -121,13 +145,17 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PgcPlayListResponse> GetPgcPlayListAsync(int listId)
+        public async Task<PgcPlaylist> GetPgcPlaylistAsync(string listId)
         {
             var queryParameters = GetPgcPlayListQueryParameters(listId);
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.PlayList, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcPlayListResponse>>(response);
-            return data.Result;
+            return _pgcAdapter.ConvertToPgcPlaylist(data.Result);
         }
+
+        /// <inheritdoc/>
+        public void ResetPageStatus(PgcType type)
+            => _pgcOffsetCache.Remove(type);
     }
 }

@@ -124,7 +124,7 @@
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="ThumbLike16"
+                                            Symbol="RibbonStar20"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText}"
                                             ToolTipService.ToolTip="{loc:LocaleLocator Name=TrackCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -194,7 +194,7 @@
 
                                     <Grid
                                         x:Name="BadgeContainer"
-                                        Margin="0,8,8,0"
+                                        Margin="8,8,0,0"
                                         Padding="8,4"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top"
@@ -262,6 +262,118 @@
                                             ToolTipService.ToolTip="{loc:LocaleLocator Name=TrackCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </controls:CardPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RankEpisodeItemStyle" TargetType="local:EpisodeItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EpisodeItem">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="controls:IconTextBlock">
+                                <Setter Property="Spacing" Value="4" />
+                                <Setter Property="IconFontSize" Value="12" />
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <controls:CardPanel
+                            x:Name="RootCard"
+                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                            MaxHeight="128"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
+                            IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
+                            IsEnableCheck="False"
+                            IsEnableHoverAnimation="False">
+
+                            <controls:CardPanel.ContextFlyout>
+                                <muxc:CommandBarFlyout x:Name="VideoFlyout">
+                                    <muxc:CommandBarFlyout.SecondaryCommands>
+                                        <AppBarButton
+                                            x:Name="OpenInBroswerItem"
+                                            AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                            Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                                            <AppBarButton.Icon>
+                                                <icons:RegularFluentIcon Symbol="Globe16" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </muxc:CommandBarFlyout.SecondaryCommands>
+                                </muxc:CommandBarFlyout>
+                            </controls:CardPanel.ContextFlyout>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    x:Name="CoverContainer"
+                                    Margin="8"
+                                    VerticalAlignment="Stretch"
+                                    CornerRadius="{StaticResource ControlCornerRadius}">
+                                    <controls:CommonImageEx
+                                        x:Name="CoverImage"
+                                        Width="120"
+                                        VerticalAlignment="Center"
+                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}"
+                                        Stretch="UniformToFill" />
+                                </Grid>
+                                <Grid
+                                    x:Name="ContentContainer"
+                                    Grid.Column="1"
+                                    Padding="8"
+                                    RowSpacing="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        x:Name="TitleBlock"
+                                        VerticalAlignment="Top"
+                                        FontWeight="SemiBold"
+                                        MaxLines="1"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+
+                                    <Grid
+                                        x:Name="BadgeContainer"
+                                        Grid.Row="1"
+                                        Padding="6,4"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource AccentBadgeBackground}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Highlight}" />
+                                    </Grid>
+
+                                    <TextBlock
+                                        x:Name="SubtitleBlock"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Grid.Row="2"
+                                        VerticalAlignment="Center"
+                                        Opacity="0.6"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
                                 </Grid>
                             </Grid>
                         </controls:CardPanel>

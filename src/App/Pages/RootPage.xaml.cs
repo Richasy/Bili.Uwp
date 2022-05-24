@@ -9,6 +9,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Pgc;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -41,6 +42,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
+            CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -181,6 +183,15 @@ namespace Bili.App.Pages.Desktop
             catch (Exception)
             {
             }
+        }
+
+        private void OnRequestShowPgcPlaylist(object sender, PgcPlaylistViewModel e)
+        {
+            var view = new PgcPlayListDetailView
+            {
+                ViewModel = e,
+            };
+            view.Show();
         }
 
         private Type GetSecondaryViewType(PageIds pageId)

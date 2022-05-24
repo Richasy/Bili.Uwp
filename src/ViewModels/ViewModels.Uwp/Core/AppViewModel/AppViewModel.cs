@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Controller.Uwp;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
@@ -64,6 +63,13 @@ namespace Bili.ViewModels.Uwp.Core
                 RequestShowImages?.Invoke(this, new ShowImageEventArgs(images, firstIndex));
             }
         }
+
+        /// <summary>
+        /// 显示 PGC 播放列表.
+        /// </summary>
+        /// <param name="vm">播放列表视图模型.</param>
+        public void ShowPgcPlaylist(PgcPlaylistViewModel vm)
+            => RequestShowPgcPlaylist?.Invoke(this, vm);
 
         /// <summary>
         /// 初始化主题.

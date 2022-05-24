@@ -1,38 +1,24 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Threading.Tasks;
-using Bili.App.Controls;
-using Bili.Models.Enums;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
+using Bili.ViewModels.Uwp.Pgc;
 
 namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// 番剧页面.
     /// </summary>
-    public sealed partial class BangumiPage : Page, IRefreshPage
+    public sealed partial class BangumiPage : BangumiPageBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BangumiPage"/> class.
         /// </summary>
-        public BangumiPage()
-        {
-            InitializeComponent();
-            Loaded += OnLoaded;
-        }
+        public BangumiPage() => InitializeComponent();
+    }
 
-        /// <inheritdoc/>
-        public Task RefreshAsync()
-            => (RootFrame.Content as IRefreshPage).RefreshAsync();
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (RootFrame.Content == null)
-            {
-                RootFrame.Navigate(typeof(AnimePage), PgcType.Bangumi, new SuppressNavigationTransitionInfo());
-            }
-        }
+    /// <summary>
+    /// <see cref="BangumiPage"/> 的基类.
+    /// </summary>
+    public class BangumiPageBase : AppPage<BangumiPageViewModel>
+    {
     }
 }

@@ -135,7 +135,7 @@ namespace Bili.Adapter
             communityInfo.Id = ssid;
             var subtitle = item.Description;
             var description = item.Stat?.FollowDisplayText ?? item.DisplayScoreText;
-            var isTracking = item.Status.IsFollow == 1;
+            var isTracking = item.Status?.IsFollow == 1;
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
             return new SeasonInformation(
@@ -264,7 +264,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public PgcView ConvertToPgcView(PgcDisplayInformation display)
+        public PgcDisplayView ConvertToPgcDisplayView(PgcDisplayInformation display)
         {
             var seasonInfo = GetSeasonInformationFromDisplayInformation(display);
             List<VideoIdentifier> seasons = null;
@@ -321,7 +321,67 @@ namespace Bili.Adapter
                 history = new PlayedProgress(progress.LastTime, status, historyEp.Identifier);
             }
 
-            return new PgcView(seasonInfo, seasons, episodes, extras, history);
+            return new PgcDisplayView(seasonInfo, seasons, episodes, extras, history);
+        }
+
+        /// <inheritdoc/>
+        public PgcPlaylist ConvertToPgcPlaylist(PgcModule module)
+        {
+            var title = module.Title;
+            var id = string.Empty;
+            if (module.Headers?.Count > 0)
+            {
+                var header = module.Headers.First();
+                if (header.Url.Contains("/sl"))
+                {
+                    var uri = new Uri(header.Url);
+                    id = uri.Segments.Where(p => p.Contains("sl"))
+                        .Select(p => p.Replace("sl", string.Empty))
+                        .FirstOrDefault();
+                }
+            }
+
+            var seasons = module.Items.Select(p => ConvertToSeasonInformation(p, PgcType.Bangumi | PgcType.Domestic));
+            return new PgcPlaylist(title, id, seasons: seasons);
+        }
+
+        /// <inheritdoc/>
+        public PgcPlaylist ConvertToPgcPlaylist(PgcPlayListResponse response)
+        {
+            var id = response.Id.ToString();
+            var subtitle = $"{response.Total} · {response.Description}";
+            var title = response.Title;
+            var seasons = response.Seasons.Select(p => ConvertToSeasonInformation(p));
+            return new PgcPlaylist(title, id, subtitle, seasons);
+        }
+
+        /// <inheritdoc/>
+        public PgcPageView ConvertToPgcPageView(PgcResponse response)
+        {
+            var banners = response.Modules.Where(p => p.Style.Contains("banner"))
+                .SelectMany(p => p.Items)
+                .Select(p => _communityAdapter.ConvertToBannerIdentifier(p));
+
+            var originRanks = response.Modules.Where(p => p.Style.Contains("rank"))
+                .SelectMany(p => p.Items);
+
+            var ranks = new Dictionary<string, IEnumerable<EpisodeInformation>>();
+            foreach (var item in originRanks)
+            {
+                var title = item.Title;
+                var subRanks = item.Cards.Take(3).Select(p => ConvertToEpisodeInformation(p)).ToList();
+                ranks.Add(title, subRanks);
+            }
+
+            var partitionId = response.FeedIdentifier == null
+                ? string.Empty
+                : response.FeedIdentifier.PartitionIds.First().ToString();
+
+            var playLists = response.Modules.Where(p => p.Style == "v_card" || p.Style.Contains("feed"))
+                .Select(p => ConvertToPgcPlaylist(p))
+                .ToList();
+
+            return new PgcPageView(banners, ranks, playLists, partitionId);
         }
 
         private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)

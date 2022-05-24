@@ -58,7 +58,11 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 重置子分区请求状态，将偏移值归零.
         /// </summary>
-        void ResetSubPartitionState();
+        /// <param name="id">指定要清除的分区 Id.</param>
+        /// <remarks>
+        /// 分区 Id 默认为空，如果设定该参数，则会在清除后，将内部存储的当前分区设置为该分区.
+        /// </remarks>
+        void ResetSubPartitionState(string id = default);
 
         /// <summary>
         /// 重置分区请求状态，将缓存和偏移值归零.

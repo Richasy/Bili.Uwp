@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.Properties.cs" />
+    <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.cs" />
     <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.cs" />
     <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Command.cs" />
@@ -20,6 +22,16 @@
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />
     <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.cs" />
     <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.Properties.cs" />
+    <Compile Include="Pgc\BangumiPageViewModel.cs" />
+    <Compile Include="Pgc\DomesticPageViewModel.cs" />
+    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.cs" />
+    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.Properties.cs" />
+    <Compile Include="Pgc\PgcPlaylistViewModel.cs" />
+    <Compile Include="Pgc\PgcRankViewModel.cs" />
+    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.cs" />
+    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
+    <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.cs" />
+    <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
@@ -64,8 +76,6 @@
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
     <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
-    <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
-    <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />
     <Compile Include="Pgc\PgcSectionViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Dash.cs" />
@@ -86,15 +96,9 @@
     <Compile Include="Base\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
     <Compile Include="Base\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
     <Compile Include="Pgc\MovieViewModel.cs" />
-    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.cs" />
-    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
-    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.Properties.cs" />
     <Compile Include="Base\AnimeViewModelBase\AnimeViewModelBase.cs" />
     <Compile Include="Base\AnimeViewModelBase\AnimeViewModelBase.Properties.cs" />
-    <Compile Include="Pgc\BangumiViewModel.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
-    <Compile Include="Pgc\DomesticViewModel.cs" />
-    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
     <Compile Include="Pgc\TvViewModel.cs" />

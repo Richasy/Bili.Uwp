@@ -66,9 +66,13 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<BangumiPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<DomesticPageViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
+            SplatRegistrations.Register<SeasonItemViewModel>();
             SplatRegistrations.Register<LiveItemViewModel>();
+            SplatRegistrations.Register<PgcPlaylistViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

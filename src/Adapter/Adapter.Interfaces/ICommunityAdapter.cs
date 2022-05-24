@@ -162,6 +162,13 @@ namespace Bili.Adapter.Interfaces
         Models.Data.Community.Partition ConvertToPartition(LiveAreaGroup group);
 
         /// <summary>
+        /// 将PGC标签 <see cref="PgcTab"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="tab">PGC标签.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(PgcTab tab);
+
+        /// <summary>
         /// 将分区横幅 <see cref="PartitionBanner"/> 转换为横幅信息.
         /// </summary>
         /// <param name="banner">分区横幅条目.</param>
@@ -174,5 +181,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="banner">直播数据流横幅条目.</param>
         /// <returns><see cref="BannerIdentifier"/>.</returns>
         BannerIdentifier ConvertToBannerIdentifier(LiveFeedBanner banner);
+
+        /// <summary>
+        /// 将PGC模块条目 <see cref="PgcModuleItem"/> 转换为横幅信息.
+        /// </summary>
+        /// <param name="item">PGC模块条目.</param>
+        /// <returns><see cref="BannerIdentifier"/>.</returns>
+        BannerIdentifier ConvertToBannerIdentifier(PgcModuleItem item);
     }
 }
