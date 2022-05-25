@@ -206,7 +206,7 @@ namespace Bili.App.Pages.Desktop
                 PageIds.Fans => typeof(FansPage),
                 PageIds.Follows => typeof(FollowsPage),
                 PageIds.PgcIndex => typeof(PgcIndexPage),
-                PageIds.TimeLine => typeof(TimeLinePage),
+                PageIds.TimeLine => typeof(TimelinePage),
                 PageIds.Message => typeof(MessagePage),
                 PageIds.LivePartition => typeof(LivePartitionPage),
                 PageIds.LivePartitionDetail => typeof(LivePartitionDetailPage),

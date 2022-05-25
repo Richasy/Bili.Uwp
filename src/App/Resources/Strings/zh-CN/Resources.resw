@@ -1481,6 +1481,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="TimeChart" xml:space="preserve">
     <value>时间表</value>
   </data>
+  <data name="TimelineHasNoVideo" xml:space="preserve">
+    <value>这一天没有新的内容</value>
+  </data>
   <data name="ToggleDanmakuBarVisibility" xml:space="preserve">
     <value>切换弹幕控制器显隐</value>
   </data>

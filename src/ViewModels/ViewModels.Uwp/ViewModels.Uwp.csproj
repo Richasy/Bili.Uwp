@@ -36,6 +36,8 @@
     <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
     <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.cs" />
     <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.Properties.cs" />
+    <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.cs" />
+    <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />

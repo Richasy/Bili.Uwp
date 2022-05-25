@@ -79,26 +79,6 @@ namespace Bili.Controller.Uwp
         }
 
         /// <summary>
-        /// 获取PGC时间线.
-        /// </summary>
-        /// <param name="type">PGC内容类型.</param>
-        /// <returns><see cref="PgcTimeLineResponse"/>.</returns>
-        public Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                return _pgcProvider.GetPgcTimeLineAsync(type);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// 从 BiliPlus 获取番剧信息.
         /// </summary>
         /// <param name="videoId">视频 Aid.</param>

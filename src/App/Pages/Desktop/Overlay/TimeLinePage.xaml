@@ -1,21 +1,23 @@
-﻿<pages:AppPage
-    x:Class="Bili.App.Pages.Desktop.Overlay.TimeLinePage"
+﻿<local:TimelinePageBase
+    x:Class="Bili.App.Pages.Desktop.Overlay.TimelinePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:community="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pages="using:Bili.App.Pages.Desktop"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:pgc="using:Bili.Models.Data.Pgc"
+    xmlns:pgc1="using:Bili.App.Controls.Pgc"
     mc:Ignorable="d">
-    <!--<Page.Resources>
-        <DataTemplate x:Name="WideTemplate" x:DataType="uwp:PgcTimeLineItemViewModel">
+    <Page.Resources>
+        <DataTemplate x:Key="TimlineTemplate" x:DataType="pgc:TimelineInformation">
             <exp:ExpanderEx IsExpanded="{x:Bind IsToday}">
                 <exp:ExpanderEx.Header>
                     <exp:ExpanderExDescriptor
@@ -29,101 +31,60 @@
                 </exp:ExpanderEx.Header>
                 <exp:ExpanderEx.Content>
                     <Grid Margin="20,12">
-                        <muxc:ItemsRepeater x:Name="Repeater" ItemsSource="{x:Bind EpisodeCollection, Mode=OneWay}">
+                        <muxc:ItemsRepeater x:Name="Repeater" ItemsSource="{x:Bind Seasons}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:UniformGridLayout
                                     ItemsStretch="Fill"
                                     MinColumnSpacing="12"
-                                    MinItemHeight="180"
+                                    MinItemHeight="160"
                                     MinItemWidth="300"
                                     MinRowSpacing="12" />
                             </muxc:ItemsRepeater.Layout>
                             <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:SeasonViewModel">
-                                    <controls:PgcItem Height="180" ViewModel="{x:Bind}" />
+                                <DataTemplate x:DataType="pgc:SeasonInformation">
+                                    <pgc1:SeasonItem Style="{StaticResource SlimSeasonItemStyle}" Information="{x:Bind}" />
                                 </DataTemplate>
                             </muxc:ItemsRepeater.ItemTemplate>
                         </muxc:ItemsRepeater>
                         <TextBlock
                             HorizontalAlignment="Center"
-                            Text="{x:Bind EmptyText, Mode=OneWay}"
-                            Visibility="{x:Bind IsShowEmpty, Mode=OneWay}" />
-                    </Grid>
-                </exp:ExpanderEx.Content>
-            </exp:ExpanderEx>
-        </DataTemplate>
-        <DataTemplate x:Name="NarrowTemplate" x:DataType="uwp:PgcTimeLineItemViewModel">
-            <exp:ExpanderEx IsExpanded="{x:Bind IsToday}">
-                <exp:ExpanderEx.Header>
-                    <exp:ExpanderExDescriptor
-                        Title="{x:Bind DayOfWeek, Mode=OneWay}"
-                        Margin="0,8"
-                        Description="{x:Bind Date, Mode=OneWay}">
-                        <exp:ExpanderExDescriptor.Icon>
-                            <icons:RegularFluentIcon Symbol="CalendarDay16" />
-                        </exp:ExpanderExDescriptor.Icon>
-                    </exp:ExpanderExDescriptor>
-                </exp:ExpanderEx.Header>
-                <exp:ExpanderEx.Content>
-                    <Grid Margin="8">
-                        <muxc:ItemsRepeater x:Name="Repeater" ItemsSource="{x:Bind EpisodeCollection, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Spacing="12" />
-                            </muxc:ItemsRepeater.Layout>
-                            <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:SeasonViewModel">
-                                    <controls:PgcItem
-                                        Height="180"
-                                        Orientation="Horizontal"
-                                        ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </muxc:ItemsRepeater.ItemTemplate>
-                        </muxc:ItemsRepeater>
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            Text="{x:Bind EmptyText, Mode=OneWay}"
-                            Visibility="{x:Bind IsShowEmpty, Mode=OneWay}" />
+                            VerticalAlignment="Center"
+                            Text="{loc:LocaleLocator Name=TimelineHasNoVideo}"
+                            Visibility="{x:Bind Seasons, Converter={StaticResource ObjectToVisibilityReverseConverter}}" />
                     </Grid>
                 </exp:ExpanderEx.Content>
             </exp:ExpanderEx>
         </DataTemplate>
     </Page.Resources>
 
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="Common">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TimeLineView.ItemTemplate" Value="{StaticResource NarrowTemplate}" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <StackPanel Spacing="4">
-            <TextBlock
-                Style="{StaticResource TitleTextBlockStyle}"
-                HorizontalAlignment="Left"
-                Text="{x:Bind ViewModel.TimeLineTitle, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
-            <TextBlock
-                Style="{StaticResource BodyTextBlockStyle}"
-                HorizontalAlignment="Left"
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="{x:Bind ViewModel.TimeLineSubtitle, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
-        </StackPanel>
+
+        <app:PageHeader>
+            <app:PageHeader.Title>
+                <StackPanel Spacing="4">
+                    <TextBlock
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        HorizontalAlignment="Left"
+                        Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        HorizontalAlignment="Left"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.Description, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
         <Grid Grid.Row="1">
             <ScrollViewer
                 x:Name="ContentScrollViewer"
@@ -134,20 +95,23 @@
                 <muxc:ItemsRepeater
                     x:Name="TimeLineView"
                     Margin="0,0,0,12"
-                    ItemTemplate="{StaticResource WideTemplate}"
-                    ItemsSource="{x:Bind ViewModel.TimeLineCollection, Mode=OneWay}">
+                    ItemTemplate="{StaticResource TimlineTemplate}"
+                    ItemsSource="{x:Bind ViewModel.Timelines, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:StackLayout Spacing="8" />
                     </muxc:ItemsRepeater.Layout>
                 </muxc:ItemsRepeater>
             </ScrollViewer>
 
-            <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsTimeLineInitializing, Mode=OneWay}" />
+            <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
             <controls:ErrorPanel
-                ActionButtonClick="OnTimeLineRefreshButtonClickAsync"
                 ActionContent="{loc:LocaleLocator Name=Refresh}"
-                Text="{x:Bind ViewModel.TimeLineErrorText, Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsTimeLineError, Mode=OneWay}" />
+                Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:ReloadBehavior />
+                </interactivity:Interaction.Behaviors>
+            </controls:ErrorPanel>
         </Grid>
-    </Grid>-->
-</pages:AppPage>
+    </Grid>
+</local:TimelinePageBase>

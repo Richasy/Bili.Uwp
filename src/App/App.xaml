@@ -32,6 +32,7 @@
             <converter:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
             <converter:ObjectToBoolConverter x:Key="ObjectToBoolReverseConverter" IsReverse="True" />
             <converter:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+            <converter:ObjectToVisibilityConverter x:Key="ObjectToVisibilityReverseConverter" IsReverse="True" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
             <converter:ThemeStringConverter x:Key="ThemeStringConverter" />

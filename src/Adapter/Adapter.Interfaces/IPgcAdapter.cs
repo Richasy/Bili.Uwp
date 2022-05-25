@@ -119,5 +119,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">PGC 索引条件响应.</param>
         /// <returns>筛选条件列表.</returns>
         IEnumerable<Filter> ConvertToFilters(PgcIndexConditionResponse response);
+
+        /// <summary>
+        /// 将 PGC 时间线响应结果 <see cref="PgcTimeLineResponse"/> 转换为时间线视图.
+        /// </summary>
+        /// <param name="response">时间线响应结果.</param>
+        /// <returns><see cref="TimelineView"/>.</returns>
+        TimelineView ConvertToTimelineView(PgcTimeLineResponse response);
     }
 }

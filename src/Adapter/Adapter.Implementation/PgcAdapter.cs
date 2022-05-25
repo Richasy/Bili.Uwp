@@ -402,6 +402,24 @@ namespace Bili.Adapter
             return filters;
         }
 
+        /// <inheritdoc/>
+        public TimelineView ConvertToTimelineView(PgcTimeLineResponse response)
+        {
+            var title = response.Title;
+            var desc = response.Subtitle;
+            var timelines = new List<TimelineInformation>();
+            foreach (var item in response.Data)
+            {
+                var seasons = item.Episodes?.Count > 0
+                    ? item.Episodes.Select(p => ConvertToSeasonInformation(p)).ToList()
+                    : null;
+                var info = new TimelineInformation(item.Date, ConvertDayOfWeek(item.DayOfWeek), item.IsToday == 1, seasons);
+                timelines.Add(info);
+            }
+
+            return new TimelineView(title, desc, timelines);
+        }
+
         private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)
         {
             var ssid = display.SeasonId.ToString();
@@ -476,6 +494,23 @@ namespace Bili.Adapter
         {
             var conditions = filter.Values.Select(p => new Condition(p.Name, p.Keyword));
             return new Filter(filter.Name, filter.Field, conditions);
+        }
+
+        private string ConvertDayOfWeek(int day)
+        {
+            var dayOfWeek = day switch
+            {
+                1 => "一",
+                2 => "二",
+                3 => "三",
+                4 => "四",
+                5 => "五",
+                6 => "六",
+                7 => "日",
+                _ => "-",
+            };
+
+            return $"周{dayOfWeek}";
         }
     }
 }

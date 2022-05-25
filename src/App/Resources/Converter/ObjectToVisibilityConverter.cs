@@ -11,19 +11,30 @@ namespace Bili.App.Resources.Converter
     /// </summary>
     public class ObjectToVisibilityConverter : IValueConverter
     {
+        /// <summary>
+        /// 是否反转结果.
+        /// </summary>
+        public bool IsReverse { get; set; }
+
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            var isShow = true;
             if (value == null)
             {
-                return Visibility.Collapsed;
+                isShow = false;
             }
             else if (value is string str)
             {
-                return string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible;
+                isShow = !string.IsNullOrEmpty(str);
             }
 
-            return Visibility.Visible;
+            if (IsReverse)
+            {
+                isShow = !isShow;
+            }
+
+            return isShow ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <inheritdoc/>

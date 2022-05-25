@@ -136,13 +136,13 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type)
+        public async Task<TimelineView> GetPgcTimelinesAsync(PgcType type)
         {
             var queryParameters = GetPgcTimeLineQueryParameters(type);
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.TimeLine, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcTimeLineResponse>>(response);
-            return data.Result;
+            return _pgcAdapter.ConvertToTimelineView(data.Result);
         }
 
         /// <inheritdoc/>

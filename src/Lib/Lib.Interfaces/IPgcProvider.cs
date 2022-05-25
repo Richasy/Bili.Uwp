@@ -80,7 +80,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="type">类型.</param>
         /// <returns>时间轴响应结果.</returns>
-        Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type);
+        Task<TimelineView> GetPgcTimelinesAsync(PgcType type);
 
         /// <summary>
         /// 获取播放列表详情.

@@ -508,6 +508,7 @@ namespace Bili.Models.Enums
         InfinityLoop,
         TrackCount,
         NeedLoginFirst,
+        TimelineHasNoVideo,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

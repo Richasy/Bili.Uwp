@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Bili.Models.Data.Appearance;
 using DynamicData;
 using ReactiveUI.Fody.Helpers;
