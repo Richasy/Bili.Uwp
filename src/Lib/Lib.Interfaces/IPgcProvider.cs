@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 
@@ -35,14 +36,6 @@ namespace Bili.Lib.Interfaces
         Task<PgcPageView> GetPageDetailAsync(PgcType type);
 
         /// <summary>
-        /// 获取全区动态.
-        /// </summary>
-        /// <param name="partitionId">分区Id.</param>
-        /// <param name="offsetId">偏移值.</param>
-        /// <returns><see cref="SubPartition"/>.</returns>
-        Task<SubPartition> GetPartitionRecommendVideoAsync(int partitionId, int offsetId = 0);
-
-        /// <summary>
         /// 获取PGC内容的详细信息.
         /// </summary>
         /// <param name="episodeId">(可选项) 单集Id.</param>
@@ -72,16 +65,15 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="type">PGC类型.</param>
         /// <returns>PGC索引条件响应.</returns>
-        Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type);
+        Task<IEnumerable<Filter>> GetPgcIndexFiltersAsync(PgcType type);
 
         /// <summary>
         /// 获取PGC索引结果.
         /// </summary>
         /// <param name="type">类型.</param>
-        /// <param name="page">页码.</param>
         /// <param name="queryParameters">查询参数.</param>
         /// <returns>PGC索引结果响应.</returns>
-        Task<PgcIndexResultResponse> GetPgcIndexResultAsync(PgcType type, int page, Dictionary<string, string> queryParameters);
+        Task<(bool IsFinished, IEnumerable<SeasonInformation> Items)> GetPgcIndexResultAsync(PgcType type, Dictionary<string, string> queryParameters);
 
         /// <summary>
         /// 获取PGC内容发布时间线.
@@ -102,5 +94,10 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="type">PGC类型.</param>
         void ResetPageStatus(PgcType type);
+
+        /// <summary>
+        /// 重置索引页面请求状态.
+        /// </summary>
+        void ResetIndexStatus();
     }
 }

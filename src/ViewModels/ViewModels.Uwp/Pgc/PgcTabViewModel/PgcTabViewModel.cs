@@ -103,7 +103,7 @@ namespace Bili.ViewModels.Uwp
 
                 try
                 {
-                    await Controller.RequestSubPartitionDataAsync(PartitionId, _offsetId);
+                    await Task.CompletedTask;
                 }
                 catch (ServiceException ex)
                 {
@@ -129,7 +129,7 @@ namespace Bili.ViewModels.Uwp
             if (!IsDeltaLoading && !IsPartitionInitializeLoading && PartitionId > 0)
             {
                 IsDeltaLoading = true;
-                await Controller.RequestSubPartitionDataAsync(PartitionId, _offsetId);
+                await Task.CompletedTask;
                 IsDeltaLoading = false;
             }
         }

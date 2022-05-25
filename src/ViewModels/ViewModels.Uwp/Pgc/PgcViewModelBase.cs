@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
@@ -29,7 +28,6 @@ namespace Bili.ViewModels.Uwp
             Type = type;
             FilterCollection = new ObservableCollection<PgcConditionViewModel>();
             ItemCollection = new ObservableCollection<SeasonViewModel>();
-            Controller.PgcIndexResultIteration += OnPgcIndexResultIteration;
             switch (type)
             {
                 case PgcType.Bangumi:
@@ -128,18 +126,7 @@ namespace Bili.ViewModels.Uwp
             {
                 try
                 {
-                    var conditions = await Controller.GetPgcIndexConditionsAsync(Type);
-                    FilterCollection.Add(new PgcConditionViewModel(conditions.OrderList));
-                    conditions.FilterList.ForEach(p => FilterCollection.Add(new PgcConditionViewModel(p)));
-                    if (Type == PgcType.Bangumi || Type == PgcType.Domestic)
-                    {
-                        var areaCondition = FilterCollection.Where(p => p.Id == "area").FirstOrDefault();
-
-                        // 1,6,7国产，2日本.
-                        var areaId = Type == PgcType.Bangumi ? "2" : "1,";
-                        var areaItem = areaCondition.ConditionCollection.Where(p => p.Id.Contains(areaId)).FirstOrDefault();
-                        areaCondition.SelectedItem = areaItem;
-                    }
+                    await Task.CompletedTask;
                 }
                 catch (ServiceException ex)
                 {
@@ -208,7 +195,7 @@ namespace Bili.ViewModels.Uwp
                 }
             }
 
-            await Controller.RequestPgcIndexResultAsync(Type, _indexPageNumber, queryPrameters);
+            await Task.CompletedTask;
         }
 
         private void OnPgcIndexResultIteration(object sender, PgcIndexResultIterationEventArgs e)

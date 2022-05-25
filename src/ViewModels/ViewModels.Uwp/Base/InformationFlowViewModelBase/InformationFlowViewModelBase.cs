@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
-    public abstract partial class InformationFlowViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel
+    public abstract partial class InformationFlowViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
     {
         internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
         {
@@ -42,6 +42,17 @@ namespace Bili.ViewModels.Uwp.Base
                 .Subscribe(DisplayException);
 
             IncrementalCommand.ThrownExceptions.Subscribe(LogException);
+        }
+
+        /// <inheritdoc/>
+        public void DisplayException(Exception exception)
+        {
+            IsError = true;
+            var msg = exception is ServiceException se
+                ? se.Error?.Message ?? se.Message
+                : exception.Message;
+            ErrorText = FormatException(msg);
+            LogException(exception);
         }
 
         /// <summary>
@@ -73,16 +84,6 @@ namespace Bili.ViewModels.Uwp.Base
             }
 
             await ReloadAsync();
-        }
-
-        private void DisplayException(Exception exception)
-        {
-            IsError = true;
-            var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
-                : exception.Message;
-            ErrorText = FormatException(msg);
-            LogException(exception);
         }
 
         private async Task ReloadAsync()

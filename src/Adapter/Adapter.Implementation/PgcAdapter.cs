@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
@@ -384,6 +385,23 @@ namespace Bili.Adapter
             return new PgcPageView(banners, ranks, playLists, partitionId);
         }
 
+        /// <inheritdoc/>
+        public IEnumerable<Filter> ConvertToFilters(PgcIndexConditionResponse response)
+        {
+            var filters = response.FilterList
+                .Select(p => GetFilterFromIndexFilter(p))
+                .ToList();
+            if (response.OrderList?.Count > 0)
+            {
+                var name = "排序方式";
+                var id = "order";
+                var conditions = response.OrderList.Select(p => new Condition(p.Name, p.Field)).ToList();
+                filters.Insert(0, new Filter(name, id, conditions));
+            }
+
+            return filters;
+        }
+
         private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)
         {
             var ssid = display.SeasonId.ToString();
@@ -452,6 +470,12 @@ namespace Bili.Adapter
                 "纪录片" => PgcType.Documentary,
                 _ => PgcType.Bangumi,
             };
+        }
+
+        private Filter GetFilterFromIndexFilter(PgcIndexFilter filter)
+        {
+            var conditions = filter.Values.Select(p => new Condition(p.Name, p.Keyword));
+            return new Filter(filter.Name, filter.Field, conditions);
         }
     }
 }

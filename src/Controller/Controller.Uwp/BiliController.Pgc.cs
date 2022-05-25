@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Bili.Models.App;
-using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Newtonsoft.Json;
@@ -20,30 +18,6 @@ namespace Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
-        /// <summary>
-        /// 请求PGC分区数据.
-        /// </summary>
-        /// <param name="partitionId">分区Id.</param>
-        /// <param name="offsetId">偏移Id.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestSubPartitionDataAsync(int partitionId, int offsetId = 0)
-        {
-            ThrowWhenNetworkUnavaliable();
-            try
-            {
-                var requestDateTime = DateTimeOffset.Now;
-                var data = await _pgcProvider.GetPartitionRecommendVideoAsync(partitionId, offsetId);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex, offsetId > 0);
-                if (offsetId == 0)
-                {
-                    throw;
-                }
-            }
-        }
-
         /// <summary>
         /// 获取PGC内容详情.
         /// </summary>
@@ -101,41 +75,6 @@ namespace Bili.Controller.Uwp
             {
                 _loggerModule.LogError(ex, true);
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// 获取PGC索引条件.
-        /// </summary>
-        /// <param name="type">PGC类型.</param>
-        /// <returns>索引结果.</returns>
-        public async Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type)
-            => await _pgcProvider.GetPgcIndexConditionsAsync(type);
-
-        /// <summary>
-        /// 请求PGC索引内容.
-        /// </summary>
-        /// <param name="type">类型.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <param name="conditions">条件集合.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestPgcIndexResultAsync(PgcType type, int pageNumber, Dictionary<string, string> conditions)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var data = await _pgcProvider.GetPgcIndexResultAsync(type, pageNumber, conditions);
-                var args = new PgcIndexResultIterationEventArgs(data, type);
-                PgcIndexResultIteration?.Invoke(this, args);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex, pageNumber <= 1);
-                if (pageNumber > 1)
-                {
-                    throw;
-                }
             }
         }
 

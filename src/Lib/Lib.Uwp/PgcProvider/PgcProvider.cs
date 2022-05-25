@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using static Bili.Models.App.Constants.ApiConstants;
@@ -75,10 +76,30 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<SubPartition> GetPartitionRecommendVideoAsync(int partitionId, int offsetId = 0)
+        public async Task<IEnumerable<Filter>> GetPgcIndexFiltersAsync(PgcType type)
         {
-            var data = await _partitionProvider.GetVideoSubPartitionDataAsync(partitionId.ToString(), false);
-            return null;
+            var queryParameters = GetPgcIndexBaseQueryParameters(type);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexCondition, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexConditionResponse>>(response);
+            return _pgcAdapter.ConvertToFilters(data.Data);
+        }
+
+        /// <inheritdoc/>
+        public async Task<(bool IsFinished, IEnumerable<SeasonInformation> Items)> GetPgcIndexResultAsync(PgcType type, Dictionary<string, string> parameters)
+        {
+            var queryParameters = GetPgcIndexResultQueryParameters(type, _indexPageNumber, parameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexResult, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexResultResponse>>(response);
+            var isFinish = data.Data.HasNext == 0;
+            var items = data.Data.List.Select(p => _pgcAdapter.ConvertToSeasonInformation(p)).ToList();
+            if (!isFinish)
+            {
+                _indexPageNumber++;
+            }
+
+            return (isFinish, items);
         }
 
         /// <inheritdoc/>
@@ -115,26 +136,6 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<PgcIndexConditionResponse> GetPgcIndexConditionsAsync(PgcType type)
-        {
-            var queryParameters = GetPgcIndexBaseQueryParameters(type);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexCondition, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexConditionResponse>>(response);
-            return data.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<PgcIndexResultResponse> GetPgcIndexResultAsync(PgcType type, int page, Dictionary<string, string> parameters)
-        {
-            var queryParameters = GetPgcIndexResultQueryParameters(type, page, parameters);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.IndexResult, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PgcIndexResultResponse>>(response);
-            return data.Data;
-        }
-
-        /// <inheritdoc/>
         public async Task<PgcTimeLineResponse> GetPgcTimeLineAsync(PgcType type)
         {
             var queryParameters = GetPgcTimeLineQueryParameters(type);
@@ -157,5 +158,9 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetPageStatus(PgcType type)
             => _pgcOffsetCache.Remove(type);
+
+        /// <inheritdoc/>
+        public void ResetIndexStatus()
+            => _indexPageNumber = 1;
     }
 }

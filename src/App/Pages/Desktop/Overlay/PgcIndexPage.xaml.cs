@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp;
-using Windows.UI.Xaml;
+using System.Linq;
+using Bili.Models.Data.Appearance;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,65 +13,42 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// PGC索引页面.
     /// </summary>
-    public sealed partial class PgcIndexPage : AppPage
+    public sealed partial class PgcIndexPage : PgcIndexPageBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(PgcViewModelBase), typeof(PgcIndexPage), new PropertyMetadata(null));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcIndexPage"/> class.
         /// </summary>
-        public PgcIndexPage()
-        {
-            InitializeComponent();
-            Loaded += OnLoadedAsync;
-        }
-
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public PgcViewModelBase ViewModel
-        {
-            get { return (PgcViewModelBase)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
+        public PgcIndexPage() => InitializeComponent();
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is PgcViewModelBase vm)
+            if (e.Parameter is PgcType type)
             {
-                ViewModel = vm;
+                ViewModel.SetType(type);
             }
         }
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        private void OnConditionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewModel.FilterCollection.Count == 0)
+            var comboBox = sender as ComboBox;
+            if (comboBox.DataContext is IndexFilterViewModel source
+                && comboBox.SelectedItem is Condition item)
             {
-                await ViewModel.LoadIndexAsync();
+                var index = source.Data.Conditions.ToList().IndexOf(item);
+                if (index >= 0 && index != source.SelectedIndex)
+                {
+                    source.SelectedIndex = index;
+                    ViewModel.ReloadCommand.Execute().Subscribe();
+                }
             }
         }
+    }
 
-        private async void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
-        {
-            await ViewModel.DeltaRequestIndexAsync();
-        }
-
-        private async void OnIndexRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.LoadIndexAsync();
-        }
-
-        private async void OnConditionChangedAsync(object sender, SelectionChangedEventArgs e)
-        {
-            if (ViewModel.IsIndexRequested)
-            {
-                await ViewModel.LoadIndexAsync();
-            }
-        }
+    /// <summary>
+    /// <see cref="PgcIndexPage"/> 的基类.
+    /// </summary>
+    public class PgcIndexPageBase : AppPage<IndexPageViewModel>
+    {
     }
 }

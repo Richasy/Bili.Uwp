@@ -45,8 +45,12 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void InitializeData()
         {
-            IsShowRating = Information.CommunityInformation.Score > 0;
-            TrackCountText = _numberToolkit.GetCountText(Information.CommunityInformation.TrackCount);
+            IsShowRating = Information.CommunityInformation?.Score > 0;
+
+            if (Information.CommunityInformation?.TrackCount > 0)
+            {
+                TrackCountText = _numberToolkit.GetCountText(Information.CommunityInformation.TrackCount);
+            }
         }
 
         private void Play()

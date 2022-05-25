@@ -23,6 +23,7 @@ namespace Bili.Lib.Uwp
         private readonly IPgcAdapter _pgcAdapter;
 
         private readonly Dictionary<PgcType, string> _pgcOffsetCache;
+        private int _indexPageNumber;
 
         private Dictionary<string, string> GetTabQueryParameters(PgcType type)
         {

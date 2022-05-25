@@ -36,6 +36,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid x:Name="TitleContainer" Height="48">
                                     <TextBlock
@@ -77,11 +78,18 @@
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.HighlightTitle}" />
                                 </Grid>
 
-                                <Grid Grid.Row="4">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Grid.Row="4"
+                                    Margin="0,4,0,4"
+                                    HorizontalAlignment="Left"
+                                    MaxLines="2"
+                                    Opacity="0.6"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+
+                                <Grid Grid.Row="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
@@ -93,19 +101,6 @@
                                             Opacity="0.6"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tags}" />
                                     </Grid>
-
-                                    <controls:IconTextBlock
-                                        Grid.Row="1"
-                                        Margin="0,4,0,0"
-                                        FontSize="12"
-                                        IconFontSize="14"
-                                        Opacity="0.6"
-                                        Spacing="4"
-                                        Symbol="RibbonStar20"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText}"
-                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=TrackCount}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
-
                                     <TextBlock
                                         Grid.RowSpan="2"
                                         Grid.Column="1"

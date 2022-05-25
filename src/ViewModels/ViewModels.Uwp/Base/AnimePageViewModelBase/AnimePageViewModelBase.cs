@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 动漫页面视图模型基类.
     /// </summary>
-    public partial class AnimePageViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel
+    public partial class AnimePageViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimePageViewModelBase"/> class.
@@ -75,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Base
             Playlists.CollectionChanged += OnPlaylistsCollectionChanged;
 
             InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
             IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
             SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
             GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage, outputScheduler: RxApp.MainThreadScheduler);
@@ -95,6 +95,17 @@ namespace Bili.ViewModels.Uwp.Base
                 .Subscribe(DisplayException);
 
             IncrementalCommand.ThrownExceptions.Subscribe(LogException);
+        }
+
+        /// <inheritdoc/>
+        public void DisplayException(Exception exception)
+        {
+            IsError = true;
+            var msg = exception is ServiceException se
+                ? se.Error?.Message ?? se.Message
+                : exception.Message;
+            ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestPgcFailed)}\n{msg}";
+            LogException(exception);
         }
 
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
@@ -117,6 +128,16 @@ namespace Bili.ViewModels.Uwp.Base
                     await LoadVideosAsync();
                 }
 
+                return;
+            }
+
+            await ReloadAsync();
+        }
+
+        private async Task ReloadAsync()
+        {
+            if (IsReloading)
+            {
                 return;
             }
 
@@ -209,16 +230,6 @@ namespace Bili.ViewModels.Uwp.Base
             }
 
             await LoadVideosAsync();
-        }
-
-        private void DisplayException(Exception exception)
-        {
-            IsError = true;
-            var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
-                : exception.Message;
-            ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestPgcFailed)}\n{msg}";
-            LogException(exception);
         }
 
         private void GotoFavoritePage()

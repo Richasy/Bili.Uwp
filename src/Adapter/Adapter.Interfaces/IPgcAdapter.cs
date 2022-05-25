@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bilibili.App.Dynamic.V2;
@@ -110,5 +112,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">PGC 页面响应.</param>
         /// <returns><see cref="PgcPageView"/>.</returns>
         PgcPageView ConvertToPgcPageView(PgcResponse response);
+
+        /// <summary>
+        /// 将 PGC 索引条件响应 <see cref="PgcIndexConditionResponse"/> 转换为筛选条件列表.
+        /// </summary>
+        /// <param name="response">PGC 索引条件响应.</param>
+        /// <returns>筛选条件列表.</returns>
+        IEnumerable<Filter> ConvertToFilters(PgcIndexConditionResponse response);
     }
 }

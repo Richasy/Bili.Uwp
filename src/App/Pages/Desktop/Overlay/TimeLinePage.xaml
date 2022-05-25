@@ -14,7 +14,7 @@
     xmlns:pages="using:Bili.App.Pages.Desktop"
     xmlns:uwp="using:Bili.ViewModels.Uwp"
     mc:Ignorable="d">
-    <Page.Resources>
+    <!--<Page.Resources>
         <DataTemplate x:Name="WideTemplate" x:DataType="uwp:PgcTimeLineItemViewModel">
             <exp:ExpanderEx IsExpanded="{x:Bind IsToday}">
                 <exp:ExpanderEx.Header>
@@ -149,5 +149,5 @@
                 Text="{x:Bind ViewModel.TimeLineErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsTimeLineError, Mode=OneWay}" />
         </Grid>
-    </Grid>
+    </Grid>-->
 </pages:AppPage>

@@ -181,11 +181,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<ViewLaterVideoIterationEventArgs> ViewLaterVideoIteration;
 
         /// <summary>
-        /// 在PGC索引内容更新时发生.
-        /// </summary>
-        public event EventHandler<PgcIndexResultIterationEventArgs> PgcIndexResultIteration;
-
-        /// <summary>
         /// 在PGC收藏夹内容更新时发生.
         /// </summary>
         public event EventHandler<FavoritePgcIterationEventArgs> PgcFavoriteIteration;
