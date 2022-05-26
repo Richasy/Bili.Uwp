@@ -96,8 +96,9 @@
             Grid.Row="2"
             Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <Grid x:Name="ContentGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -225,11 +226,6 @@
                 </controls:VerticalRepeaterView>
             </Grid>
         </ScrollViewer>
-
-        <controls:OverlayLoadingPanel
-            Grid.Row="2"
-            IsBarActive="False"
-            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
 
         <controls:OverlayLoadingPanel
             Grid.Row="2"

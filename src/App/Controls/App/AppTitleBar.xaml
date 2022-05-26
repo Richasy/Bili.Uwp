@@ -154,7 +154,7 @@
                 Padding="6,0,0,0"
                 Click="OnMenuButtonClick"
                 TabIndex="3"
-                Visibility="Collapsed">
+                Visibility="{x:Bind ViewModel.IsShowMenuButton, Mode=OneWay}">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"

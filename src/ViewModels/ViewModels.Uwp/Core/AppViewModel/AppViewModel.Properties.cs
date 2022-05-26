@@ -100,5 +100,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsShowTitleBar { get; set; }
+
+        /// <summary>
+        /// 是否显示菜单按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowMenuButton { get; set; }
     }
 }

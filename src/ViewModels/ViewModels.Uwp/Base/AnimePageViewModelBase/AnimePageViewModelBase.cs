@@ -121,6 +121,7 @@ namespace Bili.ViewModels.Uwp.Base
             if (Partitions.Count > 0)
             {
                 Videos.Clear();
+                await FakeLoadingAsync();
 
                 if (!string.IsNullOrEmpty(_currentVideoPartitionId))
                 {

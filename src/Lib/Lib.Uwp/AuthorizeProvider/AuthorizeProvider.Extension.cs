@@ -397,6 +397,7 @@ namespace Bili.Lib.Uwp
                 CurrentUserId = tokenInfo.Mid.ToString();
                 _tokenInfo = tokenInfo;
                 _lastAuthorizeTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(data[Settings.LastSaveAuthTimeKey]));
+                State = AuthorizeState.SignedIn;
             }
             else
             {

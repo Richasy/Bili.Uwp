@@ -8,13 +8,11 @@ using Bili.Models.App;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Bili.App.Controls
@@ -62,6 +60,8 @@ namespace Bili.App.Controls
             {
                 NavigateToMainView(e.PageId);
             }
+
+            CheckMenuButtonVisibility();
         }
 
         private void OnRootNavViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
@@ -194,6 +194,15 @@ namespace Bili.App.Controls
                 FirstLoaded?.Invoke(this, EventArgs.Empty);
                 _isFirstLoaded = true;
             }
+        }
+
+        private void OnDisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
+            => CheckMenuButtonVisibility();
+
+        private void CheckMenuButtonVisibility()
+        {
+            _appViewModel.IsShowMenuButton = RootNavView.DisplayMode != Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Expanded
+                && ViewModel.IsMainViewShown;
         }
     }
 

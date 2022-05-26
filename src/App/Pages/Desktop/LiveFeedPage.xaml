@@ -101,7 +101,9 @@
                         <controls:HorizontalRepeaterView
                             Margin="0,8,0,0"
                             Header="{loc:LocaleLocator Name=FollowLiveRoom}"
-                            Visibility="{x:Bind ViewModel.IsFollowsEmpty, Mode=OneWay}">
+                            HeaderVisibility="Visible"
+                            ItemsSource="{x:Bind ViewModel.Follows}"
+                            Visibility="{x:Bind ViewModel.IsFollowsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
                                 <DataTemplate x:DataType="live:LiveItemViewModel">
                                     <liveControls:LiveItem Style="{StaticResource SlimLiveItemStyle}" ViewModel="{x:Bind}" />

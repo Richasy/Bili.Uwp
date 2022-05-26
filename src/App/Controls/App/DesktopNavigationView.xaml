@@ -51,6 +51,7 @@
             CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
             ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
             IsPaneOpen="{x:Bind _appViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
+            DisplayModeChanged="OnDisplayModeChanged"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />
