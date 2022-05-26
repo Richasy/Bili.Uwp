@@ -382,7 +382,12 @@ namespace Bili.Adapter
                 .Select(p => ConvertToPgcPlaylist(p))
                 .ToList();
 
-            return new PgcPageView(banners, ranks, playLists, partitionId);
+            var seasons = response.Modules.Where(p => p.Style == "common_feed")
+                .SelectMany(p => p.Items)
+                .Select(p => ConvertToSeasonInformation(p, PgcType.Documentary | PgcType.Movie | PgcType.TV))
+                .ToList();
+
+            return new PgcPageView(banners, ranks, playLists, seasons, partitionId);
         }
 
         /// <inheritdoc/>

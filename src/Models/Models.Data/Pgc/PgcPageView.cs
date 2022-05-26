@@ -16,16 +16,19 @@ namespace Bili.Models.Data.Pgc
         /// <param name="banners">横幅列表.</param>
         /// <param name="ranks">排行榜数据.</param>
         /// <param name="playlists">播放列表.</param>
+        /// <param name="seasons">剧集列表.</param>
         /// <param name="videoPartitionId">视频分区 Id.</param>
         public PgcPageView(
             IEnumerable<BannerIdentifier> banners,
             Dictionary<string, IEnumerable<EpisodeInformation>> ranks = default,
             IEnumerable<PgcPlaylist> playlists = default,
+            IEnumerable<SeasonInformation> seasons = default,
             string videoPartitionId = default)
         {
             Banners = banners;
             Ranks = ranks;
             Playlists = playlists;
+            Seasons = seasons;
             VideoPartitionId = videoPartitionId;
         }
 
@@ -43,6 +46,11 @@ namespace Bili.Models.Data.Pgc
         /// 播放列表.
         /// </summary>
         public IEnumerable<PgcPlaylist> Playlists { get; }
+
+        /// <summary>
+        /// 剧集列表.
+        /// </summary>
+        public IEnumerable<SeasonInformation> Seasons { get; }
 
         /// <summary>
         /// 该 PGC 视图所属的视频分区 Id.

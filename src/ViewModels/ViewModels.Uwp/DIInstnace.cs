@@ -68,6 +68,9 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<BangumiPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<DomesticPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<DocumentaryPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<MoviePageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<TvPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IndexPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
 

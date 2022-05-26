@@ -80,10 +80,13 @@
     <Compile Include="Controls\IIncrementalControl.cs" />
     <Compile Include="Controls\IOrientationControl.cs" />
     <Compile Include="Controls\Live\LiveItem\LiveItem.cs" />
-    <Compile Include="Controls\Pgc\AnimeView.xaml.cs">
-      <DependentUpon>AnimeView.xaml</DependentUpon>
+    <Compile Include="Controls\Pgc\AnimePageView.xaml.cs">
+      <DependentUpon>AnimePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Pgc\EpisodeItem\EpisodeItem.cs" />
+    <Compile Include="Controls\Pgc\PgcPageView.xaml.cs">
+      <DependentUpon>PgcPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Pgc\SeasonItem\SeasonItem.cs" />
     <Compile Include="Controls\ReactiveControl.cs" />
     <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
@@ -401,9 +404,6 @@
     <Compile Include="Pages\Desktop\BangumiPage.xaml.cs">
       <DependentUpon>BangumiPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\Reuse\FeedPage.xaml.cs">
-      <DependentUpon>FeedPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Desktop\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
@@ -443,8 +443,8 @@
     <Compile Include="Pages\Desktop\ToolboxPage.xaml.cs">
       <DependentUpon>ToolboxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\TVPage.xaml.cs">
-      <DependentUpon>TVPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\TvPage.xaml.cs">
+      <DependentUpon>TvPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
@@ -648,11 +648,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\AnimeView.xaml">
+    <Page Include="Controls\Pgc\AnimePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Pgc\EpisodeItem\EpisodeItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Pgc\PgcPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1076,10 +1080,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\Reuse\FeedPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\Desktop\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1132,7 +1132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\TVPage.xaml">
+    <Page Include="Pages\Desktop\TvPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

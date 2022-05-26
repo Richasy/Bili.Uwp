@@ -110,7 +110,7 @@ namespace Bili.App.Controls
                     pageType = typeof(MoviePage);
                     break;
                 case PageIds.TV:
-                    pageType = typeof(TVPage);
+                    pageType = typeof(TvPage);
                     break;
                 case PageIds.Documentary:
                     pageType = typeof(DocumentaryPage);

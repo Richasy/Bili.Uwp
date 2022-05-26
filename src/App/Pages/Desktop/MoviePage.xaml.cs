@@ -1,38 +1,24 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Threading.Tasks;
-using Bili.App.Controls;
-using Bili.Models.Enums;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
+using Bili.ViewModels.Uwp.Pgc;
 
 namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// 电影页面.
     /// </summary>
-    public sealed partial class MoviePage : Page, IRefreshPage
+    public sealed partial class MoviePage : MoviePageBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MoviePage"/> class.
         /// </summary>
-        public MoviePage()
-        {
-            InitializeComponent();
-            Loaded += OnLoaded;
-        }
+        public MoviePage() => InitializeComponent();
+    }
 
-        /// <inheritdoc/>
-        public Task RefreshAsync()
-            => (RootFrame.Content as IRefreshPage).RefreshAsync();
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (RootFrame.Content == null)
-            {
-                RootFrame.Navigate(typeof(FeedPage), PgcType.Movie, new SuppressNavigationTransitionInfo());
-            }
-        }
+    /// <summary>
+    /// <see cref="MoviePage"/> 的基类.
+    /// </summary>
+    public class MoviePageBase : AppPage<MoviePageViewModel>
+    {
     }
 }

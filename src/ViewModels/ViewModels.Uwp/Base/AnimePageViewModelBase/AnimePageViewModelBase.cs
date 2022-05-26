@@ -141,6 +141,7 @@ namespace Bili.ViewModels.Uwp.Base
                 return;
             }
 
+            Partitions.Clear();
             var tabs = await _pgcProvider.GetAnimeTabsAsync(_type);
             tabs.ToList().ForEach(p => Partitions.Add(p));
 

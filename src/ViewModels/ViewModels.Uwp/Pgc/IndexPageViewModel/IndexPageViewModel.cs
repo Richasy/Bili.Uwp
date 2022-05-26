@@ -79,6 +79,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
         }
 
+        /// <inheritdoc/>
+        protected override string FormatException(string errorMsg)
+            => $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestIndexResultFailed)}\n{errorMsg}";
+
         private async Task LoadFiltersAsync()
         {
             Filters.Clear();
