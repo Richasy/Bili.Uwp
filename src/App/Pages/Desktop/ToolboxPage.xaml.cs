@@ -9,10 +9,8 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// 工具箱页面.
     /// </summary>
-    public sealed partial class ToolboxPage : AppPage
+    public sealed partial class ToolboxPage : ToolboxPageBase
     {
-        private readonly ToolboxPageViewModel _viewModel = ToolboxPageViewModel.Instance;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolboxPage"/> class.
         /// </summary>
@@ -33,5 +31,12 @@ namespace Bili.App.Pages.Desktop
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// <see cref="ToolboxPage"/> 的基类.
+    /// </summary>
+    public class ToolboxPageBase : AppPage<ToolboxPageViewModel>
+    {
     }
 }

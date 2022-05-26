@@ -73,6 +73,8 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<TvPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IndexPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ToolboxPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<HelpPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 
 namespace Bili.ViewModels.Uwp
@@ -10,11 +9,6 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public sealed partial class ToolboxPageViewModel
     {
-        /// <summary>
-        /// 实例.
-        /// </summary>
-        public static ToolboxPageViewModel Instance { get; } = new Lazy<ToolboxPageViewModel>(() => new ToolboxPageViewModel()).Value;
-
         /// <summary>
         /// 工具集合.
         /// </summary>

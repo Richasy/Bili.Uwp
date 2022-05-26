@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolboxPageViewModel"/> class.
         /// </summary>
-        private ToolboxPageViewModel()
+        internal ToolboxPageViewModel()
         {
             ToolCollection = new ObservableCollection<ToolboxItemViewModel>
             {

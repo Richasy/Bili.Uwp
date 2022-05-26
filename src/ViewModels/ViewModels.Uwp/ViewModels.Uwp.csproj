@@ -74,8 +74,8 @@
     <Compile Include="Account\FavoriteListDetailViewModel.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
-    <Compile Include="Common\HelpViewModel\HelpViewModel.cs" />
-    <Compile Include="Common\HelpViewModel\HelpViewModel.Properties.cs" />
+    <Compile Include="Common\HelpViewModel\HelpPageViewModel.cs" />
+    <Compile Include="Common\HelpViewModel\HelpPageViewModel.Properties.cs" />
     <Compile Include="Common\DownloadViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
