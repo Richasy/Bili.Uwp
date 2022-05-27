@@ -114,7 +114,7 @@
                     Grid.Row="1"
                     Margin="0,0,0,12"
                     HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}">
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>

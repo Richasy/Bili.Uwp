@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 分区详情页视图模型.
     /// </summary>
-    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase
+    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionDetailPageViewModel"/> class.
@@ -78,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Community
             partition.Children.ToList().ForEach(p => SubPartitions.Add(p));
             CurrentSubPartition = SubPartitions.First();
             Banners.Clear();
-            VideoCollection.Clear();
+            Items.Clear();
         }
 
         /// <inheritdoc/>
@@ -112,10 +112,10 @@ namespace Bili.ViewModels.Uwp.Community
                 {
                     var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
                     videoVM.SetInformation(video);
-                    VideoCollection.Add(videoVM);
+                    Items.Add(videoVM);
                 }
 
-                var videos = VideoCollection
+                var videos = Items
                         .OfType<VideoItemViewModel>()
                         .Select(p => p.Information)
                         .ToList();
@@ -132,7 +132,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         private void SelectSubPartition(Partition subPartition)
         {
-            VideoCollection.Clear();
+            Items.Clear();
             CurrentSubPartition = subPartition;
             if (_caches.ContainsKey(subPartition))
             {
@@ -141,7 +141,7 @@ namespace Bili.ViewModels.Uwp.Community
                 {
                     var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
                     videoVM.SetInformation(video);
-                    VideoCollection.Add(videoVM);
+                    Items.Add(videoVM);
                 }
             }
             else

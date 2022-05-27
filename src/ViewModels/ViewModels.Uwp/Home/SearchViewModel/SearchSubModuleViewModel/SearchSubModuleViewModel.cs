@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp
                 case SearchModuleType.Article:
                     ArticleCollection = new ObservableCollection<ArticleViewModel>();
                     Controller.ArticleSearchIteration += OnArticleSearchIteration;
-                    InitializeArticleFiltersAsync();
+                    InitializeArticleFilters();
                     break;
                 default:
                     break;
@@ -348,7 +348,7 @@ namespace Bili.ViewModels.Uwp
             // PartitionCollection.Insert(0, new KeyValue<string>("0", ResourceToolkit.GetLocaleString(LanguageNames.Total)));
         }
 
-        private async void InitializeArticleFiltersAsync()
+        private void InitializeArticleFilters()
         {
             OrderCollection = new ObservableCollection<KeyValue<string>>();
             PartitionCollection = new ObservableCollection<KeyValue<string>>();
@@ -359,14 +359,14 @@ namespace Bili.ViewModels.Uwp
             OrderCollection.Add(new KeyValue<string>("scores", ResourceToolkit.GetLocaleString(LanguageNames.SortByReply)));
             OrderCollection.Add(new KeyValue<string>("attention", ResourceToolkit.GetLocaleString(LanguageNames.SortByLike)));
 
-            var totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
-            if (totalPartition.Count == 0)
-            {
-                await SpecialColumnModuleViewModel.Instance.RequestCategoriesAsync();
-                totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
-            }
+            // var totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
+            // if (totalPartition.Count == 0)
+            // {
+            //    await SpecialColumnModuleViewModel.Instance.RequestCategoriesAsync();
+            //    totalPartition = SpecialColumnModuleViewModel.Instance.CategoryCollection;
+            // }
 
-            totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.Id.ToString(), p.Title)));
+            // totalPartition.ToList().ForEach(p => PartitionCollection.Add(new KeyValue<string>(p.Id.ToString(), p.Title)));
         }
 
         private void InitializeUserFilters()

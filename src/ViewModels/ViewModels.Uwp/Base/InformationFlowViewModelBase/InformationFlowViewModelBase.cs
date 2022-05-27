@@ -14,12 +14,14 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
-    public abstract partial class InformationFlowViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
+    /// <typeparam name="T">核心数据集合的类型.</typeparam>
+    public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
+        where T : class
     {
         internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            VideoCollection = new ObservableCollection<IVideoBaseViewModel>();
+            Items = new ObservableCollection<T>();
 
             InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
             ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -63,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Base
         }
 
         /// <summary>
-        /// 从网络获取数据，并将其加入 <see cref="VideoCollection"/> 中.
+        /// 从网络获取数据，并将其加入 <see cref="Items"/> 中.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         protected virtual Task GetDataAsync() => Task.CompletedTask;
@@ -77,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Base
 
         private async Task InitializeAsync()
         {
-            if (VideoCollection.Count > 0)
+            if (Items.Count > 0)
             {
                 await FakeLoadingAsync();
                 return;
@@ -89,10 +91,10 @@ namespace Bili.ViewModels.Uwp.Base
         private async Task ReloadAsync()
         {
             BeforeReload();
-            VideoCollection.Clear();
+            Items.Clear();
             ClearException();
 
-            var task = _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await GetDataAsync()).AsTask();
+            var task = _dispatcher.RunAsync(CoreDispatcherPriority.High, async () => await GetDataAsync()).AsTask();
             await RunDelayTask(task);
         }
 

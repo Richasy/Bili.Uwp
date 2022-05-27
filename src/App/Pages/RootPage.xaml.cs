@@ -2,12 +2,15 @@
 
 using System;
 using Bili.App.Controls;
+using Bili.App.Controls.Article;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
+using Bili.Models.Data.Article;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using Windows.ApplicationModel.Activation;
@@ -43,6 +46,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
+            CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -192,6 +196,12 @@ namespace Bili.App.Pages.Desktop
                 ViewModel = e,
             };
             view.Show();
+        }
+
+        private async void OnRequestShowArticleReaderAsync(object sender, ArticleItemViewModel e)
+        {
+            var view = ArticleReaderView.Instance;
+            await view.ShowAsync(e);
         }
 
         private Type GetSecondaryViewType(PageIds pageId)

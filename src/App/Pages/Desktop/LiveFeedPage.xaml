@@ -122,7 +122,7 @@
                             x:Name="VideoView"
                             Margin="0,4,0,12"
                             HeaderText="{loc:LocaleLocator Name=Recommend}"
-                            ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
+                            ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                             MinWideItemHeight="208"
                             MinWideItemWidth="200">
                             <interactivity:Interaction.Behaviors>

@@ -79,7 +79,7 @@ namespace Bili.Adapter
                 children.ForEach(p => p.ParentId = id);
             }
 
-            return new Models.Data.Community.Partition(id, name, logo);
+            return new Models.Data.Community.Partition(id, name, logo, children);
         }
 
         /// <inheritdoc/>
@@ -121,6 +121,32 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(PgcTab tab)
             => new Models.Data.Community.Partition(tab.Id.ToString(), tab.Title);
+
+        /// <inheritdoc/>
+        public Models.Data.Community.Partition ConvertToPartition(ArticleCategory category)
+        {
+            var id = category.Id.ToString();
+            var name = category.Name;
+            var children = category.Children?.Any() ?? false
+                ? category.Children.Select(p => ConvertToPartition(p)).ToList()
+                : null;
+            var parentId = category.ParentId.ToString();
+
+            return new Models.Data.Community.Partition(id, name, children: children, parentId: parentId);
+        }
+
+        /// <inheritdoc/>
+        public ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleStats stats, string articleId)
+        {
+            return new ArticleCommunityInformation(
+                articleId,
+                stats.ViewCount,
+                stats.FavoriteCount,
+                stats.LikeCount,
+                stats.ReplyCount,
+                stats.ShareCount,
+                stats.CoinCount);
+        }
 
         /// <inheritdoc/>
         public UserCommunityInformation ConvertToUserCommunityInformation(Mine mine)

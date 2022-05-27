@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// PGC 信息流页面（不包括动漫）的通用视图模型.
     /// </summary>
-    public partial class PgcPageViewModelBase : InformationFlowViewModelBase
+    public partial class PgcPageViewModelBase : InformationFlowViewModelBase<SeasonItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPageViewModelBase"/> class.
@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <inheritdoc/>
         protected override void BeforeReload()
         {
-            VideoCollection.Clear();
+            Items.Clear();
             Banners.Clear();
             IsShowBanner = false;
             _pgcProvider.ResetPageStatus(_type);
@@ -79,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Base
                 {
                     var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
                     seasonVM.SetInformation(item);
-                    VideoCollection.Add(seasonVM);
+                    Items.Add(seasonVM);
                 }
             }
         }

@@ -100,9 +100,8 @@ namespace Bili.App.Controls
             instance.CheckOrientation();
         }
 
-        private async void OnContainerClickAsync(object sender, RoutedEventArgs e)
+        private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            await ReaderView.Instance.ShowAsync(ViewModel);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e) => CheckOrientation();

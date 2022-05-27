@@ -38,5 +38,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="uri">图片地址.</param>
         /// <returns><see cref="Image"/>.</returns>
         Image ConvertToPgcCover(string uri);
+
+        /// <summary>
+        /// 根据图片地址生成适用于文章卡片尺寸的缩略图地址.
+        /// </summary>
+        /// <param name="uri">图片地址.</param>
+        /// <returns><see cref="Image"/>.</returns>
+        Image ConvertToArticleCardCover(string uri);
     }
 }

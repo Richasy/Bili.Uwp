@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp
     /// <summary>
     /// 视频推荐视图模型.
     /// </summary>
-    public partial class RecommendPageViewModel : InformationFlowViewModelBase
+    public partial class RecommendPageViewModel : InformationFlowViewModelBase<IVideoBaseViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecommendPageViewModel"/> class.
@@ -58,7 +58,7 @@ namespace Bili.ViewModels.Uwp
                     if (vm != null)
                     {
                         vm.SetInformation(item);
-                        VideoCollection.Add(vm);
+                        Items.Add(vm);
                     }
                 }
             }

@@ -6,6 +6,7 @@ using Bili.Lib.Interfaces;
 using Bili.Lib.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
+using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
@@ -42,13 +43,14 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<IVideoAdapter, VideoAdapter>();
             SplatRegistrations.RegisterLazySingleton<IPgcAdapter, PgcAdapter>();
             SplatRegistrations.RegisterLazySingleton<ILiveAdapter, LiveAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IArticleAdapter, ArticleAdapter>();
 
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
             SplatRegistrations.RegisterLazySingleton<IAccountProvider, AccountProvider>();
             SplatRegistrations.RegisterLazySingleton<IHomeProvider, HomeProvider>();
             SplatRegistrations.RegisterLazySingleton<ILiveProvider, LiveProvider>();
-            SplatRegistrations.RegisterLazySingleton<ISpecialColumnProvider, SpecialColumnProvider>();
+            SplatRegistrations.RegisterLazySingleton<IArticleProvider, ArticleProvider>();
             SplatRegistrations.RegisterLazySingleton<IPgcProvider, PgcProvider>();
             SplatRegistrations.RegisterLazySingleton<IPlayerProvider, PlayerProvider>();
             SplatRegistrations.RegisterLazySingleton<ISearchProvider, SearchProvider>();
@@ -75,12 +77,14 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ToolboxPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<HelpPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.Register<SeasonItemViewModel>();
             SplatRegistrations.Register<LiveItemViewModel>();
             SplatRegistrations.Register<PgcPlaylistViewModel>();
+            SplatRegistrations.Register<ArticleItemViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

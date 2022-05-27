@@ -68,7 +68,7 @@
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
                     ItemTemplate="{StaticResource Selector}"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection}">
+                    ItemsSource="{x:Bind ViewModel.Items}">
                     <Interactivity:Interaction.Behaviors>
                         <behaviors:InitializeBehavior />
                         <behaviors:IncrementalBehavior />

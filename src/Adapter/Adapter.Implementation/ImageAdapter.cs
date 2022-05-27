@@ -26,5 +26,9 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public Image ConvertToPgcCover(string uri)
             => ConvertToImage(uri, AppConstants.PgcCoverWidth, AppConstants.PgcCoverHeight);
+
+        /// <inheritdoc/>
+        public Image ConvertToArticleCardCover(string uri)
+            => ConvertToImage(uri, AppConstants.ArticleCardCoverWidth, AppConstants.ArticleCardCoverHeight);
     }
 }

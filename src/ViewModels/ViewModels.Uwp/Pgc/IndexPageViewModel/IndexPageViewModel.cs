@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 内容索引页面视图模型.
     /// </summary>
-    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase
+    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase<SeasonItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IndexPageViewModel"/> class.
@@ -45,7 +45,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             _type = type;
             Filters.Clear();
-            VideoCollection.Clear();
+            Items.Clear();
             PageType = _type switch
             {
                 PgcType.Bangumi => _resourceToolkit.GetLocaleString(LanguageNames.Bangumi),
@@ -126,10 +126,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
                 seasonVM.SetInformation(item);
-                VideoCollection.Add(seasonVM);
+                Items.Add(seasonVM);
             }
 
-            IsEmpty = VideoCollection.Count == 0;
+            IsEmpty = Items.Count == 0;
         }
     }
 }

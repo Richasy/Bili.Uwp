@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/EpisodeItem/EpisodeItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/SeasonItem/SeasonItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Live/LiveItem/LiveItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Article/ArticleItem/ArticleItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>

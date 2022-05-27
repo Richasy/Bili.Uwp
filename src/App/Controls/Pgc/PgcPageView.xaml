@@ -73,7 +73,7 @@
                     Margin="0,0,0,12"
                     HeaderText="{loc:LocaleLocator Name=Recommend}"
                     HeaderVisibility="Visible"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                     MinWideItemHeight="180"
                     MinWideItemWidth="300">
                     <interactivity:Interaction.Behaviors>

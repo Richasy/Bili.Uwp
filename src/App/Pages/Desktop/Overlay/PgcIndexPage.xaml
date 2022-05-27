@@ -101,7 +101,7 @@
                     x:Name="IndexView"
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.Items}"
                     MinWideItemHeight="180"
                     MinWideItemWidth="300">
                     <interactivity:Interaction.Behaviors>

@@ -31,7 +31,7 @@ namespace Bili.Controller.Uwp
         private readonly IAccountProvider _accountProvider;
         private readonly IHomeProvider _partitionProvider;
         private readonly ILiveProvider _liveProvider;
-        private readonly ISpecialColumnProvider _specialColumnProvider;
+        private readonly IArticleProvider _specialColumnProvider;
         private readonly IPgcProvider _pgcProvider;
         private readonly IPlayerProvider _playerProvider;
         private readonly ISearchProvider _searchProvider;
@@ -99,16 +99,6 @@ namespace Bili.Controller.Uwp
         /// 在网络状态改变时发生，将返回网络可用性.
         /// </summary>
         public event EventHandler<bool> NetworkChanged;
-
-        /// <summary>
-        /// 在专栏文章的附加数据发生改变时发生.
-        /// </summary>
-        public event EventHandler<SpecialColumnAdditionalDataChangedEventArgs> SpecialColumnAdditionalDataChanged;
-
-        /// <summary>
-        /// 在专栏有新的文章数据更改时发生.
-        /// </summary>
-        public event EventHandler<SpecialColumnArticleIterationEventArgs> SpecialColumnArticleIteration;
 
         /// <summary>
         /// 在有分片弹幕更新时发生.
@@ -255,6 +245,7 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<ICommunityAdapter, CommunityAdapter>()
                 .AddSingleton<IVideoAdapter, VideoAdapter>()
                 .AddSingleton<IPgcAdapter, PgcAdapter>()
+                .AddSingleton<IArticleAdapter, ArticleAdapter>()
                 .AddSingleton<ILiveAdapter, LiveAdapter>();
 
             serviceCollection
@@ -266,7 +257,7 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IAccountProvider, AccountProvider>()
                 .AddSingleton<IHomeProvider, HomeProvider>()
                 .AddSingleton<ILiveProvider, LiveProvider>()
-                .AddSingleton<ISpecialColumnProvider, SpecialColumnProvider>()
+                .AddSingleton<IArticleProvider, ArticleProvider>()
                 .AddSingleton<IPgcProvider, PgcProvider>()
                 .AddSingleton<IPlayerProvider, PlayerProvider>()
                 .AddSingleton<ISearchProvider, SearchProvider>()

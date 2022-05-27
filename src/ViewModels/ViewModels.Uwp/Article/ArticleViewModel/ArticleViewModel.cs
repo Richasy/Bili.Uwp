@@ -21,34 +21,6 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
         /// </summary>
-        /// <param name="article">文章类.</param>
-        public ArticleViewModel(Article article)
-            : this()
-        {
-            Id = article.Id.ToString();
-            var cover = string.Empty;
-            var hasCover = article.CoverUrls?.Any() ?? false;
-            if (hasCover)
-            {
-                cover = article.CoverUrls.First();
-            }
-
-            Title = article.Title;
-            Description = article.Summary;
-            Publisher = new UserViewModel(article.Publisher.Publisher, article.Publisher.PublisherAvatar, article.Publisher.Mid);
-            PublishTime = DateTimeOffset.FromUnixTimeSeconds(article.PublishTime).ToString("yy/MM/dd HH:mm");
-            article.RelatedCategories.ForEach(p => CategoryCollection.Add(p));
-
-            ViewCount = _numberToolkit.GetCountText(article.Stats.ViewCount);
-            ReplyCount = _numberToolkit.GetCountText(article.Stats.ReplyCount);
-            LikeCount = _numberToolkit.GetCountText(article.Stats.LikeCount);
-
-            LimitCover(cover);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
-        /// </summary>
         /// <param name="item">文章信息.</param>
         public ArticleViewModel(ArticleSearchItem item)
             : this()
@@ -144,7 +116,8 @@ namespace Bili.ViewModels.Uwp
                 IsLoading = true;
                 try
                 {
-                    var content = await _controller.GetArticleContentAsync(Convert.ToInt32(Id));
+                    var content = string.Empty;
+                    await Task.CompletedTask;
                     ArticleContent = content;
                 }
                 catch (ServiceException ex)

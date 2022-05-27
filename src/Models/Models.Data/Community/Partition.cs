@@ -63,5 +63,8 @@ namespace Bili.Models.Data.Community
         /// <inheritdoc/>
         public override int GetHashCode()
             => Id.GetHashCode() + Name.GetHashCode();
+
+        /// <inheritdoc/>
+        public override string ToString() => Name;
     }
 }

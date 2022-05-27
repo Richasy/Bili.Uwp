@@ -22,8 +22,8 @@
     <Compile Include="PgcProvider\PgcProvider.Extension.cs" />
     <Compile Include="SearchProvider\SearchProvider.cs" />
     <Compile Include="SearchProvider\SearchProvider.Extension.cs" />
-    <Compile Include="SpecialColumnProvider\SpecialColumnProvider.cs" />
-    <Compile Include="SpecialColumnProvider\SpecialColumnProvider.Extension.cs" />
+    <Compile Include="ArticleProvider\ArticleProvider.cs" />
+    <Compile Include="ArticleProvider\ArticleProvider.Extension.cs" />
     <Compile Include="LiveProvider\LiveProvider.cs" />
     <Compile Include="LiveProvider\LiveProvider.Extension.cs" />
     <Compile Include="HttpProvider\HttpProvider.cs" />

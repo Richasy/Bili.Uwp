@@ -10,6 +10,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.ApplicationModel.Background;
@@ -70,6 +71,13 @@ namespace Bili.ViewModels.Uwp.Core
         /// <param name="vm">播放列表视图模型.</param>
         public void ShowPgcPlaylist(PgcPlaylistViewModel vm)
             => RequestShowPgcPlaylist?.Invoke(this, vm);
+
+        /// <summary>
+        /// 显示文章阅读器.
+        /// </summary>
+        /// <param name="article">文章信息.</param>
+        public void ShowArticleReader(ArticleItemViewModel article)
+            => RequestShowArticleReader?.Invoke(this, article);
 
         /// <summary>
         /// 初始化主题.

@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.cs" />
+    <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.Properties.cs" />
+    <Compile Include="Article\ArticlePartitionPageViewModel\ArticlePartitionPageViewModel.cs" />
+    <Compile Include="Article\ArticlePartitionPageViewModel\ArticlePartitionPageViewModel.Properties.cs" />
     <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.Properties.cs" />
     <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.cs" />
     <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.cs" />
@@ -117,12 +121,8 @@
     <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.cs" />
     <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.Properties.cs" />
     <Compile Include="Base\ReplyViewModelBase.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.Properties.cs" />
-    <Compile Include="SpecialColumn\ArticleViewModel\ArticleViewModel.cs" />
-    <Compile Include="SpecialColumn\ArticleViewModel\ArticleViewModel.Properties.cs" />
+    <Compile Include="Article\ArticleViewModel\ArticleViewModel.cs" />
+    <Compile Include="Article\ArticleViewModel\ArticleViewModel.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Properties.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.cs" />

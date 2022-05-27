@@ -45,6 +45,10 @@
         <Setter Property="MaxHeight" Value="600" />
     </Style>
 
+    <Style TargetType="muxc:IconSource">
+        <Setter Property="Foreground" Value="{x:Null}" />
+    </Style>
+
     <!-- 在Expander(有内容的ExpanderEx)头部的Wrapper样式 -->
     <Style x:Key="WrapperInExpanderHeaderStyle" TargetType="expander:ExpanderExWrapper">
         <Setter Property="InlineWidePadding" Value="0,8,0,12" />

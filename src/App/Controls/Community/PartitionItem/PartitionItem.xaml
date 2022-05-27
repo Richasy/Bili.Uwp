@@ -9,7 +9,10 @@
                 <ControlTemplate TargetType="local:PartitionItem">
                     <controls:CardPanel x:Name="RootCard">
                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid x:Name="ContentContainer" RowSpacing="8" Padding="8,0">
+                            <Grid
+                                x:Name="ContentContainer"
+                                Padding="8,0"
+                                RowSpacing="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />

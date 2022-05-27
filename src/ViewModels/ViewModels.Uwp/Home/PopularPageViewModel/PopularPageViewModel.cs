@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp
     /// <summary>
     /// 热门视图模型.
     /// </summary>
-    public partial class PopularPageViewModel : InformationFlowViewModelBase
+    public partial class PopularPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularPageViewModel"/> class.
@@ -51,7 +51,7 @@ namespace Bili.ViewModels.Uwp
                 {
                     var vm = Splat.Locator.Current.GetService<VideoItemViewModel>();
                     vm.SetInformation(item);
-                    VideoCollection.Add(vm);
+                    Items.Add(vm);
                 }
             }
         }

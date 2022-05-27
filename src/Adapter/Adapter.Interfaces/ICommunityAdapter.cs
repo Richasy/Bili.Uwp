@@ -134,6 +134,14 @@ namespace Bili.Adapter.Interfaces
         VideoCommunityInformation ConvertToVideoCommunityInformation(PgcPlayListItemStat stat);
 
         /// <summary>
+        /// 将文章状态 <see cref="ArticleStats"/> 转换为文章社区交互信息.
+        /// </summary>
+        /// <param name="stats">文章状态.</param>
+        /// <param name="articleId">文章Id.</param>
+        /// <returns><see cref="ArticleCommunityInformation"/>.</returns>
+        ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleStats stats, string articleId);
+
+        /// <summary>
         /// 将分区实例 <see cref="Models.BiliBili.Partition"/> 转换为自定义的分区信息.
         /// </summary>
         /// <param name="partition">分区实例.</param>
@@ -167,6 +175,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="tab">PGC标签.</param>
         /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
         Models.Data.Community.Partition ConvertToPartition(PgcTab tab);
+
+        /// <summary>
+        /// 将文章分类 <see cref="LiveAreaGroup"/> 转换为自定义的分区信息.
+        /// </summary>
+        /// <param name="category">文章分类.</param>
+        /// <returns><see cref="Models.Data.Community.Partition"/>.</returns>
+        Models.Data.Community.Partition ConvertToPartition(ArticleCategory category);
 
         /// <summary>
         /// 将分区横幅 <see cref="PartitionBanner"/> 转换为横幅信息.

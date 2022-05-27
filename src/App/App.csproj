@@ -54,6 +54,7 @@
     <Compile Include="Controls\App\CenterPopup\CenterPopup.cs" />
     <Compile Include="Controls\App\CenterPopup\CenterPopup.Properties.cs" />
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
+    <Compile Include="Controls\Article\ArticleItem\ArticleItem.cs" />
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
@@ -188,8 +189,8 @@
     <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
       <DependentUpon>TrimTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ReaderView.xaml.cs">
-      <DependentUpon>ReaderView.xaml</DependentUpon>
+    <Compile Include="Controls\Article\ArticleReaderView.xaml.cs">
+      <DependentUpon>ArticleReaderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Message\ReplyMessageItem.xaml.cs">
       <DependentUpon>ReplyMessageItem.xaml</DependentUpon>
@@ -437,8 +438,8 @@
     <Compile Include="Pages\Desktop\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\SpecialColumnPage.xaml.cs">
-      <DependentUpon>SpecialColumnPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\ArticlePartitionPage.xaml.cs">
+      <DependentUpon>ArticlePartitionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\ToolboxPage.xaml.cs">
       <DependentUpon>ToolboxPage.xaml</DependentUpon>
@@ -605,6 +606,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Article\ArticleItem\ArticleItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -796,7 +801,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\ReaderView.xaml">
+    <Page Include="Controls\Article\ArticleReaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1124,7 +1129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\SpecialColumnPage.xaml">
+    <Page Include="Pages\Desktop\ArticlePartitionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

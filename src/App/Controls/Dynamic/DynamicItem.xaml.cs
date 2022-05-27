@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
@@ -192,7 +191,8 @@ namespace Bili.App.Controls
             vm = Presenter.GetArticleViewModel();
             if (vm != null)
             {
-                await ReaderView.Instance.ShowAsync(vm as ArticleViewModel);
+                // await ArticleReaderView.Instance.ShowAsync(vm as ArticleViewModel);
+                await Task.CompletedTask;
             }
         }
 

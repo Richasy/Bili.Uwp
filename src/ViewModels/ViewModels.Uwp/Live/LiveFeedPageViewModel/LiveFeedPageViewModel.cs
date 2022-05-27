@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播首页视图模型.
     /// </summary>
-    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase
+    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase<LiveItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveFeedPageViewModel"/> class.
@@ -86,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Live
                 {
                     var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
                     liveVM.SetInformation(item);
-                    VideoCollection.Add(liveVM);
+                    Items.Add(liveVM);
                 }
             }
 

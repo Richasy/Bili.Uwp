@@ -2,7 +2,6 @@
 
 using System.Collections.ObjectModel;
 using System.Reactive;
-using Bili.ViewModels.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -12,7 +11,8 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
-    public partial class InformationFlowViewModelBase
+    /// <typeparam name="T">核心数据集合的类型.</typeparam>
+    public partial class InformationFlowViewModelBase<T>
     {
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
@@ -36,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 视频集合.
         /// </summary>
-        public ObservableCollection<IVideoBaseViewModel> VideoCollection { get; }
+        public ObservableCollection<T> Items { get; }
 
         /// <summary>
         /// 是否正在初始化.

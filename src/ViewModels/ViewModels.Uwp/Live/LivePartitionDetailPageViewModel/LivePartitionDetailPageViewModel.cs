@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播分区详情页面视图模型.
     /// </summary>
-    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase
+    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase<LiveItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePartitionDetailPageViewModel"/> class.
@@ -61,7 +61,7 @@ namespace Bili.ViewModels.Uwp.Live
             CurrentTag = null;
             _totalCount = -1;
             IsEmpty = false;
-            VideoCollection.Clear();
+            Items.Clear();
         }
 
         /// <inheritdoc/>
@@ -75,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <inheritdoc/>
         protected override async Task GetDataAsync()
         {
-            if (_totalCount >= 0 && VideoCollection.Count >= _totalCount)
+            if (_totalCount >= 0 && Items.Count >= _totalCount)
             {
                 return;
             }
@@ -101,10 +101,10 @@ namespace Bili.ViewModels.Uwp.Live
                 {
                     var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
                     liveVM.SetInformation(live);
-                    VideoCollection.Add(liveVM);
+                    Items.Add(liveVM);
                 }
 
-                var lives = VideoCollection
+                var lives = Items
                         .OfType<LiveItemViewModel>()
                         .Select(p => p.Information)
                         .ToList();
@@ -118,13 +118,13 @@ namespace Bili.ViewModels.Uwp.Live
                 }
             }
 
-            IsEmpty = VideoCollection.Count == 0;
+            IsEmpty = Items.Count == 0;
         }
 
         private async Task SelectTagAsync(LiveTag tag)
         {
             await Task.Delay(100);
-            VideoCollection.Clear();
+            Items.Clear();
             CurrentTag = tag;
             if (_caches.ContainsKey(tag))
             {
@@ -133,7 +133,7 @@ namespace Bili.ViewModels.Uwp.Live
                 {
                     var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
                     liveVM.SetInformation(live);
-                    VideoCollection.Add(liveVM);
+                    Items.Add(liveVM);
                 }
             }
             else

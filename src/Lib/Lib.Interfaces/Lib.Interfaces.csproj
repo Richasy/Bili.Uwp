@@ -128,7 +128,7 @@
     <Compile Include="IHttpProvider.cs" />
     <Compile Include="IHomeProvider.cs" />
     <Compile Include="ISearchProvider.cs" />
-    <Compile Include="ISpecialColumnProvider.cs" />
+    <Compile Include="IArticleProvider.cs" />
     <Compile Include="IPlayerProvider.cs" />
     <Compile Include="IUpdateProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

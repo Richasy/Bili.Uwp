@@ -84,11 +84,6 @@ namespace Bili.ViewModels.Uwp
         public string CollectTime { get; set; }
 
         /// <summary>
-        /// 文章原始数据.
-        /// </summary>
-        public Article Source { get; private set; }
-
-        /// <summary>
         /// 原始封面地址.
         /// </summary>
         public string SourceCoverUrl { get; set; }

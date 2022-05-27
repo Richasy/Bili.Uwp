@@ -98,7 +98,7 @@ namespace Bili.App.Controls
                     pageType = typeof(PopularPage);
                     break;
                 case PageIds.SpecialColumn:
-                    pageType = typeof(SpecialColumnPage);
+                    pageType = typeof(ArticlePartitionPage);
                     break;
                 case PageIds.Bangumi:
                     pageType = typeof(BangumiPage);
