@@ -12,7 +12,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Windows.Networking.Connectivity;
 
-namespace Bili.Lib.Uwp
+namespace Bili.SignIn.Uwp
 {
     /// <summary>
     /// 授权模块.

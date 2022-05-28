@@ -54,13 +54,17 @@
       <Project>{3046f10c-456e-43d3-8f13-3855ee2d9344}</Project>
       <Name>Adapter.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Lib.Implementation\Lib.Implementation.csproj">
+      <Project>{ee5c62af-b6b7-4cf9-895f-60adc1801175}</Project>
+      <Name>Lib.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
-      <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
+      <Project>{83dd339b-ea58-4380-8994-02fa6708cc7a}</Project>
       <Name>Lib.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Lib.Uwp\Lib.Uwp.csproj">
-      <Project>{c8ab398f-10c2-4b97-87f0-f09b922947d6}</Project>
-      <Name>Lib.Uwp</Name>
+    <ProjectReference Include="..\..\Lib\SignIn.Uwp\SignIn.Uwp.csproj">
+      <Project>{1E466E0C-5218-4892-9FDD-0E777795C545}</Project>
+      <Name>SignIn.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>

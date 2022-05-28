@@ -229,7 +229,7 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public async Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds)
         {
-            var ids = string.Join(',', videoIds);
+            var ids = string.Join(",", videoIds);
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.Aid, ids },

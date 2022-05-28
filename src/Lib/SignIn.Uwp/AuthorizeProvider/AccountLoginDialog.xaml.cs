@@ -4,17 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Microsoft.QueryStringDotNET;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.SignIn.Uwp
 {
     /// <summary>
     /// 用户登录对话框.
@@ -40,7 +40,7 @@ namespace Bili.Lib.Uwp
             this.InitializeComponent();
             this.Opened += OnOpenedAsync;
             this.Closed += OnClosed;
-            _authorizeProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>() as AuthorizeProvider;
+            _authorizeProvider = Splat.Locator.Current.GetService<IAuthorizeProvider>() as AuthorizeProvider;
             _taskCompletionSource = taskCompletionSource;
         }
 
@@ -175,7 +175,7 @@ namespace Bili.Lib.Uwp
         private async Task SwitchLoginTypeAsync(LoginType type)
         {
             _loginType = type;
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             switch (type)
             {
                 case LoginType.Password:
@@ -212,7 +212,7 @@ namespace Bili.Lib.Uwp
 
         private void ShowError(LanguageNames name)
         {
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
             ShowError(msg);
         }
@@ -224,7 +224,7 @@ namespace Bili.Lib.Uwp
 
         private void ShowQRTip(LanguageNames name)
         {
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
             QRMaskContainer.Visibility = Visibility.Visible;
             QRTipBlock.Text = msg;

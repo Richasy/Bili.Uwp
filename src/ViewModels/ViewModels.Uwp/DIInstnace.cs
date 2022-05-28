@@ -4,6 +4,7 @@ using Bili.Adapter;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Lib.Uwp;
+using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
 using Bili.ViewModels.Uwp.Article;

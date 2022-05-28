@@ -9,12 +9,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json.Linq;
+using Splat;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -24,7 +24,7 @@ using ZXing.Common;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.SignIn.Uwp
 {
     /// <summary>
     /// 授权模块的属性集及扩展.
@@ -62,7 +62,7 @@ namespace Bili.Lib.Uwp
                 }
             }
 
-            var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+            var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
             var query = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, RequestClientType.Login);
             query[Query.UserName] = userName;
             query[Query.Password] = encryptedPwd;
@@ -86,7 +86,7 @@ namespace Bili.Lib.Uwp
                         { Query.RefreshToken, _tokenInfo.RefreshToken },
                     };
 
-                    var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                    var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
                     var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.RefreshToken, queryParameters);
                     var response = await httpProvider.SendAsync(request);
                     var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
@@ -137,7 +137,7 @@ namespace Bili.Lib.Uwp
             string base64String;
             try
             {
-                var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
                 var param = await GenerateAuthorizedQueryDictionaryAsync(null, RequestClientType.Android);
                 var request = new HttpRequestMessage(HttpMethod.Post, Passport.PasswordEncrypt);
                 request.Content = new FormUrlEncodedContent(param);
@@ -194,7 +194,7 @@ namespace Bili.Lib.Uwp
                 {
                     { Query.LocalId, _guid },
                 };
-                var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
                 var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
@@ -258,7 +258,7 @@ namespace Bili.Lib.Uwp
 
             try
             {
-                var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
                 var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
@@ -310,7 +310,7 @@ namespace Bili.Lib.Uwp
         private async Task SSOInitAsync()
         {
             var url = Passport.SSO;
-            var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+            var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
             var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
             await httpProvider.SendAsync(request);
         }
@@ -326,7 +326,7 @@ namespace Bili.Lib.Uwp
 
                 try
                 {
-                    var httpProvider = ServiceLocator.Instance.GetService<IHttpProvider>();
+                    var httpProvider = Splat.Locator.Current.GetService<IHttpProvider>();
                     var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.CheckToken, queryParameters);
                     _ = await httpProvider.SendAsync(request);
                     return true;

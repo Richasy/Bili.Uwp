@@ -12,6 +12,7 @@ using Bili.Lib.Uwp;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.Data.User;
+using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
 using Microsoft.Extensions.DependencyInjection;

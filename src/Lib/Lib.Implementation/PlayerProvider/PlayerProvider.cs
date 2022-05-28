@@ -208,12 +208,12 @@ namespace Bili.Lib.Uwp
 
             if (needAddFavoriteList?.Any() ?? false)
             {
-                queryParameters.Add(Query.AddFavoriteIds, string.Join(',', needAddFavoriteList));
+                queryParameters.Add(Query.AddFavoriteIds, string.Join(",", needAddFavoriteList));
             }
 
             if (needRemoveFavoriteList?.Any() ?? false)
             {
-                queryParameters.Add(Query.DeleteFavoriteIds, string.Join(',', needRemoveFavoriteList));
+                queryParameters.Add(Query.DeleteFavoriteIds, string.Join(",", needRemoveFavoriteList));
             }
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);

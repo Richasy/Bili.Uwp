@@ -209,13 +209,17 @@
       <Project>{5213e830-43f5-491e-a8ef-d75083578ef3}</Project>
       <Name>Controller.Uwp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Lib.Implementation\Lib.Implementation.csproj">
+      <Project>{ee5c62af-b6b7-4cf9-895f-60adc1801175}</Project>
+      <Name>Lib.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
-      <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
+      <Project>{83dd339b-ea58-4380-8994-02fa6708cc7a}</Project>
       <Name>Lib.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Lib.Uwp\Lib.Uwp.csproj">
-      <Project>{c8ab398f-10c2-4b97-87f0-f09b922947d6}</Project>
-      <Name>Lib.Uwp</Name>
+    <ProjectReference Include="..\..\Lib\SignIn.Uwp\SignIn.Uwp.csproj">
+      <Project>{1e466e0c-5218-4892-9fdd-0e777795c545}</Project>
+      <Name>SignIn.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
       <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
