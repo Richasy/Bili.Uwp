@@ -32,10 +32,13 @@ namespace Bili.ViewModels.Uwp.Core
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             _settingToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
+            _networkHelper = Microsoft.Toolkit.Uwp.Connectivity.NetworkHelper.Instance;
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;
             _isWide = null;
             _controller.UpdateReceived += OnUpdateReceived;
+            _networkHelper.NetworkChanged += OnNetworkChanged;
+            IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
             CanShowBackButton = true;
             InitializeTheme();
         }
@@ -204,6 +207,10 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void OnUpdateReceived(object sender, UpdateEventArgs e) => RequestShowUpdateDialog?.Invoke(this, e);
+        private void OnUpdateReceived(object sender, UpdateEventArgs e)
+            => RequestShowUpdateDialog?.Invoke(this, e);
+
+        private void OnNetworkChanged(object sender, EventArgs e)
+            => IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
     }
 }

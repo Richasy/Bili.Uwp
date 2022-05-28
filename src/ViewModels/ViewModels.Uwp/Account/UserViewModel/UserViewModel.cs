@@ -12,8 +12,10 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Account;
 using Bilibili.App.View.V1;
 using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -116,10 +118,10 @@ namespace Bili.ViewModels.Uwp
             : this()
         {
             Id = userId;
-            CanFixPublisher = AccountViewModel.Instance.IsConnected && AccountViewModel.Instance.Mid != null;
+            CanFixPublisher = Splat.Locator.Current.GetService<AccountViewModel>().IsConnected && Splat.Locator.Current.GetService<AccountViewModel>().Mid != null;
             if (CanFixPublisher)
             {
-                IsPublisherFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == userId.ToString());
+                IsPublisherFixed = Splat.Locator.Current.GetService<AccountViewModel>().FixedItemCollection.Any(p => p.Id == userId.ToString());
             }
         }
 
@@ -281,7 +283,7 @@ namespace Bili.ViewModels.Uwp
         {
             if (IsPublisherFixed)
             {
-                await AccountViewModel.Instance.RemoveFixedItemAsync(Id.ToString());
+                await Splat.Locator.Current.GetService<AccountViewModel>().RemoveFixedItemAsync(Id.ToString());
             }
             else
             {
@@ -293,7 +295,7 @@ namespace Bili.ViewModels.Uwp
                     Type = Models.Enums.App.FixedType.Publisher,
                 };
 
-                await AccountViewModel.Instance.AddFixedItemAsync(p);
+                await Splat.Locator.Current.GetService<AccountViewModel>().AddFixedItemAsync(p);
             }
 
             IsPublisherFixed = !IsPublisherFixed;
@@ -355,9 +357,9 @@ namespace Bili.ViewModels.Uwp
 
         private void CheckFollowButtonVisibility()
         {
-            var accVM = AccountViewModel.Instance;
-            var isMe = accVM.Status == AccountViewModelStatus.Login && accVM.Mid == Id;
-            IsShowFollowButton = accVM.Status == AccountViewModelStatus.Login && !isMe;
+            var accVM = Splat.Locator.Current.GetService<AccountViewModel>();
+            var isMe = accVM.State == AuthorizeState.SignedIn && accVM.Mid == Id;
+            IsShowFollowButton = accVM.State == AuthorizeState.SignedIn && !isMe;
         }
 
         private void OnUserSpaceVideoIteration(object sender, UserSpaceVideoIterationEventArgs e)

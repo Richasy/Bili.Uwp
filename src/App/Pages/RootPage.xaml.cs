@@ -6,13 +6,13 @@ using Bili.App.Controls.Article;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
-using Bili.Models.Data.Article;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
+using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -139,7 +139,7 @@ namespace Bili.App.Pages.Desktop
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             CoreViewModel.InitializePadding();
-            await AccountViewModel.Instance.TrySignInAsync(true);
+            await Splat.Locator.Current.GetService<AccountViewModel>().TrySignInAsync(true);
 #if !DEBUG
             await CoreViewModel.CheckUpdateAsync();
 #endif

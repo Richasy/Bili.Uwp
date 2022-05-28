@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Account;
 using Bilibili.App.Dynamic.V2;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -55,7 +57,7 @@ namespace Bili.ViewModels.Uwp
         /// <inheritdoc/>
         public async Task InitializeRequestAsync()
         {
-            if (!AccountViewModel.Instance.IsConnected)
+            if (!Splat.Locator.Current.GetService<AccountViewModel>().IsConnected)
             {
                 Reset();
                 IsShowLogin = true;
@@ -88,7 +90,7 @@ namespace Bili.ViewModels.Uwp
 
         internal async Task DeltaRequestAsync()
         {
-            if (!IsDeltaLoading && !_isLoadCompleted && AccountViewModel.Instance.Status == AccountViewModelStatus.Login)
+            if (!IsDeltaLoading && !_isLoadCompleted && Splat.Locator.Current.GetService<AccountViewModel>().State == AuthorizeState.SignedIn)
             {
                 IsDeltaLoading = true;
                 await RequestAsync();

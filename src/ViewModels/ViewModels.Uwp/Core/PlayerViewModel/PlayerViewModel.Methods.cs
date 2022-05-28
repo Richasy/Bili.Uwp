@@ -13,7 +13,9 @@ using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp.Account;
 using Bilibili.App.View.V1;
+using Splat;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -253,7 +255,7 @@ namespace Bili.ViewModels.Uwp.Core
             ViewerCount = string.Empty;
             CoverUrl = _videoDetail.Arc.Pic;
             IsInteraction = _videoDetail.Interaction != null;
-            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == AvId);
+            IsContentFixed = Splat.Locator.Current.GetService<AccountViewModel>().FixedItemCollection.Any(p => p.Id == AvId);
             _videoDetail.Tag.Select(p => new VideoTag { Id = p.Id.ToString(), Name = p.Name.TrimStart('#'), Uri = p.Uri })
                 .ToList()
                 .ForEach(p => TagCollection.Add(p));
@@ -381,7 +383,7 @@ namespace Bili.ViewModels.Uwp.Core
             IsShowAlias = !string.IsNullOrEmpty(_pgcDetail.Alias);
             Alias = _pgcDetail.Alias ?? string.Empty;
             IsShowActor = _pgcDetail.Actor != null && !string.IsNullOrEmpty(_pgcDetail.Actor.Information);
-            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == SeasonId);
+            IsContentFixed = Splat.Locator.Current.GetService<AccountViewModel>().FixedItemCollection.Any(p => p.Id == SeasonId);
             if (IsShowActor)
             {
                 ActorTitle = _pgcDetail.Actor.Title;
@@ -506,7 +508,7 @@ namespace Bili.ViewModels.Uwp.Core
             var user = _liveDetail.AnchorInformation.UserBasicInformation;
             Publisher = new UserViewModel(user.UserName, user.Avatar, _liveDetail.RoomInformation.UserId);
             LivePartition = (_liveDetail.RoomInformation.ParentAreaName ?? "--") + " · " + _liveDetail.RoomInformation.AreaName;
-            IsContentFixed = AccountViewModel.Instance.FixedItemCollection.Any(p => p.Id == RoomId.ToString());
+            IsContentFixed = Splat.Locator.Current.GetService<AccountViewModel>().FixedItemCollection.Any(p => p.Id == RoomId.ToString());
             IsShowChat = true;
         }
 
@@ -522,8 +524,8 @@ namespace Bili.ViewModels.Uwp.Core
             _currentVideo = null;
 
             FormatCollection.Clear();
-            var isLogin = AccountViewModel.Instance.Mid != null && AccountViewModel.Instance.Mid > 0;
-            var isVip = AccountViewModel.Instance.IsVip;
+            var isLogin = Splat.Locator.Current.GetService<AccountViewModel>().Mid != null && Splat.Locator.Current.GetService<AccountViewModel>().Mid > 0;
+            var isVip = Splat.Locator.Current.GetService<AccountViewModel>().IsVip;
             foreach (var format in videoPlayView.SupportFormats)
             {
                 var canAdd = false;
@@ -912,9 +914,9 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeUserRelationAsync()
         {
-            if (AccountViewModel.Instance.Status != AccountViewModelStatus.Login ||
+            if (Splat.Locator.Current.GetService<AccountViewModel>().State != AuthorizeState.SignedIn ||
                 IsShowStaff ||
-                AccountViewModel.Instance.Mid.Value == Publisher.Id)
+                Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value == Publisher.Id)
             {
                 return;
             }

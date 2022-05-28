@@ -16,6 +16,7 @@ using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
@@ -744,8 +745,8 @@ namespace Bili.ViewModels.Uwp.Core
         /// <returns><see cref="Task"/>.</returns>
         public async Task LoadFavoritesAsync()
         {
-            var accVM = AccountViewModel.Instance;
-            if (accVM.Status != AccountViewModelStatus.Login || IsRequestingFavorites)
+            var accVM = Splat.Locator.Current.GetService<AccountViewModel>();
+            if (accVM.State != AuthorizeState.SignedIn || IsRequestingFavorites)
             {
                 return;
             }
@@ -755,7 +756,7 @@ namespace Bili.ViewModels.Uwp.Core
                 IsRequestFavoritesError = false;
                 FavoriteMetaCollection.Clear();
                 IsRequestingFavorites = true;
-                var favorites = await Controller.GetFavoriteListAsync(AccountViewModel.Instance.Mid.Value, Convert.ToInt32(GetAid()));
+                var favorites = await Controller.GetFavoriteListAsync(Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value, Convert.ToInt32(GetAid()));
                 if (favorites.Count > 0)
                 {
                     favorites.ForEach(p => FavoriteMetaCollection.Add(new FavoriteMetaViewModel(p, p.FavoriteState == 1)));
@@ -902,11 +903,11 @@ namespace Bili.ViewModels.Uwp.Core
             var item = ConvertToFixItem();
             if (IsContentFixed)
             {
-                await AccountViewModel.Instance.RemoveFixedItemAsync(item.Id);
+                await Splat.Locator.Current.GetService<AccountViewModel>().RemoveFixedItemAsync(item.Id);
             }
             else
             {
-                await AccountViewModel.Instance.AddFixedItemAsync(item);
+                await Splat.Locator.Current.GetService<AccountViewModel>().AddFixedItemAsync(item);
             }
 
             IsContentFixed = !IsContentFixed;

@@ -9,8 +9,10 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -110,7 +112,7 @@ namespace Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task InitializeRequestAsync()
         {
-            UserName = AccountViewModel.Instance.DisplayName;
+            UserName = Splat.Locator.Current.GetService<AccountViewModel>().DisplayName;
 
             if (!IsInitializeLoading && !IsDeltaLoading)
             {

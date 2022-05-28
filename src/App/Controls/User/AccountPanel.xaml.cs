@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
@@ -18,7 +18,7 @@ namespace Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(AccountViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(Splat.Locator.Current.GetService<AccountViewModel>()));
 
         private readonly NavigationViewModel _navigationViewModel;
 
@@ -47,7 +47,7 @@ namespace Bili.App.Controls
 
         private async void OnDynamicButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            await UserView.Instance.ShowAsync(AccountViewModel.Instance.Mid.Value);
+            await UserView.Instance.ShowAsync(Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 

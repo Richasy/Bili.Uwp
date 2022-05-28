@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Desktop
@@ -84,7 +86,7 @@ namespace Bili.App.Pages.Desktop
         private async void OnLoginButtonClickAsync(object sender, RoutedEventArgs e)
         {
             LoginButton.IsEnabled = false;
-            await AccountViewModel.Instance.TrySignInAsync();
+            await Splat.Locator.Current.GetService<AccountViewModel>().TrySignInAsync();
             if (LoginButton != null)
             {
                 LoginButton.IsEnabled = true;

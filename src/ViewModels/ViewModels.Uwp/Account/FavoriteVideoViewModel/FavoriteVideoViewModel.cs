@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -116,7 +118,7 @@ namespace Bili.ViewModels.Uwp
                 Name = detail.Title;
                 Description = detail.Description;
                 TotalCount = detail.MediaCount;
-                IsMine = detail.Publisher.Mid == AccountViewModel.Instance.Mid.Value;
+                IsMine = detail.Publisher.Mid == Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value;
             }
 
             if (response.Medias != null && response.Medias.Count > 0)

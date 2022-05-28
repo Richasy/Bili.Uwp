@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Controller.Uwp;
 using Bili.Models.BiliBili;
+using Bili.ViewModels.Uwp.Account;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -19,7 +21,7 @@ namespace Bili.ViewModels.Uwp
         /// <param name="data">数据.</param>
         public FavoriteListDetailViewModel(FavoriteListDetail data)
         {
-            var accVM = AccountViewModel.Instance;
+            var accVM = Splat.Locator.Current.GetService<AccountViewModel>();
             var isMe = accVM.Mid.HasValue && accVM.Mid.Value == data.Mid;
             Data = data;
 

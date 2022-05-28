@@ -1,7 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.Models.Enums;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls
@@ -103,7 +106,7 @@ namespace Bili.App.Controls
             ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
             ViewModel.IsFavoriteChecked = !ViewModel.IsFavoriteChecked;
 
-            if (AccountViewModel.Instance.Status == AccountViewModelStatus.Login)
+            if (Splat.Locator.Current.GetService<AccountViewModel>().State == AuthorizeState.SignedIn)
             {
                 FavoriteFlyout.ShowAt(FavoriteButton);
                 await ViewModel.LoadFavoritesAsync();

@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Bili.Controller.Uwp;
 using Bili.Models.BiliBili;
+using Bili.ViewModels.Uwp.Account;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -90,7 +92,7 @@ namespace Bili.ViewModels.Uwp
                 IsDeltaLoading = true;
                 try
                 {
-                    var response = await BiliController.Instance.GetFavoriteFolderListAsync(AccountViewModel.Instance.Mid.Value, _pageNumber, IsMine);
+                    var response = await BiliController.Instance.GetFavoriteFolderListAsync(Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value, _pageNumber, IsMine);
                     HandleMediaList(response);
                 }
                 catch (System.Exception)

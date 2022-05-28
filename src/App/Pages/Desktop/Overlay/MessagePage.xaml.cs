@@ -3,6 +3,8 @@
 using System.ComponentModel;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
@@ -99,7 +101,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             if (!ViewModel.IsCurrentTypeRequested())
             {
                 await ViewModel.InitializeRequestAsync();
-                await AccountViewModel.Instance.InitUnreadAsync();
+                await Splat.Locator.Current.GetService<AccountViewModel>().InitUnreadAsync();
             }
         }
 

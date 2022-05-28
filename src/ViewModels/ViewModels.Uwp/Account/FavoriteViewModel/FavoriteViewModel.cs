@@ -7,6 +7,8 @@ using Bili.Locator.Uwp;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -98,8 +100,8 @@ namespace Bili.ViewModels.Uwp
                 }
 
                 var myInfo = response.DefaultFavoriteList.Detail.Publisher;
-                myInfo.Publisher = AccountViewModel.Instance.DisplayName;
-                myInfo.PublisherAvatar = AccountViewModel.Instance.Avatar;
+                myInfo.Publisher = Splat.Locator.Current.GetService<AccountViewModel>().DisplayName;
+                myInfo.PublisherAvatar = Splat.Locator.Current.GetService<AccountViewModel>().Avatar;
 
                 DefaultVideoViewModel = new FavoriteVideoViewModel(response.DefaultFavoriteList);
             }

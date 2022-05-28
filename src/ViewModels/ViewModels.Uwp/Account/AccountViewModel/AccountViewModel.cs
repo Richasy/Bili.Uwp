@@ -3,18 +3,18 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Bili.Controller.Uwp;
-using Bili.Locator.Uwp;
+using Bili.Lib.Interfaces;
 using Bili.Models.App;
 using Bili.Models.App.Constants;
-using Bili.Models.App.Other;
-using Bili.Models.Data.User;
 using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
     /// 用户视图模型.
@@ -24,18 +24,35 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountViewModel"/> class.
         /// </summary>
-        internal AccountViewModel()
+        internal AccountViewModel(
+            IResourceToolkit resourceToolkit,
+            INumberToolkit numberToolkit,
+            IFileToolkit fileToolkit,
+            IAuthorizeProvider authorizeProvider,
+            IAccountProvider accountProvider,
+            AppViewModel appViewModel)
         {
+            _resourceToolkit = resourceToolkit;
+            _numberToolkit = numberToolkit;
+            _fileToolkit = fileToolkit;
+            _authorizeProvider = authorizeProvider;
+            _accountProvider = accountProvider;
+            _appViewModel = appViewModel;
+
             FixedItemCollection = new ObservableCollection<FixedItem>();
-            _controller = BiliController.Instance;
-            _controller.Logged += OnLoggedAsync;
-            _controller.LoggedFailed += OnLoggedFailedAsync;
-            _controller.LoggedOut += OnLoggedOut;
-            _controller.AccountChanged += OnAccountChangedAsync;
-            Status = AccountViewModelStatus.Logout;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _numberToolkit)
-                                   .LoadService(out _fileToolkit);
+            _authorizeProvider.StateChanged += OnAuthorizeStateChangedAsync;
+            State = _authorizeProvider.State;
+
+            this.WhenAnyValue(x => x.State)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(async state =>
+                {
+                    if (state == AuthorizeState.SignedIn)
+                    {
+                        await GetMyProfileAsync();
+                    }
+                });
+
             Reset();
         }
 
@@ -46,13 +63,13 @@ namespace Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task<bool> TrySignInAsync(bool isSlientOnly = false)
         {
-            if (Status != AccountViewModelStatus.Logout)
+            if (State != AuthorizeState.SignedOut)
             {
-                return Status == AccountViewModelStatus.Login;
+                return State == AuthorizeState.SignedIn;
             }
 
-            Status = AccountViewModelStatus.Logging;
-            return await _controller.TrySignInAsync(isSlientOnly);
+            State = AuthorizeState.Loading;
+            return await InternalSignInAsync(isSlientOnly);
         }
 
         /// <summary>
@@ -60,7 +77,10 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         public async Task SignOutAsync()
-            => await _controller.SignOutAsync();
+        {
+            _isRequestLogout = true;
+            await _authorizeProvider.SignOutAsync();
+        }
 
         /// <summary>
         /// 获取我的账户资料.
@@ -70,13 +90,19 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                await _controller.RequestMyProfileAsync();
+                if (_appViewModel.IsNetworkAvaliable
+                    && await _authorizeProvider.IsTokenValidAsync())
+                {
+                    _accountInformation = await _accountProvider.GetMyInformationAsync();
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                Status = AccountViewModelStatus.Logout;
+                LogException(ex);
+                State = AuthorizeState.SignedOut;
             }
+
+            await InitializeAccountInformationAsync();
         }
 
         /// <summary>
@@ -87,7 +113,7 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                var data = await _controller.GetMyCommunityInformationAsync();
+                var data = await _accountProvider.GetMyCommunityInformationAsync();
                 DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
                 FollowCount = _numberToolkit.GetCountText(data.FollowCount);
                 FollowerCount = _numberToolkit.GetCountText(data.FansCount);
@@ -107,7 +133,7 @@ namespace Bili.ViewModels.Uwp
         {
             try
             {
-                var unread = await _controller.GetUnreadMessageAsync();
+                var unread = await _accountProvider.GetUnreadMessageAsync();
                 MessageModuleViewModel.Instance.InitializeUnreadCount(unread);
                 UnreadMessageCount = unread.At + unread.Like + unread.Reply;
                 IsShowUnreadMessage = UnreadMessageCount != 0;
@@ -157,58 +183,26 @@ namespace Bili.ViewModels.Uwp
             IsShowFixedItem = FixedItemCollection.Count > 0;
         }
 
-        private void OnLoggedOut(object sender, EventArgs e)
+        private async Task InitializeAccountInformationAsync()
         {
-            Status = AccountViewModelStatus.Logout;
-            Reset();
-        }
-
-        private async void OnLoggedFailedAsync(object sender, Exception e)
-        {
-            Debug.WriteLine($"Login failed: {e.Message}");
-
-            // 它仅在用户未登录时触发.
-            if (Status != AccountViewModelStatus.Login)
+            if (_accountInformation == null)
             {
-                Reset();
-                Status = AccountViewModelStatus.Logout;
-
-                if (e is ServiceException serviceEx && (!serviceEx.Error?.IsHttpError ?? true))
-                {
-                    await _controller.SignOutAsync();
-                }
+                return;
             }
-        }
 
-        private async void OnLoggedAsync(object sender, EventArgs e)
-        {
-            if (Status != AccountViewModelStatus.Login)
-            {
-                IsConnected = true;
-                await GetMyProfileAsync();
-                await InitializeFixedItemAsync();
-                Status = AccountViewModelStatus.Login;
-            }
-        }
+            Avatar = _accountInformation.User.Avatar.Uri;
+            DisplayName = _accountInformation.User.Name;
+            Level = _accountInformation.Level;
+            TipText = $"{_accountInformation.User.Name} Lv.{_accountInformation.Level}";
+            IsVip = _accountInformation.IsVip;
 
-        private async void OnAccountChangedAsync(object sender, AccountInformation e)
-        {
-            if (e != null)
-            {
-                _accountInformation = e;
-                Avatar = e.User.Avatar.Uri;
-                DisplayName = e.User.Name;
-                Level = e.Level;
-                TipText = $"{e.User.Name} Lv.{e.Level}";
-                IsVip = e.IsVip;
-
-                await InitUnreadAsync();
-            }
+            await InitUnreadAsync();
         }
 
         private void Reset()
         {
             _accountInformation = null;
+            _isRequestLogout = false;
             Avatar = string.Empty;
             DisplayName = string.Empty;
             Level = 0;

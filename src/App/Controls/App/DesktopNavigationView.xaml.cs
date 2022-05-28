@@ -8,7 +8,7 @@ using Bili.Models.App;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;

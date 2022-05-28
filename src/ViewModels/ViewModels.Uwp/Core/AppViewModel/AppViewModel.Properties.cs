@@ -6,6 +6,7 @@ using Bili.Models.App.Args;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
+using Microsoft.Toolkit.Uwp.Connectivity;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Xaml;
 
@@ -20,6 +21,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ISettingsToolkit _settingToolkit;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly BiliController _controller;
+        private readonly NetworkHelper _networkHelper;
 
         private bool? _isWide;
 
@@ -112,5 +114,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsShowMenuButton { get; set; }
+
+        /// <summary>
+        /// 网络是否可用.
+        /// </summary>
+        [Reactive]
+        public bool IsNetworkAvaliable { get; set; }
     }
 }

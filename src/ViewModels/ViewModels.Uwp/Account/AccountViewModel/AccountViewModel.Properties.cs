@@ -2,50 +2,30 @@
 
 using System;
 using System.Collections.ObjectModel;
-using Bili.Controller.Uwp;
+using Bili.Lib.Interfaces;
 using Bili.Models.App;
 using Bili.Models.Data.User;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Account
 {
-    /// <summary>
-    /// 当前用户视图模型状态.
-    /// </summary>
-    public enum AccountViewModelStatus
-    {
-        /// <summary>
-        /// 用户已登出.
-        /// </summary>
-        Logout,
-
-        /// <summary>
-        /// 用户已登录.
-        /// </summary>
-        Login,
-
-        /// <summary>
-        /// 用户正在登录.
-        /// </summary>
-        Logging,
-    }
-
     /// <summary>
     /// 用户试图模型属性集.
     /// </summary>
     public partial class AccountViewModel
     {
-        private readonly BiliController _controller;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly IFileToolkit _fileToolkit;
-        private AccountInformation _accountInformation;
+        private readonly IAuthorizeProvider _authorizeProvider;
+        private readonly IAccountProvider _accountProvider;
+        private readonly AppViewModel _appViewModel;
 
-        /// <summary>
-        /// <see cref="AccountViewModel"/>的实例.
-        /// </summary>
-        public static AccountViewModel Instance { get; } = new Lazy<AccountViewModel>(() => new AccountViewModel()).Value;
+        private AccountInformation _accountInformation;
+        private bool _isRequestLogout = false;
 
         /// <summary>
         /// 登录用户Id.
@@ -61,7 +41,7 @@ namespace Bili.ViewModels.Uwp
         /// 当前视图模型状态.
         /// </summary>
         [Reactive]
-        public AccountViewModelStatus Status { get; set; }
+        public AuthorizeState State { get; set; }
 
         /// <summary>
         /// 头像.

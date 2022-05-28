@@ -8,6 +8,8 @@ using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -48,7 +50,7 @@ namespace Bili.ViewModels.Uwp
                 _currentUserId = userId;
                 UserName = userName;
                 IsRequested = false;
-                var isMe = userId == (AccountViewModel.Instance.Mid ?? 0);
+                var isMe = userId == (Splat.Locator.Current.GetService<AccountViewModel>().Mid ?? 0);
                 _maxQueryNumber = isMe ? 1000 : 100;
                 return true;
             }

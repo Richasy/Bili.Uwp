@@ -9,8 +9,10 @@ using Bili.Lib.Interfaces;
 using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.Storage.Pickers;
 
 namespace Bili.ViewModels.Uwp
@@ -237,7 +239,7 @@ namespace Bili.ViewModels.Uwp
                 "BBDown",
             };
 
-            if (AccountViewModel.Instance.Status == AccountViewModelStatus.Login)
+            if (Splat.Locator.Current.GetService<AccountViewModel>().State == AuthorizeState.SignedIn)
             {
                 var authProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>();
                 var token = await authProvider.GetTokenAsync();

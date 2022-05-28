@@ -13,6 +13,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using Bilibili.Community.Service.Dm.V1;
 using Splat;
@@ -342,7 +343,7 @@ namespace Bili.App.Controls
         {
             if (_danmakuView != null)
             {
-                var myName = AccountViewModel.Instance.DisplayName;
+                var myName = Splat.Locator.Current.GetService<AccountViewModel>().DisplayName;
                 var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
                 var model = new DanmakuItem
                 {
