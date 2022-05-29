@@ -1,21 +1,31 @@
-﻿<pages:AppPage
+﻿<local:MessagePageBase
     x:Class="Bili.App.Pages.Desktop.Overlay.MessagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.App.Controls.Community"
+    xmlns:community1="using:Bili.ViewModels.Uwp.Community"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pages="using:Bili.App.Pages.Desktop"
     mc:Ignorable="d">
 
-    <Grid>
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="8">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -28,73 +38,90 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RefreshButton.Margin" Value="{StaticResource NarrowContainerPadding}" />
+                        <Setter Target="RepeaterView.ItemOrientation" Value="Horizontal" />
+                        <Setter Target="RepeaterView.IsStaggered" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <TextBlock
-            Style="{StaticResource TitleTextBlockStyle}"
-            Margin="0,0,0,8"
-            HorizontalAlignment="Left"
-            Text="{loc:LocaleLocator Name=Message}"
-            TextTrimming="CharacterEllipsis" />
+
+        <app:PageHeader Title="{loc:LocaleLocator Name=Message}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+
         <muxc:NavigationView
             x:Name="Nav"
+            Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            HorizontalAlignment="Stretch"
-            IsBackButtonVisible="Collapsed"
-            IsPaneToggleButtonVisible="False"
-            IsSettingsVisible="False"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
-            PaneDisplayMode="Top">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Name="ReplyMeNavItem" Content="{loc:LocaleLocator Name=ReplyMe}">
-                    <muxc:NavigationViewItem.InfoBadge>
-                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewReplyMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewReplyMessageCount, Mode=OneWay}" />
-                    </muxc:NavigationViewItem.InfoBadge>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="AtMeNavItem" Content="{loc:LocaleLocator Name=AtMe}">
-                    <muxc:NavigationViewItem.InfoBadge>
-                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewAtMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewAtMessageCount, Mode=OneWay}" />
-                    </muxc:NavigationViewItem.InfoBadge>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="LikeMeNavItem" Content="{loc:LocaleLocator Name=LikeMe}">
-                    <muxc:NavigationViewItem.InfoBadge>
-                        <muxc:InfoBadge Visibility="{x:Bind ViewModel.NewLikeMessageCount, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}" Value="{x:Bind ViewModel.NewLikeMessageCount, Mode=OneWay}" />
-                    </muxc:NavigationViewItem.InfoBadge>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
-
-            <muxc:NavigationView.PaneFooter>
-                <Button
-                    x:Name="RefreshButton"
-                    Margin="{StaticResource DefaultContainerPadding}"
-                    VerticalAlignment="Center"
-                    Click="OnRefreshButtonClickAsync">
-                    <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:LocaleLocator Name=Refresh}" />
-                </Button>
-            </muxc:NavigationView.PaneFooter>
-
-            <Grid>
-                <ScrollViewer
-                    x:Name="ContentScrollViewer"
-                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                    <Grid Margin="0,-12,0,12" VerticalAlignment="Top">
-                        <controls:LikeMessageView x:Name="LikeMessageView" Visibility="Collapsed" />
-                        <controls:AtMessageView x:Name="AtMessageView" Visibility="Collapsed" />
-                        <controls:ReplyMessageView x:Name="ReplyMessageView" Visibility="Collapsed" />
-                    </Grid>
-                </ScrollViewer>
-                <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-                <controls:ErrorPanel
-                    ActionButtonClick="OnRefreshButtonClickAsync"
-                    ActionContent="{loc:LocaleLocator Name=Refresh}"
-                    Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-            </Grid>
+            MenuItemsSource="{x:Bind ViewModel.MessageTypes}"
+            SelectedItem="{x:Bind ViewModel.CurrentType, Mode=OneWay}">
+            <muxc:NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="community1:MessageHeaderViewModel">
+                    <muxc:NavigationViewItem Content="{x:Bind}">
+                        <muxc:NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="community1:MessageHeaderViewModel">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Margin="4,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Foreground="{ThemeResource AccentTextFillColorSecondaryBrush}"
+                                        Text="{x:Bind Count, Mode=OneWay}"
+                                        Visibility="{x:Bind IsShowBadge, Mode=OneWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </muxc:NavigationViewItem.ContentTemplate>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </muxc:NavigationView.MenuItemTemplate>
         </muxc:NavigationView>
+
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="2"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:VerticalRepeaterView
+                x:Name="RepeaterView"
+                Margin="0,0,0,12"
+                HeaderVisibility="Collapsed"
+                IsStaggered="True"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                MinWideItemHeight="120"
+                MinWideItemWidth="260">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:IncrementalBehavior />
+                </interactivity:Interaction.Behaviors>
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="community1:MessageItemViewModel">
+                        <community:MessageItem ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="2"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+
+        <controls:ErrorPanel
+            Grid.Row="2"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+
+        <controls:ErrorPanel
+            Grid.Row="2"
+            Text="{loc:LocaleLocator Name=NoSpecificData}"
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
-</pages:AppPage>
+</local:MessagePageBase>

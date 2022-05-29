@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="ms-appx:///Controls/Live/LiveItem/LiveItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Article/ArticleItem/ArticleItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Community/MessageItem/MessageItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />

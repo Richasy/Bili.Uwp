@@ -17,6 +17,7 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
+        private bool _isNeedLoadAgain;
 
         /// <summary>
         /// 初始化命令.

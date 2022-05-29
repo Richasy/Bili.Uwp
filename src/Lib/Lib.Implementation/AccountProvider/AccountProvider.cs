@@ -8,6 +8,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
+using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -33,6 +34,7 @@ namespace Bili.Lib.Uwp
             _httpProvider = httpProvider;
             _userAdapter = userAdapter;
             _communityAdapter = communityAdapter;
+            _messageOffsetCache = new Dictionary<MessageType, MessageCursor>();
         }
 
         /// <inheritdoc/>
@@ -408,25 +410,28 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<UnreadMessage> GetUnreadMessageAsync()
+        public async Task<UnreadInformation> GetUnreadMessageAsync()
         {
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MessageUnread, null, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UnreadMessage>>(response);
-            return result.Data;
+            return _communityAdapter.ConvertToUnreadInformation(result.Data);
         }
 
         /// <inheritdoc/>
-        public Task<LikeMessageResponse> GetLikeMessagesAsync(long id, long likeTime)
-            => GetMessageInternalAsync<LikeMessageResponse>(Models.Enums.App.MessageType.Like, id, likeTime);
+        public async Task<MessageView> GetMyMessagesAsync(MessageType type)
+        {
+            var id = 0L;
+            var time = 0L;
+            if (_messageOffsetCache.TryGetValue(type, out var cache))
+            {
+                id = cache.Id;
+                time = cache.Time;
+            }
 
-        /// <inheritdoc/>
-        public Task<AtMessageResponse> GetAtMessagesAsync(long id, long atTime)
-            => GetMessageInternalAsync<AtMessageResponse>(Models.Enums.App.MessageType.At, id, atTime);
-
-        /// <inheritdoc/>
-        public Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime)
-            => GetMessageInternalAsync<ReplyMessageResponse>(Models.Enums.App.MessageType.Reply, id, replyTime);
+            var data = await GetMessageInternalAsync(type, id, time);
+            return data;
+        }
 
         /// <inheritdoc/>
         public async Task<UserRelationResponse> GetRelationAsync(int targetUserId)
@@ -483,5 +488,9 @@ namespace Bili.Lib.Uwp
             var result = await _httpProvider.ParseAsync<ServerResponse<List<RelatedUser>>>(response);
             return result.Data;
         }
+
+        /// <inheritdoc/>
+        public void ClearMessageStatus()
+            => _messageOffsetCache.Clear();
     }
 }

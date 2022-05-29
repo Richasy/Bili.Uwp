@@ -58,6 +58,7 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Community\MessageItem\MessageItem.cs" />
     <Compile Include="Controls\Community\PartitionItem\PartitionItem.cs" />
     <Compile Include="Controls\Dynamic\DynamicArticleItem.xaml.cs">
       <DependentUpon>DynamicArticleItem.xaml</DependentUpon>
@@ -133,12 +134,6 @@
       <DependentUpon>DownloadOptionsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IRefreshPage.cs" />
-    <Compile Include="Controls\Message\AtMessageView.xaml.cs">
-      <DependentUpon>AtMessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\AtMessageItem.xaml.cs">
-      <DependentUpon>AtMessageItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
       <DependentUpon>DynamicItem.xaml</DependentUpon>
     </Compile>
@@ -161,13 +156,6 @@
     <Compile Include="Controls\Favorite\PgcFavoritePanel.xaml.cs">
       <DependentUpon>PgcFavoritePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Message\LikeMessageItem.xaml.cs">
-      <DependentUpon>LikeMessageItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\LikeMessageView.xaml.cs">
-      <DependentUpon>LikeMessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\MessageComponent.cs" />
     <Compile Include="Controls\Pgc\PgcDetailView.xaml.cs">
       <DependentUpon>PgcDetailView.xaml</DependentUpon>
     </Compile>
@@ -191,12 +179,6 @@
     </Compile>
     <Compile Include="Controls\Article\ArticleReaderView.xaml.cs">
       <DependentUpon>ArticleReaderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\ReplyMessageItem.xaml.cs">
-      <DependentUpon>ReplyMessageItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\ReplyMessageView.xaml.cs">
-      <DependentUpon>ReplyMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\QuestionPanel.xaml.cs">
       <DependentUpon>QuestionPanel.xaml</DependentUpon>
@@ -621,6 +603,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Community\MessageItem\MessageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Community\PartitionItem\PartitionItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -729,14 +715,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Message\AtMessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Message\AtMessageItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Dynamic\DynamicItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -762,14 +740,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Favorite\PgcFavoritePanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Message\LikeMessageItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Message\LikeMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -802,14 +772,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Article\ArticleReaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Message\ReplyMessageItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Message\ReplyMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

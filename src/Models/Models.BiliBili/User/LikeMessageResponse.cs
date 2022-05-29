@@ -34,7 +34,7 @@ namespace Bili.Models.BiliBili
         /// 消息列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items", Required = Required.Default)]
-        public List<MessageItem> Items { get; set; }
+        public List<LikeMessageItem> Items { get; set; }
 
         /// <summary>
         /// 上次查看时间.
@@ -71,7 +71,7 @@ namespace Bili.Models.BiliBili
         /// 点赞时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "like_time", Required = Required.Default)]
-        public int LikeTime { get; set; }
+        public long LikeTime { get; set; }
 
         /// <summary>
         /// 是否是最新消息（应用内赋值）.

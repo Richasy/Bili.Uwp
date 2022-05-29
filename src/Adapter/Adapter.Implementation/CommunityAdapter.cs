@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
@@ -19,19 +21,23 @@ namespace Bili.Adapter
     public sealed class CommunityAdapter : ICommunityAdapter
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
         private readonly IImageAdapter _imageAdapter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunityAdapter"/> class.
         /// </summary>
         /// <param name="numberToolkit">数字处理工具.</param>
+        /// <param name="resourceToolkit">资源管理工具.</param>
         /// <param name="imageAdapter">图片数据适配器.</param>
         public CommunityAdapter(
             INumberToolkit numberToolkit,
+            IResourceToolkit resourceToolkit,
             IImageAdapter imageAdapter)
         {
             _numberToolkit = numberToolkit;
             _imageAdapter = imageAdapter;
+            _resourceToolkit = resourceToolkit;
         }
 
         /// <inheritdoc/>
@@ -347,6 +353,161 @@ namespace Bili.Adapter
                 stat.PlayCount,
                 stat.DanmakuCount,
                 favoriteCount: stat.FavoriteCount);
+        }
+
+        /// <inheritdoc/>
+        public UnreadInformation ConvertToUnreadInformation(UnreadMessage message)
+            => new UnreadInformation(message.At, message.Reply, message.Like);
+
+        /// <inheritdoc/>
+        public MessageInformation ConvertToMessageInformation(LikeMessageItem messageItem)
+        {
+            var isMultiple = messageItem.Users.Count > 1;
+            var firstUser = messageItem.Users[0];
+            var userName = firstUser.UserName;
+            var avatar = _imageAdapter.ConvertToImage(firstUser.Avatar, 48, 48);
+            string message;
+            if (isMultiple)
+            {
+                var secondUser = messageItem.Users[1];
+                message = string.Format(
+                        _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LikeMessageMultipleDescription),
+                        userName,
+                        secondUser.UserName,
+                        messageItem.Count,
+                        messageItem.Item.Business);
+            }
+            else
+            {
+                message = string.Format(
+                        _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LikeMessageSingleDescription),
+                        userName,
+                        messageItem.Item.Business);
+            }
+
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.LikeTime).ToLocalTime().DateTime;
+            var id = messageItem.Id.ToString();
+            var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
+                ? messageItem.Item.Description
+                : messageItem.Item.Title;
+            var sourceId = messageItem.Item.Uri;
+
+            return new MessageInformation(
+                id,
+                Models.Enums.App.MessageType.Like,
+                avatar,
+                string.Empty,
+                isMultiple,
+                publishTime,
+                string.Empty,
+                message,
+                sourceContent,
+                sourceId);
+        }
+
+        /// <inheritdoc/>
+        public MessageInformation ConvertToMessageInformation(AtMessageItem messageItem)
+        {
+            var user = messageItem.User;
+            var userName = user.UserName;
+            var avatar = _imageAdapter.ConvertToImage(user.Avatar, 48, 48);
+            var subtitle = string.Format(
+                _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtMessageTypeDescription),
+                messageItem.Item.Business);
+            var message = messageItem.Item.SourceContent;
+            var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
+                ? _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NoSpecificData)
+                : messageItem.Item.Title;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.AtTime).ToLocalTime().DateTime;
+            var id = messageItem.Id.ToString();
+            var sourceId = messageItem.Item.Uri;
+
+            return new MessageInformation(
+                id,
+                Models.Enums.App.MessageType.At,
+                avatar,
+                userName,
+                false,
+                publishTime,
+                subtitle,
+                message,
+                sourceContent,
+                sourceId);
+        }
+
+        /// <inheritdoc/>
+        public MessageInformation ConvertToMessageInformation(ReplyMessageItem messageItem)
+        {
+            var user = messageItem.User;
+            var userName = user.UserName;
+            var avatar = _imageAdapter.ConvertToImage(user.Avatar, 48, 48);
+            var isMultiple = messageItem.IsMultiple == 1;
+            var subtitle = string.Format(
+                _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplyMessageTypeDescription),
+                messageItem.Item.Business,
+                messageItem.Counts);
+            var message = messageItem.Item.SourceContent;
+            var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
+                ? messageItem.Item.Description
+                : messageItem.Item.Title;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.ReplyTime).ToLocalTime().DateTime;
+            var id = messageItem.Id.ToString();
+            var sourceId = messageItem.Item.SubjectId.ToString();
+            var properties = new Dictionary<string, string>()
+            {
+                { "type", messageItem.Item.BusinessId },
+            };
+
+            return new MessageInformation(
+                id,
+                Models.Enums.App.MessageType.Reply,
+                avatar,
+                userName,
+                isMultiple,
+                publishTime,
+                subtitle,
+                message,
+                sourceContent,
+                sourceId,
+                properties);
+        }
+
+        /// <inheritdoc/>
+        public MessageView ConvertToMessageView(LikeMessageResponse messageResponse)
+        {
+            var cursor = messageResponse.Total.Cursor;
+            var items = new List<MessageInformation>();
+            if (messageResponse.Latest != null)
+            {
+                items = items
+                    .Concat(messageResponse.Latest.Items.Select(p => ConvertToMessageInformation(p)))
+                    .ToList();
+            }
+
+            if (messageResponse.Total != null)
+            {
+                items = items
+                    .Concat(messageResponse.Total.Items.Select(p => ConvertToMessageInformation(p)))
+                    .ToList();
+            }
+
+            return new MessageView(items, cursor.IsEnd);
+        }
+
+        /// <inheritdoc/>
+        public MessageView ConvertToMessageView(AtMessageResponse messageResponse)
+        {
+            var cursor = messageResponse.Cursor;
+            var items = messageResponse.Items.Select(p => ConvertToMessageInformation(p)).ToList();
+            return new MessageView(items, cursor.IsEnd);
+        }
+
+        /// <inheritdoc/>
+        public MessageView ConvertToMessageView(ReplyMessageResponse messageResponse)
+        {
+            var cursor = messageResponse.Cursor;
+            var items = messageResponse.Items.Select(p => ConvertToMessageInformation(p)).ToList();
+            return new MessageView(items, cursor.IsEnd);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using Bili.Lib.Interfaces;
 using Bili.Models.App;
+using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
@@ -98,10 +99,10 @@ namespace Bili.ViewModels.Uwp.Account
         public bool IsConnected { get; set; }
 
         /// <summary>
-        /// 未读消息数.
+        /// 未读提及数.
         /// </summary>
         [Reactive]
-        public int UnreadMessageCount { get; set; }
+        public UnreadInformation UnreadInformation { get; set; }
 
         /// <summary>
         /// 是否显示未读消息数.

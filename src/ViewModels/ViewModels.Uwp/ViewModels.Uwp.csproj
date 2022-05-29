@@ -11,6 +11,11 @@
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Community\MessageHeaderViewModel.cs" />
+    <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.Properties.cs" />
+    <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.cs" />
+    <Compile Include="Community\MessagePageViewModel\MessagePageViewModel.cs" />
+    <Compile Include="Community\MessagePageViewModel\MessagePageViewModel.Properties.cs" />
     <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.cs" />
     <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.Properties.cs" />
     <Compile Include="Article\ArticlePartitionPageViewModel\ArticlePartitionPageViewModel.cs" />
@@ -84,8 +89,6 @@
     <Compile Include="Common\DownloadViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
-    <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
-    <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
     <Compile Include="Pgc\PgcEpisodeViewModel.cs" />
     <Compile Include="Pgc\PgcSectionViewModel.cs" />
@@ -262,8 +265,6 @@
       <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Community\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

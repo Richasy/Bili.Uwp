@@ -197,11 +197,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<DynamicVideoIterationEventArgs> DynamicVideoIteration;
 
         /// <summary>
-        /// 在消息更新时发生.
-        /// </summary>
-        public event EventHandler<MessageIterationEventArgs> MessageIteration;
-
-        /// <summary>
         /// 收到更新消息时发生.
         /// </summary>
         public event EventHandler<UpdateEventArgs> UpdateReceived;

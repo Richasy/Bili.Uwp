@@ -133,13 +133,12 @@ namespace Bili.ViewModels.Uwp.Account
         {
             try
             {
-                var unread = await _accountProvider.GetUnreadMessageAsync();
-                MessageModuleViewModel.Instance.InitializeUnreadCount(unread);
-                UnreadMessageCount = unread.At + unread.Like + unread.Reply;
-                IsShowUnreadMessage = UnreadMessageCount != 0;
+                UnreadInformation = await _accountProvider.GetUnreadMessageAsync();
+                IsShowUnreadMessage = UnreadInformation.Total > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogException(ex);
             }
         }
 
@@ -211,7 +210,7 @@ namespace Bili.ViewModels.Uwp.Account
             IsConnected = false;
             IsShowUnreadMessage = false;
             IsShowFixedItem = false;
-            UnreadMessageCount = 0;
+            UnreadInformation = null;
         }
 
         private async Task InitializeFixedItemAsync()

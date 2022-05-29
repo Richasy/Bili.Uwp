@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
+using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Lib.Interfaces
@@ -248,31 +249,14 @@ namespace Bili.Lib.Interfaces
         /// 获取未读消息.
         /// </summary>
         /// <returns>未读消息.</returns>
-        Task<UnreadMessage> GetUnreadMessageAsync();
+        Task<UnreadInformation> GetUnreadMessageAsync();
 
         /// <summary>
-        /// 获取点赞消息列表.
+        /// 获取指定类型的消息列表.
         /// </summary>
-        /// <param name="id">偏移值Id.</param>
-        /// <param name="likeTime">点赞的时间，偏移的标识符.</param>
+        /// <param name="type">消息类型.</param>
         /// <returns>点赞消息响应结果.</returns>
-        Task<LikeMessageResponse> GetLikeMessagesAsync(long id, long likeTime);
-
-        /// <summary>
-        /// 获取@我的消息列表.
-        /// </summary>
-        /// <param name="id">偏移值Id.</param>
-        /// <param name="atTime">At的时间，偏移的标识符.</param>
-        /// <returns>@我的消息响应结果.</returns>
-        Task<AtMessageResponse> GetAtMessagesAsync(long id, long atTime);
-
-        /// <summary>
-        /// 获取回复我的消息列表.
-        /// </summary>
-        /// <param name="id">偏移值Id.</param>
-        /// <param name="replyTime">回复的时间，偏移的标识符.</param>
-        /// <returns>回复我的消息响应结果.</returns>
-        Task<ReplyMessageResponse> GetReplyMessagesAsync(long id, long replyTime);
+        Task<MessageView> GetMyMessagesAsync(MessageType type);
 
         /// <summary>
         /// 查询我与某用户之间的关系（是否关注）.
@@ -280,5 +264,10 @@ namespace Bili.Lib.Interfaces
         /// <param name="targetUserId">目标用户Id.</param>
         /// <returns>是否关注.</returns>
         Task<UserRelationResponse> GetRelationAsync(int targetUserId);
+
+        /// <summary>
+        /// 重置消息的请求状态.
+        /// </summary>
+        void ClearMessageStatus();
     }
 }

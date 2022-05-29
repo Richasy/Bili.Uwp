@@ -203,5 +203,54 @@ namespace Bili.Adapter.Interfaces
         /// <param name="item">PGC模块条目.</param>
         /// <returns><see cref="BannerIdentifier"/>.</returns>
         BannerIdentifier ConvertToBannerIdentifier(PgcModuleItem item);
+
+        /// <summary>
+        /// 将未读消息 <see cref="UnreadMessage"/> 转换为未读信息.
+        /// </summary>
+        /// <param name="message">未读消息.</param>
+        /// <returns><see cref="UnreadInformation"/>.</returns>
+        UnreadInformation ConvertToUnreadInformation(UnreadMessage message);
+
+        /// <summary>
+        /// 将点赞消息条目 <see cref="LikeMessageItem"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageItem">消息条目.</param>
+        /// <returns><see cref="MessageInformation"/>.</returns>
+        MessageInformation ConvertToMessageInformation(LikeMessageItem messageItem);
+
+        /// <summary>
+        /// 将提及消息条目 <see cref="AtMessageItem"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageItem">消息条目.</param>
+        /// <returns><see cref="MessageInformation"/>.</returns>
+        MessageInformation ConvertToMessageInformation(AtMessageItem messageItem);
+
+        /// <summary>
+        /// 将回复消息条目 <see cref="ReplyMessageItem"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageItem">消息条目.</param>
+        /// <returns><see cref="MessageInformation"/>.</returns>
+        MessageInformation ConvertToMessageInformation(ReplyMessageItem messageItem);
+
+        /// <summary>
+        /// 将点赞消息响应 <see cref="LikeMessageResponse"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageResponse">消息响应.</param>
+        /// <returns><see cref="MessageView"/>.</returns>
+        MessageView ConvertToMessageView(LikeMessageResponse messageResponse);
+
+        /// <summary>
+        /// 将提及消息响应 <see cref="AtMessageResponse"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageResponse">消息响应.</param>
+        /// <returns><see cref="MessageView"/>.</returns>
+        MessageView ConvertToMessageView(AtMessageResponse messageResponse);
+
+        /// <summary>
+        /// 将回复消息响应 <see cref="ReplyMessageResponse"/> 转换为消息信息.
+        /// </summary>
+        /// <param name="messageResponse">消息响应.</param>
+        /// <returns><see cref="MessageView"/>.</returns>
+        MessageView ConvertToMessageView(ReplyMessageResponse messageResponse);
     }
 }

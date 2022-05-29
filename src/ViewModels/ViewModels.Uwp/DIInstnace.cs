@@ -80,6 +80,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ToolboxPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<HelpPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
@@ -87,6 +88,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.Register<LiveItemViewModel>();
             SplatRegistrations.Register<PgcPlaylistViewModel>();
             SplatRegistrations.Register<ArticleItemViewModel>();
+            SplatRegistrations.Register<MessageItemViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

@@ -71,7 +71,7 @@
                                 <TextBlock
                                     FontSize="10"
                                     Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                    Text="{x:Bind ViewModel.UnreadMessageCount, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.UnreadInformation.Total, Mode=OneWay}" />
                             </Border>
                         </Grid>
                     </Button>

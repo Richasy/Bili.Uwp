@@ -100,12 +100,24 @@ namespace Bili.ViewModels.Uwp.Base
 
         private async Task IncrementalAsync()
         {
-            if (IsReloading || IsIncrementalLoading)
+            if (IsReloading)
             {
                 return;
             }
 
+            if (IsIncrementalLoading)
+            {
+                _isNeedLoadAgain = true;
+                return;
+            }
+
             await GetDataAsync();
+
+            if (_isNeedLoadAgain)
+            {
+                _isNeedLoadAgain = false;
+                await GetDataAsync();
+            }
         }
 
         private void ClearException()

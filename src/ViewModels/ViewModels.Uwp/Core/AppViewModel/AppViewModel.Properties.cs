@@ -3,6 +3,7 @@
 using System;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
+using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
@@ -54,6 +55,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 请求显示文章阅读器.
         /// </summary>
         public event EventHandler<ArticleItemViewModel> RequestShowArticleReader;
+
+        /// <summary>
+        /// 请求显示评论回复详情.
+        /// </summary>
+        public event EventHandler<MessageInformation> RequestShowReplyDetail;
 
         /// <summary>
         /// 导航面板是否已展开.

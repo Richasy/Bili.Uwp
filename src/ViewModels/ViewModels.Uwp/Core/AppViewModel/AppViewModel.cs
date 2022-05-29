@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
+using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
@@ -81,6 +82,13 @@ namespace Bili.ViewModels.Uwp.Core
         /// <param name="article">文章信息.</param>
         public void ShowArticleReader(ArticleItemViewModel article)
             => RequestShowArticleReader?.Invoke(this, article);
+
+        /// <summary>
+        /// 显示文章阅读器.
+        /// </summary>
+        /// <param name="information">评论信息.</param>
+        public void ShowReply(MessageInformation information)
+            => RequestShowReplyDetail?.Invoke(this, information);
 
         /// <summary>
         /// 初始化主题.

@@ -6,8 +6,12 @@ using Bili.App.Controls.Article;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
+using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
@@ -47,6 +51,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
+            CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetailAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -202,6 +207,31 @@ namespace Bili.App.Pages.Desktop
         {
             var view = ArticleReaderView.Instance;
             await view.ShowAsync(e);
+        }
+
+        private async void OnRequestShowReplyDetailAsync(object sender, MessageInformation e)
+        {
+            var type = ReplyType.None;
+            var isParseFaield = false;
+            try
+            {
+                type = (ReplyType)Convert.ToInt32(e.Properties["type"]);
+            }
+            catch (Exception)
+            {
+                isParseFaield = true;
+            }
+
+            if (isParseFaield || type == ReplyType.None)
+            {
+                var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(LanguageNames.NotSupportReplyType), InfoType.Warning);
+                return;
+            }
+
+            // TODO: 重置
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(e.SourceId), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
+            await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
 
         private Type GetSecondaryViewType(PageIds pageId)
