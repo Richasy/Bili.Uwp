@@ -29,6 +29,7 @@ namespace Bili.App.Controls
             DefaultStyleKey = typeof(VerticalRepeaterView);
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -114,6 +115,20 @@ namespace Bili.App.Controls
             {
                 _parentScrollViewer.ViewChanged -= OnParentScrollViewerViewChanged;
                 _parentScrollViewer = null;
+            }
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_parentScrollViewer != null)
+            {
+                var currentPosition = _parentScrollViewer.VerticalOffset;
+                if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
+                    Visibility == Visibility.Visible)
+                {
+                    RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                    IncrementalTriggered?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 

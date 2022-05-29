@@ -40,7 +40,6 @@ namespace Bili.ViewModels.Uwp.Core
             _controller.UpdateReceived += OnUpdateReceived;
             _networkHelper.NetworkChanged += OnNetworkChanged;
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
-            CanShowBackButton = true;
             InitializeTheme();
         }
 

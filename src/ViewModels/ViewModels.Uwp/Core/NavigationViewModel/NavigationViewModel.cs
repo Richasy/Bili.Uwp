@@ -165,7 +165,7 @@ namespace Bili.ViewModels.Uwp.Core
             var args = new AppBackEventArgs(id, backBehavior, parameter);
             _backStack.RemoveAll(p => p.Equals(args));
             _backStack.Add(args);
-            CanBack = _backStack.Count > 1;
+            CheckBackStatus();
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _backStack.Remove(_backStack.Last(p => p.Id == id));
             }
 
-            CanBack = _backStack.Count > 1;
+            CheckBackStatus();
         }
 
         private void Back()
@@ -222,6 +222,14 @@ namespace Bili.ViewModels.Uwp.Core
                 .ToList()
                 .ForEach(p => p.Action?.Invoke(p.Parameter));
             _backStack.RemoveAll(p => p.Id == BackBehavior.ShowHolder);
+        }
+
+        private void CheckBackStatus()
+        {
+            CanBack = _backStack.Count > 1;
+            IsBackButtonEnabled = CanBack
+                && _backStack.Last().Id != BackBehavior.ShowHolder
+                && _backStack.Last().Id != BackBehavior.PlayerModeChange;
         }
     }
 }

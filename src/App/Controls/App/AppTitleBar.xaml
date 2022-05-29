@@ -58,53 +58,52 @@
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="172" />
             </Grid.ColumnDefinitions>
 
-            <Grid Visibility="{x:Bind ViewModel.CanShowBackButton}">
-                <Button
-                    x:Name="BackButton"
-                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
-                    Style="{StaticResource TitleBarButtonStyle}"
-                    Padding="6,0,0,0"
-                    Command="{x:Bind _navigationViewModel.BackCommand}"
-                    TabIndex="1"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
-                    Visibility="{x:Bind _navigationViewModel.CanBack, Mode=OneWay}">
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Key="Back" />
-                    </Button.KeyboardAccelerators>
-                    <animations:Implicit.ShowAnimations>
-                        <animations:OpacityAnimation
-                            From="0"
-                            To="1"
-                            Duration="0:0:0.3" />
-                        <animations:ScaleAnimation
-                            From="0.5"
-                            To="1"
-                            Duration="0:0:0.3" />
-                    </animations:Implicit.ShowAnimations>
-                    <animations:Implicit.HideAnimations>
-                        <animations:OpacityAnimation
-                            From="1"
-                            To="0"
-                            Duration="0:0:0.2" />
-                        <animations:ScaleAnimation
-                            From="1"
-                            To="0.5"
-                            Duration="0:0:0.2" />
-                    </animations:Implicit.HideAnimations>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                        <muxc:AnimatedIcon>
-                            <animatedVisuals:AnimatedBackVisualSource />
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:SymbolIconSource Symbol="Back" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
-                    </Viewbox>
-                </Button>
-            </Grid>
+            <Button
+                x:Name="BackButton"
+                AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
+                Style="{StaticResource TitleBarButtonStyle}"
+                Padding="6,0,0,0"
+                Command="{x:Bind _navigationViewModel.BackCommand}"
+                IsEnabled="{x:Bind _navigationViewModel.IsBackButtonEnabled, Mode=OneWay}"
+                TabIndex="1"
+                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
+                Visibility="{x:Bind _navigationViewModel.CanBack, Mode=OneWay}">
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Back" />
+                </Button.KeyboardAccelerators>
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.3" />
+                    <animations:ScaleAnimation
+                        From="0.5"
+                        To="1"
+                        Duration="0:0:0.3" />
+                </animations:Implicit.ShowAnimations>
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.2" />
+                    <animations:ScaleAnimation
+                        From="1"
+                        To="0.5"
+                        Duration="0:0:0.2" />
+                </animations:Implicit.HideAnimations>
+                <Viewbox
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <muxc:AnimatedIcon>
+                        <animatedVisuals:AnimatedBackVisualSource />
+                        <muxc:AnimatedIcon.FallbackIconSource>
+                            <muxc:SymbolIconSource Symbol="Back" />
+                        </muxc:AnimatedIcon.FallbackIconSource>
+                    </muxc:AnimatedIcon>
+                </Viewbox>
+            </Button>
 
             <Button
                 x:Name="HomeButton"

@@ -104,12 +104,6 @@ namespace Bili.ViewModels.Uwp.Core
         public Thickness PageTopPadding { get; set; }
 
         /// <summary>
-        /// 是否可以显示后退按钮.
-        /// </summary>
-        [Reactive]
-        public bool CanShowBackButton { get; set; }
-
-        /// <summary>
         /// 是否显示标题栏.
         /// </summary>
         [Reactive]

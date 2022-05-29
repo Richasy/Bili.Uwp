@@ -73,7 +73,6 @@ namespace Bili.App.Pages.Desktop
             }
 
             HolderContainer.Visibility = Visibility.Visible;
-            CoreViewModel.CanShowBackButton = false;
 
             ViewModel.AddBackStack(
                 BackBehavior.ShowHolder,
@@ -136,10 +135,7 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         /// <param name="element">UI元素.</param>
         private void RemoveFromHolder(UIElement element)
-        {
-            HolderContainer.Children.Remove(element);
-            CoreViewModel.CanShowBackButton = HolderContainer.Children.Count == 0;
-        }
+            => HolderContainer.Children.Remove(element);
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {

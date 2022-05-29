@@ -57,6 +57,12 @@ namespace Bili.ViewModels.Uwp.Core
         public bool CanBack { get; set; }
 
         /// <summary>
+        /// 是否显示后退按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsBackButtonEnabled { get; set; }
+
+        /// <summary>
         /// 当前主视图展示的页面 Id.
         /// </summary>
         public PageIds MainViewId { get; private set; }
