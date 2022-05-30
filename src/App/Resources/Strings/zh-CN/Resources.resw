@@ -1136,6 +1136,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Remove" xml:space="preserve">
     <value>移除</value>
   </data>
+  <data name="RemoveViewLaterFailed" xml:space="preserve">
+    <value>移除稍后再看视频失败</value>
+  </data>
   <data name="Reply" xml:space="preserve">
     <value>评论</value>
   </data>

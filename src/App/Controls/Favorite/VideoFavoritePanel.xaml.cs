@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bili.App.Controls.Dialogs;
 using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
@@ -117,7 +118,7 @@ namespace Bili.App.Controls
         private async void OnAddToViewLaterButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
-            await ViewLaterViewModel.Instance.AddAsync(vm);
+            await Task.CompletedTask;
         }
 
         private async void OnUnFavoriteVideoButtonClickAsync(object sender, RoutedEventArgs e)

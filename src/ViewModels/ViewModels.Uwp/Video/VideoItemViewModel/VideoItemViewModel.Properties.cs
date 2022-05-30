@@ -29,6 +29,11 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
 
         /// <summary>
+        /// 从稍后再看中移除的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
+
+        /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }

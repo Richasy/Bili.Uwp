@@ -509,6 +509,7 @@ namespace Bili.Models.Enums
         TrackCount,
         NeedLoginFirst,
         TimelineHasNoVideo,
+        RemoveViewLaterFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

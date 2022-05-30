@@ -115,12 +115,8 @@ namespace Bili.App.Controls
             ItemClick?.Invoke(this, ViewModel);
         }
 
-        private async void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
+        private void OnAddToViewLaterItemClickAsync(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.VideoType == Models.Enums.VideoType.Video)
-            {
-                await ViewLaterViewModel.Instance.AddAsync(ViewModel);
-            }
         }
 
         private void OnFlyoutOpening(object sender, object e)

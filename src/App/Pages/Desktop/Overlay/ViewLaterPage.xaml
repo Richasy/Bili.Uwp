@@ -1,19 +1,29 @@
-﻿<pages:AppPage
+﻿<local:ViewLaterPageBase
     x:Class="Bili.App.Pages.Desktop.Overlay.ViewLaterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pages="using:Bili.App.Pages.Desktop"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootContainer">
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid x:Name="RootContainer" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="WideState">
@@ -31,93 +41,83 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid RowSpacing="6">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock
-                Style="{StaticResource TitleTextBlockStyle}"
-                HorizontalAlignment="Left"
-                Text="{loc:LocaleLocator Name=ViewLater}"
-                TextTrimming="CharacterEllipsis" />
-            <Grid Grid.Row="1">
-                <ScrollViewer
-                    x:Name="ContentScrollViewer"
-                    Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
-                    HorizontalScrollMode="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                        <controls:VerticalRepeaterView
-                            x:Name="VideoView"
-                            Margin="0,0,0,12"
-                            HeaderText="{loc:LocaleLocator Name=Videos}"
-                            ItemsSource="{x:Bind ViewModel.VideoCollection, Mode=OneWay}"
-                            RequestLoadMore="OnVideoViewRequestLoadMoreAsync">
-                            <controls:VerticalRepeaterView.AdditionalContent>
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <Button
-                                        x:Name="PlayAllButton"
-                                        Style="{StaticResource AccentButtonStyle}"
-                                        VerticalAlignment="Center"
-                                        Click="OnPlayAllButtonClick"
-                                        Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                                        <controls:IconTextBlock Symbol="Play16" Text="{loc:LocaleLocator Name=PlayAll}" />
-                                    </Button>
-                                    <Button
-                                        x:Name="RefreshButton"
-                                        VerticalAlignment="Center"
-                                        Click="OnRefreshButtonClickAsync">
-                                        <controls:IconTextBlock Symbol="ArrowSyncCircle16" Text="{loc:LocaleLocator Name=Refresh}" />
-                                    </Button>
-                                    <Button
-                                        x:Name="ClearButton"
-                                        VerticalAlignment="Center"
-                                        Click="OnClearButtonClickAsync"
-                                        IsEnabled="{x:Bind ViewModel.IsClearButtonEnabled, Mode=OneWay}">
-                                        <controls:IconTextBlock
-                                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                            Symbol="Delete16"
-                                            Text="{loc:LocaleLocator Name=ClearViewLater}" />
-                                    </Button>
-                                </StackPanel>
-                            </controls:VerticalRepeaterView.AdditionalContent>
-                            <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="uwp:VideoViewModel">
-                                    <controls:VideoCard
-                                        DataContext="{x:Bind}"
-                                        IsShowDanmakuCount="True"
-                                        IsShowLikeCount="True"
-                                        IsShowPlayCount="True"
-                                        ViewModel="{x:Bind}">
-                                        <controls:VideoCard.ContextFlyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem
-                                                    MinWidth="160"
-                                                    Click="OnRemoveItemClickAsync"
-                                                    Text="{loc:LocaleLocator Name=Remove}">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete20" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </controls:VideoCard.ContextFlyout>
-                                    </controls:VideoCard>
-                                </DataTemplate>
-                            </controls:VerticalRepeaterView.ItemTemplate>
-                        </controls:VerticalRepeaterView>
-                    </Grid>
-                </ScrollViewer>
-
-                <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-                <controls:ErrorPanel
-                    x:Name="ErrorPanel"
-                    ActionButtonClick="OnRefreshButtonClickAsync"
-                    ActionContent="{loc:LocaleLocator Name=Refresh}"
-                    Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-                <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoViewLaterVideos}" Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
+        <app:PageHeader Title="{loc:LocaleLocator Name=ViewLater}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <controls:VerticalRepeaterView
+                    x:Name="VideoView"
+                    Margin="0,0,0,12"
+                    HeaderText="{loc:LocaleLocator Name=Videos}"
+                    ItemsSource="{x:Bind ViewModel.Items}"
+                    Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.AdditionalContent>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button
+                                x:Name="PlayAllButton"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.PlayAllCommand}">
+                                <controls:IconTextBlock Symbol="Play16" Text="{loc:LocaleLocator Name=PlayAll}" />
+                            </Button>
+                            <Button
+                                x:Name="ClearButton"
+                                VerticalAlignment="Center"
+                                Click="OnClearButtonClickAsync"
+                                IsEnabled="{x:Bind ViewModel.IsClearing, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
+                                <controls:IconTextBlock
+                                    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                    Symbol="Delete16"
+                                    Text="{loc:LocaleLocator Name=ClearViewLater}" />
+                            </Button>
+                        </StackPanel>
+                    </controls:VerticalRepeaterView.AdditionalContent>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                            <videos:VideoItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
+                                <videos:VideoItem.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem
+                                            MinWidth="160"
+                                            Command="{x:Bind RemoveFromViewLaterCommand}"
+                                            Text="{loc:LocaleLocator Name=Remove}">
+                                            <MenuFlyoutItem.Icon>
+                                                <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete20" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </videos:VideoItem.ContextFlyout>
+                            </videos:VideoItem>
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
             </Grid>
-        </Grid>
+        </ScrollViewer>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:ErrorPanel
+            Grid.Row="1"
+            Text="{loc:LocaleLocator Name=NoViewLaterVideos}"
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
-</pages:AppPage>
+</local:ViewLaterPageBase>

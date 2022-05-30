@@ -75,7 +75,7 @@ namespace Bili.App.Controls
         private async void OnAddToViewLaterButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var vm = (sender as FrameworkElement).DataContext as VideoViewModel;
-            await ViewLaterViewModel.Instance.AddAsync(vm);
+            await Task.CompletedTask;
         }
 
         private async void OnUnFavoriteVideoButtonClickAsync(object sender, RoutedEventArgs e)

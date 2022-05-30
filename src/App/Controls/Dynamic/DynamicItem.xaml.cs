@@ -221,7 +221,8 @@ namespace Bili.App.Controls
             var vm = Presenter.GetPlayViewModel();
             if (vm is VideoViewModel videoVM)
             {
-                await ViewLaterViewModel.Instance.AddAsync(videoVM);
+                // await ViewLaterViewModel.Instance.AddAsync(videoVM);
+                await Task.CompletedTask;
             }
         }
 

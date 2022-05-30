@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 
@@ -128,9 +129,8 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 获取稍后再看列表.
         /// </summary>
-        /// <param name="page">页码.</param>
         /// <returns>稍后再看视频列表.</returns>
-        Task<ViewLaterResponse> GetViewLaterListAsync(int page);
+        Task<ViewLaterView> GetViewLaterListAsync();
 
         /// <summary>
         /// 清空稍后再看列表.
@@ -150,7 +150,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="videoIds">需要移除的视频Id列表.</param>
         /// <returns>移除结果.</returns>
-        Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds);
+        Task<bool> RemoveVideoFromViewLaterAsync(params string[] videoIds);
 
         /// <summary>
         /// 获取用户的收藏夹列表（限于播放视频时）.
@@ -266,8 +266,13 @@ namespace Bili.Lib.Interfaces
         Task<UserRelationResponse> GetRelationAsync(int targetUserId);
 
         /// <summary>
-        /// 重置消息的请求状态.
+        /// 清除消息的请求状态.
         /// </summary>
         void ClearMessageStatus();
+
+        /// <summary>
+        /// 重置稍后再看的请求状态.
+        /// </summary>
+        void ResetViewLaterStatus();
     }
 }

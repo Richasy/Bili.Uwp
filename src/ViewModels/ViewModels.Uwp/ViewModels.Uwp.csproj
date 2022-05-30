@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.cs" />
+    <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.Properties.cs" />
     <Compile Include="Community\MessageHeaderViewModel.cs" />
     <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.Properties.cs" />
     <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.cs" />
@@ -147,8 +149,6 @@
     <Compile Include="Base\WebRequestViewModelBase.cs" />
     <Compile Include="Common\VideoPartViewModel.cs" />
     <Compile Include="Common\VideoFormatViewModel.cs" />
-    <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.cs" />
-    <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.Properties.cs" />
     <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
     <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />

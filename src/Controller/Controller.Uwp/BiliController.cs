@@ -167,11 +167,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<RelatedUserIterationEventArgs> FollowsIteration;
 
         /// <summary>
-        /// 在稍后再看列表更新时发生.
-        /// </summary>
-        public event EventHandler<ViewLaterVideoIterationEventArgs> ViewLaterVideoIteration;
-
-        /// <summary>
         /// 在PGC收藏夹内容更新时发生.
         /// </summary>
         public event EventHandler<FavoritePgcIterationEventArgs> PgcFavoriteIteration;

@@ -110,5 +110,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="videoDetail">视频详情.</param>
         /// <returns><see cref="VideoInformation"/>.</returns>
         VideoView ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
+
+        /// <summary>
+        /// 将稍后再看响应 <see cref="ViewLaterResponse"/> 转换为稍后再看视图.
+        /// </summary>
+        /// <param name="response">稍后在看响应结果.</param>
+        /// <returns><see cref="ViewLaterView"/>.</returns>
+        ViewLaterView ConvertToViewLaterView(ViewLaterResponse response);
     }
 }

@@ -8,6 +8,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
@@ -26,15 +27,19 @@ namespace Bili.Lib.Uwp
         /// <param name="httpProvider">网络操作工具.</param>
         /// <param name="userAdapter">用户适配器.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
+        /// <param name="videoAdapter">视频数据适配器.</param>
         public AccountProvider(
             IHttpProvider httpProvider,
             IUserAdapter userAdapter,
-            ICommunityAdapter communityAdapter)
+            ICommunityAdapter communityAdapter,
+            IVideoAdapter videoAdapter)
         {
             _httpProvider = httpProvider;
             _userAdapter = userAdapter;
             _communityAdapter = communityAdapter;
+            _videoAdapter = videoAdapter;
             _messageOffsetCache = new Dictionary<MessageType, MessageCursor>();
+            _viewLaterPageNumber = 0;
         }
 
         /// <inheritdoc/>
@@ -193,17 +198,18 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<ViewLaterResponse> GetViewLaterListAsync(int page)
+        public async Task<ViewLaterView> GetViewLaterListAsync()
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.PageNumber, page.ToString() },
+                { Query.PageNumber, _viewLaterPageNumber.ToString() },
                 { Query.PageSizeSlim, "40" },
             };
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ViewLaterList, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ViewLaterResponse>>(response);
-            return result.Data;
+            _viewLaterPageNumber++;
+            return _videoAdapter.ConvertToViewLaterView(result.Data);
         }
 
         /// <inheritdoc/>
@@ -229,7 +235,7 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> RemoveVideoFromViewLaterAsync(params int[] videoIds)
+        public async Task<bool> RemoveVideoFromViewLaterAsync(params string[] videoIds)
         {
             var ids = string.Join(",", videoIds);
             var queryParameters = new Dictionary<string, string>
@@ -492,5 +498,9 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ClearMessageStatus()
             => _messageOffsetCache.Clear();
+
+        /// <inheritdoc/>
+        public void ResetViewLaterStatus()
+            => _viewLaterPageNumber = 0;
     }
 }

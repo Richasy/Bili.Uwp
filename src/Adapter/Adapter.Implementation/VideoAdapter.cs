@@ -355,6 +355,16 @@ namespace Bili.Adapter
                 tags);
         }
 
+        /// <inheritdoc/>
+        public ViewLaterView ConvertToViewLaterView(ViewLaterResponse response)
+        {
+            var count = response.Count;
+            var items = response.List == null
+                ? new List<VideoInformation>()
+                : response.List.Select(p => ConvertToVideoInformation(p)).ToList();
+            return new ViewLaterView(items, count);
+        }
+
         private VideoInformation GetVideoInformationFromEpisode(Episode episode)
         {
             var id = episode.Aid.ToString();

@@ -22,7 +22,9 @@ namespace Bili.Lib.Uwp
         private readonly IHttpProvider _httpProvider;
         private readonly IUserAdapter _userAdapter;
         private readonly ICommunityAdapter _communityAdapter;
+        private readonly IVideoAdapter _videoAdapter;
         private readonly Dictionary<MessageType, MessageCursor> _messageOffsetCache;
+        private int _viewLaterPageNumber;
 
         private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber, int status)
         {

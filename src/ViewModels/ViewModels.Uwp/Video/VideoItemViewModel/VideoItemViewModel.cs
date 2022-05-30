@@ -7,8 +7,10 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using Splat;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -44,6 +46,7 @@ namespace Bili.ViewModels.Uwp.Video
 
             PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
             AddToViewLaterCommand = ReactiveCommand.CreateFromTask(AddToViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RemoveFromViewLaterCommand = ReactiveCommand.CreateFromTask(RemoveFromViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
         }
 
@@ -91,6 +94,33 @@ namespace Bili.ViewModels.Uwp.Video
                     _appViewModel.ShowTip(
                         _resourceToolkit.GetLocaleString(LanguageNames.AddViewLaterFailed),
                         Models.Enums.App.InfoType.Error);
+                }
+            }
+            else
+            {
+                // 显示需要登录的消息.
+                _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst),
+                        Models.Enums.App.InfoType.Warning);
+            }
+        }
+
+        private async Task RemoveFromViewLaterAsync()
+        {
+            if (_authorizeProvider.State == AuthorizeState.SignedIn)
+            {
+                var result = await _accountProvider.RemoveVideoFromViewLaterAsync(Information.Identifier.Id);
+                if (!result)
+                {
+                    // 显示移除失败的消息.
+                    _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.RemoveViewLaterFailed),
+                        Models.Enums.App.InfoType.Error);
+                }
+                else
+                {
+                    var viewLaterPageVM = Splat.Locator.Current.GetService<ViewLaterPageViewModel>();
+                    viewLaterPageVM.RemoveVideoCommand.Execute(this).Subscribe();
                 }
             }
             else
