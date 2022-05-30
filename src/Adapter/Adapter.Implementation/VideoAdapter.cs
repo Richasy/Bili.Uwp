@@ -277,7 +277,14 @@ namespace Bili.Adapter
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
-            return new VideoInformation(identifier, default, bvid, subtitle: subtitle);
+            var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video);
+            communityInfo.Id = id;
+            return new VideoInformation(
+                identifier,
+                default,
+                bvid,
+                subtitle: subtitle,
+                communityInformation: communityInfo);
         }
 
         /// <inheritdoc/>
@@ -363,6 +370,14 @@ namespace Bili.Adapter
                 ? new List<VideoInformation>()
                 : response.List.Select(p => ConvertToVideoInformation(p)).ToList();
             return new ViewLaterView(items, count);
+        }
+
+        /// <inheritdoc/>
+        public VideoHistoryView ConvertToVideoHistoryView(CursorV2Reply reply)
+        {
+            var isFinished = !reply.HasMore;
+            var items = reply.Items.Where(p => p.CardItemCase == CursorItem.CardItemOneofCase.CardUgc).Select(p => ConvertToVideoInformation(p)).ToList();
+            return new VideoHistoryView(items, isFinished);
         }
 
         private VideoInformation GetVideoInformationFromEpisode(Episode episode)

@@ -47,6 +47,7 @@ namespace Bili.ViewModels.Uwp.Video
             PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
             AddToViewLaterCommand = ReactiveCommand.CreateFromTask(AddToViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
             RemoveFromViewLaterCommand = ReactiveCommand.CreateFromTask(RemoveFromViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RemoveFromHistoryCommand = ReactiveCommand.CreateFromTask(RemoveFromHistoryAsync, outputScheduler: RxApp.MainThreadScheduler);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
         }
 
@@ -62,11 +63,16 @@ namespace Bili.ViewModels.Uwp.Video
 
         private void InitializeData()
         {
-            PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
-            DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
-            LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
+            IsShowCommunity = Information.CommunityInformation != null;
+            if (IsShowCommunity)
+            {
+                PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
+                DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
+                LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
 
-            IsShowScore = Information.CommunityInformation?.Score > 0;
+                IsShowScore = Information.CommunityInformation?.Score > 0;
+            }
+
             if (Information.Identifier.Duration > 0)
             {
                 DurationText = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(Information.Identifier.Duration));
@@ -120,6 +126,33 @@ namespace Bili.ViewModels.Uwp.Video
                 else
                 {
                     var viewLaterPageVM = Splat.Locator.Current.GetService<ViewLaterPageViewModel>();
+                    viewLaterPageVM.RemoveVideoCommand.Execute(this).Subscribe();
+                }
+            }
+            else
+            {
+                // 显示需要登录的消息.
+                _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst),
+                        Models.Enums.App.InfoType.Warning);
+            }
+        }
+
+        private async Task RemoveFromHistoryAsync()
+        {
+            if (_authorizeProvider.State == AuthorizeState.SignedIn)
+            {
+                var result = await _accountProvider.RemoveHistoryItemAsync(Information.Identifier.Id);
+                if (!result)
+                {
+                    // 显示移除失败的消息.
+                    _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromHistory),
+                        Models.Enums.App.InfoType.Error);
+                }
+                else
+                {
+                    var viewLaterPageVM = Splat.Locator.Current.GetService<HistoryPageViewModel>();
                     viewLaterPageVM.RemoveVideoCommand.Execute(this).Subscribe();
                 }
             }

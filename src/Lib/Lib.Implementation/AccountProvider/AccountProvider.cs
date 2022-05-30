@@ -39,7 +39,8 @@ namespace Bili.Lib.Uwp
             _communityAdapter = communityAdapter;
             _videoAdapter = videoAdapter;
             _messageOffsetCache = new Dictionary<MessageType, MessageCursor>();
-            _viewLaterPageNumber = 0;
+            ResetViewLaterStatus();
+            ResetHistoryStatus();
         }
 
         /// <inheritdoc/>
@@ -66,43 +67,30 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<CursorV2Reply> GetMyHistorySetAsync(string tabSign, Cursor cursor)
+        public async Task<VideoHistoryView> GetMyHistorySetAsync(string tabSign = "archive")
         {
             var req = new CursorV2Req
             {
                 Business = tabSign,
-                Cursor = cursor,
+                Cursor = _historyCursor,
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Account.HistoryCursor, req, true);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, CursorV2Reply.Parser);
-            return data;
+            _historyCursor = data.Cursor;
+            return _videoAdapter.ConvertToVideoHistoryView(data);
         }
 
         /// <inheritdoc/>
-        public async Task<HistoryTabReply> GetMyHistoryTabsAsync()
-        {
-            var req = new HistoryTabReq
-            {
-                Source = HistorySource.HistoryValue,
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(Account.HistoryTabs, req, true);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync(response, HistoryTabReply.Parser);
-            return data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId)
+        public async Task<bool> RemoveHistoryItemAsync(string itemId, string tabSign = "archive")
         {
             var req = new DeleteReq
             {
                 HisInfo = new HisInfo
                 {
                     Business = tabSign,
-                    Kid = itemId,
+                    Kid = System.Convert.ToInt64(itemId),
                 },
             };
 
@@ -112,7 +100,7 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ClearHistoryAsync(string tabSign)
+        public async Task<bool> ClearHistoryAsync(string tabSign = "archive")
         {
             var req = new ClearReq() { Business = tabSign };
             var request = await _httpProvider.GetRequestMessageAsync(Account.ClearHistory, req, true);
@@ -502,5 +490,9 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetViewLaterStatus()
             => _viewLaterPageNumber = 0;
+
+        /// <inheritdoc/>
+        public void ResetHistoryStatus()
+            => _historyCursor = new Cursor { Max = 0 };
     }
 }

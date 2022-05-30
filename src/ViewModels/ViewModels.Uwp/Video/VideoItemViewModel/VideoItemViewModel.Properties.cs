@@ -34,6 +34,11 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
 
         /// <summary>
+        /// 从历史记录中移除的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
+
+        /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
@@ -78,6 +83,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public bool IsShowScore { get; internal set; }
+
+        /// <summary>
+        /// 是否显示社区信息.
+        /// </summary>
+        [Reactive]
+        public bool IsShowCommunity { get; internal set; }
 
         /// <summary>
         /// 是否被选中.

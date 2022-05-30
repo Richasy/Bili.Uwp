@@ -152,11 +152,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
 
         /// <summary>
-        /// 在历史记录视频更新时发生.
-        /// </summary>
-        public event EventHandler<HistoryVideoIterationEventArgs> HistoryVideoIteration;
-
-        /// <summary>
         /// 在粉丝列表更新时发生.
         /// </summary>
         public event EventHandler<RelatedUserIterationEventArgs> FansIteration;

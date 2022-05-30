@@ -4,6 +4,7 @@ using System;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
 using Bilibili.App.Dynamic.V2;
+using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -117,5 +118,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">稍后在看响应结果.</param>
         /// <returns><see cref="ViewLaterView"/>.</returns>
         ViewLaterView ConvertToViewLaterView(ViewLaterResponse response);
+
+        /// <summary>
+        /// 将历史记录响应结果 <see cref="CursorV2Reply"/> 转换为历史记录视图.
+        /// </summary>
+        /// <param name="reply">历史记录响应结果.</param>
+        /// <returns><see cref="VideoHistoryView"/>.</returns>
+        VideoHistoryView ConvertToVideoHistoryView(CursorV2Reply reply);
     }
 }

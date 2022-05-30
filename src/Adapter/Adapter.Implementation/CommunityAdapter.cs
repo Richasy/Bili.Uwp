@@ -11,6 +11,7 @@ using Bili.Toolkit.Interfaces;
 using Bilibili.App.Archive.V1;
 using Bilibili.App.Card.V1;
 using Bilibili.App.Dynamic.V2;
+using Bilibili.App.Interfaces.V1;
 using Bilibili.App.Show.V1;
 
 namespace Bili.Adapter
@@ -354,6 +355,10 @@ namespace Bili.Adapter
                 stat.DanmakuCount,
                 favoriteCount: stat.FavoriteCount);
         }
+
+        /// <inheritdoc/>
+        public VideoCommunityInformation ConvertToVideoCommunityInformation(CardUGC ugc)
+            => new VideoCommunityInformation(default, ugc.View);
 
         /// <inheritdoc/>
         public UnreadInformation ConvertToUnreadInformation(UnreadMessage message)

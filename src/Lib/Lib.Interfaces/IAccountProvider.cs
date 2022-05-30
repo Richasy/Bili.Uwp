@@ -67,33 +67,26 @@ namespace Bili.Lib.Interfaces
         Task<bool> ModifyUserRelationAsync(int userId, bool isFollow);
 
         /// <summary>
-        /// 获取我的历史记录标签页信息.
-        /// </summary>
-        /// <returns><see cref="HistoryTabReply"/>.</returns>
-        Task<HistoryTabReply> GetMyHistoryTabsAsync();
-
-        /// <summary>
         /// 获取我的历史记录信息.
         /// </summary>
-        /// <param name="tabSign">标签信息.</param>
-        /// <param name="cursor">偏移值.</param>
-        /// <returns><see cref="CursorV2Reply"/>.</returns>
-        Task<CursorV2Reply> GetMyHistorySetAsync(string tabSign, Cursor cursor);
+        /// <param name="tabSign">标签信息，默认是 <c>archive</c>，表示视频.</param>
+        /// <returns>历史记录.</returns>
+        Task<VideoHistoryView> GetMyHistorySetAsync(string tabSign = "archive");
 
         /// <summary>
         /// 删除指定的历史记录条目.
         /// </summary>
-        /// <param name="tabSign">标签信息.</param>
         /// <param name="itemId">条目Id.</param>
+        /// <param name="tabSign">标签信息，默认是 <c>archive</c>，表示视频..</param>
         /// <returns>删除是否成功.</returns>
-        Task<bool> RemoveHistoryItemAsync(string tabSign, long itemId);
+        Task<bool> RemoveHistoryItemAsync(string itemId, string tabSign = "archive");
 
         /// <summary>
         /// 清空历史记录.
         /// </summary>
-        /// <param name="tabSign">标签信息.</param>
+        /// <param name="tabSign">标签信息，默认是 <c>archive</c>，表示视频..</param>
         /// <returns>清空是否成功.</returns>
-        Task<bool> ClearHistoryAsync(string tabSign);
+        Task<bool> ClearHistoryAsync(string tabSign = "archive");
 
         /// <summary>
         /// 获取指定用户的粉丝列表.
@@ -255,7 +248,7 @@ namespace Bili.Lib.Interfaces
         /// 获取指定类型的消息列表.
         /// </summary>
         /// <param name="type">消息类型.</param>
-        /// <returns>点赞消息响应结果.</returns>
+        /// <returns>指定类型的消息响应结果.</returns>
         Task<MessageView> GetMyMessagesAsync(MessageType type);
 
         /// <summary>
@@ -274,5 +267,10 @@ namespace Bili.Lib.Interfaces
         /// 重置稍后再看的请求状态.
         /// </summary>
         void ResetViewLaterStatus();
+
+        /// <summary>
+        /// 重置历史记录请求状态.
+        /// </summary>
+        void ResetHistoryStatus();
     }
 }

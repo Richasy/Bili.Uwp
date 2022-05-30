@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.cs" />
+    <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.Properties.cs" />
     <Compile Include="Community\MessageHeaderViewModel.cs" />
@@ -100,8 +102,6 @@
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Live.cs" />
     <Compile Include="Account\UserViewModel\UserViewModel.cs" />
     <Compile Include="Account\UserViewModel\UserViewModel.Properties.cs" />
-    <Compile Include="Account\HistoryViewModel\HistoryViewModel.cs" />
-    <Compile Include="Account\HistoryViewModel\HistoryViewModel.Properties.cs" />
     <Compile Include="Common\HistoryTabViewModel.cs" />
     <Compile Include="Account\FansViewModel.cs" />
     <Compile Include="Account\FollowsViewModel.cs" />

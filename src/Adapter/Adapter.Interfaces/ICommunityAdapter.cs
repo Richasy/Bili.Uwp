@@ -3,6 +3,7 @@
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bilibili.App.Dynamic.V2;
+using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -132,6 +133,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="stat">PGC 搜索条目.</param>
         /// <returns><see cref="VideoCommunityInformation"/>.</returns>
         VideoCommunityInformation ConvertToVideoCommunityInformation(PgcPlayListItemStat stat);
+
+        /// <summary>
+        /// 将 UGC 视频卡片 <see cref="PgcPlayListItemStat"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="ugc">UGC 条目信息.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation ConvertToVideoCommunityInformation(CardUGC ugc);
 
         /// <summary>
         /// 将文章状态 <see cref="ArticleStats"/> 转换为文章社区交互信息.
