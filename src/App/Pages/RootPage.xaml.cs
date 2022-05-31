@@ -52,6 +52,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
             CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetailAsync;
+            CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetailAsync;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -228,6 +229,13 @@ namespace Bili.App.Pages.Desktop
             // TODO: 重置
             ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(e.SourceId), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
             await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
+        }
+
+        private async void OnRequestShowUserDetailAsync(object sender, UserItemViewModel e)
+        {
+            // TODO: 重置
+            var userVM = new UserViewModel(e.User.Name, e.User.Avatar.Uri, Convert.ToInt32(e.User.Id));
+            await UserView.Instance.ShowAsync(userVM);
         }
 
         private Type GetSecondaryViewType(PageIds pageId)

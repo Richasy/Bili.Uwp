@@ -153,80 +153,6 @@ namespace Bili.Controller.Uwp
         }
 
         /// <summary>
-        /// 修改用户关系(关注/取消关注).
-        /// </summary>
-        /// <param name="userId">用户Id.</param>
-        /// <param name="isFollow">是否关注.</param>
-        /// <returns>结果.</returns>
-        public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var result = await _accountProvider.ModifyUserRelationAsync(userId, isFollow);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 请求新的粉丝列表.
-        /// </summary>
-        /// <param name="userId">需要查询的用户Id.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestUserFollowersAsync(int userId, int pageNumber)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var result = await _accountProvider.GetFansAsync(userId, pageNumber);
-                var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
-                FansIteration?.Invoke(this, args);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex, pageNumber > 1);
-                if (pageNumber <= 1)
-                {
-                    throw;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 请求新的关注列表.
-        /// </summary>
-        /// <param name="userId">需要查询的用户Id.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestUserFollowsAsync(int userId, int pageNumber)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var result = await _accountProvider.GetFollowsAsync(userId, pageNumber);
-                var args = new RelatedUserIterationEventArgs(result, pageNumber, userId);
-                FollowsIteration?.Invoke(this, args);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex, pageNumber > 1);
-                if (pageNumber <= 1)
-                {
-                    throw;
-                }
-            }
-        }
-
-        /// <summary>
         /// 获取我的关注分组.
         /// </summary>
         /// <returns>关注分组.</returns>
@@ -246,8 +172,6 @@ namespace Bili.Controller.Uwp
             try
             {
                 var result = await _accountProvider.GetMyFollowingTagDetailAsync(_accountProvider.UserId, tagId, pageNumber);
-                var args = new RelatedUserIterationEventArgs(result, pageNumber);
-                FollowsIteration?.Invoke(this, args);
             }
             catch (Exception ex)
             {
@@ -487,14 +411,6 @@ namespace Bili.Controller.Uwp
         /// <returns>结果.</returns>
         public Task<bool> RemoveFavoriteArticleAsync(int articleId)
             => _accountProvider.RemoveFavoriteArticleAsync(articleId);
-
-        /// <summary>
-        /// 获取与用户间的关系.
-        /// </summary>
-        /// <param name="targetUserId">目标用户Id.</param>
-        /// <returns>用户关系响应.</returns>
-        public Task<UserRelationResponse> GetRelationAsync(int targetUserId)
-            => _accountProvider.GetRelationAsync(targetUserId);
 
         /// <summary>
         /// 更新收藏的PGC内容状态.

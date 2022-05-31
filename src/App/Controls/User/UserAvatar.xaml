@@ -17,7 +17,8 @@
         Padding="0"
         Background="Transparent"
         BorderThickness="0"
-        Click="OnClick">
+        Click="OnClick"
+        Command="{x:Bind Command, Mode=OneWay}">
         <Button.Resources>
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent" />
             <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent" />

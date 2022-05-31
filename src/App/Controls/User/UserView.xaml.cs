@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Models.Data.User;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
@@ -108,14 +109,14 @@ namespace Bili.App.Controls
 
         private void OnFansButtonClick(object sender, RoutedEventArgs e)
         {
-            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel);
-            Container.Hide();
+            var profile = new UserProfile(ViewModel.Id.ToString(), ViewModel.Name, new Models.Data.Appearance.Image(ViewModel.Avatar));
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, profile);
         }
 
         private void OnFollowUserButtonClick(object sender, RoutedEventArgs e)
         {
-            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Follows, ViewModel);
-            Container.Hide();
+            var profile = new UserProfile(ViewModel.Id.ToString(), ViewModel.Name, new Models.Data.Appearance.Image(ViewModel.Avatar));
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Follows, profile);
         }
 
         private void OnClosed(object sender, System.EventArgs e)

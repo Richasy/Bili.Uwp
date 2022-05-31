@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -53,6 +54,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public VideoInformation Information { get; internal set; }
+
+        /// <summary>
+        /// 发布者.
+        /// </summary>
+        [Reactive]
+        public UserItemViewModel Publisher { get; internal set; }
 
         /// <summary>
         /// 播放次数的可读文本.

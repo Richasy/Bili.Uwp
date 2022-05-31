@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Bili.Models.Data.Community;
 
 namespace Bili.Models.Data.User
 {
@@ -25,12 +26,19 @@ namespace Bili.Models.Data.User
         /// <param name="intro">自我介绍或签名.</param>
         /// <param name="level">等级.</param>
         /// <param name="isVip">是否为高级会员.</param>
-        public AccountInformation(UserProfile user, string intro, int level, bool isVip)
+        /// <param name="communityInformation">社交信息.</param>
+        public AccountInformation(
+            UserProfile user,
+            string intro,
+            int level,
+            bool isVip,
+            UserCommunityInformation communityInformation = default)
             : this(user)
         {
             Introduce = intro;
             Level = level;
             IsVip = isVip;
+            CommunityInformation = communityInformation;
         }
 
         /// <summary>
@@ -52,6 +60,11 @@ namespace Bili.Models.Data.User
         /// 是否为高级会员.
         /// </summary>
         public bool IsVip { get; set; }
+
+        /// <summary>
+        /// 用户社交信息.
+        /// </summary>
+        public UserCommunityInformation CommunityInformation { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is AccountInformation information && EqualityComparer<UserProfile>.Default.Equals(User, information.User);

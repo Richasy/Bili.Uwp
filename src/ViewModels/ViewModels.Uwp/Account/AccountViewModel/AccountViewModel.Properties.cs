@@ -14,9 +14,9 @@ using ReactiveUI.Fody.Helpers;
 namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
-    /// 用户试图模型属性集.
+    /// 用户视图模型属性集.
     /// </summary>
-    public partial class AccountViewModel
+    public sealed partial class AccountViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
@@ -25,13 +25,17 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountProvider _accountProvider;
         private readonly AppViewModel _appViewModel;
 
-        private AccountInformation _accountInformation;
         private bool _isRequestLogout = false;
+
+        /// <summary>
+        /// 用户信息.
+        /// </summary>
+        public AccountInformation AccountInformation { get; internal set; }
 
         /// <summary>
         /// 登录用户Id.
         /// </summary>
-        public int? Mid => Convert.ToInt32(_accountInformation?.User.Id);
+        public int? Mid => Convert.ToInt32(AccountInformation?.User.Id);
 
         /// <summary>
         /// 固定条目集合.

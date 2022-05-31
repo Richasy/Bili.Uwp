@@ -86,5 +86,20 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatarSize">头像尺寸.</param>
         /// <returns><see cref="AccountInformation"/>.</returns>
         AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, AvatarSize avatarSize);
+
+        /// <summary>
+        /// 将关系用户信息 <see cref="RelatedUser"/> 转换为 <see cref="AccountInformation"/>.
+        /// </summary>
+        /// <param name="user">关系用户信息.</param>
+        /// <param name="avatarSize">头像大小.</param>
+        /// <returns><see cref="AccountInformation"/>.</returns>
+        AccountInformation ConvertToAccountInformation(RelatedUser user, AvatarSize avatarSize = AvatarSize.Size64);
+
+        /// <summary>
+        /// 将关系用户响应结果 <see cref="UserRelationResponse"/> 转换为 <see cref="RelationView"/>.
+        /// </summary>
+        /// <param name="response">关系用户响应结果.</param>
+        /// <returns><see cref="RelationView"/>.</returns>
+        RelationView ConvertToRelationView(RelatedUserResponse response);
     }
 }

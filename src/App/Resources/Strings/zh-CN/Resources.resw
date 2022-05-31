@@ -580,6 +580,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="FollowCount" xml:space="preserve">
     <value>关注数</value>
   </data>
+  <data name="FollowEachOther" xml:space="preserve">
+    <value>互相关注</value>
+  </data>
   <data name="Followed" xml:space="preserve">
     <value>已关注</value>
   </data>

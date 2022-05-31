@@ -10,6 +10,8 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
+using Bili.Models.Enums.Community;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -39,6 +41,7 @@ namespace Bili.Lib.Uwp
             _communityAdapter = communityAdapter;
             _videoAdapter = videoAdapter;
             _messageOffsetCache = new Dictionary<MessageType, MessageCursor>();
+            _relationOffsetCache = new Dictionary<RelationType, int>();
             ResetViewLaterStatus();
             ResetHistoryStatus();
         }
@@ -139,11 +142,11 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ModifyUserRelationAsync(int userId, bool isFollow)
+        public async Task<bool> ModifyUserRelationAsync(string userId, bool isFollow)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Fid, userId.ToString() },
+                { Query.Fid, userId },
                 { Query.ReSrc, "21" },
                 { Query.ActionSlim, isFollow ? "1" : "2" },
             };
@@ -156,33 +159,31 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<RelatedUserResponse> GetFansAsync(int userId, int page)
+        public async Task<RelationView> GetUserFansOrFollowsAsync(string userId, RelationType type)
         {
+            var hasCache = _relationOffsetCache.TryGetValue(type, out var page);
+            if (!hasCache)
+            {
+                page = 1;
+            }
+
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.VMid, userId.ToString() },
-                { Query.Page, page.ToString() },
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Fans, queryParameters, needToken: true);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<RelatedUserResponse>>(response);
-            return result.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<RelatedUserResponse> GetFollowsAsync(int userId, int page)
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.VMid, userId.ToString() },
+                { Query.VMid, userId },
                 { Query.PageNumber, page.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Follows, queryParameters, needToken: true);
+            var uri = type == RelationType.Fans
+                    ? Account.Fans
+                    : Account.Follows;
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, uri, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<RelatedUserResponse>>(response);
-            return result.Data;
+            var parsed = await _httpProvider.ParseAsync<ServerResponse<RelatedUserResponse>>(response);
+            ResetRelationStatus(type);
+            page++;
+            _relationOffsetCache.Add(type, page);
+            return _userAdapter.ConvertToRelationView(parsed.Data);
         }
 
         /// <inheritdoc/>
@@ -428,7 +429,7 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<UserRelationResponse> GetRelationAsync(int targetUserId)
+        public async Task<UserRelationStatus> GetRelationAsync(string targetUserId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -438,7 +439,12 @@ namespace Bili.Lib.Uwp
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Relation, queryParameters, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserRelationResponse>>(response);
-            return result.Data;
+            return result.Data.Type switch
+            {
+                2 => UserRelationStatus.Following,
+                6 => UserRelationStatus.Friends,
+                _ => UserRelationStatus.Unfollow,
+            };
         }
 
         /// <inheritdoc/>
@@ -494,5 +500,9 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetHistoryStatus()
             => _historyCursor = new Cursor { Max = 0 };
+
+        /// <inheritdoc/>
+        public void ResetRelationStatus(RelationType type)
+            => _relationOffsetCache.Remove(type);
     }
 }

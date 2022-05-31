@@ -64,6 +64,9 @@ namespace Bili.ViewModels.Uwp.Video
         private void InitializeData()
         {
             IsShowCommunity = Information.CommunityInformation != null;
+            var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+            userVM.SetProfile(Information.Publisher);
+            Publisher = userVM;
             if (IsShowCommunity)
             {
                 PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);

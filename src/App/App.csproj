@@ -60,6 +60,9 @@
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
     <Compile Include="Controls\Community\MessageItem\MessageItem.cs" />
     <Compile Include="Controls\Community\PartitionItem\PartitionItem.cs" />
+    <Compile Include="Controls\Community\RelationPageView.xaml.cs">
+      <DependentUpon>RelationPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Dynamic\DynamicArticleItem.xaml.cs">
       <DependentUpon>DynamicArticleItem.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,7 @@
     <Compile Include="Controls\Settings\ThemeSettingSection.xaml.cs">
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\User\UserItem\UserItem.cs" />
     <Compile Include="Controls\User\UserSlimCard.xaml.cs">
       <DependentUpon>UserSlimCard.xaml</DependentUpon>
     </Compile>
@@ -443,6 +447,8 @@
     <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\PreferCodecConverter.cs" />
+    <Compile Include="Resources\Converter\RelationButtonStyleConverter.cs" />
+    <Compile Include="Resources\Converter\RelationTextConverter.cs" />
     <Compile Include="Resources\Converter\SeasonCoverConverter.cs" />
     <Compile Include="Resources\Converter\SmallImageConverter.cs" />
     <Compile Include="Resources\Converter\SortTypeTextConverter.cs" />
@@ -608,6 +614,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Community\PartitionItem\PartitionItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Community\RelationPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -936,6 +946,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Settings\ThemeSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\User\UserItem\UserItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

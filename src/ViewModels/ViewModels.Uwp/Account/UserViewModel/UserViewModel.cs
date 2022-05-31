@@ -266,11 +266,8 @@ namespace Bili.ViewModels.Uwp
             }
 
             _isFollowRequesting = true;
-            var result = await Controller.ModifyUserRelationAsync(Id, !IsFollow);
-            if (result)
-            {
-                IsFollow = !IsFollow;
-            }
+            await Task.CompletedTask;
+            IsFollow = !IsFollow;
 
             _isFollowRequesting = false;
         }

@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 namespace Bili.App.Resources.Converter
 {
     /// <summary>
-    /// 数字转可见性，等于0则不显示.
+    /// 数字转可见性，小于等于0则不显示.
     /// </summary>
     public class NumberToVisibilityConverter : IValueConverter
     {
@@ -15,7 +15,7 @@ namespace Bili.App.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var number = System.Convert.ToDouble(value);
-            return number == 0 ? Visibility.Collapsed : Visibility.Visible;
+            return number <= 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
         /// <inheritdoc/>

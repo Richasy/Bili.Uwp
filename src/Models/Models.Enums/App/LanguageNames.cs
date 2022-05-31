@@ -510,6 +510,7 @@ namespace Bili.Models.Enums
         NeedLoginFirst,
         TimelineHasNoVideo,
         RemoveViewLaterFailed,
+        FollowEachOther,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

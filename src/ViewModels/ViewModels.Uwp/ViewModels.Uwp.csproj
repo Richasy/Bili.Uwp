@@ -13,8 +13,14 @@
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
+    <Compile Include="Account\UserItemViewModel\UserItemViewModel.cs" />
+    <Compile Include="Account\UserItemViewModel\UserItemViewModel.Properties.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.Properties.cs" />
+    <Compile Include="Base\RelationPageViewModelBase\RelationPageViewModelBase.cs" />
+    <Compile Include="Base\RelationPageViewModelBase\RelationPageViewModelBase.Properties.cs" />
+    <Compile Include="Community\FansPageViewModel.cs" />
+    <Compile Include="Community\FollowsPageViewModel.cs" />
     <Compile Include="Community\MessageHeaderViewModel.cs" />
     <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.Properties.cs" />
     <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.cs" />
@@ -103,8 +109,6 @@
     <Compile Include="Account\UserViewModel\UserViewModel.cs" />
     <Compile Include="Account\UserViewModel\UserViewModel.Properties.cs" />
     <Compile Include="Common\HistoryTabViewModel.cs" />
-    <Compile Include="Account\FansViewModel.cs" />
-    <Compile Include="Account\FollowsViewModel.cs" />
     <Compile Include="Pgc\PgcTimeLineItemViewModel.cs" />
     <Compile Include="Pgc\DocumentaryPageViewModel.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
@@ -120,8 +124,6 @@
     <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
     <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.cs" />
     <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
-    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.cs" />
-    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.Properties.cs" />
     <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.cs" />
     <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.Properties.cs" />
     <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.cs" />

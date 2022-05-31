@@ -94,7 +94,20 @@ namespace Bili.ViewModels.Uwp.Base
             Items.Clear();
             ClearException();
 
-            var task = _dispatcher.RunAsync(CoreDispatcherPriority.High, async () => await GetDataAsync()).AsTask();
+            var task = _dispatcher.RunAsync(
+                CoreDispatcherPriority.High,
+                async () =>
+                {
+                    try
+                    {
+                        await GetDataAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        DisplayException(ex);
+                    }
+                })
+                .AsTask();
             await RunDelayTask(task);
         }
 

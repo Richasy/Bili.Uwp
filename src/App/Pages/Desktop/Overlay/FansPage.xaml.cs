@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.App.Controls;
-using Bili.ViewModels.Uwp;
-using Windows.UI.Xaml;
+using Bili.Models.Data.User;
+using Bili.ViewModels.Uwp.Community;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -11,66 +10,27 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// 粉丝详情页面.
     /// </summary>
-    public sealed partial class FansPage : AppPage
+    public sealed partial class FansPage : FansPageBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(FansViewModel), typeof(FansPage), new PropertyMetadata(FansViewModel.Instance));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FansPage"/> class.
         /// </summary>
-        public FansPage()
-        {
-            InitializeComponent();
-            Loaded += OnLoadedAsync;
-        }
-
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public FansViewModel ViewModel
-        {
-            get { return (FansViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
+        public FansPage() => InitializeComponent();
 
         /// <inheritdoc/>
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is Tuple<int, string> userInfo)
+            if (e.Parameter is UserProfile profile)
             {
-                var canRefresh = ViewModel.SetUser(userInfo.Item1, userInfo.Item2);
-                if (IsLoaded && canRefresh)
-                {
-                    await ViewModel.InitializeRequestAsync();
-                }
+                ViewModel.SetProfile(profile);
             }
         }
+    }
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            if (!ViewModel.IsRequested)
-            {
-                await ViewModel.InitializeRequestAsync();
-            }
-        }
-
-        private async void OnFansRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.InitializeRequestAsync();
-        }
-
-        private async void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
-        {
-            await ViewModel.RequestDataAsync();
-        }
-
-        private async void OnUserCardClickAsync(object sender, System.EventArgs e)
-        {
-            await UserView.Instance.ShowAsync((sender as UserSlimCard).ViewModel);
-        }
+    /// <summary>
+    /// <see cref="FansPage"/> 的基类.
+    /// </summary>
+    public class FansPageBase : AppPage<FansPageViewModel>
+    {
     }
 }

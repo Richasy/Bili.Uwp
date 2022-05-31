@@ -31,11 +31,11 @@ namespace Bili.Models.Data.Community
         /// <param name="relation">你和这名用户的关系.</param>
         public UserCommunityInformation(
             string userId,
-            int followCount,
-            int fansCount,
-            double coinCount,
-            int likeCount,
-            int dynamicCount,
+            int followCount = -1,
+            int fansCount = -1,
+            double coinCount = -1,
+            int likeCount = -1,
+            int dynamicCount = -1,
             UserRelationStatus relation = UserRelationStatus.Unknown)
         {
             Id = userId;

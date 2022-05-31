@@ -923,8 +923,10 @@ namespace Bili.ViewModels.Uwp.Core
 
             try
             {
-                var relation = await Controller.GetRelationAsync(Publisher.Id);
-                Publisher.IsFollow = relation.IsFollow();
+                // var relation = await Controller.GetRelationAsync(Publisher.Id);
+                // Publisher.IsFollow = relation.IsFollow();
+                Publisher.IsFollow = false;
+                await Task.CompletedTask;
             }
             catch (Exception)
             {

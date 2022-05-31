@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.User;
@@ -16,33 +17,71 @@ namespace Bili.Adapter
     public sealed class UserAdapter : IUserAdapter
     {
         private readonly IImageAdapter _imageAdapter;
+        private readonly ICommunityAdapter _communityAdapter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAdapter"/> class.
         /// </summary>
         /// <param name="imageAdapter">图片适配器.</param>
-        public UserAdapter(IImageAdapter imageAdapter)
-            => _imageAdapter = imageAdapter;
+        /// <param name="communityAdapter">社区数据适配器.</param>
+        public UserAdapter(
+            IImageAdapter imageAdapter,
+            ICommunityAdapter communityAdapter)
+        {
+            _imageAdapter = imageAdapter;
+            _communityAdapter = communityAdapter;
+        }
 
         /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(myInfo.Mid, myInfo.Name, myInfo.Avatar, avatarSize);
-            return new AccountInformation(user, myInfo.Sign, myInfo.Level, myInfo.VIP.Status == 1);
+            var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(myInfo);
+            return new AccountInformation(
+                user,
+                myInfo.Sign,
+                myInfo.Level,
+                myInfo.VIP.Status == 1,
+                communityInfo);
         }
 
         /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(Mine myInfo, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(myInfo.Mid, myInfo.Name, myInfo.Avatar, avatarSize);
-            return new AccountInformation(user, string.Empty, myInfo.Level, false);
+            var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(myInfo);
+            return new AccountInformation(
+                user,
+                string.Empty,
+                myInfo.Level,
+                false,
+                communityInfo);
         }
 
         /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(Convert.ToInt32(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, avatarSize);
-            return new AccountInformation(user, spaceInfo.Sign, spaceInfo.LevelInformation.CurrentLevel, spaceInfo.Vip.Status == 1);
+            var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(spaceInfo);
+            return new AccountInformation(
+                user,
+                spaceInfo.Sign,
+                spaceInfo.LevelInformation.CurrentLevel,
+                spaceInfo.Vip.Status == 1,
+                communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public AccountInformation ConvertToAccountInformation(RelatedUser user, AvatarSize avatarSize = AvatarSize.Size64)
+        {
+            var profile = ConvertToUserProfile(user.Mid, user.Name, user.Avatar, avatarSize);
+            var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(user);
+            return new AccountInformation(
+                profile,
+                user.Sign,
+                -1,
+                user.Vip.Status == 1,
+                communityInfo);
         }
 
         /// <inheritdoc/>
@@ -87,6 +126,14 @@ namespace Bili.Adapter
             var image = _imageAdapter.ConvertToImage(avatar, size, size);
             var profile = new UserProfile(userId.ToString(), userName, image);
             return profile;
+        }
+
+        /// <inheritdoc/>
+        public RelationView ConvertToRelationView(RelatedUserResponse response)
+        {
+            var count = response.TotalCount;
+            var accounts = response.UserList.Select(p => ConvertToAccountInformation(p)).ToList();
+            return new RelationView(accounts, count);
         }
     }
 }

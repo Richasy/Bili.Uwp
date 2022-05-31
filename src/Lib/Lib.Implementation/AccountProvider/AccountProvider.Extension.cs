@@ -9,6 +9,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
 using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -25,6 +26,7 @@ namespace Bili.Lib.Uwp
         private readonly ICommunityAdapter _communityAdapter;
         private readonly IVideoAdapter _videoAdapter;
         private readonly Dictionary<MessageType, MessageCursor> _messageOffsetCache;
+        private readonly Dictionary<RelationType, int> _relationOffsetCache;
         private int _viewLaterPageNumber;
         private Cursor _historyCursor;
 

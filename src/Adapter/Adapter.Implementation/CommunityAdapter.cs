@@ -162,8 +162,7 @@ namespace Bili.Adapter
                 mine.FollowCount,
                 mine.FollowerCount,
                 mine.CoinNumber,
-                -1,
-                mine.DynamicCount);
+                dynamicCount: mine.DynamicCount);
 
         /// <inheritdoc/>
         public UserCommunityInformation ConvertToUserCommunityInformation(UserSpaceInformation spaceInfo)
@@ -171,10 +170,29 @@ namespace Bili.Adapter
                 spaceInfo.UserId,
                 spaceInfo.FollowCount,
                 spaceInfo.FollowerCount,
-                -1,
-                spaceInfo.LikeInformation.LikeCount,
-                -1,
-                (UserRelationStatus)spaceInfo.Relation.Status);
+                likeCount: spaceInfo.LikeInformation.LikeCount,
+                relation: (UserRelationStatus)spaceInfo.Relation.Status);
+
+        /// <inheritdoc/>
+        public UserCommunityInformation ConvertToUserCommunityInformation(MyInfo mine)
+            => new UserCommunityInformation(
+                mine.Mid.ToString(),
+                coinCount: mine.Coins);
+
+        /// <inheritdoc/>
+        public UserCommunityInformation ConvertToUserCommunityInformation(RelatedUser user)
+        {
+            var relation = user.Attribute switch
+            {
+                0 => UserRelationStatus.Unfollow,
+                2 => UserRelationStatus.Following,
+                3 => UserRelationStatus.Friends,
+                _ => UserRelationStatus.Unknown,
+            };
+            return new UserCommunityInformation(
+                user.Mid.ToString(),
+                relation: relation);
+        }
 
         /// <inheritdoc/>
         public VideoCommunityInformation ConvertToVideoCommunityInformation(RecommendCard videoCard)

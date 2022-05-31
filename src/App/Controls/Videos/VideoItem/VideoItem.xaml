@@ -112,8 +112,9 @@
                                         Height="36"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Avatar.Uri}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.ShowDetailCommand}"
+                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
                                 </Grid>
 
                                 <Grid
@@ -304,8 +305,9 @@
                                             Height="24"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
-                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Avatar.Uri}"
-                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.ShowDetailCommand}"
+                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             VerticalAlignment="Center"

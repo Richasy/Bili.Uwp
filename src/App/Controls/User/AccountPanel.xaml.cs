@@ -59,7 +59,7 @@ namespace Bili.App.Controls
 
         private void OnFollowerButtonClick(object sender, RoutedEventArgs e)
         {
-            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel.AccountInformation.User);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
     }

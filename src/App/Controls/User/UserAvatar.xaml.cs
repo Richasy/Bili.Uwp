@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,6 +12,12 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class UserAvatar : UserControl
     {
+        /// <summary>
+        /// <see cref="Command"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(UserAvatar), new PropertyMetadata(default));
+
         /// <summary>
         /// <see cref="UserName"/>的依赖属性.
         /// </summary>
@@ -67,6 +74,15 @@ namespace Bili.App.Controls
         {
             get { return (int)GetValue(DecodeSizeProperty); }
             set { SetValue(DecodeSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// 命令.
+        /// </summary>
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
         private void OnClick(object sender, RoutedEventArgs e)

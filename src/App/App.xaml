@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="ms-appx:///Controls/Article/ArticleItem/ArticleItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/MessageItem/MessageItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/User/UserItem/UserItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />
@@ -50,6 +51,8 @@
             <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter" />
             <converter:SubtitleConvertTypeConverter x:Key="SubtitleConvertTypeConverter" />
             <converter:SmallImageConverter x:Key="SmallImageConverter" />
+            <converter:RelationTextConverter x:Key="RelationTextConverter" />
+            <converter:RelationButtonStyleConverter x:Key="RelationButtonStyleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

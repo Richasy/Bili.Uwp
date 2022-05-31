@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -31,7 +30,6 @@ namespace Bili.ViewModels.Uwp
         {
             FollowingTagCollection = new ObservableCollection<RelatedTag>();
             DisplayFollowingUserCollection = new ObservableCollection<UserViewModel>();
-            Controller.FollowsIteration += OnFollowsIteration;
 
             this.WhenAnyValue(x => x.CurrentTag)
                 .ObserveOn(RxApp.MainThreadScheduler)
@@ -155,30 +153,6 @@ namespace Bili.ViewModels.Uwp
                 IsDeltaLoading = true;
                 await Controller.GetMyFollowingTagDetailAsync(CurrentTag.TagId, _pageNumber);
                 IsDeltaLoading = false;
-            }
-        }
-
-        private void OnFollowsIteration(object sender, RelatedUserIterationEventArgs e)
-        {
-            if (e.UserId == -1)
-            {
-                if (e.List?.Any() ?? false)
-                {
-                    foreach (var item in e.List)
-                    {
-                        if (!DisplayFollowingUserCollection.Any(p => p.Id == item.Mid))
-                        {
-                            DisplayFollowingUserCollection.Add(new UserViewModel(item)
-                            {
-                                IsFollow = true,
-                            });
-                        }
-                    }
-                }
-
-                _pageNumber = e.NextPageNumber;
-                _isLoadCompleted = CurrentTag.Count <= DisplayFollowingUserCollection.Count;
-                IsShowEmpty = DisplayFollowingUserCollection.Count == 0;
             }
         }
     }

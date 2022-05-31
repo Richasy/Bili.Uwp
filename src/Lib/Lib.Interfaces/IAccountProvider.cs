@@ -7,6 +7,8 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
+using Bili.Models.Enums.Community;
 using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Lib.Interfaces
@@ -64,7 +66,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="userId">用户Id.</param>
         /// <param name="isFollow">是否关注.</param>
         /// <returns>关注是否成功.</returns>
-        Task<bool> ModifyUserRelationAsync(int userId, bool isFollow);
+        Task<bool> ModifyUserRelationAsync(string userId, bool isFollow);
 
         /// <summary>
         /// 获取我的历史记录信息.
@@ -89,20 +91,12 @@ namespace Bili.Lib.Interfaces
         Task<bool> ClearHistoryAsync(string tabSign = "archive");
 
         /// <summary>
-        /// 获取指定用户的粉丝列表.
+        /// 获取指定用户的粉丝或关注列表.
         /// </summary>
-        /// <param name="userId">指定用户的用户Id.</param>
-        /// <param name="page">页码 (每页上限50个).</param>
-        /// <returns>粉丝响应结果.</returns>
-        Task<RelatedUserResponse> GetFansAsync(int userId, int page);
-
-        /// <summary>
-        /// 获取指定用户的关注列表.
-        /// </summary>
-        /// <param name="userId">指定用户的用户Id.</param>
-        /// <param name="page">页码（每页上限50个）.</param>
-        /// <returns>关注列表.</returns>
-        Task<RelatedUserResponse> GetFollowsAsync(int userId, int page);
+        /// <param name="userId">用户 Id.</param>
+        /// <param name="type">关系类型.</param>
+        /// <returns>粉丝或关注列表.</returns>
+        Task<RelationView> GetUserFansOrFollowsAsync(string userId, RelationType type);
 
         /// <summary>
         /// 获取我的关注分组.
@@ -256,7 +250,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="targetUserId">目标用户Id.</param>
         /// <returns>是否关注.</returns>
-        Task<UserRelationResponse> GetRelationAsync(int targetUserId);
+        Task<UserRelationStatus> GetRelationAsync(string targetUserId);
 
         /// <summary>
         /// 清除消息的请求状态.
@@ -272,5 +266,11 @@ namespace Bili.Lib.Interfaces
         /// 重置历史记录请求状态.
         /// </summary>
         void ResetHistoryStatus();
+
+        /// <summary>
+        /// 重置关系请求状态.
+        /// </summary>
+        /// <param name="type">关系类型.</param>
+        void ResetRelationStatus(RelationType type);
     }
 }

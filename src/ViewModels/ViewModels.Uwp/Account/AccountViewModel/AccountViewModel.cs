@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 用户视图模型.
     /// </summary>
-    public partial class AccountViewModel : ViewModelBase
+    public sealed partial class AccountViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountViewModel"/> class.
@@ -93,7 +93,7 @@ namespace Bili.ViewModels.Uwp.Account
                 if (_appViewModel.IsNetworkAvaliable
                     && await _authorizeProvider.IsTokenValidAsync())
                 {
-                    _accountInformation = await _accountProvider.GetMyInformationAsync();
+                    AccountInformation = await _accountProvider.GetMyInformationAsync();
                 }
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <returns><see cref="Task"/>.</returns>
         public async Task AddFixedItemAsync(FixedItem item)
         {
-            if (!IsConnected || _accountInformation == null || FixedItemCollection.Contains(item))
+            if (!IsConnected || AccountInformation == null || FixedItemCollection.Contains(item))
             {
                 return;
             }
@@ -169,7 +169,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <returns><see cref="Task"/>.</returns>
         public async Task RemoveFixedItemAsync(string itemId)
         {
-            if (!IsConnected || _accountInformation == null || !FixedItemCollection.Any(p => p.Id == itemId))
+            if (!IsConnected || AccountInformation == null || !FixedItemCollection.Any(p => p.Id == itemId))
             {
                 return;
             }
@@ -184,23 +184,23 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task InitializeAccountInformationAsync()
         {
-            if (_accountInformation == null)
+            if (AccountInformation == null)
             {
                 return;
             }
 
-            Avatar = _accountInformation.User.Avatar.Uri;
-            DisplayName = _accountInformation.User.Name;
-            Level = _accountInformation.Level;
-            TipText = $"{_accountInformation.User.Name} Lv.{_accountInformation.Level}";
-            IsVip = _accountInformation.IsVip;
+            Avatar = AccountInformation.User.Avatar.Uri;
+            DisplayName = AccountInformation.User.Name;
+            Level = AccountInformation.Level;
+            TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
+            IsVip = AccountInformation.IsVip;
 
             await InitUnreadAsync();
         }
 
         private void Reset()
         {
-            _accountInformation = null;
+            AccountInformation = null;
             _isRequestLogout = false;
             Avatar = string.Empty;
             DisplayName = string.Empty;
@@ -215,7 +215,7 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task InitializeFixedItemAsync()
         {
-            if (IsConnected && _accountInformation != null)
+            if (IsConnected && AccountInformation != null)
             {
                 var data = await _fileToolkit.ReadLocalDataAsync<List<FixedItem>>(
                     string.Format(AppConstants.FixedContentFileName, Mid),

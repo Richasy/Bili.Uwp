@@ -11,6 +11,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
@@ -83,11 +84,18 @@ namespace Bili.ViewModels.Uwp.Core
             => RequestShowArticleReader?.Invoke(this, article);
 
         /// <summary>
-        /// 显示文章阅读器.
+        /// 显示评论详情.
         /// </summary>
         /// <param name="information">评论信息.</param>
         public void ShowReply(MessageInformation information)
             => RequestShowReplyDetail?.Invoke(this, information);
+
+        /// <summary>
+        /// 显示用户详情.
+        /// </summary>
+        /// <param name="vm">用户条目视图模型.</param>
+        public void ShowUserDetail(UserItemViewModel vm)
+            => RequestShowUserDetail?.Invoke(this, vm);
 
         /// <summary>
         /// 初始化主题.

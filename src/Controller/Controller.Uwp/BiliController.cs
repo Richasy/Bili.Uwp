@@ -152,16 +152,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
 
         /// <summary>
-        /// 在粉丝列表更新时发生.
-        /// </summary>
-        public event EventHandler<RelatedUserIterationEventArgs> FansIteration;
-
-        /// <summary>
-        /// 在关注列表更新时发生.
-        /// </summary>
-        public event EventHandler<RelatedUserIterationEventArgs> FollowsIteration;
-
-        /// <summary>
         /// 在PGC收藏夹内容更新时发生.
         /// </summary>
         public event EventHandler<FavoritePgcIterationEventArgs> PgcFavoriteIteration;
