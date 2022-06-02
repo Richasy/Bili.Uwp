@@ -52,7 +52,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
             CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetailAsync;
-            CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetailAsync;
+            CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -231,12 +231,8 @@ namespace Bili.App.Pages.Desktop
             await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
 
-        private async void OnRequestShowUserDetailAsync(object sender, UserItemViewModel e)
-        {
-            // TODO: 重置
-            var userVM = new UserViewModel(e.User.Name, e.User.Avatar.Uri, Convert.ToInt32(e.User.Id));
-            await UserView.Instance.ShowAsync(userVM);
-        }
+        private void OnRequestShowUserDetail(object sender, UserItemViewModel e)
+            => new UserSpaceView().Show(e.User);
 
         private Type GetSecondaryViewType(PageIds pageId)
         {

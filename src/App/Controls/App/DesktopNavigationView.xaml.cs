@@ -155,14 +155,14 @@ namespace Bili.App.Controls
             }
         }
 
-        private async void OnFixedItemClickAsync(object sender, RoutedEventArgs e)
+        private void OnFixedItemClick(object sender, RoutedEventArgs e)
         {
             var context = (sender as FrameworkElement).DataContext as FixedItem;
             object playRecord = null;
             switch (context.Type)
             {
                 case Models.Enums.App.FixedType.Publisher:
-                    await UserView.Instance.ShowAsync(Convert.ToInt32(context.Id));
+                    new UserSpaceView().Show(context.Id);
                     break;
                 case Models.Enums.App.FixedType.Pgc:
                     playRecord = new CurrentPlayingRecord("0", Convert.ToInt32(context.Id), VideoType.Pgc)

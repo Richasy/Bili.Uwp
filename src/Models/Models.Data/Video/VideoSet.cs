@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace Bili.Models.Data.Video
 {
     /// <summary>
-    /// 稍后再看视图.
+    /// 视频集，包含视频列表和视频总数.
     /// </summary>
-    public sealed class ViewLaterView
+    public sealed class VideoSet
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewLaterView"/> class.
+        /// Initializes a new instance of the <see cref="VideoSet"/> class.
         /// </summary>
         /// <param name="items">视频列表.</param>
         /// <param name="totalCount">视频总数.</param>
-        public ViewLaterView(
+        public VideoSet(
             IEnumerable<VideoInformation> items,
             int totalCount)
         {

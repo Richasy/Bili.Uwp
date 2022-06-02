@@ -78,7 +78,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <local:TwoLineButton
-                Click="OnDynamicButtonClickAsync"
+                Click="OnDynamicButtonClick"
                 FirstLineText="{x:Bind ViewModel.DynamicCount, Mode=OneWay}"
                 SecondLineText="{loc:LocaleLocator Name=DynamicCount}" />
 

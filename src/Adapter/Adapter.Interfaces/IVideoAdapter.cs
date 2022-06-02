@@ -113,11 +113,25 @@ namespace Bili.Adapter.Interfaces
         VideoView ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
 
         /// <summary>
-        /// 将稍后再看响应 <see cref="ViewLaterResponse"/> 转换为稍后再看视图.
+        /// 将稍后再看响应 <see cref="ViewLaterResponse"/> 转换为视频集.
         /// </summary>
         /// <param name="response">稍后在看响应结果.</param>
-        /// <returns><see cref="ViewLaterView"/>.</returns>
-        ViewLaterView ConvertToViewLaterView(ViewLaterResponse response);
+        /// <returns><see cref="VideoSet"/>.</returns>
+        VideoSet ConvertToVideoSet(ViewLaterResponse response);
+
+        /// <summary>
+        /// 将用户空间视频集 <see cref="UserSpaceVideoSet"/> 转换为视频集.
+        /// </summary>
+        /// <param name="set">稍后在看响应结果.</param>
+        /// <returns><see cref="VideoSet"/>.</returns>
+        VideoSet ConvertToVideoSet(UserSpaceVideoSet set);
+
+        /// <summary>
+        /// 将视频搜索结果 <see cref="SearchArchiveReply"/> 转换为视频集.
+        /// </summary>
+        /// <param name="reply">稍后在看响应结果.</param>
+        /// <returns><see cref="VideoSet"/>.</returns>
+        VideoSet ConvertToVideoSet(SearchArchiveReply reply);
 
         /// <summary>
         /// 将历史记录响应结果 <see cref="CursorV2Reply"/> 转换为历史记录视图.

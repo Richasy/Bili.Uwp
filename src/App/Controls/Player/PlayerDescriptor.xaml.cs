@@ -29,10 +29,10 @@ namespace Bili.App.Controls
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
-        private async void OnUserTappedAsync(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void OnUserTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var dataContext = (sender as FrameworkElement).DataContext as UserViewModel;
-            await UserView.Instance.ShowAsync(dataContext);
+            new UserSpaceView().Show(dataContext.Id.ToString());
         }
 
         private async void OnFollowButtonClickAsync(object sender, RoutedEventArgs e)

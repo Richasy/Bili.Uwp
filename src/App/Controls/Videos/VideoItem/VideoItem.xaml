@@ -286,7 +286,7 @@
                                         x:Name="TitleBlock"
                                         Grid.Row="1"
                                         VerticalAlignment="Top"
-                                        MaxLines="1"
+                                        MaxLines="2"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
@@ -298,7 +298,8 @@
                                     <StackPanel
                                         x:Name="InlineUserContainer"
                                         Grid.Row="2"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <controls:UserAvatar
                                             x:Name="InlineAvatar"
                                             Width="24"

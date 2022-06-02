@@ -62,7 +62,7 @@ namespace Bili.App.Controls
             _flyout.Opening += OnFlyoutOpening;
             _addViewLaterButton.Click += OnAddToViewLaterItemClickAsync;
             _openBroswerButton.Click += OnOpenInBroswerItemClickAsync;
-            _verticalAvatar.Click += OnAvatarClickAsync;
+            _verticalAvatar.Click += OnAvatarClick;
             _rootCard.Click += OnContainerClickAsync;
 
             CheckOrientation();
@@ -127,12 +127,8 @@ namespace Bili.App.Controls
             }
         }
 
-        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        private void OnAvatarClick(object sender, EventArgs e)
         {
-            if (ViewModel.Publisher != null)
-            {
-                await UserView.Instance.ShowAsync(ViewModel.Publisher);
-            }
         }
 
         private async void OnOpenInBroswerItemClickAsync(object sender, RoutedEventArgs e)

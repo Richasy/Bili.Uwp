@@ -274,11 +274,11 @@ namespace Bili.App.Controls
             }
         }
 
-        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        private void OnAvatarClick(object sender, EventArgs e)
         {
             if ((sender as FrameworkElement).DataContext is UserViewModel data)
             {
-                await UserView.Instance.ShowAsync(data);
+                new UserSpaceView().Show(data.Id.ToString());
             }
         }
 

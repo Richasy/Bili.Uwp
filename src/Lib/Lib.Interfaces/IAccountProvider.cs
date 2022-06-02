@@ -9,7 +9,6 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Models.Enums.Community;
-using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Lib.Interfaces
 {
@@ -40,25 +39,22 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <returns><see cref="UserSpaceResponse"/>.</returns>
-        Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId);
+        Task<UserSpaceView> GetUserSpaceInformationAsync(string userId);
 
         /// <summary>
         /// 获取用户空间的视频集.
         /// </summary>
         /// <param name="userId">用户Id.</param>
-        /// <param name="offsetId">偏移值Id.</param>
         /// <returns>视频集.</returns>
-        Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId);
+        Task<VideoSet> GetUserSpaceVideoSetAsync(string userId);
 
         /// <summary>
         /// 搜索用户空间的视频.
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <param name="keyword">关键词.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <param name="pageSize">每页容量.</param>
-        /// <returns><see cref="SearchArchiveReply"/>.</returns>
-        Task<SearchArchiveReply> SearchUserSpaceVideoAsync(int userId, string keyword, int pageNumber, int pageSize = 20);
+        /// <returns>视频集.</returns>
+        Task<VideoSet> SearchUserSpaceVideoAsync(string userId, string keyword);
 
         /// <summary>
         /// 关注/取消关注用户.
@@ -117,7 +113,7 @@ namespace Bili.Lib.Interfaces
         /// 获取稍后再看列表.
         /// </summary>
         /// <returns>稍后再看视频列表.</returns>
-        Task<ViewLaterView> GetViewLaterListAsync();
+        Task<VideoSet> GetViewLaterListAsync();
 
         /// <summary>
         /// 清空稍后再看列表.
@@ -272,5 +268,15 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="type">关系类型.</param>
         void ResetRelationStatus(RelationType type);
+
+        /// <summary>
+        /// 重置空间视频请求状态.
+        /// </summary>
+        void ResetSpaceVideoStatus();
+
+        /// <summary>
+        /// 重置空间搜索请求状态.
+        /// </summary>
+        void ResetSpaceSearchStatus();
     }
 }

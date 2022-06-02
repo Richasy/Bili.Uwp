@@ -142,11 +142,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<LiveSearchIterationEventArgs> LiveSearchIteration;
 
         /// <summary>
-        /// 用户空间的视频列表更新时发生.
-        /// </summary>
-        public event EventHandler<UserSpaceVideoIterationEventArgs> UserSpaceVideoIteration;
-
-        /// <summary>
         /// 收到直播消息时发生.
         /// </summary>
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
@@ -180,11 +175,6 @@ namespace Bili.Controller.Uwp
         /// 收到更新消息时发生.
         /// </summary>
         public event EventHandler<UpdateEventArgs> UpdateReceived;
-
-        /// <summary>
-        /// 在用户空间搜索视频更新时发生.
-        /// </summary>
-        public event EventHandler<UserSpaceSearchVideoIterationEventArgs> UserSpaceSearchVideoIteration;
 
         /// <summary>
         /// 控制器实例.

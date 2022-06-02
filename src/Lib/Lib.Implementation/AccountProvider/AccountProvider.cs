@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
@@ -112,33 +113,46 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<UserSpaceResponse> GetUserSpaceInformationAsync(int userId)
+        public async Task<UserSpaceView> GetUserSpaceInformationAsync(string userId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.VMid, userId.ToString() },
+                { Query.VMid, userId },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Space, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
-            return result.Data;
+            var accInfo = _userAdapter.ConvertToAccountInformation(result.Data.User, AvatarSize.Size96);
+            var videoSet = _videoAdapter.ConvertToVideoSet(result.Data.VideoSet);
+            if (videoSet.Items.Count() > 0)
+            {
+                _spaceVideoOffset = videoSet.Items.Last().Identifier.Id;
+            }
+
+            return new UserSpaceView(accInfo, videoSet);
         }
 
         /// <inheritdoc/>
-        public async Task<UserSpaceVideoSet> GetUserSpaceVideoSetAsync(int userId, string offsetId)
+        public async Task<VideoSet> GetUserSpaceVideoSetAsync(string userId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.VMid, userId.ToString() },
-                { Query.Aid, offsetId },
+                { Query.VMid, userId },
+                { Query.Aid, _spaceVideoOffset.ToString() },
                 { Query.Order, "pubdate" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoCursor, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
-            return result.Data;
+            var data = _videoAdapter.ConvertToVideoSet(result.Data);
+            if (data.Items.Count() > 0)
+            {
+                _spaceVideoOffset = data.Items.Last().Identifier.Id;
+            }
+
+            return data;
         }
 
         /// <inheritdoc/>
@@ -187,7 +201,7 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<ViewLaterView> GetViewLaterListAsync()
+        public async Task<VideoSet> GetViewLaterListAsync()
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -198,7 +212,7 @@ namespace Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ViewLaterResponse>>(response);
             _viewLaterPageNumber++;
-            return _videoAdapter.ConvertToViewLaterView(result.Data);
+            return _videoAdapter.ConvertToVideoSet(result.Data);
         }
 
         /// <inheritdoc/>
@@ -448,20 +462,21 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<SearchArchiveReply> SearchUserSpaceVideoAsync(int userId, string keyword, int pageNumber, int pageSize = 20)
+        public async Task<VideoSet> SearchUserSpaceVideoAsync(string userId, string keyword)
         {
             var req = new SearchArchiveReq
             {
-                Mid = userId,
+                Mid = System.Convert.ToInt64(userId),
                 Keyword = keyword,
-                Pn = pageNumber,
-                Ps = pageSize,
+                Pn = _spaceSearchPageNumber,
+                Ps = 20,
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Account.SpaceVideoSearch, req, false);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, SearchArchiveReply.Parser);
-            return data;
+            _spaceSearchPageNumber++;
+            return _videoAdapter.ConvertToVideoSet(data);
         }
 
         /// <inheritdoc/>
@@ -504,5 +519,13 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetRelationStatus(RelationType type)
             => _relationOffsetCache.Remove(type);
+
+        /// <inheritdoc/>
+        public void ResetSpaceVideoStatus()
+            => _spaceVideoOffset = string.Empty;
+
+        /// <inheritdoc/>
+        public void ResetSpaceSearchStatus()
+            => _spaceSearchPageNumber = 1;
     }
 }

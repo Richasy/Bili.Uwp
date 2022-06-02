@@ -28,6 +28,8 @@ namespace Bili.Lib.Uwp
         private readonly Dictionary<MessageType, MessageCursor> _messageOffsetCache;
         private readonly Dictionary<RelationType, int> _relationOffsetCache;
         private int _viewLaterPageNumber;
+        private string _spaceVideoOffset;
+        private int _spaceSearchPageNumber;
         private Cursor _historyCursor;
 
         private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber, int status)

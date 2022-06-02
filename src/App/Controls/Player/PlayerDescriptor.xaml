@@ -33,7 +33,7 @@
                     Height="36"
                     Avatar="{x:Bind ViewModel.Publisher.Avatar, Mode=OneWay}"
                     DataContext="{x:Bind ViewModel.Publisher, Mode=OneWay}"
-                    Tapped="OnUserTappedAsync"
+                    Tapped="OnUserTapped"
                     UserName="{x:Bind ViewModel.Publisher.Name, Mode=OneWay}" />
                 <StackPanel Spacing="4">
                     <TextBlock
@@ -84,7 +84,7 @@
                                         Height="36"
                                         Avatar="{x:Bind Avatar, Mode=OneWay}"
                                         DataContext="{x:Bind}"
-                                        Tapped="OnUserTappedAsync"
+                                        Tapped="OnUserTapped"
                                         UserName="{x:Bind Name, Mode=OneWay}" />
                                     <TextBlock
                                         MaxWidth="52"

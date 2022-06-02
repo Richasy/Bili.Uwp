@@ -2,14 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
-using Bilibili.App.Interfaces.V1;
 
 namespace Bili.Controller.Uwp
 {
@@ -69,85 +67,6 @@ namespace Bili.Controller.Uwp
             catch (Exception ex)
             {
                 _loggerModule.LogError(ex, true);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// 请求用户空间数据.
-        /// </summary>
-        /// <param name="userId">用户Id.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task<UserSpaceInformation> RequestUserSpaceInformationAsync(int userId)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var data = await _accountProvider.GetUserSpaceInformationAsync(userId);
-                if (data.VideoSet != null)
-                {
-                    var args = new UserSpaceVideoIterationEventArgs(data.VideoSet, userId);
-                    UserSpaceVideoIteration?.Invoke(this, args);
-                }
-
-                return data.User;
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// 请求用户空间视频集.
-        /// </summary>
-        /// <param name="userId">用户Id.</param>
-        /// <param name="offsetId">偏移Id.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestUserSpaceVideoSetAsync(int userId, string offsetId)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                var data = await _accountProvider.GetUserSpaceVideoSetAsync(userId, offsetId);
-                var args = new UserSpaceVideoIterationEventArgs(data, userId);
-                UserSpaceVideoIteration?.Invoke(this, args);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// 请求搜索用户空间视频.
-        /// </summary>
-        /// <param name="userId">用户Id.</param>
-        /// <param name="keyword">关键词.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestSearchUserVideoAsync(int userId, string keyword, int pageNumber)
-        {
-            ThrowWhenNetworkUnavaliable();
-
-            try
-            {
-                if (pageNumber < 1)
-                {
-                    pageNumber = 1;
-                }
-
-                var data = await _accountProvider.SearchUserSpaceVideoAsync(userId, keyword, pageNumber);
-                var args = new UserSpaceSearchVideoIterationEventArgs(data, userId);
-                UserSpaceSearchVideoIteration?.Invoke(this, args);
-            }
-            catch (Exception ex)
-            {
-                _loggerModule.LogError(ex);
                 throw;
             }
         }

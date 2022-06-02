@@ -309,8 +309,8 @@
     <Compile Include="Controls\User\UserSlimCard.xaml.cs">
       <DependentUpon>UserSlimCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\User\UserView.xaml.cs">
-      <DependentUpon>UserView.xaml</DependentUpon>
+    <Compile Include="Controls\User\UserSpaceView.xaml.cs">
+      <DependentUpon>UserSpaceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
@@ -957,7 +957,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\User\UserView.xaml">
+    <Page Include="Controls\User\UserSpaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

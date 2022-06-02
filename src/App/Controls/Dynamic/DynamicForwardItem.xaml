@@ -23,7 +23,7 @@
             x:Name="UserLink"
             Padding="4"
             HorizontalAlignment="Left"
-            Click="OnUserLinkClickAsync" />
+            Click="OnUserLinkClick" />
         <local:EmotiTextBlock
             x:Name="DescriptionBlock"
             Grid.Row="1"

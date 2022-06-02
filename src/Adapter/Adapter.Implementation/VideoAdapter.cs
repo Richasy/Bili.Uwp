@@ -251,11 +251,13 @@ namespace Bili.Adapter
             var duration = spaceVideo.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(spaceVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(spaceVideo);
+            var subtitle = publishDate.DateTime.Humanize();
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
                 identifier,
                 null,
+                subtitle: subtitle,
                 publishTime: publishDate.DateTime,
                 communityInformation: communityInfo);
         }
@@ -363,13 +365,33 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public ViewLaterView ConvertToViewLaterView(ViewLaterResponse response)
+        public VideoSet ConvertToVideoSet(ViewLaterResponse response)
         {
             var count = response.Count;
             var items = response.List == null
                 ? new List<VideoInformation>()
                 : response.List.Select(p => ConvertToVideoInformation(p)).ToList();
-            return new ViewLaterView(items, count);
+            return new VideoSet(items, count);
+        }
+
+        /// <inheritdoc/>
+        public VideoSet ConvertToVideoSet(UserSpaceVideoSet set)
+        {
+            var count = set.Count;
+            var items = set.List == null
+                ? new List<VideoInformation>()
+                : set.List.Select(p => ConvertToVideoInformation(p)).ToList();
+            return new VideoSet(items, count);
+        }
+
+        /// <inheritdoc/>
+        public VideoSet ConvertToVideoSet(SearchArchiveReply reply)
+        {
+            var count = Convert.ToInt32(reply.Total);
+            var items = reply.Archives == null
+                ? new List<VideoInformation>()
+                : reply.Archives.Select(p => ConvertToVideoInformation(p)).ToList();
+            return new VideoSet(items, count);
         }
 
         /// <inheritdoc/>

@@ -70,8 +70,11 @@ namespace Bili.ViewModels.Uwp.Account
         /// <param name="profile">用户资料.</param>
         public void SetProfile(RoleProfile profile)
         {
-            User = profile.User;
-            Role = profile.Role;
+            if (profile != null)
+            {
+                User = profile.User;
+                Role = profile.Role;
+            }
         }
 
         /// <summary>

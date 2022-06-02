@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Bili.Models.Data.Video
 {
     /// <summary>
-    /// 视频合集.
+    /// 视频合集（专制B站的合集功能）.
     /// </summary>
     public sealed class VideoSection
     {

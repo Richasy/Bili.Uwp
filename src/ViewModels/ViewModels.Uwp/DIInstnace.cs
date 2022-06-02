@@ -85,6 +85,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<HistoryPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FansPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FollowsPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<UserSpaceViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

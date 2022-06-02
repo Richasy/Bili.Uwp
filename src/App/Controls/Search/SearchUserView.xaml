@@ -20,7 +20,7 @@
             RequestLoadMore="OnViewRequestLoadMoreAsync">
             <local:VerticalRepeaterView.ItemTemplate>
                 <DataTemplate x:DataType="uwp:UserViewModel">
-                    <local:UserSlimCard Click="OnUserCardClickAsync" ViewModel="{x:Bind}" />
+                    <local:UserSlimCard Click="OnUserCardClick" ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>
         </local:VerticalRepeaterView>

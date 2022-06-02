@@ -55,7 +55,7 @@ namespace Bili.App.Controls
             set { SetValue(LevelVisibilityProperty, value); }
         }
 
-        private void OnUserItemClickAsync(object sender, RoutedEventArgs e)
+        private void OnUserItemClick(object sender, RoutedEventArgs e)
         {
             Click?.Invoke(this, EventArgs.Empty);
         }

@@ -10,7 +10,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <local:CardPanel AutomationProperties.Name="{x:Bind ViewModel.Name, Mode=OneWay}" Click="OnUserItemClickAsync">
+    <local:CardPanel AutomationProperties.Name="{x:Bind ViewModel.Name, Mode=OneWay}" Click="OnUserItemClick">
         <Grid Padding="20,20,20,16" RowSpacing="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

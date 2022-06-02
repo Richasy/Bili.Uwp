@@ -105,11 +105,11 @@ namespace Bili.App.Controls
             }
         }
 
-        private async void OnUserLinkClickAsync(object sender, RoutedEventArgs e)
+        private void OnUserLinkClick(object sender, RoutedEventArgs e)
         {
             if ((sender as FrameworkElement).DataContext is UserViewModel data)
             {
-                await UserView.Instance.ShowAsync(data);
+                new UserSpaceView().Show(data.Id.ToString());
             }
         }
     }

@@ -92,7 +92,7 @@
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="uwp:UserViewModel">
                             <controls:UserSlimCard
-                                Click="OnUserCardClickAsync"
+                                Click="OnUserCardClick"
                                 LevelVisibility="Collapsed"
                                 ViewModel="{x:Bind}" />
                         </DataTemplate>

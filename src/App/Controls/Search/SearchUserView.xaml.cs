@@ -22,9 +22,9 @@ namespace Bili.App.Controls
             await ViewModel.UserModule.InitializeRequestAsync();
         }
 
-        private async void OnUserCardClickAsync(object sender, System.EventArgs e)
+        private void OnUserCardClick(object sender, System.EventArgs e)
         {
-            await UserView.Instance.ShowAsync((sender as UserSlimCard).ViewModel);
+            new UserSpaceView().Show((sender as UserSlimCard).ViewModel.Id.ToString());
         }
     }
 }

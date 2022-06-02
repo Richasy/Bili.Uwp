@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using Bili.Models.BiliBili;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,13 +14,7 @@ namespace Bili.ViewModels.Uwp
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
 
-        private UserSpaceInformation _detail;
-        private string _videoOffsetId;
-        private int _searchPageNumber;
-
-        private bool _isVideoLoadCompleted;
         private bool _isFollowRequesting;
-        private bool _isSearchLoadCompleted;
 
         /// <summary>
         /// 头像.

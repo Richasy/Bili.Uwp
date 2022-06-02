@@ -45,9 +45,9 @@ namespace Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private async void OnDynamicButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnDynamicButtonClick(object sender, RoutedEventArgs e)
         {
-            await UserView.Instance.ShowAsync(Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value);
+            new UserSpaceView().Show(Splat.Locator.Current.GetService<AccountViewModel>().AccountInformation.User);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 

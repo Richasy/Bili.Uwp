@@ -135,11 +135,11 @@ namespace Bili.App.Controls
         private void OnCardClick(object sender, RoutedEventArgs e)
             => Click?.Invoke(this, EventArgs.Empty);
 
-        private async void OnAvatarClickAsync(object sender, EventArgs e)
+        private void OnAvatarClickAsync(object sender, EventArgs e)
         {
             if (Data.Member != null)
             {
-                await UserView.Instance.ShowAsync(Convert.ToInt32(Data.Member.Mid));
+                new UserSpaceView().Show(Data.Member.Mid.ToString());
             }
         }
     }

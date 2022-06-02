@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.App;
-using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -146,115 +145,6 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 激活.
-        /// </summary>
-        public void Active()
-        {
-            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
-            Controller.UserSpaceVideoIteration += OnUserSpaceVideoIteration;
-            Controller.UserSpaceSearchVideoIteration -= OnUserSpaceSearchVideoIteration;
-            Controller.UserSpaceSearchVideoIteration += OnUserSpaceSearchVideoIteration;
-        }
-
-        /// <summary>
-        /// 休眠.
-        /// </summary>
-        public void Deactive()
-        {
-            Controller.UserSpaceVideoIteration -= OnUserSpaceVideoIteration;
-            Controller.UserSpaceSearchVideoIteration -= OnUserSpaceSearchVideoIteration;
-        }
-
-        /// <summary>
-        /// 初始化用户资料.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task InitializeUserDetailAsync()
-        {
-            if (!IsInitializeLoading && !IsDeltaLoading && !IsSearching)
-            {
-                ResetArchives();
-                Active();
-                IsInitializeLoading = true;
-
-                try
-                {
-                    _detail = await Controller.RequestUserSpaceInformationAsync(Id);
-                    InitializeUserInformation();
-                    IsShowVideoEmpty = VideoCollection.Count == 0;
-                    IsRequested = true;
-                }
-                catch (Exception ex)
-                {
-                    IsError = true;
-                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestUserInformationFailed) + $"\n{ex.Message}";
-                }
-
-                IsInitializeLoading = false;
-            }
-        }
-
-        /// <summary>
-        /// 执行增量请求.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task DeltaRequestVideoAsync()
-        {
-            if (!IsDeltaLoading && !_isVideoLoadCompleted && !IsSearching)
-            {
-                IsDeltaLoading = true;
-                await Controller.RequestUserSpaceVideoSetAsync(Id, _videoOffsetId);
-                IsDeltaLoading = false;
-            }
-        }
-
-        /// <summary>
-        /// 初始化搜索结果.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task InitializeSearchResultAsync()
-        {
-            if (!string.IsNullOrEmpty(SearchKeyword.Trim())
-                && !IsInitializeLoading
-                && !IsDeltaLoading
-                && IsSearching)
-            {
-                ResetSearch();
-                Active();
-
-                IsInitializeLoading = true;
-                try
-                {
-                    await Controller.RequestSearchUserVideoAsync(Id, SearchKeyword, _searchPageNumber);
-                }
-                catch (Exception ex)
-                {
-                    IsError = true;
-                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestSearchResultFailed) + $"\n{ex.Message}";
-                }
-
-                IsInitializeLoading = false;
-            }
-        }
-
-        /// <summary>
-        /// 执行增量请求.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task DeltaRequestSearchAsync()
-        {
-            if (!IsDeltaLoading
-                && !_isSearchLoadCompleted
-                && !string.IsNullOrEmpty(SearchKeyword)
-                && IsSearching)
-            {
-                IsDeltaLoading = true;
-                await Controller.RequestSearchUserVideoAsync(Id, SearchKeyword, _searchPageNumber);
-                IsDeltaLoading = false;
-            }
-        }
-
-        /// <summary>
         /// 切换关注状态.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -299,104 +189,17 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 清除空间数据.
-        /// </summary>
-        public void ResetArchives()
-        {
-            VideoCollection.Clear();
-            IsRequested = false;
-            IsError = false;
-            _videoOffsetId = string.Empty;
-            _isFollowRequesting = false;
-            _isVideoLoadCompleted = false;
-            SearchKeyword = string.Empty;
-        }
-
-        /// <summary>
-        /// 清除搜索数据.
-        /// </summary>
-        public void ResetSearch()
-        {
-            SearchCollection.Clear();
-            _searchPageNumber = 1;
-            _isSearchLoadCompleted = false;
-            IsShowSearchEmpty = false;
-        }
-
-        /// <summary>
         /// 是否为哔哩哔哩番剧出差账户.
         /// </summary>
         /// <returns>检查结果.</returns>
         public bool IsRegionalAnimeUser()
             => Id == AppConstants.RegionalAnimeUserId;
 
-        private void InitializeUserInformation()
-        {
-            Name = _detail.UserName;
-            Avatar = _detail.Avatar;
-            Sign = _detail.Sign;
-            FollowCount = _numberToolkit.GetCountText(_detail.FollowCount);
-            FollowerCount = _numberToolkit.GetCountText(_detail.FollowerCount);
-            LikeCount = _numberToolkit.GetCountText(_detail.LikeInformation.LikeCount);
-            Level = _detail.LevelInformation.CurrentLevel;
-            if (string.IsNullOrEmpty(Sign))
-            {
-                Sign = _resourceToolkit.GetLocaleString(LanguageNames.UserEmptySign);
-            }
-
-            if (_detail.Relation != null)
-            {
-                IsFollow = _detail.Relation.Status == 2 || _detail.Relation.Status == 4;
-            }
-
-            CheckFollowButtonVisibility();
-        }
-
         private void CheckFollowButtonVisibility()
         {
             var accVM = Splat.Locator.Current.GetService<AccountViewModel>();
             var isMe = accVM.State == AuthorizeState.SignedIn && accVM.Mid == Id;
             IsShowFollowButton = accVM.State == AuthorizeState.SignedIn && !isMe;
-        }
-
-        private void OnUserSpaceVideoIteration(object sender, UserSpaceVideoIterationEventArgs e)
-        {
-            if (e.UserId != Id)
-            {
-                return;
-            }
-
-            foreach (var item in e.List)
-            {
-                if (!VideoCollection.Any(p => p.VideoId == item.Id))
-                {
-                    VideoCollection.Add(new VideoViewModel(item));
-                }
-            }
-
-            _videoOffsetId = e.NextOffsetId;
-            _isVideoLoadCompleted = VideoCollection.Count >= e.TotalCount;
-            IsShowVideoEmpty = VideoCollection.Count == 0;
-        }
-
-        private void OnUserSpaceSearchVideoIteration(object sender, UserSpaceSearchVideoIterationEventArgs e)
-        {
-            if (e.UserId != Id)
-            {
-                return;
-            }
-
-            foreach (var item in e.List)
-            {
-                if (!SearchCollection.Any(p => p.VideoId == item.Archive.Aid.ToString()))
-                {
-                    SearchCollection.Add(new VideoViewModel(item));
-                }
-            }
-
-            _searchPageNumber += 1;
-            _isSearchLoadCompleted = SearchCollection.Count >= e.TotalCount;
-            IsShowSearchEmpty = SearchCollection.Count == 0;
         }
     }
 }

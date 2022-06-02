@@ -15,6 +15,8 @@
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
     <Compile Include="Account\UserItemViewModel\UserItemViewModel.cs" />
     <Compile Include="Account\UserItemViewModel\UserItemViewModel.Properties.cs" />
+    <Compile Include="Account\UserSpaceViewModel\UserSpaceViewModel.cs" />
+    <Compile Include="Account\UserSpaceViewModel\UserSpaceViewModel.Properties.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.cs" />
     <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.Properties.cs" />
     <Compile Include="Base\RelationPageViewModelBase\RelationPageViewModelBase.cs" />

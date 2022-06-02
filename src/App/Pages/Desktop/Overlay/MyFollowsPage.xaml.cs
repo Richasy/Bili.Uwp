@@ -42,8 +42,8 @@ namespace Bili.App.Pages.Desktop
         private async void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
             => await _viewModel.RequestDataAsync();
 
-        private async void OnUserCardClickAsync(object sender, EventArgs e)
-            => await UserView.Instance.ShowAsync((sender as UserSlimCard).ViewModel);
+        private void OnUserCardClick(object sender, EventArgs e)
+            => new UserSpaceView().Show((sender as UserSlimCard).ViewModel.Id.ToString());
 
         private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
             => await RefreshAsync();
