@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.App.Controls.Article;
 using Bili.App.Controls.Dialogs;
@@ -82,6 +83,21 @@ namespace Bili.App.Pages.Desktop
                     RemoveFromHolder((UIElement)ele);
                 },
                 element);
+        }
+
+        /// <summary>
+        /// 显示提示信息，并在指定延时后关闭.
+        /// </summary>
+        /// <param name="element">要插入的元素.</param>
+        /// <param name="delaySeconds">延时时间(秒).</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ShowTipAsync(UIElement element, double delaySeconds)
+        {
+            TipContainer.Children.Add(element);
+            element.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
+            element.Visibility = Visibility.Collapsed;
+            TipContainer.Children.Remove(element);
         }
 
         /// <inheritdoc/>

@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
-using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 
 using static Bili.Models.App.Constants.ControllerConstants.Search;
@@ -16,25 +14,6 @@ namespace Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
-        private CancellationTokenSource _suggestionTokenSource;
-
-        /// <summary>
-        /// 获取热搜列表.
-        /// </summary>
-        /// <returns>热搜列表.</returns>
-        public async Task<List<SearchRecommendItem>> GetHotSearchListAsync()
-        {
-            try
-            {
-                return await _searchProvider.GetHotSearchListAsync();
-            }
-            catch (System.Exception ex)
-            {
-                _loggerModule.LogError(ex);
-                throw;
-            }
-        }
-
         /// <summary>
         /// 请求搜索模块数据.
         /// </summary>
@@ -159,47 +138,6 @@ namespace Bili.Controller.Uwp
                     break;
                 default:
                     break;
-            }
-        }
-
-        /// <summary>
-        /// 获取搜索建议.
-        /// </summary>
-        /// <param name="keyword">关键词.</param>
-        /// <returns>搜索建议.</returns>
-        public async Task<List<Bilibili.App.Interfaces.V1.ResultItem>> GetSearchSuggestionAsync(string keyword)
-        {
-            StopRequestSearchSuggestion();
-
-            try
-            {
-                _suggestionTokenSource = new CancellationTokenSource();
-                var result = await _searchProvider.GetSearchSuggestion(keyword, _suggestionTokenSource.Token);
-                _suggestionTokenSource?.Dispose();
-                _suggestionTokenSource = null;
-                return result;
-            }
-            catch (TaskCanceledException)
-            {
-            }
-            catch (System.Exception ex)
-            {
-                _loggerModule.LogError(ex, true);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 立刻停止请求搜索建议.
-        /// </summary>
-        public void StopRequestSearchSuggestion()
-        {
-            if (_suggestionTokenSource != null && !_suggestionTokenSource.IsCancellationRequested)
-            {
-                _suggestionTokenSource?.Cancel();
-                _suggestionTokenSource?.Dispose();
-                _suggestionTokenSource = null;
             }
         }
     }

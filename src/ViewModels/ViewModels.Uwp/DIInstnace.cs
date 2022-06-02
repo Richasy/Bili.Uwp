@@ -14,6 +14,7 @@ using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
 using Bili.ViewModels.Uwp.Live;
 using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Uwp.Search;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.System.Display;
@@ -46,6 +47,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<IPgcAdapter, PgcAdapter>();
             SplatRegistrations.RegisterLazySingleton<ILiveAdapter, LiveAdapter>();
             SplatRegistrations.RegisterLazySingleton<IArticleAdapter, ArticleAdapter>();
+            SplatRegistrations.RegisterLazySingleton<ISearchAdapter, SearchAdapter>();
 
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
@@ -86,6 +88,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<FansPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FollowsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<UserSpaceViewModel>();
+            SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

@@ -26,30 +26,6 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 加载热搜列表.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadHostSearchAsync()
-        {
-            if (HotSearchCollection.Count == 0)
-            {
-                try
-                {
-                    var list = await Controller.GetHotSearchListAsync();
-                    if (list != null)
-                    {
-                        list.ForEach(p => HotSearchCollection.Add(p));
-                    }
-                }
-                catch (System.Exception)
-                {
-                }
-            }
-
-            IsHotSearchFlyoutEnabled = HotSearchCollection.Count > 0;
-        }
-
-        /// <summary>
         /// 查询.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -138,29 +114,6 @@ namespace Bili.ViewModels.Uwp
                     break;
             }
         }
-
-        /// <summary>
-        /// 请求搜索建议.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestSearchSuggestionAsync()
-        {
-            if (!string.IsNullOrEmpty(InputWords))
-            {
-                var result = await Controller.GetSearchSuggestionAsync(InputWords);
-                if (result != null)
-                {
-                    SuggestionCollection.Clear();
-                    result.ForEach(p => SuggestionCollection.Add(p));
-                }
-            }
-        }
-
-        /// <summary>
-        /// 立刻停止获取搜索建议.
-        /// </summary>
-        public void StopRequestSearchSuggestion()
-            => Controller.StopRequestSearchSuggestion();
 
         private void LoadModule()
         {

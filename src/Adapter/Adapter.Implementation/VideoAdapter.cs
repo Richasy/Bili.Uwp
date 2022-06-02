@@ -307,21 +307,23 @@ namespace Bili.Adapter
         public VideoInformation ConvertToVideoInformation(Arc video)
         {
             var archive = video.Archive;
-            var title = archive.Title;
+            var title = Regex.Replace(archive.Title, @"<[^<>]+>", string.Empty);
             var id = archive.Aid.ToString();
             var publisher = _userAdapter.ConvertToRoleProfile(archive.Author);
             var duration = Convert.ToInt32(archive.Duration);
             var cover = _imageAdapter.ConvertToVideoCardCover(archive.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(archive.Stat);
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(archive.Pubdate);
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(archive.Pubdate).DateTime;
             var description = archive.Desc;
+            var subtitle = publishTime.Humanize();
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
                 identifier,
                 publisher,
+                subtitle: subtitle,
                 description: description,
-                publishTime: publishTime.DateTime,
+                publishTime: publishTime,
                 communityInformation: communityInfo);
         }
 

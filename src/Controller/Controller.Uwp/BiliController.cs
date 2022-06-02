@@ -212,7 +212,8 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IVideoAdapter, VideoAdapter>()
                 .AddSingleton<IPgcAdapter, PgcAdapter>()
                 .AddSingleton<IArticleAdapter, ArticleAdapter>()
-                .AddSingleton<ILiveAdapter, LiveAdapter>();
+                .AddSingleton<ILiveAdapter, LiveAdapter>()
+                .AddSingleton<ISearchAdapter, SearchAdapter>();
 
             serviceCollection
                 .AddSingleton<INetworkModule, NetworkModule>()

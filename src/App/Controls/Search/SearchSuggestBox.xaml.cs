@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Models.BiliBili;
-using Bili.ViewModels.Uwp;
-using Bili.ViewModels.Uwp.Core;
-using Bilibili.App.Interfaces.V1;
+using System;
+using Bili.Models.Data.Search;
+using Bili.ViewModels.Uwp.Search;
+using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,45 +13,21 @@ namespace Bili.App.Controls
     /// <summary>
     /// 搜索框.
     /// </summary>
-    public sealed partial class SearchSuggestBox : UserControl
+    public sealed partial class SearchSuggestBox : SearchSuggestBoxBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(SearchModuleViewModel), typeof(SearchSuggestBox), new PropertyMetadata(SearchModuleViewModel.Instance));
-
-        private readonly NavigationViewModel _navigationViewModel;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchSuggestBox"/> class.
         /// </summary>
         public SearchSuggestBox()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
-            Loaded += OnLoadedAsync;
-        }
-
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public SearchModuleViewModel ViewModel
-        {
-            get { return (SearchModuleViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
-
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.LoadHostSearchAsync();
+            ViewModel = Splat.Locator.Current.GetService<SearchBoxViewModel>();
+            DataContext = ViewModel;
         }
 
         private void OnHotItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as SearchRecommendItem;
-            ViewModel.InputWords = item.Keyword;
-            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
+            SelectSuggestItem(e.ClickedItem);
             HotSearchFlyout.Hide();
         }
 
@@ -65,43 +41,38 @@ namespace Bili.App.Controls
             }
         }
 
-        private void OnHotSearchOpening(object sender, object e)
-        {
-            if (!ViewModel.IsHotSearchFlyoutEnabled)
-            {
-                (sender as Flyout).Hide();
-            }
-        }
-
         private void OnSearchBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            ViewModel.StopRequestSearchSuggestion();
-            if (args.ChosenSuggestion is ResultItem item)
+            if (args.ChosenSuggestion is SearchSuggest)
             {
-                ViewModel.InputWords = item.Keyword;
+                SelectSuggestItem(args.ChosenSuggestion);
             }
 
             if (!string.IsNullOrEmpty(sender.Text))
             {
-                _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
+                ViewModel.SearchCommand.Execute(sender.Text).Subscribe();
             }
+        }
 
-            ViewModel.SuggestionCollection.Clear();
+        private void SelectSuggestItem(object suggestObj)
+        {
+            var data = suggestObj as SearchSuggest;
+            ViewModel.SelectSuggestCommand.Execute(data).Subscribe();
         }
 
         private void OnHotSearchButtonClick(object sender, RoutedEventArgs e)
-            => HotSearchFlyout.ShowAt(AppSearchBox);
-
-        private async void OnTextChangedAsync(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
+            if (ViewModel.HotSearchCollection.Count > 0)
             {
-                ViewModel.SuggestionCollection.Clear();
-            }
-            else
-            {
-                await ViewModel.RequestSearchSuggestionAsync();
+                HotSearchFlyout.ShowAt(AppSearchBox);
             }
         }
+    }
+
+    /// <summary>
+    /// <see cref="SearchSuggestBox"/> 的基类.
+    /// </summary>
+    public class SearchSuggestBoxBase : ReactiveUserControl<SearchBoxViewModel>
+    {
     }
 }

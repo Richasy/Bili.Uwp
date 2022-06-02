@@ -59,6 +59,13 @@ namespace Bili.App.Controls
         }
 
         private void OnSearchBoxQuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
-            => ViewModel.SearchCommand.Execute().Subscribe();
+        {
+            if (!ViewModel.CanSearch)
+            {
+                return;
+            }
+
+            ViewModel.SearchCommand.Execute().Subscribe();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -20,6 +21,7 @@ namespace Bili.Lib.Uwp
     {
         private readonly IHttpProvider _httpProvider;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly ISearchAdapter _searchAdapter;
 
         private Dictionary<string, string> GetSearchBasicQueryParameters(string keyword, string orderType, int pageNumber)
         {

@@ -37,6 +37,11 @@
             Grid.Row="1"
             Visibility="Collapsed" />
 
+        <Grid
+            x:Name="TipContainer"
+            Grid.Row="1"
+            Visibility="Collapsed" />
+
         <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
     </Grid>
 </local:RootPageBase>

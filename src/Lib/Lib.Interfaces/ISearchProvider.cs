@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
-using Bilibili.App.Interfaces.V1;
+using Bili.Models.Data.Search;
 
 namespace Bili.Lib.Interfaces
 {
@@ -17,7 +17,15 @@ namespace Bili.Lib.Interfaces
         /// 获取热搜列表.
         /// </summary>
         /// <returns>热搜推荐列表.</returns>
-        Task<List<SearchRecommendItem>> GetHotSearchListAsync();
+        Task<IEnumerable<SearchSuggest>> GetHotSearchListAsync();
+
+        /// <summary>
+        /// 获取搜索建议.
+        /// </summary>
+        /// <param name="keyword">搜索关键词.</param>
+        /// <param name="cancellationToken">异步中止令牌.</param>
+        /// <returns>搜索建议列表.</returns>
+        Task<IEnumerable<SearchSuggest>> GetSearchSuggestion(string keyword, CancellationToken cancellationToken);
 
         /// <summary>
         /// 获取综合搜索结果.
@@ -76,13 +84,5 @@ namespace Bili.Lib.Interfaces
         /// <param name="pageNumber">页码.</param>
         /// <returns>直播搜索结果.</returns>
         Task<LiveSearchResultResponse> GetLiveSearchResultAsync(string keyword, int pageNumber);
-
-        /// <summary>
-        /// 获取搜索建议.
-        /// </summary>
-        /// <param name="keyword">搜索关键词.</param>
-        /// <param name="cancellationToken">异步中止令牌.</param>
-        /// <returns>搜索建议列表.</returns>
-        Task<List<ResultItem>> GetSearchSuggestion(string keyword, CancellationToken cancellationToken);
     }
 }

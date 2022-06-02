@@ -81,7 +81,7 @@ namespace Bili.Models.Data.Video
         /// <summary>
         /// 发布者信息.
         /// </summary>
-        public RoleProfile Publisher { get; }
+        public RoleProfile Publisher { get; set; }
 
         /// <summary>
         /// 视频合作者列表.

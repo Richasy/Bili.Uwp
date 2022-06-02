@@ -205,7 +205,6 @@
                     <AutoSuggestBox
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        IsEnabled="{x:Bind ViewModel.CanSearch, Mode=OneWay}"
                         PlaceholderText="{loc:LocaleLocator Name=SearchTipSlim}"
                         QueryIcon="Find"
                         QuerySubmitted="OnSearchBoxQuerySubmitted"

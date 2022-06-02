@@ -5,8 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Search;
 using Bili.Toolkit.Interfaces;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -23,14 +25,19 @@ namespace Bili.Lib.Uwp
         /// </summary>
         /// <param name="httpProvider">网络工具.</param>
         /// <param name="settingsToolkit">设置工具.</param>
-        public SearchProvider(IHttpProvider httpProvider, ISettingsToolkit settingsToolkit)
+        /// <param name="searchAdapter">搜索数据适配器.</param>
+        public SearchProvider(
+            IHttpProvider httpProvider,
+            ISettingsToolkit settingsToolkit,
+            ISearchAdapter searchAdapter)
         {
             _httpProvider = httpProvider;
             _settingsToolkit = settingsToolkit;
+            _searchAdapter = searchAdapter;
         }
 
         /// <inheritdoc/>
-        public async Task<List<SearchRecommendItem>> GetHotSearchListAsync()
+        public async Task<IEnumerable<SearchSuggest>> GetHotSearchListAsync()
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -42,15 +49,27 @@ namespace Bili.Lib.Uwp
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.Square, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var resData = await _httpProvider.ParseAsync<ServerResponse<List<SearchSquareItem>>>(response);
-            foreach (var item in resData.Data)
-            {
-                if (item.Type == "trending")
-                {
-                    return item.Data.List;
-                }
-            }
+            var list = resData.Data.Where(p => p.Type == "trending")
+                .SelectMany(p => p.Data.List)
+                .Select(p => _searchAdapter.ConvertToSearchSuggest(p));
+            return list;
+        }
 
-            return null;
+        /// <inheritdoc/>
+        public async Task<IEnumerable<SearchSuggest>> GetSearchSuggestion(string keyword, CancellationToken cancellationToken)
+        {
+            var req = new Bilibili.App.Interfaces.V1.SuggestionResult3Req()
+            {
+                Keyword = keyword,
+                Highlight = 0,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Search.Suggestion, req);
+            var response = await _httpProvider.SendAsync(request, cancellationToken);
+            var result = await _httpProvider.ParseAsync(response, Bilibili.App.Interfaces.V1.SuggestionResult3Reply.Parser);
+            return !cancellationToken.IsCancellationRequested
+                ? result.List.Select(p => _searchAdapter.ConvertToSearchSuggest(p)).ToList()
+                : (IEnumerable<SearchSuggest>)null;
         }
 
         /// <inheritdoc/>
@@ -107,21 +126,6 @@ namespace Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveSearchResultResponse>>(response);
             return result.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<List<Bilibili.App.Interfaces.V1.ResultItem>> GetSearchSuggestion(string keyword, CancellationToken cancellationToken)
-        {
-            var req = new Bilibili.App.Interfaces.V1.SuggestionResult3Req()
-            {
-                Keyword = keyword,
-                Highlight = 0,
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(Search.Suggestion, req);
-            var response = await _httpProvider.SendAsync(request, cancellationToken);
-            var result = await _httpProvider.ParseAsync(response, Bilibili.App.Interfaces.V1.SuggestionResult3Reply.Parser);
-            return result.List.ToList();
         }
     }
 }

@@ -60,6 +60,8 @@
     <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.cs" />
     <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.Properties.cs" />
     <Compile Include="Pgc\TvPageViewModel.cs" />
+    <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.cs" />
+    <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />

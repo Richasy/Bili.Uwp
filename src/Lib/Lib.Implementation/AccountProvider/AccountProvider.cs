@@ -476,7 +476,13 @@ namespace Bili.Lib.Uwp
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, SearchArchiveReply.Parser);
             _spaceSearchPageNumber++;
-            return _videoAdapter.ConvertToVideoSet(data);
+            var videoSet = _videoAdapter.ConvertToVideoSet(data);
+            foreach (var item in videoSet.Items)
+            {
+                item.Publisher = null;
+            }
+
+            return videoSet;
         }
 
         /// <inheritdoc/>
