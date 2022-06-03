@@ -10,14 +10,6 @@ namespace Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchLiveView"/> class.
         /// </summary>
-        public SearchLiveView()
-        {
-            InitializeComponent();
-        }
-
-        private async void OnLiveRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await ViewModel.LiveModule.InitializeRequestAsync();
-        }
+        public SearchLiveView() => InitializeComponent();
     }
 }

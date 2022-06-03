@@ -77,6 +77,15 @@ namespace Bili.ViewModels.Uwp.Base
         /// <returns>格式化后的错误信息.</returns>
         protected virtual string FormatException(string errorMsg) => errorMsg;
 
+        /// <summary>
+        /// 清除错误信息.
+        /// </summary>
+        protected void ClearException()
+        {
+            IsError = false;
+            ErrorText = string.Empty;
+        }
+
         private async Task InitializeAsync()
         {
             if (Items.Count > 0)
@@ -131,12 +140,6 @@ namespace Bili.ViewModels.Uwp.Base
                 _isNeedLoadAgain = false;
                 await GetDataAsync();
             }
-        }
-
-        private void ClearException()
-        {
-            IsError = false;
-            ErrorText = string.Empty;
         }
     }
 }

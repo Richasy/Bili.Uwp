@@ -16,10 +16,5 @@ namespace Bili.App.Controls
         {
             InitializeComponent();
         }
-
-        private async void OnVideoRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.VideoModule.InitializeRequestAsync();
-        }
     }
 }

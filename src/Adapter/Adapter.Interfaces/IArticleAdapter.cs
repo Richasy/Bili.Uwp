@@ -19,6 +19,13 @@ namespace Bili.Adapter.Interfaces
         ArticleInformation ConvertToArticleInformation(Article article);
 
         /// <summary>
+        /// 将专栏文章搜索结果 <see cref="ArticleSearchItem"/> 转换成文章信息.
+        /// </summary>
+        /// <param name="item">专栏文章搜索结果.</param>
+        /// <returns><see cref="ArticleInformation"/>.</returns>
+        ArticleInformation ConvertToArticleInformation(ArticleSearchItem item);
+
+        /// <summary>
         /// 将专栏推荐响应结果 <see cref="ArticleRecommendResponse"/> 转换成分区文章视图.
         /// </summary>
         /// <param name="response">专栏推荐响应结果.</param>

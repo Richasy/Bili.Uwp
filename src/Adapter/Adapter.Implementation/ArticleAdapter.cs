@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Article;
@@ -64,6 +65,24 @@ namespace Bili.Adapter
                 publishTime,
                 communityInfo,
                 wordCount);
+        }
+
+        /// <inheritdoc/>
+        public ArticleInformation ConvertToArticleInformation(ArticleSearchItem item)
+        {
+            var id = item.Id.ToString();
+            var title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
+            var summary = item.Description;
+            var cover = item.CoverUrls?.Any() ?? false
+                ? _imageAdapter.ConvertToArticleCardCover(item.CoverUrls.First())
+                : null;
+            var subtitle = item.Name;
+            var communityInfo = _communityAdapter.ConvertToArticleCommunityInformation(item);
+            var identifier = new ArticleIdentifier(id, title, summary, cover);
+            return new ArticleInformation(
+                identifier,
+                subtitle,
+                communityInformation: communityInfo);
         }
 
         /// <inheritdoc/>

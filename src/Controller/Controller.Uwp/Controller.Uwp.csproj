@@ -19,7 +19,6 @@
     <Compile Include="BiliController.cs" />
     <Compile Include="BiliController.Account.cs" />
     <Compile Include="BiliController.Pgc.cs" />
-    <Compile Include="BiliController.Search.cs" />
     <Compile Include="BiliController.Live.cs" />
     <Compile Include="BiliController.Player.cs" />
     <Compile Include="BiliController.Update.cs" />

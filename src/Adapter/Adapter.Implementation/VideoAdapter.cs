@@ -227,17 +227,21 @@ namespace Bili.Adapter
         {
             var title = searchVideo.Title;
             var id = searchVideo.Parameter;
-            var duration = _numberToolkit.GetDurationSeconds(searchVideo.Duration);
+            var duration = string.IsNullOrEmpty(searchVideo.Duration)
+                ? 0
+                : _numberToolkit.GetDurationSeconds(searchVideo.Duration);
             var cover = _imageAdapter.ConvertToVideoCardCover(searchVideo.Cover);
             var description = searchVideo.Description;
             var user = _userAdapter.ConvertToUserProfile(searchVideo.UserId, searchVideo.Author, searchVideo.Avatar, Models.Enums.App.AvatarSize.Size48);
             var publisher = new RoleProfile(user);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(searchVideo);
+            var subtitle = user.Name;
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
                 identifier,
                 publisher,
+                subtitle: subtitle,
                 description: description,
                 communityInformation: communityInfo);
         }

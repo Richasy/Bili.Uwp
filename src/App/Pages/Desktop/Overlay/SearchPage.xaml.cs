@@ -1,8 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Bili.Models.Data.Appearance;
 using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Search;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -10,112 +14,53 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// 搜索页面.
     /// </summary>
-    public sealed partial class SearchPage : AppPage
+    public sealed partial class SearchPage : SearchPageBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(SearchModuleViewModel), typeof(SearchPage), new PropertyMetadata(SearchModuleViewModel.Instance));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchPage"/> class.
         /// </summary>
-        public SearchPage()
-        {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-            ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
-            Loaded += OnLoaded;
-        }
-
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public SearchModuleViewModel ViewModel
-        {
-            get { return (SearchModuleViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
+        public SearchPage() => InitializeComponent();
 
         /// <inheritdoc/>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.NavigationMode != NavigationMode.Back)
+            if (e.NavigationMode != NavigationMode.Back && e.Parameter is string keyword)
             {
-                await ViewModel.SearchAsync();
+                ViewModel.SetKeyword(keyword);
             }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            CheckCurrentType();
         }
 
         private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var item = args.InvokedItemContainer as Microsoft.UI.Xaml.Controls.NavigationViewItem;
-            var vm = item.Tag as SearchSubModuleViewModel;
-            ViewModel.CurrentType = vm.Type;
-        }
-
-        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ViewModel.CurrentType))
+            var item = args.InvokedItem as SearchModuleItemViewModel;
+            if (item != ViewModel.CurrentModule)
             {
-                CheckCurrentType();
-                await ViewModel.ShowModuleAsync(ViewModel.CurrentType);
+                ViewModel.SelectModuleCommand.Execute(item).Subscribe();
             }
         }
 
-        private void CheckCurrentType()
+        private void OnFilterItemSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoFilter.Visibility = Visibility.Collapsed;
-            VideoView.Visibility = Visibility.Collapsed;
-            BangumiView.Visibility = Visibility.Collapsed;
-            MovieView.Visibility = Visibility.Collapsed;
-            UserFilter.Visibility = Visibility.Collapsed;
-            UserView.Visibility = Visibility.Collapsed;
-            ArticleFilter.Visibility = Visibility.Collapsed;
-            ArticleView.Visibility = Visibility.Collapsed;
-            LiveView.Visibility = Visibility.Collapsed;
-            FilterContainer.Visibility = Visibility.Collapsed;
-
-            switch (ViewModel.CurrentType)
+            var comboBox = sender as ComboBox;
+            if (comboBox.DataContext is not SearchFilterViewModel context)
             {
-                case Models.Enums.SearchModuleType.Video:
-                    VideoFilter.Visibility = Visibility.Visible;
-                    VideoView.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = VideoNavItem;
-                    FilterContainer.Visibility = Visibility.Visible;
-                    break;
-                case Models.Enums.SearchModuleType.Bangumi:
-                    BangumiView.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = BangumiNavItem;
-                    break;
-                case Models.Enums.SearchModuleType.Live:
-                    LiveView.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = LiveNavItem;
-                    break;
-                case Models.Enums.SearchModuleType.User:
-                    UserFilter.Visibility = Visibility.Visible;
-                    UserView.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = UserNavItem;
-                    FilterContainer.Visibility = Visibility.Visible;
-                    break;
-                case Models.Enums.SearchModuleType.Movie:
-                    MovieView.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = MovieNavItem;
-                    break;
-                case Models.Enums.SearchModuleType.Article:
-                    ArticleFilter.Visibility = Visibility.Visible;
-                    ArticleView.Visibility = Visibility.Visible;
-                    FilterContainer.Visibility = Visibility.Visible;
-                    Nav.SelectedItem = ArticleNavItem;
-                    break;
-                default:
-                    break;
+                return;
+            }
+
+            var selectItem = comboBox.SelectedItem as Condition;
+            if (selectItem != context.CurrentCondition && selectItem != null)
+            {
+                // 条件变更，重载模块.
+                context.CurrentCondition = selectItem;
+                ViewModel.ReloadModuleCommand.Execute().Subscribe();
             }
         }
+    }
+
+    /// <summary>
+    /// <see cref="SearchPage"/> 的基类.
+    /// </summary>
+    public class SearchPageBase : AppPage<SearchPageViewModel>
+    {
     }
 }

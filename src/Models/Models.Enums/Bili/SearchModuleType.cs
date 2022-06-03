@@ -15,7 +15,7 @@ namespace Bili.Models.Enums
         /// <summary>
         /// 番剧.
         /// </summary>
-        Bangumi = 7,
+        Anime = 7,
 
         /// <summary>
         /// 直播.

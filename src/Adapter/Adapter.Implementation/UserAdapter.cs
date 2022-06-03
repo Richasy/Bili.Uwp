@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.User;
@@ -81,6 +82,19 @@ namespace Bili.Adapter
                 user.Sign,
                 -1,
                 user.Vip.Status == 1,
+                communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public AccountInformation ConvertToAccountInformation(UserSearchItem item, AvatarSize avatarSize = AvatarSize.Size64)
+        {
+            var profile = ConvertToUserProfile(item.UserId, Regex.Replace(item.Title, "<[^>]+>", string.Empty), item.Cover, avatarSize);
+            var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(item);
+            return new AccountInformation(
+                profile,
+                item.Sign,
+                item.Level,
+                item.Vip.Status == 1,
                 communityInfo);
         }
 

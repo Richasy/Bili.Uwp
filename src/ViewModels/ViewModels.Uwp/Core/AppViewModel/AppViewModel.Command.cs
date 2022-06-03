@@ -68,7 +68,6 @@ namespace Bili.ViewModels.Uwp.Core
                             else if (!string.IsNullOrEmpty(vm.SearchWord))
                             {
                                 var keyword = vm.SearchWord.Replace("\"", string.Empty);
-                                SearchModuleViewModel.Instance.InputWords = keyword;
                                 await Task.Delay(500);
                                 _navigationViewModel.NavigateToSecondaryView(PageIds.Search, keyword);
                             }
@@ -187,7 +186,6 @@ namespace Bili.ViewModels.Uwp.Core
                 var hasKeyword = queryList.TryGetValue(AppConstants.Protocol.KeywordParam, out var keyword);
                 if (hasKeyword)
                 {
-                    SearchModuleViewModel.Instance.InputWords = keyword;
                     await Task.Delay(500);
                     _navigationViewModel.NavigateToSecondaryView(PageIds.Search, keyword);
                 }

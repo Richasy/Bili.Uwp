@@ -41,6 +41,13 @@ namespace Bili.Adapter.Interfaces
         UserCommunityInformation ConvertToUserCommunityInformation(RelatedUser user);
 
         /// <summary>
+        /// 将用户搜索结果条目 <see cref="UserSearchItem"/> 转换为用户社区交互信息.
+        /// </summary>
+        /// <param name="item">用户搜索结果条目.</param>
+        /// <returns><see cref="UserCommunityInformation"/>.</returns>
+        UserCommunityInformation ConvertToUserCommunityInformation(UserSearchItem item);
+
+        /// <summary>
         /// 将推荐卡片 <see cref="RecommendCard"/> 转换为视频交互信息.
         /// </summary>
         /// <param name="videoCard">推荐卡片信息.</param>
@@ -162,6 +169,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="articleId">文章Id.</param>
         /// <returns><see cref="ArticleCommunityInformation"/>.</returns>
         ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleStats stats, string articleId);
+
+        /// <summary>
+        /// 将文章搜索结果 <see cref="ArticleSearchItem"/> 转换为文章社区交互信息.
+        /// </summary>
+        /// <param name="item">文章搜索结果.</param>
+        /// <returns><see cref="ArticleCommunityInformation"/>.</returns>
+        ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleSearchItem item);
 
         /// <summary>
         /// 将分区实例 <see cref="Models.BiliBili.Partition"/> 转换为自定义的分区信息.

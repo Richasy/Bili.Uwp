@@ -115,7 +115,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             IsSecondaryViewShown = true;
             CloseAllPopup();
-            if (pageId != SecondaryViewId)
+            if (pageId != SecondaryViewId || pageId == PageIds.Search)
             {
                 SecondaryViewId = pageId;
                 var args = new AppNavigationEventArgs(NavigationType.Secondary, pageId, parameter);

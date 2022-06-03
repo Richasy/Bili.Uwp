@@ -26,12 +26,12 @@ namespace Bili.Models.Data.Article
         public ArticleInformation(
             ArticleIdentifier identifier,
             string subtitle,
-            Partition partition,
-            IEnumerable<Partition> relatedPartitions,
-            RoleProfile user,
-            DateTime publishDateTime,
-            ArticleCommunityInformation communityInformation,
-            int wordCount)
+            Partition partition = default,
+            IEnumerable<Partition> relatedPartitions = default,
+            RoleProfile user = default,
+            DateTime publishDateTime = default,
+            ArticleCommunityInformation communityInformation = default,
+            int wordCount = default)
         {
             Identifier = identifier;
             Subtitle = subtitle;

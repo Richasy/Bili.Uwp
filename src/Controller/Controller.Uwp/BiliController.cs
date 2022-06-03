@@ -107,41 +107,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<SegmentDanmakuIterationEventArgs> SegmentDanmakuIteration;
 
         /// <summary>
-        /// 在搜索元数据更改时发生.
-        /// </summary>
-        public event EventHandler<SearchMetaEventArgs> SearchMetaChanged;
-
-        /// <summary>
-        /// 在视频搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<VideoSearchIterationEventArgs> VideoSearchIteration;
-
-        /// <summary>
-        /// 在番剧搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<PgcSearchIterationEventArgs> BangumiSearchIteration;
-
-        /// <summary>
-        /// 在电影/电视剧搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<PgcSearchIterationEventArgs> MovieSearchIteration;
-
-        /// <summary>
-        /// 在文章搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<ArticleSearchIterationEventArgs> ArticleSearchIteration;
-
-        /// <summary>
-        /// 在用户搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<UserSearchIterationEventArgs> UserSearchIteration;
-
-        /// <summary>
-        /// 在直播搜索结果更新时发生.
-        /// </summary>
-        public event EventHandler<LiveSearchIterationEventArgs> LiveSearchIteration;
-
-        /// <summary>
         /// 收到直播消息时发生.
         /// </summary>
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;

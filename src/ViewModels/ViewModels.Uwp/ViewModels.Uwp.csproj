@@ -62,6 +62,12 @@
     <Compile Include="Pgc\TvPageViewModel.cs" />
     <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.cs" />
     <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.Properties.cs" />
+    <Compile Include="Search\SearchFilterViewModel.cs" />
+    <Compile Include="Search\SearchModuleItemViewModel.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Filters.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Properties.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Request.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
@@ -124,10 +130,6 @@
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Methods.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Properties.cs" />
-    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.cs" />
-    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
-    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.cs" />
-    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
     <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.cs" />
     <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.Properties.cs" />
     <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.cs" />

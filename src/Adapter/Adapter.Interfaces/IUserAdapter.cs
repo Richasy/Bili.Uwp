@@ -56,20 +56,12 @@ namespace Bili.Adapter.Interfaces
         AccountInformation ConvertToAccountInformation(MyInfo myInfo, AvatarSize avatarSize);
 
         /// <summary>
-        /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为角色资料.
+        /// 将用户搜索条目 <see cref="UserSearchItem"/> 转换为 <see cref="AccountInformation"/>.
         /// </summary>
-        /// <param name="avatar">推荐卡片的头像信息.</param>
+        /// <param name="item">用户搜索条目.</param>
         /// <param name="avatarSize">头像尺寸.</param>
-        /// <returns><see cref="RoleProfile"/>.</returns>
-        RoleProfile ConvertToRoleProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48);
-
-        /// <summary>
-        /// 将明星信息 <see cref="PgcCelebrity"/> 转换为角色资料.
-        /// </summary>
-        /// <param name="celebrity">明星信息.</param>
-        /// <param name="avatarSize">头像大小.</param>
-        /// <returns><see cref="RoleProfile"/>.</returns>
-        RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48);
+        /// <returns><see cref="AccountInformation"/>.</returns>
+        AccountInformation ConvertToAccountInformation(UserSearchItem item, AvatarSize avatarSize = AvatarSize.Size64);
 
         /// <summary>
         /// 将个人信息 <see cref="Mine"/> 转换为 <see cref="AccountInformation"/>.
@@ -94,6 +86,22 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatarSize">头像大小.</param>
         /// <returns><see cref="AccountInformation"/>.</returns>
         AccountInformation ConvertToAccountInformation(RelatedUser user, AvatarSize avatarSize = AvatarSize.Size64);
+
+        /// <summary>
+        /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为角色资料.
+        /// </summary>
+        /// <param name="avatar">推荐卡片的头像信息.</param>
+        /// <param name="avatarSize">头像尺寸.</param>
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(RecommendAvatar avatar, AvatarSize avatarSize = AvatarSize.Size48);
+
+        /// <summary>
+        /// 将明星信息 <see cref="PgcCelebrity"/> 转换为角色资料.
+        /// </summary>
+        /// <param name="celebrity">明星信息.</param>
+        /// <param name="avatarSize">头像大小.</param>
+        /// <returns><see cref="RoleProfile"/>.</returns>
+        RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48);
 
         /// <summary>
         /// 将关系用户响应结果 <see cref="UserRelationResponse"/> 转换为 <see cref="RelationView"/>.

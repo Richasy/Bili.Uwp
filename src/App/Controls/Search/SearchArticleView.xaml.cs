@@ -10,14 +10,6 @@ namespace Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchArticleView"/> class.
         /// </summary>
-        public SearchArticleView()
-        {
-            InitializeComponent();
-        }
-
-        private async void OnArticleRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await ViewModel.ArticleModule.InitializeRequestAsync();
-        }
+        public SearchArticleView() => InitializeComponent();
     }
 }

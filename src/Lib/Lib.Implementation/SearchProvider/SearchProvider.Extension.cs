@@ -9,7 +9,6 @@ using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
 namespace Bili.Lib.Uwp
@@ -22,6 +21,18 @@ namespace Bili.Lib.Uwp
         private readonly IHttpProvider _httpProvider;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly ISearchAdapter _searchAdapter;
+        private readonly IArticleAdapter _articleAdapter;
+        private readonly IPgcAdapter _pgcAdapter;
+        private readonly ILiveAdapter _liveAdapter;
+        private readonly IVideoAdapter _videoAdapter;
+        private readonly IUserAdapter _userAdapter;
+
+        private int _comprehensivePageNumber;
+        private int _animePageNumber;
+        private int _moviePageNumber;
+        private int _userPageNumber;
+        private int _articlePageNumber;
+        private int _livePageNumber;
 
         private Dictionary<string, string> GetSearchBasicQueryParameters(string keyword, string orderType, int pageNumber)
         {
@@ -56,7 +67,7 @@ namespace Bili.Lib.Uwp
                 }
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Search.SubModuleSearch(proxy), queryParameters, RequestClientType.IOS, additionalQuery: "area=hk");
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Models.App.Constants.ApiConstants.Search.SubModuleSearch(proxy), queryParameters, RequestClientType.IOS, additionalQuery: "area=hk");
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<SubModuleSearchResultResponse<T>>>(response);
             return result.Data;

@@ -62,8 +62,7 @@ namespace Bili.App.Controls
                 settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, false);
             }
 
-            SearchModuleViewModel.Instance.InputWords = tag.Name;
-            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search, tag.Name);
         }
     }
 }

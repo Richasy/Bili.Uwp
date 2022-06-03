@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Windows.UI.Xaml;
-
 namespace Bili.App.Controls
 {
     /// <summary>
@@ -12,19 +10,6 @@ namespace Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchUserView"/> class.
         /// </summary>
-        public SearchUserView()
-        {
-            InitializeComponent();
-        }
-
-        private async void OnUserRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.UserModule.InitializeRequestAsync();
-        }
-
-        private void OnUserCardClick(object sender, System.EventArgs e)
-        {
-            new UserSpaceView().Show((sender as UserSlimCard).ViewModel.Id.ToString());
-        }
+        public SearchUserView() => InitializeComponent();
     }
 }

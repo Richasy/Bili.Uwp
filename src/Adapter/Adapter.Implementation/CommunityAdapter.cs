@@ -156,6 +156,16 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleSearchItem item)
+        {
+            return new ArticleCommunityInformation(
+                item.Id.ToString(),
+                item.ViewCount,
+                likeCount: item.LikeCount,
+                commentCount: item.ReplyCount);
+        }
+
+        /// <inheritdoc/>
         public UserCommunityInformation ConvertToUserCommunityInformation(Mine mine)
             => new UserCommunityInformation(
                 mine.Mid.ToString(),
@@ -192,6 +202,16 @@ namespace Bili.Adapter
             return new UserCommunityInformation(
                 user.Mid.ToString(),
                 relation: relation);
+        }
+
+        /// <inheritdoc/>
+        public UserCommunityInformation ConvertToUserCommunityInformation(UserSearchItem item)
+        {
+            return new UserCommunityInformation(
+                item.UserId.ToString(),
+                -1,
+                item.FollowerCount,
+                relation: (UserRelationStatus)item.Relation.Status);
         }
 
         /// <inheritdoc/>

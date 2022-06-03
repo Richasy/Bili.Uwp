@@ -24,5 +24,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="item">来自 Web 的搜索建议条目.</param>
         /// <returns><see cref="SearchSuggest"/>.</returns>
         SearchSuggest ConvertToSearchSuggest(ResultItem item);
+
+        /// <summary>
+        /// 将综合搜索结果响应 <see cref="ComprehensiveSearchResultResponse"/> 转换为综合数据集.
+        /// </summary>
+        /// <param name="response">综合搜索结果响应.</param>
+        /// <returns><see cref="ComprehensiveSet"/>.</returns>
+        ComprehensiveSet ConvertToComprehensiveSet(ComprehensiveSearchResultResponse response);
     }
 }
