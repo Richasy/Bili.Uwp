@@ -93,7 +93,8 @@ namespace Bili.App
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
-                SettingViewModel.Instance.SetPrelaunch();
+                var settingsVM = Splat.Locator.Current.GetService<SettingsPageViewModel>();
+                settingsVM.SetPrelaunch();
                 if (rootFrame.Content == null)
                 {
                     rootFrame.Navigate(typeof(Pages.Desktop.RootPage), (e as LaunchActivatedEventArgs).Arguments);

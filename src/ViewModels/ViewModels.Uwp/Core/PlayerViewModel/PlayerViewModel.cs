@@ -74,6 +74,7 @@ namespace Bili.ViewModels.Uwp.Core
                                    .LoadService(out _logger);
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
+            _settingsPageViewModel = Splat.Locator.Current.GetService<SettingsPageViewModel>();
 
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             _appViewModel.IsShowTitleBar = PlayerDisplayMode == PlayerDisplayMode.Default;

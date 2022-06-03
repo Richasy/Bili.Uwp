@@ -11,8 +11,6 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="PlayerControlSettingSection"/> class.
         /// </summary>
         public PlayerControlSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

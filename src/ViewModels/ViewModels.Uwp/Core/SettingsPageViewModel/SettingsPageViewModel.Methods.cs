@@ -7,12 +7,12 @@ using Bili.Models.Enums;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 设置视图模型.
     /// </summary>
-    public partial class SettingViewModel
+    public sealed partial class SettingsPageViewModel
     {
         /// <summary>
         /// 设置预启动.

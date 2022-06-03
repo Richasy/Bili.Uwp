@@ -1343,6 +1343,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="SetSuccess" xml:space="preserve">
     <value>已成功设置</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
   <data name="SettingTo" xml:space="preserve">
     <value>设置为</value>
   </data>

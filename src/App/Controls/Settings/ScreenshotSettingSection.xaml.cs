@@ -16,7 +16,7 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="ScreenshotSettingSection"/> class.
         /// </summary>
         public ScreenshotSettingSection()
-            => InitializeComponent();
+            : base() => InitializeComponent();
 
         private async void OnOpenScreenshotFolderButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

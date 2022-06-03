@@ -32,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ILoggerModule _logger;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
+        private readonly SettingsPageViewModel _settingsPageViewModel;
 
         private readonly List<string> _historyVideoList;
         private readonly FFmpegInteropConfig _liveFFConfig;
@@ -99,12 +100,12 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 偏好的解码模式.
         /// </summary>
-        public PreferCodec PreferCodec => SettingViewModel.Instance.PreferCodec;
+        public PreferCodec PreferCodec => _settingsPageViewModel?.PreferCodec ?? PreferCodec.H264;
 
         /// <summary>
         /// 是否自动播放.
         /// </summary>
-        public bool IsAutoPlay => SettingViewModel.Instance.IsAutoPlayWhenLoaded;
+        public bool IsAutoPlay => _settingsPageViewModel?.IsAutoPlayWhenLoaded ?? false;
 
         /// <summary>
         /// 初始选中的分区.

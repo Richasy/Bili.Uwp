@@ -11,8 +11,7 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="InitialCheckSection"/> class.
         /// </summary>
         public InitialCheckSection()
-        {
-            InitializeComponent();
-        }
+            : base()
+            => InitializeComponent();
     }
 }

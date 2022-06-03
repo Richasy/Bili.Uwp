@@ -511,6 +511,7 @@ namespace Bili.Models.Enums
         TimelineHasNoVideo,
         RemoveViewLaterFailed,
         FollowEachOther,
+        Settings,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

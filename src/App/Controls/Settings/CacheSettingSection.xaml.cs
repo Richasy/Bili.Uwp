@@ -19,7 +19,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheSettingSection"/> class.
         /// </summary>
-        public CacheSettingSection() => InitializeComponent();
+        public CacheSettingSection()
+            : base()
+            => InitializeComponent();
 
         private async void OnClearButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

@@ -16,6 +16,7 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="ThemeSettingSection"/> class.
         /// </summary>
         public ThemeSettingSection()
+            : base()
         {
             InitializeComponent();
             Loaded += OnLoaded;

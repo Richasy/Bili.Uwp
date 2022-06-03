@@ -23,9 +23,8 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="LoggerSettingSection"/> class.
         /// </summary>
         public LoggerSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base()
+            => InitializeComponent();
 
         private async void OnOpenLoggerFolderButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

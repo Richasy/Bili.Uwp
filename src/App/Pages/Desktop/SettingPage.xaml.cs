@@ -1,33 +1,24 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp;
-using Windows.UI.Xaml.Navigation;
+using Bili.ViewModels.Uwp.Core;
 
 namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页.
     /// </summary>
-    public sealed partial class SettingPage : AppPage
+    public sealed partial class SettingsPage : SettingsPageBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingPage"/> class.
+        /// Initializes a new instance of the <see cref="SettingsPage"/> class.
         /// </summary>
-        public SettingPage()
-        {
-            InitializeComponent();
-            ViewModel = SettingViewModel.Instance;
-        }
+        public SettingsPage() => InitializeComponent();
+    }
 
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public SettingViewModel ViewModel { get; private set; }
-
-        /// <inheritdoc/>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.InitializeSettings();
-        }
+    /// <summary>
+    /// <see cref="SettingsPage"/> 的基类.
+    /// </summary>
+    public class SettingsPageBase : AppPage<SettingsPageViewModel>
+    {
     }
 }

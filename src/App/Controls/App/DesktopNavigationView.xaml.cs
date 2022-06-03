@@ -128,7 +128,7 @@ namespace Bili.App.Controls
                     pageType = typeof(ToolboxPage);
                     break;
                 case PageIds.Settings:
-                    pageType = typeof(SettingPage);
+                    pageType = typeof(SettingsPage);
                     break;
             }
 

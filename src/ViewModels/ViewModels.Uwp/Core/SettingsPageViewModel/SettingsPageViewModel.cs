@@ -7,26 +7,33 @@ using Bili.Controller.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces;
+using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 设置视图模型.
     /// </summary>
-    public partial class SettingViewModel : ViewModelBase
+    public sealed partial class SettingsPageViewModel : ViewModelBase, IInitializeViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SettingsPageViewModel"/> class.
         /// </summary>
-        public SettingViewModel()
+        internal SettingsPageViewModel(
+            AppViewModel appViewModel,
+            ISettingsToolkit settingsToolkit,
+            IResourceToolkit resourceToolkit)
         {
-            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
-            _settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
-            _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            _appViewModel = appViewModel;
+            _settingsToolkit = settingsToolkit;
+            _resourceToolkit = resourceToolkit;
+
+            InitializeCommand = ReactiveCommand.Create(InitializeSettings, outputScheduler: RxApp.MainThreadScheduler);
+
             InitializeSettings();
         }
 

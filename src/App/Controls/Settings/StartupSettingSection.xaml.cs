@@ -11,8 +11,6 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="StartupSettingSection"/> class.
         /// </summary>
         public StartupSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

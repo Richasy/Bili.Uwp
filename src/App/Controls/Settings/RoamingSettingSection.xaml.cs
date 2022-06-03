@@ -19,7 +19,7 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="RoamingSettingSection"/> class.
         /// </summary>
         public RoamingSettingSection()
-            => InitializeComponent();
+            : base() => InitializeComponent();
 
         private void OnVideoAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
         {

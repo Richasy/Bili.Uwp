@@ -11,8 +11,6 @@ namespace Bili.App.Controls
         /// Initializes a new instance of the <see cref="NotificationSettingSection"/> class.
         /// </summary>
         public NotificationSettingSection()
-        {
-            this.InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

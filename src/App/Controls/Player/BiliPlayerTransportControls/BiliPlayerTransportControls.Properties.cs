@@ -33,7 +33,7 @@ namespace Bili.App.Controls
         /// <see cref="SettingViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty SettingViewModelProperty =
-            DependencyProperty.Register(nameof(SettingViewModel), typeof(SettingViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(SettingViewModel.Instance));
+            DependencyProperty.Register(nameof(SettingViewModel), typeof(SettingsPageViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(default));
 
         private const string RootGridName = "RootGrid";
         private const string DanmakuViewName = "DanmakuView";
@@ -155,9 +155,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// 设置视图模型.
         /// </summary>
-        public SettingViewModel SettingViewModel
+        public SettingsPageViewModel SettingViewModel
         {
-            get { return (SettingViewModel)GetValue(SettingViewModelProperty); }
+            get { return (SettingsPageViewModel)GetValue(SettingViewModelProperty); }
             set { SetValue(SettingViewModelProperty, value); }
         }
     }

@@ -1,28 +1,26 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Core
 {
     /// <summary>
     /// 设置视图模型.
     /// </summary>
-    public partial class SettingViewModel
+    public sealed partial class SettingsPageViewModel
     {
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AppViewModel _appViewModel;
         private string _initializeTheme;
 
-        /// <summary>
-        /// 单例.
-        /// </summary>
-        public static SettingViewModel Instance { get; } = new Lazy<SettingViewModel>(() => new SettingViewModel()).Value;
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
 
         /// <summary>
         /// 播放器显示模式可选集合.
