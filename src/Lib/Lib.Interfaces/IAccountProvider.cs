@@ -98,16 +98,14 @@ namespace Bili.Lib.Interfaces
         /// 获取我的关注分组.
         /// </summary>
         /// <returns>分组列表.</returns>
-        Task<List<RelatedTag>> GetMyFollowingTagsAsync();
+        Task<IEnumerable<FollowGroup>> GetMyFollowingGroupsAsync();
 
         /// <summary>
         /// 获取我的关注分组详情.
         /// </summary>
-        /// <param name="userId">指定用户的用户Id.</param>
         /// <param name="tagId">分组Id.</param>
-        /// <param name="page">页码.</param>
         /// <returns>用户列表.</returns>
-        Task<List<RelatedUser>> GetMyFollowingTagDetailAsync(int userId, int tagId, int page);
+        Task<IEnumerable<AccountInformation>> GetMyFollowingGroupDetailAsync(string tagId);
 
         /// <summary>
         /// 获取稍后再看列表.
@@ -278,5 +276,16 @@ namespace Bili.Lib.Interfaces
         /// 重置空间搜索请求状态.
         /// </summary>
         void ResetSpaceSearchStatus();
+
+        /// <summary>
+        /// 重置我的关注请求状态.
+        /// </summary>
+        /// <param name="groupId">分组 Id.</param>
+        void ResetMyFollowStatus(string groupId);
+
+        /// <summary>
+        /// 清除我的关注请求状态.
+        /// </summary>
+        void ClearMyFollowStatus();
     }
 }

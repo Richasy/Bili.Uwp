@@ -1,51 +1,35 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Threading.Tasks;
-using Bili.App.Controls;
-using Bili.ViewModels.Uwp;
-using Windows.UI.Xaml;
+using Bili.Models.Data.Community;
+using Bili.ViewModels.Uwp.Account;
 
 namespace Bili.App.Pages.Desktop
 {
     /// <summary>
     /// 我的关注页面.
     /// </summary>
-    public sealed partial class MyFollowsPage : AppPage, IRefreshPage
+    public sealed partial class MyFollowsPage : MyFollowsPageBase
     {
-        private readonly MyFollowingViewModel _viewModel = MyFollowingViewModel.Instance;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MyFollowsPage"/> class.
         /// </summary>
-        public MyFollowsPage()
-        {
-            InitializeComponent();
-            Loaded += OnLoadedAsync;
-        }
+        public MyFollowsPage() => InitializeComponent();
 
-        /// <inheritdoc/>
-        public async Task RefreshAsync()
+        private void OnNavItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            _viewModel.IsRequested = false;
-            await _viewModel.InitializeTagsAsync();
-        }
-
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            if (!_viewModel.IsRequested)
+            var data = args.InvokedItem as FollowGroup;
+            if (data != ViewModel.CurrentGroup)
             {
-                await _viewModel.InitializeTagsAsync();
+                ViewModel.SelectGroupCommand.Execute(data).Subscribe();
             }
         }
+    }
 
-        private async void OnViewRequestLoadMoreAsync(object sender, EventArgs e)
-            => await _viewModel.RequestDataAsync();
-
-        private void OnUserCardClick(object sender, EventArgs e)
-            => new UserSpaceView().Show((sender as UserSlimCard).ViewModel.Id.ToString());
-
-        private async void OnRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-            => await RefreshAsync();
+    /// <summary>
+    /// <see cref="MyFollowsPage"/> 的基类.
+    /// </summary>
+    public class MyFollowsPageBase : AppPage<MyFollowsPageViewModel>
+    {
     }
 }

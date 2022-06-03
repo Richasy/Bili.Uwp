@@ -43,6 +43,7 @@ namespace Bili.Lib.Uwp
             _videoAdapter = videoAdapter;
             _messageOffsetCache = new Dictionary<MessageType, MessageCursor>();
             _relationOffsetCache = new Dictionary<RelationType, int>();
+            _myFollowOffsetCache = new Dictionary<string, int>();
             ResetViewLaterStatus();
             ResetHistoryStatus();
         }
@@ -486,28 +487,42 @@ namespace Bili.Lib.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<List<RelatedTag>> GetMyFollowingTagsAsync()
+        public async Task<IEnumerable<FollowGroup>> GetMyFollowingGroupsAsync()
         {
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyFollowingTags, null, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<List<RelatedTag>>>(response);
-            return result.Data;
+            return result.Data.Select(p => _communityAdapter.ConvertToFollowGroup(p));
         }
 
         /// <inheritdoc/>
-        public async Task<List<RelatedUser>> GetMyFollowingTagDetailAsync(int userId, int tagId, int page)
+        public async Task<IEnumerable<AccountInformation>> GetMyFollowingGroupDetailAsync(string tagId)
         {
+            if (UserId <= 0)
+            {
+                throw new System.InvalidOperationException("未登录");
+            }
+
+            if (!_myFollowOffsetCache.TryGetValue(tagId, out var page))
+            {
+                page = 1;
+            }
+
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.TagId, tagId.ToString() },
                 { Query.PageNumber, page.ToString() },
-                { Query.MyId, userId.ToString() },
+                { Query.MyId, UserId.ToString() },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.MyFollowingTagDetail, queryParameters, Models.Enums.RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<List<RelatedUser>>>(response);
-            return result.Data;
+            page++;
+            _myFollowOffsetCache.Remove(tagId);
+            _myFollowOffsetCache.Add(tagId, page);
+            result.Data.ForEach(p => p.Attribute = 2);
+            return result.Data.Select(p => _userAdapter.ConvertToAccountInformation(p));
         }
 
         /// <inheritdoc/>
@@ -533,5 +548,13 @@ namespace Bili.Lib.Uwp
         /// <inheritdoc/>
         public void ResetSpaceSearchStatus()
             => _spaceSearchPageNumber = 1;
+
+        /// <inheritdoc/>
+        public void ResetMyFollowStatus(string groupId)
+            => _myFollowOffsetCache.Remove(groupId);
+
+        /// <inheritdoc/>
+        public void ClearMyFollowStatus()
+            => _myFollowOffsetCache.Clear();
     }
 }

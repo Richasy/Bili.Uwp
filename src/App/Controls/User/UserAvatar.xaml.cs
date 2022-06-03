@@ -37,6 +37,12 @@ namespace Bili.App.Controls
             DependencyProperty.Register(nameof(DecodeSize), typeof(int), typeof(UserAvatar), new PropertyMetadata(50));
 
         /// <summary>
+        /// <see cref="AvatarRadius"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AvatarRadiusProperty =
+            DependencyProperty.Register(nameof(AvatarRadius), typeof(CornerRadius), typeof(UserAvatar), new PropertyMetadata(new CornerRadius(25)));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserAvatar"/> class.
         /// </summary>
         public UserAvatar()
@@ -83,6 +89,15 @@ namespace Bili.App.Controls
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// 头像的圆角弧度.
+        /// </summary>
+        public CornerRadius AvatarRadius
+        {
+            get { return (CornerRadius)GetValue(AvatarRadiusProperty); }
+            set { SetValue(AvatarRadiusProperty, value); }
         }
 
         private void OnClick(object sender, RoutedEventArgs e)

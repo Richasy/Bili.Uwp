@@ -13,6 +13,8 @@
     <Compile Include="Account\FavoriteAnimeViewModel.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
+    <Compile Include="Account\MyFollowsPageViewModel\MyFollowsPageViewModel.cs" />
+    <Compile Include="Account\MyFollowsPageViewModel\MyFollowsPageViewModel.Properties.cs" />
     <Compile Include="Account\UserItemViewModel\UserItemViewModel.cs" />
     <Compile Include="Account\UserItemViewModel\UserItemViewModel.Properties.cs" />
     <Compile Include="Account\UserSpaceViewModel\UserSpaceViewModel.cs" />
@@ -75,7 +77,6 @@
     <Compile Include="DIInstnace.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
-    <Compile Include="Account\MyFollowingViewModel.cs" />
     <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.cs" />
     <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.Properties.cs" />
     <Compile Include="Live\LiveItemViewModel\LiveItemViewModel.cs" />

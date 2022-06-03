@@ -27,6 +27,7 @@ namespace Bili.Lib.Uwp
         private readonly IVideoAdapter _videoAdapter;
         private readonly Dictionary<MessageType, MessageCursor> _messageOffsetCache;
         private readonly Dictionary<RelationType, int> _relationOffsetCache;
+        private readonly Dictionary<string, int> _myFollowOffsetCache;
         private int _viewLaterPageNumber;
         private string _spaceVideoOffset;
         private int _spaceSearchPageNumber;

@@ -91,6 +91,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<SettingsPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<MyFollowsPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

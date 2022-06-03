@@ -48,6 +48,7 @@
                         Width="64"
                         Height="64"
                         Avatar="{x:Bind ViewModel.UserViewModel.User.Avatar.Uri, Mode=OneWay}"
+                        AvatarRadius="32"
                         DecodeSize="100"
                         UserName="{x:Bind ViewModel.UserViewModel.User.Name, Mode=OneWay}" />
                     <Grid

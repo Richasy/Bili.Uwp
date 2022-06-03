@@ -92,11 +92,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<Exception> LoggedFailed;
 
         /// <summary>
-        /// 在登录账户数据发生改变时发生.
-        /// </summary>
-        public event EventHandler<AccountInformation> AccountChanged;
-
-        /// <summary>
         /// 在网络状态改变时发生，将返回网络可用性.
         /// </summary>
         public event EventHandler<bool> NetworkChanged;

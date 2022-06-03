@@ -552,5 +552,9 @@ namespace Bili.Adapter
             var items = messageResponse.Items.Select(p => ConvertToMessageInformation(p)).ToList();
             return new MessageView(items, cursor.IsEnd);
         }
+
+        /// <inheritdoc/>
+        public FollowGroup ConvertToFollowGroup(RelatedTag tag)
+            => new FollowGroup(tag.TagId.ToString(), tag.Name, tag.Count);
     }
 }

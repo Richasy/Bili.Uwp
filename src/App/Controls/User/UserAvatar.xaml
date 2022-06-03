@@ -30,7 +30,7 @@
             Height="{x:Bind Height, Mode=OneWay}"
             BorderBrush="{x:Bind BorderBrush, Mode=OneWay}"
             BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
-            CornerRadius="25"
+            CornerRadius="{x:Bind AvatarRadius, Mode=OneWay}"
             DecodePixelWidth="{x:Bind DecodeSize, Mode=OneWay}"
             ImageUrl="{x:Bind Avatar, Mode=OneWay}"
             PlaceholderSource="/Assets/not_login.png"

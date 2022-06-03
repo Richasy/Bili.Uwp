@@ -122,6 +122,11 @@ namespace Bili.ViewModels.Uwp.Article
             {
                 foreach (var article in data.Articles)
                 {
+                    if (Items.Any(p => p.Information.Equals(article)))
+                    {
+                        continue;
+                    }
+
                     var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
                     articleVM.SetInformation(article);
                     Items.Add(articleVM);

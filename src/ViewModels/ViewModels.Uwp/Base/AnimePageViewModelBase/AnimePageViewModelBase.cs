@@ -216,6 +216,11 @@ namespace Bili.ViewModels.Uwp.Base
 
             foreach (var item in videos)
             {
+                if (Videos.Any(p => p.Information.Equals(item)))
+                {
+                    continue;
+                }
+
                 var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
                 videoVM.SetInformation(item);
                 Videos.Add(videoVM);

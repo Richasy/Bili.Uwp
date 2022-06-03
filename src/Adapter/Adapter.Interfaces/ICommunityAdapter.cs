@@ -288,5 +288,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="messageResponse">消息响应.</param>
         /// <returns><see cref="MessageView"/>.</returns>
         MessageView ConvertToMessageView(ReplyMessageResponse messageResponse);
+
+        /// <summary>
+        /// 将关联标签 <see cref="RelatedTag"/> 转换为关注分组.
+        /// </summary>
+        /// <param name="tag">关联标签.</param>
+        /// <returns><see cref="FollowGroup"/>.</returns>
+        FollowGroup ConvertToFollowGroup(RelatedTag tag);
     }
 }
