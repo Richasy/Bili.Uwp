@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 提供视频操作.

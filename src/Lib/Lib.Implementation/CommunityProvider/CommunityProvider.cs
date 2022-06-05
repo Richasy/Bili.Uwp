@@ -12,7 +12,7 @@ using Bilibili.Main.Community.Reply.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 社区交互数据处理.

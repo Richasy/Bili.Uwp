@@ -16,7 +16,7 @@ using Google.Protobuf;
 using Newtonsoft.Json;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 用于网络请求的模块.

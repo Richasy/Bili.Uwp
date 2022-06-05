@@ -8,6 +8,7 @@ using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
@@ -96,6 +97,13 @@ namespace Bili.ViewModels.Uwp.Core
         /// <param name="vm">用户条目视图模型.</param>
         public void ShowUserDetail(UserItemViewModel vm)
             => RequestShowUserDetail?.Invoke(this, vm);
+
+        /// <summary>
+        /// 显示视频收藏夹详情.
+        /// </summary>
+        /// <param name="folder">视频收藏夹.</param>
+        public void ShowVideoFavoriteFolderDetail(VideoFavoriteFolder folder)
+            => RequestShowVideoFavoriteFolderDetail.Invoke(this, folder);
 
         /// <summary>
         /// 初始化主题.

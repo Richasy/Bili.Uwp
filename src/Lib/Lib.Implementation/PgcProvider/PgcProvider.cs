@@ -12,7 +12,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using static Bili.Models.App.Constants.ApiConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 获取专业内容创作数据的工具.

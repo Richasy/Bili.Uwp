@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Bili.Models.Data.Local;
 
 namespace Bili.Models.Data.Video
 {
     /// <summary>
     /// 视频集，包含视频列表和视频总数.
     /// </summary>
-    public sealed class VideoSet
+    public sealed class VideoSet : ContentSet<VideoInformation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoSet"/> class.
@@ -21,15 +22,5 @@ namespace Bili.Models.Data.Video
             Items = items;
             TotalCount = totalCount;
         }
-
-        /// <summary>
-        /// 视频列表.
-        /// </summary>
-        public IEnumerable<VideoInformation> Items { get; }
-
-        /// <summary>
-        /// 总数.
-        /// </summary>
-        public int TotalCount { get; }
     }
 }

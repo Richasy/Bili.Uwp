@@ -1,14 +1,19 @@
 ﻿<UserControl
-    x:Class="Bili.App.Controls.PgcFavoritePanel"
+    x:Class="Bili.App.Controls.Favorite.PgcFavoritePanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
     xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
-    xmlns:local="using:Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls.Favorite"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pgc="using:Bili.App.Controls.Pgc"
+    xmlns:pgc1="using:Bili.ViewModels.Uwp.Pgc"
     xmlns:uwp="using:Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -17,6 +22,10 @@
     <UserControl.Resources>
         <converter:PgcFavoriteStatusConverter x:Key="StatusConverter" />
     </UserControl.Resources>
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
 
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
@@ -35,7 +44,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentScrollViewer.Padding" Value="{StaticResource NarrowContainerPadding}" />
                         <Setter Target="PgcView.ItemOrientation" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
@@ -45,9 +53,11 @@
         <ComboBox
             x:Name="StatusComboBox"
             MinWidth="120"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalAlignment="Left"
             ItemsSource="{x:Bind ViewModel.StatusCollection}"
-            SelectedItem="{x:Bind ViewModel.Status, Mode=TwoWay}">
+            SelectedItem="{x:Bind ViewModel.Status, Mode=OneWay}"
+            SelectionChanged="OnStatusSelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate x:DataType="x:Int32">
                     <TextBlock Text="{x:Bind Converter={StaticResource StatusConverter}}" />
@@ -58,27 +68,29 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
-            Padding="{StaticResource DefaultContainerPadding}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
-            Visibility="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-            <local:VerticalRepeaterView
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:VerticalRepeaterView
                 x:Name="PgcView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
-                ItemsSource="{x:Bind ViewModel.SeasonCollection, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 MinWideItemHeight="180"
-                MinWideItemWidth="300"
-                RequestLoadMore="OnViewRequestLoadMoreAsync">
-                <local:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="uwp:SeasonViewModel">
-                        <local:PgcItem DataContext="{x:Bind}" ViewModel="{x:Bind}">
-                            <local:PgcItem.ContextFlyout>
+                MinWideItemWidth="300">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:IncrementalBehavior />
+                </interactivity:Interaction.Behaviors>
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="pgc1:SeasonItemViewModel">
+                        <pgc:SeasonItem ViewModel="{x:Bind}">
+                            <pgc:SeasonItem.ContextFlyout>
                                 <muxc:CommandBarFlyout Opened="OnItemFlyoutOpened">
                                     <muxc:CommandBarFlyout.SecondaryCommands>
                                         <AppBarButton
                                             x:Name="MarkWantWatchButton"
-                                            Click="OnMarkStatusButtonClickAsync"
+                                            Click="OnMarkStatusButtonClick"
                                             Label="{loc:LocaleLocator Name=MarkWantWatch}"
                                             Tag="1">
                                             <AppBarButton.Icon>
@@ -87,7 +99,7 @@
                                         </AppBarButton>
                                         <AppBarButton
                                             x:Name="MarkWatchingButton"
-                                            Click="OnMarkStatusButtonClickAsync"
+                                            Click="OnMarkStatusButtonClick"
                                             Label="{loc:LocaleLocator Name=MarkWatching}"
                                             Tag="2">
                                             <AppBarButton.Icon>
@@ -96,40 +108,43 @@
                                         </AppBarButton>
                                         <AppBarButton
                                             x:Name="MarkWatchedButton"
-                                            Click="OnMarkStatusButtonClickAsync"
+                                            Click="OnMarkStatusButtonClick"
                                             Label="{loc:LocaleLocator Name=MarkWatched}"
                                             Tag="3">
                                             <AppBarButton.Icon>
                                                 <icons:RegularFluentIcon Symbol="Folder16" />
                                             </AppBarButton.Icon>
                                         </AppBarButton>
-                                        <AppBarButton Click="OnUnFavoritePgcButtonClickAsync" Label="{loc:LocaleLocator Name=UnFavorite}">
+                                        <AppBarButton Command="{x:Bind UnfollowCommand}" Label="{loc:LocaleLocator Name=UnFavorite}">
                                             <AppBarButton.Icon>
                                                 <icons:RegularFluentIcon Symbol="StarOff16" />
                                             </AppBarButton.Icon>
                                         </AppBarButton>
                                     </muxc:CommandBarFlyout.SecondaryCommands>
                                 </muxc:CommandBarFlyout>
-                            </local:PgcItem.ContextFlyout>
-                        </local:PgcItem>
+                            </pgc:SeasonItem.ContextFlyout>
+                        </pgc:SeasonItem>
                     </DataTemplate>
-                </local:VerticalRepeaterView.ItemTemplate>
-            </local:VerticalRepeaterView>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
         </ScrollViewer>
 
-        <local:OverlayLoadingPanel
+        <controls:OverlayLoadingPanel
             Grid.Row="1"
-            IsBarActive="{x:Bind ViewModel.IsDeltaLoading, Mode=OneWay}"
-            IsRingActive="{x:Bind ViewModel.IsInitializeLoading, Mode=OneWay}" />
-        <local:ErrorPanel
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <controls:ErrorPanel
             Grid.Row="1"
-            ActionButtonClick="OnPgcRefreshButtonClickAsync"
             ActionContent="{loc:LocaleLocator Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <local:ErrorPanel
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:ErrorPanel
             Grid.Row="1"
             Text="{loc:LocaleLocator Name=NoSpecificData}"
-            Visibility="{x:Bind ViewModel.IsShowEmpty, Mode=OneWay}" />
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </UserControl>

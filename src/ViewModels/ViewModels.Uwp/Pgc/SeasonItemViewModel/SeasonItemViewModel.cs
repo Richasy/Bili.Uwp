@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
@@ -20,17 +21,19 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// Initializes a new instance of the <see cref="SeasonItemViewModel"/> class.
         /// </summary>
-        /// <param name="numberToolkit">数字转换工具.</param>
-        /// <param name="navigationViewModel">导航服务.</param>
-        public SeasonItemViewModel(
+        internal SeasonItemViewModel(
             INumberToolkit numberToolkit,
+            IFavoriteProvider favoriteProvider,
             NavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
+            _favoriteProvider = favoriteProvider;
             _navigationViewModel = navigationViewModel;
 
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
             PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
+            UnfollowCommand = ReactiveCommand.CreateFromTask(UnfollowAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeFavoriteStatusCommand = ReactiveCommand.CreateFromTask<int>(ChangeFavoriteStatusAsync, outputScheduler: RxApp.MainThreadScheduler);
         }
 
         /// <summary>
@@ -42,6 +45,13 @@ namespace Bili.ViewModels.Uwp.Pgc
             Information = information as SeasonInformation;
             InitializeData();
         }
+
+        /// <summary>
+        /// 设置附加动作，该动作通常发生在删除视频的过程中，连带删除调用源集合中的视频.
+        /// </summary>
+        /// <param name="action">附加动作.</param>
+        public void SetAdditionalAction(Action<SeasonItemViewModel> action)
+            => _additionalAction = action;
 
         private void InitializeData()
         {
@@ -60,6 +70,24 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             var uri = $"https://www.bilibili.com/bangumi/play/ss{Information.Identifier.Id}";
             await Launcher.LaunchUriAsync(new Uri(uri));
+        }
+
+        private async Task UnfollowAsync()
+        {
+            var result = await _favoriteProvider.RemoveFavoritePgcAsync(Information.Identifier.Id);
+            if (result)
+            {
+                _additionalAction?.Invoke(this);
+            }
+        }
+
+        private async Task ChangeFavoriteStatusAsync(int status)
+        {
+            var result = await _favoriteProvider.UpdateFavoritePgcStatusAsync(Information.Identifier.Id, status);
+            if (result)
+            {
+                _additionalAction?.Invoke(this);
+            }
         }
     }
 }

@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>10</LangVersion>
+    <RootNamespace>Bili.Lib</RootNamespace>
+    <AssemblyName>Bili.Lib</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

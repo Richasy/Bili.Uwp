@@ -425,6 +425,16 @@ namespace Bili.Adapter
             return new TimelineView(title, desc, timelines);
         }
 
+        /// <inheritdoc/>
+        public SeasonSet ConvertToSeasonSet(PgcFavoriteListResponse response)
+        {
+            var total = response.Total;
+            var items = response.FollowList != null
+                ? response.FollowList.Select(p => ConvertToSeasonInformation(p))
+                : new List<SeasonInformation>();
+            return new SeasonSet(items, total);
+        }
+
         private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)
         {
             var ssid = display.SeasonId.ToString();

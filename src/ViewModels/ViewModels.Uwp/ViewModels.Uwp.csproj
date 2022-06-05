@@ -10,7 +10,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
-    <Compile Include="Account\FavoriteAnimeViewModel.cs" />
+    <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.Properties.cs" />
+    <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.Properties.cs" />
+    <Compile Include="Video\VideoFavoriteFolderViewModel\VideoFavoriteFolderViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderViewModel\VideoFavoriteFolderViewModel.Properties.cs" />
+    <Compile Include="Account\FavoritePageViewModel\FavoritePageViewModel.cs" />
+    <Compile Include="Account\FavoritePageViewModel\FavoritePageViewModel.Properties.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.cs" />
     <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
     <Compile Include="Account\MyFollowsPageViewModel\MyFollowsPageViewModel.cs" />
@@ -70,6 +79,7 @@
     <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Filters.cs" />
     <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Properties.cs" />
     <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Request.cs" />
+    <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
@@ -92,17 +102,11 @@
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
     <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
     <Compile Include="Common\FavoriteMetaViewModel.cs" />
-    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.cs" />
-    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.Properties.cs" />
-    <Compile Include="Account\FavoriteVideoFolderViewModel.cs" />
-    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.cs" />
-    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.Properties.cs" />
-    <Compile Include="Base\PgcFavoriteViewModelBase\PgcFavoriteViewModelBase.cs" />
-    <Compile Include="Base\PgcFavoriteViewModelBase\PgcFavoriteViewModelBase.Properties.cs" />
-    <Compile Include="Account\FavoriteCinemaViewModel.cs" />
-    <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.cs" />
-    <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.Properties.cs" />
-    <Compile Include="Account\FavoriteListDetailViewModel.cs" />
+    <Compile Include="Base\PgcFavoriteModuleViewModelBase\PgcFavoriteModuleViewModelBase.cs" />
+    <Compile Include="Base\PgcFavoriteModuleViewModelBase\PgcFavoriteModuleViewModelBase.Properties.cs" />
+    <Compile Include="Pgc\CinemaFavoriteModuleViewModel.cs" />
+    <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.cs" />
+    <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.Properties.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.cs" />
     <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
     <Compile Include="Common\HelpViewModel\HelpPageViewModel.cs" />

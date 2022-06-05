@@ -302,9 +302,11 @@ namespace Bili.Adapter
             var duration = video.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video);
+            var collectTime = DateTimeOffset.FromUnixTimeSeconds(video.FavoriteTime).ToLocalTime().DateTime;
+            var subtitle = $"{collectTime.Humanize()}收藏";
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
-            return new VideoInformation(identifier, publisher, communityInformation: communityInfo);
+            return new VideoInformation(identifier, publisher, subtitle: subtitle, communityInformation: communityInfo);
         }
 
         /// <inheritdoc/>

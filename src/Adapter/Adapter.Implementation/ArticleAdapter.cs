@@ -86,6 +86,23 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public ArticleInformation ConvertToArticleInformation(FavoriteArticleItem item)
+        {
+            var id = item.Id.ToString();
+            var title = item.Title;
+            var summary = item.Summary;
+            var cover = item.Images?.Any() ?? false
+                ? _imageAdapter.ConvertToArticleCardCover(item.Images.First())
+                : null;
+            var collectTime = DateTimeOffset.FromUnixTimeSeconds(item.CollectTime).DateTime;
+            var subtitle = $"{collectTime.Humanize()}收藏";
+            var identifier = new ArticleIdentifier(id, title, summary, cover);
+            return new ArticleInformation(
+                identifier,
+                subtitle);
+        }
+
+        /// <inheritdoc/>
         public ArticlePartitionView ConvertToArticlePartitionView(ArticleRecommendResponse response)
         {
             var articles = response.Articles?.Any() ?? false
@@ -112,6 +129,14 @@ namespace Bili.Adapter
         {
             var items = articles.Select(p => ConvertToArticleInformation(p));
             return new ArticlePartitionView(items);
+        }
+
+        /// <inheritdoc/>
+        public ArticleSet ConvertToArticleSet(ArticleFavoriteListResponse response)
+        {
+            var count = response.Count;
+            var items = response.Items.Select(p => ConvertToArticleInformation(p));
+            return new ArticleSet(items, count);
         }
     }
 }

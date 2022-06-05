@@ -4,6 +4,7 @@ using System;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
@@ -66,6 +67,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 请求显示用户详情.
         /// </summary>
         public event EventHandler<UserItemViewModel> RequestShowUserDetail;
+
+        /// <summary>
+        /// 请求显示视频收藏夹详情详情.
+        /// </summary>
+        public event EventHandler<VideoFavoriteFolder> RequestShowVideoFavoriteFolderDetail;
 
         /// <summary>
         /// 导航面板是否已展开.

@@ -7,11 +7,10 @@ using Bili.Adapter;
 using Bili.Adapter.Interfaces;
 using Bili.Controller.Uwp.Interfaces;
 using Bili.Controller.Uwp.Modules;
+using Bili.Lib;
 using Bili.Lib.Interfaces;
-using Bili.Lib.Uwp;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
-using Bili.Models.Data.User;
 using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
@@ -38,6 +37,7 @@ namespace Bili.Controller.Uwp
         private readonly ISearchProvider _searchProvider;
         private readonly ICommunityProvider _communityProvider;
         private readonly IUpdateProvider _updateProvider;
+        private readonly IFavoriteProvider _favoriteProvider;
 
         private readonly INetworkModule _networkModule;
         private readonly ILoggerModule _loggerModule;
@@ -69,7 +69,8 @@ namespace Bili.Controller.Uwp
                 .LoadService(out _playerProvider)
                 .LoadService(out _searchProvider)
                 .LoadService(out _communityProvider)
-                .LoadService(out _updateProvider);
+                .LoadService(out _updateProvider)
+                .LoadService(out _favoriteProvider);
 
             InitializeLiveSocket();
             RegisterEvents();
@@ -105,16 +106,6 @@ namespace Bili.Controller.Uwp
         /// 收到直播消息时发生.
         /// </summary>
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
-
-        /// <summary>
-        /// 在PGC收藏夹内容更新时发生.
-        /// </summary>
-        public event EventHandler<FavoritePgcIterationEventArgs> PgcFavoriteIteration;
-
-        /// <summary>
-        /// 在文章收藏夹内容更新时发生.
-        /// </summary>
-        public event EventHandler<FavoriteArticleIterationEventArgs> ArticleFavoriteIteration;
 
         /// <summary>
         /// 在评论回复更新时发生.
@@ -173,7 +164,8 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IPgcAdapter, PgcAdapter>()
                 .AddSingleton<IArticleAdapter, ArticleAdapter>()
                 .AddSingleton<ILiveAdapter, LiveAdapter>()
-                .AddSingleton<ISearchAdapter, SearchAdapter>();
+                .AddSingleton<ISearchAdapter, SearchAdapter>()
+                .AddSingleton<IFavoriteAdapter, FavoriteAdapter>();
 
             serviceCollection
                 .AddSingleton<INetworkModule, NetworkModule>()
@@ -189,7 +181,8 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IPlayerProvider, PlayerProvider>()
                 .AddSingleton<ISearchProvider, SearchProvider>()
                 .AddSingleton<ICommunityProvider, CommunityProvider>()
-                .AddSingleton<IUpdateProvider, UpdateProvider>();
+                .AddSingleton<IUpdateProvider, UpdateProvider>()
+                .AddSingleton<IFavoriteProvider, FavoriteProvider>();
 
             _ = new ServiceLocator(serviceCollection);
         }

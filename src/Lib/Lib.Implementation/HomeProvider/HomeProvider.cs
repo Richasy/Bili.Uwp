@@ -15,7 +15,7 @@ using Bili.Toolkit.Interfaces;
 using Bilibili.App.Show.V1;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 提供分区及标签的数据操作.

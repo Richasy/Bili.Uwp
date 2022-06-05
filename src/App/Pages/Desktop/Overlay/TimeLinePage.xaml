@@ -21,9 +21,9 @@
             <exp:ExpanderEx IsExpanded="{x:Bind IsToday}">
                 <exp:ExpanderEx.Header>
                     <exp:ExpanderExDescriptor
-                        Title="{x:Bind DayOfWeek, Mode=OneWay}"
+                        Title="{x:Bind DayOfWeek}"
                         Margin="0,8"
-                        Description="{x:Bind Date, Mode=OneWay}">
+                        Description="{x:Bind Date}">
                         <exp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="CalendarDay16" />
                         </exp:ExpanderExDescriptor.Icon>

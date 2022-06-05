@@ -7,6 +7,20 @@
     xmlns:local="using:Bili.App.Controls.Article"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
+    <muxc:CommandBarFlyout x:Key="DefaultArticleItemContextFlyout">
+        <muxc:CommandBarFlyout.SecondaryCommands>
+            <AppBarButton
+                x:Name="OpenInBroswerItem"
+                AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                <AppBarButton.Icon>
+                    <icons:RegularFluentIcon Symbol="Globe16" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </muxc:CommandBarFlyout.SecondaryCommands>
+    </muxc:CommandBarFlyout>
+
     <Style x:Key="VerticalArticleItemStyle" TargetType="local:ArticleItem">
         <Setter Property="Template">
             <Setter.Value>
@@ -23,24 +37,8 @@
                             x:Name="RootCard"
                             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
+                            ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
                             IsEnableCheck="False">
-
-                            <controls:CardPanel.ContextFlyout>
-                                <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:LocaleLocator Name=OpenInBroswer}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Globe16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
-                            </controls:CardPanel.ContextFlyout>
-
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition x:Name="Row1" Height="Auto" />
@@ -113,6 +111,7 @@
                                         x:Name="SummaryBlock"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Grid.Row="2"
+                                        Margin="0,0,0,-8"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         MaxLines="2"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
@@ -123,7 +122,11 @@
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
-                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <StackPanel
+                                        Grid.Row="3"
+                                        Margin="0,8,0,0"
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowCommunity}">
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
@@ -172,25 +175,9 @@
                             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                             MaxHeight="148"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
+                            ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
                             IsEnableCheck="False"
                             IsEnableHoverAnimation="False">
-
-                            <controls:CardPanel.ContextFlyout>
-                                <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:LocaleLocator Name=OpenInBroswer}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Globe16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
-                            </controls:CardPanel.ContextFlyout>
-
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -231,7 +218,6 @@
                                         x:Name="TitleBlock"
                                         Grid.Row="1"
                                         VerticalAlignment="Top"
-                                        MaxLines="1"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
@@ -243,7 +229,8 @@
                                     <StackPanel
                                         x:Name="InlineUserContainer"
                                         Grid.Row="2"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <controls:UserAvatar
                                             x:Name="InlineAvatar"
                                             Width="24"
@@ -263,6 +250,7 @@
                                         x:Name="SummaryBlock"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Grid.Row="3"
+                                        Margin="0,0,0,-4"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         MaxLines="2"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
@@ -273,7 +261,11 @@
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
-                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <StackPanel
+                                        Grid.Row="4"
+                                        Margin="0,8,0,0"
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowCommunity}">
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"

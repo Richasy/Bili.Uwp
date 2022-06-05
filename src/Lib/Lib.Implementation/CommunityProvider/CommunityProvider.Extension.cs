@@ -2,7 +2,7 @@
 
 using Bili.Lib.Interfaces;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 社区交互数据处理.

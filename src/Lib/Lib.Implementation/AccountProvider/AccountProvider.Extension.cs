@@ -14,7 +14,7 @@ using Bilibili.App.Interfaces.V1;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 提供已登录用户相关的数据操作.
@@ -32,21 +32,6 @@ namespace Bili.Lib.Uwp
         private string _spaceVideoOffset;
         private int _spaceSearchPageNumber;
         private Cursor _historyCursor;
-
-        private async Task<PgcFavoriteListResponse> GetPgcFavoriteListInternalAsync(string requestUrl, int pageNumber, int status)
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.PageNumber, pageNumber.ToString() },
-                { Query.PageSizeSlim, "20" },
-                { Query.Status, status.ToString() },
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, requestUrl, queryParameters, RequestClientType.IOS, true);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse2<PgcFavoriteListResponse>>(response);
-            return result.Result;
-        }
 
         private async Task<MessageView> GetMessageInternalAsync(MessageType type, long id, long time)
         {

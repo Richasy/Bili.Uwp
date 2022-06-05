@@ -2,8 +2,8 @@
 
 using Bili.Adapter;
 using Bili.Adapter.Interfaces;
+using Bili.Lib;
 using Bili.Lib.Interfaces;
-using Bili.Lib.Uwp;
 using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
@@ -48,6 +48,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ILiveAdapter, LiveAdapter>();
             SplatRegistrations.RegisterLazySingleton<IArticleAdapter, ArticleAdapter>();
             SplatRegistrations.RegisterLazySingleton<ISearchAdapter, SearchAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IFavoriteAdapter, FavoriteAdapter>();
 
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
@@ -60,6 +61,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ISearchProvider, SearchProvider>();
             SplatRegistrations.RegisterLazySingleton<ICommunityProvider, CommunityProvider>();
             SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
+            SplatRegistrations.RegisterLazySingleton<IFavoriteProvider, FavoriteProvider>();
 
             SplatRegistrations.RegisterLazySingleton<AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<NavigationViewModel>();
@@ -92,6 +94,12 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<SettingsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MyFollowsPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<VideoFavoriteFolderDetailViewModel>();
+            SplatRegistrations.RegisterLazySingleton<VideoFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<AnimeFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<CinemaFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ArticleFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<FavoritePageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
@@ -101,6 +109,8 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.Register<ArticleItemViewModel>();
             SplatRegistrations.Register<MessageItemViewModel>();
             SplatRegistrations.Register<UserItemViewModel>();
+            SplatRegistrations.Register<VideoFavoriteFolderViewModel>();
+            SplatRegistrations.Register<VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

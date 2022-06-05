@@ -8,6 +8,7 @@ using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
@@ -54,6 +55,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
             CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetailAsync;
             CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetail;
+            CoreViewModel.RequestShowVideoFavoriteFolderDetail += OnRequestShowVideoFavoriteFolderDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -93,11 +95,16 @@ namespace Bili.App.Pages.Desktop
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowTipAsync(UIElement element, double delaySeconds)
         {
+            TipContainer.Visibility = Visibility.Visible;
             TipContainer.Children.Add(element);
             element.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
             element.Visibility = Visibility.Collapsed;
             TipContainer.Children.Remove(element);
+            if (TipContainer.Children.Count == 0)
+            {
+                TipContainer.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <inheritdoc/>
@@ -221,6 +228,9 @@ namespace Bili.App.Pages.Desktop
             var view = ArticleReaderView.Instance;
             await view.ShowAsync(e);
         }
+
+        private void OnRequestShowVideoFavoriteFolderDetail(object sender, VideoFavoriteFolder e)
+            => new Controls.VideoFavoriteView().Show(e);
 
         private async void OnRequestShowReplyDetailAsync(object sender, MessageInformation e)
         {

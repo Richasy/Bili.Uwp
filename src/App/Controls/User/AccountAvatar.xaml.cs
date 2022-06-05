@@ -73,11 +73,6 @@ namespace Bili.App.Controls
         {
             var btn = sender as FrameworkElement;
             var pageId = NavigationExtension.GetPageId(btn);
-            if (pageId == PageIds.Favorite)
-            {
-                FavoriteViewModel.Instance.SetUser(ViewModel.Mid.Value, ViewModel.DisplayName);
-            }
-
             _navigationViewModel.NavigateToSecondaryView(pageId);
             HideFlyout();
         }

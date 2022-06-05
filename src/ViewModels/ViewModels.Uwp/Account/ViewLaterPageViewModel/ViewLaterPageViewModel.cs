@@ -35,7 +35,6 @@ namespace Bili.ViewModels.Uwp.Account
 
             ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync, outputScheduler: RxApp.MainThreadScheduler);
             PlayAllCommand = ReactiveCommand.Create(PlayAll, outputScheduler: RxApp.MainThreadScheduler);
-            RemoveVideoCommand = ReactiveCommand.Create<VideoItemViewModel>(RemoveVideo, outputScheduler: RxApp.MainThreadScheduler);
 
             _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing, scheduler: RxApp.MainThreadScheduler);
         }
@@ -61,6 +60,7 @@ namespace Bili.ViewModels.Uwp.Account
             {
                 var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
                 videoVM.SetInformation(item);
+                videoVM.SetAdditionalAction(vm => RemoveVideo(vm));
                 Items.Add(videoVM);
             }
 

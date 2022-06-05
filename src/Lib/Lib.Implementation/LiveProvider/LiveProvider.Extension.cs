@@ -3,7 +3,7 @@
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 提供直播相关的操作.

@@ -512,6 +512,7 @@ namespace Bili.Models.Enums
         RemoveViewLaterFailed,
         FollowEachOther,
         Settings,
+        FailedToRemoveVideoFromFavorite,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

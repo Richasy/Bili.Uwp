@@ -23,21 +23,25 @@ namespace Bili.ViewModels.Uwp.Article
         /// <param name="numberToolkit">数字转换工具.</param>
         /// <param name="resourceToolkit">本地资源工具.</param>
         /// <param name="articleProvider">文章服务提供工具.</param>
+        /// <param name="favoriteProvider">收藏服务工具.</param>
         /// <param name="appViewModel">应用视图模型.</param>
         public ArticleItemViewModel(
             INumberToolkit numberToolkit,
             IResourceToolkit resourceToolkit,
             IArticleProvider articleProvider,
+            IFavoriteProvider favoriteProvider,
             AppViewModel appViewModel)
         {
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
             _articleProvider = articleProvider;
+            _favoriteProvider = favoriteProvider;
 
             ReadCommand = ReactiveCommand.Create(Read, outputScheduler: RxApp.MainThreadScheduler);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
             ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            UnfavoriteCommand = ReactiveCommand.CreateFromTask(UnfavoriteAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -53,6 +57,13 @@ namespace Bili.ViewModels.Uwp.Article
             Information = information;
             InitializeData();
         }
+
+        /// <summary>
+        /// 设置附加动作.
+        /// </summary>
+        /// <param name="action">附加动作.</param>
+        public void SetAdditionalAction(Action<ArticleItemViewModel> action)
+            => _additionalAction = action;
 
         /// <inheritdoc/>
         public void Dispose()
@@ -97,9 +108,13 @@ namespace Bili.ViewModels.Uwp.Article
 
         private void InitializeData()
         {
-            ViewCountText = _numberToolkit.GetCountText(Information.CommunityInformation.ViewCount);
-            CommentCountText = _numberToolkit.GetCountText(Information.CommunityInformation.CommentCount);
-            LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
+            IsShowCommunity = Information.CommunityInformation != null;
+            if (IsShowCommunity)
+            {
+                ViewCountText = _numberToolkit.GetCountText(Information.CommunityInformation.ViewCount);
+                CommentCountText = _numberToolkit.GetCountText(Information.CommunityInformation.CommentCount);
+                LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
+            }
         }
 
         private void Read()
@@ -109,6 +124,15 @@ namespace Bili.ViewModels.Uwp.Article
         {
             var uri = $"https://www.bilibili.com/read/cv{Information.Identifier.Id}";
             await Launcher.LaunchUriAsync(new Uri(uri));
+        }
+
+        private async Task UnfavoriteAsync()
+        {
+            var result = await _favoriteProvider.RemoveFavoriteArticleAsync(Information.Identifier.Id);
+            if (result)
+            {
+                _additionalAction?.Invoke(this);
+            }
         }
 
         private void Dispose(bool disposing)

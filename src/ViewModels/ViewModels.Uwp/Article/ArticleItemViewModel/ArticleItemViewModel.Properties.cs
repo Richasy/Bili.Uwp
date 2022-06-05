@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Reactive;
 using Bili.Lib.Interfaces;
@@ -19,11 +20,13 @@ namespace Bili.ViewModels.Uwp.Article
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IArticleProvider _articleProvider;
+        private readonly IFavoriteProvider _favoriteProvider;
         private readonly AppViewModel _appViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
 
         private string _detailContent;
         private bool _disposedValue;
+        private Action<ArticleItemViewModel> _additionalAction;
 
         /// <summary>
         /// 在网页中打开的命令.
@@ -37,6 +40,11 @@ namespace Bili.ViewModels.Uwp.Article
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+
+        /// <summary>
+        /// 取消收藏命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> UnfavoriteCommand { get; }
 
         /// <summary>
         /// 视频信息.
@@ -69,6 +77,12 @@ namespace Bili.ViewModels.Uwp.Article
         /// <inheritdoc/>
         [Reactive]
         public string ErrorText { get; set; }
+
+        /// <summary>
+        /// 是否显示社区信息.
+        /// </summary>
+        [Reactive]
+        public bool IsShowCommunity { get; set; }
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;

@@ -12,7 +12,7 @@ using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Newtonsoft.Json;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 用于网络请求模块的内部方法.

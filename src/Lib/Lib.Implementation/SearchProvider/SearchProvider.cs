@@ -16,7 +16,7 @@ using Bili.Models.Data.User;
 using Bili.Toolkit.Interfaces;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 搜索工具.

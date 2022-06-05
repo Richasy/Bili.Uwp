@@ -9,7 +9,7 @@ using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using static Bili.Models.App.Constants.AppConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 分区及标签的相关定义和扩展方法.

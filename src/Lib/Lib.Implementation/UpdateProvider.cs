@@ -9,7 +9,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Newtonsoft.Json;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 应用更新相关.

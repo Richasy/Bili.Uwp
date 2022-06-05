@@ -12,13 +12,13 @@ namespace Bili.Models.BiliBili
     public class VideoFavoriteGalleryResponse
     {
         /// <summary>
-        /// 用户ID.
+        /// 收藏夹列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "space_infos", Required = Required.Default)]
         public List<FavoriteFolder> FavoriteFolderList { get; set; }
 
         /// <summary>
-        /// 用户ID.
+        /// 默认收藏夹.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_folder", Required = Required.Default)]
         public VideoFavoriteListResponse DefaultFavoriteList { get; set; }
@@ -43,7 +43,7 @@ namespace Bili.Models.BiliBili
         public FavoriteListDetail Information { get; set; }
 
         /// <summary>
-        /// 用户ID.
+        /// 收藏夹的媒体列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "medias", Required = Required.Default)]
         public List<FavoriteMedia> Medias { get; set; }
@@ -231,7 +231,7 @@ namespace Bili.Models.BiliBili
         public string BvId { get; set; }
 
         /// <summary>
-        /// 用户ID.
+        /// 社区信息.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ugc", Required = Required.Default)]
         public FavoriteUgcInformation UgcInformation { get; set; }

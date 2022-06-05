@@ -14,7 +14,7 @@ using Bili.Models.Enums;
 using HtmlAgilityPack;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 提供专栏文章相关的操作.

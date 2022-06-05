@@ -10,7 +10,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using static Bili.Models.App.Constants.ServiceConstants;
 
-namespace Bili.Lib.Uwp
+namespace Bili.Lib
 {
     /// <summary>
     /// 获取专业内容创作数据的工具.

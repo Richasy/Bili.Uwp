@@ -34,11 +34,6 @@ namespace Bili.ViewModels.Uwp.Account
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
-        /// 移除视频命令.
-        /// </summary>
-        public ReactiveCommand<VideoItemViewModel, Unit> RemoveVideoCommand { get; }
-
-        /// <summary>
         /// 稍后再看列表是否为空.
         /// </summary>
         [Reactive]

@@ -3,7 +3,6 @@
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -24,11 +23,6 @@ namespace Bili.ViewModels.Uwp.Account
         /// 清空全部命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
-
-        /// <summary>
-        /// 移除视频命令.
-        /// </summary>
-        public ReactiveCommand<VideoItemViewModel, Unit> RemoveVideoCommand { get; }
 
         /// <summary>
         /// 稍后再看列表是否为空.

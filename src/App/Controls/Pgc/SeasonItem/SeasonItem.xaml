@@ -6,6 +6,21 @@
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <muxc:CommandBarFlyout x:Key="DefaultSeasonItemContextFlyout">
+        <muxc:CommandBarFlyout.SecondaryCommands>
+            <AppBarButton
+                x:Name="OpenInBroswerItem"
+                AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                <AppBarButton.Icon>
+                    <icons:RegularFluentIcon Symbol="Globe16" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </muxc:CommandBarFlyout.SecondaryCommands>
+    </muxc:CommandBarFlyout>
+
     <Style x:Key="DefaultSeasonItemStyle" TargetType="local:SeasonItem">
         <Setter Property="CoverWidth" Value="120" />
         <Setter Property="CoverHeight" Value="160" />
@@ -16,26 +31,10 @@
                         x:Name="RootCard"
                         AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
+                        ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultSeasonItemContextFlyout}}"
                         IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
                         IsEnableCheck="False"
                         IsEnableHoverAnimation="False">
-
-                        <controls:CardPanel.ContextFlyout>
-                            <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                <muxc:CommandBarFlyout.SecondaryCommands>
-                                    <AppBarButton
-                                        x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:LocaleLocator Name=OpenInBroswer}">
-                                        <AppBarButton.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </muxc:CommandBarFlyout.SecondaryCommands>
-                            </muxc:CommandBarFlyout>
-                        </controls:CardPanel.ContextFlyout>
-
                         <Grid Padding="12" ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -149,25 +148,10 @@
                         x:Name="RootCard"
                         AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
+                        ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultSeasonItemContextFlyout}}"
                         IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
                         IsEnableCheck="False"
                         IsEnableHoverAnimation="False">
-
-                        <controls:CardPanel.ContextFlyout>
-                            <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                <muxc:CommandBarFlyout.SecondaryCommands>
-                                    <AppBarButton
-                                        x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:LocaleLocator Name=OpenInBroswer}">
-                                        <AppBarButton.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </muxc:CommandBarFlyout.SecondaryCommands>
-                            </muxc:CommandBarFlyout>
-                        </controls:CardPanel.ContextFlyout>
 
                         <Grid Padding="12" ColumnSpacing="12">
                             <Grid.ColumnDefinitions>

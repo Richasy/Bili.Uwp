@@ -23,16 +23,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItemViewModel"/> class.
         /// </summary>
-        /// <param name="numberToolkit">数字转换工具.</param>
-        /// <param name="accountProvider">账户服务提供工具.</param>
-        /// <param name="authorizeProvider">授权服务提供工具.</param>
-        /// <param name="resourceToolkit">本地资源工具.</param>
-        /// <param name="navigationViewModel">导航视图模型.</param>
-        /// <param name="appViewModel">应用视图模型.</param>
-        public VideoItemViewModel(
+        internal VideoItemViewModel(
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
             IAuthorizeProvider authorizeProvider,
+            IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
             NavigationViewModel navigationViewModel,
             AppViewModel appViewModel)
@@ -40,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Video
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
             _authorizeProvider = authorizeProvider;
+            _favoriteProvider = favoriteProvider;
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
             _appViewModel = appViewModel;
@@ -49,6 +45,7 @@ namespace Bili.ViewModels.Uwp.Video
             RemoveFromViewLaterCommand = ReactiveCommand.CreateFromTask(RemoveFromViewLaterAsync, outputScheduler: RxApp.MainThreadScheduler);
             RemoveFromHistoryCommand = ReactiveCommand.CreateFromTask(RemoveFromHistoryAsync, outputScheduler: RxApp.MainThreadScheduler);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RemoveFromFavoriteCommand = ReactiveCommand.CreateFromTask(RemoveFromFavoriteAsync, outputScheduler: RxApp.MainThreadScheduler);
         }
 
         /// <summary>
@@ -60,6 +57,20 @@ namespace Bili.ViewModels.Uwp.Video
             Information = information as VideoInformation;
             InitializeData();
         }
+
+        /// <summary>
+        /// 设置附加动作，该动作通常发生在删除视频的过程中，连带删除调用源集合中的视频.
+        /// </summary>
+        /// <param name="action">附加动作.</param>
+        public void SetAdditionalAction(Action<VideoItemViewModel> action)
+            => _additionalAction = action;
+
+        /// <summary>
+        /// 设置附加数据.
+        /// </summary>
+        /// <param name="data">附加数据.</param>
+        public void SetAdditionalData(object data)
+            => _additionalData = data;
 
         private void InitializeData()
         {
@@ -128,8 +139,7 @@ namespace Bili.ViewModels.Uwp.Video
                 }
                 else
                 {
-                    var viewLaterPageVM = Splat.Locator.Current.GetService<ViewLaterPageViewModel>();
-                    viewLaterPageVM.RemoveVideoCommand.Execute(this).Subscribe();
+                    _additionalAction?.Invoke(this);
                 }
             }
             else
@@ -155,8 +165,34 @@ namespace Bili.ViewModels.Uwp.Video
                 }
                 else
                 {
-                    var viewLaterPageVM = Splat.Locator.Current.GetService<HistoryPageViewModel>();
-                    viewLaterPageVM.RemoveVideoCommand.Execute(this).Subscribe();
+                    _additionalAction?.Invoke(this);
+                }
+            }
+            else
+            {
+                // 显示需要登录的消息.
+                _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst),
+                        Models.Enums.App.InfoType.Warning);
+            }
+        }
+
+        private async Task RemoveFromFavoriteAsync()
+        {
+            if (_authorizeProvider.State == AuthorizeState.SignedIn)
+            {
+                var folderId = _additionalData.ToString();
+                var result = await _favoriteProvider.RemoveFavoriteVideoAsync(folderId, Information.Identifier.Id);
+                if (!result)
+                {
+                    // 显示移除失败的消息.
+                    _appViewModel.ShowTip(
+                        _resourceToolkit.GetLocaleString(LanguageNames.FailedToRemoveVideoFromFavorite),
+                        Models.Enums.App.InfoType.Error);
+                }
+                else
+                {
+                    _additionalAction?.Invoke(this);
                 }
             }
             else

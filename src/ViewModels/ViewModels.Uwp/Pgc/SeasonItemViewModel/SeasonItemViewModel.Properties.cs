@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Reactive;
+using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
@@ -16,7 +18,9 @@ namespace Bili.ViewModels.Uwp.Pgc
     public sealed partial class SeasonItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly IFavoriteProvider _favoriteProvider;
         private readonly NavigationViewModel _navigationViewModel;
+        private Action<SeasonItemViewModel> _additionalAction;
 
         /// <summary>
         /// 在网页中打开的命令.
@@ -27,6 +31,16 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 播放命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+
+        /// <summary>
+        /// 取消关注命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> UnfollowCommand { get; }
+
+        /// <summary>
+        /// 改变收藏状态命令.
+        /// </summary>
+        public ReactiveCommand<int, Unit> ChangeFavoriteStatusCommand { get; }
 
         /// <summary>
         /// 剧集单集信息.

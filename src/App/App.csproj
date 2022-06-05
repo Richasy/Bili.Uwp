@@ -152,10 +152,9 @@
     <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Favorite\FavoriteVideoView.xaml.cs">
-      <DependentUpon>FavoriteVideoView.xaml</DependentUpon>
+    <Compile Include="Controls\Favorite\VideoFavoriteView.xaml.cs">
+      <DependentUpon>VideoFavoriteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Favorite\FavoriteComponent.cs" />
     <Compile Include="Controls\Favorite\PgcFavoritePanel.xaml.cs">
       <DependentUpon>PgcFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -736,7 +735,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Favorite\FavoriteVideoView.xaml">
+    <Page Include="Controls\Favorite\VideoFavoriteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

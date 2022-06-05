@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Reactive;
 using Bili.Lib.Interfaces;
@@ -21,8 +22,11 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountProvider _accountProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IFavoriteProvider _favoriteProvider;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
+        private Action<VideoItemViewModel> _additionalAction;
+        private object _additionalData;
 
         /// <summary>
         /// 添加到稍后再看的命令.
@@ -38,6 +42,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// 从历史记录中移除的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
+
+        /// <summary>
+        /// 从指定收藏夹中移除的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> RemoveFromFavoriteCommand { get; }
 
         /// <summary>
         /// 在网页中打开的命令.

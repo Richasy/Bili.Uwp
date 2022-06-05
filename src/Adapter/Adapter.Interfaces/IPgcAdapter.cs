@@ -126,5 +126,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">时间线响应结果.</param>
         /// <returns><see cref="TimelineView"/>.</returns>
         TimelineView ConvertToTimelineView(PgcTimeLineResponse response);
+
+        /// <summary>
+        /// 将PGC收藏内容响应 <see cref="PgcFavoriteListResponse"/> 转换为剧集集合.
+        /// </summary>
+        /// <param name="response">PGC收藏内容响应.</param>
+        /// <returns><see cref="SeasonSet"/>.</returns>
+        SeasonSet ConvertToSeasonSet(PgcFavoriteListResponse response);
     }
 }
