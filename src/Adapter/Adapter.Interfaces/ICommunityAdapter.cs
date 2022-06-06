@@ -178,6 +178,14 @@ namespace Bili.Adapter.Interfaces
         ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleSearchItem item);
 
         /// <summary>
+        /// 将动态状态数据 <see cref="ModuleStat"/> 转换为动态社区信息.
+        /// </summary>
+        /// <param name="stat">动态状态数据.</param>
+        /// <param name="dynamicId">动态 Id.</param>
+        /// <returns><see cref="DynamicCommunityInformation"/>.</returns>
+        DynamicCommunityInformation ConvertToDynamicCommunityInformation(ModuleStat stat, string dynamicId);
+
+        /// <summary>
         /// 将分区实例 <see cref="Models.BiliBili.Partition"/> 转换为自定义的分区信息.
         /// </summary>
         /// <param name="partition">分区实例.</param>

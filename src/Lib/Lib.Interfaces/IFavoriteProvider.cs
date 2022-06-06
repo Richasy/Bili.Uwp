@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Article;
@@ -18,8 +19,8 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="userId">用户Id.</param>
         /// <param name="videoId">待查询的视频Id.</param>
-        /// <returns><see cref="FavoriteListResponse"/>.</returns>
-        Task<FavoriteListResponse> GetFavoriteListAsync(int userId, int videoId = 0);
+        /// <returns>收藏夹列表以及包含该视频的收藏夹 Id 集合.</returns>
+        Task<(VideoFavoriteSet, IEnumerable<string>)> GetCurrentPlayerFavoriteListAsync(string userId, string videoId);
 
         /// <summary>
         /// 获取用户的视频收藏分组列表.

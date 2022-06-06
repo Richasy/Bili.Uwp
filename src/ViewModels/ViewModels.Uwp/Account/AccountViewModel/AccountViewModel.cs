@@ -49,6 +49,7 @@ namespace Bili.ViewModels.Uwp.Account
                 {
                     if (state == AuthorizeState.SignedIn)
                     {
+                        IsConnected = true;
                         await GetMyProfileAsync();
                     }
                 });
@@ -94,6 +95,7 @@ namespace Bili.ViewModels.Uwp.Account
                     && await _authorizeProvider.IsTokenValidAsync())
                 {
                     AccountInformation = await _accountProvider.GetMyInformationAsync();
+                    IsConnected = true;
                 }
             }
             catch (Exception ex)
@@ -186,6 +188,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (AccountInformation == null)
             {
+                IsConnected = false;
                 return;
             }
 

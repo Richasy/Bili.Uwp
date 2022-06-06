@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
-using Bilibili.App.Dynamic.V2;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Dynamic
 {
     /// <summary>
     /// 图文动态条目.
@@ -17,40 +16,29 @@ namespace Bili.App.Controls
     public sealed partial class DynamicImageItem : UserControl
     {
         /// <summary>
-        /// <see cref="Data"/> 的依赖属性.
+        /// <see cref="ItemsSource"/> 的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register(nameof(Data), typeof(MdlDynDraw), typeof(DynamicImageItem), new PropertyMetadata(null, new PropertyChangedCallback(OnDataChanged)));
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(DynamicImageItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicImageItem"/> class.
         /// </summary>
-        public DynamicImageItem()
-        {
-            this.InitializeComponent();
-        }
+        public DynamicImageItem() => InitializeComponent();
 
         /// <summary>
         /// 数据.
         /// </summary>
-        public MdlDynDraw Data
+        public object ItemsSource
         {
-            get { return (MdlDynDraw)GetValue(DataProperty); }
-            set { SetValue(DataProperty, value); }
-        }
-
-        private static void OnDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is MdlDynDraw data)
-            {
-                var instance = d as DynamicImageItem;
-                instance.ImageRepeater.ItemsSource = data.Items.ToList();
-            }
+            get { return (object)GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var imageCount = Data.Items.Count;
+            var images = ItemsSource as List<Models.Data.Appearance.Image>;
+            var imageCount = images.Count();
             var columnCount = e.NewSize.Width / 100;
             var lineCount = Math.Ceiling(imageCount * 1.0 / columnCount);
             var height = (lineCount * 100) + ((lineCount - 1) * 4);
@@ -60,8 +48,8 @@ namespace Bili.App.Controls
         private void OnImageTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var image = sender as CommonImageEx;
-            var sources = Data.Items.Select(p => p.Src).ToList();
-            var index = sources.IndexOf(image.DataContext as string);
+            var sources = ItemsSource as List<Models.Data.Appearance.Image>;
+            var index = sources.ToList().IndexOf(image.DataContext as Models.Data.Appearance.Image);
             Splat.Locator.Current.GetService<AppViewModel>().ShowImages(sources, index);
         }
     }

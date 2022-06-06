@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Dynamic
 {
     /// <summary>
     /// 不支持的动态类型.
@@ -12,9 +12,6 @@ namespace Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicNotSupportItem"/> class.
         /// </summary>
-        public DynamicNotSupportItem()
-        {
-            this.InitializeComponent();
-        }
+        public DynamicNotSupportItem() => InitializeComponent();
     }
 }

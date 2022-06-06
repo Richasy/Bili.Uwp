@@ -40,7 +40,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteListResponse> GetFavoriteListAsync(int userId, int videoId = 0)
+        public async Task<(VideoFavoriteSet, IEnumerable<string>)> GetCurrentPlayerFavoriteListAsync(string userId, string videoId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -52,7 +52,12 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.FavoriteList, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<FavoriteListResponse>>(response);
-            return result.Data;
+            var data = result.Data;
+            var count = data.Count;
+            var items = data.List.Select(p => _favoriteAdapter.ConvertToVideoFavoriteFolder(p));
+            var ids = data.List.Where(p => p.FavoriteState == 0).Select(p => p.Id.ToString());
+            var favoriteSet = new VideoFavoriteSet(items, count);
+            return (favoriteSet, ids);
         }
 
         /// <inheritdoc/>

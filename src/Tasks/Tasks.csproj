@@ -140,6 +140,14 @@
       <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
       <Name>Controller.Uwp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
+      <Project>{83DD339B-EA58-4380-8994-02FA6708CC7A}</Project>
+      <Name>Lib.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.Data\Models.Data.csproj">
+      <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
+      <Name>Models.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
@@ -155,6 +163,10 @@
     <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
       <Name>Toolkit.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
+      <Project>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</Project>
+      <Name>ViewModels.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

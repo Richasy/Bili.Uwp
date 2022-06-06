@@ -18,6 +18,13 @@ namespace Bili.Adapter.Interfaces
         VideoFavoriteFolder ConvertToVideoFavoriteFolder(FavoriteListDetail detail);
 
         /// <summary>
+        /// 将收藏夹元数据 <see cref="FavoriteMeta"/> 转换为收藏夹信息.
+        /// </summary>
+        /// <param name="meta">收藏夹元数据.</param>
+        /// <returns><see cref="Models.Data.Community.VideoFavoriteFolder"/>.</returns>
+        VideoFavoriteFolder ConvertToVideoFavoriteFolder(FavoriteMeta meta);
+
+        /// <summary>
         /// 将收藏夹组 <see cref="FavoriteFolder"/> 转换为收藏夹分组.
         /// </summary>
         /// <param name="folder">收藏夹组.</param>

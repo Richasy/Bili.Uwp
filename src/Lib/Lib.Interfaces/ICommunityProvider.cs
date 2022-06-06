@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.Models.Data.Dynamic;
 using Bili.Models.Enums.Bili;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
@@ -55,18 +56,14 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 获取综合动态列表.
         /// </summary>
-        /// <param name="historyOffset">历史偏移值.</param>
-        /// <param name="baseLine">更新基线.</param>
         /// <returns>综合动态响应.</returns>
-        Task<DynAllReply> GetDynamicComprehensiveListAsync(string historyOffset, string baseLine);
+        Task<DynamicView> GetDynamicComprehensiveListAsync();
 
         /// <summary>
         /// 获取视频动态列表.
         /// </summary>
-        /// <param name="historyOffset">历史偏移值.</param>
-        /// <param name="baseLine">更新基线.</param>
         /// <returns>视频动态响应.</returns>
-        Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine);
+        Task<DynamicView> GetDynamicVideoListAsync();
 
         /// <summary>
         /// 点赞/取消点赞动态.
@@ -76,6 +73,16 @@ namespace Bili.Lib.Interfaces
         /// <param name="userId">用户Id.</param>
         /// <param name="rid">扩展数据标识.</param>
         /// <returns>是否操作成功.</returns>
-        Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, long userId, string rid);
+        Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, string userId, string rid);
+
+        /// <summary>
+        /// 重置视频动态请求状态.
+        /// </summary>
+        void ResetVideoDynamicStatus();
+
+        /// <summary>
+        /// 重置综合动态请求状态.
+        /// </summary>
+        void ResetComprehensiveDynamicStatus();
     }
 }

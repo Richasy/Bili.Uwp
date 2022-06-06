@@ -78,21 +78,6 @@ namespace Bili.Controller.Uwp
         }
 
         /// <summary>
-        /// 在用户成功登录后发生.
-        /// </summary>
-        public event EventHandler Logged;
-
-        /// <summary>
-        /// 在用户登出时发生.
-        /// </summary>
-        public event EventHandler LoggedOut;
-
-        /// <summary>
-        /// 在用户登录失败时发生.
-        /// </summary>
-        public event EventHandler<Exception> LoggedFailed;
-
-        /// <summary>
         /// 在网络状态改变时发生，将返回网络可用性.
         /// </summary>
         public event EventHandler<bool> NetworkChanged;
@@ -118,11 +103,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<ReplyIterationEventArgs> ReplyDetailIteration;
 
         /// <summary>
-        /// 在视频动态列表更新时发生.
-        /// </summary>
-        public event EventHandler<DynamicVideoIterationEventArgs> DynamicVideoIteration;
-
-        /// <summary>
         /// 收到更新消息时发生.
         /// </summary>
         public event EventHandler<UpdateEventArgs> UpdateReceived;
@@ -139,7 +119,6 @@ namespace Bili.Controller.Uwp
 
         private void RegisterEvents()
         {
-            this._authorizeProvider.StateChanged += OnAuthenticationStateChanged;
             this._networkModule.NetworkChanged += OnNetworkChangedAsync;
         }
 
@@ -165,6 +144,7 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IArticleAdapter, ArticleAdapter>()
                 .AddSingleton<ILiveAdapter, LiveAdapter>()
                 .AddSingleton<ISearchAdapter, SearchAdapter>()
+                .AddSingleton<IDynamicAdapter, DynamicAdapter>()
                 .AddSingleton<IFavoriteAdapter, FavoriteAdapter>();
 
             serviceCollection

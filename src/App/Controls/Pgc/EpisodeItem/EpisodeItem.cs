@@ -15,10 +15,25 @@ namespace Bili.App.Controls.Pgc
     public sealed class EpisodeItem : ReactiveControl<EpisodeItemViewModel>, IRepeaterItem, IOrientationControl
     {
         /// <summary>
+        /// <see cref="IsDynamic"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsDynamicProperty =
+            DependencyProperty.Register(nameof(IsDynamic), typeof(bool), typeof(EpisodeItem), new PropertyMetadata(false));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EpisodeItem"/> class.
         /// </summary>
         public EpisodeItem()
             => DefaultStyleKey = typeof(EpisodeItem);
+
+        /// <summary>
+        /// 是否是动态剧集.
+        /// </summary>
+        public bool IsDynamic
+        {
+            get { return (bool)GetValue(IsDynamicProperty); }
+            set { SetValue(IsDynamicProperty, value); }
+        }
 
         /// <inheritdoc/>
         public Size GetHolderSize() => new Size(210, 248);
@@ -28,8 +43,8 @@ namespace Bili.App.Controls.Pgc
         {
             var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
-                ? resourceToolkit.GetResource<Style>("HorizontalEpisodeItemStyle")
-                : resourceToolkit.GetResource<Style>("VerticalEpisodeItemStyle");
+                ? IsDynamic ? resourceToolkit.GetResource<Style>("HorizontalDynamicEpisodeItemStyle") : resourceToolkit.GetResource<Style>("HorizontalEpisodeItemStyle")
+                : IsDynamic ? resourceToolkit.GetResource<Style>("VerticalDynamicEpisodeItemStyle") : resourceToolkit.GetResource<Style>("VerticalEpisodeItemStyle");
         }
     }
 }

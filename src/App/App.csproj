@@ -63,14 +63,12 @@
     <Compile Include="Controls\Community\RelationPageView.xaml.cs">
       <DependentUpon>RelationPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Dynamic\DynamicArticleItem.xaml.cs">
-      <DependentUpon>DynamicArticleItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Dynamic\DynamicImageItem.xaml.cs">
       <DependentUpon>DynamicImageItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Dynamic\DynamicForwardItem.xaml.cs">
-      <DependentUpon>DynamicForwardItem.xaml</DependentUpon>
+    <Compile Include="Controls\Dynamic\DynamicItem\DynamicItem.cs" />
+    <Compile Include="Controls\Dynamic\DynamicModule.xaml.cs">
+      <DependentUpon>DynamicModule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Dynamic\DynamicPresenter.xaml.cs">
       <DependentUpon>DynamicPresenter.xaml</DependentUpon>
@@ -137,15 +135,6 @@
       <DependentUpon>DownloadOptionsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IRefreshPage.cs" />
-    <Compile Include="Controls\Dynamic\DynamicItem.xaml.cs">
-      <DependentUpon>DynamicItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Dynamic\DynamicPgcItem.xaml.cs">
-      <DependentUpon>DynamicPgcItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Dynamic\DynamicVideoItem.xaml.cs">
-      <DependentUpon>DynamicVideoItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -375,8 +364,8 @@
     <Compile Include="Pages\Desktop\DomesticPage.xaml.cs">
       <DependentUpon>DomesticPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Desktop\DynamicFeedPage.xaml.cs">
-      <DependentUpon>DynamicFeedPage.xaml</DependentUpon>
+    <Compile Include="Pages\Desktop\DynamicPage.xaml.cs">
+      <DependentUpon>DynamicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\BangumiPage.xaml.cs">
       <DependentUpon>BangumiPage.xaml</DependentUpon>
@@ -611,15 +600,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Dynamic\DynamicArticleItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Dynamic\DynamicImageItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Dynamic\DynamicForwardItem.xaml">
+    <Page Include="Controls\Dynamic\DynamicItem\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dynamic\DynamicModule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -712,18 +701,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\DownloadOptionsPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Dynamic\DynamicItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Dynamic\DynamicPgcItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Dynamic\DynamicVideoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1031,7 +1008,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Desktop\DynamicFeedPage.xaml">
+    <Page Include="Pages\Desktop\DynamicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

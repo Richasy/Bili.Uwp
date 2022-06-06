@@ -45,8 +45,16 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void InitializeData()
         {
-            PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
-            DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
+            if (Information.CommunityInformation != null)
+            {
+                PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
+                DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
+            }
+
+            if (Information.Identifier.Duration > 0)
+            {
+                DurationText = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(Information.Identifier.Duration));
+            }
         }
 
         private void Play()

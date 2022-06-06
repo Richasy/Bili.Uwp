@@ -43,6 +43,13 @@ namespace Bili.Adapter.Interfaces
         EpisodeInformation ConvertToEpisodeInformation(MdlDynPGC pgc);
 
         /// <summary>
+        /// 将视频动态条目 <see cref="MdlDynArchive"/> 转换为单集信息.
+        /// </summary>
+        /// <param name="archive">视频动态条目.</param>
+        /// <returns><see cref="EpisodeInformation"/>.</returns>
+        EpisodeInformation ConvertToEpisodeInformation(MdlDynArchive archive);
+
+        /// <summary>
         /// 将 PGC 模块条目 <see cref="PgcModuleItem"/> 转换为剧集信息.
         /// </summary>
         /// <param name="item">PGC 模块条目.</param>

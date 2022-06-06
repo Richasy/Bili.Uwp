@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 
 namespace Bili.Lib
@@ -10,5 +11,9 @@ namespace Bili.Lib
     public partial class CommunityProvider
     {
         private readonly IHttpProvider _httpProvider;
+        private readonly IDynamicAdapter _dynamicAdapter;
+
+        private (string Offset, string Baseline) _videoDynamicOffset;
+        private (string Offset, string Baseline) _comprehensiveDynamicOffset;
     }
 }

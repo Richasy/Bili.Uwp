@@ -297,5 +297,53 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DynamicArticleItemStyle" TargetType="local:ArticleItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ArticleItem">
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock
+                                x:Name="TitleBlock"
+                                HorizontalAlignment="Left"
+                                FontWeight="Bold"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                x:Name="DescriptionBlock"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                MaxLines="3"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <controls:CommonImageEx
+                            x:Name="CoverImage"
+                            Grid.Row="1"
+                            Height="100"
+                            CornerRadius="{StaticResource ControlCornerRadius}"
+                            ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+
+                        <TextBlock
+                            x:Name="AdditionalBlock"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Grid.Row="2"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style BasedOn="{StaticResource VerticalArticleItemStyle}" TargetType="local:ArticleItem" />
 </ResourceDictionary>

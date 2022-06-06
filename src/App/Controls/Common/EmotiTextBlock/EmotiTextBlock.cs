@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bilibili.App.Dynamic.V2;
+using Bili.Models.Data.Appearance;
 using Bilibili.Main.Community.Reply.V1;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,10 +30,10 @@ namespace Bili.App.Controls
             DependencyProperty.Register(nameof(ReplyInfo), typeof(ReplyInfo), typeof(EmotiTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(OnReplyInfoChanged)));
 
         /// <summary>
-        /// <see cref="DynamicDescription"/> 的依赖属性.
+        /// <see cref="Text"/> 的依赖属性.
         /// </summary>
-        public static readonly DependencyProperty DynamicDescriptionProperty =
-            DependencyProperty.Register(nameof(DynamicDescription), typeof(ModuleDesc), typeof(EmotiTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(OnDynamicDescriptionChanged)));
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(EmoteText), typeof(EmotiTextBlock), new PropertyMetadata(default, new PropertyChangedCallback(OnTextChanged)));
 
         private RichTextBlock _richBlock;
         private RichTextBlock _flyoutRichBlock;
@@ -64,12 +64,12 @@ namespace Bili.App.Controls
         }
 
         /// <summary>
-        /// 动态描述信息.
+        /// 输入的文本.
         /// </summary>
-        public ModuleDesc DynamicDescription
+        public EmoteText Text
         {
-            get { return (ModuleDesc)GetValue(DynamicDescriptionProperty); }
-            set { SetValue(DynamicDescriptionProperty, value); }
+            get { return (EmoteText)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
         /// <summary>
@@ -94,19 +94,19 @@ namespace Bili.App.Controls
         private static void OnReplyInfoChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as EmotiTextBlock;
+            instance.Text = null;
             if (e.NewValue != null)
             {
-                instance.DynamicDescription = null;
                 instance.InitializeContent();
             }
         }
 
-        private static void OnDynamicDescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as EmotiTextBlock;
+            instance.ReplyInfo = null;
             if (e.NewValue != null)
             {
-                instance.ReplyInfo = null;
                 instance.InitializeContent();
             }
         }
@@ -125,9 +125,9 @@ namespace Bili.App.Controls
                 {
                     para = ParseReplyInfo();
                 }
-                else if (DynamicDescription != null)
+                else if (Text != null)
                 {
-                    para = ParseDynamicDescription();
+                    para = ParseText();
                 }
 
                 if (para != null)
@@ -153,9 +153,9 @@ namespace Bili.App.Controls
                     var para = ParseReplyInfo();
                     _flyoutRichBlock.Blocks.Add(para);
                 }
-                else if (DynamicDescription != null)
+                else if (Text != null)
                 {
-                    var para = ParseDynamicDescription();
+                    var para = ParseText();
                     _flyoutRichBlock.Blocks.Add(para);
                 }
             }
@@ -179,7 +179,7 @@ namespace Bili.App.Controls
                         if (emoties.TryGetValue(content, out var sourceEmoti))
                         {
                             var inlineCon = new InlineUIContainer();
-                            var img = new Image() { Width = 20, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 2, -4) };
+                            var img = new Windows.UI.Xaml.Controls.Image() { Width = 20, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 2, -4) };
                             var bitmap = new BitmapImage(new Uri(sourceEmoti.Url)) { DecodePixelWidth = 40 };
                             img.Source = bitmap;
                             inlineCon.Child = img;
@@ -204,27 +204,26 @@ namespace Bili.App.Controls
             return para;
         }
 
-        private Paragraph ParseDynamicDescription()
+        private Paragraph ParseText()
         {
-            var text = DynamicDescription.Text;
-            var descs = DynamicDescription.Desc;
+            var text = Text.Text;
+            var emotes = Text.Emotes;
             var para = new Paragraph();
 
-            if (descs.Count > 0 && descs.Any(p => p.Type == DescType.Emoji))
+            if (emotes != null && emotes.Count > 0)
             {
                 // 有表情存在，进行处理.
                 var emotiRegex = new Regex(@"(\[.*?\])");
-                var emoties = descs.Where(p => p.Type == DescType.Emoji);
                 var splitCotents = emotiRegex.Split(text).Where(p => p.Length > 0).ToArray();
                 foreach (var content in splitCotents)
                 {
                     if (emotiRegex.IsMatch(content))
                     {
-                        var emoji = emoties.FirstOrDefault(p => p.Text.Equals(content));
+                        emotes.TryGetValue(content, out var emoji);
                         if (emoji != null)
                         {
                             var inlineCon = new InlineUIContainer();
-                            var img = new Image() { Width = 20, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 2, -4) };
+                            var img = new Windows.UI.Xaml.Controls.Image() { Width = 20, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 2, -4) };
                             var bitmap = new BitmapImage(new Uri(emoji.Uri)) { DecodePixelWidth = 40 };
                             img.Source = bitmap;
                             inlineCon.Child = img;

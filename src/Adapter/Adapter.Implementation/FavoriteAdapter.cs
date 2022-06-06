@@ -50,6 +50,16 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public VideoFavoriteFolder ConvertToVideoFavoriteFolder(FavoriteMeta meta)
+        {
+            var id = meta.Id.ToString();
+            var title = meta.Title;
+            var count = meta.MediaCount;
+
+            return new VideoFavoriteFolder(id, title, default, default, default, count);
+        }
+
+        /// <inheritdoc/>
         public VideoFavoriteFolderDetail ConvertToVideoFavoriteFolderDetail(VideoFavoriteListResponse response)
         {
             var folder = ConvertToVideoFavoriteFolder(response.Detail ?? response.Information);

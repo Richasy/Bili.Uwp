@@ -31,7 +31,7 @@ namespace Bili.Models.Data.Appearance
         /// Initializes a new instance of the <see cref="Image"/> class.
         /// </summary>
         /// <param name="uri">图片地址.</param>
-        public Image(string uri) => Uri = uri;
+        public Image(string uri) => _sourceUri = Uri = uri;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Image"/> class.
@@ -76,5 +76,11 @@ namespace Bili.Models.Data.Appearance
         /// <returns>图片地址. 如果没有修改过图片链接则返回 <see cref="Uri"/>.</returns>
         public Uri GetSourceUri()
             => new (_sourceUri ?? Uri);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Image image && _sourceUri == image._sourceUri;
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => _sourceUri.GetHashCode();
     }
 }

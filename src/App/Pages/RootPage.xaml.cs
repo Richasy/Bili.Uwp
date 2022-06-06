@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.App.Controls.Article;
@@ -182,10 +183,10 @@ namespace Bili.App.Pages.Desktop
         private async void OnRequestShowImagesAsync(object sender, ShowImageEventArgs e)
         {
             var viewer = ImageViewer.Instance ?? new ImageViewer();
-            if (e != null && e.ImageUrls?.Count != 0)
+            if (e != null && e.Images?.Count() != 0)
             {
                 ShowOnHolder(viewer);
-                await viewer.LoadImagesAsync(e.ImageUrls, e.ShowIndex);
+                await viewer.LoadImagesAsync(e.Images, e.ShowIndex);
             }
         }
 

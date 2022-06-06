@@ -556,5 +556,9 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public FollowGroup ConvertToFollowGroup(RelatedTag tag)
             => new FollowGroup(tag.TagId.ToString(), tag.Name, tag.Count);
+
+        /// <inheritdoc/>
+        public DynamicCommunityInformation ConvertToDynamicCommunityInformation(ModuleStat stat, string dynamicId)
+            => new DynamicCommunityInformation(dynamicId, stat.Like, stat.Reply, stat.LikeInfo.IsLike);
     }
 }

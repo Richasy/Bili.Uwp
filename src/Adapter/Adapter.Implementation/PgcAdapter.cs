@@ -125,6 +125,21 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
+        public EpisodeInformation ConvertToEpisodeInformation(MdlDynArchive archive)
+        {
+            var title = archive.Title;
+            var ssid = archive.PgcSeasonId.ToString();
+            var epid = archive.EpisodeId.ToString();
+            var aid = archive.Avid.ToString();
+            var isPv = archive.IsPreview;
+            var cover = _imageAdapter.ConvertToVideoCardCover(archive.Cover);
+            var duration = Convert.ToInt32(archive.Duration);
+
+            var identifier = new VideoIdentifier(epid, title, duration, cover);
+            return new EpisodeInformation(identifier, ssid, aid, isPv: isPv);
+        }
+
+        /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(PgcModuleItem item, PgcType type)
         {
             var title = item.Title;

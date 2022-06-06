@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Dynamic;
 using Bili.Models.Enums.Bili;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
@@ -23,9 +25,13 @@ namespace Bili.Lib
         /// Initializes a new instance of the <see cref="CommunityProvider"/> class.
         /// </summary>
         /// <param name="httpProvider">网络处理工具.</param>
-        public CommunityProvider(IHttpProvider httpProvider)
+        /// <param name="dynamicAdapter">动态数据适配器.</param>
+        public CommunityProvider(
+            IHttpProvider httpProvider,
+            IDynamicAdapter dynamicAdapter)
         {
             _httpProvider = httpProvider;
+            _dynamicAdapter = dynamicAdapter;
         }
 
         /// <inheritdoc/>
@@ -100,43 +106,45 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<DynAllReply> GetDynamicComprehensiveListAsync(string historyOffset, string baseLine)
+        public async Task<DynamicView> GetDynamicComprehensiveListAsync()
         {
-            var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;
+            var type = string.IsNullOrEmpty(_comprehensiveDynamicOffset.Offset) ? Refresh.New : Refresh.History;
             var req = new DynAllReq
             {
                 RefreshType = type,
                 LocalTime = 8,
-                Offset = historyOffset ?? string.Empty,
-                UpdateBaseline = baseLine ?? string.Empty,
+                Offset = _comprehensiveDynamicOffset.Offset,
+                UpdateBaseline = _comprehensiveDynamicOffset.Baseline,
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicAll, req, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DynAllReply.Parser);
-            return result;
+            _comprehensiveDynamicOffset = new (result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
+            return _dynamicAdapter.ConvertToDynamicView(result);
         }
 
         /// <inheritdoc/>
-        public async Task<DynVideoReply> GetDynamicVideoListAsync(string historyOffset, string baseLine)
+        public async Task<DynamicView> GetDynamicVideoListAsync()
         {
-            var type = string.IsNullOrEmpty(historyOffset) ? Refresh.New : Refresh.History;
+            var type = string.IsNullOrEmpty(_videoDynamicOffset.Offset) ? Refresh.New : Refresh.History;
             var req = new DynVideoReq
             {
                 RefreshType = type,
                 LocalTime = 8,
-                Offset = historyOffset ?? string.Empty,
-                UpdateBaseline = baseLine ?? string.Empty,
+                Offset = _videoDynamicOffset.Offset,
+                UpdateBaseline = _videoDynamicOffset.Baseline,
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicVideo, req, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DynVideoReply.Parser);
-            return result;
+            _videoDynamicOffset = new (result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
+            return _dynamicAdapter.ConvertToDynamicView(result);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, long userId, string rid)
+        public async Task<bool> LikeDynamicAsync(string dynamicId, bool isLike, string userId, string rid)
         {
             var req = new DynThumbReq
             {
@@ -157,5 +165,13 @@ namespace Bili.Lib
                 return false;
             }
         }
+
+        /// <inheritdoc/>
+        public void ResetVideoDynamicStatus()
+            => _videoDynamicOffset = new (string.Empty, string.Empty);
+
+        /// <inheritdoc/>
+        public void ResetComprehensiveDynamicStatus()
+            => _comprehensiveDynamicOffset = new (string.Empty, string.Empty);
     }
 }

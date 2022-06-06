@@ -198,7 +198,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<int> needAddFavoriteList, IList<int> needRemoveFavoriteList)
+        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList)
         {
             var queryParameters = new Dictionary<string, string>
             {

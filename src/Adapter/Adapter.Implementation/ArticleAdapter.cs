@@ -8,6 +8,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
+using Bilibili.App.Dynamic.V2;
 using Humanizer;
 
 namespace Bili.Adapter
@@ -100,6 +101,21 @@ namespace Bili.Adapter
             return new ArticleInformation(
                 identifier,
                 subtitle);
+        }
+
+        /// <inheritdoc/>
+        public ArticleInformation ConvertToArticleInformation(MdlDynArticle article)
+        {
+            var id = article.Id.ToString();
+            var title = article.Title;
+            var summary = article.Desc;
+            var cover = article.Covers?.Any() ?? false
+                ? _imageAdapter.ConvertToArticleCardCover(article.Covers.First())
+                : null;
+            var identifier = new ArticleIdentifier(id, title, summary, cover);
+            return new ArticleInformation(
+                identifier,
+                article.Label);
         }
 
         /// <inheritdoc/>

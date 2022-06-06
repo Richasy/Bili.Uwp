@@ -1,154 +1,100 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Linq;
-using Bili.App.Resources.Extension;
-using Bili.ViewModels.Uwp;
+using System.Collections.Generic;
+using Bili.Models.Data.Article;
+using Bili.Models.Data.Dynamic;
+using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
+using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Uwp.Video;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Dynamic
 {
     /// <summary>
     /// 动态展示.
     /// </summary>
-    public sealed partial class DynamicPresenter : UserControl
+    public sealed partial class DynamicPresenter : UserControl, IOrientationControl
     {
         /// <summary>
         /// <see cref="Data"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register(nameof(Data), typeof(Bilibili.App.Dynamic.V2.DynamicItem), typeof(DynamicPresenter), new PropertyMetadata(null, new PropertyChangedCallback(DataChanged)));
+            DependencyProperty.Register(nameof(Data), typeof(object), typeof(DynamicPresenter), new PropertyMetadata(default, new PropertyChangedCallback(DataChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicPresenter"/> class.
         /// </summary>
-        public DynamicPresenter()
-        {
-            this.InitializeComponent();
-        }
+        public DynamicPresenter() => InitializeComponent();
 
         /// <summary>
         /// 数据.
         /// </summary>
-        public Bilibili.App.Dynamic.V2.DynamicItem Data
+        public object Data
         {
-            get { return (Bilibili.App.Dynamic.V2.DynamicItem)GetValue(DataProperty); }
+            get { return (object)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
         }
 
-        /// <summary>
-        /// 更改布局方式.
-        /// </summary>
-        /// <param name="orientation">布局方向.</param>
-        public void ChangeOrientation(Orientation orientation)
+        /// <inheritdoc/>
+        public void ChangeLayout(Orientation orientation)
         {
             if (VisualTreeHelper.GetChildrenCount(MainPresenter) > 0)
             {
                 var child = VisualTreeHelper.GetChild(MainPresenter, 0);
-                if (child is IDynamicLayoutItem item)
+                if (child is IOrientationControl item)
                 {
-                    item.Orientation = orientation;
+                    item.ChangeLayout(orientation);
                 }
             }
-        }
-
-        /// <summary>
-        /// 获取可供播放的视图模型.
-        /// </summary>
-        /// <returns>播放视图模型.</returns>
-        public object GetPlayViewModel()
-        {
-            if (MainPresenter.Content is VideoViewModel videoVM)
-            {
-                return videoVM;
-            }
-            else if (MainPresenter.Content is SeasonViewModel seasonVM)
-            {
-                return seasonVM;
-            }
-            else if (MainPresenter.Content is Bilibili.App.Dynamic.V2.MdlDynForward)
-            {
-                var forwardItem = MainPresenter.FindDescendantElementByType<DynamicForwardItem>();
-                return forwardItem.GetPlayViewModel();
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 获取可供播放的视图模型.
-        /// </summary>
-        /// <returns>播放视图模型.</returns>
-        public object GetArticleViewModel()
-        {
-            if (MainPresenter.Content is Bilibili.App.Dynamic.V2.MdlDynArticle article)
-            {
-                return new ArticleViewModel(article);
-            }
-            else if (MainPresenter.Content is Bilibili.App.Dynamic.V2.MdlDynForward)
-            {
-                var forwardItem = MainPresenter.FindDescendantElementByType<DynamicForwardItem>();
-                return forwardItem.GetArticleViewModel();
-            }
-
-            return null;
         }
 
         private static void DataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as DynamicPresenter;
-            var data = e.NewValue as Bilibili.App.Dynamic.V2.DynamicItem;
-            var mainModule = data.Modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
+            var data = e.NewValue;
 
-            instance.Visibility = mainModule == null ? Visibility.Collapsed : Visibility.Visible;
-            if (mainModule == null)
+            if (data is VideoInformation videoInfo)
             {
-                return;
-            }
-
-            if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynPgc)
-            {
-                instance.MainPresenter.Content = new SeasonViewModel(mainModule.DynPgc);
-                instance.MainPresenter.ContentTemplate = instance.PgcTemplate;
-            }
-            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArchive)
-            {
-                var userModule = data.Modules.Where(p => p.ModuleType == Bilibili.App.Dynamic.V2.DynModuleType.ModuleAuthor).FirstOrDefault()?.ModuleAuthor;
-
-                UserViewModel publisher = null;
-                if (userModule != null)
-                {
-                    publisher = new UserViewModel(userModule.Author.Name, userModule.Author.Face, Convert.ToInt32(userModule.Mid));
-                }
-
-                var vm = new VideoViewModel(mainModule.DynArchive)
-                {
-                    Publisher = publisher,
-                };
-                instance.MainPresenter.Content = vm;
+                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
+                videoVM.SetInformation(videoInfo);
+                instance.MainPresenter.Content = videoVM;
                 instance.MainPresenter.ContentTemplate = instance.VideoTemplate;
             }
-            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynForward)
+            else if (data is EpisodeInformation episodeInfo)
             {
-                instance.MainPresenter.Content = mainModule.DynForward;
+                var episodeVM = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
+                episodeVM.SetInformation(episodeInfo);
+                instance.MainPresenter.Content = episodeVM;
+                instance.MainPresenter.ContentTemplate = instance.EpisodeTemplate;
+            }
+            else if (data is DynamicInformation dynamicInfo)
+            {
+                var dynamicVM = Splat.Locator.Current.GetService<DynamicItemViewModel>();
+                dynamicVM.SetInformation(dynamicInfo);
+                instance.MainPresenter.Content = dynamicVM;
                 instance.MainPresenter.ContentTemplate = instance.ForwardTemplate;
             }
-            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynDraw)
+            else if (data is List<Models.Data.Appearance.Image> images)
             {
-                instance.MainPresenter.Content = mainModule.DynDraw;
+                instance.MainPresenter.Content = images;
                 instance.MainPresenter.ContentTemplate = instance.ImageTemplate;
             }
-            else if (mainModule.Type == Bilibili.App.Dynamic.V2.ModuleDynamicType.MdlDynArticle)
+            else if (data is ArticleInformation article)
             {
-                mainModule.DynArticle.Id = Convert.ToInt64(data.Extend.BusinessId);
-                instance.MainPresenter.Content = mainModule.DynArticle;
+                var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
+                articleVM.SetInformation(article);
+                instance.MainPresenter.Content = articleVM;
                 instance.MainPresenter.ContentTemplate = instance.ArticleTemplate;
             }
             else
             {
-                instance.MainPresenter.Content = mainModule;
+                instance.MainPresenter.Content = null;
                 instance.MainPresenter.ContentTemplate = instance.NoneTemplate;
             }
         }

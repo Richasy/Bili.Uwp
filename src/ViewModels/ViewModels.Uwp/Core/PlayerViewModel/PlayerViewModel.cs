@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Models.App.Constants;
@@ -90,8 +91,8 @@ namespace Bili.ViewModels.Uwp.Core
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
             TagCollection.CollectionChanged += OnTagCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
-            Controller.LoggedOut += OnUserLoggedOut;
 
+            // Controller.LoggedOut += OnUserLoggedOut;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnAppViewVisibleBoundsChanged;
             SubtitleConvertTypeCollection = new ObservableCollection<Models.Enums.App.SubtitleConvertType>
             {
@@ -757,10 +758,11 @@ namespace Bili.ViewModels.Uwp.Core
                 IsRequestFavoritesError = false;
                 FavoriteMetaCollection.Clear();
                 IsRequestingFavorites = true;
-                var favorites = await Controller.GetFavoriteListAsync(Splat.Locator.Current.GetService<AccountViewModel>().Mid.Value, Convert.ToInt32(GetAid()));
-                if (favorites.Count > 0)
+                var favoriteProvider = Splat.Locator.Current.GetService<IFavoriteProvider>();
+                var favorites = await favoriteProvider.GetCurrentPlayerFavoriteListAsync(accVM.AccountInformation.User.Id, GetAid().ToString());
+                if (favorites.Item1.TotalCount > 0)
                 {
-                    favorites.ForEach(p => FavoriteMetaCollection.Add(new FavoriteMetaViewModel(p, p.FavoriteState == 1)));
+                    favorites.Item1.Items.ToList().ForEach(p => FavoriteMetaCollection.Add(new FavoriteMetaViewModel(p, favorites.Item2.Contains(p.Id))));
                 }
             }
             catch (Exception)

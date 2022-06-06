@@ -119,7 +119,7 @@ namespace Bili.App.Controls
                     pageType = typeof(LiveFeedPage);
                     break;
                 case PageIds.Dynamic:
-                    pageType = typeof(DynamicFeedPage);
+                    pageType = typeof(DynamicPage);
                     break;
                 case PageIds.Help:
                     pageType = typeof(HelpPage);

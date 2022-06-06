@@ -58,7 +58,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         /// <param name="images">图片列表.</param>
         /// <param name="firstIndex">初始索引.</param>
-        public void ShowImages(List<string> images, int firstIndex)
+        public void ShowImages(IEnumerable<Models.Data.Appearance.Image> images, int firstIndex)
         {
             if (images == null)
             {

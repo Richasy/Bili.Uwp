@@ -10,6 +10,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
+    <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.cs" />
+    <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.Properties.cs" />
+    <Compile Include="Community\DynamicAllModuleViewModel.cs" />
+    <Compile Include="Community\DynamicItemViewModel\DynamicItemViewModel.cs" />
+    <Compile Include="Community\DynamicItemViewModel\DynamicItemViewModel.Properties.cs" />
+    <Compile Include="Community\DynamicPageViewModel\DynamicPageViewModel.cs" />
+    <Compile Include="Community\DynamicPageViewModel\DynamicPageViewModel.Properties.cs" />
+    <Compile Include="Community\DynamicVideoModuleViewModel.cs" />
     <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.Properties.cs" />
@@ -107,8 +115,6 @@
     <Compile Include="Pgc\CinemaFavoriteModuleViewModel.cs" />
     <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.cs" />
     <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.Properties.cs" />
-    <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.cs" />
-    <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
     <Compile Include="Common\HelpViewModel\HelpPageViewModel.cs" />
     <Compile Include="Common\HelpViewModel\HelpPageViewModel.Properties.cs" />
     <Compile Include="Common\DownloadViewModel.cs" />

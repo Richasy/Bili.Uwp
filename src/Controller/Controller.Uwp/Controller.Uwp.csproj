@@ -14,10 +14,8 @@
     </SuppressXamlWarnings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BiliController.Auth.cs" />
     <Compile Include="BiliController.Community.cs" />
     <Compile Include="BiliController.cs" />
-    <Compile Include="BiliController.Account.cs" />
     <Compile Include="BiliController.Pgc.cs" />
     <Compile Include="BiliController.Live.cs" />
     <Compile Include="BiliController.Player.cs" />

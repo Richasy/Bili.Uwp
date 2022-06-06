@@ -363,5 +363,192 @@
         </Setter>
     </Style>
 
+    <Style x:Key="VerticalDynamicVideoItemStyle" TargetType="local:VideoItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:VideoItem">
+                    <Grid RowSpacing="8">
+                        <Grid.Resources>
+                            <Style TargetType="controls:IconTextBlock">
+                                <Setter Property="Spacing" Value="4" />
+                                <Setter Property="IconFontSize" Value="12" />
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="Row1" Height="Auto" />
+                            <RowDefinition x:Name="Row2" Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            x:Name="CoverContainer"
+                            Height="200"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4">
+                            <controls:CommonImageEx x:Name="CoverImage" ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+
+                            <Grid
+                                x:Name="DurationContainer"
+                                Margin="8,0,0,8"
+                                Padding="8,4"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Background="{ThemeResource AppMaskBrush}"
+                                CornerRadius="{StaticResource ControlCornerRadius}"
+                                RequestedTheme="Dark">
+                                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                            </Grid>
+
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Ellipse
+                                    Width="40"
+                                    Height="40"
+                                    Fill="{ThemeResource AppMaskBrush}"
+                                    Opacity="0.8" />
+                                <icons:RegularFluentIcon
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Symbol="Play16" />
+                            </Grid>
+                        </Grid>
+
+                        <Grid
+                            x:Name="ContentContainer"
+                            Grid.Row="1"
+                            RowSpacing="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="ContentRow" Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                x:Name="TitleBlock"
+                                VerticalAlignment="Top"
+                                FontSize="12"
+                                MaxLines="2"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <controls:IconTextBlock
+                                    Margin="0,0,12,0"
+                                    Opacity="0.6"
+                                    Symbol="PlayCircle16"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}" />
+                                <controls:IconTextBlock
+                                    Margin="0,0,12,0"
+                                    Opacity="0.6"
+                                    Symbol="SlideText16"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HorizontalDynamicVideoItemStyle" TargetType="local:VideoItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:VideoItem">
+                    <Grid RowSpacing="8">
+                        <Grid.Resources>
+                            <Style TargetType="controls:IconTextBlock">
+                                <Setter Property="Spacing" Value="4" />
+                                <Setter Property="IconFontSize" Value="12" />
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid
+                            x:Name="CoverContainer"
+                            Width="120"
+                            Height="76"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="{StaticResource ControlCornerRadius}">
+                            <controls:CommonImageEx x:Name="CoverImage" ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Ellipse
+                                    Width="40"
+                                    Height="40"
+                                    Fill="{ThemeResource AppMaskBrush}"
+                                    Opacity="0.8" />
+                                <icons:RegularFluentIcon
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Symbol="Play16" />
+                            </Grid>
+                        </Grid>
+
+                        <Grid
+                            x:Name="ContentContainer"
+                            Grid.Column="1"
+                            Padding="8"
+                            RowSpacing="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                x:Name="TitleBlock"
+                                VerticalAlignment="Top"
+                                FontSize="12"
+                                MaxLines="2"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+
+                            <controls:IconTextBlock
+                                x:Name="InlineDurationBlock"
+                                Grid.Row="1"
+                                FontSize="12"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                IconFontSize="12"
+                                Symbol="Timer16"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText, Mode=OneWay}"
+                                Visibility="Collapsed" />
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <controls:IconTextBlock
+                                    Margin="0,0,12,0"
+                                    Opacity="0.6"
+                                    Symbol="PlayCircle16"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}" />
+                                <controls:IconTextBlock
+                                    Margin="0,0,12,0"
+                                    Opacity="0.6"
+                                    Symbol="SlideText16"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style BasedOn="{StaticResource VerticalVideoItemStyle}" TargetType="local:VideoItem" />
 </ResourceDictionary>

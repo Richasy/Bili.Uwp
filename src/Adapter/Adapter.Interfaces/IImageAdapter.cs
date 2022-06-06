@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Appearance;
+using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -45,5 +46,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="uri">图片地址.</param>
         /// <returns><see cref="Image"/>.</returns>
         Image ConvertToArticleCardCover(string uri);
+
+        /// <summary>
+        /// 将动态的描述模块 <see cref="ModuleDesc"/> 转换为表情文本.
+        /// </summary>
+        /// <param name="description">动态的描述模块.</param>
+        /// <returns><see cref="EmoteText"/>.</returns>
+        EmoteText ConvertToEmoteText(ModuleDesc description);
     }
 }

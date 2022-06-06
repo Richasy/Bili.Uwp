@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Article;
+using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -31,6 +32,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="item">收藏的专栏文章.</param>
         /// <returns><see cref="ArticleInformation"/>.</returns>
         ArticleInformation ConvertToArticleInformation(FavoriteArticleItem item);
+
+        /// <summary>
+        /// 将动态文章 <see cref="MdlDynArticle"/> 转换成文章信息.
+        /// </summary>
+        /// <param name="article">动态文章.</param>
+        /// <returns><see cref="ArticleInformation"/>.</returns>
+        ArticleInformation ConvertToArticleInformation(MdlDynArticle article);
 
         /// <summary>
         /// 将专栏推荐响应结果 <see cref="ArticleRecommendResponse"/> 转换成分区文章视图.

@@ -58,6 +58,12 @@ namespace Bili.ViewModels.Uwp.Pgc
         [Reactive]
         public bool IsSelected { get; set; }
 
+        /// <summary>
+        /// 时长的可读文本.
+        /// </summary>
+        [Reactive]
+        public string DurationText { get; set; }
+
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is EpisodeItemViewModel model && EqualityComparer<EpisodeInformation>.Default.Equals(Information, model.Information);
 

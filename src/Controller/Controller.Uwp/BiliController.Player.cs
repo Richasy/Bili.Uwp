@@ -173,7 +173,7 @@ namespace Bili.Controller.Uwp
         /// <param name="addFavoriteListIds">要添加到的收藏夹Id列表.</param>
         /// <param name="deleteFavoriteListIds">要移除的收藏夹Id列表.</param>
         /// <returns>结果.</returns>
-        public async Task<FavoriteResult> FavoriteVideoAsync(long videoId, List<int> addFavoriteListIds, List<int> deleteFavoriteListIds)
+        public async Task<FavoriteResult> FavoriteVideoAsync(long videoId, List<string> addFavoriteListIds, List<string> deleteFavoriteListIds)
         {
             if (await _authorizeProvider.IsTokenValidAsync())
             {

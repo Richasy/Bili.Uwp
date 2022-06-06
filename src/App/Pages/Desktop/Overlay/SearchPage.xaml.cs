@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Bili.Models.Data.Appearance;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Search;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
