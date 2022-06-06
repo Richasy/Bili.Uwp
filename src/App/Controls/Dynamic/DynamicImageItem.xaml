@@ -11,12 +11,10 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
+    Loaded="OnLoaded"
     mc:Ignorable="d">
 
-    <controls:ItemsRepeater
-        x:Name="ImageRepeater"
-        Height="320"
-        ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+    <controls:ItemsRepeater x:Name="ImageRepeater" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
         <controls:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="apperance:Image">
                 <controls1:CommonImageEx

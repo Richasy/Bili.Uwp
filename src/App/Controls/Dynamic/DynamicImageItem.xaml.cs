@@ -19,7 +19,7 @@ namespace Bili.App.Controls.Dynamic
         /// <see cref="ItemsSource"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(DynamicImageItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(DynamicImageItem), new PropertyMetadata(default, new PropertyChangedCallback(OnItemsSourceChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicImageItem"/> class.
@@ -35,15 +35,17 @@ namespace Bili.App.Controls.Dynamic
             set { SetValue(ItemsSourceProperty, value); }
         }
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var images = ItemsSource as List<Models.Data.Appearance.Image>;
-            var imageCount = images.Count();
-            var columnCount = e.NewSize.Width / 100;
-            var lineCount = Math.Ceiling(imageCount * 1.0 / columnCount);
-            var height = (lineCount * 100) + ((lineCount - 1) * 4);
-            ImageRepeater.Height = height;
+            var instance = d as DynamicImageItem;
+            instance.LimitHeight();
         }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+            => LimitHeight();
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+            => LimitHeight();
 
         private void OnImageTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
@@ -51,6 +53,21 @@ namespace Bili.App.Controls.Dynamic
             var sources = ItemsSource as List<Models.Data.Appearance.Image>;
             var index = sources.ToList().IndexOf(image.DataContext as Models.Data.Appearance.Image);
             Splat.Locator.Current.GetService<AppViewModel>().ShowImages(sources, index);
+        }
+
+        private void LimitHeight()
+        {
+            if (ItemsSource is List<Models.Data.Appearance.Image> images)
+            {
+                var imageCount = images.Count;
+                var columnCount = ActualWidth / 100;
+                var lineCount = Math.Ceiling(imageCount * 1.0 / columnCount);
+                var height = (lineCount * 100) + ((lineCount - 1) * 4);
+                if (!double.IsInfinity(height))
+                {
+                    ImageRepeater.Height = height;
+                }
+            }
         }
     }
 }
