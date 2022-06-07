@@ -2,6 +2,7 @@
 
 using Bili.Models.Data.Appearance;
 using Bilibili.App.Dynamic.V2;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -53,5 +54,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="description">动态的描述模块.</param>
         /// <returns><see cref="EmoteText"/>.</returns>
         EmoteText ConvertToEmoteText(ModuleDesc description);
+
+        /// <summary>
+        /// 将评论内容 <see cref="Content"/> 转换为表情文本.
+        /// </summary>
+        /// <param name="content">评论内容.</param>
+        /// <returns><see cref="EmoteText"/>.</returns>
+        EmoteText ConvertToEmoteText(Content content);
     }
 }

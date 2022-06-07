@@ -5,6 +5,7 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
 using Bilibili.App.Archive.V1;
 using Bilibili.App.View.V1;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -86,6 +87,14 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatarSize">头像大小.</param>
         /// <returns><see cref="AccountInformation"/>.</returns>
         AccountInformation ConvertToAccountInformation(RelatedUser user, AvatarSize avatarSize = AvatarSize.Size64);
+
+        /// <summary>
+        /// 将用户信息 <see cref="Member"/> 转换为 <see cref="AccountInformation"/>.
+        /// </summary>
+        /// <param name="member">用户信息.</param>
+        /// <param name="avatarSize">头像尺寸.</param>
+        /// <returns><see cref="AccountInformation"/>.</returns>
+        AccountInformation ConvertToAccountInformation(Member member, AvatarSize avatarSize = AvatarSize.Size64);
 
         /// <summary>
         /// 将推荐卡片的头像信息 <see cref="RecommendAvatar"/> 转换为角色资料.

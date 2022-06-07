@@ -4,6 +4,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -104,7 +105,7 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="searchVideo">搜索视频条目.</param>
         /// <returns><see cref="VideoCommunityInformation"/>.</returns>
-        VideoCommunityInformation ConvertToVideoCommunityInformation(VideoSearchItem searchVideo);
+        VideoCommunityInformation ConvertToVideoCommunityInformation(Models.BiliBili.VideoSearchItem searchVideo);
 
         /// <summary>
         /// 将用户空间视频条目 <see cref="UserSpaceVideoItem"/> 转换为视频交互信息.
@@ -175,7 +176,7 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="item">文章搜索结果.</param>
         /// <returns><see cref="ArticleCommunityInformation"/>.</returns>
-        ArticleCommunityInformation ConvertToArticleCommunityInformation(ArticleSearchItem item);
+        ArticleCommunityInformation ConvertToArticleCommunityInformation(Models.BiliBili.ArticleSearchItem item);
 
         /// <summary>
         /// 将动态状态数据 <see cref="ModuleStat"/> 转换为动态社区信息.

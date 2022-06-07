@@ -9,6 +9,7 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
 using Bilibili.App.Archive.V1;
 using Bilibili.App.View.V1;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter
 {
@@ -96,6 +97,13 @@ namespace Bili.Adapter
                 item.Level,
                 item.Vip.Status == 1,
                 communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public AccountInformation ConvertToAccountInformation(Member member, AvatarSize avatarSize = AvatarSize.Size64)
+        {
+            var profile = ConvertToUserProfile(Convert.ToInt32(member.Mid), member.Name, member.Face, avatarSize);
+            return new AccountInformation(profile, default, Convert.ToInt32(member.Level), default);
         }
 
         /// <inheritdoc/>

@@ -6,6 +6,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Appearance;
 using Bilibili.App.Dynamic.V2;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter
 {
@@ -50,6 +51,32 @@ namespace Bili.Adapter
                     if (!emoteDict.ContainsKey(item.Text))
                     {
                         emoteDict.Add(item.Text, ConvertToImage(item.Uri));
+                    }
+                }
+            }
+            else
+            {
+                emoteDict = null;
+            }
+
+            return new EmoteText(text, emoteDict);
+        }
+
+        /// <inheritdoc/>
+        public EmoteText ConvertToEmoteText(Content content)
+        {
+            var text = content.Message;
+            var emotes = content.Emote;
+            var emoteDict = new Dictionary<string, Image>();
+
+            // 判断是否有表情存在.
+            if (emotes?.Count > 0)
+            {
+                foreach (var item in emotes)
+                {
+                    if (!emoteDict.ContainsKey(item.Key))
+                    {
+                        emoteDict.Add(item.Key, ConvertToImage(item.Value.Url));
                     }
                 }
             }
