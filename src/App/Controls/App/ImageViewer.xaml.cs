@@ -109,7 +109,12 @@ namespace Bili.App.Controls
             {
                 using var client = new HttpClient();
                 imageBytes = await client.GetByteArrayAsync(imageUrl);
-                _images.Add(imageUrl, imageBytes);
+
+                // 避免重复多次请求下插入同源数据.
+                if (!_images.ContainsKey(imageUrl))
+                {
+                    _images.Add(imageUrl, imageBytes);
+                }
             }
 
             var bitmapImage = new BitmapImage();

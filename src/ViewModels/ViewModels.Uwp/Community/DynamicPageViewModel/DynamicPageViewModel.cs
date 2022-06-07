@@ -37,8 +37,10 @@ namespace Bili.ViewModels.Uwp.Community
                 new DynamicHeader(false, _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ComprehensiveDynamics)),
             };
 
-            SelectHeaderCommand = ReactiveCommand.Create<DynamicHeader>(SelectHeader, outputScheduler: RxApp.MainThreadScheduler);
-            RefreshModuleCommand = ReactiveCommand.Create(RefreshModule, outputScheduler: RxApp.MainThreadScheduler);
+            var canInteraction = this.WhenAnyValue(p => p.NeedSignIn)
+                .Select(p => !p);
+            SelectHeaderCommand = ReactiveCommand.Create<DynamicHeader>(SelectHeader, canInteraction, RxApp.MainThreadScheduler);
+            RefreshModuleCommand = ReactiveCommand.Create(RefreshModule, canInteraction, RxApp.MainThreadScheduler);
 
             NeedSignIn = _authorizeProvider.State != Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;

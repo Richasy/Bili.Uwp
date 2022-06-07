@@ -32,6 +32,7 @@
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         FontSize="14"
+                        IsEnabled="{x:Bind ViewModel.NeedSignIn, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
                         ItemInvoked="OnHeaderNavItemInvoked"
                         MenuItemsSource="{x:Bind ViewModel.Headers}"
                         SelectedItem="{x:Bind ViewModel.CurrentHeader, Mode=OneWay}">
@@ -54,14 +55,12 @@
         <dynamic:DynamicModule
             x:Name="VideoModule"
             Grid.Row="1"
-            x:Load="{x:Bind ViewModel.NeedSignIn, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
             DataContext="{x:Bind ViewModel.VideoModule}"
             ViewModel="{x:Bind ViewModel.VideoModule}"
             Visibility="{x:Bind ViewModel.IsShowVideo, Mode=OneWay}" />
         <dynamic:DynamicModule
             x:Name="AllModule"
             Grid.Row="1"
-            x:Load="{x:Bind ViewModel.NeedSignIn, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
             DataContext="{x:Bind ViewModel.AllModule}"
             ViewModel="{x:Bind ViewModel.AllModule}"
             Visibility="{x:Bind ViewModel.IsShowAll, Mode=OneWay}" />
