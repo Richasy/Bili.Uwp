@@ -19,7 +19,7 @@ namespace Bili.Controller.Uwp
         /// <param name="type">评论区类型.</param>
         /// <param name="cursor">游标.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RequestMainReplyListAsync(long targetId, ReplyType type, CursorReq cursor)
+        public async Task RequestMainReplyListAsync(long targetId, CommentType type, CursorReq cursor)
         {
             ThrowWhenNetworkUnavaliable();
 
@@ -47,7 +47,7 @@ namespace Bili.Controller.Uwp
         /// <param name="rootId">根评论Id.</param>
         /// <param name="cursor">游标.</param>
         /// <returns>评论列表响应.</returns>
-        public async Task<DetailListReply> RequestDeltailReplyListAsync(long targetId, ReplyType type, long rootId, CursorReq cursor)
+        public async Task<DetailListReply> RequestDeltailReplyListAsync(long targetId, CommentType type, long rootId, CursorReq cursor)
         {
             ThrowWhenNetworkUnavaliable();
 
@@ -77,7 +77,7 @@ namespace Bili.Controller.Uwp
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
         /// <returns>结果.</returns>
-        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, ReplyType type)
+        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, CommentType type)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Bili.Controller.Uwp
         /// <param name="rootId">根评论Id.</param>
         /// <param name="parentId">正在回复的评论Id.</param>
         /// <returns>发布结果.</returns>
-        public async Task<bool> AddReplyAsync(string message, long targetId, ReplyType type, long rootId, long parentId)
+        public async Task<bool> AddReplyAsync(string message, long targetId, CommentType type, long rootId, long parentId)
         {
             try
             {

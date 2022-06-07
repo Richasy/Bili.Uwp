@@ -30,7 +30,7 @@ namespace Bili.Models.Data.Dynamic
             UserProfile user,
             string tip,
             DynamicCommunityInformation communityInformation,
-            ReplyType replyType,
+            CommentType replyType,
             string replyId,
             DynamicItemType dynamicType,
             object data = default,
@@ -40,8 +40,8 @@ namespace Bili.Models.Data.Dynamic
             User = user;
             Tip = tip;
             CommunityInformation = communityInformation;
-            ReplyType = replyType;
-            ReplyId = replyId;
+            CommentType = replyType;
+            CommentId = replyId;
             DynamicType = dynamicType;
             Data = data;
             Description = description;
@@ -75,12 +75,12 @@ namespace Bili.Models.Data.Dynamic
         /// <summary>
         /// 评论区类型.
         /// </summary>
-        public ReplyType ReplyType { get; }
+        public CommentType CommentType { get; }
 
         /// <summary>
         /// 评论区Id.
         /// </summary>
-        public string ReplyId { get; }
+        public string CommentId { get; }
 
         /// <summary>
         /// 动态类型.

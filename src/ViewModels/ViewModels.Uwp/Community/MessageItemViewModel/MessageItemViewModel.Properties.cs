@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.Data.Community;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Uwp.Community
     public sealed partial class MessageItemViewModel
     {
         private readonly AppViewModel _appViewModel;
+        private readonly IResourceToolkit _resourceToolkit;
 
         /// <summary>
         /// 消息信息.

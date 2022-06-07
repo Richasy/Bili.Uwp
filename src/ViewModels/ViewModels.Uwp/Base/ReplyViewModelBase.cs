@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// 评论区类型.
         /// </summary>
-        public ReplyType Type { get; set; }
+        public CommentType Type { get; set; }
 
         /// <summary>
         /// 当前排序模式.

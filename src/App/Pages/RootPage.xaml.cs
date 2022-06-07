@@ -233,28 +233,9 @@ namespace Bili.App.Pages.Desktop
         private void OnRequestShowVideoFavoriteFolderDetail(object sender, VideoFavoriteFolder e)
             => new Controls.VideoFavoriteView().Show(e);
 
-        private async void OnRequestShowReplyDetailAsync(object sender, MessageInformation e)
+        private async void OnRequestShowReplyDetailAsync(object sender, ShowCommentEventArgs e)
         {
-            var type = ReplyType.None;
-            var isParseFaield = false;
-            try
-            {
-                type = (ReplyType)Convert.ToInt32(e.Properties["type"]);
-            }
-            catch (Exception)
-            {
-                isParseFaield = true;
-            }
-
-            if (isParseFaield || type == ReplyType.None)
-            {
-                var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
-                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(LanguageNames.NotSupportReplyType), InfoType.Warning);
-                return;
-            }
-
-            // TODO: 重置
-            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt64(e.SourceId), type, Bilibili.Main.Community.Reply.V1.Mode.MainListTime);
+            ReplyModuleViewModel.Instance.SetInformation(e);
             await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
         }
 

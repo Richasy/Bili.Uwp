@@ -5,7 +5,7 @@ namespace Bili.Models.Enums.Bili
     /// <summary>
     /// 评论区类型.
     /// </summary>
-    public enum ReplyType
+    public enum CommentType
     {
         /// <summary>
         /// 视频.

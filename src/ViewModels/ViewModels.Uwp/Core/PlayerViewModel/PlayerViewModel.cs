@@ -526,7 +526,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
-            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(CurrentPgcEpisode.Aid), Models.Enums.Bili.ReplyType.Video);
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(CurrentPgcEpisode.Aid), Models.Enums.Bili.CommentType.Video);
 
             try
             {

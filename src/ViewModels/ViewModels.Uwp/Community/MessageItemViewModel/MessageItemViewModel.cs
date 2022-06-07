@@ -2,10 +2,16 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using Bili.Models.Enums.Bili;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Humanizer;
 using ReactiveUI;
+using Splat;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -18,11 +24,12 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageItemViewModel"/> class.
         /// </summary>
-        /// <param name="appViewModel">应用视图模型.</param>
         internal MessageItemViewModel(
-            AppViewModel appViewModel)
+            AppViewModel appViewModel,
+            IResourceToolkit resourceToolkit)
         {
             _appViewModel = appViewModel;
+            _resourceToolkit = resourceToolkit;
             ActiveCommand = ReactiveCommand.CreateFromTask(ActiveAsync, outputScheduler: RxApp.MainThreadScheduler);
         }
 
@@ -52,7 +59,26 @@ namespace Bili.ViewModels.Uwp.Community
             else if (Information.Type == Models.Enums.App.MessageType.Reply)
             {
                 // 显示回复信息.
-                _appViewModel.ShowReply(Information);
+                var id = Information.SourceId;
+                var type = CommentType.None;
+                var isParseFaield = false;
+                try
+                {
+                    type = (CommentType)Convert.ToInt32(Information.Properties["type"]);
+                }
+                catch (Exception)
+                {
+                    isParseFaield = true;
+                }
+
+                if (isParseFaield || type == CommentType.None)
+                {
+                    _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NotSupportReplyType), InfoType.Warning);
+                    return;
+                }
+
+                var args = new ShowCommentEventArgs(type, CommentSortType.Time, sourceId);
+                _appViewModel.ShowReply(args);
             }
         }
     }

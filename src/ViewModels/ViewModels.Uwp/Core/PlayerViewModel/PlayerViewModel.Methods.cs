@@ -98,7 +98,7 @@ namespace Bili.ViewModels.Uwp.Core
             TagCollection.Clear();
             UgcEpisodeCollection.Clear();
             UgcSectionCollection.Clear();
-            ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.ReplyType.None);
+            ReplyModuleViewModel.Instance.SetInformation(0, Models.Enums.Bili.CommentType.None);
             Controller.CleanupLiveSocket();
             await ClearInitViewModelAsync();
         }
@@ -259,7 +259,7 @@ namespace Bili.ViewModels.Uwp.Core
             _videoDetail.Tag.Select(p => new VideoTag { Id = p.Id.ToString(), Name = p.Name.TrimStart('#'), Uri = p.Uri })
                 .ToList()
                 .ForEach(p => TagCollection.Add(p));
-            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.ReplyType.Video);
+            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(_videoDetail.Arc.Aid), Models.Enums.Bili.CommentType.Video);
 
             if (_videoDetail.Staff.Count > 0)
             {

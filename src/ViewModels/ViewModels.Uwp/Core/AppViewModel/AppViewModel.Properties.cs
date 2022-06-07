@@ -61,7 +61,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 请求显示评论回复详情.
         /// </summary>
-        public event EventHandler<MessageInformation> RequestShowReplyDetail;
+        public event EventHandler<ShowCommentEventArgs> RequestShowReplyDetail;
 
         /// <summary>
         /// 请求显示用户详情.

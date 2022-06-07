@@ -65,7 +65,7 @@ namespace Bili.Adapter
             DynamicCommunityInformation communityInfo = default;
             var dynamicId = item.Extend.DynIdStr;
             var replyType = GetReplyTypeFromDynamicType(item.CardType);
-            var replyId = replyType == ReplyType.Dynamic
+            var replyId = replyType == CommentType.Dynamic
                 ? dynamicId
                 : item.Extend.BusinessId;
             var dynamicType = GetDynamicItemType(mainModule);
@@ -141,34 +141,34 @@ namespace Bili.Adapter
             return new DynamicView(list);
         }
 
-        private ReplyType GetReplyTypeFromDynamicType(DynamicType type)
+        private CommentType GetReplyTypeFromDynamicType(DynamicType type)
         {
-            var replyType = ReplyType.None;
+            var replyType = CommentType.None;
             switch (type)
             {
                 case DynamicType.Forward:
                 case DynamicType.Word:
                 case DynamicType.Live:
-                    replyType = ReplyType.Dynamic;
+                    replyType = CommentType.Dynamic;
                     break;
                 case DynamicType.Draw:
-                    replyType = ReplyType.Album;
+                    replyType = CommentType.Album;
                     break;
                 case DynamicType.Av:
                 case DynamicType.Pgc:
                 case DynamicType.UgcSeason:
                 case DynamicType.Medialist:
-                    replyType = ReplyType.Video;
+                    replyType = CommentType.Video;
                     break;
                 case DynamicType.Courses:
                 case DynamicType.CoursesSeason:
-                    replyType = ReplyType.Course;
+                    replyType = CommentType.Course;
                     break;
                 case DynamicType.Article:
-                    replyType = ReplyType.Article;
+                    replyType = CommentType.Article;
                     break;
                 case DynamicType.Music:
-                    replyType = ReplyType.Music;
+                    replyType = CommentType.Music;
                     break;
                 default:
                     break;
@@ -187,8 +187,8 @@ namespace Bili.Adapter
             var type = dynamic.Type switch
             {
                 ModuleDynamicType.MdlDynArchive => dynamic.DynArchive.IsPGC
-                    ? DynamicItemType.Video
-                    : DynamicItemType.Pgc,
+                    ? DynamicItemType.Pgc
+                    : DynamicItemType.Video,
                 ModuleDynamicType.MdlDynPgc => DynamicItemType.Pgc,
                 ModuleDynamicType.MdlDynForward => DynamicItemType.Forward,
                 ModuleDynamicType.MdlDynDraw => DynamicItemType.Image,

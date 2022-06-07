@@ -35,7 +35,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<DetailListReply> GetReplyDetailListAsync(long targetId, ReplyType type, long rootId, CursorReq cursor)
+        public async Task<DetailListReply> GetReplyDetailListAsync(long targetId, CommentType type, long rootId, CursorReq cursor)
         {
             var req = new DetailListReq
             {
@@ -53,7 +53,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<MainListReply> GetReplyMainListAsync(long targetId, ReplyType type, CursorReq cursor)
+        public async Task<MainListReply> GetReplyMainListAsync(long targetId, CommentType type, CursorReq cursor)
         {
             var req = new MainListReq
             {
@@ -70,7 +70,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AddReplyAsync(string message, long targetId, ReplyType type, long rootId, long parentId)
+        public async Task<bool> AddReplyAsync(string message, long targetId, CommentType type, long rootId, long parentId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -89,7 +89,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, ReplyType type)
+        public async Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, CommentType type)
         {
             var queryParameters = new Dictionary<string, string>
             {

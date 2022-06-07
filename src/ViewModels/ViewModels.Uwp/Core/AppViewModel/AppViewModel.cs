@@ -87,9 +87,9 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 显示评论详情.
         /// </summary>
-        /// <param name="information">评论信息.</param>
-        public void ShowReply(MessageInformation information)
-            => RequestShowReplyDetail?.Invoke(this, information);
+        /// <param name="args">评论信息.</param>
+        public void ShowReply(ShowCommentEventArgs args)
+            => RequestShowReplyDetail?.Invoke(this, args);
 
         /// <summary>
         /// 显示用户详情.

@@ -34,10 +34,24 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// 设置初始信息.
         /// </summary>
+        /// <param name="args">评论事件参数.</param>
+        public void SetInformation(ShowCommentEventArgs args)
+        {
+            TargetId = Convert.ToInt64(args.SourceId);
+            Type = args.Type;
+            CurrentMode = args.SortType == CommentSortType.Time
+                ? Mode.MainListTime
+                : Mode.MainListHot;
+            Reset();
+        }
+
+        /// <summary>
+        /// 设置初始信息.
+        /// </summary>
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
         /// <param name="currentMode">当前显示模式.</param>
-        public void SetInformation(long targetId, ReplyType type, Mode currentMode = Mode.MainListHot)
+        public void SetInformation(long targetId, CommentType type, Mode currentMode = Mode.MainListHot)
         {
             TargetId = targetId;
             Type = type;
@@ -61,7 +75,7 @@ namespace Bili.ViewModels.Uwp
         /// <inheritdoc/>
         public override async Task InitializeRequestAsync()
         {
-            if (TargetId == 0 || _cursor == null || Type == ReplyType.None)
+            if (TargetId == 0 || _cursor == null || Type == CommentType.None)
             {
                 IsShowEmpty = true;
                 return;
