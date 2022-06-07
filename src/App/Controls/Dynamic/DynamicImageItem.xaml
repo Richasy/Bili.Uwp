@@ -10,8 +10,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    SizeChanged="OnSizeChanged"
     Loaded="OnLoaded"
+    SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
     <controls:ItemsRepeater x:Name="ImageRepeater" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">

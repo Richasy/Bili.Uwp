@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.Data.Community;
+using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Adapter
 {
@@ -28,7 +30,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public CommentInformation ConvertToCommentInformation(Bilibili.Main.Community.Reply.V1.ReplyInfo info)
+        public CommentInformation ConvertToCommentInformation(ReplyInfo info)
         {
             var id = info.Id.ToString();
             var rootId = info.Root.ToString();
@@ -38,6 +40,27 @@ namespace Bili.Adapter
             var communityInfo = new CommentCommunityInformation(id, info.Like, Convert.ToInt32(info.Count), info.ReplyControl.Action == 1);
             var content = _imageAdapter.ConvertToEmoteText(info.Content);
             return new CommentInformation(id, content, rootId, isTop, user, publishTime, communityInfo);
+        }
+
+        /// <inheritdoc/>
+        public CommentView ConvertToCommentView(MainListReply reply, string targetId)
+        {
+            var comments = reply.Replies.Select(p => ConvertToCommentInformation(p)).ToList();
+            var top = reply.UpTop ?? reply.VoteTop;
+            var topComment = top == null
+                ? null
+                : ConvertToCommentInformation(top);
+            var isEnd = reply.Cursor.IsEnd;
+            return new CommentView(comments, targetId, topComment, isEnd);
+        }
+
+        /// <inheritdoc/>
+        public CommentView ConvertToCommentView(DetailListReply reply, string targetId)
+        {
+            var comments = reply.Root.Replies.Select(p => ConvertToCommentInformation(p)).ToList();
+            var topComment = ConvertToCommentInformation(reply.Root);
+            var isEnd = reply.Cursor.IsEnd;
+            return new CommentView(comments, targetId, topComment, isEnd);
         }
     }
 }

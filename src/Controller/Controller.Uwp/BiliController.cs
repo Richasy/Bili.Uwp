@@ -145,7 +145,8 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<ILiveAdapter, LiveAdapter>()
                 .AddSingleton<ISearchAdapter, SearchAdapter>()
                 .AddSingleton<IDynamicAdapter, DynamicAdapter>()
-                .AddSingleton<IFavoriteAdapter, FavoriteAdapter>();
+                .AddSingleton<IFavoriteAdapter, FavoriteAdapter>()
+                .AddSingleton<ICommentAdapter, CommentAdapter>();
 
             serviceCollection
                 .AddSingleton<INetworkModule, NetworkModule>()

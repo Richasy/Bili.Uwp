@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.Models.Data.Community;
 using Bili.Models.Data.Dynamic;
 using Bili.Models.Enums.Bili;
-using Bilibili.App.Dynamic.V2;
-using Bilibili.Main.Community.Reply.V1;
 
 namespace Bili.Lib.Interfaces
 {
@@ -18,19 +17,19 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="targetId">目标Id.</param>
         /// <param name="type">评论区类型.</param>
-        /// <param name="cursor">游标.</param>
+        /// <param name="sort">排序方式.</param>
         /// <returns>评论列表响应.</returns>
-        Task<MainListReply> GetReplyMainListAsync(long targetId, CommentType type, CursorReq cursor);
+        Task<CommentView> GetCommentsAsync(string targetId, CommentType type, CommentSortType sort);
 
         /// <summary>
         /// 获取单层评论详情列表.
         /// </summary>
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
+        /// <param name="sort">排序方式.</param>
         /// <param name="rootId">根评论Id.</param>
-        /// <param name="cursor">游标.</param>
         /// <returns>评论列表响应.</returns>
-        Task<DetailListReply> GetReplyDetailListAsync(long targetId, CommentType type, long rootId, CursorReq cursor);
+        Task<CommentView> GetCommentsAsync(string targetId, CommentType type, CommentSortType sort, string rootId);
 
         /// <summary>
         /// 给评论点赞/取消点赞.
@@ -40,7 +39,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="targetId">目标评论区Id.</param>
         /// <param name="type">评论区类型.</param>
         /// <returns>结果.</returns>
-        Task<bool> LikeReplyAsync(bool isLike, long replyId, long targetId, CommentType type);
+        Task<bool> LikeCommentAsync(bool isLike, string replyId, string targetId, CommentType type);
 
         /// <summary>
         /// 添加评论.
@@ -51,7 +50,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="rootId">根评论Id.</param>
         /// <param name="parentId">正在回复的评论Id.</param>
         /// <returns>发布结果.</returns>
-        Task<bool> AddReplyAsync(string message, long targetId, CommentType type, long rootId, long parentId);
+        Task<bool> AddCommentAsync(string message, string targetId, CommentType type, string rootId, string parentId);
 
         /// <summary>
         /// 获取综合动态列表.
@@ -84,5 +83,15 @@ namespace Bili.Lib.Interfaces
         /// 重置综合动态请求状态.
         /// </summary>
         void ResetComprehensiveDynamicStatus();
+
+        /// <summary>
+        /// 清除评论区请求状态.
+        /// </summary>
+        void ResetMainCommentsStatus();
+
+        /// <summary>
+        /// 清除评论详情请求状态.
+        /// </summary>
+        void ResetDetailCommentsStatus();
     }
 }

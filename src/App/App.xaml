@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="ms-appx:///Controls/Community/MessageItem/MessageItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/User/UserItem/UserItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Dynamic/DynamicItem/DynamicItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Community/CommentItem/CommentItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />

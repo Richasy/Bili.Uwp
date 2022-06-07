@@ -56,10 +56,9 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 await Launcher.LaunchUriAsync(new Uri(sourceId));
             }
-            else if (Information.Type == Models.Enums.App.MessageType.Reply)
+            else if (Information.Type == MessageType.Reply)
             {
                 // 显示回复信息.
-                var id = Information.SourceId;
                 var type = CommentType.None;
                 var isParseFaield = false;
                 try

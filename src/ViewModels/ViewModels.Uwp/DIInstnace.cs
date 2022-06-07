@@ -50,6 +50,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ISearchAdapter, SearchAdapter>();
             SplatRegistrations.RegisterLazySingleton<IFavoriteAdapter, FavoriteAdapter>();
             SplatRegistrations.RegisterLazySingleton<IDynamicAdapter, DynamicAdapter>();
+            SplatRegistrations.RegisterLazySingleton<ICommentAdapter, CommentAdapter>();
 
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
@@ -104,6 +105,9 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<DynamicAllModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicVideoModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<CommentMainModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<CommentDetailModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
@@ -116,6 +120,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.Register<VideoFavoriteFolderViewModel>();
             SplatRegistrations.Register<VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.Register<DynamicItemViewModel>();
+            SplatRegistrations.Register<CommentItemViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

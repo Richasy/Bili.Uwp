@@ -16,5 +16,21 @@ namespace Bili.Adapter.Interfaces
         /// <param name="info">回复内容.</param>
         /// <returns><see cref="CommentInformation"/>.</returns>
         CommentInformation ConvertToCommentInformation(ReplyInfo info);
+
+        /// <summary>
+        /// 将主评论响应 <see cref="MainListReply"/> 转换为评论视图.
+        /// </summary>
+        /// <param name="reply">主评论响应.</param>
+        /// <param name="targetId">评论区Id.</param>
+        /// <returns><see cref="CommentView"/>.</returns>
+        CommentView ConvertToCommentView(MainListReply reply, string targetId);
+
+        /// <summary>
+        /// 将二级评论响应 <see cref="DetailListReply"/> 转换为评论视图.
+        /// </summary>
+        /// <param name="reply">二级评论响应.</param>
+        /// <param name="targetId">目标评论Id.</param>
+        /// <returns><see cref="CommentView"/>.</returns>
+        CommentView ConvertToCommentView(DetailListReply reply, string targetId);
     }
 }

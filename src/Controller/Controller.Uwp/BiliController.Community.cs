@@ -25,7 +25,7 @@ namespace Bili.Controller.Uwp
 
             try
             {
-                var response = await _communityProvider.GetReplyMainListAsync(targetId, type, cursor);
+                var response = await _communityProvider.GetCommentsAsync(targetId, type, cursor);
                 var args = new ReplyIterationEventArgs(response, targetId);
                 ReplyIteration?.Invoke(this, args);
             }

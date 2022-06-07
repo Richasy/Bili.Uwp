@@ -3,6 +3,7 @@
 using System;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Data.User;
+using Bili.Models.Enums.Bili;
 
 namespace Bili.Models.Data.Community
 {
@@ -73,6 +74,16 @@ namespace Bili.Models.Data.Community
         /// 社区信息.
         /// </summary>
         public CommentCommunityInformation CommunityInformation { get; }
+
+        /// <summary>
+        /// 评论区类型.
+        /// </summary>
+        public CommentType CommentType { get; set; }
+
+        /// <summary>
+        /// 评论区 Id.
+        /// </summary>
+        public string CommentId { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is CommentInformation information && Id == information.Id;
