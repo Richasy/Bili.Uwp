@@ -31,6 +31,9 @@ namespace Bili.Models.App.Other
         public string Title { get; }
 
         /// <inheritdoc/>
+        public override string ToString() => Title;
+
+        /// <inheritdoc/>
         public override bool Equals(object obj) => obj is CommentSortHeader header && Type == header.Type;
 
         /// <inheritdoc/>

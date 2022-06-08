@@ -58,7 +58,9 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Community\CommentDetailView\CommentDetailView.cs" />
     <Compile Include="Controls\Community\CommentItem\CommentItem.cs" />
+    <Compile Include="Controls\Community\CommentMainView\CommentMainView.cs" />
     <Compile Include="Controls\Community\MessageItem\MessageItem.cs" />
     <Compile Include="Controls\Community\PartitionItem\PartitionItem.cs" />
     <Compile Include="Controls\Community\RelationPageView.xaml.cs">
@@ -589,7 +591,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Community\CommentDetailView\CommentDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Community\CommentItem\CommentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Community\CommentMainView\CommentMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

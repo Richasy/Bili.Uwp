@@ -31,6 +31,7 @@ namespace Bili.ViewModels.Uwp.Community
             _resourceToolkit = resourceToolkit;
 
             SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync, outputScheduler: RxApp.MainThreadScheduler);
+            BackCommand = ReactiveCommand.Create(Back, outputScheduler: RxApp.MainThreadScheduler);
             _isSending = SendCommentCommand.IsExecuting.ToProperty(this, x => x.IsSending, scheduler: RxApp.MainThreadScheduler);
         }
 
@@ -92,6 +93,9 @@ namespace Bili.ViewModels.Uwp.Community
 
             IsEmpty = Items.Count == 0;
         }
+
+        private void Back()
+            => RequestBackToMain?.Invoke(this, EventArgs.Empty);
 
         private async Task SendCommentAsync()
         {

@@ -38,6 +38,11 @@ namespace Bili.ViewModels.Uwp.Community
         public ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
 
         /// <summary>
+        /// 返回到上一层（主视图）的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> BackCommand { get; }
+
+        /// <summary>
         /// 根评论.
         /// </summary>
         [Reactive]
