@@ -32,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Video
             INumberToolkit numberToolkit,
             AppViewModel appViewModel,
             NavigationViewModel navigationViewModel,
+            AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
@@ -42,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Video
             _numberToolkit = numberToolkit;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
+            _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
             Collaborators = new ObservableCollection<UserItemViewModel>();

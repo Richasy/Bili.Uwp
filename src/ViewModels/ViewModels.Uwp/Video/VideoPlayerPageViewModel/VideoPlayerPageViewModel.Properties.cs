@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
@@ -27,6 +28,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly INumberToolkit _numberToolkit;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
+        private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
@@ -63,6 +65,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// 收藏夹列表.
         /// </summary>
         public ObservableCollection<VideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
+
+        /// <summary>
+        /// 播放时的关联区块集合.
+        /// </summary>
+        public ObservableCollection<PlayerSectionHeader> Sections { get; }
 
         /// <summary>
         /// 视图信息.
@@ -179,5 +186,23 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public string FavoriteFoldersErrorText { get; set; }
+
+        /// <summary>
+        /// 该视频是否已经被固定在首页.
+        /// </summary>
+        [Reactive]
+        public bool IsVideoFixed { get; set; }
+
+        /// <summary>
+        /// 是否已经打开循环播放.
+        /// </summary>
+        [Reactive]
+        public bool IsLoopOpened { get; set; }
+
+        /// <summary>
+        /// 当前区块.
+        /// </summary>
+        [Reactive]
+        public PlayerSectionHeader CurrentSection { get; set; }
     }
 }
