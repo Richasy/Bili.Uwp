@@ -17,20 +17,5 @@ namespace Bili.App.Controls.Community
         /// Initializes a new instance of the <see cref="CommentDetailView"/> class.
         /// </summary>
         public CommentDetailView() => DefaultStyleKey = typeof(CommentDetailView);
-
-        /// <inheritdoc/>
-        protected override void OnApplyTemplate()
-        {
-            var replyBox = GetTemplateChild("ReplyBox") as TextBox;
-            replyBox.LosingFocus += OnReplyBoxLostFocus;
-        }
-
-        private void OnReplyBoxLostFocus(UIElement sender, LosingFocusEventArgs args)
-        {
-            if (string.IsNullOrEmpty(ViewModel.ReplyText))
-            {
-                ViewModel.ResetSelectedCommentCommand.Execute().Subscribe();
-            }
-        }
     }
 }

@@ -93,16 +93,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;
 
         /// <summary>
-        /// 在评论回复更新时发生.
-        /// </summary>
-        public event EventHandler<ReplyIterationEventArgs> ReplyIteration;
-
-        /// <summary>
-        /// 在评论详情更新时发生.
-        /// </summary>
-        public event EventHandler<ReplyIterationEventArgs> ReplyDetailIteration;
-
-        /// <summary>
         /// 收到更新消息时发生.
         /// </summary>
         public event EventHandler<UpdateEventArgs> UpdateReceived;

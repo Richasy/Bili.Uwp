@@ -58,9 +58,19 @@
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
     <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
+    <Compile Include="Controls\Community\CommentBox.xaml.cs">
+      <DependentUpon>CommentBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Community\CommentDetailView\CommentDetailView.cs" />
     <Compile Include="Controls\Community\CommentItem\CommentItem.cs" />
     <Compile Include="Controls\Community\CommentMainView\CommentMainView.cs" />
+    <Compile Include="Controls\Community\CommentPageView\CommentPageView.cs" />
+    <Compile Include="Controls\Community\CommentPopup.xaml.cs">
+      <DependentUpon>CommentPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Community\CommentRepeater.xaml.cs">
+      <DependentUpon>CommentRepeater.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Community\MessageItem\MessageItem.cs" />
     <Compile Include="Controls\Community\PartitionItem\PartitionItem.cs" />
     <Compile Include="Controls\Community\RelationPageView.xaml.cs">
@@ -118,7 +128,7 @@
     <Compile Include="Controls\Toolbox\AvBvConverterView.xaml.cs">
       <DependentUpon>AvBvConverterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\EmotiTextBlock\EmotiTextBlock.cs" />
+    <Compile Include="Controls\App\EmoteTextBlock\EmoteTextBlock.cs" />
     <Compile Include="Controls\Settings\CacheSettingSection.xaml.cs">
       <DependentUpon>CacheSettingSection.xaml</DependentUpon>
     </Compile>
@@ -159,15 +169,6 @@
     <Compile Include="Controls\Player\Related\PlayerReplyView.xaml.cs">
       <DependentUpon>PlayerReplyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ReplyItem.xaml.cs">
-      <DependentUpon>ReplyItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\ReplyView.xaml.cs">
-      <DependentUpon>ReplyView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\ReplyDetailView.xaml.cs">
-      <DependentUpon>ReplyDetailView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
       <DependentUpon>TrimTextBlock.xaml</DependentUpon>
     </Compile>
@@ -176,9 +177,6 @@
     </Compile>
     <Compile Include="Controls\App\QuestionPanel.xaml.cs">
       <DependentUpon>QuestionPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\ReplyModuleView.xaml.cs">
-      <DependentUpon>ReplyModuleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\SubtitleConfigPanel.xaml.cs">
       <DependentUpon>SubtitleConfigPanel.xaml</DependentUpon>
@@ -209,9 +207,6 @@
     <Compile Include="Controls\App\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\App\CardPanel\CardPanelAutomationPeer.cs" />
     <Compile Include="Controls\App\CardPanel\CardPanelStateChangedEventArgs.cs" />
-    <Compile Include="Controls\Common\ArticleItem.xaml.cs">
-      <DependentUpon>ArticleItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Common\HorizontalRepeaterView.xaml.cs">
       <DependentUpon>HorizontalRepeaterView.xaml</DependentUpon>
     </Compile>
@@ -591,6 +586,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Community\CommentBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Community\CommentDetailView\CommentDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -600,6 +599,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Community\CommentMainView\CommentMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Community\CommentPageView\CommentPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Community\CommentPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Community\CommentRepeater.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -691,7 +702,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\EmotiTextBlock\EmotiTextBlock.xaml">
+    <Page Include="Controls\App\EmoteTextBlock\EmoteTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -747,18 +758,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\ReplyItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\ReplyView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\ReplyDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\App\TrimTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -768,10 +767,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\QuestionPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\ReplyModuleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -816,10 +811,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Player\BiliPlayer\BiliPlayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Common\ArticleItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,11 +8,15 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/CenterPopup/CenterPopup.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/EmoteTextBlock/EmoteTextBlock.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Banner/BannerItem/BannerItem.xaml" />
-        <ResourceDictionary Source="ms-appx:///Controls/Common/EmotiTextBlock/EmotiTextBlock.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Common/VerticalRepeaterView/VerticalRepeaterView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Danmaku/DanmakuView/DanmakuView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayer/BiliPlayer.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerTip/PlayerTip.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentItem/CommentItem.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentMainView/CommentMainView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentDetailView/CommentDetailView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentPageView/CommentPageView.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -7,6 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -24,11 +25,13 @@ namespace Bili.ViewModels.Uwp.Community
         internal CommentDetailModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
+            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;
+            _appViewModel = appViewModel;
 
             SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync, outputScheduler: RxApp.MainThreadScheduler);
             BackCommand = ReactiveCommand.Create(Back, outputScheduler: RxApp.MainThreadScheduler);
@@ -115,6 +118,9 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 ReplyText = string.Empty;
                 UnselectComment();
+
+                // 即便评论发送成功也需要等待一点时间才会显示.
+                await Task.Delay(500);
                 ReloadCommand.Execute().Subscribe();
             }
             else
@@ -132,8 +138,15 @@ namespace Bili.ViewModels.Uwp.Community
             vm.SetInformation(information, highlightUserId);
             vm.SetClickAction(vm =>
             {
-                _selectedComment = vm;
-                ReplyTip = string.Format(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), vm.Information.Publisher.User.Name);
+                if (vm != RootComment)
+                {
+                    _selectedComment = vm;
+                    ReplyTip = string.Format(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), vm.Information.Publisher.User.Name);
+                }
+                else
+                {
+                    UnselectComment();
+                }
             });
             vm.ReplyCountText = string.Empty;
             return vm;

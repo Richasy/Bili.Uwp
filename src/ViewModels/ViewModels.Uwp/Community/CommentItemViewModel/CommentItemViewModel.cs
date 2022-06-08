@@ -6,6 +6,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Core;
 using Humanizer;
 using ReactiveUI;
 using Splat;
@@ -23,11 +24,13 @@ namespace Bili.ViewModels.Uwp.Community
         internal CommentItemViewModel(
              ICommunityProvider communityProvider,
              INumberToolkit numberToolkit,
-             IResourceToolkit resourceToolkit)
+             IResourceToolkit resourceToolkit,
+             AppViewModel appViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
+            _appViewModel = appViewModel;
 
             ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
             ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync, outputScheduler: RxApp.MainThreadScheduler);

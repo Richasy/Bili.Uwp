@@ -10,6 +10,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -27,11 +28,13 @@ namespace Bili.ViewModels.Uwp.Community
         internal CommentMainModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
+            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;
+            _appViewModel = appViewModel;
 
             SortCollection = new ObservableCollection<CommentSortHeader>
             {
@@ -59,6 +62,8 @@ namespace Bili.ViewModels.Uwp.Community
             Items.Clear();
             _targetId = targetId;
             _commentType = type;
+            var sort = SortCollection.First(p => p.Type == defaultSort);
+            CurrentSort = sort;
             InitializeCommand.Execute().Subscribe();
         }
 
@@ -71,6 +76,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <inheritdoc/>
         protected override void BeforeReload()
         {
+            _isEnd = false;
             IsEmpty = false;
             TopComment = null;
             _communityProvider.ResetMainCommentsStatus();
@@ -130,6 +136,8 @@ namespace Bili.ViewModels.Uwp.Community
                 UnselectComment();
                 if (CurrentSort.Type == CommentSortType.Time)
                 {
+                    // 即便评论发送成功也需要等待一点时间才会显示.
+                    await Task.Delay(500);
                     ReloadCommand.Execute().Subscribe();
                 }
             }

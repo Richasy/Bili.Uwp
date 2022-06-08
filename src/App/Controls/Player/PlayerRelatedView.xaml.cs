@@ -23,11 +23,11 @@ namespace Bili.App.Controls
         }
 
         private void OnViewModelLoaded(object sender, EventArgs e)
-            => InitializeLayoutAsync();
+            => InitializeLayout();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            InitializeLayoutAsync();
+            InitializeLayout();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
@@ -105,17 +105,17 @@ namespace Bili.App.Controls
                         InitializeSelectedSection();
                     }
 
-                    InitializeLayoutAsync();
+                    InitializeLayout();
                 }
             }
         }
 
         private void OnNavSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            InitializeLayoutAsync();
+            InitializeLayout();
         }
 
-        private async void InitializeLayoutAsync()
+        private void InitializeLayout()
         {
             if (ViewModel.IsShowViewLater && ViewLaterVideoView != null)
             {
@@ -169,11 +169,6 @@ namespace Bili.App.Controls
             {
                 ReplyView.Visibility = Nav.SelectedItem == ReplyItem ?
                 Visibility.Visible : Visibility.Collapsed;
-
-                if (ReplyView.Visibility == Visibility.Visible)
-                {
-                    await ReplyView.CheckInitializeAsync();
-                }
             }
         }
 

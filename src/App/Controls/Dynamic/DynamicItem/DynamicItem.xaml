@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
     xmlns:common="using:Bili.App.Controls.Common"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
@@ -81,7 +82,7 @@
                             </Grid>
 
                             <!-- 描述文本 -->
-                            <controls:EmotiTextBlock
+                            <app:EmoteTextBlock
                                 x:Name="DescriptionBlock"
                                 Grid.Row="1"
                                 Margin="0,0,0,12"
@@ -175,7 +176,7 @@
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowUserDetailCommand}"
                             Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}"
                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                        <controls:EmotiTextBlock
+                        <app:EmoteTextBlock
                             x:Name="DescriptionBlock"
                             Grid.Row="1"
                             Margin="0,0,0,12"

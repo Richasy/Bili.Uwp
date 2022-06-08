@@ -11,7 +11,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Humanizer;
 using ReactiveUI;
-using Splat;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Community

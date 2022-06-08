@@ -36,6 +36,11 @@ namespace Bili.Lib
             _httpProvider = httpProvider;
             _dynamicAdapter = dynamicAdapter;
             _commentAdapter = commentAdapter;
+
+            ResetMainCommentsStatus();
+            ResetDetailCommentsStatus();
+            ResetVideoDynamicStatus();
+            ResetComprehensiveDynamicStatus();
         }
 
         /// <inheritdoc/>
@@ -103,6 +108,12 @@ namespace Bili.Lib
             {
                 item.CommentId = targetId;
                 item.CommentType = type;
+            }
+
+            if (view.TopComment != null)
+            {
+                view.TopComment.CommentId = targetId;
+                view.TopComment.CommentType = type;
             }
 
             return view;
@@ -227,7 +238,7 @@ namespace Bili.Lib
         /// <inheritdoc/>
         public void ResetDetailCommentsStatus()
         {
-            _mainCommentCursor = new CursorReq
+            _detailCommentCursor = new CursorReq
             {
                 Mode = Mode.Default,
                 Next = 0,

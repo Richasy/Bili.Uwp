@@ -5,16 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.App.Controls;
 using Bili.App.Controls.Article;
+using Bili.App.Controls.Community;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
-using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using Bili.Models.Enums.Bili;
-using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
@@ -54,7 +51,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
-            CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetailAsync;
+            CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetail;
             CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetail;
             CoreViewModel.RequestShowVideoFavoriteFolderDetail += OnRequestShowVideoFavoriteFolderDetail;
             SizeChanged += OnSizeChanged;
@@ -233,10 +230,10 @@ namespace Bili.App.Pages.Desktop
         private void OnRequestShowVideoFavoriteFolderDetail(object sender, VideoFavoriteFolder e)
             => new Controls.VideoFavoriteView().Show(e);
 
-        private async void OnRequestShowReplyDetailAsync(object sender, ShowCommentEventArgs e)
+        private void OnRequestShowReplyDetail(object sender, ShowCommentEventArgs e)
         {
-            ReplyModuleViewModel.Instance.SetInformation(e);
-            await ReplyDetailView.Instance.ShowAsync(ReplyModuleViewModel.Instance);
+            var commentPopup = new CommentPopup();
+            commentPopup.Show(e);
         }
 
         private void OnRequestShowUserDetail(object sender, UserItemViewModel e)

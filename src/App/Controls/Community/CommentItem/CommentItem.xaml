@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Locator.Uwp"
@@ -88,7 +89,7 @@
                                         ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.PublishTime}" />
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <controls:EmotiTextBlock
+                                    <app:EmoteTextBlock
                                         x:Name="ReplyContentBlock"
                                         HorizontalAlignment="Left"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Content}" />
@@ -131,4 +132,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource DefaultCommentItemStyle}" TargetType="local:CommentItem" />
 </ResourceDictionary>

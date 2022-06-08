@@ -10,30 +10,30 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.App
 {
     /// <summary>
     /// 带表情的文本.
     /// </summary>
-    public sealed class EmotiTextBlock : Control
+    public sealed class EmoteTextBlock : Control
     {
         /// <summary>
         /// <see cref="MaxLines"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty MaxLinesProperty =
-            DependencyProperty.Register(nameof(MaxLines), typeof(int), typeof(EmotiTextBlock), new PropertyMetadata(4));
+            DependencyProperty.Register(nameof(MaxLines), typeof(int), typeof(EmoteTextBlock), new PropertyMetadata(4));
 
         /// <summary>
         /// <see cref="ReplyInfo"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ReplyInfoProperty =
-            DependencyProperty.Register(nameof(ReplyInfo), typeof(ReplyInfo), typeof(EmotiTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(OnReplyInfoChanged)));
+            DependencyProperty.Register(nameof(ReplyInfo), typeof(ReplyInfo), typeof(EmoteTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(OnReplyInfoChanged)));
 
         /// <summary>
         /// <see cref="Text"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(EmoteText), typeof(EmotiTextBlock), new PropertyMetadata(default, new PropertyChangedCallback(OnTextChanged)));
+            DependencyProperty.Register(nameof(Text), typeof(EmoteText), typeof(EmoteTextBlock), new PropertyMetadata(default, new PropertyChangedCallback(OnTextChanged)));
 
         private RichTextBlock _richBlock;
         private RichTextBlock _flyoutRichBlock;
@@ -41,9 +41,9 @@ namespace Bili.App.Controls
         private bool _isOverflowInitialized;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmotiTextBlock"/> class.
+        /// Initializes a new instance of the <see cref="EmoteTextBlock"/> class.
         /// </summary>
-        public EmotiTextBlock() => DefaultStyleKey = typeof(EmotiTextBlock);
+        public EmoteTextBlock() => DefaultStyleKey = typeof(EmoteTextBlock);
 
         /// <summary>
         /// 最大行数.
@@ -93,7 +93,7 @@ namespace Bili.App.Controls
 
         private static void OnReplyInfoChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as EmotiTextBlock;
+            var instance = d as EmoteTextBlock;
             instance.Text = null;
             if (e.NewValue != null)
             {
@@ -103,7 +103,7 @@ namespace Bili.App.Controls
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as EmotiTextBlock;
+            var instance = d as EmoteTextBlock;
             instance.ReplyInfo = null;
             if (e.NewValue != null)
             {

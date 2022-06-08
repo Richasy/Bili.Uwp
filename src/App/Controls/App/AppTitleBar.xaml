@@ -31,6 +31,7 @@
                         <VisualState.Setters>
                             <Setter Target="BackgroundHost.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
+                            <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>

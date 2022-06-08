@@ -10,6 +10,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Community;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;
@@ -33,6 +34,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
         private readonly SettingsPageViewModel _settingsPageViewModel;
+        private readonly CommentPageViewModel _commentPageViewModel;
 
         private readonly List<string> _historyVideoList;
         private readonly FFmpegInteropConfig _liveFFConfig;

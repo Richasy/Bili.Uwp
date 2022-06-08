@@ -19,6 +19,7 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Community;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using Splat;
@@ -76,6 +77,7 @@ namespace Bili.ViewModels.Uwp.Core
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             _settingsPageViewModel = Splat.Locator.Current.GetService<SettingsPageViewModel>();
+            _commentPageViewModel = Splat.Locator.Current.GetService<CommentPageViewModel>();
 
             PlayerDisplayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             _appViewModel.IsShowTitleBar = PlayerDisplayMode == PlayerDisplayMode.Default;
@@ -526,7 +528,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             EpisodeId = CurrentPgcEpisode?.Id.ToString() ?? string.Empty;
             CheckEpisodeSelection();
-            ReplyModuleViewModel.Instance.SetInformation(Convert.ToInt32(CurrentPgcEpisode.Aid), Models.Enums.Bili.CommentType.Video);
+            _commentPageViewModel.SetData(CurrentPgcEpisode.Aid.ToString(), Models.Enums.Bili.CommentType.Video);
 
             try
             {

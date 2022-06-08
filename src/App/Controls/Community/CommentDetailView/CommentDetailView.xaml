@@ -2,13 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="using:Bili.App.Behaviors"
-    xmlns:community="using:Bili.ViewModels.Uwp.Community"
     xmlns:controls="using:Bili.App.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls.Community">
-    <Style TargetType="local:CommentDetailView">
+    <Style x:Key="DefaultCommentDetailVieStyle" TargetType="local:CommentDetailView">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CommentDetailView">
@@ -22,7 +20,7 @@
                         <HyperlinkButton
                             x:Name="BackButton"
                             HorizontalAlignment="Left"
-                            Command="{x:Bind ViewModel.BackCommand}"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackCommand}"
                             Content="{loc:LocaleLocator Name=BackToPrevious}" />
                         <local:CommentItem Grid.Row="1" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.RootComment}" />
                         <Grid Grid.Row="2">
@@ -40,8 +38,8 @@
                                         <behaviors:IncrementalBehavior />
                                     </interactivity:Interaction.Behaviors>
                                     <controls:VerticalRepeaterView.ItemTemplate>
-                                        <DataTemplate x:DataType="community:CommentItemViewModel">
-                                            <local:CommentItem ViewModel="{x:Bind}" />
+                                        <DataTemplate>
+                                            <local:CommentItem ViewModel="{Binding}" />
                                         </DataTemplate>
                                     </controls:VerticalRepeaterView.ItemTemplate>
                                 </controls:VerticalRepeaterView>
@@ -58,55 +56,18 @@
                             <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
                         </Grid>
 
-                        <Grid
+                        <local:CommentBox
                             Grid.Row="3"
-                            Padding="12,8"
-                            Background="{ThemeResource CardBackgroundFillColorDefault}"
-                            ColumnSpacing="12"
-                            CornerRadius="{StaticResource ControlCornerRadius}"
-                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel>
-                                <TextBlock
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Margin="0,0,0,4"
-                                    HorizontalAlignment="Left"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyTip}"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyTip, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                                <TextBox
-                                    x:Name="ReplyBox"
-                                    MaxHeight="80"
-                                    Padding="12,10,8,8"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    AcceptsReturn="True"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    PlaceholderText="{loc:LocaleLocator Name=ReplyPlaceholderText}"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-
-                            <Button
-                                x:Name="SendReplyButton"
-                                Grid.Column="1"
-                                Width="40"
-                                Height="40"
-                                VerticalAlignment="Top"
-                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SendCommentCommand}">
-                                <icons:RegularFluentIcon
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Symbol="Send20" />
-                            </Button>
-                        </Grid>
+                            ReplyTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyTip}"
+                            ResetSelectedCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ResetSelectedCommentCommand}"
+                            SendCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SendCommentCommand}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyText, Mode=TwoWay}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource DefaultCommentDetailVieStyle}" TargetType="local:CommentDetailView" />
 </ResourceDictionary>

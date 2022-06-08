@@ -149,10 +149,6 @@
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Methods.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Properties.cs" />
-    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.cs" />
-    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.Properties.cs" />
-    <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.cs" />
-    <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.Properties.cs" />
     <Compile Include="Base\ReplyViewModelBase.cs" />
     <Compile Include="Article\ArticleViewModel\ArticleViewModel.cs" />
     <Compile Include="Article\ArticleViewModel\ArticleViewModel.Properties.cs" />

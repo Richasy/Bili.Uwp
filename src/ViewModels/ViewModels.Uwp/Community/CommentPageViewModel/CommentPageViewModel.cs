@@ -34,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <param name="sourceId">评论区 Id.</param>
         /// <param name="type">评论区类型.</param>
         /// <param name="sortType">评论区排序方式.</param>
-        public void SetData(string sourceId, CommentType type, CommentSortType sortType)
+        public void SetData(string sourceId, CommentType type, CommentSortType sortType = CommentSortType.Hot)
         {
             ShowMainView();
             MainViewModel.SetTarget(sourceId, type, sortType);

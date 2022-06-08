@@ -35,7 +35,7 @@ namespace Bili.Adapter
             var id = info.Id.ToString();
             var rootId = info.Root.ToString();
             var isTop = info.ReplyControl.IsAdminTop || info.ReplyControl.IsUpTop;
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(info.Ctime).ToLocalTime().DateTime;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(info.Ctime).DateTime;
             var user = _userAdapter.ConvertToAccountInformation(info.Member);
             var communityInfo = new CommentCommunityInformation(id, info.Like, Convert.ToInt32(info.Count), info.ReplyControl.Action == 1);
             var content = _imageAdapter.ConvertToEmoteText(info.Content);
