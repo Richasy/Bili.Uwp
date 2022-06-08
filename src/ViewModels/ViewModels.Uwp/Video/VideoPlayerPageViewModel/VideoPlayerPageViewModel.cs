@@ -1,11 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Other;
+using Bili.Models.App.Args;
+using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -19,14 +25,40 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         public VideoPlayerPageViewModel(
             IPlayerProvider playerProvider,
+            IAuthorizeProvider authorizeProvider,
+            IFavoriteProvider favoriteProvider,
+            IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
+            INumberToolkit numberToolkit,
             AppViewModel appViewModel,
-            NavigationViewModel navigationViewModel)
+            NavigationViewModel navigationViewModel,
+            CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
+            _authorizeProvider = authorizeProvider;
+            _favoriteProvider = favoriteProvider;
+            _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
+            _numberToolkit = numberToolkit;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
+            _dispatcher = dispatcher;
+
+            Collaborators = new ObservableCollection<UserItemViewModel>();
+            Tags = new ObservableCollection<Tag>();
+            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+
+            IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
+            _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
+
+            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RequestFavoriteFolders = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
+
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+            _isFavoriteFolderRequesting = RequestFavoriteFolders.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
+
+            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+            RequestFavoriteFolders.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
         }
 
         /// <summary>
@@ -39,15 +71,25 @@ namespace Bili.ViewModels.Uwp.Video
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <inheritdoc/>
-        public void DisplayException(Exception exception)
+        private void Reset()
         {
-            IsError = true;
-            var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
-                : exception.Message;
-            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed)}\n{exception.Message}";
-            LogException(exception);
+            View = null;
+            ResetPublisher();
+            ResetOverview();
+            ResetOperation();
         }
+
+        private async Task GetDataAsync()
+        {
+            Reset();
+            View = await _playerProvider.GetVideoDetailAsync(_presetVideoId);
+
+            InitializePublisher();
+            InitializeOverview();
+            InitializeOperation();
+        }
+
+        private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
+            => IsSignedIn = e.NewState == Models.Enums.AuthorizeState.SignedIn;
     }
 }

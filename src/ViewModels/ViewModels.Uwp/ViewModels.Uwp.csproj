@@ -29,6 +29,7 @@
     <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.Properties.cs" />
+    <Compile Include="Video\VideoFavoriteFolderSelectableViewModel.cs" />
     <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.Properties.cs" />
@@ -178,7 +179,11 @@
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.cs" />
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.Properties.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Exception.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Initialize.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Request.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Reset.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

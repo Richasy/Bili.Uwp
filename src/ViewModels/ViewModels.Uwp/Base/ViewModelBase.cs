@@ -3,6 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
+using Bili.Models.App.Other;
 using ReactiveUI;
 using Splat;
 
@@ -13,6 +14,19 @@ namespace Bili.ViewModels.Uwp
     /// </summary>
     public class ViewModelBase : ReactiveObject
     {
+        /// <summary>
+        /// 从错误中获取错误的消息文本.
+        /// </summary>
+        /// <param name="exception">抛出的异常.</param>
+        /// <returns>错误消息.</returns>
+        protected string GetErrorMessage(Exception exception)
+        {
+            var msg = exception is ServiceException se
+                ? se.Error?.Message ?? se.Message
+                : exception.Message;
+            return msg;
+        }
+
         /// <summary>
         /// 记录错误信息.
         /// </summary>

@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.ViewModels.Uwp.Community;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Bili.App.Controls.Community
 {
