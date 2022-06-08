@@ -20,6 +20,7 @@ using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Home;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using Splat;

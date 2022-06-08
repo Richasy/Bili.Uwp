@@ -31,7 +31,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicItemViewModel"/> class.
         /// </summary>
-        internal DynamicItemViewModel(
+        public DynamicItemViewModel(
             ICommunityProvider communityProvider,
             INumberToolkit numberToolkit,
             IResourceToolkit resourceToolkit,

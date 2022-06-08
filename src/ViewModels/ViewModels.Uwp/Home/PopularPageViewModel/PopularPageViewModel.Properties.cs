@@ -3,7 +3,7 @@
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 热门视图模型的属性集.

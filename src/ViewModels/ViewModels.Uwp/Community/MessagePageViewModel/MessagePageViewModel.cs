@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagePageViewModel"/> class.
         /// </summary>
-        internal MessagePageViewModel(
+        public MessagePageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             AppViewModel appViewModel,

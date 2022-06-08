@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSpaceViewModel"/> class.
         /// </summary>
-        internal UserSpaceViewModel(
+        public UserSpaceViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             NavigationViewModel navigationViewModel,

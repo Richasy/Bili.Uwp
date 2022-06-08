@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="FansPageViewModel"/> class.
         /// </summary>
-        internal FansPageViewModel(
+        public FansPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher)

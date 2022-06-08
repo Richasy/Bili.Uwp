@@ -1,5 +1,4 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
-
 using Bili.Adapter;
 using Bili.Adapter.Interfaces;
 using Bili.Lib;
@@ -15,22 +14,23 @@ using Bili.ViewModels.Uwp.Home;
 using Bili.ViewModels.Uwp.Live;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Search;
+using Bili.ViewModels.Uwp.Toolbox;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.System.Display;
 using Windows.UI.Xaml;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.DI.App
 {
     /// <summary>
-    /// 依赖注入实例.
+    /// 依赖注入工厂.
     /// </summary>
-    public static class DIInstnace
+    public static class DIFactory
     {
         /// <summary>
-        /// 注册依赖服务.
+        /// 注册应用所需的依赖服务.
         /// </summary>
-        public static void RegisterServices()
+        public static void RegisterAppRequiredServices()
         {
             SplatRegistrations.RegisterLazySingleton<INumberToolkit, NumberToolkit>();
             SplatRegistrations.RegisterLazySingleton<IAppToolkit, AppToolkit>();
@@ -39,6 +39,7 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
             SplatRegistrations.RegisterLazySingleton<IMD5Toolkit, MD5Toolkit>();
             SplatRegistrations.RegisterLazySingleton<IFontToolkit, FontToolkit>();
+            SplatRegistrations.RegisterLazySingleton<IVideoToolkit, VideoToolkit>();
 
             SplatRegistrations.RegisterLazySingleton<IImageAdapter, ImageAdapter>();
             SplatRegistrations.RegisterLazySingleton<IUserAdapter, UserAdapter>();
@@ -108,6 +109,8 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.RegisterLazySingleton<CommentMainModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<CommentDetailModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<AvBvConverterViewModel>();
+            SplatRegistrations.RegisterLazySingleton<CoverDownloaderViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
@@ -121,13 +124,14 @@ namespace Bili.ViewModels.Uwp
             SplatRegistrations.Register<VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.Register<DynamicItemViewModel>();
             SplatRegistrations.Register<CommentItemViewModel>();
+            SplatRegistrations.Register<ToolboxItemViewModel>();
             SplatRegistrations.SetupIOC();
         }
 
         /// <summary>
-        /// 注册常量.
+        /// 注册应用所需的常量.
         /// </summary>
-        public static void RegisterConstants()
+        public static void RegisterAppRequiredConstants()
         {
             SplatRegistrations.RegisterConstant(Window.Current.CoreWindow.Dispatcher);
             SplatRegistrations.RegisterConstant(new DisplayRequest());

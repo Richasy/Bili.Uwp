@@ -3,14 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bili.DI.Task;
 using Bili.Lib.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.Data.Dynamic;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Splat;
 using Windows.ApplicationModel.Background;
@@ -26,8 +25,8 @@ namespace Bili.Tasks
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var def = taskInstance.GetDeferral();
-            DIInstnace.RegisterServices();
-            var communityProvider = Splat.Locator.Current.GetService<ICommunityProvider>();
+            new DIFactory().RegisterTaskRequiredServices();
+            var communityProvider = Locator.Current.GetService<ICommunityProvider>();
             var dynamics = await communityProvider.GetDynamicVideoListAsync();
             if (dynamics == null || dynamics.Dynamics?.Count() == 0)
             {
@@ -35,7 +34,7 @@ namespace Bili.Tasks
                 return;
             }
 
-            var settingsToolkit = ServiceLocator.Instance.GetService<ISettingsToolkit>();
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
             var isFirstCheck = settingsToolkit.ReadLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, true);
             var firstCard = dynamics.Dynamics.First();
             var cardList = dynamics.Dynamics.ToList();

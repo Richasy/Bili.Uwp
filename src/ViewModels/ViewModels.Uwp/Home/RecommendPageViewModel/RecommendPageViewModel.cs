@@ -13,7 +13,7 @@ using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 视频推荐视图模型.
@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="RecommendPageViewModel"/> class.
         /// </summary>
-        internal RecommendPageViewModel(
+        public RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
             IHomeProvider recommendProvider,
             CoreDispatcher coreDispatcher)

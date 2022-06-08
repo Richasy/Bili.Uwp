@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Home;
 using ReactiveUI;
 using Splat;
 

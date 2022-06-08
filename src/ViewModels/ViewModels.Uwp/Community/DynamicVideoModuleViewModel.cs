@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicVideoModuleViewModel"/> class.
         /// </summary>
-        internal DynamicVideoModuleViewModel(
+        public DynamicVideoModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,

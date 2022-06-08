@@ -23,10 +23,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <summary>
         /// Initializes a new instance of the <see cref="RankPageViewModel"/> class.
         /// </summary>
-        /// <param name="resourceToolkit">本地资源工具.</param>
-        /// <param name="liveProvider">分区服务提供工具.</param>
-        /// <param name="dispatcher">UI调度器.</param>
-        internal LivePartitionPageViewModel(
+        public LivePartitionPageViewModel(
             IResourceToolkit resourceToolkit,
             ILiveProvider liveProvider,
             CoreDispatcher dispatcher)

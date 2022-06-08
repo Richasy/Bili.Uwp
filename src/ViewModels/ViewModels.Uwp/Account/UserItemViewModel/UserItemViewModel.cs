@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="UserItemViewModel"/> class.
         /// </summary>
-        internal UserItemViewModel(
+        public UserItemViewModel(
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,

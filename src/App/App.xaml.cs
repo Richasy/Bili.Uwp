@@ -4,11 +4,12 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using Bili.Controller.Uwp.Interfaces;
+using Bili.DI.App;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Home;
 using FFmpegInterop;
 using Splat;
 using Windows.ApplicationModel;
@@ -32,7 +33,7 @@ namespace Bili.App
         public App()
         {
             InitializeComponent();
-            DIInstnace.RegisterServices();
+            DIFactory.RegisterAppRequiredServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
             FFmpegInteropLogging.SetLogLevel(FFmpegInterop.LogLevel.Error);
@@ -88,7 +89,7 @@ namespace Bili.App
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
-                DIInstnace.RegisterConstants();
+                DIFactory.RegisterAppRequiredConstants();
             }
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)

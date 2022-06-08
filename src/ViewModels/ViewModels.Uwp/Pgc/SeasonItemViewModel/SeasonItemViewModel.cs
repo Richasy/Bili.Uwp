@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// Initializes a new instance of the <see cref="SeasonItemViewModel"/> class.
         /// </summary>
-        internal SeasonItemViewModel(
+        public SeasonItemViewModel(
             INumberToolkit numberToolkit,
             IFavoriteProvider favoriteProvider,
             NavigationViewModel navigationViewModel)

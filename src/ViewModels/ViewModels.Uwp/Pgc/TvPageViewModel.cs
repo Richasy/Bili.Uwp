@@ -12,9 +12,12 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// 电视剧视图模型.
     /// </summary>
-    public class TvPageViewModel : PgcPageViewModelBase
+    public sealed class TvPageViewModel : PgcPageViewModelBase
     {
-        internal TvPageViewModel(
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TvPageViewModel"/> class.
+        /// </summary>
+        public TvPageViewModel(
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher,

@@ -24,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountViewModel"/> class.
         /// </summary>
-        internal AccountViewModel(
+        public AccountViewModel(
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             IFileToolkit fileToolkit,

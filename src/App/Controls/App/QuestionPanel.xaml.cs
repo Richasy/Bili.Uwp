@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Home;
 using ReactiveUI;
 using Splat;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls
 {

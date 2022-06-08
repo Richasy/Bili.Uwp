@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Home;
 
 namespace Bili.App.Pages.Desktop
 {

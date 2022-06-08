@@ -8,12 +8,13 @@ using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
-namespace Bili.ViewModels.Uwp.Core
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 设置视图模型.
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsPageViewModel"/> class.
         /// </summary>
-        internal SettingsPageViewModel(
+        public SettingsPageViewModel(
             AppViewModel appViewModel,
             ISettingsToolkit settingsToolkit,
             IResourceToolkit resourceToolkit)

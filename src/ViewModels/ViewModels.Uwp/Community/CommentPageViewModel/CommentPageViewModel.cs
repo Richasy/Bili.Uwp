@@ -13,8 +13,6 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentPageViewModel"/> class.
         /// </summary>
-        /// <param name="mainViewModel">主视图模型.</param>
-        /// <param name="detailViewModel">二级视图模型.</param>
         public CommentPageViewModel(
             CommentMainModuleViewModel mainViewModel,
             CommentDetailModuleViewModel detailViewModel)

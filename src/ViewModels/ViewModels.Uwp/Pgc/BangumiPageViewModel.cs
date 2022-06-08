@@ -16,11 +16,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// Initializes a new instance of the <see cref="BangumiPageViewModel"/> class.
         /// </summary>
-        /// <param name="pgcProvider">PGC 服务提供工具.</param>
-        /// <param name="authorizeProvider">授权服务提供工具.</param>
-        /// <param name="homeProvider">主页数据服务提供工具.</param>
-        /// <param name="resourceToolkit">本地资源管理工具.</param>
-        internal BangumiPageViewModel(
+        public BangumiPageViewModel(
             IPgcProvider pgcProvider,
             IAuthorizeProvider authorizeProvider,
             IHomeProvider homeProvider,

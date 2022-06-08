@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.App.Controls;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Uwp.Toolbox;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Desktop

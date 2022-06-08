@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="FollowsPageViewModel"/> class.
         /// </summary>
-        internal FollowsPageViewModel(
+        public FollowsPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher)

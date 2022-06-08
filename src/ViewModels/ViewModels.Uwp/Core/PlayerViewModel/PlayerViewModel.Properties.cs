@@ -11,6 +11,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Home;
 using Bilibili.App.View.V1;
 using FFmpegInterop;
 using ReactiveUI.Fody.Helpers;

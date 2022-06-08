@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleFavoriteModuleViewModel"/> class.
         /// </summary>
-        internal ArticleFavoriteModuleViewModel(
+        public ArticleFavoriteModuleViewModel(
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher)

@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteModuleViewModel"/> class.
         /// </summary>
-        internal VideoFavoriteModuleViewModel(
+        public VideoFavoriteModuleViewModel(
             AppViewModel appViewModel,
             IAccountProvider accountProvider,
             IFavoriteProvider favoriteProvider,

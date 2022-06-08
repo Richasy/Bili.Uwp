@@ -7,12 +7,12 @@ using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 帮助支持的视图模型.
     /// </summary>
-    public partial class HelpPageViewModel
+    public sealed partial class HelpPageViewModel
     {
         private readonly IFileToolkit _fileToolkit;
         private readonly IAppToolkit _appToolkit;

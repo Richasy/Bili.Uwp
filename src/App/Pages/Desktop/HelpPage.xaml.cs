@@ -3,6 +3,7 @@
 using System;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Home;
 using Splat;
 using Windows.System;
 using Windows.UI.Xaml;

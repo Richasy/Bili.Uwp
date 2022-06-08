@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <param name="liveProvider">直播服务提供工具.</param>
         /// <param name="authorizeProvider">账户服务提供工具.</param>
         /// <param name="resourceToolkit">资源工具.</param>
-        internal LiveFeedPageViewModel(
+        public LiveFeedPageViewModel(
             CoreDispatcher dispatcher,
             ILiveProvider liveProvider,
             IAuthorizeProvider authorizeProvider,

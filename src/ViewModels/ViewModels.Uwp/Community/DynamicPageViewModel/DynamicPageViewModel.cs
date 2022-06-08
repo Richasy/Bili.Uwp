@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicPageViewModel"/> class.
         /// </summary>
-        internal DynamicPageViewModel(
+        public DynamicPageViewModel(
             DynamicVideoModuleViewModel videoModule,
             DynamicAllModuleViewModel allModule,
             IResourceToolkit resourceToolkit,

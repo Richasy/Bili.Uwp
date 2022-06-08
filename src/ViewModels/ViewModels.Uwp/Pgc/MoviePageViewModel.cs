@@ -12,9 +12,12 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// 电影页面视图模型.
     /// </summary>
-    public class MoviePageViewModel : PgcPageViewModelBase
+    public sealed class MoviePageViewModel : PgcPageViewModelBase
     {
-        internal MoviePageViewModel(
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoviePageViewModel"/> class.
+        /// </summary>
+        public MoviePageViewModel(
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher,

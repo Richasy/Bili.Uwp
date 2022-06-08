@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentMainModuleViewModel"/> class.
         /// </summary>
-        internal CommentMainModuleViewModel(
+        public CommentMainModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
             AppViewModel appViewModel,

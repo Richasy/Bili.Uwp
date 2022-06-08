@@ -136,9 +136,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Controller\Controller.Uwp\Controller.Uwp.csproj">
-      <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
-      <Name>Controller.Uwp</Name>
+    <ProjectReference Include="..\Lib\DI.Task\DI.Task.csproj">
+      <Project>{a87244e1-94ab-40e6-a32b-1972429fbcb2}</Project>
+      <Name>DI.Task</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
       <Project>{83DD339B-EA58-4380-8994-02FA6708CC7A}</Project>
@@ -152,21 +152,9 @@
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.gRPC\Models.gRPC.csproj">
-      <Project>{0187840F-8D1A-4198-B5BF-8B05CADB4554}</Project>
-      <Name>Models.gRPC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
-      <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
-      <Name>Locator.Uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
       <Name>Toolkit.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
-      <Project>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</Project>
-      <Name>ViewModels.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

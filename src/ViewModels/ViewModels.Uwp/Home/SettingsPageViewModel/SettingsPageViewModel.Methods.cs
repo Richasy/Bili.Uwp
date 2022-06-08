@@ -7,7 +7,7 @@ using Bili.Models.Enums;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 
-namespace Bili.ViewModels.Uwp.Core
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 设置视图模型.

@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="FavoritePageViewModel"/> class.
         /// </summary>
-        internal FavoritePageViewModel(IResourceToolkit resourceToolkit)
+        public FavoritePageViewModel(IResourceToolkit resourceToolkit)
         {
             _resourceToolkit = resourceToolkit;
             TypeCollection = new ObservableCollection<FavoriteHeader>()

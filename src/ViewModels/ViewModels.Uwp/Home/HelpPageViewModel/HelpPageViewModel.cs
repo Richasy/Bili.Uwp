@@ -12,17 +12,17 @@ using Newtonsoft.Json;
 using ReactiveUI;
 using Windows.System;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 帮助支持的视图模型.
     /// </summary>
-    public partial class HelpPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class HelpPageViewModel : ViewModelBase, IInitializeViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpPageViewModel"/> class.
         /// </summary>
-        internal HelpPageViewModel(
+        public HelpPageViewModel(
             IFileToolkit fileToolkit,
             IAppToolkit appToolkit)
         {

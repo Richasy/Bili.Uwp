@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchBoxViewModel"/> class.
         /// </summary>
-        internal SearchBoxViewModel(
+        public SearchBoxViewModel(
             ISearchProvider searchProvider,
             NavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)

@@ -5,8 +5,6 @@ using System.Net.Http;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Bili.Controller.Uwp;
-using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -14,7 +12,7 @@ using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Toolbox
 {
     /// <summary>
     /// 封面下载器视图模型.
@@ -22,14 +20,21 @@ namespace Bili.ViewModels.Uwp
     public sealed class CoverDownloaderViewModel : ViewModelBase
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IVideoToolkit _videoToolkit;
+        private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isDownloading;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoverDownloaderViewModel"/> class.
         /// </summary>
-        public CoverDownloaderViewModel()
+        public CoverDownloaderViewModel(
+             IResourceToolkit resourceToolkit,
+             IVideoToolkit videoToolkit,
+             CoreDispatcher dispatcher)
         {
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            _resourceToolkit = resourceToolkit;
+            _videoToolkit = videoToolkit;
+            _dispatcher = dispatcher;
 
             DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync, outputScheduler: RxApp.MainThreadScheduler);
             LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -84,32 +89,27 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         public bool IsDownloading => _isDownloading.Value;
 
-        /// <summary>
-        /// 调度器.
-        /// </summary>
-        public CoreDispatcher Dispatcher { get; set; }
-
         private async Task LoadPreviewAsync()
         {
             if (!string.IsNullOrEmpty(InputId))
             {
                 IsShowError = false;
-                var type = ToolboxPageViewModel.GetVideoIdType(InputId, out var avid);
-                Bilibili.App.View.V1.ViewReply reply;
+                var type = _videoToolkit.GetVideoIdType(InputId, out var avid);
                 if (type == Models.Enums.VideoIdType.Av)
                 {
-                    reply = await BiliController.Instance.GetVideoDetailAsync(avid);
+                    // reply = await BiliController.Instance.GetVideoDetailAsync(avid);
+                    await Task.CompletedTask;
                 }
                 else if (type == Models.Enums.VideoIdType.Bv)
                 {
-                    reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
+                    // reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
                 }
                 else
                 {
                     throw new ArgumentException(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.InvalidVideoId));
                 }
 
-                CoverUrl = reply.Arc.Pic;
+                CoverUrl = string.Empty;
             }
         }
 
@@ -135,7 +135,7 @@ namespace Bili.ViewModels.Uwp
 
         private async void DisplayExAsync(Exception ex)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 ErrorMessage = ex.Message;
             });

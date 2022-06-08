@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
-using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -29,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="AppViewModel"/> class.
         /// </summary>
-        internal AppViewModel()
+        public AppViewModel()
         {
             _controller = BiliController.Instance;
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();

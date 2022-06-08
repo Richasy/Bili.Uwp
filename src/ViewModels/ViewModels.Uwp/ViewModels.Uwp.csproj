@@ -100,7 +100,6 @@
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.Properties.cs" />
-    <Compile Include="DIInstnace.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
     <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
     <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.cs" />
@@ -123,8 +122,8 @@
     <Compile Include="Pgc\CinemaFavoriteModuleViewModel.cs" />
     <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.cs" />
     <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.Properties.cs" />
-    <Compile Include="Common\HelpViewModel\HelpPageViewModel.cs" />
-    <Compile Include="Common\HelpViewModel\HelpPageViewModel.Properties.cs" />
+    <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.cs" />
+    <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.Properties.cs" />
     <Compile Include="Common\DownloadViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
@@ -143,9 +142,9 @@
     <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
     <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
-    <Compile Include="Core\SettingsPageViewModel\SettingsPageViewModel.cs" />
-    <Compile Include="Core\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
-    <Compile Include="Core\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Methods.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Properties.cs" />
@@ -173,8 +172,8 @@
     <Compile Include="Common\VideoPartViewModel.cs" />
     <Compile Include="Common\VideoFormatViewModel.cs" />
     <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
-    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
-    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
+    <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
+    <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.cs" />
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.Properties.cs" />

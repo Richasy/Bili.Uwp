@@ -12,14 +12,17 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// 纪录片页面视图模型.
     /// </summary>
-    public class DocumentaryPageViewModel : PgcPageViewModelBase
+    public sealed class DocumentaryPageViewModel : PgcPageViewModelBase
     {
-        internal DocumentaryPageViewModel(
-            IPgcProvider pgcProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher,
-            NavigationViewModel navigationViewModel)
-            : base(pgcProvider, resourceToolkit, dispatcher, navigationViewModel, PgcType.Documentary)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DocumentaryPageViewModel"/> class.
+        /// </summary>
+        public DocumentaryPageViewModel(
+             IPgcProvider pgcProvider,
+             IResourceToolkit resourceToolkit,
+             CoreDispatcher dispatcher,
+             NavigationViewModel navigationViewModel)
+             : base(pgcProvider, resourceToolkit, dispatcher, navigationViewModel, PgcType.Documentary)
         {
         }
     }

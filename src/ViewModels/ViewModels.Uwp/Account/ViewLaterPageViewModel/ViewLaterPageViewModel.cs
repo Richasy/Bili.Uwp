@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewLaterPageViewModel"/> class.
         /// </summary>
-        internal ViewLaterPageViewModel(
+        public ViewLaterPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             NavigationViewModel navigationViewModel,

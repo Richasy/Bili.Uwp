@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchPageViewModel"/> class.
         /// </summary>
-        internal SearchPageViewModel(
+        public SearchPageViewModel(
             ISearchProvider searchProvider,
             IResourceToolkit resourceToolkit,
             IHomeProvider homeProvider,

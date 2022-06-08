@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItemViewModel"/> class.
         /// </summary>
-        internal VideoItemViewModel(
+        public VideoItemViewModel(
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
             IAuthorizeProvider authorizeProvider,

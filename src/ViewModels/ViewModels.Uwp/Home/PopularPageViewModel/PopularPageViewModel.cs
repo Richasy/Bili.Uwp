@@ -10,12 +10,12 @@ using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 热门视图模型.
     /// </summary>
-    public partial class PopularPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class PopularPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularPageViewModel"/> class.
@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp
         /// <param name="resourceToolkit">资源管理工具.</param>
         /// <param name="homeProvider">热门服务提供工具.</param>
         /// <param name="coreDispatcher">UI 调度器.</param>
-        internal PopularPageViewModel(
+        public PopularPageViewModel(
             IResourceToolkit resourceToolkit,
             IHomeProvider homeProvider,
             CoreDispatcher coreDispatcher)

@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicAllModuleViewModel"/> class.
         /// </summary>
-        internal DynamicAllModuleViewModel(
+        public DynamicAllModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,

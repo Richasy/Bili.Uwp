@@ -4,10 +4,11 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp.Core
+namespace Bili.ViewModels.Uwp.Home
 {
     /// <summary>
     /// 设置视图模型.

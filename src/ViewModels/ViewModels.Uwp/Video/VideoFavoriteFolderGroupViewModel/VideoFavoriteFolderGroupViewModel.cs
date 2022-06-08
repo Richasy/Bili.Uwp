@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteFolderGroupViewModel"/> class.
         /// </summary>
-        internal VideoFavoriteFolderGroupViewModel(
+        public VideoFavoriteFolderGroupViewModel(
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
             IAccountProvider accountProvider,

@@ -3,8 +3,8 @@
 using System;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 
 namespace Bili.App.Pages.Desktop.Overlay

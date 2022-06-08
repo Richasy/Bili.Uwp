@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <param name="authorizeProvider">授权服务提供工具.</param>
         /// <param name="homeProvider">主页数据服务提供工具.</param>
         /// <param name="resourceToolkit">本地资源管理工具.</param>
-        internal DomesticPageViewModel(
+        public DomesticPageViewModel(
             IPgcProvider pgcProvider,
             IAuthorizeProvider authorizeProvider,
             IHomeProvider homeProvider,

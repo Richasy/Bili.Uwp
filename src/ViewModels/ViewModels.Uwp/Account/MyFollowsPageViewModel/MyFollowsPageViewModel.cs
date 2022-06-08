@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="MyFollowsPageViewModel"/> class.
         /// </summary>
-        internal MyFollowsPageViewModel(
+        public MyFollowsPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             AccountViewModel accountViewModel,

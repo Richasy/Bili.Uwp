@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="HistoryPageViewModel"/> class.
         /// </summary>
-        internal HistoryPageViewModel(
+        public HistoryPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher)

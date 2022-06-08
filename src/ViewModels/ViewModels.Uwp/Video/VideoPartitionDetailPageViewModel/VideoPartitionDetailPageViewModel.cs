@@ -27,9 +27,6 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionDetailPageViewModel"/> class.
         /// </summary>
-        /// <param name="resourceToolkit">本地资源工具.</param>
-        /// <param name="homeProvider">分区服务提供工具.</param>
-        /// <param name="coreDispatcher">UI调度程序.</param>
         public VideoPartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
             IHomeProvider homeProvider,
