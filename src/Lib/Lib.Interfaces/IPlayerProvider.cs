@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bilibili.App.View.V1;
@@ -20,14 +21,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
-        Task<ViewReply> GetVideoDetailAsync(long videoId);
-
-        /// <summary>
-        /// 获取视频详细信息，包括分P内容.
-        /// </summary>
-        /// <param name="videoId">视频Bv Id.</param>
-        /// <returns><see cref="ViewReply"/>.</returns>
-        Task<ViewReply> GetVideoDetailAsync(string videoId);
+        Task<VideoView> GetVideoDetailAsync(string videoId);
 
         /// <summary>
         /// 获取同时在线观看人数.

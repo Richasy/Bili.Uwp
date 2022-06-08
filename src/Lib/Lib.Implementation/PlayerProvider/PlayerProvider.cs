@@ -7,11 +7,14 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json;
@@ -30,38 +33,38 @@ namespace Bili.Lib
         /// </summary>
         /// <param name="httpProvider">网络操作工具.</param>
         /// <param name="accountProvider">账户操作工具.</param>
-        public PlayerProvider(IHttpProvider httpProvider, IAccountProvider accountProvider)
+        /// <param name="videoToolkit">视频工具.</param>
+        /// <param name="videoAdapter">视频数据适配器.</param>
+        public PlayerProvider(
+            IHttpProvider httpProvider,
+            IAccountProvider accountProvider,
+            IVideoToolkit videoToolkit,
+            IVideoAdapter videoAdapter)
         {
             _httpProvider = httpProvider;
             _accountProvider = accountProvider;
+            _videoToolkit = videoToolkit;
+            _videoAdapter = videoAdapter;
         }
 
         /// <inheritdoc/>
-        public async Task<ViewReply> GetVideoDetailAsync(long videoId)
+        public async Task<VideoView> GetVideoDetailAsync(string videoId)
         {
-            var viewRequest = new ViewReq()
+            var type = _videoToolkit.GetVideoIdType(videoId, out var avId);
+            var viewRequest = new ViewReq();
+            if (type == Models.Enums.VideoIdType.Av && !string.IsNullOrEmpty(avId))
             {
-                Aid = videoId,
-            };
+                viewRequest.Aid = Convert.ToInt64(avId);
+            }
+            else if (type == Models.Enums.VideoIdType.Bv)
+            {
+                viewRequest.Bvid = videoId;
+            }
 
             var request = await _httpProvider.GetRequestMessageAsync(Video.Detail, viewRequest);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, ViewReply.Parser);
-            return data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<ViewReply> GetVideoDetailAsync(string videoId)
-        {
-            var viewRequest = new ViewReq()
-            {
-                Bvid = videoId,
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(Video.Detail, viewRequest);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync(response, ViewReply.Parser);
-            return data;
+            return _videoAdapter.ConvertToVideoView(data);
         }
 
         /// <inheritdoc/>

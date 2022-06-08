@@ -334,7 +334,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public VideoView ConvertToVideoInformation(ViewReply videoDetail)
+        public VideoView ConvertToVideoView(ViewReply videoDetail)
         {
             var videoInfo = GetVideoInformationFromViewReply(videoDetail);
             var subVideos = GetSubVideosFromViewReply(videoDetail);

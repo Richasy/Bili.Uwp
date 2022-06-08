@@ -5,6 +5,7 @@ using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.App.Interfaces.V1;
+using Bilibili.App.View.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -85,11 +86,11 @@ namespace Bili.Adapter.Interfaces
         VideoInformation ConvertToVideoInformation(UserSpaceVideoItem spaceVideo);
 
         /// <summary>
-        /// 将历史记录里的视频内容 <see cref="Bilibili.App.Interfaces.V1.CursorItem"/> 转换为视频信息.
+        /// 将历史记录里的视频内容 <see cref="CursorItem"/> 转换为视频信息.
         /// </summary>
         /// <param name="historyVideo">历史记录里的视频内容.</param>
         /// <returns><see cref="VideoInformation"/>.</returns>
-        VideoInformation ConvertToVideoInformation(Bilibili.App.Interfaces.V1.CursorItem historyVideo);
+        VideoInformation ConvertToVideoInformation(CursorItem historyVideo);
 
         /// <summary>
         /// 将收藏夹内的视频内容 <see cref="FavoriteMedia"/> 转换为视频信息.
@@ -99,18 +100,18 @@ namespace Bili.Adapter.Interfaces
         VideoInformation ConvertToVideoInformation(FavoriteMedia video);
 
         /// <summary>
-        /// 将用户空间里的视频搜索结果 <see cref="Bilibili.App.Interfaces.V1.Arc"/> 转换为视频信息.
+        /// 将用户空间里的视频搜索结果 <see cref="Arc"/> 转换为视频信息.
         /// </summary>
         /// <param name="video">用户空间里的视频搜索结果.</param>
         /// <returns><see cref="VideoInformation"/>.</returns>
-        VideoInformation ConvertToVideoInformation(Bilibili.App.Interfaces.V1.Arc video);
+        VideoInformation ConvertToVideoInformation(Arc video);
 
         /// <summary>
-        /// 将视频详情 <see cref="Bilibili.App.View.V1.ViewReply"/> 转换为视频信息.
+        /// 将视频详情 <see cref="ViewReply"/> 转换为视频信息.
         /// </summary>
         /// <param name="videoDetail">视频详情.</param>
-        /// <returns><see cref="VideoInformation"/>.</returns>
-        VideoView ConvertToVideoInformation(Bilibili.App.View.V1.ViewReply videoDetail);
+        /// <returns><see cref="VideoView"/>.</returns>
+        VideoView ConvertToVideoView(ViewReply videoDetail);
 
         /// <summary>
         /// 将稍后再看响应 <see cref="ViewLaterResponse"/> 转换为视频集.

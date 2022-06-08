@@ -177,6 +177,8 @@
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.cs" />
     <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Properties.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>

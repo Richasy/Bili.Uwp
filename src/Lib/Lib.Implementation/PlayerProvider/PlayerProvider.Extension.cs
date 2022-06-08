@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json.Linq;
 using static Bili.Models.App.Constants.ServiceConstants;
 
@@ -20,6 +22,8 @@ namespace Bili.Lib
     {
         private readonly IHttpProvider _httpProvider;
         private readonly IAccountProvider _accountProvider;
+        private readonly IVideoToolkit _videoToolkit;
+        private readonly IVideoAdapter _videoAdapter;
 
         private CancellationToken GetExpiryToken(int seconds = 5)
         {
