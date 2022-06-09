@@ -9,6 +9,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json.Linq;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -24,6 +25,8 @@ namespace Bili.Lib
         private readonly IAccountProvider _accountProvider;
         private readonly IVideoToolkit _videoToolkit;
         private readonly IVideoAdapter _videoAdapter;
+        private readonly ICommunityAdapter _communityAdapter;
+        private readonly IPlayerAdapter _playerAdapter;
 
         private CancellationToken GetExpiryToken(int seconds = 5)
         {
@@ -31,7 +34,7 @@ namespace Bili.Lib
             return source.Token;
         }
 
-        private async Task<PlayerInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "", string episodeId = "")
+        private async Task<MediaInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "", string episodeId = "")
         {
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
@@ -79,11 +82,11 @@ namespace Bili.Lib
 
             if (data is ServerResponse<PlayerInformation> res1)
             {
-                return res1.Data;
+                return _playerAdapter.ConvertToMediaInformation(res1.Data);
             }
             else if (data is ServerResponse2<PlayerInformation> res2)
             {
-                return res2.Result;
+                return _playerAdapter.ConvertToMediaInformation(res2.Result);
             }
 
             return null;

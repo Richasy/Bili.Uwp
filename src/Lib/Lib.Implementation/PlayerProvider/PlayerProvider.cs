@@ -11,10 +11,13 @@ using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
+using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
+using Bilibili.App.Playeronline.V1;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json;
@@ -35,16 +38,22 @@ namespace Bili.Lib
         /// <param name="accountProvider">账户操作工具.</param>
         /// <param name="videoToolkit">视频工具.</param>
         /// <param name="videoAdapter">视频数据适配器.</param>
+        /// <param name="communityAdapter">社区数据适配器.</param>
+        /// <param name="playerAdapter">播放器数据适配器.</param>
         public PlayerProvider(
             IHttpProvider httpProvider,
             IAccountProvider accountProvider,
             IVideoToolkit videoToolkit,
-            IVideoAdapter videoAdapter)
+            IVideoAdapter videoAdapter,
+            ICommunityAdapter communityAdapter,
+            IPlayerAdapter playerAdapter)
         {
             _httpProvider = httpProvider;
             _accountProvider = accountProvider;
             _videoToolkit = videoToolkit;
             _videoAdapter = videoAdapter;
+            _communityAdapter = communityAdapter;
+            _playerAdapter = playerAdapter;
         }
 
         /// <inheritdoc/>
@@ -68,7 +77,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetOnlineViewerCountAsync(long videoId, long partId)
+        public async Task<string> GetOnlineViewerCountAsync(string videoId, string partId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -77,19 +86,26 @@ namespace Bili.Lib
                 { Query.Device, "phone" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.OnlineViewerCount, queryParameters, Models.Enums.RequestClientType.IOS);
+            var req = new PlayerOnlineReq
+            {
+                Aid = Convert.ToInt64(videoId),
+                Cid = Convert.ToInt64(partId),
+                PlayOpen = true,
+            };
+
+            var request = await _httpProvider.GetRequestMessageAsync(Video.OnlineViewerCount, req);
             var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<OnlineViewerResponse>>(response);
-            return data.Data != null ? data.Data.Data.DisplayText : "--";
+            var data = await _httpProvider.ParseAsync(response, PlayerOnlineReply.Parser);
+            return data.TotalText ?? "--";
         }
 
         /// <inheritdoc/>
-        public async Task<PlayerInformation> GetDashAsync(long videoId, long partId)
-            => await InternalGetDashAsync(partId.ToString(), videoId.ToString());
+        public async Task<MediaInformation> GetVideoMediaInformationAsync(string videoId, string partId)
+            => await InternalGetDashAsync(partId, videoId);
 
         /// <inheritdoc/>
-        public async Task<PlayerInformation> GetDashAsync(int partId, int episodeId, int seasonType, string proxy = "", string area = "")
-            => await InternalGetDashAsync(partId.ToString(), string.Empty, seasonType.ToString(), proxy, area, episodeId.ToString());
+        public async Task<MediaInformation> GetPgcMediaInformationAsync(string partId, string episodeId, string seasonType, string proxy = default, string area = default)
+            => await InternalGetDashAsync(partId, string.Empty, seasonType, proxy, area, episodeId);
 
         /// <inheritdoc/>
         public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
@@ -163,11 +179,11 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> LikeAsync(long videoId, bool isLike)
+        public async Task<bool> LikeAsync(string videoId, bool isLike)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
                 { Query.Like, isLike ? "0" : "1" },
             };
 
@@ -185,27 +201,34 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<CoinResult> CoinAsync(long videoId, int number, bool alsoLike)
+        public async Task<bool> CoinAsync(string videoId, int number, bool alsoLike)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
                 { Query.Multiply, number.ToString() },
                 { Query.AlsoLike, alsoLike ? "1" : "0" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Coin, queryParameters, needToken: true);
-            var response = await _httpProvider.SendAsync(request, GetExpiryToken());
-            var result = await _httpProvider.ParseAsync<ServerResponse<CoinResult>>(response);
-            return result.Data;
+            try
+            {
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Coin, queryParameters, needToken: true);
+                var response = await _httpProvider.SendAsync(request, GetExpiryToken());
+                var result = await _httpProvider.ParseAsync<ServerResponse<CoinResult>>(response);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList)
+        public async Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.PartitionId, videoId.ToString() },
+                { Query.PartitionId, videoId },
                 { Query.Type, "2" },
             };
 
@@ -234,17 +257,17 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<TripleResult> TripleAsync(long videoId)
+        public async Task<TripleInformation> TripleAsync(string videoId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.Triple, queryParameters, needToken: true);
             var response = await _httpProvider.SendAsync(request, GetExpiryToken());
             var result = await _httpProvider.ParseAsync<ServerResponse<TripleResult>>(response);
-            return result.Data;
+            return _communityAdapter.ConvertToTripleInformation(result.Data, videoId);
         }
 
         /// <inheritdoc/>
@@ -329,7 +352,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<VideoStatusInfo> GetVideoStatusAsync(long videoId)
+        public async Task<VideoCommunityInformation> GetVideoCommunityInformationAsync(string videoId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -339,7 +362,7 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Stat, queryParameters);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(3)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse<VideoStatusInfo>>(response);
-            return result.Data;
+            return _communityAdapter.ConvertToVideoCommunityInformation(result.Data);
         }
     }
 }

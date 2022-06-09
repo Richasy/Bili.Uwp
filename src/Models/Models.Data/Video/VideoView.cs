@@ -17,7 +17,7 @@ namespace Bili.Models.Data.Video
         /// <param name="information">视频信息.</param>
         /// <param name="publisherCommunityInformation">发布者的社区信息.</param>
         /// <param name="subVideos">分集.</param>
-        /// <param name="sections">所属视频合集列表.</param>
+        /// <param name="seasons">所属视频合集列表.</param>
         /// <param name="relatedVideos">关联视频.</param>
         /// <param name="progress">播放进度.</param>
         /// <param name="operation">视频操作信息.</param>
@@ -27,7 +27,7 @@ namespace Bili.Models.Data.Video
             VideoInformation information,
             UserCommunityInformation publisherCommunityInformation,
             IEnumerable<VideoIdentifier> subVideos,
-            IEnumerable<VideoSection> sections,
+            IEnumerable<VideoSeason> seasons,
             IEnumerable<VideoInformation> relatedVideos,
             PlayedProgress progress,
             VideoOpeartionInformation operation,
@@ -37,7 +37,7 @@ namespace Bili.Models.Data.Video
             Information = information;
             PublisherCommunityInformation = publisherCommunityInformation;
             SubVideos = subVideos;
-            Sections = sections;
+            Seasons = seasons;
             RelatedVideos = relatedVideos;
             Progress = progress;
             Operation = operation;
@@ -63,7 +63,7 @@ namespace Bili.Models.Data.Video
         /// <summary>
         /// 合集信息.
         /// </summary>
-        public IEnumerable<VideoSection> Sections { get; }
+        public IEnumerable<VideoSeason> Seasons { get; }
 
         /// <summary>
         /// 关联视频列表.

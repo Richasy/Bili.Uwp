@@ -164,6 +164,13 @@ namespace Bili.Adapter.Interfaces
         VideoCommunityInformation ConvertToVideoCommunityInformation(CardUGC ugc);
 
         /// <summary>
+        /// 将视频状态信息 <see cref="VideoStatusInfo"/> 转换为视频交互信息.
+        /// </summary>
+        /// <param name="info">视频状态信息.</param>
+        /// <returns><see cref="VideoCommunityInformation"/>.</returns>
+        VideoCommunityInformation CovnertToVideoCommunityInformation(VideoStatusInfo info);
+
+        /// <summary>
         /// 将文章状态 <see cref="ArticleStats"/> 转换为文章社区交互信息.
         /// </summary>
         /// <param name="stats">文章状态.</param>
@@ -304,5 +311,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="tag">关联标签.</param>
         /// <returns><see cref="FollowGroup"/>.</returns>
         FollowGroup ConvertToFollowGroup(RelatedTag tag);
+
+        /// <summary>
+        /// 将一键三连的结果 <see cref="TripleResult"/> 转换为一键三连信息.
+        /// </summary>
+        /// <param name="result">一键三连的结果.</param>
+        /// <param name="id">视频 Id.</param>
+        /// <returns><see cref="TripleInformation"/>.</returns>
+        TripleInformation ConvertToTripleInformation(TripleResult result, string id);
     }
 }

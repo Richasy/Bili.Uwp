@@ -7,15 +7,15 @@ namespace Bili.Models.Data.Video
     /// <summary>
     /// 视频合集（专制B站的合集功能）.
     /// </summary>
-    public sealed class VideoSection
+    public sealed class VideoSeason
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoSection"/> class.
+        /// Initializes a new instance of the <see cref="VideoSeason"/> class.
         /// </summary>
         /// <param name="id">合集 Id.</param>
         /// <param name="title">合集标题.</param>
         /// <param name="videos">合集里的视频列表.</param>
-        public VideoSection(
+        public VideoSeason(
             string id,
             string title,
             IEnumerable<VideoInformation> videos)
@@ -41,7 +41,7 @@ namespace Bili.Models.Data.Video
         public IEnumerable<VideoInformation> Videos { get; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is VideoSection section && Id == section.Id;
+        public override bool Equals(object obj) => obj is VideoSeason section && Id == section.Id;
 
         /// <inheritdoc/>
         public override int GetHashCode() => Id.GetHashCode();

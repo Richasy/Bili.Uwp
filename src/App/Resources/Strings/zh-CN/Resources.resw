@@ -305,6 +305,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
+  <data name="CoinFailed" xml:space="preserve">
+    <value>投币失败</value>
+  </data>
   <data name="CollectTime" xml:space="preserve">
     <value>收藏时间</value>
   </data>
@@ -530,6 +533,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
+  </data>
+  <data name="FavoriteFailed" xml:space="preserve">
+    <value>收藏失败</value>
   </data>
   <data name="FavoriteHaveNoVideos" xml:space="preserve">
     <value>收藏夹内没有视频</value>

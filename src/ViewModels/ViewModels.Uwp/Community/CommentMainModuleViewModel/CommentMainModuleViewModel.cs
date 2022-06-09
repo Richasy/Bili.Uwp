@@ -67,6 +67,13 @@ namespace Bili.ViewModels.Uwp.Community
             InitializeCommand.Execute().Subscribe();
         }
 
+        internal void ClearData()
+        {
+            Items.Clear();
+            BeforeReload();
+            UnselectComment();
+        }
+
         internal void UnselectComment()
         {
             _selectedComment = null;

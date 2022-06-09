@@ -21,5 +21,10 @@ namespace Bili.Models.Enums.Bili
         /// 视频合集.
         /// </summary>
         UgcSeason,
+
+        /// <summary>
+        /// 视频分集.
+        /// </summary>
+        VideoParts,
     }
 }

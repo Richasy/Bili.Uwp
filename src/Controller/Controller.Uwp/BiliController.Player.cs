@@ -31,7 +31,7 @@ namespace Bili.Controller.Uwp
         /// <param name="videoId">视频 Bv Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
         public async Task<ViewReply> GetVideoDetailAsync(string videoId)
-            => await _playerProvider.GetVideoDetailAsync(videoId);
+            => await _playerProvider.GetVideoDetailAsync(videoId.ToString());
 
         /// <summary>
         /// 获取在线观看人数.
@@ -41,7 +41,7 @@ namespace Bili.Controller.Uwp
         /// <returns>观看人数.</returns>
         public async Task<string> GetOnlineViewerCountAsync(int videoId, int cid)
         {
-            var result = await _playerProvider.GetOnlineViewerCountAsync(videoId, cid);
+            var result = await _playerProvider.GetOnlineViewerCountAsync(videoId.ToString(), cid.ToString());
             return result;
         }
 
@@ -53,7 +53,7 @@ namespace Bili.Controller.Uwp
         /// <returns>播放信息.</returns>
         public async Task<PlayerInformation> GetVideoPlayInformationAsync(long videoId, long partId)
         {
-            var result = await _playerProvider.GetDashAsync(videoId, partId);
+            var result = await _playerProvider.GetVideoMediaInformationAsync(videoId, partId);
             return result;
         }
 

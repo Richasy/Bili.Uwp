@@ -38,6 +38,15 @@ namespace Bili.ViewModels.Uwp.Community
             MainViewModel.SetTarget(sourceId, type, sortType);
         }
 
+        /// <summary>
+        /// 清理内部数据.
+        /// </summary>
+        internal void ClearData()
+        {
+            MainViewModel.ClearData();
+            DetailViewModel.ClearData();
+        }
+
         private void OnRequestShowDetail(object sender, CommentItemViewModel e)
         {
             IsMainShown = false;

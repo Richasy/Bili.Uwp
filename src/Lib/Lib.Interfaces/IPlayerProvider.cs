@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
+using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
@@ -29,15 +31,15 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
         /// <returns>同时在线观看人数.</returns>
-        Task<string> GetOnlineViewerCountAsync(long videoId, long partId);
+        Task<string> GetOnlineViewerCountAsync(string videoId, string partId);
 
         /// <summary>
         /// 获取Dash播放信息.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
-        /// <returns><see cref="PlayerInformation"/>.</returns>
-        Task<PlayerInformation> GetDashAsync(long videoId, long partId);
+        /// <returns><see cref="MediaInformation"/>.</returns>
+        Task<MediaInformation> GetVideoMediaInformationAsync(string videoId, string partId);
 
         /// <summary>
         /// 获取PGC的剧集Dash播放信息.
@@ -47,8 +49,8 @@ namespace Bili.Lib.Interfaces
         /// <param name="seasonType">剧集类型.</param>
         /// <param name="proxy">代理地址.</param>
         /// <param name="area">地区.</param>
-        /// <returns><see cref="PlayerInformation"/>.</returns>
-        Task<PlayerInformation> GetDashAsync(int partId, int episodeId, int seasonType, string proxy = "", string area = "");
+        /// <returns><see cref="MediaInformation"/>.</returns>
+        Task<MediaInformation> GetPgcMediaInformationAsync(string partId, string episodeId, string seasonType, string proxy = default, string area = default);
 
         /// <summary>
         /// 获取弹幕元数据信息.
@@ -106,7 +108,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="isLike">是否点赞.</param>
         /// <returns>结果.</returns>
-        Task<bool> LikeAsync(long videoId, bool isLike);
+        Task<bool> LikeAsync(string videoId, bool isLike);
 
         /// <summary>
         /// 投币.
@@ -115,7 +117,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="number">投币数量，上限为2.</param>
         /// <param name="alsoLike">是否同时点赞.</param>
         /// <returns>投币结果.</returns>
-        Task<CoinResult> CoinAsync(long videoId, int number, bool alsoLike);
+        Task<bool> CoinAsync(string videoId, int number, bool alsoLike);
 
         /// <summary>
         /// 添加收藏.
@@ -124,14 +126,14 @@ namespace Bili.Lib.Interfaces
         /// <param name="needAddFavoriteList">需要添加的收藏夹列表.</param>
         /// <param name="needRemoveFavoriteList">需要移除的收藏夹列表.</param>
         /// <returns>收藏结果.</returns>
-        Task<FavoriteResult> FavoriteAsync(long videoId, IList<string> needAddFavoriteList, IList<string> needRemoveFavoriteList);
+        Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList);
 
         /// <summary>
         /// 一键三连.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <returns>三连结果.</returns>
-        Task<TripleResult> TripleAsync(long videoId);
+        Task<TripleInformation> TripleAsync(string videoId);
 
         /// <summary>
         /// 获取视频字幕索引.
@@ -158,10 +160,10 @@ namespace Bili.Lib.Interfaces
         Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId);
 
         /// <summary>
-        /// 获取视频的参数.
+        /// 获取视频的社区数据.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
-        /// <returns>视频参数.</returns>
-        Task<VideoStatusInfo> GetVideoStatusAsync(long videoId);
+        /// <returns>社区数据.</returns>
+        Task<VideoCommunityInformation> GetVideoCommunityInformationAsync(string videoId);
     }
 }

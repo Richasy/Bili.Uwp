@@ -19,20 +19,46 @@ namespace Bili.ViewModels.Uwp.Video
             Tags.Clear();
             IsShowTags = false;
             PublishTime = default;
-            PlayCountText = default;
-            DanmakuCountText = default;
-            CommentCountText = default;
             WatchingCountText = default;
         }
 
         private void ResetOperation()
         {
-            LikeCountText = default;
-            CoinCountText = default;
-            FavoriteCountText = default;
             IsLiked = false;
             IsCoined = false;
             IsFavorited = false;
+        }
+
+        private void ResetCommunityInformation()
+        {
+            PlayCountText = default;
+            DanmakuCountText = default;
+            CommentCountText = default;
+            LikeCountText = default;
+            CoinCountText = default;
+            FavoriteCountText = default;
+        }
+
+        private void ResetInterop()
+        {
+            // TODO：重置下载内容.
+            IsVideoFixed = false;
+            IsLoopOpened = false;
+        }
+
+        private void ResetSections()
+        {
+            Sections.Clear();
+            RelatedVideos.Clear();
+            VideoParts.Clear();
+            Seasons.Clear();
+            CurrentSeasonVideos.Clear();
+            CurrentSection = null;
+            IsShowUgcSeason = false;
+            IsShowRelatedVideos = false;
+            IsShowComments = false;
+            IsShowParts = false;
+            _commentPageViewModel.ClearData();
         }
     }
 }

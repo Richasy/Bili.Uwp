@@ -513,6 +513,8 @@ namespace Bili.Models.Enums
         FollowEachOther,
         Settings,
         FailedToRemoveVideoFromFavorite,
+        FavoriteFailed,
+        CoinFailed,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

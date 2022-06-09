@@ -526,20 +526,20 @@ namespace Bili.Adapter
             return relatedVideos;
         }
 
-        private IEnumerable<VideoSection> GetVideoSectionsFromViewReply(ViewReply videoDetail)
+        private IEnumerable<VideoSeason> GetVideoSectionsFromViewReply(ViewReply videoDetail)
         {
             if (videoDetail.UgcSeason == null || videoDetail.UgcSeason.Sections?.Count == 0)
             {
                 return null;
             }
 
-            var sections = new List<VideoSection>();
+            var sections = new List<VideoSeason>();
             foreach (var item in videoDetail.UgcSeason.Sections)
             {
                 var id = item.Id.ToString();
                 var title = item.Title;
                 var videos = item.Episodes.Select(p => GetVideoInformationFromEpisode(p));
-                var section = new VideoSection(id, title, videos);
+                var section = new VideoSeason(id, title, videos);
                 sections.Add(section);
             }
 

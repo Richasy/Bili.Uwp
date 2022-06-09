@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
@@ -9,6 +10,7 @@ using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.UI.Core;
@@ -33,6 +35,8 @@ namespace Bili.ViewModels.Uwp.Video
             AppViewModel appViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
+            CommentPageViewModel commentPageViewModel,
+            MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
@@ -44,23 +48,42 @@ namespace Bili.ViewModels.Uwp.Video
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
+            _commentPageViewModel = commentPageViewModel;
+            _playerViewModel = playerViewModel;
             _dispatcher = dispatcher;
 
             Collaborators = new ObservableCollection<UserItemViewModel>();
             Tags = new ObservableCollection<Tag>();
             FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
+            RelatedVideos = new ObservableCollection<VideoItemViewModel>();
+            VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            Seasons = new ObservableCollection<Models.Data.Video.VideoSeason>();
+            CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
 
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestFavoriteFolders = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync, outputScheduler: RxApp.MainThreadScheduler);
+            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
+            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
+            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
+            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
-            _isFavoriteFolderRequesting = RequestFavoriteFolders.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
+            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
-            RequestFavoriteFolders.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
+            RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
+
+            this.WhenAnyValue(p => CurrentSection)
+                .WhereNotNull()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(_ => CheckSectionVisibility());
         }
 
         /// <summary>
@@ -79,6 +102,9 @@ namespace Bili.ViewModels.Uwp.Video
             ResetPublisher();
             ResetOverview();
             ResetOperation();
+            ResetCommunityInformation();
+            ResetInterop();
+            ResetSections();
         }
 
         private async Task GetDataAsync()
@@ -89,6 +115,11 @@ namespace Bili.ViewModels.Uwp.Video
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();
+            InitializeCommunityInformation();
+            InitializeInterop();
+            InitializeSections();
+
+            _playerViewModel.SetData(View, Models.Enums.VideoType.Video);
         }
 
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)

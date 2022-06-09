@@ -26,6 +26,13 @@
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.cs" />
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.Properties.cs" />
     <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Live.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Pgc.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Method.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Properties.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Video.cs" />
     <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.cs" />
     <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.Properties.cs" />
@@ -97,6 +104,7 @@
     <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Properties.cs" />
     <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Request.cs" />
     <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.Properties.cs" />
+    <Compile Include="Video\VideoIdentifierSelectableViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
     <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
@@ -181,6 +189,7 @@
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Exception.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Initialize.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Methods.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Properties.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Request.cs" />
     <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Reset.cs" />

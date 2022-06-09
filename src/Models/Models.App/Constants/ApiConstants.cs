@@ -456,7 +456,7 @@ namespace Bili.Models.App.Constants
             /// <summary>
             /// 在线观看人数.
             /// </summary>
-            public const string OnlineViewerCount = _appBase + "/x/v2/view/video/online";
+            public const string OnlineViewerCount = _grpcBase + "/bilibili.app.playeronline.v1.PlayerOnline/PlayerOnline";
 
             /// <summary>
             /// 视频播放信息.

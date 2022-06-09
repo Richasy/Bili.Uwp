@@ -399,6 +399,20 @@ namespace Bili.Adapter
             => new VideoCommunityInformation(default, ugc.View);
 
         /// <inheritdoc/>
+        public VideoCommunityInformation CovnertToVideoCommunityInformation(VideoStatusInfo info)
+        {
+            return new VideoCommunityInformation(
+                info.Aid.ToString(),
+                info.PlayCount,
+                info.DanmakuCount,
+                info.LikeCount,
+                favoriteCount: info.FavoriteCount,
+                coinCount: info.CoinCount,
+                commentCount: info.ReplyCount,
+                shareCount: info.ShareCount);
+        }
+
+        /// <inheritdoc/>
         public UnreadInformation ConvertToUnreadInformation(UnreadMessage message)
             => new UnreadInformation(message.At, message.Reply, message.Like);
 
@@ -560,5 +574,9 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public DynamicCommunityInformation ConvertToDynamicCommunityInformation(ModuleStat stat, string dynamicId)
             => new DynamicCommunityInformation(dynamicId, stat.Like, stat.Reply, stat.LikeInfo.IsLike);
+
+        /// <inheritdoc/>
+        public TripleInformation ConvertToTripleInformation(TripleResult result, string id)
+            => new TripleInformation(id, result.IsLike, result.IsCoin, result.IsFavorite);
     }
 }
