@@ -73,7 +73,7 @@ namespace Bili.Models.Data.Video
         /// <summary>
         /// 播放进度.
         /// </summary>
-        public PlayedProgress Progress { get; }
+        public PlayedProgress Progress { get; set; }
 
         /// <summary>
         /// 用户对视频的操作信息.

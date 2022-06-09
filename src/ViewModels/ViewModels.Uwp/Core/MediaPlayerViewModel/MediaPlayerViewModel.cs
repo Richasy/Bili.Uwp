@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Player;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
@@ -45,6 +46,13 @@ namespace Bili.ViewModels.Uwp.Core
 
             Formats = new ObservableCollection<FormatInformation>();
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangePlayerStatusCommand = ReactiveCommand.CreateFromTask<PlayerStatus>(ChangePlayerStatusAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory, outputScheduler: RxApp.MainThreadScheduler);
+
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+
+            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
         }
 
         /// <summary>
@@ -56,6 +64,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _viewData = data;
             _videoType = type;
+            ReloadCommand.Execute().Subscribe();
         }
 
         /// <inheritdoc/>
@@ -69,6 +78,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void Reset()
         {
+            ResetPlayer();
             ResetVideoData();
         }
 
@@ -78,6 +88,37 @@ namespace Bili.ViewModels.Uwp.Core
             if (_videoType == VideoType.Video)
             {
                 await LoadVideoAsync();
+            }
+        }
+
+        private async Task ChangePartAsync(VideoIdentifier part)
+        {
+            if (_videoType == VideoType.Video)
+            {
+                await ChangeVideoPartAsync(part);
+            }
+        }
+
+        private async Task ChangePlayerStatusAsync(PlayerStatus status)
+        {
+            Status = status;
+            if (Status == PlayerStatus.Playing)
+            {
+                if (_videoType == VideoType.Video)
+                {
+                    CheckVideoHistory();
+                }
+            }
+
+            await Task.CompletedTask;
+        }
+
+        private void ResetProgressHistory()
+        {
+            _initializeProgress = TimeSpan.Zero;
+            if (_videoType == VideoType.Video && _viewData is VideoView videoView)
+            {
+                videoView.Progress = null;
             }
         }
     }

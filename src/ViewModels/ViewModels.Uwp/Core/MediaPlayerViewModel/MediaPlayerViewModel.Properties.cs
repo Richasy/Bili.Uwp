@@ -43,7 +43,6 @@ namespace Bili.ViewModels.Uwp.Core
         private FFmpegInteropMSS _interopMSS;
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
-        private double _originalPlayRate;
 
         private DispatcherTimer _progressTimer;
         private DispatcherTimer _heartBeatTimer;
@@ -64,6 +63,16 @@ namespace Bili.ViewModels.Uwp.Core
         /// 改变分P的命令.
         /// </summary>
         public ReactiveCommand<VideoIdentifier, Unit> ChangePartCommand { get; }
+
+        /// <summary>
+        /// 改变播放器状态的命令.
+        /// </summary>
+        public ReactiveCommand<PlayerStatus, Unit> ChangePlayerStatusCommand { get; }
+
+        /// <summary>
+        /// 重置播放历史的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

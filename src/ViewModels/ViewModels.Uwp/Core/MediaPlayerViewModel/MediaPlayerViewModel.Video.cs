@@ -23,6 +23,21 @@ namespace Bili.ViewModels.Uwp.Core
             _video = null;
             _audio = null;
             CurrentFormat = null;
+            IsLoop = false;
+            _lastReportProgress = TimeSpan.Zero;
+            _initializeProgress = TimeSpan.Zero;
+        }
+
+        private async Task ChangeVideoPartAsync(VideoIdentifier part)
+        {
+            var view = _viewData as VideoView;
+            if (string.IsNullOrEmpty(_currentPart.Id) || !view.SubVideos.Contains(_currentPart))
+            {
+                return;
+            }
+
+            _currentPart = part;
+            await LoadVideoAsync();
         }
 
         private async Task LoadVideoAsync()
@@ -33,7 +48,13 @@ namespace Bili.ViewModels.Uwp.Core
                 _currentPart = view.SubVideos.First();
             }
 
-            // 处理历史记录.
+            await InitializeVideoMediaInformationAsync();
+            await InitializeOrginalVideoSourceAsync();
+        }
+
+        private void CheckVideoHistory()
+        {
+            var view = _viewData as VideoView;
             if (view.Progress != null && view.Progress.Status == Models.Enums.Player.PlayedProgressStatus.Playing)
             {
                 var history = view.Progress.Identifier;
@@ -41,42 +62,15 @@ namespace Bili.ViewModels.Uwp.Core
                 IsShowProgressTip = true;
                 ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
             }
-
-            _mediaInformation = await _playerProvider.GetVideoMediaInformationAsync(view.Information.Identifier.Id, _currentPart.Id);
-            CheckP2PUrls();
-            await InitializeOrginalVideoSourceAsync();
         }
 
-        private void CheckP2PUrls()
+        private async Task InitializeVideoMediaInformationAsync()
         {
-            if (!_settingsToolkit.ReadLocalSetting(SettingNames.DisableP2PCdn, false))
-            {
-                return;
-            }
-
-            // 剔除 P2P CDN URL
-            if (_mediaInformation.AudioSegments != null)
-            {
-                var filteredAudios = _mediaInformation.AudioSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
-                foreach (var item in filteredAudios)
-                {
-                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
-                }
-            }
-
-            if (_mediaInformation.VideoSegments != null)
-            {
-                var filteredAudios = _mediaInformation.VideoSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
-                foreach (var item in filteredAudios)
-                {
-                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
-                }
-            }
+            var view = _viewData as VideoView;
+            _mediaInformation = await _playerProvider.GetVideoMediaInformationAsync(view.Information.Identifier.Id, _currentPart.Id);
+            CheckVideoP2PUrls();
         }
 
-        /// <summary>
-        /// 选择初始片源.
-        /// </summary>
         private async Task InitializeOrginalVideoSourceAsync()
         {
             var isVip = _accountViewModel.IsVip;
@@ -106,6 +100,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task SelectFormatAsync(FormatInformation format)
         {
+            MarkProgressBreakpoint();
             var codecId = GetPreferCodecId();
             if (_mediaInformation.VideoSegments != null)
             {
@@ -143,31 +138,38 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeVideoPlayerAsync()
         {
+            InitializeMediaPlayer();
             var source = await GetDashVideoSourceAsync();
             _playbackItem = new Windows.Media.Playback.MediaPlaybackItem(source);
+            _mediaPlayer.Source = _playbackItem;
             FillVideoPlaybackProperties();
-
-            // 初始化MediaPlayer.
-            InitializeMediaPlayer();
         }
 
-        private string GetPreferCodecId()
+        private void CheckVideoP2PUrls()
         {
-            var id = "avc";
-            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
-            switch (preferCodec)
+            if (!_settingsToolkit.ReadLocalSetting(SettingNames.DisableP2PCdn, false))
             {
-                case PreferCodec.H265:
-                    id = "hev";
-                    break;
-                case PreferCodec.Av1:
-                    id = "av01";
-                    break;
-                default:
-                    break;
+                return;
             }
 
-            return id;
+            // 剔除 P2P CDN URL
+            if (_mediaInformation.AudioSegments != null)
+            {
+                var filteredAudios = _mediaInformation.AudioSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
+                foreach (var item in filteredAudios)
+                {
+                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
+                }
+            }
+
+            if (_mediaInformation.VideoSegments != null)
+            {
+                var filteredAudios = _mediaInformation.VideoSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
+                foreach (var item in filteredAudios)
+                {
+                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
+                }
+            }
         }
 
         private void FillVideoPlaybackProperties()

@@ -3,6 +3,7 @@
 using System;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -18,12 +19,107 @@ namespace Bili.ViewModels.Uwp.Core
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
-            player.AutoPlay = _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsAutoPlayWhenLoaded, true);
-            player.Volume = _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.Volume, 100d);
+            player.AutoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+            player.Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
             player.IsLoopingEnabled = IsLoop;
 
             _mediaPlayer = player;
+            MediaPlayerChanged?.Invoke(this, _mediaPlayer);
+        }
+
+        /// <summary>
+        /// 清理播放数据.
+        /// </summary>
+        private void ResetPlayer()
+        {
+            if (_mediaPlayer != null)
+            {
+                if (_mediaPlayer.PlaybackSession.CanPause)
+                {
+                    _mediaPlayer.Pause();
+                }
+
+                if (_playbackItem != null)
+                {
+                    _playbackItem.Source.Dispose();
+                    _playbackItem = null;
+                }
+
+                _mediaPlayer.Source = null;
+                _mediaPlayer = null;
+            }
+
+            _lastReportProgress = TimeSpan.Zero;
+            _progressTimer?.Stop();
+            _heartBeatTimer?.Stop();
+            _subtitleTimer?.Stop();
+
+            if (_interopMSS != null)
+            {
+                _interopMSS.Dispose();
+                _interopMSS = null;
+            }
+
+            Status = PlayerStatus.NotLoad;
+        }
+
+        private void InitializeTimer()
+        {
+            if (_progressTimer == null)
+            {
+                _progressTimer = new DispatcherTimer();
+                _progressTimer.Interval = TimeSpan.FromSeconds(5);
+                _progressTimer.Tick += OnProgressTimerTickAsync;
+            }
+
+            if (_heartBeatTimer == null)
+            {
+                _heartBeatTimer = new DispatcherTimer();
+                _heartBeatTimer.Interval = TimeSpan.FromSeconds(25);
+                _heartBeatTimer.Tick += OnHeartBeatTimerTickAsync;
+            }
+
+            if (_subtitleTimer == null)
+            {
+                _subtitleTimer = new DispatcherTimer();
+                _subtitleTimer.Interval = TimeSpan.FromSeconds(0.5);
+                _subtitleTimer.Tick += OnSubtitleTimerTickAsync;
+            }
+        }
+
+        private string GetPreferCodecId()
+        {
+            var id = "avc";
+            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
+            switch (preferCodec)
+            {
+                case PreferCodec.H265:
+                    id = "hev";
+                    break;
+                case PreferCodec.Av1:
+                    id = "av01";
+                    break;
+                default:
+                    break;
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// 在切换片源时记录当前已播放的进度，以便在切换后重新定位.
+        /// </summary>
+        private void MarkProgressBreakpoint()
+        {
+            if (_mediaPlayer != null && _mediaPlayer.PlaybackSession != null)
+            {
+                var progress = _mediaPlayer.PlaybackSession.Position;
+                if (progress.TotalSeconds > 1)
+                {
+                    _initializeProgress = progress;
+                }
+            }
         }
 
         private async void OnMediaPlayerVolumeChangedAsync(MediaPlayer sender, object args)
@@ -139,5 +235,11 @@ namespace Bili.ViewModels.Uwp.Core
                 session.PlaybackRate = PlaybackRate;
             }
         }
+
+        private void OnSubtitleTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+
+        private void OnHeartBeatTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+
+        private void OnProgressTimerTickAsync(object sender, object e) => throw new NotImplementedException();
     }
 }
