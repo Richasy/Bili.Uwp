@@ -100,18 +100,6 @@
                     x:Name="ViewLaterVideoView"
                     x:Load="{x:Bind ViewModel.IsShowViewLater, Mode=OneWay}"
                     Visibility="Collapsed" />
-                <related:UgcEpisodeView
-                    x:Name="UgcEpisodeView"
-                    x:Load="{x:Bind ViewModel.IsShowUgcSection, Mode=OneWay}"
-                    Visibility="Collapsed" />
-                <related:RelatedVideoView
-                    x:Name="RelatedVideoView"
-                    x:Load="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}"
-                    Visibility="Collapsed" />
-                <related:VideoPartView
-                    x:Name="VideoPartView"
-                    x:Load="{x:Bind ViewModel.IsShowParts, Mode=OneWay}"
-                    Visibility="Collapsed" />
                 <related:EpisodeView
                     x:Name="EpisodeView"
                     x:Load="{x:Bind ViewModel.IsShowEpisode, Mode=OneWay}"

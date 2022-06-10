@@ -52,6 +52,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IFavoriteAdapter, FavoriteAdapter>();
             SplatRegistrations.RegisterLazySingleton<IDynamicAdapter, DynamicAdapter>();
             SplatRegistrations.RegisterLazySingleton<ICommentAdapter, CommentAdapter>();
+            SplatRegistrations.RegisterLazySingleton<IPlayerAdapter, PlayerAdapter>();
 
             SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
             SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
@@ -111,6 +112,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<AvBvConverterViewModel>();
             SplatRegistrations.RegisterLazySingleton<CoverDownloaderViewModel>();
+            SplatRegistrations.RegisterLazySingleton<VideoPlayerPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
@@ -125,6 +127,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<DynamicItemViewModel>();
             SplatRegistrations.Register<CommentItemViewModel>();
             SplatRegistrations.Register<ToolboxItemViewModel>();
+            SplatRegistrations.Register<MediaPlayerViewModel>();
             SplatRegistrations.SetupIOC();
         }
 

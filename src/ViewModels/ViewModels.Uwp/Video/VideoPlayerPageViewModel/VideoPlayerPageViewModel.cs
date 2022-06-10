@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -32,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Video
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
+            ISettingsToolkit settingsToolkit,
             AppViewModel appViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
@@ -45,12 +46,13 @@ namespace Bili.ViewModels.Uwp.Video
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
+            _settingsToolkit = settingsToolkit;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
-            _playerViewModel = playerViewModel;
             _dispatcher = dispatcher;
+            MediaPlayerViewModel = playerViewModel;
 
             Collaborators = new ObservableCollection<UserItemViewModel>();
             Tags = new ObservableCollection<Tag>();
@@ -73,6 +75,8 @@ namespace Bili.ViewModels.Uwp.Video
             CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
             LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
+            FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
             _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
@@ -80,19 +84,24 @@ namespace Bili.ViewModels.Uwp.Video
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
 
-            this.WhenAnyValue(p => CurrentSection)
+            this.WhenAnyValue(p => p.CurrentSection)
                 .WhereNotNull()
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ => CheckSectionVisibility());
+
+            this.WhenAnyValue(p => p.IsOnlyShowIndex)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsOnlyShowIndex, isShow));
         }
 
         /// <summary>
         /// 设置视频 Id.
         /// </summary>
-        /// <param name="videoId">视频 Id.</param>
-        public void SetViedoId(string videoId)
+        /// <param name="snapshot">视频 Id.</param>
+        public void SetSnapshot(PlaySnapshot snapshot)
         {
-            _presetVideoId = videoId;
+            _presetVideoId = snapshot.VideoId;
+            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
             ReloadCommand.Execute().Subscribe();
         }
 
@@ -119,10 +128,7 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeInterop();
             InitializeSections();
 
-            _playerViewModel.SetData(View, Models.Enums.VideoType.Video);
+            MediaPlayerViewModel.SetData(View, Models.Enums.VideoType.Video);
         }
-
-        private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
-            => IsSignedIn = e.NewState == Models.Enums.AuthorizeState.SignedIn;
     }
 }

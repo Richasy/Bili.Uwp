@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
-using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using CommandLine;
 using Microsoft.QueryStringDotNET;
@@ -33,10 +33,10 @@ namespace Bili.ViewModels.Uwp.Core
                 .MapResult(
                     async (CommandLineViewModel vm) =>
                         {
-                            CurrentPlayingRecord record = null;
+                            PlaySnapshot record = null;
                             if (!string.IsNullOrEmpty(vm.VideoId))
                             {
-                                record = new CurrentPlayingRecord(vm.VideoId, 0, VideoType.Video);
+                                record = new PlaySnapshot(vm.VideoId, default, VideoType.Video);
                             }
                             else if (!string.IsNullOrEmpty(vm.SeasonId))
                             {
@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Core
 
                                 if (seasonResult)
                                 {
-                                    record = new CurrentPlayingRecord("0", seasonId, VideoType.Pgc);
+                                    record = new PlaySnapshot("0", seasonId.ToString(), VideoType.Pgc);
                                     if (!string.IsNullOrEmpty(vm.EpisodeId))
                                     {
                                         if (int.TryParse(vm.EpisodeId.Replace("ep", string.Empty), out var episodeId))
@@ -58,12 +58,12 @@ namespace Bili.ViewModels.Uwp.Core
                             {
                                 if (int.TryParse(vm.EpisodeId.Replace("ep", string.Empty), out var episodeId))
                                 {
-                                    record = new CurrentPlayingRecord(episodeId.ToString(), 0, VideoType.Pgc);
+                                    record = new PlaySnapshot(episodeId.ToString(), default, VideoType.Pgc);
                                 }
                             }
                             else if (!string.IsNullOrEmpty(vm.LiveId))
                             {
-                                record = new CurrentPlayingRecord(vm.LiveId, 0, VideoType.Live);
+                                record = new PlaySnapshot(vm.LiveId, default, VideoType.Live);
                             }
                             else if (!string.IsNullOrEmpty(vm.SearchWord))
                             {
@@ -135,7 +135,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <returns><see cref="Task"/>.</returns>
         public async Task InitializeProtocolFromQueryAsync(Uri link)
         {
-            CurrentPlayingRecord record = null;
+            PlaySnapshot record = null;
             var queryList = QueryString.Parse(link.Query.TrimStart('?'));
             if (link.Host.Equals(AppConstants.Protocol.PlayHost, StringComparison.OrdinalIgnoreCase))
             {
@@ -146,7 +146,7 @@ namespace Bili.ViewModels.Uwp.Core
 
                 if (hasVideoId)
                 {
-                    record = new CurrentPlayingRecord(videoId, 0, VideoType.Video);
+                    record = new PlaySnapshot(videoId, default, VideoType.Video);
                     var hasPgcSign = queryList.TryGetValue(AppConstants.Protocol.IsPgcParam, out var isPgc);
                     if (hasPgcSign && Convert.ToBoolean(isPgc))
                     {
@@ -159,7 +159,7 @@ namespace Bili.ViewModels.Uwp.Core
                     var seasonResult = int.TryParse(seasonId.Replace("ss", string.Empty), out var seasonIdNum);
                     if (seasonResult)
                     {
-                        record = new CurrentPlayingRecord("0", seasonIdNum, VideoType.Pgc);
+                        record = new PlaySnapshot(default, seasonIdNum.ToString(), VideoType.Pgc);
                         if (hasEpisodeId)
                         {
                             if (int.TryParse(episodeId.Replace("ep", string.Empty), out var episodeIdNum))
@@ -173,12 +173,12 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     if (int.TryParse(episodeId.Replace("ep", string.Empty), out var episodeIdNum))
                     {
-                        record = new CurrentPlayingRecord(episodeIdNum.ToString(), 0, VideoType.Pgc);
+                        record = new PlaySnapshot(episodeIdNum.ToString(), default, VideoType.Pgc);
                     }
                 }
                 else if (hasLiveId)
                 {
-                    record = new CurrentPlayingRecord(liveId, 0, VideoType.Live);
+                    record = new PlaySnapshot(liveId, default, VideoType.Live);
                 }
             }
             else if (link.Host.Equals(AppConstants.Protocol.FindHost, StringComparison.OrdinalIgnoreCase))

@@ -215,9 +215,11 @@ namespace Bili.Adapter
             var cover = _imageAdapter.ConvertToVideoCardCover(relatedVideo.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(relatedVideo.Stat);
             var identifier = new VideoIdentifier(id, title, duration, cover);
+            var subtitle = relatedVideo.Badge ?? relatedVideo.RcmdReason ?? relatedVideo.TagName ?? "视频";
             return new VideoInformation(
                 identifier,
                 publisher,
+                subtitle: subtitle,
                 description: description,
                 communityInformation: communityInfo);
         }
@@ -345,17 +347,20 @@ namespace Bili.Adapter
             var sections = GetVideoSectionsFromViewReply(videoDetail);
             var history = GetHistoryFromViewReply(videoDetail);
 
-            if (subVideos.Count() > 0)
+            if (history != null)
             {
-                var historyVideo = subVideos.FirstOrDefault(p => p.Id.Equals(history.Identifier.Id));
-                history.Identifier = historyVideo;
-            }
-            else if (sections.Count() > 0)
-            {
-                history.Identifier = sections
-                    .SelectMany(p => p.Videos)
-                    .FirstOrDefault(p => p.AlternateId == history.Identifier.Id)
-                    .Identifier;
+                if (subVideos.Count() > 0)
+                {
+                    var historyVideo = subVideos.FirstOrDefault(p => p.Id.Equals(history.Identifier.Id));
+                    history.Identifier = historyVideo;
+                }
+                else if (sections.Count() > 0)
+                {
+                    history.Identifier = sections
+                        .SelectMany(p => p.Videos)
+                        .FirstOrDefault(p => p.AlternateId == history.Identifier.Id)
+                        .Identifier;
+                }
             }
 
             var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
@@ -472,6 +477,11 @@ namespace Bili.Adapter
         private InteractionVideoRecord GetInteractionRecordFromViewReply(ViewReply videoDetail)
         {
             var interaction = videoDetail.Interaction;
+            if (interaction == null)
+            {
+                return null;
+            }
+
             var partId = interaction.HistoryNode != null
                     ? interaction.HistoryNode.Cid.ToString()
                     : videoDetail.Pages.First().Page.Cid.ToString();

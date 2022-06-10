@@ -1,23 +1,18 @@
-﻿<controls:PlayerComponent
-    x:Class="Bili.App.Controls.Player.Related.UgcEpisodeView"
+﻿<local:UgcSeasonViewBase
+    x:Class="Bili.App.Controls.Player.UgcSeasonView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
-    xmlns:local="using:Bili.App.Controls.Player.Related"
+    xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
-    xmlns:v1="using:Bilibili.App.View.V1"
+    xmlns:video="using:Bili.Models.Data.Video"
+    xmlns:video1="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
-
-    <controls:PlayerComponent.Resources>
-        <converter:UgcEpisodeConverter x:Key="EpisodeConverter" />
-    </controls:PlayerComponent.Resources>
 
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
@@ -26,13 +21,13 @@
         </Grid.RowDefinitions>
         <Grid ColumnSpacing="8">
             <ComboBox
-                x:Name="SectionComboBox"
+                x:Name="SeasonComboBox"
                 HorizontalAlignment="Stretch"
-                ItemsSource="{x:Bind ViewModel.UgcSectionCollection}"
-                SelectedItem="{x:Bind ViewModel.CurrentUgcSection, Mode=OneWay}"
-                SelectionChanged="OnSectionComboBoxSelectionChanged">
+                ItemsSource="{x:Bind ViewModel.Seasons}"
+                SelectedItem="{x:Bind ViewModel.CurrentSeason, Mode=OneWay}"
+                SelectionChanged="OnSeasonComboBoxSelectionChanged">
                 <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="v1:Section">
+                    <DataTemplate x:DataType="video:VideoSeason">
                         <TextBlock Text="{x:Bind Title}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -42,27 +37,20 @@
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Hidden"
-            VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
+            VerticalScrollMode="Auto">
             <Grid>
                 <controls:VerticalRepeaterView
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.UgcEpisodeCollection}"
-                    Loaded="OnLoadedAsync">
+                    ItemsSource="{x:Bind ViewModel.CurrentSeasonVideos}">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:VideoViewModel">
-                            <controls:VideoCard
-                                MaxHeight="120"
-                                HorizontalCoverWidth="120"
-                                IsShowAvatar="False"
-                                IsShowDanmakuCount="True"
-                                IsShowPlayCount="True"
-                                ViewModel="{x:Bind}" />
+                        <DataTemplate x:DataType="video1:VideoItemViewModel">
+                            <videos:VideoItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>
             </Grid>
         </ScrollViewer>
     </Grid>
-</controls:PlayerComponent>
+</local:UgcSeasonViewBase>

@@ -104,7 +104,7 @@ namespace Bili.ViewModels.Uwp.Core
             var codecId = GetPreferCodecId();
             if (_mediaInformation.VideoSegments != null)
             {
-                var filteredSegments = _mediaInformation.VideoSegments.Where(p => p.Id == CurrentFormat.Quality.ToString());
+                var filteredSegments = _mediaInformation.VideoSegments.Where(p => p.Id == format.Quality.ToString());
                 if (!filteredSegments.Any())
                 {
                     var maxQuality = _mediaInformation.VideoSegments.Max(p => Convert.ToInt32(p.Id));

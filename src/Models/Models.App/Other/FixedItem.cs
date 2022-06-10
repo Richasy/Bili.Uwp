@@ -10,6 +10,32 @@ namespace Bili.Models.App
     public class FixedItem
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FixedItem"/> class.
+        /// </summary>
+        public FixedItem()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FixedItem"/> class.
+        /// </summary>
+        /// <param name="cover">封面或头像.</param>
+        /// <param name="title">标题.</param>
+        /// <param name="id">标识符.</param>
+        /// <param name="type">固定内容的类型.</param>
+        public FixedItem(
+            string cover,
+            string title,
+            string id,
+            FixedType type)
+        {
+            Cover = cover;
+            Title = title;
+            Id = id;
+            Type = type;
+        }
+
+        /// <summary>
         /// 封面.
         /// </summary>
         public string Cover { get; set; }

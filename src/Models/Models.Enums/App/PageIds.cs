@@ -153,8 +153,18 @@ namespace Bili.Models.Enums
         LivePartitionDetail = 205,
 
         /// <summary>
-        /// 播放界面.
+        /// 视频播放界面.
         /// </summary>
-        Player = 1001,
+        VideoPlayer = 1001,
+
+        /// <summary>
+        /// PGC内容播放界面.
+        /// </summary>
+        PgcPlayer = 1002,
+
+        /// <summary>
+        /// 直播播放界面.
+        /// </summary>
+        LivePlayer = 1003,
     }
 }

@@ -141,7 +141,8 @@ namespace Bili.App.Pages.Desktop
             }
             else if (e.Type == NavigationType.Player)
             {
-                PlayerFrame.Navigate(typeof(PlayerPage), e.Parameter);
+                var type = GetPlayerViewType(e.PageId);
+                PlayerFrame.Navigate(type, e.Parameter);
             }
             else if (e.Type == NavigationType.Main && SecondaryFrame.Content is AppPage)
             {
@@ -256,6 +257,17 @@ namespace Bili.App.Pages.Desktop
                 PageIds.LivePartition => typeof(LivePartitionPage),
                 PageIds.LivePartitionDetail => typeof(LivePartitionDetailPage),
                 PageIds.MyFollows => typeof(MyFollowsPage),
+                _ => typeof(Page)
+            };
+
+            return pageType;
+        }
+
+        private Type GetPlayerViewType(PageIds pageId)
+        {
+            var pageType = pageId switch
+            {
+                PageIds.VideoPlayer => typeof(VideoPlayerPage),
                 _ => typeof(Page)
             };
 

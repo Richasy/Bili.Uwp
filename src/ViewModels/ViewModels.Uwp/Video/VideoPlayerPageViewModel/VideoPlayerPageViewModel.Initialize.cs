@@ -35,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Video
                 userVM.Relation = View.PublisherCommunityInformation.Relation;
                 userVM.IsRelationButtonShown = !string.IsNullOrEmpty(myId)
                     && myId != View.Information.Publisher.User.Id;
+                Author = userVM;
             }
         }
 
@@ -73,6 +74,7 @@ namespace Bili.ViewModels.Uwp.Video
         private void InitializeInterop()
         {
             // TODO: 初始化下载内容.
+            IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
             var fixedItems = _accountViewModel.FixedItemCollection;
             IsVideoFixed = fixedItems.Any(p => p.Type == Models.Enums.App.FixedType.Video && p.Id == View.Information.Identifier.Id);
         }
@@ -92,8 +94,13 @@ namespace Bili.ViewModels.Uwp.Video
                     Sections.Add(new PlayerSectionHeader(PlayerSectionType.VideoParts, _resourceToolkit.GetLocaleString(LanguageNames.Parts)));
                 }
 
-                CurrentVideoPart = View.SubVideos.First();
-                View.SubVideos.ToList().ForEach(p => VideoParts.Add(new VideoIdentifierSelectableViewModel(p, p.Equals(CurrentVideoPart))));
+                var subVideos = View.SubVideos.ToList();
+                CurrentVideoPart = subVideos.First();
+                for (var i = 0; i < subVideos.Count; i++)
+                {
+                    var item = subVideos[i];
+                    VideoParts.Add(new VideoIdentifierSelectableViewModel(item, i + 1, item.Equals(CurrentVideoPart)));
+                }
             }
 
             if (hasSeason)

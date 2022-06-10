@@ -123,7 +123,8 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<IResourceToolkit, ResourceToolkit>()
                 .AddSingleton<ISettingsToolkit, SettingsToolkit>()
                 .AddSingleton<IMD5Toolkit, MD5Toolkit>()
-                .AddSingleton<IFontToolkit, FontToolkit>();
+                .AddSingleton<IFontToolkit, FontToolkit>()
+                .AddSingleton<IVideoToolkit, VideoToolkit>();
 
             serviceCollection
                 .AddSingleton<IImageAdapter, ImageAdapter>()
@@ -136,6 +137,7 @@ namespace Bili.Controller.Uwp
                 .AddSingleton<ISearchAdapter, SearchAdapter>()
                 .AddSingleton<IDynamicAdapter, DynamicAdapter>()
                 .AddSingleton<IFavoriteAdapter, FavoriteAdapter>()
+                .AddSingleton<IPlayerAdapter, PlayerAdapter>()
                 .AddSingleton<ICommentAdapter, CommentAdapter>();
 
             serviceCollection

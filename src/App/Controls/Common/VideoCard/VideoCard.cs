@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Foundation;
@@ -107,11 +106,6 @@ namespace Bili.App.Controls
 
         private void OnContainerClickAsync(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.IsSelected)
-            {
-                Splat.Locator.Current.GetService<NavigationViewModel>().NavigateToPlayView(ViewModel);
-            }
-
             ItemClick?.Invoke(this, ViewModel);
         }
 

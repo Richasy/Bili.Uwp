@@ -44,6 +44,7 @@
     <Compile Include="Controls\App\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\PlayerPagePanel\PlayerPagePanel.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredLayoutState.cs" />
@@ -109,8 +110,8 @@
       <DependentUpon>NotificationSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\PlayerTip\PlayerTip.cs" />
-    <Compile Include="Controls\Player\Related\UgcEpisodeView.xaml.cs">
-      <DependentUpon>UgcEpisodeView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\UgcSeasonView.xaml.cs">
+      <DependentUpon>UgcSeasonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
       <DependentUpon>ViewLaterView.xaml</DependentUpon>
@@ -238,13 +239,13 @@
     <Compile Include="Controls\Player\Related\PgcSectionView.xaml.cs">
       <DependentUpon>PgcSectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\RelatedVideoView.xaml.cs">
+    <Compile Include="Controls\Player\RelatedVideoView.xaml.cs">
       <DependentUpon>RelatedVideoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\Related\SeasonView.xaml.cs">
       <DependentUpon>SeasonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\VideoPartView.xaml.cs">
+    <Compile Include="Controls\Player\VideoPartView.xaml.cs">
       <DependentUpon>VideoPartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Search\SearchSuggestBox.xaml.cs">
@@ -371,6 +372,9 @@
     <Compile Include="Pages\Desktop\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Desktop\Overlay\VideoPlayerPage.xaml.cs">
+      <DependentUpon>VideoPlayerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Desktop\PopularPage.xaml.cs">
       <DependentUpon>PopularPage.xaml</DependentUpon>
     </Compile>
@@ -419,6 +423,7 @@
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
+    <Compile Include="Resources\Converter\FixedContentConverter.cs" />
     <Compile Include="Resources\Converter\NumberToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\PgcFavoriteStatusConverter.cs" />
     <Compile Include="Resources\Converter\PgcFollowTextConverter.cs" />
@@ -566,6 +571,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Player\PlayerPagePanel\PlayerPagePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\App\TipPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -678,7 +687,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\UgcEpisodeView.xaml">
+    <Page Include="Controls\Player\UgcSeasonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -854,7 +863,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\RelatedVideoView.xaml">
+    <Page Include="Controls\Player\RelatedVideoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -862,7 +871,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\VideoPartView.xaml">
+    <Page Include="Controls\Player\VideoPartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1023,6 +1032,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\HelpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Desktop\Overlay\VideoPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

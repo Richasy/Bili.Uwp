@@ -88,15 +88,7 @@ namespace Bili.ViewModels.Uwp.Core
         public async Task TripleAsync()
         {
             var aid = GetAid();
-            var result = await Controller.TripleAsync(aid);
-
-            if (result != null)
-            {
-                IsLikeChecked = result.IsLike;
-                IsCoinChecked = result.IsCoin;
-                IsFavoriteChecked = result.IsFavorite;
-                await InitVideoStatusAsync();
-            }
+            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -107,7 +99,8 @@ namespace Bili.ViewModels.Uwp.Core
         {
             var isLike = !IsLikeChecked;
             var aid = GetAid();
-            var isSuccess = await Controller.LikeVideoAsync(aid, isLike);
+            var isSuccess = true;
+            await Task.CompletedTask;
 
             if (isSuccess)
             {
@@ -125,17 +118,7 @@ namespace Bili.ViewModels.Uwp.Core
         public async Task CoinAsync(int number, bool isAlsoLike)
         {
             var aid = GetAid();
-            var result = await Controller.CoinVideoAsync(aid, number, isAlsoLike);
-            if (result != null)
-            {
-                IsCoinChecked = true;
-                if (result.IsAlsoLike)
-                {
-                    IsLikeChecked = true;
-                }
-
-                await InitVideoStatusAsync();
-            }
+            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -149,18 +132,7 @@ namespace Bili.ViewModels.Uwp.Core
             var aid = GetAid();
             var selectedIds = FavoriteMetaCollection.Where(p => p.IsSelected).Select(p => p.Data.Id).ToList();
             var deselectedIds = FavoriteMetaCollection.Where(p => !p.IsSelected).Select(p => p.Data.Id).ToList();
-            var result = await Controller.FavoriteVideoAsync(aid, selectedIds, deselectedIds);
-
-            switch (result)
-            {
-                case Models.Enums.Bili.FavoriteResult.Success:
-                case Models.Enums.Bili.FavoriteResult.InsufficientAccess:
-                    IsFavoriteChecked = selectedIds.Count > 0;
-                    await InitVideoStatusAsync();
-                    break;
-                default:
-                    break;
-            }
+            await Task.CompletedTask;
         }
 
         /// <summary>

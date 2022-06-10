@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using Bili.Models.App.Args;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using ReactiveUI;
@@ -66,8 +67,7 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 < 100 => NavigationType.Main,
                 < 1000 => NavigationType.Secondary,
-                1001 => NavigationType.Player,
-                _ => throw new ArgumentOutOfRangeException(nameof(pageId))
+                _ => NavigationType.Player,
             };
 
             switch (type)
@@ -79,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Core
                     NavigateToSecondaryView(pageId, parameter);
                     break;
                 case NavigationType.Player:
-                    NavigateToPlayView(parameter);
+                    NavigateToPlayView((PlaySnapshot)parameter);
                     break;
                 default:
                     break;
@@ -131,18 +131,49 @@ namespace Bili.ViewModels.Uwp.Core
         /// 导航到播放页，传入播放参数.
         /// </summary>
         /// <param name="parameter">播放参数.</param>
-        public void NavigateToPlayView(object parameter)
+        public void NavigateToPlayView(PlaySnapshot parameter)
         {
             IsPlayViewShown = true;
             CloseAllPopup();
             RemoveBackStack(BackBehavior.OpenPlayer);
-            var args = new AppNavigationEventArgs(NavigationType.Player, PageIds.Player, parameter);
+            var pageId = GetPageIdFromPlaySnapshot(parameter);
+            var args = new AppNavigationEventArgs(NavigationType.Player, pageId, parameter);
             AddBackStack(
                     BackBehavior.OpenPlayer,
                     _ =>
                     {
                         TryLayerBack();
-                        ExitPlayer?.Invoke(this, EventArgs.Empty);
+                        var last = _backStack.Last();
+                        if (last.Id != BackBehavior.OpenPlayer)
+                        {
+                            ExitPlayer?.Invoke(this, EventArgs.Empty);
+                        }
+                    },
+                    null);
+            Navigating?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// 导航到播放页，传入播放参数.
+        /// </summary>
+        /// <param name="parameters">播放参数.</param>
+        public void NavigateToPlayView(IEnumerable<PlaySnapshot> parameters)
+        {
+            IsPlayViewShown = true;
+            CloseAllPopup();
+            RemoveBackStack(BackBehavior.OpenPlayer);
+            var pageId = PageIds.VideoPlayer;
+            var args = new AppNavigationEventArgs(NavigationType.Player, pageId, parameters);
+            AddBackStack(
+                    BackBehavior.OpenPlayer,
+                    _ =>
+                    {
+                        TryLayerBack();
+                        var last = _backStack.Last();
+                        if (last.Id != BackBehavior.OpenPlayer)
+                        {
+                            ExitPlayer?.Invoke(this, EventArgs.Empty);
+                        }
                     },
                     null);
             Navigating?.Invoke(this, args);
@@ -212,7 +243,10 @@ namespace Bili.ViewModels.Uwp.Core
             }
             else if (last.Id == BackBehavior.OpenPlayer)
             {
-                NavigateToPlayView(last.Parameter);
+                if (last.Parameter is PlaySnapshot shot)
+                {
+                    NavigateToPlayView(shot);
+                }
             }
         }
 
@@ -230,6 +264,18 @@ namespace Bili.ViewModels.Uwp.Core
             IsBackButtonEnabled = CanBack
                 && _backStack.Last().Id != BackBehavior.ShowHolder
                 && _backStack.Last().Id != BackBehavior.PlayerModeChange;
+        }
+
+        private PageIds GetPageIdFromPlaySnapshot(PlaySnapshot shot)
+        {
+            var pageId = shot.VideoType switch
+            {
+                VideoType.Video => PageIds.VideoPlayer,
+                VideoType.Pgc => PageIds.PgcPlayer,
+                _ => PageIds.LivePlayer,
+            };
+
+            return pageId;
         }
     }
 }

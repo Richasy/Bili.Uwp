@@ -7,6 +7,7 @@ using Bili.App.Resources.Extension;
 using Bili.Models.App;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
@@ -157,25 +158,25 @@ namespace Bili.App.Controls
 
         private void OnFixedItemClick(object sender, RoutedEventArgs e)
         {
-            var context = (sender as FrameworkElement).DataContext as FixedItem;
-            object playRecord = null;
+            var context = (sender as FrameworkElement).DataContext as Models.Data.Local.FixedItem;
+            PlaySnapshot playRecord = null;
             switch (context.Type)
             {
                 case Models.Enums.App.FixedType.Publisher:
                     new UserSpaceView().Show(context.Id);
                     break;
                 case Models.Enums.App.FixedType.Pgc:
-                    playRecord = new CurrentPlayingRecord("0", Convert.ToInt32(context.Id), VideoType.Pgc)
+                    playRecord = new PlaySnapshot("0", context.Id, VideoType.Pgc)
                     {
                         Title = context.Title,
                     };
                     break;
                 case Models.Enums.App.FixedType.Video:
-                    playRecord = new CurrentPlayingRecord(context.Id, 0, VideoType.Video);
+                    playRecord = new PlaySnapshot(context.Id, "0", VideoType.Video);
                     break;
 
                 case Models.Enums.App.FixedType.Live:
-                    playRecord = new CurrentPlayingRecord(context.Id, 0, VideoType.Live);
+                    playRecord = new PlaySnapshot(context.Id, "0", VideoType.Live);
                     break;
                 default:
                     break;

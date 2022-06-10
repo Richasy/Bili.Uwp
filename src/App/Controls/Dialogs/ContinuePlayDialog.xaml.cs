@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Locator.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
@@ -15,7 +17,8 @@ namespace Bili.App.Controls.Dialogs
     public sealed partial class ContinuePlayDialog : ContentDialog
     {
         private readonly NavigationViewModel _navigationViewModel;
-        private object _playVM = null;
+        private readonly AppViewModel _appViewModel;
+        private PlaySnapshot _snapshot = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContinuePlayDialog"/> class.
@@ -24,18 +27,20 @@ namespace Bili.App.Controls.Dialogs
         {
             InitializeComponent();
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             Loaded += OnLoadedAsync;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            var tool = ServiceLocator.Instance.GetService<ISettingsToolkit>();
-            var title = tool.ReadLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle, string.Empty);
-            _playVM = await PlayerViewModel.Instance.GetInitViewModelFromLocalAsync();
-            if (string.IsNullOrEmpty(title) || _playVM == null)
+            var settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
+            var fileToolkit = Splat.Locator.Current.GetService<IFileToolkit>();
+            var title = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle, string.Empty);
+            _snapshot = await _appViewModel.GetLastPlayItemAsync();
+            if (string.IsNullOrEmpty(title) || _snapshot == null)
             {
-                tool.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
-                tool.DeleteLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle);
+                settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
+                settingsToolkit.DeleteLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle);
                 Hide();
             }
 
@@ -43,13 +48,9 @@ namespace Bili.App.Controls.Dialogs
         }
 
         private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            _navigationViewModel.NavigateToPlayView(_playVM);
-        }
+            => _navigationViewModel.NavigateToPlayView(_snapshot);
 
         private async void OnContentDialogCloseButtonClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            await PlayerViewModel.Instance.ClearInitViewModelAsync();
-        }
+            => await _appViewModel.DeleteLastPlayItemAsync();
     }
 }

@@ -3,7 +3,6 @@
 using System;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
-using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -21,7 +20,8 @@ namespace Bili.ViewModels.Uwp.Core
     public partial class AppViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly ISettingsToolkit _settingToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IFileToolkit _fileToolkit;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly BiliController _controller;
         private readonly NetworkHelper _networkHelper;

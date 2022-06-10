@@ -118,8 +118,6 @@ namespace Bili.App.Controls
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            ItemClick?.Invoke(this, ViewModel);
-            _navigationViewModel.NavigateToPlayView(ViewModel);
         }
 
         private void CheckOrientation()

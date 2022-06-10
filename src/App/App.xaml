@@ -54,6 +54,7 @@
             <converter:SmallImageConverter x:Key="SmallImageConverter" />
             <converter:RelationTextConverter x:Key="RelationTextConverter" />
             <converter:RelationButtonStyleConverter x:Key="RelationButtonStyleConverter" />
+            <converter:FixedContentConverter x:Key="FixedContentConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

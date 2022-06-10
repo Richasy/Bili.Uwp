@@ -20,6 +20,9 @@ namespace Bili.App.Controls.Videos
         public static readonly DependencyProperty IsDynamicProperty =
             DependencyProperty.Register(nameof(IsDynamic), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
+        public static readonly DependencyProperty IsCustomProperty =
+            DependencyProperty.Register(nameof(IsCustom), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
         /// </summary>
@@ -35,12 +38,26 @@ namespace Bili.App.Controls.Videos
             set { SetValue(IsDynamicProperty, value); }
         }
 
+        /// <summary>
+        /// 是否为自定义样式，设置该值后，卡片将不能根据 <see cref="Orientation"/> 自动切换样式
+        /// </summary>
+        public bool IsCustom
+        {
+            get { return (bool)GetValue(IsCustomProperty); }
+            set { SetValue(IsCustomProperty, value); }
+        }
+
         /// <inheritdoc/>
         public Size GetHolderSize() => new (210, 248);
 
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
         {
+            if (IsCustom)
+            {
+                return;
+            }
+
             var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? IsDynamic ? resourceToolkit.GetResource<Style>("HorizontalDynamicVideoItemStyle") : resourceToolkit.GetResource<Style>("HorizontalVideoItemStyle")

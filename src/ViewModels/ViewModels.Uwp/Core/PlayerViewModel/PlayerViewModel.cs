@@ -433,7 +433,7 @@ namespace Bili.ViewModels.Uwp.Core
             try
             {
                 IsPlayInformationLoading = true;
-                var play = await Controller.GetVideoPlayInformationAsync(_videoId, id);
+                PlayerInformation play = null;
                 if (play != null)
                 {
                     _playerInformation = play;
@@ -479,7 +479,7 @@ namespace Bili.ViewModels.Uwp.Core
                 await InitializeVideoPlayInformationAsync(_playerInformation);
                 await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, id);
                 await InitializeSubtitleIndexAsync();
-                ViewerCount = await Controller.GetOnlineViewerCountAsync(Convert.ToInt32(_videoDetail.Arc.Aid), Convert.ToInt32(id));
+                ViewerCount = string.Empty;
             }
         }
 
@@ -535,7 +535,7 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 IsPlayInformationLoading = true;
                 var proxyPack = GetProxyAndArea(_pgcDetail?.Title, true);
-                var play = await Controller.GetPgcPlayInformationAsync(CurrentPgcEpisode.PartId, CurrentPgcEpisode.Id, Convert.ToInt32(CurrentPgcEpisode.Report.SeasonType), proxyPack.Item1, proxyPack.Item2);
+                PlayerInformation play = null;
                 if (play != null && play.VideoInformation != null)
                 {
                     _playerInformation = play;
@@ -564,7 +564,6 @@ namespace Bili.ViewModels.Uwp.Core
 
             try
             {
-                ViewerCount = await Controller.GetOnlineViewerCountAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
                 var interaction = await Controller.GetPgcEpisodeInteractionAsync(CurrentPgcEpisode.Id);
                 IsLikeChecked = interaction.IsLike != 0;
                 IsCoinChecked = interaction.CoinNumber > 0;
@@ -840,29 +839,11 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     // 延迟1s以等待数据同步.
                     await Task.Delay(500);
-                    var info = await Controller.GetVideoStatusAsync(_videoId);
-                    LikeCount = _numberToolkit.GetCountText(info.LikeCount);
-                    CoinCount = _numberToolkit.GetCountText(info.CoinCount);
-                    FavoriteCount = _numberToolkit.GetCountText(info.FavoriteCount);
-                    DanmakuCount = _numberToolkit.GetCountText(info.DanmakuCount);
-                    PlayCount = _numberToolkit.GetCountText(info.PlayCount);
-                    ReplyCount = _numberToolkit.GetCountText(info.ReplyCount);
-                    ShareCount = _numberToolkit.GetCountText(info.ShareCount);
                 }
                 catch (Exception)
                 {
                 }
             }
-        }
-
-        /// <summary>
-        /// 获取本地的初始化视图模型.
-        /// </summary>
-        /// <returns>视图模型.</returns>
-        public async Task<object> GetInitViewModelFromLocalAsync()
-        {
-            var data = await _fileToolkit.ReadLocalDataAsync<CurrentPlayingRecord>(AppConstants.LastOpenVideoFileName);
-            return data;
         }
 
         /// <summary>

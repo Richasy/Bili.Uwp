@@ -8,6 +8,7 @@ using Bili.Models.App.Args;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Dynamic;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.Community;
@@ -118,11 +119,13 @@ namespace Bili.ViewModels.Uwp.Community
 
             if (data is VideoInformation video)
             {
-                _navigationViewModel.NavigateToPlayView(video);
+                var playSnapshot = new PlaySnapshot(video.Identifier.Id, "0", Models.Enums.VideoType.Video);
+                _navigationViewModel.NavigateToPlayView(playSnapshot);
             }
             else if (data is EpisodeInformation episode)
             {
-                _navigationViewModel.NavigateToPlayView(episode);
+                var playSnapshot = new PlaySnapshot(episode.Identifier.Id, episode.SeasonId, Models.Enums.VideoType.Pgc);
+                _navigationViewModel.NavigateToPlayView(playSnapshot);
             }
             else if (data is ArticleInformation article)
             {

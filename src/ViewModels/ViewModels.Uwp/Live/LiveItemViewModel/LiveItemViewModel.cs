@@ -41,7 +41,7 @@ namespace Bili.ViewModels.Uwp.Live
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(Information);
+            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, default, Models.Enums.VideoType.Live));
 
         private async Task OpenInBroswerAsync()
         {

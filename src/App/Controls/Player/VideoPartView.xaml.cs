@@ -1,15 +1,18 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Video;
+using ReactiveUI;
+using Splat;
 using Windows.UI.Xaml;
 
-namespace Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player
 {
     /// <summary>
     /// 视频分集.
     /// </summary>
-    public sealed partial class VideoPartView : PlayerComponent
+    public sealed partial class VideoPartView : VideoPartViewBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartView"/> class.
@@ -17,15 +20,17 @@ namespace Bili.App.Controls.Player.Related
         public VideoPartView()
         {
             InitializeComponent();
+            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+            DataContext = ViewModel;
         }
 
-        private async void OnPartItemClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnPartItemClick(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as VideoPartViewModel;
+            var data = card.DataContext as VideoIdentifierSelectableViewModel;
             if (!data.Data.Equals(ViewModel.CurrentVideoPart))
             {
-                await ViewModel.ChangeVideoPartAsync(data.Data.Page.Cid);
+                ViewModel.ChangeVideoPartCommand.Execute(data.Data).Subscribe();
             }
             else
             {
@@ -35,10 +40,10 @@ namespace Bili.App.Controls.Player.Related
 
         private void RelocateSelectedItem()
         {
-            var vm = ViewModel.VideoPartCollection.FirstOrDefault(p => p.IsSelected);
+            var vm = ViewModel.VideoParts.FirstOrDefault(p => p.IsSelected);
             if (vm != null)
             {
-                var index = ViewModel.VideoPartCollection.IndexOf(vm);
+                var index = ViewModel.VideoParts.IndexOf(vm);
                 if (index >= 0)
                 {
                     PartRepeater.ScrollToItem(index);
@@ -54,7 +59,14 @@ namespace Bili.App.Controls.Player.Related
             }
         }
 
-        private void OnPartRepeaterLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnPartRepeaterLoaded(object sender, RoutedEventArgs e)
             => RelocateSelectedItem();
+    }
+
+    /// <summary>
+    /// <see cref="VideoPartView"/> 的基类.
+    /// </summary>
+    public class VideoPartViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    {
     }
 }

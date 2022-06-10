@@ -110,9 +110,8 @@ namespace Bili.ViewModels.Uwp.Core
                 IsDetailLoading = true;
                 try
                 {
-                    _videoDetail = videoId.StartsWith("bv", StringComparison.OrdinalIgnoreCase)
-                        ? await Controller.GetVideoDetailAsync(videoId)
-                        : await Controller.GetVideoDetailAsync(Convert.ToInt64(videoId.Replace("av", string.Empty)));
+                    _videoDetail = null;
+                    await Task.CompletedTask;
                 }
                 catch (Exception ex)
                 {

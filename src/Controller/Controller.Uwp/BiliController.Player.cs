@@ -1,13 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums.App;
-using Bili.Models.Enums.Bili;
-using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 
 namespace Bili.Controller.Uwp
@@ -17,61 +14,6 @@ namespace Bili.Controller.Uwp
     /// </summary>
     public partial class BiliController
     {
-        /// <summary>
-        /// 获取视频详情信息.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <returns><see cref="ViewReply"/>.</returns>
-        public async Task<ViewReply> GetVideoDetailAsync(long videoId)
-            => await _playerProvider.GetVideoDetailAsync(videoId);
-
-        /// <summary>
-        /// 获取视频详情信息.
-        /// </summary>
-        /// <param name="videoId">视频 Bv Id.</param>
-        /// <returns><see cref="ViewReply"/>.</returns>
-        public async Task<ViewReply> GetVideoDetailAsync(string videoId)
-            => await _playerProvider.GetVideoDetailAsync(videoId.ToString());
-
-        /// <summary>
-        /// 获取在线观看人数.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <param name="cid">分P Id.</param>
-        /// <returns>观看人数.</returns>
-        public async Task<string> GetOnlineViewerCountAsync(int videoId, int cid)
-        {
-            var result = await _playerProvider.GetOnlineViewerCountAsync(videoId.ToString(), cid.ToString());
-            return result;
-        }
-
-        /// <summary>
-        /// 获取视频播放信息.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <param name="partId">分P Id.</param>
-        /// <returns>播放信息.</returns>
-        public async Task<PlayerInformation> GetVideoPlayInformationAsync(long videoId, long partId)
-        {
-            var result = await _playerProvider.GetVideoMediaInformationAsync(videoId, partId);
-            return result;
-        }
-
-        /// <summary>
-        /// 获取PGC播放信息.
-        /// </summary>
-        /// <param name="partId">分集Cid.</param>
-        /// <param name="episodeId">分集Id.</param>
-        /// <param name="seasonType">剧集类型.</param>
-        /// <param name="proxy">代理地址.</param>
-        /// <param name="area">地区.</param>
-        /// <returns>播放信息.</returns>
-        public async Task<PlayerInformation> GetPgcPlayInformationAsync(int partId, int episodeId, int seasonType, string proxy = "", string area = "")
-        {
-            var result = await _playerProvider.GetDashAsync(partId, episodeId, seasonType, proxy, area);
-            return result;
-        }
-
         /// <summary>
         /// 获取弹幕元数据.
         /// </summary>
@@ -134,71 +76,6 @@ namespace Bili.Controller.Uwp
         }
 
         /// <summary>
-        /// 点赞视频.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <param name="isLike">是否点赞.</param>
-        /// <returns>结果.</returns>
-        public async Task<bool> LikeVideoAsync(long videoId, bool isLike = true)
-        {
-            if (await _authorizeProvider.IsTokenValidAsync())
-            {
-                return await _playerProvider.LikeAsync(videoId, isLike);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 给视频投币.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <param name="coinNumber">硬币数.</param>
-        /// <param name="isAlsoLike">同时点赞视频.</param>
-        /// <returns>投币结果.</returns>
-        public async Task<CoinResult> CoinVideoAsync(long videoId, int coinNumber, bool isAlsoLike)
-        {
-            if (await _authorizeProvider.IsTokenValidAsync())
-            {
-                return await _playerProvider.CoinAsync(videoId, coinNumber, isAlsoLike);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 收藏视频.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <param name="addFavoriteListIds">要添加到的收藏夹Id列表.</param>
-        /// <param name="deleteFavoriteListIds">要移除的收藏夹Id列表.</param>
-        /// <returns>结果.</returns>
-        public async Task<FavoriteResult> FavoriteVideoAsync(long videoId, List<string> addFavoriteListIds, List<string> deleteFavoriteListIds)
-        {
-            if (await _authorizeProvider.IsTokenValidAsync())
-            {
-                return await _playerProvider.FavoriteAsync(videoId, addFavoriteListIds, deleteFavoriteListIds);
-            }
-
-            return FavoriteResult.NeedLogin;
-        }
-
-        /// <summary>
-        /// 一键三连.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <returns>三连结果.</returns>
-        public async Task<TripleResult> TripleAsync(long videoId)
-        {
-            if (await _authorizeProvider.IsTokenValidAsync())
-            {
-                return await _playerProvider.TripleAsync(videoId);
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// 发送弹幕.
         /// </summary>
         /// <param name="content">弹幕内容.</param>
@@ -238,13 +115,5 @@ namespace Bili.Controller.Uwp
         /// <returns>选区响应.</returns>
         public Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId)
             => _playerProvider.GetInteractionEdgeAsync(videoId, graphVersion, edgeId);
-
-        /// <summary>
-        /// 获取视频的参数.
-        /// </summary>
-        /// <param name="videoId">视频Id.</param>
-        /// <returns>视频参数.</returns>
-        public Task<VideoStatusInfo> GetVideoStatusAsync(long videoId)
-            => _playerProvider.GetVideoStatusAsync(videoId);
     }
 }

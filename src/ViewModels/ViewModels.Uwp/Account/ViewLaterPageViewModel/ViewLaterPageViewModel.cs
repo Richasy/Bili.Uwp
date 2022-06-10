@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
@@ -86,12 +87,18 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (Items.Count > 1)
             {
-                _navigationViewModel.NavigateToPlayView(Items.Select(p => p.Information).ToList());
+                _navigationViewModel.NavigateToPlayView(Items.Select(p => GetSnapshot(p)).ToList());
             }
             else if (Items.Count > 0)
             {
-                _navigationViewModel.NavigateToPlayView(Items.First().Information);
+                _navigationViewModel.NavigateToPlayView(GetSnapshot(Items.First()));
             }
+        }
+
+        private PlaySnapshot GetSnapshot(VideoItemViewModel vm)
+        {
+            var info = vm.Information;
+            return new PlaySnapshot(info.Identifier.Id, "0", Models.Enums.VideoType.Video);
         }
 
         private void RemoveVideo(VideoItemViewModel vm)

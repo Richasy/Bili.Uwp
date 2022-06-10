@@ -28,12 +28,14 @@ namespace Bili.ViewModels.Uwp.Core
             IPlayerProvider playerProvider,
             IResourceToolkit resourceToolkit,
             IFileToolkit fileToolkit,
+            ISettingsToolkit settingsToolkit,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
             _resourceToolkit = resourceToolkit;
             _fileToolkit = fileToolkit;
+            _settingsToolkit = settingsToolkit;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 

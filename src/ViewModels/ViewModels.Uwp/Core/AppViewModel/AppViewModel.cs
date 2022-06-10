@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Controller.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -33,7 +34,8 @@ namespace Bili.ViewModels.Uwp.Core
             _controller = BiliController.Instance;
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             _resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
-            _settingToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
+            _settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
+            _fileToolkit = Splat.Locator.Current.GetService<IFileToolkit>();
             _networkHelper = Microsoft.Toolkit.Uwp.Connectivity.NetworkHelper.Instance;
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = !IsXbox;
@@ -109,7 +111,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public void InitializeTheme()
         {
-            var theme = _settingToolkit.ReadLocalSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
+            var theme = _settingsToolkit.ReadLocalSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
             Theme = theme switch
             {
                 AppConstants.ThemeLight => ElementTheme.Light,
@@ -162,8 +164,8 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public void CheckContinuePlay()
         {
-            var supportCheck = _settingToolkit.ReadLocalSetting(SettingNames.SupportContinuePlay, true);
-            var canPlay = _settingToolkit.ReadLocalSetting(SettingNames.CanContinuePlay, false);
+            var supportCheck = _settingsToolkit.ReadLocalSetting(SettingNames.SupportContinuePlay, true);
+            var canPlay = _settingsToolkit.ReadLocalSetting(SettingNames.CanContinuePlay, false);
             if (supportCheck && canPlay)
             {
                 RequestContinuePlay?.Invoke(this, EventArgs.Empty);
@@ -218,7 +220,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <returns><see cref="Task"/>.</returns>
         public async Task CheckNewDynamicRegistrationAsync()
         {
-            var openDynamicNotify = _settingToolkit.ReadLocalSetting(SettingNames.IsOpenNewDynamicNotify, true);
+            var openDynamicNotify = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenNewDynamicNotify, true);
             if (openDynamicNotify)
             {
                 await RegisterNewDynamicBackgroundTaskAsync();
@@ -227,6 +229,24 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 UnregisterNewDynamicBackgroundTask();
             }
+        }
+
+        /// <summary>
+        /// 获取上一次播放的条目.
+        /// </summary>
+        /// <returns><see cref="PlaySnapshot"/>.</returns>
+        public Task<PlaySnapshot> GetLastPlayItemAsync()
+            => _fileToolkit.ReadLocalDataAsync<PlaySnapshot>(AppConstants.LastOpenVideoFileName);
+
+        /// <summary>
+        /// 清除本地的继续播放视图模型.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task DeleteLastPlayItemAsync()
+        {
+            await _fileToolkit.DeleteLocalDataAsync(AppConstants.LastOpenVideoFileName);
+            _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, false);
+            _settingsToolkit.DeleteLocalSetting(SettingNames.ContinuePlayTitle);
         }
 
         private void OnUpdateReceived(object sender, UpdateEventArgs e)

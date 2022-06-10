@@ -27,11 +27,11 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;
-        private readonly MediaPlayerViewModel _playerViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
@@ -95,6 +95,16 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
 
         /// <summary>
+        /// 分享命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+
+        /// <summary>
+        /// 固定条目命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+
+        /// <summary>
         /// 视频协作者.
         /// </summary>
         public ObservableCollection<UserItemViewModel> Collaborators { get; }
@@ -133,6 +143,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// 当前合集下的视频列表.
         /// </summary>
         public ObservableCollection<VideoItemViewModel> CurrentSeasonVideos { get; set; }
+
+        /// <summary>
+        /// 媒体播放视图模型.
+        /// </summary>
+        public MediaPlayerViewModel MediaPlayerViewModel { get; }
 
         /// <summary>
         /// 视图信息.
@@ -261,6 +276,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public bool IsVideoFixed { get; set; }
+
+        /// <summary>
+        /// 有分集的时候是否仅显示索引.
+        /// </summary>
+        [Reactive]
+        public bool IsOnlyShowIndex { get; set; }
 
         /// <summary>
         /// 当前区块.

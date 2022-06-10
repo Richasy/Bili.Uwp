@@ -94,7 +94,7 @@ namespace Bili.ViewModels.Uwp.Video
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(Information);
+            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, "0", VideoType.Video));
 
         private async Task AddToViewLaterAsync()
         {

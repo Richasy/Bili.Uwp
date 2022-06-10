@@ -14,6 +14,7 @@
         <ResourceDictionary Source="ms-appx:///Controls/Danmaku/DanmakuView/DanmakuView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayer/BiliPlayer.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerTip/PlayerTip.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerPagePanel/PlayerPagePanel.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentItem/CommentItem.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentMainView/CommentMainView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentDetailView/CommentDetailView.xaml" />

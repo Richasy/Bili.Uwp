@@ -43,7 +43,6 @@ namespace Bili.ViewModels.Uwp.Video
         {
             // TODO：重置下载内容.
             IsVideoFixed = false;
-            IsLoopOpened = false;
         }
 
         private void ResetSections()

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Video;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -12,9 +13,15 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoIdentifierSelectableViewModel"/> class.
         /// </summary>
-        public VideoIdentifierSelectableViewModel(VideoIdentifier identifier, bool isSelected)
+        public VideoIdentifierSelectableViewModel(VideoIdentifier identifier, int index, bool isSelected)
             : base(identifier, isSelected)
         {
         }
+
+        /// <summary>
+        /// 索引.
+        /// </summary>
+        [Reactive]
+        public int Index { get; set; }
     }
 }

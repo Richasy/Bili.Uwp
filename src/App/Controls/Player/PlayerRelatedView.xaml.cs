@@ -123,24 +123,6 @@ namespace Bili.App.Controls
                 Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (ViewModel.IsShowRelatedVideos && RelatedVideoView != null)
-            {
-                RelatedVideoView.Visibility = Nav.SelectedItem == RelatedViedeosItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowUgcSection && UgcEpisodeView != null)
-            {
-                UgcEpisodeView.Visibility = Nav.SelectedItem == UgcEpisodeItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowParts && VideoPartView != null)
-            {
-                VideoPartView.Visibility = Nav.SelectedItem == PartsItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
             if (ViewModel.IsShowEpisode && EpisodeView != null)
             {
                 EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?

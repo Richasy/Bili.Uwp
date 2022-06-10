@@ -38,6 +38,6 @@ namespace Bili.ViewModels.Uwp
         public override bool Equals(object obj) => obj is SelectableViewModelBase<T> model && EqualityComparer<T>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => -301143667 + EqualityComparer<T>.Default.GetHashCode(Data);
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }
