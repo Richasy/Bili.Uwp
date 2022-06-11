@@ -43,10 +43,15 @@
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.CurrentSeasonVideos}">
+                    ItemsSource="{x:Bind ViewModel.CurrentSeasonVideos}"
+                    Loaded="OnRepeaterLoadedAsync">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="video1:VideoItemViewModel">
-                            <videos:VideoItem ViewModel="{x:Bind}" />
+                            <videos:VideoItem
+                                Style="{StaticResource HorizontalRelatedVideoItemStyle}"
+                                Height="112"
+                                IsCustom="True"
+                                ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>
                 </controls:VerticalRepeaterView>

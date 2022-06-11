@@ -14,9 +14,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// Initializes a new instance of the <see cref="VideoIdentifierSelectableViewModel"/> class.
         /// </summary>
         public VideoIdentifierSelectableViewModel(VideoIdentifier identifier, int index, bool isSelected)
-            : base(identifier, isSelected)
-        {
-        }
+            : base(identifier, isSelected) => Index = index;
 
         /// <summary>
         /// 索引.

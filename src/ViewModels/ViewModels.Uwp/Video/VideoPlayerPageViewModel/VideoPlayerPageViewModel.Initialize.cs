@@ -106,16 +106,12 @@ namespace Bili.ViewModels.Uwp.Video
             if (hasSeason)
             {
                 View.Seasons.ToList().ForEach(p => Seasons.Add(p));
-                CurrentSeason = Seasons.FirstOrDefault(p => p.Videos != null && p.Videos.Any(j => j.Equals(View.Information)));
-                if (CurrentSeason != null)
+                var season = Seasons.FirstOrDefault(p => p.Videos != null && p.Videos.Any(j => j.Equals(View.Information)));
+                if (season != null)
                 {
                     // 只有确定当前合集包含正在播放的视频时才显示合集标头
                     Sections.Add(new PlayerSectionHeader(PlayerSectionType.UgcSeason, _resourceToolkit.GetLocaleString(LanguageNames.UgcEpisode)));
-                    foreach (var item in CurrentSeason.Videos)
-                    {
-                        var vm = GetItemViewModel(item);
-                        vm.IsSelected = vm.Information.Equals(View.Information);
-                    }
+                    SelectSeason(season);
                 }
             }
 

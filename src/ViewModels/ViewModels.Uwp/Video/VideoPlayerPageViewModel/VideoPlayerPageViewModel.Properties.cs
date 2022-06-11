@@ -70,6 +70,11 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Tag, Unit> SearchTagCommand { get; }
 
         /// <summary>
+        /// 选中视频合集的命令.
+        /// </summary>
+        public ReactiveCommand<VideoSeason, Unit> SelectSeasonCommand { get; }
+
+        /// <summary>
         /// 收藏视频命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> FavoriteVideoCommand { get; }

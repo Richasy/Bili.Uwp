@@ -55,7 +55,7 @@ namespace Bili.Lib
             var data = result.Data;
             var count = data.Count;
             var items = data.List.Select(p => _favoriteAdapter.ConvertToVideoFavoriteFolder(p));
-            var ids = data.List.Where(p => p.FavoriteState == 0).Select(p => p.Id.ToString());
+            var ids = data.List.Where(p => p.FavoriteState == 1).Select(p => p.Id.ToString());
             var favoriteSet = new VideoFavoriteSet(items, count);
             return (favoriteSet, ids);
         }

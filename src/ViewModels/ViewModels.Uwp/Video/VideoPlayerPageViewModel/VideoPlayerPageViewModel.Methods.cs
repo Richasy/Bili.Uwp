@@ -35,6 +35,18 @@ namespace Bili.ViewModels.Uwp.Video
         private void SearchTag(Tag tag)
             => _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search, tag.Name);
 
+        private void SelectSeason(VideoSeason season)
+        {
+            CurrentSeason = season;
+            CurrentSeasonVideos.Clear();
+            foreach (var item in CurrentSeason.Videos)
+            {
+                var vm = GetItemViewModel(item);
+                vm.IsSelected = vm.Information.Equals(View.Information);
+                CurrentSeasonVideos.Add(vm);
+            }
+        }
+
         private void Share()
         {
             var dataTransferManager = DataTransferManager.GetForCurrentView();

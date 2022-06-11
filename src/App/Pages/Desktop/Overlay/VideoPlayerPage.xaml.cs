@@ -108,6 +108,9 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         private void OnCoinButtonClick(object sender, RoutedEventArgs e)
         {
+            ViewModel.IsCoined = !ViewModel.IsCoined;
+            ViewModel.IsCoined = !ViewModel.IsCoined;
+
             if (!ViewModel.IsCoined)
             {
                 CoinFlyout.ShowAt(CoinButton);
@@ -116,6 +119,9 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         private void OnFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
         {
+            ViewModel.IsFavorited = !ViewModel.IsFavorited;
+            ViewModel.IsFavorited = !ViewModel.IsFavorited;
+
             if (ViewModel.FavoriteFolders.Count == 0)
             {
                 ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();

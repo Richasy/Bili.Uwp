@@ -27,6 +27,9 @@ namespace Bili.ViewModels.Uwp.Video
             IsLiked = false;
             IsCoined = false;
             IsFavorited = false;
+            FavoriteFolders.Clear();
+            FavoriteFoldersErrorText = default;
+            IsFavoriteFoldersError = false;
         }
 
         private void ResetCommunityInformation()
@@ -53,6 +56,7 @@ namespace Bili.ViewModels.Uwp.Video
             Seasons.Clear();
             CurrentSeasonVideos.Clear();
             CurrentSection = null;
+            CurrentSeason = null;
             IsShowUgcSeason = false;
             IsShowRelatedVideos = false;
             IsShowComments = false;
