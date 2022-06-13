@@ -51,7 +51,6 @@ namespace Bili.ViewModels.Uwp.Video
             }
 
             IsShowTags = Tags.Count > 0;
-            RequestOnlineCountCommand.Execute().Subscribe();
         }
 
         private void InitializeOperation()
@@ -128,6 +127,7 @@ namespace Bili.ViewModels.Uwp.Video
             _commentPageViewModel.SetData(View.Information.Identifier.Id, CommentType.Video);
 
             CurrentSection = Sections.First();
+            RequestOnlineCountCommand.Execute().Subscribe();
         }
     }
 }

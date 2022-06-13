@@ -336,7 +336,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public VideoView ConvertToVideoView(ViewReply videoDetail)
+        public VideoPlayerView ConvertToVideoView(ViewReply videoDetail)
         {
             var videoInfo = GetVideoInformationFromViewReply(videoDetail);
             var subVideos = GetSubVideosFromViewReply(videoDetail);
@@ -365,7 +365,7 @@ namespace Bili.Adapter
 
             var tags = videoDetail.Tag.Select(p => new Models.Data.Community.Tag(p.Id.ToString(), p.Name.TrimStart('#'), p.Uri));
 
-            return new VideoView(
+            return new VideoPlayerView(
                 videoInfo,
                 publisherCommunity,
                 subVideos,

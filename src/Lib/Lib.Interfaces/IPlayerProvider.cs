@@ -24,7 +24,7 @@ namespace Bili.Lib.Interfaces
         /// </summary>
         /// <param name="videoId">视频Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
-        Task<VideoView> GetVideoDetailAsync(string videoId);
+        Task<VideoPlayerView> GetVideoDetailAsync(string videoId);
 
         /// <summary>
         /// 获取PGC内容的详细信息.
@@ -34,7 +34,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="proxy">代理地址.</param>
         /// <param name="area">地区.</param>
         /// <returns>PGC内容详情.</returns>
-        Task<PgcDisplayView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = default, string area = default);
+        Task<PgcPlayerView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = default, string area = default);
 
         /// <summary>
         /// 获取分集的交互信息，包括用户的投币/点赞/收藏.

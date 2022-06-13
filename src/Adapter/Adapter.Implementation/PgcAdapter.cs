@@ -288,7 +288,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public PgcDisplayView ConvertToPgcDisplayView(PgcDisplayInformation display)
+        public PgcPlayerView ConvertToPgcDisplayView(PgcDisplayInformation display)
         {
             var seasonInfo = GetSeasonInformationFromDisplayInformation(display);
             List<VideoIdentifier> seasons = null;
@@ -347,7 +347,7 @@ namespace Bili.Adapter
 
             var warning = display.Warning?.Message;
 
-            return new PgcDisplayView(seasonInfo, seasons, episodes, extras, history, warning);
+            return new PgcPlayerView(seasonInfo, seasons, episodes, extras, history, warning);
         }
 
         /// <inheritdoc/>

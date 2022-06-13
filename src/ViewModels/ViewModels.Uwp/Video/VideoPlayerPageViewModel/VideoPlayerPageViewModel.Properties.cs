@@ -163,7 +163,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// 视图信息.
         /// </summary>
         [Reactive]
-        public VideoView View { get; set; }
+        public VideoPlayerView View { get; set; }
 
         /// <summary>
         /// 用户是否已登录.

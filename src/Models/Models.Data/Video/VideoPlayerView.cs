@@ -9,10 +9,10 @@ namespace Bili.Models.Data.Video
     /// <summary>
     /// 这个类囊括了视频的全部数据（除了播放数据）.
     /// </summary>
-    public sealed class VideoView
+    public sealed class VideoPlayerView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoView"/> class.
+        /// Initializes a new instance of the <see cref="VideoPlayerView"/> class.
         /// </summary>
         /// <param name="information">视频信息.</param>
         /// <param name="publisherCommunityInformation">发布者的社区信息.</param>
@@ -23,7 +23,7 @@ namespace Bili.Models.Data.Video
         /// <param name="operation">视频操作信息.</param>
         /// <param name="interactionVideo">互动视频信息.</param>
         /// <param name="tags">视频标签列表.</param>
-        public VideoView(
+        public VideoPlayerView(
             VideoInformation information,
             UserCommunityInformation publisherCommunityInformation,
             IEnumerable<VideoIdentifier> subVideos,
@@ -91,7 +91,7 @@ namespace Bili.Models.Data.Video
         public IEnumerable<Tag> Tags { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is VideoView view && EqualityComparer<VideoInformation>.Default.Equals(Information, view.Information);
+        public override bool Equals(object obj) => obj is VideoPlayerView view && EqualityComparer<VideoInformation>.Default.Equals(Information, view.Information);
 
         /// <inheritdoc/>
         public override int GetHashCode() => Information.GetHashCode();

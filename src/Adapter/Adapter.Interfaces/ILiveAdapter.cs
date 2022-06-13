@@ -32,11 +32,11 @@ namespace Bili.Adapter.Interfaces
         LiveInformation ConvertToLiveInformation(LiveSearchItem item);
 
         /// <summary>
-        /// 将直播间详情 <see cref="LiveRoomDetail"/> 转换为直播间视图.
+        /// 将直播间详情 <see cref="LiveRoomDetail"/> 转换为直播间播放视图.
         /// </summary>
         /// <param name="detail">直播间详情.</param>
-        /// <returns>直播间视图.</returns>
-        LiveRoomView ConvertToLiveRoomView(LiveRoomDetail detail);
+        /// <returns><see cref="LivePlayerView"/>.</returns>
+        LivePlayerView ConvertToLivePlayerView(LiveRoomDetail detail);
 
         /// <summary>
         /// 将直播首页数据流信息 <see cref="LiveFeedResponse"/> 转换为直播流视图.
@@ -51,5 +51,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="response">直播分区详情视图.</param>
         /// <returns><see cref="LivePartitionView"/>.</returns>
         LivePartitionView ConvertToLivePartitionView(LiveAreaDetailResponse response);
+
+        /// <summary>
+        /// 将直播播放信息 <see cref="LiveAppPlayInformation"/> 转换为直播媒体信息.
+        /// </summary>
+        /// <param name="information">直播播放信息.</param>
+        /// <returns><see cref="LiveMediaInformation"/>.</returns>
+        LiveMediaInformation ConvertToLiveMediaInformation(LiveAppPlayInformation information);
     }
 }

@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private async Task ChangeEpisodeAsync(VideoIdentifier identifier)
         {
-            var view = _viewData as PgcDisplayView;
+            var view = _viewData as PgcPlayerView;
             if (string.IsNullOrEmpty(identifier.Id))
             {
                 return;
@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task LoadEpisodeAsync()
         {
-            var view = _viewData as PgcDisplayView;
+            var view = _viewData as PgcPlayerView;
             if (_currentEpisode == null)
             {
                 IsError = true;
@@ -58,7 +58,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void CheckEpisodeHistory()
         {
-            var view = _viewData as PgcDisplayView;
+            var view = _viewData as PgcPlayerView;
             if (view.Progress != null && view.Progress.Status == Models.Enums.Player.PlayedProgressStatus.Playing)
             {
                 var history = view.Progress.Identifier;
@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeEpisodeMediaInformationAsync()
         {
-            var view = _viewData as PgcDisplayView;
+            var view = _viewData as PgcPlayerView;
             var proxy = GetProxyAndArea(view.Information.Identifier.Title, true);
             _mediaInformation = await _playerProvider.GetPgcMediaInformationAsync(
                 _currentEpisode.PartId,

@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Live;
 using Bili.Models.Enums;
@@ -44,6 +46,9 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
+        public event EventHandler<LiveMessageEventArgs> MessageReceived;
+
+        /// <inheritdoc/>
         public async Task<LiveFeedView> GetLiveFeedsAsync()
         {
             var queryParameters = new Dictionary<string, string>
@@ -63,7 +68,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> EnterLiveRoomAsync(int roomId)
+        public async Task<bool> EnterLiveRoomAsync(string roomId)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -74,7 +79,30 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.EnterRoom, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse>(response);
-            return data.IsSuccess();
+            if (data.IsSuccess())
+            {
+                ConnectLiveSocket();
+                if (_liveConnectionTask != null)
+                {
+                    await _liveConnectionTask.ContinueWith(async result =>
+                    {
+                        if (result.IsCompleted)
+                        {
+                            await SendLiveMessageAsync(
+                                new
+                                {
+                                    roomid = roomId,
+                                    uid = _accountProvider.UserId,
+                                },
+                                7);
+                        }
+                    });
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>
@@ -119,23 +147,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality)
-        {
-            var queryParameter = new Dictionary<string, string>
-            {
-                { Query.RoomId, roomId.ToString() },
-                { Query.PlayUrl, "1" },
-                { Query.Qn, quality.ToString() },
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.PlayInformation, queryParameter, RequestClientType.Web);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync<ServerResponse<LivePlayUrlResponse>>(response);
-            return result.Data.Information;
-        }
-
-        /// <inheritdoc/>
-        public async Task<LiveAppPlayUrlInfo> GetAppLivePlayInformation(int roomId, int quality, bool audioOnly)
+        public async Task<LiveMediaInformation> GetLiveMediaInformationAsync(string roomId, int quality, bool audioOnly)
         {
             var queryParameter = new Dictionary<string, string>
             {
@@ -159,26 +171,35 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.AppPlayInformation, queryParameter, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveAppPlayInformation>>(response);
-            return result.Data.PlayUrlInfo;
+            return _liveAdapter.ConvertToLiveMediaInformation(result.Data);
         }
 
         /// <inheritdoc/>
-        public async Task<LiveRoomDetail> GetLiveRoomDetailAsync(int roomId)
+        public async Task<LivePlayerView> GetLiveRoomDetailAsync(string roomId)
         {
             var queryParameter = new Dictionary<string, string>
             {
-                { Query.RoomId, roomId.ToString() },
+                { Query.RoomId, roomId },
                 { Query.Device, "phone" },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Live.RoomDetail, queryParameter, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<LiveRoomDetail>>(response);
-            return result.Data;
+            return _liveAdapter.ConvertToLivePlayerView(result.Data);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> SendMessageAsync(int roomId, string message, string color, bool isStandardSize, DanmakuLocation location)
+        public async Task SendHeartBeatAsync()
+        {
+            if (_isLiveSocketConnected)
+            {
+                await SendLiveMessageAsync(string.Empty, 2);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SendDanmakuAsync(string roomId, string message, string color, bool isStandardSize, DanmakuLocation location)
         {
             var queryParameter = new Dictionary<string, string>
             {
@@ -214,5 +235,21 @@ namespace Bili.Lib
         /// <inheritdoc/>
         public void ResetFeedState()
             => _feedPageNumber = 1;
+
+        /// <inheritdoc/>
+        public void ResetLiveConnection()
+        {
+            if (_liveCancellationToken != null)
+            {
+                _liveCancellationToken.Cancel();
+            }
+
+            _liveCancellationToken = new CancellationTokenSource();
+
+            _isLiveSocketConnected = false;
+            _liveWebSocket?.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, string.Empty);
+            _liveWebSocket?.Dispose();
+            _liveWebSocket = null;
+        }
     }
 }

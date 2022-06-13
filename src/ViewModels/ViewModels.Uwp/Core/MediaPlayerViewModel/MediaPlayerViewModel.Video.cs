@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ChangeVideoPartAsync(VideoIdentifier part)
         {
-            var view = _viewData as VideoView;
+            var view = _viewData as VideoPlayerView;
             if (string.IsNullOrEmpty(part.Id) || !view.SubVideos.Contains(part))
             {
                 return;
@@ -31,7 +31,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task LoadVideoAsync()
         {
-            var view = _viewData as VideoView;
+            var view = _viewData as VideoPlayerView;
             if (string.IsNullOrEmpty(_currentPart.Id) || !view.SubVideos.Contains(_currentPart))
             {
                 _currentPart = view.SubVideos.First();
@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void CheckVideoHistory()
         {
-            var view = _viewData as VideoView;
+            var view = _viewData as VideoPlayerView;
             if (view.Progress != null && view.Progress.Status == Models.Enums.Player.PlayedProgressStatus.Playing)
             {
                 var history = view.Progress.Identifier;
@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeVideoMediaInformationAsync()
         {
-            var view = _viewData as VideoView;
+            var view = _viewData as VideoPlayerView;
             _mediaInformation = await _playerProvider.GetVideoMediaInformationAsync(view.Information.Identifier.Id, _currentPart.Id);
             CheckVideoP2PUrls();
         }
@@ -163,7 +163,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillVideoPlaybackProperties()
         {
-            var view = _viewData as VideoView;
+            var view = _viewData as VideoPlayerView;
             var props = _playbackItem.GetDisplayProperties();
             props.Type = Windows.Media.MediaPlaybackType.Video;
             props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(view.Information.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg"));

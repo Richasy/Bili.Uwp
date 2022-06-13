@@ -110,8 +110,8 @@ namespace Bili.Adapter.Interfaces
         /// 将视频详情 <see cref="ViewReply"/> 转换为视频信息.
         /// </summary>
         /// <param name="videoDetail">视频详情.</param>
-        /// <returns><see cref="VideoView"/>.</returns>
-        VideoView ConvertToVideoView(ViewReply videoDetail);
+        /// <returns><see cref="VideoPlayerView"/>.</returns>
+        VideoPlayerView ConvertToVideoView(ViewReply videoDetail);
 
         /// <summary>
         /// 将稍后再看响应 <see cref="ViewLaterResponse"/> 转换为视频集.

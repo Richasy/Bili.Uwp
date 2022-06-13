@@ -39,15 +39,6 @@ namespace Bili.Controller.Uwp
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
         /// <param name="quality">清晰度.</param>
-        /// <returns>播放信息.</returns>
-        public Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality = 4)
-            => _liveProvider.GetLivePlayInformationAsync(roomId, quality);
-
-        /// <summary>
-        /// 获取直播间播放信息.
-        /// </summary>
-        /// <param name="roomId">直播间Id.</param>
-        /// <param name="quality">清晰度.</param>
         /// <param name="audioOnly">是否仅播放音频.</param>
         /// <returns>播放信息.</returns>
         public Task<LiveAppPlayUrlInfo> GetAppLivePlayInformationAsync(int roomId, int quality = 150, bool audioOnly = false)
@@ -102,7 +93,7 @@ namespace Bili.Controller.Uwp
         /// <param name="location">弹幕位置.</param>
         /// <returns>发送结果.</returns>
         public Task<bool> SendLiveDanmakuAsync(int roomId, string text, string color, bool isStandardSize, DanmakuLocation location)
-             => _liveProvider.SendMessageAsync(roomId, text, color, isStandardSize, location);
+             => _liveProvider.SendDanmakuAsync(roomId, text, color, isStandardSize, location);
 
         /// <summary>
         /// 清理直播长连接.

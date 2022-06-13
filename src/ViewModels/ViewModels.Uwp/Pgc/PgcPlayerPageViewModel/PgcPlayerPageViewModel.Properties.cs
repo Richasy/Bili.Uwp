@@ -155,7 +155,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 视图信息.
         /// </summary>
         [Reactive]
-        public PgcDisplayView View { get; set; }
+        public PgcPlayerView View { get; set; }
 
         /// <summary>
         /// 用户是否已登录.

@@ -61,7 +61,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<VideoView> GetVideoDetailAsync(string videoId)
+        public async Task<VideoPlayerView> GetVideoDetailAsync(string videoId)
         {
             var type = _videoToolkit.GetVideoIdType(videoId, out var avId);
             var viewRequest = new ViewReq();
@@ -81,7 +81,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<PgcDisplayView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = "", string area = "")
+        public async Task<PgcPlayerView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = "", string area = "")
         {
             var queryParameters = GetPgcDetailInformationQueryParameters(int.Parse(episodeId), int.Parse(seasonId), area);
             var otherQuery = string.Empty;

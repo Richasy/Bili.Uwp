@@ -7,14 +7,14 @@ namespace Bili.Models.Data.Live
     /// <summary>
     /// 直播间视图.
     /// </summary>
-    public sealed class LiveRoomView
+    public sealed class LivePlayerView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LiveRoomView"/> class.
+        /// Initializes a new instance of the <see cref="LivePlayerView"/> class.
         /// </summary>
         /// <param name="information">直播间信息.</param>
         /// <param name="partition">直播间分区.</param>
-        public LiveRoomView(LiveInformation information, string partition)
+        public LivePlayerView(LiveInformation information, string partition)
         {
             Information = information;
             Partition = partition;
@@ -31,7 +31,7 @@ namespace Bili.Models.Data.Live
         public string Partition { get; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is LiveRoomView view && EqualityComparer<LiveInformation>.Default.Equals(Information, view.Information);
+        public override bool Equals(object obj) => obj is LivePlayerView view && EqualityComparer<LiveInformation>.Default.Equals(Information, view.Information);
 
         /// <inheritdoc/>
         public override int GetHashCode() => Information.GetHashCode();

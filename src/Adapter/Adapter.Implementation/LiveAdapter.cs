@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Live;
+using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 
@@ -86,7 +87,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public LiveRoomView ConvertToLiveRoomView(LiveRoomDetail detail)
+        public LivePlayerView ConvertToLivePlayerView(LiveRoomDetail detail)
         {
             var roomInfo = detail.RoomInformation;
             var title = roomInfo.Title;
@@ -109,7 +110,7 @@ namespace Bili.Adapter
 
             var identifier = new VideoIdentifier(id, title, -1, cover);
             var info = new LiveInformation(identifier, userProfile, viewerCount, subtitle: subtitle, description: description);
-            return new LiveRoomView(info, partition);
+            return new LivePlayerView(info, partition);
         }
 
         /// <inheritdoc/>
@@ -144,6 +145,34 @@ namespace Bili.Adapter
                 ? response.Tags.Select(p => new LiveTag(p.Id.ToString(), p.Name, p.SortType)).ToList()
                 : new List<LiveTag>() { new LiveTag(string.Empty, "全部", string.Empty) };
             return new LivePartitionView(response.Count, lives, tags);
+        }
+
+        /// <inheritdoc/>
+        public LiveMediaInformation ConvertToLiveMediaInformation(LiveAppPlayInformation information)
+        {
+            var id = information.RoomId.ToString();
+            var playInfo = information.PlayUrlInfo.PlayUrl;
+            var formats = new List<FormatInformation>();
+            foreach (var item in playInfo.Descriptions)
+            {
+                formats.Add(new FormatInformation(item.Quality, item.Description, false));
+            }
+
+            var lines = new List<LivePlaylineInformation>();
+            foreach (var stream in playInfo.StreamList)
+            {
+                foreach (var format in stream.FormatList)
+                {
+                    foreach (var codec in format.CodecList)
+                    {
+                        var name = codec.CodecName;
+                        var urls = codec.Urls.Select(p => new LivePlayUrl(p.Host, codec.BaseUrl, p.Extra));
+                        lines.Add(new LivePlaylineInformation(name, codec.CurrentQuality, codec.AcceptQualities, urls));
+                    }
+                }
+            }
+
+            return new LiveMediaInformation(id, formats, lines);
         }
     }
 }

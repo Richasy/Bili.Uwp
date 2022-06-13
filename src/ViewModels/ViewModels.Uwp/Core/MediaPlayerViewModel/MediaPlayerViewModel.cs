@@ -63,7 +63,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// 设置视频播放数据.
         /// </summary>
         /// <param name="data">视频视图数据.</param>
-        public void SetVideoData(VideoView data)
+        public void SetVideoData(VideoPlayerView data)
         {
             _viewData = data;
             _videoType = VideoType.Video;
@@ -75,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         /// <param name="view">PGC 内容视图.</param>
         /// <param name="episode">单集信息.</param>
-        public void SetPgcData(PgcDisplayView view, EpisodeInformation episode)
+        public void SetPgcData(PgcPlayerView view, EpisodeInformation episode)
         {
             _viewData = view;
             _currentEpisode = episode;
@@ -145,11 +145,11 @@ namespace Bili.ViewModels.Uwp.Core
         private void ResetProgressHistory()
         {
             _initializeProgress = TimeSpan.Zero;
-            if (_videoType == VideoType.Video && _viewData is VideoView videoView)
+            if (_videoType == VideoType.Video && _viewData is VideoPlayerView videoView)
             {
                 videoView.Progress = null;
             }
-            else if (_videoType == VideoType.Pgc && _viewData is PgcDisplayView pgcView)
+            else if (_videoType == VideoType.Pgc && _viewData is PgcPlayerView pgcView)
             {
                 pgcView.Progress = null;
             }

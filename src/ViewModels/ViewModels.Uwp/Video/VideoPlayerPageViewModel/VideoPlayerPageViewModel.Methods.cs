@@ -39,6 +39,11 @@ namespace Bili.ViewModels.Uwp.Video
         {
             CurrentSeason = season;
             CurrentSeasonVideos.Clear();
+            if (season == null)
+            {
+                return;
+            }
+
             foreach (var item in CurrentSeason.Videos)
             {
                 var vm = GetItemViewModel(item);
