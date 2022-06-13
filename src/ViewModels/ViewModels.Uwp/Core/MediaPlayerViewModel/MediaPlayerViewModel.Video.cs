@@ -15,23 +15,12 @@ namespace Bili.ViewModels.Uwp.Core
     public sealed partial class MediaPlayerViewModel
     {
         private void ResetVideoData()
-        {
-            Formats.Clear();
-            _currentPart = default;
-            IsShowProgressTip = false;
-            ProgressTip = default;
-            _video = null;
-            _audio = null;
-            CurrentFormat = null;
-            IsLoop = false;
-            _lastReportProgress = TimeSpan.Zero;
-            _initializeProgress = TimeSpan.Zero;
-        }
+            => _currentPart = default;
 
         private async Task ChangeVideoPartAsync(VideoIdentifier part)
         {
             var view = _viewData as VideoView;
-            if (string.IsNullOrEmpty(_currentPart.Id) || !view.SubVideos.Contains(_currentPart))
+            if (string.IsNullOrEmpty(part.Id) || !view.SubVideos.Contains(part))
             {
                 return;
             }
@@ -50,6 +39,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
+            FillVideoPlaybackProperties();
         }
 
         private void CheckVideoHistory()
@@ -142,7 +132,6 @@ namespace Bili.ViewModels.Uwp.Core
             var source = await GetDashVideoSourceAsync();
             _playbackItem = new Windows.Media.Playback.MediaPlaybackItem(source);
             _mediaPlayer.Source = _playbackItem;
-            FillVideoPlaybackProperties();
         }
 
         private void CheckVideoP2PUrls()

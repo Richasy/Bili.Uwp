@@ -161,14 +161,14 @@
     <Compile Include="Controls\Favorite\PgcFavoritePanel.xaml.cs">
       <DependentUpon>PgcFavoritePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pgc\PgcDetailView.xaml.cs">
-      <DependentUpon>PgcDetailView.xaml</DependentUpon>
+    <Compile Include="Controls\Pgc\PgcSeasonDetailView.xaml.cs">
+      <DependentUpon>PgcSeasonDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Pgc\PgcPlaylistDetailView.xaml.cs">
       <DependentUpon>PgcPlaylistDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\PlayerReplyView.xaml.cs">
-      <DependentUpon>PlayerReplyView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\PlayerCommentView.xaml.cs">
+      <DependentUpon>PlayerCommentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\TrimTextBlock.xaml.cs">
       <DependentUpon>TrimTextBlock.xaml</DependentUpon>
@@ -230,20 +230,20 @@
       <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\ProgressButton\ProgressButton.cs" />
-    <Compile Include="Controls\Player\Related\EpisodeView.xaml.cs">
-      <DependentUpon>EpisodeView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\PgcEpisodeView.xaml.cs">
+      <DependentUpon>PgcEpisodeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\Related\LiveMessageView.xaml.cs">
       <DependentUpon>LiveMessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\PgcSectionView.xaml.cs">
-      <DependentUpon>PgcSectionView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\PgcExtraView.xaml.cs">
+      <DependentUpon>PgcExtraView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\RelatedVideoView.xaml.cs">
       <DependentUpon>RelatedVideoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\SeasonView.xaml.cs">
-      <DependentUpon>SeasonView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\PgcSeasonView.xaml.cs">
+      <DependentUpon>PgcSeasonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\VideoPartView.xaml.cs">
       <DependentUpon>VideoPartView.xaml</DependentUpon>
@@ -344,6 +344,9 @@
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\MessagePage.xaml.cs">
       <DependentUpon>MessagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Desktop\Overlay\PgcPlayerPage.xaml.cs">
+      <DependentUpon>PgcPlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\PlayerPage.xaml.cs">
       <DependentUpon>PlayerPage.xaml</DependentUpon>
@@ -755,7 +758,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\PgcDetailView.xaml">
+    <Page Include="Controls\Pgc\PgcSeasonDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -763,7 +766,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\PlayerReplyView.xaml">
+    <Page Include="Controls\Player\PlayerCommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -851,7 +854,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\EpisodeView.xaml">
+    <Page Include="Controls\Player\PgcEpisodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -859,7 +862,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\PgcSectionView.xaml">
+    <Page Include="Controls\Player\PgcExtraView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -867,7 +870,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\SeasonView.xaml">
+    <Page Include="Controls\Player\PgcSeasonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -996,6 +999,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\Overlay\MessagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Desktop\Overlay\PgcPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
@@ -35,6 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
         private VideoType _videoType;
         private object _viewData;
         private VideoIdentifier _currentPart;
+        private EpisodeInformation _currentEpisode;
         private MediaInformation _mediaInformation;
         private SegmentInformation _video;
         private SegmentInformation _audio;
@@ -73,6 +75,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 重置播放历史的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
+
+        /// <summary>
+        /// 清除播放数据的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

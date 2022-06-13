@@ -25,6 +25,7 @@ namespace Bili.Lib
         private readonly IAccountProvider _accountProvider;
         private readonly IVideoToolkit _videoToolkit;
         private readonly IVideoAdapter _videoAdapter;
+        private readonly IPgcAdapter _pgcAdapter;
         private readonly ICommunityAdapter _communityAdapter;
         private readonly IPlayerAdapter _playerAdapter;
 
@@ -32,6 +33,42 @@ namespace Bili.Lib
         {
             var source = new CancellationTokenSource(TimeSpan.FromSeconds(seconds));
             return source.Token;
+        }
+
+        private Dictionary<string, string> GetEpisodeInteractionQueryParameters(string episodeId)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.EpisodeId, episodeId },
+            };
+
+            return queryParameters;
+        }
+
+        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId, string area)
+        {
+            var queryParameters = new Dictionary<string, string>
+            {
+                { Query.AutoPlay, "0" },
+                { Query.IsShowAllSeries, "0" },
+            };
+
+            if (!string.IsNullOrEmpty(area))
+            {
+                queryParameters.Add(Query.Area, area);
+            }
+
+            if (episodeId > 0)
+            {
+                queryParameters.Add(Query.EpisodeId, episodeId.ToString());
+            }
+
+            if (seasonId > 0)
+            {
+                queryParameters.Add(Query.SeasonId, seasonId.ToString());
+            }
+
+            return queryParameters;
         }
 
         private async Task<MediaInformation> InternalGetDashAsync(string cid, string aid = "", string seasonType = "", string proxy = "", string area = "", string episodeId = "")

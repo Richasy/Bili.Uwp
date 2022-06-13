@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
@@ -50,6 +51,7 @@ namespace Bili.ViewModels.Uwp.Video
             }
 
             IsShowTags = Tags.Count > 0;
+            RequestOnlineCountCommand.Execute().Subscribe();
         }
 
         private void InitializeOperation()

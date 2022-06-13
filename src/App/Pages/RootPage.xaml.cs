@@ -54,6 +54,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetail;
             CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetail;
             CoreViewModel.RequestShowVideoFavoriteFolderDetail += OnRequestShowVideoFavoriteFolderDetail;
+            CoreViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -240,6 +241,9 @@ namespace Bili.App.Pages.Desktop
         private void OnRequestShowUserDetail(object sender, UserItemViewModel e)
             => new UserSpaceView().Show(e.User);
 
+        private void OnRequestShowPgcSeasonDetail(object sender, EventArgs e)
+            => new PgcSeasonDetailView().Show();
+
         private Type GetSecondaryViewType(PageIds pageId)
         {
             var pageType = pageId switch
@@ -268,6 +272,7 @@ namespace Bili.App.Pages.Desktop
             var pageType = pageId switch
             {
                 PageIds.VideoPlayer => typeof(VideoPlayerPage),
+                PageIds.PgcPlayer => typeof(PgcPlayerPage),
                 _ => typeof(Page)
             };
 

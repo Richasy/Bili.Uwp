@@ -46,28 +46,36 @@ namespace Bili.Adapter
         public EpisodeInformation ConvertToEpisodeInformation(PgcEpisodeDetail episode)
         {
             var epid = episode.Report.EpisodeId;
-            var title = episode.Report.EpisodeTitle;
-            var duration = episode.Duration;
+            var title = string.IsNullOrEmpty(episode.LongTitle)
+                ? episode.ShareTitle
+                : episode.LongTitle;
+            var subtitle = episode.Subtitle;
+            var duration = episode.Duration / 1000;
             var cover = _imageAdapter.ConvertToVideoCardCover(episode.Cover);
             var seasonId = episode.Report.SeasonId;
             var aid = episode.Aid.ToString();
+            var cid = episode.PartId.ToString();
             var index = episode.Index;
             var isPv = episode.IsPV == 1;
-            var isVip = episode.BadgeText == "会员";
+            var isVip = episode.BadgeText.Contains("会员");
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(episode.PublishTime).ToLocalTime().DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(episode.Stat);
+            var seasonType = episode.Report.SeasonType;
 
             var identifier = new VideoIdentifier(epid, title, duration, cover);
             return new EpisodeInformation(
                 identifier,
                 seasonId,
                 aid,
-                default,
+                subtitle,
                 index,
                 isVip,
                 isPv,
                 publishTime,
-                communityInfo);
+                communityInfo,
+                episode.BadgeText,
+                cid,
+                seasonType);
         }
 
         /// <inheritdoc/>
@@ -337,7 +345,9 @@ namespace Bili.Adapter
                 history = new PlayedProgress(progress.LastTime, status, historyEp.Identifier);
             }
 
-            return new PgcDisplayView(seasonInfo, seasons, episodes, extras, history);
+            var warning = display.Warning?.Message;
+
+            return new PgcDisplayView(seasonInfo, seasons, episodes, extras, history, warning);
         }
 
         /// <inheritdoc/>
@@ -462,8 +472,9 @@ namespace Bili.Adapter
             var publishDate = display.PublishInformation.DisplayPublishTime;
             var originName = display.OriginName;
             var alias = display.Alias;
-            var typeName = display.TypeName;
-            var tags = display.TypeDescription;
+            var tags = $"{display.TypeDescription}\n" +
+                $"{display.PublishInformation.DisplayReleaseDate}\n" +
+                $"{display.PublishInformation.DisplayProgress}";
             var isTracking = display.UserStatus.IsFollow == 1;
             var ratingCount = display.Rating != null
                 ? display.Rating.Count

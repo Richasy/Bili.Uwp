@@ -12,8 +12,10 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
@@ -46,12 +48,14 @@ namespace Bili.Lib
             IVideoToolkit videoToolkit,
             IVideoAdapter videoAdapter,
             ICommunityAdapter communityAdapter,
-            IPlayerAdapter playerAdapter)
+            IPlayerAdapter playerAdapter,
+            IPgcAdapter pgcAdapter)
         {
             _httpProvider = httpProvider;
             _accountProvider = accountProvider;
             _videoToolkit = videoToolkit;
             _videoAdapter = videoAdapter;
+            _pgcAdapter = pgcAdapter;
             _communityAdapter = communityAdapter;
             _playerAdapter = playerAdapter;
         }
@@ -74,6 +78,28 @@ namespace Bili.Lib
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync(response, ViewReply.Parser);
             return _videoAdapter.ConvertToVideoView(data);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PgcDisplayView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = "", string area = "")
+        {
+            var queryParameters = GetPgcDetailInformationQueryParameters(int.Parse(episodeId), int.Parse(seasonId), area);
+            var otherQuery = string.Empty;
+
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Models.App.Constants.ApiConstants.Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
+            return _pgcAdapter.ConvertToPgcDisplayView(data.Data);
+        }
+
+        /// <inheritdoc/>
+        public async Task<EpisodeInteractionInformation> GetEpisodeInteractionInformationAsync(string episodeId)
+        {
+            var queryParameters = GetEpisodeInteractionQueryParameters(episodeId);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Models.App.Constants.ApiConstants.Pgc.EpisodeInteraction, queryParameters, RequestClientType.IOS);
+            var response = await _httpProvider.SendAsync(request);
+            var data = await _httpProvider.ParseAsync<ServerResponse<EpisodeInteraction>>(response);
+            return _communityAdapter.ConvertToEpisodeInteractionInformation(data.Data);
         }
 
         /// <inheritdoc/>

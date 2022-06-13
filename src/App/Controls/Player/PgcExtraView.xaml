@@ -1,12 +1,13 @@
-﻿<controls:PlayerComponent
-    x:Class="Bili.App.Controls.Player.Related.PgcSectionView"
+﻿<local:PgcExtraViewBase
+    x:Class="Bili.App.Controls.Player.PgcExtraView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -14,18 +15,18 @@
     <ScrollViewer
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Hidden"
-        VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
-        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PgcSectionCollection, Mode=OneWay}">
+        VerticalScrollMode="Auto">
+        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Extras}">
             <muxc:ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="uwp:PgcSectionViewModel">
+                <DataTemplate x:DataType="pgc:PgcExtraItemViewModel">
                     <controls:VerticalRepeaterView
-                        HeaderText="{x:Bind Name, Mode=OneWay}"
+                        HeaderText="{x:Bind Title, Mode=OneWay}"
                         ItemOrientation="Horizontal"
                         ItemsSource="{x:Bind Episodes, Mode=OneWay}">
                         <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
+                            <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
                                 <controls:CardPanel
-                                    Click="OnEpisodeItemClickAsync"
+                                    Click="OnEpisodeItemClick"
                                     DataContext="{x:Bind}"
                                     IsChecked="{x:Bind IsSelected, Mode=OneWay}"
                                     IsEnableCheck="False"
@@ -43,7 +44,7 @@
                                             Height="64"
                                             VerticalAlignment="Center"
                                             CornerRadius="{StaticResource ControlCornerRadius}">
-                                            <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
+                                            <Image Source="{x:Bind Information.Identifier.Cover.Uri}" Stretch="UniformToFill" />
                                         </Grid>
                                         <StackPanel
                                             Grid.Column="1"
@@ -53,15 +54,16 @@
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 FontWeight="Bold"
                                                 MaxLines="1"
-                                                Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
+                                                Text="{x:Bind Information.Identifier.Title}"
+                                                ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}" />
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{x:Bind Data.Duration, Converter={StaticResource MillisecondsDurationConverter}}" />
+                                                Text="{x:Bind DurationText, Converter={StaticResource MillisecondsDurationConverter}}" />
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{x:Bind Data.Subtitle}" />
+                                                Text="{x:Bind Information.Subtitle}" />
                                         </StackPanel>
                                     </Grid>
                                 </controls:CardPanel>
@@ -75,4 +77,4 @@
             </muxc:ItemsRepeater.Layout>
         </muxc:ItemsRepeater>
     </ScrollViewer>
-</controls:PlayerComponent>
+</local:PgcExtraViewBase>

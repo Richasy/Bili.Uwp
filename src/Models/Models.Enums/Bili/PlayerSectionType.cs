@@ -26,5 +26,20 @@ namespace Bili.Models.Enums.Bili
         /// 视频分集.
         /// </summary>
         VideoParts,
+
+        /// <summary>
+        /// PGC 分集.
+        /// </summary>
+        Episodes,
+
+        /// <summary>
+        /// PGC 剧集季.
+        /// </summary>
+        Seasons,
+
+        /// <summary>
+        ///  PGC 附加内容.
+        /// </summary>
+        Extras,
     }
 }

@@ -135,7 +135,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48)
+        public RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size96)
         {
             var user = ConvertToUserProfile(celebrity.Id, celebrity.Name, celebrity.Avatar, avatarSize);
             return new RoleProfile(user, celebrity.ShortDescription);

@@ -4,27 +4,26 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
-using Bili.Models.Data.Community;
-using Bili.Models.Data.Video;
+using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp.Video
+namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
-    /// 视频播放页面视图模型.
+    /// PGC 播放页面视图模型.
     /// </summary>
-    public sealed partial class VideoPlayerPageViewModel
+    public sealed partial class PgcPlayerPageViewModel
     {
         private readonly IPlayerProvider _playerProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IFavoriteProvider _favoriteProvider;
-        private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
@@ -36,7 +35,9 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
 
-        private string _presetVideoId;
+        private string _presetEpisodeId;
+        private string _presetSeasonId;
+        private bool _needBiliPlus;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
@@ -55,29 +56,24 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
 
         /// <summary>
-        /// 请求获取实时在线观看人数的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> RequestOnlineCountCommand { get; }
-
-        /// <summary>
         /// 改变视频分P的命令.
         /// </summary>
-        public ReactiveCommand<VideoIdentifier, Unit> ChangeVideoPartCommand { get; }
+        public ReactiveCommand<EpisodeInformation, Unit> ChangeEpisodeCommand { get; }
 
         /// <summary>
-        /// 搜索标签命令.
+        /// 改变剧集季度的命令.
         /// </summary>
-        public ReactiveCommand<Tag, Unit> SearchTagCommand { get; }
-
-        /// <summary>
-        /// 选中视频合集的命令.
-        /// </summary>
-        public ReactiveCommand<VideoSeason, Unit> SelectSeasonCommand { get; }
+        public ReactiveCommand<SeasonInformation, Unit> ChangeSeasonCommand { get; }
 
         /// <summary>
         /// 收藏视频命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> FavoriteVideoCommand { get; }
+        public ReactiveCommand<Unit, Unit> FavoriteEpisodeCommand { get; }
+
+        /// <summary>
+        /// 追番/追剧命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> TrackSeasonCommand { get; }
 
         /// <summary>
         /// 投币命令.
@@ -97,7 +93,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 重置社区信息命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
+        public ReactiveCommand<Unit, Unit> ReloadInteractionInformationCommand { get; }
 
         /// <summary>
         /// 分享命令.
@@ -110,19 +106,14 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> FixedCommand { get; }
 
         /// <summary>
-        /// 清除数据命令.
+        /// 显示剧集详情的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ShowSeasonDetailCommand { get; }
+
+        /// <summary>
+        /// 清除播放数据的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
-
-        /// <summary>
-        /// 视频协作者.
-        /// </summary>
-        public ObservableCollection<UserItemViewModel> Collaborators { get; }
-
-        /// <summary>
-        /// 视频标签集.
-        /// </summary>
-        public ObservableCollection<Tag> Tags { get; }
 
         /// <summary>
         /// 收藏夹列表.
@@ -135,24 +126,24 @@ namespace Bili.ViewModels.Uwp.Video
         public ObservableCollection<PlayerSectionHeader> Sections { get; }
 
         /// <summary>
-        /// 关联的视频集合.
+        /// 分集集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> RelatedVideos { get; }
+        public ObservableCollection<EpisodeItemViewModel> Episodes { get; }
 
         /// <summary>
-        /// 视频分集集合.
+        /// 剧集集合.
         /// </summary>
-        public ObservableCollection<VideoIdentifierSelectableViewModel> VideoParts { get; }
+        public ObservableCollection<VideoIdentifierSelectableViewModel> Seasons { get; }
 
         /// <summary>
-        /// 合集集合.
+        /// 附加内容集合.
         /// </summary>
-        public ObservableCollection<VideoSeason> Seasons { get; }
+        public ObservableCollection<PgcExtraItemViewModel> Extras { get; }
 
         /// <summary>
-        /// 当前合集下的视频列表.
+        /// 演员集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> CurrentSeasonVideos { get; set; }
+        public ObservableCollection<UserItemViewModel> Celebrities { get; }
 
         /// <summary>
         /// 媒体播放视图模型.
@@ -163,31 +154,13 @@ namespace Bili.ViewModels.Uwp.Video
         /// 视图信息.
         /// </summary>
         [Reactive]
-        public VideoView View { get; set; }
+        public PgcDisplayView View { get; set; }
 
         /// <summary>
         /// 用户是否已登录.
         /// </summary>
         [Reactive]
         public bool IsSignedIn { get; set; }
-
-        /// <summary>
-        /// 视频作者.
-        /// </summary>
-        [Reactive]
-        public UserItemViewModel Author { get; set; }
-
-        /// <summary>
-        /// 是否为合作视频，<c>True</c> 则显示 <see cref="Collaborators"/>，<c>False</c> 则显示 <see cref="Author"/>.
-        /// </summary>
-        [Reactive]
-        public bool IsCooperationVideo { get; set; }
-
-        /// <summary>
-        /// 发布时间的可读文本.
-        /// </summary>
-        [Reactive]
-        public string PublishTime { get; set; }
 
         /// <summary>
         /// 播放次数的可读文本.
@@ -208,18 +181,6 @@ namespace Bili.ViewModels.Uwp.Video
         public string CommentCountText { get; set; }
 
         /// <summary>
-        /// 正在观看人数的可读文本.
-        /// </summary>
-        [Reactive]
-        public string WatchingCountText { get; set; }
-
-        /// <summary>
-        /// 是否显示标签组.
-        /// </summary>
-        [Reactive]
-        public bool IsShowTags { get; set; }
-
-        /// <summary>
         /// 点赞数的可读文本.
         /// </summary>
         [Reactive]
@@ -238,6 +199,12 @@ namespace Bili.ViewModels.Uwp.Video
         public string FavoriteCountText { get; set; }
 
         /// <summary>
+        /// 评分人次的可读文本.
+        /// </summary>
+        [Reactive]
+        public string RatingCountText { get; set; }
+
+        /// <summary>
         /// 是否已点赞.
         /// </summary>
         [Reactive]
@@ -254,6 +221,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public bool IsFavorited { get; set; }
+
+        /// <summary>
+        /// 是否已追番/追剧.
+        /// </summary>
+        [Reactive]
+        public bool IsTracking { get; set; }
 
         /// <summary>
         /// 投币同时是否点赞视频.
@@ -294,34 +267,34 @@ namespace Bili.ViewModels.Uwp.Video
         public bool IsOnlyShowIndex { get; set; }
 
         /// <summary>
+        /// 是否显示演员.
+        /// </summary>
+        [Reactive]
+        public bool IsShowCelebrities { get; set; }
+
+        /// <summary>
         /// 当前区块.
         /// </summary>
         [Reactive]
         public PlayerSectionHeader CurrentSection { get; set; }
 
         /// <summary>
-        /// 当前的视频合集.
+        /// 当前分集.
         /// </summary>
         [Reactive]
-        public VideoSeason CurrentSeason { get; set; }
-
-        /// <summary>
-        /// 当前视频分P.
-        /// </summary>
-        [Reactive]
-        public VideoIdentifier CurrentVideoPart { get; set; }
+        public EpisodeInformation CurrentEpisode { get; set; }
 
         /// <summary>
         /// 是否显示视频合集.
         /// </summary>
         [Reactive]
-        public bool IsShowUgcSeason { get; set; }
+        public bool IsShowSeasons { get; set; }
 
         /// <summary>
         /// 是否显示关联视频.
         /// </summary>
         [Reactive]
-        public bool IsShowRelatedVideos { get; set; }
+        public bool IsShowEpisodes { get; set; }
 
         /// <summary>
         /// 是否显示评论区.
@@ -330,9 +303,9 @@ namespace Bili.ViewModels.Uwp.Video
         public bool IsShowComments { get; set; }
 
         /// <summary>
-        /// 是否显示视频分集.
+        /// 是否显示附加内容.
         /// </summary>
         [Reactive]
-        public bool IsShowParts { get; set; }
+        public bool IsShowExtras { get; set; }
     }
 }

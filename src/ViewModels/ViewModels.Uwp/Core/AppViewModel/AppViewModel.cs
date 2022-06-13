@@ -107,6 +107,12 @@ namespace Bili.ViewModels.Uwp.Core
             => RequestShowVideoFavoriteFolderDetail.Invoke(this, folder);
 
         /// <summary>
+        /// 显示正在播放的剧集信息详情.
+        /// </summary>
+        public void ShowPgcSeasonDetail()
+            => RequestShowPgcSeasonDetail.Invoke(this, EventArgs.Empty);
+
+        /// <summary>
         /// 初始化主题.
         /// </summary>
         public void InitializeTheme()

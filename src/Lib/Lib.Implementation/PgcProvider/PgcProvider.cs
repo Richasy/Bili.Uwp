@@ -103,28 +103,6 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<PgcDisplayInformation> GetDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
-        {
-            var queryParameters = GetPgcDetailInformationQueryParameters(episodeId, seasonId, area);
-            var otherQuery = string.Empty;
-
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
-            return data.Data;
-        }
-
-        /// <inheritdoc/>
-        public async Task<EpisodeInteraction> GetEpisodeInteractionAsync(int episodeId)
-        {
-            var queryParameters = GetEpisodeInteractionQueryParameters(episodeId);
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Pgc.EpisodeInteraction, queryParameters, RequestClientType.IOS);
-            var response = await _httpProvider.SendAsync(request);
-            var data = await _httpProvider.ParseAsync<ServerResponse<EpisodeInteraction>>(response);
-            return data.Data;
-        }
-
-        /// <inheritdoc/>
         public async Task<bool> FollowAsync(int seasonId, bool isFollow)
         {
             var queryParameters = GetFollowQueryParameters(seasonId);

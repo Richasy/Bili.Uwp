@@ -96,6 +96,7 @@ namespace Bili.ViewModels.Uwp.Core
             IsMainViewShown = true;
             SecondaryViewId = PageIds.None;
             CloseAllPopup();
+            RemoveAllPlayer();
             if (pageId != MainViewId)
             {
                 RemoveBackStack(BackBehavior.MainView);
@@ -115,6 +116,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             IsSecondaryViewShown = true;
             CloseAllPopup();
+            RemoveAllPlayer();
             if (pageId != SecondaryViewId || pageId == PageIds.Search)
             {
                 SecondaryViewId = pageId;
@@ -256,6 +258,14 @@ namespace Bili.ViewModels.Uwp.Core
                 .ToList()
                 .ForEach(p => p.Action?.Invoke(p.Parameter));
             _backStack.RemoveAll(p => p.Id == BackBehavior.ShowHolder);
+        }
+
+        private void RemoveAllPlayer()
+        {
+            _backStack.Where(p => p.Id == BackBehavior.OpenPlayer)
+                .ToList()
+                .ForEach(p => p.Action?.Invoke(p.Parameter));
+            _backStack.RemoveAll(p => p.Id == BackBehavior.OpenPlayer);
         }
 
         private void CheckBackStatus()

@@ -16,7 +16,7 @@ namespace Bili.App.Controls
     {
         private bool _isLikeHoldCompleted;
         private bool _isLikeHoldSuspend;
-        private PgcDetailView _detailView;
+        private PgcSeasonDetailView _detailView;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerDashboard"/> class.
@@ -43,7 +43,7 @@ namespace Bili.App.Controls
         {
             if (_detailView == null)
             {
-                _detailView = new PgcDetailView();
+                _detailView = new PgcSeasonDetailView();
             }
 
             _detailView.Show();

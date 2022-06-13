@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
@@ -51,6 +52,7 @@ namespace Bili.ViewModels.Uwp.Core
             ChangePlayerStatusCommand = ReactiveCommand.CreateFromTask<PlayerStatus>(ChangePlayerStatusAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
             ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory, outputScheduler: RxApp.MainThreadScheduler);
+            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -58,14 +60,26 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         /// <summary>
-        /// 设置数据.
+        /// 设置视频播放数据.
         /// </summary>
-        /// <param name="data">视图数据.</param>
-        /// <param name="type">视频类型.</param>
-        public void SetData(object data, VideoType type)
+        /// <param name="data">视频视图数据.</param>
+        public void SetVideoData(VideoView data)
         {
             _viewData = data;
-            _videoType = type;
+            _videoType = VideoType.Video;
+            ReloadCommand.Execute().Subscribe();
+        }
+
+        /// <summary>
+        /// 设置 PGC 播放数据.
+        /// </summary>
+        /// <param name="view">PGC 内容视图.</param>
+        /// <param name="episode">单集信息.</param>
+        public void SetPgcData(PgcDisplayView view, EpisodeInformation episode)
+        {
+            _viewData = view;
+            _currentEpisode = episode;
+            _videoType = VideoType.Pgc;
             ReloadCommand.Execute().Subscribe();
         }
 
@@ -81,6 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void Reset()
         {
             ResetPlayer();
+            ResetMediaData();
             ResetVideoData();
         }
 
@@ -91,6 +106,10 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 await LoadVideoAsync();
             }
+            else if (_videoType == VideoType.Pgc)
+            {
+                await LoadEpisodeAsync();
+            }
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)
@@ -98,6 +117,10 @@ namespace Bili.ViewModels.Uwp.Core
             if (_videoType == VideoType.Video)
             {
                 await ChangeVideoPartAsync(part);
+            }
+            else if (_videoType == VideoType.Pgc)
+            {
+                await ChangeEpisodeAsync(part);
             }
         }
 
@@ -110,6 +133,10 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     CheckVideoHistory();
                 }
+                else if (_videoType == VideoType.Pgc)
+                {
+                    CheckEpisodeHistory();
+                }
             }
 
             await Task.CompletedTask;
@@ -121,6 +148,10 @@ namespace Bili.ViewModels.Uwp.Core
             if (_videoType == VideoType.Video && _viewData is VideoView videoView)
             {
                 videoView.Progress = null;
+            }
+            else if (_videoType == VideoType.Pgc && _viewData is PgcDisplayView pgcView)
+            {
+                pgcView.Progress = null;
             }
         }
     }

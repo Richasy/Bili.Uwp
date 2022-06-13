@@ -111,42 +111,6 @@ namespace Bili.Lib
             return data.Result;
         }
 
-        private Dictionary<string, string> GetPgcDetailInformationQueryParameters(int episodeId, int seasonId, string area)
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.AutoPlay, "0" },
-                { Query.IsShowAllSeries, "0" },
-            };
-
-            if (!string.IsNullOrEmpty(area))
-            {
-                queryParameters.Add(Query.Area, area);
-            }
-
-            if (episodeId > 0)
-            {
-                queryParameters.Add(Query.EpisodeId, episodeId.ToString());
-            }
-
-            if (seasonId > 0)
-            {
-                queryParameters.Add(Query.SeasonId, seasonId.ToString());
-            }
-
-            return queryParameters;
-        }
-
-        private Dictionary<string, string> GetEpisodeInteractionQueryParameters(int episodeId)
-        {
-            var queryParameters = new Dictionary<string, string>
-            {
-                { Query.EpisodeId, episodeId.ToString() },
-            };
-
-            return queryParameters;
-        }
-
         private Dictionary<string, string> GetFollowQueryParameters(int seasonId)
         {
             var queryParameters = new Dictionary<string, string>

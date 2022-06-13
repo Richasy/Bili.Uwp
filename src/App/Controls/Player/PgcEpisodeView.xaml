@@ -1,14 +1,15 @@
-﻿<controls:PlayerComponent
-    x:Class="Bili.App.Controls.Player.Related.EpisodeView"
+﻿<local:PgcEpisodeViewBase
+    x:Class="Bili.App.Controls.Player.PgcEpisodeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.Locator.Uwp"
-    xmlns:local="using:Bili.App.Controls.Player.Related"
+    xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgcControls="using:Bili.App.Controls.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -39,19 +40,18 @@
         <ScrollViewer
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Hidden"
-            VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
+            VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <controls:VerticalRepeaterView
                     x:Name="EpisodeRepeater"
                     EnableDetectParentScrollViewer="False"
                     HeaderVisibility="Collapsed"
                     ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.EpisodeCollection}"
+                    ItemsSource="{x:Bind ViewModel.Episodes}"
                     Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
+                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
                             <controls:CardPanel
                                 Click="OnEpisodeItemClickAsync"
                                 DataContext="{x:Bind}"
@@ -71,7 +71,7 @@
                                         Height="64"
                                         VerticalAlignment="Center"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <Image Source="{x:Bind Data.Cover, Converter={StaticResource EpisodeCoverConverter}}" Stretch="UniformToFill" />
+                                        <Image Source="{x:Bind Information.Identifier.Cover.Uri}" Stretch="UniformToFill" />
                                         <Grid
                                             x:Name="BadgeContainer"
                                             Margin="4,4,0,0"
@@ -80,12 +80,12 @@
                                             VerticalAlignment="Top"
                                             Background="{ThemeResource AccentFillColorTertiaryBrush}"
                                             CornerRadius="{StaticResource ControlCornerRadius}"
-                                            Visibility="{x:Bind Data.BadgeText, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                            Visibility="{x:Bind Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
                                                 FontSize="10"
                                                 Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                                Text="{x:Bind Data.BadgeText}" />
+                                                Text="{x:Bind Information.Highlight}" />
                                         </Grid>
                                     </Grid>
                                     <StackPanel
@@ -95,15 +95,17 @@
                                         <TextBlock
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             FontWeight="Bold"
-                                            Text="{x:Bind Data, Converter={StaticResource EpisodeTitleConverter}}" />
+                                            MaxLines="2"
+                                            Text="{x:Bind Information.Identifier.Title}"
+                                            ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                            Text="{x:Bind Data.Duration, Converter={StaticResource MillisecondsDurationConverter}}" />
+                                            Text="{x:Bind DurationText}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                            Text="{x:Bind Data.Subtitle}" />
+                                            Text="{x:Bind Information.Subtitle}" />
                                     </StackPanel>
                                 </Grid>
                             </controls:CardPanel>
@@ -112,7 +114,7 @@
                 </controls:VerticalRepeaterView>
                 <muxc:ItemsRepeater
                     x:Name="IndexRepeater"
-                    ItemsSource="{x:Bind ViewModel.EpisodeCollection, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.Episodes, Mode=OneWay}"
                     Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
@@ -124,21 +126,21 @@
                             MinRowSpacing="8" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="uwp:PgcEpisodeViewModel">
+                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
                             <controls:CardPanel
-                                AutomationProperties.Name="{x:Bind Data.LongTitle}"
+                                AutomationProperties.Name="{x:Bind Information.Identifier.Id}"
                                 Click="OnEpisodeItemClickAsync"
                                 DataContext="{x:Bind}"
                                 IsChecked="{x:Bind IsSelected, Mode=OneWay}"
                                 IsEnableCheck="True"
                                 IsEnableHoverAnimation="False"
-                                ToolTipService.ToolTip="{x:Bind Data.LongTitle}">
+                                ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}">
                                 <Grid>
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
-                                        Text="{x:Bind Data.Index, Mode=OneWay}" />
+                                        Text="{x:Bind Information.Index}" />
                                 </Grid>
                             </controls:CardPanel>
                         </DataTemplate>
@@ -148,4 +150,4 @@
         </ScrollViewer>
     </Grid>
 
-</controls:PlayerComponent>
+</local:PgcEpisodeViewBase>

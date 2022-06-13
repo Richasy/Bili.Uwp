@@ -5,32 +5,32 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Models.Data.Community;
+using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
-using Bili.Models.Data.Video;
+using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Windows.UI.Core;
 
-namespace Bili.ViewModels.Uwp.Video
+namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
-    /// 视频播放页面视图模型.
+    /// PGC 播放页面视图模型.
     /// </summary>
-    public sealed partial class VideoPlayerPageViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class PgcPlayerPageViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoPlayerPageViewModel"/> class.
+        /// Initializes a new instance of the <see cref="PgcPlayerPageViewModel"/> class.
         /// </summary>
-        public VideoPlayerPageViewModel(
+        public PgcPlayerPageViewModel(
             IPlayerProvider playerProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
-            IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
@@ -44,7 +44,6 @@ namespace Bili.ViewModels.Uwp.Video
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
-            _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
@@ -55,31 +54,28 @@ namespace Bili.ViewModels.Uwp.Video
             _dispatcher = dispatcher;
             MediaPlayerViewModel = playerViewModel;
 
-            Collaborators = new ObservableCollection<UserItemViewModel>();
-            Tags = new ObservableCollection<Tag>();
             FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
-            Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
-            RelatedVideos = new ObservableCollection<VideoItemViewModel>();
-            VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
-            Seasons = new ObservableCollection<Models.Data.Video.VideoSeason>();
-            CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
+            Sections = new ObservableCollection<PlayerSectionHeader>();
+            Episodes = new ObservableCollection<EpisodeItemViewModel>();
+            Seasons = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            Extras = new ObservableCollection<PgcExtraItemViewModel>();
+            Celebrities = new ObservableCollection<UserItemViewModel>();
 
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag, outputScheduler: RxApp.MainThreadScheduler);
-            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync, outputScheduler: RxApp.MainThreadScheduler);
-            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadInteractionInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
+            FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
             CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
             LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
             FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
+            ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
             _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
@@ -103,7 +99,13 @@ namespace Bili.ViewModels.Uwp.Video
         /// <param name="snapshot">视频信息.</param>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
-            _presetVideoId = snapshot.VideoId;
+            _presetEpisodeId = string.IsNullOrEmpty(snapshot.VideoId)
+                ? "0"
+                : snapshot.VideoId;
+            _presetSeasonId = string.IsNullOrEmpty(snapshot.SeasonId)
+                ? "0"
+                : snapshot.SeasonId;
+            _needBiliPlus = snapshot.NeedBiliPlus;
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
             ReloadCommand.Execute().Subscribe();
         }
@@ -112,7 +114,6 @@ namespace Bili.ViewModels.Uwp.Video
         {
             View = null;
             MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
-            ResetPublisher();
             ResetOverview();
             ResetOperation();
             ResetCommunityInformation();
@@ -123,16 +124,15 @@ namespace Bili.ViewModels.Uwp.Video
         private async Task GetDataAsync()
         {
             Reset();
-            View = await _playerProvider.GetVideoDetailAsync(_presetVideoId);
+            View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId);
 
-            InitializePublisher();
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();
             InitializeInterop();
             InitializeSections();
 
-            MediaPlayerViewModel.SetVideoData(View);
+            MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
         }
     }
 }

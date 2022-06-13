@@ -19,18 +19,21 @@ namespace Bili.Models.Data.Pgc
         /// <param name="episodes">分集列表.</param>
         /// <param name="extras">附加内容.</param>
         /// <param name="progress">播放进度.</param>
+        /// <param name="warning">播放警告.</param>
         public PgcDisplayView(
             SeasonInformation information,
             IEnumerable<VideoIdentifier> seasons = null,
             IEnumerable<EpisodeInformation> episodes = null,
             Dictionary<string, IEnumerable<EpisodeInformation>> extras = null,
-            PlayedProgress progress = null)
+            PlayedProgress progress = null,
+            string warning = default)
         {
             Information = information;
             Seasons = seasons;
             Episodes = episodes;
             Extras = extras;
             Progress = progress;
+            Warning = warning;
         }
 
         /// <summary>
@@ -56,7 +59,12 @@ namespace Bili.Models.Data.Pgc
         /// <summary>
         /// 上次播放进度.
         /// </summary>
-        public PlayedProgress Progress { get; }
+        public PlayedProgress Progress { get; set; }
+
+        /// <summary>
+        /// 播放警告.
+        /// </summary>
+        public string Warning { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is PgcDisplayView view && EqualityComparer<SeasonInformation>.Default.Equals(Information, view.Information);

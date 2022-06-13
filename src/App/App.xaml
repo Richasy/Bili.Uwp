@@ -55,6 +55,7 @@
             <converter:RelationTextConverter x:Key="RelationTextConverter" />
             <converter:RelationButtonStyleConverter x:Key="RelationButtonStyleConverter" />
             <converter:FixedContentConverter x:Key="FixedContentConverter" />
+            <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

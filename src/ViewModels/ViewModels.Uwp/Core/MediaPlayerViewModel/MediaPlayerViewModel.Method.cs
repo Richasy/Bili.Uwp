@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Text.RegularExpressions;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
@@ -12,6 +13,19 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class MediaPlayerViewModel
     {
+        private void ResetMediaData()
+        {
+            Formats.Clear();
+            IsShowProgressTip = false;
+            ProgressTip = default;
+            _video = null;
+            _audio = null;
+            CurrentFormat = null;
+            IsLoop = false;
+            _lastReportProgress = TimeSpan.Zero;
+            _initializeProgress = TimeSpan.Zero;
+        }
+
         private void InitializeMediaPlayer()
         {
             var player = new MediaPlayer();
@@ -120,6 +134,40 @@ namespace Bili.ViewModels.Uwp.Core
                     _initializeProgress = progress;
                 }
             }
+        }
+
+        private Tuple<string, string> GetProxyAndArea(string title, bool isVideo)
+        {
+            var proxy = string.Empty;
+            var area = string.Empty;
+
+            var isOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
+            var localProxy = isVideo
+                ? _settingsToolkit.ReadLocalSetting(SettingNames.RoamingVideoAddress, string.Empty)
+                : _settingsToolkit.ReadLocalSetting(SettingNames.RoamingViewAddress, string.Empty);
+            if (isOpenRoaming && !string.IsNullOrEmpty(localProxy))
+            {
+                if (!string.IsNullOrEmpty(title))
+                {
+                    if (Regex.IsMatch(title, @"僅.*港.*地區"))
+                    {
+                        area = "hk";
+                    }
+                    else if (Regex.IsMatch(title, @"僅.*台.*地區"))
+                    {
+                        area = "tw";
+                    }
+                }
+
+                var isForceProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
+                if ((isForceProxy && string.IsNullOrEmpty(area))
+                    || !string.IsNullOrEmpty(area))
+                {
+                    proxy = localProxy;
+                }
+            }
+
+            return new Tuple<string, string>(proxy, area);
         }
 
         private async void OnMediaPlayerVolumeChangedAsync(MediaPlayer sender, object args)

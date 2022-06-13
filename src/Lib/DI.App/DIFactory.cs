@@ -113,6 +113,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<AvBvConverterViewModel>();
             SplatRegistrations.RegisterLazySingleton<CoverDownloaderViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<PgcPlayerPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

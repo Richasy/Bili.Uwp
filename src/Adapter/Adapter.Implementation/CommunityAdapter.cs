@@ -578,5 +578,9 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public TripleInformation ConvertToTripleInformation(TripleResult result, string id)
             => new TripleInformation(id, result.IsLike, result.IsCoin, result.IsFavorite);
+
+        /// <inheritdoc/>
+        public EpisodeInteractionInformation ConvertToEpisodeInteractionInformation(EpisodeInteraction interaction)
+            => new EpisodeInteractionInformation(interaction.IsLike == 1, interaction.CoinNumber > 0, interaction.IsFavorite == 1);
     }
 }

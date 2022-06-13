@@ -122,36 +122,6 @@ namespace Bili.App.Controls
                 ViewLaterVideoView.Visibility = Nav.SelectedItem == ViewLaterItem ?
                 Visibility.Visible : Visibility.Collapsed;
             }
-
-            if (ViewModel.IsShowEpisode && EpisodeView != null)
-            {
-                EpisodeView.Visibility = Nav.SelectedItem == EpisodeItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowSeason && SeasonView != null)
-            {
-                SeasonView.Visibility = Nav.SelectedItem == SeasonItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowSection && SectionView != null)
-            {
-                SectionView.Visibility = Nav.SelectedItem == SectionItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowChat && ChatView != null)
-            {
-                ChatView.Visibility = Nav.SelectedItem == ChatItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (ViewModel.IsShowReply && ReplyView != null)
-            {
-                ReplyView.Visibility = Nav.SelectedItem == ReplyItem ?
-                Visibility.Visible : Visibility.Collapsed;
-            }
         }
 
         private void InitializeSelectedSection()

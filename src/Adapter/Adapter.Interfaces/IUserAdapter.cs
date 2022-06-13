@@ -110,7 +110,7 @@ namespace Bili.Adapter.Interfaces
         /// <param name="celebrity">明星信息.</param>
         /// <param name="avatarSize">头像大小.</param>
         /// <returns><see cref="RoleProfile"/>.</returns>
-        RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size48);
+        RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size96);
 
         /// <summary>
         /// 将关系用户响应结果 <see cref="UserRelationResponse"/> 转换为 <see cref="RelationView"/>.

@@ -1,32 +1,37 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Pgc;
+using ReactiveUI;
+using Splat;
 using Windows.UI.Xaml;
 
-namespace Bili.App.Controls.Player.Related
+namespace Bili.App.Controls.Player
 {
     /// <summary>
-    /// 分集视图.
+    /// PGC 分集视图.
     /// </summary>
-    public sealed partial class EpisodeView : PlayerComponent
+    public sealed partial class PgcEpisodeView : PgcEpisodeViewBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpisodeView"/> class.
+        /// Initializes a new instance of the <see cref="PgcEpisodeView"/> class.
         /// </summary>
-        public EpisodeView()
+        public PgcEpisodeView()
         {
             InitializeComponent();
+            ViewModel = Splat.Locator.Current.GetService<PgcPlayerPageViewModel>();
+            DataContext = ViewModel;
         }
 
         private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as PgcEpisodeViewModel;
-            if (!data.Data.Equals(ViewModel.CurrentPgcEpisode))
+            var data = card.DataContext as EpisodeItemViewModel;
+            if (!data.Information.Equals(ViewModel.CurrentEpisode))
             {
-                await ViewModel.ChangePgcEpisodeAsync(data.Data.Id);
+                ViewModel.ChangeEpisodeCommand.Execute(data.Information).Subscribe();
             }
             else
             {
@@ -41,10 +46,10 @@ namespace Bili.App.Controls.Player.Related
 
         private void RelocateSelectedItem()
         {
-            var vm = ViewModel.EpisodeCollection.FirstOrDefault(p => p.IsSelected);
+            var vm = ViewModel.Episodes.FirstOrDefault(p => p.IsSelected);
             if (vm != null)
             {
-                var index = ViewModel.EpisodeCollection.IndexOf(vm);
+                var index = ViewModel.Episodes.IndexOf(vm);
                 if (index >= 0)
                 {
                     EpisodeRepeater.ScrollToItem(index);
@@ -59,5 +64,12 @@ namespace Bili.App.Controls.Player.Related
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// <see cref="PgcEpisodeView"/> 的基类.
+    /// </summary>
+    public class PgcEpisodeViewBase : ReactiveUserControl<PgcPlayerPageViewModel>
+    {
     }
 }

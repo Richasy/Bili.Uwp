@@ -26,7 +26,7 @@ namespace Bili.Controller.Uwp
         /// <param name="proxy">代理地址.</param>
         /// <param name="area">地区.</param>
         /// <returns>详细内容.</returns>
-        public async Task<PgcDisplayInformation> GetPgcDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
+        public Task<PgcDisplayInformation> GetPgcDisplayInformationAsync(int episodeId = 0, int seasonId = 0, string proxy = "", string area = "")
         {
             if (episodeId < 0 || seasonId < 0)
             {
@@ -40,7 +40,7 @@ namespace Bili.Controller.Uwp
 
             try
             {
-                return await _pgcProvider.GetDisplayInformationAsync(episodeId, seasonId, proxy, area);
+                return Task.FromResult(new PgcDisplayInformation());
             }
             catch (Exception ex)
             {
@@ -54,8 +54,8 @@ namespace Bili.Controller.Uwp
         /// </summary>
         /// <param name="episodeId">分集Id.</param>
         /// <returns>分集交互信息.</returns>
-        public async Task<EpisodeInteraction> GetPgcEpisodeInteractionAsync(int episodeId)
-            => await _pgcProvider.GetEpisodeInteractionAsync(episodeId);
+        public Task<EpisodeInteraction> GetPgcEpisodeInteractionAsync(int episodeId)
+            => Task.FromResult(new EpisodeInteraction());
 
         /// <summary>
         /// 追番/取消追番.

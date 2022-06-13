@@ -74,6 +74,11 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler<VideoFavoriteFolder> RequestShowVideoFavoriteFolderDetail;
 
         /// <summary>
+        /// 请求显示正在播放的剧集信息详情.
+        /// </summary>
+        public event EventHandler RequestShowPgcSeasonDetail;
+
+        /// <summary>
         /// 导航面板是否已展开.
         /// </summary>
         [Reactive]

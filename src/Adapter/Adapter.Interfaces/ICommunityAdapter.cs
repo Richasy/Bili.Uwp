@@ -319,5 +319,12 @@ namespace Bili.Adapter.Interfaces
         /// <param name="id">视频 Id.</param>
         /// <returns><see cref="TripleInformation"/>.</returns>
         TripleInformation ConvertToTripleInformation(TripleResult result, string id);
+
+        /// <summary>
+        /// 将单集交互响应 <see cref="EpisodeInteraction"/> 转换为单集交互信息.
+        /// </summary>
+        /// <param name="interaction">单集交互响应.</param>
+        /// <returns><see cref="EpisodeInteractionInformation"/>.</returns>
+        EpisodeInteractionInformation ConvertToEpisodeInteractionInformation(EpisodeInteraction interaction);
     }
 }

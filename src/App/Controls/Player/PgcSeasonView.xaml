@@ -1,13 +1,12 @@
-﻿<controls:PlayerComponent
-    x:Class="Bili.App.Controls.Player.Related.SeasonView"
+﻿<local:PgcSeasonViewBase
+    x:Class="Bili.App.Controls.Player.PgcSeasonView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Bili.App.Controls.Player.Related"
+    xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -15,16 +14,16 @@
     <ScrollViewer
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Hidden"
-        VerticalScrollMode="{x:Bind VerticalScrollMode, Mode=OneWay}">
+        VerticalScrollMode="Auto">
         <controls:VerticalRepeaterView
             EnableDetectParentScrollViewer="False"
             HeaderVisibility="Collapsed"
             ItemOrientation="Vertical"
-            ItemsSource="{x:Bind ViewModel.SeasonCollection}"
-            MinWideItemHeight="200"
+            ItemsSource="{x:Bind ViewModel.Seasons}"
+            MinWideItemHeight="220"
             MinWideItemWidth="120">
             <controls:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="uwp:PgcSeasonViewModel">
+                <DataTemplate x:DataType="video:VideoIdentifierSelectableViewModel">
                     <controls:CardPanel
                         Click="OnSeasonItemClickAsync"
                         DataContext="{x:Bind}"
@@ -37,17 +36,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid HorizontalAlignment="Center" CornerRadius="{StaticResource ControlCornerRadius}">
-                                <Image Source="{x:Bind Data.Cover, Converter={StaticResource SeasonCoverConverter}}" ToolTipService.ToolTip="{x:Bind Data.SeasonTitle}" />
-                                <Border
-                                    Margin="0,8,8,0"
-                                    Padding="8,4"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Top"
-                                    Background="{ThemeResource AccentBadgeBackground}"
-                                    CornerRadius="{StaticResource ControlCornerRadius}"
-                                    Visibility="{x:Bind Data.Badge, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                    <TextBlock FontSize="12" Text="{x:Bind Data.Badge}" />
-                                </Border>
+                                <controls:CommonImageEx ImageUrl="{x:Bind Data.Cover.Uri}" ToolTipService.ToolTip="{x:Bind Data.Title}" />
                             </Grid>
                             <TextBlock
                                 x:Name="TitleBlock"
@@ -69,4 +58,4 @@
             </controls:VerticalRepeaterView.ItemTemplate>
         </controls:VerticalRepeaterView>
     </ScrollViewer>
-</controls:PlayerComponent>
+</local:PgcSeasonViewBase>

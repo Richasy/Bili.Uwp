@@ -1,4 +1,6 @@
-﻿using Bili.ViewModels.Uwp.Base;
+﻿// Copyright (c) Richasy. All rights reserved.
+
+using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;

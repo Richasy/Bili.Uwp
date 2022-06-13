@@ -18,8 +18,8 @@ namespace Bili.App.Resources.Converter
             var isFixed = System.Convert.ToBoolean(value);
             var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
             return isFixed
-                ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FixContent)
-                : resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UnfixContent);
+                ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UnfixContent)
+                : resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FixContent);
         }
 
         /// <inheritdoc/>

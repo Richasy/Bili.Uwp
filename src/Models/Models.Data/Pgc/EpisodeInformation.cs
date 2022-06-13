@@ -17,7 +17,7 @@ namespace Bili.Models.Data.Pgc
         /// </summary>
         /// <param name="identifier">单集标识.</param>
         /// <param name="seasonId">剧集Id.</param>
-        /// <param name="otherId">备用Id.</param>
+        /// <param name="videoId">备用Id.</param>
         /// <param name="subtitle">副标题.</param>
         /// <param name="index">索引.</param>
         /// <param name="isVip">是否为会员专属剧集.</param>
@@ -25,21 +25,27 @@ namespace Bili.Models.Data.Pgc
         /// <param name="publishTime">发布时间.</param>
         /// <param name="communityInformation">社区信息.</param>
         /// <param name="highlight">高亮文本.</param>
+        /// <param name="partId">分P Id.</param>
+        /// <param name="seasonType">剧集类型.</param>
         public EpisodeInformation(
             VideoIdentifier identifier,
             string seasonId = "",
-            string otherId = "",
+            string videoId = "",
             string subtitle = "",
             int index = -1,
             bool isVip = false,
             bool isPv = false,
             DateTime publishTime = default,
             VideoCommunityInformation communityInformation = default,
-            string highlight = default)
+            string highlight = default,
+            string partId = default,
+            string seasonType = default)
         {
             Identifier = identifier;
             SeasonId = seasonId;
-            AlternateId = otherId;
+            SeasonType = seasonType;
+            VideoId = videoId;
+            PartId = partId;
             Subtitle = subtitle;
             Index = index;
             IsVip = isVip;
@@ -58,9 +64,14 @@ namespace Bili.Models.Data.Pgc
         /// 备用 Id.
         /// </summary>
         /// <remarks>
-        /// 有时对番剧单集的数据请求需要其 aid 或者 cid，这里用来存储其对应数据.
+        /// 有时对番剧单集的数据请求需要其 aid，这里用来存储其对应数据.
         /// </remarks>
-        public string AlternateId { get; set; }
+        public string VideoId { get; set; }
+
+        /// <summary>
+        /// 分P Id，通常指分集作为视频时的 cid.
+        /// </summary>
+        public string PartId { get; set; }
 
         /// <summary>
         /// 发布时间.
@@ -71,6 +82,11 @@ namespace Bili.Models.Data.Pgc
         /// 所属剧集Id.
         /// </summary>
         public string SeasonId { get; }
+
+        /// <summary>
+        /// 剧集类型.
+        /// </summary>
+        public string SeasonType { get; }
 
         /// <summary>
         /// 分集排序索引.

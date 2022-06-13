@@ -1,31 +1,26 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.App.Controls.Dialogs;
-using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
-using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
-using Splat;
+using Bili.ViewModels.Uwp.Pgc;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
 {
     /// <summary>
-    /// 视频播放页面.
+    /// PGC 内容的播放页面.
     /// </summary>
-    public sealed partial class VideoPlayerPage : VideoPlayerPageBase
+    public sealed partial class PgcPlayerPage : PgcPlayerPageBase
     {
         private bool _isLikeHoldCompleted;
         private bool _isLikeHoldSuspend;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoPlayerPage"/> class.
+        /// Initializes a new instance of the <see cref="PgcPlayerPage"/> class.
         /// </summary>
-        public VideoPlayerPage()
+        public PgcPlayerPage()
         {
             InitializeComponent();
             ViewModel.MediaPlayerViewModel.MediaPlayerChanged += OnMediaPlayerChanged;
@@ -62,28 +57,6 @@ namespace Bili.App.Pages.Desktop.Overlay
         {
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
             ViewModel.CoinCommand.Execute(num).Subscribe();
-        }
-
-        private async void OnTagButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            var data = (sender as FrameworkElement).DataContext as Tag;
-            var settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
-            var isFirstClick = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, true);
-
-            if (isFirstClick)
-            {
-                var dialog = new ConfirmDialog(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FirstClickTagTip));
-                var result = await dialog.ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    return;
-                }
-
-                settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, false);
-            }
-
-            ViewModel.SearchTagCommand.Execute(data).Subscribe();
         }
 
         private void OnLikeButtonHoldingCompleted(object sender, System.EventArgs e)
@@ -137,9 +110,9 @@ namespace Bili.App.Pages.Desktop.Overlay
     }
 
     /// <summary>
-    /// 视频播放器页面基类.
+    /// <see cref="PgcPlayerPage"/> 的基类.
     /// </summary>
-    public class VideoPlayerPageBase : AppPage<VideoPlayerPageViewModel>
+    public class PgcPlayerPageBase : AppPage<PgcPlayerPageViewModel>
     {
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
@@ -24,6 +25,23 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <returns><see cref="ViewReply"/>.</returns>
         Task<VideoView> GetVideoDetailAsync(string videoId);
+
+        /// <summary>
+        /// 获取PGC内容的详细信息.
+        /// </summary>
+        /// <param name="episodeId">(可选项) 单集Id.</param>
+        /// <param name="seasonId">(可选项) 剧集/系列Id.</param>
+        /// <param name="proxy">代理地址.</param>
+        /// <param name="area">地区.</param>
+        /// <returns>PGC内容详情.</returns>
+        Task<PgcDisplayView> GetPgcDetailAsync(string episodeId, string seasonId, string proxy = default, string area = default);
+
+        /// <summary>
+        /// 获取分集的交互信息，包括用户的投币/点赞/收藏.
+        /// </summary>
+        /// <param name="episodeId">分集Id.</param>
+        /// <returns>交互信息.</returns>
+        Task<EpisodeInteractionInformation> GetEpisodeInteractionInformationAsync(string episodeId);
 
         /// <summary>
         /// 获取同时在线观看人数.
