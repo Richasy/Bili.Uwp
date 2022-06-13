@@ -101,5 +101,19 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsCoined = info.IsCoined;
             ReloadInteractionInformationCommand.Execute().Subscribe();
         }
+
+        private async Task TrackAsync()
+        {
+            var isTrack = !IsTracking;
+            var isSuccess = await _pgcProvider.FollowAsync(View.Information.Identifier.Id, isTrack);
+            if (isSuccess)
+            {
+                IsTracking = isTrack;
+            }
+            else
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+            }
+        }
     }
 }

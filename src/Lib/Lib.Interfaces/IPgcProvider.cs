@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.Models.App;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
@@ -41,7 +42,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="seasonId">剧Id.</param>
         /// <param name="isFollow">是否关注.</param>
         /// <returns>关注结果.</returns>
-        Task<bool> FollowAsync(int seasonId, bool isFollow);
+        Task<bool> FollowAsync(string seasonId, bool isFollow);
 
         /// <summary>
         /// 获取PGC索引条件.
@@ -71,6 +72,13 @@ namespace Bili.Lib.Interfaces
         /// <param name="listId">播放列表Id.</param>
         /// <returns>播放列表响应结果.</returns>
         Task<PgcPlaylist> GetPgcPlaylistAsync(string listId);
+
+        /// <summary>
+        /// 从 Biliplus 处获取视频 Id 对应的番剧信息.
+        /// </summary>
+        /// <param name="videoId">视频 Id.</param>
+        /// <returns><see cref="BiliPlusBangumi"/>.</returns>
+        Task<BiliPlusBangumi> GetBiliPlusBangumiInformationAsync(string videoId);
 
         /// <summary>
         /// 重置PGC页面请求的状态.

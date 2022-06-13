@@ -111,11 +111,11 @@ namespace Bili.Lib
             return data.Result;
         }
 
-        private Dictionary<string, string> GetFollowQueryParameters(int seasonId)
+        private Dictionary<string, string> GetFollowQueryParameters(string seasonId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.SeasonId, seasonId.ToString() },
+                { Query.SeasonId, seasonId },
             };
 
             return queryParameters;

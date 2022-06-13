@@ -68,7 +68,7 @@ namespace Bili.Controller.Uwp
             ThrowWhenNetworkUnavaliable();
             try
             {
-                var result = await _pgcProvider.FollowAsync(seasonId, isFollow);
+                var result = await _pgcProvider.FollowAsync(seasonId.ToString(), isFollow);
                 return result;
             }
             catch (Exception ex)
@@ -83,25 +83,11 @@ namespace Bili.Controller.Uwp
         /// </summary>
         /// <param name="videoId">视频 Aid.</param>
         /// <returns><see cref="BiliPlusBangumi"/>.</returns>
-        public async Task<BiliPlusBangumi> GetBiliPlusBangumiAsync(string videoId)
+        public Task<BiliPlusBangumi> GetBiliPlusBangumiAsync(string videoId)
         {
             try
             {
-                var handler = new HttpClientHandler()
-                {
-                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
-                };
-                using (var client = new HttpClient(handler))
-                {
-                    var url = $"https://www.biliplus.com/api/view?id={videoId}";
-                    var response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    var bytes = await response.Content.ReadAsByteArrayAsync();
-                    var str = Encoding.UTF8.GetString(bytes);
-                    var jObj = JObject.Parse(str);
-                    var bangumi = jObj["bangumi"].ToString();
-                    return JsonConvert.DeserializeObject<BiliPlusBangumi>(bangumi);
-                }
+                return Task.FromResult(new BiliPlusBangumi());
             }
             catch (Exception ex)
             {

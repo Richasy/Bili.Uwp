@@ -2,14 +2,19 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
+using Bili.Models.App;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using static Bili.Models.App.Constants.ApiConstants;
 
 namespace Bili.Lib
@@ -103,7 +108,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> FollowAsync(int seasonId, bool isFollow)
+        public async Task<bool> FollowAsync(string seasonId, bool isFollow)
         {
             var queryParameters = GetFollowQueryParameters(seasonId);
             var url = isFollow ? Pgc.Follow : Pgc.Unfollow;
@@ -131,6 +136,24 @@ namespace Bili.Lib
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse2<PgcPlayListResponse>>(response);
             return _pgcAdapter.ConvertToPgcPlaylist(data.Result);
+        }
+
+        /// <inheritdoc/>
+        public async Task<BiliPlusBangumi> GetBiliPlusBangumiInformationAsync(string videoId)
+        {
+            var handler = new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+            };
+            using var client = new HttpClient(handler);
+            var url = $"https://www.biliplus.com/api/view?id={videoId}";
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            var str = Encoding.UTF8.GetString(bytes);
+            var jObj = JObject.Parse(str);
+            var bangumi = jObj["bangumi"].ToString();
+            return JsonConvert.DeserializeObject<BiliPlusBangumi>(bangumi);
         }
 
         /// <inheritdoc/>

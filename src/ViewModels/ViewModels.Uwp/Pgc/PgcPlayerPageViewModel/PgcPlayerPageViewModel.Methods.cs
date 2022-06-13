@@ -34,6 +34,30 @@ namespace Bili.ViewModels.Uwp.Pgc
         private void SelectSeason(SeasonInformation season)
             => SetSnapshot(new PlaySnapshot(default, season.Identifier.Id, Models.Enums.VideoType.Pgc));
 
+        private void SelectEpisode(EpisodeInformation episode)
+        {
+            CurrentEpisode = episode;
+            foreach (var item in Episodes)
+            {
+                item.IsSelected = episode.Identifier.Id == item.Information.Identifier.Id;
+            }
+
+            if (Extras.Count > 0)
+            {
+                foreach (var extra in Extras)
+                {
+                    foreach (var item in extra.Episodes)
+                    {
+                        item.IsSelected = episode.Identifier.Id == item.Information.Identifier.Id;
+                    }
+                }
+            }
+
+            ReloadInteractionInformationCommand.Execute().Subscribe();
+            MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
+            _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
+        }
+
         private void ShowSeasonDetail()
             => _appViewModel.ShowPgcSeasonDetail();
 

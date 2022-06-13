@@ -27,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IPgcProvider _pgcProvider;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
@@ -31,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IPlayerProvider playerProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
+            IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
@@ -44,6 +46,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
+            _pgcProvider = pgcProvider;
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
@@ -67,6 +70,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeEpisodeCommand = ReactiveCommand.Create<EpisodeInformation>(SelectEpisode, outputScheduler: RxApp.MainThreadScheduler);
             ReloadInteractionInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
             FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
             CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -76,6 +80,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
+            TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
             _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
@@ -124,6 +129,19 @@ namespace Bili.ViewModels.Uwp.Pgc
         private async Task GetDataAsync()
         {
             Reset();
+            if (_needBiliPlus && !string.IsNullOrEmpty(_presetEpisodeId))
+            {
+                var data = await _pgcProvider.GetBiliPlusBangumiInformationAsync(_presetEpisodeId);
+                if (data != null)
+                {
+                    var epId = data.PlayUrl.Split('/').Last();
+                    _presetEpisodeId = !string.IsNullOrEmpty(epId) && epId.Contains("ep")
+                                ? epId.Replace("ep", string.Empty)
+                                : "0";
+                    _presetSeasonId = data.SeasonId;
+                }
+            }
+
             View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId);
 
             InitializeOverview();
