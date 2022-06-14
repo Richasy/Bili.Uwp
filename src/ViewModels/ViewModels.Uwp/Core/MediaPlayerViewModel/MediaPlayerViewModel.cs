@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
@@ -80,6 +81,17 @@ namespace Bili.ViewModels.Uwp.Core
             _viewData = view;
             _currentEpisode = episode;
             _videoType = VideoType.Pgc;
+            ReloadCommand.Execute().Subscribe();
+        }
+
+        /// <summary>
+        /// 设置直播播放数据.
+        /// </summary>
+        /// <param name="data">直播视图数据.</param>
+        public void SetLiveData(LivePlayerView data)
+        {
+            _viewData = data;
+            _videoType = VideoType.Live;
             ReloadCommand.Execute().Subscribe();
         }
 

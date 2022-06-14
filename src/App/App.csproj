@@ -324,6 +324,9 @@
     <Compile Include="Pages\Desktop\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Desktop\Overlay\LivePlayerPage.xaml.cs">
+      <DependentUpon>LivePlayerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Desktop\Overlay\MyFollowsPage.xaml.cs">
       <DependentUpon>MyFollowsPage.xaml</DependentUpon>
     </Compile>
@@ -971,6 +974,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\Overlay\LivePartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Desktop\Overlay\LivePlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

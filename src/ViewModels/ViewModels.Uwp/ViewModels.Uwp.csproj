@@ -33,6 +33,13 @@
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Properties.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Video.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Methods.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Properties.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Request.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Reset.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.cs" />
     <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
     <Compile Include="Pgc\PgcExtraItemViewModel.cs" />
     <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.cs" />

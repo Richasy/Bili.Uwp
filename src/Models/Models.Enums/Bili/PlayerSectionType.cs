@@ -41,5 +41,10 @@ namespace Bili.Models.Enums.Bili
         ///  PGC 附加内容.
         /// </summary>
         Extras,
+
+        /// <summary>
+        /// 直播聊天互动.
+        /// </summary>
+        Chat,
     }
 }
