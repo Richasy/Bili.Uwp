@@ -3,7 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using Bili.Controller.Uwp;
-using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bilibili.Community.Service.Dm.V1;

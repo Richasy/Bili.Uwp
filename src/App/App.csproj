@@ -148,7 +148,6 @@
     <Compile Include="Controls\Player\DownloadOptionsPanel.xaml.cs">
       <DependentUpon>DownloadOptionsPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\IRefreshPage.cs" />
     <Compile Include="Controls\Favorite\ArticleFavoritePanel.xaml.cs">
       <DependentUpon>ArticleFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -216,19 +215,7 @@
     </Compile>
     <Compile Include="Controls\IDynamicLayoutItem.cs" />
     <Compile Include="Controls\IRepeaterItem.cs" />
-    <Compile Include="Controls\Pgc\PgcItem.xaml.cs">
-      <DependentUpon>PgcItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Player\PlayerDashboard.xaml.cs">
-      <DependentUpon>PlayerDashboard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Player\PlayerComponent.cs" />
-    <Compile Include="Controls\Player\PlayerDescriptor.xaml.cs">
-      <DependentUpon>PlayerDescriptor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Player\PlayerRelatedView.xaml.cs">
-      <DependentUpon>PlayerRelatedView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\App\ProgressButton\ProgressButton.cs" />
     <Compile Include="Controls\Player\PgcEpisodeView.xaml.cs">
       <DependentUpon>PgcEpisodeView.xaml</DependentUpon>
@@ -284,9 +271,6 @@
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserItem\UserItem.cs" />
-    <Compile Include="Controls\User\UserSlimCard.xaml.cs">
-      <DependentUpon>UserSlimCard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\User\UserSpaceView.xaml.cs">
       <DependentUpon>UserSpaceView.xaml</DependentUpon>
     </Compile>
@@ -350,9 +334,6 @@
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\PgcPlayerPage.xaml.cs">
       <DependentUpon>PgcPlayerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Desktop\Overlay\PlayerPage.xaml.cs">
-      <DependentUpon>PlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
@@ -448,7 +429,6 @@
     <Compile Include="Resources\Converter\UgcEpisodeConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
-    <Compile Include="Resources\Extension\ConnectedAnimationExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
     <Compile Include="Resources\Extension\VisualTreeExtension.cs" />
     <Compile Include="Resources\Selector\RecommendDataTemplateSelector.cs" />
@@ -837,22 +817,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\PgcItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Player\PlayerDashboard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Player\PlayerDescriptor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Player\PlayerRelatedView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\App\ProgressButton\ProgressButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -926,10 +890,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\User\UserItem\UserItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\User\UserSlimCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1010,10 +970,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\Overlay\PgcPlayerPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Desktop\Overlay\PlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1138,7 +1094,7 @@
       <Version>2.14.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.2</Version>
@@ -1162,10 +1118,10 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>18.0.10</Version>
+      <Version>18.1.8</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Uwp">
-      <Version>18.0.10</Version>
+      <Version>18.1.8</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>
@@ -1188,9 +1144,7 @@
   <ItemGroup>
     <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.Uwp\Controller.Uwp.csproj">
       <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>

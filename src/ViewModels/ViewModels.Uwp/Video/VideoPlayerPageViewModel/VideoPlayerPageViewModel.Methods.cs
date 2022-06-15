@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.Bili;
 using Splat;
@@ -68,7 +69,7 @@ namespace Bili.ViewModels.Uwp.Video
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new Models.App.FixedItem(
+                await _accountViewModel.AddFixedItemAsync(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,

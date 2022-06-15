@@ -307,11 +307,6 @@ namespace Bili.ViewModels.Uwp.Core
         public ObservableCollection<FavoriteMetaViewModel> FavoriteMetaCollection { get; }
 
         /// <summary>
-        /// 标签集合.
-        /// </summary>
-        public ObservableCollection<VideoTag> TagCollection { get; set; }
-
-        /// <summary>
         /// 选项集合.
         /// </summary>
         public ObservableCollection<InteractionChoice> ChoiceCollection { get; }

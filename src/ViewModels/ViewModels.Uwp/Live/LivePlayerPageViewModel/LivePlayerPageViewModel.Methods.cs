@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Live;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using DynamicData;
 using Windows.ApplicationModel.DataTransfer;
@@ -62,7 +63,7 @@ namespace Bili.ViewModels.Uwp.Live
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new Models.App.FixedItem(
+                await _accountViewModel.AddFixedItemAsync(new FixedItem(
                     View.Information.User.Avatar.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,

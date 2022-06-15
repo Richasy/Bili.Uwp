@@ -56,7 +56,6 @@ namespace Bili.ViewModels.Uwp.Core
             SubtitleIndexCollection = new ObservableCollection<SubtitleIndexItemViewModel>();
             StaffCollection = new ObservableCollection<UserViewModel>();
             ChoiceCollection = new ObservableCollection<InteractionChoice>();
-            TagCollection = new ObservableCollection<VideoTag>();
             UgcSectionCollection = new ObservableCollection<Section>();
             UgcEpisodeCollection = new ObservableCollection<VideoViewModel>();
             PlaybackRateNodeCollection = new ObservableCollection<double>();
@@ -92,7 +91,6 @@ namespace Bili.ViewModels.Uwp.Core
             InitializeTimer();
             PropertyChanged += OnPropertyChanged;
             LiveDanmakuCollection.CollectionChanged += OnLiveDanmakuCollectionChanged;
-            TagCollection.CollectionChanged += OnTagCollectionChanged;
             Controller.LiveMessageReceived += OnLiveMessageReceivedAsync;
 
             // Controller.LoggedOut += OnUserLoggedOut;
@@ -1047,9 +1045,6 @@ namespace Bili.ViewModels.Uwp.Core
                 RequestLiveMessageScrollToBottom?.Invoke(this, EventArgs.Empty);
             }
         }
-
-        private void OnTagCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-            => IsShowTags = TagCollection.Count > 0;
 
         private void OnAppViewVisibleBoundsChanged(ApplicationView sender, object args)
         {

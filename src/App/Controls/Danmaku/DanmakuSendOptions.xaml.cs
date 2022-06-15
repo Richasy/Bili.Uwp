@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

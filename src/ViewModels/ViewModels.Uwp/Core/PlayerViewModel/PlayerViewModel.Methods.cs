@@ -7,10 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp.Account;
@@ -95,7 +95,6 @@ namespace Bili.ViewModels.Uwp.Core
             SubtitleIndexCollection.Clear();
             StaffCollection.Clear();
             ChoiceCollection.Clear();
-            TagCollection.Clear();
             UgcEpisodeCollection.Clear();
             UgcSectionCollection.Clear();
             Controller.CleanupLiveSocket();
@@ -254,9 +253,6 @@ namespace Bili.ViewModels.Uwp.Core
             CoverUrl = _videoDetail.Arc.Pic;
             IsInteraction = _videoDetail.Interaction != null;
             IsContentFixed = Splat.Locator.Current.GetService<AccountViewModel>().FixedItemCollection.Any(p => p.Id == AvId);
-            _videoDetail.Tag.Select(p => new VideoTag { Id = p.Id.ToString(), Name = p.Name.TrimStart('#'), Uri = p.Uri })
-                .ToList()
-                .ForEach(p => TagCollection.Add(p));
             _commentPageViewModel.SetData(_videoDetail.Arc.Aid.ToString(), Models.Enums.Bili.CommentType.Video);
 
             if (_videoDetail.Staff.Count > 0)

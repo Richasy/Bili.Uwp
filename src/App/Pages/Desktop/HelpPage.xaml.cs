@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp;
-using Bili.ViewModels.Uwp.Core;
+using Bili.Models.Data.Local;
 using Bili.ViewModels.Uwp.Home;
-using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +52,7 @@ namespace Bili.App.Pages.Desktop
 
         private async void OnLinkViewItemClickAsync(object sender, ItemClickEventArgs e)
         {
-            var data = e.ClickedItem as Models.App.Other.KeyValue<string>;
+            var data = e.ClickedItem as KeyValue<string>;
             await Launcher.LaunchUriAsync(new Uri(data.Value));
         }
     }

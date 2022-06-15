@@ -10,6 +10,24 @@ namespace Bili.Models.Data.Local
     public class FixedItem
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FixedItem"/> class.
+        /// </summary>
+        public FixedItem()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FixedItem"/> class.
+        /// </summary>
+        public FixedItem(string cover, string title, string id, FixedType type)
+        {
+            Cover = cover;
+            Title = title;
+            Id = id;
+            Type = type;
+        }
+
+        /// <summary>
         /// 封面.
         /// </summary>
         public string Cover { get; set; }

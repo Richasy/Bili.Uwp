@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new Models.App.FixedItem(
+                await _accountViewModel.AddFixedItemAsync(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,

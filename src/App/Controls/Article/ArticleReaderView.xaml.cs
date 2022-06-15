@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Article;

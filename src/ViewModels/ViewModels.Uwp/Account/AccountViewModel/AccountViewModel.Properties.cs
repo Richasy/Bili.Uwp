@@ -3,8 +3,8 @@
 using System;
 using System.Collections.ObjectModel;
 using Bili.Lib.Interfaces;
-using Bili.Models.App;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;

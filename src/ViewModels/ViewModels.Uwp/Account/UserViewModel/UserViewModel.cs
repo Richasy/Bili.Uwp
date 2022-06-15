@@ -10,6 +10,7 @@ using Bili.Locator.Uwp;
 using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Account;
 using Bilibili.App.View.V1;

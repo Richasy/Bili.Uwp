@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Adapter.Interfaces;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Other;
+using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using static Bili.Models.App.Constants.AppConstants;
 
@@ -33,7 +33,7 @@ namespace Bili.Lib
 
         private async Task<IEnumerable<Models.Data.Community.Partition>> GetPartitionCacheAsync()
         {
-            var cacheData = await _fileToolkit.ReadLocalDataAsync<LocalCache<List<Models.Data.Community.Partition>>>(
+            var cacheData = await _fileToolkit.ReadLocalDataAsync<Cache<List<Models.Data.Community.Partition>>>(
                 Location.PartitionCache,
                 folderName: Location.ServerFolder);
 
@@ -47,7 +47,7 @@ namespace Bili.Lib
 
         private async Task CachePartitionsAsync(IEnumerable<Models.Data.Community.Partition> data)
         {
-            var localCache = new LocalCache<List<Models.Data.Community.Partition>>(System.DateTimeOffset.Now.AddDays(1), data.ToList());
+            var localCache = new Cache<List<Models.Data.Community.Partition>>(System.DateTimeOffset.Now.AddDays(1), data.ToList());
             await _fileToolkit.WriteLocalDataAsync(Location.PartitionCache, localCache, Location.ServerFolder);
         }
 

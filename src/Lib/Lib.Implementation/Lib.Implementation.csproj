@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.21.1" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.43" />
     <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 
