@@ -28,6 +28,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public MediaPlayerViewModel(
             IPlayerProvider playerProvider,
+            ILiveProvider liveProvider,
             IResourceToolkit resourceToolkit,
             IFileToolkit fileToolkit,
             ISettingsToolkit settingsToolkit,
@@ -35,6 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
+            _liveProvider = liveProvider;
             _resourceToolkit = resourceToolkit;
             _fileToolkit = fileToolkit;
             _settingsToolkit = settingsToolkit;
@@ -54,6 +56,8 @@ namespace Bili.ViewModels.Uwp.Core
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
             ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -109,6 +113,7 @@ namespace Bili.ViewModels.Uwp.Core
             ResetPlayer();
             ResetMediaData();
             ResetVideoData();
+            ResetLiveData();
         }
 
         private async Task LoadAsync()
@@ -122,6 +127,10 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 await LoadEpisodeAsync();
             }
+            else if (_videoType == VideoType.Live)
+            {
+                await LoadLiveAsync();
+            }
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)
@@ -133,6 +142,19 @@ namespace Bili.ViewModels.Uwp.Core
             else if (_videoType == VideoType.Pgc)
             {
                 await ChangeEpisodeAsync(part);
+            }
+        }
+
+        private async Task ChangeFormatAsync(FormatInformation information)
+        {
+            if (_videoType == VideoType.Video
+                || _videoType == VideoType.Pgc)
+            {
+                await SelectVideoFormatAsync(information);
+            }
+            else if (_videoType == VideoType.Live)
+            {
+                await SelectLiveFormatAsync(information);
             }
         }
 

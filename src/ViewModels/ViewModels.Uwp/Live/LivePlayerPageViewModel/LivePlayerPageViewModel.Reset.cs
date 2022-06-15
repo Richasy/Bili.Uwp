@@ -25,6 +25,7 @@ namespace Bili.ViewModels.Uwp.Live
         {
             // TODO：重置下载内容.
             IsLiveFixed = false;
+            IsDanmakusAutoScroll = true;
             Danmakus.Clear();
             _liveProvider.ResetLiveConnection();
         }

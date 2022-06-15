@@ -72,7 +72,7 @@ namespace Bili.Lib
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.RoomId, roomId.ToString() },
+                { Query.RoomId, roomId },
                 { Query.ActionKey, Query.AppKey },
             };
 
@@ -91,7 +91,7 @@ namespace Bili.Lib
                             await SendLiveMessageAsync(
                                 new
                                 {
-                                    roomid = roomId,
+                                    roomid = Convert.ToInt32(roomId),
                                     uid = _accountProvider.UserId,
                                 },
                                 7);

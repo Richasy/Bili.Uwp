@@ -102,21 +102,28 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private string GetPreferCodecId()
+        private string GetVideoPreferCodecId()
         {
-            var id = "avc";
             var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
-            switch (preferCodec)
+            var id = preferCodec switch
             {
-                case PreferCodec.H265:
-                    id = "hev";
-                    break;
-                case PreferCodec.Av1:
-                    id = "av01";
-                    break;
-                default:
-                    break;
-            }
+                PreferCodec.H265 => "hev",
+                PreferCodec.Av1 => "av01",
+                _ => "avc",
+            };
+
+            return id;
+        }
+
+        private string GetLivePreferCodecId()
+        {
+            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
+            var id = preferCodec switch
+            {
+                PreferCodec.H265 => "hevc",
+                PreferCodec.Av1 => "av1",
+                _ => "avc",
+            };
 
             return id;
         }

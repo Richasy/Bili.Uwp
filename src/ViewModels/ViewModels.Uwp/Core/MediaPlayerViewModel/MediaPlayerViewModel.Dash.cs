@@ -6,7 +6,9 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
+using FFmpegInterop;
 using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
 using Windows.Web.Http;
 
@@ -78,6 +80,29 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             return null;
+        }
+
+        private async Task<MediaPlaybackItem> GetDashLiveSourceAsync(string url)
+        {
+            try
+            {
+                if (_interopMSS != null)
+                {
+                    _interopMSS.Dispose();
+                    _interopMSS = null;
+                }
+
+                _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveConfig);
+            }
+            catch (Exception)
+            {
+                IsError = true;
+                ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestLivePlayInformationFailed);
+                return default;
+            }
+
+            var source = _interopMSS.CreateMediaPlaybackItem();
+            return source;
         }
     }
 }

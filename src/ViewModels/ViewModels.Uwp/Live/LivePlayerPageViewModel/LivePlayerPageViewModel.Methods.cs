@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
@@ -35,6 +36,11 @@ namespace Bili.ViewModels.Uwp.Live
                     {
                         var removedMessages = Danmakus.Take(600).ToList();
                         Danmakus.RemoveMany(removedMessages);
+                    }
+
+                    if (IsDanmakusAutoScroll)
+                    {
+                        RequestDanmakusScrollToBottom?.Invoke(this, EventArgs.Empty);
                     }
                 }
             });
@@ -93,5 +99,8 @@ namespace Bili.ViewModels.Uwp.Live
 
             await _liveProvider.SendHeartBeatAsync();
         }
+
+        private void OnDanmakusCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            => IsDanmakusEmpty = Danmakus.Count == 0;
     }
 }

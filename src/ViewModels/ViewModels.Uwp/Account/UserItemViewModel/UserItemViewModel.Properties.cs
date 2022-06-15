@@ -34,6 +34,11 @@ namespace Bili.ViewModels.Uwp.Account
         public ReactiveCommand<Unit, Unit> ShowDetailCommand { get; }
 
         /// <summary>
+        /// 初始化关系命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InitializeRelationCommand { get; }
+
+        /// <summary>
         /// 用户基础信息.
         /// </summary>
         [Reactive]

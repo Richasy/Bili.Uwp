@@ -2,9 +2,6 @@
 
 using System;
 using System.Linq;
-using Bili.Models.App.Other;
-using Bili.Models.Enums;
-using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Uwp.Account;
 using Splat;
 using Windows.UI.Xaml;
@@ -32,10 +29,8 @@ namespace Bili.ViewModels.Uwp.Live
             var profile = View.Information.User;
             var vm = Splat.Locator.Current.GetService<UserItemViewModel>();
             vm.SetProfile(profile);
-            vm.Relation = View.Information.Relation;
-            vm.IsRelationButtonShown = !string.IsNullOrEmpty(myId)
-                    && myId != View.Information.User.Id;
             User = vm;
+            User.InitializeRelationCommand.Execute().Subscribe();
         }
 
         private void InitializeOverview()

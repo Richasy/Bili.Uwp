@@ -31,6 +31,7 @@ namespace Bili.ViewModels.Uwp.Account
             _appViewModel = appViewModel;
 
             ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShowDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
 
             _isRelationChanging = ToggleRelationCommand.IsExecuting.ToProperty(
@@ -103,6 +104,13 @@ namespace Bili.ViewModels.Uwp.Account
                 var relation = await _accountProvider.GetRelationAsync(User.Id);
                 Relation = relation;
             }
+        }
+
+        private async Task InitializeRelationAsync()
+        {
+            var relation = await _accountProvider.GetRelationAsync(User.Id);
+            Relation = relation;
+            IsRelationButtonShown = Relation != UserRelationStatus.Unknown;
         }
 
         private void ShowDetail()

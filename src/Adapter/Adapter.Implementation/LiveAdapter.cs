@@ -98,7 +98,12 @@ namespace Bili.Adapter
 
             if (!string.IsNullOrEmpty(description))
             {
-                description = WebUtility.HtmlDecode(description);
+                description = WebUtility.HtmlDecode(description).Trim();
+            }
+
+            if (string.IsNullOrEmpty(description))
+            {
+                description = "暂无直播间介绍";
             }
 
             var viewerCount = roomInfo.ViewerCount;

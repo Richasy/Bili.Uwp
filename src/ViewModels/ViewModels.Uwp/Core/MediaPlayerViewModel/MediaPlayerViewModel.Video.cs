@@ -85,13 +85,13 @@ namespace Bili.ViewModels.Uwp.Core
                 formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
             }
 
-            await SelectFormatAsync(Formats.First(p => p.Quality == formatId));
+            await SelectVideoFormatAsync(Formats.First(p => p.Quality == formatId));
         }
 
-        private async Task SelectFormatAsync(FormatInformation format)
+        private async Task SelectVideoFormatAsync(FormatInformation format)
         {
             MarkProgressBreakpoint();
-            var codecId = GetPreferCodecId();
+            var codecId = GetVideoPreferCodecId();
             if (_mediaInformation.VideoSegments != null)
             {
                 var filteredSegments = _mediaInformation.VideoSegments.Where(p => p.Id == format.Quality.ToString());

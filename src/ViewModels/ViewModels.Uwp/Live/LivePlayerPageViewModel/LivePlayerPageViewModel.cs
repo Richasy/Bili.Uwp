@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
@@ -72,6 +71,8 @@ namespace Bili.ViewModels.Uwp.Live
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+
+            Danmakus.CollectionChanged += OnDanmakusCollectionChanged;
         }
 
         /// <summary>

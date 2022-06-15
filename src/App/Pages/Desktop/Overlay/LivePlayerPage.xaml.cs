@@ -1,30 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿// Copyright (c) Richasy. All rights reserved.
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using System;
+using Bili.Models.Data.Local;
+using Bili.ViewModels.Uwp.Live;
+using Windows.Media.Playback;
+using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// 直播播放页面.
     /// </summary>
-    public sealed partial class LivePlayerPage : Page
+    public sealed partial class LivePlayerPage : LivePlayerPageBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LivePlayerPage"/> class.
+        /// </summary>
         public LivePlayerPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            ViewModel.MediaPlayerViewModel.MediaPlayerChanged += OnMediaPlayerChanged;
         }
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is PlaySnapshot shot)
+            {
+                ViewModel.SetSnapshot(shot);
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+            => ViewModel.ClearCommand.Execute().Subscribe();
+
+        private void OnMediaPlayerChanged(object sender, MediaPlayer e)
+            => PlayerElement.SetMediaPlayer(e);
+
+        private void OnLiveOnlyAudioToggledAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var isAudioOnly = LiveAudioOnlySwitch.IsOn;
+            if (ViewModel.MediaPlayerViewModel.IsLiveAudioOnly != isAudioOnly)
+            {
+                ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly).Subscribe();
+            }
+        }
+    }
+
+    /// <summary>
+    /// <see cref="LivePlayerPage"/> 的基类.
+    /// </summary>
+    public class LivePlayerPageBase : AppPage<LivePlayerPageViewModel>
+    {
     }
 }

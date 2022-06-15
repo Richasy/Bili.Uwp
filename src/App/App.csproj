@@ -233,7 +233,7 @@
     <Compile Include="Controls\Player\PgcEpisodeView.xaml.cs">
       <DependentUpon>PgcEpisodeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\LiveMessageView.xaml.cs">
+    <Compile Include="Controls\Player\LiveMessageView.xaml.cs">
       <DependentUpon>LiveMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\PgcExtraView.xaml.cs">
@@ -861,7 +861,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\LiveMessageView.xaml">
+    <Page Include="Controls\Player\LiveMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -273,6 +273,7 @@ namespace Bili.App.Pages.Desktop
             {
                 PageIds.VideoPlayer => typeof(VideoPlayerPage),
                 PageIds.PgcPlayer => typeof(PgcPlayerPage),
+                PageIds.LivePlayer => typeof(LivePlayerPage),
                 _ => typeof(Page)
             };
 

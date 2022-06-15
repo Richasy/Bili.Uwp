@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
-using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -32,7 +31,7 @@ namespace Bili.Controller.Uwp
         /// <param name="roomId">直播间Id.</param>
         /// <returns><see cref="LiveRoomDetail"/>.</returns>
         public Task<LiveRoomDetail> GetLiveRoomDetailAsync(int roomId)
-            => _liveProvider.GetLiveRoomDetailAsync(roomId);
+            => Task.FromResult(new LiveRoomDetail());
 
         /// <summary>
         /// 获取直播间播放信息.
@@ -42,7 +41,7 @@ namespace Bili.Controller.Uwp
         /// <param name="audioOnly">是否仅播放音频.</param>
         /// <returns>播放信息.</returns>
         public Task<LiveAppPlayUrlInfo> GetAppLivePlayInformationAsync(int roomId, int quality = 150, bool audioOnly = false)
-            => _liveProvider.GetAppLivePlayInformation(roomId, quality, audioOnly);
+            => Task.FromResult(new LiveAppPlayUrlInfo());
 
         /// <summary>
         /// 连接到直播间.
@@ -51,7 +50,7 @@ namespace Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task ConnectToLiveRoomAsync(int roomId)
         {
-            await _liveProvider.EnterLiveRoomAsync(roomId);
+            await _liveProvider.EnterLiveRoomAsync(roomId.ToString());
             ConnectLiveSocket();
             if (_liveConnectionTask != null)
             {
@@ -93,7 +92,7 @@ namespace Bili.Controller.Uwp
         /// <param name="location">弹幕位置.</param>
         /// <returns>发送结果.</returns>
         public Task<bool> SendLiveDanmakuAsync(int roomId, string text, string color, bool isStandardSize, DanmakuLocation location)
-             => _liveProvider.SendDanmakuAsync(roomId, text, color, isStandardSize, location);
+             => _liveProvider.SendDanmakuAsync(roomId.ToString(), text, color, isStandardSize, location);
 
         /// <summary>
         /// 清理直播长连接.

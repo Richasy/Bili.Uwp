@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
@@ -25,6 +26,7 @@ namespace Bili.ViewModels.Uwp.Core
     public sealed partial class MediaPlayerViewModel
     {
         private readonly IPlayerProvider _playerProvider;
+        private readonly ILiveProvider _liveProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IFileToolkit _fileToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
@@ -37,6 +39,8 @@ namespace Bili.ViewModels.Uwp.Core
         private object _viewData;
         private VideoIdentifier _currentPart;
         private EpisodeInformation _currentEpisode;
+        private LivePlaylineInformation _currentPlayline;
+        private LiveMediaInformation _liveMediaInformation;
         private MediaInformation _mediaInformation;
         private SegmentInformation _video;
         private SegmentInformation _audio;
@@ -80,6 +84,16 @@ namespace Bili.ViewModels.Uwp.Core
         /// 清除播放数据的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+
+        /// <summary>
+        /// 改变直播源是否仅有音频的命令.
+        /// </summary>
+        public ReactiveCommand<bool, Unit> ChangeLiveAudioOnlyCommand { get; }
+
+        /// <summary>
+        /// 改变清晰度/视频格式命令.
+        /// </summary>
+        public ReactiveCommand<FormatInformation, Unit> ChangeFormatCommand { get; }
 
         /// <summary>
         /// 视频格式集合.
@@ -141,5 +155,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public string ProgressTip { get; set; }
+
+        /// <summary>
+        /// 是否仅播放直播音频.
+        /// </summary>
+        [Reactive]
+        public bool IsLiveAudioOnly { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
@@ -35,6 +36,11 @@ namespace Bili.ViewModels.Uwp.Live
 
         private DispatcherTimer _heartBeatTimer;
         private string _presetRoomId;
+
+        /// <summary>
+        /// 当有新的弹幕传入，预期让弹幕池滚动到底部的事件.
+        /// </summary>
+        public event EventHandler RequestDanmakusScrollToBottom;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
@@ -111,15 +117,20 @@ namespace Bili.ViewModels.Uwp.Live
         public bool IsLiveFixed { get; set; }
 
         /// <summary>
-        /// 是否仅播放音频.
-        /// </summary>
-        [Reactive]
-        public bool IsOnlyAudio { get; set; }
-
-        /// <summary>
         /// 当前区块.
         /// </summary>
         [Reactive]
         public PlayerSectionHeader CurrentSection { get; set; }
+
+        /// <summary>
+        /// 弹幕池是否为空.
+        /// </summary>
+        [Reactive]
+        public bool IsDanmakusEmpty { get; set; }
+
+        /// <summary>
+        /// 是否允许弹幕池自动滚动.
+        /// </summary>
+        public bool IsDanmakusAutoScroll { get; set; }
     }
 }

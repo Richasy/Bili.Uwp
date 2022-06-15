@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -107,35 +108,34 @@ namespace Bili.Lib
             // 头部长度固定16
             var length = data.Length + 16;
             var buffer = new byte[length];
-            using (var ms = new MemoryStream(buffer))
-            {
-                // 数据包长度
-                var b = BitConverter.GetBytes(buffer.Length).ToArray().Reverse().ToArray();
-                ms.Write(b, 0, 4);
+            using var ms = new MemoryStream(buffer);
 
-                // 数据包头部长度,固定16
-                b = BitConverter.GetBytes(16).Reverse().ToArray();
-                ms.Write(b, 2, 2);
+            // 数据包长度
+            var b = BitConverter.GetBytes(buffer.Length).ToArray().Reverse().ToArray();
+            ms.Write(b, 0, 4);
 
-                // 协议版本，0=JSON,1=Int32,2=Buffer
-                b = BitConverter.GetBytes(0).Reverse().ToArray();
-                ms.Write(b, 0, 2);
+            // 数据包头部长度,固定16
+            b = BitConverter.GetBytes(16).Reverse().ToArray();
+            ms.Write(b, 2, 2);
 
-                // 操作类型
-                b = BitConverter.GetBytes(action).Reverse().ToArray();
-                ms.Write(b, 0, 4);
+            // 协议版本，0=JSON,1=Int32,2=Buffer
+            b = BitConverter.GetBytes(0).Reverse().ToArray();
+            ms.Write(b, 0, 2);
 
-                // 数据包头部长度,固定1
-                b = BitConverter.GetBytes(1).Reverse().ToArray();
-                ms.Write(b, 0, 4);
+            // 操作类型
+            b = BitConverter.GetBytes(action).Reverse().ToArray();
+            ms.Write(b, 0, 4);
 
-                // 数据
-                ms.Write(data, 0, data.Length);
+            // 数据包头部长度,固定1
+            b = BitConverter.GetBytes(1).Reverse().ToArray();
+            ms.Write(b, 0, 4);
 
-                var bytes = ms.ToArray();
-                ms.Flush();
-                return bytes;
-            }
+            // 数据
+            ms.Write(data, 0, data.Length);
+
+            var bytes = ms.ToArray();
+            ms.Flush();
+            return bytes;
         }
 
         /// <summary>
@@ -145,28 +145,24 @@ namespace Bili.Lib
         /// <returns>解压后的数据.</returns>
         private byte[] DecompressData(byte[] data)
         {
-            using (var outBuffer = new MemoryStream())
+            using var outBuffer = new MemoryStream();
+            using var compressedzipStream = new DeflateStream(new MemoryStream(data, 2, data.Length - 2), CompressionMode.Decompress);
+            var block = new byte[1024];
+            while (true)
             {
-                using (var compressedzipStream = new DeflateStream(new MemoryStream(data, 2, data.Length - 2), CompressionMode.Decompress))
+                var bytesRead = compressedzipStream.Read(block, 0, block.Length);
+                if (bytesRead <= 0)
                 {
-                    var block = new byte[1024];
-                    while (true)
-                    {
-                        var bytesRead = compressedzipStream.Read(block, 0, block.Length);
-                        if (bytesRead <= 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            outBuffer.Write(block, 0, bytesRead);
-                        }
-                    }
-
-                    compressedzipStream.Close();
-                    return outBuffer.ToArray();
+                    break;
+                }
+                else
+                {
+                    outBuffer.Write(block, 0, bytesRead);
                 }
             }
+
+            compressedzipStream.Close();
+            return outBuffer.ToArray();
         }
 
         private void ParseLiveData(byte[] data)
@@ -216,6 +212,7 @@ namespace Bili.Lib
         {
             try
             {
+                Debug.WriteLine(jsonMessage);
                 var obj = JObject.Parse(jsonMessage);
                 var cmd = obj["cmd"].ToString();
                 if (cmd.Contains("DANMU_MSG"))
