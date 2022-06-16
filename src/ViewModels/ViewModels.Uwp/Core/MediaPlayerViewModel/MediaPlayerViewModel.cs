@@ -13,6 +13,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Common;
 using FFmpegInterop;
 using ReactiveUI;
 using Windows.UI.Core;
@@ -33,6 +34,7 @@ namespace Bili.ViewModels.Uwp.Core
             IResourceToolkit resourceToolkit,
             IFileToolkit fileToolkit,
             ISettingsToolkit settingsToolkit,
+            INumberToolkit numberToolkit,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {
@@ -41,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Core
             _resourceToolkit = resourceToolkit;
             _fileToolkit = fileToolkit;
             _settingsToolkit = settingsToolkit;
+            _numberToolkit = numberToolkit;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
@@ -52,7 +55,7 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
 
             Formats = new ObservableCollection<FormatInformation>();
-            PlaybackRates = new ObservableCollection<double>();
+            PlaybackRates = new ObservableCollection<PlaybackRateItemViewModel>();
 
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePlayerStatusCommand = ReactiveCommand.CreateFromTask<PlayerStatus>(ChangePlayerStatusAsync, outputScheduler: RxApp.MainThreadScheduler);

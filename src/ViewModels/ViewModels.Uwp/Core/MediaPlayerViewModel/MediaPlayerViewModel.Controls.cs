@@ -84,9 +84,12 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     PlaybackRate = rate;
                 }
-                else
+
+                _mediaPlayer.PlaybackSession.PlaybackRate = PlaybackRate;
+
+                foreach (var r in PlaybackRates)
                 {
-                    _mediaPlayer.PlaybackSession.PlaybackRate = PlaybackRate;
+                    r.IsSelected = r.Data == PlaybackRate;
                 }
             });
         }

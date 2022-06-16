@@ -34,13 +34,11 @@
                     <Grid
                         Padding="12"
                         Background="{TemplateBinding Background}"
+                        ColumnSpacing="12"
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <VisualStateManager.VisualStateGroups>
@@ -92,11 +90,15 @@
                                 Style="{StaticResource PlayerButtonStyle}"
                                 ToolTipService.ToolTip="{loc:LocaleLocator Name=PlaybackRate}">
                                 <TextBlock>
-                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" />
-                                    <Run Text="x" />
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" /><Run Text="x" />
                                 </TextBlock>
                                 <Button.Flyout>
                                     <Flyout>
+                                        <Flyout.FlyoutPresenterStyle>
+                                            <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                                                <Setter Property="Padding" Value="0" />
+                                            </Style>
+                                        </Flyout.FlyoutPresenterStyle>
                                         <StackPanel Padding="12,8" Spacing="8">
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -104,33 +106,60 @@
                                                 Text="{loc:LocaleLocator Name=PlaybackRate}" />
                                             <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
                                                 <controls:ItemsRepeater.Layout>
-                                                    <controls:UniformGridLayout
-                                                        MinColumnSpacing="4"
-                                                        MinItemWidth="80"
-                                                        Orientation="Horizontal" />
+                                                    <controls:StackLayout Orientation="Horizontal" Spacing="4" />
                                                 </controls:ItemsRepeater.Layout>
                                                 <controls:ItemsRepeater.ItemTemplate>
                                                     <DataTemplate>
-                                                        <HyperlinkButton
-                                                            Padding="2"
-                                                            Content="{Binding}"
+                                                        <ToggleButton
+                                                            Style="{StaticResource DefaultToggleButtonStyle}"
+                                                            MinWidth="60"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Command="{Binding ActiveCommand}"
+                                                            Content="{Binding Data}"
                                                             DataContext="{Binding}"
-                                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                            IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                                     </DataTemplate>
                                                 </controls:ItemsRepeater.ItemTemplate>
                                             </controls:ItemsRepeater>
                                             <Slider
+                                                MinWidth="160"
                                                 HorizontalAlignment="Stretch"
                                                 Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.MaxPlaybackRate, Mode=OneWay}"
                                                 StepFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
                                                 TickFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
-                                                TickPlacement="Outside"
+                                                TickPlacement="BottomRight"
                                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
                                         </StackPanel>
                                     </Flyout>
                                 </Button.Flyout>
                             </Button>
                         </StackPanel>
+                        <Grid Grid.Column="1">
+                            <controls:ProgressBar
+                                Margin="0,8,0,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
+                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
+                                <controls:ProgressBar.Resources>
+                                    <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
+                                    <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
+                                    <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
+                                </controls:ProgressBar.Resources>
+                            </controls:ProgressBar>
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Margin="0,-2,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                            </TextBlock>
+                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -31,6 +31,14 @@ namespace Bili.Toolkit.Interfaces
         string FormatDurationText(string webDurationText);
 
         /// <summary>
+        /// 对时长数据进行格式化，转换为 hh:mm:ss 格式的文本.
+        /// </summary>
+        /// <param name="ts">时长数据.</param>
+        /// <param name="hasHours">是否需要补全小时位.</param>
+        /// <returns>重新解析后的可读时长文本.</returns>
+        string FormatDurationText(TimeSpan ts, bool hasHours);
+
+        /// <summary>
         /// 获取次数的中文简写文本.
         /// </summary>
         /// <param name="count">次数.</param>

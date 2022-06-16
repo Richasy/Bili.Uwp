@@ -17,12 +17,17 @@ namespace Bili.ViewModels.Uwp.Core
         private void ResetMediaData()
         {
             Formats.Clear();
+            PlaybackRates.Clear();
             IsShowProgressTip = false;
             ProgressTip = default;
             _video = null;
             _audio = null;
             CurrentFormat = null;
             IsLoop = false;
+            DurationSeconds = 0;
+            DurationText = "--";
+            ProgressSeconds = 0;
+            ProgressText = "--";
             _lastReportProgress = TimeSpan.Zero;
             _initializeProgress = TimeSpan.Zero;
         }
@@ -50,11 +55,14 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
 
             PlaybackRates.Clear();
-            var defaultList = isEnhancement
+            var defaultList = !isEnhancement
                 ? new List<double> { 0.5, 0.75, 1.0, 1.25, 1.5, 2.0 }
                 : new List<double> { 0.5, 1.0, 1.5, 2.0, 3.0, 4.0 };
 
-            defaultList.ForEach(p => PlaybackRates.Add(p));
+            defaultList.ForEach(p => PlaybackRates.Add(new Common.PlaybackRateItemViewModel(
+                p,
+                p == PlaybackRate,
+                rate => ChangePlayRateCommand.Execute(rate).Subscribe())));
 
             var isGlobal = _settingsToolkit.ReadLocalSetting(SettingNames.GlobalPlaybackRate, false);
             if (!isGlobal)
@@ -70,9 +78,13 @@ namespace Bili.ViewModels.Uwp.Core
         {
             if (_mediaPlayer != null)
             {
-                if (_mediaPlayer.PlaybackSession.CanPause)
+                if (_mediaPlayer.PlaybackSession != null)
                 {
-                    _mediaPlayer.Pause();
+                    _mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
+                    if (_mediaPlayer.PlaybackSession.CanPause)
+                    {
+                        _mediaPlayer.Pause();
+                    }
                 }
 
                 if (_playbackItem != null)
@@ -87,7 +99,6 @@ namespace Bili.ViewModels.Uwp.Core
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer?.Stop();
-            _heartBeatTimer?.Stop();
             _subtitleTimer?.Stop();
 
             if (_interopMSS != null)
@@ -106,13 +117,6 @@ namespace Bili.ViewModels.Uwp.Core
                 _progressTimer = new DispatcherTimer();
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
                 _progressTimer.Tick += OnProgressTimerTickAsync;
-            }
-
-            if (_heartBeatTimer == null)
-            {
-                _heartBeatTimer = new DispatcherTimer();
-                _heartBeatTimer.Interval = TimeSpan.FromSeconds(25);
-                _heartBeatTimer.Tick += OnHeartBeatTimerTickAsync;
             }
 
             if (_subtitleTimer == null)
@@ -248,7 +252,13 @@ namespace Bili.ViewModels.Uwp.Core
             });
         }
 
-        private void OnMediaPlayerEndedAsync(MediaPlayer sender, object args) => throw new NotImplementedException();
+        private async void OnMediaPlayerEndedAsync(MediaPlayer sender, object args)
+        {
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                Status = PlayerStatus.End;
+            });
+        }
 
         private async void OnMediaPlayerCurrentStateChangedAsync(MediaPlayer sender, object args)
         {
@@ -298,6 +308,13 @@ namespace Bili.ViewModels.Uwp.Core
             var session = sender.PlaybackSession;
             if (session != null)
             {
+                session.PositionChanged -= OnPlayerPositionChangedAsync;
+
+                if (_videoType != VideoType.Live)
+                {
+                    session.PositionChanged += OnPlayerPositionChangedAsync;
+                }
+
                 if (_videoType == VideoType.Live && _interopMSS != null)
                 {
                     _interopMSS.PlaybackSession = session;
@@ -312,9 +329,18 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void OnSubtitleTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+        private async void OnPlayerPositionChangedAsync(MediaPlaybackSession sender, object args)
+        {
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                DurationSeconds = sender.NaturalDuration.TotalSeconds;
+                ProgressSeconds = sender.Position.TotalSeconds;
+                DurationText = _numberToolkit.FormatDurationText(sender.NaturalDuration, sender.NaturalDuration.Hours > 0);
+                ProgressText = _numberToolkit.FormatDurationText(sender.Position, sender.NaturalDuration.Hours > 0);
+            });
+        }
 
-        private void OnHeartBeatTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+        private void OnSubtitleTimerTickAsync(object sender, object e) => throw new NotImplementedException();
 
         private void OnProgressTimerTickAsync(object sender, object e) => throw new NotImplementedException();
     }

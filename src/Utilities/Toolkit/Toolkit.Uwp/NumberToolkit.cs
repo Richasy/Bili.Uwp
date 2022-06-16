@@ -10,7 +10,7 @@ namespace Bili.Toolkit.Uwp
     /// <summary>
     /// 数字处理工具.
     /// </summary>
-    public class NumberToolkit : INumberToolkit
+    public sealed class NumberToolkit : INumberToolkit
     {
         /// <inheritdoc/>
         public string GetCountText(double count)
@@ -106,6 +106,14 @@ namespace Bili.Toolkit.Uwp
             }
 
             return Convert.ToInt32(ts.TotalSeconds);
+        }
+
+        /// <inheritdoc/>
+        public string FormatDurationText(TimeSpan ts, bool hasHours)
+        {
+            return hasHours
+                ? $"{ts.Hours:00}:{ts.Minutes:00}:{ts.Seconds:00}"
+                : $"{Math.Floor(ts.TotalMinutes):00}:{ts.Seconds:00}";
         }
     }
 }

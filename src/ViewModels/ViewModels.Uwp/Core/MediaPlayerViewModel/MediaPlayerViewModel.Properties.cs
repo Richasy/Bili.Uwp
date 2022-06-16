@@ -11,6 +11,7 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Common;
 using FFmpegInterop;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -30,6 +31,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IFileToolkit _fileToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly INumberToolkit _numberToolkit;
         private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
@@ -51,7 +53,6 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
 
         private DispatcherTimer _progressTimer;
-        private DispatcherTimer _heartBeatTimer;
         private DispatcherTimer _subtitleTimer;
 
         /// <summary>
@@ -118,7 +119,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 播放速率的预设集合.
         /// </summary>
-        public ObservableCollection<double> PlaybackRates { get; }
+        public ObservableCollection<PlaybackRateItemViewModel> PlaybackRates { get; }
 
         /// <summary>
         /// 播放器状态.
@@ -161,6 +162,30 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public double PlaybackRateStep { get; set; }
+
+        /// <summary>
+        /// 视频时长秒数.
+        /// </summary>
+        [Reactive]
+        public double DurationSeconds { get; set; }
+
+        /// <summary>
+        /// 当前已播放的秒数.
+        /// </summary>
+        [Reactive]
+        public double ProgressSeconds { get; set; }
+
+        /// <summary>
+        /// 当前已播放的秒数的可读文本.
+        /// </summary>
+        [Reactive]
+        public string ProgressText { get; set; }
+
+        /// <summary>
+        /// 视频时长秒数的可读文本.
+        /// </summary>
+        [Reactive]
+        public string DurationText { get; set; }
 
         /// <summary>
         /// 是否循环播放.
