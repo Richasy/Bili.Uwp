@@ -44,6 +44,13 @@
     <Compile Include="Controls\App\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.cs" />
+    <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.cs" />
+    <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Properties.cs" />
+    <Compile Include="Controls\Player\PlayerControls\PlayerControlBase.cs" />
+    <Compile Include="Controls\Player\PlayerControls\PlayRateButton.xaml.cs">
+      <DependentUpon>PlayRateButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Player\PlayerPagePanel\PlayerPagePanel.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredColumnLayout.cs" />
     <Compile Include="Controls\App\StaggeredLayout\StaggeredItem.cs" />
@@ -554,6 +561,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\PageHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Player\PlayerControls\PlayRateButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

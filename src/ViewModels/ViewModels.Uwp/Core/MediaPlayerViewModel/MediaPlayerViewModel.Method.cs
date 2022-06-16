@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
@@ -40,6 +41,26 @@ namespace Bili.ViewModels.Uwp.Core
 
             _mediaPlayer = player;
             MediaPlayerChanged?.Invoke(this, _mediaPlayer);
+        }
+
+        private void InitializePlaybackRates()
+        {
+            var isEnhancement = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRateEnhancement, false);
+            MaxPlaybackRate = isEnhancement ? 6d : 3d;
+            PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
+
+            PlaybackRates.Clear();
+            var defaultList = isEnhancement
+                ? new List<double> { 0.5, 0.75, 1.0, 1.25, 1.5, 2.0 }
+                : new List<double> { 0.5, 1.0, 1.5, 2.0, 3.0, 4.0 };
+
+            defaultList.ForEach(p => PlaybackRates.Add(p));
+
+            var isGlobal = _settingsToolkit.ReadLocalSetting(SettingNames.GlobalPlaybackRate, false);
+            if (!isGlobal)
+            {
+                PlaybackRate = 1d;
+            }
         }
 
         /// <summary>

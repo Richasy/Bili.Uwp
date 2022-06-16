@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Live;
@@ -51,6 +52,8 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
 
             Formats = new ObservableCollection<FormatInformation>();
+            PlaybackRates = new ObservableCollection<double>();
+
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePlayerStatusCommand = ReactiveCommand.CreateFromTask<PlayerStatus>(ChangePlayerStatusAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -59,9 +62,17 @@ namespace Bili.ViewModels.Uwp.Core
             ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
 
+            PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
+
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+
+            this.WhenAnyValue(p => p.PlaybackRate)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .InvokeCommand(ChangePlayRateCommand);
         }
 
         /// <summary>
@@ -114,6 +125,7 @@ namespace Bili.ViewModels.Uwp.Core
             ResetMediaData();
             ResetVideoData();
             ResetLiveData();
+            InitializePlaybackRates();
         }
 
         private async Task LoadAsync()

@@ -20,11 +20,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlayerPage"/> class.
         /// </summary>
-        public PgcPlayerPage()
-        {
-            InitializeComponent();
-            ViewModel.MediaPlayerViewModel.MediaPlayerChanged += OnMediaPlayerChanged;
-        }
+        public PgcPlayerPage() => InitializeComponent();
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,9 +34,6 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
             => ViewModel.ClearCommand.Execute().Subscribe();
-
-        private void OnMediaPlayerChanged(object sender, MediaPlayer e)
-            => PlayerElement.SetMediaPlayer(e);
 
         private void OnSectionHeaderItemInvoked(object sender, Models.App.Other.PlayerSectionHeader e)
         {

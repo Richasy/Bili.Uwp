@@ -445,7 +445,7 @@ namespace Bili.Adapter
                 ? null
                 : _userAdapter.ConvertToRoleProfile(arc.Author, Models.Enums.App.AvatarSize.Size32);
             var description = arc.Desc;
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).ToLocalTime().DateTime;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);

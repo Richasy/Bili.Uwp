@@ -16,11 +16,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePlayerPage"/> class.
         /// </summary>
-        public LivePlayerPage()
-        {
-            InitializeComponent();
-            ViewModel.MediaPlayerViewModel.MediaPlayerChanged += OnMediaPlayerChanged;
-        }
+        public LivePlayerPage() => InitializeComponent();
 
         /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -34,9 +30,6 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
             => ViewModel.ClearCommand.Execute().Subscribe();
-
-        private void OnMediaPlayerChanged(object sender, MediaPlayer e)
-            => PlayerElement.SetMediaPlayer(e);
 
         private void OnLiveOnlyAudioToggledAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

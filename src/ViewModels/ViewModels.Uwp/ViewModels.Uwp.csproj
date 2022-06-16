@@ -26,6 +26,7 @@
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.cs" />
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.Properties.cs" />
     <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Controls.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Live.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Episode.cs" />

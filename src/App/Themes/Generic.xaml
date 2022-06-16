@@ -19,5 +19,7 @@
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentMainView/CommentMainView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentDetailView/CommentDetailView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentPageView/CommentPageView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/BiliMediaTransportControls/BiliMediaTransportControls.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/BiliMediaPlayer/BiliMediaPlayer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

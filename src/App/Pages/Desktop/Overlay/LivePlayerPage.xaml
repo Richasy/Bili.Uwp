@@ -24,7 +24,7 @@
             SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-            <MediaPlayerElement x:Name="PlayerElement" AreTransportControlsEnabled="True" />
+            <player:BiliMediaPlayer ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
             <player:PlayerPagePanel.Descriptor>
                 <StackPanel Spacing="8">
                     <StackPanel

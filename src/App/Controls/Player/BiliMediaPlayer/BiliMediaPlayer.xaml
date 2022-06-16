@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bili.App.Controls.Player">
+    <Style TargetType="local:BiliMediaPlayer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliMediaPlayer">
+                    <Grid>
+                        <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
+                        <local:BiliMediaTransportControls
+                            Margin="20"
+                            VerticalAlignment="Bottom"
+                            IsForwardSkipButtonVisible="True"
+                            IsPlaybackRateButtonVisible="True"
+                            ViewModel="{TemplateBinding ViewModel}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

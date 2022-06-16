@@ -96,9 +96,29 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<FormatInformation, Unit> ChangeFormatCommand { get; }
 
         /// <summary>
+        /// 播放/暂停命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> PlayPauseCommand { get; }
+
+        /// <summary>
+        /// 跳进命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ForwardSkipCommand { get; }
+
+        /// <summary>
+        /// 改变播放速率的命令.
+        /// </summary>
+        public ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }
+
+        /// <summary>
         /// 视频格式集合.
         /// </summary>
         public ObservableCollection<FormatInformation> Formats { get; }
+
+        /// <summary>
+        /// 播放速率的预设集合.
+        /// </summary>
+        public ObservableCollection<double> PlaybackRates { get; }
 
         /// <summary>
         /// 播放器状态.
@@ -129,6 +149,18 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public double PlaybackRate { get; set; }
+
+        /// <summary>
+        /// 最大播放速率.
+        /// </summary>
+        [Reactive]
+        public double MaxPlaybackRate { get; set; }
+
+        /// <summary>
+        /// 播放速率调整间隔.
+        /// </summary>
+        [Reactive]
+        public double PlaybackRateStep { get; set; }
 
         /// <summary>
         /// 是否循环播放.

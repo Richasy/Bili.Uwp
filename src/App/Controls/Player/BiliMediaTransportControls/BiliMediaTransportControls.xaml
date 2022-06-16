@@ -1,0 +1,139 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:local="using:Bili.App.Controls.Player"
+    xmlns:playercontrols="using:Bili.App.Controls.Player.PlayerControls"
+    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
+
+    <Style
+        x:Key="PlayerButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="AllowFocusOnInteraction" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style TargetType="local:BiliMediaTransportControls">
+        <Setter Property="Background" Value="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
+        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+        <Setter Property="IsTextScaleFactorEnabled" Value="False" />
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+        <Setter Property="MaxWidth" Value="640" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliMediaTransportControls">
+                    <Grid
+                        Padding="12"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PlayPauseStateGroup">
+                                <VisualState x:Name="PlayingState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Collapsed" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PauseState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Visible" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <!-- 播放按钮及快进按钮 -->
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                x:Name="PlayPauseButton"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
+                                <Grid>
+                                    <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
+                                    <uwp:RegularFluentIcon
+                                        x:Name="PauseSymbol"
+                                        Symbol="Pause16"
+                                        Visibility="Collapsed" />
+                                </Grid>
+                            </Button>
+                            <Button
+                                x:Name="ForwardSkipButton"
+                                AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}"
+                                Visibility="{TemplateBinding IsForwardSkipButtonVisible}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Right" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                                <Button.Content>
+                                    <uwp:RegularFluentIcon Symbol="SkipForward3020" />
+                                </Button.Content>
+                            </Button>
+                            <Button
+                                AutomationProperties.Name="{loc:LocaleLocator Name=PlaybackRate}"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=PlaybackRate}">
+                                <TextBlock>
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" />
+                                    <Run Text="x" />
+                                </TextBlock>
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel Padding="12,8" Spacing="8">
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{loc:LocaleLocator Name=PlaybackRate}" />
+                                            <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
+                                                <controls:ItemsRepeater.Layout>
+                                                    <controls:UniformGridLayout
+                                                        MinColumnSpacing="4"
+                                                        MinItemWidth="80"
+                                                        Orientation="Horizontal" />
+                                                </controls:ItemsRepeater.Layout>
+                                                <controls:ItemsRepeater.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <HyperlinkButton
+                                                            Padding="2"
+                                                            Content="{Binding}"
+                                                            DataContext="{Binding}"
+                                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                                    </DataTemplate>
+                                                </controls:ItemsRepeater.ItemTemplate>
+                                            </controls:ItemsRepeater>
+                                            <Slider
+                                                HorizontalAlignment="Stretch"
+                                                Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.MaxPlaybackRate, Mode=OneWay}"
+                                                StepFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
+                                                TickFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
+                                                TickPlacement="Outside"
+                                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
