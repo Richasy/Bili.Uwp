@@ -46,6 +46,8 @@
     </Compile>
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.cs" />
     <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.cs" />
+    <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Fields.cs" />
+    <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Handlers.cs" />
     <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Properties.cs" />
     <Compile Include="Controls\Player\PlayerControls\PlayerControlBase.cs" />
     <Compile Include="Controls\Player\PlayerControls\PlayRateButton.xaml.cs">

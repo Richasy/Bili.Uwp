@@ -93,10 +93,12 @@ namespace Bili.Tasks
                         title = videoInfo.Identifier.Title;
                         coverUrl = videoInfo.Identifier.Cover.GetSourceUri().ToString();
                         type = "video";
-                        avatar = videoInfo.Publisher.User.Avatar.Uri;
+                        avatar = videoInfo.Publisher == null
+                            ? "ms-appx:///Assets/Bili_rgba_80.png"
+                            : videoInfo.Publisher.User.Avatar.Uri;
                         if (string.IsNullOrEmpty(desc))
                         {
-                            desc = videoInfo.Publisher.User.Name;
+                            desc = videoInfo.Publisher?.User?.Name ?? string.Empty;
                         }
                     }
                     else if (item.Data is EpisodeInformation episodeInfo)

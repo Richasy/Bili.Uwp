@@ -28,6 +28,7 @@ namespace Bili.ViewModels.Uwp.Core
             DurationText = "--";
             ProgressSeconds = 0;
             ProgressText = "--";
+            Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             _lastReportProgress = TimeSpan.Zero;
             _initializeProgress = TimeSpan.Zero;
         }
@@ -40,8 +41,7 @@ namespace Bili.ViewModels.Uwp.Core
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
             player.AutoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-            player.Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
-            player.VolumeChanged += OnMediaPlayerVolumeChangedAsync;
+            player.Volume = Volume;
             player.IsLoopingEnabled = IsLoop;
 
             _mediaPlayer = player;
@@ -200,14 +200,6 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             return new Tuple<string, string>(proxy, area);
-        }
-
-        private async void OnMediaPlayerVolumeChangedAsync(MediaPlayer sender, object args)
-        {
-            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Volume = sender.Volume;
-            });
         }
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)

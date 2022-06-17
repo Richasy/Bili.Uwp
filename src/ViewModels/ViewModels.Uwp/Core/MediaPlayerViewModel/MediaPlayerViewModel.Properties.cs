@@ -112,6 +112,11 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }
 
         /// <summary>
+        /// 改变音量的命令.
+        /// </summary>
+        public ReactiveCommand<double, Unit> ChangeVolumeCommand { get; }
+
+        /// <summary>
         /// 视频格式集合.
         /// </summary>
         public ObservableCollection<FormatInformation> Formats { get; }

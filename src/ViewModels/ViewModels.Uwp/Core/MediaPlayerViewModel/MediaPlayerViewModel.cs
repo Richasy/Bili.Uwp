@@ -68,6 +68,7 @@ namespace Bili.ViewModels.Uwp.Core
             PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 

@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Bili.App.Controls.Player
 {
@@ -30,6 +33,14 @@ namespace Bili.App.Controls.Player
             var vm = e.NewValue as MediaPlayerViewModel;
             vm.PropertyChanged -= OnViewModelPropertyChanged;
             vm.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        /// <inheritdoc/>
+        protected override void OnApplyTemplate()
+        {
+            _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
+
+            _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

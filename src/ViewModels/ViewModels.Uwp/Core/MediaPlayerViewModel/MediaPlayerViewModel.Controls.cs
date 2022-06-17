@@ -94,6 +94,35 @@ namespace Bili.ViewModels.Uwp.Core
             });
         }
 
+        private void ChangeVolume(double volume)
+        {
+            try
+            {
+                EnsureMediaPlayerExist();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            if (volume > 100)
+            {
+                volume = 100;
+            }
+            else if (volume < 0)
+            {
+                volume = 0;
+            }
+
+            if (Volume != volume)
+            {
+                Volume = volume;
+            }
+
+            _mediaPlayer.Volume = volume / 100.0;
+            _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
+        }
+
         private void EnsureMediaPlayerExist()
         {
             if (_mediaPlayer == null || _mediaPlayer.PlaybackSession == null)

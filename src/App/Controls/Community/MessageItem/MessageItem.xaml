@@ -68,18 +68,17 @@
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PublishTime}" />
                             </Grid>
 
-                            <StackPanel
-                                Grid.Row="1"
-                                Margin="0,0,0,8"
-                                Spacing="4">
+                            <StackPanel Grid.Row="1" Margin="0,0,0,8">
                                 <TextBlock
                                     x:Name="SubtitleBlock"
                                     Style="{StaticResource CaptionTextBlockStyle}"
+                                    Margin="0,0,0,4"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}"
-                                    TextWrapping="Wrap" />
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                 <TextBlock
                                     x:Name="DetailBlock"
                                     LineHeight="22"

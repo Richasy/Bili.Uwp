@@ -136,9 +136,21 @@
                                 </Button.Flyout>
                             </Button>
                         </StackPanel>
-                        <Grid Grid.Column="1">
+                        <StackPanel
+                            x:Name="NormalProgressContainer"
+                            Grid.Column="1"
+                            Margin="0,-8,0,0"
+                            VerticalAlignment="Center"
+                            Spacing="4">
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                            </TextBlock>
                             <controls:ProgressBar
-                                Margin="0,8,0,0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Center"
                                 Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
@@ -149,17 +161,36 @@
                                     <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
                                 </controls:ProgressBar.Resources>
                             </controls:ProgressBar>
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Margin="0,-2,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
-                                <Run Text="/" />
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
-                            </TextBlock>
-                        </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button x:Name="VolumeButton" Style="{StaticResource PlayerButtonStyle}">
+                                <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <Flyout.FlyoutPresenterStyle>
+                                            <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                                                <Setter Property="Padding" Value="12,8" />
+                                            </Style>
+                                        </Flyout.FlyoutPresenterStyle>
+                                        <StackPanel>
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{loc:LocaleLocator Name=CurrentVolume}" />
+                                            <Slider
+                                                x:Name="VolumeSlider"
+                                                Width="200"
+                                                IsThumbToolTipEnabled="True"
+                                                Maximum="100"
+                                                Minimum="0"
+                                                StepFrequency="1"
+                                                TickFrequency="1"
+                                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Volume, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
