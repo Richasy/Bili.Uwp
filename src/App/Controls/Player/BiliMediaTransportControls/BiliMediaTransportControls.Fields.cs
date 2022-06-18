@@ -10,7 +10,9 @@ namespace Bili.App.Controls.Player
     public sealed partial class BiliMediaTransportControls
     {
         private const string VolumeSliderName = "VolumeSlider";
+        private const string FormatListViewName = "FormatListView";
 
         private Slider _volumeSlider;
+        private ListView _formatListView;
     }
 }

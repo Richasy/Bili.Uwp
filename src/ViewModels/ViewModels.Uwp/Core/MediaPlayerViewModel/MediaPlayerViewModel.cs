@@ -163,6 +163,8 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ChangeFormatAsync(FormatInformation information)
         {
+            var needResume = Status == PlayerStatus.Playing && _mediaPlayer != null;
+            _mediaPlayer?.Pause();
             if (_videoType == VideoType.Video
                 || _videoType == VideoType.Pgc)
             {
@@ -171,6 +173,11 @@ namespace Bili.ViewModels.Uwp.Core
             else if (_videoType == VideoType.Live)
             {
                 await SelectLiveFormatAsync(information);
+            }
+
+            if (needResume)
+            {
+                _mediaPlayer?.Play();
             }
         }
 

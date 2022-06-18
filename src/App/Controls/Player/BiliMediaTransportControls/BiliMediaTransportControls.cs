@@ -39,8 +39,10 @@ namespace Bili.App.Controls.Player
         protected override void OnApplyTemplate()
         {
             _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
+            _formatListView = GetTemplateChild(FormatListViewName) as ListView;
 
             _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
+            _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

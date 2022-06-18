@@ -19,6 +19,15 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <Style
+        x:Key="PlayerFlyoutStyle"
+        BasedOn="{StaticResource DefaultFlyoutPresenterStyle}"
+        TargetType="FlyoutPresenter">
+        <Setter Property="Background" Value="{ThemeResource MediaTransportControlsFlyoutBackground}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+    </Style>
+
     <Style TargetType="local:BiliMediaTransportControls">
         <Setter Property="Background" Value="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
@@ -56,6 +65,15 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
+                            <VisualStateGroup x:Name="DisplayModeGroup">
+                                <VisualState x:Name="NormalModeState" />
+                                <VisualState x:Name="FullScreenState">
+                                    <VisualState.Setters>
+                                        <Setter Target="EnterFullScreenIcon.Visibility" Value="Collapsed" />
+                                        <Setter Target="ExitFullScreenIcon.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <!-- 播放按钮及快进按钮 -->
                         <StackPanel Orientation="Horizontal">
@@ -85,6 +103,65 @@
                                     <uwp:RegularFluentIcon Symbol="SkipForward3020" />
                                 </Button.Content>
                             </Button>
+                        </StackPanel>
+                        <StackPanel
+                            x:Name="NormalProgressContainer"
+                            Grid.Column="1"
+                            Margin="0,-8,0,0"
+                            VerticalAlignment="Center"
+                            Spacing="4">
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                            </TextBlock>
+                            <controls:ProgressBar
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
+                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
+                                <controls:ProgressBar.Resources>
+                                    <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
+                                    <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
+                                    <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
+                                </controls:ProgressBar.Resources>
+                            </controls:ProgressBar>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button
+                                x:Name="VolumeButton"
+                                AutomationProperties.Name="{loc:LocaleLocator Name=CurrentVolume}"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=CurrentVolume}">
+                                <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <Flyout.FlyoutPresenterStyle>
+                                            <Style BasedOn="{StaticResource PlayerFlyoutStyle}" TargetType="FlyoutPresenter">
+                                                <Setter Property="Padding" Value="12,8" />
+                                            </Style>
+                                        </Flyout.FlyoutPresenterStyle>
+                                        <StackPanel>
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{loc:LocaleLocator Name=CurrentVolume}" />
+                                            <Slider
+                                                x:Name="VolumeSlider"
+                                                Width="200"
+                                                IsThumbToolTipEnabled="True"
+                                                Maximum="100"
+                                                Minimum="0"
+                                                StepFrequency="1"
+                                                TickFrequency="1"
+                                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Volume, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
                             <Button
                                 AutomationProperties.Name="{loc:LocaleLocator Name=PlaybackRate}"
                                 Style="{StaticResource PlayerButtonStyle}"
@@ -93,12 +170,7 @@
                                     <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" /><Run Text="x" />
                                 </TextBlock>
                                 <Button.Flyout>
-                                    <Flyout>
-                                        <Flyout.FlyoutPresenterStyle>
-                                            <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
-                                                <Setter Property="Padding" Value="0" />
-                                            </Style>
-                                        </Flyout.FlyoutPresenterStyle>
+                                    <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}">
                                         <StackPanel Padding="12,8" Spacing="8">
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -135,60 +207,53 @@
                                     </Flyout>
                                 </Button.Flyout>
                             </Button>
-                        </StackPanel>
-                        <StackPanel
-                            x:Name="NormalProgressContainer"
-                            Grid.Column="1"
-                            Margin="0,-8,0,0"
-                            VerticalAlignment="Center"
-                            Spacing="4">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                HorizontalAlignment="Left"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
-                                <Run Text="/" />
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
-                            </TextBlock>
-                            <controls:ProgressBar
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
-                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
-                                <controls:ProgressBar.Resources>
-                                    <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
-                                    <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
-                                    <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
-                                </controls:ProgressBar.Resources>
-                            </controls:ProgressBar>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            <Button x:Name="VolumeButton" Style="{StaticResource PlayerButtonStyle}">
-                                <uwp:RegularFluentIcon Symbol="Speaker216" />
+                            <Button
+                                x:Name="FormatButton"
+                                AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
+                                <Button.Content>
+                                    <uwp:RegularFluentIcon Symbol="Hd24" />
+                                </Button.Content>
                                 <Button.Flyout>
-                                    <Flyout>
-                                        <Flyout.FlyoutPresenterStyle>
-                                            <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
-                                                <Setter Property="Padding" Value="12,8" />
-                                            </Style>
-                                        </Flyout.FlyoutPresenterStyle>
-                                        <StackPanel>
-                                            <TextBlock
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{loc:LocaleLocator Name=CurrentVolume}" />
-                                            <Slider
-                                                x:Name="VolumeSlider"
-                                                Width="200"
-                                                IsThumbToolTipEnabled="True"
-                                                Maximum="100"
-                                                Minimum="0"
-                                                StepFrequency="1"
-                                                TickFrequency="1"
-                                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Volume, Mode=TwoWay}" />
-                                        </StackPanel>
+                                    <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
+                                        <ListView
+                                            x:Name="FormatListView"
+                                            MinWidth="120"
+                                            Margin="4"
+                                            AllowFocusOnInteraction="True"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
+                                            SelectedItem="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CurrentFormat}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ListViewItem Content="{Binding Description}" IsEnabled="{Binding IsLimited, Converter={StaticResource ObjectToBoolReverseConverter}}" />
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
                                     </Flyout>
                                 </Button.Flyout>
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="Q"
+                                        IsEnabled="True"
+                                        Modifiers="Control" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="FullScreenButton"
+                                AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
+                                Style="{StaticResource PlayerButtonStyle}"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
+                                <Grid>
+                                    <uwp:RegularFluentIcon
+                                        x:Name="EnterFullScreenIcon"
+                                        Symbol="FullScreenMaximize16"
+                                        Visibility="Visible" />
+                                    <uwp:RegularFluentIcon
+                                        x:Name="ExitFullScreenIcon"
+                                        Symbol="FullScreenMinimize24"
+                                        Visibility="Collapsed" />
+                                </Grid>
                             </Button>
                         </StackPanel>
                     </Grid>
