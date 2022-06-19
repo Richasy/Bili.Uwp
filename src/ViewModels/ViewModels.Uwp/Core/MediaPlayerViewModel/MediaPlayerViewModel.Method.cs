@@ -203,6 +203,21 @@ namespace Bili.ViewModels.Uwp.Core
             return new Tuple<string, string>(proxy, area);
         }
 
+        private void InitializeDisplayModeText()
+        {
+            FullScreenText = DisplayMode == PlayerDisplayMode.FullScreen
+                ? _resourceToolkit.GetLocaleString(LanguageNames.ExitFullScreen)
+                : _resourceToolkit.GetLocaleString(LanguageNames.EnterFullScreen);
+
+            FullWindowText = DisplayMode == PlayerDisplayMode.FullWindow
+                ? _resourceToolkit.GetLocaleString(LanguageNames.ExitFullWindow)
+                : _resourceToolkit.GetLocaleString(LanguageNames.EnterFullWindow);
+
+            CompactOverlayText = DisplayMode == PlayerDisplayMode.CompactOverlay
+                ? _resourceToolkit.GetLocaleString(LanguageNames.ExitCompactOverlay)
+                : _resourceToolkit.GetLocaleString(LanguageNames.EnterCompactOverlay);
+        }
+
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
             if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)

@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -55,6 +57,7 @@ namespace Bili.App.Controls.Player
             DependencyProperty.Register(nameof(Descriptor), typeof(object), typeof(PlayerPagePanel), new PropertyMetadata(default));
 
         private SplitView _splitView;
+        private double _mediumWindowWidth;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPagePanel"/> class.
@@ -62,6 +65,8 @@ namespace Bili.App.Controls.Player
         public PlayerPagePanel()
         {
             DefaultStyleKey = typeof(PlayerPagePanel);
+            _mediumWindowWidth = Splat.Locator.Current.GetService<AppViewModel>().MediumWindowThresholdWidth;
+            SizeChanged += OnSizeChanged;
             Loaded += OnLoadedAsync;
             Unloaded += OnUnloaded;
         }
@@ -155,6 +160,24 @@ namespace Bili.App.Controls.Player
             if (e.PropertyName == nameof(ViewModel.MediaPlayerViewModel.DisplayMode))
             {
                 await ChangeVisualStateFromDisplayModeAsync();
+            }
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ViewModel.MediaPlayerViewModel.DisplayMode != Models.Enums.PlayerDisplayMode.Default)
+            {
+                return;
+            }
+
+            var width = Window.Current.Bounds.Width;
+            if (width >= _mediumWindowWidth)
+            {
+                VisualStateManager.GoToState(this, "NormalState", false);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "NarrowState", false);
             }
         }
 

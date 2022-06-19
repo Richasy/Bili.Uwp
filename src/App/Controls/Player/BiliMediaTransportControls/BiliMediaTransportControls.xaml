@@ -239,12 +239,47 @@
                                         Modifiers="Control" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
+                                <uwp:RegularFluentIcon Symbol="Settings16" />
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem
+                                            x:Name="FullWindowModeItem"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullWindowCommand}"
+                                            KeyboardAcceleratorTextOverride="F10"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullWindowText}">
+                                            <MenuFlyoutItem.Icon>
+                                                <uwp:RegularFluentIcon Symbol="Window16" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem
+                                            x:Name="CompactOverlayModeItem"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}"
+                                            KeyboardAcceleratorTextOverride="Ctrl + M"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CompactOverlayText}">
+                                            <MenuFlyoutItem.Icon>
+                                                <uwp:RegularFluentIcon Symbol="ContractDownLeft16" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutSeparator />
+                                        <MenuFlyoutItem
+                                            x:Name="ScreenshotItem"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}"
+                                            KeyboardAcceleratorTextOverride="Shift + S"
+                                            Text="{loc:LocaleLocator Name=Screenshot}">
+                                            <MenuFlyoutItem.Icon>
+                                                <uwp:RegularFluentIcon Symbol="Screenshot20" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
                             <Button
                                 x:Name="FullScreenButton"
-                                AutomationProperties.Name="{loc:LocaleLocator Name=FullScreenMode}"
+                                AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}"
                                 Style="{StaticResource PlayerButtonStyle}"
                                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=FullScreenMode}">
+                                ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
                                 <Grid>
                                     <uwp:RegularFluentIcon
                                         x:Name="EnterFullScreenIcon"

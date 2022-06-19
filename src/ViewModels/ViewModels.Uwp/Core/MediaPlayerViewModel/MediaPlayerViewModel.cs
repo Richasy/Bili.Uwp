@@ -74,6 +74,9 @@ namespace Bili.ViewModels.Uwp.Core
             ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume, outputScheduler: RxApp.MainThreadScheduler);
             ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode, outputScheduler: RxApp.MainThreadScheduler);
+            ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode, outputScheduler: RxApp.MainThreadScheduler);
+            ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);
+            ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -87,6 +90,7 @@ namespace Bili.ViewModels.Uwp.Core
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x =>
                 {
+                    InitializeDisplayModeText();
                     _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
                 });
         }

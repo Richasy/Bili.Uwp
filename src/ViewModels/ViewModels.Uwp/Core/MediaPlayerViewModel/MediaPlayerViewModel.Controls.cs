@@ -2,7 +2,13 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
 using Bili.Models.Enums;
+using Microsoft.Graphics.Canvas;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -125,9 +131,57 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void ToggleFullScreenMode()
         {
-            DisplayMode = DisplayMode == PlayerDisplayMode.FullScreen
-                ? PlayerDisplayMode.Default
-                : PlayerDisplayMode.FullScreen;
+            DisplayMode = DisplayMode != PlayerDisplayMode.FullScreen
+                ? PlayerDisplayMode.FullScreen
+                : PlayerDisplayMode.Default;
+        }
+
+        private void ToggleFullWindowMode()
+        {
+            DisplayMode = DisplayMode != PlayerDisplayMode.FullWindow
+                ? PlayerDisplayMode.FullWindow
+                : PlayerDisplayMode.Default;
+        }
+
+        private void ToggleCompactOverlayMode()
+        {
+            DisplayMode = DisplayMode != PlayerDisplayMode.CompactOverlay
+                ? PlayerDisplayMode.CompactOverlay
+                : PlayerDisplayMode.Default;
+        }
+
+        private async Task ScreenShotAsync()
+        {
+            EnsureMediaPlayerExist();
+            var rendertarget = new CanvasRenderTarget(
+                    CanvasDevice.GetSharedDevice(),
+                    _mediaPlayer.PlaybackSession.NaturalVideoWidth,
+                    _mediaPlayer.PlaybackSession.NaturalVideoHeight,
+                    96);
+            _mediaPlayer.CopyFrameToVideoSurface(rendertarget);
+
+            var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync(AppConstants.ScreenshotFolderName, CreationCollisionOption.OpenIfExists);
+            var file = await folder.CreateFileAsync(Guid.NewGuid().ToString("N") + ".png", CreationCollisionOption.OpenIfExists);
+            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
+            }
+
+            _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
+
+            var shouldCopy = _settingsToolkit.ReadLocalSetting(SettingNames.CopyScreenshotAfterSave, true);
+            if (shouldCopy)
+            {
+                var dataPackage = new DataPackage();
+                dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromFile(file));
+                Clipboard.SetContent(dataPackage);
+            }
+
+            var shouldOpenFile = _settingsToolkit.ReadLocalSetting(SettingNames.OpenScreenshotAfterSave, false);
+            if (shouldOpenFile)
+            {
+                await Launcher.LaunchFileAsync(file).AsTask();
+            }
         }
 
         private void EnsureMediaPlayerExist()

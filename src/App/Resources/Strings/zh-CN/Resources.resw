@@ -495,11 +495,29 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>想查看关注的UP主的动态吗？
 快登录吧！</value>
   </data>
+  <data name="EnterCompactOverlay" xml:space="preserve">
+    <value>进入小窗模式</value>
+  </data>
+  <data name="EnterFullScreen" xml:space="preserve">
+    <value>进入全屏模式</value>
+  </data>
+  <data name="EnterFullWindow" xml:space="preserve">
+    <value>进入全窗口模式</value>
+  </data>
   <data name="EnterToEffect" xml:space="preserve">
     <value>按下回车以生效</value>
   </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
+  </data>
+  <data name="ExitCompactOverlay" xml:space="preserve">
+    <value>退出小窗模式</value>
+  </data>
+  <data name="ExitFullScreen" xml:space="preserve">
+    <value>退出全屏模式</value>
+  </data>
+  <data name="ExitFullWindow" xml:space="preserve">
+    <value>退出全窗口模式</value>
   </data>
   <data name="ExitSearch" xml:space="preserve">
     <value>退出搜索</value>

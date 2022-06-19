@@ -515,6 +515,12 @@ namespace Bili.Models.Enums
         FailedToRemoveVideoFromFavorite,
         FavoriteFailed,
         CoinFailed,
+        ExitFullScreen,
+        EnterFullScreen,
+        ExitFullWindow,
+        EnterFullWindow,
+        ExitCompactOverlay,
+        EnterCompactOverlay,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

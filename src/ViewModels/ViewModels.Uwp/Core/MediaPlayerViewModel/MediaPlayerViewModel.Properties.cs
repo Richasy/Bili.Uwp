@@ -123,6 +123,21 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> ToggleFullScreenCommand { get; }
 
         /// <summary>
+        /// 进入/退出全窗口状态的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ToggleFullWindowCommand { get; }
+
+        /// <summary>
+        /// 进入/退出小窗状态的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ToggleCompactOverlayCommand { get; }
+
+        /// <summary>
+        /// 截图命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ScreenShotCommand { get; }
+
+        /// <summary>
         /// 视频格式集合.
         /// </summary>
         public ObservableCollection<FormatInformation> Formats { get; }
@@ -229,5 +244,22 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsLiveAudioOnly { get; set; }
+
+        /// <summary>
+        /// 全屏提示文本.
+        /// </summary>
+        [Reactive]
+        public string FullScreenText { get; set; }
+
+        /// <summary>
+        /// 全窗口提示文本.
+        /// </summary>
+        [Reactive]
+        public string FullWindowText { get; set; }
+
+        /// <summary>
+        /// 小窗提示文本.
+        /// </summary>
+        public string CompactOverlayText { get; set; }
     }
 }
