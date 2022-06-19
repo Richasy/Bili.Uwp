@@ -20,6 +20,7 @@ namespace Bili.ViewModels.Uwp.Core
             Formats.Clear();
             PlaybackRates.Clear();
             IsShowProgressTip = false;
+            IsShowInteractionProgress = false;
             ProgressTip = default;
             _video = null;
             _audio = null;
@@ -29,9 +30,13 @@ namespace Bili.ViewModels.Uwp.Core
             DurationText = "--";
             ProgressSeconds = 0;
             ProgressText = "--";
+            InteractionProgressSeconds = 0;
+            InteractionProgressText = "--";
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             _lastReportProgress = TimeSpan.Zero;
             _initializeProgress = TimeSpan.Zero;
+            _interactionProgress = TimeSpan.Zero;
+            _isInteractionProgressChanged = false;
         }
 
         private void InitializeMediaPlayer()
@@ -101,6 +106,7 @@ namespace Bili.ViewModels.Uwp.Core
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer?.Stop();
             _subtitleTimer?.Stop();
+            _unitTimer?.Stop();
 
             if (_interopMSS != null)
             {
@@ -111,8 +117,15 @@ namespace Bili.ViewModels.Uwp.Core
             Status = PlayerStatus.NotLoad;
         }
 
-        private void InitializeTimer()
+        private void InitializeTimers()
         {
+            if (_unitTimer == null)
+            {
+                _unitTimer = new DispatcherTimer();
+                _unitTimer.Interval = TimeSpan.FromMilliseconds(100);
+                _unitTimer.Tick += OnUnitTimerTickAsync;
+            }
+
             if (_progressTimer == null)
             {
                 _progressTimer = new DispatcherTimer();
@@ -343,14 +356,33 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 DurationSeconds = sender.NaturalDuration.TotalSeconds;
                 ProgressSeconds = sender.Position.TotalSeconds;
+                if (!IsShowInteractionProgress)
+                {
+                    InteractionProgressSeconds = ProgressSeconds;
+                }
+
                 DurationText = _numberToolkit.FormatDurationText(sender.NaturalDuration, sender.NaturalDuration.Hours > 0);
                 ProgressText = _numberToolkit.FormatDurationText(sender.Position, sender.NaturalDuration.Hours > 0);
             });
         }
 
-        private void OnSubtitleTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+        private void OnSubtitleTimerTickAsync(object sender, object e)
+        {
+        }
 
-        private void OnProgressTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+        private void OnProgressTimerTickAsync(object sender, object e)
+        {
+        }
+
+        private void OnUnitTimerTickAsync(object sender, object e)
+        {
+            if (_isInteractionProgressChanged)
+            {
+                _isInteractionProgressChanged = false;
+                _mediaPlayer.PlaybackSession.Position = _interactionProgress;
+                _interactionProgress = TimeSpan.Zero;
+            }
+        }
 
         private void OnViewVisibleBoundsChanged(ApplicationView sender, object args)
         {

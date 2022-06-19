@@ -77,10 +77,13 @@ namespace Bili.ViewModels.Uwp.Core
             ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode, outputScheduler: RxApp.MainThreadScheduler);
             ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);
             ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+
+            InitializeTimers();
 
             this.WhenAnyValue(p => p.PlaybackRate)
                 .ObserveOn(RxApp.MainThreadScheduler)
@@ -92,6 +95,13 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     InitializeDisplayModeText();
                     _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
+                });
+
+            this.WhenAnyValue(p => p.InteractionProgressSeconds)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    InteractionProgressText = _numberToolkit.FormatDurationText(TimeSpan.FromSeconds(x), DurationSeconds > 3600);
                 });
         }
 
@@ -163,6 +173,10 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 await LoadLiveAsync();
             }
+
+            _progressTimer?.Start();
+            _unitTimer?.Start();
+            _subtitleTimer?.Start();
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)

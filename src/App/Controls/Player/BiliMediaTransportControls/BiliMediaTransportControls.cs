@@ -4,6 +4,7 @@ using System;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Bili.App.Controls.Player
 {
@@ -39,9 +40,16 @@ namespace Bili.App.Controls.Player
         {
             _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
+            _normalProgressContainer = GetTemplateChild(NormalProgressContainerName) as Panel;
+            _interactionProgressContainer = GetTemplateChild(InteractionProgressContainerName) as Panel;
+            _interactionProgressSlider = GetTemplateChild(InteractionProgressSliderName) as Slider;
 
             _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
             _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
+            _normalProgressContainer.PointerEntered += OnNormalProgressContainerPointerEntered;
+            _interactionProgressContainer.PointerExited += OnInteractionProgressContainerPointerExited;
+            _interactionProgressContainer.PointerCanceled += OnInteractionProgressContainerPointerExited;
+            _interactionProgressSlider.ValueChanged += OnInteractionProgressSliderValueChanged;
         }
 
         private void ChangeVisualStateFromStatus()

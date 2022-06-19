@@ -191,5 +191,18 @@ namespace Bili.ViewModels.Uwp.Core
                 throw new InvalidOperationException("此时媒体播放器尚未就绪");
             }
         }
+
+        private void ChangeProgress(double seconds)
+        {
+            var ts = TimeSpan.FromSeconds(seconds);
+            if (ts.TotalSeconds == _interactionProgress.TotalSeconds)
+            {
+                return;
+            }
+
+            InteractionProgressSeconds = seconds;
+            _interactionProgress = ts;
+            _isInteractionProgressChanged = true;
+        }
     }
 }

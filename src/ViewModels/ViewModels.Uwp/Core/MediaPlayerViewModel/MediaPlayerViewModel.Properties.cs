@@ -52,7 +52,10 @@ namespace Bili.ViewModels.Uwp.Core
         private FFmpegInteropMSS _interopMSS;
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
+        private TimeSpan _interactionProgress;
+        private bool _isInteractionProgressChanged;
 
+        private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
         private DispatcherTimer _subtitleTimer;
 
@@ -136,6 +139,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 截图命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ScreenShotCommand { get; }
+
+        /// <summary>
+        /// 改变进度的命令.
+        /// </summary>
+        public ReactiveCommand<double, Unit> ChangeProgressCommand { get; }
 
         /// <summary>
         /// 视频格式集合.
@@ -260,6 +268,25 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 小窗提示文本.
         /// </summary>
+        [Reactive]
         public string CompactOverlayText { get; set; }
+
+        /// <summary>
+        /// 是否显示互动播放进度条.
+        /// </summary>
+        [Reactive]
+        public bool IsShowInteractionProgress { get; set; }
+
+        /// <summary>
+        /// [互动进度条] 当前已播放的秒数.
+        /// </summary>
+        [Reactive]
+        public double InteractionProgressSeconds { get; set; }
+
+        /// <summary>
+        /// [互动进度条] 当前已播放的秒数的可读文本.
+        /// </summary>
+        [Reactive]
+        public string InteractionProgressText { get; set; }
     }
 }

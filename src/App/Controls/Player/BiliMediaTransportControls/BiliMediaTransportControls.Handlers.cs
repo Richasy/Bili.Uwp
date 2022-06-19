@@ -6,6 +6,7 @@ using Bili.Models.Data.Player;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 
 namespace Bili.App.Controls.Player
 {
@@ -50,6 +51,22 @@ namespace Bili.App.Controls.Player
             {
                 ViewModel.ChangeFormatCommand.Execute(info).Subscribe();
             }
+        }
+
+        private void OnNormalProgressContainerPointerEntered(object sender, PointerRoutedEventArgs e)
+            => ViewModel.IsShowInteractionProgress = true;
+
+        private void OnInteractionProgressContainerPointerExited(object sender, PointerRoutedEventArgs e)
+            => ViewModel.IsShowInteractionProgress = false;
+
+        private void OnInteractionProgressSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (!ViewModel.IsShowInteractionProgress)
+            {
+                return;
+            }
+
+            ViewModel.ChangeProgressCommand.Execute(e.NewValue).Subscribe();
         }
     }
 }

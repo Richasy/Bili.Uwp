@@ -43,7 +43,7 @@ namespace Bili.Adapter
             var audios = dash.Audio?.Count > 0
                 ? dash.Audio.Select(p => ConvertToSegmentInformation(p))
                 : null;
-            var formats = information.SupportFormats.Select(p => ConvertToFormatInformation(p));
+            var formats = information.SupportFormats.Select(p => ConvertToFormatInformation(p)).ToList();
             return new MediaInformation(minBuffer, videos, audios, formats);
         }
     }

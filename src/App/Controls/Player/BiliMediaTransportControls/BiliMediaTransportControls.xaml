@@ -104,32 +104,61 @@
                                 </Button.Content>
                             </Button>
                         </StackPanel>
-                        <StackPanel
+                        <Grid
                             x:Name="NormalProgressContainer"
                             Grid.Column="1"
-                            Margin="0,-8,0,0"
-                            VerticalAlignment="Center"
-                            Spacing="4">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                HorizontalAlignment="Left"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
-                                <Run Text="/" />
-                                <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
-                            </TextBlock>
-                            <controls:ProgressBar
-                                HorizontalAlignment="Stretch"
+                            Background="{ThemeResource TransparentBackground}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <StackPanel
+                                Margin="0,-8,0,0"
                                 VerticalAlignment="Center"
-                                Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
-                                Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
-                                <controls:ProgressBar.Resources>
-                                    <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
-                                    <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
-                                    <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
-                                </controls:ProgressBar.Resources>
-                            </controls:ProgressBar>
-                        </StackPanel>
+                                Spacing="4">
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
+                                    <Run Text="/" />
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                                </TextBlock>
+                                <controls:ProgressBar
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
+                                    <controls:ProgressBar.Resources>
+                                        <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
+                                        <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
+                                        <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
+                                    </controls:ProgressBar.Resources>
+                                </controls:ProgressBar>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid
+                            x:Name="InteractionProgressContainer"
+                            Grid.Column="1"
+                            Background="{ThemeResource TransparentBackground}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress}">
+                            <StackPanel Margin="0,-8" VerticalAlignment="Center">
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressText}" />
+                                    <Run Text="/" />
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                                </TextBlock>
+                                <Slider
+                                    x:Name="InteractionProgressSlider"
+                                    Margin="0,-4"
+                                    HorizontalAlignment="Stretch"
+                                    IsThumbToolTipEnabled="False"
+                                    Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressSeconds}" />
+                            </StackPanel>
+                        </Grid>
+
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <Button
                                 x:Name="VolumeButton"

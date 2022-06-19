@@ -23,4 +23,6 @@
         Color="{ThemeResource SystemAccentColorDark1}" />
 
     <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
+
+    <SolidColorBrush x:Key="TransparentBackground" Color="#01FFFFFF" />
 </ResourceDictionary>
