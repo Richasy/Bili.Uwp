@@ -13,6 +13,7 @@ using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.UI.Core;
@@ -22,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播播放页面视图模型.
     /// </summary>
-    public sealed partial class LivePlayerPageViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class LivePlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePlayerPageViewModel"/> class.
@@ -39,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Live
             AccountViewModel accountViewModel,
             MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
+            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -50,7 +52,6 @@ namespace Bili.ViewModels.Uwp.Live
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
-            MediaPlayerViewModel = playerViewModel;
 
             Danmakus = new ObservableCollection<LiveDanmakuInformation>();
             Sections = new ObservableCollection<PlayerSectionHeader>

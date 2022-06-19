@@ -155,11 +155,6 @@ namespace Bili.ViewModels.Uwp.Video
         public ObservableCollection<VideoItemViewModel> CurrentSeasonVideos { get; set; }
 
         /// <summary>
-        /// 媒体播放视图模型.
-        /// </summary>
-        public MediaPlayerViewModel MediaPlayerViewModel { get; }
-
-        /// <summary>
         /// 视图信息.
         /// </summary>
         [Reactive]

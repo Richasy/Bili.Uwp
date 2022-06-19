@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls
 {

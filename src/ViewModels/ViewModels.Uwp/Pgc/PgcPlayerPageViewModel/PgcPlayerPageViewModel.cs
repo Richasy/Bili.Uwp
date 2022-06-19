@@ -12,6 +12,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Video;
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 播放页面视图模型.
     /// </summary>
-    public sealed partial class PgcPlayerPageViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class PgcPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlayerPageViewModel"/> class.
@@ -42,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
+            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -55,7 +57,6 @@ namespace Bili.ViewModels.Uwp.Pgc
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
             _dispatcher = dispatcher;
-            MediaPlayerViewModel = playerViewModel;
 
             FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<PlayerSectionHeader>();

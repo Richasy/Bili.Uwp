@@ -44,7 +44,7 @@
                             </Grid>
                         </SplitView.Pane>
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
+                            <VisualStateGroup x:Name="WidthGroup">
                                 <VisualState x:Name="NormalState">
                                     <VisualState.StateTriggers>
                                         <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
@@ -68,6 +68,18 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
+                            <VisualStateGroup x:Name="PlayerGroup">
+                                <VisualState x:Name="StandardState" />
+                                <VisualState x:Name="FullPlayerState">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Padding" Value="0" />
+                                        <Setter Target="RootGrid.RowSpacing" Value="0" />
+                                        <Setter Target="DetailContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="ExpandButtonContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="RootView.IsPaneOpen" Value="False" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid
                             x:Name="RootGrid"
@@ -81,7 +93,7 @@
                                 x:Name="PlayerComponent"
                                 Content="{TemplateBinding Player}"
                                 CornerRadius="{StaticResource OverlayCornerRadius}" />
-                            <Grid Grid.Row="1">
+                            <Grid x:Name="DetailContainer" Grid.Row="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
@@ -102,24 +114,27 @@
                                     Content="{TemplateBinding Dashboard}" />
                             </Grid>
 
-                            <Button
-                                x:Name="ExpandButton"
-                                Style="{StaticResource AccentButtonStyle}"
+                            <Grid
+                                x:Name="ExpandButtonContainer"
                                 Grid.RowSpan="2"
-                                Width="40"
-                                Height="40"
                                 Margin="24"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                CornerRadius="20"
-                                Visibility="Collapsed">
-                                <uwp:RegularFluentIcon
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                    Symbol="PanelRightExpand20" />
-                            </Button>
+                                VerticalAlignment="Bottom">
+                                <Button
+                                    x:Name="ExpandButton"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="20"
+                                    Visibility="Collapsed">
+                                    <uwp:RegularFluentIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                        Symbol="PanelRightExpand20" />
+                                </Button>
+                            </Grid>
                         </Grid>
                     </SplitView>
                 </ControlTemplate>

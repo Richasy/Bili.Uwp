@@ -11,6 +11,7 @@ using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -21,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频播放页面视图模型.
     /// </summary>
-    public sealed partial class VideoPlayerPageViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class VideoPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlayerPageViewModel"/> class.
@@ -40,6 +41,7 @@ namespace Bili.ViewModels.Uwp.Video
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
+            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -53,7 +55,6 @@ namespace Bili.ViewModels.Uwp.Video
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
             _dispatcher = dispatcher;
-            MediaPlayerViewModel = playerViewModel;
 
             Collaborators = new ObservableCollection<UserItemViewModel>();
             Tags = new ObservableCollection<Tag>();

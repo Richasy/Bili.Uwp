@@ -128,6 +128,7 @@
             SectionHeaderItemInvoked="OnSectionHeaderItemInvoked"
             SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
+            ViewModel="{x:Bind ViewModel}"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <player:BiliMediaPlayer ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
             <player:PlayerPagePanel.Descriptor>

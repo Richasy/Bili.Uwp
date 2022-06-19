@@ -1,11 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Bili.App.Controls.Player
 {
@@ -21,6 +19,7 @@ namespace Bili.App.Controls.Player
         {
             DefaultStyleKey = typeof(BiliMediaTransportControls);
             Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
@@ -45,19 +44,6 @@ namespace Bili.App.Controls.Player
             _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            ChangeVisualStateFromStatus();
-        }
-
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ViewModel.Status))
-            {
-                ChangeVisualStateFromStatus();
-            }
-        }
-
         private void ChangeVisualStateFromStatus()
         {
             if (ViewModel.Status == Models.Enums.PlayerStatus.Playing)
@@ -68,6 +54,25 @@ namespace Bili.App.Controls.Player
                 || ViewModel.Status == Models.Enums.PlayerStatus.End)
             {
                 VisualStateManager.GoToState(this, "PauseState", false);
+            }
+        }
+
+        private void ChangeVisualStateFromDisplayMode()
+        {
+            switch (ViewModel.DisplayMode)
+            {
+                case Models.Enums.PlayerDisplayMode.FullWindow:
+                    VisualStateManager.GoToState(this, "FullWindowState", false);
+                    break;
+                case Models.Enums.PlayerDisplayMode.FullScreen:
+                    VisualStateManager.GoToState(this, "FullScreenState", false);
+                    break;
+                case Models.Enums.PlayerDisplayMode.CompactOverlay:
+                    VisualStateManager.GoToState(this, "CompactOverlayState", false);
+                    break;
+                default:
+                    VisualStateManager.GoToState(this, "NormalState", false);
+                    break;
             }
         }
     }

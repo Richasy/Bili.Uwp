@@ -123,6 +123,13 @@ namespace Bili.ViewModels.Uwp.Core
             _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
         }
 
+        private void ToggleFullScreenMode()
+        {
+            DisplayMode = DisplayMode == PlayerDisplayMode.FullScreen
+                ? PlayerDisplayMode.Default
+                : PlayerDisplayMode.FullScreen;
+        }
+
         private void EnsureMediaPlayerExist()
         {
             if (_mediaPlayer == null || _mediaPlayer.PlaybackSession == null)

@@ -17,6 +17,7 @@ using Bili.ViewModels.Uwp.Common;
 using FFmpegInterop;
 using ReactiveUI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -36,6 +37,7 @@ namespace Bili.ViewModels.Uwp.Core
             ISettingsToolkit settingsToolkit,
             INumberToolkit numberToolkit,
             AccountViewModel accountViewModel,
+            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
@@ -45,7 +47,9 @@ namespace Bili.ViewModels.Uwp.Core
             _settingsToolkit = settingsToolkit;
             _numberToolkit = numberToolkit;
             _accountViewModel = accountViewModel;
+            _appViewModel = appViewModel;
             _dispatcher = dispatcher;
+            ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
             _liveConfig = new FFmpegInteropConfig();
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
@@ -69,6 +73,7 @@ namespace Bili.ViewModels.Uwp.Core
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume, outputScheduler: RxApp.MainThreadScheduler);
+            ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -77,6 +82,13 @@ namespace Bili.ViewModels.Uwp.Core
             this.WhenAnyValue(p => p.PlaybackRate)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .InvokeCommand(ChangePlayRateCommand);
+
+            this.WhenAnyValue(p => p.DisplayMode)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
+                });
         }
 
         /// <summary>

@@ -74,11 +74,6 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<PlayerSectionHeader> Sections { get; }
 
         /// <summary>
-        /// 媒体播放视图模型.
-        /// </summary>
-        public MediaPlayerViewModel MediaPlayerViewModel { get; }
-
-        /// <summary>
         /// 视图信息.
         /// </summary>
         [Reactive]

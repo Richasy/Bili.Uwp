@@ -1,7 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Bili.Models.App.Other;
+using Bili.ViewModels.Uwp.Base;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
@@ -12,7 +16,7 @@ namespace Bili.App.Controls.Player
     /// 播放页面面板.
     /// </summary>
     [ContentProperty(Name = "Player")]
-    public sealed class PlayerPagePanel : Control
+    public sealed class PlayerPagePanel : ReactiveControl<PlayerPageViewModelBase>
     {
         /// <summary>
         /// <see cref="Player"/> 的依赖属性.
@@ -56,7 +60,11 @@ namespace Bili.App.Controls.Player
         /// Initializes a new instance of the <see cref="PlayerPagePanel"/> class.
         /// </summary>
         public PlayerPagePanel()
-            => DefaultStyleKey = typeof(PlayerPagePanel);
+        {
+            DefaultStyleKey = typeof(PlayerPagePanel);
+            Loaded += OnLoadedAsync;
+            Unloaded += OnUnloaded;
+        }
 
         /// <summary>
         /// 区块标头被点击.
@@ -117,6 +125,20 @@ namespace Bili.App.Controls.Player
             set { SetValue(SectionContentProperty, value); }
         }
 
+        internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is PlayerPageViewModelBase oldVM)
+            {
+                oldVM.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+            }
+
+            if (e.NewValue is PlayerPageViewModelBase vm)
+            {
+                vm.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+                vm.MediaPlayerViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
+            }
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
@@ -126,6 +148,90 @@ namespace Bili.App.Controls.Player
 
             expandButton.Click += OnExpandButtonClick;
             sectionView.ItemInvoked += OnSectionViewItemInvoked;
+        }
+
+        private async void OnViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.MediaPlayerViewModel.DisplayMode))
+            {
+                await ChangeVisualStateFromDisplayModeAsync();
+            }
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel?.MediaPlayerViewModel != null)
+            {
+                ViewModel.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+            }
+        }
+
+        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        {
+            await ChangeVisualStateFromDisplayModeAsync();
+        }
+
+        private async Task ChangeVisualStateFromDisplayModeAsync()
+        {
+            var mediaVM = ViewModel?.MediaPlayerViewModel;
+            if (mediaVM == null)
+            {
+                return;
+            }
+
+            var appView = ApplicationView.GetForCurrentView();
+            if (mediaVM.DisplayMode == Models.Enums.PlayerDisplayMode.Default)
+            {
+                ToggleFullPlayerState(false);
+                if (appView.IsFullScreenMode)
+                {
+                    appView.ExitFullScreenMode();
+                }
+                else if (appView.ViewMode != ApplicationViewMode.Default)
+                {
+                    await appView.TryEnterViewModeAsync(ApplicationViewMode.Default).AsTask();
+                }
+            }
+            else if (mediaVM.DisplayMode == Models.Enums.PlayerDisplayMode.FullWindow)
+            {
+                ToggleFullPlayerState(true);
+                if (appView.IsFullScreenMode)
+                {
+                    appView.ExitFullScreenMode();
+                }
+            }
+            else if (mediaVM.DisplayMode == Models.Enums.PlayerDisplayMode.FullScreen)
+            {
+                ToggleFullPlayerState(true);
+                if (!appView.IsFullScreenMode)
+                {
+                    appView.TryEnterFullScreenMode();
+                }
+            }
+            else if (mediaVM.DisplayMode == Models.Enums.PlayerDisplayMode.CompactOverlay)
+            {
+                ToggleFullPlayerState(true);
+                if (appView.ViewMode != ApplicationViewMode.CompactOverlay)
+                {
+                    await appView.TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay).AsTask();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 切换全视窗播放器状态.
+        /// </summary>
+        /// <param name="isFullPlayer">是否将播放器扩展到全视窗.</param>
+        private void ToggleFullPlayerState(bool isFullPlayer)
+        {
+            if (isFullPlayer)
+            {
+                VisualStateManager.GoToState(this, "FullPlayerState", false);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "StandardState", false);
+            }
         }
 
         private void OnExpandButtonClick(object sender, RoutedEventArgs e)

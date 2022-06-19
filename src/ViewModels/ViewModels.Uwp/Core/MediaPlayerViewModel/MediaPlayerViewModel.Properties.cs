@@ -33,6 +33,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly AccountViewModel _accountViewModel;
+        private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly FFmpegInteropConfig _liveConfig;
@@ -115,6 +116,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 改变音量的命令.
         /// </summary>
         public ReactiveCommand<double, Unit> ChangeVolumeCommand { get; }
+
+        /// <summary>
+        /// 进入/退出全屏状态的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ToggleFullScreenCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

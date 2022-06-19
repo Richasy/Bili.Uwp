@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -335,5 +336,14 @@ namespace Bili.ViewModels.Uwp.Core
         private void OnSubtitleTimerTickAsync(object sender, object e) => throw new NotImplementedException();
 
         private void OnProgressTimerTickAsync(object sender, object e) => throw new NotImplementedException();
+
+        private void OnViewVisibleBoundsChanged(ApplicationView sender, object args)
+        {
+            // 如果用户通过窗口按钮手动退出全屏状态，则播放器调整为默认模式.
+            if (!sender.IsFullScreenMode && DisplayMode == PlayerDisplayMode.FullScreen)
+            {
+                DisplayMode = PlayerDisplayMode.Default;
+            }
+        }
     }
 }
