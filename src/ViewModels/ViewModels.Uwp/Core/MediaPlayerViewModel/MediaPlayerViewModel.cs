@@ -16,6 +16,7 @@ using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using FFmpegInterop;
 using ReactiveUI;
+using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 
@@ -39,7 +40,8 @@ namespace Bili.ViewModels.Uwp.Core
             AccountViewModel accountViewModel,
             NavigationViewModel navigationViewModel,
             AppViewModel appViewModel,
-            CoreDispatcher dispatcher)
+            CoreDispatcher dispatcher,
+            DisplayRequest displayRequest)
         {
             _playerProvider = playerProvider;
             _liveProvider = liveProvider;
@@ -51,6 +53,7 @@ namespace Bili.ViewModels.Uwp.Core
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _dispatcher = dispatcher;
+            _displayRequest = displayRequest;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
             _liveConfig = new FFmpegInteropConfig();
@@ -64,7 +67,6 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRates = new ObservableCollection<PlaybackRateItemViewModel>();
 
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangePlayerStatusCommand = ReactiveCommand.CreateFromTask<PlayerStatus>(ChangePlayerStatusAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
             ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
@@ -82,6 +84,8 @@ namespace Bili.ViewModels.Uwp.Core
             ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress, outputScheduler: RxApp.MainThreadScheduler);
             StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
             StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
+            JumpToLastProgressCommand = ReactiveCommand.Create(JumpToLastProgress, outputScheduler: RxApp.MainThreadScheduler);
+            ReportViewProgressCommand = ReactiveCommand.CreateFromTask(ReportViewProgressAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -192,6 +196,7 @@ namespace Bili.ViewModels.Uwp.Core
             _progressTimer?.Start();
             _unitTimer?.Start();
             _subtitleTimer?.Start();
+            _displayRequest.RequestActive();
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)
@@ -224,24 +229,6 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _mediaPlayer?.Play();
             }
-        }
-
-        private async Task ChangePlayerStatusAsync(PlayerStatus status)
-        {
-            Status = status;
-            if (Status == PlayerStatus.Playing)
-            {
-                if (_videoType == VideoType.Video)
-                {
-                    CheckVideoHistory();
-                }
-                else if (_videoType == VideoType.Pgc)
-                {
-                    CheckEpisodeHistory();
-                }
-            }
-
-            await Task.CompletedTask;
         }
 
         private void ResetProgressHistory()

@@ -40,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Core
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillVideoPlaybackProperties();
+            CheckVideoHistory();
         }
 
         private void CheckVideoHistory()

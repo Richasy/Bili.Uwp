@@ -65,7 +65,7 @@ namespace Bili.Controller.Uwp
                     }
                     else if (videoId > 0)
                     {
-                        isSuccess = await _playerProvider.ReportProgressAsync(videoId, partId, Convert.ToInt64(progress.TotalSeconds));
+                        isSuccess = await _playerProvider.ReportProgressAsync(videoId.ToString(), partId.ToString(), Convert.ToInt64(progress.TotalSeconds));
                     }
                 }
                 catch (Exception ex)

@@ -52,8 +52,9 @@
                                         Title="{loc:LocaleLocator Name=ViewHistory}"
                                         HorizontalAlignment="Right"
                                         ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
-                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowHistoryTip, Mode=TwoWay}"
-                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.HistoryTipText}" />
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
                                 </Border>
 
                                 <Border x:Name="NextVideoInformerContainer" Grid.Column="1">

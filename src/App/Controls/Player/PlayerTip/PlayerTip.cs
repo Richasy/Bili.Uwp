@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -40,6 +41,12 @@ namespace Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty AdditionalTitleProperty =
             DependencyProperty.Register(nameof(AdditionalTitle), typeof(string), typeof(PlayerTip), new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// <see cref="Command"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(PlayerTip), new PropertyMetadata(default));
 
         private const string ActionButtonName = "ActionButton";
         private const string CloseButtonName = "CloseButton";
@@ -103,6 +110,15 @@ namespace Bili.App.Controls
         {
             get { return (string)GetValue(AdditionalTitleProperty); }
             set { SetValue(AdditionalTitleProperty, value); }
+        }
+
+        /// <summary>
+        /// 动作命令.
+        /// </summary>
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
         /// <inheritdoc/>

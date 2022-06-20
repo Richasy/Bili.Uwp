@@ -16,6 +16,7 @@ using FFmpegInterop;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.Media.Playback;
+using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -38,6 +39,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly FFmpegInteropConfig _liveConfig;
+        private readonly DisplayRequest _displayRequest;
 
         private VideoType _videoType;
         private object _viewData;
@@ -82,11 +84,6 @@ namespace Bili.ViewModels.Uwp.Core
         /// 改变分P的命令.
         /// </summary>
         public ReactiveCommand<VideoIdentifier, Unit> ChangePartCommand { get; }
-
-        /// <summary>
-        /// 改变播放器状态的命令.
-        /// </summary>
-        public ReactiveCommand<PlayerStatus, Unit> ChangePlayerStatusCommand { get; }
 
         /// <summary>
         /// 重置播放历史的命令.
@@ -162,6 +159,16 @@ namespace Bili.ViewModels.Uwp.Core
         /// 停止临时倍速播放.
         /// </summary>
         public ReactiveCommand<Unit, Unit> StopTempQuickPlayCommand { get; }
+
+        /// <summary>
+        /// 跳转到上次观看进度的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> JumpToLastProgressCommand { get; }
+
+        /// <summary>
+        /// 报告观看进度的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ReportViewProgressCommand { get; }
 
         /// <summary>
         /// 视频格式集合.
@@ -312,18 +319,6 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsShowMediaTransport { get; set; }
-
-        /// <summary>
-        /// 显示的播放历史文本.
-        /// </summary>
-        [Reactive]
-        public string HistoryTipText { get; set; }
-
-        /// <summary>
-        /// 是否显示播放历史跳转提醒.
-        /// </summary>
-        [Reactive]
-        public bool IsShowHistoryTip { get; set; }
 
         /// <summary>
         /// 显示的下一个视频提示文本.

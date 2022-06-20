@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
@@ -39,6 +41,14 @@ namespace Bili.ViewModels.Uwp.Core
             _interactionProgress = TimeSpan.Zero;
             _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
+
+            try
+            {
+                _displayRequest.RequestRelease();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void InitializeMediaPlayer()
@@ -132,7 +142,7 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _progressTimer = new DispatcherTimer();
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
-                _progressTimer.Tick += OnProgressTimerTickAsync;
+                _progressTimer.Tick += OnProgressTimerTick;
             }
 
             if (_subtitleTimer == null)
@@ -231,6 +241,25 @@ namespace Bili.ViewModels.Uwp.Core
             CompactOverlayText = DisplayMode == PlayerDisplayMode.CompactOverlay
                 ? _resourceToolkit.GetLocaleString(LanguageNames.ExitCompactOverlay)
                 : _resourceToolkit.GetLocaleString(LanguageNames.EnterCompactOverlay);
+        }
+
+        private async Task ReportViewProgressAsync()
+        {
+            if (_mediaPlayer == null
+                || _mediaPlayer.PlaybackSession == null)
+            {
+                return;
+            }
+
+            var progress = _mediaPlayer.PlaybackSession.Position;
+            if (progress != _lastReportProgress)
+            {
+                var view = _viewData as VideoPlayerView;
+                var aid = view.Information.Identifier.Id;
+                var cid = _currentPart.Id;
+                await _playerProvider.ReportProgressAsync(aid, cid, progress.TotalSeconds);
+                _lastReportProgress = progress;
+            }
         }
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
@@ -372,9 +401,8 @@ namespace Bili.ViewModels.Uwp.Core
         {
         }
 
-        private void OnProgressTimerTickAsync(object sender, object e)
-        {
-        }
+        private void OnProgressTimerTick(object sender, object e)
+            => ReportViewProgressCommand.Execute().Subscribe();
 
         private void OnUnitTimerTickAsync(object sender, object e)
         {

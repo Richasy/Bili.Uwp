@@ -107,7 +107,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="partId">视频分P的Id.</param>
         /// <param name="progress">播放进度.</param>
         /// <returns>进度上报是否成功.</returns>
-        Task<bool> ReportProgressAsync(long videoId, long partId, long progress);
+        Task<bool> ReportProgressAsync(string videoId, string partId, double progress);
 
         /// <summary>
         /// 报告播放进度记录.

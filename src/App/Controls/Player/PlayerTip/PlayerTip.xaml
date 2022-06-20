@@ -73,6 +73,7 @@
                             Grid.ColumnSpan="2"
                             HorizontalAlignment="Left"
                             BorderThickness="0"
+                            Command="{TemplateBinding Command}"
                             Content="{TemplateBinding ActionContent}"
                             FontSize="12" />
                         <Button

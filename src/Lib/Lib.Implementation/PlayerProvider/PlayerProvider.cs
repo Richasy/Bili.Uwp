@@ -167,13 +167,13 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ReportProgressAsync(long videoId, long partId, long progress)
+        public async Task<bool> ReportProgressAsync(string videoId, string partId, double progress)
         {
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.Aid, videoId.ToString() },
                 { Query.Cid, partId.ToString() },
-                { Query.Progress, progress.ToString() },
+                { Query.Progress, Convert.ToInt32(progress).ToString() },
                 { Query.Type, "3" },
             };
 

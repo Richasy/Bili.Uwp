@@ -3,6 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Microsoft.Graphics.Canvas;
 using Windows.ApplicationModel.DataTransfer;
@@ -238,6 +239,21 @@ namespace Bili.ViewModels.Uwp.Core
             await ChangePlayRateAsync(_originalPlayRate);
             _originalPlayRate = 0;
             RequestShowTempMessage?.Invoke(this, default);
+        }
+
+        private void JumpToLastProgress()
+        {
+            if (_videoType == VideoType.Video)
+            {
+                var view = _viewData as VideoPlayerView;
+                if (view.Progress != null)
+                {
+                    ChangeProgress(view.Progress.Progress);
+                    ResetProgressHistory();
+                }
+
+                IsShowProgressTip = false;
+            }
         }
     }
 }
