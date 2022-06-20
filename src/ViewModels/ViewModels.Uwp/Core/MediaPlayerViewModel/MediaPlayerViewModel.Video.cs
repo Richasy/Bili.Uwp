@@ -26,7 +26,10 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             _currentPart = part;
+            ResetPlayer();
+            ResetMediaData();
             await LoadVideoAsync();
+            StartTimersAndDisplayRequest();
         }
 
         private async Task LoadVideoAsync()

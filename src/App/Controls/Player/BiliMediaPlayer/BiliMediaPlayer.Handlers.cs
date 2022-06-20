@@ -209,9 +209,15 @@ namespace Bili.App.Controls.Player
                 _tempMessageStayTime += 0.5;
             }
 
+            if (ViewModel.IsShowNextVideoTip)
+            {
+                _nextVideoStayTime += 0.5;
+            }
+
             HandleTransportAutoHide();
             HandleCursorAutoHide();
             HandleTempMessageAutoHide();
+            HandleNextVideoAutoHide();
         }
     }
 }

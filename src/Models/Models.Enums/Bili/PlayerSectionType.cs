@@ -46,5 +46,10 @@ namespace Bili.Models.Enums.Bili
         /// 直播聊天互动.
         /// </summary>
         Chat,
+
+        /// <summary>
+        /// 播放列表.
+        /// </summary>
+        Playlist,
     }
 }

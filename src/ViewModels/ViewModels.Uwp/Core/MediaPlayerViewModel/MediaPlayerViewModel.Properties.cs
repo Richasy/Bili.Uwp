@@ -57,6 +57,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
         private TimeSpan _interactionProgress;
         private bool _isInteractionProgressChanged;
+        private Action _playNextVideoAction;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
@@ -73,6 +74,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 请求显示临时信息.
         /// </summary>
         public event EventHandler<string> RequestShowTempMessage;
+
+        /// <summary>
+        /// 媒体播放结束.
+        /// </summary>
+        public event EventHandler MediaEnded;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
@@ -169,6 +175,16 @@ namespace Bili.ViewModels.Uwp.Core
         /// 报告观看进度的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ReportViewProgressCommand { get; }
+
+        /// <summary>
+        /// 显示播放下一个视频的提示.
+        /// </summary>
+        public ReactiveCommand<Action, Unit> ShowNextVideoTipCommand { get; }
+
+        /// <summary>
+        /// 播放下一个视频的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> PlayNextVideoCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

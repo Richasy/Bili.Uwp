@@ -46,27 +46,26 @@
                                             TextWrapping="Wrap" />
                                     </Grid>
                                 </Grid>
-                                <Border x:Name="PreviousViewInformerContainer" Grid.Column="1">
-                                    <controls:PlayerTip
-                                        x:Name="PreviousViewInformer"
-                                        Title="{loc:LocaleLocator Name=ViewHistory}"
-                                        HorizontalAlignment="Right"
-                                        ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
-                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
-                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
-                                </Border>
+                                <controls:PlayerTip
+                                    x:Name="PreviousViewInformer"
+                                    Title="{loc:LocaleLocator Name=ViewHistory}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
+                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
+                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
 
-                                <Border x:Name="NextVideoInformerContainer" Grid.Column="1">
-                                    <controls:PlayerTip
-                                        x:Name="NextVideoInformer"
-                                        Title="{loc:LocaleLocator Name=PlayNextVideo}"
-                                        HorizontalAlignment="Right"
-                                        ActionContent="{loc:LocaleLocator Name=PlayNow}"
-                                        AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
-                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
-                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
-                                </Border>
+                                <controls:PlayerTip
+                                    x:Name="NextVideoInformer"
+                                    Title="{loc:LocaleLocator Name=PlayNextVideo}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    ActionContent="{loc:LocaleLocator Name=PlayNow}"
+                                    AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextVideoCommand}"
+                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
+                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
                             </Grid>
 
                             <local:BiliMediaTransportControls
@@ -83,9 +82,6 @@
                                         To="1.0"
                                         Duration="0:0:0.4" />
                                 </animations:Implicit.ShowAnimations>
-                                <animations:Implicit.HideAnimations>
-                                    <animations:OpacityAnimation To="0.0" Duration="0:0:0.2" />
-                                </animations:Implicit.HideAnimations>
                             </local:BiliMediaTransportControls>
                         </Grid>
                     </Grid>

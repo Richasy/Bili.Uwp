@@ -72,6 +72,8 @@ namespace Bili.ViewModels.Uwp.Core
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ShowNextVideoTipCommand = ReactiveCommand.Create<Action>(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
+            PlayNextVideoCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
 
             PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -121,6 +123,23 @@ namespace Bili.ViewModels.Uwp.Core
                 .Subscribe(x =>
                 {
                     InteractionProgressText = _numberToolkit.FormatDurationText(TimeSpan.FromSeconds(x), DurationSeconds > 3600);
+                });
+
+            this.WhenAnyValue(p => p.IsShowMediaTransport)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown);
+                    if (x)
+                    {
+                        _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown, async _ =>
+                        {
+                            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                IsShowMediaTransport = false;
+                            });
+                        });
+                    }
                 });
         }
 
@@ -193,10 +212,7 @@ namespace Bili.ViewModels.Uwp.Core
                 await LoadLiveAsync();
             }
 
-            _progressTimer?.Start();
-            _unitTimer?.Start();
-            _subtitleTimer?.Start();
-            _displayRequest.RequestActive();
+            StartTimersAndDisplayRequest();
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)

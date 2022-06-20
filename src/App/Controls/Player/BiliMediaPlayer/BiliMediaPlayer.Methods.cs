@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -89,6 +90,21 @@ namespace Bili.App.Controls.Player
             if (_tempMessageStayTime >= 2)
             {
                 HideTempMessage();
+            }
+        }
+
+        private void HandleNextVideoAutoHide()
+        {
+            if (_nextVideoStayTime > 5)
+            {
+                _nextVideoStayTime = 0;
+                ViewModel.NextVideoCountdown = 0;
+                ViewModel.IsShowNextVideoTip = false;
+                ViewModel.PlayNextVideoCommand.Execute().Subscribe();
+            }
+            else
+            {
+                ViewModel.NextVideoCountdown = Math.Ceiling(5 - _nextVideoStayTime);
             }
         }
 

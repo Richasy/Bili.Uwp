@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
@@ -78,6 +80,16 @@ namespace Bili.ViewModels.Uwp.Video
             }
         }
 
+        private void ChangeVideoPart(VideoIdentifier identifier)
+        {
+            foreach (var item in VideoParts)
+            {
+                item.IsSelected = item.Data.Equals(identifier);
+            }
+
+            MediaPlayerViewModel.ChangePartCommand.Execute(identifier).Subscribe();
+        }
+
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
             => IsSignedIn = e.NewState == Models.Enums.AuthorizeState.SignedIn;
 
@@ -94,6 +106,64 @@ namespace Bili.ViewModels.Uwp.Video
             request.Data.SetText(View.Information.Description);
             request.Data.SetWebLink(new Uri(url));
             request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri()));
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
+            var isNewVideo = false;
+            VideoIdentifier? nextPart = default;
+            if (Sections.Any(p => p.Type == PlayerSectionType.VideoParts))
+            {
+                var canContinue = VideoParts.Count > 1 && CurrentVideoPart.Id != VideoParts.Last().Data.Id;
+                if (canContinue)
+                {
+                    var currentPart = VideoParts.First(p => p.Data.Id == CurrentVideoPart.Id);
+                    nextPart = VideoParts.FirstOrDefault(p => p.Index == currentPart.Index + 1)?.Data;
+                }
+            }
+            else if (Sections.Any(p => p.Type == PlayerSectionType.UgcSeason))
+            {
+                var currentVideo = CurrentSeasonVideos.FirstOrDefault(p => p.IsSelected);
+                if (currentVideo != null)
+                {
+                    var canContinue = CurrentSeasonVideos.Count > 1 && !CurrentSeasonVideos.Last().Equals(currentVideo);
+                    if (canContinue)
+                    {
+                        var index = CurrentSeasonVideos.IndexOf(currentVideo);
+                        nextPart = CurrentSeasonVideos[index + 1].Information.Identifier;
+                        isNewVideo = true;
+                    }
+                }
+            }
+
+            if (nextPart == null)
+            {
+                MediaPlayerViewModel.DisplayMode = PlayerDisplayMode.Default;
+                return;
+            }
+
+            var playNextAction = () =>
+            {
+                if (isNewVideo)
+                {
+                    SetSnapshot(new PlaySnapshot(nextPart.Value.Id, default, VideoType.Video));
+                }
+                else
+                {
+                    ChangeVideoPart(nextPart.Value);
+                }
+            };
+
+            if (isContinue)
+            {
+                playNextAction.Invoke();
+            }
+            else
+            {
+                MediaPlayerViewModel.NextVideoTipText = nextPart.Value.Title;
+                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute(playNextAction).Subscribe();
+            }
         }
     }
 }

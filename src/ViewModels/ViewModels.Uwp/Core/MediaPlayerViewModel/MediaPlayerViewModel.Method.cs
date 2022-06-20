@@ -41,14 +41,7 @@ namespace Bili.ViewModels.Uwp.Core
             _interactionProgress = TimeSpan.Zero;
             _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
-
-            try
-            {
-                _displayRequest.RequestRelease();
-            }
-            catch (Exception)
-            {
-            }
+            _playNextVideoAction = default;
         }
 
         private void InitializeMediaPlayer()
@@ -127,6 +120,14 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             Status = PlayerStatus.NotLoad;
+
+            try
+            {
+                _displayRequest.RequestRelease();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void InitializeTimers()
@@ -150,6 +151,20 @@ namespace Bili.ViewModels.Uwp.Core
                 _subtitleTimer = new DispatcherTimer();
                 _subtitleTimer.Interval = TimeSpan.FromSeconds(0.5);
                 _subtitleTimer.Tick += OnSubtitleTimerTickAsync;
+            }
+        }
+
+        private void StartTimersAndDisplayRequest()
+        {
+            _progressTimer?.Start();
+            _subtitleTimer?.Start();
+            _unitTimer?.Start();
+            try
+            {
+                _displayRequest.RequestActive();
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -262,6 +277,15 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
+        private void ShowNextVideoTip(Action action)
+        {
+            _playNextVideoAction = action;
+            IsShowNextVideoTip = true;
+        }
+
+        private void PlayNextVideo()
+            => _playNextVideoAction?.Invoke();
+
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
             if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)
@@ -309,6 +333,7 @@ namespace Bili.ViewModels.Uwp.Core
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Status = PlayerStatus.End;
+                MediaEnded?.Invoke(this, EventArgs.Empty);
             });
         }
 
