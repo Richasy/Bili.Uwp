@@ -37,6 +37,7 @@ namespace Bili.ViewModels.Uwp.Core
             ISettingsToolkit settingsToolkit,
             INumberToolkit numberToolkit,
             AccountViewModel accountViewModel,
+            NavigationViewModel navigationViewModel,
             AppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
@@ -48,6 +49,7 @@ namespace Bili.ViewModels.Uwp.Core
             _numberToolkit = numberToolkit;
             _accountViewModel = accountViewModel;
             _appViewModel = appViewModel;
+            _navigationViewModel = navigationViewModel;
             _dispatcher = dispatcher;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
@@ -78,6 +80,8 @@ namespace Bili.ViewModels.Uwp.Core
             ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);
             ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress, outputScheduler: RxApp.MainThreadScheduler);
+            StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
+            StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
@@ -95,6 +99,17 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     InitializeDisplayModeText();
                     _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
+                    _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerModeChange);
+                    if (x != PlayerDisplayMode.Default)
+                    {
+                        _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerModeChange, async _ =>
+                        {
+                            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                DisplayMode = PlayerDisplayMode.Default;
+                            });
+                        });
+                    }
                 });
 
             this.WhenAnyValue(p => p.InteractionProgressSeconds)

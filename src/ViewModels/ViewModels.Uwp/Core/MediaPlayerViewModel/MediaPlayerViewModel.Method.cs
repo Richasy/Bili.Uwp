@@ -21,6 +21,7 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRates.Clear();
             IsShowProgressTip = false;
             IsShowInteractionProgress = false;
+            IsShowMediaTransport = false;
             ProgressTip = default;
             _video = null;
             _audio = null;
@@ -37,6 +38,7 @@ namespace Bili.ViewModels.Uwp.Core
             _initializeProgress = TimeSpan.Zero;
             _interactionProgress = TimeSpan.Zero;
             _isInteractionProgressChanged = false;
+            _originalPlayRate = 0;
         }
 
         private void InitializeMediaPlayer()

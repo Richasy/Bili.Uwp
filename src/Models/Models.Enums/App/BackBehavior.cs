@@ -31,5 +31,10 @@ namespace Bili.Models.Enums.App
         /// 播放器模式更改.
         /// </summary>
         PlayerModeChange,
+
+        /// <summary>
+        /// 播放器有新的覆盖层，比如传输控件等.
+        /// </summary>
+        PlayerPopupShown,
     }
 }

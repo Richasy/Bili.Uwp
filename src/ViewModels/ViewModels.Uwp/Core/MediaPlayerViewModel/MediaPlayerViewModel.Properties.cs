@@ -33,6 +33,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly AccountViewModel _accountViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
@@ -59,10 +60,17 @@ namespace Bili.ViewModels.Uwp.Core
         private DispatcherTimer _progressTimer;
         private DispatcherTimer _subtitleTimer;
 
+        private double _originalPlayRate;
+
         /// <summary>
         /// 媒体播放器改变.
         /// </summary>
         public event EventHandler<MediaPlayer> MediaPlayerChanged;
+
+        /// <summary>
+        /// 请求显示临时信息.
+        /// </summary>
+        public event EventHandler<string> RequestShowTempMessage;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
@@ -144,6 +152,16 @@ namespace Bili.ViewModels.Uwp.Core
         /// 改变进度的命令.
         /// </summary>
         public ReactiveCommand<double, Unit> ChangeProgressCommand { get; }
+
+        /// <summary>
+        /// 开始临时倍速播放.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> StartTempQuickPlayCommand { get; }
+
+        /// <summary>
+        /// 停止临时倍速播放.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> StopTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 视频格式集合.
@@ -288,5 +306,41 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public string InteractionProgressText { get; set; }
+
+        /// <summary>
+        /// 是否显示媒体传输控件.
+        /// </summary>
+        [Reactive]
+        public bool IsShowMediaTransport { get; set; }
+
+        /// <summary>
+        /// 显示的播放历史文本.
+        /// </summary>
+        [Reactive]
+        public string HistoryTipText { get; set; }
+
+        /// <summary>
+        /// 是否显示播放历史跳转提醒.
+        /// </summary>
+        [Reactive]
+        public bool IsShowHistoryTip { get; set; }
+
+        /// <summary>
+        /// 显示的下一个视频提示文本.
+        /// </summary>
+        [Reactive]
+        public string NextVideoTipText { get; set; }
+
+        /// <summary>
+        /// 是否显示下一个视频提醒.
+        /// </summary>
+        [Reactive]
+        public bool IsShowNextVideoTip { get; set; }
+
+        /// <summary>
+        /// 自动播放下一个视频的倒计时秒数.
+        /// </summary>
+        [Reactive]
+        public double NextVideoCountdown { get; set; }
     }
 }

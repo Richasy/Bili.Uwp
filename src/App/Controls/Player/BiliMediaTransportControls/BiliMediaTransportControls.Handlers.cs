@@ -22,7 +22,9 @@ namespace Bili.App.Controls.Player
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
-            => ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        {
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

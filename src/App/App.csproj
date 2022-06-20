@@ -45,6 +45,9 @@
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.cs" />
+    <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Fields.cs" />
+    <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Handlers.cs" />
+    <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Methods.cs" />
     <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.cs" />
     <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Fields.cs" />
     <Compile Include="Controls\Player\BiliMediaTransportControls\BiliMediaTransportControls.Handlers.cs" />

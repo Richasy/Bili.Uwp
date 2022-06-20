@@ -125,6 +125,12 @@ namespace Bili.ViewModels.Uwp.Core
                 Volume = volume;
             }
 
+            var msg = volume == 0
+                ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}"
+                : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
+
+            RequestShowTempMessage?.Invoke(this, msg);
+
             _mediaPlayer.Volume = volume / 100.0;
             _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
         }
@@ -203,6 +209,35 @@ namespace Bili.ViewModels.Uwp.Core
             InteractionProgressSeconds = seconds;
             _interactionProgress = ts;
             _isInteractionProgressChanged = true;
+
+            var msg = $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentProgress)}: {TimeSpan.FromSeconds(seconds):g}";
+            RequestShowTempMessage?.Invoke(this, msg);
+        }
+
+        private async Task StartTempQuickPlayAsync()
+        {
+            EnsureMediaPlayerExist();
+            if (Status != PlayerStatus.Playing || PlaybackRate >= 3)
+            {
+                return;
+            }
+
+            _originalPlayRate = PlaybackRate;
+            await ChangePlayRateAsync(3);
+            var msg = _resourceToolkit.GetLocaleString(LanguageNames.StartQuickPlay);
+            RequestShowTempMessage?.Invoke(this, msg);
+        }
+
+        private async Task StopTempQuickPlayAsync()
+        {
+            if (_originalPlayRate <= 0)
+            {
+                return;
+            }
+
+            await ChangePlayRateAsync(_originalPlayRate);
+            _originalPlayRate = 0;
+            RequestShowTempMessage?.Invoke(this, default);
         }
     }
 }
