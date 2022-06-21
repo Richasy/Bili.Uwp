@@ -127,7 +127,8 @@ namespace Bili.App.Controls.Player
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
 
             if (ViewModel.IsShowMediaTransport
-                && isMouse)
+                && isMouse
+                && !IsCursorInTransportControls())
             {
                 ViewModel.IsShowMediaTransport = false;
             }

@@ -126,7 +126,7 @@ namespace Bili.ViewModels.Uwp.Core
                 Volume = volume;
             }
 
-            var msg = volume == 0
+            var msg = volume > 0
                 ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}"
                 : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
 
@@ -254,6 +254,62 @@ namespace Bili.ViewModels.Uwp.Core
 
                 IsShowProgressTip = false;
             }
+        }
+
+        private void IncreasePlayRate()
+        {
+            if (_videoType == VideoType.Live)
+            {
+                return;
+            }
+
+            var rate = PlaybackRate + PlaybackRateStep;
+            if (rate > MaxPlaybackRate)
+            {
+                rate = MaxPlaybackRate;
+            }
+
+            ChangePlayRateCommand.Execute(rate).Subscribe();
+            RequestShowTempMessage?.Invoke(this, $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
+        }
+
+        private void DecreasePlayRate()
+        {
+            if (_videoType == VideoType.Live)
+            {
+                return;
+            }
+
+            var rate = PlaybackRate - PlaybackRateStep;
+            if (rate < 0.5)
+            {
+                rate = 0.5;
+            }
+
+            ChangePlayRateCommand.Execute(rate).Subscribe();
+            RequestShowTempMessage?.Invoke(this, $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
+        }
+
+        private void IncreaseVolume()
+        {
+            var volume = Volume + 5;
+            if (volume > 100)
+            {
+                volume = 100;
+            }
+
+            ChangeVolume(volume);
+        }
+
+        private void DecreaseVolume()
+        {
+            var volume = Volume - 5;
+            if (volume < 0)
+            {
+                volume = 0;
+            }
+
+            ChangeVolume(volume);
         }
     }
 }

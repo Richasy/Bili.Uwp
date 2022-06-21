@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
-using FFmpegInterop;
+using FFmpegInteropX;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
@@ -92,7 +92,7 @@ namespace Bili.ViewModels.Uwp.Core
                     _interopMSS = null;
                 }
 
-                _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveConfig);
+                _interopMSS = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
             }
             catch (Exception)
             {

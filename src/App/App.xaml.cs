@@ -10,7 +10,7 @@ using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
-using FFmpegInterop;
+using FFmpegInteropX;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -36,14 +36,14 @@ namespace Bili.App
             DIFactory.RegisterAppRequiredServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
-            FFmpegInteropLogging.SetLogLevel(FFmpegInterop.LogLevel.Error);
+            FFmpegInteropLogging.SetLogLevel(FFmpegInteropX.LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
         }
 
         /// <inheritdoc/>
-        public void Log(FFmpegInterop.LogLevel level, string message)
+        public void Log(FFmpegInteropX.LogLevel level, string message)
         {
             Debug.WriteLine($"{level} | {message}");
         }

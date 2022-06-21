@@ -14,7 +14,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using FFmpegInterop;
+using FFmpegInteropX;
 using ReactiveUI;
 using Windows.System.Display;
 using Windows.UI.Core;
@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Core
             _displayRequest = displayRequest;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
-            _liveConfig = new FFmpegInteropConfig();
+            _liveConfig = new MediaSourceConfig();
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
@@ -88,6 +88,10 @@ namespace Bili.ViewModels.Uwp.Core
             StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
             JumpToLastProgressCommand = ReactiveCommand.Create(JumpToLastProgress, outputScheduler: RxApp.MainThreadScheduler);
             ReportViewProgressCommand = ReactiveCommand.CreateFromTask(ReportViewProgressAsync, outputScheduler: RxApp.MainThreadScheduler);
+            IncreasePlayRateCommand = ReactiveCommand.Create(IncreasePlayRate, outputScheduler: RxApp.MainThreadScheduler);
+            DecreasePlayRateCommand = ReactiveCommand.Create(DecreasePlayRate, outputScheduler: RxApp.MainThreadScheduler);
+            IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
+            DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 

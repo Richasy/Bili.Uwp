@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
-using FFmpegInterop;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
@@ -115,6 +114,7 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 if (!_navigationViewModel.IsPlayViewShown)
                 {
+                    await Task.CompletedTask;
                     return;
                 }
 
@@ -123,8 +123,6 @@ namespace Bili.ViewModels.Uwp.Core
                     _interopMSS.Dispose();
                     _interopMSS = null;
                 }
-
-                _interopMSS = await FFmpegInteropMSS.CreateFromUriAsync(url, _liveFFConfig);
             }
             catch (Exception)
             {

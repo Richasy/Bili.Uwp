@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Locator.Uwp;
-using Bili.Models.App;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
@@ -22,7 +21,6 @@ using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Home;
 using Bilibili.App.View.V1;
-using FFmpegInterop;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
@@ -64,11 +62,6 @@ namespace Bili.ViewModels.Uwp.Core
             _subtitleList = new List<SubtitleItem>();
             _lastReportProgress = TimeSpan.Zero;
             _historyVideoList = new List<string>();
-
-            _liveFFConfig = new FFmpegInteropConfig();
-
-            _liveFFConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
-            _liveFFConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
             ServiceLocator.Instance.LoadService(out _numberToolkit)
                                    .LoadService(out _resourceToolkit)
                                    .LoadService(out _settingsToolkit)

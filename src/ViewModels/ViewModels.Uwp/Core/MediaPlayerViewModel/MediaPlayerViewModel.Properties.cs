@@ -12,7 +12,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using FFmpegInterop;
+using FFmpegInteropX;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.Media.Playback;
@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly FFmpegInteropConfig _liveConfig;
+        private readonly MediaSourceConfig _liveConfig;
         private readonly DisplayRequest _displayRequest;
 
         private VideoType _videoType;
@@ -52,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Core
         private SegmentInformation _audio;
         private MediaPlayer _mediaPlayer;
         private MediaPlaybackItem _playbackItem;
-        private FFmpegInteropMSS _interopMSS;
+        private FFmpegMediaSource _interopMSS;
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
         private TimeSpan _interactionProgress;
@@ -82,109 +82,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
-
-        /// <summary>
-        /// 改变分P的命令.
-        /// </summary>
-        public ReactiveCommand<VideoIdentifier, Unit> ChangePartCommand { get; }
-
-        /// <summary>
-        /// 重置播放历史的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
-
-        /// <summary>
-        /// 清除播放数据的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
-
-        /// <summary>
-        /// 改变直播源是否仅有音频的命令.
-        /// </summary>
-        public ReactiveCommand<bool, Unit> ChangeLiveAudioOnlyCommand { get; }
-
-        /// <summary>
-        /// 改变清晰度/视频格式命令.
-        /// </summary>
-        public ReactiveCommand<FormatInformation, Unit> ChangeFormatCommand { get; }
-
-        /// <summary>
-        /// 播放/暂停命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayPauseCommand { get; }
-
-        /// <summary>
-        /// 跳进命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ForwardSkipCommand { get; }
-
-        /// <summary>
-        /// 改变播放速率的命令.
-        /// </summary>
-        public ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }
-
-        /// <summary>
-        /// 改变音量的命令.
-        /// </summary>
-        public ReactiveCommand<double, Unit> ChangeVolumeCommand { get; }
-
-        /// <summary>
-        /// 进入/退出全屏状态的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ToggleFullScreenCommand { get; }
-
-        /// <summary>
-        /// 进入/退出全窗口状态的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ToggleFullWindowCommand { get; }
-
-        /// <summary>
-        /// 进入/退出小窗状态的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ToggleCompactOverlayCommand { get; }
-
-        /// <summary>
-        /// 截图命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ScreenShotCommand { get; }
-
-        /// <summary>
-        /// 改变进度的命令.
-        /// </summary>
-        public ReactiveCommand<double, Unit> ChangeProgressCommand { get; }
-
-        /// <summary>
-        /// 开始临时倍速播放.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> StartTempQuickPlayCommand { get; }
-
-        /// <summary>
-        /// 停止临时倍速播放.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> StopTempQuickPlayCommand { get; }
-
-        /// <summary>
-        /// 跳转到上次观看进度的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> JumpToLastProgressCommand { get; }
-
-        /// <summary>
-        /// 报告观看进度的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ReportViewProgressCommand { get; }
-
-        /// <summary>
-        /// 显示播放下一个视频的提示.
-        /// </summary>
-        public ReactiveCommand<Action, Unit> ShowNextVideoTipCommand { get; }
-
-        /// <summary>
-        /// 播放下一个视频的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayNextVideoCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

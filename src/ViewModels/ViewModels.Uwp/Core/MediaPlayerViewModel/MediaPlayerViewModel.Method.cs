@@ -412,6 +412,12 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 DurationSeconds = sender.NaturalDuration.TotalSeconds;
                 ProgressSeconds = sender.Position.TotalSeconds;
+                if (ProgressSeconds > DurationSeconds)
+                {
+                    _mediaPlayer.Pause();
+                    return;
+                }
+
                 if (!IsShowInteractionProgress)
                 {
                     InteractionProgressSeconds = ProgressSeconds;

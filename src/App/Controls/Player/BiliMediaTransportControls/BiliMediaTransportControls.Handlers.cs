@@ -15,10 +15,27 @@ namespace Bili.App.Controls.Player
     /// </summary>
     public sealed partial class BiliMediaTransportControls
     {
+        private static void OnTransportVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as BiliMediaTransportControls;
+            if (e.NewValue is Visibility vis)
+            {
+                if (vis == Visibility.Visible)
+                {
+                    VisualStateManager.GoToState(instance, "ControlPanelFadeInState", false);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(instance, "ControlPanelFadeOutState", false);
+                }
+            }
+        }
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ChangeVisualStateFromStatus();
             ChangeVisualStateFromDisplayMode();
+            _playPauseButton.Focus(FocusState.Programmatic);
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -35,6 +52,10 @@ namespace Bili.App.Controls.Player
             else if (e.PropertyName == nameof(ViewModel.DisplayMode))
             {
                 ChangeVisualStateFromDisplayMode();
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsShowMediaTransport))
+            {
+                _playPauseButton.Focus(FocusState.Programmatic);
             }
         }
 

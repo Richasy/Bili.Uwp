@@ -74,15 +74,8 @@
                                 Margin="12"
                                 IsForwardSkipButtonVisible="True"
                                 IsPlaybackRateButtonVisible="True"
-                                ViewModel="{TemplateBinding ViewModel}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport}">
-                                <animations:Implicit.ShowAnimations>
-                                    <animations:OpacityAnimation
-                                        From="0"
-                                        To="1.0"
-                                        Duration="0:0:0.4" />
-                                </animations:Implicit.ShowAnimations>
-                            </local:BiliMediaTransportControls>
+                                TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport}"
+                                ViewModel="{TemplateBinding ViewModel}" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>

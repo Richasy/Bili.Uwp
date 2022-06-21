@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bili.Controller.Uwp;
 using Bili.Controller.Uwp.Interfaces;
-using Bili.Models.App;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -13,7 +12,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Home;
 using Bilibili.App.View.V1;
-using FFmpegInterop;
+using FFmpegInteropX;
 using ReactiveUI.Fody.Helpers;
 using Windows.Media.Playback;
 using Windows.UI.Core;
@@ -38,7 +37,6 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly CommentPageViewModel _commentPageViewModel;
 
         private readonly List<string> _historyVideoList;
-        private readonly FFmpegInteropConfig _liveFFConfig;
 
         private long _videoId;
         private ViewReply _videoDetail;
@@ -49,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _lastReportProgress;
         private VideoType _videoType;
         private TimeSpan _initializeProgress;
-        private FFmpegInteropMSS _interopMSS;
+        private FFmpegMediaSource _interopMSS;
         private MediaPlaybackItem _currentPlaybackItem;
 
         private DashItem _currentAudio;

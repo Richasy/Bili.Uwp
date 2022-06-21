@@ -38,6 +38,7 @@ namespace Bili.App.Controls.Player
         {
             _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
+            _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
             _normalProgressContainer = GetTemplateChild(NormalProgressContainerName) as Panel;
             _interactionProgressContainer = GetTemplateChild(InteractionProgressContainerName) as Panel;
             _interactionProgressSlider = GetTemplateChild(InteractionProgressSliderName) as Slider;
