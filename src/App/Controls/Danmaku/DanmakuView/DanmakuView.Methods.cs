@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atelier39;
+using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Danmaku
 {
@@ -44,6 +45,7 @@ namespace Bili.App.Controls.Danmaku
         /// <param name="milliseconds">毫秒时间戳.</param>
         public void UpdateTime(uint milliseconds)
         {
+            _canvas?.UpdateLayout();
             _danmakuController?.UpdateTime(milliseconds);
             _currentTs = milliseconds;
         }
@@ -87,10 +89,17 @@ namespace Bili.App.Controls.Danmaku
             _danmakuController?.Clear();
         }
 
+        private static void OnProgressPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            var sec = (double)e.NewValue;
+            instance.UpdateTime(Convert.ToUInt32(sec * 1000));
+        }
+
         /// <summary>
         /// 关闭控制器.
         /// </summary>
-        public void Close()
+        private void Close()
             => _danmakuController?.Close();
     }
 }

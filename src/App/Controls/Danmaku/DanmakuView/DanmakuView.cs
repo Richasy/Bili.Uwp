@@ -5,7 +5,6 @@ using System.ComponentModel;
 using Atelier39;
 using Bili.ViewModels.Uwp.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,18 +22,23 @@ namespace Bili.App.Controls.Danmaku
         public DanmakuView()
         {
             DefaultStyleKey = typeof(DanmakuView);
-            Loaded += OnLoaded;
+            Loaded += OnLoadedAsync;
             Unloaded += OnUnloaded;
+        }
+
+        internal override async void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is DanmakuModuleViewModel viewModel)
+            {
+                viewModel.PropertyChanged += OnViewModelProeprtyChanged;
+                await RedrawAsync();
+            }
         }
 
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
-            if (_danmakuController == null)
-            {
-                InitializeController();
-            }
         }
 
         private DanmakuFontSize GetFontSize(double fontSize)
@@ -51,14 +55,11 @@ namespace Bili.App.Controls.Danmaku
 
         private void InitializeController()
         {
-            if (_canvas == null)
-            {
-                _rootGrid.Children.Clear();
-                _canvas = new CanvasAnimatedControl();
-                _rootGrid.Children.Add(_canvas);
-            }
+            _rootGrid.Children.Clear();
+            _canvas = new CanvasAnimatedControl();
+            _rootGrid.Children.Add(_canvas);
 
-            if (_canvas != null)
+            if (_canvas != null && ViewModel != null)
             {
                 _danmakuController = new DanmakuFrostMaster(_canvas);
                 _danmakuController.SetAutoControlDensity(ViewModel.IsDanmakuLimit);
@@ -69,12 +70,23 @@ namespace Bili.App.Controls.Danmaku
                 _danmakuController.SetFontFamilyName(ViewModel.DanmakuFont ?? "Segoe UI");
                 _danmakuController.SetRollingSpeed(Convert.ToInt32(ViewModel.DanmakuSpeed * 5));
                 _danmakuController.SetIsTextBold(ViewModel.IsDanmakuBold);
+                _isInitialized = true;
             }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.PropertyChanged += OnViewModelProeprtyChanged;
+        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized)
+            {
+                await RedrawAsync();
+            }
+        }
 
-        private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.PropertyChanged -= OnViewModelProeprtyChanged;
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            Close();
+            ViewModel.PropertyChanged -= OnViewModelProeprtyChanged;
+        }
 
         private void OnViewModelProeprtyChanged(object sender, PropertyChangedEventArgs e)
         {

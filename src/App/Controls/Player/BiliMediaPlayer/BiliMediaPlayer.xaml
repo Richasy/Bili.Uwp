@@ -17,7 +17,8 @@
                                 x:Name="DanmakuView"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel}" />
+                                ProgressPosition="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}"
+                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
                         </Grid>
                         <Rectangle
                             x:Name="InteractionControl"

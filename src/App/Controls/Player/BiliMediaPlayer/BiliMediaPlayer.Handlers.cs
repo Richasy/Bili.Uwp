@@ -245,16 +245,11 @@ namespace Bili.App.Controls.Player
             {
                 if (ViewModel.Status == PlayerStatus.Playing)
                 {
-                    _danmakuView.UpdateTime(Convert.ToUInt32(ViewModel.ProgressSeconds * 1000));
                     _danmakuView.ResumeDanmaku();
                 }
                 else
                 {
                     _danmakuView.PauseDanmaku();
-                    if (ViewModel.Status == PlayerStatus.Pause)
-                    {
-                        _danmakuView.UpdateTime(Convert.ToUInt32(ViewModel.ProgressSeconds * 1000));
-                    }
                 }
             }
         }

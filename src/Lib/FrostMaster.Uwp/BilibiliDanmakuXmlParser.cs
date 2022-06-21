@@ -499,7 +499,7 @@ namespace Atelier39
                     TextColor = ParseColor(danmakuElem.Color)
                 };
 
-                var startMs = danmakuElem.StartPosition;
+                var startMs = danmakuElem.StartPosition * 1000;
                 if (startMs < 0)
                 {
                     startMs = 0;
