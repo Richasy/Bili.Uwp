@@ -1,37 +1,44 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp;
+using System;
+using Bili.Models.Data.Player;
+using Bili.ViewModels.Uwp.Community;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Player
 {
     /// <summary>
     /// 字幕配置面板.
     /// </summary>
-    public sealed partial class SubtitleConfigPanel : PlayerComponent
+    public sealed partial class SubtitleConfigPanel : UserControl
     {
+        /// <summary>
+        /// <see cref="ViewModel"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(nameof(ViewModel), typeof(SubtitleModuleViewModel), typeof(SubtitleConfigPanel), new PropertyMetadata(default));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SubtitleConfigPanel"/> class.
         /// </summary>
-        public SubtitleConfigPanel()
+        public SubtitleConfigPanel() => InitializeComponent();
+
+        /// <summary>
+        /// 视图模型.
+        /// </summary>
+        public SubtitleModuleViewModel ViewModel
         {
-            InitializeComponent();
+            get { return (SubtitleModuleViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
         }
 
-        private async void OnSubtitleIndexClickAsync(object sender, RoutedEventArgs e)
+        private void OnMetaItemClick(object sender, ItemClickEventArgs e)
         {
-            var data = (sender as FrameworkElement).DataContext as SubtitleIndexItemViewModel;
-            if (data.IsSelected)
+            var data = e.ClickedItem as SubtitleMeta;
+            if (ViewModel.CurrentMeta != data)
             {
-                data.IsSelected = false;
-                data.IsSelected = true;
-                ViewModel.CheckSubtitleSelection();
-            }
-            else
-            {
-                ViewModel.CurrentSubtitleIndex = data.Data;
-                ViewModel.CheckSubtitleSelection();
-                await ViewModel.InitializeSubtitleAsync(data.Data);
+                ViewModel.ChangeMetaCommand.Execute(data).Subscribe();
             }
         }
     }

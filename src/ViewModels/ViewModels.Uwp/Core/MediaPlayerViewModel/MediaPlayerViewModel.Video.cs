@@ -40,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _currentPart = view.SubVideos.First();
             }
 
+            SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillVideoPlaybackProperties();

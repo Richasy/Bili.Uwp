@@ -159,14 +159,14 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">分P Id.</param>
         /// <returns>字幕索引.</returns>
-        Task<SubtitleIndexResponse> GetSubtitleIndexAsync(long videoId, int partId);
+        Task<IEnumerable<SubtitleMeta>> GetSubtitleIndexAsync(string videoId, string partId);
 
         /// <summary>
         /// 获取视频字幕详情.
         /// </summary>
         /// <param name="url">字幕地址.</param>
         /// <returns>字幕详情.</returns>
-        Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url);
+        Task<IEnumerable<SubtitleInformation>> GetSubtitleDetailAsync(string url);
 
         /// <summary>
         /// 获取互动视频选区.

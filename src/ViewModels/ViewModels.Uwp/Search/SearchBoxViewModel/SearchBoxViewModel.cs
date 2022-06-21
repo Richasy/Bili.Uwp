@@ -86,6 +86,10 @@ namespace Bili.ViewModels.Uwp.Search
             try
             {
                 var suggestion = await _searchProvider.GetSearchSuggestion(Keyword, _suggestionCancellationTokenSource.Token);
+                if (suggestion == null)
+                {
+                    return;
+                }
 
                 await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

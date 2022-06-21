@@ -96,7 +96,7 @@ namespace Bili.Controller.Uwp
         /// <param name="partId">分P Id.</param>
         /// <returns>字幕索引.</returns>
         public Task<SubtitleIndexResponse> GetSubtitleIndexAsync(int videoId, int partId)
-            => _playerProvider.GetSubtitleIndexAsync(videoId, partId);
+            => Task.FromResult(new SubtitleIndexResponse());
 
         /// <summary>
         /// 获取视频字幕详情.
@@ -104,7 +104,7 @@ namespace Bili.Controller.Uwp
         /// <param name="url">字幕地址.</param>
         /// <returns>字幕详情.</returns>
         public Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url)
-            => _playerProvider.GetSubtitleDetailAsync(url);
+            => Task.FromResult(new SubtitleDetailResponse());
 
         /// <summary>
         /// 获取互动视频选区.

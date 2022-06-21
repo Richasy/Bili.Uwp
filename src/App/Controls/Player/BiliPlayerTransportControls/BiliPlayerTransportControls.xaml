@@ -6,6 +6,7 @@
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:player="using:Bili.App.Controls.Player"
     xmlns:uwp="using:Bili.ViewModels.Uwp">
 
     <!-- New AppBar button style 40x40 pixels in size -->
@@ -829,7 +830,7 @@
                                                         </Button.KeyboardAccelerators>
                                                         <Button.Flyout>
                                                             <Flyout>
-                                                                <local:SubtitleConfigPanel />
+                                                                <player:SubtitleConfigPanel />
                                                             </Flyout>
                                                         </Button.Flyout>
                                                     </Button>

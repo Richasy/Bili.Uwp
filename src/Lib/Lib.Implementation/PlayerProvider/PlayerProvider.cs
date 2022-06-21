@@ -326,12 +326,12 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<SubtitleIndexResponse> GetSubtitleIndexAsync(long videoId, int partId)
+        public async Task<IEnumerable<SubtitleMeta>> GetSubtitleIndexAsync(string videoId, string partId)
         {
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.Id, $"cid:{partId}" },
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Subtitle, queryParameters);
@@ -341,14 +341,14 @@ namespace Bili.Lib
             {
                 var json = Regex.Match(text, @"<subtitle>(.*?)</subtitle>").Groups[1].Value;
                 var index = JsonConvert.DeserializeObject<SubtitleIndexResponse>(json);
-                return index;
+                return index.Subtitles.Select(p => _playerAdapter.ConvertToSubtitleMeta(p)).ToList();
             }
 
             return null;
         }
 
         /// <inheritdoc/>
-        public async Task<SubtitleDetailResponse> GetSubtitleDetailAsync(string url)
+        public async Task<IEnumerable<SubtitleInformation>> GetSubtitleDetailAsync(string url)
         {
             if (!url.StartsWith("http"))
             {
@@ -358,7 +358,7 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<SubtitleDetailResponse>(response);
-            return result;
+            return result.Body.Select(p => _playerAdapter.ConvertToSubtitleInformation(p)).ToList();
         }
 
         /// <inheritdoc/>

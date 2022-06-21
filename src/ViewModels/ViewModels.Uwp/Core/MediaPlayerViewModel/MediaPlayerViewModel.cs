@@ -14,6 +14,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Community;
 using FFmpegInteropX;
 using ReactiveUI;
 using Windows.System.Display;
@@ -39,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Core
             INumberToolkit numberToolkit,
             AccountViewModel accountViewModel,
             NavigationViewModel navigationViewModel,
+            SubtitleModuleViewModel subtitleModuleViewModel,
             AppViewModel appViewModel,
             CoreDispatcher dispatcher,
             DisplayRequest displayRequest)
@@ -54,6 +56,7 @@ namespace Bili.ViewModels.Uwp.Core
             _navigationViewModel = navigationViewModel;
             _dispatcher = dispatcher;
             _displayRequest = displayRequest;
+            SubtitleViewModel = subtitleModuleViewModel;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
             _liveConfig = new MediaSourceConfig();

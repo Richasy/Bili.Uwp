@@ -30,5 +30,19 @@ namespace Bili.Adapter.Interfaces
         /// <param name="information">播放器信息.</param>
         /// <returns><see cref="MediaInformation"/>.</returns>
         MediaInformation ConvertToMediaInformation(PlayerInformation information);
+
+        /// <summary>
+        /// 将字幕索引条目 <see cref="SubtitleIndexItem"/> 转换成字幕元数据.
+        /// </summary>
+        /// <param name="item">索引条目.</param>
+        /// <returns><see cref="SubtitleMeta"/>.</returns>
+        SubtitleMeta ConvertToSubtitleMeta(SubtitleIndexItem item);
+
+        /// <summary>
+        /// 将字幕条目 <see cref="SubtitleItem"/> 转换成字幕信息.
+        /// </summary>
+        /// <param name="item">字幕条目.</param>
+        /// <returns><see cref="SubtitleInformation"/>.</returns>
+        SubtitleInformation ConvertToSubtitleInformation(SubtitleItem item);
     }
 }

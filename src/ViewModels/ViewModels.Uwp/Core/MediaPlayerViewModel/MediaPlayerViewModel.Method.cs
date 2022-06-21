@@ -110,7 +110,6 @@ namespace Bili.ViewModels.Uwp.Core
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer?.Stop();
-            _subtitleTimer?.Stop();
             _unitTimer?.Stop();
 
             if (_interopMSS != null)
@@ -145,19 +144,11 @@ namespace Bili.ViewModels.Uwp.Core
                 _progressTimer.Interval = TimeSpan.FromSeconds(5);
                 _progressTimer.Tick += OnProgressTimerTick;
             }
-
-            if (_subtitleTimer == null)
-            {
-                _subtitleTimer = new DispatcherTimer();
-                _subtitleTimer.Interval = TimeSpan.FromSeconds(0.5);
-                _subtitleTimer.Tick += OnSubtitleTimerTickAsync;
-            }
         }
 
         private void StartTimersAndDisplayRequest()
         {
             _progressTimer?.Start();
-            _subtitleTimer?.Start();
             _unitTimer?.Start();
             try
             {
@@ -269,10 +260,14 @@ namespace Bili.ViewModels.Uwp.Core
             var progress = _mediaPlayer.PlaybackSession.Position;
             if (progress != _lastReportProgress)
             {
-                var view = _viewData as VideoPlayerView;
-                var aid = view.Information.Identifier.Id;
-                var cid = _currentPart.Id;
-                await _playerProvider.ReportProgressAsync(aid, cid, progress.TotalSeconds);
+                if (_videoType == VideoType.Video)
+                {
+                    var view = _viewData as VideoPlayerView;
+                    var aid = view.Information.Identifier.Id;
+                    var cid = _currentPart.Id;
+                    await _playerProvider.ReportProgressAsync(aid, cid, progress.TotalSeconds);
+                }
+
                 _lastReportProgress = progress;
             }
         }
@@ -425,6 +420,11 @@ namespace Bili.ViewModels.Uwp.Core
 
                 DurationText = _numberToolkit.FormatDurationText(sender.NaturalDuration, sender.NaturalDuration.Hours > 0);
                 ProgressText = _numberToolkit.FormatDurationText(sender.Position, sender.NaturalDuration.Hours > 0);
+
+                if (SubtitleViewModel.HasSubtitles)
+                {
+                    SubtitleViewModel.SeekCommand.Execute(ProgressSeconds).Subscribe();
+                }
             });
         }
 

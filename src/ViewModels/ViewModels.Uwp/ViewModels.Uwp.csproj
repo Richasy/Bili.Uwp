@@ -28,6 +28,8 @@
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.cs" />
     <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.Properties.cs" />
     <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.cs" />
+    <Compile Include="Community\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
+    <Compile Include="Community\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Commands.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Controls.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />

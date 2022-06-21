@@ -219,5 +219,8 @@ namespace Bili.App.Controls.Player
             HandleTempMessageAutoHide();
             HandleNextVideoAutoHide();
         }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+            => ResizeSubtitle();
     }
 }

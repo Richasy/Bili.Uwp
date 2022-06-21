@@ -20,6 +20,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid
@@ -68,9 +69,32 @@
                                     Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
                             </Grid>
 
+                            <Grid Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
+                                <Grid
+                                    x:Name="SubtitleContainer"
+                                    Margin="24,4"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CanShowSubtitle}">
+                                    <Grid
+                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                        CornerRadius="{StaticResource OverlayCornerRadius}"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                        <TextBlock
+                                            x:Name="SubtitleBlock"
+                                            MaxWidth="1200"
+                                            Margin="16,8"
+                                            HorizontalAlignment="Center"
+                                            FontSize="22"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle}"
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
                             <local:BiliMediaTransportControls
                                 x:Name="MediaTransportControls"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Margin="12"
                                 IsForwardSkipButtonVisible="True"
                                 IsPlaybackRateButtonVisible="True"

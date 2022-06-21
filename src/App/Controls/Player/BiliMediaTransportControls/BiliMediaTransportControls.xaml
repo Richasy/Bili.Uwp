@@ -85,6 +85,9 @@
                                             <EasingDoubleKeyFrame KeyTime="0" Value="0" />
                                             <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
                                         </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Auto" />
+                                        </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
@@ -101,6 +104,9 @@
                                         </DoubleAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="IsHitTestVisible">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="8" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation
                                             Storyboard.TargetName="TranslateVertical"
@@ -396,6 +402,27 @@
                                             IsEnabled="True"
                                             Modifiers="Control" />
                                     </Button.KeyboardAccelerators>
+                                </Button>
+                                <Button
+                                    x:Name="SubtitleButton"
+                                    AutomationProperties.Name="{loc:LocaleLocator Name=Subtitle}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Subtitle}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ClosedCaption16" />
+                                    </Button.Content>
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator
+                                            Key="S"
+                                            IsEnabled="True"
+                                            Modifiers="Control" />
+                                    </Button.KeyboardAccelerators>
+                                    <Button.Flyout>
+                                        <Flyout>
+                                            <local:SubtitleConfigPanel ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel}" />
+                                        </Flyout>
+                                    </Button.Flyout>
                                 </Button>
                                 <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
                                     <uwp:RegularFluentIcon Symbol="Settings16" />

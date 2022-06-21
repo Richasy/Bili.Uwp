@@ -12,6 +12,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Community;
 using FFmpegInteropX;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -61,7 +62,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
-        private DispatcherTimer _subtitleTimer;
 
         private double _originalPlayRate;
 
@@ -92,6 +92,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 播放速率的预设集合.
         /// </summary>
         public ObservableCollection<PlaybackRateItemViewModel> PlaybackRates { get; }
+
+        /// <summary>
+        /// 字幕模块视图模型.
+        /// </summary>
+        public SubtitleModuleViewModel SubtitleViewModel { get; }
 
         /// <summary>
         /// 播放器状态.

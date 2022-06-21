@@ -51,6 +51,7 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
+            SubtitleViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId);
             await InitializeEpisodeMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillEpisodePlaybackProperties();

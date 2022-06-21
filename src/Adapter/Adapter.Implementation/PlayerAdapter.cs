@@ -46,5 +46,13 @@ namespace Bili.Adapter
             var formats = information.SupportFormats.Select(p => ConvertToFormatInformation(p)).ToList();
             return new MediaInformation(minBuffer, videos, audios, formats);
         }
+
+        /// <inheritdoc/>
+        public SubtitleMeta ConvertToSubtitleMeta(SubtitleIndexItem item)
+            => new SubtitleMeta(item.Id.ToString(), item.DisplayLanguage, item.Url);
+
+        /// <inheritdoc/>
+        public SubtitleInformation ConvertToSubtitleInformation(SubtitleItem item)
+            => new SubtitleInformation(item.From, item.To, item.Content);
     }
 }

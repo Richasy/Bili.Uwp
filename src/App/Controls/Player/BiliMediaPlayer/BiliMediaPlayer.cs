@@ -24,6 +24,7 @@ namespace Bili.App.Controls.Player
             DefaultStyleKey = typeof(BiliMediaPlayer);
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
             _unitTimer = new DispatcherTimer();
             _unitTimer.Interval = TimeSpan.FromSeconds(0.5);
             _unitTimer.Tick += OnUnitTimerTick;
@@ -49,6 +50,8 @@ namespace Bili.App.Controls.Player
             _mediaTransportControls = GetTemplateChild(MediaTransportControlsName) as BiliMediaTransportControls;
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
+            _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
+
             _gestureRecognizer = new GestureRecognizer
             {
                 GestureSettings = GestureSettings.HoldWithMouse | GestureSettings.Hold,

@@ -137,5 +137,27 @@ namespace Bili.App.Controls.Player
             _transportStayTime = 0;
             _isCursorInPlayer = false;
         }
+
+        private void ResizeSubtitle()
+        {
+            if (ActualWidth == 0 || ActualHeight == 0 || _subtitleBlock == null)
+            {
+                return;
+            }
+
+            var baseWidth = 800d;
+            var baseHeight = 600d;
+            var scale = Math.Min(ActualWidth / baseWidth, ActualHeight / baseHeight);
+            if (scale > 2.0)
+            {
+                scale = 2.0;
+            }
+            else if (scale < 0.4)
+            {
+                scale = 0.4;
+            }
+
+            _subtitleBlock.FontSize = 22 * scale;
+        }
     }
 }

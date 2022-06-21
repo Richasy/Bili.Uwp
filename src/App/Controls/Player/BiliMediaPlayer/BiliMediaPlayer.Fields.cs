@@ -18,8 +18,9 @@ namespace Bili.App.Controls.Player
         private const string MediaTransportControlsName = "MediaTransportControls";
         private const string TempMessageContaienrName = "TempMessageContainer";
         private const string TempMessageBlockName = "TempMessageBlock";
+        private const string SubtitleBlockName = "SubtitleBlock";
 
-        private DispatcherTimer _unitTimer;
+        private readonly DispatcherTimer _unitTimer;
 
         private MediaPlayerElement _mediaPlayerElement;
         private BiliMediaTransportControls _mediaTransportControls;
@@ -27,6 +28,7 @@ namespace Bili.App.Controls.Player
         private GestureRecognizer _gestureRecognizer;
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;
+        private TextBlock _subtitleBlock;
 
         private double _cursorStayTime;
         private double _tempMessageStayTime;
