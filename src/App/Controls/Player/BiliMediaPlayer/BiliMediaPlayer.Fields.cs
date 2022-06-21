@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.App.Controls.Danmaku;
 using Bili.Models.Enums.App;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
@@ -19,6 +20,7 @@ namespace Bili.App.Controls.Player
         private const string TempMessageContaienrName = "TempMessageContainer";
         private const string TempMessageBlockName = "TempMessageBlock";
         private const string SubtitleBlockName = "SubtitleBlock";
+        private const string DanmakuViewName = "DanmakuView";
 
         private readonly DispatcherTimer _unitTimer;
 
@@ -29,6 +31,7 @@ namespace Bili.App.Controls.Player
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;
         private TextBlock _subtitleBlock;
+        private DanmakuView _danmakuView;
 
         private double _cursorStayTime;
         private double _tempMessageStayTime;

@@ -20,10 +20,9 @@ namespace Bili.Controller.Uwp
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">分P Id.</param>
         /// <returns>弹幕元数据.</returns>
-        public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
+        public Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
         {
-            var result = await _playerProvider.GetDanmakuMetaDataAsync(videoId, partId);
-            return result;
+            return Task.FromResult(new DmViewReply());
         }
 
         /// <summary>
@@ -35,12 +34,7 @@ namespace Bili.Controller.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RequestNewSegmentDanmakuAsync(long videoId, long partId, int segmentIndex)
         {
-            var result = await _playerProvider.GetSegmentDanmakuAsync(videoId, partId, segmentIndex);
-            if (result.Elems.Count > 0)
-            {
-                var args = new SegmentDanmakuIterationEventArgs(result, videoId, partId);
-                SegmentDanmakuIteration?.Invoke(this, args);
-            }
+            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -87,7 +81,7 @@ namespace Bili.Controller.Uwp
         /// <param name="location">弹幕位置.</param>
         /// <returns>是否发送成功.</returns>
         public Task<bool> SendDanmakuAsync(string content, int videoId, int partId, TimeSpan progress, string color, bool isStandardSize, DanmakuLocation location)
-            => _playerProvider.SendDanmakuAsync(content, videoId, partId, Convert.ToInt32(progress.TotalMilliseconds), color, isStandardSize, location);
+            => _playerProvider.SendDanmakuAsync(content, videoId.ToString(), partId.ToString(), Convert.ToInt32(progress.TotalMilliseconds), color, isStandardSize, location);
 
         /// <summary>
         /// 获取视频字幕索引.

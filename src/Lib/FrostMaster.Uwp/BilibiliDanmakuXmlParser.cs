@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
-using Bilibili.Community.Service.Dm.V1;
+using Bili.Models.Data.Player;
 using Newtonsoft.Json.Linq;
 using Windows.UI;
 
@@ -148,7 +148,7 @@ namespace Atelier39
             return list;
         }
 
-        public static List<DanmakuItem> GetDanmakuList(List<DanmakuElem> danmakuElems, bool mergeDuplicate)
+        public static List<DanmakuItem> GetDanmakuList(IEnumerable<DanmakuInformation> danmakuElems, bool mergeDuplicate)
         {
             var list = new List<DanmakuItem>();
             var duplicatedDanmakuDict = new Dictionary<string, List<DuplicatedDanmakuItem>>();
@@ -159,9 +159,9 @@ namespace Atelier39
                 if (mergeDuplicate)
                 {
                     mode = (DanmakuMode)danmakuElem.Mode;
-                    if ((mode == DanmakuMode.Rolling || mode == DanmakuMode.Top || mode == DanmakuMode.Bottom) && danmakuElem.Progress >= 0)
+                    if ((mode == DanmakuMode.Rolling || mode == DanmakuMode.Top || mode == DanmakuMode.Bottom) && danmakuElem.StartPosition >= 0)
                     {
-                        var startMs = (uint)danmakuElem.Progress;
+                        var startMs = (uint)(danmakuElem.StartPosition * 1000);
 
                         if (!duplicatedDanmakuDict.ContainsKey(danmakuElem.Content))
                         {
@@ -487,19 +487,19 @@ namespace Atelier39
         /// <summary>
         /// Return null if danmaku can't be parsed
         /// </summary>
-        private static DanmakuItem ParseDanmakuItem(DanmakuElem danmakuElem)
+        private static DanmakuItem ParseDanmakuItem(DanmakuInformation danmakuElem)
         {
             try
             {
                 var danmakuItem = new DanmakuItem()
                 {
-                    Id = (ulong)danmakuElem.Id,
+                    Id = Convert.ToUInt64(danmakuElem.Id),
                     HasBorder = false,
                     Text = danmakuElem.Content,
                     TextColor = ParseColor(danmakuElem.Color)
                 };
 
-                var startMs = danmakuElem.Progress;
+                var startMs = danmakuElem.StartPosition;
                 if (startMs < 0)
                 {
                     startMs = 0;
@@ -541,7 +541,7 @@ namespace Atelier39
                         }
                 }
 
-                int fontSize = danmakuElem.Fontsize;
+                int fontSize = danmakuElem.FontSize;
                 switch (danmakuItem.Mode)
                 {
                     case DanmakuMode.Rolling:
@@ -657,7 +657,7 @@ namespace Atelier39
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to parse danmaku: {danmakuElem.IdStr} Exception: {ex.Message}");
+                Debug.WriteLine($"Failed to parse danmaku: {danmakuElem.Id} Exception: {ex.Message}");
                 return null;
             }
         }

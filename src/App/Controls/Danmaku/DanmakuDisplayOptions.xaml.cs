@@ -15,7 +15,7 @@ namespace Bili.App.Controls
         /// <see cref="ViewModel"/>的视图模型.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(DanmakuViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuModuleViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuDisplayOptions"/> class.
@@ -28,9 +28,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DanmakuViewModel ViewModel
+        public DanmakuModuleViewModel ViewModel
         {
-            get { return (DanmakuViewModel)GetValue(ViewModelProperty); }
+            get { return (DanmakuModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
     }

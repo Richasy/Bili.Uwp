@@ -6,9 +6,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Atelier39;
+using Bili.App.Controls.Danmaku;
 using Bili.Locator.Uwp;
 using Bili.Models.App.Args;
 using Bili.Models.BiliBili;
+using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
@@ -248,7 +250,6 @@ namespace Bili.App.Controls
             ViewModel.MediaPlayerUpdated += OnMediaPlayerUdpated;
             ViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
             ViewModel.NewLiveDanmakuAdded += OnNewLiveDanmakuAdded;
-            _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
 
             await CheckCurrentPlayerModeAsync();
             CheckSubtitleZoom();
@@ -543,7 +544,7 @@ namespace Bili.App.Controls
         private async void OnScreenshotButtonClickAsync(object sender, RoutedEventArgs e)
             => await ViewModel.ScreenshotAsync();
 
-        private void OnDanmakuListAdded(object sender, List<DanmakuElem> e)
+        private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
         {
             InitializeDanmaku(e);
             _danmakuTimer.Start();
@@ -605,11 +606,7 @@ namespace Bili.App.Controls
 
         private async void OnDanmakuViewModelPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(DanmakuViewModel.DanmakuArea) && _danmakuView != null)
-            {
-                _danmakuView.DanmakuArea = DanmakuViewModel.DanmakuArea;
-            }
-            else if (e.PropertyName == nameof(DanmakuViewModel.IsShowDanmaku))
+            if (e.PropertyName == nameof(DanmakuViewModel.IsShowDanmaku))
             {
                 if (DanmakuViewModel.IsShowDanmaku)
                 {
@@ -687,7 +684,7 @@ namespace Bili.App.Controls
             }
         }
 
-        private void InitializeDanmaku(List<DanmakuElem> elements)
+        private void InitializeDanmaku(IEnumerable<DanmakuInformation> elements)
             => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(elements, DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -748,7 +745,7 @@ namespace Bili.App.Controls
                 _segmentIndex = segmentIndex;
                 try
                 {
-                    await DanmakuViewModel.RequestNewSegmentDanmakuAsync(segmentIndex);
+                    await Task.CompletedTask;
                 }
                 catch (Exception)
                 {

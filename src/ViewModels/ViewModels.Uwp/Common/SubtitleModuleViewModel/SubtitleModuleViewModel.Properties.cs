@@ -10,7 +10,7 @@ using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Bili.ViewModels.Uwp.Community
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 字幕模块视图模型.

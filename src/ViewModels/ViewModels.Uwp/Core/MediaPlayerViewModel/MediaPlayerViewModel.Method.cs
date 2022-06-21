@@ -42,6 +42,7 @@ namespace Bili.ViewModels.Uwp.Core
             _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
             _playNextVideoAction = default;
+            DanmakuViewModel.ResetCommand.Execute().Subscribe();
         }
 
         private void InitializeMediaPlayer()
@@ -425,11 +426,16 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     SubtitleViewModel.SeekCommand.Execute(ProgressSeconds).Subscribe();
                 }
-            });
-        }
 
-        private void OnSubtitleTimerTickAsync(object sender, object e)
-        {
+                var segmentIndex = Convert.ToInt32(Math.Ceiling(ProgressSeconds / 360d));
+                if (segmentIndex < 1)
+                {
+                    segmentIndex = 1;
+                }
+
+                DanmakuViewModel.LoadSegmentDanmakuCommand.Execute(segmentIndex).Subscribe();
+                DanmakuViewModel.SeekCommand.Execute(ProgressSeconds).Subscribe();
+            });
         }
 
         private void OnProgressTimerTick(object sender, object e)

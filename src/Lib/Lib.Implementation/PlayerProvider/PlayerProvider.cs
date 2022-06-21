@@ -134,36 +134,34 @@ namespace Bili.Lib
             => await InternalGetDashAsync(partId, string.Empty, seasonType, proxy, area, episodeId);
 
         /// <inheritdoc/>
-        public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
-        {
-            var req = new DmViewReq()
-            {
-                Pid = videoId,
-                Oid = partId,
-                Type = 1,
-            };
-
-            var request = await _httpProvider.GetRequestMessageAsync(Video.DanmakuMetaData, req);
-            var response = await _httpProvider.SendAsync(request);
-            var result = await _httpProvider.ParseAsync(response, DmViewReply.Parser);
-            return result;
-        }
+        // public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
+        // {
+        //    var req = new DmViewReq()
+        //    {
+        //        Pid = videoId,
+        //        Oid = partId,
+        //        Type = 1,
+        //    };
+        //    var request = await _httpProvider.GetRequestMessageAsync(Video.DanmakuMetaData, req);
+        //    var response = await _httpProvider.SendAsync(request);
+        //    var result = await _httpProvider.ParseAsync(response, DmViewReply.Parser);
+        //    return result;
+        // }
 
         /// <inheritdoc/>
-        public async Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex)
+        public async Task<IEnumerable<DanmakuInformation>> GetSegmentDanmakuAsync(string videoId, string partId, int segmentIndex)
         {
             var req = new DmSegMobileReq
             {
-                Pid = videoId,
-                Oid = partId,
+                Pid = Convert.ToInt64(videoId),
+                Oid = Convert.ToInt64(partId),
                 SegmentIndex = segmentIndex,
                 Type = 1,
             };
-
             var request = await _httpProvider.GetRequestMessageAsync(Video.SegmentDanmaku, req);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DmSegMobileReply.Parser);
-            return result;
+            return result.Elems.Select(p => _playerAdapter.ConvertToDanmakuInformation(p)).ToList();
         }
 
         /// <inheritdoc/>
@@ -297,15 +295,15 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<bool> SendDanmakuAsync(string content, int videoId, int partId, int progress, string color, bool isStandardSize, DanmakuLocation location)
+        public async Task<bool> SendDanmakuAsync(string content, string videoId, string partId, int progress, string color, bool isStandardSize, DanmakuLocation location)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
                 { Query.Type, "1" },
-                { Query.Oid, partId.ToString() },
+                { Query.Oid, partId },
                 { Query.MessageSlim, content },
-                { Query.Progress, progress.ToString() },
+                { Query.Progress, (progress * 1000).ToString() },
                 { Query.Color, color },
                 { Query.FontSize, isStandardSize ? "25" : "18" },
                 { Query.Mode, ((int)location).ToString() },

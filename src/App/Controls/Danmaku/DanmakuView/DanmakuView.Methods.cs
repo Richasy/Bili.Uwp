@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atelier39;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Danmaku
 {
     /// <summary>
     /// 弹幕视图.
@@ -82,11 +82,6 @@ namespace Bili.App.Controls
         /// </summary>
         public void ClearAll()
         {
-            if (!_isApplyTemplate)
-            {
-                return;
-            }
-
             _cachedDanmakus?.Clear();
             _currentTs = 0;
             _danmakuController?.Clear();

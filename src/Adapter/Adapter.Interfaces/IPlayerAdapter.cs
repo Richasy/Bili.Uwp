@@ -2,6 +2,7 @@
 
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
+using Bilibili.Community.Service.Dm.V1;
 
 namespace Bili.Adapter.Interfaces
 {
@@ -43,6 +44,13 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="item">字幕条目.</param>
         /// <returns><see cref="SubtitleInformation"/>.</returns>
-        SubtitleInformation ConvertToSubtitleInformation(SubtitleItem item);
+        SubtitleInformation ConvertToSubtitleInformation(Models.BiliBili.SubtitleItem item);
+
+        /// <summary>
+        /// 将弹幕条目 <see cref="DanmakuElem"/> 转化成弹幕信息.
+        /// </summary>
+        /// <param name="danmaku">弹幕条目.</param>
+        /// <returns><see cref="DanmakuInformation"/>.</returns>
+        DanmakuInformation ConvertToDanmakuInformation(DanmakuElem danmaku);
     }
 }

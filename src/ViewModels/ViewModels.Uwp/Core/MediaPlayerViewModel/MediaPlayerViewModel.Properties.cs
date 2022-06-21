@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
@@ -12,7 +11,6 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using Bili.ViewModels.Uwp.Community;
 using FFmpegInteropX;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -64,6 +62,7 @@ namespace Bili.ViewModels.Uwp.Core
         private DispatcherTimer _progressTimer;
 
         private double _originalPlayRate;
+        private double _originalDanmakuSpeed;
 
         /// <summary>
         /// 媒体播放器改变.
@@ -97,6 +96,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 字幕模块视图模型.
         /// </summary>
         public SubtitleModuleViewModel SubtitleViewModel { get; }
+
+        /// <summary>
+        /// 字幕模块视图模型.
+        /// </summary>
+        public DanmakuModuleViewModel DanmakuViewModel { get; }
 
         /// <summary>
         /// 播放器状态.

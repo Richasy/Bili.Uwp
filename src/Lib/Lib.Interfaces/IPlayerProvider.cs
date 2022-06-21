@@ -76,7 +76,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
         /// <returns>弹幕元数据响应结果.</returns>
-        Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId);
+         // Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId);
 
         /// <summary>
         /// 获取分段弹幕信息.
@@ -85,20 +85,20 @@ namespace Bili.Lib.Interfaces
         /// <param name="partId">视频分P的Id.</param>
         /// <param name="segmentIndex">分段索引，6分钟为一段.</param>
         /// <returns><see cref="DmSegMobileReply"/>.</returns>
-        Task<DmSegMobileReply> GetSegmentDanmakuAsync(long videoId, long partId, int segmentIndex);
+        Task<IEnumerable<DanmakuInformation>> GetSegmentDanmakuAsync(string videoId, string partId, int segmentIndex);
 
         /// <summary>
         /// 发送弹幕.
         /// </summary>
         /// <param name="content">弹幕内容.</param>
-        /// <param name="videoId">视频Id.</param>
+        /// <param name="videoId">视频 Id.</param>
         /// <param name="partId">分P Id.</param>
         /// <param name="progress">播放进度.</param>
         /// <param name="color">弹幕颜色.</param>
         /// <param name="isStandardSize">是否为标准字体大小.</param>
         /// <param name="location">弹幕位置.</param>
         /// <returns>是否发送成功.</returns>
-        Task<bool> SendDanmakuAsync(string content, int videoId, int partId, int progress, string color, bool isStandardSize, DanmakuLocation location);
+        Task<bool> SendDanmakuAsync(string content, string videoId, string partId, int progress, string color, bool isStandardSize, DanmakuLocation location);
 
         /// <summary>
         /// 报告播放进度记录.

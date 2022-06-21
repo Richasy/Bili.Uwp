@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Bili.Controller.Uwp;
+using System.Reactive;
+using Bili.Lib.Interfaces;
 using Bili.Models.Data.Local;
+using Bili.Models.Data.Player;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bilibili.Community.Service.Dm.V1;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
@@ -14,25 +17,72 @@ namespace Bili.ViewModels.Uwp.Common
     /// <summary>
     /// 弹幕视图模型.
     /// </summary>
-    public partial class DanmakuViewModel
+    public sealed partial class DanmakuModuleViewModel
     {
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFontToolkit _fontToolkit;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IPlayerProvider _playerProvider;
+        private readonly ObservableAsPropertyHelper<bool> _isReloading;
+        private readonly ObservableAsPropertyHelper<bool> _isDanmakuLoading;
 
-        private long _videoId;
-        private long _partId;
-        private bool _isRequestingDanmaku;
+        private string _mainId;
+        private string _partId;
+        private int _segmentIndex;
+        private double _currentSeconds;
 
         /// <summary>
-        /// 弹幕视图模型单例.
+        /// 弹幕列表已添加.
         /// </summary>
-        public static DanmakuViewModel Instance { get; } = new Lazy<DanmakuViewModel>(() => new DanmakuViewModel()).Value;
+        public event EventHandler<IEnumerable<DanmakuInformation>> DanmakuListAdded;
 
         /// <summary>
-        /// 弹幕配置文件.
+        /// 已成功发送弹幕.
         /// </summary>
-        public DmViewReply DanmakuConfig { get; set; }
+        public event EventHandler<string> SendDanmakuSucceeded;
+
+        /// <summary>
+        /// 请求清除弹幕列表.
+        /// </summary>
+        public event EventHandler RequestClearDanmaku;
+
+        /// <summary>
+        /// 弹幕位置可选集合.
+        /// </summary>
+        public ObservableCollection<DanmakuLocation> LocationCollection { get; }
+
+        /// <summary>
+        /// 弹幕颜色集合.
+        /// </summary>
+        public ObservableCollection<KeyValue<string>> ColorCollection { get; }
+
+        /// <summary>
+        /// 系统字体集合.
+        /// </summary>
+        public ObservableCollection<string> FontCollection { get; }
+
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+
+        /// <summary>
+        /// 重置命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
+
+        /// <summary>
+        /// 发送弹幕命令.
+        /// </summary>
+        public ReactiveCommand<string, bool> SendDanmakuCommand { get; }
+
+        /// <summary>
+        /// 获取分片弹幕命令.
+        /// </summary>
+        public ReactiveCommand<int, Unit> LoadSegmentDanmakuCommand { get; }
+
+        /// <summary>
+        /// 重新定位命令.
+        /// </summary>
+        public ReactiveCommand<double, Unit> SeekCommand { get; }
 
         /// <summary>
         /// 是否显示弹幕.
@@ -77,12 +127,6 @@ namespace Bili.ViewModels.Uwp.Common
         public string DanmakuFont { get; set; }
 
         /// <summary>
-        /// 系统字体集合.
-        /// </summary>
-        [Reactive]
-        public ObservableCollection<string> FontCollection { get; set; }
-
-        /// <summary>
         /// 是否启用同屏弹幕限制.
         /// </summary>
         [Reactive]
@@ -119,23 +163,17 @@ namespace Bili.ViewModels.Uwp.Common
         public DanmakuLocation Location { get; set; }
 
         /// <summary>
-        /// 弹幕位置可选集合.
-        /// </summary>
-        [Reactive]
-        public ObservableCollection<DanmakuLocation> LocationCollection { get; set; }
-
-        /// <summary>
         /// 弹幕颜色.
         /// </summary>
         [Reactive]
         public string Color { get; set; }
 
-        /// <summary>
-        /// 弹幕颜色集合.
-        /// </summary>
-        [Reactive]
-        public ObservableCollection<KeyValue<string>> ColorCollection { get; set; }
+        /// <inheritdoc/>
+        public bool IsReloading => _isReloading.Value;
 
-        private BiliController Controller { get; } = BiliController.Instance;
+        /// <summary>
+        /// 是否正在加载分片弹幕.
+        /// </summary>
+        public bool IsDanmakuLoading => _isDanmakuLoading.Value;
     }
 }

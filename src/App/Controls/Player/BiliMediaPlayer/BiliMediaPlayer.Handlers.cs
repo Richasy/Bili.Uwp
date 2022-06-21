@@ -1,6 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Atelier39;
+using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Windows.Media.Playback;
@@ -39,15 +43,27 @@ namespace Bili.App.Controls.Player
         {
             _unitTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
+            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAdded;
+            ViewModel.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChanged;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
+            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            ViewModel.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             ViewModel.RequestShowTempMessage += OnRequestShowTempMessage;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
+
+        private void OnRequestClearDanmaku(object sender, EventArgs e)
+            => _danmakuView?.ClearAll();
+
+        private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
+            => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(e, ViewModel.DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnMediaPlayerChanged(object sender, MediaPlayer e)
             => _mediaPlayerElement.SetMediaPlayer(e);
@@ -222,5 +238,25 @@ namespace Bili.App.Controls.Player
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
             => ResizeSubtitle();
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.Status))
+            {
+                if (ViewModel.Status == PlayerStatus.Playing)
+                {
+                    _danmakuView.UpdateTime(Convert.ToUInt32(ViewModel.ProgressSeconds * 1000));
+                    _danmakuView.ResumeDanmaku();
+                }
+                else
+                {
+                    _danmakuView.PauseDanmaku();
+                    if (ViewModel.Status == PlayerStatus.Pause)
+                    {
+                        _danmakuView.UpdateTime(Convert.ToUInt32(ViewModel.ProgressSeconds * 1000));
+                    }
+                }
+            }
+        }
     }
 }

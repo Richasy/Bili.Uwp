@@ -14,7 +14,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using Bili.ViewModels.Uwp.Community;
 using FFmpegInteropX;
 using ReactiveUI;
 using Windows.System.Display;
@@ -41,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Core
             AccountViewModel accountViewModel,
             NavigationViewModel navigationViewModel,
             SubtitleModuleViewModel subtitleModuleViewModel,
+            DanmakuModuleViewModel danmakuModuleViewModel,
             AppViewModel appViewModel,
             CoreDispatcher dispatcher,
             DisplayRequest displayRequest)
@@ -57,6 +57,7 @@ namespace Bili.ViewModels.Uwp.Core
             _dispatcher = dispatcher;
             _displayRequest = displayRequest;
             SubtitleViewModel = subtitleModuleViewModel;
+            DanmakuViewModel = danmakuModuleViewModel;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
 
             _liveConfig = new MediaSourceConfig();

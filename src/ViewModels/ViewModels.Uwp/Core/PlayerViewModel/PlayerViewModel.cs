@@ -132,7 +132,6 @@ namespace Bili.ViewModels.Uwp.Core
         public async Task<bool> CheckBackAsync()
         {
             _progressTimer.Stop();
-            DanmakuViewModel.Instance.Reset();
             if (_historyVideoList.Count > 0)
             {
                 var lastVideo = _historyVideoList.Last();
@@ -164,7 +163,6 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _progressTimer.Stop();
             _historyVideoList.Clear();
-            DanmakuViewModel.Instance.Reset();
             IsPlayInformationError = false;
             IsShowNextVideoTip = false;
             await ClearInitViewModelAsync();
@@ -468,7 +466,6 @@ namespace Bili.ViewModels.Uwp.Core
                 }
 
                 await InitializeVideoPlayInformationAsync(_playerInformation);
-                await DanmakuViewModel.Instance.LoadAsync(_videoDetail.Arc.Aid, id);
                 await InitializeSubtitleIndexAsync();
                 ViewerCount = string.Empty;
             }
@@ -549,7 +546,6 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 ClearPlayer();
                 await InitializeVideoPlayInformationAsync(_playerInformation);
-                await DanmakuViewModel.Instance.LoadAsync(CurrentPgcEpisode.Aid, CurrentPgcEpisode.PartId);
                 await InitializeSubtitleIndexAsync();
             }
 
@@ -908,9 +904,7 @@ namespace Bili.ViewModels.Uwp.Core
             await Splat.Locator.Current.GetService<CoreDispatcher>().RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 _originalPlayRate = PlaybackRate;
-                _originalDanmakuSpeed = DanmakuViewModel.Instance.DanmakuSpeed;
                 PlaybackRate = PlaybackRate * 2 > 3 ? 3 : PlaybackRate * 2;
-                DanmakuViewModel.Instance.DanmakuSpeed = _originalDanmakuSpeed * 1.5 > 2 ? 2 : _originalDanmakuSpeed * 1.5;
             });
 
             return true;
@@ -930,7 +924,6 @@ namespace Bili.ViewModels.Uwp.Core
             await Splat.Locator.Current.GetService<CoreDispatcher>().RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 PlaybackRate = _originalPlayRate;
-                DanmakuViewModel.Instance.DanmakuSpeed = _originalDanmakuSpeed;
                 _originalPlayRate = 0;
                 _originalDanmakuSpeed = 0;
             });

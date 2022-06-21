@@ -41,6 +41,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
+            DanmakuViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillVideoPlaybackProperties();

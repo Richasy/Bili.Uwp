@@ -54,5 +54,15 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SubtitleInformation ConvertToSubtitleInformation(SubtitleItem item)
             => new SubtitleInformation(item.From, item.To, item.Content);
+
+        /// <inheritdoc/>
+        public DanmakuInformation ConvertToDanmakuInformation(Bilibili.Community.Service.Dm.V1.DanmakuElem danmaku)
+            => new DanmakuInformation(
+                danmaku.Id.ToString(),
+                danmaku.Content,
+                danmaku.Mode,
+                danmaku.Progress / 1000.0,
+                danmaku.Color,
+                danmaku.Fontsize);
     }
 }

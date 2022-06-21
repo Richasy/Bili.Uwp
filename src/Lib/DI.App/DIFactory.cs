@@ -8,6 +8,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
@@ -130,6 +131,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<CommentItemViewModel>();
             SplatRegistrations.Register<ToolboxItemViewModel>();
             SplatRegistrations.Register<SubtitleModuleViewModel>();
+            SplatRegistrations.Register<DanmakuModuleViewModel>();
             SplatRegistrations.Register<MediaPlayerViewModel>();
             SplatRegistrations.SetupIOC();
         }

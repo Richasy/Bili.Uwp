@@ -25,11 +25,15 @@
                 <RadioButton
                     x:Name="StandardItem"
                     MinWidth="0"
-                    Content="{loc:LocaleLocator Name=Standard}" />
+                    Click="OnSizeItemClick"
+                    Content="{loc:LocaleLocator Name=Standard}"
+                    IsChecked="{x:Bind ViewModel.IsStandardSize, Mode=OneWay}" />
                 <RadioButton
                     x:Name="SmallItem"
                     MinWidth="0"
-                    Content="{loc:LocaleLocator Name=Small}" />
+                    Click="OnSizeItemClick"
+                    Content="{loc:LocaleLocator Name=Small}"
+                    IsChecked="{x:Bind ViewModel.IsStandardSize, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}" />
             </StackPanel>
         </StackPanel>
         <ComboBox

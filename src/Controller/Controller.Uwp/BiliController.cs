@@ -83,11 +83,6 @@ namespace Bili.Controller.Uwp
         public event EventHandler<bool> NetworkChanged;
 
         /// <summary>
-        /// 在有分片弹幕更新时发生.
-        /// </summary>
-        public event EventHandler<SegmentDanmakuIterationEventArgs> SegmentDanmakuIteration;
-
-        /// <summary>
         /// 收到直播消息时发生.
         /// </summary>
         public event EventHandler<LiveMessageEventArgs> LiveMessageReceived;

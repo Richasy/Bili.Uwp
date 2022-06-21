@@ -224,7 +224,9 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             _originalPlayRate = PlaybackRate;
+            _originalDanmakuSpeed = DanmakuViewModel.DanmakuSpeed;
             await ChangePlayRateAsync(3);
+            DanmakuViewModel.DanmakuSpeed = 2;
             var msg = _resourceToolkit.GetLocaleString(LanguageNames.StartQuickPlay);
             RequestShowTempMessage?.Invoke(this, msg);
         }
@@ -236,8 +238,10 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
+            DanmakuViewModel.DanmakuSpeed = _originalDanmakuSpeed;
             await ChangePlayRateAsync(_originalPlayRate);
             _originalPlayRate = 0;
+            _originalDanmakuSpeed = 0;
             RequestShowTempMessage?.Invoke(this, default);
         }
 

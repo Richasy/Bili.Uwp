@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Bili.App.Controls.Danmaku;
 using Bili.ViewModels.Uwp.Core;
 using Windows.Media.Playback;
 using Windows.UI.Input;
@@ -51,6 +53,7 @@ namespace Bili.App.Controls.Player
             _tempMessageContainer = GetTemplateChild(TempMessageContaienrName) as Grid;
             _tempMessageBlock = GetTemplateChild(TempMessageBlockName) as TextBlock;
             _subtitleBlock = GetTemplateChild(SubtitleBlockName) as TextBlock;
+            _danmakuView = GetTemplateChild(DanmakuViewName) as DanmakuView;
 
             _gestureRecognizer = new GestureRecognizer
             {

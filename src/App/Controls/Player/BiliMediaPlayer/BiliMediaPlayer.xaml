@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Bili.App.Controls"
+    xmlns:danmaku="using:Bili.App.Controls.Danmaku"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls.Player">
     <Style TargetType="local:BiliMediaPlayer">
@@ -11,6 +12,13 @@
                 <ControlTemplate TargetType="local:BiliMediaPlayer">
                     <Grid x:Name="RootGrid">
                         <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
+                        <Grid x:Name="DanmakuContainer" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel.CanShowDanmaku}">
+                            <danmaku:DanmakuView
+                                x:Name="DanmakuView"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuViewModel}" />
+                        </Grid>
                         <Rectangle
                             x:Name="InteractionControl"
                             HorizontalAlignment="Stretch"

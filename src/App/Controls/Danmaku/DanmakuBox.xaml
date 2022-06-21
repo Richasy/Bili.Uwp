@@ -31,9 +31,8 @@
             Height="32"
             Padding="8,0"
             HorizontalAlignment="Stretch"
-            GotFocus="OnDanmakuInputBoxGotFocus"
             PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}"
-            QuerySubmitted="OnDanmakuInputBoxSubmittedAsync" />
+            QuerySubmitted="OnDanmakuInputBoxSubmitted" />
         <StackPanel
             Grid.Column="2"
             Orientation="Horizontal"
@@ -49,7 +48,7 @@
                 ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
                 <icons:RegularFluentIcon Symbol="TextEffects24" />
                 <Button.Flyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}" Opened="OnSendFlyoutOpened">
+                    <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
                         <local:DanmakuSendOptions x:Name="SendOptions" />
                     </Flyout>
                 </Button.Flyout>

@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.Data.Player;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

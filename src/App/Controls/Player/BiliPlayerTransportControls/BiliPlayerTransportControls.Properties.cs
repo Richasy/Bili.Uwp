@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.App.Controls.Danmaku;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Common;
@@ -28,7 +29,7 @@ namespace Bili.App.Controls
         /// <see cref="DanmakuViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DanmakuViewModelProperty =
-            DependencyProperty.Register(nameof(DanmakuViewModel), typeof(DanmakuViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(DanmakuViewModel.Instance));
+            DependencyProperty.Register(nameof(DanmakuViewModel), typeof(DanmakuModuleViewModel), typeof(BiliPlayerTransportControls), new PropertyMetadata(default));
 
         /// <summary>
         /// <see cref="SettingViewModel"/>的依赖属性.
@@ -147,9 +148,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// 弹幕视图模型.
         /// </summary>
-        public DanmakuViewModel DanmakuViewModel
+        public DanmakuModuleViewModel DanmakuViewModel
         {
-            get { return (DanmakuViewModel)GetValue(DanmakuViewModelProperty); }
+            get { return (DanmakuModuleViewModel)GetValue(DanmakuViewModelProperty); }
             set { SetValue(DanmakuViewModelProperty, value); }
         }
 
