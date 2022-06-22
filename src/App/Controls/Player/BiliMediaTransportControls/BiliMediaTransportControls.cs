@@ -68,14 +68,8 @@ namespace Bili.App.Controls.Player
         {
             switch (ViewModel.DisplayMode)
             {
-                case Models.Enums.PlayerDisplayMode.FullWindow:
-                    VisualStateManager.GoToState(this, "FullWindowState", false);
-                    break;
                 case Models.Enums.PlayerDisplayMode.FullScreen:
                     VisualStateManager.GoToState(this, "FullScreenState", false);
-                    break;
-                case Models.Enums.PlayerDisplayMode.CompactOverlay:
-                    VisualStateManager.GoToState(this, "CompactOverlayState", false);
                     break;
                 default:
                     VisualStateManager.GoToState(this, "NormalState", false);

@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Atelier39;
 using Bili.ViewModels.Uwp.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -36,9 +37,13 @@ namespace Bili.App.Controls.Danmaku
         }
 
         /// <inheritdoc/>
-        protected override void OnApplyTemplate()
+        protected override async void OnApplyTemplate()
         {
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
+            if (!_isInitialized)
+            {
+                await RedrawAsync();
+            }
         }
 
         private DanmakuFontSize GetFontSize(double fontSize)
@@ -55,6 +60,11 @@ namespace Bili.App.Controls.Danmaku
 
         private void InitializeController()
         {
+            if (_rootGrid == null)
+            {
+                return;
+            }
+
             _rootGrid.Children.Clear();
             _canvas = new CanvasAnimatedControl();
             _rootGrid.Children.Add(_canvas);
