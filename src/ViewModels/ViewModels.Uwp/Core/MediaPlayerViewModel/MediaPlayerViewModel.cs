@@ -112,7 +112,11 @@ namespace Bili.ViewModels.Uwp.Core
                 .Subscribe(x =>
                 {
                     InitializeDisplayModeText();
-                    _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
+                    if (_navigationViewModel.IsPlayViewShown)
+                    {
+                        _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
+                    }
+
                     _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerModeChange);
                     if (x != PlayerDisplayMode.Default)
                     {

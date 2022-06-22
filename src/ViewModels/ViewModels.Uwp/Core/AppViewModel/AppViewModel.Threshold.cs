@@ -5,7 +5,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 应用视图模型.
     /// </summary>
-    public partial class AppViewModel
+    public sealed partial class AppViewModel
     {
         private const string WideWindowWidthKey = "WideWindowThresholdWidth";
         private const string MediumWindowWidthKey = "MediumWindowThresholdWidth";

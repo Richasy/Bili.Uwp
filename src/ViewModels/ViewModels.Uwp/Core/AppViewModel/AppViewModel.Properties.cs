@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// <see cref="AppViewModel"/>的属性集.
     /// </summary>
-    public partial class AppViewModel
+    public sealed partial class AppViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;

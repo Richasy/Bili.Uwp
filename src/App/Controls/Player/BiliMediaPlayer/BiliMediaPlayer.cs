@@ -40,6 +40,7 @@ namespace Bili.App.Controls.Player
             }
 
             var vm = e.NewValue as MediaPlayerViewModel;
+            vm.IsShowMediaTransport = true;
             vm.MediaPlayerChanged -= OnMediaPlayerChanged;
             vm.MediaPlayerChanged += OnMediaPlayerChanged;
         }

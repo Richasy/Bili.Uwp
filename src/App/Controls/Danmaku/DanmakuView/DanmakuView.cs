@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Atelier39;
 using Bili.ViewModels.Uwp.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -31,7 +30,7 @@ namespace Bili.App.Controls.Danmaku
         {
             if (e.NewValue is DanmakuModuleViewModel viewModel)
             {
-                viewModel.PropertyChanged += OnViewModelProeprtyChanged;
+                viewModel.PropertyChanged += OnViewModelProeprtyChangedAsync;
                 await RedrawAsync();
             }
         }
@@ -74,6 +73,7 @@ namespace Bili.App.Controls.Danmaku
                 _danmakuController = new DanmakuFrostMaster(_canvas);
                 _danmakuController.SetAutoControlDensity(ViewModel.IsDanmakuLimit);
                 _danmakuController.SetRollingDensity(-1);
+                _danmakuController.SetOpacity(ViewModel.DanmakuOpacity);
                 _danmakuController.SetBorderColor(Colors.Gray);
                 _danmakuController.SetRollingAreaRatio(Convert.ToInt32(ViewModel.DanmakuArea * 10));
                 _danmakuController.SetDanmakuFontSizeOffset(GetFontSize(ViewModel.DanmakuFontSize));
@@ -95,15 +95,19 @@ namespace Bili.App.Controls.Danmaku
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             Close();
-            ViewModel.PropertyChanged -= OnViewModelProeprtyChanged;
+            ViewModel.PropertyChanged -= OnViewModelProeprtyChangedAsync;
         }
 
-        private void OnViewModelProeprtyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnViewModelProeprtyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.DanmakuSpeed))
             {
                 var speed = (double)ViewModel.DanmakuSpeed * 5;
                 _danmakuController?.SetRollingSpeed(Convert.ToInt32(speed));
+            }
+            else if (e.PropertyName == nameof(ViewModel.DanmakuOpacity))
+            {
+                _danmakuController?.SetOpacity(ViewModel.DanmakuOpacity);
             }
             else if (e.PropertyName == nameof(ViewModel.DanmakuArea))
             {
@@ -134,6 +138,18 @@ namespace Bili.App.Controls.Danmaku
             else if (e.PropertyName == nameof(ViewModel.IsDanmakuLimit))
             {
                 _danmakuController?.SetAutoControlDensity(ViewModel.IsDanmakuLimit);
+            }
+            else if (e.PropertyName == nameof(ViewModel.IsShowDanmaku))
+            {
+                if (!ViewModel.IsShowDanmaku)
+                {
+                    ViewModel.ResetCommand.Execute().Subscribe();
+                    ClearAll();
+                }
+                else
+                {
+                    await RedrawAsync();
+                }
             }
         }
     }

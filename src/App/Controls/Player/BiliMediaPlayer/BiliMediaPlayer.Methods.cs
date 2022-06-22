@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -13,7 +14,7 @@ namespace Bili.App.Controls.Player
     {
         private bool IsCursorInTransportControls()
         {
-            if (ViewModel.IsShowMediaTransport)
+            if (ViewModel.IsShowMediaTransport && _isCursorInPlayer)
             {
                 var pointerPosition = Window.Current.CoreWindow.PointerPosition;
                 pointerPosition.X -= Window.Current.Bounds.X;
@@ -64,8 +65,7 @@ namespace Bili.App.Controls.Player
 
         private void HandleTransportAutoHide()
         {
-            if (_transportStayTime > 1.5
-                && ViewModel.IsShowMediaTransport)
+            if (_transportStayTime > 1.5)
             {
                 if (_isTouch || !IsCursorInTransportControls())
                 {
@@ -108,13 +108,16 @@ namespace Bili.App.Controls.Player
             }
         }
 
-        private void ShowAndResetMediaTransport(bool isMouse)
+        private async Task ShowAndResetMediaTransportAsync(bool isMouse)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
             if (!ViewModel.IsShowMediaTransport
                 && isMouse)
             {
-                ViewModel.IsShowMediaTransport = true;
+                await Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    ViewModel.IsShowMediaTransport = true;
+                });
             }
 
             _cursorStayTime = 0;
@@ -122,15 +125,18 @@ namespace Bili.App.Controls.Player
             _isCursorInPlayer = true;
         }
 
-        private void HideAndResetMediaTransport(bool isMouse)
+        private async Task HideAndResetMediaTransportAsync(bool isMouse)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
 
-            if (ViewModel.IsShowMediaTransport
-                && isMouse
+            if (isMouse
+                && ViewModel.IsShowMediaTransport
                 && !IsCursorInTransportControls())
             {
-                ViewModel.IsShowMediaTransport = false;
+                await Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    ViewModel.IsShowMediaTransport = false;
+                });
             }
 
             _cursorStayTime = 0;

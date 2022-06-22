@@ -20,30 +20,30 @@ namespace Bili.App.Controls.Player
     public sealed partial class BiliMediaPlayer
     {
         /// <inheritdoc/>
-        protected override void OnPointerEntered(PointerRoutedEventArgs e)
-            => ShowAndResetMediaTransport(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override async void OnPointerEntered(PointerRoutedEventArgs e)
+            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
-        protected override void OnPointerMoved(PointerRoutedEventArgs e)
-            => ShowAndResetMediaTransport(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override async void OnPointerMoved(PointerRoutedEventArgs e)
+            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
-        protected override void OnPointerExited(PointerRoutedEventArgs e)
-            => HideAndResetMediaTransport(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override async void OnPointerExited(PointerRoutedEventArgs e)
+            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
-        protected override void OnPointerCanceled(PointerRoutedEventArgs e)
-            => HideAndResetMediaTransport(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override async void OnPointerCanceled(PointerRoutedEventArgs e)
+            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
-        protected override void OnPointerCaptureLost(PointerRoutedEventArgs e)
-            => HideAndResetMediaTransport(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override async void OnPointerCaptureLost(PointerRoutedEventArgs e)
+            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAdded;
+            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAddedAsync;
             ViewModel.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChanged;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
@@ -53,7 +53,7 @@ namespace Bili.App.Controls.Player
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
-            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAddedAsync;
             ViewModel.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             ViewModel.RequestShowTempMessage += OnRequestShowTempMessage;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -62,7 +62,7 @@ namespace Bili.App.Controls.Player
         private void OnRequestClearDanmaku(object sender, EventArgs e)
             => _danmakuView?.ClearAll();
 
-        private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
+        private async void OnDanmakuListAddedAsync(object sender, IEnumerable<DanmakuInformation> e)
             => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(e, ViewModel.DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnMediaPlayerChanged(object sender, MediaPlayer e)

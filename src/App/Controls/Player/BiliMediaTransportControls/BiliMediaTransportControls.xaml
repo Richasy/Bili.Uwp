@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:danmaku="using:Bili.App.Controls.Danmaku"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:playercontrols="using:Bili.App.Controls.Player.PlayerControls"
@@ -201,13 +202,18 @@
                         </Grid>
                         <Grid
                             x:Name="ControlPanel"
-                            Padding="12"
+                            Padding="12,12,12,4"
                             Background="{TemplateBinding Background}"
                             ColumnSpacing="12"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            RowSpacing="8">
                             <Grid.RenderTransform>
                                 <TranslateTransform x:Name="TranslateVertical" />
                             </Grid.RenderTransform>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -239,6 +245,7 @@
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
+
                             <Grid
                                 x:Name="NormalProgressContainer"
                                 Grid.Column="1"
@@ -477,6 +484,15 @@
                                     </Grid>
                                 </Button>
                             </StackPanel>
+
+                            <Grid
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Padding="4"
+                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                BorderThickness="0,1,0,0">
+                                <danmaku:DanmakuBox ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ControlTemplate>

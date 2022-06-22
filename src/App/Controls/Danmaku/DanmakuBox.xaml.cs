@@ -7,7 +7,7 @@ using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.Danmaku
 {
     /// <summary>
     /// 弹幕输入控件.

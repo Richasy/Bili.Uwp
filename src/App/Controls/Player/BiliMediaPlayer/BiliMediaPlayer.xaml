@@ -12,7 +12,7 @@
                 <ControlTemplate TargetType="local:BiliMediaPlayer">
                     <Grid x:Name="RootGrid">
                         <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
-                        <Grid x:Name="DanmakuContainer" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel.CanShowDanmaku}">
+                        <Grid x:Name="DanmakuContainer">
                             <danmaku:DanmakuView
                                 x:Name="DanmakuView"
                                 HorizontalAlignment="Stretch"
@@ -107,7 +107,7 @@
                                 Margin="12"
                                 IsForwardSkipButtonVisible="True"
                                 IsPlaybackRateButtonVisible="True"
-                                TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport}"
+                                TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport, Converter={StaticResource BoolToVisibilityConverter}}"
                                 ViewModel="{TemplateBinding ViewModel}" />
                         </Grid>
                     </Grid>

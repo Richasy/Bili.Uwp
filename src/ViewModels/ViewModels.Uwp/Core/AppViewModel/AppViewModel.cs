@@ -24,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 应用ViewModel.
     /// </summary>
-    public partial class AppViewModel : ViewModelBase
+    public sealed partial class AppViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AppViewModel"/> class.
@@ -43,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Core
             _controller.UpdateReceived += OnUpdateReceived;
             _networkHelper.NetworkChanged += OnNetworkChanged;
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
+            IsShowTitleBar = true;
             InitializeTheme();
         }
 

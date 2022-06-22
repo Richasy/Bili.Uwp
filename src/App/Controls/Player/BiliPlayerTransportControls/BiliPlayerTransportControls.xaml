@@ -974,7 +974,7 @@
                                                     Padding="4,4,8,4"
                                                     BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                                                     BorderThickness="0,1,0,0">
-                                                    <local:DanmakuBox />
+                                                    <danmaku:DanmakuBox />
                                                 </Grid>
                                             </Grid>
                                         </Grid>

@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 应用视图模型.
     /// </summary>
-    public partial class AppViewModel
+    public sealed partial class AppViewModel
     {
         /// <summary>
         /// 从命令行参数初始化命令.

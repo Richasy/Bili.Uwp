@@ -86,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Common
 
         private async Task LoadSegmentDanmakuAsync(int index)
         {
-            if (IsDanmakuLoading || _segmentIndex == index)
+            if (IsDanmakuLoading || _segmentIndex == index || !IsShowDanmaku)
             {
                 return;
             }
@@ -133,7 +133,7 @@ namespace Bili.ViewModels.Uwp.Common
             DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
             IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
             IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
-            IsDanmakuLimit = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuLimit, false);
+            IsDanmakuLimit = true;
             UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
             Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
 
@@ -186,9 +186,6 @@ namespace Bili.ViewModels.Uwp.Common
                     break;
                 case nameof(IsDanmakuMerge):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
-                    break;
-                case nameof(IsDanmakuLimit):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuLimit, IsDanmakuLimit);
                     break;
                 case nameof(IsDanmakuBold):
                     _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuBold, IsDanmakuBold);
