@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Player;
+using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -23,13 +26,16 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly IFontToolkit _fontToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IPlayerProvider _playerProvider;
+        private readonly ILiveProvider _liveProvider;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isDanmakuLoading;
+        private readonly AppViewModel _appViewModel;
 
         private string _mainId;
         private string _partId;
         private int _segmentIndex;
         private double _currentSeconds;
+        private VideoType _videoType;
 
         /// <summary>
         /// 弹幕列表已添加.
@@ -45,6 +51,11 @@ namespace Bili.ViewModels.Uwp.Common
         /// 请求清除弹幕列表.
         /// </summary>
         public event EventHandler RequestClearDanmaku;
+
+        /// <summary>
+        /// 直播弹幕已添加.
+        /// </summary>
+        public event EventHandler<LiveDanmakuInformation> LiveDanmakuAdded;
 
         /// <summary>
         /// 弹幕位置可选集合.
@@ -83,6 +94,11 @@ namespace Bili.ViewModels.Uwp.Common
         /// 重新定位命令.
         /// </summary>
         public ReactiveCommand<double, Unit> SeekCommand { get; }
+
+        /// <summary>
+        /// 添加新的直播弹幕命令.
+        /// </summary>
+        public ReactiveCommand<LiveDanmakuInformation, Unit> AddLiveDanmakuCommand { get; }
 
         /// <summary>
         /// 是否显示弹幕.

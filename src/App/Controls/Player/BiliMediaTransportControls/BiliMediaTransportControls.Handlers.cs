@@ -39,9 +39,7 @@ namespace Bili.App.Controls.Player
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-        }
+            => ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -80,8 +78,11 @@ namespace Bili.App.Controls.Player
         {
             ViewModel.IsShowInteractionProgress = true;
             _isInteractionProgressAutoAssign = true;
-            _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
-            _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
+            if (_interactionProgressSlider != null)
+            {
+                _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
+                _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
+            }
         }
 
         private void OnInteractionProgressContainerPointerExited(object sender, PointerRoutedEventArgs e)

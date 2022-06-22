@@ -2,15 +2,15 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Common
@@ -27,12 +27,16 @@ namespace Bili.ViewModels.Uwp.Common
             ISettingsToolkit settingsToolkit,
             IFontToolkit fontToolkit,
             IResourceToolkit resourceToolkit,
-            IPlayerProvider playerProvider)
+            IPlayerProvider playerProvider,
+            ILiveProvider liveProvider,
+            AppViewModel appViewModel)
         {
             _settingsToolkit = settingsToolkit;
             _fontToolkit = fontToolkit;
             _resourceToolkit = resourceToolkit;
             _playerProvider = playerProvider;
+            _liveProvider = liveProvider;
+            _appViewModel = appViewModel;
 
             FontCollection = new ObservableCollection<string>();
             LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
@@ -43,6 +47,7 @@ namespace Bili.ViewModels.Uwp.Common
             ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
             LoadSegmentDanmakuCommand = ReactiveCommand.CreateFromTask<int>(LoadSegmentDanmakuAsync, outputScheduler: RxApp.MainThreadScheduler);
             SeekCommand = ReactiveCommand.Create<double>(Seek, outputScheduler: RxApp.MainThreadScheduler);
+            AddLiveDanmakuCommand = ReactiveCommand.Create<LiveDanmakuInformation>(AddLiveDanmaku, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
             _isDanmakuLoading = LoadSegmentDanmakuCommand.IsExecuting.ToProperty(this, x => x.IsDanmakuLoading, scheduler: RxApp.MainThreadScheduler);
@@ -60,10 +65,11 @@ namespace Bili.ViewModels.Uwp.Common
         /// </summary>
         /// <param name="mainId">视频 Id.</param>
         /// <param name="partId">分P Id.</param>
-        public void SetData(string mainId, string partId)
+        public void SetData(string mainId, string partId, VideoType type)
         {
             _mainId = mainId;
             _partId = partId;
+            _videoType = type;
 
             ReloadCommand.Execute().Subscribe();
         }
@@ -101,12 +107,26 @@ namespace Bili.ViewModels.Uwp.Common
             _segmentIndex = index;
         }
 
+        private async Task<bool> SendDanmakuAsync(string danmakuText)
+        {
+            var result = _videoType == VideoType.Live
+                ? await SendLiveDanmakuAsync(danmakuText)
+                : await SendVideoDanmakuAsync(danmakuText);
+
+            if (!result)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToSendDanmaku), Models.Enums.App.InfoType.Error);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// 发送弹幕.
         /// </summary>
         /// <param name="danmakuText">弹幕文本.</param>
         /// <returns>发送结果.</returns>
-        private async Task<bool> SendDanmakuAsync(string danmakuText)
+        private async Task<bool> SendVideoDanmakuAsync(string danmakuText)
         {
             var result = await _playerProvider.SendDanmakuAsync(
                 danmakuText,
@@ -125,91 +145,24 @@ namespace Bili.ViewModels.Uwp.Common
             return result;
         }
 
-        private void Seek(double seconds)
-            => _currentSeconds = seconds;
-
-        private void Initialize()
+        /// <summary>
+        /// 发送弹幕.
+        /// </summary>
+        /// <param name="danmakuText">弹幕文本.</param>
+        /// <returns>发送结果.</returns>
+        private async Task<bool> SendLiveDanmakuAsync(string danmakuText)
         {
-            IsShowDanmaku = _settingsToolkit.ReadLocalSetting(SettingNames.IsShowDanmaku, true);
-            DanmakuOpacity = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuOpacity, 0.8);
-            DanmakuFontSize = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFontSize, 1.5d);
-            DanmakuArea = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuArea, 1d);
-            DanmakuSpeed = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuSpeed, 1d);
-            DanmakuFont = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuFont, "Segoe UI");
-            IsDanmakuMerge = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuMerge, false);
-            IsDanmakuBold = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuBold, true);
-            IsDanmakuLimit = true;
-            UseCloudShieldSettings = _settingsToolkit.ReadLocalSetting(SettingNames.UseCloudShieldSettings, true);
-            Location = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuLocation, Models.Enums.App.DanmakuLocation.Scroll);
+            var result = await _liveProvider.SendDanmakuAsync(
+                _mainId,
+                danmakuText,
+                ToDanmakuColor(Color),
+                IsStandardSize,
+                Location);
 
-            IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
-            PropertyChanged += OnPropertyChanged;
-
-            FontCollection.Clear();
-            var fontList = _fontToolkit.GetSystemFonts();
-            fontList.ForEach(p => FontCollection.Add(p));
-
-            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Scroll);
-            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Top);
-            LocationCollection.Add(Models.Enums.App.DanmakuLocation.Bottom);
-
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.White), "#FFFFFF"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Red), "#FE0302"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Orange), "#FFAA02"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Khaki), "#FFD302"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Yellow), "#FFFF00"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Grass), "#A0EE00"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Green), "#00CD00"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Blue), "#019899"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.Purple), "#4266BE"));
-            ColorCollection.Add(new KeyValue<string>(_resourceToolkit.GetLocaleString(LanguageNames.LightBlue), "#89D5FF"));
-
-            Color = _settingsToolkit.ReadLocalSetting(SettingNames.DanmakuColor, ColorCollection.First().Value);
+            return result;
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(IsShowDanmaku):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsShowDanmaku, IsShowDanmaku);
-                    break;
-                case nameof(DanmakuOpacity):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuOpacity, DanmakuOpacity);
-                    break;
-                case nameof(DanmakuFontSize):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuFontSize, DanmakuFontSize);
-                    break;
-                case nameof(DanmakuArea):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuArea, DanmakuArea);
-                    break;
-                case nameof(DanmakuSpeed):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuSpeed, DanmakuSpeed);
-                    break;
-                case nameof(DanmakuFont):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuFont, DanmakuFont);
-                    break;
-                case nameof(IsDanmakuMerge):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuMerge, IsDanmakuMerge);
-                    break;
-                case nameof(IsDanmakuBold):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuBold, IsDanmakuBold);
-                    break;
-                case nameof(UseCloudShieldSettings):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.UseCloudShieldSettings, UseCloudShieldSettings);
-                    break;
-                case nameof(IsStandardSize):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.IsDanmakuStandardSize, IsStandardSize);
-                    break;
-                case nameof(Location):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuLocation, Location);
-                    break;
-                case nameof(Color):
-                    _settingsToolkit.WriteLocalSetting(SettingNames.DanmakuColor, Color);
-                    break;
-                default:
-                    break;
-            }
-        }
+        private void AddLiveDanmaku(LiveDanmakuInformation info)
+            => LiveDanmakuAdded?.Invoke(this, info);
     }
 }

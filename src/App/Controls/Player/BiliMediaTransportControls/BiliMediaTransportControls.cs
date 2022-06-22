@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.App.Controls.Danmaku;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -42,13 +43,26 @@ namespace Bili.App.Controls.Player
             _normalProgressContainer = GetTemplateChild(NormalProgressContainerName) as Panel;
             _interactionProgressContainer = GetTemplateChild(InteractionProgressContainerName) as Panel;
             _interactionProgressSlider = GetTemplateChild(InteractionProgressSliderName) as Slider;
+            _danmakuBox = GetTemplateChild(DanmakuBoxName) as DanmakuBox;
 
             _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
             _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
-            _normalProgressContainer.PointerEntered += OnNormalProgressContainerPointerEntered;
-            _interactionProgressContainer.PointerExited += OnInteractionProgressContainerPointerExited;
-            _interactionProgressContainer.PointerCanceled += OnInteractionProgressContainerPointerExited;
-            _interactionProgressSlider.ValueChanged += OnInteractionProgressSliderValueChanged;
+
+            if (_normalProgressContainer != null)
+            {
+                _normalProgressContainer.PointerEntered += OnNormalProgressContainerPointerEntered;
+            }
+
+            if (_interactionProgressContainer != null)
+            {
+                _interactionProgressContainer.PointerExited += OnInteractionProgressContainerPointerExited;
+                _interactionProgressContainer.PointerCanceled += OnInteractionProgressContainerPointerExited;
+            }
+
+            if (_interactionProgressSlider != null)
+            {
+                _interactionProgressSlider.ValueChanged += OnInteractionProgressSliderValueChanged;
+            }
         }
 
         private void ChangeVisualStateFromStatus()

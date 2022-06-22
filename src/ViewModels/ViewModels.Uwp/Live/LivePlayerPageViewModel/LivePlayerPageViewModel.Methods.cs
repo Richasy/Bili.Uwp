@@ -31,8 +31,8 @@ namespace Bili.ViewModels.Uwp.Live
                 {
                     var data = e.Data as LiveDanmakuInformation;
                     Danmakus.Add(data);
+                    MediaPlayerViewModel.DanmakuViewModel.AddLiveDanmakuCommand.Execute(data).Subscribe();
 
-                    // NewLiveDanmakuAdded?.Invoke(this, data);
                     if (Danmakus.Count > 1000)
                     {
                         var removedMessages = Danmakus.Take(600).ToList();

@@ -543,6 +543,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
     <value>尝试移除视频失败，请稍后重试</value>
   </data>
+  <data name="FailedToSendDanmaku" xml:space="preserve">
+    <value>发送弹幕失败，请稍后再试</value>
+  </data>
   <data name="FansCount" xml:space="preserve">
     <value>粉丝数</value>
   </data>

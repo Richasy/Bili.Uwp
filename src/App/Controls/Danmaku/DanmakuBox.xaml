@@ -31,6 +31,8 @@
             Height="32"
             Padding="8,0"
             HorizontalAlignment="Stretch"
+            GotFocus="OnDanmakuInputBoxGotFocus"
+            LostFocus="OnDanmakuInputBoxLostFocus"
             PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}"
             QuerySubmitted="OnDanmakuInputBoxSubmitted" />
         <StackPanel

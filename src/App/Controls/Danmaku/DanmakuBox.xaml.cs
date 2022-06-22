@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Common;
-using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -34,6 +32,11 @@ namespace Bili.App.Controls.Danmaku
             set { SetValue(ViewModelProperty, value); }
         }
 
+        /// <summary>
+        /// 是否正在聚焦输入框.
+        /// </summary>
+        public bool IsInputFocused { get; private set; }
+
         private void OnDanmakuInputBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!string.IsNullOrEmpty(args.QueryText))
@@ -50,11 +53,17 @@ namespace Bili.App.Controls.Danmaku
                         }
                         else
                         {
-                            sender.Focus(Windows.UI.Xaml.FocusState.Programmatic);
+                            sender.Focus(FocusState.Programmatic);
                         }
                     });
                 });
             }
         }
+
+        private void OnDanmakuInputBoxGotFocus(object sender, RoutedEventArgs e)
+            => IsInputFocused = true;
+
+        private void OnDanmakuInputBoxLostFocus(object sender, RoutedEventArgs e)
+            => IsInputFocused = false;
     }
 }

@@ -31,6 +31,8 @@ namespace Bili.App.Controls.Danmaku
             if (e.NewValue is DanmakuModuleViewModel viewModel)
             {
                 viewModel.PropertyChanged += OnViewModelProeprtyChangedAsync;
+                viewModel.LiveDanmakuAdded += OnLiveDanmakuAdded;
+                viewModel.SendDanmakuSucceeded += OnSendDanmakuSucceeded;
                 await RedrawAsync();
             }
         }

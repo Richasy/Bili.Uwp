@@ -17,13 +17,6 @@ namespace Bili.ViewModels.Uwp.Core
         private void ResetLiveData()
             => _currentPlayline = default;
 
-        private async Task ChangeLivePlaylineAsync(LivePlaylineInformation playline)
-        {
-            var view = _viewData as LivePlayerView;
-            _currentPlayline = playline;
-            await LoadLiveAsync();
-        }
-
         private async Task LoadLiveAsync()
         {
             await InitializeLiveMediaInformationAsync();
@@ -41,11 +34,13 @@ namespace Bili.ViewModels.Uwp.Core
             var quality = _currentPlayline != null
                 ? _currentPlayline.Quality
                 : 150;
+
+            DanmakuViewModel.SetData(view.Information.Identifier.Id, default, _videoType);
             _liveMediaInformation = await _liveProvider.GetLiveMediaInformationAsync(view.Information.Identifier.Id, quality, IsLiveAudioOnly);
 
             if (_currentPlayline == null)
             {
-                _currentPlayline = _liveMediaInformation.Lines.FirstOrDefault(p => p.Quality == 150) ?? _liveMediaInformation.Lines.First();
+                _currentPlayline = _liveMediaInformation.Lines.FirstOrDefault(p => p.Quality == quality) ?? _liveMediaInformation.Lines.First();
             }
         }
 

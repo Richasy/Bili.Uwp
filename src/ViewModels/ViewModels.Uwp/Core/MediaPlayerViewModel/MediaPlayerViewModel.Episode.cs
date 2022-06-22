@@ -52,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             SubtitleViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId);
-            DanmakuViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId);
+            DanmakuViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId, _videoType);
             await InitializeEpisodeMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillEpisodePlaybackProperties();

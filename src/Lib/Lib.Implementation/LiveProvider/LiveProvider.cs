@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -222,8 +223,9 @@ namespace Bili.Lib
                 var result = await _httpProvider.ParseAsync<ServerResponse>(response);
                 return result.IsSuccess();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine($"直播弹幕发送失败：{ex.Message}");
                 return false;
             }
         }

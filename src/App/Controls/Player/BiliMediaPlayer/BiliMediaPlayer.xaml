@@ -4,7 +4,8 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:danmaku="using:Bili.App.Controls.Danmaku"
     xmlns:loc="using:Bili.Locator.Uwp"
-    xmlns:local="using:Bili.App.Controls.Player">
+    xmlns:local="using:Bili.App.Controls.Player"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style TargetType="local:BiliMediaPlayer">
         <Setter Property="Template">
             <Setter.Value>
@@ -24,6 +25,12 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Fill="Transparent" />
+                        <muxc:ProgressRing
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsBuffering}" />
                         <Grid RowSpacing="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -112,8 +119,73 @@
                                 x:Name="MediaTransportControls"
                                 Grid.Row="3"
                                 Margin="12"
-                                IsForwardSkipButtonVisible="True"
-                                IsPlaybackRateButtonVisible="True"
+                                TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport, Converter={StaticResource BoolToVisibilityConverter}}"
+                                ViewModel="{TemplateBinding ViewModel}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LivePlayerStyle" TargetType="local:BiliMediaPlayer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliMediaPlayer">
+                    <Grid x:Name="RootGrid">
+                        <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
+                        <Grid x:Name="DanmakuContainer">
+                            <danmaku:DanmakuView
+                                x:Name="DanmakuView"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                ProgressPosition="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}"
+                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                        </Grid>
+                        <Rectangle
+                            x:Name="InteractionControl"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent" />
+                        <muxc:ProgressRing
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsBuffering}" />
+                        <Grid RowSpacing="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid
+                                Padding="12,0"
+                                VerticalAlignment="Bottom"
+                                ColumnSpacing="12">
+                                <Grid
+                                    x:Name="TempMessageContainer"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed">
+                                    <Grid
+                                        x:Name="TempMessageGrid"
+                                        Padding="16,8"
+                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock
+                                            x:Name="TempMessageBlock"
+                                            MaxWidth="320"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <local:BiliMediaTransportControls
+                                x:Name="MediaTransportControls"
+                                Style="{StaticResource LiveTransportStyle}"
+                                Grid.Row="1"
+                                Margin="12"
                                 TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport, Converter={StaticResource BoolToVisibilityConverter}}"
                                 ViewModel="{TemplateBinding ViewModel}" />
                         </Grid>

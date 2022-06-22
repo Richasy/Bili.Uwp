@@ -265,7 +265,7 @@ namespace Bili.Lib
                             msg.HasTitle = true;
                         }
 
-                        var info = new LiveDanmakuInformation(msg.Text, msg.UserName, msg.Level, msg.LevelColor, msg.IsAdmin);
+                        var info = new LiveDanmakuInformation(msg.Text, msg.ContentColor, msg.UserName, msg.Level, msg.LevelColor, msg.IsAdmin);
                         MessageReceived?.Invoke(this, new LiveMessageEventArgs(LiveMessageType.Danmaku, info));
                     }
                 }

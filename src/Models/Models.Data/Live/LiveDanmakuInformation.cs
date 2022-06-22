@@ -11,18 +11,21 @@ namespace Bili.Models.Data.Live
         /// Initializes a new instance of the <see cref="LiveDanmakuInformation"/> class.
         /// </summary>
         /// <param name="text">文本.</param>
+        /// <param name="textColor">文本颜色.</param>
         /// <param name="userName">用户名.</param>
         /// <param name="level">用户等级.</param>
         /// <param name="levelColor">用户等级颜色 (Hex).</param>
         /// <param name="isAdmin">是否为管理员.</param>
         public LiveDanmakuInformation(
             string text,
+            string textColor,
             string userName,
             string level,
             string levelColor,
             bool isAdmin)
         {
             Text = text;
+            TextColor = textColor;
             UserName = userName;
             UserLevel = level;
             UserLevelColor = levelColor;
@@ -33,6 +36,8 @@ namespace Bili.Models.Data.Live
         /// 文本.
         /// </summary>
         public string Text { get; }
+
+        public string TextColor { get; }
 
         /// <summary>
         /// 用户名.

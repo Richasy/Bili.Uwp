@@ -65,12 +65,11 @@ namespace Bili.App.Controls.Player
 
         private void HandleTransportAutoHide()
         {
-            if (_transportStayTime > 1.5)
+            if (_transportStayTime > 1.5
+                && !_mediaTransportControls.IsDanmakuBoxFocused
+                && (_isTouch || !IsCursorInTransportControls()))
             {
-                if (_isTouch || !IsCursorInTransportControls())
-                {
-                    ViewModel.IsShowMediaTransport = false;
-                }
+                ViewModel.IsShowMediaTransport = false;
             }
         }
 

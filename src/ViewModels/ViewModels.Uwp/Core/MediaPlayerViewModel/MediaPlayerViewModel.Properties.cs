@@ -282,5 +282,17 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsInteractionEnd { get; set; }
+
+        /// <summary>
+        /// 是否正在缓冲.
+        /// </summary>
+        [Reactive]
+        public bool IsBuffering { get; set; }
+
+        /// <summary>
+        /// 媒体是否暂停.
+        /// </summary>
+        [Reactive]
+        public bool IsMediaPause { get; set; }
     }
 }

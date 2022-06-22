@@ -356,6 +356,8 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 try
                 {
+                    IsBuffering = false;
+                    IsMediaPause = false;
                     switch (sender.PlaybackSession.PlaybackState)
                     {
                         case MediaPlaybackState.None:
@@ -377,9 +379,11 @@ namespace Bili.ViewModels.Uwp.Core
                             break;
                         case MediaPlaybackState.Buffering:
                             Status = PlayerStatus.Buffering;
+                            IsBuffering = true;
                             break;
                         case MediaPlaybackState.Paused:
                             Status = PlayerStatus.Pause;
+                            IsMediaPause = true;
                             break;
                         default:
                             Status = PlayerStatus.NotLoad;
