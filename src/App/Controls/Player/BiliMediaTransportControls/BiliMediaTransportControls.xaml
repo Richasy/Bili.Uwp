@@ -234,6 +234,17 @@
                                     </Grid>
                                 </Button>
                                 <Button
+                                    x:Name="BackToStartButton"
+                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToStart}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToInteractionVideoStartCommand}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToStart}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionEnd}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="EraserMedium24" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
                                     x:Name="ForwardSkipButton"
                                     AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
                                     Style="{StaticResource PlayerButtonStyle}"
@@ -295,9 +306,7 @@
                                         x:Name="InteractionProgressSlider"
                                         Margin="0,-4"
                                         HorizontalAlignment="Stretch"
-                                        IsThumbToolTipEnabled="False"
-                                        Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
-                                        Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressSeconds}" />
+                                        IsThumbToolTipEnabled="True" />
                                 </StackPanel>
                             </Grid>
 

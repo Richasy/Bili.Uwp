@@ -77,7 +77,12 @@ namespace Bili.App.Controls.Player
         }
 
         private void OnNormalProgressContainerPointerEntered(object sender, PointerRoutedEventArgs e)
-            => ViewModel.IsShowInteractionProgress = true;
+        {
+            ViewModel.IsShowInteractionProgress = true;
+            _isInteractionProgressAutoAssign = true;
+            _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
+            _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
+        }
 
         private void OnInteractionProgressContainerPointerExited(object sender, PointerRoutedEventArgs e)
             => ViewModel.IsShowInteractionProgress = false;
@@ -86,6 +91,11 @@ namespace Bili.App.Controls.Player
         {
             if (!ViewModel.IsShowInteractionProgress)
             {
+                return;
+            }
+            else if (_isInteractionProgressAutoAssign)
+            {
+                _isInteractionProgressAutoAssign = false;
                 return;
             }
 

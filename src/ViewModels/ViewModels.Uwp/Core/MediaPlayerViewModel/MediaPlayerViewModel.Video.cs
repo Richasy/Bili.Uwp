@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task ChangeVideoPartAsync(VideoIdentifier part)
         {
             var view = _viewData as VideoPlayerView;
-            if (string.IsNullOrEmpty(part.Id) || !view.SubVideos.Contains(part))
+            if (string.IsNullOrEmpty(part.Id) || (!IsInteractionVideo && !view.SubVideos.Contains(part)))
             {
                 return;
             }
@@ -36,23 +36,13 @@ namespace Bili.ViewModels.Uwp.Core
         {
             var view = _viewData as VideoPlayerView;
             IsInteractionVideo = view.InteractionVideo != null;
-            if (IsInteractionVideo)
+            if (string.IsNullOrEmpty(_currentPart.Id))
             {
-                if (!string.IsNullOrEmpty(view.InteractionVideo.PartId))
-                {
-                    _currentPart = view.SubVideos.FirstOrDefault(p => p.Id == view.InteractionVideo.PartId);
-                    InteractionViewModel.SetData(view.Information.Identifier.Id, view.InteractionVideo.NodeId, view.InteractionVideo.GraphVersion);
-                    view.InteractionVideo.PartId = default;
-                }
-                else
+                _currentPart = view.SubVideos.First();
+                if (IsInteractionVideo)
                 {
                     InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
                 }
-            }
-
-            if (string.IsNullOrEmpty(_currentPart.Id) || !view.SubVideos.Contains(_currentPart))
-            {
-                _currentPart = view.SubVideos.First();
             }
 
             SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
@@ -208,8 +198,22 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            InteractionViewModel.SetData(info.PartId, info.Id, view.InteractionVideo.GraphVersion);
-            var part = view.SubVideos.FirstOrDefault(p => info.PartId == info.PartId);
+            InteractionViewModel.SetData(view.Information.Identifier.Id, info.Id, view.InteractionVideo.GraphVersion);
+            var part = new VideoIdentifier(info.PartId, default, default, default);
+            ChangePartCommand.Execute(part).Subscribe();
+        }
+
+        private void BackToInteractionVideoStart()
+        {
+            IsShowInteractionChoices = false;
+            IsInteractionEnd = false;
+            if (_viewData is not VideoPlayerView view || view.InteractionVideo == null)
+            {
+                return;
+            }
+
+            InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
+            var part = view.SubVideos.FirstOrDefault();
             ChangePartCommand.Execute(part).Subscribe();
         }
     }

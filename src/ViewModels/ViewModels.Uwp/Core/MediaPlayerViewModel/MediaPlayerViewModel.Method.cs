@@ -43,6 +43,9 @@ namespace Bili.ViewModels.Uwp.Core
             _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
             _playNextVideoAction = default;
+            IsInteractionEnd = false;
+            IsInteractionVideo = false;
+            IsShowInteractionChoices = false;
             DanmakuViewModel.ResetCommand.Execute().Subscribe();
         }
 

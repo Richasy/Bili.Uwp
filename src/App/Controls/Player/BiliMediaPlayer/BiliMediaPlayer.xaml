@@ -82,6 +82,7 @@
                                 x:Name="ChoiceContainer"
                                 Grid.Row="1"
                                 HorizontalAlignment="Center"
+                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionVideo, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                             <Grid Grid.Row="2" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">

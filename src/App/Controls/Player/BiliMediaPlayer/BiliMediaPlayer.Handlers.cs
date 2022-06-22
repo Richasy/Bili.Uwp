@@ -43,7 +43,7 @@ namespace Bili.App.Controls.Player
         {
             _unitTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAddedAsync;
+            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAdded;
             ViewModel.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChanged;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
@@ -53,7 +53,7 @@ namespace Bili.App.Controls.Player
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
-            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAddedAsync;
+            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             ViewModel.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             ViewModel.RequestShowTempMessage += OnRequestShowTempMessage;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -62,7 +62,7 @@ namespace Bili.App.Controls.Player
         private void OnRequestClearDanmaku(object sender, EventArgs e)
             => _danmakuView?.ClearAll();
 
-        private async void OnDanmakuListAddedAsync(object sender, IEnumerable<DanmakuInformation> e)
+        private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
             => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(e, ViewModel.DanmakuViewModel.IsDanmakuMerge), true);
 
         private void OnMediaPlayerChanged(object sender, MediaPlayer e)

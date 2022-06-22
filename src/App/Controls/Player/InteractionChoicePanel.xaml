@@ -12,12 +12,12 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Visibility="{x:Bind ViewModel.IsShowInteractionChoices, Mode=OneWay}">
         <muxc:ItemsRepeater
             x:Name="ChoiceRepeater"
             VerticalAlignment="Bottom"
             ItemsSource="{x:Bind ViewModel.InteractionViewModel.Choices}"
-            Visibility="{x:Bind ViewModel.IsShowInteractionChoices, Mode=OneWay}">
+            Visibility="{x:Bind ViewModel.IsInteractionEnd, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:ItemsRepeater.Layout>
                 <muxc:UniformGridLayout
                     ItemsJustification="Center"

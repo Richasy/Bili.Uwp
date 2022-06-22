@@ -22,5 +22,7 @@ namespace Bili.App.Controls.Player
         private Panel _normalProgressContainer;
         private Panel _interactionProgressContainer;
         private Slider _interactionProgressSlider;
+
+        private bool _isInteractionProgressAutoAssign;
     }
 }

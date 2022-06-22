@@ -140,5 +140,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// 选择选项命令.
         /// </summary>
         public ReactiveCommand<InteractionInformation, Unit> SelectInteractionChoiceCommand { get; }
+
+        /// <summary>
+        /// 跳进命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> BackToInteractionVideoStartCommand { get; }
     }
 }

@@ -82,6 +82,7 @@ namespace Bili.ViewModels.Uwp.Core
             ShowNextVideoTipCommand = ReactiveCommand.Create<Action>(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
             PlayNextVideoCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
             SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice, outputScheduler: RxApp.MainThreadScheduler);
+            BackToInteractionVideoStartCommand = ReactiveCommand.Create(BackToInteractionVideoStart, outputScheduler: RxApp.MainThreadScheduler);
 
             PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
