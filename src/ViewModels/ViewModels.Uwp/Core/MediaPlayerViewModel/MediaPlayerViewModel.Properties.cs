@@ -103,6 +103,11 @@ namespace Bili.ViewModels.Uwp.Core
         public DanmakuModuleViewModel DanmakuViewModel { get; }
 
         /// <summary>
+        /// 互动视频模块视图模型.
+        /// </summary>
+        public InteractionModuleViewModel InteractionViewModel { get; }
+
+        /// <summary>
         /// 播放器状态.
         /// </summary>
         [Reactive]
@@ -259,5 +264,23 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public double NextVideoCountdown { get; set; }
+
+        /// <summary>
+        /// 是否为互动视频.
+        /// </summary>
+        [Reactive]
+        public bool IsInteractionVideo { get; set; }
+
+        /// <summary>
+        /// 是否显示互动视频选项.
+        /// </summary>
+        [Reactive]
+        public bool IsShowInteractionChoices { get; set; }
+
+        /// <summary>
+        /// 互动视频是否已结束.
+        /// </summary>
+        [Reactive]
+        public bool IsInteractionEnd { get; set; }
     }
 }

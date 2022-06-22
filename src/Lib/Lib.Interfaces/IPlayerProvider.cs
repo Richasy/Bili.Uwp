@@ -175,7 +175,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="graphVersion">版本号.</param>
         /// <param name="edgeId">选区Id.</param>
         /// <returns>选区响应.</returns>
-        Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId);
+        Task<IEnumerable<InteractionInformation>> GetInteractionInformationsAsync(string videoId, string graphVersion, string edgeId);
 
         /// <summary>
         /// 获取视频的社区数据.

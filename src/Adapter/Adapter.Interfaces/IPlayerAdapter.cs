@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
 using Bilibili.Community.Service.Dm.V1;
@@ -52,5 +53,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="danmaku">弹幕条目.</param>
         /// <returns><see cref="DanmakuInformation"/>.</returns>
         DanmakuInformation ConvertToDanmakuInformation(DanmakuElem danmaku);
+
+        /// <summary>
+        /// 将互动选项 <see cref="InteractionChoice"/> 转换成互动条目信息.
+        /// </summary>
+        /// <param name="choice">互动选项.</param>
+        /// <param name="variables">关联变量.</param>
+        /// <returns><see cref="InteractionInformation"/>.</returns>
+        InteractionInformation ConvertToInteractionInformation(InteractionChoice choice, IEnumerable<InteractionHiddenVariable> variables);
     }
 }

@@ -407,7 +407,7 @@
                                 <Grid.RenderTransform>
                                     <TranslateTransform x:Name="ChoiceVertical" />
                                 </Grid.RenderTransform>
-                                <local:InteractionChoicePanel x:Name="ChoiceContainer" />
+                                <player:InteractionChoicePanel x:Name="ChoiceContainer" />
                             </Grid>
 
                             <Grid ColumnSpacing="12">

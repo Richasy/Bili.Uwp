@@ -41,6 +41,7 @@ namespace Bili.ViewModels.Uwp.Core
             NavigationViewModel navigationViewModel,
             SubtitleModuleViewModel subtitleModuleViewModel,
             DanmakuModuleViewModel danmakuModuleViewModel,
+            InteractionModuleViewModel interactionModuleViewModel,
             AppViewModel appViewModel,
             CoreDispatcher dispatcher,
             DisplayRequest displayRequest)
@@ -58,7 +59,9 @@ namespace Bili.ViewModels.Uwp.Core
             _displayRequest = displayRequest;
             SubtitleViewModel = subtitleModuleViewModel;
             DanmakuViewModel = danmakuModuleViewModel;
+            InteractionViewModel = interactionModuleViewModel;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
+            InteractionViewModel.NoMoreChoices += OnInteractionModuleNoMoreChoices;
 
             _liveConfig = new MediaSourceConfig();
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
@@ -78,6 +81,7 @@ namespace Bili.ViewModels.Uwp.Core
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShowNextVideoTipCommand = ReactiveCommand.Create<Action>(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
             PlayNextVideoCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
+            SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice, outputScheduler: RxApp.MainThreadScheduler);
 
             PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);

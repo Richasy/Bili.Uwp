@@ -35,6 +35,21 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task LoadVideoAsync()
         {
             var view = _viewData as VideoPlayerView;
+            IsInteractionVideo = view.InteractionVideo != null;
+            if (IsInteractionVideo)
+            {
+                if (!string.IsNullOrEmpty(view.InteractionVideo.PartId))
+                {
+                    _currentPart = view.SubVideos.FirstOrDefault(p => p.Id == view.InteractionVideo.PartId);
+                    InteractionViewModel.SetData(view.Information.Identifier.Id, view.InteractionVideo.NodeId, view.InteractionVideo.GraphVersion);
+                    view.InteractionVideo.PartId = default;
+                }
+                else
+                {
+                    InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
+                }
+            }
+
             if (string.IsNullOrEmpty(_currentPart.Id) || !view.SubVideos.Contains(_currentPart))
             {
                 _currentPart = view.SubVideos.First();
@@ -177,6 +192,25 @@ namespace Bili.ViewModels.Uwp.Core
             props.VideoProperties.Subtitle = string.Join(string.Empty, view.Information.Description.Take(20));
             props.VideoProperties.Genres.Add(_videoType.ToString());
             _playbackItem.ApplyDisplayProperties(props);
+        }
+
+        private void SelectInteractionChoice(InteractionInformation info)
+        {
+            IsShowInteractionChoices = false;
+            IsInteractionEnd = false;
+            if (_videoType != VideoType.Video)
+            {
+                return;
+            }
+
+            if (_viewData is not VideoPlayerView view || view.InteractionVideo == null)
+            {
+                return;
+            }
+
+            InteractionViewModel.SetData(info.PartId, info.Id, view.InteractionVideo.GraphVersion);
+            var part = view.SubVideos.FirstOrDefault(p => info.PartId == info.PartId);
+            ChangePartCommand.Execute(part).Subscribe();
         }
     }
 }

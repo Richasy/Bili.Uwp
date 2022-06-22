@@ -13,6 +13,8 @@
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.cs" />
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.Properties.cs" />
     <Compile Include="Base\PlayerPageViewModelBase.cs" />
+    <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.cs" />
+    <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.Proeprties.cs" />
     <Compile Include="Common\PlaybackRateItemViewModel.cs" />
     <Compile Include="Community\CommentDetailModuleViewModel\CommentDetailModuleViewModel.cs" />
     <Compile Include="Community\CommentDetailModuleViewModel\CommentDetailModuleViewModel.Properties.cs" />

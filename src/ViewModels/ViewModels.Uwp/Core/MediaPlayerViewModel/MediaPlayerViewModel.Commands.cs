@@ -135,5 +135,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// 降低音量命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> DecreaseVolumeCommand { get; }
+
+        /// <summary>
+        /// 选择选项命令.
+        /// </summary>
+        public ReactiveCommand<InteractionInformation, Unit> SelectInteractionChoiceCommand { get; }
     }
 }

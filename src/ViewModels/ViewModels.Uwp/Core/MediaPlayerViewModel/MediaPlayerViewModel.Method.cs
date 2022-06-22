@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bili.Models.Data.Video;
@@ -329,6 +330,19 @@ namespace Bili.ViewModels.Uwp.Core
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Status = PlayerStatus.End;
+                if (IsInteractionVideo)
+                {
+                    if (InteractionViewModel.Choices.Count == 1 && string.IsNullOrEmpty(InteractionViewModel.Choices.First().Text))
+                    {
+                        // 这是默认选项，直接切换.
+                        SelectInteractionChoiceCommand.Execute(InteractionViewModel.Choices.First());
+                    }
+                    else
+                    {
+                        IsShowInteractionChoices = true;
+                    }
+                }
+
                 MediaEnded?.Invoke(this, EventArgs.Empty);
             });
         }
@@ -459,5 +473,8 @@ namespace Bili.ViewModels.Uwp.Core
                 DisplayMode = PlayerDisplayMode.Default;
             }
         }
+
+        private void OnInteractionModuleNoMoreChoices(object sender, EventArgs e)
+            => IsInteractionEnd = true;
     }
 }

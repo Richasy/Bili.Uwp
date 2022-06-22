@@ -360,19 +360,25 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId)
+        public async Task<IEnumerable<InteractionInformation>> GetInteractionInformationsAsync(string videoId, string graphVersion, string edgeId)
         {
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.Aid, videoId.ToString() },
+                { Query.Aid, videoId },
                 { Query.GraphVersion, graphVersion },
-                { Query.EdgeId, edgeId.ToString() },
+                { Query.EdgeId, edgeId },
             };
 
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.InteractionEdge, queryParameters);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<InteractionEdgeResponse>>(response);
-            return result.Data;
+            if (result.Data?.Edges?.Questions?.Any() ?? false)
+            {
+                var choices = result.Data.Edges.Questions.First().Choices;
+                return choices.Select(p => _playerAdapter.ConvertToInteractionInformation(p, result.Data.HiddenVariables)).ToList();
+            }
+
+            return null;
         }
 
         /// <inheritdoc/>

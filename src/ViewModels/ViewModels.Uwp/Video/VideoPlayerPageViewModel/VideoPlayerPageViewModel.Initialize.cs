@@ -90,7 +90,7 @@ namespace Bili.ViewModels.Uwp.Video
             if (hasVideoParts)
             {
                 // 只有分P数大于1时才提供切换功能.
-                if (View.SubVideos.Count() > 1)
+                if (View.SubVideos.Count() > 1 && View.InteractionVideo == null)
                 {
                     Sections.Add(new PlayerSectionHeader(PlayerSectionType.VideoParts, _resourceToolkit.GetLocaleString(LanguageNames.Parts)));
                 }

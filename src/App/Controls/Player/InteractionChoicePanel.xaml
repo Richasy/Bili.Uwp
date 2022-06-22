@@ -1,13 +1,13 @@
-﻿<local:PlayerComponent
-    x:Class="Bili.App.Controls.InteractionChoicePanel"
+﻿<UserControl
+    x:Class="Bili.App.Controls.Player.InteractionChoicePanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bili="using:Bili.Models.BiliBili"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.Locator.Uwp"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:player="using:Bili.Models.Data.Player"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -16,8 +16,8 @@
         <muxc:ItemsRepeater
             x:Name="ChoiceRepeater"
             VerticalAlignment="Bottom"
-            ItemsSource="{x:Bind ViewModel.ChoiceCollection, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.IsShowChoice, Mode=OneWay}">
+            ItemsSource="{x:Bind ViewModel.InteractionViewModel.Choices}"
+            Visibility="{x:Bind ViewModel.IsShowInteractionChoices, Mode=OneWay}">
             <muxc:ItemsRepeater.Layout>
                 <muxc:UniformGridLayout
                     ItemsJustification="Center"
@@ -27,10 +27,10 @@
                     MinRowSpacing="12" />
             </muxc:ItemsRepeater.Layout>
             <muxc:ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="bili:InteractionChoice">
+                <DataTemplate x:DataType="player:InteractionInformation">
                     <local:CardPanel
                         Background="Transparent"
-                        Click="OnChoiceClickAsync"
+                        Click="OnChoiceClick"
                         DataContext="{x:Bind}">
                         <Grid
                             Padding="12,0"
@@ -43,9 +43,9 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 FontWeight="Bold"
-                                Text="{x:Bind Option}"
+                                Text="{x:Bind Text}"
                                 TextTrimming="CharacterEllipsis"
-                                ToolTipService.ToolTip="{x:Bind Option}" />
+                                ToolTipService.ToolTip="{x:Bind Text}" />
                         </Grid>
                     </local:CardPanel>
                 </DataTemplate>
@@ -58,7 +58,7 @@
             VerticalAlignment="Center"
             Background="{ThemeResource MediaTransportControlsPanelBackground}"
             CornerRadius="{StaticResource OverlayCornerRadius}"
-            Visibility="{x:Bind ViewModel.IsShowInteractionEnd, Mode=OneWay}">
+            Visibility="{x:Bind ViewModel.IsInteractionEnd, Mode=OneWay}">
             <TextBlock
                 MaxWidth="300"
                 HorizontalAlignment="Center"
@@ -68,4 +68,4 @@
                 TextWrapping="Wrap" />
         </Grid>
     </Grid>
-</local:PlayerComponent>
+</UserControl>

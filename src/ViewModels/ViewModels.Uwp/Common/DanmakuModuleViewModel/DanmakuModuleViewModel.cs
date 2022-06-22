@@ -80,6 +80,11 @@ namespace Bili.ViewModels.Uwp.Common
 
         private async Task ReloadAsync()
         {
+            if (IsReloading)
+            {
+                return;
+            }
+
             Reset();
             await LoadSegmentDanmakuAsync(1);
         }

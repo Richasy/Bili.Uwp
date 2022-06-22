@@ -108,6 +108,6 @@ namespace Bili.Controller.Uwp
         /// <param name="edgeId">选区Id.</param>
         /// <returns>选区响应.</returns>
         public Task<InteractionEdgeResponse> GetInteractionEdgeAsync(long videoId, string graphVersion, long edgeId)
-            => _playerProvider.GetInteractionEdgeAsync(videoId, graphVersion, edgeId);
+            => Task.FromResult(new InteractionEdgeResponse());
     }
 }

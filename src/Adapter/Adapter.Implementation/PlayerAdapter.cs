@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
@@ -64,5 +67,27 @@ namespace Bili.Adapter
                 danmaku.Progress / 1000.0,
                 danmaku.Color,
                 danmaku.Fontsize);
+
+        /// <inheritdoc/>
+        public InteractionInformation ConvertToInteractionInformation(InteractionChoice choice, IEnumerable<InteractionHiddenVariable> variables)
+        {
+            var id = choice.Id.ToString();
+            var condition = choice.Condition ?? string.Empty;
+            var partId = choice.PartId.ToString();
+            var text = choice.Option;
+            var isValid = true;
+
+            if (!string.IsNullOrEmpty(condition) && variables != null)
+            {
+                var v = variables.FirstOrDefault(p => condition.Contains(p.Id));
+                var minString = Regex.Match(condition, ">=([0-9]{1,}[.][0-9]*)").Value.Replace(">=", string.Empty);
+                var maxString = Regex.Match(condition, "<=([0-9]{1,}[.][0-9]*)").Value.Replace("<=", string.Empty);
+                var min = string.IsNullOrEmpty(minString) ? 0 : Convert.ToDouble(minString);
+                var max = string.IsNullOrEmpty(maxString) ? -1 : Convert.ToDouble(maxString);
+                isValid = v != null && v.Value >= min && (max == -1 || v.Value <= max);
+            }
+
+            return new InteractionInformation(id, condition, partId, text, isValid);
+        }
     }
 }
