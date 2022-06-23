@@ -292,7 +292,7 @@
                                 Text="{loc:LocaleLocator Name=Download}" />
                             <Button.Flyout>
                                 <Flyout>
-                                    <controls:DownloadOptionsPanel />
+                                    <player:DownloadOptionsPanel ViewModel="{x:Bind ViewModel.DownloadViewModel}" />
                                 </Flyout>
                             </Button.Flyout>
                         </Button>

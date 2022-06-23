@@ -57,7 +57,9 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void InitializeInterop()
         {
-            // TODO: 初始化下载内容.
+            var downloadParam = View.Information.Identifier.Id;
+            var downloadParts = Episodes.Select((_, index) => index + 1).ToList();
+            DownloadViewModel.SetData(downloadParam, downloadParts);
             IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
             var fixedItems = _accountViewModel.FixedItemCollection;
             IsVideoFixed = fixedItems.Any(p => p.Type == Models.Enums.App.FixedType.Pgc && p.Id == View.Information.Identifier.Id);

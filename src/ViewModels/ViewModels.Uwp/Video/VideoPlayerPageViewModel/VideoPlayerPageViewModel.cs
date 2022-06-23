@@ -12,6 +12,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -40,6 +41,7 @@ namespace Bili.ViewModels.Uwp.Video
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
+            DownloadModuleViewModel downloadViewModel,
             CoreDispatcher dispatcher)
             : base(playerViewModel)
         {
@@ -62,8 +64,10 @@ namespace Bili.ViewModels.Uwp.Video
             Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
             RelatedVideos = new ObservableCollection<VideoItemViewModel>();
             VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
-            Seasons = new ObservableCollection<Models.Data.Video.VideoSeason>();
+            Seasons = new ObservableCollection<VideoSeason>();
             CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
+
+            DownloadViewModel = downloadViewModel;
 
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
@@ -132,8 +136,8 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();
-            InitializeInterop();
             InitializeSections();
+            InitializeInterop();
 
             MediaPlayerViewModel.SetVideoData(View);
         }

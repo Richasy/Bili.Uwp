@@ -4,7 +4,7 @@ using CommandLine;
 
 namespace Bili.ViewModels.Uwp
 {
-    internal class CommandLineViewModel
+    internal sealed class CommandLineViewModel
     {
         /// <summary>
         /// 页面Id.

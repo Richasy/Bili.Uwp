@@ -7,6 +7,7 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Video;
@@ -147,6 +148,11 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 演员集合.
         /// </summary>
         public ObservableCollection<UserItemViewModel> Celebrities { get; }
+
+        /// <summary>
+        /// 下载模块视图模型.
+        /// </summary>
+        public DownloadModuleViewModel DownloadViewModel { get; }
 
         /// <summary>
         /// 视图信息.

@@ -9,6 +9,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -154,6 +155,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// 当前合集下的视频列表.
         /// </summary>
         public ObservableCollection<VideoItemViewModel> CurrentSeasonVideos { get; set; }
+
+        /// <summary>
+        /// 下载模块视图模型.
+        /// </summary>
+        public DownloadModuleViewModel DownloadViewModel { get; }
 
         /// <summary>
         /// 视图信息.

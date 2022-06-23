@@ -57,6 +57,7 @@ namespace Bili.ViewModels.Uwp.Core
             await InitializeEpisodeMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillEpisodePlaybackProperties();
+            CheckEpisodeHistory();
         }
 
         private void CheckEpisodeHistory()

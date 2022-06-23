@@ -10,27 +10,35 @@ using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 下载配置视图模型.
     /// </summary>
-    public class DownloadViewModel : ViewModelBase
+    public sealed partial class DownloadModuleViewModel : ViewModelBase
     {
-        private readonly ISettingsToolkit _settingsToolkit;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="DownloadViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DownloadModuleViewModel"/> class.
         /// </summary>
-        protected DownloadViewModel()
+        public DownloadModuleViewModel(
+            ISettingsToolkit settingsToolkit,
+            IResourceToolkit resourceToolkit,
+            AppViewModel appViewModel,
+            AccountViewModel accountViewModel)
         {
+            _settingsToolkit = settingsToolkit;
+            _resourceToolkit = resourceToolkit;
+            _appViewModel = appViewModel;
+            _accountViewModel = accountViewModel;
             TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
-            ServiceLocator.Instance.LoadService(out _settingsToolkit);
+
+            ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SaveDownloadTextCommand = ReactiveCommand.CreateFromTask(SaveDownloadCommandAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             UseMp4Box = ReadSetting(SettingNames.Download_UseMp4Box, false);
             OnlyHevc = ReadSetting(SettingNames.Download_OnlyHevc, false);
@@ -81,124 +89,13 @@ namespace Bili.ViewModels.Uwp
         }
 
         /// <summary>
-        /// 实例.
-        /// </summary>
-        public static DownloadViewModel Instance { get; } = new Lazy<DownloadViewModel>(() => new DownloadViewModel()).Value;
-
-        /// <summary>
-        /// 下载参数.
-        /// </summary>
-        public string DownloadParameter { get; set; }
-
-        /// <summary>
-        /// 使用MP4Box来混流.
-        /// </summary>
-        [Reactive]
-        public bool UseMp4Box { get; set; }
-
-        /// <summary>
-        /// 仅下载HEVC源.
-        /// </summary>
-        [Reactive]
-        public bool OnlyHevc { get; set; }
-
-        /// <summary>
-        /// 仅下载AVC源.
-        /// </summary>
-        [Reactive]
-        public bool OnlyAvc { get; set; }
-
-        /// <summary>
-        /// 是否仅下载音频.
-        /// </summary>
-        [Reactive]
-        public bool OnlyAudio { get; set; }
-
-        /// <summary>
-        /// 是否仅下载视频.
-        /// </summary>
-        [Reactive]
-        public bool OnlyVideo { get; set; }
-
-        /// <summary>
-        /// 是否仅下载字幕.
-        /// </summary>
-        [Reactive]
-        public bool OnlySubtitle { get; set; }
-
-        /// <summary>
-        /// 使用多线程.
-        /// </summary>
-        [Reactive]
-        public bool UseMultiThread { get; set; }
-
-        /// <summary>
-        /// 使用TV接口.
-        /// </summary>
-        [Reactive]
-        public bool UseTvInterface { get; set; }
-
-        /// <summary>
-        /// 使用App接口.
-        /// </summary>
-        [Reactive]
-        public bool UseAppInterface { get; set; }
-
-        /// <summary>
-        /// 使用国际版接口.
-        /// </summary>
-        [Reactive]
-        public bool UseInternationalInterface { get; set; }
-
-        /// <summary>
-        /// 是否下载弹幕.
-        /// </summary>
-        [Reactive]
-        public bool DownloadDanmaku { get; set; }
-
-        /// <summary>
-        /// 下载文件夹.
-        /// </summary>
-        [Reactive]
-        public string DownloadFolder { get; set; }
-
-        /// <summary>
-        /// 使用分P前缀.
-        /// </summary>
-        [Reactive]
-        public bool UsePartPerfix { get; set; }
-
-        /// <summary>
-        /// 使用分P后缀.
-        /// </summary>
-        [Reactive]
-        public bool UseQualitySuffix { get; set; }
-
-        /// <summary>
-        /// 使用交互式清晰度选择.
-        /// </summary>
-        [Reactive]
-        public bool UseInteractionQuality { get; set; }
-
-        /// <summary>
-        /// 全部分P集合.
-        /// </summary>
-        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; }
-
-        /// <summary>
-        /// 是否显示分P.
-        /// </summary>
-        [Reactive]
-        public bool IsShowPart { get; set; }
-
-        /// <summary>
         /// 加载.
         /// </summary>
-        /// <param name="downloadUrl">下载地址.</param>
+        /// <param name="downloadParam">下载参数标识，比如视频 Id.</param>
         /// <param name="partList">分集列表.</param>
-        public void Load(string downloadUrl, List<int> partList)
+        public void SetData(string downloadParam, IEnumerable<int> partList)
         {
-            DownloadParameter = downloadUrl;
+            DownloadParameter = downloadParam;
             TotalPartCollection.Clear();
             foreach (var item in partList)
             {
@@ -212,7 +109,7 @@ namespace Bili.ViewModels.Uwp
         /// 设置下载文件夹.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task SetDownloadFolderAsync()
+        public async Task ChangeSaveLocationAsync()
         {
             var folderPicker = new FolderPicker
             {
@@ -232,14 +129,20 @@ namespace Bili.ViewModels.Uwp
         /// 创建下载命令.
         /// </summary>
         /// <returns>下载命令.</returns>
-        public async Task<string> CreateDownloadCommandAsync()
+        public async Task SaveDownloadCommandAsync()
         {
+            if (TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && TotalPartCollection.Count > 1)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
             var list = new List<string>
             {
                 "BBDown",
             };
 
-            if (Splat.Locator.Current.GetService<AccountViewModel>().State == AuthorizeState.SignedIn)
+            if (_accountViewModel.State == AuthorizeState.SignedIn)
             {
                 var authProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>();
                 var token = await authProvider.GetTokenAsync();
@@ -331,7 +234,12 @@ namespace Bili.ViewModels.Uwp
 
             list.Add($"\"{DownloadParameter}\"");
 
-            return string.Join(' ', list);
+            var command = string.Join(' ', list);
+            var dp = new DataPackage();
+            dp.SetText(command);
+            Clipboard.SetContent(dp);
+
+            _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.Copied));
         }
 
         private void WriteSetting<T>(SettingNames name, T value)

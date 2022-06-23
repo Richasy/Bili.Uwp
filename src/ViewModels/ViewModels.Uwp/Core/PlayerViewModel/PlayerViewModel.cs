@@ -805,8 +805,6 @@ namespace Bili.ViewModels.Uwp.Core
 
                 partList = VideoPartCollection.Select((_, index) => index + 1).ToList();
             }
-
-            DownloadViewModel.Instance.Load(para, partList);
         }
 
         /// <summary>

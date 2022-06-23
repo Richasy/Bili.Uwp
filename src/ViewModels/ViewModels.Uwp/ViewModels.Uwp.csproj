@@ -13,6 +13,7 @@
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.cs" />
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.Properties.cs" />
     <Compile Include="Base\PlayerPageViewModelBase.cs" />
+    <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.Properties.cs" />
     <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.cs" />
     <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.Proeprties.cs" />
     <Compile Include="Common\PlaybackRateItemViewModel.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.Properties.cs" />
     <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.cs" />
     <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.Properties.cs" />
-    <Compile Include="Common\DownloadViewModel.cs" />
+    <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.cs" />
     <Compile Include="Core\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />

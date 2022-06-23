@@ -74,7 +74,11 @@ namespace Bili.ViewModels.Uwp.Video
 
         private void InitializeInterop()
         {
-            // TODO: 初始化下载内容.
+            var downloadParam = string.IsNullOrEmpty(View.Information.AlternateId)
+                ? $"av{View.Information.Identifier.Id}"
+                : View.Information.AlternateId;
+            var downloadParts = VideoParts.Select((_, index) => index + 1).ToList();
+            DownloadViewModel.SetData(downloadParam, downloadParts);
             IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);
             var fixedItems = _accountViewModel.FixedItemCollection;
             IsVideoFixed = fixedItems.Any(p => p.Type == Models.Enums.App.FixedType.Video && p.Id == View.Information.Identifier.Id);

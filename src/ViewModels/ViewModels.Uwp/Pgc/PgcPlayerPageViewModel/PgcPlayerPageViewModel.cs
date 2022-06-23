@@ -13,6 +13,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Video;
@@ -43,6 +44,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
+            DownloadModuleViewModel downloadViewModel,
             CoreDispatcher dispatcher)
             : base(playerViewModel)
         {
@@ -66,6 +68,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             Seasons = new ObservableCollection<VideoIdentifierSelectableViewModel>();
             Extras = new ObservableCollection<PgcExtraItemViewModel>();
             Celebrities = new ObservableCollection<UserItemViewModel>();
+
+            DownloadViewModel = downloadViewModel;
 
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
@@ -152,8 +156,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();
-            InitializeInterop();
             InitializeSections();
+            InitializeInterop();
 
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
         }

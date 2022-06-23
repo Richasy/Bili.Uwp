@@ -133,6 +133,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<SubtitleModuleViewModel>();
             SplatRegistrations.Register<DanmakuModuleViewModel>();
             SplatRegistrations.Register<InteractionModuleViewModel>();
+            SplatRegistrations.Register<DownloadModuleViewModel>();
             SplatRegistrations.Register<MediaPlayerViewModel>();
             SplatRegistrations.SetupIOC();
         }
