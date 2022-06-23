@@ -35,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Core
                 ? _currentPlayline.Quality
                 : 150;
 
+            Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
             DanmakuViewModel.SetData(view.Information.Identifier.Id, default, _videoType);
             _liveMediaInformation = await _liveProvider.GetLiveMediaInformationAsync(view.Information.Identifier.Id, quality, IsLiveAudioOnly);
 

@@ -35,7 +35,7 @@ namespace Bili.App.Controls.Player
         {
             ChangeVisualStateFromStatus();
             ChangeVisualStateFromDisplayMode();
-            _playPauseButton.Focus(FocusState.Programmatic);
+            _playPauseButton?.Focus(FocusState.Programmatic);
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace Bili.App.Controls.Player
             }
             else if (e.PropertyName == nameof(ViewModel.IsShowMediaTransport))
             {
-                _playPauseButton.Focus(FocusState.Programmatic);
+                _playPauseButton?.Focus(FocusState.Programmatic);
             }
         }
 

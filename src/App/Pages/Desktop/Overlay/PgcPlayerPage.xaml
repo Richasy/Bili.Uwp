@@ -305,6 +305,7 @@
                     <player:PgcSeasonView x:Name="SeasonView" Visibility="{x:Bind ViewModel.IsShowSeasons, Mode=OneWay}" />
                     <player:PgcExtraView x:Name="ExtraView" Visibility="{x:Bind ViewModel.IsShowExtras, Mode=OneWay}" />
                     <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
+                    <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoEpisode}" Visibility="{x:Bind ViewModel.IsSectionsEmpty, Mode=OneWay}" />
                 </Grid>
             </player:PlayerPagePanel.SectionContent>
         </player:PlayerPagePanel>

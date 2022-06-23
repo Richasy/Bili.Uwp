@@ -59,6 +59,7 @@
             <converter:RelationButtonStyleConverter x:Key="RelationButtonStyleConverter" />
             <converter:FixedContentConverter x:Key="FixedContentConverter" />
             <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
+            <converter:ImageConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -133,13 +133,16 @@ namespace Bili.ViewModels.Uwp.Pgc
                 View.Extras.ToList().ForEach(p => Extras.Add(new PgcExtraItemViewModel(p.Key, p.Value, currentId)));
             }
 
-            // 评论区常显，但位于最后一个.
-            Sections.Add(new PlayerSectionHeader(PlayerSectionType.Comments, _resourceToolkit.GetLocaleString(LanguageNames.Reply)));
-            _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
+            if (CurrentEpisode != null)
+            {
+                Sections.Add(new PlayerSectionHeader(PlayerSectionType.Comments, _resourceToolkit.GetLocaleString(LanguageNames.Reply)));
+                _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
+            }
 
+            IsSectionsEmpty = Sections.Count == 0;
             CurrentSection = isShowExtraSection
                 ? Sections.FirstOrDefault(p => p.Type == PlayerSectionType.Extras)
-                : Sections.First();
+                : Sections.FirstOrDefault();
         }
     }
 }

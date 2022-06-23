@@ -10,117 +10,150 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaPlayer">
-                    <Grid x:Name="RootGrid">
-                        <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
-                        <Grid x:Name="DanmakuContainer">
-                            <danmaku:DanmakuView
-                                x:Name="DanmakuView"
+                    <Grid>
+                        <Grid x:Name="RootGrid" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
+                            <Grid x:Name="DanmakuContainer">
+                                <danmaku:DanmakuView
+                                    x:Name="DanmakuView"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    ProgressPosition="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}"
+                                    ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                            </Grid>
+                            <Rectangle
+                                x:Name="InteractionControl"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                ProgressPosition="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}"
-                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                                Fill="Transparent" />
+                            <muxc:ProgressRing
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsBuffering}" />
+                            <Grid RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid
+                                    Padding="12,0"
+                                    VerticalAlignment="Bottom"
+                                    ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid
+                                        x:Name="TempMessageContainer"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Visibility="Collapsed">
+                                        <Grid
+                                            x:Name="TempMessageGrid"
+                                            Padding="16,8"
+                                            Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock
+                                                x:Name="TempMessageBlock"
+                                                MaxWidth="320"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </Grid>
+                                    <controls:PlayerTip
+                                        x:Name="PreviousViewInformer"
+                                        Title="{loc:LocaleLocator Name=ViewHistory}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
+
+                                    <controls:PlayerTip
+                                        x:Name="NextVideoInformer"
+                                        Title="{loc:LocaleLocator Name=PlayNextVideo}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        ActionContent="{loc:LocaleLocator Name=PlayNow}"
+                                        AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextVideoCommand}"
+                                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
+                                        Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
+                                </Grid>
+
+                                <local:InteractionChoicePanel
+                                    x:Name="ChoiceContainer"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionVideo, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                                <Grid Grid.Row="2" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
+                                    <Grid
+                                        x:Name="SubtitleContainer"
+                                        Margin="24,4"
+                                        HorizontalAlignment="Center"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CanShowSubtitle}">
+                                        <Grid
+                                            Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                            <TextBlock
+                                                x:Name="SubtitleBlock"
+                                                MaxWidth="1200"
+                                                Margin="16,8"
+                                                HorizontalAlignment="Center"
+                                                FontSize="22"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+
+                                <local:BiliMediaTransportControls
+                                    x:Name="MediaTransportControls"
+                                    Grid.Row="3"
+                                    Margin="12"
+                                    TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    ViewModel="{TemplateBinding ViewModel}" />
+                            </Grid>
                         </Grid>
-                        <Rectangle
-                            x:Name="InteractionControl"
+                        <Grid
+                            x:Name="PlayErrorContainer"
+                            MinHeight="200"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Fill="Transparent" />
-                        <muxc:ProgressRing
-                            Width="40"
-                            Height="40"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            IsActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsBuffering}" />
-                        <Grid RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Grid
-                                Padding="12,0"
-                                VerticalAlignment="Bottom"
-                                ColumnSpacing="12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid
-                                    x:Name="TempMessageContainer"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Visibility="Collapsed">
-                                    <Grid
-                                        x:Name="TempMessageGrid"
-                                        Padding="16,8"
-                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                        CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <TextBlock
-                                            x:Name="TempMessageBlock"
-                                            MaxWidth="320"
-                                            TextWrapping="Wrap" />
-                                    </Grid>
-                                </Grid>
-                                <controls:PlayerTip
-                                    x:Name="PreviousViewInformer"
-                                    Title="{loc:LocaleLocator Name=ViewHistory}"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Right"
-                                    ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
-                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
-                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
-                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
-
-                                <controls:PlayerTip
-                                    x:Name="NextVideoInformer"
-                                    Title="{loc:LocaleLocator Name=PlayNextVideo}"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Right"
-                                    ActionContent="{loc:LocaleLocator Name=PlayNow}"
-                                    AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
-                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextVideoCommand}"
-                                    IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
-                                    Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
-                            </Grid>
-
-                            <local:InteractionChoicePanel
-                                x:Name="ChoiceContainer"
-                                Grid.Row="1"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            CornerRadius="{StaticResource OverlayCornerRadius}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}">
+                            <StackPanel
+                                Padding="20,12"
                                 HorizontalAlignment="Center"
-                                ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionVideo, Converter={StaticResource BoolToVisibilityConverter}}" />
-
-                            <Grid Grid.Row="2" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
-                                <Grid
-                                    x:Name="SubtitleContainer"
-                                    Margin="24,4"
+                                VerticalAlignment="Center"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                CornerRadius="{StaticResource OverlayCornerRadius}"
+                                Spacing="8">
+                                <Image
+                                    Width="120"
                                     HorizontalAlignment="Center"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CanShowSubtitle}">
-                                    <Grid
-                                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                                        CornerRadius="{StaticResource OverlayCornerRadius}"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                        <TextBlock
-                                            x:Name="SubtitleBlock"
-                                            MaxWidth="1200"
-                                            Margin="16,8"
-                                            HorizontalAlignment="Center"
-                                            FontSize="22"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.CurrentSubtitle}"
-                                            TextTrimming="CharacterEllipsis"
-                                            TextWrapping="Wrap" />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-
-                            <local:BiliMediaTransportControls
-                                x:Name="MediaTransportControls"
-                                Grid.Row="3"
-                                Margin="12"
-                                TransportVisibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowMediaTransport, Converter={StaticResource BoolToVisibilityConverter}}"
-                                ViewModel="{TemplateBinding ViewModel}" />
+                                    Source="ms-appx:///Assets/ERROR_rgba.png"
+                                    Stretch="Uniform" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ErrorText}"
+                                    TextAlignment="Center" />
+                                <Button
+                                    x:Name="RefreshButton"
+                                    HorizontalAlignment="Center"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
+                                    Content="{loc:LocaleLocator Name=Refresh}" />
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </ControlTemplate>

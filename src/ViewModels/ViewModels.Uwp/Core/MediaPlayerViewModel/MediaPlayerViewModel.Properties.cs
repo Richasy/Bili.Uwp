@@ -32,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IFileToolkit _fileToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly INumberToolkit _numberToolkit;
+        private readonly IAppToolkit _appToolkit;
         private readonly AccountViewModel _accountViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AppViewModel _appViewModel;
@@ -294,5 +295,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsMediaPause { get; set; }
+
+        /// <summary>
+        /// 视频封面.
+        /// </summary>
+        [Reactive]
+        public string Cover { get; set; }
     }
 }

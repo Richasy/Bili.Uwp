@@ -17,6 +17,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task ChangeEpisodeAsync(VideoIdentifier identifier)
         {
             var view = _viewData as PgcPlayerView;
+            Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
             if (string.IsNullOrEmpty(identifier.Id))
             {
                 return;
@@ -73,7 +74,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task InitializeEpisodeMediaInformationAsync()
         {
             var view = _viewData as PgcPlayerView;
-            var proxy = GetProxyAndArea(view.Information.Identifier.Title, true);
+            var proxy = _appToolkit.GetProxyAndArea(view.Information.Identifier.Title, true);
             _mediaInformation = await _playerProvider.GetPgcMediaInformationAsync(
                 _currentEpisode.PartId,
                 _currentEpisode.Identifier.Id,

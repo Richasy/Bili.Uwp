@@ -37,6 +37,7 @@ namespace Bili.ViewModels.Uwp.Core
             IFileToolkit fileToolkit,
             ISettingsToolkit settingsToolkit,
             INumberToolkit numberToolkit,
+            IAppToolkit appToolkit,
             AccountViewModel accountViewModel,
             NavigationViewModel navigationViewModel,
             SubtitleModuleViewModel subtitleModuleViewModel,
@@ -52,6 +53,7 @@ namespace Bili.ViewModels.Uwp.Core
             _fileToolkit = fileToolkit;
             _settingsToolkit = settingsToolkit;
             _numberToolkit = numberToolkit;
+            _appToolkit = appToolkit;
             _accountViewModel = accountViewModel;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
@@ -196,11 +198,15 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         /// <inheritdoc/>
-        public void DisplayException(Exception exception)
+        public async void DisplayException(Exception exception)
         {
-            IsError = true;
-            var msg = GetErrorMessage(exception);
-            ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed)}\n{msg}";
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                IsError = true;
+                var msg = GetErrorMessage(exception);
+                ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed)}\n{msg}";
+            });
+
             LogException(exception);
         }
 

@@ -35,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task LoadVideoAsync()
         {
             var view = _viewData as VideoPlayerView;
+            Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
             IsInteractionVideo = view.InteractionVideo != null;
             if (string.IsNullOrEmpty(_currentPart.Id))
             {

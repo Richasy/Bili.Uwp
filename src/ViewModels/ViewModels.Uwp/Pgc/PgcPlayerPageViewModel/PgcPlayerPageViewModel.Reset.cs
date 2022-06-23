@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Threading.Tasks;
+
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
@@ -13,15 +16,19 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsShowCelebrities = false;
         }
 
-        private void ResetOperation()
+        private async Task ResetOperationAsync()
         {
             IsLiked = false;
             IsCoined = false;
             IsFavorited = false;
             IsTracking = false;
-            FavoriteFolders.Clear();
             FavoriteFoldersErrorText = default;
             IsFavoriteFoldersError = false;
+
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                FavoriteFolders.Clear();
+            });
         }
 
         private void ResetCommunityInformation()

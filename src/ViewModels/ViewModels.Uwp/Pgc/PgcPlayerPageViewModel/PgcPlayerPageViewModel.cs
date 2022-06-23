@@ -37,6 +37,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
+            IAppToolkit appToolkit,
             AppViewModel appViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
@@ -52,6 +53,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
+            _appToolkit = appToolkit;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
@@ -79,7 +81,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
             FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
+            ClearCommand = ReactiveCommand.CreateFromTask(ResetAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync, outputScheduler: RxApp.MainThreadScheduler);
 
@@ -111,17 +113,18 @@ namespace Bili.ViewModels.Uwp.Pgc
             _presetSeasonId = string.IsNullOrEmpty(snapshot.SeasonId)
                 ? "0"
                 : snapshot.SeasonId;
+            _presetTitle = snapshot.Title;
             _needBiliPlus = snapshot.NeedBiliPlus;
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
             ReloadCommand.Execute().Subscribe();
         }
 
-        private void Reset()
+        private async Task ResetAsync()
         {
             View = null;
             MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetOverview();
-            ResetOperation();
+            await ResetOperationAsync();
             ResetCommunityInformation();
             ResetInterop();
             ResetSections();
@@ -129,7 +132,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private async Task GetDataAsync()
         {
-            Reset();
+            await ResetAsync();
             if (_needBiliPlus && !string.IsNullOrEmpty(_presetEpisodeId))
             {
                 var data = await _pgcProvider.GetBiliPlusBangumiInformationAsync(_presetEpisodeId);
@@ -143,7 +146,8 @@ namespace Bili.ViewModels.Uwp.Pgc
                 }
             }
 
-            View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId);
+            var proxyPack = _appToolkit.GetProxyAndArea(_presetTitle, false);
+            View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId, proxyPack.Item1, proxyPack.Item2);
 
             InitializeOverview();
             InitializeOperation();

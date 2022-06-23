@@ -27,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IAppToolkit _appToolkit;
         private readonly IPgcProvider _pgcProvider;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
@@ -38,6 +39,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private string _presetEpisodeId;
         private string _presetSeasonId;
+        private string _presetTitle;
         private bool _needBiliPlus;
 
         /// <inheritdoc/>
@@ -303,5 +305,11 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// </summary>
         [Reactive]
         public bool IsShowExtras { get; set; }
+
+        /// <summary>
+        /// 可选分区是否为空.
+        /// </summary>
+        [Reactive]
+        public bool IsSectionsEmpty { get; set; }
     }
 }

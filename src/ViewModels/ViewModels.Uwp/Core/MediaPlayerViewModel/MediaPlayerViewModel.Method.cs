@@ -205,40 +205,6 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private Tuple<string, string> GetProxyAndArea(string title, bool isVideo)
-        {
-            var proxy = string.Empty;
-            var area = string.Empty;
-
-            var isOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
-            var localProxy = isVideo
-                ? _settingsToolkit.ReadLocalSetting(SettingNames.RoamingVideoAddress, string.Empty)
-                : _settingsToolkit.ReadLocalSetting(SettingNames.RoamingViewAddress, string.Empty);
-            if (isOpenRoaming && !string.IsNullOrEmpty(localProxy))
-            {
-                if (!string.IsNullOrEmpty(title))
-                {
-                    if (Regex.IsMatch(title, @"僅.*港.*地區"))
-                    {
-                        area = "hk";
-                    }
-                    else if (Regex.IsMatch(title, @"僅.*台.*地區"))
-                    {
-                        area = "tw";
-                    }
-                }
-
-                var isForceProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
-                if ((isForceProxy && string.IsNullOrEmpty(area))
-                    || !string.IsNullOrEmpty(area))
-                {
-                    proxy = localProxy;
-                }
-            }
-
-            return new Tuple<string, string>(proxy, area);
-        }
-
         private void InitializeDisplayModeText()
         {
             FullScreenText = DisplayMode == PlayerDisplayMode.FullScreen

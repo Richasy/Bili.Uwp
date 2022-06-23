@@ -169,7 +169,6 @@
                                     Visibility="{x:Bind ViewModel.Author.IsRelationButtonShown, Mode=OneWay}" />
                             </StackPanel>
                         </StackPanel>
-
                         <StackPanel
                             x:Name="StaffContainer"
                             Margin="0,0,0,8"
@@ -217,7 +216,6 @@
                             </muxc:ItemsRepeater>
                         </StackPanel>
                     </Grid>
-
 
                     <StackPanel
                         Grid.Row="1"

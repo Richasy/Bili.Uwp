@@ -249,8 +249,7 @@
                                     AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}"
-                                    Visibility="{TemplateBinding IsForwardSkipButtonVisible}">
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="SkipForward3020" />
                                     </Button.Content>
@@ -308,7 +307,7 @@
                                         x:Name="InteractionProgressSlider"
                                         Margin="0,-4"
                                         HorizontalAlignment="Stretch"
-                                        IsThumbToolTipEnabled="True" />
+                                        IsThumbToolTipEnabled="False" />
                                 </StackPanel>
                             </Grid>
 
