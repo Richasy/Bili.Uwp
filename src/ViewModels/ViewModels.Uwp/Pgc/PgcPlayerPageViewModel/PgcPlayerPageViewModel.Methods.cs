@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
+using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
@@ -56,6 +58,56 @@ namespace Bili.ViewModels.Uwp.Pgc
             ReloadInteractionInformationCommand.Execute().Subscribe();
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
             _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
+            CreatePlayNextAction();
+        }
+
+        private void CreatePlayNextAction()
+        {
+            _playNextEpisodeAction = null;
+
+            // 当前分集为空时不处理.
+            if (CurrentEpisode == null)
+            {
+                return;
+            }
+
+            MediaPlayerViewModel.CanPlayNextPart = CurrentEpisode.IsPreviewVideo
+                ? Episodes.LastOrDefault()?.Equals(CurrentEpisode) ?? false
+                : Extras.LastOrDefault()?.Equals(CurrentEpisode) ?? false;
+
+            EpisodeInformation nextPart = default;
+            var isPreview = CurrentEpisode.IsPreviewVideo;
+            if (!isPreview && Sections.Any(p => p.Type == PlayerSectionType.Episodes))
+            {
+                var canContinue = Episodes.Count > 1 && CurrentEpisode != Episodes.Last().Information;
+                if (canContinue)
+                {
+                    nextPart = Episodes.FirstOrDefault(p => p.Information.Index == CurrentEpisode.Index + 1)?.Information;
+                }
+            }
+            else if (isPreview && Sections.Any(p => p.Type == PlayerSectionType.Extras))
+            {
+                var extras = Extras.SelectMany(p => p.Episodes).ToList();
+                var index = extras.IndexOf(extras.FirstOrDefault(p => p.Equals(CurrentEpisode)));
+                var canContinue = index != -1 && extras.Count > 1 && CurrentEpisode != extras.Last().Information;
+                if (canContinue)
+                {
+                    nextPart = extras[index + 1].Information;
+                }
+            }
+
+            if (nextPart == null)
+            {
+                return;
+            }
+
+            MediaPlayerViewModel.NextVideoTipText = nextPart.Identifier.Title;
+            _playNextEpisodeAction = () =>
+            {
+                SelectEpisode(nextPart);
+            };
+
+            MediaPlayerViewModel.SetPlayNextAction(_playNextEpisodeAction);
         }
 
         private void ShowSeasonDetail()
@@ -95,6 +147,24 @@ namespace Bili.ViewModels.Uwp.Pgc
             request.Data.SetText(View.Information.Description);
             request.Data.SetWebLink(new Uri(url));
             request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri()));
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            if (_playNextEpisodeAction == null)
+            {
+                return;
+            }
+
+            var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
+            if (isContinue)
+            {
+                _playNextEpisodeAction?.Invoke();
+            }
+            else
+            {
+                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
+            }
         }
     }
 }

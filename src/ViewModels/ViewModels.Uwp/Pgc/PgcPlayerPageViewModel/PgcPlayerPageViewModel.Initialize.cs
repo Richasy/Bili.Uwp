@@ -141,6 +141,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
             }
 
+            CreatePlayNextAction();
             IsSectionsEmpty = Sections.Count == 0;
             CurrentSection = isShowExtraSection
                 ? Sections.FirstOrDefault(p => p.Type == PlayerSectionType.Extras)

@@ -81,7 +81,7 @@
                                         HorizontalAlignment="Right"
                                         ActionContent="{loc:LocaleLocator Name=PlayNow}"
                                         AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextVideoCommand}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextCommand}"
                                         IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
                                         Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoTipText}" />
                                 </Grid>

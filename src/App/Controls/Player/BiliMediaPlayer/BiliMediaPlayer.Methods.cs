@@ -71,6 +71,8 @@ namespace Bili.App.Controls.Player
             {
                 ViewModel.IsShowMediaTransport = false;
             }
+
+            _transportStayTime = 0;
         }
 
         private void HandleCursorAutoHide()
@@ -99,7 +101,7 @@ namespace Bili.App.Controls.Player
                 _nextVideoStayTime = 0;
                 ViewModel.NextVideoCountdown = 0;
                 ViewModel.IsShowNextVideoTip = false;
-                ViewModel.PlayNextVideoCommand.Execute().Subscribe();
+                ViewModel.PlayNextCommand.Execute().Subscribe();
             }
             else
             {

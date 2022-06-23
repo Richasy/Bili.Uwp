@@ -44,7 +44,8 @@ namespace Bili.ViewModels.Uwp.Video
 
         private void ResetInterop()
         {
-            // TODO：重置下载内容.
+            _playNextVideoAction = default;
+            MediaPlayerViewModel.SetPlayNextAction(default);
             IsVideoFixed = false;
         }
 

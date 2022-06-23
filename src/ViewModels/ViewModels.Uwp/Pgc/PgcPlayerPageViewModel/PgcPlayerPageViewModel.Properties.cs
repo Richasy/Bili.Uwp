@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
@@ -42,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private string _presetSeasonId;
         private string _presetTitle;
         private bool _needBiliPlus;
+        private Action _playNextEpisodeAction;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;

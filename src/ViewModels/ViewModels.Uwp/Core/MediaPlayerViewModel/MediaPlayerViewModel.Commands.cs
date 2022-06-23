@@ -109,12 +109,12 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 显示播放下一个视频的提示.
         /// </summary>
-        public ReactiveCommand<Action, Unit> ShowNextVideoTipCommand { get; }
+        public ReactiveCommand<Unit, Unit> ShowNextVideoTipCommand { get; }
 
         /// <summary>
         /// 播放下一个视频的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayNextVideoCommand { get; }
+        public ReactiveCommand<Unit, Unit> PlayNextCommand { get; }
 
         /// <summary>
         /// 增加播放速率命令.

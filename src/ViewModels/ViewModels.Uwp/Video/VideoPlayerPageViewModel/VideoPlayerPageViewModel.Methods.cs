@@ -87,30 +87,23 @@ namespace Bili.ViewModels.Uwp.Video
                 item.IsSelected = item.Data.Equals(identifier);
             }
 
+            CurrentVideoPart = VideoParts.FirstOrDefault(p => p.IsSelected).Data;
+            CreatePlayNextAction();
             MediaPlayerViewModel.ChangePartCommand.Execute(identifier).Subscribe();
         }
 
-        private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
-            => IsSignedIn = e.NewState == Models.Enums.AuthorizeState.SignedIn;
-
-        private void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        private void CreatePlayNextAction()
         {
-            var request = args.Request;
-            var url = $"https://www.bilibili.com/video/{View.Information.AlternateId}";
+            MediaPlayerViewModel.CanPlayNextPart = View.InteractionVideo == null
+                && VideoParts.FirstOrDefault(p => p.IsSelected).Index < VideoParts.Last().Index;
+            _playNextVideoAction = null;
 
-            request.Data.Properties.Title = View.Information.Identifier.Title;
-            request.Data.Properties.Description = View.Information.Description;
-            request.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri());
-            request.Data.Properties.ContentSourceWebLink = new Uri(url);
+            // 不处理互动视频.
+            if (View.InteractionVideo != null)
+            {
+                return;
+            }
 
-            request.Data.SetText(View.Information.Description);
-            request.Data.SetWebLink(new Uri(url));
-            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri()));
-        }
-
-        private void OnMediaEnded(object sender, EventArgs e)
-        {
-            var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
             var isNewVideo = false;
             VideoIdentifier? nextPart = default;
             if (Sections.Any(p => p.Type == PlayerSectionType.VideoParts))
@@ -136,14 +129,20 @@ namespace Bili.ViewModels.Uwp.Video
                     }
                 }
             }
+            else if (_settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayNextRelatedVideo, false)
+                && RelatedVideos.Count > 0)
+            {
+                nextPart = RelatedVideos.First().Information.Identifier;
+                isNewVideo = true;
+            }
 
             if (nextPart == null)
             {
-                MediaPlayerViewModel.DisplayMode = PlayerDisplayMode.Default;
                 return;
             }
 
-            var playNextAction = () =>
+            MediaPlayerViewModel.NextVideoTipText = nextPart.Value.Title;
+            _playNextVideoAction = () =>
             {
                 if (isNewVideo)
                 {
@@ -155,14 +154,42 @@ namespace Bili.ViewModels.Uwp.Video
                 }
             };
 
+            MediaPlayerViewModel.SetPlayNextAction(_playNextVideoAction);
+        }
+
+        private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
+            => IsSignedIn = e.NewState == AuthorizeState.SignedIn;
+
+        private void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            var url = $"https://www.bilibili.com/video/{View.Information.AlternateId}";
+
+            request.Data.Properties.Title = View.Information.Identifier.Title;
+            request.Data.Properties.Description = View.Information.Description;
+            request.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri());
+            request.Data.Properties.ContentSourceWebLink = new Uri(url);
+
+            request.Data.SetText(View.Information.Description);
+            request.Data.SetWebLink(new Uri(url));
+            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromUri(View.Information.Identifier.Cover.GetSourceUri()));
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            if (_playNextVideoAction == null)
+            {
+                return;
+            }
+
+            var isContinue = _settingsToolkit.ReadLocalSetting(SettingNames.IsContinusPlay, true);
             if (isContinue)
             {
-                playNextAction.Invoke();
+                _playNextVideoAction?.Invoke();
             }
             else
             {
-                MediaPlayerViewModel.NextVideoTipText = nextPart.Value.Title;
-                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute(playNextAction).Subscribe();
+                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
             }
         }
     }

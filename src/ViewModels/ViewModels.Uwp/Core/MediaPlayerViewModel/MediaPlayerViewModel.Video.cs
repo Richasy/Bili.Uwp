@@ -34,20 +34,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task LoadVideoAsync()
         {
-            var view = _viewData as VideoPlayerView;
-            Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
-            IsInteractionVideo = view.InteractionVideo != null;
-            if (string.IsNullOrEmpty(_currentPart.Id))
-            {
-                _currentPart = view.SubVideos.First();
-                if (IsInteractionVideo)
-                {
-                    InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
-                }
-            }
-
-            SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
-            DanmakuViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id, _videoType);
+            InitializeVideoInformation();
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
             FillVideoPlaybackProperties();
@@ -63,7 +50,26 @@ namespace Bili.ViewModels.Uwp.Core
                 var ts = TimeSpan.FromSeconds(view.Progress.Progress);
                 IsShowProgressTip = true;
                 ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
+                view.Progress = default;
             }
+        }
+
+        private void InitializeVideoInformation()
+        {
+            var view = _viewData as VideoPlayerView;
+            Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
+            IsInteractionVideo = view.InteractionVideo != null;
+            if (string.IsNullOrEmpty(_currentPart.Id))
+            {
+                _currentPart = view.SubVideos.First();
+                if (IsInteractionVideo)
+                {
+                    InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
+                }
+            }
+
+            SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
+            DanmakuViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id, _videoType);
         }
 
         private async Task InitializeVideoMediaInformationAsync()

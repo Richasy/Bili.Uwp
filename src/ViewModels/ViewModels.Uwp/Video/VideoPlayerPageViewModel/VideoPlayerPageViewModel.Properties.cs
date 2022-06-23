@@ -39,6 +39,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
 
         private string _presetVideoId;
+        private Action _playNextVideoAction;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;

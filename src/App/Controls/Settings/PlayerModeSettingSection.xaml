@@ -40,25 +40,9 @@
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayWhenLoaded, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
-                <exp:ExpanderExItemSeparator />
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=AutoNextRelatedVideo}" />
-                            <uwp:RegularFluentIcon
-                                VerticalAlignment="Center"
-                                FontSize="12"
-                                Foreground="{ThemeResource SystemFillColorAttentionBrush}"
-                                Symbol="QuestionCircle16"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=AutoNextRelatedVideoDescription}" />
-                        </StackPanel>
 
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayNextRelatedVideo, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
                 <exp:ExpanderExItemSeparator />
+
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=DefaultPlayerDisplayMode}" />
@@ -74,6 +58,74 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=AutoNextRelatedVideo}" />
+                            <uwp:RegularFluentIcon
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{ThemeResource SystemFillColorAttentionBrush}"
+                                Symbol="QuestionCircle16"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=AutoNextRelatedVideoDescription}" />
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayNextRelatedVideo, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=ContinuousPlay}" />
+                            <uwp:RegularFluentIcon
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{ThemeResource SystemFillColorAttentionBrush}"
+                                Symbol="QuestionCircle16"
+                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ContinuousPlayDescription}" />
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsContinusPlay, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:LocaleLocator Name=PreferHighQuality}"
+                            Description="{loc:LocaleLocator Name=PreferHighQualityDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPreferHighQuality, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:LocaleLocator Name=DisableP2PCdn}"
+                            Description="{loc:LocaleLocator Name=DisableP2PCdnDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.DisableP2PCdn, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
             </exp:ExpanderExMenuPanel>

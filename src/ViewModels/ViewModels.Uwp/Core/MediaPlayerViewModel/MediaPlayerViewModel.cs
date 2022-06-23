@@ -81,8 +81,8 @@ namespace Bili.ViewModels.Uwp.Core
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowNextVideoTipCommand = ReactiveCommand.Create<Action>(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
-            PlayNextVideoCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
+            ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
+            PlayNextCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
             SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice, outputScheduler: RxApp.MainThreadScheduler);
             BackToInteractionVideoStartCommand = ReactiveCommand.Create(BackToInteractionVideoStart, outputScheduler: RxApp.MainThreadScheduler);
 
@@ -196,6 +196,13 @@ namespace Bili.ViewModels.Uwp.Core
             _videoType = VideoType.Live;
             ReloadCommand.Execute().Subscribe();
         }
+
+        /// <summary>
+        /// 设置播放下一个内容的动作.
+        /// </summary>
+        /// <param name="action">动作.</param>
+        public void SetPlayNextAction(Action action)
+            => _playNextAction = action;
 
         /// <inheritdoc/>
         public async void DisplayException(Exception exception)

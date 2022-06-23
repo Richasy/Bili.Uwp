@@ -254,6 +254,17 @@
                                         <uwp:RegularFluentIcon Symbol="SkipForward3020" />
                                     </Button.Content>
                                 </Button>
+                                <Button
+                                    x:Name="PlayNextButton"
+                                    AutomationProperties.Name="{loc:LocaleLocator Name=PlayNextPart}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextCommand}"
+                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayNextPart}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanPlayNextPart}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="Next20" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <Grid

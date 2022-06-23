@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
@@ -42,7 +41,6 @@ namespace Bili.ViewModels.Uwp.Core
             _interactionProgress = TimeSpan.Zero;
             _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
-            _playNextVideoAction = default;
             IsInteractionEnd = false;
             IsInteractionVideo = false;
             IsShowInteractionChoices = false;
@@ -243,14 +241,11 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void ShowNextVideoTip(Action action)
-        {
-            _playNextVideoAction = action;
-            IsShowNextVideoTip = true;
-        }
+        private void ShowNextVideoTip()
+            => IsShowNextVideoTip = true;
 
         private void PlayNextVideo()
-            => _playNextVideoAction?.Invoke();
+            => _playNextAction?.Invoke();
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {

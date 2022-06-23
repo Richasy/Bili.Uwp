@@ -339,7 +339,8 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>连续播放</value>
   </data>
   <data name="ContinuousPlayDescription" xml:space="preserve">
-    <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）</value>
+    <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）
+UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如果支持)</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>转换</value>
@@ -1051,6 +1052,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="PlayLine" xml:space="preserve">
     <value>线路</value>
+  </data>
+  <data name="PlayNextPart" xml:space="preserve">
+    <value>播放下一个视频</value>
   </data>
   <data name="PlayNextVideo" xml:space="preserve">
     <value>即将播放下一个视频</value>

@@ -126,6 +126,8 @@ namespace Bili.ViewModels.Uwp.Video
                 View.RelatedVideos.ToList().ForEach(p => RelatedVideos.Add(GetItemViewModel(p)));
             }
 
+            CreatePlayNextAction();
+
             // 评论区常显，但位于最后一个.
             Sections.Add(new PlayerSectionHeader(PlayerSectionType.Comments, _resourceToolkit.GetLocaleString(LanguageNames.Reply)));
             _commentPageViewModel.SetData(View.Information.Identifier.Id, CommentType.Video);

@@ -57,7 +57,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
         private TimeSpan _interactionProgress;
         private bool _isInteractionProgressChanged;
-        private Action _playNextVideoAction;
+        private Action _playNextAction;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
@@ -301,5 +301,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public string Cover { get; set; }
+
+        /// <summary>
+        /// 是否可以播放下一个分集.
+        /// </summary>
+        [Reactive]
+        public bool CanPlayNextPart { get; set; }
     }
 }
