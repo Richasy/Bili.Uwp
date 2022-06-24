@@ -5,7 +5,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icon="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -18,40 +18,40 @@
         <TextBlock
             Style="{StaticResource CaptionTextBlockStyle}"
             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-            Text="{loc:LocaleLocator Name=DownloadTip}"
+            Text="{loc:Locale Name=DownloadTip}"
             TextWrapping="Wrap" />
         <HyperlinkButton Content="BBDown" NavigateUri="https://github.com/nilaoda/BBDown" />
         <ComboBox
             x:Name="InterfaceComboBox"
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=InterfaceType}"
+            Header="{loc:Locale Name=InterfaceType}"
             SelectionChanged="OnInterfaceComboBoxSelectionChanged">
-            <ComboBoxItem Content="{loc:LocaleLocator Name=None}" Tag="None" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=MobileApp}" Tag="App" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=TVApp}" Tag="TV" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=InternationalApp}" Tag="International" />
+            <ComboBoxItem Content="{loc:Locale Name=None}" Tag="None" />
+            <ComboBoxItem Content="{loc:Locale Name=MobileApp}" Tag="App" />
+            <ComboBoxItem Content="{loc:Locale Name=TVApp}" Tag="TV" />
+            <ComboBoxItem Content="{loc:Locale Name=InternationalApp}" Tag="International" />
         </ComboBox>
         <ComboBox
             x:Name="CodecComboBox"
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=PreferCodec}"
+            Header="{loc:Locale Name=PreferCodec}"
             SelectionChanged="OnCodecComboBoxSelectionChanged">
-            <ComboBoxItem Content="{loc:LocaleLocator Name=Any}" Tag="Any" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=H264}" Tag="H264" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=H265}" Tag="H265" />
+            <ComboBoxItem Content="{loc:Locale Name=Any}" Tag="Any" />
+            <ComboBoxItem Content="{loc:Locale Name=H264}" Tag="H264" />
+            <ComboBoxItem Content="{loc:Locale Name=H265}" Tag="H265" />
         </ComboBox>
         <ComboBox
             x:Name="DownloadTypeComboBox"
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=DownloadType}"
+            Header="{loc:Locale Name=DownloadType}"
             SelectionChanged="OnDownloadTypeComboBoxSelectionChanged">
-            <ComboBoxItem Content="{loc:LocaleLocator Name=Full}" Tag="Any" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=OnlyVideo}" Tag="Video" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=OnlyAudio}" Tag="Audio" />
-            <ComboBoxItem Content="{loc:LocaleLocator Name=OnlySubtitle}" Tag="Subtitle" />
+            <ComboBoxItem Content="{loc:Locale Name=Full}" Tag="Any" />
+            <ComboBoxItem Content="{loc:Locale Name=OnlyVideo}" Tag="Video" />
+            <ComboBoxItem Content="{loc:Locale Name=OnlyAudio}" Tag="Audio" />
+            <ComboBoxItem Content="{loc:Locale Name=OnlySubtitle}" Tag="Subtitle" />
         </ComboBox>
         <StackPanel Spacing="8">
-            <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=DownloadFolder}" />
+            <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=DownloadFolder}" />
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -61,22 +61,22 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     IsReadOnly="True"
-                    PlaceholderText="{loc:LocaleLocator Name=NoSpecifiedDownloadPath}"
+                    PlaceholderText="{loc:Locale Name=NoSpecifiedDownloadPath}"
                     Text="{x:Bind ViewModel.DownloadFolder, Mode=OneWay}" />
                 <Button
                     x:Name="OpenFolderButton"
-                    AutomationProperties.Name="{loc:LocaleLocator Name=ChooseDownloadFolder}"
+                    AutomationProperties.Name="{loc:Locale Name=ChooseDownloadFolder}"
                     Grid.Column="1"
                     Width="40"
                     VerticalAlignment="Center"
                     Command="{x:Bind ViewModel.ChangeSaveLocationCommand}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ChooseDownloadFolder}">
+                    ToolTipService.ToolTip="{loc:Locale Name=ChooseDownloadFolder}">
                     <icon:RegularFluentIcon Symbol="Folder16" />
                 </Button>
             </Grid>
         </StackPanel>
         <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsShowPart, Mode=OneWay}">
-            <TextBlock Text="{loc:LocaleLocator Name=Parts}" />
+            <TextBlock Text="{loc:Locale Name=Parts}" />
             <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.TotalPartCollection, Mode=OneWay}">
                 <muxc:ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="uwp:NumberPartViewModel">
@@ -104,7 +104,7 @@
         <muxc:Expander
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=AdvancedOptions}">
+            Header="{loc:Locale Name=AdvancedOptions}">
             <StackPanel
                 Padding="12,4"
                 HorizontalAlignment="Stretch"
@@ -112,32 +112,32 @@
                 <ToggleSwitch
                     x:Name="InteractionQualitySwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=InteractionQuality}"
+                    Header="{loc:Locale Name=InteractionQuality}"
                     IsOn="{x:Bind ViewModel.UseInteractionQuality, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="DownloadDanmakuSwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=DownloadDanmaku}"
+                    Header="{loc:Locale Name=DownloadDanmaku}"
                     IsOn="{x:Bind ViewModel.DownloadDanmaku, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="PartPrefixSwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=PartPrefix}"
+                    Header="{loc:Locale Name=PartPrefix}"
                     IsOn="{x:Bind ViewModel.UsePartPerfix, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="QualitySuffixSwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=QualitySuffix}"
+                    Header="{loc:Locale Name=QualitySuffix}"
                     IsOn="{x:Bind ViewModel.UseQualitySuffix, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="UseMp4BoxSwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=UseMp4Box}"
+                    Header="{loc:Locale Name=UseMp4Box}"
                     IsOn="{x:Bind ViewModel.UseMp4Box, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="UseMultiThreadSwitch"
                     HorizontalAlignment="Left"
-                    Header="{loc:LocaleLocator Name=UseMultiThread}"
+                    Header="{loc:Locale Name=UseMultiThread}"
                     IsOn="{x:Bind ViewModel.UseMultiThread, Mode=TwoWay}" />
             </StackPanel>
         </muxc:Expander>
@@ -146,6 +146,6 @@
             Margin="0,4,0,0"
             HorizontalAlignment="Stretch"
             Command="{x:Bind ViewModel.SaveDownloadTextCommand}"
-            Content="{loc:LocaleLocator Name=GenerateCommand}" />
+            Content="{loc:Locale Name=GenerateCommand}" />
     </StackPanel>
 </UserControl>

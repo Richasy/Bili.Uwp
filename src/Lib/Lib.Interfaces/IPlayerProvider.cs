@@ -112,13 +112,13 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 报告播放进度记录.
         /// </summary>
-        /// <param name="aid">视频Id.</param>
-        /// <param name="cid">分P Id.</param>
+        /// <param name="videoId">视频Id.</param>
+        /// <param name="partId">分P Id.</param>
         /// <param name="episodeId">分集Id.</param>
         /// <param name="seasonId">剧集Id.</param>
         /// <param name="progress">播放进度.</param>
         /// <returns>进度上报是否成功.</returns>
-        Task<bool> ReportProgressAsync(long aid, long cid, int episodeId, int seasonId, long progress);
+        Task<bool> ReportProgressAsync(string videoId, string partId, string episodeId, string seasonId, double progress);
 
         /// <summary>
         /// 点赞视频.
@@ -143,8 +143,9 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="needAddFavoriteList">需要添加的收藏夹列表.</param>
         /// <param name="needRemoveFavoriteList">需要移除的收藏夹列表.</param>
+        /// <param name="isVideo">是否为视频.</param>
         /// <returns>收藏结果.</returns>
-        Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList);
+        Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList, bool isVideo);
 
         /// <summary>
         /// 一键三连.

@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Article"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -11,9 +11,9 @@
         <muxc:CommandBarFlyout.SecondaryCommands>
             <AppBarButton
                 x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                Label="{loc:Locale Name=OpenInBroswer}">
                 <AppBarButton.Icon>
                     <icons:RegularFluentIcon Symbol="Globe16" />
                 </AppBarButton.Icon>
@@ -132,21 +132,21 @@
                                             Opacity="0.6"
                                             Symbol="EyeShow20"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=ReadCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="ThumbLike16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=BeLikeCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="Comment16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=ReplyCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                 </Grid>
@@ -271,21 +271,21 @@
                                             Opacity="0.6"
                                             Symbol="EyeShow20"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=ReadCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="ThumbLike16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=BeLikeCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="Comment16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=ReplyCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                 </Grid>

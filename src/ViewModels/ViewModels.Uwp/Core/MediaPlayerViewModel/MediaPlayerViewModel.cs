@@ -103,10 +103,12 @@ namespace Bili.ViewModels.Uwp.Core
             DecreasePlayRateCommand = ReactiveCommand.Create(DecreasePlayRate, outputScheduler: RxApp.MainThreadScheduler);
             IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
             DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
+            BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+            ReportViewProgressCommand.ThrownExceptions.Subscribe(LogException);
 
             InitializeTimers();
 

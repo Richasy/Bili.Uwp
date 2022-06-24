@@ -8,7 +8,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:user="using:Bili.App.Controls.User"
     d:DesignHeight="300"
@@ -69,7 +69,7 @@
             IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
         <controls:ErrorPanel
             Grid.Row="1"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -78,7 +78,7 @@
         </controls:ErrorPanel>
         <controls:ErrorPanel
             Grid.Row="1"
-            Text="{loc:LocaleLocator Name=NoFans}"
+            Text="{loc:Locale Name=NoFans}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </UserControl>

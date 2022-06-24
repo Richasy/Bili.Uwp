@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -27,7 +27,7 @@
             <TextBlock
                 VerticalAlignment="Center"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Text="{loc:LocaleLocator Name=OnlyIndex}"
+                Text="{loc:Locale Name=OnlyIndex}"
                 TextTrimming="CharacterEllipsis" />
             <ToggleSwitch
                 x:Name="OnlyIndexSwitch"

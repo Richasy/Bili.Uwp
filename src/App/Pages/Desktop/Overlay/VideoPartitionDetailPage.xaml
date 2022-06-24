@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Bili.Models.Enums"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -113,7 +113,7 @@
                     x:Name="VideoView"
                     Grid.Row="1"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
+                    HeaderText="{loc:Locale Name=ComprehensiveDynamics}"
                     ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:IncrementalBehavior />
@@ -125,7 +125,7 @@
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             ItemsSource="{x:Bind ViewModel.SortTypes, Mode=OneWay}"
-                            PlaceholderText="{loc:LocaleLocator Name=SelectSortType}"
+                            PlaceholderText="{loc:Locale Name=SelectSortType}"
                             SelectedItem="{x:Bind ViewModel.SortType, Mode=OneWay}"
                             SelectionChanged="OnVideoSortComboBoxSlectionChanged"
                             Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -152,7 +152,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="2"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

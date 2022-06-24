@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
@@ -241,7 +240,7 @@ namespace Bili.App.Controls
             var dp = new DataPackage();
             dp.SetBitmap(RandomAccessStreamReference.CreateFromUri(image.GetSourceUri()));
             Clipboard.SetContent(dp);
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
         }
 
@@ -270,7 +269,7 @@ namespace Bili.App.Controls
             if (file != null)
             {
                 await FileIO.WriteBytesAsync(file, cache);
-                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
                 Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
             }
         }
@@ -304,7 +303,7 @@ namespace Bili.App.Controls
                 ? await profileSettings.TrySetWallpaperImageAsync(file).AsTask()
                 : await profileSettings.TrySetLockScreenImageAsync(file).AsTask();
 
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             if (result)
             {
                 Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);

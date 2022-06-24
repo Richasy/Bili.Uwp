@@ -71,5 +71,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// 当前二级页面展示的页面 Id.
         /// </summary>
         public PageIds SecondaryViewId { get; private set; }
+
+        /// <summary>
+        /// 播放页面的页面 Id.
+        /// </summary>
+        public PageIds PlayViewId { get; private set; }
     }
 }

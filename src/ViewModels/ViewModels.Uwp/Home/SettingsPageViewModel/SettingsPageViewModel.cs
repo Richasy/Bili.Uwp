@@ -3,7 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Bili.Controller.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
@@ -27,11 +26,13 @@ namespace Bili.ViewModels.Uwp.Home
         public SettingsPageViewModel(
             AppViewModel appViewModel,
             ISettingsToolkit settingsToolkit,
-            IResourceToolkit resourceToolkit)
+            IResourceToolkit resourceToolkit,
+            IAppToolkit appToolkit)
         {
             _appViewModel = appViewModel;
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;
+            _appToolkit = appToolkit;
 
             InitializeCommand = ReactiveCommand.Create(InitializeSettings, outputScheduler: RxApp.MainThreadScheduler);
 
@@ -64,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Home
             BackgroundTaskInitAsync();
             RoamingInit();
 
-            Version = BiliController.Instance.GetCurrentAppVersion();
+            Version = _appToolkit.GetPackageVersion();
             PropertyChanged += OnPropertyChangedAsync;
         }
 
@@ -140,7 +141,7 @@ namespace Bili.ViewModels.Uwp.Home
                     break;
                 case nameof(IsOpenDynamicNotification):
                     WriteSetting(SettingNames.IsOpenNewDynamicNotify, IsOpenDynamicNotification);
-                    await _appViewModel.CheckNewDynamicRegistrationAsync();
+                    _appViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();
                     break;
                 default:
                     break;

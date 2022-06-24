@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icon="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwp="using:Richasy.ExpanderEx.Uwp"
@@ -16,7 +16,7 @@
         <uwp:ExpanderEx.Header>
             <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=ScreenshotSettings}" Description="{loc:LocaleLocator Name=ScreenshotSettingsDescription}">
+                    <uwp:ExpanderExDescriptor Title="{loc:Locale Name=ScreenshotSettings}" Description="{loc:Locale Name=ScreenshotSettingsDescription}">
                         <uwp:ExpanderExDescriptor.Icon>
                             <icon:RegularFluentIcon Symbol="Screenshot20" />
                         </uwp:ExpanderExDescriptor.Icon>
@@ -28,18 +28,18 @@
             <uwp:ExpanderExMenuPanel>
                 <uwp:ExpanderExWrapper>
                     <uwp:ExpanderExWrapper.MainContent>
-                        <TextBlock Text="{loc:LocaleLocator Name=ScreenshotFolder}" />
+                        <TextBlock Text="{loc:Locale Name=ScreenshotFolder}" />
                     </uwp:ExpanderExWrapper.MainContent>
                     <uwp:ExpanderExWrapper.WrapContent>
                         <Button
                             MinWidth="120"
                             Click="OnOpenScreenshotFolderButtonClickAsync"
-                            Content="{loc:LocaleLocator Name=OpenFolder}" />
+                            Content="{loc:Locale Name=OpenFolder}" />
                     </uwp:ExpanderExWrapper.WrapContent>
                 </uwp:ExpanderExWrapper>
                 <uwp:ExpanderExWrapper>
                     <uwp:ExpanderExWrapper.MainContent>
-                        <TextBlock Text="{loc:LocaleLocator Name=CopyToClipboardAfterScreenshot}" />
+                        <TextBlock Text="{loc:Locale Name=CopyToClipboardAfterScreenshot}" />
                     </uwp:ExpanderExWrapper.MainContent>
                     <uwp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsCopyScreenshot, Mode=TwoWay}" />
@@ -47,7 +47,7 @@
                 </uwp:ExpanderExWrapper>
                 <uwp:ExpanderExWrapper>
                     <uwp:ExpanderExWrapper.MainContent>
-                        <TextBlock Text="{loc:LocaleLocator Name=OpenFileAfterScreenshot}" />
+                        <TextBlock Text="{loc:Locale Name=OpenFileAfterScreenshot}" />
                     </uwp:ExpanderExWrapper.MainContent>
                     <uwp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsOpenScreenshotFile, Mode=TwoWay}" />

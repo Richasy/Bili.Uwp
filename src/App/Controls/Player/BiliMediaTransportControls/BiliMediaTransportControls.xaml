@@ -4,7 +4,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:danmaku="using:Bili.App.Controls.Danmaku"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:playercontrols="using:Bili.App.Controls.Player.PlayerControls"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp">
@@ -199,6 +199,14 @@
                                         Modifiers="Shift" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <Button
+                                x:Name="BackToDefaultButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToDefaultModeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
                         </Grid>
                         <Grid
                             x:Name="ControlPanel"
@@ -235,10 +243,10 @@
                                 </Button>
                                 <Button
                                     x:Name="BackToStartButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=BackToStart}"
+                                    AutomationProperties.Name="{loc:Locale Name=BackToStart}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToInteractionVideoStartCommand}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToStart}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=BackToStart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionEnd}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="EraserMedium24" />
@@ -246,20 +254,20 @@
                                 </Button>
                                 <Button
                                     x:Name="ForwardSkipButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=ForwardSkip}"
+                                    AutomationProperties.Name="{loc:Locale Name=ForwardSkip}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ForwardSkip}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=ForwardSkip}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="SkipForward3020" />
                                     </Button.Content>
                                 </Button>
                                 <Button
                                     x:Name="PlayNextButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=PlayNextPart}"
+                                    AutomationProperties.Name="{loc:Locale Name=PlayNextPart}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextCommand}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayNextPart}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlayNextPart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanPlayNextPart}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="Next20" />
@@ -325,9 +333,9 @@
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                 <Button
                                     x:Name="VolumeButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=CurrentVolume}"
+                                    AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=CurrentVolume}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
                                     <uwp:RegularFluentIcon Symbol="Speaker216" />
                                     <Button.Flyout>
                                         <Flyout>
@@ -340,7 +348,7 @@
                                                 <TextBlock
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                    Text="{loc:LocaleLocator Name=CurrentVolume}" />
+                                                    Text="{loc:Locale Name=CurrentVolume}" />
                                                 <Slider
                                                     x:Name="VolumeSlider"
                                                     Width="200"
@@ -355,9 +363,9 @@
                                     </Button.Flyout>
                                 </Button>
                                 <Button
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=PlaybackRate}"
+                                    AutomationProperties.Name="{loc:Locale Name=PlaybackRate}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlaybackRate}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlaybackRate}">
                                     <TextBlock>
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" /><Run Text="x" />
                                     </TextBlock>
@@ -367,7 +375,7 @@
                                                 <TextBlock
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                    Text="{loc:LocaleLocator Name=PlaybackRate}" />
+                                                    Text="{loc:Locale Name=PlaybackRate}" />
                                                 <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
                                                     <controls:ItemsRepeater.Layout>
                                                         <controls:StackLayout Orientation="Horizontal" Spacing="4" />
@@ -401,9 +409,9 @@
                                 </Button>
                                 <Button
                                     x:Name="FormatButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
+                                    AutomationProperties.Name="{loc:Locale Name=Quality}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="Hd24" />
                                     </Button.Content>
@@ -433,9 +441,9 @@
                                 </Button>
                                 <Button
                                     x:Name="SubtitleButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=Subtitle}"
+                                    AutomationProperties.Name="{loc:Locale Name=Subtitle}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Subtitle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Subtitle}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="ClosedCaption16" />
@@ -479,7 +487,7 @@
                                                 x:Name="ScreenshotItem"
                                                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}"
                                                 KeyboardAcceleratorTextOverride="Shift + S"
-                                                Text="{loc:LocaleLocator Name=Screenshot}">
+                                                Text="{loc:Locale Name=Screenshot}">
                                                 <MenuFlyoutItem.Icon>
                                                     <uwp:RegularFluentIcon Symbol="Screenshot20" />
                                                 </MenuFlyoutItem.Icon>
@@ -712,9 +720,9 @@
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                 <Button
                                     x:Name="VolumeButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=CurrentVolume}"
+                                    AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=CurrentVolume}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
                                     <uwp:RegularFluentIcon Symbol="Speaker216" />
                                     <Button.Flyout>
                                         <Flyout>
@@ -727,7 +735,7 @@
                                                 <TextBlock
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                    Text="{loc:LocaleLocator Name=CurrentVolume}" />
+                                                    Text="{loc:Locale Name=CurrentVolume}" />
                                                 <Slider
                                                     x:Name="VolumeSlider"
                                                     Width="200"
@@ -743,9 +751,9 @@
                                 </Button>
                                 <Button
                                     x:Name="FormatButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=Quality}"
+                                    AutomationProperties.Name="{loc:Locale Name=Quality}"
                                     Style="{StaticResource PlayerButtonStyle}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Quality}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
                                         <uwp:RegularFluentIcon Symbol="Hd24" />
                                     </Button.Content>
@@ -800,7 +808,7 @@
                                                 x:Name="ScreenshotItem"
                                                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}"
                                                 KeyboardAcceleratorTextOverride="Shift + S"
-                                                Text="{loc:LocaleLocator Name=Screenshot}">
+                                                Text="{loc:Locale Name=Screenshot}">
                                                 <MenuFlyoutItem.Icon>
                                                     <uwp:RegularFluentIcon Symbol="Screenshot20" />
                                                 </MenuFlyoutItem.Icon>

@@ -62,7 +62,11 @@ namespace Bili.ViewModels.Uwp.Video
             IsShowRelatedVideos = false;
             IsShowComments = false;
             IsShowParts = false;
+            IsShowVideoPlaylist = false;
             _commentPageViewModel.ClearData();
         }
+
+        private void ClearPlaylist()
+            => VideoPlaylist.Clear();
     }
 }

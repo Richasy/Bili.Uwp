@@ -9,7 +9,7 @@
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -49,7 +49,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Text="{loc:LocaleLocator Name=TimelineHasNoVideo}"
+                            Text="{loc:Locale Name=TimelineHasNoVideo}"
                             Visibility="{x:Bind Seasons, Converter={StaticResource ObjectToVisibilityReverseConverter}}" />
                     </Grid>
                 </exp:ExpanderEx.Content>
@@ -105,7 +105,7 @@
 
             <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
             <controls:ErrorPanel
-                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                ActionContent="{loc:Locale Name=Refresh}"
                 Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
                 <interactivity:Interaction.Behaviors>

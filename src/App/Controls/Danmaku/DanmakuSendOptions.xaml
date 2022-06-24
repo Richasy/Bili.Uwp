@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.Models.Enums.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -17,7 +17,7 @@
         Padding="16,12"
         Spacing="12">
         <StackPanel Spacing="4">
-            <TextBlock Text="{loc:LocaleLocator Name=FontSize}" />
+            <TextBlock Text="{loc:Locale Name=FontSize}" />
             <StackPanel
                 HorizontalAlignment="Left"
                 Orientation="Horizontal"
@@ -26,20 +26,20 @@
                     x:Name="StandardItem"
                     MinWidth="0"
                     Click="OnSizeItemClick"
-                    Content="{loc:LocaleLocator Name=Standard}"
+                    Content="{loc:Locale Name=Standard}"
                     IsChecked="{x:Bind ViewModel.IsStandardSize, Mode=OneWay}" />
                 <RadioButton
                     x:Name="SmallItem"
                     MinWidth="0"
                     Click="OnSizeItemClick"
-                    Content="{loc:LocaleLocator Name=Small}"
+                    Content="{loc:Locale Name=Small}"
                     IsChecked="{x:Bind ViewModel.IsStandardSize, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}" />
             </StackPanel>
         </StackPanel>
         <ComboBox
             x:Name="DanmakuLocationComboBox"
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=Location}"
+            Header="{loc:Locale Name=Location}"
             ItemsSource="{x:Bind ViewModel.LocationCollection, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Location, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
@@ -49,7 +49,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <StackPanel Spacing="12">
-            <TextBlock Text="{loc:LocaleLocator Name=Color}" />
+            <TextBlock Text="{loc:Locale Name=Color}" />
             <Grid Margin="0,-4,0,0" ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

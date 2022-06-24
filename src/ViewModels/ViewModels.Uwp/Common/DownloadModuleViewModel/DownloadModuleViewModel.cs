@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -28,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Common
         public DownloadModuleViewModel(
             ISettingsToolkit settingsToolkit,
             IResourceToolkit resourceToolkit,
+            IAuthorizeProvider authorizeProvider,
             AppViewModel appViewModel,
             AccountViewModel accountViewModel)
         {
@@ -35,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Common
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
             _accountViewModel = accountViewModel;
+            _authorizeProvider = authorizeProvider;
             TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
 
             ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -144,8 +145,7 @@ namespace Bili.ViewModels.Uwp.Common
 
             if (_accountViewModel.State == AuthorizeState.SignedIn)
             {
-                var authProvider = ServiceLocator.Instance.GetService<IAuthorizeProvider>();
-                var token = await authProvider.GetTokenAsync();
+                var token = await _authorizeProvider.GetTokenAsync();
                 if (UseAppInterface)
                 {
                     list.Add("-app");

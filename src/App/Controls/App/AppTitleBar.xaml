@@ -5,7 +5,7 @@
     xmlns:animatedVisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -61,13 +61,13 @@
 
             <Button
                 x:Name="BackButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
+                AutomationProperties.Name="{loc:Locale Name=BackToPrevious}"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Padding="6,0,0,0"
                 Command="{x:Bind _navigationViewModel.BackCommand}"
                 IsEnabled="{x:Bind _navigationViewModel.IsBackButtonEnabled, Mode=OneWay}"
                 TabIndex="1"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}"
+                ToolTipService.ToolTip="{loc:Locale Name=BackToPrevious}"
                 Visibility="{x:Bind _navigationViewModel.CanBack, Mode=OneWay}">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Back" />
@@ -103,47 +103,6 @@
                             <muxc:SymbolIconSource Symbol="Back" />
                         </muxc:AnimatedIcon.FallbackIconSource>
                     </muxc:AnimatedIcon>
-                </Viewbox>
-            </Button>
-
-            <Button
-                x:Name="HomeButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=BackToHome}"
-                Style="{StaticResource TitleBarButtonStyle}"
-                Grid.Column="1"
-                Click="OnHomeButtonClickAsync"
-                TabIndex="2"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToHome}"
-                Visibility="Collapsed">
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Home" />
-                </Button.KeyboardAccelerators>
-                <animations:Implicit.ShowAnimations>
-                    <animations:OpacityAnimation
-                        From="0"
-                        To="1"
-                        Duration="0:0:0.3" />
-                    <animations:ScaleAnimation
-                        From="0.5"
-                        To="1"
-                        Duration="0:0:0.3" />
-                </animations:Implicit.ShowAnimations>
-                <animations:Implicit.HideAnimations>
-                    <animations:OpacityAnimation
-                        From="1"
-                        To="0"
-                        Duration="0:0:0.2" />
-                    <animations:ScaleAnimation
-                        From="1"
-                        To="0.5"
-                        Duration="0:0:0.2" />
-                </animations:Implicit.HideAnimations>
-                <Viewbox
-                    Width="16"
-                    Height="16"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <uwp:RegularFluentIcon Symbol="Home16" />
                 </Viewbox>
             </Button>
 
@@ -204,7 +163,7 @@
                     x:Name="AppNameBlock"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
-                    Text="{loc:LocaleLocator Name=AppName}" />
+                    Text="{loc:Locale Name=AppName}" />
             </StackPanel>
 
             <Grid

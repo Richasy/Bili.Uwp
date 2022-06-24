@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:expander="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Thickness x:Key="NavigationViewContentMargin">0</Thickness>
@@ -1145,7 +1145,7 @@
                                     CornerRadius="10"
                                     Opacity="0"
                                     RenderTransformOrigin="0.5, 0.5"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ShowDanmaku}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=ShowDanmaku}">
                                     <Border.RenderTransform>
                                         <CompositeTransform />
                                     </Border.RenderTransform>
@@ -1164,7 +1164,7 @@
                                     Background="{ThemeResource ToggleSwitchKnobFillOff}"
                                     CornerRadius="10"
                                     RenderTransformOrigin="0.5, 0.5"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=HideDanmaku}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=HideDanmaku}">
                                     <Border.RenderTransform>
                                         <CompositeTransform />
                                     </Border.RenderTransform>

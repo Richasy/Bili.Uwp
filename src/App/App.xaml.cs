@@ -3,9 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using Bili.Controller.Uwp.Interfaces;
 using Bili.DI.App;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
@@ -153,7 +151,7 @@ namespace Bili.App
             }
 
             Window.Current.Activate();
-            ServiceLocator.Instance.GetService<IAppToolkit>().InitializeTitleBar();
+            Locator.Current.GetService<IAppToolkit>().InitializeTitleBar();
         }
 
         /// <summary>
@@ -188,8 +186,7 @@ namespace Bili.App
         {
             e.Handled = true;
 
-            var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
-            logger.LogError(e.Exception);
+            Locator.Current.GetService<ILogger>().Write(e.Exception, e.Message, Splat.LogLevel.Error);
         }
 
         private void NavigateToRootPage(object args = null)

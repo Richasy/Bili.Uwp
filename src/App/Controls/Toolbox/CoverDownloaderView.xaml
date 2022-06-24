@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Title="{loc:LocaleLocator Name=CoverDownloader}"
+    Title="{loc:Locale Name=CoverDownloader}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -24,7 +24,7 @@
         <TextBlock
             Style="{StaticResource CaptionTextBlockStyle}"
             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-            Text="{loc:LocaleLocator Name=CoverDownloaderIntroduce}"
+            Text="{loc:Locale Name=CoverDownloaderIntroduce}"
             TextWrapping="Wrap" />
         <muxc:InfoBar
             Grid.Row="1"
@@ -34,7 +34,7 @@
         <AutoSuggestBox
             Grid.Row="2"
             HorizontalAlignment="Stretch"
-            PlaceholderText="{loc:LocaleLocator Name=AvBvId}"
+            PlaceholderText="{loc:Locale Name=AvBvId}"
             QuerySubmitted="OnIdQuerySubmitted"
             Text="{x:Bind _viewModel.InputId, Mode=TwoWay}" />
         <Grid
@@ -54,6 +54,6 @@
             Grid.Row="4"
             HorizontalAlignment="Stretch"
             Command="{x:Bind _viewModel.DownloadCommand}"
-            Content="{loc:LocaleLocator Name=SaveToPictureLibrary}" />
+            Content="{loc:Locale Name=SaveToPictureLibrary}" />
     </Grid>
 </local:CenterPopup>

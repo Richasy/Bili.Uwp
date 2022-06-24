@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 
@@ -92,7 +90,7 @@ namespace Bili.App.Controls
             var type = isSuccess
                 ? Models.Enums.App.InfoType.Success
                 : Models.Enums.App.InfoType.Error;
-            var tip = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(text);
+            var tip = Locator.Current.GetService<IResourceToolkit>().GetLocaleString(text);
             Splat.Locator.Current.GetService<AppViewModel>().ShowTip(tip, type);
         }
     }

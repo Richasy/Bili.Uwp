@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -20,14 +20,14 @@
         Spacing="12">
         <Slider
             x:Name="OpacitySlider"
-            Header="{loc:LocaleLocator Name=DanmakuOpacity}"
+            Header="{loc:Locale Name=DanmakuOpacity}"
             Maximum="1"
             Minimum="0"
             StepFrequency="0.1"
             Value="{x:Bind ViewModel.DanmakuOpacity, Mode=TwoWay}" />
         <Slider
             x:Name="SizeSlider"
-            Header="{loc:LocaleLocator Name=DanmakuFontSize}"
+            Header="{loc:Locale Name=DanmakuFontSize}"
             Maximum="2.5"
             Minimum="0.5"
             StepFrequency="0.5"
@@ -35,14 +35,14 @@
             Value="{x:Bind ViewModel.DanmakuFontSize, Mode=TwoWay}" />
         <Slider
             x:Name="AreaSlider"
-            Header="{loc:LocaleLocator Name=DanmakuArea}"
+            Header="{loc:Locale Name=DanmakuArea}"
             Maximum="1"
             Minimum="0.25"
             StepFrequency="0.25"
             Value="{x:Bind ViewModel.DanmakuArea, Mode=TwoWay}" />
         <Slider
             x:Name="SpeedSlider"
-            Header="{loc:LocaleLocator Name=DanmakuSpeed}"
+            Header="{loc:Locale Name=DanmakuSpeed}"
             Maximum="2"
             Minimum="0.2"
             StepFrequency="0.2"
@@ -50,12 +50,12 @@
         <ComboBox
             x:Name="DanmakuFontComboBox"
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=DanmakuFont}"
+            Header="{loc:Locale Name=DanmakuFont}"
             ItemsSource="{x:Bind ViewModel.FontCollection, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.DanmakuFont, Mode=TwoWay}" />
-        <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuMerge}" IsOn="{x:Bind ViewModel.IsDanmakuMerge, Mode=TwoWay}" />
-        <ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuBold}" IsOn="{x:Bind ViewModel.IsDanmakuBold, Mode=TwoWay}" />
-        <!--<ToggleSwitch Header="{loc:LocaleLocator Name=DanmakuAutoLimit}" IsOn="{x:Bind ViewModel.IsDanmakuLimit, Mode=TwoWay}" />-->
-        <!--<ToggleSwitch Header="{loc:LocaleLocator Name=UseCloudShieldSettings}" IsOn="{x:Bind ViewModel.UseCloudShieldSettings, Mode=TwoWay}" />-->
+        <ToggleSwitch Header="{loc:Locale Name=DanmakuMerge}" IsOn="{x:Bind ViewModel.IsDanmakuMerge, Mode=TwoWay}" />
+        <ToggleSwitch Header="{loc:Locale Name=DanmakuBold}" IsOn="{x:Bind ViewModel.IsDanmakuBold, Mode=TwoWay}" />
+        <!--<ToggleSwitch Header="{loc:Locale Name=DanmakuAutoLimit}" IsOn="{x:Bind ViewModel.IsDanmakuLimit, Mode=TwoWay}" />-->
+        <!--<ToggleSwitch Header="{loc:Locale Name=UseCloudShieldSettings}" IsOn="{x:Bind ViewModel.UseCloudShieldSettings, Mode=TwoWay}" />-->
     </StackPanel>
 </UserControl>

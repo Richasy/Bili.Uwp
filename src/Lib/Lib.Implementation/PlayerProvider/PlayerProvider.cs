@@ -175,14 +175,14 @@ namespace Bili.Lib
                 { Query.Type, "3" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ReportProgressAsync(long videoId, long partId, int episodeId, int seasonId, long progress)
+        public async Task<bool> ReportProgressAsync(string videoId, string partId, string episodeId, string seasonId, double progress)
         {
             var queryParameters = new Dictionary<string, string>
             {
@@ -190,13 +190,12 @@ namespace Bili.Lib
                 { Query.Cid, partId.ToString() },
                 { Query.EpisodeIdSlim, episodeId.ToString() },
                 { Query.SeasonIdSlim, seasonId.ToString() },
-                { Query.RealTime, progress.ToString() },
-                { Query.Progress, progress.ToString() },
+                { Query.Progress, Convert.ToInt32(progress).ToString() },
                 { Query.Type, "4" },
                 { Query.SubType, "1" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, Models.Enums.RequestClientType.Android, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ProgressReport, queryParameters, RequestClientType.IOS, true);
             var response = await _httpProvider.SendAsync(request, new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.Code == 0;
@@ -248,12 +247,12 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public async Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList)
+        public async Task<FavoriteResult> FavoriteAsync(string videoId, IEnumerable<string> needAddFavoriteList, IEnumerable<string> needRemoveFavoriteList, bool isVideo)
         {
+            var resourceId = isVideo ? $"{videoId}:2" : $"{videoId}:24";
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.PartitionId, videoId },
-                { Query.Type, "2" },
+                { Query.Resources, resourceId },
             };
 
             if (needAddFavoriteList?.Any() ?? false)
@@ -266,7 +265,7 @@ namespace Bili.Lib
                 queryParameters.Add(Query.DeleteFavoriteIds, string.Join(",", needRemoveFavoriteList));
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ModifyFavorite, queryParameters, Models.Enums.RequestClientType.IOS, true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Video.ModifyFavorite, queryParameters, RequestClientType.IOS, true);
             try
             {
                 var response = await _httpProvider.SendAsync(request, GetExpiryToken());

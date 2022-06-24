@@ -2,14 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
-using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Article;
 using Newtonsoft.Json;
+using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -79,7 +77,7 @@ namespace Bili.App.Controls.Article
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 var detail = await ViewModel.GetDetailAsync();
-                var fileToolkit = ServiceLocator.Instance.GetService<IFileToolkit>();
+                var fileToolkit = Locator.Current.GetService<IFileToolkit>();
                 var content = detail.Replace("=\"//", "=\"http://")
                     .Replace("data-src", "src");
                 var readerContainerStr = await fileToolkit.ReadPackageFile("ms-appx:///Resources/Html/ReaderPage.html");

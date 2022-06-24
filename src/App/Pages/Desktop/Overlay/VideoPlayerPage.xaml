@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -29,11 +29,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="{loc:LocaleLocator Name=ChooseCoinNumber}" />
+                    Text="{loc:Locale Name=ChooseCoinNumber}" />
                 <StackPanel
                     Grid.Row="1"
                     Orientation="Horizontal"
@@ -43,7 +44,7 @@
                         Height="40"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnGiveCoinButtonClickAsync"
+                        Click="OnGiveCoinButtonClick"
                         Content="1"
                         FontWeight="Bold"
                         Tag="1" />
@@ -52,16 +53,23 @@
                         Height="40"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnGiveCoinButtonClickAsync"
+                        Click="OnGiveCoinButtonClick"
                         Content="2"
                         FontWeight="Bold"
+                        IsEnabled="{x:Bind ViewModel.View.Information.IsOriginal, Mode=OneWay}"
                         Tag="2" />
                 </StackPanel>
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Grid.Row="2"
+                    FontSize="10"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{loc:Locale Name=CoinNumberTip}" />
                 <CheckBox
                     x:Name="AlsoLikeCheckBox"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     MinWidth="0"
-                    Content="{loc:LocaleLocator Name=AlsoLike}"
+                    Content="{loc:Locale Name=AlsoLike}"
                     IsChecked="{x:Bind ViewModel.IsCoinWithLiked, Mode=TwoWay}" />
             </Grid>
         </Flyout>
@@ -73,7 +81,7 @@
                         <TextBlock
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="{loc:LocaleLocator Name=ChooseFavorite}" />
+                            Text="{loc:Locale Name=ChooseFavorite}" />
                         <ScrollViewer
                             MaxHeight="320"
                             HorizontalScrollMode="Disabled"
@@ -109,7 +117,7 @@
                             Style="{StaticResource AccentButtonStyle}"
                             HorizontalAlignment="Stretch"
                             Command="{x:Bind ViewModel.FavoriteVideoCommand}"
-                            Content="{loc:LocaleLocator Name=Confirm}" />
+                            Content="{loc:Locale Name=Confirm}" />
                     </StackPanel>
                     <muxc:ProgressRing
                         HorizontalAlignment="Center"
@@ -117,9 +125,9 @@
                         IsActive="{x:Bind ViewModel.IsFavoriteFolderRequesting, Mode=OneWay}" />
                 </Grid>
                 <controls:ErrorPanel
-                    ActionButtonClick="OnRefreshFavoriteButtonClickAsync"
-                    ActionContent="{loc:LocaleLocator Name=Refresh}"
-                    Text="{loc:LocaleLocator Name=RequestFavoriteError}"
+                    ActionButtonClick="OnRefreshFavoriteButtonClick"
+                    ActionContent="{loc:Locale Name=Refresh}"
+                    Text="{loc:Locale Name=RequestFavoriteError}"
                     Visibility="{x:Bind ViewModel.IsFavoriteFoldersError}" />
             </Grid>
         </Flyout>
@@ -245,27 +253,27 @@
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="EyeShow16"
                                 Text="{x:Bind ViewModel.PlayCountText, Mode=OneWay}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=View}"
+                                ToolTipService.ToolTip="{loc:Locale Name=View}"
                                 Visibility="{x:Bind ViewModel.PlayCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
                                 Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="SlideText16"
                                 Text="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Danmaku}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Danmaku}"
                                 Visibility="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
                                 Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="Chat16"
                                 Text="{x:Bind ViewModel.CommentCountText, Mode=OneWay}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Reply}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Reply}"
                                 Visibility="{x:Bind ViewModel.CommentCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="EyeShow16"
                                 Text="{x:Bind ViewModel.WatchingCountText, Mode=OneWay}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                 Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         </StackPanel>
                         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Tags}" Visibility="{x:Bind ViewModel.IsShowTags, Mode=OneWay}">
@@ -316,7 +324,7 @@
                             IsChecked="{x:Bind ViewModel.IsLiked, Mode=OneWay}"
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
-                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Like}">
+                            ToolTipService.ToolTip="{loc:Locale Name=Like}">
                             <icons:RegularFluentIcon Symbol="ThumbLike16" />
                         </controls:ProgressButton>
                         <controls:ProgressButton
@@ -326,17 +334,17 @@
                             IsChecked="{x:Bind ViewModel.IsCoined, Mode=OneWay}"
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
-                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Coin}">
+                            ToolTipService.ToolTip="{loc:Locale Name=Coin}">
                             <icons:RegularFluentIcon Symbol="Blur16" />
                         </controls:ProgressButton>
                         <controls:ProgressButton
                             x:Name="FavoriteButton"
-                            Click="OnFavoriteButtonClickAsync"
+                            Click="OnFavoriteButtonClick"
                             Description="{x:Bind ViewModel.FavoriteCountText, Mode=OneWay}"
                             IsChecked="{x:Bind ViewModel.IsFavorited, Mode=OneWay}"
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
-                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Favorite}">
+                            ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
                             <icons:RegularFluentIcon Symbol="Star16" />
                         </controls:ProgressButton>
                     </StackPanel>
@@ -347,7 +355,7 @@
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 VerticalAlignment="Center"
-                                Text="{loc:LocaleLocator Name=InfinityLoop}" />
+                                Text="{loc:Locale Name=InfinityLoop}" />
                             <ToggleSwitch
                                 Style="{StaticResource RightAlignedCompactToggleSwitchStyle}"
                                 RelativePanel.AlignRightWithPanel="True"
@@ -370,7 +378,7 @@
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                     Symbol="Share16"
-                                    Text="{loc:LocaleLocator Name=Share}" />
+                                    Text="{loc:Locale Name=Share}" />
                             </Button>
                             <Button
                                 Grid.Column="1"
@@ -388,7 +396,7 @@
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                 Symbol="ArrowDownload16"
-                                Text="{loc:LocaleLocator Name=Download}" />
+                                Text="{loc:Locale Name=Download}" />
                             <Button.Flyout>
                                 <Flyout>
                                     <player:DownloadOptionsPanel ViewModel="{x:Bind ViewModel.DownloadViewModel}" />
@@ -422,6 +430,7 @@
             <player:PlayerPagePanel.SectionContent>
                 <Grid>
                     <player:VideoPartView x:Name="VideoPartView" Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
+                    <player:VideoPlaylistView x:Name="VideoPlaylistView" Visibility="{x:Bind ViewModel.IsShowVideoPlaylist, Mode=OneWay}" />
                     <player:UgcSeasonView x:Name="UgcEpisodeView" Visibility="{x:Bind ViewModel.IsShowUgcSeason, Mode=OneWay}" />
                     <player:RelatedVideoView x:Name="RelatedVideoView" Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
                     <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
@@ -431,7 +440,7 @@
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

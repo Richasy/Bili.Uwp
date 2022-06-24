@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -39,7 +39,7 @@ namespace Bili.App.Resources.Converter
                     break;
             }
 
-            return ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(name);
+            return Locator.Current.GetService<IResourceToolkit>().GetLocaleString(name);
         }
 
         /// <inheritdoc/>

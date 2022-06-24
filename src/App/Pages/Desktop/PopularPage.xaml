@@ -8,7 +8,7 @@
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
@@ -42,7 +42,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <app:PageHeader Title="{loc:LocaleLocator Name=Popular}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+            <app:PageHeader Title="{loc:Locale Name=Popular}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Grid.Row="1"
@@ -71,7 +71,7 @@
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <Interactivity:Interaction.Behaviors>

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:search="using:Bili.Models.Data.Search"
@@ -87,7 +87,7 @@
                             <AdaptiveTrigger MinWindowWidth="0" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
-                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
+                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:Locale Name=SearchTipSlim}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>
@@ -98,7 +98,7 @@
             HorizontalAlignment="Stretch"
             IsTabStop="True"
             ItemsSource="{x:Bind ViewModel.SearchSuggestion, Mode=OneWay}"
-            PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
+            PlaceholderText="{loc:Locale Name=SearchTip}"
             QueryIcon="Find"
             QuerySubmitted="OnSearchBoxSubmitted"
             TabIndex="2"
@@ -118,7 +118,7 @@
         </AutoSuggestBox>
         <Button
             x:Name="HotSearchButton"
-            AutomationProperties.Name="{loc:LocaleLocator Name=HotSearch}"
+            AutomationProperties.Name="{loc:Locale Name=HotSearch}"
             Width="32"
             Margin="4,0,0,0"
             Padding="0,8"
@@ -129,7 +129,7 @@
             Click="OnHotSearchButtonClick"
             IsTabStop="True"
             TabIndex="1"
-            ToolTipService.ToolTip="{loc:LocaleLocator Name=HotSearch}">
+            ToolTipService.ToolTip="{loc:Locale Name=HotSearch}">
             <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
         </Button>
     </Grid>

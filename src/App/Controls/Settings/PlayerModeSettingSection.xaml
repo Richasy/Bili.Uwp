@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Bili.Models.Enums"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
@@ -22,7 +22,7 @@
         <exp:ExpanderEx.Header>
             <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=PlayerMode}" Description="{loc:LocaleLocator Name=PlayerModeDescription}">
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=PlayerMode}" Description="{loc:Locale Name=PlayerModeDescription}">
                         <exp:ExpanderExDescriptor.Icon>
                             <uwp:RegularFluentIcon Symbol="Replay20" />
                         </exp:ExpanderExDescriptor.Icon>
@@ -34,7 +34,7 @@
             <exp:ExpanderExMenuPanel>
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
-                        <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=AutoPlayWhenLoaded}" />
+                        <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=AutoPlayWhenLoaded}" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayWhenLoaded, Mode=TwoWay}" />
@@ -45,7 +45,7 @@
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
-                        <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=DefaultPlayerDisplayMode}" />
+                        <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=DefaultPlayerDisplayMode}" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
                         <ComboBox
@@ -66,13 +66,13 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=AutoNextRelatedVideo}" />
+                            <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=AutoNextRelatedVideo}" />
                             <uwp:RegularFluentIcon
                                 VerticalAlignment="Center"
                                 FontSize="12"
                                 Foreground="{ThemeResource SystemFillColorAttentionBrush}"
                                 Symbol="QuestionCircle16"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=AutoNextRelatedVideoDescription}" />
+                                ToolTipService.ToolTip="{loc:Locale Name=AutoNextRelatedVideoDescription}" />
                         </StackPanel>
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
@@ -85,13 +85,13 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock VerticalAlignment="Center" Text="{loc:LocaleLocator Name=ContinuousPlay}" />
+                            <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=ContinuousPlay}" />
                             <uwp:RegularFluentIcon
                                 VerticalAlignment="Center"
                                 FontSize="12"
                                 Foreground="{ThemeResource SystemFillColorAttentionBrush}"
                                 Symbol="QuestionCircle16"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=ContinuousPlayDescription}" />
+                                ToolTipService.ToolTip="{loc:Locale Name=ContinuousPlayDescription}" />
                         </StackPanel>
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
@@ -104,8 +104,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PreferHighQuality}"
-                            Description="{loc:LocaleLocator Name=PreferHighQualityDescription}"
+                            Title="{loc:Locale Name=PreferHighQuality}"
+                            Description="{loc:Locale Name=PreferHighQualityDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -119,8 +119,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=DisableP2PCdn}"
-                            Description="{loc:LocaleLocator Name=DisableP2PCdnDescription}"
+                            Title="{loc:Locale Name=DisableP2PCdn}"
+                            Description="{loc:Locale Name=DisableP2PCdnDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>

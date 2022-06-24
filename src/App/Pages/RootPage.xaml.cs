@@ -138,6 +138,7 @@ namespace Bili.App.Pages.Desktop
             if (e.Type == NavigationType.Secondary)
             {
                 var type = GetSecondaryViewType(e.PageId);
+                PlayerFrame.Navigate(typeof(Page));
                 SecondaryFrame.Navigate(type, e.Parameter, new DrillInNavigationTransitionInfo());
             }
             else if (e.Type == NavigationType.Player)
@@ -166,7 +167,7 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.InitializePadding();
             await Splat.Locator.Current.GetService<AccountViewModel>().TrySignInAsync(true);
 #if !DEBUG
-            await CoreViewModel.CheckUpdateAsync();
+            CoreViewModel.CheckUpdateCommand.Execute().Subscribe();
 #endif
         }
 
@@ -307,10 +308,10 @@ namespace Bili.App.Pages.Desktop
             }
             else
             {
-                CoreViewModel.CheckContinuePlay();
+                CoreViewModel.CheckContinuePlayCommand.Execute().Subscribe();
             }
 
-            await CoreViewModel.CheckNewDynamicRegistrationAsync();
+            CoreViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();
         }
     }
 

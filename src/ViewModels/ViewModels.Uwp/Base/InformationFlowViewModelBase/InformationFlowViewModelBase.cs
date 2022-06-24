@@ -51,7 +51,7 @@ namespace Bili.ViewModels.Uwp.Base
         {
             IsError = true;
             var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
+                ? se.GetMessage()
                 : exception.Message;
             ErrorText = FormatException(msg);
             LogException(exception);

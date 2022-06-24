@@ -99,8 +99,6 @@
     <Compile Include="Base\PgcPageViewModelBase\PgcPageViewModelBase.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Command.cs" />
     <Compile Include="Common\CommandLineViewModel.cs" />
-    <Compile Include="Common\LiveAppPlayLineViewModel.cs" />
-    <Compile Include="Common\LiveAppQualityViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />
     <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.cs" />
@@ -158,32 +156,13 @@
     <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.cs" />
     <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.Properties.cs" />
     <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
     <Compile Include="IDeltaRequestViewModel.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
-    <Compile Include="Pgc\PgcEpisodeViewModel.cs" />
-    <Compile Include="Pgc\PgcSectionViewModel.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Dash.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Interaction.cs" />
-    <Compile Include="Pgc\PgcSeasonViewModel.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Live.cs" />
-    <Compile Include="Account\UserViewModel\UserViewModel.cs" />
-    <Compile Include="Account\UserViewModel\UserViewModel.Properties.cs" />
-    <Compile Include="Common\HistoryTabViewModel.cs" />
-    <Compile Include="Pgc\PgcTimeLineItemViewModel.cs" />
     <Compile Include="Pgc\DocumentaryPageViewModel.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
-    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
-    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Methods.cs" />
-    <Compile Include="Core\PlayerViewModel\PlayerViewModel.Properties.cs" />
-    <Compile Include="Base\ReplyViewModelBase.cs" />
-    <Compile Include="Article\ArticleViewModel\ArticleViewModel.cs" />
-    <Compile Include="Article\ArticleViewModel\ArticleViewModel.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Properties.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.cs" />
@@ -194,17 +173,11 @@
     <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.Properties.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.Properties.cs" />
-    <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
-    <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Base\WebRequestViewModelBase.cs" />
-    <Compile Include="Common\VideoPartViewModel.cs" />
-    <Compile Include="Common\VideoFormatViewModel.cs" />
-    <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
     <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
     <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
@@ -264,39 +237,22 @@
     <PackageReference Include="ToolGood.Words">
       <Version>3.0.3.1</Version>
     </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Adapter\Adapter.Implementation\Adapter.Implementation.csproj">
-      <Project>{9C3E4744-E870-490B-A7DB-1473A0DB355F}</Project>
-      <Name>Adapter.Implementation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj">
       <Project>{3046F10C-456E-43D3-8F13-3855EE2D9344}</Project>
       <Name>Adapter.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Controller\Controller.Uwp\Controller.Uwp.csproj">
-      <Project>{5213e830-43f5-491e-a8ef-d75083578ef3}</Project>
-      <Name>Controller.Uwp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Lib.Implementation\Lib.Implementation.csproj">
-      <Project>{ee5c62af-b6b7-4cf9-895f-60adc1801175}</Project>
-      <Name>Lib.Implementation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
       <Project>{83dd339b-ea58-4380-8994-02fa6708cc7a}</Project>
       <Name>Lib.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\SignIn.Uwp\SignIn.Uwp.csproj">
-      <Project>{1e466e0c-5218-4892-9fdd-0e777795c545}</Project>
-      <Name>SignIn.Uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
       <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
       <Name>Models.App</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
-      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
-      <Name>Models.BiliBili</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj">
       <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
@@ -306,21 +262,9 @@
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj">
-      <Project>{0187840f-8d1a-4198-b5bf-8b05cadb4554}</Project>
-      <Name>Models.gRPC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
-      <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
-      <Name>Locator.Uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
       <Name>Toolkit.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
-      <Project>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</Project>
-      <Name>Toolkit.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
       <Project>{cd9930dc-36a8-45fc-8824-c8b3fa873fad}</Project>

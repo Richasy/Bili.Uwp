@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Live"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style x:Key="VerticalLiveItemStyle" TargetType="local:LiveItem">
@@ -29,9 +29,9 @@
                                     <muxc:CommandBarFlyout.SecondaryCommands>
                                         <AppBarButton
                                             x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                                            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                                            Label="{loc:Locale Name=OpenInBroswer}">
                                             <AppBarButton.Icon>
                                                 <icons:RegularFluentIcon Symbol="Globe16" />
                                             </AppBarButton.Icon>
@@ -113,7 +113,7 @@
                                             Opacity="0.6"
                                             Symbol="People16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                 </Grid>
@@ -150,9 +150,9 @@
                                     <muxc:CommandBarFlyout.SecondaryCommands>
                                         <AppBarButton
                                             x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                                            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                                            Label="{loc:Locale Name=OpenInBroswer}">
                                             <AppBarButton.Icon>
                                                 <icons:RegularFluentIcon Symbol="Globe16" />
                                             </AppBarButton.Icon>
@@ -235,7 +235,7 @@
                                             Opacity="0.6"
                                             Symbol="People16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                 </Grid>
@@ -263,9 +263,9 @@
                                 <muxc:CommandBarFlyout.SecondaryCommands>
                                     <AppBarButton
                                         x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                                        Label="{loc:Locale Name=OpenInBroswer}">
                                         <AppBarButton.Icon>
                                             <icons:RegularFluentIcon Symbol="Globe16" />
                                         </AppBarButton.Icon>

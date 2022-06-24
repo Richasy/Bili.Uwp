@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Controller.Uwp;
+using System.Reactive;
+using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using Microsoft.Toolkit.Uwp.Connectivity;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Xaml;
 
@@ -22,8 +25,9 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IFileToolkit _fileToolkit;
+        private readonly IAppToolkit _appToolkit;
+        private readonly IUpdateProvider _updateProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly BiliController _controller;
         private readonly NetworkHelper _networkHelper;
 
         private bool? _isWide;
@@ -77,6 +81,31 @@ namespace Bili.ViewModels.Uwp.Core
         /// 请求显示正在播放的剧集信息详情.
         /// </summary>
         public event EventHandler RequestShowPgcSeasonDetail;
+
+        /// <summary>
+        /// 检查应用更新命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
+
+        /// <summary>
+        /// 检查继续播放的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> CheckContinuePlayCommand { get; }
+
+        /// <summary>
+        /// 检查新动态通知的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> CheckNewDynamicRegistrationCommand { get; }
+
+        /// <summary>
+        /// 添加继续播放视图模型的命令.
+        /// </summary>
+        public ReactiveCommand<PlaySnapshot, Unit> AddLastPlayItemCommand { get; }
+
+        /// <summary>
+        /// 清除本地的继续播放视图模型的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
 
         /// <summary>
         /// 导航面板是否已展开.

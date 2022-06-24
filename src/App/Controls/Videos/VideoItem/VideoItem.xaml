@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Videos"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -11,18 +11,18 @@
         <muxc:CommandBarFlyout.SecondaryCommands>
             <AppBarButton
                 x:Name="AddToViewLaterItem"
-                AutomationProperties.Name="{loc:LocaleLocator Name=AddToViewLater}"
+                AutomationProperties.Name="{loc:Locale Name=AddToViewLater}"
                 Command="{Binding AddToViewLaterCommand}"
-                Label="{loc:LocaleLocator Name=AddToViewLater}">
+                Label="{loc:Locale Name=AddToViewLater}">
                 <AppBarButton.Icon>
                     <icons:RegularFluentIcon Symbol="Add16" />
                 </AppBarButton.Icon>
             </AppBarButton>
             <AppBarButton
                 x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                 Command="{Binding OpenInBroswerCommand}"
-                Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                Label="{loc:Locale Name=OpenInBroswer}">
                 <AppBarButton.Icon>
                     <icons:RegularFluentIcon Symbol="Globe16" />
                 </AppBarButton.Icon>
@@ -157,21 +157,21 @@
                                             Opacity="0.6"
                                             Symbol="PlayCircle16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=PlayCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="SlideText16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="ThumbLike16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=BeLikeCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                     <Grid Grid.Row="3">
@@ -179,7 +179,7 @@
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Margin="0,0,0,8"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowScore}">
-                                            <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{loc:LocaleLocator Name=Score}" />
+                                            <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{loc:Locale Name=Score}" />
                                             <Run
                                                 FontWeight="Bold"
                                                 Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
@@ -325,21 +325,21 @@
                                             Opacity="0.6"
                                             Symbol="PlayCircle16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=PlayCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="SlideText16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
                                             Symbol="ThumbLike16"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
-                                            ToolTipService.ToolTip="{loc:LocaleLocator Name=BeLikeCount}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     </StackPanel>
                                     <Grid Grid.Row="4">
@@ -347,7 +347,7 @@
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Margin="0,0,0,8"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowScore}">
-                                            <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{loc:LocaleLocator Name=Score}" />
+                                            <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{loc:Locale Name=Score}" />
                                             <Run
                                                 FontWeight="Bold"
                                                 Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
@@ -468,14 +468,14 @@
                                         Opacity="0.6"
                                         Symbol="PlayCircle16"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
-                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}"
+                                        ToolTipService.ToolTip="{loc:Locale Name=PlayCount}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                     <controls:IconTextBlock
                                         Margin="0,0,12,0"
                                         Opacity="0.6"
                                         Symbol="SlideText16"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
-                                        ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}"
+                                        ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                 </StackPanel>
                             </Grid>
@@ -564,13 +564,13 @@
                                     Opacity="0.6"
                                     Symbol="PlayCircle16"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}" />
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlayCount}" />
                                 <controls:IconTextBlock
                                     Margin="0,0,12,0"
                                     Opacity="0.6"
                                     Symbol="SlideText16"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}" />
+                                    ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -658,13 +658,13 @@
                                     Opacity="0.6"
                                     Symbol="PlayCircle16"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=PlayCount}" />
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlayCount}" />
                                 <controls:IconTextBlock
                                     Margin="0,0,12,0"
                                     Opacity="0.6"
                                     Symbol="SlideText16"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuCount}" />
+                                    ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}" />
                             </StackPanel>
                         </Grid>
                     </Grid>

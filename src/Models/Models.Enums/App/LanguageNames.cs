@@ -523,6 +523,8 @@ namespace Bili.Models.Enums
         EnterCompactOverlay,
         FailedToSendDanmaku,
         PlayNextPart,
+        Playlist,
+        CoinNumberTip,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -33,11 +33,11 @@ namespace Bili.DI.App
         /// </summary>
         public static void RegisterAppRequiredServices()
         {
+            SplatRegistrations.RegisterLazySingleton<IResourceToolkit, ResourceToolkit>();
+            SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
             SplatRegistrations.RegisterLazySingleton<INumberToolkit, NumberToolkit>();
             SplatRegistrations.RegisterLazySingleton<IAppToolkit, AppToolkit>();
             SplatRegistrations.RegisterLazySingleton<IFileToolkit, FileToolkit>();
-            SplatRegistrations.RegisterLazySingleton<IResourceToolkit, ResourceToolkit>();
-            SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
             SplatRegistrations.RegisterLazySingleton<IMD5Toolkit, MD5Toolkit>();
             SplatRegistrations.RegisterLazySingleton<IFontToolkit, FontToolkit>();
             SplatRegistrations.RegisterLazySingleton<IVideoToolkit, VideoToolkit>();

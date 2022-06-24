@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp
         protected string GetErrorMessage(Exception exception)
         {
             var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
+                ? se.GetMessage()
                 : exception.Message;
             return msg;
         }

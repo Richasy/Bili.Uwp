@@ -98,6 +98,20 @@ namespace Bili.Models.App.Other
             return false;
         }
 
+        /// <summary>
+        /// 获取错误信息.
+        /// </summary>
+        /// <returns>错误信息.</returns>
+        public string GetMessage()
+            => Error?.Message ?? Message;
+
+        /// <summary>
+        /// 是否为 HTTP 错误.
+        /// </summary>
+        /// <returns>结果.</returns>
+        public bool IsHttpError()
+            => Error?.IsHttpError ?? true;
+
         /// <inheritdoc />
         public override string ToString()
         {

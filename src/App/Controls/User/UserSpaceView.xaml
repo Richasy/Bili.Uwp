@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
-    Title="{loc:LocaleLocator Name=UserInformation}"
+    Title="{loc:Locale Name=UserInformation}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -72,12 +72,12 @@
                             <local:TwoLineButton
                                 Command="{x:Bind ViewModel.GotoFansPageCommand}"
                                 FirstLineText="{x:Bind ViewModel.UserViewModel.FansCountText, Mode=OneWay}"
-                                SecondLineText="{loc:LocaleLocator Name=FansCount}" />
+                                SecondLineText="{loc:Locale Name=FansCount}" />
                             <local:TwoLineButton
                                 Grid.Column="1"
                                 Command="{x:Bind ViewModel.GotoFollowsPageCommand}"
                                 FirstLineText="{x:Bind ViewModel.UserViewModel.FollowCountText, Mode=OneWay}"
-                                SecondLineText="{loc:LocaleLocator Name=FollowCount}" />
+                                SecondLineText="{loc:Locale Name=FollowCount}" />
                             <StackPanel
                                 Grid.Column="2"
                                 Padding="0,4"
@@ -91,7 +91,7 @@
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     HorizontalAlignment="Center"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{loc:LocaleLocator Name=BeLikeCount}" />
+                                    Text="{loc:Locale Name=BeLikeCount}" />
                             </StackPanel>
                         </Grid>
                         <Button
@@ -109,12 +109,12 @@
                             <Button
                                 MinWidth="120"
                                 Click="OnFixButtonClickAsync"
-                                Content="{loc:LocaleLocator Name=FixPublisher}"
+                                Content="{loc:Locale Name=FixPublisher}"
                                 Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                             <Button
                                 MinWidth="120"
                                 Click="OnFixButtonClickAsync"
-                                Content="{loc:LocaleLocator Name=UnfixPublisher}"
+                                Content="{loc:Locale Name=UnfixPublisher}"
                                 Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay}" />
                         </Grid>-->
                     </Grid>
@@ -172,7 +172,7 @@
                         x:Name="VideoView"
                         Margin="16,0,16,12"
                         Background="Transparent"
-                        HeaderText="{loc:LocaleLocator Name=Videos}"
+                        HeaderText="{loc:Locale Name=Videos}"
                         ItemOrientation="Horizontal"
                         ItemTemplate="{StaticResource VideoItemTemplate}"
                         ItemsSource="{x:Bind ViewModel.Items}">
@@ -182,9 +182,9 @@
                         <local:VerticalRepeaterView.AdditionalContent>
                             <Button
                                 x:Name="SearchButton"
-                                AutomationProperties.Name="{loc:LocaleLocator Name=Search}"
+                                AutomationProperties.Name="{loc:Locale Name=Search}"
                                 Command="{x:Bind ViewModel.EnterSearchModeCommand}"
-                                ToolTipService.ToolTip="{loc:LocaleLocator Name=Search}">
+                                ToolTipService.ToolTip="{loc:Locale Name=Search}">
                                 <icons:RegularFluentIcon Symbol="Search16" />
                             </Button>
                         </local:VerticalRepeaterView.AdditionalContent>
@@ -206,17 +206,17 @@
                     <AutoSuggestBox
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        PlaceholderText="{loc:LocaleLocator Name=SearchTipSlim}"
+                        PlaceholderText="{loc:Locale Name=SearchTipSlim}"
                         QueryIcon="Find"
                         QuerySubmitted="OnSearchBoxQuerySubmitted"
                         Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}" />
 
                     <Button
                         x:Name="ExitSearchButton"
-                        AutomationProperties.Name="{loc:LocaleLocator Name=ExitSearch}"
+                        AutomationProperties.Name="{loc:Locale Name=ExitSearch}"
                         Grid.Column="1"
                         Command="{x:Bind ViewModel.ExitSearchModeCommand}"
-                        Content="{loc:LocaleLocator Name=ExitSearch}" />
+                        Content="{loc:Locale Name=ExitSearch}" />
 
                     <StackPanel
                         Grid.Row="1"
@@ -258,15 +258,15 @@
                     Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay}" />
 
                 <Grid Margin="0,80,0,0">
-                    <local:ErrorPanel Text="{loc:LocaleLocator Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsSpaceVideoEmpty, Mode=OneWay}" />
-                    <local:ErrorPanel Text="{loc:LocaleLocator Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsSearchVideoEmpty, Mode=OneWay}" />
+                    <local:ErrorPanel Text="{loc:Locale Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsSpaceVideoEmpty, Mode=OneWay}" />
+                    <local:ErrorPanel Text="{loc:Locale Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsSearchVideoEmpty, Mode=OneWay}" />
                 </Grid>
             </Grid>
         </Grid>
 
         <local:ErrorPanel
             x:Name="ErrorPanel"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

@@ -80,6 +80,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public event EventHandler MediaEnded;
 
+        /// <summary>
+        /// 由视图模型内部改变了当前选中的分集.
+        /// </summary>
+        public event EventHandler<VideoIdentifier> InternalPartChanged;
+
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
 

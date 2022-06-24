@@ -94,7 +94,18 @@ namespace Bili.ViewModels.Uwp.Video
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, "0", VideoType.Video));
+        {
+            var snapshot = new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, "0", VideoType.Video);
+            if (_navigationViewModel.IsPlayViewShown && _navigationViewModel.PlayViewId == PageIds.VideoPlayer)
+            {
+                var videoPlayerPageVM = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+                videoPlayerPageVM.SetSnapshot(snapshot);
+            }
+            else
+            {
+                _navigationViewModel.NavigateToPlayView(snapshot);
+            }
+        }
 
         private async Task AddToViewLaterAsync()
         {

@@ -87,7 +87,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (Items.Count > 1)
             {
-                _navigationViewModel.NavigateToPlayView(Items.Select(p => GetSnapshot(p)).ToList());
+                _navigationViewModel.NavigateToPlayView(Items.Select(p => p.Information).ToList());
             }
             else if (Items.Count > 0)
             {

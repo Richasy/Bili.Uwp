@@ -6,9 +6,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -95,6 +97,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             IsMainViewShown = true;
             SecondaryViewId = PageIds.None;
+            PlayViewId = PageIds.None;
             CloseAllPopup();
             RemoveAllPlayer();
             if (pageId != MainViewId)
@@ -115,6 +118,7 @@ namespace Bili.ViewModels.Uwp.Core
         public void NavigateToSecondaryView(PageIds pageId, object parameter = null)
         {
             IsSecondaryViewShown = true;
+            PlayViewId = PageIds.None;
             CloseAllPopup();
             RemoveAllPlayer();
             if (pageId != SecondaryViewId || pageId == PageIds.Search)
@@ -139,6 +143,7 @@ namespace Bili.ViewModels.Uwp.Core
             CloseAllPopup();
             RemoveBackStack(BackBehavior.OpenPlayer);
             var pageId = GetPageIdFromPlaySnapshot(parameter);
+            PlayViewId = pageId;
             var args = new AppNavigationEventArgs(NavigationType.Player, pageId, parameter);
             AddBackStack(
                     BackBehavior.OpenPlayer,
@@ -159,13 +164,14 @@ namespace Bili.ViewModels.Uwp.Core
         /// 导航到播放页，传入播放参数.
         /// </summary>
         /// <param name="parameters">播放参数.</param>
-        public void NavigateToPlayView(IEnumerable<PlaySnapshot> parameters)
+        public void NavigateToPlayView(IEnumerable<VideoInformation> parameters, int startIndex = 0)
         {
             IsPlayViewShown = true;
             CloseAllPopup();
             RemoveBackStack(BackBehavior.OpenPlayer);
             var pageId = PageIds.VideoPlayer;
-            var args = new AppNavigationEventArgs(NavigationType.Player, pageId, parameters);
+            PlayViewId = pageId;
+            var args = new AppNavigationEventArgs(NavigationType.Player, pageId, new Tuple<IEnumerable<VideoInformation>, int>(parameters, startIndex));
             AddBackStack(
                     BackBehavior.OpenPlayer,
                     _ =>
@@ -238,10 +244,12 @@ namespace Bili.ViewModels.Uwp.Core
             if (last.Id == BackBehavior.MainView)
             {
                 NavigateToMainView((PageIds)last.Parameter, null);
+                Splat.Locator.Current.GetService<AppViewModel>().DeleteLastPlayItemCommand.Execute().Subscribe();
             }
             else if (last.Id == BackBehavior.SecondaryView)
             {
                 NavigateToSecondaryView((PageIds)last.Parameter, null);
+                Splat.Locator.Current.GetService<AppViewModel>().DeleteLastPlayItemCommand.Execute().Subscribe();
             }
             else if (last.Id == BackBehavior.OpenPlayer)
             {

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
 
 namespace Bili.ViewModels.Uwp

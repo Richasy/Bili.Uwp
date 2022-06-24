@@ -47,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             var selectedFolders = FavoriteFolders.Where(p => p.IsSelected).Select(p => p.Data.Id).ToList();
             var deselectedFolders = FavoriteFolders.Where(p => !p.IsSelected).Select(p => p.Data.Id).ToList();
-            var result = await _playerProvider.FavoriteAsync(CurrentEpisode.VideoId, selectedFolders, deselectedFolders);
+            var result = await _playerProvider.FavoriteAsync(CurrentEpisode.Identifier.Id, selectedFolders, deselectedFolders, false);
             if (result == Models.Enums.Bili.FavoriteResult.Success || result == Models.Enums.Bili.FavoriteResult.InsufficientAccess)
             {
                 IsFavorited = selectedFolders.Count > 0;

@@ -496,7 +496,7 @@ namespace Bili.Models.App.Constants
             /// <summary>
             /// 添加或删除视频收藏.
             /// </summary>
-            public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/deal";
+            public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/batch-deal";
 
             /// <summary>
             /// 一键三连.

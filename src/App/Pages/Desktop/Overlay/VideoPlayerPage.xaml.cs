@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Bili.App.Controls.Dialogs;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
+using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
-using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -34,11 +35,18 @@ namespace Bili.App.Pages.Desktop.Overlay
             {
                 ViewModel.SetSnapshot(shot);
             }
+            else if (e.Parameter is Tuple<IEnumerable<VideoInformation>, int> playlist)
+            {
+                ViewModel.SetPlaylist(playlist.Item1, playlist.Item2);
+            }
         }
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel.ClearCommand.Execute().Subscribe();
+        {
+            ViewModel.ClearCommand.Execute().Subscribe();
+            ViewModel.ClearPlaylistCommand.Execute().Subscribe();
+        }
 
         private void OnSectionHeaderItemInvoked(object sender, Models.App.Other.PlayerSectionHeader e)
         {
@@ -48,20 +56,21 @@ namespace Bili.App.Pages.Desktop.Overlay
             }
         }
 
-        private void OnRefreshFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnRefreshFavoriteButtonClick(object sender, RoutedEventArgs e)
             => ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
 
-        private void OnGiveCoinButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnGiveCoinButtonClick(object sender, RoutedEventArgs e)
         {
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
             ViewModel.CoinCommand.Execute(num).Subscribe();
+            CoinFlyout.Hide();
         }
 
         private async void OnTagButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var data = (sender as FrameworkElement).DataContext as Tag;
-            var settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             var isFirstClick = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, true);
 
             if (isFirstClick)
@@ -79,7 +88,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             ViewModel.SearchTagCommand.Execute(data).Subscribe();
         }
 
-        private void OnLikeButtonHoldingCompleted(object sender, System.EventArgs e)
+        private void OnLikeButtonHoldingCompleted(object sender, EventArgs e)
         {
             _isLikeHoldCompleted = true;
             ViewModel.TripleCommand.Execute().Subscribe();
@@ -115,7 +124,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             }
         }
 
-        private void OnFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnFavoriteButtonClick(object sender, RoutedEventArgs e)
         {
             ViewModel.IsFavorited = !ViewModel.IsFavorited;
             ViewModel.IsFavorited = !ViewModel.IsFavorited;

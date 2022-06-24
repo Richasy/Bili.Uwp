@@ -44,7 +44,6 @@ namespace Bili.Models.Enums
         IgnoreVersion,
         IsOnlyShowIndex,
         CanContinuePlay,
-        ContinuePlayTitle,
         SupportContinuePlay,
         Download_UseMp4Box,
         Download_OnlyHevc,

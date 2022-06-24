@@ -118,6 +118,11 @@ namespace Bili.ViewModels.Uwp.Video
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
+        /// 清除播放列表命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ClearPlaylistCommand { get; }
+
+        /// <summary>
         /// 视频协作者.
         /// </summary>
         public ObservableCollection<UserItemViewModel> Collaborators { get; }
@@ -141,6 +146,11 @@ namespace Bili.ViewModels.Uwp.Video
         /// 关联的视频集合.
         /// </summary>
         public ObservableCollection<VideoItemViewModel> RelatedVideos { get; }
+
+        /// <summary>
+        /// 视频播放列表.
+        /// </summary>
+        public ObservableCollection<VideoItemViewModel> VideoPlaylist { get; }
 
         /// <summary>
         /// 视频分集集合.
@@ -325,6 +335,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public bool IsShowRelatedVideos { get; set; }
+
+        /// <summary>
+        /// 是否显示视频播放列表.
+        /// </summary>
+        [Reactive]
+        public bool IsShowVideoPlaylist { get; set; }
 
         /// <summary>
         /// 是否显示评论区.

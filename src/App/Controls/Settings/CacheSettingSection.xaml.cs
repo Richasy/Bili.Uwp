@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Storage;
@@ -28,7 +26,7 @@ namespace Bili.App.Controls
             var cacheFolder = ApplicationData.Current.LocalCacheFolder;
             LoadingRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ClearButton.IsEnabled = false;
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
 
             try
             {

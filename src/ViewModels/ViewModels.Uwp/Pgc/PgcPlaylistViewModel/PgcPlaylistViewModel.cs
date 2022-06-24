@@ -61,7 +61,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             IsError = true;
             var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
+                ? se.GetMessage()
                 : exception.Message;
             ErrorText = $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestPlayListFailed)}\n{msg}";
             LogException(exception);

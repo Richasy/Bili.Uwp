@@ -90,6 +90,7 @@ namespace Bili.ViewModels.Uwp.Video
             var hasVideoParts = View.SubVideos != null && View.SubVideos.Count() > 0;
             var hasSeason = View.Seasons != null && View.Seasons.Count() > 0;
             var hasRelatedVideos = View.RelatedVideos != null && View.RelatedVideos.Count() > 0;
+            var hasPlaylist = VideoPlaylist.Count > 0;
 
             if (hasVideoParts)
             {
@@ -105,6 +106,15 @@ namespace Bili.ViewModels.Uwp.Video
                 {
                     var item = subVideos[i];
                     VideoParts.Add(new VideoIdentifierSelectableViewModel(item, i + 1, item.Equals(CurrentVideoPart)));
+                }
+            }
+
+            if (hasPlaylist)
+            {
+                Sections.Add(new PlayerSectionHeader(PlayerSectionType.Playlist, _resourceToolkit.GetLocaleString(LanguageNames.Playlist)));
+                foreach (var item in VideoPlaylist)
+                {
+                    item.IsSelected = item.Information.Equals(View.Information);
                 }
             }
 

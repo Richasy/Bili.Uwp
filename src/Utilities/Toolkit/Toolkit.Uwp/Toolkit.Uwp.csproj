@@ -43,10 +43,6 @@
       <Project>{88314412-b020-415b-aeab-57adc43b273e}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Locator\Locator.Uwp\Locator.Uwp.csproj">
-      <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
-      <Name>Locator.Uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{ca4fe39c-2379-4966-9940-de738d94e982}</Project>
       <Name>Toolkit.Interfaces</Name>

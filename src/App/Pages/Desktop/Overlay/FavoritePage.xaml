@@ -7,7 +7,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:favorite="using:Bili.App.Controls.Favorite"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <app:PageHeader Title="{loc:LocaleLocator Name=MyFavorite}" />
+        <app:PageHeader Title="{loc:Locale Name=MyFavorite}" />
         <muxc:NavigationView
             x:Name="Nav"
             Style="{StaticResource TopNavigationViewStyle}"
@@ -42,7 +42,7 @@
             </muxc:NavigationView.MenuItemTemplate>
             <muxc:NavigationView.PaneFooter>
                 <Button x:Name="RefreshButton" Click="OnRefreshButtonClickAsync">
-                    <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:LocaleLocator Name=RefreshCurrentSection}" />
+                    <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:Locale Name=RefreshCurrentSection}" />
                 </Button>
             </muxc:NavigationView.PaneFooter>
         </muxc:NavigationView>

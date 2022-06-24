@@ -4,7 +4,7 @@
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Community">
     <Style x:Key="DefaultCommentItemStyle" TargetType="local:CommentItem">
         <Setter Property="Template">
@@ -51,7 +51,7 @@
                                         HorizontalAlignment="Center"
                                         FontSize="10"
                                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Text="{loc:LocaleLocator Name=Top}" />
+                                        Text="{loc:Locale Name=Top}" />
                                 </Border>
                             </StackPanel>
 

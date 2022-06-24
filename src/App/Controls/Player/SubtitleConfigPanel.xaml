@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.Models.Enums.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:player="using:Bili.Models.Data.Player"
     d:DesignHeight="300"
@@ -12,10 +12,10 @@
     mc:Ignorable="d">
 
     <StackPanel Spacing="12">
-        <ToggleSwitch Header="{loc:LocaleLocator Name=ShowSubtitle}" IsOn="{x:Bind ViewModel.CanShowSubtitle, Mode=TwoWay}" />
+        <ToggleSwitch Header="{loc:Locale Name=ShowSubtitle}" IsOn="{x:Bind ViewModel.CanShowSubtitle, Mode=TwoWay}" />
         <ComboBox
             HorizontalAlignment="Stretch"
-            Header="{loc:LocaleLocator Name=SubtitleConvert}"
+            Header="{loc:Locale Name=SubtitleConvert}"
             ItemsSource="{x:Bind ViewModel.ConvertTypeCollection}"
             SelectedItem="{x:Bind ViewModel.ConvertType, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
@@ -25,7 +25,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <ListView
-            Header="{loc:LocaleLocator Name=SubtitleList}"
+            Header="{loc:Locale Name=SubtitleList}"
             IsItemClickEnabled="True"
             ItemClick="OnMetaItemClick"
             ItemsSource="{x:Bind ViewModel.Metas, Mode=OneWay}"

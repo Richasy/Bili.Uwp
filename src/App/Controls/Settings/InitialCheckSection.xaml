@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
@@ -16,7 +16,7 @@
         <exp:ExpanderEx.Header>
             <exp:ExpanderExWrapper>
                 <exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=InitialCheckTitle}" Description="{loc:LocaleLocator Name=InitialCheckDescription}">
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=InitialCheckTitle}" Description="{loc:Locale Name=InitialCheckDescription}">
                         <exp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="AlertUrgent16" />
                         </exp:ExpanderExDescriptor.Icon>

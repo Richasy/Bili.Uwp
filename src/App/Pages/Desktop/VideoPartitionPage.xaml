@@ -8,7 +8,7 @@
     xmlns:communityControls="using:Bili.App.Controls.Community"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <app:PageHeader Title="{loc:LocaleLocator Name=Partition}" />
+        <app:PageHeader Title="{loc:Locale Name=Partition}" />
         <ScrollViewer
             x:Name="RootContainer"
             Grid.Row="1"
@@ -63,7 +63,7 @@
                 Style="{StaticResource CaptionTextBlockStyle}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{loc:LocaleLocator Name=PartitionLoading}" />
+                Text="{loc:Locale Name=PartitionLoading}" />
         </StackPanel>
     </Grid>
 </local:VideoPartitionPageBase>

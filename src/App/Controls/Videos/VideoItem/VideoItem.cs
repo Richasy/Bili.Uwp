@@ -20,6 +20,9 @@ namespace Bili.App.Controls.Videos
         public static readonly DependencyProperty IsDynamicProperty =
             DependencyProperty.Register(nameof(IsDynamic), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
+        /// <summary>
+        /// <see cref="IsCustom"/> 的依赖属性.
+        /// </summary>
         public static readonly DependencyProperty IsCustomProperty =
             DependencyProperty.Register(nameof(IsCustom), typeof(bool), typeof(VideoItem), new PropertyMetadata(false));
 
@@ -39,7 +42,7 @@ namespace Bili.App.Controls.Videos
         }
 
         /// <summary>
-        /// 是否为自定义样式，设置该值后，卡片将不能根据 <see cref="Orientation"/> 自动切换样式
+        /// 是否为自定义样式，设置该值后，卡片将不能根据 <see cref="Orientation"/> 自动切换样式.
         /// </summary>
         public bool IsCustom
         {

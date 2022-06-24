@@ -21,8 +21,8 @@ namespace Bili.App.Controls
         public AppTitleBar()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<AppViewModel>();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            ViewModel = Locator.Current.GetService<AppViewModel>();
+            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
         }
@@ -40,12 +40,6 @@ namespace Bili.App.Controls
 
         private void OnMenuButtonClick(object sender, RoutedEventArgs e)
             => ViewModel.IsNavigatePaneOpen = !ViewModel.IsNavigatePaneOpen;
-
-        private async void OnHomeButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await PlayerViewModel.Instance.BackToHomeAsync();
-            _navigationViewModel.NavigateToMainView(_navigationViewModel.MainViewId);
-        }
 
         private void ChangeTitleBarVisibility()
         {

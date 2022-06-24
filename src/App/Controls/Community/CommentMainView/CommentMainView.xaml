@@ -4,7 +4,7 @@
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Community">
     <Style x:Key="DefaultCommentMainViewStyle" TargetType="local:CommentMainView">
         <Setter Property="Template">
@@ -40,14 +40,14 @@
                             <local:CommentRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Items}" TopComment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TopComment}" />
                             <controls:OverlayLoadingPanel IsBarActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsIncrementalLoading}" IsRingActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsReloading}" />
                             <controls:ErrorPanel
-                                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                                ActionContent="{loc:Locale Name=Refresh}"
                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ErrorText, Mode=OneWay}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Mode=OneWay}">
                                 <interactivity:Interaction.Behaviors>
                                     <behaviors:ReloadBehavior />
                                 </interactivity:Interaction.Behaviors>
                             </controls:ErrorPanel>
-                            <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
+                            <controls:ErrorPanel Text="{loc:Locale Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
                         </Grid>
 
                         <local:CommentBox

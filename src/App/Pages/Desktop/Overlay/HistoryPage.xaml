@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
@@ -41,7 +41,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <app:PageHeader Title="{loc:LocaleLocator Name=ViewHistory}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=ViewHistory}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
@@ -52,7 +52,7 @@
                 <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=Videos}"
+                    HeaderText="{loc:Locale Name=Videos}"
                     ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                     MinWideItemHeight="212"
                     MinWideItemWidth="200"
@@ -69,7 +69,7 @@
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Symbol="Delete16"
-                                Text="{loc:LocaleLocator Name=ClearHistory}" />
+                                Text="{loc:Locale Name=ClearHistory}" />
                         </Button>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
@@ -81,7 +81,7 @@
                                             MinWidth="160"
                                             Command="{x:Bind RemoveFromHistoryCommand}"
                                             DataContext="{x:Bind}"
-                                            Text="{loc:LocaleLocator Name=Delete}">
+                                            Text="{loc:Locale Name=Delete}">
                                             <MenuFlyoutItem.Icon>
                                                 <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete24" />
                                             </MenuFlyoutItem.Icon>
@@ -102,7 +102,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="1"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -111,7 +111,7 @@
         </controls:ErrorPanel>
         <controls:ErrorPanel
             Grid.Row="1"
-            Text="{loc:LocaleLocator Name=NoHistoryVideos}"
+            Text="{loc:Locale Name=NoHistoryVideos}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </local:HistoryPageBase>

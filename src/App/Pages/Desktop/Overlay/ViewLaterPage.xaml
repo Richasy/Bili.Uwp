@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
@@ -41,7 +41,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <app:PageHeader Title="{loc:LocaleLocator Name=ViewLater}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=ViewLater}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
@@ -52,7 +52,7 @@
                 <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=Videos}"
+                    HeaderText="{loc:Locale Name=Videos}"
                     ItemsSource="{x:Bind ViewModel.Items}"
                     Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <interactivity:Interaction.Behaviors>
@@ -65,7 +65,7 @@
                                 Style="{StaticResource AccentButtonStyle}"
                                 VerticalAlignment="Center"
                                 Command="{x:Bind ViewModel.PlayAllCommand}">
-                                <controls:IconTextBlock Symbol="Play16" Text="{loc:LocaleLocator Name=PlayAll}" />
+                                <controls:IconTextBlock Symbol="Play16" Text="{loc:Locale Name=PlayAll}" />
                             </Button>
                             <Button
                                 x:Name="ClearButton"
@@ -75,7 +75,7 @@
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                     Symbol="Delete16"
-                                    Text="{loc:LocaleLocator Name=ClearViewLater}" />
+                                    Text="{loc:Locale Name=ClearViewLater}" />
                             </Button>
                         </StackPanel>
                     </controls:VerticalRepeaterView.AdditionalContent>
@@ -87,7 +87,7 @@
                                         <MenuFlyoutItem
                                             MinWidth="160"
                                             Command="{x:Bind RemoveFromViewLaterCommand}"
-                                            Text="{loc:LocaleLocator Name=Remove}">
+                                            Text="{loc:Locale Name=Remove}">
                                             <MenuFlyoutItem.Icon>
                                                 <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete20" />
                                             </MenuFlyoutItem.Icon>
@@ -108,7 +108,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="1"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -117,7 +117,7 @@
         </controls:ErrorPanel>
         <controls:ErrorPanel
             Grid.Row="1"
-            Text="{loc:LocaleLocator Name=NoViewLaterVideos}"
+            Text="{loc:Locale Name=NoViewLaterVideos}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </local:ViewLaterPageBase>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Windows.ApplicationModel.DataTransfer;
@@ -165,6 +166,22 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
             }
+        }
+
+        private void OnInternalPartChanged(object sender, VideoIdentifier e)
+        {
+            var episode = Episodes.FirstOrDefault(p => p.Information.Identifier.Id == e.Id);
+            if (episode == null && Extras.Count > 0)
+            {
+                episode = Extras.SelectMany(p => p.Episodes).FirstOrDefault(p => p.Information.Identifier.Id == e.Id);
+            }
+
+            if (episode == null)
+            {
+                return;
+            }
+
+            ChangeEpisodeCommand.Execute(episode.Information).Subscribe();
         }
     }
 }

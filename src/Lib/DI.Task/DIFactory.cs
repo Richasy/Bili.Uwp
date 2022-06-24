@@ -22,9 +22,9 @@ namespace Bili.DI.Task
         /// </summary>
         public void RegisterTaskRequiredServices()
         {
-            SplatRegistrations.Register<INumberToolkit, NumberToolkit>();
             SplatRegistrations.Register<IResourceToolkit, FakeResourceToolkit>();
             SplatRegistrations.Register<ISettingsToolkit, SettingsToolkit>();
+            SplatRegistrations.Register<INumberToolkit, NumberToolkit>();
             SplatRegistrations.Register<IMD5Toolkit, MD5Toolkit>();
 
             SplatRegistrations.Register<IImageAdapter, ImageAdapter>();

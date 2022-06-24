@@ -15,6 +15,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// </summary>
     public sealed partial class SettingsPageViewModel
     {
+        private readonly IAppToolkit _appToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AppViewModel _appViewModel;

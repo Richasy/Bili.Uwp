@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Bili.Models.Data.Appearance;
-using Bilibili.Main.Community.Reply.V1;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -22,12 +21,6 @@ namespace Bili.App.Controls.App
         /// </summary>
         public static readonly DependencyProperty MaxLinesProperty =
             DependencyProperty.Register(nameof(MaxLines), typeof(int), typeof(EmoteTextBlock), new PropertyMetadata(4));
-
-        /// <summary>
-        /// <see cref="ReplyInfo"/> 的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ReplyInfoProperty =
-            DependencyProperty.Register(nameof(ReplyInfo), typeof(ReplyInfo), typeof(EmoteTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(OnReplyInfoChanged)));
 
         /// <summary>
         /// <see cref="Text"/> 的依赖属性.
@@ -52,15 +45,6 @@ namespace Bili.App.Controls.App
         {
             get { return (int)GetValue(MaxLinesProperty); }
             set { SetValue(MaxLinesProperty, value); }
-        }
-
-        /// <summary>
-        /// 回复信息.
-        /// </summary>
-        public ReplyInfo ReplyInfo
-        {
-            get { return (ReplyInfo)GetValue(ReplyInfoProperty); }
-            set { SetValue(ReplyInfoProperty, value); }
         }
 
         /// <summary>
@@ -104,7 +88,6 @@ namespace Bili.App.Controls.App
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as EmoteTextBlock;
-            instance.ReplyInfo = null;
             if (e.NewValue != null)
             {
                 instance.InitializeContent();
@@ -121,11 +104,7 @@ namespace Bili.App.Controls.App
             {
                 _richBlock.Blocks.Clear();
                 Paragraph para = null;
-                if (ReplyInfo != null)
-                {
-                    para = ParseReplyInfo();
-                }
-                else if (Text != null)
+                if (Text != null)
                 {
                     para = ParseText();
                 }
@@ -148,60 +127,12 @@ namespace Bili.App.Controls.App
             {
                 _flyoutRichBlock.Blocks.Clear();
 
-                if (ReplyInfo != null)
-                {
-                    var para = ParseReplyInfo();
-                    _flyoutRichBlock.Blocks.Add(para);
-                }
-                else if (Text != null)
+                if (Text != null)
                 {
                     var para = ParseText();
                     _flyoutRichBlock.Blocks.Add(para);
                 }
             }
-        }
-
-        private Paragraph ParseReplyInfo()
-        {
-            var message = ReplyInfo.Content.Message;
-            var para = new Paragraph();
-
-            if (ReplyInfo.Content.Emote != null && ReplyInfo.Content.Emote.Count > 0)
-            {
-                // 有表情存在，进行处理.
-                var emotiRegex = new Regex(@"(\[.*?\])");
-                var emoties = ReplyInfo.Content.Emote;
-                var splitCotents = emotiRegex.Split(message).Where(p => p.Length > 0).ToArray();
-                foreach (var content in splitCotents)
-                {
-                    if (emotiRegex.IsMatch(content))
-                    {
-                        if (emoties.TryGetValue(content, out var sourceEmoti))
-                        {
-                            var inlineCon = new InlineUIContainer();
-                            var img = new Windows.UI.Xaml.Controls.Image() { Width = 20, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 2, -4) };
-                            var bitmap = new BitmapImage(new Uri(sourceEmoti.Url)) { DecodePixelWidth = 40 };
-                            img.Source = bitmap;
-                            inlineCon.Child = img;
-                            para.Inlines.Add(inlineCon);
-                        }
-                        else
-                        {
-                            para.Inlines.Add(new Run { Text = content });
-                        }
-                    }
-                    else
-                    {
-                        para.Inlines.Add(new Run { Text = content });
-                    }
-                }
-            }
-            else
-            {
-                para.Inlines.Add(new Run { Text = message });
-            }
-
-            return para;
         }
 
         private Paragraph ParseText()

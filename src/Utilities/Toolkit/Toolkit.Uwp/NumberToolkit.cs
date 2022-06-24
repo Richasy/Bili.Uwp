@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
 
 namespace Bili.Toolkit.Uwp
@@ -12,6 +11,17 @@ namespace Bili.Toolkit.Uwp
     /// </summary>
     public sealed class NumberToolkit : INumberToolkit
     {
+        private readonly IResourceToolkit _resourceToolkit;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumberToolkit"/> class.
+        /// </summary>
+        /// <param name="resourceToolkit">资源工具.</param>
+        public NumberToolkit(IResourceToolkit resourceToolkit)
+        {
+            _resourceToolkit = resourceToolkit;
+        }
+
         /// <inheritdoc/>
         public string GetCountText(double count)
         {
@@ -20,15 +30,14 @@ namespace Bili.Toolkit.Uwp
                 return string.Empty;
             }
 
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (count >= 100000000)
             {
-                var unit = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Billion);
+                var unit = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Billion);
                 return Math.Round(count / 100000000, 2) + unit;
             }
             else if (count >= 10000)
             {
-                var unit = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.TenThousands);
+                var unit = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.TenThousands);
                 return Math.Round(count / 10000, 2) + unit;
             }
 
@@ -61,18 +70,17 @@ namespace Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public string GetDurationText(TimeSpan timeSpan)
         {
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
             if (timeSpan.TotalHours > 1)
             {
-                return Math.Round(timeSpan.TotalHours, 2) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Hours);
+                return Math.Round(timeSpan.TotalHours, 2) + " " + _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Hours);
             }
             else if (timeSpan.TotalMinutes > 1)
             {
-                return Math.Round(timeSpan.TotalMinutes) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Minutes);
+                return Math.Round(timeSpan.TotalMinutes) + " " + _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Minutes);
             }
             else
             {
-                return Math.Round(timeSpan.TotalSeconds) + " " + resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Seconds);
+                return Math.Round(timeSpan.TotalSeconds) + " " + _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Seconds);
             }
         }
 

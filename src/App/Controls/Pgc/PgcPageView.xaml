@@ -7,7 +7,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
@@ -71,7 +71,7 @@
                     x:Name="FeedView"
                     Grid.Row="1"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=Recommend}"
+                    HeaderText="{loc:Locale Name=Recommend}"
                     HeaderVisibility="Visible"
                     ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                     MinWideItemHeight="180"
@@ -81,7 +81,7 @@
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.AdditionalContent>
                         <Button x:Name="IndexButton" Command="{x:Bind ViewModel.GotoIndexPageCommand}">
-                            <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
+                            <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:Locale Name=Index}" />
                         </Button>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
@@ -103,7 +103,7 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

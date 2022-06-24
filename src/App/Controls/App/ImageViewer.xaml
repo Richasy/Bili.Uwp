@@ -6,7 +6,7 @@
     xmlns:appearance="using:Bili.Models.Data.Appearance"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icon="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -98,8 +98,8 @@
                     x:Name="ZoomInButton"
                     Style="{StaticResource CustomButtonStyle}"
                     Click="OnZoomInButtonClick"
-                    Label="{loc:LocaleLocator Name=ZoomIn}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ZoomIn}">
+                    Label="{loc:Locale Name=ZoomIn}"
+                    ToolTipService.ToolTip="{loc:Locale Name=ZoomIn}">
                     <AppBarButton.Icon>
                         <icon:RegularFluentIcon Symbol="ZoomIn20" />
                     </AppBarButton.Icon>
@@ -114,8 +114,8 @@
                     x:Name="ZoomOutButton"
                     Style="{StaticResource CustomButtonStyle}"
                     Click="OnZoomOutButtonClick"
-                    Label="{loc:LocaleLocator Name=ZoomOut}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ZoomOut}">
+                    Label="{loc:Locale Name=ZoomOut}"
+                    ToolTipService.ToolTip="{loc:Locale Name=ZoomOut}">
                     <AppBarButton.Icon>
                         <icon:RegularFluentIcon Symbol="ZoomOut20" />
                     </AppBarButton.Icon>
@@ -124,8 +124,8 @@
                     x:Name="RotateButton"
                     Style="{StaticResource CustomButtonStyle}"
                     Click="OnRotateButtonClick"
-                    Label="{loc:LocaleLocator Name=Rotate}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Rotate}">
+                    Label="{loc:Locale Name=Rotate}"
+                    ToolTipService.ToolTip="{loc:Locale Name=Rotate}">
                     <AppBarButton.Icon>
                         <icon:RegularFluentIcon Symbol="RotateRight20" />
                     </AppBarButton.Icon>
@@ -140,8 +140,8 @@
                 <AppBarButton
                     Style="{StaticResource CustomButtonStyle}"
                     Click="OnCopyButtonClickAysnc"
-                    Label="{loc:LocaleLocator Name=CopyToClipboard}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=CopyToClipboard}">
+                    Label="{loc:Locale Name=CopyToClipboard}"
+                    ToolTipService.ToolTip="{loc:Locale Name=CopyToClipboard}">
                     <AppBarButton.Icon>
                         <icon:RegularFluentIcon Symbol="Copy20" />
                     </AppBarButton.Icon>
@@ -152,8 +152,8 @@
                 <AppBarButton
                     Style="{StaticResource CustomButtonStyle}"
                     Click="OnSaveButtonClickAsync"
-                    Label="{loc:LocaleLocator Name=SaveTo}"
-                    ToolTipService.ToolTip="{loc:LocaleLocator Name=SaveTo}">
+                    Label="{loc:Locale Name=SaveTo}"
+                    ToolTipService.ToolTip="{loc:Locale Name=SaveTo}">
                     <AppBarButton.Icon>
                         <icon:RegularFluentIcon Symbol="Save20" />
                     </AppBarButton.Icon>
@@ -163,20 +163,20 @@
                 </AppBarButton>
 
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton Click="OnShareButtonClick" Label="{loc:LocaleLocator Name=Share}">
+                    <AppBarButton Click="OnShareButtonClick" Label="{loc:Locale Name=Share}">
                         <AppBarButton.Icon>
                             <icon:RegularFluentIcon Symbol="Share20" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="{loc:LocaleLocator Name=SettingTo}">
+                    <AppBarButton Label="{loc:Locale Name=SettingTo}">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Click="OnSettingToBackgroundClickAsync" Text="{loc:LocaleLocator Name=SettingToBackground}">
+                                <MenuFlyoutItem Click="OnSettingToBackgroundClickAsync" Text="{loc:Locale Name=SettingToBackground}">
                                     <MenuFlyoutItem.Icon>
                                         <icon:RegularFluentIcon Symbol="VideoBackgroundEffect20" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Click="OnSettingToLockScreenClickAsync" Text="{loc:LocaleLocator Name=SettingToLockScreen}">
+                                <MenuFlyoutItem Click="OnSettingToLockScreenClickAsync" Text="{loc:Locale Name=SettingToLockScreen}">
                                     <MenuFlyoutItem.Icon>
                                         <icon:RegularFluentIcon Symbol="LockClosed20" />
                                     </MenuFlyoutItem.Icon>

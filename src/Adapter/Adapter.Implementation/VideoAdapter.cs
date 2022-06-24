@@ -447,6 +447,7 @@ namespace Bili.Adapter
             var description = arc.Desc;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);
+            var isOriginal = videoDetail.Arc.Copyright == 1;
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -456,7 +457,8 @@ namespace Bili.Adapter
                 description,
                 publishTime: publishTime,
                 collaborators: collaborators,
-                communityInformation: communityInfo);
+                communityInformation: communityInfo,
+                isOriginal: isOriginal);
         }
 
         private IEnumerable<VideoIdentifier> GetSubVideosFromViewReply(ViewReply videoDetail)

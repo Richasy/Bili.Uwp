@@ -7,7 +7,7 @@
     xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icon="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -24,7 +24,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <app:PageHeader Title="{loc:LocaleLocator Name=Toolbox}" />
+        <app:PageHeader Title="{loc:Locale Name=Toolbox}" />
 
         <ScrollViewer
             Grid.Row="1"

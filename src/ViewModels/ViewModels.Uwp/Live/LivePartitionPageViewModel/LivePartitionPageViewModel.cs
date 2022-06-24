@@ -84,7 +84,7 @@ namespace Bili.ViewModels.Uwp.Live
         {
             IsError = true;
             var msg = exception is ServiceException se
-                ? se.Error?.Message ?? se.Message
+                ? se.GetMessage()
                 : exception.Message;
             ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestLiveTagsFailed)}\n{msg}";
             LogException(exception);

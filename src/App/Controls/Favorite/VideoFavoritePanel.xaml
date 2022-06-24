@@ -8,7 +8,7 @@
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Favorite"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -55,7 +55,7 @@
                     <exp:ExpanderEx.Header>
                         <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                             <exp:ExpanderExWrapper.MainContent>
-                                <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=DefaultFavorite}" DescriptionVisibility="Collapsed">
+                                <exp:ExpanderExDescriptor Title="{loc:Locale Name=DefaultFavorite}" DescriptionVisibility="Collapsed">
                                     <exp:ExpanderExDescriptor.Icon>
                                         <icons:RegularFluentIcon Symbol="VideoClip16" />
                                     </exp:ExpanderExDescriptor.Icon>
@@ -67,7 +67,7 @@
                                     Margin="0,4,0,0"
                                     VerticalAlignment="Center"
                                     Command="{x:Bind ViewModel.ShowDefaultFolderDetailCommand}"
-                                    Content="{loc:LocaleLocator Name=SeeAll}" />
+                                    Content="{loc:Locale Name=SeeAll}" />
                             </exp:ExpanderExWrapper.WrapContent>
                         </exp:ExpanderExWrapper>
                     </exp:ExpanderEx.Header>
@@ -83,12 +83,12 @@
                                         <videos:VideoItem.ContextFlyout>
                                             <muxc:CommandBarFlyout>
                                                 <muxc:CommandBarFlyout.SecondaryCommands>
-                                                    <AppBarButton Command="{x:Bind AddToViewLaterCommand}" Label="{loc:LocaleLocator Name=AddToViewLater}">
+                                                    <AppBarButton Command="{x:Bind AddToViewLaterCommand}" Label="{loc:Locale Name=AddToViewLater}">
                                                         <AppBarButton.Icon>
                                                             <icons:RegularFluentIcon Symbol="Add16" />
                                                         </AppBarButton.Icon>
                                                     </AppBarButton>
-                                                    <AppBarButton Command="{x:Bind RemoveFromFavoriteCommand}" Label="{loc:LocaleLocator Name=UnFavorite}">
+                                                    <AppBarButton Command="{x:Bind RemoveFromFavoriteCommand}" Label="{loc:Locale Name=UnFavorite}">
                                                         <AppBarButton.Icon>
                                                             <icons:RegularFluentIcon Symbol="StarOff16" />
                                                         </AppBarButton.Icon>
@@ -170,15 +170,15 @@
                                                                 <Button
                                                                     Margin="0,0,8,0"
                                                                     Command="{x:Bind ShowDetailCommand}"
-                                                                    Content="{loc:LocaleLocator Name=SeeDetail}" />
+                                                                    Content="{loc:Locale Name=SeeDetail}" />
                                                                 <Button
                                                                     Click="OnRemoveFavoriteButtonClickAsync"
-                                                                    Content="{loc:LocaleLocator Name=DeleteFavorite}"
+                                                                    Content="{loc:Locale Name=DeleteFavorite}"
                                                                     DataContext="{x:Bind}"
                                                                     Visibility="{x:Bind IsMine, Mode=OneWay}" />
                                                                 <Button
                                                                     Click="OnRemoveFavoriteButtonClickAsync"
-                                                                    Content="{loc:LocaleLocator Name=UnFavorite}"
+                                                                    Content="{loc:Locale Name=UnFavorite}"
                                                                     DataContext="{x:Bind}"
                                                                     Visibility="{x:Bind IsMine, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                                             </StackPanel>
@@ -205,7 +205,7 @@
                                                         x:Name="LoadMoreButton"
                                                         HorizontalAlignment="Left"
                                                         Command="{x:Bind IncrementalCommand}"
-                                                        Content="{loc:LocaleLocator Name=ShowMore}" />
+                                                        Content="{loc:Locale Name=ShowMore}" />
                                                     <muxc:ProgressBar
                                                         Grid.Column="1"
                                                         HorizontalAlignment="Stretch"
@@ -222,7 +222,7 @@
                                             Margin="-12,0"
                                             Visibility="{x:Bind IsEmpty, Mode=OneWay}">
                                             <exp:ExpanderExWrapper.MainContent>
-                                                <TextBlock HorizontalAlignment="Left" Text="{loc:LocaleLocator Name=NoSpecificData}" />
+                                                <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=NoSpecificData}" />
                                             </exp:ExpanderExWrapper.MainContent>
                                         </exp:ExpanderExWrapper>
                                     </Grid>
@@ -238,7 +238,7 @@
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

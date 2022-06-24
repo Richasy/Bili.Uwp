@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -66,12 +67,14 @@ namespace Bili.ViewModels.Uwp.Video
             VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
             Seasons = new ObservableCollection<VideoSeason>();
             CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
+            VideoPlaylist = new ObservableCollection<VideoItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
 
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -87,6 +90,7 @@ namespace Bili.ViewModels.Uwp.Video
             FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart, outputScheduler: RxApp.MainThreadScheduler);
+            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
             _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
@@ -115,6 +119,24 @@ namespace Bili.ViewModels.Uwp.Video
             ReloadCommand.Execute().Subscribe();
         }
 
+        /// <summary>
+        /// 设置播放列表.
+        /// </summary>
+        /// <param name="videos">视频列表.</param>
+        /// <param name="playIndex">需要播放的视频索引.</param>
+        public void SetPlaylist(IEnumerable<VideoInformation> videos, int playIndex = 0)
+        {
+            VideoPlaylist.Clear();
+            foreach (var item in videos)
+            {
+                VideoPlaylist.Add(GetItemViewModel(item));
+            }
+
+            var current = VideoPlaylist[playIndex].Information.Identifier;
+            var snapshot = new PlaySnapshot(current.Id, default, Models.Enums.VideoType.Video);
+            SetSnapshot(snapshot);
+        }
+
         private void Reset()
         {
             View = null;
@@ -131,7 +153,10 @@ namespace Bili.ViewModels.Uwp.Video
         {
             Reset();
             View = await _playerProvider.GetVideoDetailAsync(_presetVideoId);
-
+            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(View.Information.Identifier.Id, default, Models.Enums.VideoType.Video)
+            {
+                Title = View.Information.Identifier.Title,
+            }).Subscribe();
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();

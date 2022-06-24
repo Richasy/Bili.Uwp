@@ -7,7 +7,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Dynamic"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
@@ -64,7 +64,7 @@
         </ScrollViewer>
 
         <controls:ErrorPanel Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
-        <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+        <controls:ErrorPanel Text="{loc:Locale Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
         <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
     </Grid>
 </UserControl>

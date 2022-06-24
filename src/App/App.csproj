@@ -69,8 +69,6 @@
     <Compile Include="Controls\App\IconTextBlock\IconTextBlock.cs" />
     <Compile Include="Controls\Article\ArticleItem\ArticleItem.cs" />
     <Compile Include="Controls\Common\VerticalRepeaterView\VerticalRepeaterView.Properties.cs" />
-    <Compile Include="Controls\Common\VideoCard\VideoCard.cs" />
-    <Compile Include="Controls\Common\VideoCard\VideoCard.Properties.cs" />
     <Compile Include="Controls\Community\CommentBox.xaml.cs">
       <DependentUpon>CommentBox.xaml</DependentUpon>
     </Compile>
@@ -125,8 +123,8 @@
     <Compile Include="Controls\Player\UgcSeasonView.xaml.cs">
       <DependentUpon>UgcSeasonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\Related\ViewLaterView.xaml.cs">
-      <DependentUpon>ViewLaterView.xaml</DependentUpon>
+    <Compile Include="Controls\Player\VideoPlaylistView.xaml.cs">
+      <DependentUpon>VideoPlaylistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\RoamingSettingSection.xaml.cs">
       <DependentUpon>RoamingSettingSection.xaml</DependentUpon>
@@ -211,10 +209,6 @@
     <Compile Include="Controls\Danmaku\DanmakuDisplayOptions.xaml.cs">
       <DependentUpon>DanmakuDisplayOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.cs" />
-    <Compile Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.Properties.cs" />
-    <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.cs" />
-    <Compile Include="Controls\Player\BiliPlayer\BiliPlayer.Properties.cs" />
     <Compile Include="Controls\App\CardPanel\CardPanel.Fields.cs" />
     <Compile Include="Controls\App\CardPanel\CardPanel.Properties.cs" />
     <Compile Include="Controls\App\CardPanel\CardPanelAutomationPeer.cs" />
@@ -227,7 +221,6 @@
     </Compile>
     <Compile Include="Controls\IDynamicLayoutItem.cs" />
     <Compile Include="Controls\IRepeaterItem.cs" />
-    <Compile Include="Controls\Player\PlayerComponent.cs" />
     <Compile Include="Controls\App\ProgressButton\ProgressButton.cs" />
     <Compile Include="Controls\Player\PgcEpisodeView.xaml.cs">
       <DependentUpon>PgcEpisodeView.xaml</DependentUpon>
@@ -420,7 +413,6 @@
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
-    <Compile Include="Resources\Converter\EpisodeTitleConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\FixedContentConverter.cs" />
     <Compile Include="Resources\Converter\ImageConverter.cs" />
@@ -439,9 +431,9 @@
     <Compile Include="Resources\Converter\SubtitleConvertTypeConverter.cs" />
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\ToolboxItemIconConverter.cs" />
-    <Compile Include="Resources\Converter\UgcEpisodeConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
+    <Compile Include="Resources\Extension\LocaleExtension.cs" />
     <Compile Include="Resources\Extension\NavigationExtension.cs" />
     <Compile Include="Resources\Extension\VisualTreeExtension.cs" />
     <Compile Include="Resources\Selector\RecommendDataTemplateSelector.cs" />
@@ -602,10 +594,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\VideoCard\VideoCard.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\Community\CommentBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -702,7 +690,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Player\Related\ViewLaterView.xaml">
+    <Page Include="Controls\Player\VideoPlaylistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -823,14 +811,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Danmaku\DanmakuDisplayOptions.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Player\BiliPlayerTransportControls\BiliPlayerTransportControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Player\BiliPlayer\BiliPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1169,12 +1149,10 @@
   <ItemGroup>
     <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Controller\Controller.Uwp\Controller.Uwp.csproj">
-      <Project>{5213E830-43F5-491E-A8EF-D75083578EF3}</Project>
-      <Name>Controller.Uwp</Name>
-    </ProjectReference>
+    <Folder Include="Controls\Player\Related\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Lib\DI.App\DI.App.csproj">
       <Project>{18d92f2f-046e-4a35-83fc-476b097bb8b7}</Project>
       <Name>DI.App</Name>
@@ -1187,10 +1165,6 @@
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>
       <Name>Models.App</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.BiliBili\Models.BiliBili.csproj">
-      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
-      <Name>Models.BiliBili</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Models\Models.Data\Models.Data.csproj">
       <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
       <Name>Models.Data</Name>
@@ -1199,17 +1173,9 @@
       <Project>{88314412-b020-415b-aeab-57adc43b273e}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.gRPC\Models.gRPC.csproj">
-      <Project>{0187840F-8D1A-4198-B5BF-8B05CADB4554}</Project>
-      <Name>Models.gRPC</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tasks\Tasks.csproj">
       <Project>{c7bea810-0f31-4176-99a0-4481733918de}</Project>
       <Name>Tasks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
-      <Project>{793ec923-d704-4c6f-9506-eb6a32bfbb8d}</Project>
-      <Name>Locator.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{ca4fe39c-2379-4966-9940-de738d94e982}</Project>

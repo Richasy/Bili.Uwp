@@ -7,7 +7,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pages="using:Bili.App.Pages.Desktop"
@@ -50,7 +50,7 @@
                         FontWeight="Bold"
                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                         Text="{x:Bind ViewModel.PageType, Mode=OneWay}" />
-                    <Run Text="{loc:LocaleLocator Name=Index}" />
+                    <Run Text="{loc:Locale Name=Index}" />
                 </TextBlock>
             </app:PageHeader.Title>
         </app:PageHeader>
@@ -122,7 +122,7 @@
             IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
         <controls:ErrorPanel
             Grid.Row="2"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -131,7 +131,7 @@
         </controls:ErrorPanel>
         <controls:ErrorPanel
             Grid.Row="2"
-            Text="{loc:LocaleLocator Name=NoSpecificData}"
+            Text="{loc:Locale Name=NoSpecificData}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </pages:PgcIndexPageBase>

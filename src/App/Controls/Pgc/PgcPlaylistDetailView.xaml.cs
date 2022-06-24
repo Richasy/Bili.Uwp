@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml;
 
@@ -37,8 +35,5 @@ namespace Bili.App.Controls
             var instance = d as PgcPlayListDetailView;
             instance.DataContext = e.NewValue;
         }
-
-        private void OnItemClick(object sender, SeasonViewModel e)
-            => Hide();
     }
 }

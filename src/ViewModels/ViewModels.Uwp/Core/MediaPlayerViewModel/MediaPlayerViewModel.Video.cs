@@ -47,10 +47,18 @@ namespace Bili.ViewModels.Uwp.Core
             if (view.Progress != null && view.Progress.Status == Models.Enums.Player.PlayedProgressStatus.Playing)
             {
                 var history = view.Progress.Identifier;
-                var ts = TimeSpan.FromSeconds(view.Progress.Progress);
-                IsShowProgressTip = true;
-                ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
-                view.Progress = default;
+
+                if (_currentPart.Id == history.Id)
+                {
+                    ChangeProgress(view.Progress.Progress);
+                    view.Progress = null;
+                }
+                else
+                {
+                    var ts = TimeSpan.FromSeconds(view.Progress.Progress);
+                    IsShowProgressTip = true;
+                    ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
+                }
             }
         }
 

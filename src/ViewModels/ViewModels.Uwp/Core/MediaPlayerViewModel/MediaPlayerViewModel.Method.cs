@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Windows.Media.Playback;
@@ -235,6 +236,15 @@ namespace Bili.ViewModels.Uwp.Core
                     var aid = view.Information.Identifier.Id;
                     var cid = _currentPart.Id;
                     await _playerProvider.ReportProgressAsync(aid, cid, progress.TotalSeconds);
+                }
+                else if (_videoType == VideoType.Pgc && _currentEpisode != null)
+                {
+                    var view = _viewData as PgcPlayerView;
+                    var aid = _currentEpisode.VideoId;
+                    var cid = _currentEpisode.PartId;
+                    var epid = _currentEpisode.Identifier.Id;
+                    var sid = view.Information.Identifier.Id;
+                    await _playerProvider.ReportProgressAsync(aid, cid, epid, sid, progress.TotalSeconds);
                 }
 
                 _lastReportProgress = progress;

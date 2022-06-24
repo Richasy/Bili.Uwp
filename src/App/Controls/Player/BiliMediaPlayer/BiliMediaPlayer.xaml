@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:danmaku="using:Bili.App.Controls.Danmaku"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style TargetType="local:BiliMediaPlayer">
@@ -66,20 +66,20 @@
                                     </Grid>
                                     <controls:PlayerTip
                                         x:Name="PreviousViewInformer"
-                                        Title="{loc:LocaleLocator Name=ViewHistory}"
+                                        Title="{loc:Locale Name=ViewHistory}"
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
-                                        ActionContent="{loc:LocaleLocator Name=ContinuePreviousView}"
+                                        ActionContent="{loc:Locale Name=ContinuePreviousView}"
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
                                         IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"
                                         Message="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTip}" />
 
                                     <controls:PlayerTip
                                         x:Name="NextVideoInformer"
-                                        Title="{loc:LocaleLocator Name=PlayNextVideo}"
+                                        Title="{loc:Locale Name=PlayNextVideo}"
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
-                                        ActionContent="{loc:LocaleLocator Name=PlayNow}"
+                                        ActionContent="{loc:Locale Name=PlayNow}"
                                         AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.NextVideoCountdown}"
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextCommand}"
                                         IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowNextVideoTip, Mode=TwoWay}"
@@ -152,7 +152,7 @@
                                     x:Name="RefreshButton"
                                     HorizontalAlignment="Center"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
-                                    Content="{loc:LocaleLocator Name=Refresh}" />
+                                    Content="{loc:Locale Name=Refresh}" />
                             </StackPanel>
                         </Grid>
                     </Grid>

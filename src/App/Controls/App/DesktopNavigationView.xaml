@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Bili.App.Resources.Extension"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:local1="using:Bili.Models.Data.Local"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -53,66 +53,66 @@
             IsPaneOpen="{x:Bind _appViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
             ItemInvoked="OnRootNavViewItemInvoked">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Navigation}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:LocaleLocator Name=Recommend}">
+                <muxc:NavigationViewItemHeader Content="{loc:Locale Name=Navigation}" />
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:Locale Name=Recommend}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Home16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:LocaleLocator Name=Popular}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:Locale Name=Popular}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Rocket16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:LocaleLocator Name=Rank}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:Locale Name=Rank}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Trophy16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:LocaleLocator Name=Partition}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:Locale Name=Partition}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Apps16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:LocaleLocator Name=Live}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:Locale Name=Live}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Video16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:LocaleLocator Name=DynamicFeed}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:Locale Name=DynamicFeed}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="DesignIdeas16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemSeparator />
 
-                <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=Topic}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:LocaleLocator Name=Bangumi}">
+                <muxc:NavigationViewItemHeader Content="{loc:Locale Name=Topic}" />
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:Locale Name=Bangumi}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Cookies20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:LocaleLocator Name=DomesticAnime}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:Locale Name=DomesticAnime}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="FastAcceleration24" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:LocaleLocator Name=SpecialColumn}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:Locale Name=SpecialColumn}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="DocumentBriefcase20" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:LocaleLocator Name=Documentary}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:Locale Name=Documentary}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="LeafTwo16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:LocaleLocator Name=Movie}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:Locale Name=Movie}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="MoviesAndTv16" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:LocaleLocator Name=TV}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:Locale Name=TV}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="VideoClip20" />
                     </muxc:NavigationViewItem.Icon>
@@ -135,7 +135,7 @@
             <muxc:NavigationView.PaneCustomContent>
                 <StackPanel Spacing="4">
                     <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedItem, Mode=OneWay}">
-                        <muxc:NavigationViewItemHeader Content="{loc:LocaleLocator Name=FixedContent}" />
+                        <muxc:NavigationViewItemHeader Content="{loc:Locale Name=FixedContent}" />
                         <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedItemCollection}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout />
@@ -175,12 +175,12 @@
             </muxc:NavigationView.PaneCustomContent>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:LocaleLocator Name=Toolbox}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:Locale Name=Toolbox}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Toolbox24" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:LocaleLocator Name=HelpAndSupport}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:Locale Name=HelpAndSupport}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="BookQuestionMark24" />
                     </muxc:NavigationViewItem.Icon>

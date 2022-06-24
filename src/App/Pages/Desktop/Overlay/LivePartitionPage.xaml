@@ -9,7 +9,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <app:PageHeader Title="{loc:LocaleLocator Name=TotalTags}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=TotalTags}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
         <Grid Grid.Row="1" Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}">
             <muxc:NavigationView
                 Style="{StaticResource TopNavigationViewStyle}"
@@ -78,7 +78,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="2"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

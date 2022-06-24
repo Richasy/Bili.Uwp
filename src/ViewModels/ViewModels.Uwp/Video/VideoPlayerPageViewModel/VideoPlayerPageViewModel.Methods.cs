@@ -33,6 +33,7 @@ namespace Bili.ViewModels.Uwp.Video
             IsShowRelatedVideos = CurrentSection.Type == PlayerSectionType.RelatedVideos;
             IsShowParts = CurrentSection.Type == PlayerSectionType.VideoParts;
             IsShowComments = CurrentSection.Type == PlayerSectionType.Comments;
+            IsShowVideoPlaylist = CurrentSection.Type == PlayerSectionType.Playlist;
         }
 
         private void SearchTag(Tag tag)
@@ -95,7 +96,8 @@ namespace Bili.ViewModels.Uwp.Video
         private void CreatePlayNextAction()
         {
             MediaPlayerViewModel.CanPlayNextPart = View.InteractionVideo == null
-                && VideoParts.FirstOrDefault(p => p.IsSelected).Index < VideoParts.Last().Index;
+                && (VideoParts.FirstOrDefault(p => p.IsSelected).Index < VideoParts.Last().Index
+                    || (VideoPlaylist.Count > 0 && VideoPlaylist.Last().Information != View.Information));
             _playNextVideoAction = null;
 
             // 不处理互动视频.
@@ -115,8 +117,22 @@ namespace Bili.ViewModels.Uwp.Video
                     nextPart = VideoParts.FirstOrDefault(p => p.Index == currentPart.Index + 1)?.Data;
                 }
             }
+            else if (Sections.Any(p => p.Type == PlayerSectionType.Playlist))
+            {
+                var canContinue = VideoPlaylist.Count > 1 && !View.Information.Equals(VideoPlaylist.Last().Information);
+                if (canContinue)
+                {
+                    var currentIndex = VideoPlaylist.IndexOf(VideoPlaylist.FirstOrDefault(p => p.Information.Equals(View.Information)));
+                    if (currentIndex != -1)
+                    {
+                        isNewVideo = true;
+                        nextPart = VideoPlaylist[currentIndex + 1].Information.Identifier;
+                    }
+                }
+            }
             else if (Sections.Any(p => p.Type == PlayerSectionType.UgcSeason))
             {
+                ClearPlaylistCommand.Execute().Subscribe();
                 var currentVideo = CurrentSeasonVideos.FirstOrDefault(p => p.IsSelected);
                 if (currentVideo != null)
                 {
@@ -132,6 +148,7 @@ namespace Bili.ViewModels.Uwp.Video
             else if (_settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayNextRelatedVideo, false)
                 && RelatedVideos.Count > 0)
             {
+                ClearPlaylistCommand.Execute().Subscribe();
                 nextPart = RelatedVideos.First().Information.Identifier;
                 isNewVideo = true;
             }
@@ -192,5 +209,8 @@ namespace Bili.ViewModels.Uwp.Video
                 MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
             }
         }
+
+        private void OnInternalPartChanged(object sender, VideoIdentifier e)
+            => ChangeVideoPartCommand.Execute(e).Subscribe();
     }
 }

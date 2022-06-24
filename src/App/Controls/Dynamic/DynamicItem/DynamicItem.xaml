@@ -5,7 +5,7 @@
     xmlns:common="using:Bili.App.Controls.Common"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Dynamic"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Style x:Key="DefaultDynamicItemStyle" TargetType="local:DynamicItem">
@@ -70,7 +70,7 @@
                                                     x:Name="AddViewLaterButton"
                                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.AddToViewLaterCommand}"
                                                     IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanAddViewLater}"
-                                                    Label="{loc:LocaleLocator Name=AddToViewLater}">
+                                                    Label="{loc:Locale Name=AddToViewLater}">
                                                     <AppBarButton.Icon>
                                                         <icons:RegularFluentIcon Symbol="Add16" />
                                                     </AppBarButton.Icon>

@@ -7,7 +7,7 @@
     xmlns:enums="using:Bili.Models.Enums"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -23,7 +23,7 @@
         <exp:ExpanderEx.Header>
             <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=PlayerControl}" Description="{loc:LocaleLocator Name=PlayerControlDescription}">
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=PlayerControl}" Description="{loc:Locale Name=PlayerControlDescription}">
                         <exp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="VideoPlayPause24" />
                         </exp:ExpanderExDescriptor.Icon>
@@ -37,8 +37,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PreferCodec}"
-                            Description="{loc:LocaleLocator Name=PreferCodecDescription}"
+                            Title="{loc:Locale Name=PreferCodec}"
+                            Description="{loc:Locale Name=PreferCodecDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -61,8 +61,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=SingleFastForwardAndRewindSpan}"
-                            Description="{loc:LocaleLocator Name=SingleFastForwardAndRewindSpanDescription}"
+                            Title="{loc:Locale Name=SingleFastForwardAndRewindSpan}"
+                            Description="{loc:Locale Name=SingleFastForwardAndRewindSpanDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -83,8 +83,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PlaybackRateEnhancement}"
-                            Description="{loc:LocaleLocator Name=PlaybackRateEnhancementDescription}"
+                            Title="{loc:Locale Name=PlaybackRateEnhancement}"
+                            Description="{loc:Locale Name=PlaybackRateEnhancementDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -98,8 +98,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=GlobalPlaybackRate}"
-                            Description="{loc:LocaleLocator Name=GlobalPlaybackRateDescription}"
+                            Title="{loc:Locale Name=GlobalPlaybackRate}"
+                            Description="{loc:Locale Name=GlobalPlaybackRateDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>

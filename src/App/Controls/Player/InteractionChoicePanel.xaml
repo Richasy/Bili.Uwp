@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -62,7 +62,7 @@
                 MaxWidth="300"
                 HorizontalAlignment="Center"
                 FontSize="16"
-                Text="{loc:LocaleLocator Name=InteractionEnd}"
+                Text="{loc:Locale Name=InteractionEnd}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
         </Grid>

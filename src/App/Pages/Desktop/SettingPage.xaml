@@ -5,7 +5,7 @@
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <app:PageHeader Title="{loc:LocaleLocator Name=Settings}" />
+        <app:PageHeader Title="{loc:Locale Name=Settings}" />
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
@@ -38,7 +38,7 @@
                     Style="{StaticResource BodyTextBlockStyle}"
                     Margin="0,0,0,8"
                     FontWeight="Bold"
-                    Text="{loc:LocaleLocator Name=Generic}" />
+                    Text="{loc:Locale Name=Generic}" />
                 <controls:ThemeSettingSection />
                 <controls:StartupSettingSection />
                 <controls:LoggerSettingSection />
@@ -50,7 +50,7 @@
                     Style="{StaticResource BodyTextBlockStyle}"
                     Margin="0,12,0,8"
                     FontWeight="Bold"
-                    Text="{loc:LocaleLocator Name=Player}" />
+                    Text="{loc:Locale Name=Player}" />
                 <controls:PlayerModeSettingSection />
                 <controls:PlayerControlSettingSection />
                 <controls:ScreenshotSettingSection />
@@ -59,24 +59,24 @@
                     Margin="0,12,0,0"
                     HorizontalAlignment="Left"
                     Spacing="4">
-                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=AboutThisApp}" />
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:Locale Name=AboutThisApp}" />
                     <TextBlock Style="{StaticResource TipTextStyle}">
-                        <Run Text="{loc:LocaleLocator Name=AppName}" />
+                        <Run Text="{loc:Locale Name=AppName}" />
                         <Run Text="{x:Bind ViewModel.Version}" />
                     </TextBlock>
-                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:LocaleLocator Name=License}" />
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:Locale Name=License}" />
                     <StackPanel
                         Margin="0,4,0,0"
                         Orientation="Horizontal"
                         Spacing="4">
                         <HyperlinkButton
                             HorizontalAlignment="Left"
-                            Content="{loc:LocaleLocator Name=StoreComment}"
+                            Content="{loc:Locale Name=StoreComment}"
                             FontSize="12"
                             NavigateUri="ms-windows-store://review/?ProductId=9MVN4NSLT150" />
                         <HyperlinkButton
                             HorizontalAlignment="Left"
-                            Content="{loc:LocaleLocator Name=PublisherApp}"
+                            Content="{loc:Locale Name=PublisherApp}"
                             FontSize="12"
                             NavigateUri="ms-windows-store://publisher/?name=云之幻" />
                     </StackPanel>

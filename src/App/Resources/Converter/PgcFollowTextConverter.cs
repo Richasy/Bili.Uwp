@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Locator.Uwp;
 using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -18,7 +18,7 @@ namespace Bili.App.Resources.Converter
             var result = string.Empty;
             if (value is bool isFollow)
             {
-                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+                var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
                 result = isFollow ?
                     resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PgcFollowing) :
                     resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.PgcNotFollow);

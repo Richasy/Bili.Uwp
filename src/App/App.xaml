@@ -10,8 +10,6 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
-                <ResourceDictionary Source="ms-appx:///Controls/Player/BiliPlayerTransportControls/BiliPlayerTransportControls.xaml" />
-                <ResourceDictionary Source="ms-appx:///Controls/Common/VideoCard/VideoCard.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Videos/VideoItem/VideoItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/EpisodeItem/EpisodeItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/SeasonItem/SeasonItem.xaml" />
@@ -45,7 +43,6 @@
             <converter:ThemeStringConverter x:Key="ThemeStringConverter" />
             <converter:DurationConverter x:Key="SecondsDurationConverter" />
             <converter:DurationConverter x:Key="MillisecondsDurationConverter" IsMilliseconds="True" />
-            <converter:EpisodeTitleConverter x:Key="EpisodeTitleConverter" />
             <converter:EpisodeCoverConverter x:Key="EpisodeCoverConverter" />
             <converter:SeasonCoverConverter x:Key="SeasonCoverConverter" />
             <converter:ColorConverter x:Key="ColorConverter" IsBrush="False" />

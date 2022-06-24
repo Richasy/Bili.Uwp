@@ -9,6 +9,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -74,6 +75,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -153,7 +155,10 @@ namespace Bili.ViewModels.Uwp.Pgc
 
             var proxyPack = _appToolkit.GetProxyAndArea(_presetTitle, false);
             View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId, proxyPack.Item1, proxyPack.Item2);
-
+            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(View.Information.Identifier.Id, default, Models.Enums.VideoType.Pgc)
+            {
+                Title = View.Information.Identifier.Title,
+            }).Subscribe();
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();

@@ -49,7 +49,8 @@ namespace Bili.Models.Data.Video
             DateTime publishTime = default,
             IEnumerable<RoleProfile> collaborators = null,
             VideoCommunityInformation communityInformation = null,
-            string highlight = default)
+            string highlight = default,
+            bool isOriginal = false)
         {
             Identifier = identifier;
             Publisher = publisher;
@@ -60,6 +61,7 @@ namespace Bili.Models.Data.Video
             PublishTime = publishTime;
             CommunityInformation = communityInformation;
             Highlight = highlight;
+            IsOriginal = isOriginal;
         }
 
         /// <inheritdoc/>
@@ -113,6 +115,11 @@ namespace Bili.Models.Data.Video
         /// 社区交互数据.
         /// </summary>
         public VideoCommunityInformation CommunityInformation { get; set; }
+
+        /// <summary>
+        /// 是否为原创视频.
+        /// </summary>
+        public bool IsOriginal { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)

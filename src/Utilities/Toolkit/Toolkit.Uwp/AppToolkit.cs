@@ -3,10 +3,10 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -25,10 +25,11 @@ namespace Bili.Toolkit.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AppToolkit"/> class.
         /// </summary>
-        public AppToolkit()
+        public AppToolkit(
+            ISettingsToolkit settingsToolkit)
         {
             _app = Application.Current;
-            ServiceLocator.Instance.LoadService(out _settingsToolkit);
+            _settingsToolkit = settingsToolkit;
         }
 
         /// <inheritdoc/>
@@ -145,6 +146,13 @@ namespace Bili.Toolkit.Uwp
             }
 
             return new Tuple<string, string>(proxy, area);
+        }
+
+        /// <inheritdoc/>
+        public string GetPackageVersion()
+        {
+            var appVersion = Package.Current.Id.Version;
+            return $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
         }
     }
 }

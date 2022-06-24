@@ -42,5 +42,11 @@ namespace Bili.Toolkit.Interfaces
         /// <param name="isVideo">是否为 UGC 视频.</param>
         /// <returns>代理及区域.</returns>
         Tuple<string, string> GetProxyAndArea(string title, bool isVideo);
+
+        /// <summary>
+        /// 获取应用包版本.
+        /// </summary>
+        /// <returns>包版本.</returns>
+        string GetPackageVersion();
     }
 }

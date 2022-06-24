@@ -13,18 +13,18 @@ namespace Bili.App.Controls.Pgc
     /// <summary>
     /// 动漫视图.
     /// </summary>
-    public sealed partial class AnimeView : UserControl
+    public sealed partial class AnimePageView : UserControl
     {
         /// <summary>
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AnimePageViewModelBase), typeof(AnimeView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(AnimePageViewModelBase), typeof(AnimePageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnimeView"/> class.
+        /// Initializes a new instance of the <see cref="AnimePageView"/> class.
         /// </summary>
-        public AnimeView()
+        public AnimePageView()
         {
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace Bili.App.Controls.Pgc
 
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as AnimeView;
+            var instance = d as AnimePageView;
             instance.DataContext = e.NewValue;
         }
 

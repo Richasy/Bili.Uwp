@@ -5,7 +5,7 @@
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
@@ -67,7 +67,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                    <Run Text="{loc:LocaleLocator Name=VideoCount}" />
+                    <Run Text="{loc:Locale Name=VideoCount}" />
                     <Run Text="{x:Bind ViewModel.Folder.TotalCount, Mode=OneWay}" />
                 </TextBlock>
             </StackPanel>
@@ -104,7 +104,7 @@
         <local:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="1"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -114,7 +114,7 @@
         <local:ErrorPanel
             x:Name="EmptyPanel"
             Grid.Row="1"
-            Text="{loc:LocaleLocator Name=FavoriteHaveNoVideos}"
+            Text="{loc:Locale Name=FavoriteHaveNoVideos}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </local:CenterPopup>

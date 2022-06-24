@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Danmaku"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
@@ -20,10 +20,10 @@
         <StackPanel Orientation="Horizontal">
             <ToggleSwitch
                 x:Name="DanmakuVisibilityToggleSwitch"
-                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSwitch}"
+                AutomationProperties.Name="{loc:Locale Name=DanmakuSwitch}"
                 Style="{StaticResource DanmakuToggleSwitchStyle}"
                 IsOn="{x:Bind ViewModel.IsShowDanmaku, Mode=TwoWay}"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSwitch}" />
+                ToolTipService.ToolTip="{loc:Locale Name=DanmakuSwitch}" />
         </StackPanel>
         <AutoSuggestBox
             x:Name="DanmakuInputBox"
@@ -33,7 +33,7 @@
             HorizontalAlignment="Stretch"
             GotFocus="OnDanmakuInputBoxGotFocus"
             LostFocus="OnDanmakuInputBoxLostFocus"
-            PlaceholderText="{loc:LocaleLocator Name=DanmakuPlaceholder}"
+            PlaceholderText="{loc:Locale Name=DanmakuPlaceholder}"
             QuerySubmitted="OnDanmakuInputBoxSubmitted" />
         <StackPanel
             Grid.Column="2"
@@ -41,11 +41,11 @@
             Spacing="8">
             <Button
                 x:Name="DanmakuSendSettingsButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuSendSettings}"
+                AutomationProperties.Name="{loc:Locale Name=DanmakuSendSettings}"
                 Height="32"
                 Background="Transparent"
                 BorderThickness="0"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuSendSettings}">
+                ToolTipService.ToolTip="{loc:Locale Name=DanmakuSendSettings}">
                 <icons:RegularFluentIcon Symbol="Options16" />
                 <Button.Flyout>
                     <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">
@@ -55,11 +55,11 @@
             </Button>
             <Button
                 x:Name="DanmakuOptionButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=DanmakuDisplaySettings}"
+                AutomationProperties.Name="{loc:Locale Name=DanmakuDisplaySettings}"
                 Height="32"
                 Background="Transparent"
                 BorderThickness="0"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=DanmakuDisplaySettings}">
+                ToolTipService.ToolTip="{loc:Locale Name=DanmakuDisplaySettings}">
                 <icons:RegularFluentIcon Symbol="ContentSettings16" />
                 <Button.Flyout>
                     <Flyout FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}">

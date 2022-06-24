@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Bili.App.Controls.Pgc.AnimeView"
+    x:Class="Bili.App.Controls.Pgc.AnimePageView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
@@ -8,7 +8,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -79,13 +79,13 @@
                         Style="{StaticResource AccentButtonStyle}"
                         Command="{x:Bind ViewModel.GotoFavoritePageCommand}"
                         Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay}">
-                        <controls:IconTextBlock Symbol="Person16" Text="{loc:LocaleLocator Name=MyFavoriteAnime}" />
+                        <controls:IconTextBlock Symbol="Person16" Text="{loc:Locale Name=MyFavoriteAnime}" />
                     </Button>
                     <Button x:Name="IndexButton" Command="{x:Bind ViewModel.GotoIndexPageCommand}">
-                        <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:LocaleLocator Name=Index}" />
+                        <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:Locale Name=Index}" />
                     </Button>
                     <Button x:Name="TimeChartButton" Command="{x:Bind ViewModel.GotoTimeLinePageCommand}">
-                        <controls:IconTextBlock Symbol="Clock16" Text="{loc:LocaleLocator Name=TimeChart}" />
+                        <controls:IconTextBlock Symbol="Clock16" Text="{loc:Locale Name=TimeChart}" />
                     </Button>
                 </StackPanel>
             </muxc:NavigationView.PaneFooter>
@@ -124,7 +124,7 @@
                     Margin="0,0,0,12"
                     Visibility="{x:Bind ViewModel.IsShowRank, Mode=OneWay}">
                     <controls:HorizontalRepeaterView
-                        Header="{loc:LocaleLocator Name=Rank}"
+                        Header="{loc:Locale Name=Rank}"
                         HeaderVisibility="Visible"
                         ItemsSource="{x:Bind ViewModel.Ranks}">
                         <controls:HorizontalRepeaterView.WideItemTemplate>
@@ -183,7 +183,7 @@
                                                     <controls:IconTextBlock
                                                         Spacing="8"
                                                         Symbol="List16"
-                                                        Text="{loc:LocaleLocator Name=ShowMore}" />
+                                                        Text="{loc:Locale Name=ShowMore}" />
                                                 </Button.Content>
                                             </Button>
                                         </controls:HorizontalRepeaterView.AdditionalContent>
@@ -212,7 +212,7 @@
                     x:Name="VideoView"
                     Grid.Row="3"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=ComprehensiveDynamics}"
+                    HeaderText="{loc:Locale Name=ComprehensiveDynamics}"
                     ItemsSource="{x:Bind ViewModel.Videos}"
                     Visibility="{x:Bind ViewModel.IsShowVideo, Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
@@ -237,7 +237,7 @@
             Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

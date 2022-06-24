@@ -10,9 +10,9 @@
     xmlns:pgc="using:Bili.App.Controls.Pgc"
     mc:Ignorable="d">
 
-    <pgc:AnimeView ViewModel="{x:Bind ViewModel}">
+    <pgc:AnimePageView ViewModel="{x:Bind ViewModel}">
         <interactivity:Interaction.Behaviors>
             <behaviors:InitializeBehavior />
         </interactivity:Interaction.Behaviors>
-    </pgc:AnimeView>
+    </pgc:AnimePageView>
 </local:DomesticPageBase>

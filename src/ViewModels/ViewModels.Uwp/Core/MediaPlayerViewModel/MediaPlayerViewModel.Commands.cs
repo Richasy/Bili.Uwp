@@ -145,5 +145,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// 跳进命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> BackToInteractionVideoStartCommand { get; }
+
+        /// <summary>
+        /// 返回默认模式的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> BackToDefaultModeCommand { get; }
     }
 }

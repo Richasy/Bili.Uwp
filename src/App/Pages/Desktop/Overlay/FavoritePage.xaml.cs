@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
+using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
 {
@@ -24,6 +26,16 @@ namespace Bili.App.Pages.Desktop.Overlay
             AnimePanel.DataContext = AnimePanel.ViewModel;
             CinemaPanel.ViewModel = Splat.Locator.Current.GetService<CinemaFavoriteModuleViewModel>();
             CinemaPanel.DataContext = CinemaPanel.ViewModel;
+        }
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is FavoriteType type)
+            {
+                var header = ViewModel.TypeCollection.First(p => p.Type == type);
+                ViewModel.SelectTypeCommand.Execute(header).Subscribe();
+            }
         }
 
         private void OnRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwp="using:Richasy.ExpanderEx.Uwp"
@@ -16,7 +16,7 @@
         <uwp:ExpanderEx.Header>
             <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=StartMethod}" Description="{loc:LocaleLocator Name=StartMethodDescription}">
+                    <uwp:ExpanderExDescriptor Title="{loc:Locale Name=StartMethod}" Description="{loc:Locale Name=StartMethodDescription}">
                         <uwp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="AirplaneTakeOff16" />
                         </uwp:ExpanderExDescriptor.Icon>
@@ -29,8 +29,8 @@
                 <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <uwp:ExpanderExWrapper.MainContent>
                         <uwp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=Prelaunch}"
-                            Description="{loc:LocaleLocator Name=PrelaunchDescription}"
+                            Title="{loc:Locale Name=Prelaunch}"
+                            Description="{loc:Locale Name=PrelaunchDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </uwp:ExpanderExWrapper.MainContent>
@@ -42,8 +42,8 @@
                 <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <uwp:ExpanderExWrapper.MainContent>
                         <uwp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=Startup}"
-                            Description="{loc:LocaleLocator Name=StartupDescription}"
+                            Title="{loc:Locale Name=Startup}"
+                            Description="{loc:Locale Name=StartupDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </uwp:ExpanderExWrapper.MainContent>

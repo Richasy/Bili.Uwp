@@ -6,7 +6,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:player="using:Bili.App.Controls.Player"
@@ -75,7 +75,7 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Symbol="EyeShow16"
                         Text="{x:Bind ViewModel.WatchingCountText, Mode=OneWay}"
-                        ToolTipService.ToolTip="{loc:LocaleLocator Name=Viewer}"
+                        ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                         Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                     <controls:TrimTextBlock
                         x:Name="DescriptionBlock"
@@ -95,7 +95,7 @@
                     </Grid.RowDefinitions>
                     <ToggleSwitch
                         x:Name="LiveAudioOnlySwitch"
-                        Header="{loc:LocaleLocator Name=OnlyAudio}"
+                        Header="{loc:Locale Name=OnlyAudio}"
                         IsOn="{x:Bind ViewModel.MediaPlayerViewModel.IsLiveAudioOnly, Mode=OneWay}"
                         Toggled="OnLiveOnlyAudioToggledAsync">
                         <ToggleSwitch.HeaderTemplate>
@@ -120,7 +120,7 @@
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                     Symbol="Share16"
-                                    Text="{loc:LocaleLocator Name=Share}" />
+                                    Text="{loc:Locale Name=Share}" />
                             </Button>
                             <Button
                                 Grid.Column="1"
@@ -139,7 +139,7 @@
 
         <controls:ErrorPanel
             x:Name="ErrorPanel"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

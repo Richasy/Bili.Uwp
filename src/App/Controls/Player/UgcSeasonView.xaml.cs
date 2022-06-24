@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Uwp.Video;
-using Bilibili.App.View.V1;
 using ReactiveUI;
 using Splat;
 
@@ -21,7 +20,7 @@ namespace Bili.App.Controls.Player
         public UgcSeasonView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+            ViewModel = Locator.Current.GetService<VideoPlayerPageViewModel>();
             DataContext = ViewModel;
         }
 

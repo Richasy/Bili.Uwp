@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -19,7 +19,7 @@ namespace Bili.App.Resources.Converter
         {
             var type = (FavoriteType)value;
             var result = string.Empty;
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             switch (type)
             {
                 case FavoriteType.Video:

@@ -3,6 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
+using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Microsoft.Graphics.Canvas;
@@ -252,11 +253,37 @@ namespace Bili.ViewModels.Uwp.Core
                 var view = _viewData as VideoPlayerView;
                 if (view.Progress != null)
                 {
-                    ChangeProgress(view.Progress.Progress);
-                    ResetProgressHistory();
+                    if (view.Progress.Identifier.Id != _currentPart.Id)
+                    {
+                        // 切换分P.
+                        InternalPartChanged?.Invoke(this, view.Progress.Identifier);
+                    }
+                    else
+                    {
+                        ChangeProgress(view.Progress.Progress);
+                        ResetProgressHistory();
+                    }
                 }
 
                 IsShowProgressTip = false;
+            }
+            else if (_videoType == VideoType.Pgc)
+            {
+                var view = _viewData as PgcPlayerView;
+                if (view.Progress != null)
+                {
+                    var episode = view.Progress.Identifier;
+                    if (_currentEpisode.Identifier.Id != episode.Id)
+                    {
+                        // 切换分集.
+                        InternalPartChanged?.Invoke(this, view.Progress.Identifier);
+                    }
+                    else
+                    {
+                        ChangeProgress(view.Progress.Progress);
+                        ResetProgressHistory();
+                    }
+                }
             }
         }
 
@@ -314,6 +341,22 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             ChangeVolume(volume);
+        }
+
+        private void BackToDefaultMode()
+        {
+            if (DisplayMode == PlayerDisplayMode.FullWindow)
+            {
+                ToggleFullWindowCommand.Execute().Subscribe();
+            }
+            else if (DisplayMode == PlayerDisplayMode.FullScreen)
+            {
+                ToggleFullScreenCommand.Execute().Subscribe();
+            }
+            else if (DisplayMode == PlayerDisplayMode.CompactOverlay)
+            {
+                ToggleCompactOverlayCommand.Execute().Subscribe();
+            }
         }
     }
 }

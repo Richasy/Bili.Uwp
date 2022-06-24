@@ -1,12 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.Controller.Uwp.Interfaces;
-using Bili.Locator.Uwp;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Storage;
@@ -35,10 +32,9 @@ namespace Bili.App.Controls
         private async void OnCleanLoggerButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             try
             {
-                var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
                 await folder.DeleteAsync(StorageDeleteOption.PermanentDelete).AsTask();
                 await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
             }

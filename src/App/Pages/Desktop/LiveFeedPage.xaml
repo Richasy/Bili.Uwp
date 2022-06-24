@@ -11,7 +11,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:live="using:Bili.ViewModels.Uwp.Live"
     xmlns:liveControls="using:Bili.App.Controls.Live"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -44,7 +44,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <app:PageHeader Title="{loc:LocaleLocator Name=Live}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+            <app:PageHeader Title="{loc:Locale Name=Live}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
             <ScrollViewer
                 x:Name="RootScrollViewer"
                 Grid.Row="1"
@@ -72,7 +72,7 @@
                         Margin="0,8,0,0">
                         <controls:HorizontalRepeaterView
                             x:Name="PartitionView"
-                            Header="{loc:LocaleLocator Name=HotTags}"
+                            Header="{loc:Locale Name=HotTags}"
                             HeaderVisibility="Visible"
                             ItemsSource="{x:Bind ViewModel.HotPartitions}">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
@@ -88,7 +88,7 @@
                                 <Button
                                     x:Name="SeeAllTagsButton"
                                     Command="{x:Bind ViewModel.SeeAllPartitionsCommand}"
-                                    Content="{loc:LocaleLocator Name=SeeAll}" />
+                                    Content="{loc:Locale Name=SeeAll}" />
                             </controls:HorizontalRepeaterView.AdditionalContent>
                         </controls:HorizontalRepeaterView>
                     </Grid>
@@ -100,7 +100,7 @@
                         Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay}">
                         <controls:HorizontalRepeaterView
                             Margin="0,8,0,0"
-                            Header="{loc:LocaleLocator Name=FollowLiveRoom}"
+                            Header="{loc:Locale Name=FollowLiveRoom}"
                             HeaderVisibility="Visible"
                             ItemsSource="{x:Bind ViewModel.Follows}"
                             Visibility="{x:Bind ViewModel.IsFollowsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -121,7 +121,7 @@
                         <controls:VerticalRepeaterView
                             x:Name="VideoView"
                             Margin="0,4,0,12"
-                            HeaderText="{loc:LocaleLocator Name=Recommend}"
+                            HeaderText="{loc:Locale Name=Recommend}"
                             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                             MinWideItemHeight="208"
                             MinWideItemWidth="200">
@@ -143,7 +143,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="1"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>

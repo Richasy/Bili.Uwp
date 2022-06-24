@@ -9,7 +9,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -39,7 +39,7 @@
                         FontWeight="Bold"
                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                         Text="{x:Bind ViewModel.UserName, Mode=OneWay}" />
-                    <Run Text="{loc:LocaleLocator Name=FollowsSuffix}" />
+                    <Run Text="{loc:Locale Name=FollowsSuffix}" />
                 </TextBlock>
             </app:PageHeader.Title>
         </app:PageHeader>
@@ -93,14 +93,14 @@
             <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsSwitching, Mode=OneWay}" />
             <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
             <controls:ErrorPanel
-                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                ActionContent="{loc:Locale Name=Refresh}"
                 Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
                 <interactivity:Interaction.Behaviors>
                     <behaviors:ReloadBehavior />
                 </interactivity:Interaction.Behaviors>
             </controls:ErrorPanel>
-            <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoFollows}" Visibility="{x:Bind ViewModel.IsCurrentGroupEmpty, Mode=OneWay}" />
+            <controls:ErrorPanel Text="{loc:Locale Name=NoFollows}" Visibility="{x:Bind ViewModel.IsCurrentGroupEmpty, Mode=OneWay}" />
         </Grid>
     </Grid>
 </local:MyFollowsPageBase>

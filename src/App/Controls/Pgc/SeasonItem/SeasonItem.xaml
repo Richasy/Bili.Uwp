@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -11,9 +11,9 @@
         <muxc:CommandBarFlyout.SecondaryCommands>
             <AppBarButton
                 x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:LocaleLocator Name=OpenInBroswer}"
+                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                Label="{loc:LocaleLocator Name=OpenInBroswer}">
+                Label="{loc:Locale Name=OpenInBroswer}">
                 <AppBarButton.Icon>
                     <icons:RegularFluentIcon Symbol="Globe16" />
                 </AppBarButton.Icon>

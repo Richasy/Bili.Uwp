@@ -2,15 +2,16 @@
 
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Markup;
 
-namespace Bili.Locator.Uwp
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// Localized text extension.
     /// </summary>
     [MarkupExtensionReturnType(ReturnType = typeof(string))]
-    public sealed class LocaleLocatorExtension : MarkupExtension
+    public sealed class LocaleExtension : MarkupExtension
     {
         /// <summary>
         /// Language name.
@@ -20,8 +21,8 @@ namespace Bili.Locator.Uwp
         /// <inheritdoc/>
         protected override object ProvideValue()
         {
-            return ServiceLocator.Instance.GetService<IResourceToolkit>()
-                                          .GetLocaleString(this.Name);
+            return Splat.Locator.Current.GetService<IResourceToolkit>()
+                                          .GetLocaleString(Name);
         }
     }
 }

@@ -2,10 +2,10 @@
 
 using System;
 using Bili.App.Controls.Dialogs;
-using Bili.Locator.Uwp;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -30,7 +30,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             if (ViewModel.Items.Count > 0)
             {
                 // Show dialog.
-                var msg = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(LanguageNames.ClearHistoryWarning);
+                var msg = Locator.Current.GetService<IResourceToolkit>().GetLocaleString(LanguageNames.ClearHistoryWarning);
                 var dialog = new ConfirmDialog(msg);
                 var result = await dialog.ShowAsync().AsTask();
                 if (result == ContentDialogResult.Primary)

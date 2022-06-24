@@ -11,7 +11,7 @@
     xmlns:live="using:Bili.Models.Data.Live"
     xmlns:liveControl="using:Bili.App.Controls.Live"
     xmlns:liveModel="using:Bili.ViewModels.Uwp.Live"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -97,7 +97,7 @@
                 <controls:VerticalRepeaterView
                     x:Name="VideoView"
                     Margin="0,0,0,12"
-                    HeaderText="{loc:LocaleLocator Name=Live}"
+                    HeaderText="{loc:Locale Name=Live}"
                     ItemsSource="{x:Bind ViewModel.Items}"
                     MinWideItemHeight="208"
                     MinWideItemWidth="200">
@@ -109,7 +109,7 @@
                             x:Name="SeeAllTagsButton"
                             Style="{StaticResource AccentButtonStyle}"
                             Command="{x:Bind ViewModel.SeeAllPartitionsCommand}"
-                            Content="{loc:LocaleLocator Name=TotalTags}" />
+                            Content="{loc:Locale Name=TotalTags}" />
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="liveModel:LiveItemViewModel">
@@ -127,7 +127,7 @@
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             Grid.Row="2"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -136,7 +136,7 @@
         </controls:ErrorPanel>
         <controls:ErrorPanel
             Grid.Row="2"
-            Text="{loc:LocaleLocator Name=NoSpecificData}"
+            Text="{loc:Locale Name=NoSpecificData}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </local:LivePartitionDetailPageBase>

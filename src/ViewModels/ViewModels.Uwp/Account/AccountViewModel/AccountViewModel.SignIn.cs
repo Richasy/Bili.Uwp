@@ -67,7 +67,7 @@ namespace Bili.ViewModels.Uwp.Account
                 State = AuthorizeState.SignedOut;
 
                 if (exception is ServiceException serviceEx
-                    && (!serviceEx.Error?.IsHttpError ?? true))
+                    && (!serviceEx.IsHttpError()))
                 {
                     await SignOutAsync();
                 }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Locator.Uwp;
-using Bili.Models.App.Constants;
+using System;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
@@ -33,24 +32,21 @@ namespace Bili.App.Controls.Dialogs
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            var settingsToolkit = Splat.Locator.Current.GetService<ISettingsToolkit>();
-            var fileToolkit = Splat.Locator.Current.GetService<IFileToolkit>();
-            var title = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle, string.Empty);
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
             _snapshot = await _appViewModel.GetLastPlayItemAsync();
-            if (string.IsNullOrEmpty(title) || _snapshot == null)
+            if (_snapshot == null)
             {
                 settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
-                settingsToolkit.DeleteLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle);
                 Hide();
             }
 
-            VideoTitle.Text = title;
+            VideoTitle.Text = _snapshot.Title ?? string.Empty;
         }
 
         private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
             => _navigationViewModel.NavigateToPlayView(_snapshot);
 
-        private async void OnContentDialogCloseButtonClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-            => await _appViewModel.DeleteLastPlayItemAsync();
+        private void OnContentDialogCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+            => _appViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
     }
 }

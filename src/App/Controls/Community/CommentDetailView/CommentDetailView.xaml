@@ -4,7 +4,7 @@
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Community">
     <Style x:Key="DefaultCommentDetailVieStyle" TargetType="local:CommentDetailView">
         <Setter Property="Template">
@@ -21,7 +21,7 @@
                             x:Name="BackButton"
                             HorizontalAlignment="Left"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackCommand}"
-                            Content="{loc:LocaleLocator Name=BackToPrevious}" />
+                            Content="{loc:Locale Name=BackToPrevious}" />
                         <local:CommentItem Grid.Row="1" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.RootComment}" />
                         <Grid Grid.Row="2">
                             <ScrollViewer
@@ -46,14 +46,14 @@
                             </ScrollViewer>
                             <controls:OverlayLoadingPanel IsBarActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsIncrementalLoading}" IsRingActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsReloading}" />
                             <controls:ErrorPanel
-                                ActionContent="{loc:LocaleLocator Name=Refresh}"
+                                ActionContent="{loc:Locale Name=Refresh}"
                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ErrorText, Mode=OneWay}"
                                 Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Mode=OneWay}">
                                 <interactivity:Interaction.Behaviors>
                                     <behaviors:ReloadBehavior />
                                 </interactivity:Interaction.Behaviors>
                             </controls:ErrorPanel>
-                            <controls:ErrorPanel Text="{loc:LocaleLocator Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
+                            <controls:ErrorPanel Text="{loc:Locale Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
                         </Grid>
 
                         <local:CommentBox

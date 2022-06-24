@@ -9,7 +9,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -45,7 +45,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <app:PageHeader Title="{loc:LocaleLocator Name=Message}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=Message}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
 
         <muxc:NavigationView
             x:Name="Nav"
@@ -111,7 +111,7 @@
 
         <controls:ErrorPanel
             Grid.Row="2"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
+            ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
@@ -121,7 +121,7 @@
 
         <controls:ErrorPanel
             Grid.Row="2"
-            Text="{loc:LocaleLocator Name=NoSpecificData}"
+            Text="{loc:Locale Name=NoSpecificData}"
             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
     </Grid>
 </local:MessagePageBase>

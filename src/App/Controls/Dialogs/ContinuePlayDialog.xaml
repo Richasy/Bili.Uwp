@@ -3,21 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
-    xmlns:local="using:Bili.App.Controls.Dialogs"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="{loc:LocaleLocator Name=ContinuePlayTitle}"
+    Title="{loc:Locale Name=ContinuePlayTitle}"
     Style="{StaticResource DefaultContentDialogStyle}"
-    CloseButtonClick="OnContentDialogCloseButtonClickAsync"
-    CloseButtonText="{loc:LocaleLocator Name=Cancel}"
+    CloseButtonClick="OnContentDialogCloseButtonClick"
+    CloseButtonText="{loc:Locale Name=Cancel}"
     PrimaryButtonClick="OnContentDialogPrimaryButtonClick"
     PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    PrimaryButtonText="{loc:LocaleLocator Name=Confirm}"
+    PrimaryButtonText="{loc:Locale Name=Confirm}"
     mc:Ignorable="d">
 
     <StackPanel MaxWidth="300">
         <TextBlock TextWrapping="Wrap">
-            <Run Text="{loc:LocaleLocator Name=ContinuePlayDescription}" />
+            <Run Text="{loc:Locale Name=ContinuePlayDescription}" />
             <Run x:Name="VideoTitle" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
         </TextBlock>
     </StackPanel>

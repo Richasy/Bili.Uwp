@@ -5,11 +5,11 @@
     xmlns:account="using:Bili.ViewModels.Uwp.Account"
     xmlns:bilibili="using:Bili.Models.BiliBili"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Title="{loc:LocaleLocator Name=Detail}"
+    Title="{loc:Locale Name=Detail}"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -104,7 +104,7 @@
                             FontSize="12"
                             FontWeight="Bold"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="{loc:LocaleLocator Name=OriginName}" />
+                            Text="{loc:Locale Name=OriginName}" />
                         <TextBlock
                             Grid.Column="1"
                             FontSize="12"
@@ -121,7 +121,7 @@
                             FontSize="12"
                             FontWeight="Bold"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="{loc:LocaleLocator Name=Alias}" />
+                            Text="{loc:Locale Name=Alias}" />
                         <TextBlock
                             Grid.Column="1"
                             FontSize="12"
@@ -139,7 +139,7 @@
                         FontSize="12"
                         FontWeight="Bold"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{loc:LocaleLocator Name=CastAndCrew}" />
+                        Text="{loc:Locale Name=CastAndCrew}" />
                     <ScrollViewer
                         HorizontalScrollBarVisibility="Hidden"
                         HorizontalScrollMode="Enabled"
@@ -218,7 +218,7 @@
                         FontSize="12"
                         FontWeight="Bold"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{loc:LocaleLocator Name=Description}" />
+                        Text="{loc:Locale Name=Description}" />
                     <TextBlock
                         FontSize="12"
                         IsTextSelectionEnabled="True"
