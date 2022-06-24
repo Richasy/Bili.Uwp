@@ -103,6 +103,12 @@ namespace Bili.ViewModels.Uwp.Live
         {
             Reset();
             View = await _liveProvider.GetLiveRoomDetailAsync(_presetRoomId);
+            var snapshot = new PlaySnapshot(View.Information.Identifier.Id, default, VideoType.Live)
+            {
+                Title = View.Information.Identifier.Title,
+            };
+            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+
             var isEnterSuccess = await _liveProvider.EnterLiveRoomAsync(_presetRoomId);
 
             if (isEnterSuccess)
