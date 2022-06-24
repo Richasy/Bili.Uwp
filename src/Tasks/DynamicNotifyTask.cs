@@ -38,6 +38,7 @@ namespace Bili.Tasks
             var isFirstCheck = settingsToolkit.ReadLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, true);
             var firstCard = dynamics.Dynamics.First();
             var cardList = dynamics.Dynamics.ToList();
+
             var lastReadId = settingsToolkit.ReadLocalSetting(SettingNames.LastReadVideoDynamicId, string.Empty);
 
             // 初次检查或者未更新时不会进行通知
@@ -80,19 +81,20 @@ namespace Bili.Tasks
 
                     var title = string.Empty;
                     var coverUrl = string.Empty;
-                    var type = string.Empty;
+                    var type = "video";
                     var id = string.Empty;
                     var avatar = item.User.Avatar.GetSourceUri().ToString();
                     var desc = item.Description?.Text;
                     var timeLabel = string.IsNullOrEmpty(item.Tip)
                         ? "ms-resource:AppName"
                         : item.Tip;
+                    var additional = string.Empty;
 
                     if (item.Data is VideoInformation videoInfo)
                     {
+                        id = videoInfo.Identifier.Id;
                         title = videoInfo.Identifier.Title;
                         coverUrl = videoInfo.Identifier.Cover.GetSourceUri().ToString();
-                        type = "video";
                         if (string.IsNullOrEmpty(desc))
                         {
                             desc = videoInfo.Publisher?.User?.Name ?? string.Empty;
@@ -100,9 +102,10 @@ namespace Bili.Tasks
                     }
                     else if (item.Data is EpisodeInformation episodeInfo)
                     {
+                        id = episodeInfo.VideoId;
                         title = episodeInfo.Identifier.Title;
                         coverUrl = episodeInfo.Identifier.Cover.GetSourceUri().ToString();
-                        type = "episode";
+                        additional = "&isPgc=true";
                         if (string.IsNullOrEmpty(desc))
                         {
                             desc = episodeInfo.Subtitle;
@@ -111,7 +114,7 @@ namespace Bili.Tasks
 
                     coverUrl += "@400w_250h_1c_100q.jpg";
                     avatar += "@100w_100h_1c_100q.jpg";
-                    var protocol = $"richasy-bili://play?{type}={id}";
+                    var protocol = $"richasy-bili://play?{type}={id}{additional}";
 
                     new ToastContentBuilder()
                         .AddText(title, hintWrap: true, hintMaxLines: 2)
