@@ -156,10 +156,12 @@ namespace Bili.ViewModels.Uwp.Pgc
 
             var proxyPack = _appToolkit.GetProxyAndArea(_presetTitle, false);
             View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId, proxyPack.Item1, proxyPack.Item2);
-            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(default, View.Information.Identifier.Id, Models.Enums.VideoType.Pgc)
+            var snapshot = new PlaySnapshot(default, View.Information.Identifier.Id, VideoType.Pgc)
             {
                 Title = View.Information.Identifier.Title,
-            }).Subscribe();
+            };
+            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();

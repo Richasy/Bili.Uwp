@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Bili.Models.Data.Local;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
@@ -54,6 +56,21 @@ namespace Bili.App.Controls
                 Window.Current.SetTitleBar(null);
             }
         }
+
+        private void OnRemoveRecordButtonClick(object sender, RoutedEventArgs e)
+        {
+            var context = (sender as FrameworkElement).DataContext as PlayRecord;
+            ViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
+        }
+
+        private void OnPlayRecordItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
+        {
+            var context = e.ClickedItem as PlayRecord;
+            _navigationViewModel.NavigateToPlayView(context.Snapshot);
+        }
+
+        private void OnClearRecordsButtonClick(object sender, RoutedEventArgs e)
+            => RecordsFlyout.Hide();
     }
 
     /// <summary>
