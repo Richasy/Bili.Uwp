@@ -78,6 +78,7 @@ namespace Bili.Models.Enums
         IsFirstRunDynamicNotifyTask,
         LastReadVideoDynamicId,
         IsOpenNewDynamicNotify,
+        DefaultLiveFormat,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

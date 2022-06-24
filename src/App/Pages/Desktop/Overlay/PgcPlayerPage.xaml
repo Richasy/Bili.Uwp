@@ -125,6 +125,9 @@
 
     <Grid>
         <player:PlayerPagePanel
+            IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
             SectionHeaderItemInvoked="OnSectionHeaderItemInvoked"
             SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
@@ -150,7 +153,8 @@
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                             IsTextSelectionEnabled="True"
-                            Text="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         <TextBlock
                             x:Name="TitleBlock"
                             Style="{StaticResource SubtitleTextBlockStyle}"

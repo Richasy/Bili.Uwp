@@ -33,7 +33,7 @@ namespace Bili.ViewModels.Uwp.Core
             var view = _viewData as LivePlayerView;
             var quality = _currentPlayline != null
                 ? _currentPlayline.Quality
-                : 150;
+                : _settingsToolkit.ReadLocalSetting(SettingNames.DefaultLiveFormat, 400);
 
             Cover = view.Information.Identifier.Cover.GetSourceUri().ToString();
             DanmakuViewModel.SetData(view.Information.Identifier.Id, default, _videoType);
@@ -63,7 +63,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             var formatId = _settingsToolkit.ReadLocalSetting(SettingNames.IsPreferHighQuality, false)
                 ? Formats.Where(p => !p.IsLimited).Max(p => p.Quality)
-                : 150;
+                : _settingsToolkit.ReadLocalSetting(SettingNames.DefaultLiveFormat, 400);
             if (!Formats.Any(p => p.Quality == formatId))
             {
                 formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
@@ -75,6 +75,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task SelectLiveFormatAsync(FormatInformation format)
         {
             CurrentFormat = format;
+            ResetPlayer();
             var view = _viewData as LivePlayerView;
             var codecId = GetLivePreferCodecId();
             var quality = format.Quality;
@@ -91,11 +92,11 @@ namespace Bili.ViewModels.Uwp.Core
                 if (url == null)
                 {
                     IsError = true;
-                    ErrorText = "无法获取正确的播放地址";
-
+                    ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.FlvNotSupported);
                     return;
                 }
 
+                _settingsToolkit.WriteLocalSetting(SettingNames.DefaultLiveFormat, CurrentFormat.Quality);
                 await InitializeLivePlayerAsync(url.ToString());
             }
         }

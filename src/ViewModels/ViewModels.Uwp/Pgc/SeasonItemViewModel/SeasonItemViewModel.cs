@@ -64,7 +64,10 @@ namespace Bili.ViewModels.Uwp.Pgc
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(default, Information.Identifier.Id, Models.Enums.VideoType.Pgc));
+            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(default, Information.Identifier.Id, Models.Enums.VideoType.Pgc)
+            {
+                Title = Information.Identifier.Title,
+            });
 
         private async Task OpenInBroswerAsync()
         {

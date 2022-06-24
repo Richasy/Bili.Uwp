@@ -135,6 +135,9 @@
 
     <Grid>
         <player:PlayerPagePanel
+            IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
             SectionHeaderItemInvoked="OnSectionHeaderItemInvoked"
             SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"

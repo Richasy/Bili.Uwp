@@ -73,8 +73,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
 
             MediaPlayerViewModel.CanPlayNextPart = CurrentEpisode.IsPreviewVideo
-                ? Episodes.LastOrDefault()?.Equals(CurrentEpisode) ?? false
-                : Extras.LastOrDefault()?.Equals(CurrentEpisode) ?? false;
+                ? !Extras.LastOrDefault()?.Equals(CurrentEpisode) ?? false
+                : !Episodes.LastOrDefault()?.Equals(CurrentEpisode) ?? false;
 
             EpisodeInformation nextPart = default;
             var isPreview = CurrentEpisode.IsPreviewVideo;

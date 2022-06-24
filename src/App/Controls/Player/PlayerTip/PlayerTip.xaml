@@ -80,7 +80,8 @@
                             x:Name="CloseButton"
                             Grid.Column="1"
                             Padding="4"
-                            BorderThickness="0">
+                            BorderThickness="0"
+                            Command="{TemplateBinding CloseCommand}">
                             <FontIcon
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                 FontSize="12"

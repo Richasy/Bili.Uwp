@@ -11,6 +11,7 @@ using Bili.Models.Enums;
 using DynamicData;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
+using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -19,6 +20,12 @@ namespace Bili.ViewModels.Uwp.Live
     /// </summary>
     public sealed partial class LivePlayerPageViewModel
     {
+        private async Task OpenInBroswerAsync()
+        {
+            var uri = $"https://live.bilibili.com/{View.Information.Identifier.Id}";
+            await Launcher.LaunchUriAsync(new Uri(uri));
+        }
+
         private async void OnMessageReceivedAsync(object sender, LiveMessageEventArgs e)
         {
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>

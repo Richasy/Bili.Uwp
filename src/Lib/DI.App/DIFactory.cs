@@ -3,6 +3,7 @@ using Bili.Adapter;
 using Bili.Adapter.Interfaces;
 using Bili.Lib;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
 using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
@@ -18,6 +19,8 @@ using Bili.ViewModels.Uwp.Search;
 using Bili.ViewModels.Uwp.Toolbox;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
+using Splat.NLog;
+using Windows.Storage;
 using Windows.System.Display;
 using Windows.UI.Xaml;
 
@@ -33,6 +36,11 @@ namespace Bili.DI.App
         /// </summary>
         public static void RegisterAppRequiredServices()
         {
+            var rootFolder = ApplicationData.Current.LocalFolder;
+            var logFolderName = AppConstants.Location.LoggerFolder;
+            var fullPath = $"{rootFolder.Path}\\{logFolderName}\\";
+            NLog.GlobalDiagnosticsContext.Set("LogPath", fullPath);
+            Locator.CurrentMutable.UseNLogWithWrappingFullLogger();
             SplatRegistrations.RegisterLazySingleton<IResourceToolkit, ResourceToolkit>();
             SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
             SplatRegistrations.RegisterLazySingleton<INumberToolkit, NumberToolkit>();

@@ -1,8 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Threading.Tasks;
-
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
@@ -12,11 +9,12 @@ namespace Bili.ViewModels.Uwp.Pgc
     {
         private void ResetOverview()
         {
-            Celebrities.Clear();
+            IsError = false;
+            TryClear(Celebrities);
             IsShowCelebrities = false;
         }
 
-        private async Task ResetOperationAsync()
+        private void ResetOperation()
         {
             IsLiked = false;
             IsCoined = false;
@@ -24,11 +22,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsTracking = false;
             FavoriteFoldersErrorText = default;
             IsFavoriteFoldersError = false;
-
-            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                FavoriteFolders.Clear();
-            });
+            TryClear(FavoriteFolders);
         }
 
         private void ResetCommunityInformation()
@@ -51,12 +45,12 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void ResetSections()
         {
-            Sections.Clear();
-            Episodes.Clear();
-            Seasons.Clear();
-            Extras.Clear();
-            Seasons.Clear();
+            TryClear(Sections);
+            TryClear(Episodes);
+            TryClear(Seasons);
+            TryClear(Extras);
             CurrentSection = null;
+            CurrentEpisode = null;
             IsShowEpisodes = false;
             IsShowSeasons = false;
             IsShowComments = false;

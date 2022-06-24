@@ -104,6 +104,7 @@ namespace Bili.ViewModels.Uwp.Core
             IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
             DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
             BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode, outputScheduler: RxApp.MainThreadScheduler);
+            ClearSourceProgressCommand = ReactiveCommand.Create(ClearSourceProgress, outputScheduler: RxApp.MainThreadScheduler);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 

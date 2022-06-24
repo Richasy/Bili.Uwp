@@ -257,6 +257,18 @@ namespace Bili.ViewModels.Uwp.Core
         private void PlayNextVideo()
             => _playNextAction?.Invoke();
 
+        private void ClearSourceProgress()
+        {
+            if (_viewData is VideoPlayerView videoPlayer)
+            {
+                videoPlayer.Progress = default;
+            }
+            else if (_viewData is PgcPlayerView pgcPlayer)
+            {
+                pgcPlayer.Progress = default;
+            }
+        }
+
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
             if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)

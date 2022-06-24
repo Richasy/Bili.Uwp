@@ -288,7 +288,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public PgcPlayerView ConvertToPgcDisplayView(PgcDisplayInformation display)
+        public PgcPlayerView ConvertToPgcPlayerView(PgcDisplayInformation display)
         {
             var seasonInfo = GetSeasonInformationFromDisplayInformation(display);
             List<VideoIdentifier> seasons = null;

@@ -64,6 +64,11 @@ namespace Bili.ViewModels.Uwp.Live
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
+        /// 在网页中打开的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+
+        /// <summary>
         /// 弹幕池.
         /// </summary>
         public ObservableCollection<LiveDanmakuInformation> Danmakus { get; }

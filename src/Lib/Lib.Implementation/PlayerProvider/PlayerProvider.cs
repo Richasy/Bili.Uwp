@@ -89,7 +89,7 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Models.App.Constants.ApiConstants.Pgc.SeasonDetail(proxy), queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PgcDisplayInformation>>(response);
-            return _pgcAdapter.ConvertToPgcDisplayView(data.Data);
+            return _pgcAdapter.ConvertToPgcPlayerView(data.Data);
         }
 
         /// <inheritdoc/>

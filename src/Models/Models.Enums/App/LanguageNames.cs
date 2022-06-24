@@ -525,6 +525,7 @@ namespace Bili.Models.Enums
         PlayNextPart,
         Playlist,
         CoinNumberTip,
+        FlvNotSupported,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

@@ -85,6 +85,9 @@ namespace Bili.ViewModels.Uwp.Video
                 LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
 
                 IsShowScore = Information.CommunityInformation?.Score > 0;
+                ScoreText = IsShowScore ?
+                    Information.CommunityInformation.Score.ToString("0")
+                    : default;
             }
 
             if (Information.Identifier.Duration > 0)

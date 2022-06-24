@@ -30,7 +30,10 @@ namespace Bili.App.Controls.Player
             var data = card.DataContext as VideoIdentifierSelectableViewModel;
             if (!data.Data.Id.Equals(ViewModel.View.Information.Identifier.Id) || ViewModel.CurrentEpisode.IsPreviewVideo)
             {
-                ViewModel.SetSnapshot(new Models.Data.Local.PlaySnapshot(default, data.Data.Id, Models.Enums.VideoType.Pgc));
+                ViewModel.SetSnapshot(new Models.Data.Local.PlaySnapshot(default, data.Data.Id, Models.Enums.VideoType.Pgc)
+                {
+                    Title = data.Data.Title,
+                });
             }
             else
             {

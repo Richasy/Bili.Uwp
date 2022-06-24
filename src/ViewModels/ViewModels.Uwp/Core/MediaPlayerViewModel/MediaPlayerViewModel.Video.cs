@@ -133,6 +133,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
 
                 CurrentFormat = Formats.FirstOrDefault(p => p.Quality.ToString() == _video.Id);
+                _settingsToolkit.WriteLocalSetting(SettingNames.DefaultVideoFormat, CurrentFormat.Quality);
             }
 
             if (_mediaInformation.AudioSegments != null)

@@ -124,7 +124,16 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else if (data is EpisodeInformation episode)
             {
-                var playSnapshot = new PlaySnapshot(episode.Identifier.Id, episode.SeasonId, Models.Enums.VideoType.Pgc);
+                var needBiliPlus = episode.Identifier.Id == "0";
+                var id = needBiliPlus
+                    ? episode.VideoId
+                    : episode.Identifier.Id;
+
+                var playSnapshot = new PlaySnapshot(id, episode.SeasonId, Models.Enums.VideoType.Pgc)
+                {
+                    Title = episode.Identifier.Title,
+                    NeedBiliPlus = needBiliPlus,
+                };
                 _navigationViewModel.NavigateToPlayView(playSnapshot);
             }
             else if (data is ArticleInformation article)

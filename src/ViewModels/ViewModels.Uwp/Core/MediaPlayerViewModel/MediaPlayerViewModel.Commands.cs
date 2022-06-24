@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Reactive;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
@@ -100,6 +99,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// 跳转到上次观看进度的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> JumpToLastProgressCommand { get; }
+
+        /// <summary>
+        /// 清除数据源历史记录的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ClearSourceProgressCommand { get; }
 
         /// <summary>
         /// 报告观看进度的命令.

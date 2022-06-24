@@ -21,6 +21,9 @@
 
     <Grid>
         <player:PlayerPagePanel
+            IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
             SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
             ViewModel="{x:Bind ViewModel}"
@@ -129,6 +132,15 @@
                                 Command="{x:Bind ViewModel.FixedCommand}"
                                 Content="{x:Bind ViewModel.IsLiveFixed, Mode=OneWay, Converter={StaticResource FixedContentConverter}}" />
                         </Grid>
+                        <Button
+                            x:Name="OpenInBroswerButton"
+                            HorizontalAlignment="Stretch"
+                            Command="{x:Bind ViewModel.OpenInBroswerCommand}">
+                            <controls:IconTextBlock
+                                Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                Symbol="Globe16"
+                                Text="{loc:Locale Name=OpenInBroswer}" />
+                        </Button>
                     </StackPanel>
                 </Grid>
             </player:PlayerPagePanel.Dashboard>
@@ -136,7 +148,6 @@
                 <player:LiveMessageView x:Name="MessageView" />
             </player:PlayerPagePanel.SectionContent>
         </player:PlayerPagePanel>
-
         <controls:ErrorPanel
             x:Name="ErrorPanel"
             ActionContent="{loc:Locale Name=Refresh}"

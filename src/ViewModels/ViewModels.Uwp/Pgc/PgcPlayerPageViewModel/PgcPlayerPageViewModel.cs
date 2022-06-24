@@ -9,7 +9,6 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
-using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -88,7 +87,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
             FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.CreateFromTask(ResetAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync, outputScheduler: RxApp.MainThreadScheduler);
 
@@ -126,12 +125,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             ReloadCommand.Execute().Subscribe();
         }
 
-        private async Task ResetAsync()
+        private void Reset()
         {
             View = null;
             MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetOverview();
-            await ResetOperationAsync();
+            ResetOperation();
             ResetCommunityInformation();
             ResetInterop();
             ResetSections();
@@ -139,7 +138,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private async Task GetDataAsync()
         {
-            await ResetAsync();
+            Reset();
             if (_needBiliPlus && !string.IsNullOrEmpty(_presetEpisodeId))
             {
                 var data = await _pgcProvider.GetBiliPlusBangumiInformationAsync(_presetEpisodeId);
@@ -155,7 +154,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
             var proxyPack = _appToolkit.GetProxyAndArea(_presetTitle, false);
             View = await _playerProvider.GetPgcDetailAsync(_presetEpisodeId, _presetSeasonId, proxyPack.Item1, proxyPack.Item2);
-            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(View.Information.Identifier.Id, default, Models.Enums.VideoType.Pgc)
+            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(default, View.Information.Identifier.Id, Models.Enums.VideoType.Pgc)
             {
                 Title = View.Information.Identifier.Title,
             }).Subscribe();

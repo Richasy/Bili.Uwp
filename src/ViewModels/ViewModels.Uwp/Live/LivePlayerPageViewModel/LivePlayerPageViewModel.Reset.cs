@@ -19,11 +19,13 @@ namespace Bili.ViewModels.Uwp.Live
             => User = null;
 
         private void ResetOverview()
-            => WatchingCountText = default;
+        {
+            IsError = false;
+            WatchingCountText = default;
+        }
 
         private void ResetInterop()
         {
-            // TODO：重置下载内容.
             IsLiveFixed = false;
             IsDanmakusAutoScroll = true;
             Danmakus.Clear();

@@ -48,6 +48,12 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(PlayerTip), new PropertyMetadata(default));
 
+        /// <summary>
+        /// <see cref="CloseCommand"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CloseCommandProperty =
+            DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(PlayerTip), new PropertyMetadata(default));
+
         private const string ActionButtonName = "ActionButton";
         private const string CloseButtonName = "CloseButton";
 
@@ -119,6 +125,15 @@ namespace Bili.App.Controls
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// 关闭命令.
+        /// </summary>
+        public ICommand CloseCommand
+        {
+            get { return (ICommand)GetValue(CloseCommandProperty); }
+            set { SetValue(CloseCommandProperty, value); }
         }
 
         /// <inheritdoc/>

@@ -9,6 +9,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private void ResetPublisher()
         {
+            IsError = false;
             IsCooperationVideo = false;
             Author = null;
             Collaborators.Clear();

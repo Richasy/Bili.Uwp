@@ -101,6 +101,12 @@ namespace Bili.ViewModels.Uwp.Video
         public bool IsShowScore { get; internal set; }
 
         /// <summary>
+        /// 分数文本.
+        /// </summary>
+        [Reactive]
+        public string ScoreText { get; internal set; }
+
+        /// <summary>
         /// 是否显示社区信息.
         /// </summary>
         [Reactive]

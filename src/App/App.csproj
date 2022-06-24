@@ -413,6 +413,7 @@
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
+    <Compile Include="Resources\Converter\ErrorOpacityConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\FixedContentConverter.cs" />
     <Compile Include="Resources\Converter\ImageConverter.cs" />

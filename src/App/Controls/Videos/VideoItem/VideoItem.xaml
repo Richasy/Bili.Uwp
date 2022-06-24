@@ -183,7 +183,7 @@
                                             <Run
                                                 FontWeight="Bold"
                                                 Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.Score, Mode=OneWay}" />
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScoreText}" />
                                         </TextBlock>
                                     </Grid>
                                 </Grid>
@@ -351,7 +351,7 @@
                                             <Run
                                                 FontWeight="Bold"
                                                 Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.Score, Mode=OneWay}" />
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScoreText}" />
                                         </TextBlock>
                                     </Grid>
                                 </Grid>

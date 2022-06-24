@@ -82,7 +82,7 @@ namespace Bili.Tasks
                     var coverUrl = string.Empty;
                     var type = string.Empty;
                     var id = string.Empty;
-                    var avatar = string.Empty;
+                    var avatar = item.User.Avatar.GetSourceUri().ToString();
                     var desc = item.Description?.Text;
                     var timeLabel = string.IsNullOrEmpty(item.Tip)
                         ? "ms-resource:AppName"
@@ -93,9 +93,6 @@ namespace Bili.Tasks
                         title = videoInfo.Identifier.Title;
                         coverUrl = videoInfo.Identifier.Cover.GetSourceUri().ToString();
                         type = "video";
-                        avatar = videoInfo.Publisher == null
-                            ? "ms-appx:///Assets/Bili_rgba_80.png"
-                            : videoInfo.Publisher.User.Avatar.Uri;
                         if (string.IsNullOrEmpty(desc))
                         {
                             desc = videoInfo.Publisher?.User?.Name ?? string.Empty;
@@ -106,7 +103,6 @@ namespace Bili.Tasks
                         title = episodeInfo.Identifier.Title;
                         coverUrl = episodeInfo.Identifier.Cover.GetSourceUri().ToString();
                         type = "episode";
-                        avatar = "ms-appx:///Assets/Bili_rgba_80.png";
                         if (string.IsNullOrEmpty(desc))
                         {
                             desc = episodeInfo.Subtitle;

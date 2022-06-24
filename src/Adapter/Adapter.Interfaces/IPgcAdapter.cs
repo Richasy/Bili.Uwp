@@ -97,7 +97,7 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="display">PGC 展示信息.</param>
         /// <returns><see cref="PgcPlayerView"/>.</returns>
-        PgcPlayerView ConvertToPgcDisplayView(PgcDisplayInformation display);
+        PgcPlayerView ConvertToPgcPlayerView(PgcDisplayInformation display);
 
         /// <summary>
         /// 将 PGC 模块 <see cref="PgcModule"/> 转换为播放列表.
