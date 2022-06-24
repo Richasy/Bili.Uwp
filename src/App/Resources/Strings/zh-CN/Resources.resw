@@ -828,6 +828,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="Maximum" xml:space="preserve">
     <value>最大</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>菜单</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>消息</value>
   </data>

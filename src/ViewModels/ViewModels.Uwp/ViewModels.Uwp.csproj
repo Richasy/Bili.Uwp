@@ -33,6 +33,7 @@
     <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.cs" />
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.Methods.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Commands.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Controls.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.Properties.cs" />
     <Compile Include="Base\PgcPageViewModelBase\PgcPageViewModelBase.cs" />
     <Compile Include="Base\PgcPageViewModelBase\PgcPageViewModelBase.Properties.cs" />
-    <Compile Include="Core\AppViewModel\AppViewModel.Command.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.Parse.cs" />
     <Compile Include="Common\CommandLineViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.cs" />
     <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />

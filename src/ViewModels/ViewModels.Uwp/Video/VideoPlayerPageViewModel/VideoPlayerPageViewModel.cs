@@ -155,10 +155,12 @@ namespace Bili.ViewModels.Uwp.Video
         {
             Reset();
             View = await _playerProvider.GetVideoDetailAsync(_presetVideoId);
-            _appViewModel.AddLastPlayItemCommand.Execute(new PlaySnapshot(View.Information.Identifier.Id, default, Models.Enums.VideoType.Video)
+            var snapshot = new PlaySnapshot(View.Information.Identifier.Id, default, VideoType.Video)
             {
                 Title = View.Information.Identifier.Title,
-            }).Subscribe();
+            };
+            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();

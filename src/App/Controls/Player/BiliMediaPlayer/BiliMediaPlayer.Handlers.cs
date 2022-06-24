@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Atelier39;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
@@ -68,6 +69,8 @@ namespace Bili.App.Controls.Player
         private async void OnMediaPlayerChangedAsync(object sender, MediaPlayer e)
         {
             _mediaPlayerElement.SetMediaPlayer(e);
+
+            await Task.Delay(200);
             await _danmakuView?.RedrawAsync();
         }
 

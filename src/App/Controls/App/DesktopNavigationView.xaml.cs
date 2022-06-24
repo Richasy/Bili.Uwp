@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Bili.App.Pages.Desktop;
 using Bili.App.Resources.Extension;
-using Bili.Models.App;
 using Bili.Models.App.Args;
-using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.ViewModels.Uwp.Account;
@@ -33,10 +32,11 @@ namespace Bili.App.Controls
         public DesktopNavigationView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
-            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
-            _accountViewModel = Splat.Locator.Current.GetService<AccountViewModel>();
+            ViewModel = Locator.Current.GetService<NavigationViewModel>();
+            _appViewModel = Locator.Current.GetService<AppViewModel>();
+            _accountViewModel = Locator.Current.GetService<AccountViewModel>();
             Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         /// <summary>
@@ -46,13 +46,19 @@ namespace Bili.App.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.Navigating -= OnNavigating;
             ViewModel.Navigating += OnNavigating;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
 
             if (_appViewModel.IsXbox)
             {
                 RootNavView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftMinimal;
             }
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Navigating -= OnNavigating;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
         private void OnNavigating(object sender, AppNavigationEventArgs e)
@@ -166,17 +172,17 @@ namespace Bili.App.Controls
                     new UserSpaceView().Show(context.Id);
                     break;
                 case Models.Enums.App.FixedType.Pgc:
-                    playRecord = new PlaySnapshot("0", context.Id, VideoType.Pgc)
+                    playRecord = new PlaySnapshot(default, context.Id, VideoType.Pgc)
                     {
                         Title = context.Title,
                     };
                     break;
                 case Models.Enums.App.FixedType.Video:
-                    playRecord = new PlaySnapshot(context.Id, "0", VideoType.Video);
+                    playRecord = new PlaySnapshot(context.Id, default, VideoType.Video);
                     break;
 
                 case Models.Enums.App.FixedType.Live:
-                    playRecord = new PlaySnapshot(context.Id, "0", VideoType.Live);
+                    playRecord = new PlaySnapshot(context.Id, default, VideoType.Live);
                     break;
                 default:
                     break;
@@ -199,6 +205,14 @@ namespace Bili.App.Controls
 
         private void OnDisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
             => CheckMenuButtonVisibility();
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsMainViewShown))
+            {
+                CheckMenuButtonVisibility();
+            }
+        }
 
         private void CheckMenuButtonVisibility()
         {

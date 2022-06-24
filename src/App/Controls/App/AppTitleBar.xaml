@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
+    xmlns:local1="using:Bili.Models.Data.Local"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
@@ -48,6 +49,8 @@
                 <!-- Back button -->
                 <ColumnDefinition Width="Auto" />
                 <!-- Menu button -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Play records button -->
                 <ColumnDefinition Width="Auto" />
                 <!-- Logo -->
                 <ColumnDefinition Width="Auto" />
@@ -113,6 +116,7 @@
                 Padding="6,0,0,0"
                 Click="OnMenuButtonClick"
                 TabIndex="3"
+                ToolTipService.ToolTip="{loc:Locale Name=Menu}"
                 Visibility="{x:Bind ViewModel.IsShowMenuButton, Mode=OneWay}">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
@@ -148,8 +152,125 @@
                 </Viewbox>
             </Button>
 
-            <StackPanel
+            <Button
+                x:Name="RecordsButton"
+                Style="{StaticResource TitleBarButtonStyle}"
                 Grid.Column="2"
+                Padding="6,0,0,0"
+                TabIndex="3"
+                ToolTipService.ToolTip="{loc:Locale Name=ViewHistory}"
+                Visibility="{x:Bind ViewModel.IsShowPlayRecordButton, Mode=OneWay}">
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.3" />
+                    <animations:ScaleAnimation
+                        From="0.5"
+                        To="1"
+                        Duration="0:0:0.3" />
+                </animations:Implicit.ShowAnimations>
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.2" />
+                    <animations:ScaleAnimation
+                        From="1"
+                        To="0.5"
+                        Duration="0:0:0.2" />
+                </animations:Implicit.HideAnimations>
+                <Viewbox
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <uwp:RegularFluentIcon Symbol="History16" />
+                </Viewbox>
+                <Button.Flyout>
+                    <Flyout x:Name="RecordsFlyout" ShouldConstrainToRootBounds="False">
+                        <Flyout.FlyoutPresenterStyle>
+                            <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                                <Setter Property="Padding" Value="12,8" />
+                            </Style>
+                        </Flyout.FlyoutPresenterStyle>
+                        <StackPanel Spacing="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{loc:Locale Name=ViewHistory}" />
+                                <HyperlinkButton
+                                    Grid.Column="1"
+                                    Padding="4"
+                                    VerticalAlignment="Center"
+                                    Click="OnClearRecordsButtonClick"
+                                    Command="{x:Bind ViewModel.ClearPlayRecordCommand}"
+                                    Content="{loc:Locale Name=Clear}"
+                                    FontSize="12" />
+                            </Grid>
+                            <ListView
+                                MaxHeight="200"
+                                Padding="-4,0"
+                                HorizontalAlignment="Stretch"
+                                IsItemClickEnabled="True"
+                                ItemClick="OnPlayRecordItemClick"
+                                ItemsSource="{x:Bind ViewModel.PlayRecords}"
+                                SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="12,8" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="local1:PlayRecord">
+                                        <Grid ColumnSpacing="8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <local:CommonImageEx
+                                                Width="60"
+                                                Height="40"
+                                                VerticalAlignment="Center"
+                                                CornerRadius="{StaticResource ControlCornerRadius}"
+                                                DecodePixelWidth="120"
+                                                ImageUrl="{x:Bind Identifier.Cover.Uri}"
+                                                PlaceholderSource="ms-appx:///Assets/img_holder_rect.png" />
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Grid.Column="1"
+                                                MaxWidth="200"
+                                                VerticalAlignment="Center"
+                                                MaxLines="2"
+                                                Text="{x:Bind Identifier.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind Identifier.Title}" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Padding="4"
+                                                VerticalAlignment="Center"
+                                                Click="OnRemoveRecordButtonClick">
+                                                <uwp:RegularFluentIcon FontSize="10" Symbol="Dismiss16" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+
+            <StackPanel
+                Grid.Column="3"
                 Margin="16,0,12,0"
                 VerticalAlignment="Center"
                 IsHitTestVisible="False"
@@ -167,7 +288,7 @@
             </StackPanel>
 
             <Grid
-                Grid.Column="3"
+                Grid.Column="4"
                 MaxWidth="520"
                 VerticalAlignment="Center">
                 <local:SearchSuggestBox x:Name="SearchBox" TabIndex="3" />
@@ -175,7 +296,7 @@
 
             <local:AccountAvatar
                 x:Name="UserAvatar"
-                Grid.Column="4"
+                Grid.Column="5"
                 Width="28"
                 Height="28"
                 Margin="12,0"

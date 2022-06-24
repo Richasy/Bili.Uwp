@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
@@ -108,16 +109,30 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
 
         /// <summary>
+        /// 添加本地播放历史条目的命令.
+        /// </summary>
+        public ReactiveCommand<PlayRecord, Unit> AddPlayRecordCommand { get; }
+
+        /// <summary>
+        /// 移除本地播放历史条目的命令.
+        /// </summary>
+        public ReactiveCommand<PlayRecord, Unit> RemovePlayRecordCommand { get; }
+
+        /// <summary>
+        /// 清空本地历史条目的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ClearPlayRecordCommand { get; }
+
+        /// <summary>
+        /// 应用生命周期内的播放历史记录.
+        /// </summary>
+        public ObservableCollection<PlayRecord> PlayRecords { get; }
+
+        /// <summary>
         /// 导航面板是否已展开.
         /// </summary>
         [Reactive]
         public bool IsNavigatePaneOpen { get; set; }
-
-        /// <summary>
-        /// 是否可以显示返回首页按钮.
-        /// </summary>
-        [Reactive]
-        public bool CanShowHomeButton { get; set; }
 
         /// <summary>
         /// 页面标题文本.
@@ -160,6 +175,12 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsShowMenuButton { get; set; }
+
+        /// <summary>
+        /// 是否可以显示播放历史记录的按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowPlayRecordButton { get; set; }
 
         /// <summary>
         /// 网络是否可用.

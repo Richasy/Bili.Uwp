@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private VideoItemViewModel GetItemViewModel(VideoInformation information)
         {
-            var vm = Splat.Locator.Current.GetService<VideoItemViewModel>();
+            var vm = Locator.Current.GetService<VideoItemViewModel>();
             vm.SetInformation(information);
             return vm;
         }
