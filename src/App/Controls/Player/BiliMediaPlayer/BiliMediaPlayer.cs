@@ -36,13 +36,13 @@ namespace Bili.App.Controls.Player
         {
             if (e.OldValue is MediaPlayerViewModel oldVM)
             {
-                oldVM.MediaPlayerChanged -= OnMediaPlayerChanged;
+                oldVM.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
 
             var vm = e.NewValue as MediaPlayerViewModel;
             vm.IsShowMediaTransport = true;
-            vm.MediaPlayerChanged -= OnMediaPlayerChanged;
-            vm.MediaPlayerChanged += OnMediaPlayerChanged;
+            vm.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
+            vm.MediaPlayerChanged += OnMediaPlayerChangedAsync;
         }
 
         /// <inheritdoc/>

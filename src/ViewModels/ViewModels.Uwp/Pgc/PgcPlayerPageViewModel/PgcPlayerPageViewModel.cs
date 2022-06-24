@@ -9,6 +9,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -121,7 +122,8 @@ namespace Bili.ViewModels.Uwp.Pgc
                 : snapshot.SeasonId;
             _presetTitle = snapshot.Title;
             _needBiliPlus = snapshot.NeedBiliPlus;
-            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
+            var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.Execute().Subscribe();
         }
 

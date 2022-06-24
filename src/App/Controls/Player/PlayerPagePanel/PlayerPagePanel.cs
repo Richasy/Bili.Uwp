@@ -7,6 +7,7 @@ using Bili.Models.App.Other;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
+using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -56,8 +57,8 @@ namespace Bili.App.Controls.Player
         public static readonly DependencyProperty DescriptorProperty =
             DependencyProperty.Register(nameof(Descriptor), typeof(object), typeof(PlayerPagePanel), new PropertyMetadata(default));
 
+        private readonly double _mediumWindowWidth;
         private SplitView _splitView;
-        private double _mediumWindowWidth;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPagePanel"/> class.
@@ -65,7 +66,7 @@ namespace Bili.App.Controls.Player
         public PlayerPagePanel()
         {
             DefaultStyleKey = typeof(PlayerPagePanel);
-            _mediumWindowWidth = Splat.Locator.Current.GetService<AppViewModel>().MediumWindowThresholdWidth;
+            _mediumWindowWidth = Locator.Current.GetService<AppViewModel>().MediumWindowThresholdWidth;
             SizeChanged += OnSizeChanged;
             Loaded += OnLoadedAsync;
             Unloaded += OnUnloaded;
@@ -135,12 +136,14 @@ namespace Bili.App.Controls.Player
             if (e.OldValue is PlayerPageViewModelBase oldVM)
             {
                 oldVM.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+                oldVM.MediaPlayerViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
 
             if (e.NewValue is PlayerPageViewModelBase vm)
             {
                 vm.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
                 vm.MediaPlayerViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;
+                vm.MediaPlayerViewModel.MediaPlayerChanged += OnMediaPlayerChangedAsync;
             }
         }
 
@@ -186,13 +189,15 @@ namespace Bili.App.Controls.Player
             if (ViewModel?.MediaPlayerViewModel != null)
             {
                 ViewModel.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
+                ViewModel.MediaPlayerViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            await ChangeVisualStateFromDisplayModeAsync();
-        }
+            => await ChangeVisualStateFromDisplayModeAsync();
+
+        private async void OnMediaPlayerChangedAsync(object sender, MediaPlayer e)
+            => await ChangeVisualStateFromDisplayModeAsync();
 
         private async Task ChangeVisualStateFromDisplayModeAsync()
         {

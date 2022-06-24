@@ -131,10 +131,6 @@ namespace Bili.Toolkit.Uwp
                     {
                         area = "tw";
                     }
-                    else
-                    {
-                        area = "zh";
-                    }
                 }
 
                 var isForceProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);

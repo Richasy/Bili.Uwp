@@ -52,7 +52,7 @@ namespace Bili.Models.Data.Local
         /// <summary>
         /// 显示模式.
         /// </summary>
-        public PlayerDisplayMode DisplayMode { get; set; }
+        public PlayerDisplayMode? DisplayMode { get; set; }
 
         /// <summary>
         /// 标题.

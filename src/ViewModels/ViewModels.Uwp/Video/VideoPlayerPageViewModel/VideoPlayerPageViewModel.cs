@@ -9,6 +9,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -105,7 +106,7 @@ namespace Bili.ViewModels.Uwp.Video
 
             this.WhenAnyValue(p => p.IsOnlyShowIndex)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsOnlyShowIndex, isShow));
+                .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
         }
 
         /// <summary>
@@ -115,7 +116,8 @@ namespace Bili.ViewModels.Uwp.Video
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetVideoId = snapshot.VideoId;
-            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
+            var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.Execute().Subscribe();
         }
 

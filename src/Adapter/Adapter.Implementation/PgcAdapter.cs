@@ -335,14 +335,20 @@ namespace Bili.Adapter
             {
                 var progress = display.UserStatus.Progress;
                 var historyEpid = progress.LastEpisodeId.ToString();
-                var historyEp = episodes.FirstOrDefault(p => p.Identifier.Id == historyEpid);
-                var status = progress.LastTime switch
+                var historyEp = episodes.Any(p => p.Identifier.Id == historyEpid)
+                    ? episodes.FirstOrDefault(p => p.Identifier.Id == historyEpid)
+                    : episodes.FirstOrDefault(p => p.Index.ToString() == progress.LastEpisodeIndex);
+
+                if (historyEp != null)
                 {
-                    -1 => PlayedProgressStatus.Finish,
-                    0 => PlayedProgressStatus.NotStarted,
-                    _ => PlayedProgressStatus.Playing
-                };
-                history = new PlayedProgress(progress.LastTime, status, historyEp.Identifier);
+                    var status = progress.LastTime switch
+                    {
+                        -1 => PlayedProgressStatus.Finish,
+                        0 => PlayedProgressStatus.NotStarted,
+                        _ => PlayedProgressStatus.Playing
+                    };
+                    history = new PlayedProgress(progress.LastTime, status, historyEp.Identifier);
+                }
             }
 
             var warning = display.Warning?.Message;

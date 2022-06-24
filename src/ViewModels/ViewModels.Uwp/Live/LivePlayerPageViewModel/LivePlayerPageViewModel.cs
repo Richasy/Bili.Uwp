@@ -84,7 +84,8 @@ namespace Bili.ViewModels.Uwp.Live
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetRoomId = snapshot.VideoId;
-            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode;
+            var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
+            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.Execute().Subscribe();
         }
 
