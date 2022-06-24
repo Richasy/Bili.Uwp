@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Richasy.Bili.Models.App</AssemblyName>
-    <RootNamespace>Richasy.Bili.Models.App</RootNamespace>
+    <AssemblyName>Bili.Models.App</AssemblyName>
+    <RootNamespace>Bili.Models.App</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models.BiliBili\Models.BiliBili.csproj" />
+    <ProjectReference Include="..\Models.Data\Models.Data.csproj" />
     <ProjectReference Include="..\Models.Enums\Models.Enums.csproj" />
     <ProjectReference Include="..\Models.gRPC\Models.gRPC.csproj" />
   </ItemGroup>

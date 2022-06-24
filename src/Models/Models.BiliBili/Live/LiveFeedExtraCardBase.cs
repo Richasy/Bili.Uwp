@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 直播源附加卡片基类.

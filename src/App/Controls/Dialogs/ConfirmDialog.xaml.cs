@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls.Dialogs
+namespace Bili.App.Controls.Dialogs
 {
     /// <summary>
     /// 表示确认的对话框.

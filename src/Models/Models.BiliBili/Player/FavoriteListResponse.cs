@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 收藏夹列表响应.
@@ -55,7 +55,7 @@ namespace Richasy.Bili.Models.BiliBili
         public string Title { get; set; }
 
         /// <summary>
-        /// 查询的视频是否在该收藏夹内，0-存在，1-不存在.
+        /// 查询的视频是否在该收藏夹内，0-不存在，1-存在.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fav_state", Required = Required.Default)]
         public int FavoriteState { get; set; }

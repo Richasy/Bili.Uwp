@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 互动视频选项响应.
@@ -37,7 +37,7 @@ namespace Richasy.Bili.Models.BiliBili
     public class InteractionEdge
     {
         /// <summary>
-        /// 视频清晰度.
+        /// 互动视频问题.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "questions", Required = Required.Default)]
         public List<InteractionQuestion> Questions { get; set; }

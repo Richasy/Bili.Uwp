@@ -8,7 +8,7 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 气泡.

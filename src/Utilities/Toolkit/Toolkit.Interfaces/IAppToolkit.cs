@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Toolkit.Interfaces
+using System;
+
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// Application related toolkit.
@@ -32,5 +34,19 @@ namespace Richasy.Bili.Toolkit.Interfaces
         /// </param>
         /// <returns>Language code.</returns>
         string GetLanguageCode(bool isWindowsName = false);
+
+        /// <summary>
+        /// 获取应用设置的代理以及对应内容的区域.
+        /// </summary>
+        /// <param name="title">视频标题.</param>
+        /// <param name="isVideo">是否为 UGC 视频.</param>
+        /// <returns>代理及区域.</returns>
+        Tuple<string, string> GetProxyAndArea(string title, bool isVideo);
+
+        /// <summary>
+        /// 获取应用包版本.
+        /// </summary>
+        /// <returns>包版本.</returns>
+        string GetPackageVersion();
     }
 }

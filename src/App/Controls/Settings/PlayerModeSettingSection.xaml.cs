@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器模式设置区块.
@@ -11,8 +11,6 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="PlayerModeSettingSection"/> class.
         /// </summary>
         public PlayerModeSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

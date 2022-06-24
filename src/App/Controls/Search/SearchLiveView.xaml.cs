@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索直播视图.
@@ -10,14 +10,6 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchLiveView"/> class.
         /// </summary>
-        public SearchLiveView()
-        {
-            InitializeComponent();
-        }
-
-        private async void OnLiveRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await ViewModel.LiveModule.InitializeRequestAsync();
-        }
+        public SearchLiveView() => InitializeComponent();
     }
 }

@@ -2,18 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Richasy.Bili.Models.gRPC</RootNamespace>
-    <AssemblyName>Richasy.Bili.Models.gRPC</AssemblyName>
+    <RootNamespace>Bili.Models.gRPC</RootNamespace>
+    <AssemblyName>Bili.Models.gRPC</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="bilibili\app\interfaces\v1\space.proto" />
+    <None Remove="bilibili\app\playeronline\v1\playeronline.proto" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.19.4" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.44.0">
+    <PackageReference Include="Google.Protobuf" Version="3.21.1" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.46.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -35,6 +36,7 @@
     <Protobuf Include="bilibili\app\interfaces\v1\history.proto" />
     <Protobuf Include="bilibili\app\interfaces\v1\search.proto" />
     <Protobuf Include="bilibili\app\interfaces\v1\space.proto" GrpcServices="Both" />
+    <Protobuf Include="bilibili\app\playeronline\v1\playeronline.proto" />
     <Protobuf Include="bilibili\app\playurl\v1\playurl.proto" />
     <Protobuf Include="bilibili\app\resource\privacy\v1\api.proto" />
     <Protobuf Include="bilibili\app\resource\v1\module.proto" />

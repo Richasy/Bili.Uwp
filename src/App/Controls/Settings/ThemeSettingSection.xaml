@@ -1,11 +1,11 @@
 ﻿<local:SettingSectionControl
-    x:Class="Richasy.Bili.App.Controls.ThemeSettingSection"
+    x:Class="Bili.App.Controls.ThemeSettingSection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uwp="using:Richasy.ExpanderEx.Uwp"
@@ -17,7 +17,7 @@
         <uwp:ExpanderEx.Header>
             <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=AppTheme}" Description="{loc:LocaleLocator Name=AppThemeDescription}">
+                    <uwp:ExpanderExDescriptor Title="{loc:Locale Name=AppTheme}" Description="{loc:Locale Name=AppThemeDescription}">
                         <uwp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="Color20" />
                         </uwp:ExpanderExDescriptor.Icon>
@@ -33,16 +33,16 @@
                 <uwp:ExpanderExWrapper.MainContent>
                     <StackPanel>
                         <muxc:RadioButtons x:Name="ThemeRadioButtons" SelectionChanged="OnThemeRadioButtonSelectionChanged">
-                            <RadioButton x:Name="LightThemeRadioButton" Content="{loc:LocaleLocator Name=Light}" />
-                            <RadioButton x:Name="DarkThemeRadioButton" Content="{loc:LocaleLocator Name=Dark}" />
-                            <RadioButton x:Name="SystemThemeRadioButton" Content="{loc:LocaleLocator Name=FollowSystem}" />
+                            <RadioButton x:Name="LightThemeRadioButton" Content="{loc:Locale Name=Light}" />
+                            <RadioButton x:Name="DarkThemeRadioButton" Content="{loc:Locale Name=Dark}" />
+                            <RadioButton x:Name="SystemThemeRadioButton" Content="{loc:Locale Name=FollowSystem}" />
                         </muxc:RadioButtons>
                         <TextBlock
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Margin="0,12,0,8"
                             FontSize="12"
                             Foreground="{ThemeResource SystemFillColorCautionBrush}"
-                            Text="{loc:LocaleLocator Name=RestartWarning}"
+                            Text="{loc:Locale Name=RestartWarning}"
                             Visibility="{x:Bind ViewModel.IsShowThemeRestartTip, Mode=OneWay}" />
                     </StackPanel>
                 </uwp:ExpanderExWrapper.MainContent>

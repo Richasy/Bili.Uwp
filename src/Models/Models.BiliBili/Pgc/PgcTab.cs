@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 动漫或影视的顶部标签页.

@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// @我的消息.
@@ -46,7 +46,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// @我的时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "at_time", Required = Required.Default)]
-        public int AtTime { get; set; }
+        public long AtTime { get; set; }
     }
 
     /// <summary>

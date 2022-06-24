@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 搜索结果响应.
@@ -20,8 +20,14 @@ namespace Richasy.Bili.Models.BiliBili
         /// <summary>
         /// 页码.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "page", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pages", Required = Required.Default)]
         public int PageNumber { get; set; }
+
+        /// <summary>
+        /// 总数.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total", Required = Required.Default)]
+        public int Total { get; set; }
 
         /// <summary>
         /// 搜索关键词.

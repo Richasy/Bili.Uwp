@@ -1,10 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums.App;
+using Bili.Models.App.Args;
+using Bili.Models.Data.Community;
+using Bili.Models.Data.Live;
+using Bili.Models.Enums.App;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 提供直播相关的操作.
@@ -12,32 +16,38 @@ namespace Richasy.Bili.Lib.Interfaces
     public interface ILiveProvider
     {
         /// <summary>
+        /// 直播间收到新的消息时发生.
+        /// </summary>
+        event EventHandler<LiveMessageEventArgs> MessageReceived;
+
+        /// <summary>
         /// 获取直播源列表.
         /// </summary>
         /// <param name="page">页码.</param>
-        /// <returns><see cref="LiveFeedResponse"/>.</returns>
-        Task<LiveFeedResponse> GetLiveFeedsAsync(int page);
+        /// <returns><see cref="LiveFeedView"/>.</returns>
+        Task<LiveFeedView> GetLiveFeedsAsync();
 
         /// <summary>
         /// 获取直播间分区.
         /// </summary>
-        /// <returns><see cref="LiveAreaResponse"/>.</returns>
-        Task<LiveAreaResponse> GetLiveAreaIndexAsync();
+        /// <returns>分区列表.</returns>
+        Task<IEnumerable<Partition>> GetLiveAreaIndexAsync();
+
+        /// <summary>
+        /// 获取直播分区详情.
+        /// </summary>
+        /// <param name="areaId">分区Id.</param>
+        /// <param name="parentId">父分区Id.</param>
+        /// <param name="sortType">排序方式.</param>
+        /// <returns><see cref="LivePartitionView"/>.</returns>
+        Task<LivePartitionView> GetLiveAreaDetailAsync(string areaId, string parentId, string sortType);
 
         /// <summary>
         /// 获取直播间详情.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
-        /// <returns><see cref="LiveRoomDetail"/>.</returns>
-        Task<LiveRoomDetail> GetLiveRoomDetailAsync(int roomId);
-
-        /// <summary>
-        /// 获取直播间播放数据.
-        /// </summary>
-        /// <param name="roomId">直播间Id.</param>
-        /// <param name="quality">清晰度.</param>
-        /// <returns>播放信息.</returns>
-        Task<LivePlayInformation> GetLivePlayInformationAsync(int roomId, int quality);
+        /// <returns><see cref="LivePlayerView"/>.</returns>
+        Task<LivePlayerView> GetLiveRoomDetailAsync(string roomId);
 
         /// <summary>
         /// 获取直播间播放数据.
@@ -46,14 +56,20 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="quality">清晰度.</param>
         /// <param name="audioOnly">是否仅音频.</param>
         /// <returns>播放信息.</returns>
-        Task<LiveAppPlayUrlInfo> GetAppLivePlayInformation(int roomId, int quality, bool audioOnly);
+        Task<LiveMediaInformation> GetLiveMediaInformationAsync(string roomId, int quality, bool audioOnly);
 
         /// <summary>
         /// 进入直播间.
         /// </summary>
         /// <param name="roomId">直播间Id.</param>
         /// <returns>是否成功.</returns>
-        Task<bool> EnterLiveRoomAsync(int roomId);
+        Task<bool> EnterLiveRoomAsync(string roomId);
+
+        /// <summary>
+        /// 发送心跳包.
+        /// </summary>
+        /// <returns><see cref="Task"/>.</returns>
+        Task SendHeartBeatAsync();
 
         /// <summary>
         /// 发送消息.
@@ -64,17 +80,21 @@ namespace Richasy.Bili.Lib.Interfaces
         /// <param name="isStandardSize">是否为标准字体大小.</param>
         /// <param name="location">弹幕位置.</param>
         /// <returns>是否发送成功.</returns>
-        Task<bool> SendMessageAsync(int roomId, string message, string color, bool isStandardSize, DanmakuLocation location);
+        Task<bool> SendDanmakuAsync(string roomId, string message, string color, bool isStandardSize, DanmakuLocation location);
 
         /// <summary>
-        /// 获取直播分区详情.
+        /// 重置推荐信息流.
         /// </summary>
-        /// <param name="areaId">分区Id.</param>
-        /// <param name="parentId">父分区Id.</param>
-        /// <param name="sortType">排序方式.</param>
-        /// <param name="pageNumber">页码.</param>
-        /// <param name="pageSize">每页容量.</param>
-        /// <returns><see cref="LiveAreaDetailResponse"/>.</returns>
-        Task<LiveAreaDetailResponse> GetLiveAreaDetailAsync(int areaId, int parentId, string sortType, int pageNumber, int pageSize = 40);
+        void ResetFeedState();
+
+        /// <summary>
+        /// 重置分区详情的状态信息.
+        /// </summary>
+        void ResetPartitionDetailState();
+
+        /// <summary>
+        /// 重置直播连接.
+        /// </summary>
+        void ResetLiveConnection();
     }
 }

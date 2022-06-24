@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 收藏夹类型转换器.
@@ -19,7 +19,7 @@ namespace Richasy.Bili.App.Resources.Converter
         {
             var type = (FavoriteType)value;
             var result = string.Empty;
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             switch (type)
             {
                 case FavoriteType.Video:

@@ -1,0 +1,191 @@
+﻿<local:DesktopNavigationViewBase
+    x:Class="Bili.App.Controls.DesktopNavigationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:Bili.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.App.Resources.Extension"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
+    xmlns:local1="using:Bili.Models.Data.Local"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:DesktopNavigationViewBase.Resources>
+        <Style x:Key="BiliNavigationViewStyle" TargetType="muxc:NavigationView">
+            <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+            <Setter Property="IsBackButtonVisible" Value="Collapsed" />
+            <Setter Property="OpenPaneLength" Value="240" />
+            <Setter Property="IsTitleBarAutoPaddingEnabled" Value="False" />
+        </Style>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
+    </local:DesktopNavigationViewBase.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutVisualGroups">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.RowSpacing" Value="4" />
+                        <Setter Target="MainGrid.CornerRadius" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <muxc:NavigationView
+            x:Name="RootNavView"
+            Style="{StaticResource BiliNavigationViewStyle}"
+            CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
+            DisplayModeChanged="OnDisplayModeChanged"
+            ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
+            IsPaneOpen="{x:Bind _appViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
+            ItemInvoked="OnRootNavViewItemInvoked">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItemHeader Content="{loc:Locale Name=Navigation}" />
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:Locale Name=Recommend}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Home16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:Locale Name=Popular}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Rocket16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:Locale Name=Rank}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Trophy16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:Locale Name=Partition}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Apps16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:Locale Name=Live}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Video16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:Locale Name=DynamicFeed}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="DesignIdeas16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemSeparator />
+
+                <muxc:NavigationViewItemHeader Content="{loc:Locale Name=Topic}" />
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:Locale Name=Bangumi}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Cookies20" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:Locale Name=DomesticAnime}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="FastAcceleration24" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:Locale Name=SpecialColumn}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="DocumentBriefcase20" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:Locale Name=Documentary}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="LeafTwo16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:Locale Name=Movie}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="MoviesAndTv16" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:Locale Name=TV}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="VideoClip20" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+
+            <muxc:NavigationView.Content>
+                <Grid
+                    x:Name="MainGrid"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0"
+                    RowSpacing="8">
+                    <Frame x:Name="MainFrame" Loaded="OnFrameLoaded" />
+                </Grid>
+            </muxc:NavigationView.Content>
+
+            <!-- 用于展示固定的内容 -->
+            <muxc:NavigationView.PaneCustomContent>
+                <StackPanel Spacing="4">
+                    <StackPanel Spacing="4" Visibility="{x:Bind _accountViewModel.IsShowFixedItem, Mode=OneWay}">
+                        <muxc:NavigationViewItemHeader Content="{loc:Locale Name=FixedContent}" />
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind _accountViewModel.FixedItemCollection}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout />
+                            </muxc:ItemsRepeater.Layout>
+                            <muxc:ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="local1:FixedItem">
+                                    <Button
+                                        Margin="4,0"
+                                        Padding="12,8"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Click="OnFixedItemClick"
+                                        DataContext="{x:Bind}"
+                                        ToolTipService.ToolTip="{x:Bind Title}">
+                                        <StackPanel Orientation="Horizontal" Spacing="12">
+                                            <local:CommonImageEx
+                                                Width="20"
+                                                Height="20"
+                                                Margin="-2,0,0,0"
+                                                VerticalAlignment="Center"
+                                                CornerRadius="10"
+                                                ImageUrl="{x:Bind Cover}" />
+                                            <TextBlock
+                                                MaxWidth="180"
+                                                VerticalAlignment="Center"
+                                                Text="{x:Bind Title}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </muxc:ItemsRepeater.ItemTemplate>
+                        </muxc:ItemsRepeater>
+                    </StackPanel>
+                </StackPanel>
+            </muxc:NavigationView.PaneCustomContent>
+
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:Locale Name=Toolbox}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Toolbox24" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:Locale Name=HelpAndSupport}">
+                    <muxc:NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="BookQuestionMark24" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+        </muxc:NavigationView>
+    </Grid>
+</local:DesktopNavigationViewBase>

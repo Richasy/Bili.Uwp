@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// App resource toolkit.

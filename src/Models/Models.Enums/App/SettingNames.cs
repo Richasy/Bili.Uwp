@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums
+namespace Bili.Models.Enums
 {
     /// <summary>
     /// Application settings key.
@@ -44,7 +44,6 @@ namespace Richasy.Bili.Models.Enums
         IgnoreVersion,
         IsOnlyShowIndex,
         CanContinuePlay,
-        ContinuePlayTitle,
         SupportContinuePlay,
         Download_UseMp4Box,
         Download_OnlyHevc,
@@ -79,6 +78,7 @@ namespace Richasy.Bili.Models.Enums
         IsFirstRunDynamicNotifyTask,
         LastReadVideoDynamicId,
         IsOpenNewDynamicNotify,
+        DefaultLiveFormat,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

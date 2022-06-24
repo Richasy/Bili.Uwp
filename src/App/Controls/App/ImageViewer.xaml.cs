@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -19,7 +20,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 图片查看器.
@@ -39,7 +40,7 @@ namespace Richasy.Bili.App.Controls
             InitializeComponent();
             _images = new Dictionary<string, byte[]>();
             Instance = this;
-            ImageUrls = new ObservableCollection<string>();
+            Images = new ObservableCollection<Models.Data.Appearance.Image>();
         }
 
         /// <summary>
@@ -50,20 +51,20 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 图片地址.
         /// </summary>
-        public ObservableCollection<string> ImageUrls { get; }
+        public ObservableCollection<Models.Data.Appearance.Image> Images { get; }
 
         /// <summary>
         /// 加载图片.
         /// </summary>
-        /// <param name="urls">图片列表.</param>
+        /// <param name="images">图片列表.</param>
         /// <param name="firstLoadImage">初始加载的图片索引.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task LoadImagesAsync(List<string> urls, int firstLoadImage = 0)
+        public async Task LoadImagesAsync(IEnumerable<Models.Data.Appearance.Image> images, int firstLoadImage = 0)
         {
             Container.Visibility = Visibility.Visible;
             _images.Clear();
-            ImageUrls.Clear();
-            urls.ForEach(url => ImageUrls.Add(url));
+            Images.Clear();
+            images.ToList().ForEach(url => Images.Add(url));
             FactoryBlock.Text = 1.ToString("p00");
             ShowControls();
             await ShowImageAsync(firstLoadImage);
@@ -76,7 +77,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task ShowImageAsync(int index)
         {
-            if (index >= 0 && ImageUrls.Count > index)
+            if (index >= 0 && Images.Count > index)
             {
                 _currentIndex = index;
                 if (ImageRepeater == null || !ImageRepeater.IsLoaded)
@@ -85,11 +86,11 @@ namespace Richasy.Bili.App.Controls
                 }
 
                 SetSelectedItem(index);
-                await LoadImageAsync(ImageUrls[index]);
+                await LoadImageAsync(Images[index]);
             }
         }
 
-        private async Task LoadImageAsync(string url)
+        private async Task LoadImageAsync(Models.Data.Appearance.Image image)
         {
             _currentImageHeight = 0;
             RotateTransform.Angle = 0;
@@ -100,14 +101,18 @@ namespace Richasy.Bili.App.Controls
                 Image.Source = null;
             }
 
-            var hasCache = _images.TryGetValue(url, out var imageBytes);
+            var imageUrl = image.GetSourceUri().ToString();
+            var hasCache = _images.TryGetValue(imageUrl, out var imageBytes);
 
             if (!hasCache)
             {
-                using (var client = new HttpClient())
+                using var client = new HttpClient();
+                imageBytes = await client.GetByteArrayAsync(imageUrl);
+
+                // 避免重复多次请求下插入同源数据.
+                if (!_images.ContainsKey(imageUrl))
                 {
-                    imageBytes = await client.GetByteArrayAsync(url);
-                    _images.Add(url, imageBytes);
+                    _images.Add(imageUrl, imageBytes);
                 }
             }
 
@@ -135,19 +140,19 @@ namespace Richasy.Bili.App.Controls
 
         private void SetSelectedItem(int index)
         {
-            if (ImageUrls.Count <= 1)
+            if (Images.Count <= 1)
             {
                 return;
             }
 
-            for (var i = 0; i < ImageUrls.Count; i++)
+            for (var i = 0; i < Images.Count; i++)
             {
                 var element = ImageRepeater.GetOrCreateElement(i);
                 if (element is CardPanel panel)
                 {
-                    var url = panel.DataContext as string;
+                    var image = panel.DataContext as Models.Data.Appearance.Image;
                     panel.IsEnableCheck = true;
-                    panel.IsChecked = url == ImageUrls[index];
+                    panel.IsChecked = image == Images[index];
                     panel.IsEnableCheck = false;
                 }
             }
@@ -199,14 +204,14 @@ namespace Richasy.Bili.App.Controls
 
         private async void OnImageItemClickAsync(object sender, RoutedEventArgs e)
         {
-            var imageUrl = (sender as FrameworkElement).DataContext as string;
-            var index = ImageUrls.IndexOf(imageUrl);
+            var image = (sender as FrameworkElement).DataContext as Models.Data.Appearance.Image;
+            var index = Images.IndexOf(image);
             await ShowImageAsync(index);
         }
 
         private async void OnNextButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (ImageUrls.Count - 1 <= _currentIndex)
+            if (Images.Count - 1 <= _currentIndex)
             {
                 return;
             }
@@ -226,28 +231,29 @@ namespace Richasy.Bili.App.Controls
 
         private void OnCopyButtonClickAysnc(object sender, RoutedEventArgs e)
         {
-            if (_currentIndex < 0 || _currentIndex > ImageUrls.Count - 1)
+            if (_currentIndex < 0 || _currentIndex > Images.Count - 1)
             {
                 return;
             }
 
-            var url = ImageUrls[_currentIndex];
+            var image = Images[_currentIndex];
             var dp = new DataPackage();
-            dp.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(url)));
+            dp.SetBitmap(RandomAccessStreamReference.CreateFromUri(image.GetSourceUri()));
             Clipboard.SetContent(dp);
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
         }
 
         private async void OnSaveButtonClickAsync(object sender, RoutedEventArgs e)
         {
-            if (_currentIndex < 0 || _currentIndex > ImageUrls.Count - 1)
+            if (_currentIndex < 0 || _currentIndex > Images.Count - 1)
             {
                 return;
             }
 
-            var url = ImageUrls[_currentIndex];
-            var hasCache = _images.TryGetValue(url, out var cache);
+            var image = Images[_currentIndex];
+            var imageUrl = image.GetSourceUri().ToString();
+            var hasCache = _images.TryGetValue(imageUrl, out var cache);
             if (!hasCache)
             {
                 return;
@@ -255,16 +261,16 @@ namespace Richasy.Bili.App.Controls
 
             var savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            var fileName = Path.GetFileName(url);
-            var extension = Path.GetExtension(url);
+            var fileName = Path.GetFileName(imageUrl);
+            var extension = Path.GetExtension(imageUrl);
             savePicker.FileTypeChoices.Add($"{extension.TrimStart('.').ToUpper()} 图片", new string[] { extension });
             savePicker.SuggestedFileName = fileName;
             var file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
                 await FileIO.WriteBytesAsync(file, cache);
-                var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
+                var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
             }
         }
 
@@ -276,34 +282,35 @@ namespace Richasy.Bili.App.Controls
 
         private async Task SetWallpaperOrLockScreenAsync(bool isWallpaper)
         {
-            if (_currentIndex < 0 || _currentIndex > ImageUrls.Count - 1)
+            if (_currentIndex < 0 || _currentIndex > Images.Count - 1)
             {
                 return;
             }
 
-            var url = ImageUrls[_currentIndex];
-            var hasCache = _images.TryGetValue(url, out var cache);
+            var image = Images[_currentIndex];
+            var imageUrl = image.GetSourceUri().ToString();
+            var hasCache = _images.TryGetValue(imageUrl, out var cache);
             if (!hasCache)
             {
                 return;
             }
 
             var profileSettings = UserProfilePersonalizationSettings.Current;
-            var fileName = Path.GetFileName(url);
+            var fileName = Path.GetFileName(imageUrl);
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteBytesAsync(file, cache);
             var result = isWallpaper
                 ? await profileSettings.TrySetWallpaperImageAsync(file).AsTask()
                 : await profileSettings.TrySetLockScreenImageAsync(file).AsTask();
 
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             if (result)
             {
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
             }
             else
             {
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
 
             await Task.Delay(1000);
@@ -320,27 +327,27 @@ namespace Richasy.Bili.App.Controls
         private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var data = args.Request.Data;
-            var url = ImageUrls[_currentIndex];
+            var image = Images[_currentIndex];
             data.Properties.Title = "分享自哔哩的图片";
-            data.SetWebLink(new Uri(url));
-            data.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(url)));
+            data.SetWebLink(image.GetSourceUri());
+            data.SetBitmap(RandomAccessStreamReference.CreateFromUri(image.GetSourceUri()));
         }
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             // 关闭控件.
             _images.Clear();
-            ImageUrls.Clear();
+            Images.Clear();
             _currentIndex = 0;
             Image.Source = null;
             Container.Visibility = Visibility.Collapsed;
-            AppViewModel.Instance.ShowImages(null, -1);
+            Splat.Locator.Current.GetService<AppViewModel>().ShowImages(null, -1);
         }
 
         private void ShowControls()
         {
             TopContainer.Visibility = Visibility.Visible;
-            ImageListContainer.Visibility = ImageUrls.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
+            ImageListContainer.Visibility = Images.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
             _isControlShown = true;
         }
 

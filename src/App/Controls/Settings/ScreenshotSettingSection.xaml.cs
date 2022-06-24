@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Models.App.Constants;
+using Bili.Models.App.Constants;
 using Windows.Storage;
 using Windows.System;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 截图设置区块.
@@ -16,7 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="ScreenshotSettingSection"/> class.
         /// </summary>
         public ScreenshotSettingSection()
-            => InitializeComponent();
+            : base() => InitializeComponent();
 
         private async void OnOpenScreenshotFolderButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

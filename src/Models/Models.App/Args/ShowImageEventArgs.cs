@@ -2,8 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using Bili.Models.Data.Appearance;
 
-namespace Richasy.Bili.Models.App.Args
+namespace Bili.Models.App.Args
 {
     /// <summary>
     /// 显示图片事件参数.
@@ -13,25 +14,18 @@ namespace Richasy.Bili.Models.App.Args
         /// <summary>
         /// Initializes a new instance of the <see cref="ShowImageEventArgs"/> class.
         /// </summary>
-        public ShowImageEventArgs()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShowImageEventArgs"/> class.
-        /// </summary>
-        /// <param name="urls">图片地址列表.</param>
+        /// <param name="images">图片地址列表.</param>
         /// <param name="firstIndex">初始索引.</param>
-        public ShowImageEventArgs(List<string> urls, int firstIndex = 0)
+        public ShowImageEventArgs(IEnumerable<Image> images, int firstIndex = 0)
         {
-            ImageUrls = urls;
+            Images = images;
             ShowIndex = firstIndex;
         }
 
         /// <summary>
         /// 图片地址.
         /// </summary>
-        public List<string> ImageUrls { get; set; }
+        public IEnumerable<Image> Images { get; set; }
 
         /// <summary>
         /// 初始显示图片索引.

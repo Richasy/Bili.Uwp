@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索文章视图.
@@ -10,14 +10,6 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchArticleView"/> class.
         /// </summary>
-        public SearchArticleView()
-        {
-            InitializeComponent();
-        }
-
-        private async void OnArticleRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await ViewModel.ArticleModule.InitializeRequestAsync();
-        }
+        public SearchArticleView() => InitializeComponent();
     }
 }

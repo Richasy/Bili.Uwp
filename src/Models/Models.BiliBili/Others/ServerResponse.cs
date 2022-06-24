@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 哔哩哔哩服务器返回的数据响应结构类型.

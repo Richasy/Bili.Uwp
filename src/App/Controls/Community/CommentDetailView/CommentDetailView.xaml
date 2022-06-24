@@ -1,0 +1,73 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls.Community">
+    <Style x:Key="DefaultCommentDetailVieStyle" TargetType="local:CommentDetailView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CommentDetailView">
+                    <Grid RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <HyperlinkButton
+                            x:Name="BackButton"
+                            HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackCommand}"
+                            Content="{loc:Locale Name=BackToPrevious}" />
+                        <local:CommentItem Grid.Row="1" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.RootComment}" />
+                        <Grid Grid.Row="2">
+                            <ScrollViewer
+                                x:Name="ContentScrollViewer"
+                                Margin="-16,0"
+                                HorizontalScrollMode="Disabled"
+                                VerticalScrollBarVisibility="Auto">
+                                <controls:VerticalRepeaterView
+                                    Margin="16,0,16,12"
+                                    HeaderVisibility="Collapsed"
+                                    ItemOrientation="Horizontal"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Items}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <behaviors:IncrementalBehavior />
+                                    </interactivity:Interaction.Behaviors>
+                                    <controls:VerticalRepeaterView.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:CommentItem ViewModel="{Binding}" />
+                                        </DataTemplate>
+                                    </controls:VerticalRepeaterView.ItemTemplate>
+                                </controls:VerticalRepeaterView>
+                            </ScrollViewer>
+                            <controls:OverlayLoadingPanel IsBarActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsIncrementalLoading}" IsRingActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsReloading}" />
+                            <controls:ErrorPanel
+                                ActionContent="{loc:Locale Name=Refresh}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ErrorText, Mode=OneWay}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Mode=OneWay}">
+                                <interactivity:Interaction.Behaviors>
+                                    <behaviors:ReloadBehavior />
+                                </interactivity:Interaction.Behaviors>
+                            </controls:ErrorPanel>
+                            <controls:ErrorPanel Text="{loc:Locale Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
+                        </Grid>
+
+                        <local:CommentBox
+                            Grid.Row="3"
+                            ReplyTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyTip}"
+                            ResetSelectedCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ResetSelectedCommentCommand}"
+                            SendCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SendCommentCommand}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyText, Mode=TwoWay}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultCommentDetailVieStyle}" TargetType="local:CommentDetailView" />
+</ResourceDictionary>

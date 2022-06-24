@@ -1,0 +1,72 @@
+﻿// Copyright (c) Richasy. All rights reserved.
+
+using System;
+using System.Linq;
+using Bili.ViewModels.Uwp.Video;
+using ReactiveUI;
+using Splat;
+using Windows.UI.Xaml;
+
+namespace Bili.App.Controls.Player
+{
+    /// <summary>
+    /// 视频分集.
+    /// </summary>
+    public sealed partial class VideoPartView : VideoPartViewBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoPartView"/> class.
+        /// </summary>
+        public VideoPartView()
+        {
+            InitializeComponent();
+            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+            DataContext = ViewModel;
+        }
+
+        private void OnPartItemClick(object sender, RoutedEventArgs e)
+        {
+            var card = sender as CardPanel;
+            var data = card.DataContext as VideoIdentifierSelectableViewModel;
+            if (!data.Data.Equals(ViewModel.CurrentVideoPart))
+            {
+                ViewModel.ChangeVideoPartCommand.Execute(data.Data).Subscribe();
+            }
+            else
+            {
+                data.IsSelected = true;
+            }
+        }
+
+        private void RelocateSelectedItem()
+        {
+            var vm = ViewModel.VideoParts.FirstOrDefault(p => p.IsSelected);
+            if (vm != null)
+            {
+                var index = ViewModel.VideoParts.IndexOf(vm);
+                if (index >= 0)
+                {
+                    PartRepeater.ScrollToItem(index);
+                    if (ViewModel.IsOnlyShowIndex)
+                    {
+                        var ele = IndexRepeater.GetOrCreateElement(index);
+                        if (ele != null)
+                        {
+                            ele.StartBringIntoView(new BringIntoViewOptions { VerticalAlignmentRatio = 0f });
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnPartRepeaterLoaded(object sender, RoutedEventArgs e)
+            => RelocateSelectedItem();
+    }
+
+    /// <summary>
+    /// <see cref="VideoPartView"/> 的基类.
+    /// </summary>
+    public class VideoPartViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    {
+    }
+}

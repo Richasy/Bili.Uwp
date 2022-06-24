@@ -1,12 +1,12 @@
 ﻿<local:SettingSectionControl
-    x:Class="Richasy.Bili.App.Controls.InitialCheckSection"
+    x:Class="Bili.App.Controls.InitialCheckSection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -16,7 +16,7 @@
         <exp:ExpanderEx.Header>
             <exp:ExpanderExWrapper>
                 <exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=InitialCheckTitle}" Description="{loc:LocaleLocator Name=InitialCheckDescription}">
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=InitialCheckTitle}" Description="{loc:Locale Name=InitialCheckDescription}">
                         <exp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="AlertUrgent16" />
                         </exp:ExpanderExDescriptor.Icon>

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls.Danmaku
 {
     /// <summary>
     /// 弹幕显示设置.
@@ -15,7 +15,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的视图模型.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(DanmakuViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuModuleViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuDisplayOptions"/> class.
@@ -28,9 +28,9 @@ namespace Richasy.Bili.App.Controls
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DanmakuViewModel ViewModel
+        public DanmakuModuleViewModel ViewModel
         {
-            get { return (DanmakuViewModel)GetValue(ViewModelProperty); }
+            get { return (DanmakuModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
     }

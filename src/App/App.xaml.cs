@@ -3,12 +3,13 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using FFmpegInterop;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.DI.App;
+using Bili.Models.App.Constants;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Home;
+using FFmpegInteropX;
+using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -17,7 +18,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Richasy.Bili.App
+namespace Bili.App
 {
     /// <summary>
     /// Provide application-specific behaviors to supplement the default application classes.
@@ -30,26 +31,17 @@ namespace Richasy.Bili.App
         public App()
         {
             InitializeComponent();
+            DIFactory.RegisterAppRequiredServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
-            _ = AppViewModel.Instance;
-            ServiceLocator.Instance.GetService<IAppToolkit>()
-                                   .InitializeTheme();
-
-            FFmpegInteropLogging.SetLogLevel(LogLevel.Error);
+            FFmpegInteropLogging.SetLogLevel(FFmpegInteropX.LogLevel.Error);
             FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
-
-            if (AppViewModel.Instance.IsXbox)
-            {
-                // RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
-                FocusVisualKind = FocusVisualKind.Reveal;
-            }
         }
 
         /// <inheritdoc/>
-        public void Log(LogLevel level, string message)
+        public void Log(FFmpegInteropX.LogLevel level, string message)
         {
             Debug.WriteLine($"{level} | {message}");
         }
@@ -95,14 +87,16 @@ namespace Richasy.Bili.App
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+                DIFactory.RegisterAppRequiredConstants();
             }
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
-                SettingViewModel.Instance.SetPrelaunch();
+                var settingsVM = Splat.Locator.Current.GetService<SettingsPageViewModel>();
+                settingsVM.SetPrelaunch();
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), (e as LaunchActivatedEventArgs).Arguments);
+                    rootFrame.Navigate(typeof(Pages.Desktop.RootPage), (e as LaunchActivatedEventArgs).Arguments);
                 }
             }
 
@@ -111,11 +105,12 @@ namespace Richasy.Bili.App
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), protocalArgs);
+                    NavigateToRootPage(protocalArgs);
                 }
                 else
                 {
-                    await AppViewModel.Instance.InitializeProtocolFromQueryAsync(protocalArgs.Uri);
+                    await Splat.Locator.Current.GetService<AppViewModel>()
+                        .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
 
@@ -124,19 +119,20 @@ namespace Richasy.Bili.App
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage));
+                    NavigateToRootPage();
                 }
             }
             else if (e.Kind == ActivationKind.CommandLineLaunch)
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Pages.RootPage), e);
+                    NavigateToRootPage(e);
                 }
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await AppViewModel.Instance.InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
+                    await Splat.Locator.Current.GetService<AppViewModel>()
+                        .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }
 
@@ -148,14 +144,14 @@ namespace Richasy.Bili.App
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(Pages.RootPage));
+                    NavigateToRootPage();
                 }
 
                 // TODO: Parse toastActivationArgs.Argument
             }
 
             Window.Current.Activate();
-            ServiceLocator.Instance.GetService<IAppToolkit>().InitializeTitleBar();
+            Locator.Current.GetService<IAppToolkit>().InitializeTitleBar();
         }
 
         /// <summary>
@@ -190,8 +186,13 @@ namespace Richasy.Bili.App
         {
             e.Handled = true;
 
-            var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
-            logger.LogError(e.Exception);
+            Locator.Current.GetService<ILogger>().Write(e.Exception, e.Message, Splat.LogLevel.Error);
+        }
+
+        private void NavigateToRootPage(object args = null)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(Pages.Desktop.RootPage), args);
         }
     }
 }

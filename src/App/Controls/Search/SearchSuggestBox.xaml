@@ -1,25 +1,27 @@
-﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.SearchSuggestBox"
+﻿<local:SearchSuggestBoxBase
+    x:Class="Bili.App.Controls.SearchSuggestBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bilibili="using:Richasy.Bili.Models.BiliBili"
+    xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:v1="using:Bilibili.App.Interfaces.V1"
+    xmlns:search="using:Bili.Models.Data.Search"
     d:DesignHeight="300"
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged"
     TabFocusNavigation="Local"
     mc:Ignorable="d">
 
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
     <UserControl.Resources>
-        <Flyout
-            x:Name="HotSearchFlyout"
-            Opening="OnHotSearchOpening"
-            Placement="BottomEdgeAlignedLeft">
+        <Flyout x:Name="HotSearchFlyout" Placement="BottomEdgeAlignedLeft">
             <Flyout.FlyoutPresenterStyle>
                 <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
                     <Setter Property="MaxWidth" Value="1200" />
@@ -35,8 +37,8 @@
                 ItemsSource="{x:Bind ViewModel.HotSearchCollection}"
                 SelectionMode="None">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="bilibili:SearchRecommendItem">
-                        <Grid AutomationProperties.Name="{x:Bind DisplayName}">
+                    <DataTemplate x:DataType="search:SearchSuggest">
+                        <Grid AutomationProperties.Name="{x:Bind DisplayText}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="28" />
                                 <ColumnDefinition Width="Auto" />
@@ -60,7 +62,7 @@
                                 Grid.Column="2"
                                 VerticalAlignment="Center"
                                 MaxLines="1"
-                                Text="{x:Bind DisplayName}"
+                                Text="{x:Bind DisplayText}"
                                 TextLineBounds="Tight"
                                 TextTrimming="CharacterEllipsis"
                                 ToolTipService.ToolTip="{x:Bind Keyword}" />
@@ -85,7 +87,7 @@
                             <AdaptiveTrigger MinWindowWidth="0" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
-                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:LocaleLocator Name=SearchTipSlim}" />
+                            <Setter Target="AppSearchBox.PlaceholderText" Value="{loc:Locale Name=SearchTipSlim}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>
@@ -95,13 +97,12 @@
             x:Name="AppSearchBox"
             HorizontalAlignment="Stretch"
             IsTabStop="True"
-            ItemsSource="{x:Bind ViewModel.SuggestionCollection, Mode=OneWay}"
-            PlaceholderText="{loc:LocaleLocator Name=SearchTip}"
+            ItemsSource="{x:Bind ViewModel.SearchSuggestion, Mode=OneWay}"
+            PlaceholderText="{loc:Locale Name=SearchTip}"
             QueryIcon="Find"
             QuerySubmitted="OnSearchBoxSubmitted"
-            TextChanged="OnTextChangedAsync"
             TabIndex="2"
-            Text="{x:Bind ViewModel.InputWords, Mode=TwoWay}"
+            Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}"
             UpdateTextOnSelect="False"
             XYFocusLeftNavigationStrategy="Auto">
             <AutoSuggestBox.TextBoxStyle>
@@ -110,14 +111,14 @@
                 </Style>
             </AutoSuggestBox.TextBoxStyle>
             <AutoSuggestBox.ItemTemplate>
-                <DataTemplate x:DataType="v1:ResultItem">
-                    <TextBlock Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
+                <DataTemplate x:DataType="search:SearchSuggest">
+                    <TextBlock Text="{x:Bind DisplayText}" TextTrimming="CharacterEllipsis" />
                 </DataTemplate>
             </AutoSuggestBox.ItemTemplate>
         </AutoSuggestBox>
         <Button
             x:Name="HotSearchButton"
-            AutomationProperties.Name="{loc:LocaleLocator Name=HotSearch}"
+            AutomationProperties.Name="{loc:Locale Name=HotSearch}"
             Width="32"
             Margin="4,0,0,0"
             Padding="0,8"
@@ -128,8 +129,8 @@
             Click="OnHotSearchButtonClick"
             IsTabStop="True"
             TabIndex="1"
-            ToolTipService.ToolTip="{loc:LocaleLocator Name=HotSearch}">
+            ToolTipService.ToolTip="{loc:Locale Name=HotSearch}">
             <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
         </Button>
     </Grid>
-</UserControl>
+</local:SearchSuggestBoxBase>

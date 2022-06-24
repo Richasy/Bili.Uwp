@@ -3,7 +3,7 @@
 using System;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     internal class SmallImageConverter : IValueConverter
     {

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <RootNamespace>Bili.Lib</RootNamespace>
+    <AssemblyName>Bili.Lib</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.21.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.43" />
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj" />
+    <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj" />
+    <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj" />
+    <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj" />
+    <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj" />
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
+    <ProjectReference Include="..\Lib.Interfaces\Lib.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

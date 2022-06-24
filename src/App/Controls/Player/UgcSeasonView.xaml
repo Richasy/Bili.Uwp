@@ -1,0 +1,61 @@
+﻿<local:UgcSeasonViewBase
+    x:Class="Bili.App.Controls.Player.UgcSeasonView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:converter="using:Bili.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.App.Controls.Player"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:video="using:Bili.Models.Data.Video"
+    xmlns:video1="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <ComboBox
+                x:Name="SeasonComboBox"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{x:Bind ViewModel.Seasons}"
+                SelectedItem="{x:Bind ViewModel.CurrentSeason, Mode=OneWay}"
+                SelectionChanged="OnSeasonComboBoxSelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="video:VideoSeason">
+                        <TextBlock Text="{x:Bind Title}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Hidden"
+            VerticalScrollMode="Auto">
+            <Grid>
+                <controls:VerticalRepeaterView
+                    EnableDetectParentScrollViewer="False"
+                    HeaderVisibility="Collapsed"
+                    ItemOrientation="Horizontal"
+                    ItemsSource="{x:Bind ViewModel.CurrentSeasonVideos}"
+                    Loaded="OnRepeaterLoadedAsync">
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="video1:VideoItemViewModel">
+                            <videos:VideoItem
+                                Style="{StaticResource HorizontalRelatedVideoItemStyle}"
+                                Height="112"
+                                IsCustom="True"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</local:UgcSeasonViewBase>

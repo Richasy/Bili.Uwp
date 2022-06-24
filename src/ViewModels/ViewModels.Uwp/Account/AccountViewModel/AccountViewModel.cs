@@ -3,39 +3,57 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Models.Enums;
+using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Models.Data.Local;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
     /// 用户视图模型.
     /// </summary>
-    public partial class AccountViewModel : ViewModelBase
+    public sealed partial class AccountViewModel : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountViewModel"/> class.
         /// </summary>
-        internal AccountViewModel()
+        public AccountViewModel(
+            IResourceToolkit resourceToolkit,
+            INumberToolkit numberToolkit,
+            IFileToolkit fileToolkit,
+            IAuthorizeProvider authorizeProvider,
+            IAccountProvider accountProvider,
+            AppViewModel appViewModel)
         {
+            _resourceToolkit = resourceToolkit;
+            _numberToolkit = numberToolkit;
+            _fileToolkit = fileToolkit;
+            _authorizeProvider = authorizeProvider;
+            _accountProvider = accountProvider;
+            _appViewModel = appViewModel;
+
             FixedItemCollection = new ObservableCollection<FixedItem>();
-            _controller = BiliController.Instance;
-            _controller.Logged += OnLoggedAsync;
-            _controller.LoggedFailed += OnLoggedFailedAsync;
-            _controller.LoggedOut += OnLoggedOut;
-            _controller.AccountChanged += OnAccountChangedAsync;
-            Status = AccountViewModelStatus.Logout;
-            ServiceLocator.Instance.LoadService(out _resourceToolkit)
-                                   .LoadService(out _numberToolkit)
-                                   .LoadService(out _fileToolkit);
+            _authorizeProvider.StateChanged += OnAuthorizeStateChangedAsync;
+            State = _authorizeProvider.State;
+
+            this.WhenAnyValue(x => x.State)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(async state =>
+                {
+                    if (state == AuthorizeState.SignedIn)
+                    {
+                        IsConnected = true;
+                        await GetMyProfileAsync();
+                    }
+                });
+
             Reset();
         }
 
@@ -46,13 +64,13 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task<bool> TrySignInAsync(bool isSlientOnly = false)
         {
-            if (Status != AccountViewModelStatus.Logout)
+            if (State != AuthorizeState.SignedOut)
             {
-                return Status == AccountViewModelStatus.Login;
+                return State == AuthorizeState.SignedIn;
             }
 
-            Status = AccountViewModelStatus.Logging;
-            return await _controller.TrySignInAsync(isSlientOnly);
+            State = AuthorizeState.Loading;
+            return await InternalSignInAsync(isSlientOnly);
         }
 
         /// <summary>
@@ -60,7 +78,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
         public async Task SignOutAsync()
-            => await _controller.SignOutAsync();
+        {
+            _isRequestLogout = true;
+            await _authorizeProvider.SignOutAsync();
+        }
 
         /// <summary>
         /// 获取我的账户资料.
@@ -70,13 +91,20 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
-                await _controller.RequestMyProfileAsync();
+                if (_appViewModel.IsNetworkAvaliable
+                    && await _authorizeProvider.IsTokenValidAsync())
+                {
+                    AccountInformation = await _accountProvider.GetMyInformationAsync();
+                    IsConnected = true;
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                Status = AccountViewModelStatus.Logout;
+                LogException(ex);
+                State = AuthorizeState.SignedOut;
             }
+
+            await InitializeAccountInformationAsync();
         }
 
         /// <summary>
@@ -87,10 +115,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
-                var data = await _controller.GetMyDataAsync();
+                var data = await _accountProvider.GetMyCommunityInformationAsync();
                 DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
                 FollowCount = _numberToolkit.GetCountText(data.FollowCount);
-                FollowerCount = _numberToolkit.GetCountText(data.FollowerCount);
+                FollowerCount = _numberToolkit.GetCountText(data.FansCount);
 
                 await InitUnreadAsync();
             }
@@ -107,13 +135,12 @@ namespace Richasy.Bili.ViewModels.Uwp
         {
             try
             {
-                var unread = await _controller.GetUnreadMessageAsync();
-                MessageModuleViewModel.Instance.InitializeUnreadCount(unread);
-                UnreadMessageCount = unread.At + unread.Like + unread.Reply;
-                IsShowUnreadMessage = UnreadMessageCount != 0;
+                UnreadInformation = await _accountProvider.GetUnreadMessageAsync();
+                IsShowUnreadMessage = UnreadInformation.Total > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogException(ex);
             }
         }
 
@@ -124,14 +151,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task AddFixedItemAsync(FixedItem item)
         {
-            if (!IsConnected || _myInfo == null || FixedItemCollection.Contains(item))
+            if (!IsConnected || AccountInformation == null || FixedItemCollection.Contains(item))
             {
                 return;
             }
 
             FixedItemCollection.Add(item);
             await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                string.Format(AppConstants.FixedContentFileName, Mid),
                 FixedItemCollection.ToList(),
                 AppConstants.FixedFolderName);
             IsShowFixedItem = true;
@@ -144,71 +171,40 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         public async Task RemoveFixedItemAsync(string itemId)
         {
-            if (!IsConnected || _myInfo == null || !FixedItemCollection.Any(p => p.Id == itemId))
+            if (!IsConnected || AccountInformation == null || !FixedItemCollection.Any(p => p.Id == itemId))
             {
                 return;
             }
 
             FixedItemCollection.Remove(FixedItemCollection.FirstOrDefault(p => p.Id == itemId));
             await _fileToolkit.WriteLocalDataAsync(
-                string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                string.Format(AppConstants.FixedContentFileName, Mid),
                 FixedItemCollection.ToList(),
                 AppConstants.FixedFolderName);
             IsShowFixedItem = FixedItemCollection.Count > 0;
         }
 
-        private void OnLoggedOut(object sender, EventArgs e)
+        private async Task InitializeAccountInformationAsync()
         {
-            Status = AccountViewModelStatus.Logout;
-            Reset();
-        }
-
-        private async void OnLoggedFailedAsync(object sender, Exception e)
-        {
-            Debug.WriteLine($"Login failed: {e.Message}");
-
-            // 它仅在用户未登录时触发.
-            if (Status != AccountViewModelStatus.Login)
+            if (AccountInformation == null)
             {
-                Reset();
-                Status = AccountViewModelStatus.Logout;
-
-                if (e is ServiceException serviceEx && (!serviceEx.Error?.IsHttpError ?? true))
-                {
-                    await _controller.SignOutAsync();
-                }
+                IsConnected = false;
+                return;
             }
-        }
 
-        private async void OnLoggedAsync(object sender, EventArgs e)
-        {
-            if (Status != AccountViewModelStatus.Login)
-            {
-                IsConnected = true;
-                await GetMyProfileAsync();
-                await InitializeFixedItemAsync();
-                Status = AccountViewModelStatus.Login;
-            }
-        }
+            Avatar = AccountInformation.User.Avatar.Uri;
+            DisplayName = AccountInformation.User.Name;
+            Level = AccountInformation.Level;
+            TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
+            IsVip = AccountInformation.IsVip;
 
-        private async void OnAccountChangedAsync(object sender, MyInfo e)
-        {
-            if (e != null)
-            {
-                _myInfo = e;
-                Avatar = e.Avatar;
-                DisplayName = e.Name;
-                Level = e.Level;
-                TipText = $"{e.Name} Lv.{e.Level}";
-                IsVip = e.VIP.Status == 1;
-
-                await InitUnreadAsync();
-            }
+            await InitUnreadAsync();
         }
 
         private void Reset()
         {
-            _myInfo = null;
+            AccountInformation = null;
+            _isRequestLogout = false;
             Avatar = string.Empty;
             DisplayName = string.Empty;
             Level = 0;
@@ -217,15 +213,15 @@ namespace Richasy.Bili.ViewModels.Uwp
             IsConnected = false;
             IsShowUnreadMessage = false;
             IsShowFixedItem = false;
-            UnreadMessageCount = 0;
+            UnreadInformation = null;
         }
 
         private async Task InitializeFixedItemAsync()
         {
-            if (IsConnected && _myInfo != null)
+            if (IsConnected && AccountInformation != null)
             {
                 var data = await _fileToolkit.ReadLocalDataAsync<List<FixedItem>>(
-                    string.Format(AppConstants.FixedContentFileName, _myInfo.Mid),
+                    string.Format(AppConstants.FixedContentFileName, Mid),
                     "[]",
                     AppConstants.FixedFolderName);
                 FixedItemCollection.Clear();

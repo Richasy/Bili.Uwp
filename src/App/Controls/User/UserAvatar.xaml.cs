@@ -1,16 +1,23 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 用户头像.
     /// </summary>
     public sealed partial class UserAvatar : UserControl
     {
+        /// <summary>
+        /// <see cref="Command"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(UserAvatar), new PropertyMetadata(default));
+
         /// <summary>
         /// <see cref="UserName"/>的依赖属性.
         /// </summary>
@@ -28,6 +35,12 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty DecodeSizeProperty =
             DependencyProperty.Register(nameof(DecodeSize), typeof(int), typeof(UserAvatar), new PropertyMetadata(50));
+
+        /// <summary>
+        /// <see cref="AvatarRadius"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty AvatarRadiusProperty =
+            DependencyProperty.Register(nameof(AvatarRadius), typeof(CornerRadius), typeof(UserAvatar), new PropertyMetadata(new CornerRadius(25)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAvatar"/> class.
@@ -67,6 +80,24 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (int)GetValue(DecodeSizeProperty); }
             set { SetValue(DecodeSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// 命令.
+        /// </summary>
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// 头像的圆角弧度.
+        /// </summary>
+        public CornerRadius AvatarRadius
+        {
+            get { return (CornerRadius)GetValue(AvatarRadiusProperty); }
+            set { SetValue(AvatarRadiusProperty, value); }
         }
 
         private void OnClick(object sender, RoutedEventArgs e)

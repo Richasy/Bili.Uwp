@@ -3,14 +3,13 @@
 using System;
 using System.Reactive;
 using System.Threading.Tasks;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
 using Windows.UI.Core;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Toolbox
 {
     /// <summary>
     /// AV/BV互转视图模型.
@@ -18,18 +17,28 @@ namespace Richasy.Bili.ViewModels.Uwp
     public sealed class AvBvConverterViewModel : ViewModelBase
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IVideoToolkit _videoToolkit;
+        private readonly AppViewModel _appViewModel;
+        private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isConverting;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AvBvConverterViewModel"/> class.
         /// </summary>
-        public AvBvConverterViewModel()
+        public AvBvConverterViewModel(
+            IResourceToolkit resourceToolkit,
+            IVideoToolkit videoToolkit,
+            AppViewModel appViewModel,
+            CoreDispatcher dispatcher)
         {
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
+            _resourceToolkit = resourceToolkit;
+            _videoToolkit = videoToolkit;
+            _appViewModel = appViewModel;
             ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync, outputScheduler: RxApp.MainThreadScheduler);
             _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting, scheduler: RxApp.MainThreadScheduler);
 
             ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
+            _dispatcher = dispatcher;
         }
 
         /// <summary>
@@ -62,11 +71,6 @@ namespace Richasy.Bili.ViewModels.Uwp
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// 调度器.
-        /// </summary>
-        public CoreDispatcher Dispatcher { get; set; }
-
-        /// <summary>
         /// 是否正在转换中.
         /// </summary>
         public bool IsConverting => _isConverting.Value;
@@ -77,7 +81,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <returns><see cref="Task"/>.</returns>
         private async Task ConvertAsync()
         {
-            if (!BiliController.Instance.IsNetworkAvailable)
+            if (!_appViewModel.IsNetworkAvaliable)
             {
                 throw new InvalidOperationException(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NetworkError));
             }
@@ -87,17 +91,18 @@ namespace Richasy.Bili.ViewModels.Uwp
                 IsError = false;
                 OutputId = string.Empty;
 
-                var type = ToolboxPageViewModel.GetVideoIdType(InputId, out var aid);
+                var type = _videoToolkit.GetVideoIdType(InputId, out var aid);
 
                 if (type == Models.Enums.VideoIdType.Bv)
                 {
-                    var reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
-                    OutputId = reply.Arc.Aid.ToString();
+                    // var reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
+                    // OutputId = reply.Arc.Aid.ToString();
+                    await Task.CompletedTask;
                 }
                 else if (type == Models.Enums.VideoIdType.Av)
                 {
-                    var reply = await BiliController.Instance.GetVideoDetailAsync(aid);
-                    OutputId = reply.Bvid;
+                    // var reply = await BiliController.Instance.GetVideoDetailAsync(aid);
+                    // OutputId = reply.Bvid;
                 }
                 else
                 {
@@ -108,7 +113,7 @@ namespace Richasy.Bili.ViewModels.Uwp
 
         private async void DisplayExAsync(Exception ex)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 IsError = true;
                 ErrorMessage = ex.Message;

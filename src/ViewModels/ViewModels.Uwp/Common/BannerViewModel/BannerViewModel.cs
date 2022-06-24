@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.BiliBili;
+using Bili.Models.Data.Community;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 横幅视图模型.
@@ -12,48 +12,14 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="BannerViewModel"/> class.
         /// </summary>
-        /// <param name="partitionBanner">分区横幅对象.</param>
-        public BannerViewModel(PartitionBanner partitionBanner)
+        /// <param name="identifier">横幅标识.</param>
+        public BannerViewModel(BannerIdentifier identifier)
         {
-            this.Uri = partitionBanner.NavigateUri;
-            this.Description = partitionBanner.Title;
-            this.Source = partitionBanner;
-            this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
-            LimitCover(partitionBanner.Image);
+            Uri = identifier.Uri;
+            Description = identifier.Title;
+            IsTooltipEnabled = !string.IsNullOrEmpty(Description);
+            Cover = identifier.Image.Uri;
             MinHeight = 100d;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BannerViewModel"/> class.
-        /// </summary>
-        /// <param name="liveBanner">直播横幅对象.</param>
-        public BannerViewModel(LiveFeedBanner liveBanner)
-        {
-            this.Uri = liveBanner.Link;
-            this.Description = liveBanner.Title;
-            this.Source = liveBanner;
-            this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
-            LimitCover(liveBanner.Cover);
-            MinHeight = 100d;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BannerViewModel"/> class.
-        /// </summary>
-        /// <param name="pgcItem">PGC条目.</param>
-        public BannerViewModel(PgcModuleItem pgcItem)
-        {
-            this.Uri = pgcItem.WebLink;
-            this.Description = pgcItem.Title;
-            this.Source = pgcItem;
-            this.IsTooltipEnabled = !string.IsNullOrEmpty(this.Description);
-            this.Cover = pgcItem.Cover + "@600w_320h_1c_100q.jpg";
-            MinHeight = 180d;
-        }
-
-        private void LimitCover(string coverUrl)
-        {
-            this.Cover = coverUrl + "@600w_180h_1c_100q.jpg";
         }
     }
 }

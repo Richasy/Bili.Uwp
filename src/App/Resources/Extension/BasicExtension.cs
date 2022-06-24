@@ -3,7 +3,7 @@
 using System;
 using Windows.UI;
 
-namespace Richasy.Bili.App.Resources.Extension
+namespace Bili.App.Resources.Extension
 {
     /// <summary>
     /// 基础扩展.
@@ -16,16 +16,7 @@ namespace Richasy.Bili.App.Resources.Extension
         /// <param name="obj">对象.</param>
         /// <returns><see cref="int"/>.</returns>
         public static int ToInt32(this object obj)
-        {
-            if (int.TryParse(obj?.ToString(), out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return 0;
-            }
-        }
+            => int.TryParse(obj?.ToString(), out var value) ? value : 0;
 
         /// <summary>
         /// 将对象转换为Double.
@@ -33,16 +24,7 @@ namespace Richasy.Bili.App.Resources.Extension
         /// <param name="obj">对象.</param>
         /// <returns><see cref="double"/>.</returns>
         public static double ToDouble(this object obj)
-        {
-            if (double.TryParse(obj?.ToString(), out var value))
-            {
-                return value;
-            }
-            else
-            {
-                return 0d;
-            }
-        }
+            => double.TryParse(obj?.ToString(), out var value) ? value : 0d;
 
         /// <summary>
         /// 将Hash文本对象转换为颜色.

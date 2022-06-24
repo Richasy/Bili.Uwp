@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Toolbox
 {
     /// <summary>
     /// 工具箱条目视图模型.
@@ -17,25 +16,8 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolboxItemViewModel"/> class.
         /// </summary>
-        /// <param name="type">条目类型.</param>
-        public ToolboxItemViewModel(ToolboxItemType type)
-        {
-            ServiceLocator.Instance.LoadService(out _resourceToolkit);
-            Type = type;
-            switch (type)
-            {
-                case ToolboxItemType.AvBvConverter:
-                    Title = _resourceToolkit.GetLocaleString(LanguageNames.AvBvConverter);
-                    Description = _resourceToolkit.GetLocaleString(LanguageNames.AvBvConverterDescription);
-                    break;
-                case ToolboxItemType.CoverDownloader:
-                    Title = _resourceToolkit.GetLocaleString(LanguageNames.CoverDownloader);
-                    Description = _resourceToolkit.GetLocaleString(LanguageNames.CoverDownloaderDescription);
-                    break;
-                default:
-                    break;
-            }
-        }
+        public ToolboxItemViewModel(IResourceToolkit resourceToolkit)
+            => _resourceToolkit = resourceToolkit;
 
         /// <summary>
         /// 类型.
@@ -54,5 +36,27 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// </summary>
         [Reactive]
         public string Description { get; set; }
+
+        /// <summary>
+        /// 设置工具类型.
+        /// </summary>
+        /// <param name="type">工具类型.</param>
+        public void SetType(ToolboxItemType type)
+        {
+            Type = type;
+            switch (type)
+            {
+                case ToolboxItemType.AvBvConverter:
+                    Title = _resourceToolkit.GetLocaleString(LanguageNames.AvBvConverter);
+                    Description = _resourceToolkit.GetLocaleString(LanguageNames.AvBvConverterDescription);
+                    break;
+                case ToolboxItemType.CoverDownloader:
+                    Title = _resourceToolkit.GetLocaleString(LanguageNames.CoverDownloader);
+                    Description = _resourceToolkit.GetLocaleString(LanguageNames.CoverDownloaderDescription);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

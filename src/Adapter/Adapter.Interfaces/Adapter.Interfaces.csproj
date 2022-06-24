@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Bili.Adapter.Interfaces</RootNamespace>
+        <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj" />
+      <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj" />
+      <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj" />
+    </ItemGroup>
+
+</Project>

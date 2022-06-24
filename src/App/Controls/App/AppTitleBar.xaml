@@ -1,22 +1,21 @@
-﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.AppTitleBar"
+﻿<local:AppTitleBarBase
+    x:Class="Bili.App.Controls.AppTitleBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedVisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" TabFocusNavigation="Local">
+    <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsShowTitleBar, Mode=OneWay}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutStateGroup">
                 <VisualStateGroup.States>
@@ -32,20 +31,18 @@
                         <VisualState.Setters>
                             <Setter Target="BackgroundHost.Background" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
                             <Setter Target="UserAvatar.Margin" Value="24,0,12,0" />
+                            <Setter Target="AppNameBlock.Visibility" Value="Collapsed" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup.States>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid
-            x:Name="BackgroundHost"
-            Background="{ThemeResource NavigationViewExpandedPaneBackground}"
-            Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+        <Grid x:Name="BackgroundHost" Background="{ThemeResource NavigationViewExpandedPaneBackground}" />
         <Rectangle
             x:Name="TitleBarHost"
             MinHeight="48"
             Fill="Transparent" />
-        <Grid x:Name="ContentGrid" Visibility="{x:Bind ViewModel.IsOverLayerExtendToTitleBar, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+        <Grid x:Name="ContentGrid">
 
             <Grid.ColumnDefinitions>
                 <!-- Back button -->
@@ -64,14 +61,16 @@
 
             <Button
                 x:Name="BackButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=BackToPrevious}"
+                AutomationProperties.Name="{loc:Locale Name=BackToPrevious}"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Padding="6,0,0,0"
-                Click="OnBackButtonClickAsync"
+                Command="{x:Bind _navigationViewModel.BackCommand}"
+                IsEnabled="{x:Bind _navigationViewModel.IsBackButtonEnabled, Mode=OneWay}"
                 TabIndex="1"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToPrevious}">
+                ToolTipService.ToolTip="{loc:Locale Name=BackToPrevious}"
+                Visibility="{x:Bind _navigationViewModel.CanBack, Mode=OneWay}">
                 <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Back" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
+                    <KeyboardAccelerator Key="Back" />
                 </Button.KeyboardAccelerators>
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
@@ -108,54 +107,13 @@
             </Button>
 
             <Button
-                x:Name="HomeButton"
-                AutomationProperties.Name="{loc:LocaleLocator Name=BackToHome}"
-                Style="{StaticResource TitleBarButtonStyle}"
-                Grid.Column="1"
-                Click="OnHomeButtonClickAsync"
-                TabIndex="2"
-                ToolTipService.ToolTip="{loc:LocaleLocator Name=BackToHome}"
-                Visibility="Collapsed">
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Home" IsEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}" />
-                </Button.KeyboardAccelerators>
-                <animations:Implicit.ShowAnimations>
-                    <animations:OpacityAnimation
-                        From="0"
-                        To="1"
-                        Duration="0:0:0.3" />
-                    <animations:ScaleAnimation
-                        From="0.5"
-                        To="1"
-                        Duration="0:0:0.3" />
-                </animations:Implicit.ShowAnimations>
-                <animations:Implicit.HideAnimations>
-                    <animations:OpacityAnimation
-                        From="1"
-                        To="0"
-                        Duration="0:0:0.2" />
-                    <animations:ScaleAnimation
-                        From="1"
-                        To="0.5"
-                        Duration="0:0:0.2" />
-                </animations:Implicit.HideAnimations>
-                <Viewbox
-                    Width="16"
-                    Height="16"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <uwp:RegularFluentIcon Symbol="Home16" />
-                </Viewbox>
-            </Button>
-
-            <Button
                 x:Name="MenuButton"
                 Style="{StaticResource TitleBarButtonStyle}"
                 Grid.Column="1"
                 Padding="6,0,0,0"
                 Click="OnMenuButtonClick"
                 TabIndex="3"
-                Visibility="Collapsed">
+                Visibility="{x:Bind ViewModel.IsShowMenuButton, Mode=OneWay}">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"
@@ -205,7 +163,7 @@
                     x:Name="AppNameBlock"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     VerticalAlignment="Center"
-                    Text="{loc:LocaleLocator Name=AppName}" />
+                    Text="{loc:Locale Name=AppName}" />
             </StackPanel>
 
             <Grid
@@ -226,4 +184,4 @@
         </Grid>
     </Grid>
 
-</UserControl>
+</local:AppTitleBarBase>

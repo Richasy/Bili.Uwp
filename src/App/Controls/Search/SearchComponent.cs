@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索组件.
@@ -11,18 +13,23 @@ namespace Richasy.Bili.App.Controls
     public class SearchComponent : UserControl
     {
         /// <summary>
-        /// 播放器视图模型.
+        /// <see cref="ItemsSource"/> 的依赖属性.
         /// </summary>
-        public SearchModuleViewModel ViewModel { get; } = SearchModuleViewModel.Instance;
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(SearchComponent), new PropertyMetadata(default));
 
         /// <summary>
-        /// 请求增量加载.
+        /// 核心视图模型.
         /// </summary>
-        /// <param name="sender">事件发送者.</param>
-        /// <param name="e">事件参数.</param>
-        protected async void OnViewRequestLoadMoreAsync(object sender, System.EventArgs e)
+        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+
+        /// <summary>
+        /// 数据源.
+        /// </summary>
+        public object ItemsSource
         {
-            await ViewModel.RequestLoadMoreAsync();
+            get { return (object)GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
         }
     }
 }

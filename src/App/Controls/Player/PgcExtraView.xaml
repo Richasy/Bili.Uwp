@@ -1,0 +1,80 @@
+﻿<local:PgcExtraViewBase
+    x:Class="Bili.App.Controls.Player.PgcExtraView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.App.Controls.Player"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <ScrollViewer
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Hidden"
+        VerticalScrollMode="Auto">
+        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Extras}">
+            <muxc:ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="pgc:PgcExtraItemViewModel">
+                    <controls:VerticalRepeaterView
+                        HeaderText="{x:Bind Title, Mode=OneWay}"
+                        ItemOrientation="Horizontal"
+                        ItemsSource="{x:Bind Episodes, Mode=OneWay}">
+                        <controls:VerticalRepeaterView.ItemTemplate>
+                            <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                                <controls:CardPanel
+                                    Click="OnEpisodeItemClick"
+                                    DataContext="{x:Bind}"
+                                    IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                    IsEnableCheck="False"
+                                    IsEnableHoverAnimation="False">
+                                    <Grid
+                                        Padding="12"
+                                        HorizontalAlignment="Stretch"
+                                        ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid
+                                            Width="96"
+                                            Height="64"
+                                            VerticalAlignment="Center"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <Image Source="{x:Bind Information.Identifier.Cover.Uri}" Stretch="UniformToFill" />
+                                        </Grid>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Spacing="4">
+                                            <TextBlock
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                FontWeight="Bold"
+                                                MaxLines="1"
+                                                Text="{x:Bind Information.Identifier.Title}"
+                                                ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}" />
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{x:Bind DurationText, Converter={StaticResource MillisecondsDurationConverter}}" />
+                                            <TextBlock
+                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{x:Bind Information.Subtitle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </controls:CardPanel>
+                            </DataTemplate>
+                        </controls:VerticalRepeaterView.ItemTemplate>
+                    </controls:VerticalRepeaterView>
+                </DataTemplate>
+            </muxc:ItemsRepeater.ItemTemplate>
+            <muxc:ItemsRepeater.Layout>
+                <muxc:StackLayout Spacing="20" />
+            </muxc:ItemsRepeater.Layout>
+        </muxc:ItemsRepeater>
+    </ScrollViewer>
+</local:PgcExtraViewBase>

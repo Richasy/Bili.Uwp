@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:expander="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
+    xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Thickness x:Key="NavigationViewContentMargin">0</Thickness>
@@ -45,6 +45,10 @@
         <Setter Property="MaxHeight" Value="600" />
     </Style>
 
+    <Style TargetType="muxc:IconSource">
+        <Setter Property="Foreground" Value="{x:Null}" />
+    </Style>
+
     <!-- 在Expander(有内容的ExpanderEx)头部的Wrapper样式 -->
     <Style x:Key="WrapperInExpanderHeaderStyle" TargetType="expander:ExpanderExWrapper">
         <Setter Property="InlineWidePadding" Value="0,8,0,12" />
@@ -59,6 +63,13 @@
         <Setter Property="InlineIntermediatePadding" Value="16,8" />
         <Setter Property="WrapRowSpacing" Value="8" />
         <Setter Property="WrapMargin" Value="16,8" />
+    </Style>
+
+    <Style x:Key="TopNavigationViewStyle" TargetType="muxc:NavigationView">
+        <Setter Property="IsBackButtonVisible" Value="Collapsed" />
+        <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+        <Setter Property="IsSettingsVisible" Value="False" />
+        <Setter Property="PaneDisplayMode" Value="Top" />
     </Style>
 
     <Style
@@ -1134,7 +1145,7 @@
                                     CornerRadius="10"
                                     Opacity="0"
                                     RenderTransformOrigin="0.5, 0.5"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=ShowDanmaku}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=ShowDanmaku}">
                                     <Border.RenderTransform>
                                         <CompositeTransform />
                                     </Border.RenderTransform>
@@ -1153,7 +1164,7 @@
                                     Background="{ThemeResource ToggleSwitchKnobFillOff}"
                                     CornerRadius="10"
                                     RenderTransformOrigin="0.5, 0.5"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=HideDanmaku}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=HideDanmaku}">
                                     <Border.RenderTransform>
                                         <CompositeTransform />
                                     </Border.RenderTransform>

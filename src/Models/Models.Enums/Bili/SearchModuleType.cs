@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums
+namespace Bili.Models.Enums
 {
     /// <summary>
     /// 搜索模块类型.
@@ -15,7 +15,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 番剧.
         /// </summary>
-        Bangumi = 7,
+        Anime = 7,
 
         /// <summary>
         /// 直播.

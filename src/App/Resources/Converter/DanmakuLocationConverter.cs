@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 弹幕位置文本转换.
@@ -17,7 +17,7 @@ namespace Richasy.Bili.App.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var result = string.Empty;
-            var resToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resToolkit = Locator.Current.GetService<IResourceToolkit>();
             switch ((DanmakuLocation)value)
             {
                 case DanmakuLocation.Scroll:

@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Controller.Uwp.Interfaces;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums.App;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.Storage;
 using Windows.System;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 日志设置区块.
@@ -21,9 +20,8 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="LoggerSettingSection"/> class.
         /// </summary>
         public LoggerSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base()
+            => InitializeComponent();
 
         private async void OnOpenLoggerFolderButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -34,10 +32,9 @@ namespace Richasy.Bili.App.Controls
         private async void OnCleanLoggerButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             try
             {
-                var logger = ServiceLocator.Instance.GetService<ILoggerModule>();
                 await folder.DeleteAsync(StorageDeleteOption.PermanentDelete).AsTask();
                 await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
             }
@@ -46,7 +43,7 @@ namespace Richasy.Bili.App.Controls
             }
             finally
             {
-                AppViewModel.Instance.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LogEmptied), InfoType.Success);
+                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LogEmptied), InfoType.Success);
             }
         }
     }

@@ -3,15 +3,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bilibili.App.Dynamic.V2;
+using Bili.DI.Task;
+using Bili.Lib.Interfaces;
+using Bili.Models.Data.Dynamic;
+using Bili.Models.Data.Pgc;
+using Bili.Models.Data.Video;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.ApplicationModel.Background;
 
-namespace Richasy.Bili.Tasks
+namespace Bili.Tasks
 {
     /// <summary>
     /// 动态更新通知.
@@ -22,34 +25,33 @@ namespace Richasy.Bili.Tasks
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var def = taskInstance.GetDeferral();
-            var controller = BiliController.Instance;
-            var dynamics = await controller.GetLatestDynamicVideoListAsync();
-            if (dynamics == null)
+            new DIFactory().RegisterTaskRequiredServices();
+            var communityProvider = Locator.Current.GetService<ICommunityProvider>();
+            var dynamics = await communityProvider.GetDynamicVideoListAsync();
+            if (dynamics == null || dynamics.Dynamics?.Count() == 0)
             {
-                def.Complete();
-            }
-
-            var settingsToolkit = ServiceLocator.Instance.GetService<ISettingsToolkit>();
-            var isFirstCheck = settingsToolkit.ReadLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, true);
-            var cardList = dynamics.DynamicList.List.Where(p =>
-                p.CardType == DynamicType.Av
-                || p.CardType == DynamicType.Pgc
-                || p.CardType == DynamicType.UgcSeason).ToList();
-            var firstCard = cardList.First();
-            var lastReadId = settingsToolkit.ReadLocalSetting(SettingNames.LastReadVideoDynamicId, string.Empty);
-
-            // 初次检查或者未更新时不会进行通知
-            if (isFirstCheck || lastReadId == firstCard.Extend.DynIdStr)
-            {
-                settingsToolkit.WriteLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, false);
-                settingsToolkit.WriteLocalSetting(SettingNames.LastReadVideoDynamicId, firstCard.Extend.DynIdStr);
                 def.Complete();
                 return;
             }
 
-            var lastReadCard = cardList.FirstOrDefault(p => p.Extend.DynIdStr == lastReadId);
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+            var isFirstCheck = settingsToolkit.ReadLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, true);
+            var firstCard = dynamics.Dynamics.First();
+            var cardList = dynamics.Dynamics.ToList();
+            var lastReadId = settingsToolkit.ReadLocalSetting(SettingNames.LastReadVideoDynamicId, string.Empty);
+
+            // 初次检查或者未更新时不会进行通知
+            if (isFirstCheck || lastReadId == firstCard.Id)
+            {
+                settingsToolkit.WriteLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, false);
+                settingsToolkit.WriteLocalSetting(SettingNames.LastReadVideoDynamicId, firstCard.Id);
+                def.Complete();
+                return;
+            }
+
+            var lastReadCard = cardList.FirstOrDefault(p => p.Id == lastReadId);
             var lastReadIndex = cardList.IndexOf(lastReadCard);
-            var notifyCards = new List<DynamicItem>();
+            var notifyCards = new List<DynamicInformation>();
 
             if (lastReadIndex != -1)
             {
@@ -67,7 +69,7 @@ namespace Richasy.Bili.Tasks
 
             if (notifyCards.Count > 0)
             {
-                settingsToolkit.WriteLocalSetting(SettingNames.LastReadVideoDynamicId, firstCard.Extend.DynIdStr);
+                settingsToolkit.WriteLocalSetting(SettingNames.LastReadVideoDynamicId, firstCard.Id);
 
                 foreach (var item in notifyCards)
                 {
@@ -76,51 +78,47 @@ namespace Richasy.Bili.Tasks
                         break;
                     }
 
-                    var modules = item.Modules;
-                    var userModule = modules.Where(p => p.ModuleType == DynModuleType.ModuleAuthor).FirstOrDefault()?.ModuleAuthor;
-                    var descModule = modules.Where(p => p.ModuleType == DynModuleType.ModuleDesc).FirstOrDefault()?.ModuleDesc;
-                    var mainModule = modules.Where(p => p.ModuleType == DynModuleType.ModuleDynamic).FirstOrDefault()?.ModuleDynamic;
+                    var title = string.Empty;
+                    var coverUrl = string.Empty;
+                    var type = string.Empty;
+                    var id = string.Empty;
+                    var avatar = item.User.Avatar.GetSourceUri().ToString();
+                    var desc = item.Description?.Text;
+                    var timeLabel = string.IsNullOrEmpty(item.Tip)
+                        ? "ms-resource:AppName"
+                        : item.Tip;
 
-                    var pgc = mainModule.DynPgc;
-                    var video = mainModule.DynArchive;
+                    if (item.Data is VideoInformation videoInfo)
+                    {
+                        title = videoInfo.Identifier.Title;
+                        coverUrl = videoInfo.Identifier.Cover.GetSourceUri().ToString();
+                        type = "video";
+                        if (string.IsNullOrEmpty(desc))
+                        {
+                            desc = videoInfo.Publisher?.User?.Name ?? string.Empty;
+                        }
+                    }
+                    else if (item.Data is EpisodeInformation episodeInfo)
+                    {
+                        title = episodeInfo.Identifier.Title;
+                        coverUrl = episodeInfo.Identifier.Cover.GetSourceUri().ToString();
+                        type = "episode";
+                        if (string.IsNullOrEmpty(desc))
+                        {
+                            desc = episodeInfo.Subtitle;
+                        }
+                    }
 
-                    var title = mainModule.ModuleItemCase == ModuleDynamic.ModuleItemOneofCase.DynArchive
-                        ? video.Title
-                        : pgc.Title;
-                    var cover = mainModule.ModuleItemCase == ModuleDynamic.ModuleItemOneofCase.DynArchive
-                        ? video.Cover
-                        : pgc.Cover;
-                    var type = mainModule.ModuleItemCase == ModuleDynamic.ModuleItemOneofCase.DynArchive
-                        && video != null
-                        ? "video"
-                        : "episode";
-                    var id = type == "video"
-                        ? video.Avid
-                        : video.EpisodeId;
-                    var avatar = userModule != null
-                        ? userModule.Author.Face
-                        : "ms-appx:///Assets/Bili_rgba_80.png";
-                    var desc = descModule != null
-                        ? descModule.Text
-                        : userModule.Author.Name;
-                    var timeLabel = userModule != null
-                        ? userModule.PtimeLabelText
-                        : "ms-resource:AppName";
-
-                    cover += "@400w_250h_1c_100q.jpg";
+                    coverUrl += "@400w_250h_1c_100q.jpg";
                     avatar += "@100w_100h_1c_100q.jpg";
                     var protocol = $"richasy-bili://play?{type}={id}";
-                    if (video != null && video.IsPGC)
-                    {
-                        protocol += "&isPgc=true";
-                    }
 
                     new ToastContentBuilder()
                         .AddText(title, hintWrap: true, hintMaxLines: 2)
                         .AddText(desc, AdaptiveTextStyle.Caption)
                         .AddAttributionText(timeLabel)
                         .AddAppLogoOverride(new Uri(avatar), ToastGenericAppLogoCrop.Circle)
-                        .AddHeroImage(new Uri(cover))
+                        .AddHeroImage(new Uri(coverUrl))
                         .SetProtocolActivation(new Uri(protocol))
                         .Show(toast =>
                         {

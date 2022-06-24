@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 弹幕大小转换器.
@@ -39,7 +39,7 @@ namespace Richasy.Bili.App.Resources.Converter
                     break;
             }
 
-            return ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(name);
+            return Locator.Current.GetService<IResourceToolkit>().GetLocaleString(name);
         }
 
         /// <inheritdoc/>

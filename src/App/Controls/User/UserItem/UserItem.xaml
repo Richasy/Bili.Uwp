@@ -1,0 +1,72 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls.User">
+    <Style x:Key="DefaultUserItemStyle" TargetType="local:UserItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UserItem">
+                    <controls:CardPanel
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.User.Name}"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowDetailCommand}"
+                        IsEnableHoverAnimation="False">
+                        <Grid Padding="20,20,20,16" RowSpacing="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <controls:UserAvatar
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Center"
+                                Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.User.Avatar.Uri}"
+                                DecodeSize="40"
+                                UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.User.Name}" />
+                            <StackPanel Grid.Row="1">
+                                <TextBlock
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"
+                                    MaxLines="1"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.User.Name, Mode=OneWay}"
+                                    TextAlignment="Center"
+                                    TextTrimming="CharacterEllipsis" />
+                                <Image
+                                    Height="10"
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Center"
+                                    Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Level, Converter={StaticResource UserLevelConverter}}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Level, Converter={StaticResource NumberToVisibilityConverter}}" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="IntroduceBlock"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Grid.Row="2"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Introduce, Mode=OneWay}"
+                                TextAlignment="Center"
+                                TextTrimming="CharacterEllipsis">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Introduce}" IsEnabled="{Binding ElementName=IntroduceBlock, Path=IsTextTrimmed}" />
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+                            <Button
+                                Style="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Relation, Converter={StaticResource RelationButtonStyleConverter}}"
+                                Grid.Row="3"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleRelationCommand}"
+                                Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Relation, Converter={StaticResource RelationTextConverter}}"
+                                FontSize="12"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsRelationButtonShown}" />
+                        </Grid>
+                    </controls:CardPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultUserItemStyle}" TargetType="local:UserItem" />
+</ResourceDictionary>

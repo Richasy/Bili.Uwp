@@ -3,7 +3,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.App.Other
+namespace Bili.Models.App.Other
 {
     /// <summary>
     /// Github的发布响应结果.

@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 卡片面板状态更改事件参数.

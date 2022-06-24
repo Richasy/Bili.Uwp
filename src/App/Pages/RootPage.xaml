@@ -1,46 +1,47 @@
-﻿<local:AppPage
-    x:Class="Richasy.Bili.App.Pages.RootPage"
+﻿<local:RootPageBase
+    x:Class="Bili.App.Pages.Desktop.RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Richasy.Bili.App.Controls"
+    xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Richasy.Bili.App.Pages"
+    xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlTransparentBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="OverLayerGroup">
-                <VisualState x:Name="DefaultOverState" />
-                <VisualState x:Name="ExtendedOverState">
-                    <VisualState.Setters>
-                        <Setter Target="OverFrame.(Grid.Row)" Value="0" />
-                        <Setter Target="OverFrame.(Grid.RowSpan)" Value="2" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <controls:RootNavigationView
+
+        <controls:DesktopNavigationView
             x:Name="RootNavView"
             Grid.Row="1"
-            Loaded="OnRootNavViewLoadedAsync"
-            Visibility="{x:Bind CoreViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+            FirstLoaded="OnRootNavViewFirstLoadAsync"
+            Visibility="{x:Bind ViewModel.IsMainViewShown, Mode=OneWay}" />
+
         <Frame
-            x:Name="OverFrame"
+            x:Name="SecondaryFrame"
             Grid.Row="1"
-            Visibility="{x:Bind CoreViewModel.IsOpenPlayer, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            Visibility="{x:Bind ViewModel.IsSecondaryViewShown, Mode=OneWay}" />
+
+        <Frame
+            x:Name="PlayerFrame"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsPlayViewShown, Mode=OneWay}" />
 
         <Grid
             x:Name="HolderContainer"
             Grid.Row="1"
             Visibility="Collapsed" />
 
+        <Grid
+            x:Name="TipContainer"
+            Grid.Row="1"
+            Visibility="Collapsed" />
+
         <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
     </Grid>
-</local:AppPage>
+</local:RootPageBase>

@@ -2,9 +2,9 @@
 
 using CommandLine;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp
 {
-    internal class CommandLineViewModel
+    internal sealed class CommandLineViewModel
     {
         /// <summary>
         /// 页面Id.

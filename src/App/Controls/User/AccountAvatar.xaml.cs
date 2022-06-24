@@ -2,25 +2,25 @@
 
 using System;
 using System.ComponentModel;
-using Richasy.Bili.App.Resources.Extension;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.App.Resources.Extension;
+using Bili.Models.Enums;
+using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
+using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 账户管理中枢.
     /// </summary>
-    public sealed partial class AccountAvatar : UserControl
+    public sealed partial class AccountAvatar : AccountAvatarBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(AccountViewModel.Instance));
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountAvatar"/> class.
@@ -28,17 +28,10 @@ namespace Richasy.Bili.App.Controls
         public AccountAvatar()
         {
             InitializeComponent();
+            ViewModel = Splat.Locator.Current.GetService<AccountViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
-        }
-
-        /// <summary>
-        /// 账户视图模型.
-        /// </summary>
-        public AccountViewModel ViewModel
-        {
-            get { return (AccountViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -54,7 +47,7 @@ namespace Richasy.Bili.App.Controls
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.Status))
+            if (e.PropertyName == nameof(ViewModel.State))
             {
                 CheckStatus();
             }
@@ -62,13 +55,13 @@ namespace Richasy.Bili.App.Controls
 
         private void CheckStatus()
         {
-            switch (ViewModel.Status)
+            switch (ViewModel.State)
             {
-                case AccountViewModelStatus.Logout:
-                case AccountViewModelStatus.Login:
+                case AuthorizeState.SignedOut:
+                case AuthorizeState.SignedIn:
                     VisualStateManager.GoToState(this, nameof(NormalState), false);
                     break;
-                case AccountViewModelStatus.Logging:
+                case AuthorizeState.Loading:
                     VisualStateManager.GoToState(this, nameof(LoadingState), false);
                     break;
                 default:
@@ -80,45 +73,34 @@ namespace Richasy.Bili.App.Controls
         {
             var btn = sender as FrameworkElement;
             var pageId = NavigationExtension.GetPageId(btn);
-            if (pageId == Models.Enums.PageIds.Favorite)
-            {
-                FavoriteViewModel.Instance.SetUser(ViewModel.Mid.Value, ViewModel.DisplayName);
-            }
-
-            AppViewModel.Instance.SetOverlayContentId(pageId);
+            _navigationViewModel.NavigateToSecondaryView(pageId);
             HideFlyout();
         }
 
         private async void OnSignOutButtonClickAsync(object sender, RoutedEventArgs e)
         {
             HideFlyout();
-            await AccountViewModel.Instance.SignOutAsync();
+            await ViewModel.SignOutAsync();
         }
 
         private async void OnNavigateToMyHomePageButtonClickAsync(object sender, RoutedEventArgs e)
         {
             HideFlyout();
-            await Launcher.LaunchUriAsync(new Uri($"https://space.bilibili.com/{AccountViewModel.Instance.Mid}/")).AsTask();
+            await Launcher.LaunchUriAsync(new Uri($"https://space.bilibili.com/{ViewModel.Mid}/")).AsTask();
         }
 
         private void OnRequestCloseFlyout(object sender, EventArgs e)
-        {
-            HideFlyout();
-        }
+            => HideFlyout();
 
         private void HideFlyout()
-        {
-            FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
-        }
+            => FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
 
         private async void OnFlyoutOpenedAsync(object sender, object e)
-        {
-            await ViewModel.InitCommunityInformationAsync();
-        }
+            => await ViewModel.InitCommunityInformationAsync();
 
         private async void OnUserAvatarClickAsync(object sender, EventArgs e)
         {
-            if (ViewModel.Status == AccountViewModelStatus.Logout)
+            if (ViewModel.State == AuthorizeState.SignedOut)
             {
                 await ViewModel.TrySignInAsync();
             }
@@ -127,5 +109,12 @@ namespace Richasy.Bili.App.Controls
                 FlyoutBase.ShowAttachedFlyout(UserAvatar);
             }
         }
+    }
+
+    /// <summary>
+    /// <see cref="AccountAvatar"/> 的基类.
+    /// </summary>
+    public class AccountAvatarBase : ReactiveUserControl<AccountViewModel>
+    {
     }
 }

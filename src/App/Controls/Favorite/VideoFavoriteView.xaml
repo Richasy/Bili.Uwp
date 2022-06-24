@@ -1,0 +1,120 @@
+﻿<local:CenterPopup
+    x:Class="Bili.App.Controls.VideoFavoriteView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
+    Title="{x:Bind ViewModel.Folder.Title, Mode=OneWay}"
+    MinHeight="300"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Grid.ColumnSpan="2"
+                Margin="0,0,0,4"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                MaxLines="3"
+                Text="{x:Bind ViewModel.Folder.Description, Mode=OneWay}"
+                TextWrapping="Wrap"
+                Visibility="{x:Bind ViewModel.Folder.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+            <StackPanel
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <local:UserAvatar
+                    Width="28"
+                    Height="28"
+                    Avatar="{x:Bind ViewModel.User.Avatar.Uri, Mode=OneWay}"
+                    UserName="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    VerticalAlignment="Center"
+                    Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                    <Run Text="{loc:Locale Name=VideoCount}" />
+                    <Run Text="{x:Bind ViewModel.Folder.TotalCount, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            Margin="-16,0"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <local:VerticalRepeaterView
+                x:Name="VideoView"
+                Margin="16,0,16,12"
+                Background="Transparent"
+                HeaderVisibility="Collapsed"
+                ItemOrientation="Horizontal"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:IncrementalBehavior />
+                </interactivity:Interaction.Behaviors>
+                <local:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <videos:VideoItem Height="132" ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </local:VerticalRepeaterView.ItemTemplate>
+            </local:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <local:OverlayLoadingPanel
+            Grid.Row="1"
+            MinHeight="80"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <local:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </local:ErrorPanel>
+        <local:ErrorPanel
+            x:Name="EmptyPanel"
+            Grid.Row="1"
+            Text="{loc:Locale Name=FavoriteHaveNoVideos}"
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+    </Grid>
+</local:CenterPopup>

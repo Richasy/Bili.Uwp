@@ -1,19 +1,23 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using System;
+using Bili.Models.Data.Local;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls.Dialogs
+namespace Bili.App.Controls.Dialogs
 {
     /// <summary>
     /// 继续播放对话框.
     /// </summary>
     public sealed partial class ContinuePlayDialog : ContentDialog
     {
-        private object _playVM = null;
+        private readonly NavigationViewModel _navigationViewModel;
+        private readonly AppViewModel _appViewModel;
+        private PlaySnapshot _snapshot = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContinuePlayDialog"/> class.
@@ -21,32 +25,28 @@ namespace Richasy.Bili.App.Controls.Dialogs
         public ContinuePlayDialog()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
             Loaded += OnLoadedAsync;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            var tool = ServiceLocator.Instance.GetService<ISettingsToolkit>();
-            var title = tool.ReadLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle, string.Empty);
-            _playVM = await PlayerViewModel.Instance.GetInitViewModelFromLocalAsync();
-            if (string.IsNullOrEmpty(title) || _playVM == null)
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+            _snapshot = await _appViewModel.GetLastPlayItemAsync();
+            if (_snapshot == null)
             {
-                tool.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
-                tool.DeleteLocalSetting(Models.Enums.SettingNames.ContinuePlayTitle);
+                settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
                 Hide();
             }
 
-            VideoTitle.Text = title;
+            VideoTitle.Text = _snapshot.Title ?? string.Empty;
         }
 
         private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            AppViewModel.Instance.OpenPlayer(_playVM);
-        }
+            => _navigationViewModel.NavigateToPlayView(_snapshot);
 
-        private async void OnContentDialogCloseButtonClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            await PlayerViewModel.Instance.ClearInitViewModelAsync();
-        }
+        private void OnContentDialogCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+            => _appViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
     }
 }

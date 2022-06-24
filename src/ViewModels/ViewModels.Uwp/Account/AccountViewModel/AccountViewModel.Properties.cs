@@ -2,55 +2,40 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Lib.Interfaces;
+using Bili.Models.Data.Community;
+using Bili.Models.Data.Local;
+using Bili.Models.Data.User;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI.Fody.Helpers;
-using Richasy.Bili.Controller.Uwp;
-using Richasy.Bili.Models.App;
-using Richasy.Bili.Models.BiliBili;
-using Richasy.Bili.Toolkit.Interfaces;
 
-namespace Richasy.Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
-    /// 当前用户视图模型状态.
+    /// 用户视图模型属性集.
     /// </summary>
-    public enum AccountViewModelStatus
+    public sealed partial class AccountViewModel
     {
-        /// <summary>
-        /// 用户已登出.
-        /// </summary>
-        Logout,
-
-        /// <summary>
-        /// 用户已登录.
-        /// </summary>
-        Login,
-
-        /// <summary>
-        /// 用户正在登录.
-        /// </summary>
-        Logging,
-    }
-
-    /// <summary>
-    /// 用户试图模型属性集.
-    /// </summary>
-    public partial class AccountViewModel
-    {
-        private readonly BiliController _controller;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly IFileToolkit _fileToolkit;
-        private MyInfo _myInfo;
+        private readonly IAuthorizeProvider _authorizeProvider;
+        private readonly IAccountProvider _accountProvider;
+        private readonly AppViewModel _appViewModel;
+
+        private bool _isRequestLogout = false;
 
         /// <summary>
-        /// <see cref="AccountViewModel"/>的实例.
+        /// 用户信息.
         /// </summary>
-        public static AccountViewModel Instance { get; } = new Lazy<AccountViewModel>(() => new AccountViewModel()).Value;
+        public AccountInformation AccountInformation { get; internal set; }
 
         /// <summary>
         /// 登录用户Id.
         /// </summary>
-        public int? Mid => _myInfo?.Mid;
+        public int? Mid => Convert.ToInt32(AccountInformation?.User.Id);
 
         /// <summary>
         /// 固定条目集合.
@@ -61,7 +46,7 @@ namespace Richasy.Bili.ViewModels.Uwp
         /// 当前视图模型状态.
         /// </summary>
         [Reactive]
-        public AccountViewModelStatus Status { get; set; }
+        public AuthorizeState State { get; set; }
 
         /// <summary>
         /// 头像.
@@ -118,10 +103,10 @@ namespace Richasy.Bili.ViewModels.Uwp
         public bool IsConnected { get; set; }
 
         /// <summary>
-        /// 未读消息数.
+        /// 未读提及数.
         /// </summary>
         [Reactive]
-        public int UnreadMessageCount { get; set; }
+        public UnreadInformation UnreadInformation { get; set; }
 
         /// <summary>
         /// 是否显示未读消息数.

@@ -5,4 +5,5 @@
     <SolidColorBrush x:Key="AccentMaskBrush" Color="{ThemeResource SystemColorWindowColor}" />
     <SolidColorBrush x:Key="AccentBadgeBackground" Color="{ThemeResource SystemColorWindowColor}" />
     <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
+    <SolidColorBrush x:Key="TransparentBackground" Color="#01000000" />
 </ResourceDictionary>

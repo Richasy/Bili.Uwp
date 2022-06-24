@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 评论消息.
@@ -27,7 +27,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// 上次查看时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_view_at", Required = Required.Default)]
-        public int LastViewTime { get; set; }
+        public long LastViewTime { get; set; }
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace Richasy.Bili.Models.BiliBili
         /// 评论时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reply_time", Required = Required.Default)]
-        public int ReplyTime { get; set; }
+        public long ReplyTime { get; set; }
     }
 
     /// <summary>

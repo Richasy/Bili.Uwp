@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Richasy.Bili.Models.BiliBili</AssemblyName>
-    <RootNamespace>Richasy.Bili.Models.BiliBili</RootNamespace>
+    <AssemblyName>Bili.Models.BiliBili</AssemblyName>
+    <RootNamespace>Bili.Models.BiliBili</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

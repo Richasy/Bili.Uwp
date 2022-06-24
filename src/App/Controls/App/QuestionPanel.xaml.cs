@@ -1,46 +1,30 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Bili.ViewModels.Uwp.Home;
+using ReactiveUI;
+using Splat;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 问题面板.
     /// </summary>
-    public sealed partial class QuestionPanel : UserControl
+    public sealed partial class QuestionPanel : QuestionPanelBase
     {
-        /// <summary>
-        /// <see cref="ViewModel"/>的依赖属性.
-        /// </summary>
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(HelpViewModel), typeof(QuestionPanel), new PropertyMetadata(HelpViewModel.Instance));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="QuestionPanel"/> class.
         /// </summary>
         public QuestionPanel()
         {
             InitializeComponent();
-            Loaded += OnLoadedAsync;
+            ViewModel = Splat.Locator.Current.GetService<HelpPageViewModel>();
         }
+    }
 
-        /// <summary>
-        /// 视图模型.
-        /// </summary>
-        public HelpViewModel ViewModel
-        {
-            get { return (HelpViewModel)GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
-        }
-
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.CurrentQuestionModule == null)
-            {
-                await ViewModel.InitializeQuestionsAsync();
-            }
-        }
+    /// <summary>
+    /// <see cref="QuestionPanel"/> 的基类.
+    /// </summary>
+    public class QuestionPanelBase : ReactiveUserControl<HelpPageViewModel>
+    {
     }
 }

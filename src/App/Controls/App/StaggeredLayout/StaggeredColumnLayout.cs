@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     [System.Diagnostics.DebuggerDisplay("Count = {Count}, Height = {Height}")]
     internal class StaggeredColumnLayout : List<StaggeredItem>

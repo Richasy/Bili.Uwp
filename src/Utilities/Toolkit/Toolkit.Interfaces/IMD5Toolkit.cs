@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Richasy.Bili.Toolkit.Interfaces
+namespace Bili.Toolkit.Interfaces
 {
     /// <summary>
     /// MD5工具类.

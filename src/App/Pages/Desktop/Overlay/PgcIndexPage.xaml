@@ -1,0 +1,137 @@
+﻿<pages:PgcIndexPageBase
+    x:Class="Bili.App.Pages.Desktop.PgcIndexPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:pages="using:Bili.App.Pages.Desktop"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc1="using:Bili.App.Controls.Pgc"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IndexView.ItemOrientation" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <app:PageHeader>
+            <app:PageHeader.Title>
+                <TextBlock HorizontalAlignment="Left" TextTrimming="CharacterEllipsis">
+                    <Run
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                        Text="{x:Bind ViewModel.PageType, Mode=OneWay}" />
+                    <Run Text="{loc:Locale Name=Index}" />
+                </TextBlock>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
+        <Grid
+            x:Name="FilterContainer"
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}">
+            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Filters, Mode=OneWay}">
+                <muxc:ItemsRepeater.Layout>
+                    <muxc:UniformGridLayout
+                        ItemsStretch="Fill"
+                        MinColumnSpacing="12"
+                        MinItemWidth="120"
+                        MinRowSpacing="12" />
+                </muxc:ItemsRepeater.Layout>
+                <muxc:ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="pgc:IndexFilterViewModel">
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            DataContext="{x:Bind}"
+                            Header="{x:Bind Data.Name}"
+                            ItemsSource="{x:Bind Data.Conditions}"
+                            SelectedIndex="{x:Bind SelectedIndex, Mode=OneWay}"
+                            SelectionChanged="OnConditionChangedAsync">
+                            <ComboBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.HeaderTemplate>
+                        </ComboBox>
+                    </DataTemplate>
+                </muxc:ItemsRepeater.ItemTemplate>
+            </muxc:ItemsRepeater>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,12,0,0">
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Visibility="{x:Bind ViewModel.IsReloading, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <controls:VerticalRepeaterView
+                    x:Name="IndexView"
+                    Margin="0,0,0,12"
+                    HeaderVisibility="Collapsed"
+                    ItemsSource="{x:Bind ViewModel.Items}"
+                    MinWideItemHeight="180"
+                    MinWideItemWidth="300">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="pgc:SeasonItemViewModel">
+                            <pgc1:SeasonItem ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </ScrollViewer>
+        </Grid>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="2"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <controls:ErrorPanel
+            Grid.Row="2"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:ErrorPanel
+            Grid.Row="2"
+            Text="{loc:Locale Name=NoSpecificData}"
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+    </Grid>
+</pages:PgcIndexPageBase>

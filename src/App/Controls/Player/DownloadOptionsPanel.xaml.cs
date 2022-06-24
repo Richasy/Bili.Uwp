@@ -1,14 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Linq;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
-using Windows.ApplicationModel.DataTransfer;
+using System;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls.Player
 {
     /// <summary>
     /// 下载选项面板.
@@ -19,7 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DownloadViewModel), typeof(DownloadOptionsPanel), new PropertyMetadata(DownloadViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(DownloadModuleViewModel), typeof(DownloadOptionsPanel), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DownloadOptionsPanel"/> class.
@@ -27,15 +24,15 @@ namespace Richasy.Bili.App.Controls
         public DownloadOptionsPanel()
         {
             InitializeComponent();
-            Initialize();
+            Loaded += OnLoaded;
         }
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DownloadViewModel ViewModel
+        public DownloadModuleViewModel ViewModel
         {
-            get { return (DownloadViewModel)GetValue(ViewModelProperty); }
+            get { return (DownloadModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
@@ -89,6 +86,8 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e) => Initialize();
+
         private void OnDownloadTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = DownloadTypeComboBox.SelectedItem as ComboBoxItem;
@@ -141,23 +140,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnGenerateButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
-            var appVM = AppViewModel.Instance;
-            if (ViewModel.TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && ViewModel.TotalPartCollection.Count > 1)
-            {
-                appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
-                return;
-            }
-
-            var command = await ViewModel.CreateDownloadCommandAsync();
-            var package = new DataPackage();
-            package.SetText(command);
-            Clipboard.SetContent(package);
-            appVM.ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied));
-        }
-
         private void OnInterfaceComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = InterfaceComboBox.SelectedItem as ComboBoxItem;
@@ -187,8 +169,5 @@ namespace Richasy.Bili.App.Controls
                     break;
             }
         }
-
-        private async void OnOpenFolderButtonClickAsync(object sender, RoutedEventArgs e)
-            => await ViewModel.SetDownloadFolderAsync();
     }
 }

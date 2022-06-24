@@ -154,7 +154,7 @@
     <value>哔哩是云之幻练手做的项目，旨在构建BiliBili的桌面客户端，满足个人需求</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>哔哩</value>
+    <value>哔哩 Preview</value>
   </data>
   <data name="AppTheme" xml:space="preserve">
     <value>应用主题</value>
@@ -305,6 +305,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Coin" xml:space="preserve">
     <value>投币</value>
   </data>
+  <data name="CoinFailed" xml:space="preserve">
+    <value>投币失败，试试看只投一个吧</value>
+  </data>
+  <data name="CoinNumberTip" xml:space="preserve">
+    <value>原创视频方可投2个币</value>
+  </data>
   <data name="CollectTime" xml:space="preserve">
     <value>收藏时间</value>
   </data>
@@ -336,7 +342,8 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>连续播放</value>
   </data>
   <data name="ContinuousPlayDescription" xml:space="preserve">
-    <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）</value>
+    <value>当视频有多个分集时自动连续播放（一集结束自动切换到下一集）
+UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如果支持)</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>转换</value>
@@ -492,11 +499,29 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>想查看关注的UP主的动态吗？
 快登录吧！</value>
   </data>
+  <data name="EnterCompactOverlay" xml:space="preserve">
+    <value>进入小窗模式</value>
+  </data>
+  <data name="EnterFullScreen" xml:space="preserve">
+    <value>进入全屏模式</value>
+  </data>
+  <data name="EnterFullWindow" xml:space="preserve">
+    <value>进入全窗口模式</value>
+  </data>
   <data name="EnterToEffect" xml:space="preserve">
     <value>按下回车以生效</value>
   </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
+  </data>
+  <data name="ExitCompactOverlay" xml:space="preserve">
+    <value>退出小窗模式</value>
+  </data>
+  <data name="ExitFullScreen" xml:space="preserve">
+    <value>退出全屏模式</value>
+  </data>
+  <data name="ExitFullWindow" xml:space="preserve">
+    <value>退出全窗口模式</value>
   </data>
   <data name="ExitSearch" xml:space="preserve">
     <value>退出搜索</value>
@@ -522,6 +547,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
     <value>尝试移除视频失败，请稍后重试</value>
   </data>
+  <data name="FailedToSendDanmaku" xml:space="preserve">
+    <value>发送弹幕失败，请稍后再试</value>
+  </data>
   <data name="FansCount" xml:space="preserve">
     <value>粉丝数</value>
   </data>
@@ -530,6 +558,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Favorite" xml:space="preserve">
     <value>收藏</value>
+  </data>
+  <data name="FavoriteFailed" xml:space="preserve">
+    <value>收藏失败</value>
   </data>
   <data name="FavoriteHaveNoVideos" xml:space="preserve">
     <value>收藏夹内没有视频</value>
@@ -574,11 +605,17 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Flv" xml:space="preserve">
     <value>流媒体/FLV</value>
   </data>
+  <data name="FlvNotSupported" xml:space="preserve">
+    <value>目前哔哩不能播放 flv 格式的直播，请在网页中打开该直播间</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>关注</value>
   </data>
   <data name="FollowCount" xml:space="preserve">
     <value>关注数</value>
+  </data>
+  <data name="FollowEachOther" xml:space="preserve">
+    <value>互相关注</value>
   </data>
   <data name="Followed" xml:space="preserve">
     <value>已关注</value>
@@ -689,7 +726,7 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
     <value>请输入验证码</value>
   </data>
   <data name="InteractionEnd" xml:space="preserve">
-    <value>互动视频结束，可点击视频区域内左上角的 “橡皮擦” 按钮返回开头</value>
+    <value>互动视频结束，可点击播放控制器的 "橡皮擦" 按钮返回开头</value>
   </data>
   <data name="InteractionQuality" xml:space="preserve">
     <value>交互式清晰度选择</value>
@@ -836,6 +873,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="Navigation" xml:space="preserve">
     <value>导航</value>
   </data>
+  <data name="NeedLoginFirst" xml:space="preserve">
+    <value>你需要先登录才能执行操作</value>
+  </data>
   <data name="NeedQRLogin" xml:space="preserve">
     <value>密码登录方式失败，请使用二维码登录</value>
   </data>
@@ -901,6 +941,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="NotUpdate" xml:space="preserve">
     <value>即将更新</value>
+  </data>
+  <data name="NotUpdated" xml:space="preserve">
+    <value>未更新</value>
   </data>
   <data name="NoUserVideoSearchResult" xml:space="preserve">
     <value>没有在该用户下找到指定关键词的视频</value>
@@ -1016,6 +1059,12 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="PlayLine" xml:space="preserve">
     <value>线路</value>
   </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>播放列表</value>
+  </data>
+  <data name="PlayNextPart" xml:space="preserve">
+    <value>播放下一个视频</value>
+  </data>
   <data name="PlayNextVideo" xml:space="preserve">
     <value>即将播放下一个视频</value>
   </data>
@@ -1129,6 +1178,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="Remove" xml:space="preserve">
     <value>移除</value>
+  </data>
+  <data name="RemoveViewLaterFailed" xml:space="preserve">
+    <value>移除稍后再看视频失败</value>
   </data>
   <data name="Reply" xml:space="preserve">
     <value>评论</value>
@@ -1331,6 +1383,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="SetSuccess" xml:space="preserve">
     <value>已成功设置</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
   <data name="SettingTo" xml:space="preserve">
     <value>设置为</value>
   </data>
@@ -1475,6 +1530,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   <data name="TimeChart" xml:space="preserve">
     <value>时间表</value>
   </data>
+  <data name="TimelineHasNoVideo" xml:space="preserve">
+    <value>这一天没有新的内容</value>
+  </data>
   <data name="ToggleDanmakuBarVisibility" xml:space="preserve">
     <value>切换弹幕控制器显隐</value>
   </data>
@@ -1498,6 +1556,9 @@ BV号以 BV 开头，是一串英文数字混合的编号， 如 BV1JL4y1875w</v
   </data>
   <data name="TotalUser" xml:space="preserve">
     <value>全部用户</value>
+  </data>
+  <data name="TrackCount" xml:space="preserve">
+    <value>追番/追剧数</value>
   </data>
   <data name="TV" xml:space="preserve">
     <value>电视剧</value>

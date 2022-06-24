@@ -4,148 +4,199 @@
   <PropertyGroup>
     <ProjectGuid>{1AF20FDC-36D5-450E-9461-0F78AEB89716}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Richasy.Bili.ViewModels.Uwp</RootNamespace>
-    <AssemblyName>Richasy.Bili.ViewModels.Uwp</AssemblyName>
+    <RootNamespace>Bili.ViewModels.Uwp</RootNamespace>
+    <AssemblyName>Bili.ViewModels.Uwp</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Account\FavoriteAnimeViewModel.cs" />
-    <Compile Include="Common\AppViewModel\AppViewModel.Command.cs" />
+    <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
+    <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.cs" />
+    <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.Properties.cs" />
+    <Compile Include="Base\PlayerPageViewModelBase.cs" />
+    <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.Properties.cs" />
+    <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.cs" />
+    <Compile Include="Common\InteractionModuleViewModel\InteractionModuleViewModel.Proeprties.cs" />
+    <Compile Include="Common\PlaybackRateItemViewModel.cs" />
+    <Compile Include="Community\CommentDetailModuleViewModel\CommentDetailModuleViewModel.cs" />
+    <Compile Include="Community\CommentDetailModuleViewModel\CommentDetailModuleViewModel.Properties.cs" />
+    <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.Properties.cs" />
+    <Compile Include="Community\CommentPageViewModel\CommentPageViewModel.cs" />
+    <Compile Include="Community\CommentPageViewModel\CommentPageViewModel.Properties.cs" />
+    <Compile Include="Community\DynamicAllModuleViewModel.cs" />
+    <Compile Include="Community\DynamicItemViewModel\DynamicItemViewModel.cs" />
+    <Compile Include="Community\DynamicItemViewModel\DynamicItemViewModel.Properties.cs" />
+    <Compile Include="Community\DynamicPageViewModel\DynamicPageViewModel.cs" />
+    <Compile Include="Community\DynamicPageViewModel\DynamicPageViewModel.Properties.cs" />
+    <Compile Include="Community\DynamicVideoModuleViewModel.cs" />
+    <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.cs" />
+    <Compile Include="Community\CommentItemViewModel\CommentItemViewModel.Properties.cs" />
+    <Compile Include="Community\CommentMainModuleViewModel\CommentMainModuleViewModel.cs" />
+    <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
+    <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Commands.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Controls.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Live.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Episode.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Method.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Properties.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.cs" />
+    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Video.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Methods.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Properties.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Request.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Reset.cs" />
+    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.cs" />
+    <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
+    <Compile Include="Pgc\PgcExtraItemViewModel.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Exception.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Initialize.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Methods.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Properties.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Request.cs" />
+    <Compile Include="Pgc\PgcPlayerPageViewModel\PgcPlayerPageViewModel.Reset.cs" />
+    <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderDetailViewModel\VideoFavoriteFolderDetailViewModel.Properties.cs" />
+    <Compile Include="Video\VideoFavoriteFolderSelectableViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderGroupViewModel\VideoFavoriteFolderGroupViewModel.Properties.cs" />
+    <Compile Include="Video\VideoFavoriteFolderViewModel\VideoFavoriteFolderViewModel.cs" />
+    <Compile Include="Video\VideoFavoriteFolderViewModel\VideoFavoriteFolderViewModel.Properties.cs" />
+    <Compile Include="Account\FavoritePageViewModel\FavoritePageViewModel.cs" />
+    <Compile Include="Account\FavoritePageViewModel\FavoritePageViewModel.Properties.cs" />
+    <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.cs" />
+    <Compile Include="Account\HistoryPageViewModel\HistoryPageViewModel.Properties.cs" />
+    <Compile Include="Account\MyFollowsPageViewModel\MyFollowsPageViewModel.cs" />
+    <Compile Include="Account\MyFollowsPageViewModel\MyFollowsPageViewModel.Properties.cs" />
+    <Compile Include="Account\UserItemViewModel\UserItemViewModel.cs" />
+    <Compile Include="Account\UserItemViewModel\UserItemViewModel.Properties.cs" />
+    <Compile Include="Account\UserSpaceViewModel\UserSpaceViewModel.cs" />
+    <Compile Include="Account\UserSpaceViewModel\UserSpaceViewModel.Properties.cs" />
+    <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.cs" />
+    <Compile Include="Account\ViewLaterPageViewModel\ViewLaterPageViewModel.Properties.cs" />
+    <Compile Include="Base\RelationPageViewModelBase\RelationPageViewModelBase.cs" />
+    <Compile Include="Base\RelationPageViewModelBase\RelationPageViewModelBase.Properties.cs" />
+    <Compile Include="Community\FansPageViewModel.cs" />
+    <Compile Include="Community\FollowsPageViewModel.cs" />
+    <Compile Include="Community\MessageHeaderViewModel.cs" />
+    <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.Properties.cs" />
+    <Compile Include="Community\MessageItemViewModel\MessageItemViewModel.cs" />
+    <Compile Include="Community\MessagePageViewModel\MessagePageViewModel.cs" />
+    <Compile Include="Community\MessagePageViewModel\MessagePageViewModel.Properties.cs" />
+    <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.cs" />
+    <Compile Include="Article\ArticleItemViewModel\ArticleItemViewModel.Properties.cs" />
+    <Compile Include="Article\ArticlePartitionPageViewModel\ArticlePartitionPageViewModel.cs" />
+    <Compile Include="Article\ArticlePartitionPageViewModel\ArticlePartitionPageViewModel.Properties.cs" />
+    <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.Properties.cs" />
+    <Compile Include="Base\AnimePageViewModelBase\AnimePageViewModelBase.cs" />
+    <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.cs" />
+    <Compile Include="Base\InformationFlowViewModelBase\InformationFlowViewModelBase.Properties.cs" />
+    <Compile Include="Base\PgcPageViewModelBase\PgcPageViewModelBase.cs" />
+    <Compile Include="Base\PgcPageViewModelBase\PgcPageViewModelBase.Properties.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.Command.cs" />
     <Compile Include="Common\CommandLineViewModel.cs" />
-    <Compile Include="Common\LiveAppPlayLineViewModel.cs" />
-    <Compile Include="Common\LiveAppQualityViewModel.cs" />
-    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.cs" />
-    <Compile Include="Live\LiveAreaViewModel\LiveAreaViewModel.Properties.cs" />
-    <Compile Include="Account\MyFollowingViewModel.cs" />
+    <Compile Include="Core\NavigationViewModel\NavigationViewModel.cs" />
+    <Compile Include="Core\NavigationViewModel\NavigationViewModel.Properties.cs" />
+    <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.cs" />
+    <Compile Include="Live\LivePartitionDetailPageViewModel\LivePartitionDetailPageViewModel.Properties.cs" />
+    <Compile Include="Pgc\BangumiPageViewModel.cs" />
+    <Compile Include="Pgc\DomesticPageViewModel.cs" />
+    <Compile Include="Pgc\IndexFilterViewModel.cs" />
+    <Compile Include="Pgc\IndexPageViewModel\IndexPageViewModel.cs" />
+    <Compile Include="Pgc\IndexPageViewModel\IndexPageViewModel.Properties.cs" />
+    <Compile Include="Pgc\MoviePageViewModel.cs" />
+    <Compile Include="Pgc\PgcPlaylistViewModel\PgcPlaylistViewModel.cs" />
+    <Compile Include="Pgc\PgcPlaylistViewModel\PgcPlaylistViewModel.Properties.cs" />
+    <Compile Include="Pgc\PgcRankViewModel.cs" />
+    <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.cs" />
+    <Compile Include="Pgc\SeasonItemViewModel\SeasonItemViewModel.Properties.cs" />
+    <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.cs" />
+    <Compile Include="Pgc\TimelinePageViewModel\TimelinePageViewModel.Properties.cs" />
+    <Compile Include="Pgc\TvPageViewModel.cs" />
+    <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.cs" />
+    <Compile Include="Search\SearchBoxViewModel\SearchBoxViewModel.Properties.cs" />
+    <Compile Include="Search\SearchFilterViewModel.cs" />
+    <Compile Include="Search\SearchModuleItemViewModel.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Filters.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Properties.cs" />
+    <Compile Include="Search\SearchPageViewModel\SearchPageViewModel.Request.cs" />
+    <Compile Include="Video\VideoFavoriteModuleViewModel\VideoFavoriteModuleViewModel.Properties.cs" />
+    <Compile Include="Video\VideoIdentifierSelectableViewModel.cs" />
+    <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.cs" />
+    <Compile Include="Video\VideoPartitionDetailPageViewModel\VideoPartitionDetailPageViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.cs" />
+    <Compile Include="Video\VideoPartitionPageViewModel\VideoPartitionPageViewModel.Properties.cs" />
+    <Compile Include="Home\RankPageViewModel\RankPageViewModel.cs" />
+    <Compile Include="Home\RankPageViewModel\RankPageViewModel.Properties.cs" />
+    <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.cs" />
+    <Compile Include="Live\LiveFeedPageViewModel\LiveFeedPageViewModel.Properties.cs" />
+    <Compile Include="Live\LiveItemViewModel\LiveItemViewModel.cs" />
+    <Compile Include="Live\LiveItemViewModel\LiveItemViewModel.Properties.cs" />
+    <Compile Include="Live\LivePartitionPageViewModel\LivePartitionPageViewModel.cs" />
+    <Compile Include="Live\LivePartitionPageViewModel\LivePartitionPageViewModel.Properties.cs" />
+    <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.Properties.cs" />
+    <Compile Include="Pgc\EpisodeItemViewModel\EpisodeItemViewModel.cs" />
     <Compile Include="Toolbox\CoverDownloaderViewModel.cs" />
     <Compile Include="Toolbox\AvBvConverterViewModel.cs" />
     <Compile Include="Base\SelectableViewModelBase{T}.cs" />
-    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.cs" />
-    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Methods.cs" />
-    <Compile Include="Common\DanmakuViewModel\DanmakuViewModel.Properties.cs" />
+    <Compile Include="Common\DanmakuModuleViewModel\DanmakuModuleViewModel.cs" />
+    <Compile Include="Common\DanmakuModuleViewModel\DanmakuModuleViewModel.Methods.cs" />
+    <Compile Include="Common\DanmakuModuleViewModel\DanmakuModuleViewModel.Properties.cs" />
     <Compile Include="Common\FavoriteMetaViewModel.cs" />
-    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.cs" />
-    <Compile Include="Account\FavoriteViewModel\FavoriteViewModel.Properties.cs" />
-    <Compile Include="Account\FavoriteVideoFolderViewModel.cs" />
-    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.cs" />
-    <Compile Include="Account\FavoriteVideoViewModel\FavoriteVideoViewModel.Properties.cs" />
-    <Compile Include="Base\PgcFavoriteViewModelBase\PgcFavoriteViewModelBase.cs" />
-    <Compile Include="Base\PgcFavoriteViewModelBase\PgcFavoriteViewModelBase.Properties.cs" />
-    <Compile Include="Account\FavoriteCinemaViewModel.cs" />
-    <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.cs" />
-    <Compile Include="Account\FavoriteArticleViewModel\FavoriteArticleViewModel.Properties.cs" />
-    <Compile Include="Account\FavoriteListDetailViewModel.cs" />
-    <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.cs" />
-    <Compile Include="Account\DynamicModuleViewModel\DynamicModuleViewModel.Properties.cs" />
-    <Compile Include="Common\HelpViewModel\HelpViewModel.cs" />
-    <Compile Include="Common\HelpViewModel\HelpViewModel.Properties.cs" />
-    <Compile Include="Common\DownloadViewModel.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Subtitle.cs" />
-    <Compile Include="IDeltaRequestViewModel.cs" />
-    <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.cs" />
-    <Compile Include="Account\MessageModuleViewModel\MessageModuleViewModel.Properties.cs" />
+    <Compile Include="Base\PgcFavoriteModuleViewModelBase\PgcFavoriteModuleViewModelBase.cs" />
+    <Compile Include="Base\PgcFavoriteModuleViewModelBase\PgcFavoriteModuleViewModelBase.Properties.cs" />
+    <Compile Include="Pgc\CinemaFavoriteModuleViewModel.cs" />
+    <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.cs" />
+    <Compile Include="Article\ArticleFavoriteModuleViewModel\ArticleFavoriteModuleViewModel.Properties.cs" />
+    <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.cs" />
+    <Compile Include="Home\HelpPageViewModel\HelpPageViewModel.Properties.cs" />
+    <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
-    <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.cs" />
-    <Compile Include="Pgc\PgcPlayListViewModel\PgcPlayListViewModel.Properties.cs" />
-    <Compile Include="Pgc\PgcEpisodeViewModel.cs" />
-    <Compile Include="Pgc\PgcSectionViewModel.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Dash.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Interaction.cs" />
-    <Compile Include="Pgc\PgcSeasonViewModel.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Live.cs" />
-    <Compile Include="Account\UserViewModel\UserViewModel.cs" />
-    <Compile Include="Account\UserViewModel\UserViewModel.Properties.cs" />
-    <Compile Include="Account\HistoryViewModel\HistoryViewModel.cs" />
-    <Compile Include="Account\HistoryViewModel\HistoryViewModel.Properties.cs" />
-    <Compile Include="Common\HistoryTabViewModel.cs" />
-    <Compile Include="Account\FansViewModel.cs" />
-    <Compile Include="Account\FollowsViewModel.cs" />
-    <Compile Include="Pgc\PgcTimeLineItemViewModel.cs" />
-    <Compile Include="Pgc\PgcViewModelBase.cs" />
-    <Compile Include="Pgc\PgcConditionViewModel.cs" />
-    <Compile Include="Pgc\DocumentaryViewModel.cs" />
-    <Compile Include="Base\FeedPgcViewModelBase\FeedPgcViewModelBase.cs" />
-    <Compile Include="Base\FeedPgcViewModelBase\FeedPgcViewModelBase.Properties.cs" />
-    <Compile Include="Pgc\MovieViewModel.cs" />
-    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.cs" />
-    <Compile Include="Pgc\PgcTabViewModel\PgcTabViewModel.Properties.cs" />
-    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.Properties.cs" />
-    <Compile Include="Base\AnimeViewModelBase\AnimeViewModelBase.cs" />
-    <Compile Include="Base\AnimeViewModelBase\AnimeViewModelBase.Properties.cs" />
-    <Compile Include="Pgc\BangumiViewModel.cs" />
-    <Compile Include="Common\AppViewModel\AppViewModel.Threshold.cs" />
-    <Compile Include="Pgc\DomesticViewModel.cs" />
-    <Compile Include="Pgc\PgcModuleViewModel\PgcModuleViewModel.cs" />
-    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.cs" />
-    <Compile Include="Pgc\SeasonViewModel\SeasonViewModel.Properties.cs" />
-    <Compile Include="Pgc\TvViewModel.cs" />
-    <Compile Include="Common\SettingViewModel\SettingViewModel.cs" />
-    <Compile Include="Common\SettingViewModel\SettingViewModel.Methods.cs" />
-    <Compile Include="Common\SettingViewModel\SettingViewModel.Properties.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Methods.cs" />
-    <Compile Include="Common\PlayerViewModel\PlayerViewModel.Properties.cs" />
-    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.cs" />
-    <Compile Include="Home\SearchViewModel\SearchModuleViewModel\SearchModuleViewModel.Properties.cs" />
-    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.cs" />
-    <Compile Include="Home\SearchViewModel\SearchSubModuleViewModel\SearchSubModuleViewModel.Properties.cs" />
-    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.cs" />
-    <Compile Include="Account\RelatedUserViewModel\RelatedUserViewModel.Properties.cs" />
-    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.cs" />
-    <Compile Include="Common\ReplyModuleViewModel\ReplyModuleViewModel.Properties.cs" />
-    <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.cs" />
-    <Compile Include="Common\ReplyDetailViewModel\ReplyDetailViewModel.Properties.cs" />
-    <Compile Include="Base\ReplyViewModelBase.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnCategoryViewModel\SpecialColumnCategoryViewModel.Properties.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.cs" />
-    <Compile Include="SpecialColumn\SpecialColumnModuleViewModel\SpecialColumnModuleViewModel.Properties.cs" />
-    <Compile Include="SpecialColumn\ArticleViewModel\ArticleViewModel.cs" />
-    <Compile Include="SpecialColumn\ArticleViewModel\ArticleViewModel.Properties.cs" />
-    <Compile Include="Common\AppViewModel\AppViewModel.cs" />
-    <Compile Include="Common\AppViewModel\AppViewModel.Properties.cs" />
+    <Compile Include="Pgc\DocumentaryPageViewModel.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
+    <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.cs" />
+    <Compile Include="Core\AppViewModel\AppViewModel.Properties.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.cs" />
     <Compile Include="Common\BannerViewModel\BannerViewModel.Properties.cs" />
-    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.cs" />
-    <Compile Include="Live\LiveModuleViewModel\LiveModuleViewModel.Properties.cs" />
-    <Compile Include="Home\PopularViewModel\PopularViewModel.cs" />
-    <Compile Include="Home\PopularViewModel\PopularViewModel.Properties.cs" />
-    <Compile Include="Home\RecommendViewModel\RecommendViewModel.cs" />
-    <Compile Include="Home\RecommendViewModel\RecommendViewModel.Properties.cs" />
-    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.cs" />
-    <Compile Include="Partition\PartitionModuleViewModel\PartitionModuleViewModel.Properties.cs" />
-    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.cs" />
-    <Compile Include="Partition\PartitionViewModel\PartitionViewModel.Properties.cs" />
-    <Compile Include="Home\RankViewModel\RankViewModel.cs" />
-    <Compile Include="Home\RankViewModel\RankViewModel.Properties.cs" />
-    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.cs" />
-    <Compile Include="Partition\SubPartitionViewModel\SubPartitionViewModel.Properties.cs" />
+    <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.cs" />
+    <Compile Include="Home\PopularPageViewModel\PopularPageViewModel.Properties.cs" />
+    <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.cs" />
+    <Compile Include="Home\RecommendPageViewModel\RecommendPageViewModel.Properties.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.cs" />
     <Compile Include="Account\AccountViewModel\AccountViewModel.Properties.cs" />
-    <Compile Include="Common\VideoViewModel\VideoViewModel.cs" />
-    <Compile Include="Common\VideoViewModel\VideoViewModel.Properties.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Base\WebRequestViewModelBase.cs" />
-    <Compile Include="Common\VideoPartViewModel.cs" />
-    <Compile Include="Common\VideoFormatViewModel.cs" />
-    <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.cs" />
-    <Compile Include="Account\ViewLaterViewModel\ViewLaterViewModel.Properties.cs" />
-    <Compile Include="Common\SubtitleIndexItemViewModel.cs" />
-    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
-    <Compile Include="Toolbox\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
+    <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.cs" />
+    <Compile Include="Home\ToolboxPageViewModel\ToolboxPageViewModel.Properties.cs" />
     <Compile Include="Toolbox\ToolboxItemViewModel.cs" />
+    <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.cs" />
+    <Compile Include="Video\VideoItemViewModel\VideoItemViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Exception.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Initialize.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Methods.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Properties.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Request.cs" />
+    <Compile Include="Video\VideoPlayerPageViewModel\VideoPlayerPageViewModel.Reset.cs" />
     <Content Include="Properties\ViewModels.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser">
-      <Version>2.8.0</Version>
+      <Version>2.9.1</Version>
     </PackageReference>
     <PackageReference Include="FFmpegInteropX">
-      <Version>0.9.4</Version>
+      <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="Humanizer.Core.zh-CN">
       <Version>2.14.1</Version>
@@ -154,69 +205,73 @@
       <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>17.1.50</Version>
+      <Version>18.1.8</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>17.1.50</Version>
+      <Version>18.1.8</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Uwp">
-      <Version>17.1.50</Version>
+      <Version>18.1.8</Version>
+    </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>14.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Splat.DependencyInjection.SourceGenerator">
+      <Version>1.1.33</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="ToolGood.Words">
       <Version>3.0.3.1</Version>
     </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Controller\Controller.Uwp\Controller.Uwp.csproj">
-      <Project>{5213e830-43f5-491e-a8ef-d75083578ef3}</Project>
-      <Name>Controller.Uwp</Name>
+    <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj">
+      <Project>{3046F10C-456E-43D3-8F13-3855EE2D9344}</Project>
+      <Name>Adapter.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj">
-      <Project>{cae9b987-6db2-42a8-b3f2-3bb700cc4dd8}</Project>
+      <Project>{83dd339b-ea58-4380-8994-02fa6708cc7a}</Project>
       <Name>Lib.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Lib.Uwp\Lib.Uwp.csproj">
-      <Project>{c8ab398f-10c2-4b97-87f0-f09b922947d6}</Project>
-      <Name>Lib.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj">
       <Project>{9E61CC56-43F9-489C-AAAF-BD5EC69367C4}</Project>
       <Name>Models.App</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Models\Models.BiliBili\Models.BiliBili.csproj">
-      <Project>{8776a0bd-dbd1-4f11-a022-400d044ff618}</Project>
-      <Name>Models.BiliBili</Name>
+    <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj">
+      <Project>{C4DBF0B2-C71A-4528-BF15-B0A7A25B2510}</Project>
+      <Name>Models.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj">
       <Project>{88314412-B020-415B-AEAB-57ADC43B273E}</Project>
       <Name>Models.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj">
-      <Project>{0187840f-8d1a-4198-b5bf-8b05cadb4554}</Project>
-      <Name>Models.gRPC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Locator\Locator.Uwp\Locator.Uwp.csproj">
-      <Project>{793EC923-D704-4C6F-9506-EB6A32BFBB8D}</Project>
-      <Name>Locator.Uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj">
       <Project>{CA4FE39C-2379-4966-9940-DE738D94E982}</Project>
       <Name>Toolkit.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
-      <Project>{07B6D3B7-0AC0-489B-BF27-588AB6226B1C}</Project>
-      <Name>Toolkit.Uwp</Name>
+    <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
+      <Project>{cd9930dc-36a8-45fc-8824-c8b3fa873fad}</Project>
+      <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

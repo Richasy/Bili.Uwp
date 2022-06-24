@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 初始化检查设置.
@@ -11,8 +11,7 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="InitialCheckSection"/> class.
         /// </summary>
         public InitialCheckSection()
-        {
-            InitializeComponent();
-        }
+            : base()
+            => InitializeComponent();
     }
 }

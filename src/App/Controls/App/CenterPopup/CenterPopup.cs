@@ -1,25 +1,30 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.App.Pages;
-using Windows.UI.Core;
+using Bili.App.Pages.Desktop;
+using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 居中显示的浮出层.
     /// </summary>
     public partial class CenterPopup : ContentControl
     {
+        private readonly NavigationViewModel _navigationViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CenterPopup"/> class.
         /// </summary>
         public CenterPopup()
         {
             DefaultStyleKey = typeof(CenterPopup);
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>
@@ -27,8 +32,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void Show()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequest;
-            ((Window.Current.Content as Frame).Content as RootPage).ShowOnHolder(this);
+            RootPage.Current.ShowOnHolder(this);
         }
 
         /// <summary>
@@ -36,8 +40,7 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void Hide()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequest;
-            ((Window.Current.Content as Frame).Content as RootPage).RemoveFromHolder(this);
+            _navigationViewModel.BackCommand.Execute().Subscribe();
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
@@ -63,15 +66,6 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private void OnBackRequest(object sender, BackRequestedEventArgs e)
-        {
-            e.Handled = true;
-            Hide();
-        }
-
-        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Hide();
     }
 }

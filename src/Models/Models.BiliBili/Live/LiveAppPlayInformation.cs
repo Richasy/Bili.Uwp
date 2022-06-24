@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.BiliBili
+namespace Bili.Models.BiliBili
 {
     /// <summary>
     /// 直播播放信息.
@@ -118,7 +118,7 @@ namespace Richasy.Bili.Models.BiliBili
         public string ProtocolName { get; set; }
 
         /// <summary>
-        /// 分区Id.
+        /// 格式列表.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "format", Required = Required.Default)]
         public List<LiveAppPlayFormat> FormatList { get; set; }

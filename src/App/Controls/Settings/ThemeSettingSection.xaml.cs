@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
-using Richasy.Bili.Models.App.Constants;
+using Bili.Models.App.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 主题设置.
@@ -16,6 +16,7 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="ThemeSettingSection"/> class.
         /// </summary>
         public ThemeSettingSection()
+            : base()
         {
             InitializeComponent();
             Loaded += OnLoaded;

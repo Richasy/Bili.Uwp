@@ -2,7 +2,7 @@
 
 using Windows.UI.Composition;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 视觉扩展.

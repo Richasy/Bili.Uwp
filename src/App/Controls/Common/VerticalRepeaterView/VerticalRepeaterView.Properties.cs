@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 视频视图.
@@ -33,7 +33,7 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ItemTemplate"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(VerticalRepeaterView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(object), typeof(VerticalRepeaterView), new PropertyMetadata(null));
 
         /// <summary>
         /// <see cref="AdditionalContent"/>的依赖属性.
@@ -88,10 +88,13 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public event EventHandler RequestLoadMore;
 
+        /// <inheritdoc/>
+        public event EventHandler IncrementalTriggered;
+
         /// <summary>
         /// 条目模板.
         /// </summary>
-        public DataTemplate ItemTemplate
+        public object ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }

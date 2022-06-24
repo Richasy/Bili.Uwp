@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.Models.App.Other;
-using Richasy.Bili.ViewModels.Uwp.Common;
+using Bili.Models.Data.Local;
+using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls.Danmaku
 {
     /// <summary>
     /// 弹幕发送设置.
@@ -16,40 +16,21 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的视图模型.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuViewModel), typeof(DanmakuSendOptions), new PropertyMetadata(DanmakuViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuModuleViewModel), typeof(DanmakuSendOptions), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuSendOptions"/> class.
         /// </summary>
         public DanmakuSendOptions()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DanmakuViewModel ViewModel
+        public DanmakuModuleViewModel ViewModel
         {
-            get { return (DanmakuViewModel)GetValue(ViewModelProperty); }
+            get { return (DanmakuModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
-        }
-
-        /// <summary>
-        /// 初始化.
-        /// </summary>
-        public void Initialize()
-        {
-            if (ViewModel.IsStandardSize)
-            {
-                StandardItem.IsChecked = true;
-                SmallItem.IsChecked = false;
-            }
-            else
-            {
-                StandardItem.IsChecked = false;
-                SmallItem.IsChecked = true;
-            }
         }
 
         private void OnColorItemClick(object sender, RoutedEventArgs e)
@@ -57,5 +38,8 @@ namespace Richasy.Bili.App.Controls
             var item = (sender as FrameworkElement).DataContext as KeyValue<string>;
             ViewModel.Color = item.Value;
         }
+
+        private void OnSizeItemClick(object sender, RoutedEventArgs e)
+            => ViewModel.IsStandardSize = !ViewModel.IsStandardSize;
     }
 }

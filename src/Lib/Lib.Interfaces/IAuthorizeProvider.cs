@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Richasy.Bili.Models.App.Args;
-using Richasy.Bili.Models.Enums;
+using Bili.Models.App.Args;
+using Bili.Models.Enums;
 
-namespace Richasy.Bili.Lib.Interfaces
+namespace Bili.Lib.Interfaces
 {
     /// <summary>
     /// 授权验证模块.
@@ -22,6 +22,11 @@ namespace Richasy.Bili.Lib.Interfaces
         /// 当前的授权状态.
         /// </summary>
         AuthorizeState State { get; }
+
+        /// <summary>
+        /// 当前已登录的用户Id.
+        /// </summary>
+        string CurrentUserId { get; }
 
         /// <summary>
         /// 获取包含授权码的查询字符串.

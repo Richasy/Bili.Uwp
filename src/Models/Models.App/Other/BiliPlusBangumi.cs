@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Richasy.Bili.Models.App
+namespace Bili.Models.App
 {
     /// <summary>
     /// Bili Plus 返回的动漫信息.

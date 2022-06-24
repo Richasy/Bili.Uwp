@@ -1,13 +1,13 @@
-﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.QuestionPanel"
+﻿<local:QuestionPanelBase
+    x:Class="Bili.App.Controls.QuestionPanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:other="using:Richasy.Bili.Models.App.Other"
+    xmlns:other="using:Bili.Models.App.Other"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -36,7 +36,7 @@
                 IsBackButtonVisible="Collapsed"
                 IsPaneToggleButtonVisible="False"
                 IsSettingsVisible="False"
-                MenuItemsSource="{x:Bind ViewModel.QuestionCollection, Mode=OneWay}"
+                MenuItemsSource="{x:Bind ViewModel.QuestionCollection}"
                 PaneDisplayMode="Top"
                 SelectedItem="{x:Bind ViewModel.CurrentQuestionModule, Mode=TwoWay}">
                 <muxc:NavigationView.MenuItemTemplate>
@@ -88,4 +88,4 @@
             </muxc:NavigationView>
         </Grid>
     </local:CardPanel>
-</UserControl>
+</local:QuestionPanelBase>

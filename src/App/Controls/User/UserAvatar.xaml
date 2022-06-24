@@ -1,9 +1,9 @@
 ﻿<UserControl
-    x:Class="Richasy.Bili.App.Controls.UserAvatar"
+    x:Class="Bili.App.Controls.UserAvatar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
@@ -17,7 +17,8 @@
         Padding="0"
         Background="Transparent"
         BorderThickness="0"
-        Click="OnClick">
+        Click="OnClick"
+        Command="{x:Bind Command, Mode=OneWay}">
         <Button.Resources>
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent" />
             <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent" />
@@ -29,7 +30,7 @@
             Height="{x:Bind Height, Mode=OneWay}"
             BorderBrush="{x:Bind BorderBrush, Mode=OneWay}"
             BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
-            CornerRadius="25"
+            CornerRadius="{x:Bind AvatarRadius, Mode=OneWay}"
             DecodePixelWidth="{x:Bind DecodeSize, Mode=OneWay}"
             ImageUrl="{x:Bind Avatar, Mode=OneWay}"
             PlaceholderSource="/Assets/not_login.png"

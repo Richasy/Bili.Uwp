@@ -1,14 +1,14 @@
 ﻿<local:SettingSectionControl
-    x:Class="Richasy.Bili.App.Controls.PlayerControlSettingSection"
+    x:Class="Bili.App.Controls.PlayerControlSettingSection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:Richasy.Bili.App.Resources.Converter"
+    xmlns:converter="using:Bili.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enums="using:Richasy.Bili.Models.Enums"
+    xmlns:enums="using:Bili.Models.Enums"
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
@@ -23,7 +23,7 @@
         <exp:ExpanderEx.Header>
             <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
                 <exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExDescriptor Title="{loc:LocaleLocator Name=PlayerControl}" Description="{loc:LocaleLocator Name=PlayerControlDescription}">
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=PlayerControl}" Description="{loc:Locale Name=PlayerControlDescription}">
                         <exp:ExpanderExDescriptor.Icon>
                             <icons:RegularFluentIcon Symbol="VideoPlayPause24" />
                         </exp:ExpanderExDescriptor.Icon>
@@ -33,56 +33,12 @@
         </exp:ExpanderEx.Header>
         <exp:ExpanderEx.Content>
             <exp:ExpanderExMenuPanel>
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PreferHighQuality}"
-                            Description="{loc:LocaleLocator Name=PreferHighQualityDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPreferHighQuality, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=DisableP2PCdn}"
-                            Description="{loc:LocaleLocator Name=DisableP2PCdnDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.DisableP2PCdn, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
-
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=ContinuousPlay}"
-                            Description="{loc:LocaleLocator Name=ContinuousPlayDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsContinusPlay, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
-
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PreferCodec}"
-                            Description="{loc:LocaleLocator Name=PreferCodecDescription}"
+                            Title="{loc:Locale Name=PreferCodec}"
+                            Description="{loc:Locale Name=PreferCodecDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -105,8 +61,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=SingleFastForwardAndRewindSpan}"
-                            Description="{loc:LocaleLocator Name=SingleFastForwardAndRewindSpanDescription}"
+                            Title="{loc:Locale Name=SingleFastForwardAndRewindSpan}"
+                            Description="{loc:Locale Name=SingleFastForwardAndRewindSpanDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -127,8 +83,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=PlaybackRateEnhancement}"
-                            Description="{loc:LocaleLocator Name=PlaybackRateEnhancementDescription}"
+                            Title="{loc:Locale Name=PlaybackRateEnhancement}"
+                            Description="{loc:Locale Name=PlaybackRateEnhancementDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>
@@ -142,8 +98,8 @@
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
-                            Title="{loc:LocaleLocator Name=GlobalPlaybackRate}"
-                            Description="{loc:LocaleLocator Name=GlobalPlaybackRateDescription}"
+                            Title="{loc:Locale Name=GlobalPlaybackRate}"
+                            Description="{loc:Locale Name=GlobalPlaybackRateDescription}"
                             IconVisibility="Collapsed"
                             IsAutoHideIcon="False" />
                     </exp:ExpanderExWrapper.MainContent>

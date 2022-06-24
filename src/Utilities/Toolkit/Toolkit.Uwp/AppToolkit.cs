@@ -1,16 +1,18 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Globalization;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
+using System.Text.RegularExpressions;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.Toolkit.Uwp
+namespace Bili.Toolkit.Uwp
 {
     /// <summary>
     /// Application Toolkit.
@@ -23,10 +25,11 @@ namespace Richasy.Bili.Toolkit.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AppToolkit"/> class.
         /// </summary>
-        public AppToolkit()
+        public AppToolkit(
+            ISettingsToolkit settingsToolkit)
         {
             _app = Application.Current;
-            ServiceLocator.Instance.LoadService(out _settingsToolkit);
+            _settingsToolkit = settingsToolkit;
         }
 
         /// <inheritdoc/>
@@ -104,6 +107,48 @@ namespace Richasy.Bili.Toolkit.Uwp
             }
 
             return this;
+        }
+
+        /// <inheritdoc/>
+        public Tuple<string, string> GetProxyAndArea(string title, bool isVideo)
+        {
+            var proxy = string.Empty;
+            var area = string.Empty;
+
+            var isOpenRoaming = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false);
+            var localProxy = isVideo
+                ? _settingsToolkit.ReadLocalSetting(SettingNames.RoamingVideoAddress, string.Empty)
+                : _settingsToolkit.ReadLocalSetting(SettingNames.RoamingViewAddress, string.Empty);
+            if (isOpenRoaming && !string.IsNullOrEmpty(localProxy))
+            {
+                if (!string.IsNullOrEmpty(title))
+                {
+                    if (Regex.IsMatch(title, @"僅.*港.*地區"))
+                    {
+                        area = "hk";
+                    }
+                    else if (Regex.IsMatch(title, @"僅.*台.*地區"))
+                    {
+                        area = "tw";
+                    }
+                }
+
+                var isForceProxy = _settingsToolkit.ReadLocalSetting(SettingNames.IsGlobeProxy, false);
+                if ((isForceProxy && string.IsNullOrEmpty(area))
+                    || !string.IsNullOrEmpty(area))
+                {
+                    proxy = localProxy;
+                }
+            }
+
+            return new Tuple<string, string>(proxy, area);
+        }
+
+        /// <inheritdoc/>
+        public string GetPackageVersion()
+        {
+            var appVersion = Package.Current.Id.Version;
+            return $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
         }
     }
 }

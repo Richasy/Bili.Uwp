@@ -2,7 +2,7 @@
 
 using Windows.Foundation;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 用于ItemsRepeater的条目.

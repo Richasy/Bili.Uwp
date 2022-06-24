@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums
+namespace Bili.Models.Enums
 {
     /// <summary>
     /// Localized text resource name.
@@ -506,6 +506,26 @@ namespace Richasy.Bili.Models.Enums
         StartQuickPlay,
         PublishDate,
         InfinityLoop,
+        TrackCount,
+        NeedLoginFirst,
+        TimelineHasNoVideo,
+        RemoveViewLaterFailed,
+        FollowEachOther,
+        Settings,
+        FailedToRemoveVideoFromFavorite,
+        FavoriteFailed,
+        CoinFailed,
+        ExitFullScreen,
+        EnterFullScreen,
+        ExitFullWindow,
+        EnterFullWindow,
+        ExitCompactOverlay,
+        EnterCompactOverlay,
+        FailedToSendDanmaku,
+        PlayNextPart,
+        Playlist,
+        CoinNumberTip,
+        FlvNotSupported,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

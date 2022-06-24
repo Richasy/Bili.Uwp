@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 启动项设置.
@@ -11,8 +11,6 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="StartupSettingSection"/> class.
         /// </summary>
         public StartupSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

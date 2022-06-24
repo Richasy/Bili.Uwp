@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器控制设置区块.
@@ -11,8 +11,6 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="PlayerControlSettingSection"/> class.
         /// </summary>
         public PlayerControlSettingSection()
-        {
-            InitializeComponent();
-        }
+            : base() => InitializeComponent();
     }
 }

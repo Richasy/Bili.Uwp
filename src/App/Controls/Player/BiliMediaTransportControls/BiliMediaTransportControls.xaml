@@ -1,0 +1,852 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:danmaku="using:Bili.App.Controls.Danmaku"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls.Player"
+    xmlns:playercontrols="using:Bili.App.Controls.Player.PlayerControls"
+    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
+
+    <Style
+        x:Key="PlayerButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="AllowFocusOnInteraction" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="HiddenButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="1" />
+        <Setter Property="Height" Value="1" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabFocusNavigation" Value="Once" />
+        <Setter Property="TabNavigation" Value="Once" />
+        <Setter Property="XYFocusKeyboardNavigation" Value="Disabled" />
+        <Setter Property="AutomationProperties.AccessibilityView" Value="Raw" />
+    </Style>
+
+    <Style
+        x:Key="PlayerFlyoutStyle"
+        BasedOn="{StaticResource DefaultFlyoutPresenterStyle}"
+        TargetType="FlyoutPresenter">
+        <Setter Property="Background" Value="{ThemeResource MediaTransportControlsFlyoutBackground}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+    </Style>
+
+    <Style TargetType="local:BiliMediaTransportControls">
+        <Setter Property="Background" Value="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
+        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+        <Setter Property="IsTextScaleFactorEnabled" Value="False" />
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliMediaTransportControls">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PlayPauseStateGroup">
+                                <VisualState x:Name="PlayingState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Collapsed" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PauseState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Visible" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DisplayModeGroup">
+                                <VisualState x:Name="NormalState" />
+                                <VisualState x:Name="FullScreenState">
+                                    <VisualState.Setters>
+                                        <Setter Target="EnterFullScreenIcon.Visibility" Value="Collapsed" />
+                                        <Setter Target="ExitFullScreenIcon.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ControlPanelVisibilityGroup">
+                                <VisualState x:Name="ControlPanelFadeInState">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Auto" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TranslateVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="50"
+                                            To="0.5"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ControlPanelFadeOutState">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="8" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TranslateVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="0.5"
+                                            To="50"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <!-- 用来放置隐藏按钮的容器，按钮被隐藏是因为只想用它的快捷键绑定，而不想让用户与这个按钮交互 -->
+                        <Grid x:Name="HiddenControlsContainer">
+                            <Button
+                                x:Name="IncreasePlayRateButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IncreasePlayRateCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F1" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="DecreasePlayRateButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DecreasePlayRateCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F2" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="IncreaseVolumeButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IncreaseVolumeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Up" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="DecreaseVolumeButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DecreaseVolumeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Down" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="IncreaseProgressButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Right" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenMiniViewButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="M"
+                                        IsEnabled="True"
+                                        Modifiers="Control" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenFullWindowButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullWindowCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F10" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenFullScreenButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F11" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenScreenshotButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="S"
+                                        IsEnabled="True"
+                                        Modifiers="Shift" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="BackToDefaultButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToDefaultModeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                        </Grid>
+                        <Grid
+                            x:Name="ControlPanel"
+                            Padding="12,12,12,4"
+                            Background="{TemplateBinding Background}"
+                            ColumnSpacing="12"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            RowSpacing="8">
+                            <Grid.RenderTransform>
+                                <TranslateTransform x:Name="TranslateVertical" />
+                            </Grid.RenderTransform>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!-- 播放按钮及快进按钮 -->
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    x:Name="PlayPauseButton"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
+                                    <Grid>
+                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
+                                        <uwp:RegularFluentIcon
+                                            x:Name="PauseSymbol"
+                                            Symbol="Pause16"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    x:Name="BackToStartButton"
+                                    AutomationProperties.Name="{loc:Locale Name=BackToStart}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToInteractionVideoStartCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=BackToStart}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionEnd}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="EraserMedium24" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    x:Name="ForwardSkipButton"
+                                    AutomationProperties.Name="{loc:Locale Name=ForwardSkip}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=ForwardSkip}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="SkipForward3020" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    x:Name="PlayNextButton"
+                                    AutomationProperties.Name="{loc:Locale Name=PlayNextPart}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayNextCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlayNextPart}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanPlayNextPart}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="Next20" />
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+
+                            <Grid
+                                x:Name="NormalProgressContainer"
+                                Grid.Column="1"
+                                Background="{ThemeResource TransparentBackground}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                <StackPanel
+                                    Margin="0,-8,0,0"
+                                    VerticalAlignment="Center"
+                                    Spacing="4">
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
+                                        <Run Text="/" />
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                                    </TextBlock>
+                                    <controls:ProgressBar
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
+                                        ShowError="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}"
+                                        ShowPaused="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsMediaPause}"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
+                                        <controls:ProgressBar.Resources>
+                                            <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
+                                            <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
+                                            <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
+                                        </controls:ProgressBar.Resources>
+                                    </controls:ProgressBar>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid
+                                x:Name="InteractionProgressContainer"
+                                Grid.Column="1"
+                                Background="{ThemeResource TransparentBackground}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress}">
+                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressText}" />
+                                        <Run Text="/" />
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="InteractionProgressSlider"
+                                        Margin="0,-4"
+                                        HorizontalAlignment="Stretch"
+                                        IsThumbToolTipEnabled="False" />
+                                </StackPanel>
+                            </Grid>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button
+                                    x:Name="VolumeButton"
+                                    AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
+                                    <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                    <Button.Flyout>
+                                        <Flyout>
+                                            <Flyout.FlyoutPresenterStyle>
+                                                <Style BasedOn="{StaticResource PlayerFlyoutStyle}" TargetType="FlyoutPresenter">
+                                                    <Setter Property="Padding" Value="12,8" />
+                                                </Style>
+                                            </Flyout.FlyoutPresenterStyle>
+                                            <StackPanel>
+                                                <TextBlock
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{loc:Locale Name=CurrentVolume}" />
+                                                <Slider
+                                                    x:Name="VolumeSlider"
+                                                    Width="200"
+                                                    IsThumbToolTipEnabled="True"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    StepFrequency="1"
+                                                    TickFrequency="1"
+                                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Volume, Mode=TwoWay}" />
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    AutomationProperties.Name="{loc:Locale Name=PlaybackRate}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=PlaybackRate}">
+                                    <TextBlock>
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=OneWay}" /><Run Text="x" />
+                                    </TextBlock>
+                                    <Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}">
+                                            <StackPanel Padding="12,8" Spacing="8">
+                                                <TextBlock
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{loc:Locale Name=PlaybackRate}" />
+                                                <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
+                                                    <controls:ItemsRepeater.Layout>
+                                                        <controls:StackLayout Orientation="Horizontal" Spacing="4" />
+                                                    </controls:ItemsRepeater.Layout>
+                                                    <controls:ItemsRepeater.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <ToggleButton
+                                                                Style="{StaticResource DefaultToggleButtonStyle}"
+                                                                MinWidth="60"
+                                                                Background="Transparent"
+                                                                BorderThickness="0"
+                                                                Command="{Binding ActiveCommand}"
+                                                                Content="{Binding Data}"
+                                                                DataContext="{Binding}"
+                                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                                        </DataTemplate>
+                                                    </controls:ItemsRepeater.ItemTemplate>
+                                                </controls:ItemsRepeater>
+                                                <Slider
+                                                    MinWidth="160"
+                                                    HorizontalAlignment="Stretch"
+                                                    Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.MaxPlaybackRate, Mode=OneWay}"
+                                                    StepFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
+                                                    TickFrequency="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRateStep, Mode=OneWay}"
+                                                    TickPlacement="BottomRight"
+                                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRate, Mode=TwoWay}" />
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    x:Name="FormatButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Quality}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Quality}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                    </Button.Content>
+                                    <Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
+                                            <ListView
+                                                x:Name="FormatListView"
+                                                MinWidth="120"
+                                                Margin="4"
+                                                AllowFocusOnInteraction="True"
+                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
+                                                SelectedItem="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CurrentFormat}">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ListViewItem Content="{Binding Description}" IsEnabled="{Binding IsLimited, Converter={StaticResource ObjectToBoolReverseConverter}}" />
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator
+                                            Key="Q"
+                                            IsEnabled="True"
+                                            Modifiers="Control" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
+                                <Button
+                                    x:Name="SubtitleButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Subtitle}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Subtitle}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ClosedCaption16" />
+                                    </Button.Content>
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator
+                                            Key="S"
+                                            IsEnabled="True"
+                                            Modifiers="Control" />
+                                    </Button.KeyboardAccelerators>
+                                    <Button.Flyout>
+                                        <Flyout>
+                                            <local:SubtitleConfigPanel ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel}" />
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
+                                    <uwp:RegularFluentIcon Symbol="Settings16" />
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Name="FullWindowModeItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullWindowCommand}"
+                                                KeyboardAcceleratorTextOverride="F10"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullWindowText}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="Window16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem
+                                                x:Name="CompactOverlayModeItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}"
+                                                KeyboardAcceleratorTextOverride="Ctrl + M"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CompactOverlayText}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="ContractDownLeft16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutSeparator />
+                                            <MenuFlyoutItem
+                                                x:Name="ScreenshotItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}"
+                                                KeyboardAcceleratorTextOverride="Shift + S"
+                                                Text="{loc:Locale Name=Screenshot}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="Screenshot20" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    x:Name="FullScreenButton"
+                                    AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
+                                    <Grid>
+                                        <uwp:RegularFluentIcon
+                                            x:Name="EnterFullScreenIcon"
+                                            Symbol="FullScreenMaximize16"
+                                            Visibility="Visible" />
+                                        <uwp:RegularFluentIcon
+                                            x:Name="ExitFullScreenIcon"
+                                            Symbol="FullScreenMinimize24"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+
+                            <Grid
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Padding="4"
+                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                BorderThickness="0,1,0,0">
+                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LiveTransportStyle" TargetType="local:BiliMediaTransportControls">
+        <Setter Property="Background" Value="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="Margin" Value="{ThemeResource MediaTransportControlsMargin}" />
+        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+        <Setter Property="IsTextScaleFactorEnabled" Value="False" />
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BiliMediaTransportControls">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PlayPauseStateGroup">
+                                <VisualState x:Name="PlayingState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Collapsed" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PauseState">
+                                    <VisualState.Setters>
+                                        <Setter Target="PlaySymbol.Visibility" Value="Visible" />
+                                        <Setter Target="PauseSymbol.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DisplayModeGroup">
+                                <VisualState x:Name="NormalState" />
+                                <VisualState x:Name="FullScreenState">
+                                    <VisualState.Setters>
+                                        <Setter Target="EnterFullScreenIcon.Visibility" Value="Collapsed" />
+                                        <Setter Target="ExitFullScreenIcon.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ControlPanelVisibilityGroup">
+                                <VisualState x:Name="ControlPanelFadeInState">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Auto" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TranslateVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="50"
+                                            To="0.5"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ControlPanelFadeOutState">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ControlPanel" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="8" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TranslateVertical"
+                                            Storyboard.TargetProperty="Y"
+                                            From="0.5"
+                                            To="50"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <!-- 用来放置隐藏按钮的容器，按钮被隐藏是因为只想用它的快捷键绑定，而不想让用户与这个按钮交互 -->
+                        <Grid x:Name="HiddenControlsContainer">
+                            <Button
+                                x:Name="IncreaseVolumeButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IncreaseVolumeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Up" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="DecreaseVolumeButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DecreaseVolumeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Down" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenMiniViewButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="M"
+                                        IsEnabled="True"
+                                        Modifiers="Control" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenFullWindowButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullWindowCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F10" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenFullScreenButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="F11" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
+                                x:Name="HiddenScreenshotButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator
+                                        Key="S"
+                                        IsEnabled="True"
+                                        Modifiers="Shift" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                        </Grid>
+                        <Grid
+                            x:Name="ControlPanel"
+                            Padding="12,12,12,4"
+                            Background="{TemplateBinding Background}"
+                            ColumnSpacing="12"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            RowSpacing="8">
+                            <Grid.RenderTransform>
+                                <TranslateTransform x:Name="TranslateVertical" />
+                            </Grid.RenderTransform>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!-- 播放按钮及快进按钮 -->
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    x:Name="PlayPauseButton"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
+                                    <Grid>
+                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
+                                        <uwp:RegularFluentIcon
+                                            x:Name="PauseSymbol"
+                                            Symbol="Pause16"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+
+                            <Grid
+                                x:Name="NormalProgressContainer"
+                                Grid.Column="1"
+                                Background="{ThemeResource TransparentBackground}">
+                                <controls:ProgressBar
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Maximum="10"
+                                    ShowError="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}"
+                                    ShowPaused="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsMediaPause}"
+                                    Value="10">
+                                    <controls:ProgressBar.Resources>
+                                        <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
+                                        <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
+                                        <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
+                                    </controls:ProgressBar.Resources>
+                                </controls:ProgressBar>
+                            </Grid>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button
+                                    x:Name="VolumeButton"
+                                    AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
+                                    <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                    <Button.Flyout>
+                                        <Flyout>
+                                            <Flyout.FlyoutPresenterStyle>
+                                                <Style BasedOn="{StaticResource PlayerFlyoutStyle}" TargetType="FlyoutPresenter">
+                                                    <Setter Property="Padding" Value="12,8" />
+                                                </Style>
+                                            </Flyout.FlyoutPresenterStyle>
+                                            <StackPanel>
+                                                <TextBlock
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{loc:Locale Name=CurrentVolume}" />
+                                                <Slider
+                                                    x:Name="VolumeSlider"
+                                                    Width="200"
+                                                    IsThumbToolTipEnabled="True"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    StepFrequency="1"
+                                                    TickFrequency="1"
+                                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Volume, Mode=TwoWay}" />
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    x:Name="FormatButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Quality}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Quality}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                    </Button.Content>
+                                    <Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
+                                            <ListView
+                                                x:Name="FormatListView"
+                                                MinWidth="120"
+                                                Margin="4"
+                                                AllowFocusOnInteraction="True"
+                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
+                                                SelectedItem="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CurrentFormat}">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ListViewItem Content="{Binding Description}" IsEnabled="{Binding IsLimited, Converter={StaticResource ObjectToBoolReverseConverter}}" />
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator
+                                            Key="Q"
+                                            IsEnabled="True"
+                                            Modifiers="Control" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
+                                <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
+                                    <uwp:RegularFluentIcon Symbol="Settings16" />
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Name="FullWindowModeItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullWindowCommand}"
+                                                KeyboardAcceleratorTextOverride="F10"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullWindowText}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="Window16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem
+                                                x:Name="CompactOverlayModeItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}"
+                                                KeyboardAcceleratorTextOverride="Ctrl + M"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CompactOverlayText}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="ContractDownLeft16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutSeparator />
+                                            <MenuFlyoutItem
+                                                x:Name="ScreenshotItem"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ScreenShotCommand}"
+                                                KeyboardAcceleratorTextOverride="Shift + S"
+                                                Text="{loc:Locale Name=Screenshot}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <uwp:RegularFluentIcon Symbol="Screenshot20" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    x:Name="FullScreenButton"
+                                    AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
+                                    <Grid>
+                                        <uwp:RegularFluentIcon
+                                            x:Name="EnterFullScreenIcon"
+                                            Symbol="FullScreenMaximize16"
+                                            Visibility="Visible" />
+                                        <uwp:RegularFluentIcon
+                                            x:Name="ExitFullScreenIcon"
+                                            Symbol="FullScreenMinimize24"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+
+                            <Grid
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Padding="4"
+                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                BorderThickness="0,1,0,0">
+                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

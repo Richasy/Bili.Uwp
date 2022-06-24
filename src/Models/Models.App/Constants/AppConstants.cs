@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// 应用常量.
@@ -14,8 +14,20 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string StartupTaskId = "Richasy.Bili";
 
-        public const double AppMinWidth = 500d;
-        public const double AppMinHeight = 500d;
+        public const int AppMinWidth = 500;
+        public const int AppMinHeight = 500;
+
+        public const int VideoCardCoverWidth = 300;
+        public const int VideoCardCoverHeight = 188;
+
+        public const int ArticleCardCoverWidth = 300;
+        public const int ArticleCardCoverHeight = 188;
+
+        public const int DynamicCoverWidth = 400;
+        public const int DynamicCoverHeight = 250;
+
+        public const int PgcCoverWidth = 180;
+        public const int PgcCoverHeight = 240;
 
         public const string DashVideoMPDFile = "ms-appx:///Assets/DashVideoTemplate.xml";
         public const string DashVideoWithoudAudioMPDFile = "ms-appx:///Assets/DashVideoWithoutAudioTemplate.xml";
@@ -33,12 +45,17 @@ namespace Richasy.Bili.Models.App.Constants
 
         public const string ScreenshotFolderName = "Bili Screenshots";
 
-        public const string NewDynamicTaskName = "Richasy.Bili.Tasks.DynamicNotifyTask";
+        public const string NewDynamicTaskName = "Bili.Tasks.DynamicNotifyTask";
 
         /// <summary>
         /// 哔哩哔哩番剧出差账户Id.
         /// </summary>
         public const int RegionalAnimeUserId = 11783021;
+
+        /// <summary>
+        /// 伪加载时间.
+        /// </summary>
+        public const int FakeLoadingMilliseconds = 300;
 
         public static class Protocol
         {
@@ -54,6 +71,15 @@ namespace Richasy.Bili.Models.App.Constants
             public const string IdParam = "id";
             public const string ModeParam = "mode";
             public const string IsPgcParam = "isPgc";
+        }
+
+        public static class Location
+        {
+            public const string PartitionCache = "partitionCache.json";
+            public const string DocumentaryCategories = "documentaryCategories.json";
+            public const string ServerFolder = "Server";
+            public const string LoggerFolder = "Logger";
+            public const string LoggerName = "AppLog.log";
         }
 #pragma warning restore SA1600 // Elements should be documented
     }

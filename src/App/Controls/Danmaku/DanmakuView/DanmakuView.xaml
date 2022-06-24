@@ -1,10 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
-    xmlns:local="using:Richasy.Bili.App.Controls">
+    xmlns:local="using:Bili.App.Controls.Danmaku">
 
-    <Style TargetType="local:DanmakuView">
+    <Style x:Key="DefaultDanmakuViewStyle" TargetType="local:DanmakuView">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:DanmakuView">
@@ -13,4 +12,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource DefaultDanmakuViewStyle}" TargetType="local:DanmakuView" />
 </ResourceDictionary>

@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 搜索视频视图.
@@ -15,11 +15,6 @@ namespace Richasy.Bili.App.Controls
         public SearchVideoView()
         {
             InitializeComponent();
-        }
-
-        private async void OnVideoRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.VideoModule.InitializeRequestAsync();
         }
     }
 }

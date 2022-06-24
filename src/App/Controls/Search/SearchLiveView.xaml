@@ -1,17 +1,22 @@
 ﻿<local:SearchComponent
-    x:Class="Richasy.Bili.App.Controls.SearchLiveView"
+    x:Class="Bili.App.Controls.SearchLiveView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:live="using:Bili.ViewModels.Uwp.Live"
+    xmlns:live1="using:Bili.App.Controls.Live"
+    xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uwp="using:Richasy.Bili.ViewModels.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer
+        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LayoutGroup">
                 <VisualState x:Name="WideState">
@@ -32,26 +37,17 @@
         <local:VerticalRepeaterView
             x:Name="LiveView"
             HeaderVisibility="Collapsed"
-            ItemsSource="{x:Bind ViewModel.LiveModule.VideoCollection, Mode=OneWay}"
+            ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
             MinWideItemHeight="220"
-            MinWideItemWidth="200"
-            RequestLoadMore="OnViewRequestLoadMoreAsync">
+            MinWideItemWidth="200">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:IncrementalBehavior />
+            </interactivity:Interaction.Behaviors>
             <local:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="uwp:VideoViewModel">
-                    <local:VideoCard
-                        IsShowAvatar="False"
-                        IsShowDuration="False"
-                        IsShowViewerCount="True"
-                        ViewModel="{x:Bind}" />
+                <DataTemplate x:DataType="live:LiveItemViewModel">
+                    <live1:LiveItem ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>
         </local:VerticalRepeaterView>
-        <local:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.LiveModule.IsDeltaLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.LiveModule.IsInitializeLoading, Mode=OneWay}" />
-        <local:ErrorPanel
-            ActionButtonClick="OnLiveRefreshButtonClickAsync"
-            ActionContent="{loc:LocaleLocator Name=Refresh}"
-            Text="{x:Bind ViewModel.LiveModule.ErrorText, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.LiveModule.IsError, Mode=OneWay}" />
-        <local:ErrorPanel Text="{loc:LocaleLocator Name=NoSpecificData}" Visibility="{x:Bind ViewModel.LiveModule.IsShowEmpty, Mode=OneWay}" />
-    </Grid>
+    </ScrollViewer>
 </local:SearchComponent>

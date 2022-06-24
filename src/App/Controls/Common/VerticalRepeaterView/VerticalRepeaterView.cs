@@ -2,17 +2,17 @@
 
 using System;
 using System.Collections;
+using Bili.App.Resources.Extension;
 using Microsoft.UI.Xaml.Controls;
-using Richasy.Bili.App.Resources.Extension;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 视频视图.
     /// </summary>
-    public sealed partial class VerticalRepeaterView : Control
+    public sealed partial class VerticalRepeaterView : Control, IIncrementalControl
     {
         private ScrollViewer _parentScrollViewer;
         private ItemsRepeater _itemsRepeater;
@@ -29,6 +29,7 @@ namespace Richasy.Bili.App.Controls
             DefaultStyleKey = typeof(VerticalRepeaterView);
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Richasy.Bili.App.Controls
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VerticalRepeaterView;
-            if (e.NewValue is Orientation type)
+            if (e.NewValue is Orientation)
             {
                 instance.CheckOrientationStatus();
             }
@@ -117,6 +118,20 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_parentScrollViewer != null)
+            {
+                var currentPosition = _parentScrollViewer.VerticalOffset;
+                if (_parentScrollViewer.ScrollableHeight - currentPosition <= _itemHolderHeight &&
+                    Visibility == Visibility.Visible)
+                {
+                    RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                    IncrementalTriggered?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
         private void OnParentScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (!e.IsIntermediate && _parentScrollViewer != null)
@@ -126,6 +141,7 @@ namespace Richasy.Bili.App.Controls
                     Visibility == Visibility.Visible)
                 {
                     RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                    IncrementalTriggered?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -137,11 +153,18 @@ namespace Richasy.Bili.App.Controls
                 for (var i = 0; i < items.Count; i++)
                 {
                     var element = _itemsRepeater?.TryGetElement(i);
-                    if (element != null && element is IDynamicLayoutItem vi)
+                    if (element != null)
                     {
-                        if (vi.Orientation != ItemOrientation)
+                        if (element is IDynamicLayoutItem vi)
                         {
-                            vi.Orientation = ItemOrientation;
+                            if (vi.Orientation != ItemOrientation)
+                            {
+                                vi.Orientation = ItemOrientation;
+                            }
+                        }
+                        else if (element is IOrientationControl oc)
+                        {
+                            oc.ChangeLayout(ItemOrientation);
                         }
                     }
                 }
@@ -152,6 +175,11 @@ namespace Richasy.Bili.App.Controls
         {
             if (args.Element != null)
             {
+                if (args.Element is IOrientationControl orientationControl)
+                {
+                    orientationControl.ChangeLayout(ItemOrientation);
+                }
+
                 if (args.Element is IDynamicLayoutItem dynamicLayoutItem)
                 {
                     dynamicLayoutItem.Orientation = ItemOrientation;
@@ -181,6 +209,7 @@ namespace Richasy.Bili.App.Controls
                     if (isNeedLoadMore)
                     {
                         RequestLoadMore?.Invoke(this, EventArgs.Empty);
+                        IncrementalTriggered?.Invoke(this, EventArgs.Empty);
                     }
                 }
             }

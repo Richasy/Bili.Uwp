@@ -4,8 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atelier39;
+using Bili.Models.Data.Live;
+using Bili.ViewModels.Uwp.Account;
+using Splat;
+using Windows.UI.Xaml;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls.Danmaku
 {
     /// <summary>
     /// 弹幕视图.
@@ -44,6 +48,7 @@ namespace Richasy.Bili.App.Controls
         /// <param name="milliseconds">毫秒时间戳.</param>
         public void UpdateTime(uint milliseconds)
         {
+            _canvas?.UpdateLayout();
             _danmakuController?.UpdateTime(milliseconds);
             _currentTs = milliseconds;
         }
@@ -64,7 +69,7 @@ namespace Richasy.Bili.App.Controls
         /// <returns><see cref="Task"/>.</returns>
         public async Task RedrawAsync()
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 _danmakuController?.Close();
                 InitializeController();
@@ -82,20 +87,59 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public void ClearAll()
         {
-            if (!_isApplyTemplate)
-            {
-                return;
-            }
-
             _cachedDanmakus?.Clear();
             _currentTs = 0;
             _danmakuController?.Clear();
         }
 
+        private static void OnProgressPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as DanmakuView;
+            var sec = (double)e.NewValue;
+            instance.UpdateTime(Convert.ToUInt32(sec * 1000));
+        }
+
         /// <summary>
         /// 关闭控制器.
         /// </summary>
-        public void Close()
+        private void Close()
             => _danmakuController?.Close();
+
+        private void OnLiveDanmakuAdded(object sender, LiveDanmakuInformation e)
+        {
+            if (!ViewModel.IsShowDanmaku)
+            {
+                return;
+            }
+
+            var myName = Splat.Locator.Current.GetService<AccountViewModel>().DisplayName;
+            var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
+            var model = new DanmakuItem
+            {
+                StartMs = 0,
+                Mode = DanmakuMode.Rolling,
+                TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(e.TextColor ?? "#FFFFFF"),
+                BaseFontSize = ViewModel.IsStandardSize ? 25 : 18,
+                Text = e.Text,
+                HasOutline = isOwn,
+            };
+
+            SendDanmu(model);
+        }
+
+        private void OnSendDanmakuSucceeded(object sender, string e)
+        {
+            var model = new DanmakuItem
+            {
+                StartMs = _currentTs,
+                Mode = (DanmakuMode)((int)ViewModel.Location),
+                TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(ViewModel.Color),
+                BaseFontSize = ViewModel.IsStandardSize ? 25 : 18,
+                Text = e,
+                HasOutline = true,
+            };
+
+            SendDanmu(model);
+        }
     }
 }

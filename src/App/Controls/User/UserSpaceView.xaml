@@ -1,0 +1,278 @@
+﻿<local:CenterPopup
+    x:Class="Bili.App.Controls.UserSpaceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
+    Title="{loc:Locale Name=UserInformation}"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:CenterPopup.Resources>
+        <DataTemplate x:Key="VideoItemTemplate" x:DataType="video:VideoItemViewModel">
+            <videos:VideoItem Height="120" ViewModel="{x:Bind}" />
+        </DataTemplate>
+    </local:CenterPopup.Resources>
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid>
+        <Grid RowSpacing="12" Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid RowSpacing="8" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid ColumnSpacing="24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <local:UserAvatar
+                        Width="64"
+                        Height="64"
+                        Avatar="{x:Bind ViewModel.UserViewModel.User.Avatar.Uri, Mode=OneWay}"
+                        AvatarRadius="32"
+                        DecodeSize="100"
+                        UserName="{x:Bind ViewModel.UserViewModel.User.Name, Mode=OneWay}" />
+                    <Grid
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <local:TwoLineButton
+                                Command="{x:Bind ViewModel.GotoFansPageCommand}"
+                                FirstLineText="{x:Bind ViewModel.UserViewModel.FansCountText, Mode=OneWay}"
+                                SecondLineText="{loc:Locale Name=FansCount}" />
+                            <local:TwoLineButton
+                                Grid.Column="1"
+                                Command="{x:Bind ViewModel.GotoFollowsPageCommand}"
+                                FirstLineText="{x:Bind ViewModel.UserViewModel.FollowCountText, Mode=OneWay}"
+                                SecondLineText="{loc:Locale Name=FollowCount}" />
+                            <StackPanel
+                                Grid.Column="2"
+                                Padding="0,4"
+                                HorizontalAlignment="Stretch"
+                                Spacing="2">
+                                <TextBlock
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    HorizontalAlignment="Center"
+                                    Text="{x:Bind ViewModel.UserViewModel.LikeCountText, Mode=OneWay}" />
+                                <TextBlock
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{loc:Locale Name=BeLikeCount}" />
+                            </StackPanel>
+                        </Grid>
+                        <Button
+                            Style="{x:Bind ViewModel.UserViewModel.Relation, Mode=OneWay, Converter={StaticResource RelationButtonStyleConverter}}"
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            Command="{x:Bind ViewModel.UserViewModel.ToggleRelationCommand}"
+                            Content="{x:Bind ViewModel.UserViewModel.Relation, Mode=OneWay, Converter={StaticResource RelationTextConverter}}"
+                            Visibility="{x:Bind ViewModel.IsMe, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                        <!--<Grid
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="8,0,0,0"
+                            Visibility="{x:Bind ViewModel.CanFixPublisher, Mode=OneWay}">
+                            <Button
+                                MinWidth="120"
+                                Click="OnFixButtonClickAsync"
+                                Content="{loc:Locale Name=FixPublisher}"
+                                Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                            <Button
+                                MinWidth="120"
+                                Click="OnFixButtonClickAsync"
+                                Content="{loc:Locale Name=UnfixPublisher}"
+                                Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay}" />
+                        </Grid>-->
+                    </Grid>
+                </Grid>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,12,0,0"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <TextBlock
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        MaxWidth="300"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        IsTextSelectionEnabled="True"
+                        MaxLines="1"
+                        Text="{x:Bind ViewModel.UserViewModel.User.Name, Mode=OneWay}"
+                        TextLineBounds="Tight"
+                        TextTrimming="CharacterEllipsis" />
+                    <Image
+                        Height="12"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind ViewModel.UserViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
+                </StackPanel>
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Grid.Row="2"
+                    MaxWidth="380"
+                    HorizontalAlignment="Left"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    MaxLines="3"
+                    Text="{x:Bind ViewModel.UserViewModel.Introduce, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap" />
+                <Border
+                    Grid.Row="3"
+                    Padding="8,4"
+                    HorizontalAlignment="Left"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" IsTextSelectionEnabled="True">
+                        <Run Text="uid:" />
+                        <Run Text="{x:Bind ViewModel.UserViewModel.User.Id, Mode=OneWay}" />
+                    </TextBlock>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1">
+                <ScrollViewer
+                    x:Name="SpaceVideoContainer"
+                    Margin="-16,0"
+                    HorizontalScrollMode="Disabled"
+                    VerticalScrollBarVisibility="Auto"
+                    Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <local:VerticalRepeaterView
+                        x:Name="VideoView"
+                        Margin="16,0,16,12"
+                        Background="Transparent"
+                        HeaderText="{loc:Locale Name=Videos}"
+                        ItemOrientation="Horizontal"
+                        ItemTemplate="{StaticResource VideoItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.Items}">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:IncrementalBehavior />
+                        </interactivity:Interaction.Behaviors>
+                        <local:VerticalRepeaterView.AdditionalContent>
+                            <Button
+                                x:Name="SearchButton"
+                                AutomationProperties.Name="{loc:Locale Name=Search}"
+                                Command="{x:Bind ViewModel.EnterSearchModeCommand}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Search}">
+                                <icons:RegularFluentIcon Symbol="Search16" />
+                            </Button>
+                        </local:VerticalRepeaterView.AdditionalContent>
+                    </local:VerticalRepeaterView>
+                </ScrollViewer>
+
+                <Grid
+                    x:Name="SearchContainer"
+                    ColumnSpacing="12"
+                    Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <AutoSuggestBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        PlaceholderText="{loc:Locale Name=SearchTipSlim}"
+                        QueryIcon="Find"
+                        QuerySubmitted="OnSearchBoxQuerySubmitted"
+                        Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}" />
+
+                    <Button
+                        x:Name="ExitSearchButton"
+                        AutomationProperties.Name="{loc:Locale Name=ExitSearch}"
+                        Grid.Column="1"
+                        Command="{x:Bind ViewModel.ExitSearchModeCommand}"
+                        Content="{loc:Locale Name=ExitSearch}" />
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        MinHeight="300" />
+
+                    <ScrollViewer
+                        x:Name="SearchScrollViewer"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,12,0,0"
+                        HorizontalScrollMode="Disabled"
+                        VerticalScrollBarVisibility="Hidden">
+                        <local:VerticalRepeaterView
+                            x:Name="SearchView"
+                            Margin="0,0,0,12"
+                            Background="Transparent"
+                            HeaderVisibility="Collapsed"
+                            ItemOrientation="Horizontal"
+                            ItemTemplate="{StaticResource VideoItemTemplate}"
+                            ItemsSource="{x:Bind ViewModel.SearchVideos}">
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:IncrementalBehavior />
+                            </interactivity:Interaction.Behaviors>
+                        </local:VerticalRepeaterView>
+                    </ScrollViewer>
+                </Grid>
+
+                <local:OverlayLoadingPanel
+                    MinHeight="80"
+                    IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+                    IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+
+                <local:OverlayLoadingPanel
+                    MinHeight="80"
+                    IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+                    IsRingActive="{x:Bind ViewModel.IsSearching, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay}" />
+
+                <Grid Margin="0,80,0,0">
+                    <local:ErrorPanel Text="{loc:Locale Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsSpaceVideoEmpty, Mode=OneWay}" />
+                    <local:ErrorPanel Text="{loc:Locale Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsSearchVideoEmpty, Mode=OneWay}" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <local:ErrorPanel
+            x:Name="ErrorPanel"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </local:ErrorPanel>
+    </Grid>
+
+</local:CenterPopup>

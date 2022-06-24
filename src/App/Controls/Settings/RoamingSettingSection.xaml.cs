@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.Enums;
-using Richasy.Bili.Toolkit.Interfaces;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.Models.Enums;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 哔哩漫游设置.
@@ -17,7 +17,7 @@ namespace Richasy.Bili.App.Controls
         /// Initializes a new instance of the <see cref="RoamingSettingSection"/> class.
         /// </summary>
         public RoamingSettingSection()
-            => InitializeComponent();
+            : base() => InitializeComponent();
 
         private void OnVideoAddressBoxSubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
         {
@@ -90,8 +90,8 @@ namespace Richasy.Bili.App.Controls
             var type = isSuccess
                 ? Models.Enums.App.InfoType.Success
                 : Models.Enums.App.InfoType.Error;
-            var tip = ServiceLocator.Instance.GetService<IResourceToolkit>().GetLocaleString(text);
-            AppViewModel.Instance.ShowTip(tip, type);
+            var tip = Locator.Current.GetService<IResourceToolkit>().GetLocaleString(text);
+            Splat.Locator.Current.GetService<AppViewModel>().ShowTip(tip, type);
         }
     }
 }

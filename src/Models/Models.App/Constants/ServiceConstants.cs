@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// 服务相关的常量.
@@ -248,6 +248,16 @@ namespace Richasy.Bili.Models.App.Constants
             public const string ExpiresInKey = "expiresIn";
             public const string AuthResultKey = "authorizeResult";
             public const string LastSaveAuthTimeKey = "lastSaveAuthorizeResultTime";
+        }
+
+        public static class Search
+        {
+            public const string OrderType = "orderType";
+            public const string OrderSort = "orderSort";
+            public const string Duration = "duration";
+            public const string PartitionId = "partitionId";
+            public const string TotalRank = "totalrank";
+            public const string UserType = "userType";
         }
 #pragma warning restore SA1401 // Fields should be private
 #pragma warning restore SA1600 // Elements should be documented

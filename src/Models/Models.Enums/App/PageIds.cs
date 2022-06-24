@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums
+namespace Bili.Models.Enums
 {
     /// <summary>
     /// 页面标识.
@@ -30,7 +30,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 分区.
         /// </summary>
-        Partition = 4,
+        VideoPartition = 4,
 
         /// <summary>
         /// 专栏.
@@ -125,7 +125,7 @@ namespace Richasy.Bili.Models.Enums
         /// <summary>
         /// 分区详情页面.
         /// </summary>
-        PartitionDetail = 200,
+        VideoPartitionDetail = 200,
 
         /// <summary>
         /// 搜索页面.
@@ -143,8 +143,28 @@ namespace Richasy.Bili.Models.Enums
         TimeLine = 203,
 
         /// <summary>
+        /// 直播分区页面.
+        /// </summary>
+        LivePartition = 204,
+
+        /// <summary>
         /// 直播分区详情页面.
         /// </summary>
-        LiveAreaDetail = 204,
+        LivePartitionDetail = 205,
+
+        /// <summary>
+        /// 视频播放界面.
+        /// </summary>
+        VideoPlayer = 1001,
+
+        /// <summary>
+        /// PGC内容播放界面.
+        /// </summary>
+        PgcPlayer = 1002,
+
+        /// <summary>
+        /// 直播播放界面.
+        /// </summary>
+        LivePlayer = 1003,
     }
 }

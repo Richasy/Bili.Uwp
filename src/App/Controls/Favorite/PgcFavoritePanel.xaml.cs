@@ -1,11 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Linq;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Uwp.Pgc;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls.Favorite
 {
     /// <summary>
     /// PGC收藏夹视图.
@@ -16,39 +21,25 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(PgcFavoriteViewModelBase), typeof(PgcFavoritePanel), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewModel), typeof(PgcFavoriteModuleViewModelBase), typeof(PgcFavoritePanel), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcFavoritePanel"/> class.
         /// </summary>
-        public PgcFavoritePanel()
-        {
-            InitializeComponent();
-        }
+        public PgcFavoritePanel() => InitializeComponent();
+
+        /// <summary>
+        /// 核心数据模型.
+        /// </summary>
+        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public PgcFavoriteViewModelBase ViewModel
+        public PgcFavoriteModuleViewModelBase ViewModel
         {
-            get { return (PgcFavoriteViewModelBase)GetValue(ViewModelProperty); }
+            get { return (PgcFavoriteModuleViewModelBase)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
-        }
-
-        private async void OnViewRequestLoadMoreAsync(object sender, System.EventArgs e)
-        {
-            await ViewModel.RequestDataAsync();
-        }
-
-        private async void OnPgcRefreshButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.InitializeRequestAsync();
-        }
-
-        private async void OnUnFavoritePgcButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            var vm = (sender as FrameworkElement).DataContext as SeasonViewModel;
-            await ViewModel.RemoveFavoritePgcAsync(vm);
         }
 
         private void OnItemFlyoutOpened(object sender, object e)
@@ -64,12 +55,20 @@ namespace Richasy.Bili.App.Controls
             }
         }
 
-        private async void OnMarkStatusButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnMarkStatusButtonClick(object sender, RoutedEventArgs e)
         {
             var btn = sender as AppBarButton;
-            var context = btn.DataContext as SeasonViewModel;
+            var context = btn.DataContext as SeasonItemViewModel;
             var status = int.Parse(btn.Tag.ToString());
-            await ViewModel.UpdateItemStatusAsync(context, status);
+            context.ChangeFavoriteStatusCommand.Execute(status).Subscribe();
+        }
+
+        private void OnStatusSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (StatusComboBox.SelectedItem is int status && status != ViewModel.Status)
+            {
+                ViewModel.SetStatusCommand.Execute(status).Subscribe();
+            }
         }
     }
 }

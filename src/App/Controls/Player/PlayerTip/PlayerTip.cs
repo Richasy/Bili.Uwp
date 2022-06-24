@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 播放器提示，通常从右侧弹出.
@@ -40,6 +41,18 @@ namespace Richasy.Bili.App.Controls
         /// </summary>
         public static readonly DependencyProperty AdditionalTitleProperty =
             DependencyProperty.Register(nameof(AdditionalTitle), typeof(string), typeof(PlayerTip), new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// <see cref="Command"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(PlayerTip), new PropertyMetadata(default));
+
+        /// <summary>
+        /// <see cref="CloseCommand"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty CloseCommandProperty =
+            DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(PlayerTip), new PropertyMetadata(default));
 
         private const string ActionButtonName = "ActionButton";
         private const string CloseButtonName = "CloseButton";
@@ -103,6 +116,24 @@ namespace Richasy.Bili.App.Controls
         {
             get { return (string)GetValue(AdditionalTitleProperty); }
             set { SetValue(AdditionalTitleProperty, value); }
+        }
+
+        /// <summary>
+        /// 动作命令.
+        /// </summary>
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// 关闭命令.
+        /// </summary>
+        public ICommand CloseCommand
+        {
+            get { return (ICommand)GetValue(CloseCommandProperty); }
+            set { SetValue(CloseCommandProperty, value); }
         }
 
         /// <inheritdoc/>

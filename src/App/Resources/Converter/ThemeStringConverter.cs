@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.Locator.Uwp;
-using Richasy.Bili.Models.App.Constants;
-using Richasy.Bili.Toolkit.Interfaces;
+using Bili.Models.App.Constants;
+using Bili.Toolkit.Interfaces;
+using Splat;
 using Windows.UI.Xaml.Data;
 
-namespace Richasy.Bili.App.Resources.Converter
+namespace Bili.App.Resources.Converter
 {
     /// <summary>
     /// 主题文本转换器.
@@ -17,7 +17,7 @@ namespace Richasy.Bili.App.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var themeStr = value.ToString();
-            var resourceToolkit = ServiceLocator.Instance.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             var result = string.Empty;
             switch (themeStr)
             {

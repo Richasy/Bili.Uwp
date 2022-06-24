@@ -2,8 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Richasy.Bili.Locator.Uwp"
-    xmlns:local="using:Richasy.Bili.App.Controls">
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
@@ -74,10 +74,10 @@
                                     TextTrimming="CharacterEllipsis" />
                                 <Button
                                     x:Name="CloseButton"
-                                    AutomationProperties.Name="{loc:LocaleLocator Name=Close}"
+                                    AutomationProperties.Name="{loc:Locale Name=Close}"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
-                                    ToolTipService.ToolTip="{loc:LocaleLocator Name=Close}">
+                                    ToolTipService.ToolTip="{loc:Locale Name=Close}">
                                     <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
                                     <Button.KeyboardAccelerators>
                                         <KeyboardAccelerator Key="Escape" />

@@ -1,0 +1,114 @@
+﻿<UserControl
+    x:Class="Bili.App.Controls.Pgc.PgcPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Controls.Pgc"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <app:PageHeader Title="{x:Bind ViewModel.Title, Mode=OneWay}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="LayoutGroup">
+                    <VisualState x:Name="WideState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                    <VisualState x:Name="NarrowState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="FeedView.ItemOrientation" Value="Horizontal" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <controls:BannerView
+                    x:Name="BannerView"
+                    Margin="0,0,0,12"
+                    VerticalAlignment="Top"
+                    ItemsSource="{x:Bind ViewModel.Banners}"
+                    Visibility="{x:Bind ViewModel.IsShowBanner, Mode=OneWay}">
+                    <controls:BannerView.ViewStyle>
+                        <Style TargetType="controls:HorizontalRepeaterView">
+                            <Setter Property="NarrowHeight" Value="200" />
+                        </Style>
+                    </controls:BannerView.ViewStyle>
+                </controls:BannerView>
+
+                <controls:VerticalRepeaterView
+                    x:Name="FeedView"
+                    Grid.Row="1"
+                    Margin="0,0,0,12"
+                    HeaderText="{loc:Locale Name=Recommend}"
+                    HeaderVisibility="Visible"
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                    MinWideItemHeight="180"
+                    MinWideItemWidth="300">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.AdditionalContent>
+                        <Button x:Name="IndexButton" Command="{x:Bind ViewModel.GotoIndexPageCommand}">
+                            <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:Locale Name=Index}" />
+                        </Button>
+                    </controls:VerticalRepeaterView.AdditionalContent>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="pgc:SeasonItemViewModel">
+                            <local:SeasonItem ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </Grid>
+        </ScrollViewer>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+    </Grid>
+</UserControl>

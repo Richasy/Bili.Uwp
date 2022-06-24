@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.Enums.App
+namespace Bili.Models.Enums.App
 {
     /// <summary>
     /// 相关用户类型.

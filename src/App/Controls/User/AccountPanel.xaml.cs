@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 账户面板.
@@ -16,7 +18,9 @@ namespace Richasy.Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(AccountViewModel.Instance));
+            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(Splat.Locator.Current.GetService<AccountViewModel>()));
+
+        private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountPanel"/> class.
@@ -24,6 +28,7 @@ namespace Richasy.Bili.App.Controls
         public AccountPanel()
         {
             InitializeComponent();
+            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
         }
 
         /// <summary>
@@ -40,21 +45,21 @@ namespace Richasy.Bili.App.Controls
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private async void OnDynamicButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnDynamicButtonClick(object sender, RoutedEventArgs e)
         {
-            await UserView.Instance.ShowAsync(AccountViewModel.Instance.Mid.Value);
+            new UserSpaceView().Show(Splat.Locator.Current.GetService<AccountViewModel>().AccountInformation.User);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnFollowButtonClick(object sender, RoutedEventArgs e)
         {
-            AppViewModel.Instance.SetOverlayContentId(Models.Enums.PageIds.MyFollows);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.MyFollows);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 
-        private async void OnFollowerButtonClickAsync(object sender, RoutedEventArgs e)
+        private void OnFollowerButtonClick(object sender, RoutedEventArgs e)
         {
-            await AppViewModel.Instance.EnterRelatedUserViewAsync(Models.Enums.App.RelatedUserType.Fans, ViewModel.Mid.Value, ViewModel.DisplayName);
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Fans, ViewModel.AccountInformation.User);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
     }

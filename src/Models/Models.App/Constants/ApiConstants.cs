@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-namespace Richasy.Bili.Models.App.Constants
+namespace Bili.Models.App.Constants
 {
     /// <summary>
     /// API常量.
@@ -456,7 +456,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 在线观看人数.
             /// </summary>
-            public const string OnlineViewerCount = _appBase + "/x/v2/view/video/online";
+            public const string OnlineViewerCount = _grpcBase + "/bilibili.app.playeronline.v1.PlayerOnline/PlayerOnline";
 
             /// <summary>
             /// 视频播放信息.
@@ -496,7 +496,7 @@ namespace Richasy.Bili.Models.App.Constants
             /// <summary>
             /// 添加或删除视频收藏.
             /// </summary>
-            public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/deal";
+            public const string ModifyFavorite = _apiBase + "/x/v3/fav/resource/batch-deal";
 
             /// <summary>
             /// 一键三连.

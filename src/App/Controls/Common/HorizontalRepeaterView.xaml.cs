@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Richasy.Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp;
+using Bili.ViewModels.Uwp.Core;
+using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace Richasy.Bili.App.Controls
+namespace Bili.App.Controls
 {
     /// <summary>
     /// 水平列表视图.
@@ -158,7 +160,7 @@ namespace Richasy.Bili.App.Controls
         private void CheckLayout()
         {
             var windowWidth = Window.Current.Bounds.Width;
-            if (windowWidth < AppViewModel.Instance.NarrowWindowThresholdWidth && NarrowItemTemplate != null)
+            if (windowWidth < Splat.Locator.Current.GetService<AppViewModel>().NarrowWindowThresholdWidth && NarrowItemTemplate != null)
             {
                 WideContainer.Visibility = Visibility.Collapsed;
                 NarrowContainer.Visibility = Visibility.Visible;
