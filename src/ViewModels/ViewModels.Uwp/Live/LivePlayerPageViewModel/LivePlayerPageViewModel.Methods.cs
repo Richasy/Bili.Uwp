@@ -61,20 +61,20 @@ namespace Bili.ViewModels.Uwp.Live
             DataTransferManager.ShowShareUI();
         }
 
-        private async Task FixAsync()
+        private void Fix()
         {
             if (IsLiveFixed)
             {
-                await _accountViewModel.RemoveFixedItemAsync(View.Information.Identifier.Id);
+                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
                 IsLiveFixed = false;
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
                     View.Information.User.Avatar.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Video));
+                    Models.Enums.App.FixedType.Video)).Subscribe();
                 IsLiveFixed = true;
             }
         }

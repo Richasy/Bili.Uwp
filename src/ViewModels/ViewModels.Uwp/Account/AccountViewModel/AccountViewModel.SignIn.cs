@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Account
                 if (isTokenValid)
                 {
                     isSuccess = true;
-                    await HandleLoggedAsync();
+                    HandleLogged();
                 }
                 else if (_appViewModel.IsNetworkAvaliable && !isSlientOnly)
                 {
@@ -35,30 +35,32 @@ namespace Bili.ViewModels.Uwp.Account
                 }
                 else
                 {
-                    await HandleLoggingFailedAsync(new OperationCanceledException());
+                    HandleLoggingFailed(new OperationCanceledException());
                 }
             }
             catch (Exception ex)
             {
                 LogException(ex);
-                await HandleLoggingFailedAsync(ex);
+                HandleLoggingFailed(ex);
             }
 
             return isSuccess;
         }
 
-        private async Task HandleLoggedAsync()
+        private void HandleLogged()
         {
             if (State != AuthorizeState.SignedIn)
             {
                 IsConnected = true;
-                await GetMyProfileAsync();
-                await InitializeFixedItemAsync();
-                State = AuthorizeState.SignedIn;
+                LoadMyProfileCommand.Execute().Subscribe(async _ =>
+                {
+                    await InitializeFixedItemAsync();
+                    State = AuthorizeState.SignedIn;
+                });
             }
         }
 
-        private async Task HandleLoggingFailedAsync(Exception exception)
+        private void HandleLoggingFailed(Exception exception)
         {
             // 它仅在用户未登录时触发.
             if (State != AuthorizeState.SignedIn)
@@ -69,23 +71,23 @@ namespace Bili.ViewModels.Uwp.Account
                 if (exception is ServiceException serviceEx
                     && (!serviceEx.IsHttpError()))
                 {
-                    await SignOutAsync();
+                    SignOutCommand.Execute().Subscribe();
                 }
             }
         }
 
-        private async void OnAuthorizeStateChangedAsync(object sender, AuthorizeStateChangedEventArgs e)
+        private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
         {
             State = e.NewState;
             switch (e.NewState)
             {
                 case AuthorizeState.SignedIn:
-                    await HandleLoggedAsync();
+                    HandleLogged();
                     break;
                 case AuthorizeState.SignedOut:
                     if (!_isRequestLogout)
                     {
-                        await HandleLoggingFailedAsync(new OperationCanceledException("请求失败"));
+                        HandleLoggingFailed(new OperationCanceledException("请求失败"));
                     }
                     else
                     {

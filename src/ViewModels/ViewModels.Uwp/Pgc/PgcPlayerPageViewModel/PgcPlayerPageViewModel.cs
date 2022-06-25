@@ -87,7 +87,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.CreateFromTask(FixAsync, outputScheduler: RxApp.MainThreadScheduler);
+            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
             ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync, outputScheduler: RxApp.MainThreadScheduler);

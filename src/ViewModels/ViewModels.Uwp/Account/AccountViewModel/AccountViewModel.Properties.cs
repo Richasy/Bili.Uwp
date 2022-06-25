@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
@@ -9,6 +10,7 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -41,6 +43,41 @@ namespace Bili.ViewModels.Uwp.Account
         /// 固定条目集合.
         /// </summary>
         public ObservableCollection<FixedItem> FixedItemCollection { get; }
+
+        /// <summary>
+        /// 尝试登录的命令.
+        /// </summary>
+        public ReactiveCommand<bool, bool> TrySignInCommand { get; }
+
+        /// <summary>
+        /// 登出命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> SignOutCommand { get; }
+
+        /// <summary>
+        /// 加载个人资料的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> LoadMyProfileCommand { get; }
+
+        /// <summary>
+        /// 初始化社区信息的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InitializeCommunityCommand { get; }
+
+        /// <summary>
+        /// 初始化未读消息的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InitializeUnreadCommand { get; }
+
+        /// <summary>
+        /// 添加固定条目的命令.
+        /// </summary>
+        public ReactiveCommand<FixedItem, Unit> AddFixedItemCommand { get; }
+
+        /// <summary>
+        /// 移除固定条目的命令.
+        /// </summary>
+        public ReactiveCommand<string, Unit> RemoveFixedItemCommand { get; }
 
         /// <summary>
         /// 当前视图模型状态.

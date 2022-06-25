@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using Bili.App.Resources.Extension;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -28,8 +27,8 @@ namespace Bili.App.Controls
         public AccountAvatar()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<AccountViewModel>();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            ViewModel = Locator.Current.GetService<AccountViewModel>();
+            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
@@ -41,9 +40,7 @@ namespace Bili.App.Controls
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-        }
+            => ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -77,11 +74,8 @@ namespace Bili.App.Controls
             HideFlyout();
         }
 
-        private async void OnSignOutButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            HideFlyout();
-            await ViewModel.SignOutAsync();
-        }
+        private void OnSignOutButtonClick(object sender, RoutedEventArgs e)
+            => HideFlyout();
 
         private async void OnNavigateToMyHomePageButtonClickAsync(object sender, RoutedEventArgs e)
         {
@@ -95,14 +89,14 @@ namespace Bili.App.Controls
         private void HideFlyout()
             => FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
 
-        private async void OnFlyoutOpenedAsync(object sender, object e)
-            => await ViewModel.InitCommunityInformationAsync();
+        private void OnFlyoutOpened(object sender, object e)
+            => ViewModel.InitializeCommunityCommand.Execute().Subscribe();
 
-        private async void OnUserAvatarClickAsync(object sender, EventArgs e)
+        private void OnUserAvatarClick(object sender, EventArgs e)
         {
             if (ViewModel.State == AuthorizeState.SignedOut)
             {
-                await ViewModel.TrySignInAsync();
+                ViewModel.TrySignInCommand.Execute(false).Subscribe();
             }
             else
             {
