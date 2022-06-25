@@ -1124,10 +1124,10 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>18.1.8</Version>
+      <Version>18.2.5</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Uwp">
-      <Version>18.1.8</Version>
+      <Version>18.2.5</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>
@@ -1136,7 +1136,7 @@
       <Version>1.1.150</Version>
     </PackageReference>
     <PackageReference Include="Splat">
-      <Version>14.2.8</Version>
+      <Version>14.3.1</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

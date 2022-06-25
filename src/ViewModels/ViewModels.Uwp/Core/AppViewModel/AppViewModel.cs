@@ -59,6 +59,8 @@ namespace Bili.ViewModels.Uwp.Core
             CheckUpdateCommand.ThrownExceptions.Subscribe(LogException);
             PlayRecords.CollectionChanged += OnPlayRecordsCollectionChanged;
 
+            RxApp.DefaultExceptionHandler = new UnhandledExceptionHandler();
+
             InitializeTheme();
         }
 

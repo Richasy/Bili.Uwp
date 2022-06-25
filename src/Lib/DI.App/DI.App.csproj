@@ -134,7 +134,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Splat.NLog">
-      <Version>14.2.8</Version>
+      <Version>14.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
