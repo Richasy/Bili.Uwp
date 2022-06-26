@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
@@ -65,6 +64,12 @@ namespace Bili.ViewModels.Uwp.Video
 
         private void Fix()
         {
+            if (_accountViewModel.State != AuthorizeState.SignedIn)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
             if (IsVideoFixed)
             {
                 _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();

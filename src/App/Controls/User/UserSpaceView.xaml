@@ -101,22 +101,13 @@
                             Command="{x:Bind ViewModel.UserViewModel.ToggleRelationCommand}"
                             Content="{x:Bind ViewModel.UserViewModel.Relation, Mode=OneWay, Converter={StaticResource RelationTextConverter}}"
                             Visibility="{x:Bind ViewModel.IsMe, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                        <!--<Grid
+                        <Button
                             Grid.Row="1"
                             Grid.Column="1"
+                            MinWidth="120"
                             Margin="8,0,0,0"
-                            Visibility="{x:Bind ViewModel.CanFixPublisher, Mode=OneWay}">
-                            <Button
-                                MinWidth="120"
-                                Click="OnFixButtonClickAsync"
-                                Content="{loc:Locale Name=FixPublisher}"
-                                Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                            <Button
-                                MinWidth="120"
-                                Click="OnFixButtonClickAsync"
-                                Content="{loc:Locale Name=UnfixPublisher}"
-                                Visibility="{x:Bind ViewModel.IsPublisherFixed, Mode=OneWay}" />
-                        </Grid>-->
+                            Command="{x:Bind ViewModel.FixedCommand}"
+                            Content="{x:Bind ViewModel.IsFixed, Mode=OneWay, Converter={StaticResource FixedContentConverter}}" />
                     </Grid>
                 </Grid>
                 <StackPanel

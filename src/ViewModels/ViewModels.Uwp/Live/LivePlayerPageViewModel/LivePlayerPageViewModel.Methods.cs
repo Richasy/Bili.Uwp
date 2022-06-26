@@ -63,6 +63,12 @@ namespace Bili.ViewModels.Uwp.Live
 
         private void Fix()
         {
+            if (_accountViewModel.State != AuthorizeState.SignedIn)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
             if (IsLiveFixed)
             {
                 _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();

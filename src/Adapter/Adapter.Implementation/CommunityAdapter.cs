@@ -442,7 +442,7 @@ namespace Bili.Adapter
                         messageItem.Item.Business);
             }
 
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.LikeTime).ToLocalTime().DateTime;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.LikeTime).DateTime;
             var id = messageItem.Id.ToString();
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? messageItem.Item.Description
@@ -475,7 +475,7 @@ namespace Bili.Adapter
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NoSpecificData)
                 : messageItem.Item.Title;
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.AtTime).ToLocalTime().DateTime;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.AtTime).DateTime;
             var id = messageItem.Id.ToString();
             var sourceId = messageItem.Item.Uri;
 
@@ -507,7 +507,7 @@ namespace Bili.Adapter
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? messageItem.Item.Description
                 : messageItem.Item.Title;
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.ReplyTime).ToLocalTime().DateTime;
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.ReplyTime).DateTime;
             var id = messageItem.Id.ToString();
             var sourceId = messageItem.Item.SubjectId.ToString();
             var properties = new Dictionary<string, string>()

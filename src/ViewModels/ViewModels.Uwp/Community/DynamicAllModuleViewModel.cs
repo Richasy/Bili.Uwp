@@ -19,8 +19,9 @@ namespace Bili.ViewModels.Uwp.Community
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,
+            IAuthorizeProvider authorizeProvider,
             CoreDispatcher dispatcher)
-            : base(communityProvider, resourceToolkit, settingsToolkit, false, dispatcher)
+            : base(communityProvider, resourceToolkit, settingsToolkit, authorizeProvider, false, dispatcher)
         {
         }
     }
