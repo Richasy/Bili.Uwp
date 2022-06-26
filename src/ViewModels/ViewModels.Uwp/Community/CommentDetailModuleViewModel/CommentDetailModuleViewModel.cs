@@ -35,6 +35,8 @@ namespace Bili.ViewModels.Uwp.Community
 
             SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync, outputScheduler: RxApp.MainThreadScheduler);
             BackCommand = ReactiveCommand.Create(Back, outputScheduler: RxApp.MainThreadScheduler);
+            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment, outputScheduler: RxApp.MainThreadScheduler);
+
             _isSending = SendCommentCommand.IsExecuting.ToProperty(this, x => x.IsSending, scheduler: RxApp.MainThreadScheduler);
         }
 

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
@@ -29,12 +30,16 @@ namespace Bili.ViewModels.Uwp.Account
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             NavigationViewModel navigationViewModel,
+            AccountViewModel accountViewModel,
+            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
+            _accountViewModel = accountViewModel;
+            _appViewModel = appViewModel;
 
             SearchVideos = new ObservableCollection<VideoItemViewModel>();
 
@@ -46,6 +51,7 @@ namespace Bili.ViewModels.Uwp.Account
             SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, canSearch, RxApp.MainThreadScheduler);
             GotoFollowsPageCommand = ReactiveCommand.Create(GotoFollowsPage, outputScheduler: RxApp.MainThreadScheduler);
             GotoFansPageCommand = ReactiveCommand.Create(GotoFansPage, outputScheduler: RxApp.MainThreadScheduler);
+            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
 
             _isSearching = SearchCommand.IsExecuting.ToProperty(this, x => x.IsSearching, scheduler: RxApp.MainThreadScheduler);
             _canSearch = canSearch.ToProperty(this, x => x.CanSearch, scheduler: RxApp.MainThreadScheduler);
@@ -181,6 +187,30 @@ namespace Bili.ViewModels.Uwp.Account
             else
             {
                 _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Follows, UserViewModel.User);
+            }
+        }
+
+        private void Fix()
+        {
+            if (_accountViewModel.State != Models.Enums.AuthorizeState.SignedIn)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
+            if (IsFixed)
+            {
+                _accountViewModel.RemoveFixedItemCommand.Execute(UserViewModel.User.Id).Subscribe();
+                IsFixed = false;
+            }
+            else
+            {
+                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
+                    UserViewModel.User.Avatar.Uri,
+                    UserViewModel.User.Name,
+                    UserViewModel.User.Id,
+                    Models.Enums.App.FixedType.Publisher)).Subscribe();
+                IsFixed = true;
             }
         }
     }

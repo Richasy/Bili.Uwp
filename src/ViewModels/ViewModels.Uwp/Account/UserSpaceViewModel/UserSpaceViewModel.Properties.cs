@@ -20,6 +20,8 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly NavigationViewModel _navigationViewModel;
+        private readonly AccountViewModel _accountViewModel;
+        private readonly AppViewModel _appViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isSearching;
         private readonly ObservableAsPropertyHelper<bool> _canSearch;
         private UserProfile _userProfile;
@@ -51,6 +53,11 @@ namespace Bili.ViewModels.Uwp.Account
         /// 前往关注者页面的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> GotoFollowsPageCommand { get; }
+
+        /// <summary>
+        /// 固定条目的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
 
         /// <summary>
         /// 搜索的视频结果.
@@ -92,6 +99,12 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         [Reactive]
         public bool IsSearchVideoEmpty { get; set; }
+
+        /// <summary>
+        /// 该用户是否已经被固定在首页.
+        /// </summary>
+        [Reactive]
+        public bool IsFixed { get; set; }
 
         /// <summary>
         /// 是否正在搜索.

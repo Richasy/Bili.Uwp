@@ -67,6 +67,9 @@ namespace Bili.ViewModels.Uwp.Community
         }
 
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
-            => NeedSignIn = e.NewState != Models.Enums.AuthorizeState.SignedIn;
+        {
+            NeedSignIn = e.NewState != Models.Enums.AuthorizeState.SignedIn;
+            RefreshModuleCommand.Execute().Subscribe();
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly ICommunityProvider _communityProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IAuthorizeProvider _authorizeProvider;
         private readonly bool _isOnlyVideo;
         private bool _isEnd;
 

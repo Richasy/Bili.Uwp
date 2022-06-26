@@ -22,6 +22,7 @@ namespace Bili.ViewModels.Uwp.Base
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,
+            IAuthorizeProvider authorizeProvider,
             bool isOnlyVideo,
             CoreDispatcher dispatcher)
             : base(dispatcher)
@@ -29,6 +30,7 @@ namespace Bili.ViewModels.Uwp.Base
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;
             _settingsToolkit = settingsToolkit;
+            _authorizeProvider = authorizeProvider;
             _isOnlyVideo = isOnlyVideo;
         }
 
@@ -55,7 +57,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <inheritdoc/>
         protected override async Task GetDataAsync()
         {
-            if (_isEnd)
+            if (_isEnd || _authorizeProvider.State != Models.Enums.AuthorizeState.SignedIn)
             {
                 return;
             }

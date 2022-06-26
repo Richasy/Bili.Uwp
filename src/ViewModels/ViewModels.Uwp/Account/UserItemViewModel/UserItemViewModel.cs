@@ -24,12 +24,14 @@ namespace Bili.ViewModels.Uwp.Account
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel)
+            AppViewModel appViewModel,
+            AccountViewModel accountViewModel)
         {
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
+            _accountViewModel = accountViewModel;
 
             ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
             InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -88,6 +90,12 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task ToggleRelationAsync()
         {
+            if (_accountViewModel.State != AuthorizeState.SignedIn)
+            {
+                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                return;
+            }
+
             bool? isFollow = null;
             if (Relation == UserRelationStatus.Unfollow || Relation == UserRelationStatus.BeFollowed)
             {
