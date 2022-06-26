@@ -10,7 +10,6 @@ using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Windows.Networking.Connectivity;
 
 namespace Bili.SignIn.Uwp
 {
@@ -137,13 +136,6 @@ namespace Bili.SignIn.Uwp
         /// <inheritdoc/>
         public async Task<string> GetTokenAsync()
         {
-            var internetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
-            if (internetConnectionProfile == null)
-            {
-                // 目前不在线.
-                return null;
-            }
-
             try
             {
                 if (_tokenInfo != null)
@@ -173,10 +165,11 @@ namespace Bili.SignIn.Uwp
             catch (Exception)
             {
                 StopQRLoginListener();
+                await SignOutAsync();
+                throw;
             }
 
-            await SignOutAsync();
-            return null;
+            return default;
         }
 
         /// <inheritdoc/>

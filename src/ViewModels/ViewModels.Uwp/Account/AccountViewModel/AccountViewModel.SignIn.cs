@@ -21,6 +21,7 @@ namespace Bili.ViewModels.Uwp.Account
         private async Task<bool> InternalSignInAsync(bool isSlientOnly = false)
         {
             var isSuccess = false;
+            State = AuthorizeState.Loading;
             try
             {
                 var isTokenValid = await _authorizeProvider.IsTokenValidAsync(true);
@@ -40,7 +41,6 @@ namespace Bili.ViewModels.Uwp.Account
             }
             catch (Exception ex)
             {
-                LogException(ex);
                 HandleLoggingFailed(ex);
             }
 

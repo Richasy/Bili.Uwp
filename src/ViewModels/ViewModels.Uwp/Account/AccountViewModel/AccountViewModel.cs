@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -30,7 +32,8 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            AppViewModel appViewModel)
+            AppViewModel appViewModel,
+            CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
@@ -38,8 +41,9 @@ namespace Bili.ViewModels.Uwp.Account
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
             _appViewModel = appViewModel;
+            _dispatcher = dispatcher;
 
-            TrySignInCommand = ReactiveCommand.CreateFromTask<bool, bool>(TrySignInAsync, outputScheduler: RxApp.MainThreadScheduler);
+            TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync, outputScheduler: RxApp.MainThreadScheduler);
             SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync, outputScheduler: RxApp.MainThreadScheduler);
             LoadMyProfileCommand = ReactiveCommand.CreateFromTask(GetMyProfileAsync, outputScheduler: RxApp.MainThreadScheduler);
             InitializeCommunityCommand = ReactiveCommand.CreateFromTask(InitCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -60,17 +64,7 @@ namespace Bili.ViewModels.Uwp.Account
                 .Merge(RemoveFixedItemCommand.ThrownExceptions)
                 .Subscribe(LogException);
 
-            this.WhenAnyValue(x => x.State)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(state =>
-                {
-                    if (state == AuthorizeState.SignedIn)
-                    {
-                        IsConnected = true;
-                        LoadMyProfileCommand.Execute().Subscribe();
-                    }
-                });
-
+            PropertyChanged += OnPropertyChanged;
             Reset();
         }
 
@@ -79,15 +73,14 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         /// <param name="isSlientOnly">是否只进行静默登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        private async Task<bool> TrySignInAsync(bool isSlientOnly = false)
+        private async Task TrySignInAsync(bool isSlientOnly = false)
         {
             if (State != AuthorizeState.SignedOut)
             {
-                return State == AuthorizeState.SignedIn;
+                return;
             }
 
-            State = AuthorizeState.Loading;
-            return await InternalSignInAsync(isSlientOnly);
+            await InternalSignInAsync(isSlientOnly);
         }
 
         /// <summary>
@@ -237,6 +230,18 @@ namespace Bili.ViewModels.Uwp.Account
             }
 
             IsShowFixedItem = false;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(State))
+            {
+                if (State == AuthorizeState.SignedIn)
+                {
+                    IsConnected = true;
+                    LoadMyProfileCommand.Execute().Subscribe();
+                }
+            }
         }
     }
 }

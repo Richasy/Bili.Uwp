@@ -343,7 +343,7 @@ namespace Bili.SignIn.Uwp
         private async Task<AuthorizeResult> ShowAccountManagementPaneAndGetResultAsync()
         {
             var webAccountProviderTaskCompletionSource = new TaskCompletionSource<AuthorizeResult>();
-            var loginDialog = new AccountLoginDialog(webAccountProviderTaskCompletionSource);
+            var loginDialog = new AccountLoginDialog(webAccountProviderTaskCompletionSource, this);
             await loginDialog.ShowAsync();
             return await webAccountProviderTaskCompletionSource.Task;
         }

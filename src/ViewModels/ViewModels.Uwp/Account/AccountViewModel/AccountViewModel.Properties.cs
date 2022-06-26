@@ -12,6 +12,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -26,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
         private readonly AppViewModel _appViewModel;
+        private readonly CoreDispatcher _dispatcher;
 
         private bool _isRequestLogout = false;
 
@@ -47,7 +49,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// 尝试登录的命令.
         /// </summary>
-        public ReactiveCommand<bool, bool> TrySignInCommand { get; }
+        public ReactiveCommand<bool, Unit> TrySignInCommand { get; }
 
         /// <summary>
         /// 登出命令.
