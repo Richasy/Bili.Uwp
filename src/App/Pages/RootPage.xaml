@@ -10,7 +10,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="{ThemeResource TransparentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -25,11 +25,13 @@
         <Frame
             x:Name="SecondaryFrame"
             Grid.Row="1"
+            Background="{ThemeResource TransparentBackground}"
             Visibility="{x:Bind ViewModel.IsSecondaryViewShown, Mode=OneWay}" />
 
         <Frame
             x:Name="PlayerFrame"
             Grid.Row="1"
+            Background="{ThemeResource TransparentBackground}"
             Visibility="{x:Bind ViewModel.IsPlayViewShown, Mode=OneWay}" />
 
         <Grid

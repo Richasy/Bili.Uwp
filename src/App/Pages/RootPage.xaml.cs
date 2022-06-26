@@ -119,20 +119,6 @@ namespace Bili.App.Pages.Desktop
             }
         }
 
-        /// <inheritdoc/>
-        protected override void OnPointerReleased(PointerRoutedEventArgs e)
-        {
-            var kind = e.GetCurrentPoint(this).Properties.PointerUpdateKind;
-            if (kind == Windows.UI.Input.PointerUpdateKind.XButton1Released
-                || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
-            {
-                e.Handled = true;
-                Back();
-            }
-
-            base.OnPointerReleased(e);
-        }
-
         private void OnNavigating(object sender, AppNavigationEventArgs e)
         {
             if (e.Type == NavigationType.Secondary)
