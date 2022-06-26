@@ -38,13 +38,12 @@ namespace Bili.App
             FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
+            Locator.Current.GetService<IAppToolkit>().InitializeTheme();
         }
 
         /// <inheritdoc/>
         public void Log(FFmpegInteropX.LogLevel level, string message)
-        {
-            Debug.WriteLine($"{level} | {message}");
-        }
+            => Debug.WriteLine($"{level} | {message}");
 
         /// <summary>
         /// Called when the application is normally launched by the end user.
@@ -52,18 +51,14 @@ namespace Bili.App
         /// </summary>
         /// <param name="e">Detailed information about the start request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
-        {
-            OnLaunchedOrActivatedAsync(e);
-        }
+            => OnLaunchedOrActivatedAsync(e);
 
         /// <summary>
         /// Called when the application is activated by the end user.
         /// </summary>
         /// <param name="args">Detailed information about the active request and process.</param>
         protected override void OnActivated(IActivatedEventArgs args)
-        {
-            OnLaunchedOrActivatedAsync(args);
-        }
+            => OnLaunchedOrActivatedAsync(args);
 
         private async void OnLaunchedOrActivatedAsync(IActivatedEventArgs e)
         {
@@ -92,7 +87,7 @@ namespace Bili.App
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
-                var settingsVM = Splat.Locator.Current.GetService<SettingsPageViewModel>();
+                var settingsVM = Locator.Current.GetService<SettingsPageViewModel>();
                 settingsVM.SetPrelaunch();
                 if (rootFrame.Content == null)
                 {
@@ -109,7 +104,7 @@ namespace Bili.App
                 }
                 else
                 {
-                    await Splat.Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<AppViewModel>()
                         .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
@@ -131,7 +126,7 @@ namespace Bili.App
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await Splat.Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<AppViewModel>()
                         .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }
@@ -160,9 +155,7 @@ namespace Bili.App
         /// <param name="sender">Navigation failure frame.</param>
         /// <param name="e">Details about navigation failure.</param>
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
+            => throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
         /// <summary>
         /// Called when the execution of the application is about to be suspended.
