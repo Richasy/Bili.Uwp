@@ -66,6 +66,11 @@ namespace Bili.ViewModels.Uwp.Account
 
             PropertyChanged += OnPropertyChanged;
             Reset();
+
+            if (State == AuthorizeState.SignedIn)
+            {
+                LoadMyProfileCommand.Execute().Subscribe();
+            }
         }
 
         /// <summary>
