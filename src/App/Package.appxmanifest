@@ -79,5 +79,6 @@
     <Capability Name="internetClient" />
     <uap3:Capability Name="backgroundMediaPlayback"/>
     <uap:Capability Name="picturesLibrary"/>
+    <Capability Name="privateNetworkClientServer"/>
   </Capabilities>
 </Package>
