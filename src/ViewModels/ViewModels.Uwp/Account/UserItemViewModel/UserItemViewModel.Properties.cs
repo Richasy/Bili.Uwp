@@ -8,6 +8,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -21,6 +22,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AppViewModel _appViewModel;
         private readonly AccountViewModel _accountViewModel;
+        private readonly CoreDispatcher _dispatcher;
 
         private readonly ObservableAsPropertyHelper<bool> _isRelationChanging;
 

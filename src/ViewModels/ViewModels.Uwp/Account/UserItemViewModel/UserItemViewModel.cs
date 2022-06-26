@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
@@ -9,6 +10,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -25,13 +27,15 @@ namespace Bili.ViewModels.Uwp.Account
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             AppViewModel appViewModel,
-            AccountViewModel accountViewModel)
+            AccountViewModel accountViewModel,
+            CoreDispatcher dispatcher)
         {
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
             _accountViewModel = accountViewModel;
+            _dispatcher = dispatcher;
 
             ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
             InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -111,7 +115,10 @@ namespace Bili.ViewModels.Uwp.Account
             if (result)
             {
                 var relation = await _accountProvider.GetRelationAsync(User.Id);
-                Relation = relation;
+                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    Relation = relation;
+                });
             }
         }
 
