@@ -20,7 +20,7 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 已登录的用户Id.
         /// </summary>
-        int UserId { get; }
+        int UserId { get; set; }
 
         /// <summary>
         /// 获取已登录用户的个人资料.

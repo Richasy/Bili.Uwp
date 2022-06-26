@@ -51,6 +51,11 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> ForwardSkipCommand { get; }
 
         /// <summary>
+        /// 后退命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> BackwardSkipCommand { get; }
+
+        /// <summary>
         /// 改变播放速率的命令.
         /// </summary>
         public ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }

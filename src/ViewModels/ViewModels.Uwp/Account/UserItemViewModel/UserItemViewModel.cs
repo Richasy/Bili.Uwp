@@ -8,6 +8,7 @@ using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -108,6 +109,13 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task InitializeRelationAsync()
         {
+            var accountVM = Locator.Current.GetService<AccountViewModel>();
+            if (accountVM.State != AuthorizeState.SignedIn)
+            {
+                IsRelationButtonShown = false;
+                return;
+            }
+
             var relation = await _accountProvider.GetRelationAsync(User.Id);
             Relation = relation;
             IsRelationButtonShown = Relation != UserRelationStatus.Unknown;

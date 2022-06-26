@@ -21,6 +21,7 @@ namespace Bili.ViewModels.Uwp
                 Debugger.Break();
             }
 
+            Locator.Current.GetService<ILogger>().Write(value, "出错了", LogLevel.Error);
             RxApp.MainThreadScheduler.Schedule(() => { throw value; });
         }
 
@@ -43,8 +44,6 @@ namespace Bili.ViewModels.Uwp
             {
                 Debugger.Break();
             }
-
-            RxApp.MainThreadScheduler.Schedule(() => { throw new NotImplementedException(); });
         }
     }
 }
