@@ -1162,6 +1162,10 @@
       <Project>{b9cd5845-2de3-40fc-bc0f-27c406929551}</Project>
       <Name>FrostMaster.Uwp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lib\SignIn.Uwp\SignIn.Uwp.csproj">
+      <Project>{1e466e0c-5218-4892-9fdd-0e777795c545}</Project>
+      <Name>SignIn.Uwp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.App\Models.App.csproj">
       <Project>{9e61cc56-43f9-489c-aaaf-bd5ec69367c4}</Project>
       <Name>Models.App</Name>
