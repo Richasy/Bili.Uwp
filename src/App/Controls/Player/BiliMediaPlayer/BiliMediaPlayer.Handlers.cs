@@ -103,7 +103,14 @@ namespace Bili.App.Controls.Player
             {
                 if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
-                    ViewModel.ToggleFullScreenCommand.Execute().Subscribe();
+                    ViewModel.ToggleFullScreenCommand.Execute().Subscribe(
+                        _ =>
+                        {
+                            if (ViewModel.IsMediaPause)
+                            {
+                                ViewModel.PlayPauseCommand.Execute().Subscribe();
+                            }
+                        });
                 }
                 else
                 {
