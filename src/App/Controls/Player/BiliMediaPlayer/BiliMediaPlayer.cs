@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Bili.App.Controls.Danmaku;
 using Bili.ViewModels.Uwp.Core;
-using Windows.Media.Playback;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
