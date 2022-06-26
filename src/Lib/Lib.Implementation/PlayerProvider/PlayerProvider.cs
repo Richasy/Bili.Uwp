@@ -134,21 +134,6 @@ namespace Bili.Lib
             => await InternalGetDashAsync(partId, string.Empty, seasonType, proxy, area, episodeId);
 
         /// <inheritdoc/>
-        // public async Task<DmViewReply> GetDanmakuMetaDataAsync(long videoId, long partId)
-        // {
-        //    var req = new DmViewReq()
-        //    {
-        //        Pid = videoId,
-        //        Oid = partId,
-        //        Type = 1,
-        //    };
-        //    var request = await _httpProvider.GetRequestMessageAsync(Video.DanmakuMetaData, req);
-        //    var response = await _httpProvider.SendAsync(request);
-        //    var result = await _httpProvider.ParseAsync(response, DmViewReply.Parser);
-        //    return result;
-        // }
-
-        /// <inheritdoc/>
         public async Task<IEnumerable<DanmakuInformation>> GetSegmentDanmakuAsync(string videoId, string partId, int segmentIndex)
         {
             var req = new DmSegMobileReq

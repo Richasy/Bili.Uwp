@@ -10,6 +10,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Splat;
 
 namespace Bili.SignIn.Uwp
 {
@@ -207,6 +208,8 @@ namespace Bili.SignIn.Uwp
             }
 
             State = AuthorizeState.SignedOut;
+            CurrentUserId = default;
+            Splat.Locator.Current.GetService<IAccountProvider>().UserId = 0;
             return Task.CompletedTask;
         }
 

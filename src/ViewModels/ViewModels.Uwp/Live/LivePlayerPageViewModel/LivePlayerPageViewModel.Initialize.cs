@@ -25,7 +25,6 @@ namespace Bili.ViewModels.Uwp.Live
 
         private void InitializePublisher()
         {
-            var myId = _authorizeProvider.CurrentUserId;
             var profile = View.Information.User;
             var vm = Splat.Locator.Current.GetService<UserItemViewModel>();
             vm.SetProfile(profile);
@@ -38,7 +37,6 @@ namespace Bili.ViewModels.Uwp.Live
 
         private void InitializeInterop()
         {
-            // TODO: 初始化下载内容.
             var fixedItems = _accountViewModel.FixedItemCollection;
             IsLiveFixed = fixedItems.Any(p => p.Type == Models.Enums.App.FixedType.Live && p.Id == View.Information.Identifier.Id);
         }

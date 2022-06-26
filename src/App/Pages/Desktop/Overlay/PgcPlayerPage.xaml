@@ -245,6 +245,7 @@
                             Command="{x:Bind ViewModel.TrackSeasonCommand}"
                             Description="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
                             IsChecked="{x:Bind ViewModel.IsTracking, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
                             ToolTipService.ToolTip="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}">
                             <icons:RegularFluentIcon Symbol="RibbonStar20" />

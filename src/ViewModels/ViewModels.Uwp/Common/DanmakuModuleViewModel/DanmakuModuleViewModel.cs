@@ -97,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Common
 
         private async Task LoadSegmentDanmakuAsync(int index)
         {
-            if (IsDanmakuLoading || _segmentIndex == index || !IsShowDanmaku)
+            if (IsDanmakuLoading || _segmentIndex == index || !IsShowDanmaku || _videoType == VideoType.Live)
             {
                 return;
             }

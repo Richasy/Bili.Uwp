@@ -162,6 +162,14 @@
                                 </Button.KeyboardAccelerators>
                             </Button>
                             <Button
+                                x:Name="DecreaseProgressButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackwardSkipCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Left" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+                            <Button
                                 x:Name="HiddenMiniViewButton"
                                 Style="{StaticResource HiddenButtonStyle}"
                                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleCompactOverlayCommand}">

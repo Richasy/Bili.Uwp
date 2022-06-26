@@ -222,7 +222,8 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task ReportViewProgressAsync()
         {
             if (_mediaPlayer == null
-                || _mediaPlayer.PlaybackSession == null)
+                || _mediaPlayer.PlaybackSession == null
+                || _accountViewModel.State != AuthorizeState.SignedIn)
             {
                 return;
             }

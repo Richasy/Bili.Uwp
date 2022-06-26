@@ -70,6 +70,35 @@ namespace Bili.ViewModels.Uwp.Core
             });
         }
 
+        private async Task BackwardSkipAsync()
+        {
+            EnsureMediaPlayerExist();
+
+            var seconds = _settingsToolkit.ReadLocalSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
+            if (seconds <= 0
+                || Status == PlayerStatus.NotLoad
+                || Status == PlayerStatus.Buffering)
+            {
+                return;
+            }
+
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                var duration = _mediaPlayer.PlaybackSession.NaturalDuration;
+                var currentPos = _mediaPlayer.PlaybackSession.Position;
+                if (currentPos.TotalSeconds > seconds)
+                {
+                    currentPos -= TimeSpan.FromSeconds(seconds);
+                }
+                else
+                {
+                    currentPos = TimeSpan.Zero;
+                }
+
+                _mediaPlayer.PlaybackSession.Position = currentPos;
+            });
+        }
+
         private async Task ChangePlayRateAsync(double rate)
         {
             try
