@@ -90,6 +90,7 @@ namespace Bili.App.Controls.Player
             else
             {
                 _isTouch = true;
+                ViewModel.IsShowMediaTransport = !ViewModel.IsShowMediaTransport;
                 Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
             }
         }
@@ -103,6 +104,10 @@ namespace Bili.App.Controls.Player
                 if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
                     ViewModel.ToggleFullScreenCommand.Execute().Subscribe();
+                }
+                else
+                {
+                    ViewModel.PlayPauseCommand.Execute().Subscribe();
                 }
             }
         }
