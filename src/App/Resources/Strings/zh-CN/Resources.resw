@@ -1119,6 +1119,21 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="ProjectHomePage" xml:space="preserve">
     <value>项目主页</value>
   </data>
+  <data name="ProxySearchAddress" xml:space="preserve">
+    <value>搜索代理</value>
+  </data>
+  <data name="ProxySetting" xml:space="preserve">
+    <value>代理服务设置</value>
+  </data>
+  <data name="ProxySettingDescription" xml:space="preserve">
+    <value>使用自定义的服务器进行代理，以解除地区限制（不支持哔哩漫游的现有服务）</value>
+  </data>
+  <data name="ProxyVideoAddress" xml:space="preserve">
+    <value>播放代理</value>
+  </data>
+  <data name="ProxyViewAddress" xml:space="preserve">
+    <value>详情代理</value>
+  </data>
   <data name="PublicServer" xml:space="preserve">
     <value>公共服务器</value>
   </data>
@@ -1295,21 +1310,6 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   </data>
   <data name="RestartWarning" xml:space="preserve">
     <value>您更改了静态资源，需要重启应用才能生效</value>
-  </data>
-  <data name="RoamingSearchAddress" xml:space="preserve">
-    <value>搜索代理</value>
-  </data>
-  <data name="RoamingSetting" xml:space="preserve">
-    <value>漫游设置</value>
-  </data>
-  <data name="RoamingSettingDescription" xml:space="preserve">
-    <value>使用自定义的服务器进行代理，以解除地区限制（指定服务器后方可生效）</value>
-  </data>
-  <data name="RoamingVideoAddress" xml:space="preserve">
-    <value>播放代理</value>
-  </data>
-  <data name="RoamingViewAddress" xml:space="preserve">
-    <value>详情代理</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
