@@ -32,6 +32,7 @@ namespace Bili.Adapter
         private readonly IUserAdapter _userAdapter;
         private readonly IImageAdapter _imageAdapter;
         private readonly INumberToolkit _numberToolkit;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoAdapter"/> class.
@@ -40,16 +41,19 @@ namespace Bili.Adapter
         /// <param name="userAdapter">用户数据适配器.</param>
         /// <param name="imageAdapter">图片适配器.</param>
         /// <param name="numberToolkit">数字工具.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public VideoAdapter(
             ICommunityAdapter communityAdapter,
             IUserAdapter userAdapter,
             IImageAdapter imageAdapter,
-            INumberToolkit numberToolkit)
+            INumberToolkit numberToolkit,
+            ITextToolkit textToolkit)
         {
             _communityAdapter = communityAdapter;
             _userAdapter = userAdapter;
             _imageAdapter = imageAdapter;
             _numberToolkit = numberToolkit;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
@@ -62,14 +66,14 @@ namespace Bili.Adapter
 
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(videoCard);
             var publisher = _userAdapter.ConvertToRoleProfile(videoCard.Mask.Avatar);
-            var title = videoCard.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(videoCard.Title);
             var id = videoCard.Parameter;
             var duration = (videoCard.PlayerArgs?.Duration).HasValue
                     ? videoCard.PlayerArgs.Duration
                     : 0;
             var subtitle = videoCard.Description;
             var cover = _imageAdapter.ConvertToVideoCardCover(videoCard.Cover);
-            var highlight = videoCard.RecommendReason;
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(videoCard.RecommendReason);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -83,7 +87,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(PartitionVideo video)
         {
-            var title = video.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(video.Title);
             var id = video.Parameter;
             var duration = video.Duration;
             var subtitle = video.Publisher;
@@ -107,7 +111,7 @@ namespace Bili.Adapter
                 throw new ArgumentException($"该动态视频是 PGC 内容，不符合要求，请检查分配条件", nameof(dynamicVideo));
             }
 
-            var title = dynamicVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(dynamicVideo.Title);
             var id = dynamicVideo.Avid.ToString();
             var bvid = dynamicVideo.Bvid;
             var duration = Convert.ToInt32(dynamicVideo.Duration);
@@ -124,11 +128,11 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(ViewLaterVideo video)
         {
-            var title = video.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(video.Title);
             var duration = video.Duration;
             var id = video.VideoId.ToString();
             var bvid = video.BvId;
-            var description = video.Description;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(video.Description);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(video.PublishDateTime).ToLocalTime();
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
             var publisher = _userAdapter.ConvertToRoleProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
@@ -147,7 +151,7 @@ namespace Bili.Adapter
         public VideoInformation ConvertToVideoInformation(Item rankVideo)
         {
             var id = rankVideo.Param;
-            var title = rankVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(rankVideo.Title);
             var duration = Convert.ToInt32(rankVideo.Duration);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(rankVideo.PubDate).ToLocalTime();
 
@@ -155,7 +159,7 @@ namespace Bili.Adapter
             var publisher = new RoleProfile(user);
             var cover = _imageAdapter.ConvertToVideoCardCover(rankVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(rankVideo);
-            var subtitle = $"{user.Name} · {publishTime.Humanize()}";
+            var subtitle = $"{user.Name} · {_textToolkit.ConvertToTraditionalChineseIfNeeded(publishTime.Humanize())}";
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -172,11 +176,11 @@ namespace Bili.Adapter
             var v5 = hotVideo.SmallCoverV5;
             var card = v5.Base;
             var shareInfo = card.ThreePointV4.SharePlane;
-            var title = card.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(card.Title);
             var id = shareInfo.Aid.ToString();
             var bvId = shareInfo.Bvid;
             var subtitle = shareInfo.Author;
-            var description = shareInfo.Desc;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(shareInfo.Desc);
 
             // 对于热门视频来说，它会把观看数和发布时间揉在一起，比如 "13.5万观看 · 21小时前"，
             // 考虑到我们的需求，这里需要把它拆开，让发布时间和作者名一起作为副标题存在，就像推荐视频一样.
@@ -184,13 +188,14 @@ namespace Bili.Adapter
             if (descSplit.Length > 1)
             {
                 var publishTimeText = descSplit[1].Trim();
-                subtitle += $" · {publishTimeText}";
+                subtitle += $" · {_textToolkit.ConvertToTraditionalChineseIfNeeded(publishTimeText)}";
             }
 
             var duration = _numberToolkit.GetDurationSeconds(v5.CoverRightText1);
             var cover = _imageAdapter.ConvertToVideoCardCover(card.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(hotVideo);
             var highlight = hotVideo.SmallCoverV5.RcmdReasonStyle?.Text ?? string.Empty;
+            highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(highlight);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
 
@@ -207,15 +212,16 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(Relate relatedVideo)
         {
-            var title = relatedVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(relatedVideo.Title);
             var id = relatedVideo.Aid.ToString();
             var duration = Convert.ToInt32(relatedVideo.Duration);
-            var description = relatedVideo.Desc;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(relatedVideo.Desc);
             var publisher = _userAdapter.ConvertToRoleProfile(relatedVideo.Author);
             var cover = _imageAdapter.ConvertToVideoCardCover(relatedVideo.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(relatedVideo.Stat);
             var identifier = new VideoIdentifier(id, title, duration, cover);
             var subtitle = relatedVideo.Badge ?? relatedVideo.RcmdReason ?? relatedVideo.TagName ?? "视频";
+            subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(subtitle);
             return new VideoInformation(
                 identifier,
                 publisher,
@@ -227,13 +233,13 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(VideoSearchItem searchVideo)
         {
-            var title = searchVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(searchVideo.Title);
             var id = searchVideo.Parameter;
             var duration = string.IsNullOrEmpty(searchVideo.Duration)
                 ? 0
                 : _numberToolkit.GetDurationSeconds(searchVideo.Duration);
             var cover = _imageAdapter.ConvertToVideoCardCover(searchVideo.Cover);
-            var description = searchVideo.Description;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(searchVideo.Description);
             var user = _userAdapter.ConvertToUserProfile(searchVideo.UserId, searchVideo.Author, searchVideo.Avatar, Models.Enums.App.AvatarSize.Size48);
             var publisher = new RoleProfile(user);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(searchVideo);
@@ -251,13 +257,13 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(UserSpaceVideoItem spaceVideo)
         {
-            var title = spaceVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(spaceVideo.Title);
             var id = spaceVideo.Id;
             var publishDate = DateTimeOffset.FromUnixTimeSeconds(spaceVideo.CreateTime).ToLocalTime();
             var duration = spaceVideo.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(spaceVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(spaceVideo);
-            var subtitle = publishDate.DateTime.Humanize();
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(publishDate.DateTime.Humanize());
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -277,7 +283,7 @@ namespace Bili.Adapter
             }
 
             var video = historyVideo.CardUgc;
-            var title = historyVideo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(historyVideo.Title);
             var id = historyVideo.Kid.ToString();
             var bvid = video.Bvid;
             var subtitle = $"{video.Name} · {TimeSpan.FromSeconds(video.Progress)}";
@@ -298,14 +304,14 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(FavoriteMedia video)
         {
-            var title = video.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(video.Title);
             var id = video.Id.ToString();
             var publisher = _userAdapter.ConvertToRoleProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
             var duration = video.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video);
             var collectTime = DateTimeOffset.FromUnixTimeSeconds(video.FavoriteTime).ToLocalTime().DateTime;
-            var subtitle = $"{collectTime.Humanize()}收藏";
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded($"{collectTime.Humanize()}收藏");
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(identifier, publisher, subtitle: subtitle, communityInformation: communityInfo);
@@ -316,14 +322,15 @@ namespace Bili.Adapter
         {
             var archive = video.Archive;
             var title = Regex.Replace(archive.Title, @"<[^<>]+>", string.Empty);
+            title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
             var id = archive.Aid.ToString();
             var publisher = _userAdapter.ConvertToRoleProfile(archive.Author);
             var duration = Convert.ToInt32(archive.Duration);
             var cover = _imageAdapter.ConvertToVideoCardCover(archive.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(archive.Stat);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(archive.Pubdate).DateTime;
-            var description = archive.Desc;
-            var subtitle = publishTime.Humanize();
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(archive.Desc);
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(publishTime.Humanize());
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
             return new VideoInformation(
@@ -433,7 +440,7 @@ namespace Bili.Adapter
         private VideoInformation GetVideoInformationFromViewReply(ViewReply videoDetail)
         {
             var arc = videoDetail.Arc;
-            var title = arc.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(arc.Title);
             var id = arc.Aid.ToString();
             var bvid = videoDetail.Bvid;
             var duration = Convert.ToInt32(arc.Duration);
@@ -444,7 +451,7 @@ namespace Bili.Adapter
             var publisher = videoDetail.Staff.Count > 0
                 ? null
                 : _userAdapter.ConvertToRoleProfile(arc.Author, Models.Enums.App.AvatarSize.Size32);
-            var description = arc.Desc;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(arc.Desc);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(arc.Pubdate).DateTime;
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(arc.Stat);
             var isOriginal = videoDetail.Arc.Copyright == 1;
@@ -467,7 +474,7 @@ namespace Bili.Adapter
             foreach (var page in videoDetail.Pages.OrderBy(p => p.Page.Page_))
             {
                 var cid = page.Page.Cid.ToString();
-                var title = page.Page.Part;
+                var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(page.Page.Part);
                 var duration = Convert.ToInt32(page.Page.Duration);
                 var identifier = new VideoIdentifier(cid, title, duration, null);
                 subVideos.Add(identifier);
@@ -549,7 +556,7 @@ namespace Bili.Adapter
             foreach (var item in videoDetail.UgcSeason.Sections)
             {
                 var id = item.Id.ToString();
-                var title = item.Title;
+                var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
                 var videos = item.Episodes.Select(p => GetVideoInformationFromEpisode(p));
                 var section = new VideoSeason(id, title, videos);
                 sections.Add(section);

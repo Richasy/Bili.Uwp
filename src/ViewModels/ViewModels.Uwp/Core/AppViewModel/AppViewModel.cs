@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
@@ -17,6 +18,7 @@ using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -61,7 +63,9 @@ namespace Bili.ViewModels.Uwp.Core
 
             RxApp.DefaultExceptionHandler = new UnhandledExceptionHandler();
 
-            InitializeTheme();
+            var lan = ApplicationLanguages.Languages.First();
+            _settingsToolkit.WriteLocalSetting(SettingNames.LastAppLanguage, lan);
+            IsTraditionalChinese = lan.Contains("zh-hant", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

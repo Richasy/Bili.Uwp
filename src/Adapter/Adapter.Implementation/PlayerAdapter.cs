@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
+using Bili.Toolkit.Interfaces;
 
 namespace Bili.Adapter
 {
@@ -15,9 +16,21 @@ namespace Bili.Adapter
     /// </summary>
     public sealed class PlayerAdapter : IPlayerAdapter
     {
+        private readonly ITextToolkit _textToolkit;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerAdapter"/> class.
+        /// </summary>
+        /// <param name="textToolkit">文本工具.</param>
+        public PlayerAdapter(ITextToolkit textToolkit)
+            => _textToolkit = textToolkit;
+
         /// <inheritdoc/>
         public FormatInformation ConvertToFormatInformation(VideoFormat format)
-            => new FormatInformation(format.Quality, format.Description, !string.IsNullOrEmpty(format.Superscript));
+            => new FormatInformation(
+                format.Quality,
+                _textToolkit.ConvertToTraditionalChineseIfNeeded(format.Description),
+                !string.IsNullOrEmpty(format.Superscript));
 
         /// <inheritdoc/>
         public SegmentInformation ConvertToSegmentInformation(DashItem item)
@@ -62,7 +75,7 @@ namespace Bili.Adapter
         public DanmakuInformation ConvertToDanmakuInformation(Bilibili.Community.Service.Dm.V1.DanmakuElem danmaku)
             => new DanmakuInformation(
                 danmaku.Id.ToString(),
-                danmaku.Content,
+                _textToolkit.ConvertToTraditionalChineseIfNeeded(danmaku.Content),
                 danmaku.Mode,
                 danmaku.Progress / 1000.0,
                 danmaku.Color,
@@ -74,7 +87,7 @@ namespace Bili.Adapter
             var id = choice.Id.ToString();
             var condition = choice.Condition ?? string.Empty;
             var partId = choice.PartId.ToString();
-            var text = choice.Option;
+            var text = _textToolkit.ConvertToTraditionalChineseIfNeeded(choice.Option);
             var isValid = true;
 
             if (!string.IsNullOrEmpty(condition) && variables != null)

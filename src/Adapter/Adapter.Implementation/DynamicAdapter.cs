@@ -9,6 +9,7 @@ using Bili.Models.Data.Dynamic;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.Bili;
 using Bili.Models.Enums.Community;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter
@@ -24,6 +25,7 @@ namespace Bili.Adapter
         private readonly IPgcAdapter _pgcAdapter;
         private readonly IArticleAdapter _articleAdapter;
         private readonly ICommunityAdapter _communityAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicAdapter"/> class.
@@ -34,13 +36,15 @@ namespace Bili.Adapter
         /// <param name="pgcAdapter">PGC 数据适配器.</param>
         /// <param name="articleAdapter">文章数据适配器.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public DynamicAdapter(
             IUserAdapter userAdapter,
             IImageAdapter imageAdapter,
             IVideoAdapter videoAdapter,
             IPgcAdapter pgcAdapter,
             IArticleAdapter articleAdapter,
-            ICommunityAdapter communityAdapter)
+            ICommunityAdapter communityAdapter,
+            ITextToolkit textToolkit)
         {
             _userAdapter = userAdapter;
             _imageAdapter = imageAdapter;
@@ -48,6 +52,7 @@ namespace Bili.Adapter
             _pgcAdapter = pgcAdapter;
             _articleAdapter = articleAdapter;
             _communityAdapter = communityAdapter;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
@@ -86,6 +91,8 @@ namespace Bili.Adapter
                     tip = forwardUserModule.PtimeLabelText;
                 }
             }
+
+            tip = _textToolkit.ConvertToTraditionalChineseIfNeeded(tip);
 
             if (descModule != null)
             {

@@ -13,6 +13,7 @@ using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
 
 namespace Bili.Adapter
@@ -25,6 +26,7 @@ namespace Bili.Adapter
         private readonly IImageAdapter _imageAdapter;
         private readonly IUserAdapter _userAdapter;
         private readonly ICommunityAdapter _communityAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcAdapter"/> class.
@@ -32,14 +34,17 @@ namespace Bili.Adapter
         /// <param name="imageAdapter">图片适配器.</param>
         /// <param name="communityAdapter">社区信息适配器.</param>
         /// <param name="userAdapter">用户适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public PgcAdapter(
             IImageAdapter imageAdapter,
             ICommunityAdapter communityAdapter,
-            IUserAdapter userAdapter)
+            IUserAdapter userAdapter,
+            ITextToolkit textToolkit)
         {
             _imageAdapter = imageAdapter;
             _communityAdapter = communityAdapter;
             _userAdapter = userAdapter;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
@@ -49,7 +54,8 @@ namespace Bili.Adapter
             var title = string.IsNullOrEmpty(episode.LongTitle)
                 ? episode.ShareTitle
                 : episode.LongTitle;
-            var subtitle = episode.Subtitle;
+            title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(episode.Subtitle);
             var duration = episode.Duration / 1000;
             var cover = _imageAdapter.ConvertToVideoCardCover(episode.Cover);
             var seasonId = episode.Report.SeasonId;
@@ -87,8 +93,8 @@ namespace Bili.Adapter
             }
 
             var epid = card.Parameter;
-            var title = card.Title;
-            var subtitle = card.Description;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(card.Title);
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(card.Description);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(card);
             var cover = _imageAdapter.ConvertToVideoCardCover(card.Cover);
 
@@ -99,14 +105,15 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public EpisodeInformation ConvertToEpisodeInformation(PgcModuleItem item)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var epid = item.Aid.ToString();
             var ssid = item.OriginId.ToString();
             var cover = _imageAdapter.ConvertToVideoCardCover(item.Cover);
-            var highlight = item.Badge;
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Badge);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item.Stat);
             communityInfo.Id = epid;
             var subtitle = item.Stat?.FollowDisplayText ?? item.DisplayScoreText;
+            subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(subtitle);
 
             var identifier = new VideoIdentifier(epid, title, -1, cover);
             return new EpisodeInformation(
@@ -120,7 +127,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public EpisodeInformation ConvertToEpisodeInformation(MdlDynPGC pgc)
         {
-            var title = pgc.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(pgc.Title);
             var ssid = pgc.SeasonId.ToString();
             var epid = pgc.Epid.ToString();
             var aid = pgc.Aid.ToString();
@@ -135,7 +142,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public EpisodeInformation ConvertToEpisodeInformation(MdlDynArchive archive)
         {
-            var title = archive.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(archive.Title);
             var ssid = archive.PgcSeasonId.ToString();
             var epid = archive.EpisodeId.ToString();
             var aid = archive.Avid.ToString();
@@ -150,15 +157,16 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(PgcModuleItem item, PgcType type)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var ssid = item.OriginId.ToString();
             var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
-            var tags = item.SeasonTags;
-            var highlight = item.Badge;
+            var tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.SeasonTags);
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Badge);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item.Stat);
             communityInfo.Id = ssid;
-            var subtitle = item.Description;
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Description);
             var description = item.Stat?.FollowDisplayText ?? item.DisplayScoreText;
+            description = _textToolkit.ConvertToTraditionalChineseIfNeeded(description);
             var isTracking = item.Status?.IsFollow == 1;
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
@@ -178,13 +186,14 @@ namespace Bili.Adapter
         {
             var ssid = item.SeasonId.ToString();
             var title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
-            var subtitle = item.Label;
-            var tags = item.SubTitle;
+            title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Label);
+            var tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.SubTitle);
             var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
-            var highlight = item.BadgeText;
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.BadgeText);
             var isTracking = item.IsFollow == 1;
             var type = GetPgcTypeFromTypeText(item.SeasonTypeName);
-            var description = item.Area;
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Area);
             var ratingCount = Convert.ToInt32(item.VoteNumber);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(item);
 
@@ -204,15 +213,16 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(PgcIndexItem item)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var ssid = item.SeasonId.ToString();
-            var tags = item.OrderText;
+            var tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.OrderText);
             var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
-            var highlight = item.BadgeText;
-            var description = item.AdditionalText;
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.BadgeText);
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.AdditionalText);
             var subtitle = item.IsFinish == 1
                 ? "已完结"
                 : "连载中";
+            subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(subtitle);
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
             return new SeasonInformation(
@@ -226,14 +236,15 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(TimeLineEpisode item)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var ssid = item.SeasonId.ToString();
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(item.PublishTimeStamp).ToLocalTime().DateTime;
-            var tags = item.PublishIndex;
+            var tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.PublishIndex);
             var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
             var description = item.IsPublished == 1
                 ? "已更新"
                 : "待发布";
+            description = _textToolkit.ConvertToTraditionalChineseIfNeeded(description);
             var subtitle = publishTime.ToString("MM/dd HH:mm");
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
@@ -243,12 +254,12 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(PgcPlayListSeason season)
         {
-            var title = season.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(season.Title);
             var ssid = season.SeasonId.ToString();
-            var tags = season.Styles;
-            var subtitle = season.Subtitle;
-            var description = season.Description;
-            var highlight = season.BadgeText;
+            var tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(season.Styles);
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(season.Subtitle);
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(season.Description);
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(season.BadgeText);
             var cover = _imageAdapter.ConvertToPgcCover(season.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(season.Stat);
             communityInfo.Id = ssid;
@@ -270,13 +281,14 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public SeasonInformation ConvertToSeasonInformation(FavoritePgcItem item)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var subtitle = item.NewEpisode?.DisplayText ?? string.Empty;
+            subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(subtitle);
             var ssid = item.SeasonId.ToString();
             var type = GetPgcTypeFromTypeText(item.SeasonTypeName);
             var cover = _imageAdapter.ConvertToPgcCover(item.Cover);
-            var highlight = item.BadgeText;
-            var description = item.SeasonTypeName;
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.BadgeText);
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.SeasonTypeName);
 
             var identifier = new VideoIdentifier(ssid, title, -1, cover);
             return new SeasonInformation(
@@ -359,7 +371,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public PgcPlaylist ConvertToPgcPlaylist(PgcModule module)
         {
-            var title = module.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(module.Title);
             var id = string.Empty;
             if (module.Headers?.Count > 0)
             {
@@ -382,7 +394,8 @@ namespace Bili.Adapter
         {
             var id = response.Id.ToString();
             var subtitle = $"{response.Total} · {response.Description}";
-            var title = response.Title;
+            subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(subtitle);
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(response.Title);
             var seasons = response.Seasons.Select(p => ConvertToSeasonInformation(p));
             return new PgcPlaylist(title, id, subtitle, seasons);
         }
@@ -400,7 +413,7 @@ namespace Bili.Adapter
             var ranks = new Dictionary<string, IEnumerable<EpisodeInformation>>();
             foreach (var item in originRanks)
             {
-                var title = item.Title;
+                var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
                 var subRanks = item.Cards.Take(3).Select(p => ConvertToEpisodeInformation(p)).ToList();
                 ranks.Add(title, subRanks);
             }
@@ -429,9 +442,9 @@ namespace Bili.Adapter
                 .ToList();
             if (response.OrderList?.Count > 0)
             {
-                var name = "排序方式";
+                var name = _textToolkit.ConvertToTraditionalChineseIfNeeded("排序方式");
                 var id = "order";
-                var conditions = response.OrderList.Select(p => new Condition(p.Name, p.Field)).ToList();
+                var conditions = response.OrderList.Select(p => new Condition(_textToolkit.ConvertToTraditionalChineseIfNeeded(p.Name), p.Field)).ToList();
                 filters.Insert(0, new Filter(name, id, conditions));
             }
 
@@ -441,8 +454,8 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public TimelineView ConvertToTimelineView(PgcTimeLineResponse response)
         {
-            var title = response.Title;
-            var desc = response.Subtitle;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(response.Title);
+            var desc = _textToolkit.ConvertToTraditionalChineseIfNeeded(response.Subtitle);
             var timelines = new List<TimelineInformation>();
             foreach (var item in response.Data)
             {
@@ -469,11 +482,11 @@ namespace Bili.Adapter
         private SeasonInformation GetSeasonInformationFromDisplayInformation(PgcDisplayInformation display)
         {
             var ssid = display.SeasonId.ToString();
-            var title = display.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Title);
             var cover = _imageAdapter.ConvertToPgcCover(display.Cover);
-            var subtitle = display.Subtitle;
-            var description = display.Evaluate;
-            var highlight = display.BadgeText;
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Subtitle);
+            var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Evaluate);
+            var highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(display.BadgeText);
             var progress = display.PublishInformation.DisplayProgress;
             var publishDate = display.PublishInformation.DisplayPublishTime;
             var originName = display.OriginName;
@@ -481,6 +494,7 @@ namespace Bili.Adapter
             var tags = $"{display.TypeDescription}\n" +
                 $"{display.PublishInformation.DisplayReleaseDate}\n" +
                 $"{display.PublishInformation.DisplayProgress}";
+            tags = _textToolkit.ConvertToTraditionalChineseIfNeeded(tags);
             var isTracking = display.UserStatus.IsFollow == 1;
             var ratingCount = display.Rating != null
                 ? display.Rating.Count
@@ -488,12 +502,16 @@ namespace Bili.Adapter
             var labors = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(display.Actor?.Information))
             {
-                labors.Add(display.Actor.Title, display.Actor.Information);
+                labors.Add(
+                    _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Actor.Title),
+                    _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Actor.Information));
             }
 
             if (!string.IsNullOrEmpty(display.Staff?.Information))
             {
-                labors.Add(display.Staff.Title, display.Staff.Information);
+                labors.Add(
+                    _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Staff.Title),
+                    _textToolkit.ConvertToTraditionalChineseIfNeeded(display.Staff.Information));
             }
 
             var celebrities = display.Celebrity?.Select(p => _userAdapter.ConvertToRoleProfile(p));
@@ -557,7 +575,7 @@ namespace Bili.Adapter
                 _ => "-",
             };
 
-            return $"周{dayOfWeek}";
+            return _textToolkit.ConvertToTraditionalChineseIfNeeded($"周{dayOfWeek}");
         }
     }
 }

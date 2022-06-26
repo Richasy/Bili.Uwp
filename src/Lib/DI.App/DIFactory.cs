@@ -49,6 +49,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IMD5Toolkit, MD5Toolkit>();
             SplatRegistrations.RegisterLazySingleton<IFontToolkit, FontToolkit>();
             SplatRegistrations.RegisterLazySingleton<IVideoToolkit, VideoToolkit>();
+            SplatRegistrations.RegisterLazySingleton<ITextToolkit, TextToolkit>();
 
             SplatRegistrations.RegisterLazySingleton<IImageAdapter, ImageAdapter>();
             SplatRegistrations.RegisterLazySingleton<IUserAdapter, UserAdapter>();

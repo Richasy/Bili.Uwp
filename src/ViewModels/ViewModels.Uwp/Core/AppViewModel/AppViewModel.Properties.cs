@@ -187,5 +187,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsNetworkAvaliable { get; set; }
+
+        /// <summary>
+        /// 是否为繁体中文环境.
+        /// </summary>
+        [Reactive]
+        public bool IsTraditionalChinese { get; set; }
     }
 }

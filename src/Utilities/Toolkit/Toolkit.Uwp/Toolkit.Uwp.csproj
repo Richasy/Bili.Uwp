@@ -20,6 +20,7 @@
     </Compile>
     <Compile Include="ResourceToolkit.cs" />
     <Compile Include="SettingsToolkit.cs" />
+    <Compile Include="TextToolkit.cs" />
     <Compile Include="VideoToolkit.cs" />
     <Content Include="Properties\Toolkit.Uwp.rd.xml" />
   </ItemGroup>
@@ -29,6 +30,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="ToolGood.Words">
+      <Version>3.0.3.1</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.26.0</Version>

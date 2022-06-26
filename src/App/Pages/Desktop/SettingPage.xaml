@@ -45,6 +45,7 @@
                 <controls:CacheSettingSection />
                 <controls:InitialCheckSection />
                 <controls:NotificationSettingSection />
+                <controls:TraditionalChineseSettingSection Visibility="{x:Bind CoreViewModel.IsTraditionalChinese, Mode=OneWay}" />
 
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"

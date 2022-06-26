@@ -644,6 +644,12 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="FullScreenMode" xml:space="preserve">
     <value>全屏模式</value>
   </data>
+  <data name="FullTraditionalChineseDescription" xml:space="preserve">
+    <value>包括视频标题、简介等信息在内的文本自动转换为繁体中文。用户名等标识信息除外</value>
+  </data>
+  <data name="FullTraditionalChineseTitle" xml:space="preserve">
+    <value>全盘繁体</value>
+  </data>
   <data name="FullWindowMode" xml:space="preserve">
     <value>全窗口模式</value>
   </data>
@@ -766,7 +772,7 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
     <value>最新评论</value>
   </data>
   <data name="License" xml:space="preserve">
-    <value>©2021 Richasy. MIT 许可证</value>
+    <value>©2022 Richasy. MIT 许可证</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>

@@ -1,0 +1,1684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted" xml:space="preserve">
+    <value>操作中止</value>
+  </data>
+  <data name="AboutThisApp" xml:space="preserve">
+    <value>關於此應用</value>
+  </data>
+  <data name="AddReplyFailed" xml:space="preserve">
+    <value>添加評論失敗，請稍後再試</value>
+  </data>
+  <data name="AddToViewLater" xml:space="preserve">
+    <value>添加到稍後再看</value>
+  </data>
+  <data name="AddViewLaterFailed" xml:space="preserve">
+    <value>添加到稍後再看失敗</value>
+  </data>
+  <data name="AddViewLaterSucceseded" xml:space="preserve">
+    <value>視頻已添加至稍後再看</value>
+  </data>
+  <data name="AdvancedOptions" xml:space="preserve">
+    <value>高級選項</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>別名</value>
+  </data>
+  <data name="AlsoLike" xml:space="preserve">
+    <value>同時點贊</value>
+  </data>
+  <data name="Anime" xml:space="preserve">
+    <value>動漫</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>任意</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>嗶哩是雲之幻練手做的項目，旨在構建BiliBili的桌面客戶端，滿足個人需求</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>嗶哩 Preview</value>
+  </data>
+  <data name="AppTheme" xml:space="preserve">
+    <value>應用主題</value>
+  </data>
+  <data name="AppThemeDescription" xml:space="preserve">
+    <value>選擇一個你偏好的應用主題</value>
+  </data>
+  <data name="AppTip" xml:space="preserve">
+    <value>應用提示</value>
+  </data>
+  <data name="AskIssue" xml:space="preserve">
+    <value>Github issue</value>
+  </data>
+  <data name="AtLeastChooseOnePart" xml:space="preserve">
+    <value>至少應選擇一個分P</value>
+  </data>
+  <data name="AtMe" xml:space="preserve">
+    <value>@我的</value>
+  </data>
+  <data name="AtMessageTypeDescription" xml:space="preserve">
+    <value>在{0}中@了我</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="AutoNextRelatedVideo" xml:space="preserve">
+    <value>自動播放關聯視頻</value>
+  </data>
+  <data name="AutoNextRelatedVideoDescription" xml:space="preserve">
+    <value>在視頻播放結束後，如果有關聯視頻，則在 5 秒倒計時結束後自動播放下一個視頻</value>
+  </data>
+  <data name="AutoPlayWhenLoaded" xml:space="preserve">
+    <value>加載完成後自動播放</value>
+  </data>
+  <data name="Av1" xml:space="preserve">
+    <value>AV1</value>
+  </data>
+  <data name="AvBvConverter" xml:space="preserve">
+    <value>AV/BV 互轉</value>
+  </data>
+  <data name="AvBvConverterDescription" xml:space="preserve">
+    <value>視頻AV號與BV號相互轉換</value>
+  </data>
+  <data name="AvBvConverterIntroduce" xml:space="preserve">
+    <value>應用將根據輸入的 Id 自動判斷輸入的是 AV 號還是 BV 號。
+AV號是一串數字，如 170001
+
+BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</value>
+  </data>
+  <data name="AvBvId" xml:space="preserve">
+    <value>AV或BV號</value>
+  </data>
+  <data name="BackSkip" xml:space="preserve">
+    <value>向後跳轉</value>
+  </data>
+  <data name="BackToDefaultView" xml:space="preserve">
+    <value>返回標準視圖</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>返回主頁</value>
+  </data>
+  <data name="BackToPrevious" xml:space="preserve">
+    <value>返回上一級</value>
+  </data>
+  <data name="BackToStart" xml:space="preserve">
+    <value>返回互動視頻開頭</value>
+  </data>
+  <data name="Bangumi" xml:space="preserve">
+    <value>番劇</value>
+  </data>
+  <data name="BelikeCount" xml:space="preserve">
+    <value>獲贊數</value>
+  </data>
+  <data name="BiliHomePage" xml:space="preserve">
+    <value>開發者B站主頁</value>
+  </data>
+  <data name="Billion" xml:space="preserve">
+    <value>億</value>
+  </data>
+  <data name="Blue" xml:space="preserve">
+    <value>青色</value>
+  </data>
+  <data name="BottomDanmaku" xml:space="preserve">
+    <value>底部彈幕</value>
+  </data>
+  <data name="CacheCleared" xml:space="preserve">
+    <value>已清理緩存</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Captcha" xml:space="preserve">
+    <value>驗證碼</value>
+  </data>
+  <data name="CaptchaHolder" xml:space="preserve">
+    <value>請輸入右側驗證碼</value>
+  </data>
+  <data name="CaptchaIsEmpty" xml:space="preserve">
+    <value>驗證碼不能為空</value>
+  </data>
+  <data name="CastAndCrew" xml:space="preserve">
+    <value>演職人員</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>聊天互動</value>
+  </data>
+  <data name="ChooseCoinNumber" xml:space="preserve">
+    <value>打算投幾個幣？</value>
+  </data>
+  <data name="ChooseDownloadFolder" xml:space="preserve">
+    <value>選擇下載文件夾</value>
+  </data>
+  <data name="ChooseFavorite" xml:space="preserve">
+    <value>選擇收藏夾</value>
+  </data>
+  <data name="Cinema" xml:space="preserve">
+    <value>影視</value>
+  </data>
+  <data name="Clean" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="CleanLogger" xml:space="preserve">
+    <value>清除日誌記錄</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>清除緩存</value>
+  </data>
+  <data name="ClearCacheDescription" xml:space="preserve">
+    <value>清理本地的圖片緩存以減少應用數據佔用</value>
+  </data>
+  <data name="ClearHistory" xml:space="preserve">
+    <value>清空歷史記錄</value>
+  </data>
+  <data name="ClearHistoryWarning" xml:space="preserve">
+    <value>是否要清空歷史記錄？</value>
+  </data>
+  <data name="ClearViewLater" xml:space="preserve">
+    <value>清空稍後再看</value>
+  </data>
+  <data name="ClearViewLaterWarning" xml:space="preserve">
+    <value>是否要清空稍後再看列表？</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Coin" xml:space="preserve">
+    <value>投幣</value>
+  </data>
+  <data name="CoinFailed" xml:space="preserve">
+    <value>投幣失敗，試試看只投一個吧</value>
+  </data>
+  <data name="CoinNumberTip" xml:space="preserve">
+    <value>原創視頻方可投2個幣</value>
+  </data>
+  <data name="CollectTime" xml:space="preserve">
+    <value>收藏時間</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>顏色</value>
+  </data>
+  <data name="CompactOverlayMode" xml:space="preserve">
+    <value>小窗模式</value>
+  </data>
+  <data name="Comprehensive" xml:space="preserve">
+    <value>綜合</value>
+  </data>
+  <data name="ComprehensiveDynamics" xml:space="preserve">
+    <value>綜合動態</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ContinuePlayDescription" xml:space="preserve">
+    <value>上次應用關閉時您仍在播放視頻，你可以繼續播放該視頻：</value>
+  </data>
+  <data name="ContinuePlayTitle" xml:space="preserve">
+    <value>是否繼續播放？</value>
+  </data>
+  <data name="ContinuePreviousView" xml:space="preserve">
+    <value>繼續觀看</value>
+  </data>
+  <data name="ContinuousPlay" xml:space="preserve">
+    <value>連續播放</value>
+  </data>
+  <data name="ContinuousPlayDescription" xml:space="preserve">
+    <value>當視頻有多個分集時自動連續播放（一集結束自動切換到下一集）
+UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如果支持)</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>轉換</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>已復制</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>複製到剪切板</value>
+  </data>
+  <data name="CopyToClipboardAfterScreenshot" xml:space="preserve">
+    <value>截圖後復製到剪切板</value>
+  </data>
+  <data name="CoverDownloader" xml:space="preserve">
+    <value>封面下載</value>
+  </data>
+  <data name="CoverDownloaderDescription" xml:space="preserve">
+    <value>下載指定視頻的封面到本地文件</value>
+  </data>
+  <data name="CoverDownloaderIntroduce" xml:space="preserve">
+    <value>輸入視頻的 AV 或 BV 號，應用會嘗試獲取其封面並提供預覽，確認後請點擊下載按鈕，應用會將其下載到圖庫並打開</value>
+  </data>
+  <data name="CurrentPlaybackRate" xml:space="preserve">
+    <value>當前播放速率</value>
+  </data>
+  <data name="CurrentProgress" xml:space="preserve">
+    <value>當前進度</value>
+  </data>
+  <data name="CurrentVolume" xml:space="preserve">
+    <value>當前音量</value>
+  </data>
+  <data name="Danmaku" xml:space="preserve">
+    <value>彈幕</value>
+  </data>
+  <data name="DanmakuArea" xml:space="preserve">
+    <value>彈幕顯示區域</value>
+  </data>
+  <data name="DanmakuAutoLimit" xml:space="preserve">
+    <value>自動限制同屏彈幕數</value>
+  </data>
+  <data name="DanmakuBold" xml:space="preserve">
+    <value>彈幕加粗</value>
+  </data>
+  <data name="DanmakuCount" xml:space="preserve">
+    <value>彈幕數</value>
+  </data>
+  <data name="DanmakuDensity" xml:space="preserve">
+    <value>同屏彈幕密度</value>
+  </data>
+  <data name="DanmakuDisplaySettings" xml:space="preserve">
+    <value>彈幕顯示設置</value>
+  </data>
+  <data name="DanmakuFont" xml:space="preserve">
+    <value>彈幕字體</value>
+  </data>
+  <data name="DanmakuFontSize" xml:space="preserve">
+    <value>彈幕大小</value>
+  </data>
+  <data name="DanmakuMerge" xml:space="preserve">
+    <value>彈幕合併</value>
+  </data>
+  <data name="DanmakuOpacity" xml:space="preserve">
+    <value>彈幕透明度</value>
+  </data>
+  <data name="DanmakuPlaceholder" xml:space="preserve">
+    <value>發個友善的彈幕見證當下</value>
+  </data>
+  <data name="DanmakuSendSettings" xml:space="preserve">
+    <value>彈幕發送設置</value>
+  </data>
+  <data name="DanmakuSpeed" xml:space="preserve">
+    <value>彈幕速度</value>
+  </data>
+  <data name="DanmakuStyle" xml:space="preserve">
+    <value>彈幕樣式</value>
+  </data>
+  <data name="DanmakuSwitch" xml:space="preserve">
+    <value>彈幕開關</value>
+  </data>
+  <data name="DanmakuZoom" xml:space="preserve">
+    <value>彈幕縮放</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="DecodingError" xml:space="preserve">
+    <value>解碼失敗或者正在切換片源</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>默認</value>
+  </data>
+  <data name="DefaultFavorite" xml:space="preserve">
+    <value>默認收藏夾</value>
+  </data>
+  <data name="DefaultPlayerDisplayMode" xml:space="preserve">
+    <value>默認播放器顯示模式</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DeleteFavorite" xml:space="preserve">
+    <value>刪除收藏夾</value>
+  </data>
+  <data name="DeleteFavoriteWarning" xml:space="preserve">
+    <value>是否要刪除該收藏夾？</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>簡介</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>詳情</value>
+  </data>
+  <data name="DisableP2PCdn" xml:space="preserve">
+    <value>禁用 P2P CDN</value>
+  </data>
+  <data name="DisableP2PCdnDescription" xml:space="preserve">
+    <value>優先通過非 P2P CDN 加載視頻，提升新視頻和冷門視頻的加載速度</value>
+  </data>
+  <data name="Documentary" xml:space="preserve">
+    <value>紀錄片</value>
+  </data>
+  <data name="DomesticAnime" xml:space="preserve">
+    <value>國創</value>
+  </data>
+  <data name="DoubleClickBehavior" xml:space="preserve">
+    <value>雙擊行為</value>
+  </data>
+  <data name="DoubleClickBehaviorDescription" xml:space="preserve">
+    <value>雙擊播放器空白區域的行為</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="DownloadDanmaku" xml:space="preserve">
+    <value>下載彈幕</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>下載文件夾</value>
+  </data>
+  <data name="DownloadTip" xml:space="preserve">
+    <value>應用本身不提供下載功能，但支持生成 BBDown 命令，具體的使用方法參見 幫助&amp;支持</value>
+  </data>
+  <data name="DownloadType" xml:space="preserve">
+    <value>下載類型</value>
+  </data>
+  <data name="DynamicCount" xml:space="preserve">
+    <value>動態數</value>
+  </data>
+  <data name="DynamicFeed" xml:space="preserve">
+    <value>動態</value>
+  </data>
+  <data name="DynamicNeedLoginFirst" xml:space="preserve">
+    <value>想查看關注的UP主的動態嗎？
+快登錄吧！</value>
+  </data>
+  <data name="EnterCompactOverlay" xml:space="preserve">
+    <value>進入小窗模式</value>
+  </data>
+  <data name="EnterFullScreen" xml:space="preserve">
+    <value>進入全屏模式</value>
+  </data>
+  <data name="EnterFullWindow" xml:space="preserve">
+    <value>進入全窗口模式</value>
+  </data>
+  <data name="EnterToEffect" xml:space="preserve">
+    <value>按下回車以生效</value>
+  </data>
+  <data name="Episodes" xml:space="preserve">
+    <value>分集</value>
+  </data>
+  <data name="ExitCompactOverlay" xml:space="preserve">
+    <value>退出小窗模式</value>
+  </data>
+  <data name="ExitFullScreen" xml:space="preserve">
+    <value>退出全屏模式</value>
+  </data>
+  <data name="ExitFullWindow" xml:space="preserve">
+    <value>退出全窗口模式</value>
+  </data>
+  <data name="ExitSearch" xml:space="preserve">
+    <value>退出搜索</value>
+  </data>
+  <data name="FailedToClearHisotry" xml:space="preserve">
+    <value>嘗試清空歷史記錄失敗，請稍後重試</value>
+  </data>
+  <data name="FailedToClearLog" xml:space="preserve">
+    <value>清除日誌失敗，請稍後重試</value>
+  </data>
+  <data name="FailedToClearViewLater" xml:space="preserve">
+    <value>清除稍後再看列表失敗，請稍後重試</value>
+  </data>
+  <data name="FailedToGetUserRelation" xml:space="preserve">
+    <value>獲取用戶關係信息失敗</value>
+  </data>
+  <data name="FailedToLoadQRCode" xml:space="preserve">
+    <value>二維碼加載失敗，請刷新</value>
+  </data>
+  <data name="FailedToRemoveVideoFromHistory" xml:space="preserve">
+    <value>嘗試刪除該歷史記錄失敗，請稍後重試</value>
+  </data>
+  <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
+    <value>嘗試移除視頻失敗，請稍後重試</value>
+  </data>
+  <data name="FailedToSendDanmaku" xml:space="preserve">
+    <value>發送彈幕失敗，請稍後再試</value>
+  </data>
+  <data name="FansCount" xml:space="preserve">
+    <value>粉絲數</value>
+  </data>
+  <data name="FansSuffix" xml:space="preserve">
+    <value>的粉絲</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="FavoriteFailed" xml:space="preserve">
+    <value>收藏失敗</value>
+  </data>
+  <data name="FavoriteHaveNoVideos" xml:space="preserve">
+    <value>收藏夾內沒有視頻</value>
+  </data>
+  <data name="FilterByGreaterThan60Min" xml:space="preserve">
+    <value>60分鐘+</value>
+  </data>
+  <data name="FilterByLessThan10Min" xml:space="preserve">
+    <value>0-10分鐘</value>
+  </data>
+  <data name="FilterByLessThan30Min" xml:space="preserve">
+    <value>10-30分鐘</value>
+  </data>
+  <data name="FilterByLessThan60Min" xml:space="preserve">
+    <value>30-60分鐘</value>
+  </data>
+  <data name="FilterByTotalDuration" xml:space="preserve">
+    <value>全部時長</value>
+  </data>
+  <data name="FirstClickTagTip" xml:space="preserve">
+    <value>點擊標籤後，您將前往搜索頁面搜索標籤內容，這會中斷當前正在播放的視頻，是否確認？
+點擊確認後，下次點擊標籤將不會彈出該提示</value>
+  </data>
+  <data name="FixContent" xml:space="preserve">
+    <value>固定內容</value>
+  </data>
+  <data name="FixedContent" xml:space="preserve">
+    <value>固定的內容</value>
+  </data>
+  <data name="FixedPgcs" xml:space="preserve">
+    <value>固定的劇集</value>
+  </data>
+  <data name="FixedPublishers" xml:space="preserve">
+    <value>固定的UP</value>
+  </data>
+  <data name="FixPgc" xml:space="preserve">
+    <value>固定劇集</value>
+  </data>
+  <data name="FixPublisher" xml:space="preserve">
+    <value>固定UP</value>
+  </data>
+  <data name="Flv" xml:space="preserve">
+    <value>流媒體/FLV</value>
+  </data>
+  <data name="FlvNotSupported" xml:space="preserve">
+    <value>目前嗶哩不能播放 flv 格式的直播，請在網頁中打開該直播間</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>關注</value>
+  </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value>關注數</value>
+  </data>
+  <data name="FollowEachOther" xml:space="preserve">
+    <value>互相關注</value>
+  </data>
+  <data name="Followed" xml:space="preserve">
+    <value>已關注</value>
+  </data>
+  <data name="FollowLiveRoom" xml:space="preserve">
+    <value>關注的直播間</value>
+  </data>
+  <data name="FollowRoom" xml:space="preserve">
+    <value>關注直播間</value>
+  </data>
+  <data name="FollowsSuffix" xml:space="preserve">
+    <value>關注的人</value>
+  </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>跟隨系統</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>字號</value>
+  </data>
+  <data name="ForwardSkip" xml:space="preserve">
+    <value>向前跳轉</value>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>完整</value>
+  </data>
+  <data name="FullScreenMode" xml:space="preserve">
+    <value>全屏模式</value>
+  </data>
+  <data name="FullTraditionalChineseDescription" xml:space="preserve">
+    <value>包括視頻標題、簡介等信息在內的文本自動轉換為繁體中文。用戶名等標識信息除外</value>
+  </data>
+  <data name="FullTraditionalChineseTitle" xml:space="preserve">
+    <value>全盤繁體</value>
+  </data>
+  <data name="FullWindowMode" xml:space="preserve">
+    <value>全窗口模式</value>
+  </data>
+  <data name="FunctionIntroduce" xml:space="preserve">
+    <value>功能說明</value>
+  </data>
+  <data name="GenerateCommand" xml:space="preserve">
+    <value>生成命令</value>
+  </data>
+  <data name="Generic" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="GlobalPlaybackRate" xml:space="preserve">
+    <value>全局播放速率</value>
+  </data>
+  <data name="GlobalPlaybackRateDescription" xml:space="preserve">
+    <value>啟用後，所有視頻共用一個播放速率</value>
+  </data>
+  <data name="GlobeProxy" xml:space="preserve">
+    <value>全局代理</value>
+  </data>
+  <data name="GlobeProxyDescription" xml:space="preserve">
+    <value>不論是否為地區限制的內容，都使用代理服務器解析</value>
+  </data>
+  <data name="Grass" xml:space="preserve">
+    <value>草綠色</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>綠色</value>
+  </data>
+  <data name="H264" xml:space="preserve">
+    <value>AVC/H.264</value>
+  </data>
+  <data name="H265" xml:space="preserve">
+    <value>HEVC/H.265</value>
+  </data>
+  <data name="HasUpdate" xml:space="preserve">
+    <value>新版本發布</value>
+  </data>
+  <data name="HelpAndSupport" xml:space="preserve">
+    <value>幫助 &amp; 支持</value>
+  </data>
+  <data name="HideDanmaku" xml:space="preserve">
+    <value>隱藏彈幕</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>首頁</value>
+  </data>
+  <data name="HotReply" xml:space="preserve">
+    <value>最熱評論</value>
+  </data>
+  <data name="HotSearch" xml:space="preserve">
+    <value>搜索熱詞</value>
+  </data>
+  <data name="HotTags" xml:space="preserve">
+    <value>熱門標籤</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="IgnoreVersion" xml:space="preserve">
+    <value>忽略該版本</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>索引</value>
+  </data>
+  <data name="InfinityLoop" xml:space="preserve">
+    <value>洗腦循環</value>
+  </data>
+  <data name="InitialCheckDescription" xml:space="preserve">
+    <value>是否在應用啟動時檢查上次關閉時正在播放的視頻，並提醒繼續播放</value>
+  </data>
+  <data name="InitialCheckTitle" xml:space="preserve">
+    <value>初始化檢查</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>輸入</value>
+  </data>
+  <data name="InputCaptchaTip" xml:space="preserve">
+    <value>請輸入驗證碼</value>
+  </data>
+  <data name="InteractionEnd" xml:space="preserve">
+    <value>互動視頻結束，可點擊播放控制器的 "橡皮擦" 按鈕返回開頭</value>
+  </data>
+  <data name="InteractionQuality" xml:space="preserve">
+    <value>交互式清晰度選擇</value>
+  </data>
+  <data name="InterfaceType" xml:space="preserve">
+    <value>接口類型</value>
+  </data>
+  <data name="InternationalApp" xml:space="preserve">
+    <value>國際應用</value>
+  </data>
+  <data name="InvalidAddress" xml:space="preserve">
+    <value>無效的地址</value>
+  </data>
+  <data name="InvalidUserNameOrPassword" xml:space="preserve">
+    <value>用戶名或密碼錯誤</value>
+  </data>
+  <data name="InvalidVideoId" xml:space="preserve">
+    <value>不是有效的視頻Id</value>
+  </data>
+  <data name="IsNeedFeedback" xml:space="preserve">
+    <value>需要反饋？</value>
+  </data>
+  <data name="IsNeedFeedbackDescription" xml:space="preserve">
+    <value>需要反饋應用使用過程中的問題？
+想提供一些建議？</value>
+  </data>
+  <data name="Khaki" xml:space="preserve">
+    <value>土黃色</value>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Lastest" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="LastestReply" xml:space="preserve">
+    <value>最新評論</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>©2022 Richasy. MIT 許可證</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>淺色</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>淺藍色</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>點贊</value>
+  </data>
+  <data name="LikeCount" xml:space="preserve">
+    <value>點贊數</value>
+  </data>
+  <data name="LikeMe" xml:space="preserve">
+    <value>收到的讚</value>
+  </data>
+  <data name="LikeMessageMultipleDescription" xml:space="preserve">
+    <value>{0}, {1} 等{2}人讚了我的{3}</value>
+  </data>
+  <data name="LikeMessageSingleDescription" xml:space="preserve">
+    <value>{0} 讚了我的{1}</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="LogEmptied" xml:space="preserve">
+    <value>已清除日誌記錄</value>
+  </data>
+  <data name="LoggerFolder" xml:space="preserve">
+    <value>日誌文件夾</value>
+  </data>
+  <data name="LoggerModule" xml:space="preserve">
+    <value>日誌記錄</value>
+  </data>
+  <data name="LoggerModuleDescription" xml:space="preserve">
+    <value>查看應用日誌或清除日誌記錄</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>登錄失敗，請稍後重試</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>手動</value>
+  </data>
+  <data name="MarkWantWatch" xml:space="preserve">
+    <value>標記為想看</value>
+  </data>
+  <data name="MarkWatched" xml:space="preserve">
+    <value>標記為已看</value>
+  </data>
+  <data name="MarkWatching" xml:space="preserve">
+    <value>標記為在看</value>
+  </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>菜單</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>最小</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>移動應用</value>
+  </data>
+  <data name="MoreInDynamic" xml:space="preserve">
+    <value>更多內容請在動態頁查看</value>
+  </data>
+  <data name="MorePeople" xml:space="preserve">
+    <value>等人</value>
+  </data>
+  <data name="MoreReplyDisplay" xml:space="preserve">
+    <value>共{0}條回复 ⪢</value>
+  </data>
+  <data name="Movie" xml:space="preserve">
+    <value>電影</value>
+  </data>
+  <data name="MTCControlMode" xml:space="preserve">
+    <value>媒體傳輸控件控制模式</value>
+  </data>
+  <data name="MTCControlModeDescription" xml:space="preserve">
+    <value>選擇媒體傳輸控件（包含播放進度的播放控制欄）顯隱的方式</value>
+  </data>
+  <data name="Muted" xml:space="preserve">
+    <value>已靜音</value>
+  </data>
+  <data name="MyFavorite" xml:space="preserve">
+    <value>我的收藏</value>
+  </data>
+  <data name="MyFavoriteAnime" xml:space="preserve">
+    <value>我的追番</value>
+  </data>
+  <data name="MyWebPage" xml:space="preserve">
+    <value>個人主頁</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>導航</value>
+  </data>
+  <data name="NeedLoginFirst" xml:space="preserve">
+    <value>你需要先登錄才能執行操作</value>
+  </data>
+  <data name="NeedQRLogin" xml:space="preserve">
+    <value>密碼登錄方式失敗，請使用二維碼登錄</value>
+  </data>
+  <data name="NeedScaleToShowMessage" xml:space="preserve">
+    <value>當前寬度不足以顯示消息，請調整應用寬度</value>
+  </data>
+  <data name="NeedScaleToShowReply" xml:space="preserve">
+    <value>你需要拉寬應用以顯示評論列表</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>網絡連接錯誤，請稍後重試</value>
+  </data>
+  <data name="NextEpisode" xml:space="preserve">
+    <value>下一集</value>
+  </data>
+  <data name="NoConvert" xml:space="preserve">
+    <value>不轉換</value>
+  </data>
+  <data name="NoEpisode" xml:space="preserve">
+    <value>沒有可供播放的分集</value>
+  </data>
+  <data name="NoFans" xml:space="preserve">
+    <value>該用戶還木有粉絲喲~</value>
+  </data>
+  <data name="NoFollows" xml:space="preserve">
+    <value>該用戶還沒有關注任何人</value>
+  </data>
+  <data name="NoHistoryVideos" xml:space="preserve">
+    <value>沒有最近的視頻歷史記錄</value>
+  </data>
+  <data name="NoMessage" xml:space="preserve">
+    <value>正在等待發言</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="NoReply" xml:space="preserve">
+    <value>目前還沒有評論</value>
+  </data>
+  <data name="NormalUser" xml:space="preserve">
+    <value>普通用戶</value>
+  </data>
+  <data name="NoRoomDescription" xml:space="preserve">
+    <value>暫無直播間文本介紹</value>
+  </data>
+  <data name="NoSpecificData" xml:space="preserve">
+    <value>沒有找到指定的數據</value>
+  </data>
+  <data name="NoSpecifiedDownloadPath" xml:space="preserve">
+    <value>沒有指定的下載文件夾</value>
+  </data>
+  <data name="NoStroke" xml:space="preserve">
+    <value>無描邊</value>
+  </data>
+  <data name="NotificationSetting" xml:space="preserve">
+    <value>通知設置</value>
+  </data>
+  <data name="NotificationSettingDescription" xml:space="preserve">
+    <value>打開視頻動態通知，有新的視頻更新時會提醒你，登錄後有效</value>
+  </data>
+  <data name="NotSupportDynamic" xml:space="preserve">
+    <value>不受支持的動態類型</value>
+  </data>
+  <data name="NotUpdate" xml:space="preserve">
+    <value>即將更新</value>
+  </data>
+  <data name="NotUpdated" xml:space="preserve">
+    <value>未更新</value>
+  </data>
+  <data name="NoUserVideoSearchResult" xml:space="preserve">
+    <value>沒有在該用戶下找到指定關鍵詞的視頻</value>
+  </data>
+  <data name="NoViewLaterVideos" xml:space="preserve">
+    <value>沒有視頻被加入稍後再看列表</value>
+  </data>
+  <data name="OfficialUser" xml:space="preserve">
+    <value>認證用戶</value>
+  </data>
+  <data name="OnlyAudio" xml:space="preserve">
+    <value>僅音頻</value>
+  </data>
+  <data name="OnlyIndex" xml:space="preserve">
+    <value>僅顯示序號</value>
+  </data>
+  <data name="OnlySubtitle" xml:space="preserve">
+    <value>僅字幕</value>
+  </data>
+  <data name="OnlyVideo" xml:space="preserve">
+    <value>僅視頻</value>
+  </data>
+  <data name="OpenDownloadPage" xml:space="preserve">
+    <value>前往下載</value>
+  </data>
+  <data name="OpenFileAfterScreenshot" xml:space="preserve">
+    <value>截圖後打開圖片</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>打開文件夾</value>
+  </data>
+  <data name="OpenInBroswer" xml:space="preserve">
+    <value>在瀏覽器中打開</value>
+  </data>
+  <data name="Orange" xml:space="preserve">
+    <value>橘黃色</value>
+  </data>
+  <data name="Original" xml:space="preserve">
+    <value>原創</value>
+  </data>
+  <data name="OriginName" xml:space="preserve">
+    <value>原名</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="Partition" xml:space="preserve">
+    <value>分區</value>
+  </data>
+  <data name="PartitionLoading" xml:space="preserve">
+    <value>正在加載分區</value>
+  </data>
+  <data name="PartitionRequestFailed" xml:space="preserve">
+    <value>分區請求失敗</value>
+  </data>
+  <data name="PartPrefix" xml:space="preserve">
+    <value>加入分P前綴</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>分集</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordHolder" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="PasswordLoginTip" xml:space="preserve">
+    <value>請在下方輸入您的用戶名和密碼，應用不會存儲這部分數據，但安全起見，請使用二維碼登錄</value>
+  </data>
+  <data name="PeopleCount" xml:space="preserve">
+    <value>人次</value>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>個人</value>
+  </data>
+  <data name="PgcFollowing" xml:space="preserve">
+    <value>正在追</value>
+  </data>
+  <data name="PgcNotFollow" xml:space="preserve">
+    <value>追</value>
+  </data>
+  <data name="PlayAll" xml:space="preserve">
+    <value>播放全部</value>
+  </data>
+  <data name="PlaybackRate" xml:space="preserve">
+    <value>播放速率</value>
+  </data>
+  <data name="PlaybackRateEnhancement" xml:space="preserve">
+    <value>播放速率增強 (實驗)</value>
+  </data>
+  <data name="PlaybackRateEnhancementDescription" xml:space="preserve">
+    <value>開啟後，播放速率最高支持6倍速，步幅增加為0.2，但較高的速率可能導致視頻卡幀，請謹慎調整</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>播放量</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>播放器</value>
+  </data>
+  <data name="PlayerControl" xml:space="preserve">
+    <value>播放器控制</value>
+  </data>
+  <data name="PlayerControlDescription" xml:space="preserve">
+    <value>包含優先解碼以及一些播放行為的設置</value>
+  </data>
+  <data name="PlayerMode" xml:space="preserve">
+    <value>播放模式</value>
+  </data>
+  <data name="PlayerModeDescription" xml:space="preserve">
+    <value>包含播放器的基礎設置和默認行為</value>
+  </data>
+  <data name="PlayLine" xml:space="preserve">
+    <value>線路</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>播放列表</value>
+  </data>
+  <data name="PlayNextPart" xml:space="preserve">
+    <value>播放下一個視頻</value>
+  </data>
+  <data name="PlayNextVideo" xml:space="preserve">
+    <value>即將播放下一個視頻</value>
+  </data>
+  <data name="PlayNow" xml:space="preserve">
+    <value>立即播放</value>
+  </data>
+  <data name="PlayPause" xml:space="preserve">
+    <value>播放/暫停</value>
+  </data>
+  <data name="PleaseSignIn" xml:space="preserve">
+    <value>請登錄</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>熱門</value>
+  </data>
+  <data name="Prefer4K" xml:space="preserve">
+    <value>4K優先</value>
+  </data>
+  <data name="Prefer4KDescription" xml:space="preserve">
+    <value>在用戶已登錄並有權限獲取4K播放源的情況下，優先播放4K片源</value>
+  </data>
+  <data name="PreferCodec" xml:space="preserve">
+    <value>解碼器偏好</value>
+  </data>
+  <data name="PreferCodecDescription" xml:space="preserve">
+    <value>優先選擇該編碼的視頻流，HEVC/H.265 和 AV1 需要額外安裝解碼器</value>
+  </data>
+  <data name="PreferHighQuality" xml:space="preserve">
+    <value>畫質優先</value>
+  </data>
+  <data name="PreferHighQualityDescription" xml:space="preserve">
+    <value>優先播放最高清畫質的視頻源</value>
+  </data>
+  <data name="Prelaunch" xml:space="preserve">
+    <value>預啟動</value>
+  </data>
+  <data name="PrelaunchDescription" xml:space="preserve">
+    <value>開啟預啟動，應用將在系統啟動後在後台靜默啟動，應用打開的速度會很快</value>
+  </data>
+  <data name="PreRelease" xml:space="preserve">
+    <value>預覽版</value>
+  </data>
+  <data name="PreviousEpisode" xml:space="preserve">
+    <value>上一集</value>
+  </data>
+  <data name="PreviousView" xml:space="preserve">
+    <value>上次觀看：</value>
+  </data>
+  <data name="ProjectHomePage" xml:space="preserve">
+    <value>項目主頁</value>
+  </data>
+  <data name="ProxySearchAddress" xml:space="preserve">
+    <value>搜索代理</value>
+  </data>
+  <data name="ProxySetting" xml:space="preserve">
+    <value>代理服務設置</value>
+  </data>
+  <data name="ProxySettingDescription" xml:space="preserve">
+    <value>使用自定義的服務器進行代理，以解除地區限制（不支持嗶哩漫遊的現有服務）</value>
+  </data>
+  <data name="ProxyVideoAddress" xml:space="preserve">
+    <value>播放代理</value>
+  </data>
+  <data name="ProxyViewAddress" xml:space="preserve">
+    <value>詳情代理</value>
+  </data>
+  <data name="PublicServer" xml:space="preserve">
+    <value>公共服務器</value>
+  </data>
+  <data name="PublishDate" xml:space="preserve">
+    <value>發佈時間</value>
+  </data>
+  <data name="PublisherApp" xml:space="preserve">
+    <value>開發者的其它應用</value>
+  </data>
+  <data name="PublishFinished" xml:space="preserve">
+    <value>已完結</value>
+  </data>
+  <data name="PublishInInstalments" xml:space="preserve">
+    <value>連載中</value>
+  </data>
+  <data name="Purple" xml:space="preserve">
+    <value>紫色</value>
+  </data>
+  <data name="QRCodeExpired" xml:space="preserve">
+    <value>二維碼已過期，請刷新</value>
+  </data>
+  <data name="QRLoginTip" xml:space="preserve">
+    <value>請使用移動客戶端掃描下方的二維碼登錄</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>清晰度</value>
+  </data>
+  <data name="QualitySuffix" xml:space="preserve">
+    <value>加入清晰度後綴</value>
+  </data>
+  <data name="QuickSelection" xml:space="preserve">
+    <value>快速選擇</value>
+  </data>
+  <data name="Rank" xml:space="preserve">
+    <value>排行榜</value>
+  </data>
+  <data name="RankRequestFailed" xml:space="preserve">
+    <value>請求排行榜失敗</value>
+  </data>
+  <data name="ReadCount" xml:space="preserve">
+    <value>閱讀數</value>
+  </data>
+  <data name="Recommend" xml:space="preserve">
+    <value>推薦</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>紅色</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="RefreshCurrentSection" xml:space="preserve">
+    <value>刷新當前分區</value>
+  </data>
+  <data name="RelatedProjects" xml:space="preserve">
+    <value>關聯項目</value>
+  </data>
+  <data name="RelatedVideos" xml:space="preserve">
+    <value>關聯視頻</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="RemoveViewLaterFailed" xml:space="preserve">
+    <value>移除稍後再看視頻失敗</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="ReplyCount" xml:space="preserve">
+    <value>評論數</value>
+  </data>
+  <data name="ReplyDetail" xml:space="preserve">
+    <value>評論詳情</value>
+  </data>
+  <data name="ReplyMe" xml:space="preserve">
+    <value>回复我的</value>
+  </data>
+  <data name="ReplyMessageTypeDescription" xml:space="preserve">
+    <value>對我的{0}發表了{1}條評論</value>
+  </data>
+  <data name="ReplyPlaceholderText" xml:space="preserve">
+    <value>寫下你的評論吧~</value>
+  </data>
+  <data name="ReplySomeone" xml:space="preserve">
+    <value>回复 @{0}</value>
+  </data>
+  <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
+    <value>獲取追番列表失敗</value>
+  </data>
+  <data name="RequestArticleFailed" xml:space="preserve">
+    <value>請求文章失敗</value>
+  </data>
+  <data name="RequestArticleFavoriteFailed" xml:space="preserve">
+    <value>獲取收藏文章失敗</value>
+  </data>
+  <data name="RequestArticleListFailed" xml:space="preserve">
+    <value>文章列表請求失敗</value>
+  </data>
+  <data name="RequestCinemaFavoriteFailed" xml:space="preserve">
+    <value>獲取追劇列表失敗</value>
+  </data>
+  <data name="RequestDynamicFailed" xml:space="preserve">
+    <value>請求動態失敗</value>
+  </data>
+  <data name="RequestFavoriteError" xml:space="preserve">
+    <value>請求收藏夾失敗</value>
+  </data>
+  <data name="RequestFeedDetailFailed" xml:space="preserve">
+    <value>數據源詳情請求失敗</value>
+  </data>
+  <data name="RequestFollowsFailed" xml:space="preserve">
+    <value>請求關注列表失敗</value>
+  </data>
+  <data name="RequestHistoryFailed" xml:space="preserve">
+    <value>請求觀看歷史失敗</value>
+  </data>
+  <data name="RequestIndexFilterFailed" xml:space="preserve">
+    <value>獲取索引過濾條件失敗</value>
+  </data>
+  <data name="RequestIndexResultFailed" xml:space="preserve">
+    <value>請求索引結果失敗</value>
+  </data>
+  <data name="RequestLiveFailed" xml:space="preserve">
+    <value>直播數據請求失敗</value>
+  </data>
+  <data name="RequestLivePlayInformationFailed" xml:space="preserve">
+    <value>請求直播播放信息失敗</value>
+  </data>
+  <data name="RequestLiveTagsFailed" xml:space="preserve">
+    <value>請求直播標籤失敗</value>
+  </data>
+  <data name="RequestMessageFailed" xml:space="preserve">
+    <value>請求消息失敗</value>
+  </data>
+  <data name="RequestPgcFailed" xml:space="preserve">
+    <value>PGC內容請求失敗</value>
+  </data>
+  <data name="RequestPgcTimeLineFailed" xml:space="preserve">
+    <value>請求時間線內容失敗</value>
+  </data>
+  <data name="RequestPlayListFailed" xml:space="preserve">
+    <value>請求播放列表失敗</value>
+  </data>
+  <data name="RequestPopularFailed" xml:space="preserve">
+    <value>熱門視頻請求失敗</value>
+  </data>
+  <data name="RequestRecommendFailed" xml:space="preserve">
+    <value>推薦視頻請求失敗</value>
+  </data>
+  <data name="RequestReplyFailed" xml:space="preserve">
+    <value>請求評論失敗</value>
+  </data>
+  <data name="RequestSearchResultFailed" xml:space="preserve">
+    <value>沒有查找到相關的搜索結果</value>
+  </data>
+  <data name="RequestSubPartitionFailed" xml:space="preserve">
+    <value>分區視頻請求失敗</value>
+  </data>
+  <data name="RequestTabDetailFailed" xml:space="preserve">
+    <value>標籤頁詳情數據請求失敗</value>
+  </data>
+  <data name="RequestUserInformationFailed" xml:space="preserve">
+    <value>請求用戶信息失敗</value>
+  </data>
+  <data name="RequestVideoFailed" xml:space="preserve">
+    <value>視頻播放信息請求失敗</value>
+  </data>
+  <data name="RequestVideoFavoriteFailed" xml:space="preserve">
+    <value>請求視頻收藏夾信息失敗</value>
+  </data>
+  <data name="RequestViewLaterFailed" xml:space="preserve">
+    <value>請求稍後再看列表失敗</value>
+  </data>
+  <data name="RestartWarning" xml:space="preserve">
+    <value>您更改了靜態資源，需要重啟應用才能生效</value>
+  </data>
+  <data name="Rookie" xml:space="preserve">
+    <value>新人</value>
+  </data>
+  <data name="Rotate" xml:space="preserve">
+    <value>旋轉</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="SaveTo" xml:space="preserve">
+    <value>另存為</value>
+  </data>
+  <data name="SaveToPictureLibrary" xml:space="preserve">
+    <value>保存到圖庫</value>
+  </data>
+  <data name="SC2TC" xml:space="preserve">
+    <value>簡體 -&gt; 繁體</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>評分</value>
+  </data>
+  <data name="Screenshot" xml:space="preserve">
+    <value>截圖</value>
+  </data>
+  <data name="ScreenshotFolder" xml:space="preserve">
+    <value>截圖文件夾</value>
+  </data>
+  <data name="ScreenshotSettings" xml:space="preserve">
+    <value>截圖設置</value>
+  </data>
+  <data name="ScreenshotSettingsDescription" xml:space="preserve">
+    <value>包含對截圖後行為的一些設置</value>
+  </data>
+  <data name="ScreenshotSuccess" xml:space="preserve">
+    <value>已成功截圖</value>
+  </data>
+  <data name="ScrollDanmaku" xml:space="preserve">
+    <value>滾動彈幕</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SearchTip" xml:space="preserve">
+    <value>搜索視頻，番劇或UP主</value>
+  </data>
+  <data name="SearchTipSlim" xml:space="preserve">
+    <value>搜一搜</value>
+  </data>
+  <data name="Seasons" xml:space="preserve">
+    <value>系列</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>相關內容</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>查看全部</value>
+  </data>
+  <data name="SeeDetail" xml:space="preserve">
+    <value>查看詳情</value>
+  </data>
+  <data name="SelectSortType" xml:space="preserve">
+    <value>選擇排序方式</value>
+  </data>
+  <data name="SetAddressSuccess" xml:space="preserve">
+    <value>成功設置地址</value>
+  </data>
+  <data name="SetFailed" xml:space="preserve">
+    <value>設置失敗</value>
+  </data>
+  <data name="SetSuccess" xml:space="preserve">
+    <value>已成功設置</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設置</value>
+  </data>
+  <data name="SettingTo" xml:space="preserve">
+    <value>設置為</value>
+  </data>
+  <data name="SettingToBackground" xml:space="preserve">
+    <value>設置為背景</value>
+  </data>
+  <data name="SettingToLockScreen" xml:space="preserve">
+    <value>設置為鎖屏</value>
+  </data>
+  <data name="Shadow" xml:space="preserve">
+    <value>陰影</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="ShowDanmaku" xml:space="preserve">
+    <value>顯示彈幕</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>顯示更多</value>
+  </data>
+  <data name="ShowSubtitle" xml:space="preserve">
+    <value>顯示字幕</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="SignInTitle" xml:space="preserve">
+    <value>用戶登錄</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="SingleFastForwardAndRewindSpan" xml:space="preserve">
+    <value>單次快進/快退時長</value>
+  </data>
+  <data name="SingleFastForwardAndRewindSpanDescription" xml:space="preserve">
+    <value>單次按下鍵盤左右方向鍵時的快進/快退跳躍時長（秒）</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>小號</value>
+  </data>
+  <data name="SomeoneLiveRoom" xml:space="preserve">
+    <value>{0}的直播間</value>
+  </data>
+  <data name="SortByDanmaku" xml:space="preserve">
+    <value>彈幕最多</value>
+  </data>
+  <data name="SortByDefault" xml:space="preserve">
+    <value>默認排序</value>
+  </data>
+  <data name="SortByFansHTL" xml:space="preserve">
+    <value>粉絲數由高到低</value>
+  </data>
+  <data name="SortByFansLTH" xml:space="preserve">
+    <value>粉絲數由低到高</value>
+  </data>
+  <data name="SortByFavorite" xml:space="preserve">
+    <value>收藏最多</value>
+  </data>
+  <data name="SortByHot" xml:space="preserve">
+    <value>最熱</value>
+  </data>
+  <data name="SortByLevelHTL" xml:space="preserve">
+    <value>等級由高到低</value>
+  </data>
+  <data name="SortByLevelLTH" xml:space="preserve">
+    <value>等級由低到高</value>
+  </data>
+  <data name="SortByLike" xml:space="preserve">
+    <value>點贊最多</value>
+  </data>
+  <data name="SortByNewest" xml:space="preserve">
+    <value>最新發布</value>
+  </data>
+  <data name="SortByPlay" xml:space="preserve">
+    <value>播放最多</value>
+  </data>
+  <data name="SortByRead" xml:space="preserve">
+    <value>閱讀最多</value>
+  </data>
+  <data name="SortByReply" xml:space="preserve">
+    <value>評論最多</value>
+  </data>
+  <data name="SourceNotSupported" xml:space="preserve">
+    <value>不支持該源</value>
+  </data>
+  <data name="SpecialColumn" xml:space="preserve">
+    <value>專欄</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>標準</value>
+  </data>
+  <data name="StartMethod" xml:space="preserve">
+    <value>啟動方式</value>
+  </data>
+  <data name="StartMethodDescription" xml:space="preserve">
+    <value>您可以選擇應用的啟動方式以更快速地打開應用</value>
+  </data>
+  <data name="StartQuickPlay" xml:space="preserve">
+    <value>開始倍速播放</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>自啟動</value>
+  </data>
+  <data name="StartupDescription" xml:space="preserve">
+    <value>將應用添加到開機啟動項，應用將在系統啟動後自動打開，並以最小化形式顯示在任務欄</value>
+  </data>
+  <data name="StartupDisabledByPolicy" xml:space="preserve">
+    <value>啟動項由您的組織或組策略管理，應用啟動項已被禁用</value>
+  </data>
+  <data name="StartupDisabledByUser" xml:space="preserve">
+    <value>啟動項由用戶手動禁用，您需要手動啟用才能生效</value>
+  </data>
+  <data name="StoreComment" xml:space="preserve">
+    <value>求個好評</value>
+  </data>
+  <data name="Stroke" xml:space="preserve">
+    <value>描邊</value>
+  </data>
+  <data name="Subtitle" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="SubtitleConvert" xml:space="preserve">
+    <value>字幕轉換</value>
+  </data>
+  <data name="SubtitleList" xml:space="preserve">
+    <value>字幕列表</value>
+  </data>
+  <data name="SwitchToPasswordLogin" xml:space="preserve">
+    <value>用密碼登錄</value>
+  </data>
+  <data name="SwitchToQRLogin" xml:space="preserve">
+    <value>掃描二維碼登錄</value>
+  </data>
+  <data name="TC2SC" xml:space="preserve">
+    <value>繁體 -&gt; 簡體</value>
+  </data>
+  <data name="TenThousands" xml:space="preserve">
+    <value>萬</value>
+  </data>
+  <data name="TimeChart" xml:space="preserve">
+    <value>時間表</value>
+  </data>
+  <data name="TimelineHasNoVideo" xml:space="preserve">
+    <value>這一天沒有新的內容</value>
+  </data>
+  <data name="ToggleDanmakuBarVisibility" xml:space="preserve">
+    <value>切換彈幕控制器顯隱</value>
+  </data>
+  <data name="Toolbox" xml:space="preserve">
+    <value>工具箱</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>置頂</value>
+  </data>
+  <data name="TopDanmaku" xml:space="preserve">
+    <value>置頂彈幕</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>專題</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="TotalTags" xml:space="preserve">
+    <value>全部標籤</value>
+  </data>
+  <data name="TotalUser" xml:space="preserve">
+    <value>全部用戶</value>
+  </data>
+  <data name="TrackCount" xml:space="preserve">
+    <value>追番/追劇數</value>
+  </data>
+  <data name="TV" xml:space="preserve">
+    <value>電視劇</value>
+  </data>
+  <data name="TVApp" xml:space="preserve">
+    <value>電視</value>
+  </data>
+  <data name="UgcEpisode" xml:space="preserve">
+    <value>視頻合集</value>
+  </data>
+  <data name="UnFavorite" xml:space="preserve">
+    <value>取消收藏</value>
+  </data>
+  <data name="UnFavoriteWarning" xml:space="preserve">
+    <value>是否不再關注該收藏夾？</value>
+  </data>
+  <data name="UnfixContent" xml:space="preserve">
+    <value>取消固定</value>
+  </data>
+  <data name="UnfixPgc" xml:space="preserve">
+    <value>取消固定</value>
+  </data>
+  <data name="UnfixPublisher" xml:space="preserve">
+    <value>取消固定UP</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>未知錯誤發生了</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>已更新</value>
+  </data>
+  <data name="UpMaster" xml:space="preserve">
+    <value>UP主</value>
+  </data>
+  <data name="UseCloudShieldSettings" xml:space="preserve">
+    <value>使用雲屏蔽配置</value>
+  </data>
+  <data name="UseMp4Box" xml:space="preserve">
+    <value>使用 MP4Box 混流</value>
+  </data>
+  <data name="UseMultiThread" xml:space="preserve">
+    <value>使用多線程下載</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>用戶</value>
+  </data>
+  <data name="UserEmptySign" xml:space="preserve">
+    <value>該用戶還沒有個性簽名</value>
+  </data>
+  <data name="UserHaveNoVideos" xml:space="preserve">
+    <value>用戶沒有投稿視頻</value>
+  </data>
+  <data name="UserInformation" xml:space="preserve">
+    <value>用戶信息</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用戶名</value>
+  </data>
+  <data name="UserNameHolder" xml:space="preserve">
+    <value>請輸入用戶名/手機</value>
+  </data>
+  <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
+    <value>請輸入有效的用戶名或密碼</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="VideoCount" xml:space="preserve">
+    <value>視頻數</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>觀看</value>
+  </data>
+  <data name="Viewer" xml:space="preserve">
+    <value>觀看人數</value>
+  </data>
+  <data name="ViewHistory" xml:space="preserve">
+    <value>觀看歷史</value>
+  </data>
+  <data name="ViewLater" xml:space="preserve">
+    <value>稍後再看</value>
+  </data>
+  <data name="Vip" xml:space="preserve">
+    <value>大會員</value>
+  </data>
+  <data name="WantWatch" xml:space="preserve">
+    <value>想看</value>
+  </data>
+  <data name="Watched" xml:space="preserve">
+    <value>看過</value>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>在看</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>白色</value>
+  </data>
+  <data name="WholePartitions" xml:space="preserve">
+    <value>全區</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>黃色</value>
+  </data>
+  <data name="ZoomIn" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="ZoomOut" xml:space="preserve">
+    <value>縮小</value>
+  </data>
+</root>
