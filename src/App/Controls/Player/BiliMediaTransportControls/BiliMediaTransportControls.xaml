@@ -267,7 +267,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=ForwardSkip}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="SkipForward3020" />
+                                        <uwp:RegularFluentIcon Symbol="ArrowStepOver16" />
                                     </Button.Content>
                                 </Button>
                                 <Button
