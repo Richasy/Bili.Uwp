@@ -28,8 +28,9 @@ namespace Bili.Tasks
             new DIFactory().RegisterTaskRequiredServices();
             var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
             var communityProvider = Locator.Current.GetService<ICommunityProvider>();
+            var authProvider = Locator.Current.GetService<IAuthorizeProvider>();
 
-            var isSignedIn = !string.IsNullOrEmpty(settingsToolkit.ReadLocalSetting(SettingNames.BiliUserId, string.Empty));
+            var isSignedIn = await authProvider.IsTokenValidAsync();
             if (!isSignedIn)
             {
                 def.Complete();
