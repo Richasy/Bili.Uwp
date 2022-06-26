@@ -56,7 +56,6 @@ namespace Bili.ViewModels.Uwp.Core
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
             player.AutoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-            player.Volume = Volume;
             player.IsLoopingEnabled = IsLoop;
 
             _mediaPlayer = player;
@@ -403,7 +402,8 @@ namespace Bili.ViewModels.Uwp.Core
                     _initializeProgress = TimeSpan.Zero;
                 }
 
-                session.PlaybackRate = PlaybackRate;
+                ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
+                ChangeVolumeCommand.Execute(Volume).Subscribe();
             }
         }
 

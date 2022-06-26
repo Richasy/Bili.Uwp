@@ -90,7 +90,7 @@ namespace Bili.ViewModels.Uwp.Core
             ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
             BackwardSkipCommand = ReactiveCommand.CreateFromTask(BackwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeVolumeCommand = ReactiveCommand.CreateFromTask<double>(ChangeVolumeAsync, outputScheduler: RxApp.MainThreadScheduler);
             ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode, outputScheduler: RxApp.MainThreadScheduler);
             ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode, outputScheduler: RxApp.MainThreadScheduler);
             ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);

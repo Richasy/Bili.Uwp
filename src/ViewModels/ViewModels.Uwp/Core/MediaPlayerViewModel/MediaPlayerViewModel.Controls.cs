@@ -131,7 +131,7 @@ namespace Bili.ViewModels.Uwp.Core
             });
         }
 
-        private void ChangeVolume(double volume)
+        private async Task ChangeVolumeAsync(double volume)
         {
             try
             {
@@ -151,19 +151,22 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 0;
             }
 
-            if (Volume != volume)
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                Volume = volume;
-            }
+                if (Volume != volume)
+                {
+                    Volume = volume;
+                }
 
-            var msg = volume > 0
-                ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}"
-                : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
+                var msg = volume > 0
+                    ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}"
+                    : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
 
-            RequestShowTempMessage?.Invoke(this, msg);
+                RequestShowTempMessage?.Invoke(this, msg);
 
-            _mediaPlayer.Volume = volume / 100.0;
-            _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
+                _mediaPlayer.Volume = volume / 100.0;
+                _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
+            });
         }
 
         private void ToggleFullScreenMode()
@@ -358,7 +361,7 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 100;
             }
 
-            ChangeVolume(volume);
+            ChangeVolumeCommand.Execute(volume).Subscribe();
         }
 
         private void DecreaseVolume()
@@ -369,7 +372,7 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 0;
             }
 
-            ChangeVolume(volume);
+            ChangeVolumeCommand.Execute(volume).Subscribe();
         }
 
         private void BackToDefaultMode()
