@@ -26,7 +26,16 @@ namespace Bili.Tasks
         {
             var def = taskInstance.GetDeferral();
             new DIFactory().RegisterTaskRequiredServices();
+            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
             var communityProvider = Locator.Current.GetService<ICommunityProvider>();
+
+            var isSignedIn = !string.IsNullOrEmpty(settingsToolkit.ReadLocalSetting(SettingNames.BiliUserId, string.Empty));
+            if (!isSignedIn)
+            {
+                def.Complete();
+                return;
+            }
+
             var dynamics = await communityProvider.GetDynamicVideoListAsync();
             if (dynamics == null || dynamics.Dynamics?.Count() == 0)
             {
@@ -34,7 +43,6 @@ namespace Bili.Tasks
                 return;
             }
 
-            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
             var isFirstCheck = settingsToolkit.ReadLocalSetting(SettingNames.IsFirstRunDynamicNotifyTask, true);
             var firstCard = dynamics.Dynamics.First();
             var cardList = dynamics.Dynamics.ToList();
