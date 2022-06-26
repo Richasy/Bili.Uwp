@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -16,13 +18,31 @@ namespace Bili.App.Pages.Desktop
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        protected AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        protected AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
 
         /// <summary>
         /// 获取页面注册的视图模型.
         /// </summary>
         /// <returns>视图模型，如果没有则返回<c>null</c>.</returns>
         public virtual object GetViewModel() => null;
+
+        /// <inheritdoc/>
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            var kind = e.GetCurrentPoint(this).Properties.PointerUpdateKind;
+            if (kind == Windows.UI.Input.PointerUpdateKind.XButton1Released
+                || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
+            {
+                e.Handled = true;
+                var navigationVM = Locator.Current.GetService<NavigationViewModel>();
+                if (navigationVM.CanBack)
+                {
+                    navigationVM.BackCommand.Execute().Subscribe();
+                }
+            }
+
+            base.OnPointerReleased(e);
+        }
     }
 
     /// <summary>

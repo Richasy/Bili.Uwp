@@ -44,8 +44,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         public void SetType(PgcType type)
         {
             _type = type;
-            Filters.Clear();
-            Items.Clear();
             PageType = _type switch
             {
                 PgcType.Bangumi => _resourceToolkit.GetLocaleString(LanguageNames.Bangumi),
@@ -62,6 +60,8 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             _isFinished = false;
             IsEmpty = false;
+            Filters.Clear();
+            Items.Clear();
             _pgcProvider.ResetIndexStatus();
         }
 
