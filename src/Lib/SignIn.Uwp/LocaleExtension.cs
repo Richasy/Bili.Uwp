@@ -21,7 +21,7 @@ namespace Bili.SignIn.Uwp
         /// <inheritdoc/>
         protected override object ProvideValue()
         {
-            return Splat.Locator.Current.GetService<IResourceToolkit>()
+            return Locator.Current.GetService<IResourceToolkit>()
                                           .GetLocaleString(Name);
         }
     }

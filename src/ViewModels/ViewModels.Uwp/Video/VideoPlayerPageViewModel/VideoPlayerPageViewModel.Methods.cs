@@ -63,20 +63,20 @@ namespace Bili.ViewModels.Uwp.Video
             DataTransferManager.ShowShareUI();
         }
 
-        private async Task FixAsync()
+        private void Fix()
         {
             if (IsVideoFixed)
             {
-                await _accountViewModel.RemoveFixedItemAsync(View.Information.Identifier.Id);
+                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
                 IsVideoFixed = false;
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Video));
+                    Models.Enums.App.FixedType.Video)).Subscribe();
                 IsVideoFixed = true;
             }
         }

@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
@@ -114,20 +113,20 @@ namespace Bili.ViewModels.Uwp.Pgc
         private void ShowSeasonDetail()
             => _appViewModel.ShowPgcSeasonDetail();
 
-        private async Task FixAsync()
+        private void Fix()
         {
             if (IsVideoFixed)
             {
-                await _accountViewModel.RemoveFixedItemAsync(View.Information.Identifier.Id);
+                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
                 IsVideoFixed = false;
             }
             else
             {
-                await _accountViewModel.AddFixedItemAsync(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Pgc));
+                    Models.Enums.App.FixedType.Pgc)).Subscribe();
                 IsVideoFixed = true;
             }
         }

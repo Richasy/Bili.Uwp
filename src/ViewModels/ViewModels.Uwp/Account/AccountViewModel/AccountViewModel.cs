@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -30,7 +32,8 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            AppViewModel appViewModel)
+            AppViewModel appViewModel,
+            CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
@@ -38,22 +41,30 @@ namespace Bili.ViewModels.Uwp.Account
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
             _appViewModel = appViewModel;
+            _dispatcher = dispatcher;
+
+            TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync, outputScheduler: RxApp.MainThreadScheduler);
+            LoadMyProfileCommand = ReactiveCommand.CreateFromTask(GetMyProfileAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommunityCommand = ReactiveCommand.CreateFromTask(InitCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeUnreadCommand = ReactiveCommand.CreateFromTask(InitUnreadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
+            RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
 
             FixedItemCollection = new ObservableCollection<FixedItem>();
-            _authorizeProvider.StateChanged += OnAuthorizeStateChangedAsync;
+            _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             State = _authorizeProvider.State;
 
-            this.WhenAnyValue(x => x.State)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(async state =>
-                {
-                    if (state == AuthorizeState.SignedIn)
-                    {
-                        IsConnected = true;
-                        await GetMyProfileAsync();
-                    }
-                });
+            TrySignInCommand.ThrownExceptions
+                .Merge(SignOutCommand.ThrownExceptions)
+                .Merge(LoadMyProfileCommand.ThrownExceptions)
+                .Merge(InitializeCommunityCommand.ThrownExceptions)
+                .Merge(InitializeUnreadCommand.ThrownExceptions)
+                .Merge(AddFixedItemCommand.ThrownExceptions)
+                .Merge(RemoveFixedItemCommand.ThrownExceptions)
+                .Subscribe(LogException);
 
+            PropertyChanged += OnPropertyChanged;
             Reset();
         }
 
@@ -62,22 +73,21 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         /// <param name="isSlientOnly">是否只进行静默登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task<bool> TrySignInAsync(bool isSlientOnly = false)
+        private async Task TrySignInAsync(bool isSlientOnly = false)
         {
             if (State != AuthorizeState.SignedOut)
             {
-                return State == AuthorizeState.SignedIn;
+                return;
             }
 
-            State = AuthorizeState.Loading;
-            return await InternalSignInAsync(isSlientOnly);
+            await InternalSignInAsync(isSlientOnly);
         }
 
         /// <summary>
         /// 登出.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task SignOutAsync()
+        private async Task SignOutAsync()
         {
             _isRequestLogout = true;
             await _authorizeProvider.SignOutAsync();
@@ -87,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// 获取我的账户资料.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task GetMyProfileAsync()
+        private async Task GetMyProfileAsync()
         {
             try
             {
@@ -98,50 +108,36 @@ namespace Bili.ViewModels.Uwp.Account
                     IsConnected = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogException(ex);
                 State = AuthorizeState.SignedOut;
+                throw;
             }
 
-            await InitializeAccountInformationAsync();
+            InitializeAccountInformation();
         }
 
         /// <summary>
         /// 初始化用户社交信息.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task InitCommunityInformationAsync()
+        private async Task InitCommunityInformationAsync()
         {
-            try
-            {
-                var data = await _accountProvider.GetMyCommunityInformationAsync();
-                DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
-                FollowCount = _numberToolkit.GetCountText(data.FollowCount);
-                FollowerCount = _numberToolkit.GetCountText(data.FansCount);
-
-                await InitUnreadAsync();
-            }
-            catch (Exception)
-            {
-            }
+            var data = await _accountProvider.GetMyCommunityInformationAsync();
+            DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
+            FollowCount = _numberToolkit.GetCountText(data.FollowCount);
+            FollowerCount = _numberToolkit.GetCountText(data.FansCount);
+            InitializeUnreadCommand.Execute().Subscribe();
         }
 
         /// <summary>
         /// 加载未读消息数据.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task InitUnreadAsync()
+        private async Task InitUnreadAsync()
         {
-            try
-            {
-                UnreadInformation = await _accountProvider.GetUnreadMessageAsync();
-                IsShowUnreadMessage = UnreadInformation.Total > 0;
-            }
-            catch (Exception ex)
-            {
-                LogException(ex);
-            }
+            UnreadInformation = await _accountProvider.GetUnreadMessageAsync();
+            IsShowUnreadMessage = UnreadInformation.Total > 0;
         }
 
         /// <summary>
@@ -149,7 +145,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         /// <param name="item">条目信息.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task AddFixedItemAsync(FixedItem item)
+        private async Task AddFixedItemAsync(FixedItem item)
         {
             if (!IsConnected || AccountInformation == null || FixedItemCollection.Contains(item))
             {
@@ -169,7 +165,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         /// <param name="itemId">条目Id.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task RemoveFixedItemAsync(string itemId)
+        private async Task RemoveFixedItemAsync(string itemId)
         {
             if (!IsConnected || AccountInformation == null || !FixedItemCollection.Any(p => p.Id == itemId))
             {
@@ -184,7 +180,7 @@ namespace Bili.ViewModels.Uwp.Account
             IsShowFixedItem = FixedItemCollection.Count > 0;
         }
 
-        private async Task InitializeAccountInformationAsync()
+        private void InitializeAccountInformation()
         {
             if (AccountInformation == null)
             {
@@ -198,7 +194,7 @@ namespace Bili.ViewModels.Uwp.Account
             TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
             IsVip = AccountInformation.IsVip;
 
-            await InitUnreadAsync();
+            InitializeUnreadCommand.Execute().Subscribe();
         }
 
         private void Reset()
@@ -234,6 +230,18 @@ namespace Bili.ViewModels.Uwp.Account
             }
 
             IsShowFixedItem = false;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(State))
+            {
+                if (State == AuthorizeState.SignedIn)
+                {
+                    IsConnected = true;
+                    LoadMyProfileCommand.Execute().Subscribe();
+                }
+            }
         }
     }
 }

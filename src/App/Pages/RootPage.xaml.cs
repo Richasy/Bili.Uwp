@@ -44,7 +44,7 @@ namespace Bili.App.Pages.Desktop
             Current = this;
             ViewModel.Navigating += OnNavigating;
             ViewModel.ExitPlayer += OnExitPlayer;
-            Loaded += OnLoadedAsync;
+            Loaded += OnLoaded;
             CoreViewModel.RequestShowTip += OnRequestShowTip;
             CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
             CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
@@ -162,10 +162,10 @@ namespace Bili.App.Pages.Desktop
         private void RemoveFromHolder(UIElement element)
             => HolderContainer.Children.Remove(element);
 
-        private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             CoreViewModel.InitializePadding();
-            await Splat.Locator.Current.GetService<AccountViewModel>().TrySignInAsync(true);
+            Locator.Current.GetService<AccountViewModel>().TrySignInCommand.Execute(true).Subscribe();
 #if !DEBUG
             CoreViewModel.CheckUpdateCommand.Execute().Subscribe();
 #endif

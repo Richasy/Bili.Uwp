@@ -17,7 +17,7 @@
         <Flyout
             x:Key="AvatarFlyout"
             FlyoutPresenterStyle="{StaticResource ThinPaddingFlyoutPresenterStyle}"
-            Opened="OnFlyoutOpenedAsync"
+            Opened="OnFlyoutOpened"
             Placement="Bottom">
             <Grid TabFocusNavigation="Local">
                 <Grid.RowDefinitions>
@@ -88,7 +88,7 @@
                         Height="1"
                         HorizontalAlignment="Stretch"
                         Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
-                    <Button Click="OnSignOutButtonClickAsync">
+                    <Button Click="OnSignOutButtonClick" Command="{x:Bind ViewModel.SignOutCommand}">
                         <local:IconTextBlock
                             Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                             Symbol="SignOut20"
@@ -117,7 +117,7 @@
             Width="{x:Bind Width, Mode=OneWay}"
             Height="{x:Bind Height, Mode=OneWay}"
             Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
-            Click="OnUserAvatarClickAsync"
+            Click="OnUserAvatarClick"
             FlyoutBase.AttachedFlyout="{StaticResource AvatarFlyout}"
             IsTabStop="True"
             IsTapEnabled="True"

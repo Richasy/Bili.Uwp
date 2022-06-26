@@ -10,8 +10,8 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     CloseButtonClick="OnCloseButtonClick"
     CloseButtonText="{local:Locale Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="OnPrimaryButtonClickAsync"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     mc:Ignorable="d">
 
     <Grid Width="320">
@@ -70,7 +70,7 @@
                 HorizontalAlignment="Stretch"
                 Header="{local:Locale Name=Password}"
                 PlaceholderText="{local:Locale Name=PasswordHolder}" />
-            <muxc:ProgressBar
+            <ProgressBar
                 x:Name="AuthorizeProgressBar"
                 HorizontalAlignment="Stretch"
                 IsIndeterminate="True"
@@ -110,7 +110,7 @@
                     </StackPanel>
                 </Grid>
 
-                <muxc:ProgressRing
+                <ProgressRing
                     x:Name="QRLoadingRing"
                     Width="24"
                     Height="24"

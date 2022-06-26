@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -35,13 +34,15 @@ namespace Bili.SignIn.Uwp
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountLoginDialog"/> class.
         /// </summary>
-        internal AccountLoginDialog(TaskCompletionSource<AuthorizeResult> taskCompletionSource)
+        internal AccountLoginDialog(
+            TaskCompletionSource<AuthorizeResult> taskCompletionSource,
+            AuthorizeProvider authorizeProvider)
         {
-            this.InitializeComponent();
-            this.Opened += OnOpenedAsync;
-            this.Closed += OnClosed;
-            _authorizeProvider = Splat.Locator.Current.GetService<IAuthorizeProvider>() as AuthorizeProvider;
+            InitializeComponent();
+            _authorizeProvider = authorizeProvider;
             _taskCompletionSource = taskCompletionSource;
+            Opened += OnOpenedAsync;
+            Closed += OnClosed;
         }
 
         /// <summary>
@@ -54,9 +55,7 @@ namespace Bili.SignIn.Uwp
         }
 
         private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
-        {
-            _authorizeProvider.QRCodeStatusChanged -= OnQRCodeStatusChanged;
-        }
+            => _authorizeProvider.QRCodeStatusChanged -= OnQRCodeStatusChanged;
 
         private async void OnOpenedAsync(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
@@ -75,7 +74,7 @@ namespace Bili.SignIn.Uwp
                 case QRCodeStatus.Success:
                     _authorizeProvider.StopQRLoginListener();
                     _taskCompletionSource.SetResult(new AuthorizeResult { TokenInfo = e.Item2 });
-                    this.Hide();
+                    Hide();
                     break;
                 case QRCodeStatus.Failed:
                     ShowQRTip(LanguageNames.LoginFailed);
@@ -218,9 +217,7 @@ namespace Bili.SignIn.Uwp
         }
 
         private void HideError()
-        {
-            ErrorBlock.Visibility = Visibility.Collapsed;
-        }
+            => ErrorBlock.Visibility = Visibility.Collapsed;
 
         private void ShowQRTip(LanguageNames name)
         {
@@ -307,6 +304,7 @@ namespace Bili.SignIn.Uwp
         }
 
         private bool IsRedirectUrl(string url)
-            => url == "https://passport.bilibili.com/ajax/miniLogin/redirect" || url == "https://www.bilibili.com/";
+            => url == "https://passport.bilibili.com/ajax/miniLogin/redirect"
+            || url == "https://www.bilibili.com/";
     }
 }
