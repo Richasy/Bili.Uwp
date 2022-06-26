@@ -51,7 +51,7 @@
                                 Style="{x:Bind ViewModel.User.Relation, Converter={StaticResource RelationButtonStyleConverter}, Mode=OneWay}"
                                 Padding="8,2"
                                 HorizontalAlignment="Left"
-                                Command="{x:Bind ViewModel.User.ToggleRelationCommand}"
+                                Command="{x:Bind ViewModel.User.ToggleRelationCommand, Mode=OneWay}"
                                 Content="{x:Bind ViewModel.User.Relation, Converter={StaticResource RelationTextConverter}, Mode=OneWay}"
                                 FontSize="10"
                                 Visibility="{x:Bind ViewModel.User.IsRelationButtonShown, Mode=OneWay}" />

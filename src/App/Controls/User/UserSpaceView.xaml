@@ -98,7 +98,7 @@
                             Style="{x:Bind ViewModel.UserViewModel.Relation, Mode=OneWay, Converter={StaticResource RelationButtonStyleConverter}}"
                             Grid.Row="1"
                             HorizontalAlignment="Stretch"
-                            Command="{x:Bind ViewModel.UserViewModel.ToggleRelationCommand}"
+                            Command="{x:Bind ViewModel.UserViewModel.ToggleRelationCommand, Mode=OneWay}"
                             Content="{x:Bind ViewModel.UserViewModel.Relation, Mode=OneWay, Converter={StaticResource RelationTextConverter}}"
                             Visibility="{x:Bind ViewModel.IsMe, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                         <Button
@@ -106,7 +106,7 @@
                             Grid.Column="1"
                             MinWidth="120"
                             Margin="8,0,0,0"
-                            Command="{x:Bind ViewModel.FixedCommand}"
+                            Command="{x:Bind ViewModel.FixedCommand, Mode=OneWay}"
                             Content="{x:Bind ViewModel.IsFixed, Mode=OneWay, Converter={StaticResource FixedContentConverter}}" />
                     </Grid>
                 </Grid>
