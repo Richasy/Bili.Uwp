@@ -8,6 +8,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
 using Humanizer;
 
@@ -21,6 +22,7 @@ namespace Bili.Adapter
         private readonly IImageAdapter _imageAdapter;
         private readonly IUserAdapter _userAdapter;
         private readonly ICommunityAdapter _communityAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleAdapter"/> class.
@@ -28,22 +30,25 @@ namespace Bili.Adapter
         /// <param name="imageAdapter">图片数据适配器.</param>
         /// <param name="userAdapter">用户数据适配器.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public ArticleAdapter(
             IImageAdapter imageAdapter,
             IUserAdapter userAdapter,
-            ICommunityAdapter communityAdapter)
+            ICommunityAdapter communityAdapter,
+            ITextToolkit textToolkit)
         {
             _imageAdapter = imageAdapter;
             _userAdapter = userAdapter;
             _communityAdapter = communityAdapter;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
         public ArticleInformation ConvertToArticleInformation(Article article)
         {
             var id = article.Id.ToString();
-            var title = article.Title;
-            var summary = article.Summary;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(article.Title);
+            var summary = _textToolkit.ConvertToTraditionalChineseIfNeeded(article.Summary);
             var cover = article.CoverUrls?.Any() ?? false
                 ? _imageAdapter.ConvertToArticleCardCover(article.CoverUrls.First())
                 : null;
@@ -53,7 +58,7 @@ namespace Bili.Adapter
                 : null;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(article.PublishTime).ToLocalTime().DateTime;
             var user = _userAdapter.ConvertToRoleProfile(article.Publisher, Models.Enums.App.AvatarSize.Size48);
-            var subtitle = $"{user.User.Name} · {publishTime.Humanize()}";
+            var subtitle = $"{user.User.Name} · {_textToolkit.ConvertToTraditionalChineseIfNeeded(publishTime.Humanize())}";
             var wordCount = article.WordCount;
             var communityInfo = _communityAdapter.ConvertToArticleCommunityInformation(article.Stats, id);
             var identifier = new ArticleIdentifier(id, title, summary, cover);
@@ -73,7 +78,8 @@ namespace Bili.Adapter
         {
             var id = item.Id.ToString();
             var title = Regex.Replace(item.Title, "<[^>]+>", string.Empty);
-            var summary = item.Description;
+            title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
+            var summary = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Description);
             var cover = item.CoverUrls?.Any() ?? false
                 ? _imageAdapter.ConvertToArticleCardCover(item.CoverUrls.First())
                 : null;
@@ -90,13 +96,13 @@ namespace Bili.Adapter
         public ArticleInformation ConvertToArticleInformation(FavoriteArticleItem item)
         {
             var id = item.Id.ToString();
-            var title = item.Title;
-            var summary = item.Summary;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
+            var summary = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Summary);
             var cover = item.Images?.Any() ?? false
                 ? _imageAdapter.ConvertToArticleCardCover(item.Images.First())
                 : null;
             var collectTime = DateTimeOffset.FromUnixTimeSeconds(item.CollectTime).DateTime;
-            var subtitle = $"{collectTime.Humanize()}收藏";
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded($"{collectTime.Humanize()}收藏");
             var identifier = new ArticleIdentifier(id, title, summary, cover);
             return new ArticleInformation(
                 identifier,
@@ -107,8 +113,8 @@ namespace Bili.Adapter
         public ArticleInformation ConvertToArticleInformation(MdlDynArticle article)
         {
             var id = article.Id.ToString();
-            var title = article.Title;
-            var summary = article.Desc;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(article.Title);
+            var summary = _textToolkit.ConvertToTraditionalChineseIfNeeded(article.Desc);
             var cover = article.Covers?.Any() ?? false
                 ? _imageAdapter.ConvertToArticleCardCover(article.Covers.First())
                 : null;

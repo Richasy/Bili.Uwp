@@ -527,6 +527,8 @@ namespace Bili.Models.Enums
         CoinNumberTip,
         FlvNotSupported,
         Menu,
+        FullTraditionalChineseTitle,
+        FullTraditionalChineseDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

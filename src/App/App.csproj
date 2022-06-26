@@ -133,6 +133,9 @@
       <DependentUpon>ScreenshotSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\App\StaggeredLayout\StaggeredLayout.cs" />
+    <Compile Include="Controls\Settings\TraditionalChineseSettingSection.xaml.cs">
+      <DependentUpon>TraditionalChineseSettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Toolbox\CoverDownloaderView.xaml.cs">
       <DependentUpon>CoverDownloaderView.xaml</DependentUpon>
     </Compile>
@@ -703,6 +706,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Settings\TraditionalChineseSettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Toolbox\CoverDownloaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1148,7 +1155,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
+    <PRIResource Include="Resources\Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\Player\Related\" />
@@ -1204,6 +1211,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="README.md" />
+    <PRIResource Include="Resources\Strings\zh-Hant\Resources.resw" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

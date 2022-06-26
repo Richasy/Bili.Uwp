@@ -191,5 +191,11 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public bool IsEnableBackgroundTask { get; set; }
+
+        /// <summary>
+        /// 是否使用完全的繁体中文模式.
+        /// </summary>
+        [Reactive]
+        public bool IsFullTraditionalChinese { get; set; }
     }
 }

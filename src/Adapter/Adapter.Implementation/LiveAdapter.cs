@@ -23,6 +23,7 @@ namespace Bili.Adapter
         private readonly IImageAdapter _imageAdapter;
         private readonly ICommunityAdapter _communityAdapter;
         private readonly INumberToolkit _numberToolkit;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveAdapter"/> class.
@@ -31,27 +32,30 @@ namespace Bili.Adapter
         /// <param name="imageAdapter">图片数据适配器.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
         /// <param name="numberToolkit">数字转换工具.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public LiveAdapter(
             IUserAdapter userAdapter,
             IImageAdapter imageAdapter,
             ICommunityAdapter communityAdapter,
-            INumberToolkit numberToolkit)
+            INumberToolkit numberToolkit,
+            ITextToolkit textToolkit)
         {
             _userAdapter = userAdapter;
             _imageAdapter = imageAdapter;
             _communityAdapter = communityAdapter;
             _numberToolkit = numberToolkit;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
         public LiveInformation ConvertToLiveInformation(LiveFeedRoom room)
         {
-            var title = room.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(room.Title);
             var id = room.RoomId.ToString();
             var viewerCount = room.ViewerCount;
             var user = _userAdapter.ConvertToUserProfile(room.UserId, room.UserName, room.UserAvatar, Models.Enums.App.AvatarSize.Size48);
             var cover = _imageAdapter.ConvertToVideoCardCover(room.Cover);
-            var subtitle = room.DisplayAreaName;
+            var subtitle = _textToolkit.ConvertToTraditionalChineseIfNeeded(room.DisplayAreaName);
 
             var identifier = new VideoIdentifier(id, title, -1, cover);
             return new LiveInformation(
@@ -64,7 +68,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public LiveInformation ConvertToLiveInformation(LiveRoomCard card)
         {
-            var title = card.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(card.Title);
             var id = card.RoomId.ToString();
             var viewerCount = _numberToolkit.GetCountNumber(card.CoverRightContent.Text);
             var subtitle = card.CoverLeftContent.Text;
@@ -76,7 +80,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public LiveInformation ConvertToLiveInformation(LiveSearchItem item)
         {
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var id = item.RoomId.ToString();
             var viewerCount = item.ViewerCount;
             var cover = _imageAdapter.ConvertToVideoCardCover(item.Cover);
@@ -90,7 +94,7 @@ namespace Bili.Adapter
         public LivePlayerView ConvertToLivePlayerView(LiveRoomDetail detail)
         {
             var roomInfo = detail.RoomInformation;
-            var title = roomInfo.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(roomInfo.Title);
             var id = roomInfo.RoomId.ToString();
             var description = string.IsNullOrEmpty(roomInfo.Description)
                 ? string.Empty
@@ -105,6 +109,8 @@ namespace Bili.Adapter
             {
                 description = "暂无直播间介绍";
             }
+
+            description = _textToolkit.ConvertToTraditionalChineseIfNeeded(description);
 
             var viewerCount = roomInfo.ViewerCount;
             var cover = _imageAdapter.ConvertToImage(roomInfo.Cover ?? roomInfo.Keyframe);
@@ -148,7 +154,7 @@ namespace Bili.Adapter
             var lives = response.List.Select(p => ConvertToLiveInformation(p)).ToList();
             var tags = response.Tags?.Count > 0
                 ? response.Tags.Select(p => new LiveTag(p.Id.ToString(), p.Name, p.SortType)).ToList()
-                : new List<LiveTag>() { new LiveTag(string.Empty, "全部", string.Empty) };
+                : new List<LiveTag>() { new LiveTag(string.Empty, _textToolkit.ConvertToTraditionalChineseIfNeeded("全部"), string.Empty) };
             return new LivePartitionView(response.Count, lives, tags);
         }
 
@@ -160,7 +166,8 @@ namespace Bili.Adapter
             var formats = new List<FormatInformation>();
             foreach (var item in playInfo.Descriptions)
             {
-                formats.Add(new FormatInformation(item.Quality, item.Description, false));
+                var desc = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Description);
+                formats.Add(new FormatInformation(item.Quality, desc, false));
             }
 
             var lines = new List<LivePlaylineInformation>();

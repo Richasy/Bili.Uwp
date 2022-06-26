@@ -7,6 +7,7 @@ using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Archive.V1;
 using Bilibili.App.View.V1;
 using Bilibili.Main.Community.Reply.V1;
@@ -20,18 +21,22 @@ namespace Bili.Adapter
     {
         private readonly IImageAdapter _imageAdapter;
         private readonly ICommunityAdapter _communityAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAdapter"/> class.
         /// </summary>
         /// <param name="imageAdapter">图片适配器.</param>
         /// <param name="communityAdapter">社区数据适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public UserAdapter(
             IImageAdapter imageAdapter,
-            ICommunityAdapter communityAdapter)
+            ICommunityAdapter communityAdapter,
+            ITextToolkit textToolkit)
         {
             _imageAdapter = imageAdapter;
             _communityAdapter = communityAdapter;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
@@ -117,7 +122,9 @@ namespace Bili.Adapter
         public RoleProfile ConvertToRoleProfile(Staff staff, AvatarSize avatarSize)
         {
             var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, avatarSize);
-            return new RoleProfile(user, staff.Title);
+            return new RoleProfile(
+                user,
+                _textToolkit.ConvertToTraditionalChineseIfNeeded(staff.Title));
         }
 
         /// <inheritdoc/>
@@ -138,7 +145,9 @@ namespace Bili.Adapter
         public RoleProfile ConvertToRoleProfile(PgcCelebrity celebrity, AvatarSize avatarSize = AvatarSize.Size96)
         {
             var user = ConvertToUserProfile(celebrity.Id, celebrity.Name, celebrity.Avatar, avatarSize);
-            return new RoleProfile(user, celebrity.ShortDescription);
+            return new RoleProfile(
+                user,
+                _textToolkit.ConvertToTraditionalChineseIfNeeded(celebrity.ShortDescription));
         }
 
         /// <inheritdoc/>

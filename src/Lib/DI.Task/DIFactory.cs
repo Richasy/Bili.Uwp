@@ -26,6 +26,7 @@ namespace Bili.DI.Task
             SplatRegistrations.Register<ISettingsToolkit, SettingsToolkit>();
             SplatRegistrations.Register<INumberToolkit, NumberToolkit>();
             SplatRegistrations.Register<IMD5Toolkit, MD5Toolkit>();
+            SplatRegistrations.Register<ITextToolkit, TextToolkit>();
 
             SplatRegistrations.Register<IImageAdapter, ImageAdapter>();
             SplatRegistrations.Register<IUserAdapter, UserAdapter>();

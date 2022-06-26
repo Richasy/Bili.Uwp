@@ -59,6 +59,7 @@ namespace Bili.ViewModels.Uwp.Home
             IsOpenScreenshotFile = ReadSetting(SettingNames.OpenScreenshotAfterSave, false);
             PlaybackRateEnhancement = ReadSetting(SettingNames.PlaybackRateEnhancement, false);
             GlobalPlaybackRate = ReadSetting(SettingNames.GlobalPlaybackRate, false);
+            IsFullTraditionalChinese = ReadSetting(SettingNames.IsFullTraditionalChinese, false);
             PreferCodecInit();
             PlayerModeInit();
             StartupInitAsync();
@@ -142,6 +143,9 @@ namespace Bili.ViewModels.Uwp.Home
                 case nameof(IsOpenDynamicNotification):
                     WriteSetting(SettingNames.IsOpenNewDynamicNotify, IsOpenDynamicNotification);
                     _appViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();
+                    break;
+                case nameof(IsFullTraditionalChinese):
+                    WriteSetting(SettingNames.IsFullTraditionalChinese, IsFullTraditionalChinese);
                     break;
                 default:
                     break;

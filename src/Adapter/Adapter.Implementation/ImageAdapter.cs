@@ -5,6 +5,7 @@ using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Appearance;
+using Bili.Toolkit.Interfaces;
 using Bilibili.App.Dynamic.V2;
 using Bilibili.Main.Community.Reply.V1;
 
@@ -15,6 +16,15 @@ namespace Bili.Adapter
     /// </summary>
     public class ImageAdapter : IImageAdapter
     {
+        private readonly ITextToolkit _textToolkit;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageAdapter"/> class.
+        /// </summary>
+        /// <param name="textToolkit">文本工具.</param>
+        public ImageAdapter(ITextToolkit textToolkit)
+            => _textToolkit = textToolkit;
+
         /// <inheritdoc/>
         public Image ConvertToImage(string uri)
             => new Image(uri);
@@ -38,7 +48,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public EmoteText ConvertToEmoteText(ModuleDesc description)
         {
-            var text = description.Text;
+            var text = _textToolkit.ConvertToTraditionalChineseIfNeeded(description.Text);
             var descs = description.Desc;
             var emoteDict = new Dictionary<string, Image>();
 
@@ -48,9 +58,10 @@ namespace Bili.Adapter
                 var emotes = descs.Where(p => p.Type == DescType.Emoji);
                 foreach (var item in emotes)
                 {
-                    if (!emoteDict.ContainsKey(item.Text))
+                    var t = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Text);
+                    if (!emoteDict.ContainsKey(t))
                     {
-                        emoteDict.Add(item.Text, ConvertToImage(item.Uri));
+                        emoteDict.Add(t, ConvertToImage(item.Uri));
                     }
                 }
             }
@@ -65,7 +76,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public EmoteText ConvertToEmoteText(Content content)
         {
-            var text = content.Message;
+            var text = _textToolkit.ConvertToTraditionalChineseIfNeeded(content.Message);
             var emotes = content.Emote;
             var emoteDict = new Dictionary<string, Image>();
 
@@ -74,9 +85,10 @@ namespace Bili.Adapter
             {
                 foreach (var item in emotes)
                 {
-                    if (!emoteDict.ContainsKey(item.Key))
+                    var k = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Key);
+                    if (!emoteDict.ContainsKey(k))
                     {
-                        emoteDict.Add(item.Key, ConvertToImage(item.Value.Url));
+                        emoteDict.Add(k, ConvertToImage(item.Value.Url));
                     }
                 }
             }

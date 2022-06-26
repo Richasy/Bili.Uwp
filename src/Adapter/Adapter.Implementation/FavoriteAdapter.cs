@@ -4,6 +4,7 @@ using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Video;
+using Bili.Toolkit.Interfaces;
 
 namespace Bili.Adapter
 {
@@ -15,6 +16,7 @@ namespace Bili.Adapter
         private readonly IImageAdapter _imageAdapter;
         private readonly IUserAdapter _userAdapter;
         private readonly IVideoAdapter _videoAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FavoriteAdapter"/> class.
@@ -22,28 +24,31 @@ namespace Bili.Adapter
         /// <param name="imageAdapter">图片数据适配器.</param>
         /// <param name="userAdapter">用户数据适配器.</param>
         /// <param name="videoAdapter">视频数据适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public FavoriteAdapter(
             IImageAdapter imageAdapter,
             IUserAdapter userAdapter,
-            IVideoAdapter videoAdapter)
+            IVideoAdapter videoAdapter,
+            ITextToolkit textToolkit)
         {
             _imageAdapter = imageAdapter;
             _userAdapter = userAdapter;
             _videoAdapter = videoAdapter;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
         public VideoFavoriteFolder ConvertToVideoFavoriteFolder(FavoriteListDetail detail)
         {
             var id = detail.Id.ToString();
-            var title = detail.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(detail.Title);
             var cover = string.IsNullOrEmpty(detail.Cover)
                 ? null
                 : _imageAdapter.ConvertToImage(detail.Cover, 160, 120);
             var user = string.IsNullOrEmpty(detail.Publisher?.Publisher)
                 ? null
                 : _userAdapter.ConvertToRoleProfile(detail.Publisher, Models.Enums.App.AvatarSize.Size48).User;
-            var desc = detail.Description;
+            var desc = _textToolkit.ConvertToTraditionalChineseIfNeeded(detail.Description);
             var count = detail.MediaCount;
 
             return new VideoFavoriteFolder(id, title, cover, user, desc, count);
@@ -53,7 +58,7 @@ namespace Bili.Adapter
         public VideoFavoriteFolder ConvertToVideoFavoriteFolder(FavoriteMeta meta)
         {
             var id = meta.Id.ToString();
-            var title = meta.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(meta.Title);
             var count = meta.MediaCount;
 
             return new VideoFavoriteFolder(id, title, default, default, default, count);
@@ -72,7 +77,7 @@ namespace Bili.Adapter
         public VideoFavoriteFolderGroup ConvertToVideoFavoriteFolderGroup(FavoriteFolder folder)
         {
             var id = folder.Id;
-            var name = folder.Name;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(folder.Name);
             var isMine = id == 1;
             var folders = folder.MediaList.List.Select(p => ConvertToVideoFavoriteFolder(p));
             var set = new VideoFavoriteSet(folders, folder.MediaList.Count);

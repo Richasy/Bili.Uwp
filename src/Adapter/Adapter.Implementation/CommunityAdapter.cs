@@ -24,6 +24,7 @@ namespace Bili.Adapter
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IImageAdapter _imageAdapter;
+        private readonly ITextToolkit _textToolkit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunityAdapter"/> class.
@@ -31,21 +32,24 @@ namespace Bili.Adapter
         /// <param name="numberToolkit">数字处理工具.</param>
         /// <param name="resourceToolkit">资源管理工具.</param>
         /// <param name="imageAdapter">图片数据适配器.</param>
+        /// <param name="textToolkit">文本工具.</param>
         public CommunityAdapter(
             INumberToolkit numberToolkit,
             IResourceToolkit resourceToolkit,
-            IImageAdapter imageAdapter)
+            IImageAdapter imageAdapter,
+            ITextToolkit textToolkit)
         {
             _numberToolkit = numberToolkit;
             _imageAdapter = imageAdapter;
             _resourceToolkit = resourceToolkit;
+            _textToolkit = textToolkit;
         }
 
         /// <inheritdoc/>
         public BannerIdentifier ConvertToBannerIdentifier(PartitionBanner banner)
         {
             var id = banner.Id.ToString();
-            var title = banner.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(banner.Title);
             var image = _imageAdapter.ConvertToImage(banner.Image, 600, 180);
             var uri = banner.NavigateUri;
             return new BannerIdentifier(id, title, image, uri);
@@ -55,7 +59,7 @@ namespace Bili.Adapter
         public BannerIdentifier ConvertToBannerIdentifier(LiveFeedBanner banner)
         {
             var id = banner.Id.ToString();
-            var title = banner.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(banner.Title);
             var image = _imageAdapter.ConvertToImage(banner.Cover, 600, 180);
             var uri = banner.Link;
             return new BannerIdentifier(id, title, image, uri);
@@ -65,7 +69,7 @@ namespace Bili.Adapter
         public BannerIdentifier ConvertToBannerIdentifier(PgcModuleItem item)
         {
             var id = item.OriginId.ToString();
-            var title = item.Title;
+            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(item.Title);
             var image = _imageAdapter.ConvertToImage(item.Cover, 600, 320);
             var uri = item.WebLink;
             return new BannerIdentifier(id, title, image, uri);
@@ -75,14 +79,14 @@ namespace Bili.Adapter
         public Models.Data.Community.Partition ConvertToPartition(Models.BiliBili.Partition partition)
         {
             var id = partition.Tid.ToString();
-            var name = partition.Name;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(partition.Name);
             var logo = string.IsNullOrEmpty(partition.Logo)
                 ? null
                 : _imageAdapter.ConvertToImage(partition.Logo);
             var children = partition.Children?.Select(p => ConvertToPartition(p)).ToList();
             if (children?.Count > 0)
             {
-                children.Insert(0, new Models.Data.Community.Partition(partition.Tid.ToString(), "推荐"));
+                children.Insert(0, new Models.Data.Community.Partition(partition.Tid.ToString(), _textToolkit.ConvertToTraditionalChineseIfNeeded("推荐")));
                 children.ForEach(p => p.ParentId = id);
             }
 
@@ -94,7 +98,7 @@ namespace Bili.Adapter
         {
             var id = area.AreaId.ToString();
             var parentId = area.ParentAreaId.ToString();
-            var name = area.Title;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(area.Title);
             var logo = string.IsNullOrEmpty(area.Cover)
                 ? null
                 : _imageAdapter.ConvertToImage(area.Cover);
@@ -106,7 +110,7 @@ namespace Bili.Adapter
         public Models.Data.Community.Partition ConvertToPartition(LiveAreaGroup group)
         {
             var id = group.Id.ToString();
-            var name = group.Name;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(group.Name);
             var children = group.AreaList.Select(p => ConvertToPartition(p)).ToList();
 
             return new Models.Data.Community.Partition(id, name, children: children);
@@ -117,7 +121,7 @@ namespace Bili.Adapter
         {
             var id = area.Id.ToString();
             var parentId = area.ParentId.ToString();
-            var name = area.Name;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(area.Name);
             var logo = string.IsNullOrEmpty(area.Cover)
                 ? null
                 : _imageAdapter.ConvertToImage(area.Cover);
@@ -127,13 +131,13 @@ namespace Bili.Adapter
 
         /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(PgcTab tab)
-            => new Models.Data.Community.Partition(tab.Id.ToString(), tab.Title);
+            => new Models.Data.Community.Partition(tab.Id.ToString(), _textToolkit.ConvertToTraditionalChineseIfNeeded(tab.Title));
 
         /// <inheritdoc/>
         public Models.Data.Community.Partition ConvertToPartition(ArticleCategory category)
         {
             var id = category.Id.ToString();
-            var name = category.Name;
+            var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(category.Name);
             var children = category.Children?.Any() ?? false
                 ? category.Children.Select(p => ConvertToPartition(p)).ToList()
                 : null;
@@ -233,7 +237,6 @@ namespace Bili.Adapter
                 trackCount = _numberToolkit.GetCountNumber(tempText);
             }
 
-            var recommendReason = videoCard.RecommendReason;
             return new VideoCommunityInformation(
                 videoCard.Parameter,
                 playCount: playCount,
@@ -447,6 +450,7 @@ namespace Bili.Adapter
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? messageItem.Item.Description
                 : messageItem.Item.Title;
+            sourceContent = _textToolkit.ConvertToTraditionalChineseIfNeeded(sourceContent);
             var sourceId = messageItem.Item.Uri;
 
             return new MessageInformation(
@@ -471,10 +475,11 @@ namespace Bili.Adapter
             var subtitle = string.Format(
                 _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AtMessageTypeDescription),
                 messageItem.Item.Business);
-            var message = messageItem.Item.SourceContent;
+            var message = _textToolkit.ConvertToTraditionalChineseIfNeeded(messageItem.Item.SourceContent);
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NoSpecificData)
                 : messageItem.Item.Title;
+            sourceContent = _textToolkit.ConvertToTraditionalChineseIfNeeded(sourceContent);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.AtTime).DateTime;
             var id = messageItem.Id.ToString();
             var sourceId = messageItem.Item.Uri;
@@ -503,10 +508,11 @@ namespace Bili.Adapter
                 _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplyMessageTypeDescription),
                 messageItem.Item.Business,
                 messageItem.Counts);
-            var message = messageItem.Item.SourceContent;
+            var message = _textToolkit.ConvertToTraditionalChineseIfNeeded(messageItem.Item.SourceContent);
             var sourceContent = string.IsNullOrEmpty(messageItem.Item.Title)
                 ? messageItem.Item.Description
                 : messageItem.Item.Title;
+            sourceContent = _textToolkit.ConvertToTraditionalChineseIfNeeded(sourceContent);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(messageItem.ReplyTime).DateTime;
             var id = messageItem.Id.ToString();
             var sourceId = messageItem.Item.SubjectId.ToString();
@@ -569,7 +575,7 @@ namespace Bili.Adapter
 
         /// <inheritdoc/>
         public FollowGroup ConvertToFollowGroup(RelatedTag tag)
-            => new FollowGroup(tag.TagId.ToString(), tag.Name, tag.Count);
+            => new FollowGroup(tag.TagId.ToString(), _textToolkit.ConvertToTraditionalChineseIfNeeded(tag.Name), tag.Count);
 
         /// <inheritdoc/>
         public DynamicCommunityInformation ConvertToDynamicCommunityInformation(ModuleStat stat, string dynamicId)
