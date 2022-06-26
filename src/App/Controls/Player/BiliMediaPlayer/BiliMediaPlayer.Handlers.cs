@@ -104,6 +104,10 @@ namespace Bili.App.Controls.Player
                 {
                     ViewModel.ToggleFullScreenCommand.Execute().Subscribe();
                 }
+                else
+                {
+                    ViewModel.PlayPauseCommand.Execute().Subscribe();
+                }
             }
         }
 
