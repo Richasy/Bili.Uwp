@@ -131,7 +131,7 @@ namespace Bili.ViewModels.Uwp.Core
             });
         }
 
-        private async Task ChangeVolumeAsync(double volume)
+        private void ChangeVolume(double volume)
         {
             try
             {
@@ -151,22 +151,12 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 0;
             }
 
-            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            if (Volume != volume)
             {
-                if (Volume != volume)
-                {
-                    Volume = volume;
-                }
+                Volume = volume;
+            }
 
-                var msg = volume > 0
-                    ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(volume)}"
-                    : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
-
-                RequestShowTempMessage?.Invoke(this, msg);
-
-                _mediaPlayer.Volume = volume / 100.0;
-                _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
-            });
+            _settingsToolkit.WriteLocalSetting(SettingNames.Volume, Volume);
         }
 
         private void ToggleFullScreenMode()

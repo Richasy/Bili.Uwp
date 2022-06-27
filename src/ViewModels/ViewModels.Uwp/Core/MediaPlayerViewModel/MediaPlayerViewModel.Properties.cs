@@ -64,6 +64,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private double _originalPlayRate;
         private double _originalDanmakuSpeed;
+        private double _presetVolumeHoldTime;
 
         /// <summary>
         /// 媒体播放器改变.
