@@ -121,28 +121,28 @@
     <value>操作中止</value>
   </data>
   <data name="AboutThisApp" xml:space="preserve">
-    <value>關於此應用</value>
+    <value>關於此軟體</value>
   </data>
   <data name="AddReplyFailed" xml:space="preserve">
-    <value>添加評論失敗，請稍後再試</value>
+    <value>新增評論失敗，請稍後再試</value>
   </data>
   <data name="AddToViewLater" xml:space="preserve">
-    <value>添加到稍後再看</value>
+    <value>新增到稍後再看</value>
   </data>
   <data name="AddViewLaterFailed" xml:space="preserve">
-    <value>添加到稍後再看失敗</value>
+    <value>新增到稍後再看失敗</value>
   </data>
   <data name="AddViewLaterSucceseded" xml:space="preserve">
-    <value>視頻已添加至稍後再看</value>
+    <value>影片已新增至稍後再看</value>
   </data>
   <data name="AdvancedOptions" xml:space="preserve">
-    <value>高級選項</value>
+    <value>進階選項</value>
   </data>
   <data name="Alias" xml:space="preserve">
     <value>別名</value>
   </data>
   <data name="AlsoLike" xml:space="preserve">
-    <value>同時點贊</value>
+    <value>同時點讚</value>
   </data>
   <data name="Anime" xml:space="preserve">
     <value>動漫</value>
@@ -157,13 +157,13 @@
     <value>嗶哩 Preview</value>
   </data>
   <data name="AppTheme" xml:space="preserve">
-    <value>應用主題</value>
+    <value>軟體主題</value>
   </data>
   <data name="AppThemeDescription" xml:space="preserve">
-    <value>選擇一個你偏好的應用主題</value>
+    <value>選擇一個你偏好的軟體主題</value>
   </data>
   <data name="AppTip" xml:space="preserve">
-    <value>應用提示</value>
+    <value>軟體提示</value>
   </data>
   <data name="AskIssue" xml:space="preserve">
     <value>Github issue</value>
@@ -181,13 +181,13 @@
     <value>自動</value>
   </data>
   <data name="AutoNextRelatedVideo" xml:space="preserve">
-    <value>自動播放關聯視頻</value>
+    <value>自動播放關聯影片</value>
   </data>
   <data name="AutoNextRelatedVideoDescription" xml:space="preserve">
-    <value>在視頻播放結束後，如果有關聯視頻，則在 5 秒倒計時結束後自動播放下一個視頻</value>
+    <value>在影片播放結束後，如果有關聯影片，則在 5 秒倒計時結束後自動播放下一個影片</value>
   </data>
   <data name="AutoPlayWhenLoaded" xml:space="preserve">
-    <value>加載完成後自動播放</value>
+    <value>載入完成後自動播放</value>
   </data>
   <data name="Av1" xml:space="preserve">
     <value>AV1</value>
@@ -196,10 +196,10 @@
     <value>AV/BV 互轉</value>
   </data>
   <data name="AvBvConverterDescription" xml:space="preserve">
-    <value>視頻AV號與BV號相互轉換</value>
+    <value>影片AV號與BV號相互轉換</value>
   </data>
   <data name="AvBvConverterIntroduce" xml:space="preserve">
-    <value>應用將根據輸入的 Id 自動判斷輸入的是 AV 號還是 BV 號。
+    <value>軟體將根據輸入的 Id 自動判斷輸入的是 AV 號還是 BV 號。
 AV號是一串數字，如 170001
 
 BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</value>
@@ -214,19 +214,19 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>返回標準視圖</value>
   </data>
   <data name="BackToHome" xml:space="preserve">
-    <value>返回主頁</value>
+    <value>回到首頁</value>
   </data>
   <data name="BackToPrevious" xml:space="preserve">
-    <value>返回上一級</value>
+    <value>返回上一頁</value>
   </data>
   <data name="BackToStart" xml:space="preserve">
-    <value>返回互動視頻開頭</value>
+    <value>返回互動影片開頭</value>
   </data>
   <data name="Bangumi" xml:space="preserve">
     <value>番劇</value>
   </data>
   <data name="BelikeCount" xml:space="preserve">
-    <value>獲贊數</value>
+    <value>獲讚數</value>
   </data>
   <data name="BiliHomePage" xml:space="preserve">
     <value>開發者B站主頁</value>
@@ -241,7 +241,7 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>底部彈幕</value>
   </data>
   <data name="CacheCleared" xml:space="preserve">
-    <value>已清理緩存</value>
+    <value>已清理暫存</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
@@ -283,10 +283,10 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>清除</value>
   </data>
   <data name="ClearCache" xml:space="preserve">
-    <value>清除緩存</value>
+    <value>清除快取資料</value>
   </data>
   <data name="ClearCacheDescription" xml:space="preserve">
-    <value>清理本地的圖片緩存以減少應用數據佔用</value>
+    <value>清理本機的圖片暫存以減少軟體資料佔用</value>
   </data>
   <data name="ClearHistory" xml:space="preserve">
     <value>清空歷史記錄</value>
@@ -310,7 +310,7 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>投幣失敗，試試看只投一個吧</value>
   </data>
   <data name="CoinNumberTip" xml:space="preserve">
-    <value>原創視頻方可投2個幣</value>
+    <value>原創影片方可投2個幣</value>
   </data>
   <data name="CollectTime" xml:space="preserve">
     <value>收藏時間</value>
@@ -331,7 +331,7 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>確認</value>
   </data>
   <data name="ContinuePlayDescription" xml:space="preserve">
-    <value>上次應用關閉時您仍在播放視頻，你可以繼續播放該視頻：</value>
+    <value>上次軟體關閉時您仍在播放影片，你可以繼續播放該影片：</value>
   </data>
   <data name="ContinuePlayTitle" xml:space="preserve">
     <value>是否繼續播放？</value>
@@ -343,20 +343,20 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>連續播放</value>
   </data>
   <data name="ContinuousPlayDescription" xml:space="preserve">
-    <value>當視頻有多個分集時自動連續播放（一集結束自動切換到下一集）
-UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如果支持)</value>
+    <value>當影片有多個分集時自動連續播放（一集結束自動切換到下一集）
+UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如果支援)</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>轉換</value>
   </data>
   <data name="Copied" xml:space="preserve">
-    <value>已復制</value>
+    <value>已複製</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>複製到剪切板</value>
+    <value>複製到剪貼簿</value>
   </data>
   <data name="CopyToClipboardAfterScreenshot" xml:space="preserve">
-    <value>截圖後復製到剪切板</value>
+    <value>截圖後複製到剪貼簿</value>
   </data>
   <data name="CoverDownloader" xml:space="preserve">
     <value>封面下載</value>
@@ -365,16 +365,16 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>下載指定視頻的封面到本地文件</value>
   </data>
   <data name="CoverDownloaderIntroduce" xml:space="preserve">
-    <value>輸入視頻的 AV 或 BV 號，應用會嘗試獲取其封面並提供預覽，確認後請點擊下載按鈕，應用會將其下載到圖庫並打開</value>
+    <value>輸入影片的 AV 或 BV 號，軟體會嘗試取得其封面並提供預覽，確認後請點擊下載按鈕，軟體會將其下載到圖庫並打開</value>
   </data>
   <data name="CurrentPlaybackRate" xml:space="preserve">
-    <value>當前播放速率</value>
+    <value>目前播放速率</value>
   </data>
   <data name="CurrentProgress" xml:space="preserve">
-    <value>當前進度</value>
+    <value>目前進度</value>
   </data>
   <data name="CurrentVolume" xml:space="preserve">
-    <value>當前音量</value>
+    <value>目前音量</value>
   </data>
   <data name="Danmaku" xml:space="preserve">
     <value>彈幕</value>
@@ -383,7 +383,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>彈幕顯示區域</value>
   </data>
   <data name="DanmakuAutoLimit" xml:space="preserve">
-    <value>自動限制同屏彈幕數</value>
+    <value>自動限制同畫面彈幕數</value>
   </data>
   <data name="DanmakuBold" xml:space="preserve">
     <value>彈幕加粗</value>
@@ -392,10 +392,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>彈幕數</value>
   </data>
   <data name="DanmakuDensity" xml:space="preserve">
-    <value>同屏彈幕密度</value>
+    <value>同畫面彈幕密度</value>
   </data>
   <data name="DanmakuDisplaySettings" xml:space="preserve">
-    <value>彈幕顯示設置</value>
+    <value>彈幕顯示設定</value>
   </data>
   <data name="DanmakuFont" xml:space="preserve">
     <value>彈幕字體</value>
@@ -413,7 +413,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>發個友善的彈幕見證當下</value>
   </data>
   <data name="DanmakuSendSettings" xml:space="preserve">
-    <value>彈幕發送設置</value>
+    <value>彈幕發送設定</value>
   </data>
   <data name="DanmakuSpeed" xml:space="preserve">
     <value>彈幕速度</value>
@@ -434,13 +434,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>解碼失敗或者正在切換片源</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>默認</value>
+    <value>預設</value>
   </data>
   <data name="DefaultFavorite" xml:space="preserve">
-    <value>默認收藏夾</value>
+    <value>預設收藏夾</value>
   </data>
   <data name="DefaultPlayerDisplayMode" xml:space="preserve">
-    <value>默認播放器顯示模式</value>
+    <value>預設播放器顯示模式</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>刪除</value>
@@ -458,10 +458,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>詳情</value>
   </data>
   <data name="DisableP2PCdn" xml:space="preserve">
-    <value>禁用 P2P CDN</value>
+    <value>關閉 P2P CDN</value>
   </data>
   <data name="DisableP2PCdnDescription" xml:space="preserve">
-    <value>優先通過非 P2P CDN 加載視頻，提升新視頻和冷門視頻的加載速度</value>
+    <value>優先透過非 P2P CDN 載入影片，提升新影片和冷門影片的加載速度</value>
   </data>
   <data name="Documentary" xml:space="preserve">
     <value>紀錄片</value>
@@ -482,10 +482,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>下載彈幕</value>
   </data>
   <data name="DownloadFolder" xml:space="preserve">
-    <value>下載文件夾</value>
+    <value>下載資料夾</value>
   </data>
   <data name="DownloadTip" xml:space="preserve">
-    <value>應用本身不提供下載功能，但支持生成 BBDown 命令，具體的使用方法參見 幫助&amp;支持</value>
+    <value>軟體本身不提供下載功能，但支援生成 BBDown 指令，具體的使用方法參見 支援&amp;協助</value>
   </data>
   <data name="DownloadType" xml:space="preserve">
     <value>下載類型</value>
@@ -497,35 +497,35 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>動態</value>
   </data>
   <data name="DynamicNeedLoginFirst" xml:space="preserve">
-    <value>想查看關注的UP主的動態嗎？
+    <value>想查看追蹤的UP主的動態嗎？
 快登錄吧！</value>
   </data>
   <data name="EnterCompactOverlay" xml:space="preserve">
     <value>進入小窗模式</value>
   </data>
   <data name="EnterFullScreen" xml:space="preserve">
-    <value>進入全屏模式</value>
+    <value>進入全螢幕模式</value>
   </data>
   <data name="EnterFullWindow" xml:space="preserve">
-    <value>進入全窗口模式</value>
+    <value>進入全視窗模式</value>
   </data>
   <data name="EnterToEffect" xml:space="preserve">
-    <value>按下回車以生效</value>
+    <value>按下Enter以套用</value>
   </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
   <data name="ExitCompactOverlay" xml:space="preserve">
-    <value>退出小窗模式</value>
+    <value>結束小窗模式</value>
   </data>
   <data name="ExitFullScreen" xml:space="preserve">
-    <value>退出全屏模式</value>
+    <value>結束全螢幕模式</value>
   </data>
   <data name="ExitFullWindow" xml:space="preserve">
-    <value>退出全窗口模式</value>
+    <value>結束全視窗模式</value>
   </data>
   <data name="ExitSearch" xml:space="preserve">
-    <value>退出搜索</value>
+    <value>結束搜尋</value>
   </data>
   <data name="FailedToClearHisotry" xml:space="preserve">
     <value>嘗試清空歷史記錄失敗，請稍後重試</value>
@@ -537,7 +537,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>清除稍後再看列表失敗，請稍後重試</value>
   </data>
   <data name="FailedToGetUserRelation" xml:space="preserve">
-    <value>獲取用戶關係信息失敗</value>
+    <value>取得用戶關係資訊失敗</value>
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二維碼加載失敗，請刷新</value>
@@ -546,10 +546,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>嘗試刪除該歷史記錄失敗，請稍後重試</value>
   </data>
   <data name="FailedToRemoveVideoFromViewLater" xml:space="preserve">
-    <value>嘗試移除視頻失敗，請稍後重試</value>
+    <value>嘗試移除影片失敗，請稍後重試</value>
   </data>
   <data name="FailedToSendDanmaku" xml:space="preserve">
-    <value>發送彈幕失敗，請稍後再試</value>
+    <value>傳送彈幕失敗，請稍後再試</value>
   </data>
   <data name="FansCount" xml:space="preserve">
     <value>粉絲數</value>
@@ -564,7 +564,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>收藏失敗</value>
   </data>
   <data name="FavoriteHaveNoVideos" xml:space="preserve">
-    <value>收藏夾內沒有視頻</value>
+    <value>收藏夾內沒有影片</value>
   </data>
   <data name="FilterByGreaterThan60Min" xml:space="preserve">
     <value>60分鐘+</value>
@@ -582,7 +582,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>全部時長</value>
   </data>
   <data name="FirstClickTagTip" xml:space="preserve">
-    <value>點擊標籤後，您將前往搜索頁面搜索標籤內容，這會中斷當前正在播放的視頻，是否確認？
+    <value>點擊標籤後，您將前往搜尋頁面搜索標籤內容，這會中斷目前正在播放的影片，是否確認？
 點擊確認後，下次點擊標籤將不會彈出該提示</value>
   </data>
   <data name="FixContent" xml:space="preserve">
@@ -604,31 +604,31 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>固定UP</value>
   </data>
   <data name="Flv" xml:space="preserve">
-    <value>流媒體/FLV</value>
+    <value>直播串流/FLV</value>
   </data>
   <data name="FlvNotSupported" xml:space="preserve">
     <value>目前嗶哩不能播放 flv 格式的直播，請在網頁中打開該直播間</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>關注</value>
+    <value></value>
   </data>
   <data name="FollowCount" xml:space="preserve">
-    <value>關注數</value>
+    <value>追蹤人數</value>
   </data>
   <data name="FollowEachOther" xml:space="preserve">
-    <value>互相關注</value>
+    <value>互相追蹤</value>
   </data>
   <data name="Followed" xml:space="preserve">
-    <value>已關注</value>
+    <value>已追蹤</value>
   </data>
   <data name="FollowLiveRoom" xml:space="preserve">
-    <value>關注的直播間</value>
+    <value>追蹤的直播間</value>
   </data>
   <data name="FollowRoom" xml:space="preserve">
-    <value>關注直播間</value>
+    <value>追蹤直播間</value>
   </data>
   <data name="FollowsSuffix" xml:space="preserve">
-    <value>關注的人</value>
+    <value>追蹤的人</value>
   </data>
   <data name="FollowSystem" xml:space="preserve">
     <value>跟隨系統</value>
@@ -643,16 +643,16 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>完整</value>
   </data>
   <data name="FullScreenMode" xml:space="preserve">
-    <value>全屏模式</value>
+    <value>全螢幕模式</value>
   </data>
   <data name="FullTraditionalChineseDescription" xml:space="preserve">
-    <value>包括視頻標題、簡介等信息在內的文本自動轉換為繁體中文。用戶名等標識信息除外</value>
+    <value>包括影片標題、簡介等資訊在內的文本自動轉換為繁體中文。用戶名等標識資訊除外</value>
   </data>
   <data name="FullTraditionalChineseTitle" xml:space="preserve">
     <value>全盤繁體</value>
   </data>
   <data name="FullWindowMode" xml:space="preserve">
-    <value>全窗口模式</value>
+    <value>全視窗模式</value>
   </data>
   <data name="FunctionIntroduce" xml:space="preserve">
     <value>功能說明</value>
@@ -661,19 +661,19 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>生成命令</value>
   </data>
   <data name="Generic" xml:space="preserve">
-    <value>通用</value>
+    <value>一般</value>
   </data>
   <data name="GlobalPlaybackRate" xml:space="preserve">
     <value>全局播放速率</value>
   </data>
   <data name="GlobalPlaybackRateDescription" xml:space="preserve">
-    <value>啟用後，所有視頻共用一個播放速率</value>
+    <value>開啟後，所有影片將共用一個播放速率</value>
   </data>
   <data name="GlobeProxy" xml:space="preserve">
     <value>全局代理</value>
   </data>
   <data name="GlobeProxyDescription" xml:space="preserve">
-    <value>不論是否為地區限制的內容，都使用代理服務器解析</value>
+    <value>不論是否為地區限制的內容，都使用代理伺服器解析</value>
   </data>
   <data name="Grass" xml:space="preserve">
     <value>草綠色</value>
@@ -691,7 +691,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>新版本發布</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
-    <value>幫助 &amp; 支持</value>
+    <value>支援 &amp; 協助</value>
   </data>
   <data name="HideDanmaku" xml:space="preserve">
     <value>隱藏彈幕</value>
@@ -703,7 +703,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>最熱評論</value>
   </data>
   <data name="HotSearch" xml:space="preserve">
-    <value>搜索熱詞</value>
+    <value>搜尋熱詞</value>
   </data>
   <data name="HotTags" xml:space="preserve">
     <value>熱門標籤</value>
@@ -721,7 +721,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>洗腦循環</value>
   </data>
   <data name="InitialCheckDescription" xml:space="preserve">
-    <value>是否在應用啟動時檢查上次關閉時正在播放的視頻，並提醒繼續播放</value>
+    <value>是否在軟體啟動時檢查上次關閉時正在播放的影片，並提醒繼續播放</value>
   </data>
   <data name="InitialCheckTitle" xml:space="preserve">
     <value>初始化檢查</value>
@@ -733,13 +733,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>請輸入驗證碼</value>
   </data>
   <data name="InteractionEnd" xml:space="preserve">
-    <value>互動視頻結束，可點擊播放控制器的 "橡皮擦" 按鈕返回開頭</value>
+    <value>互動影片結束，可點擊播放控制器的 "橡皮擦" 按鈕返回開頭</value>
   </data>
   <data name="InteractionQuality" xml:space="preserve">
     <value>交互式清晰度選擇</value>
   </data>
   <data name="InterfaceType" xml:space="preserve">
-    <value>接口類型</value>
+    <value>介面類型</value>
   </data>
   <data name="InternationalApp" xml:space="preserve">
     <value>國際應用</value>
@@ -751,13 +751,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>用戶名或密碼錯誤</value>
   </data>
   <data name="InvalidVideoId" xml:space="preserve">
-    <value>不是有效的視頻Id</value>
+    <value>不是有效的影片Id</value>
   </data>
   <data name="IsNeedFeedback" xml:space="preserve">
-    <value>需要反饋？</value>
+    <value>需要回饋？</value>
   </data>
   <data name="IsNeedFeedbackDescription" xml:space="preserve">
-    <value>需要反饋應用使用過程中的問題？
+    <value>需要回饋應用使用過程中的問題？
 想提供一些建議？</value>
   </data>
   <data name="Khaki" xml:space="preserve">
@@ -782,10 +782,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>淺藍色</value>
   </data>
   <data name="Like" xml:space="preserve">
-    <value>點贊</value>
+    <value>點讚</value>
   </data>
   <data name="LikeCount" xml:space="preserve">
-    <value>點贊數</value>
+    <value>點讚數</value>
   </data>
   <data name="LikeMe" xml:space="preserve">
     <value>收到的讚</value>
@@ -806,19 +806,19 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>已清除日誌記錄</value>
   </data>
   <data name="LoggerFolder" xml:space="preserve">
-    <value>日誌文件夾</value>
+    <value>日誌資料夾</value>
   </data>
   <data name="LoggerModule" xml:space="preserve">
     <value>日誌記錄</value>
   </data>
   <data name="LoggerModuleDescription" xml:space="preserve">
-    <value>查看應用日誌或清除日誌記錄</value>
+    <value>查看軟體日誌或清除日誌記錄</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>登錄</value>
+    <value>登入</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>登錄失敗，請稍後重試</value>
+    <value>登入失敗，請稍後重試</value>
   </data>
   <data name="Manual" xml:space="preserve">
     <value>手動</value>
@@ -836,7 +836,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>最大</value>
   </data>
   <data name="Menu" xml:space="preserve">
-    <value>菜單</value>
+    <value>選單</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>消息</value>
@@ -848,7 +848,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>分鐘</value>
   </data>
   <data name="MobileApp" xml:space="preserve">
-    <value>移動應用</value>
+    <value>手機版</value>
   </data>
   <data name="MoreInDynamic" xml:space="preserve">
     <value>更多內容請在動態頁查看</value>
@@ -857,7 +857,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>等人</value>
   </data>
   <data name="MoreReplyDisplay" xml:space="preserve">
-    <value>共{0}條回复 ⪢</value>
+    <value>共{0}條回覆 ⪢</value>
   </data>
   <data name="Movie" xml:space="preserve">
     <value>電影</value>
@@ -878,25 +878,25 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>我的追番</value>
   </data>
   <data name="MyWebPage" xml:space="preserve">
-    <value>個人主頁</value>
+    <value>個人首頁</value>
   </data>
   <data name="Navigation" xml:space="preserve">
     <value>導航</value>
   </data>
   <data name="NeedLoginFirst" xml:space="preserve">
-    <value>你需要先登錄才能執行操作</value>
+    <value>你需要先登入才能執行操作</value>
   </data>
   <data name="NeedQRLogin" xml:space="preserve">
-    <value>密碼登錄方式失敗，請使用二維碼登錄</value>
+    <value>密碼登入方式失敗，請使用QR Code登入</value>
   </data>
   <data name="NeedScaleToShowMessage" xml:space="preserve">
-    <value>當前寬度不足以顯示消息，請調整應用寬度</value>
+    <value>目前寬度不足以顯示消息，請調整視窗寬度</value>
   </data>
   <data name="NeedScaleToShowReply" xml:space="preserve">
-    <value>你需要拉寬應用以顯示評論列表</value>
+    <value>你需要拉寬視窗以顯示評論列表</value>
   </data>
   <data name="NetworkError" xml:space="preserve">
-    <value>網絡連接錯誤，請稍後重試</value>
+    <value>網路連線錯誤，請稍後重試</value>
   </data>
   <data name="NextEpisode" xml:space="preserve">
     <value>下一集</value>
@@ -908,13 +908,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>沒有可供播放的分集</value>
   </data>
   <data name="NoFans" xml:space="preserve">
-    <value>該用戶還木有粉絲喲~</value>
+    <value>該用戶還沒有粉絲喲~</value>
   </data>
   <data name="NoFollows" xml:space="preserve">
-    <value>該用戶還沒有關注任何人</value>
+    <value>該用戶還沒有追蹤任何人</value>
   </data>
   <data name="NoHistoryVideos" xml:space="preserve">
-    <value>沒有最近的視頻歷史記錄</value>
+    <value>沒有最近的影片歷史記錄</value>
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>正在等待發言</value>
@@ -929,25 +929,25 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>普通用戶</value>
   </data>
   <data name="NoRoomDescription" xml:space="preserve">
-    <value>暫無直播間文本介紹</value>
+    <value>暫無直播間內容介紹</value>
   </data>
   <data name="NoSpecificData" xml:space="preserve">
-    <value>沒有找到指定的數據</value>
+    <value>沒有找到指定的資料</value>
   </data>
   <data name="NoSpecifiedDownloadPath" xml:space="preserve">
-    <value>沒有指定的下載文件夾</value>
+    <value>沒有指定的下載儲存資料夾</value>
   </data>
   <data name="NoStroke" xml:space="preserve">
     <value>無描邊</value>
   </data>
   <data name="NotificationSetting" xml:space="preserve">
-    <value>通知設置</value>
+    <value>通知設定</value>
   </data>
   <data name="NotificationSettingDescription" xml:space="preserve">
-    <value>打開視頻動態通知，有新的視頻更新時會提醒你，登錄後有效</value>
+    <value>開啟影片動態通知，有新的影片更新時將會通知你，登入後有效</value>
   </data>
   <data name="NotSupportDynamic" xml:space="preserve">
-    <value>不受支持的動態類型</value>
+    <value>不受支援的動態類型</value>
   </data>
   <data name="NotUpdate" xml:space="preserve">
     <value>即將更新</value>
@@ -956,16 +956,16 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>未更新</value>
   </data>
   <data name="NoUserVideoSearchResult" xml:space="preserve">
-    <value>沒有在該用戶下找到指定關鍵詞的視頻</value>
+    <value>沒有在該用戶下找到指定關鍵詞的影片</value>
   </data>
   <data name="NoViewLaterVideos" xml:space="preserve">
-    <value>沒有視頻被加入稍後再看列表</value>
+    <value>沒有影片被加入稍後再看列表</value>
   </data>
   <data name="OfficialUser" xml:space="preserve">
     <value>認證用戶</value>
   </data>
   <data name="OnlyAudio" xml:space="preserve">
-    <value>僅音頻</value>
+    <value>僅音訊</value>
   </data>
   <data name="OnlyIndex" xml:space="preserve">
     <value>僅顯示序號</value>
@@ -974,19 +974,19 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>僅字幕</value>
   </data>
   <data name="OnlyVideo" xml:space="preserve">
-    <value>僅視頻</value>
+    <value>僅影片</value>
   </data>
   <data name="OpenDownloadPage" xml:space="preserve">
     <value>前往下載</value>
   </data>
   <data name="OpenFileAfterScreenshot" xml:space="preserve">
-    <value>截圖後打開圖片</value>
+    <value>擷取畫面後開啟圖片</value>
   </data>
   <data name="OpenFolder" xml:space="preserve">
-    <value>打開文件夾</value>
+    <value>開啟資料夾</value>
   </data>
   <data name="OpenInBroswer" xml:space="preserve">
-    <value>在瀏覽器中打開</value>
+    <value>在瀏覽器中開啟</value>
   </data>
   <data name="Orange" xml:space="preserve">
     <value>橘黃色</value>
@@ -1004,7 +1004,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>分區</value>
   </data>
   <data name="PartitionLoading" xml:space="preserve">
-    <value>正在加載分區</value>
+    <value>正在載入分區</value>
   </data>
   <data name="PartitionRequestFailed" xml:space="preserve">
     <value>分區請求失敗</value>
@@ -1022,7 +1022,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>請輸入密碼</value>
   </data>
   <data name="PasswordLoginTip" xml:space="preserve">
-    <value>請在下方輸入您的用戶名和密碼，應用不會存儲這部分數據，但安全起見，請使用二維碼登錄</value>
+    <value>請在下方輸入您的用戶名和密碼，軟體不會儲存這部分資料，但安全起見，請使用QR Code登入</value>
   </data>
   <data name="PeopleCount" xml:space="preserve">
     <value>人次</value>
@@ -1046,7 +1046,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>播放速率增強 (實驗)</value>
   </data>
   <data name="PlaybackRateEnhancementDescription" xml:space="preserve">
-    <value>開啟後，播放速率最高支持6倍速，步幅增加為0.2，但較高的速率可能導致視頻卡幀，請謹慎調整</value>
+    <value>開啟後，播放速率最高支援6倍速，步幅增加為0.2，但較高的速率可能導致影片卡幀，請謹慎調整</value>
   </data>
   <data name="PlayCount" xml:space="preserve">
     <value>播放量</value>
@@ -1058,13 +1058,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>播放器控制</value>
   </data>
   <data name="PlayerControlDescription" xml:space="preserve">
-    <value>包含優先解碼以及一些播放行為的設置</value>
+    <value>包含優先解碼以及一些播放行為的設定</value>
   </data>
   <data name="PlayerMode" xml:space="preserve">
     <value>播放模式</value>
   </data>
   <data name="PlayerModeDescription" xml:space="preserve">
-    <value>包含播放器的基礎設置和默認行為</value>
+    <value>包含播放器的基本設定和預設行為</value>
   </data>
   <data name="PlayLine" xml:space="preserve">
     <value>線路</value>
@@ -1073,10 +1073,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>播放列表</value>
   </data>
   <data name="PlayNextPart" xml:space="preserve">
-    <value>播放下一個視頻</value>
+    <value>播放下一個影片</value>
   </data>
   <data name="PlayNextVideo" xml:space="preserve">
-    <value>即將播放下一個視頻</value>
+    <value>即將播放下一個影片</value>
   </data>
   <data name="PlayNow" xml:space="preserve">
     <value>立即播放</value>
@@ -1085,7 +1085,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>播放/暫停</value>
   </data>
   <data name="PleaseSignIn" xml:space="preserve">
-    <value>請登錄</value>
+    <value>請登入</value>
   </data>
   <data name="Popular" xml:space="preserve">
     <value>熱門</value>
@@ -1094,25 +1094,25 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>4K優先</value>
   </data>
   <data name="Prefer4KDescription" xml:space="preserve">
-    <value>在用戶已登錄並有權限獲取4K播放源的情況下，優先播放4K片源</value>
+    <value>在使用者已登入並有權限取得4K播放來源的情況下，優先播放4K片源</value>
   </data>
   <data name="PreferCodec" xml:space="preserve">
     <value>解碼器偏好</value>
   </data>
   <data name="PreferCodecDescription" xml:space="preserve">
-    <value>優先選擇該編碼的視頻流，HEVC/H.265 和 AV1 需要額外安裝解碼器</value>
+    <value>優先選擇該編碼的影片流，HEVC/H.265 和 AV1 需要額外安裝解碼器</value>
   </data>
   <data name="PreferHighQuality" xml:space="preserve">
-    <value>畫質優先</value>
+    <value>畫面品質優先</value>
   </data>
   <data name="PreferHighQualityDescription" xml:space="preserve">
-    <value>優先播放最高清畫質的視頻源</value>
+    <value>優先播放最高畫質的影片來源</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
-    <value>預啟動</value>
+    <value>預先啟動</value>
   </data>
   <data name="PrelaunchDescription" xml:space="preserve">
-    <value>開啟預啟動，應用將在系統啟動後在後台靜默啟動，應用打開的速度會很快</value>
+    <value>開啟預先啟動，軟體將在系統啟動後自動在背景啟動，軟體打開的速度會很快</value>
   </data>
   <data name="PreRelease" xml:space="preserve">
     <value>預覽版</value>
@@ -1127,13 +1127,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>項目主頁</value>
   </data>
   <data name="ProxySearchAddress" xml:space="preserve">
-    <value>搜索代理</value>
+    <value>搜尋代理</value>
   </data>
   <data name="ProxySetting" xml:space="preserve">
-    <value>代理服務設置</value>
+    <value>代理伺服器設定</value>
   </data>
   <data name="ProxySettingDescription" xml:space="preserve">
-    <value>使用自定義的服務器進行代理，以解除地區限制（不支持嗶哩漫遊的現有服務）</value>
+    <value>使用自訂的伺服器進行代理，以解除地區限制（不支援嗶哩漫遊的現有服務）</value>
   </data>
   <data name="ProxyVideoAddress" xml:space="preserve">
     <value>播放代理</value>
@@ -1142,13 +1142,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>詳情代理</value>
   </data>
   <data name="PublicServer" xml:space="preserve">
-    <value>公共服務器</value>
+    <value>公共伺服器</value>
   </data>
   <data name="PublishDate" xml:space="preserve">
     <value>發佈時間</value>
   </data>
   <data name="PublisherApp" xml:space="preserve">
-    <value>開發者的其它應用</value>
+    <value>開發者的其它軟體</value>
   </data>
   <data name="PublishFinished" xml:space="preserve">
     <value>已完結</value>
@@ -1160,10 +1160,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>紫色</value>
   </data>
   <data name="QRCodeExpired" xml:space="preserve">
-    <value>二維碼已過期，請刷新</value>
+    <value>二維碼已過期，請重新整理</value>
   </data>
   <data name="QRLoginTip" xml:space="preserve">
-    <value>請使用移動客戶端掃描下方的二維碼登錄</value>
+    <value>請使用手機客戶端掃描下方的QR Code登入</value>
   </data>
   <data name="Quality" xml:space="preserve">
     <value>清晰度</value>
@@ -1190,22 +1190,22 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>紅色</value>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>刷新</value>
+    <value>重新整理</value>
   </data>
   <data name="RefreshCurrentSection" xml:space="preserve">
-    <value>刷新當前分區</value>
+    <value>重新整理目前分區</value>
   </data>
   <data name="RelatedProjects" xml:space="preserve">
     <value>關聯項目</value>
   </data>
   <data name="RelatedVideos" xml:space="preserve">
-    <value>關聯視頻</value>
+    <value>關聯影片</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>移除</value>
   </data>
   <data name="RemoveViewLaterFailed" xml:space="preserve">
-    <value>移除稍後再看視頻失敗</value>
+    <value>移除稍後再看影片失敗</value>
   </data>
   <data name="Reply" xml:space="preserve">
     <value>評論</value>
@@ -1226,22 +1226,22 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>寫下你的評論吧~</value>
   </data>
   <data name="ReplySomeone" xml:space="preserve">
-    <value>回复 @{0}</value>
+    <value>回覆 @{0}</value>
   </data>
   <data name="RequestAnimeFavoriteFailed" xml:space="preserve">
-    <value>獲取追番列表失敗</value>
+    <value>取得追番列表失敗</value>
   </data>
   <data name="RequestArticleFailed" xml:space="preserve">
     <value>請求文章失敗</value>
   </data>
   <data name="RequestArticleFavoriteFailed" xml:space="preserve">
-    <value>獲取收藏文章失敗</value>
+    <value>取得收藏文章失敗</value>
   </data>
   <data name="RequestArticleListFailed" xml:space="preserve">
     <value>文章列表請求失敗</value>
   </data>
   <data name="RequestCinemaFavoriteFailed" xml:space="preserve">
-    <value>獲取追劇列表失敗</value>
+    <value>取得追劇列表失敗</value>
   </data>
   <data name="RequestDynamicFailed" xml:space="preserve">
     <value>請求動態失敗</value>
@@ -1253,22 +1253,22 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>數據源詳情請求失敗</value>
   </data>
   <data name="RequestFollowsFailed" xml:space="preserve">
-    <value>請求關注列表失敗</value>
+    <value>請求追蹤列表失敗</value>
   </data>
   <data name="RequestHistoryFailed" xml:space="preserve">
     <value>請求觀看歷史失敗</value>
   </data>
   <data name="RequestIndexFilterFailed" xml:space="preserve">
-    <value>獲取索引過濾條件失敗</value>
+    <value>取得索引過濾條件失敗</value>
   </data>
   <data name="RequestIndexResultFailed" xml:space="preserve">
     <value>請求索引結果失敗</value>
   </data>
   <data name="RequestLiveFailed" xml:space="preserve">
-    <value>直播數據請求失敗</value>
+    <value>直播資訊請求失敗</value>
   </data>
   <data name="RequestLivePlayInformationFailed" xml:space="preserve">
-    <value>請求直播播放信息失敗</value>
+    <value>請求直播播放訊息失敗</value>
   </data>
   <data name="RequestLiveTagsFailed" xml:space="preserve">
     <value>請求直播標籤失敗</value>
@@ -1286,7 +1286,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>請求播放列表失敗</value>
   </data>
   <data name="RequestPopularFailed" xml:space="preserve">
-    <value>熱門視頻請求失敗</value>
+    <value>熱門影片請求失敗</value>
   </data>
   <data name="RequestRecommendFailed" xml:space="preserve">
     <value>推薦視頻請求失敗</value>
@@ -1295,7 +1295,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>請求評論失敗</value>
   </data>
   <data name="RequestSearchResultFailed" xml:space="preserve">
-    <value>沒有查找到相關的搜索結果</value>
+    <value>沒有查找到相關的搜尋結果</value>
   </data>
   <data name="RequestSubPartitionFailed" xml:space="preserve">
     <value>分區視頻請求失敗</value>
@@ -1304,19 +1304,19 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>標籤頁詳情數據請求失敗</value>
   </data>
   <data name="RequestUserInformationFailed" xml:space="preserve">
-    <value>請求用戶信息失敗</value>
+    <value>請求用戶資訊失敗</value>
   </data>
   <data name="RequestVideoFailed" xml:space="preserve">
-    <value>視頻播放信息請求失敗</value>
+    <value>影片播放資訊請求失敗</value>
   </data>
   <data name="RequestVideoFavoriteFailed" xml:space="preserve">
-    <value>請求視頻收藏夾信息失敗</value>
+    <value>請求影片收藏夾資訊失敗</value>
   </data>
   <data name="RequestViewLaterFailed" xml:space="preserve">
     <value>請求稍後再看列表失敗</value>
   </data>
   <data name="RestartWarning" xml:space="preserve">
-    <value>您更改了靜態資源，需要重啟應用才能生效</value>
+    <value>您更改了靜態資源，需要重啟軟體才能套用</value>
   </data>
   <data name="Rookie" xml:space="preserve">
     <value>新人</value>
@@ -1325,13 +1325,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>旋轉</value>
   </data>
   <data name="Saved" xml:space="preserve">
-    <value>已保存</value>
+    <value>已儲存</value>
   </data>
   <data name="SaveTo" xml:space="preserve">
     <value>另存為</value>
   </data>
   <data name="SaveToPictureLibrary" xml:space="preserve">
-    <value>保存到圖庫</value>
+    <value>儲存到圖庫</value>
   </data>
   <data name="SC2TC" xml:space="preserve">
     <value>簡體 -&gt; 繁體</value>
@@ -1340,28 +1340,28 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>評分</value>
   </data>
   <data name="Screenshot" xml:space="preserve">
-    <value>截圖</value>
+    <value>擷取畫面</value>
   </data>
   <data name="ScreenshotFolder" xml:space="preserve">
-    <value>截圖文件夾</value>
+    <value>截圖資料夾</value>
   </data>
   <data name="ScreenshotSettings" xml:space="preserve">
-    <value>截圖設置</value>
+    <value>擷取畫面設定</value>
   </data>
   <data name="ScreenshotSettingsDescription" xml:space="preserve">
-    <value>包含對截圖後行為的一些設置</value>
+    <value>包含對擷取畫面後行為的一些設定</value>
   </data>
   <data name="ScreenshotSuccess" xml:space="preserve">
-    <value>已成功截圖</value>
+    <value>已成功擷取畫面</value>
   </data>
   <data name="ScrollDanmaku" xml:space="preserve">
     <value>滾動彈幕</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>搜索</value>
+    <value>搜尋</value>
   </data>
   <data name="SearchTip" xml:space="preserve">
-    <value>搜索視頻，番劇或UP主</value>
+    <value>搜尋影片，番劇或UP主</value>
   </data>
   <data name="SearchTipSlim" xml:space="preserve">
     <value>搜一搜</value>
@@ -1385,25 +1385,25 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>選擇排序方式</value>
   </data>
   <data name="SetAddressSuccess" xml:space="preserve">
-    <value>成功設置地址</value>
+    <value>成功設定網址</value>
   </data>
   <data name="SetFailed" xml:space="preserve">
-    <value>設置失敗</value>
+    <value>設定失敗</value>
   </data>
   <data name="SetSuccess" xml:space="preserve">
-    <value>已成功設置</value>
+    <value>已成功設定</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>設置</value>
+    <value>設定</value>
   </data>
   <data name="SettingTo" xml:space="preserve">
-    <value>設置為</value>
+    <value>設定為</value>
   </data>
   <data name="SettingToBackground" xml:space="preserve">
-    <value>設置為背景</value>
+    <value>設定為背景</value>
   </data>
   <data name="SettingToLockScreen" xml:space="preserve">
-    <value>設置為鎖屏</value>
+    <value>設定為鎖屏</value>
   </data>
   <data name="Shadow" xml:space="preserve">
     <value>陰影</value>
@@ -1421,19 +1421,19 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>顯示字幕</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>登錄</value>
+    <value>登入</value>
   </data>
   <data name="SignInTitle" xml:space="preserve">
-    <value>用戶登錄</value>
+    <value>用戶登入</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>退出</value>
+    <value>結束</value>
   </data>
   <data name="SingleFastForwardAndRewindSpan" xml:space="preserve">
-    <value>單次快進/快退時長</value>
+    <value>點擊快進/快退時長</value>
   </data>
   <data name="SingleFastForwardAndRewindSpanDescription" xml:space="preserve">
-    <value>單次按下鍵盤左右方向鍵時的快進/快退跳躍時長（秒）</value>
+    <value>點擊按下鍵盤左右方向鍵時的快進/快退跳躍時長（秒）</value>
   </data>
   <data name="Small" xml:space="preserve">
     <value>小號</value>
@@ -1445,7 +1445,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>彈幕最多</value>
   </data>
   <data name="SortByDefault" xml:space="preserve">
-    <value>默認排序</value>
+    <value>預設排序</value>
   </data>
   <data name="SortByFansHTL" xml:space="preserve">
     <value>粉絲數由高到低</value>
@@ -1457,7 +1457,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>收藏最多</value>
   </data>
   <data name="SortByHot" xml:space="preserve">
-    <value>最熱</value>
+    <value>最熱門</value>
   </data>
   <data name="SortByLevelHTL" xml:space="preserve">
     <value>等級由高到低</value>
@@ -1481,7 +1481,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>評論最多</value>
   </data>
   <data name="SourceNotSupported" xml:space="preserve">
-    <value>不支持該源</value>
+    <value>不支援該來源</value>
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>專欄</value>
@@ -1493,22 +1493,22 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>啟動方式</value>
   </data>
   <data name="StartMethodDescription" xml:space="preserve">
-    <value>您可以選擇應用的啟動方式以更快速地打開應用</value>
+    <value>您可以選擇軟體的啟動方式以更快速地開啟軟體</value>
   </data>
   <data name="StartQuickPlay" xml:space="preserve">
     <value>開始倍速播放</value>
   </data>
   <data name="Startup" xml:space="preserve">
-    <value>自啟動</value>
+    <value>自動啟動</value>
   </data>
   <data name="StartupDescription" xml:space="preserve">
-    <value>將應用添加到開機啟動項，應用將在系統啟動後自動打開，並以最小化形式顯示在任務欄</value>
+    <value>將軟體新增到開機啟動項，軟體將在系統啟動後自動開啟，並以最小化形式顯示在工作列</value>
   </data>
   <data name="StartupDisabledByPolicy" xml:space="preserve">
     <value>啟動項由您的組織或組策略管理，應用啟動項已被禁用</value>
   </data>
   <data name="StartupDisabledByUser" xml:space="preserve">
-    <value>啟動項由用戶手動禁用，您需要手動啟用才能生效</value>
+    <value>啟動項由用戶手動關閉，您需要手動開啟才能套用</value>
   </data>
   <data name="StoreComment" xml:space="preserve">
     <value>求個好評</value>
@@ -1526,10 +1526,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>字幕列表</value>
   </data>
   <data name="SwitchToPasswordLogin" xml:space="preserve">
-    <value>用密碼登錄</value>
+    <value>使用密碼登入</value>
   </data>
   <data name="SwitchToQRLogin" xml:space="preserve">
-    <value>掃描二維碼登錄</value>
+    <value>掃描QR Code登入</value>
   </data>
   <data name="TC2SC" xml:space="preserve">
     <value>繁體 -&gt; 簡體</value>
@@ -1577,13 +1577,13 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>電視</value>
   </data>
   <data name="UgcEpisode" xml:space="preserve">
-    <value>視頻合集</value>
+    <value>播放清單</value>
   </data>
   <data name="UnFavorite" xml:space="preserve">
     <value>取消收藏</value>
   </data>
   <data name="UnFavoriteWarning" xml:space="preserve">
-    <value>是否不再關注該收藏夾？</value>
+    <value>是否不再追蹤該收藏夾？</value>
   </data>
   <data name="UnfixContent" xml:space="preserve">
     <value>取消固定</value>
@@ -1610,7 +1610,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>使用 MP4Box 混流</value>
   </data>
   <data name="UseMultiThread" xml:space="preserve">
-    <value>使用多線程下載</value>
+    <value>使用多執行緒下載</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>用戶</value>
@@ -1619,28 +1619,28 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>該用戶還沒有個性簽名</value>
   </data>
   <data name="UserHaveNoVideos" xml:space="preserve">
-    <value>用戶沒有投稿視頻</value>
+    <value>用戶沒有投稿影片</value>
   </data>
   <data name="UserInformation" xml:space="preserve">
-    <value>用戶信息</value>
+    <value>用戶資訊</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用戶名</value>
   </data>
   <data name="UserNameHolder" xml:space="preserve">
-    <value>請輸入用戶名/手機</value>
+    <value>請輸入用戶名/手機號碼</value>
   </data>
   <data name="ValidUserNameOrPasswordTip" xml:space="preserve">
     <value>請輸入有效的用戶名或密碼</value>
   </data>
   <data name="Video" xml:space="preserve">
-    <value>視頻</value>
+    <value>影片</value>
   </data>
   <data name="VideoCount" xml:space="preserve">
-    <value>視頻數</value>
+    <value></value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>視頻</value>
+    <value>影片</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>觀看</value>
@@ -1649,7 +1649,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集視頻 &gt; 關聯視頻 (如�
     <value>觀看人數</value>
   </data>
   <data name="ViewHistory" xml:space="preserve">
-    <value>觀看歷史</value>
+    <value>觀看紀錄</value>
   </data>
   <data name="ViewLater" xml:space="preserve">
     <value>稍後再看</value>
