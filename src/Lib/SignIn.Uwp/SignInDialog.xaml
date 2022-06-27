@@ -1,11 +1,10 @@
 ﻿<ContentDialog
-    x:Class="Bili.SignIn.Uwp.AccountLoginDialog"
+    x:Class="Bili.SignIn.Uwp.SignInDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Bili.SignIn.Uwp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Title="{local:Locale Name=SignInTitle}"
     Style="{StaticResource DefaultContentDialogStyle}"
     CloseButtonClick="OnCloseButtonClick"
@@ -43,7 +42,8 @@
                 VerticalAlignment="Top"
                 Click="OnSwitchButtonClickAsync"
                 Content="{local:Locale Name=SwitchToPasswordLogin}"
-                FontSize="12" />
+                FontSize="12"
+                Visibility="{x:Bind IsShowSwitchButton, Mode=OneWay}" />
         </Grid>
         <TextBlock
             x:Name="ErrorBlock"

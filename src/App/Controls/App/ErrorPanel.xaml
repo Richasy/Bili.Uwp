@@ -9,6 +9,7 @@
     VerticalAlignment="Center"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    IsTabStop="False"
     mc:Ignorable="d">
 
     <StackPanel Spacing="12">

@@ -27,7 +27,7 @@ namespace Bili.App.Controls
         /// <see cref="DecodePixelWidth"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty DecodePixelWidthProperty =
-            DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(-1));
+            DependencyProperty.Register(nameof(DecodePixelWidth), typeof(double), typeof(CommonImageEx), new PropertyMetadata(default));
 
         /// <summary>
         /// <see cref="PlaceholderSource"/>的依赖属性.

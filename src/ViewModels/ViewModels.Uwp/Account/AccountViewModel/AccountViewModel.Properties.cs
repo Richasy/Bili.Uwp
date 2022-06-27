@@ -28,6 +28,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountProvider _accountProvider;
         private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
+        private readonly ObservableAsPropertyHelper<bool> _isSigning;
 
         private bool _isRequestLogout = false;
 
@@ -158,5 +159,10 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         [Reactive]
         public bool IsShowFixedItem { get; set; }
+
+        /// <summary>
+        /// 是否正在尝试登录.
+        /// </summary>
+        public bool IsSigning => _isSigning.Value;
     }
 }

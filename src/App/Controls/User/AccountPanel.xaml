@@ -71,7 +71,10 @@
                     Text="{loc:Locale Name=Vip}" />
             </Border>
         </Grid>
-        <Grid Grid.Row="1" ColumnSpacing="4">
+        <Grid
+            Grid.Row="1"
+            ColumnSpacing="4"
+            XYFocusKeyboardNavigation="Enabled">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

@@ -88,6 +88,11 @@ namespace Bili.Models.Enums
         Toolbox = 22,
 
         /// <summary>
+        /// Xbox的账户页面.
+        /// </summary>
+        XboxAccount = 23,
+
+        /// <summary>
         /// 我的收藏.
         /// </summary>
         Favorite = 101,

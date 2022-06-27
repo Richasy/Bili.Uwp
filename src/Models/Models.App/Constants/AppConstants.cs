@@ -17,8 +17,8 @@ namespace Bili.Models.App.Constants
         public const int AppMinWidth = 500;
         public const int AppMinHeight = 500;
 
-        public const int VideoCardCoverWidth = 300;
-        public const int VideoCardCoverHeight = 188;
+        public const int VideoCardCoverWidth = 400;
+        public const int VideoCardCoverHeight = 240;
 
         public const int ArticleCardCoverWidth = 300;
         public const int ArticleCardCoverHeight = 188;

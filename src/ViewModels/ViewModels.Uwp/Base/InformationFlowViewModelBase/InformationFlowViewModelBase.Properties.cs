@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using ReactiveUI;
@@ -18,6 +19,9 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
         private bool _isNeedLoadAgain;
+
+        /// <inheritdoc/>
+        public event EventHandler CollectionInitialized;
 
         /// <summary>
         /// 初始化命令.

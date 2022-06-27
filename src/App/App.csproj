@@ -37,6 +37,7 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Behaviors\IncrementalBehavior.cs" />
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\ReloadBehavior.cs" />
@@ -44,6 +45,10 @@
     <Compile Include="Controls\App\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\App\XboxNavigationView.xaml.cs">
+      <DependentUpon>XboxNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Base\NavigationViewBase.cs" />
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.cs" />
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Fields.cs" />
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Handlers.cs" />
@@ -313,6 +318,9 @@
     <Compile Include="Controls\Videos\VideoItem\VideoItem.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
+    <Compile Include="Pages\Base\PopularPageBase.cs" />
+    <Compile Include="Pages\Base\RankPageBase.cs" />
+    <Compile Include="Pages\Base\RecommendPageBase.cs" />
     <Compile Include="Pages\Desktop\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
     </Compile>
@@ -408,6 +416,15 @@
     </Compile>
     <Compile Include="Pages\Desktop\TvPage.xaml.cs">
       <DependentUpon>TvPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\PopularPage.xaml.cs">
+      <DependentUpon>PopularPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RankPage.xaml.cs">
+      <DependentUpon>RankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RecommendPage.xaml.cs">
+      <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
@@ -563,6 +580,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\App\PageHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\App\XboxNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1071,6 +1092,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\TvPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\PopularPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\RankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\RecommendPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,7 +4,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.App.Controls;
+using Bili.App.Controls.App;
 using Bili.App.Controls.Article;
+using Bili.App.Controls.Base;
 using Bili.App.Controls.Community;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
@@ -56,6 +58,12 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            NavigationViewBase navView = CoreViewModel.IsXbox
+                ? new XboxNavigationView()
+                : new DesktopNavigationView();
+            navView.FirstLoaded += OnRootNavViewFirstLoadAsync;
+            NavViewPresenter.Content = navView;
         }
 
         /// <summary>

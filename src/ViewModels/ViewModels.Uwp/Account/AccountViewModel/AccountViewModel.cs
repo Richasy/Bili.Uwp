@@ -51,6 +51,8 @@ namespace Bili.ViewModels.Uwp.Account
             AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
             RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
 
+            _isSigning = TrySignInCommand.IsExecuting.ToProperty(this, x => x.IsSigning, scheduler: RxApp.MainThreadScheduler);
+
             FixedItemCollection = new ObservableCollection<FixedItem>();
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             State = _authorizeProvider.State;

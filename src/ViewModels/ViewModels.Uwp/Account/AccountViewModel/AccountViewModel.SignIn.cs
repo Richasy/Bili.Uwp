@@ -51,9 +51,9 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (State != AuthorizeState.SignedIn)
             {
-                IsConnected = true;
                 LoadMyProfileCommand.Execute().Subscribe(async _ =>
                 {
+                    IsConnected = true;
                     await InitializeFixedItemAsync();
                     State = AuthorizeState.SignedIn;
                 });

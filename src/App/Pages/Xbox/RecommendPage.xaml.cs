@@ -2,10 +2,10 @@
 
 using Bili.App.Pages.Base;
 
-namespace Bili.App.Pages.Desktop
+namespace Bili.App.Pages.Xbox
 {
     /// <summary>
-    /// 推荐视频页面.
+    /// 推荐页面.
     /// </summary>
     public sealed partial class RecommendPage : RecommendPageBase
     {

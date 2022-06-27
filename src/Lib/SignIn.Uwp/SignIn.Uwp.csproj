@@ -120,8 +120,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AuthorizeProvider\AccountLoginDialog.xaml.cs">
-      <DependentUpon>AccountLoginDialog.xaml</DependentUpon>
+    <Compile Include="SignInDialog.xaml.cs">
+      <DependentUpon>SignInDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuthorizeProvider\AuthorizeProvider.cs" />
     <Compile Include="AuthorizeProvider\AuthorizeProvider.Extension.cs" />
@@ -144,7 +144,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AuthorizeProvider\AccountLoginDialog.xaml">
+    <Page Include="SignInDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -39,6 +39,7 @@ namespace Bili.App
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
             Locator.Current.GetService<IAppToolkit>().InitializeTheme();
+            RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
         }
 
         /// <inheritdoc/>

@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
     /// <typeparam name="T">核心数据集合的类型.</typeparam>
-    public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
+    public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel, ICollectionViewModel
         where T : class
     {
         internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
@@ -118,6 +118,11 @@ namespace Bili.ViewModels.Uwp.Base
                 })
                 .AsTask();
             await RunDelayTask(task);
+
+            if (Items.Count > 0)
+            {
+                CollectionInitialized?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private async Task IncrementalAsync()

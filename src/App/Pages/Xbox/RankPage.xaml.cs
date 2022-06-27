@@ -4,7 +4,7 @@ using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Community;
 
-namespace Bili.App.Pages.Desktop
+namespace Bili.App.Pages.Xbox
 {
     /// <summary>
     /// 排行榜页面.

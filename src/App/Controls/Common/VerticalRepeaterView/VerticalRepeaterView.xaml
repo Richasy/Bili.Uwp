@@ -5,6 +5,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Style TargetType="local:VerticalRepeaterView">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:VerticalRepeaterView">
@@ -42,7 +43,8 @@
                             Margin="0,4,0,0"
                             ItemTemplate="{TemplateBinding ItemTemplate}"
                             ItemsSource="{TemplateBinding ItemsSource}"
-                            VerticalCacheLength="{TemplateBinding VerticalCacheSize}" />
+                            VerticalCacheLength="{TemplateBinding VerticalCacheSize}"
+                            XYFocusKeyboardNavigation="Enabled" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

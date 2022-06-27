@@ -8,7 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace Bili.App.Pages.Desktop
+namespace Bili.App.Pages
 {
     /// <summary>
     /// 应用页面基类.

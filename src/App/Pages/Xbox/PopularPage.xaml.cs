@@ -2,17 +2,16 @@
 
 using Bili.App.Pages.Base;
 
-namespace Bili.App.Pages.Desktop
+namespace Bili.App.Pages.Xbox
 {
     /// <summary>
-    /// 热门视频页面.
+    /// 热门页面.
     /// </summary>
     public sealed partial class PopularPage : PopularPageBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularPage"/> class.
         /// </summary>
-        public PopularPage()
-            : base() => InitializeComponent();
+        public PopularPage() => InitializeComponent();
     }
 }
