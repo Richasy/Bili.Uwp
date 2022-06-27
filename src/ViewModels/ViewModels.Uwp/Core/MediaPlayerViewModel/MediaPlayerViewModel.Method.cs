@@ -446,13 +446,31 @@ namespace Bili.ViewModels.Uwp.Core
         private void OnProgressTimerTick(object sender, object e)
             => ReportViewProgressCommand.Execute().Subscribe();
 
-        private void OnUnitTimerTickAsync(object sender, object e)
+        private async void OnUnitTimerTickAsync(object sender, object e)
         {
             if (_isInteractionProgressChanged)
             {
                 _isInteractionProgressChanged = false;
                 _mediaPlayer.PlaybackSession.Position = _interactionProgress;
                 _interactionProgress = TimeSpan.Zero;
+            }
+
+            _presetVolumeHoldTime += 100;
+            if (_presetVolumeHoldTime > 300)
+            {
+                _presetVolumeHoldTime = 0;
+                if (_mediaPlayer != null
+                && Volume != _mediaPlayer.Volume * 100d)
+                {
+                    await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        var msg = Volume > 0
+                            ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(Volume)}"
+                            : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
+                        RequestShowTempMessage?.Invoke(this, msg);
+                        _mediaPlayer.Volume = Volume / 100d;
+                    });
+                }
             }
         }
 
