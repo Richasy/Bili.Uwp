@@ -72,6 +72,7 @@
                                         <Setter Target="ExpandButtonContainer.Visibility" Value="Collapsed" />
                                         <Setter Target="RootView.OpenPaneLength" Value="0" />
                                         <Setter Target="RootView.IsPaneOpen" Value="False" />
+                                        <Setter Target="PlayerComponent.CornerRadius" Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
