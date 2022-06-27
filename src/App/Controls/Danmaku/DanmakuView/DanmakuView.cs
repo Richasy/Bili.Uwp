@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using Atelier39;
 using Bili.ViewModels.Uwp.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -82,7 +83,12 @@ namespace Bili.App.Controls.Danmaku
                 _danmakuController.SetFontFamilyName(ViewModel.DanmakuFont ?? "Segoe UI");
                 _danmakuController.SetRollingSpeed(Convert.ToInt32(ViewModel.DanmakuSpeed * 5));
                 _danmakuController.SetIsTextBold(ViewModel.IsDanmakuBold);
+                _danmakuController.SetRenderState(true, false);
                 _isInitialized = true;
+            }
+            else
+            {
+                Debug.WriteLine("初始化失败");
             }
         }
 

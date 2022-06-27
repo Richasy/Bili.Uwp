@@ -32,7 +32,7 @@ namespace Bili.App.Controls.Danmaku
                 _danmakuController?.SetDanmakuList(items);
             }
 
-            _cachedDanmakus = _danmakuController?.GetDanmakuList();
+            _cachedDanmakus = items;
         }
 
         /// <summary>
@@ -69,9 +69,10 @@ namespace Bili.App.Controls.Danmaku
         /// <returns><see cref="Task"/>.</returns>
         public async Task RedrawAsync()
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 _danmakuController?.Close();
+
                 InitializeController();
                 if (_cachedDanmakus?.Count > 0)
                 {
