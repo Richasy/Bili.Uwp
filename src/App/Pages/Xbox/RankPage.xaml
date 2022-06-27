@@ -25,7 +25,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <app:PageHeader Title="{loc:Locale Name=Rank}" />
+        <app:PageHeader
+            Title="{loc:Locale Name=Rank}"
+            IsShowLogo="True"
+            IsTabStop="False" />
         <muxc:NavigationView
             x:Name="RankNavigationView"
             Style="{StaticResource TopNavigationViewStyle}"
@@ -33,7 +36,7 @@
             Margin="12,0,0,0"
             ItemInvoked="OnDetailNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
-            OpenPaneLength="160"
+            OpenPaneLength="200"
             PaneDisplayMode="Left"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
@@ -70,13 +73,14 @@
                     Margin="0,0,0,12"
                     HeaderVisibility="Collapsed"
                     IsTabStop="False"
+                    ItemOrientation="Horizontal"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}"
                     MinWideItemHeight="242"
                     Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="video:VideoItemViewModel">
                             <videos:VideoItem
-                                Style="{StaticResource XboxVerticalVideoItemStyle}"
+                                Style="{StaticResource HorizontalVideoItemStyle}"
                                 IsCustom="True"
                                 ViewModel="{x:Bind}" />
                         </DataTemplate>

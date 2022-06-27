@@ -25,7 +25,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <app:PageHeader Title="{loc:Locale Name=Popular}" />
+            <app:PageHeader
+                Title="{loc:Locale Name=Popular}"
+                IsShowLogo="True"
+                IsTabStop="False" />
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Grid.Row="1"

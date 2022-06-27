@@ -43,7 +43,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <app:PageHeader Title="{loc:Locale Name=Recommend}" IsTabStop="False" />
+            <app:PageHeader
+                Title="{loc:Locale Name=Recommend}"
+                IsShowLogo="True"
+                IsTabStop="False" />
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Grid.Row="1"

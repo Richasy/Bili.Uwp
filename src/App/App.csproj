@@ -479,6 +479,7 @@
     <Content Include="Assets\Level\level_4.png" />
     <Content Include="Assets\Level\level_5.png" />
     <Content Include="Assets\Level\level_6.png" />
+    <Content Include="Assets\logo.svg" />
     <Content Include="Assets\Logo\LargeTile.scale-100.png" />
     <Content Include="Assets\Logo\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\LargeTile.scale-150.png" />
