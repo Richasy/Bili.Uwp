@@ -24,6 +24,11 @@ namespace Bili.App.Behaviors
 
         protected override void OnAssociatedObjectUnloaded()
         {
+            if (AssociatedObject == null)
+            {
+                return;
+            }
+
             if (AssociatedObject.DataContext is ICollectionViewModel collectionVM)
             {
                 collectionVM.CollectionInitialized -= OnCollectionInitializedAsync;

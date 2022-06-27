@@ -35,8 +35,7 @@
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
             OpenPaneLength="160"
             PaneDisplayMode="Left"
-            SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}"
-            XYFocusDownNavigationStrategy="NavigationDirectionDistance">
+            SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="community:Partition">
                     <muxc:NavigationViewItem Content="{x:Bind}">
@@ -73,11 +72,7 @@
                     IsTabStop="False"
                     ItemsSource="{x:Bind ViewModel.VideoCollection}"
                     MinWideItemHeight="242"
-                    Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}"
-                    XYFocusUpNavigationStrategy="NavigationDirectionDistance">
-                    <interactivity:Interaction.Behaviors>
-                        <behaviors:FocusBehavior />
-                    </interactivity:Interaction.Behaviors>
+                    Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="video:VideoItemViewModel">
                             <videos:VideoItem
