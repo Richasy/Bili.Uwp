@@ -47,7 +47,14 @@
                                     <behaviors:ReloadBehavior />
                                 </interactivity:Interaction.Behaviors>
                             </controls:ErrorPanel>
-                            <controls:ErrorPanel Text="{loc:Locale Name=NoReply}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}" />
+                            <controls:ErrorPanel
+                                ActionContent="{loc:Locale Name=Refresh}"
+                                Text="{loc:Locale Name=NoReply}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsEmpty}">
+                                <interactivity:Interaction.Behaviors>
+                                    <behaviors:ReloadBehavior />
+                                </interactivity:Interaction.Behaviors>
+                            </controls:ErrorPanel>
                         </Grid>
 
                         <local:CommentBox
