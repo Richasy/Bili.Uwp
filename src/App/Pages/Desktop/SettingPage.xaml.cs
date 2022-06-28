@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Home;
+using Bili.App.Pages.Base;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -14,12 +13,5 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="SettingsPage"/> class.
         /// </summary>
         public SettingsPage() => InitializeComponent();
-    }
-
-    /// <summary>
-    /// <see cref="SettingsPage"/> 的基类.
-    /// </summary>
-    public class SettingsPageBase : AppPage<SettingsPageViewModel>
-    {
     }
 }

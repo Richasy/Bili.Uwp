@@ -1426,7 +1426,7 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
     <value>用户登录</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>退出</value>
+    <value>注销</value>
   </data>
   <data name="SingleFastForwardAndRewindSpan" xml:space="preserve">
     <value>单次快进/快退时长</value>

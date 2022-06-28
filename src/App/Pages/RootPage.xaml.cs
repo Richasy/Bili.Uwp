@@ -242,7 +242,9 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.VideoPartitionDetail => typeof(VideoPartitionDetailPage),
+                PageIds.VideoPartitionDetail => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.VideoPartitionDetailPage)
+                    : typeof(Desktop.Overlay.VideoPartitionDetailPage),
                 PageIds.Search => typeof(SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
                 PageIds.Favorite => typeof(FavoritePage),
@@ -252,8 +254,12 @@ namespace Bili.App.Pages.Desktop
                 PageIds.PgcIndex => typeof(PgcIndexPage),
                 PageIds.TimeLine => typeof(TimelinePage),
                 PageIds.Message => typeof(MessagePage),
-                PageIds.LivePartition => typeof(LivePartitionPage),
-                PageIds.LivePartitionDetail => typeof(LivePartitionDetailPage),
+                PageIds.LivePartition => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePartitionPage)
+                    : typeof(Desktop.Overlay.LivePartitionPage),
+                PageIds.LivePartitionDetail => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePartitionDetailPage)
+                    : typeof(Desktop.Overlay.LivePartitionDetailPage),
                 PageIds.MyFollows => typeof(MyFollowsPage),
                 _ => typeof(Page)
             };

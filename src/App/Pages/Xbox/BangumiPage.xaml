@@ -1,0 +1,19 @@
+﻿<base:BangumiPageBase
+    x:Class="Bili.App.Pages.Xbox.BangumiPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgc="using:Bili.App.Controls.Pgc"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <pgc:XboxAnimePageView ViewModel="{x:Bind ViewModel}">
+        <interactivity:Interaction.Behaviors>
+            <behaviors:InitializeBehavior />
+        </interactivity:Interaction.Behaviors>
+    </pgc:XboxAnimePageView>
+</base:BangumiPageBase>

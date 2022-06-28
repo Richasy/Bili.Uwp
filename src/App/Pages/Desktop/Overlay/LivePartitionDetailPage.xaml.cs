@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
-using Bili.ViewModels.Uwp.Live;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -33,12 +33,5 @@ namespace Bili.App.Pages.Desktop.Overlay
             ContentScrollViewer.ChangeView(0, 0, 1);
             ViewModel.SelectTagCommand.Execute(data).Subscribe();
         }
-    }
-
-    /// <summary>
-    /// <see cref="LivePartitionDetailPage"/> 的基类.
-    /// </summary>
-    public class LivePartitionDetailPageBase : AppPage<LivePartitionDetailPageViewModel>
-    {
     }
 }

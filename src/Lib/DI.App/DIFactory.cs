@@ -125,6 +125,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<VideoPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PgcPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<XboxAccountPageViewModel>();
 
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();

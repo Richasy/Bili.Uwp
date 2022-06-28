@@ -8,5 +8,5 @@
     xmlns:pgc="using:Bili.App.Controls.Pgc"
     mc:Ignorable="d">
 
-    <pgc:PgcPageView ViewModel="{x:Bind ViewModel}" />
+    <pgc:DesktopPgcPageView ViewModel="{x:Bind ViewModel}" />
 </local:DocumentaryPageBase>

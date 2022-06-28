@@ -9,20 +9,20 @@ using Windows.UI.Xaml.Controls;
 namespace Bili.App.Controls.Pgc
 {
     /// <summary>
-    /// PGC 页面视图.
+    /// 适用于 Xbox 的 PGC 页面视图.
     /// </summary>
-    public sealed partial class PgcPageView : UserControl
+    public sealed partial class XboxPgcPageView : UserControl
     {
         /// <summary>
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(PgcPageViewModelBase), typeof(PgcPageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(PgcPageViewModelBase), typeof(XboxPgcPageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PgcPageView"/> class.
+        /// Initializes a new instance of the <see cref="XboxPgcPageView"/> class.
         /// </summary>
-        public PgcPageView() => InitializeComponent();
+        public XboxPgcPageView() => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
@@ -36,11 +36,11 @@ namespace Bili.App.Controls.Pgc
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
 
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as PgcPageView;
+            var instance = d as XboxPgcPageView;
             instance.DataContext = e.NewValue;
         }
     }

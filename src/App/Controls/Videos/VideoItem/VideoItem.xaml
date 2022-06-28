@@ -31,6 +31,7 @@
     </muxc:CommandBarFlyout>
 
     <Style x:Key="VerticalVideoItemStyle" TargetType="local:VideoItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:VideoItem">
@@ -196,6 +197,7 @@
     </Style>
 
     <Style x:Key="HorizontalVideoItemStyle" TargetType="local:VideoItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:VideoItem">
@@ -499,8 +501,8 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.RowDefinitions>
-                            <RowDefinition x:Name="Row1" Height="Auto" />
-                            <RowDefinition x:Name="Row2" Height="*" />
+                            <RowDefinition x:Name="Row1" Height="*" />
+                            <RowDefinition x:Name="Row2" Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid
                             x:Name="CoverContainer"
@@ -549,7 +551,7 @@
                                 x:Name="TitleBlock"
                                 VerticalAlignment="Top"
                                 FontSize="12"
-                                MaxLines="2"
+                                MaxLines="1"
                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
                                 TextTrimming="CharacterEllipsis"
                                 TextWrapping="Wrap">

@@ -23,8 +23,8 @@ namespace Bili.Models.App.Constants
         public const int ArticleCardCoverWidth = 300;
         public const int ArticleCardCoverHeight = 188;
 
-        public const int DynamicCoverWidth = 400;
-        public const int DynamicCoverHeight = 250;
+        public const int DynamicCoverWidth = 600;
+        public const int DynamicCoverHeight = 400;
 
         public const int PgcCoverWidth = 180;
         public const int PgcCoverHeight = 240;

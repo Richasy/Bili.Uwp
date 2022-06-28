@@ -1,15 +1,15 @@
-﻿<local:VideoPartitionPageBase
+﻿<base:VideoPartitionPageBase
     x:Class="Bili.App.Pages.Desktop.VideoPartitionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:community="using:Bili.Models.Data.Community"
     xmlns:communityControls="using:Bili.App.Controls.Community"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
@@ -66,4 +66,4 @@
                 Text="{loc:Locale Name=PartitionLoading}" />
         </StackPanel>
     </Grid>
-</local:VideoPartitionPageBase>
+</base:VideoPartitionPageBase>

@@ -13,21 +13,19 @@ namespace Bili.App.Controls.Pgc
     /// <summary>
     /// 动漫视图.
     /// </summary>
-    public sealed partial class AnimePageView : UserControl
+    public sealed partial class DesktopAnimePageView : UserControl
     {
         /// <summary>
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AnimePageViewModelBase), typeof(AnimePageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(AnimePageViewModelBase), typeof(DesktopAnimePageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnimePageView"/> class.
+        /// Initializes a new instance of the <see cref="DesktopAnimePageView"/> class.
         /// </summary>
-        public AnimePageView()
-        {
-            InitializeComponent();
-        }
+        public DesktopAnimePageView()
+            => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
@@ -41,11 +39,11 @@ namespace Bili.App.Controls.Pgc
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
 
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as AnimePageView;
+            var instance = d as DesktopAnimePageView;
             instance.DataContext = e.NewValue;
         }
 

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Video;
+using Bili.App.Pages.Base;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -13,13 +13,6 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="VideoPartitionPage"/> class.
         /// </summary>
         public VideoPartitionPage()
-            : base() => InitializeComponent();
-    }
-
-    /// <summary>
-    /// <see cref="VideoPartitionPage"/> 的基类.
-    /// </summary>
-    public class VideoPartitionPageBase : AppPage<VideoPartitionPageViewModel>
-    {
+            => InitializeComponent();
     }
 }

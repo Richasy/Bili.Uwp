@@ -1,8 +1,9 @@
-﻿<local:LiveFeedPageBase
+﻿<base:LiveFeedPageBase
     x:Class="Bili.App.Pages.Desktop.LiveFeedPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:com="using:Bili.Models.Data.Community"
     xmlns:community="using:Bili.App.Controls.Community"
@@ -12,7 +13,6 @@
     xmlns:live="using:Bili.ViewModels.Uwp.Live"
     xmlns:liveControls="using:Bili.App.Controls.Live"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -156,4 +156,4 @@
             IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
             IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
     </Grid>
-</local:LiveFeedPageBase>
+</base:LiveFeedPageBase>

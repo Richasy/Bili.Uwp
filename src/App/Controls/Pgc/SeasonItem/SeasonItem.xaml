@@ -24,6 +24,7 @@
     <Style x:Key="DefaultSeasonItemStyle" TargetType="local:SeasonItem">
         <Setter Property="CoverWidth" Value="120" />
         <Setter Property="CoverHeight" Value="160" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SeasonItem">
@@ -141,6 +142,7 @@
     <Style x:Key="SlimSeasonItemStyle" TargetType="local:SeasonItem">
         <Setter Property="CoverWidth" Value="100" />
         <Setter Property="CoverHeight" Value="140" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SeasonItem">

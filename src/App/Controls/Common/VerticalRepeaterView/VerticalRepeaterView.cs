@@ -2,10 +2,12 @@
 
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Bili.App.Resources.Extension;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Bili.App.Controls
 {
@@ -56,7 +58,7 @@ namespace Bili.App.Controls
 
             if (_itemsRepeater != null)
             {
-                _itemsRepeater.ElementPrepared += OnElementPrepared;
+                _itemsRepeater.ElementPrepared += OnElementPreparedAsync;
             }
 
             _isTempalteApplied = true;
@@ -171,7 +173,7 @@ namespace Bili.App.Controls
             }
         }
 
-        private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+        private async void OnElementPreparedAsync(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
         {
             if (args.Element != null)
             {
@@ -211,6 +213,12 @@ namespace Bili.App.Controls
                         RequestLoadMore?.Invoke(this, EventArgs.Empty);
                         IncrementalTriggered?.Invoke(this, EventArgs.Empty);
                     }
+                }
+
+                if (args.Index == 0)
+                {
+                    await Task.Delay(200);
+                    await FocusManager.TryFocusAsync(args.Element, FocusState.Programmatic);
                 }
             }
         }

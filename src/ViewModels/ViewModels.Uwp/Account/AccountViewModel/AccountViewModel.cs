@@ -195,7 +195,7 @@ namespace Bili.ViewModels.Uwp.Account
                 return;
             }
 
-            Avatar = AccountInformation.User.Avatar.Uri;
+            Avatar = AccountInformation.User.Avatar.GetSourceUri().ToString();
             DisplayName = AccountInformation.User.Name;
             Level = AccountInformation.Level;
             TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
