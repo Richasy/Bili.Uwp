@@ -6,7 +6,9 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -26,8 +28,12 @@ namespace Bili.ViewModels.Uwp.Account
                 CreateHeader(FavoriteType.Video),
                 CreateHeader(FavoriteType.Anime),
                 CreateHeader(FavoriteType.Cinema),
-                CreateHeader(FavoriteType.Article),
             };
+
+            if (!Locator.Current.GetService<AppViewModel>().IsXbox)
+            {
+                TypeCollection.Add(CreateHeader(FavoriteType.Article));
+            }
 
             SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType, outputScheduler: RxApp.MainThreadScheduler);
             SelectType(TypeCollection.First());

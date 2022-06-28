@@ -23,6 +23,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -91,6 +92,11 @@ namespace Bili.App.Pages.Desktop
                     RemoveFromHolder((UIElement)ele);
                 },
                 element);
+
+            if (element is Control e)
+            {
+                e.Focus(FocusState.Programmatic);
+            }
         }
 
         /// <summary>
@@ -247,7 +253,9 @@ namespace Bili.App.Pages.Desktop
                     : typeof(Desktop.Overlay.VideoPartitionDetailPage),
                 PageIds.Search => typeof(SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
-                PageIds.Favorite => typeof(FavoritePage),
+                PageIds.Favorite => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.FavoritePage)
+                    : typeof(Desktop.Overlay.FavoritePage),
                 PageIds.ViewLater => typeof(ViewLaterPage),
                 PageIds.Fans => typeof(FansPage),
                 PageIds.Follows => typeof(FollowsPage),

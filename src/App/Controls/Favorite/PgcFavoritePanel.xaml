@@ -70,12 +70,14 @@
             Grid.Row="1"
             Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
+            IsTabStop="False"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <controls:VerticalRepeaterView
                 x:Name="PgcView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
+                IsTabStop="False"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 MinWideItemHeight="180"
                 MinWideItemWidth="300">

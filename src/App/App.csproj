@@ -328,6 +328,7 @@
     <Compile Include="Pages\Base\DocumentaryPageBase.cs" />
     <Compile Include="Pages\Base\DomesticPageBase.cs" />
     <Compile Include="Pages\Base\DynamicPageBase.cs" />
+    <Compile Include="Pages\Base\FavoritePageBase.cs" />
     <Compile Include="Pages\Base\LiveFeedPageBase.cs" />
     <Compile Include="Pages\Base\LivePartitionDetailPageBase.cs" />
     <Compile Include="Pages\Base\LivePartitionPageBase.cs" />
@@ -452,6 +453,9 @@
     </Compile>
     <Compile Include="Pages\Xbox\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\FavoritePage.xaml.cs">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\Overlay\LivePartitionDetailPage.xaml.cs">
       <DependentUpon>LivePartitionDetailPage.xaml</DependentUpon>
@@ -1185,6 +1189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\MoviePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\FavoritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

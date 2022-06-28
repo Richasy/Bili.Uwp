@@ -46,7 +46,10 @@
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-            <Grid Margin="0,0,0,12" RowSpacing="12">
+            <Grid
+                Margin="0,0,0,12"
+                RowSpacing="12"
+                XYFocusKeyboardNavigation="Enabled">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

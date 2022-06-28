@@ -9,10 +9,10 @@ using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages.Desktop.Overlay
+namespace Bili.App.Pages.Xbox.Overlay
 {
     /// <summary>
-    /// 收藏夹页面.
+    /// 收藏页面.
     /// </summary>
     public sealed partial class FavoritePage : FavoritePageBase
     {
@@ -22,9 +22,9 @@ namespace Bili.App.Pages.Desktop.Overlay
         public FavoritePage()
         {
             InitializeComponent();
-            AnimePanel.ViewModel = Splat.Locator.Current.GetService<AnimeFavoriteModuleViewModel>();
+            AnimePanel.ViewModel = Locator.Current.GetService<AnimeFavoriteModuleViewModel>();
             AnimePanel.DataContext = AnimePanel.ViewModel;
-            CinemaPanel.ViewModel = Splat.Locator.Current.GetService<CinemaFavoriteModuleViewModel>();
+            CinemaPanel.ViewModel = Locator.Current.GetService<CinemaFavoriteModuleViewModel>();
             CinemaPanel.DataContext = CinemaPanel.ViewModel;
         }
 
@@ -50,9 +50,6 @@ namespace Bili.App.Pages.Desktop.Overlay
                     break;
                 case FavoriteType.Cinema:
                     CinemaPanel.ViewModel.ReloadCommand.Execute().Subscribe();
-                    break;
-                case FavoriteType.Article:
-                    ArticlePanel.ViewModel.ReloadCommand.Execute().Subscribe();
                     break;
                 default:
                     break;

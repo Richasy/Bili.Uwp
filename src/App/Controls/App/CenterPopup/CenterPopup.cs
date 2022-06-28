@@ -2,7 +2,6 @@
 
 using System;
 using Bili.App.Pages.Desktop;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
@@ -25,6 +24,7 @@ namespace Bili.App.Controls
         {
             DefaultStyleKey = typeof(CenterPopup);
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            GettingFocus += OnGettingFocus;
         }
 
         /// <summary>
@@ -67,5 +67,13 @@ namespace Bili.App.Controls
         }
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Hide();
+
+        private void OnGettingFocus(UIElement sender, GettingFocusEventArgs args)
+        {
+            if (_closeButton != null)
+            {
+                args.TrySetNewFocusedElement(_closeButton);
+            }
+        }
     }
 }

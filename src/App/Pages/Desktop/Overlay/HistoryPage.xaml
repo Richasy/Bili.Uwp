@@ -19,7 +19,7 @@
         <behaviors:InitializeBehavior />
     </interactivity:Interaction.Behaviors>
 
-    <Grid RowSpacing="8">
+    <Grid RowSpacing="8" XYFocusKeyboardNavigation="Enabled">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -41,7 +41,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <app:PageHeader Title="{loc:Locale Name=ViewHistory}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=ViewHistory}" IsTabStop="False" />
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
@@ -53,6 +53,7 @@
                     x:Name="VideoView"
                     Margin="0,0,0,12"
                     HeaderText="{loc:Locale Name=Videos}"
+                    IsTabStop="False"
                     ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                     MinWideItemHeight="212"
                     MinWideItemWidth="200"
@@ -61,16 +62,26 @@
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.AdditionalContent>
-                        <Button
-                            x:Name="ClearButton"
-                            VerticalAlignment="Center"
-                            Click="OnClearButtonClickAsync"
-                            IsEnabled="{x:Bind ViewModel.IsClearing, Converter={StaticResource ObjectToBoolReverseConverter}, Mode=OneWay}">
-                            <controls:IconTextBlock
-                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                Symbol="Delete16"
-                                Text="{loc:Locale Name=ClearHistory}" />
-                        </Button>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button
+                                x:Name="RefreshButton"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.ReloadCommand}"
+                                IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}">
+                                <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
+                            </Button>
+                            <Button
+                                x:Name="ClearButton"
+                                VerticalAlignment="Center"
+                                Click="OnClearButtonClickAsync"
+                                IsEnabled="{x:Bind ViewModel.IsClearing, Converter={StaticResource ObjectToBoolReverseConverter}, Mode=OneWay}">
+                                <controls:IconTextBlock
+                                    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                    Symbol="Delete16"
+                                    Text="{loc:Locale Name=ClearHistory}" />
+                            </Button>
+                        </StackPanel>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
                         <DataTemplate x:DataType="video:VideoItemViewModel">
