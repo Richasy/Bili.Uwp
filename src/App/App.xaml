@@ -9,6 +9,7 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Dimensions.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/ProgressButton/ProgressButton.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Videos/VideoItem/VideoItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/EpisodeItem/EpisodeItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Pgc/SeasonItem/SeasonItem.xaml" />
@@ -21,6 +22,7 @@
                 <ResourceDictionary Source="ms-appx:///Controls/Danmaku/DanmakuView/DanmakuView.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Player/BiliMediaTransportControls/BiliMediaTransportControls.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Player/BiliMediaPlayer/BiliMediaPlayer.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerPagePanel/PlayerPagePanel.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />

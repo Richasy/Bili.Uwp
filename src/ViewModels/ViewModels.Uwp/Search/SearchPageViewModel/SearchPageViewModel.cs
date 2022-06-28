@@ -76,7 +76,7 @@ namespace Bili.ViewModels.Uwp.Search
         public void SetKeyword(string keyword)
         {
             Keyword = keyword;
-            Items.Clear();
+            TryClear(Items);
             BeforeReload();
         }
 
@@ -85,12 +85,12 @@ namespace Bili.ViewModels.Uwp.Search
         {
             _requestStatusCache.Clear();
             _filters.Clear();
-            Videos.Clear();
-            Animes.Clear();
-            Articles.Clear();
-            Movies.Clear();
-            Users.Clear();
-            Lives.Clear();
+            TryClear(Videos);
+            TryClear(Animes);
+            TryClear(Articles);
+            TryClear(Movies);
+            TryClear(Users);
+            TryClear(Lives);
             _searchProvider.ClearStatus();
         }
 
@@ -134,7 +134,7 @@ namespace Bili.ViewModels.Uwp.Search
         private async Task SelectModuleAsync(SearchModuleItemViewModel vm)
         {
             ClearException();
-            CurrentFilters.Clear();
+            TryClear(CurrentFilters);
             await FakeLoadingAsync();
             CurrentModule = vm;
             await GetDataAsync();
@@ -149,7 +149,7 @@ namespace Bili.ViewModels.Uwp.Search
 
         private void InitializeSearchModules()
         {
-            Items.Clear();
+            TryClear(Items);
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Video, _resourceToolkit.GetLocaleString(LanguageNames.Video)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Anime, _resourceToolkit.GetLocaleString(LanguageNames.Anime)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Live, _resourceToolkit.GetLocaleString(LanguageNames.Live)));
@@ -163,27 +163,27 @@ namespace Bili.ViewModels.Uwp.Search
             switch (CurrentModule.Type)
             {
                 case SearchModuleType.Video:
-                    Videos.Clear();
+                    TryClear(Videos);
                     _searchProvider.ResetComprehensiveStatus();
                     break;
                 case SearchModuleType.Anime:
-                    Animes.Clear();
+                    TryClear(Animes);
                     _searchProvider.ResetAnimeStatus();
                     break;
                 case SearchModuleType.Live:
-                    Lives.Clear();
+                    TryClear(Lives);
                     _searchProvider.ResetLiveStatus();
                     break;
                 case SearchModuleType.User:
-                    Users.Clear();
+                    TryClear(Users);
                     _searchProvider.ResetUserStatus();
                     break;
                 case SearchModuleType.Movie:
-                    Movies.Clear();
+                    TryClear(Movies);
                     _searchProvider.ResetMovieStatus();
                     break;
                 case SearchModuleType.Article:
-                    Articles.Clear();
+                    TryClear(Articles);
                     _searchProvider.ResetArticleStatus();
                     break;
                 default:

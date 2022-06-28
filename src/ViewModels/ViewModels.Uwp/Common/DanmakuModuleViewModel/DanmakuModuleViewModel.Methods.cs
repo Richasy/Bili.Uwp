@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Common
             IsStandardSize = _settingsToolkit.ReadLocalSetting(SettingNames.IsDanmakuStandardSize, true);
             PropertyChanged += OnPropertyChanged;
 
-            FontCollection.Clear();
+            TryClear(FontCollection);
             var fontList = _fontToolkit.GetSystemFonts();
             fontList.ForEach(p => FontCollection.Add(p));
 

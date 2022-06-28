@@ -7,7 +7,7 @@ using Bili.ViewModels.Uwp.Search;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages.Desktop.Overlay
+namespace Bili.App.Pages.Xbox.Overlay
 {
     /// <summary>
     /// 搜索页面.

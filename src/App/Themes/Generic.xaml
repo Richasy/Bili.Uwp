@@ -3,7 +3,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/App/CardPanel/CardPanel.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/OffsetButton/OffsetButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/BubbleView/BubbleView.xaml" />
-        <ResourceDictionary Source="ms-appx:///Controls/App/ProgressButton/ProgressButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/CenterPopup/CenterPopup.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
@@ -12,7 +11,6 @@
         <ResourceDictionary Source="ms-appx:///Controls/Banner/BannerItem/BannerItem.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Common/VerticalRepeaterView/VerticalRepeaterView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerTip/PlayerTip.xaml" />
-        <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerPagePanel/PlayerPagePanel.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentItem/CommentItem.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentMainView/CommentMainView.xaml" />
         <ResourceDictionary Source="ms-appx:///Controls/Community/CommentDetailView/CommentDetailView.xaml" />

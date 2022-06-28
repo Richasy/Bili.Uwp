@@ -2,18 +2,14 @@
 
 using System;
 using System.Collections.Generic;
-using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Base;
-using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
-using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages.Desktop.Overlay
+namespace Bili.App.Pages.Xbox.Overlay
 {
     /// <summary>
     /// 视频播放页面.
@@ -48,6 +44,40 @@ namespace Bili.App.Pages.Desktop.Overlay
             ViewModel.ClearPlaylistCommand.Execute().Subscribe();
         }
 
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)
+            {
+                // 降低播放速率.
+                ViewModel.MediaPlayerViewModel.DecreasePlayRateCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
+            {
+                // 提高播放速率
+                ViewModel.MediaPlayerViewModel.IncreasePlayRateCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadLeftTrigger)
+            {
+                // 后退
+                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadRightTrigger)
+            {
+                // 跳进
+                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadB)
+            {
+                // 关闭控制器.
+                if (ViewModel.MediaPlayerViewModel.IsShowMediaTransport)
+                {
+                    ViewModel.MediaPlayerViewModel.IsShowMediaTransport = false;
+                    e.Handled = true;
+                }
+            }
+        }
+
         private void OnSectionHeaderItemInvoked(object sender, Models.App.Other.PlayerSectionHeader e)
         {
             if (ViewModel.CurrentSection != e)
@@ -64,28 +94,6 @@ namespace Bili.App.Pages.Desktop.Overlay
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
             ViewModel.CoinCommand.Execute(num).Subscribe();
             CoinFlyout.Hide();
-        }
-
-        private async void OnTagButtonClickAsync(object sender, RoutedEventArgs e)
-        {
-            var data = (sender as FrameworkElement).DataContext as Tag;
-            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
-            var isFirstClick = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, true);
-
-            if (isFirstClick)
-            {
-                var dialog = new ConfirmDialog(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FirstClickTagTip));
-                var result = await dialog.ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    return;
-                }
-
-                settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, false);
-            }
-
-            ViewModel.SearchTagCommand.Execute(data).Subscribe();
         }
 
         private void OnLikeButtonHoldingCompleted(object sender, EventArgs e)

@@ -82,7 +82,7 @@ namespace Bili.ViewModels.Uwp.Common
         private void Reset()
         {
             _subtitles.Clear();
-            Metas.Clear();
+            TryClear(Metas);
             CurrentMeta = null;
             HasSubtitles = false;
             CurrentSubtitle = string.Empty;

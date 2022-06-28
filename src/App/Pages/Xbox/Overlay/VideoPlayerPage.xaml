@@ -1,21 +1,20 @@
 ﻿<base:VideoPlayerPageBase
-    x:Class="Bili.App.Pages.Desktop.Overlay.VideoPlayerPage"
+    x:Class="Bili.App.Pages.Xbox.Overlay.VideoPlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:account="using:Bili.ViewModels.Uwp.Account"
     xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
-    xmlns:community="using:Bili.Models.Data.Community"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:player="using:Bili.App.Controls.Player"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    RequiresPointer="WhenFocused"
     mc:Ignorable="d">
 
     <base:VideoPlayerPageBase.Resources>
@@ -136,6 +135,7 @@
 
     <Grid>
         <player:PlayerPagePanel
+            Style="{StaticResource XboxPlayerPagePanelStyle}"
             IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
             IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
             Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
@@ -144,7 +144,7 @@
             SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
             ViewModel="{x:Bind ViewModel}"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-            <player:BiliMediaPlayer ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
+            <player:BiliMediaPlayer Style="{StaticResource XboxVideoPlayerStyle}" ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
             <player:PlayerPagePanel.Descriptor>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -161,14 +161,15 @@
                             Spacing="12"
                             Visibility="{x:Bind ViewModel.IsCooperationVideo, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <controls:UserAvatar
-                                Width="36"
-                                Height="36"
+                                Width="24"
+                                Height="24"
                                 Avatar="{x:Bind ViewModel.Author.User.Avatar.Uri, Mode=OneWay}"
                                 Command="{x:Bind ViewModel.Author.ShowDetailCommand, Mode=OneWay}"
                                 UserName="{x:Bind ViewModel.Author.User.Name, Mode=OneWay}" />
                             <StackPanel Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    FontSize="12"
                                     IsTextSelectionEnabled="True"
                                     Text="{x:Bind ViewModel.Author.User.Name, Mode=OneWay}" />
                                 <Button
@@ -192,8 +193,8 @@
                                         <Grid>
                                             <StackPanel Spacing="4">
                                                 <controls:UserAvatar
-                                                    Width="36"
-                                                    Height="36"
+                                                    Width="24"
+                                                    Height="24"
                                                     Avatar="{x:Bind User.Avatar.Uri}"
                                                     Command="{x:Bind ShowDetailCommand}"
                                                     DataContext="{x:Bind}"
@@ -201,7 +202,7 @@
                                                 <TextBlock
                                                     MaxWidth="52"
                                                     HorizontalAlignment="Center"
-                                                    FontSize="12"
+                                                    FontSize="10"
                                                     Text="{x:Bind User.Name}"
                                                     TextAlignment="Center"
                                                     TextTrimming="CharacterEllipsis"
@@ -234,15 +235,10 @@
                         HorizontalAlignment="Left"
                         Spacing="8">
                         <TextBlock
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                            IsTextSelectionEnabled="True"
-                            Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}"
-                            ToolTipService.ToolTip="{x:Bind ViewModel.View.Information.PublishTime}" />
-                        <TextBlock
                             x:Name="TitleBlock"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
                             IsTextSelectionEnabled="True"
                             MaxLines="2"
                             Text="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}"
@@ -251,23 +247,27 @@
                                 <ToolTip Content="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
-                        <StackPanel Margin="0,4,0,8" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}" />
                             <controls:IconTextBlock
-                                Margin="0,0,12,0"
+                                Margin="0,0,8,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="EyeShow16"
                                 Text="{x:Bind ViewModel.PlayCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=View}"
                                 Visibility="{x:Bind ViewModel.PlayCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
-                                Margin="0,0,12,0"
+                                Margin="0,0,8,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="SlideText16"
                                 Text="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=Danmaku}"
                                 Visibility="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
-                                Margin="0,0,12,0"
+                                Margin="0,0,8,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="Chat16"
                                 Text="{x:Bind ViewModel.CommentCountText, Mode=OneWay}"
@@ -280,156 +280,44 @@
                                 ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                 Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         </StackPanel>
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Tags}" Visibility="{x:Bind ViewModel.IsShowTags, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:FlowLayout
-                                    LineAlignment="Start"
-                                    MinColumnSpacing="8"
-                                    MinRowSpacing="8"
-                                    Orientation="Horizontal" />
-                            </muxc:ItemsRepeater.Layout>
-                            <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="community:Tag">
-                                    <Button
-                                        AutomationProperties.Name="{x:Bind Name}"
-                                        Padding="6,4"
-                                        Background="Transparent"
-                                        Click="OnTagButtonClickAsync"
-                                        Content="{x:Bind Name}"
-                                        DataContext="{x:Bind}"
-                                        FontSize="11" />
-                                </DataTemplate>
-                            </muxc:ItemsRepeater.ItemTemplate>
-                        </muxc:ItemsRepeater>
-                        <controls:TrimTextBlock
-                            x:Name="DescriptionBlock"
-                            MaxWidth="600"
-                            HorizontalAlignment="Left"
-                            FontSize="13"
-                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            MaxLines="3"
-                            Text="{x:Bind ViewModel.View.Information.Description, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>
             </player:PlayerPagePanel.Descriptor>
             <player:PlayerPagePanel.Dashboard>
-                <Grid RowSpacing="20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Spacing="12">
-                        <controls:ProgressButton
-                            x:Name="LikeButton"
-                            Click="OnLikeButtonClick"
-                            Description="{x:Bind ViewModel.LikeCountText, Mode=OneWay}"
-                            HoldingCompleted="OnLikeButtonHoldingCompleted"
-                            HoldingSuspend="OnLikeButtonHoldingSuspend"
-                            IsChecked="{x:Bind ViewModel.IsLiked, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
-                            IsHoldingEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
-                            ToolTipService.ToolTip="{loc:Locale Name=Like}">
-                            <icons:RegularFluentIcon Symbol="ThumbLike16" />
-                        </controls:ProgressButton>
-                        <controls:ProgressButton
-                            x:Name="CoinButton"
-                            Click="OnCoinButtonClick"
-                            Description="{x:Bind ViewModel.CoinCountText, Mode=OneWay}"
-                            IsChecked="{x:Bind ViewModel.IsCoined, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
-                            IsHoldingEnabled="False"
-                            ToolTipService.ToolTip="{loc:Locale Name=Coin}">
-                            <icons:RegularFluentIcon Symbol="Blur16" />
-                        </controls:ProgressButton>
-                        <controls:ProgressButton
-                            x:Name="FavoriteButton"
-                            Click="OnFavoriteButtonClick"
-                            Description="{x:Bind ViewModel.FavoriteCountText, Mode=OneWay}"
-                            IsChecked="{x:Bind ViewModel.IsFavorited, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
-                            IsHoldingEnabled="False"
-                            ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
-                            <icons:RegularFluentIcon Symbol="Star16" />
-                        </controls:ProgressButton>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1">
-                        <RelativePanel Margin="0,0,0,8">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                VerticalAlignment="Center"
-                                Text="{loc:Locale Name=InfinityLoop}" />
-                            <ToggleSwitch
-                                Style="{StaticResource RightAlignedCompactToggleSwitchStyle}"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                MinWidth="0"
-                                MinHeight="0"
-                                FontSize="12"
-                                IsOn="{x:Bind ViewModel.MediaPlayerViewModel.IsLoop, Mode=TwoWay}" />
-                        </RelativePanel>
-
-                        <Grid Margin="0,0,0,8" ColumnSpacing="8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Button
-                                x:Name="ShareButton"
-                                HorizontalAlignment="Stretch"
-                                Command="{x:Bind ViewModel.ShareCommand}">
-                                <controls:IconTextBlock
-                                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                    Symbol="Share16"
-                                    Text="{loc:Locale Name=Share}" />
-                            </Button>
-                            <Button
-                                Grid.Column="1"
-                                Padding="8"
-                                HorizontalAlignment="Stretch"
-                                Command="{x:Bind ViewModel.FixedCommand}"
-                                Content="{x:Bind ViewModel.IsVideoFixed, Mode=OneWay, Converter={StaticResource FixedContentConverter}}" />
-                        </Grid>
-
-                        <Button
-                            x:Name="CreateDownloadCommandButton"
-                            MinWidth="120"
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Stretch">
-                            <controls:IconTextBlock
-                                Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                Symbol="ArrowDownload16"
-                                Text="{loc:Locale Name=Download}" />
-                            <Button.Flyout>
-                                <Flyout>
-                                    <player:DownloadOptionsPanel ViewModel="{x:Bind ViewModel.DownloadViewModel}" />
-                                </Flyout>
-                            </Button.Flyout>
-                        </Button>
-
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="AV" />
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                IsTextSelectionEnabled="True"
-                                Text="{x:Bind ViewModel.View.Information.Identifier.Id, Mode=OneWay}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="BV" />
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                IsTextSelectionEnabled="True"
-                                Text="{x:Bind ViewModel.View.Information.AlternateId, Mode=OneWay}" />
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <controls:ProgressButton
+                        x:Name="LikeButton"
+                        Click="OnLikeButtonClick"
+                        Description="{x:Bind ViewModel.LikeCountText, Mode=OneWay}"
+                        HoldingCompleted="OnLikeButtonHoldingCompleted"
+                        HoldingSuspend="OnLikeButtonHoldingSuspend"
+                        IsChecked="{x:Bind ViewModel.IsLiked, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:Locale Name=Like}">
+                        <icons:RegularFluentIcon Symbol="ThumbLike16" />
+                    </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="CoinButton"
+                        Click="OnCoinButtonClick"
+                        Description="{x:Bind ViewModel.CoinCountText, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IsCoined, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{loc:Locale Name=Coin}">
+                        <icons:RegularFluentIcon Symbol="Blur16" />
+                    </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="FavoriteButton"
+                        Click="OnFavoriteButtonClick"
+                        Description="{x:Bind ViewModel.FavoriteCountText, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IsFavorited, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
+                        <icons:RegularFluentIcon Symbol="Star16" />
+                    </controls:ProgressButton>
+                </StackPanel>
             </player:PlayerPagePanel.Dashboard>
             <player:PlayerPagePanel.SectionContent>
                 <Grid>

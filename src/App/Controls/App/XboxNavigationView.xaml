@@ -63,7 +63,10 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="{loc:Locale Name=Navigation}" />
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:Locale Name=Recommend}">
+                <muxc:NavigationViewItem
+                    ext:NavigationExtension.PageId="Recommend"
+                    Content="{loc:Locale Name=Recommend}"
+                    TabIndex="1">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Home16" />
                     </muxc:NavigationViewItem.Icon>

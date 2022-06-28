@@ -333,6 +333,7 @@
     <Compile Include="Pages\Base\LivePartitionDetailPageBase.cs" />
     <Compile Include="Pages\Base\LivePartitionPageBase.cs" />
     <Compile Include="Pages\Base\MoviePageBase.cs" />
+    <Compile Include="Pages\Base\SearchPageBase.cs" />
     <Compile Include="Pages\Base\SettingsPageBase.cs" />
     <Compile Include="Pages\Base\TvPageBase.cs" />
     <Compile Include="Pages\Base\VideoPartitionDetailPageBase.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="Pages\Base\PopularPageBase.cs" />
     <Compile Include="Pages\Base\RankPageBase.cs" />
     <Compile Include="Pages\Base\RecommendPageBase.cs" />
+    <Compile Include="Pages\Base\VideoPlayerPageBase.cs" />
     <Compile Include="Pages\Desktop\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
     </Compile>
@@ -463,8 +465,14 @@
     <Compile Include="Pages\Xbox\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Xbox\Overlay\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml.cs">
       <DependentUpon>VideoPartitionDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml.cs">
+      <DependentUpon>VideoPlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\PreSearchPage.xaml.cs">
       <DependentUpon>PreSearchPage.xaml</DependentUpon>
@@ -1204,7 +1212,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Xbox\Overlay\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

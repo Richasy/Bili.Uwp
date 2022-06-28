@@ -41,7 +41,7 @@ namespace Bili.ViewModels.Uwp.Video
         private void SelectSeason(VideoSeason season)
         {
             CurrentSeason = season;
-            CurrentSeasonVideos.Clear();
+            TryClear(CurrentSeasonVideos);
             if (season == null)
             {
                 return;

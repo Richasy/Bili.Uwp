@@ -57,11 +57,11 @@ namespace Bili.ViewModels.Uwp.Live
             OriginPartition = partition;
             _caches.Clear();
             _liveProvider.ResetPartitionDetailState();
-            Tags.Clear();
+            TryClear(Tags);
             CurrentTag = null;
             _totalCount = -1;
             IsEmpty = false;
-            Items.Clear();
+            TryClear(Items);
         }
 
         /// <inheritdoc/>
@@ -124,7 +124,7 @@ namespace Bili.ViewModels.Uwp.Live
         private async Task SelectTagAsync(LiveTag tag)
         {
             await Task.Delay(100);
-            Items.Clear();
+            TryClear(Items);
             CurrentTag = tag;
             if (_caches.ContainsKey(tag))
             {

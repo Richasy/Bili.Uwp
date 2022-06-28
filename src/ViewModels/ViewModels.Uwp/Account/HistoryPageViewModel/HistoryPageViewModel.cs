@@ -71,7 +71,7 @@ namespace Bili.ViewModels.Uwp.Account
             var result = await _accountProvider.ClearHistoryAsync();
             if (result)
             {
-                Items.Clear();
+                TryClear(Items);
                 ReloadCommand.Execute().Subscribe();
             }
         }

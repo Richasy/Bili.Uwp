@@ -59,7 +59,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <param name="defaultSort">默认排序方式.</param>
         internal void SetTarget(string targetId, CommentType type, CommentSortType defaultSort = CommentSortType.Hot)
         {
-            Items.Clear();
+            TryClear(Items);
             _targetId = targetId;
             _commentType = type;
             var sort = SortCollection.First(p => p.Type == defaultSort);
@@ -69,7 +69,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         internal void ClearData()
         {
-            Items.Clear();
+            TryClear(Items);
             BeforeReload();
             UnselectComment();
         }

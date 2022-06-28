@@ -39,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Video
             DefaultFolder = null;
             IsDefaultFolderEmpty = false;
             CanShowMoreDefaultVideos = false;
-            DefaultVideos.Clear();
+            TryClear(DefaultVideos);
         }
 
         /// <inheritdoc/>

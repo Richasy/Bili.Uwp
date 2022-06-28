@@ -43,7 +43,7 @@
 
                 <exp:ExpanderExItemSeparator />
 
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" Visibility="{x:Bind CoreViewModel.IsXbox, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
                         <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=DefaultPlayerDisplayMode}" />
                     </exp:ExpanderExWrapper.MainContent>

@@ -56,6 +56,19 @@ namespace Bili.App.Controls
             base.OnApplyTemplate();
         }
 
+        /// <inheritdoc/>
+        protected override void OnBringIntoViewRequested(BringIntoViewRequestedEventArgs e)
+        {
+            if (double.IsNaN(e.VerticalAlignmentRatio) || e.VerticalAlignmentRatio != 0.5)
+            {
+                e.TargetElement.StartBringIntoView(new BringIntoViewOptions()
+                {
+                    AnimationDesired = true,
+                    VerticalAlignmentRatio = 0.5,
+                });
+            }
+        }
+
         private void OnCardPanelLoading(FrameworkElement sender, object args)
         {
             _pointerOverToken = RegisterPropertyChangedCallback(IsPointerOverProperty, OnPanelStateChanged);

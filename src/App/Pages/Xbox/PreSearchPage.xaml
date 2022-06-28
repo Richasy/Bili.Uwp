@@ -28,25 +28,6 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <AutoSuggestBox
-            x:Name="AppSearchBox"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            FontSize="18"
-            IsTabStop="True"
-            PlaceholderText="{loc:Locale Name=SearchTip}"
-            QueryIcon="Find"
-            QuerySubmitted="OnSearchBoxSubmitted"
-            TabIndex="0"
-            Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}"
-            UpdateTextOnSelect="False">
-            <AutoSuggestBox.TextBoxStyle>
-                <Style BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}" TargetType="TextBox">
-                    <Setter Property="Padding" Value="20,12" />
-                </Style>
-            </AutoSuggestBox.TextBoxStyle>
-        </AutoSuggestBox>
         <ListView
             x:Name="HotSearchListView"
             MaxWidth="400"
@@ -109,5 +90,24 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <AutoSuggestBox
+            x:Name="AppSearchBox"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            FontSize="18"
+            PlaceholderText="{loc:Locale Name=SearchTip}"
+            QueryIcon="Find"
+            QuerySubmitted="OnSearchBoxSubmitted"
+            TabIndex="1"
+            Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}"
+            UpdateTextOnSelect="False">
+            <AutoSuggestBox.TextBoxStyle>
+                <Style BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}" TargetType="TextBox">
+                    <Setter Property="Padding" Value="20,12" />
+                </Style>
+            </AutoSuggestBox.TextBoxStyle>
+        </AutoSuggestBox>
     </Grid>
 </local:PreSearchPageBase>

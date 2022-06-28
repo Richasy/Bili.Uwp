@@ -20,10 +20,12 @@ using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.ApplicationModel.Activation;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -65,6 +67,11 @@ namespace Bili.App.Pages.Desktop
                 : new DesktopNavigationView();
             navView.FirstLoaded += OnRootNavViewFirstLoadAsync;
             NavViewPresenter.Content = navView;
+
+            if (CoreViewModel.IsXbox)
+            {
+                Resources.Add("NavigationViewContentGridBorderBrush", new SolidColorBrush(Colors.Transparent));
+            }
         }
 
         /// <summary>
@@ -251,7 +258,9 @@ namespace Bili.App.Pages.Desktop
                 PageIds.VideoPartitionDetail => CoreViewModel.IsXbox
                     ? typeof(Xbox.Overlay.VideoPartitionDetailPage)
                     : typeof(Desktop.Overlay.VideoPartitionDetailPage),
-                PageIds.Search => typeof(SearchPage),
+                PageIds.Search => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.SearchPage)
+                    : typeof(Desktop.Overlay.SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
                 PageIds.Favorite => CoreViewModel.IsXbox
                     ? typeof(Xbox.Overlay.FavoritePage)
@@ -279,7 +288,9 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.VideoPlayer => typeof(VideoPlayerPage),
+                PageIds.VideoPlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.VideoPlayerPage)
+                    : typeof(Desktop.Overlay.VideoPlayerPage),
                 PageIds.PgcPlayer => typeof(PgcPlayerPage),
                 PageIds.LivePlayer => typeof(LivePlayerPage),
                 _ => typeof(Page)

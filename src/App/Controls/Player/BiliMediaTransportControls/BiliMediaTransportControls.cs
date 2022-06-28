@@ -45,8 +45,15 @@ namespace Bili.App.Controls.Player
             _interactionProgressSlider = GetTemplateChild(InteractionProgressSliderName) as Slider;
             _danmakuBox = GetTemplateChild(DanmakuBoxName) as DanmakuBox;
 
-            _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
-            _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
+            if (_formatListView != null)
+            {
+                _formatListView.SelectionChanged += OnFormatListViewSelectionChanged;
+            }
+
+            if (_volumeSlider != null)
+            {
+                _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
+            }
 
             if (_normalProgressContainer != null)
             {

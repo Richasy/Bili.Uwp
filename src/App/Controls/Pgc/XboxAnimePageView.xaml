@@ -38,6 +38,7 @@
             Grid.Row="1"
             ItemInvoked="OnRootNavViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
+            OpenPaneLength="120"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="community:Partition">
@@ -76,7 +77,10 @@
                             XYFocusKeyboardNavigation="Enabled">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
                                 <DataTemplate x:DataType="pgc:PgcRankViewModel">
-                                    <controls:CardPanel MaxWidth="340" IsEnableHoverAnimation="False">
+                                    <controls:CardPanel
+                                        MaxWidth="340"
+                                        IsEnableHoverAnimation="False"
+                                        IsFocusEngagementEnabled="True">
                                         <Grid Padding="8">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />

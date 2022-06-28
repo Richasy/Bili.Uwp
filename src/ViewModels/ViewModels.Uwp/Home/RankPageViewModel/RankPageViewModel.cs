@@ -75,8 +75,8 @@ namespace Bili.ViewModels.Uwp.Home
 
         private async Task ReloadAsync()
         {
-            Partitions.Clear();
-            VideoCollection.Clear();
+            TryClear(Partitions);
+            TryClear(VideoCollection);
             _caches.Clear();
             var partitions = (await _homeProvider.GetVideoPartitionIndexAsync()).ToList();
             var allItem = new Partition("0", _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions), new Image("ms-appx:///Assets/Bili_rgba_80.png"));
@@ -89,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Home
         {
             await Task.Delay(100);
             CurrentPartition = partition;
-            VideoCollection.Clear();
+            TryClear(VideoCollection);
             var videos = _caches.ContainsKey(partition)
                 ? _caches[partition]
                 : await _homeProvider.GetRankDetailAsync(partition.Id);

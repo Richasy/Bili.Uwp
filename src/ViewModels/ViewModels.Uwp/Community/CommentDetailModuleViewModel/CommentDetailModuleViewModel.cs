@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <param name="rootItem">评论条目.</param>
         internal void SetRoot(CommentItemViewModel rootItem)
         {
-            Items.Clear();
+            TryClear(Items);
             RootComment = GetItemViewModel(rootItem.Information);
             InitializeCommand.Execute().Subscribe();
         }
@@ -54,7 +54,7 @@ namespace Bili.ViewModels.Uwp.Community
         internal void ClearData()
         {
             RootComment = null;
-            Items.Clear();
+            TryClear(Items);
             BeforeReload();
             UnselectComment();
         }

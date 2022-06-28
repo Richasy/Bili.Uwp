@@ -31,12 +31,13 @@
             <ScrollViewer
                 x:Name="VideoContentScrollViewer"
                 Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                BringIntoViewOnFocusChange="True"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{x:Bind ViewModel.VideoModule.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:VerticalRepeaterView
                     x:Name="VideoRepeaterView"
-                    Margin="0,0,0,12"
+                    Margin="0,0,0,24"
                     DataContext="{x:Bind ViewModel.VideoModule, Mode=OneWay}"
                     HeaderVisibility="Collapsed"
                     IsTabStop="False"

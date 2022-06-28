@@ -149,7 +149,7 @@ namespace Bili.ViewModels.Uwp.Article
 
         private void SelectPartition(Partition partition)
         {
-            Items.Clear();
+            TryClear(Items);
             CurrentPartition = partition;
             if (_caches.ContainsKey(partition))
             {

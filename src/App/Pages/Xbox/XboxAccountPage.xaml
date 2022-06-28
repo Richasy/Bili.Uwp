@@ -45,29 +45,49 @@
             Grid.Column="1"
             VerticalAlignment="Center"
             Spacing="24"
-            XYFocusKeyboardNavigation="Enabled">
-            <Button Style="{StaticResource CommandButtonStyle}" Command="{x:Bind ViewModel.GotoFavoritePageCommand}">
+            XYFocusDownNavigationStrategy="RectilinearDistance"
+            XYFocusKeyboardNavigation="Enabled"
+            XYFocusUpNavigationStrategy="RectilinearDistance">
+            <Button
+                x:Name="FavoriteButton"
+                Style="{StaticResource CommandButtonStyle}"
+                Command="{x:Bind ViewModel.GotoFavoritePageCommand}"
+                XYFocusDown="{x:Bind ViewLaterButton}">
                 <controls:IconTextBlock
                     FontSize="20"
                     IconFontSize="24"
                     Symbol="StarLineHorizontal320"
                     Text="{loc:Locale Name=MyFavorite}" />
             </Button>
-            <Button Style="{StaticResource CommandButtonStyle}" Command="{x:Bind ViewModel.GotoViewLaterPageCommand}">
+            <Button
+                x:Name="ViewLaterButton"
+                Style="{StaticResource CommandButtonStyle}"
+                Command="{x:Bind ViewModel.GotoViewLaterPageCommand}"
+                XYFocusDown="{x:Bind HistoryButton}"
+                XYFocusUp="{x:Bind FavoriteButton}">
                 <controls:IconTextBlock
                     FontSize="20"
                     IconFontSize="24"
                     Symbol="CalendarClock16"
                     Text="{loc:Locale Name=ViewLater}" />
             </Button>
-            <Button Style="{StaticResource CommandButtonStyle}" Command="{x:Bind ViewModel.GotoHistoryPageCommand}">
+            <Button
+                x:Name="HistoryButton"
+                Style="{StaticResource CommandButtonStyle}"
+                Command="{x:Bind ViewModel.GotoHistoryPageCommand}"
+                XYFocusDown="{x:Bind SignOutButton}"
+                XYFocusUp="{x:Bind ViewLaterButton}">
                 <controls:IconTextBlock
                     FontSize="20"
                     IconFontSize="24"
                     Symbol="History20"
                     Text="{loc:Locale Name=ViewHistory}" />
             </Button>
-            <Button Style="{StaticResource CommandButtonStyle}" Command="{x:Bind ViewModel.SignOutCommand}">
+            <Button
+                x:Name="SignOutButton"
+                Style="{StaticResource CommandButtonStyle}"
+                Command="{x:Bind ViewModel.SignOutCommand}"
+                XYFocusUp="{x:Bind HistoryButton}">
                 <controls:IconTextBlock
                     FontSize="20"
                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"

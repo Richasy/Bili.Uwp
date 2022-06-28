@@ -100,7 +100,7 @@ namespace Bili.ViewModels.Uwp.Base
         private async Task ReloadAsync()
         {
             BeforeReload();
-            Items.Clear();
+            TryClear(Items);
             ClearException();
 
             var task = _dispatcher.RunAsync(

@@ -64,7 +64,7 @@
                                 x:Name="RefreshButton"
                                 VerticalAlignment="Center"
                                 Command="{x:Bind ViewModel.ReloadCommand}"
-                                IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}">
+                                IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
                                 <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
                             </Button>
                             <Button

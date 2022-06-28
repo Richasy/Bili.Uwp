@@ -32,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 return;
             }
 
-            FavoriteFolders.Clear();
+            TryClear(FavoriteFolders);
             var data = await _favoriteProvider.GetCurrentPlayerFavoriteListAsync(_authorizeProvider.CurrentUserId, CurrentEpisode.VideoId);
             var selectIds = data.Item2;
             foreach (var item in data.Item1.Items)

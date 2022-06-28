@@ -107,7 +107,7 @@ namespace Bili.ViewModels.Uwp.Community
         private async Task SelectTypeAsync(MessageHeaderViewModel type)
         {
             await FakeLoadingAsync();
-            Items.Clear();
+            TryClear(Items);
             _isEnd = false;
             CurrentType = type;
             if (_caches.TryGetValue(CurrentType.Type, out var data) && data.Items.Count() > 0)

@@ -65,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             _type = type;
             Title = string.Empty;
             Description = string.Empty;
-            Timelines.Clear();
+            TryClear(Timelines);
         }
 
         private async Task InitializeAsync()
@@ -85,7 +85,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 return;
             }
 
-            Timelines.Clear();
+            TryClear(Timelines);
             var data = await _pgcProvider.GetPgcTimelinesAsync(_type);
             Title = data.Title;
             Description = data.Description;

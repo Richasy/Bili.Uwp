@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Account
         protected override void BeforeReload()
         {
             _accountProvider.ClearMyFollowStatus();
-            Groups.Clear();
+            TryClear(Groups);
             CurrentGroup = null;
             _cache.Clear();
             IsCurrentGroupEmpty = false;
@@ -97,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Account
         private async Task SelectGroupAsync(FollowGroup group)
         {
             CurrentGroup = group;
-            Items.Clear();
+            TryClear(Items);
             if (_cache.TryGetValue(group.Id, out var cache))
             {
                 cache.ToList().ForEach(p => Items.Add(p));

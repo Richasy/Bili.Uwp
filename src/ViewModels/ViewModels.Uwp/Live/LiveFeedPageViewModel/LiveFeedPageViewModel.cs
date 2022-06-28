@@ -56,9 +56,9 @@ namespace Bili.ViewModels.Uwp.Live
         protected override void BeforeReload()
         {
             _liveProvider.ResetFeedState();
-            Banners.Clear();
-            Follows.Clear();
-            HotPartitions.Clear();
+            TryClear(Banners);
+            TryClear(Follows);
+            TryClear(HotPartitions);
         }
 
         /// <inheritdoc/>

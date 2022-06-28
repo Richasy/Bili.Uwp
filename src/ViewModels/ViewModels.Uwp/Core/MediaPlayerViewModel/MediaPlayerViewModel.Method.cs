@@ -20,8 +20,8 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private void ResetMediaData()
         {
-            Formats.Clear();
-            PlaybackRates.Clear();
+            TryClear(Formats);
+            TryClear(PlaybackRates);
             IsShowProgressTip = false;
             IsShowInteractionProgress = false;
             IsShowMediaTransport = false;
@@ -68,7 +68,7 @@ namespace Bili.ViewModels.Uwp.Core
             MaxPlaybackRate = isEnhancement ? 6d : 3d;
             PlaybackRateStep = isEnhancement ? 0.2 : 0.1;
 
-            PlaybackRates.Clear();
+            TryClear(PlaybackRates);
             var defaultList = !isEnhancement
                 ? new List<double> { 0.5, 0.75, 1.0, 1.25, 1.5, 2.0 }
                 : new List<double> { 0.5, 1.0, 1.5, 2.0, 3.0, 4.0 };

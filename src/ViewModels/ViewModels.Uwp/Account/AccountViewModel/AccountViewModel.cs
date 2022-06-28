@@ -227,7 +227,7 @@ namespace Bili.ViewModels.Uwp.Account
                     string.Format(AppConstants.FixedContentFileName, Mid),
                     "[]",
                     AppConstants.FixedFolderName);
-                FixedItemCollection.Clear();
+                TryClear(FixedItemCollection);
                 if (data.Count > 0)
                 {
                     data.ForEach(p => FixedItemCollection.Add(p));

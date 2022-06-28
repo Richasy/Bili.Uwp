@@ -45,7 +45,7 @@ namespace Bili.ViewModels.Uwp.Common
             ReloadCommand.Execute().Subscribe();
         }
 
-        private void Reset() => Choices.Clear();
+        private void Reset() => TryClear(Choices);
 
         private async Task ReloadAsync()
         {
