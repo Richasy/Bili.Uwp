@@ -1,0 +1,113 @@
+﻿<local:PreSearchPageBase
+    x:Class="Bili.App.Pages.Xbox.PreSearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Pages.Xbox"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:search="using:Bili.Models.Data.Search"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    IsTabStop="False"
+    mc:Ignorable="d">
+
+    <local:PreSearchPageBase.Resources>
+        <Style
+            x:Key="SuggestItemContainerStyle"
+            BasedOn="{StaticResource DefaultListViewItemStyle}"
+            TargetType="ListViewItem">
+            <Setter Property="Background" Value="{ThemeResource ControlFillColorDefaultBrush}" />
+            <Setter Property="Padding" Value="20,16" />
+            <Setter Property="Margin" Value="0,2" />
+        </Style>
+    </local:PreSearchPageBase.Resources>
+
+    <Grid Padding="{x:Bind CoreViewModel.PageHorizontalPadding}" ColumnSpacing="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <AutoSuggestBox
+            x:Name="AppSearchBox"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            FontSize="18"
+            IsTabStop="True"
+            PlaceholderText="{loc:Locale Name=SearchTip}"
+            QueryIcon="Find"
+            QuerySubmitted="OnSearchBoxSubmitted"
+            TabIndex="0"
+            Text="{x:Bind ViewModel.Keyword, Mode=TwoWay}"
+            UpdateTextOnSelect="False">
+            <AutoSuggestBox.TextBoxStyle>
+                <Style BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}" TargetType="TextBox">
+                    <Setter Property="Padding" Value="20,12" />
+                </Style>
+            </AutoSuggestBox.TextBoxStyle>
+        </AutoSuggestBox>
+        <ListView
+            x:Name="HotSearchListView"
+            MaxWidth="400"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            IsItemClickEnabled="True"
+            ItemClick="OnHotItemClick"
+            ItemContainerStyle="{StaticResource SuggestItemContainerStyle}"
+            ItemsSource="{x:Bind ViewModel.HotSearchCollection}"
+            SelectionMode="None"
+            Visibility="{x:Bind ViewModel.Keyword, Mode=OneWay, Converter={StaticResource ObjectToVisibilityReverseConverter}}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="search:SearchSuggest">
+                    <Grid AutomationProperties.Name="{x:Bind DisplayText}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind Position}" />
+                        <Image
+                            Grid.Column="1"
+                            Width="16"
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center"
+                            Source="{Binding Icon}"
+                            Stretch="Uniform"
+                            Visibility="{x:Bind Icon, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            MaxLines="1"
+                            Text="{x:Bind DisplayText}"
+                            TextLineBounds="Tight"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTipService.ToolTip="{x:Bind Keyword}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView
+            x:Name="SuggestionListView"
+            MaxWidth="400"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            IsItemClickEnabled="True"
+            ItemClick="OnSuggstItemClick"
+            ItemContainerStyle="{StaticResource SuggestItemContainerStyle}"
+            ItemsSource="{x:Bind ViewModel.SearchSuggestion}"
+            SelectionMode="None"
+            Visibility="{x:Bind ViewModel.Keyword, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="search:SearchSuggest">
+                    <TextBlock Text="{x:Bind DisplayText}" TextTrimming="CharacterEllipsis" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</local:PreSearchPageBase>

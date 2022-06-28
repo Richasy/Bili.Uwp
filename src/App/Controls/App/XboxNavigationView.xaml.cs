@@ -49,6 +49,7 @@ namespace Bili.App.Controls.App
             var pageType = pageId switch
             {
                 PageIds.XboxAccount => typeof(XboxAccountPage),
+                PageIds.PreSearch => typeof(PreSearchPage),
                 PageIds.Recommend => typeof(RecommendPage),
                 PageIds.Popular => typeof(PopularPage),
                 PageIds.Rank => typeof(RankPage),

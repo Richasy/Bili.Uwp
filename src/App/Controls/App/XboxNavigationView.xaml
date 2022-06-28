@@ -57,7 +57,7 @@
                         <TextBlock VerticalAlignment="Center" Text="{x:Bind AccountViewModel.DisplayName, Mode=OneWay}" />
                     </StackPanel>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem ext:NavigationExtension.PageId="Search" Content="{loc:Locale Name=Search}">
+                <muxc:NavigationViewItem ext:NavigationExtension.PageId="PreSearch" Content="{loc:Locale Name=Search}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Search16" />
                     </muxc:NavigationViewItem.Icon>

@@ -462,6 +462,9 @@
     <Compile Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml.cs">
       <DependentUpon>VideoPartitionDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Xbox\PreSearchPage.xaml.cs">
+      <DependentUpon>PreSearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Xbox\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -1194,6 +1197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\PreSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
