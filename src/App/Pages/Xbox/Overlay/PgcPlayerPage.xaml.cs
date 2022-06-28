@@ -6,10 +6,10 @@ using Bili.Models.Data.Local;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages.Desktop.Overlay
+namespace Bili.App.Pages.Xbox.Overlay
 {
     /// <summary>
-    /// PGC 内容的播放页面.
+    /// PGC 播放页面.
     /// </summary>
     public sealed partial class PgcPlayerPage : PgcPlayerPageBase
     {
@@ -60,9 +60,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         }
 
         private void OnLikeButtonHoldingSuspend(object sender, EventArgs e)
-        {
-            _isLikeHoldSuspend = true;
-        }
+            => _isLikeHoldSuspend = true;
 
         private void OnLikeButtonClick(object sender, RoutedEventArgs e)
         {

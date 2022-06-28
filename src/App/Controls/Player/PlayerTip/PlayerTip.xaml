@@ -16,17 +16,6 @@
                         CornerRadius="{StaticResource ControlCornerRadius}"
                         RowSpacing="8"
                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsOpen, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:OpacityAnimation
-                                From="0"
-                                To="1"
-                                Duration="0:0:0.3" />
-                            <animations:TranslationAnimation
-                                From="200,0,0"
-                                To="-20,0,0"
-                                Duration="0:0:0.3" />
-                        </animations:Implicit.ShowAnimations>
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />

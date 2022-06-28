@@ -332,7 +332,9 @@
     <Compile Include="Pages\Base\LiveFeedPageBase.cs" />
     <Compile Include="Pages\Base\LivePartitionDetailPageBase.cs" />
     <Compile Include="Pages\Base\LivePartitionPageBase.cs" />
+    <Compile Include="Pages\Base\LivePlayerPageBase.cs" />
     <Compile Include="Pages\Base\MoviePageBase.cs" />
+    <Compile Include="Pages\Base\PgcPlayerPageBase.cs" />
     <Compile Include="Pages\Base\SearchPageBase.cs" />
     <Compile Include="Pages\Base\SettingsPageBase.cs" />
     <Compile Include="Pages\Base\TvPageBase.cs" />
@@ -464,6 +466,12 @@
     </Compile>
     <Compile Include="Pages\Xbox\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\LivePlayerPage.xaml.cs">
+      <DependentUpon>LivePlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\PgcPlayerPage.xaml.cs">
+      <DependentUpon>PgcPlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\Overlay\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
@@ -1209,6 +1217,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\Overlay\LivePartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\LivePlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\PgcPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

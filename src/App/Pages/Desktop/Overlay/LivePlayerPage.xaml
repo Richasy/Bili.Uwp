@@ -1,23 +1,23 @@
-﻿<local:LivePlayerPageBase
+﻿<base:LivePlayerPageBase
     x:Class="Bili.App.Pages.Desktop.Overlay.LivePlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:player="using:Bili.App.Controls.Player"
     mc:Ignorable="d">
 
-    <local:LivePlayerPageBase.Resources>
+    <base:LivePlayerPageBase.Resources>
         <Style TargetType="controls:IconTextBlock">
             <Setter Property="IconFontSize" Value="20" />
             <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
         </Style>
-    </local:LivePlayerPageBase.Resources>
+    </base:LivePlayerPageBase.Resources>
 
     <Grid>
         <player:PlayerPagePanel
@@ -159,4 +159,4 @@
         </controls:ErrorPanel>
         <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
     </Grid>
-</local:LivePlayerPageBase>
+</base:LivePlayerPageBase>

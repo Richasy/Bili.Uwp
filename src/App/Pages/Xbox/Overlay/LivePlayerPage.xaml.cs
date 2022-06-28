@@ -5,7 +5,7 @@ using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
 using Windows.UI.Xaml.Navigation;
 
-namespace Bili.App.Pages.Desktop.Overlay
+namespace Bili.App.Pages.Xbox.Overlay
 {
     /// <summary>
     /// 直播播放页面.
@@ -30,13 +30,18 @@ namespace Bili.App.Pages.Desktop.Overlay
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
             => ViewModel.ClearCommand.Execute().Subscribe();
 
-        private void OnLiveOnlyAudioToggledAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnOnlyAudioButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var isAudioOnly = LiveAudioOnlySwitch.IsOn;
+            var isAudioOnly = OnlyAudioButton.IsChecked.Value;
             if (ViewModel.MediaPlayerViewModel.IsLiveAudioOnly != isAudioOnly)
             {
                 ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly).Subscribe();
             }
+        }
+
+        private void OnOpenInBroswerButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            OpenInBroswerButton.IsChecked = false;
         }
     }
 }

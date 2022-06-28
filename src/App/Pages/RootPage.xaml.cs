@@ -291,8 +291,12 @@ namespace Bili.App.Pages.Desktop
                 PageIds.VideoPlayer => CoreViewModel.IsXbox
                     ? typeof(Xbox.Overlay.VideoPlayerPage)
                     : typeof(Desktop.Overlay.VideoPlayerPage),
-                PageIds.PgcPlayer => typeof(PgcPlayerPage),
-                PageIds.LivePlayer => typeof(LivePlayerPage),
+                PageIds.PgcPlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.PgcPlayerPage)
+                    : typeof(Desktop.Overlay.PgcPlayerPage),
+                PageIds.LivePlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePlayerPage)
+                    : typeof(Desktop.Overlay.LivePlayerPage),
                 _ => typeof(Page)
             };
 

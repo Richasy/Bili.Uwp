@@ -1,8 +1,7 @@
-﻿<base:VideoPlayerPageBase
-    x:Class="Bili.App.Pages.Xbox.Overlay.VideoPlayerPage"
+﻿<base:PgcPlayerPageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.PgcPlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:account="using:Bili.ViewModels.Uwp.Account"
     xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
@@ -17,7 +16,7 @@
     RequiresPointer="WhenFocused"
     mc:Ignorable="d">
 
-    <base:VideoPlayerPageBase.Resources>
+    <base:PgcPlayerPageBase.Resources>
         <Style TargetType="controls:IconTextBlock">
             <Setter Property="IconFontSize" Value="20" />
             <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
@@ -26,7 +25,6 @@
         <Flyout x:Name="CoinFlyout">
             <Grid RowSpacing="16">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -44,7 +42,7 @@
                         Height="40"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnGiveCoinButtonClick"
+                        Click="OnGiveCoinButtonClickAsync"
                         Content="1"
                         FontWeight="Bold"
                         Tag="1" />
@@ -53,21 +51,14 @@
                         Height="40"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnGiveCoinButtonClick"
+                        Click="OnGiveCoinButtonClickAsync"
                         Content="2"
                         FontWeight="Bold"
-                        IsEnabled="{x:Bind ViewModel.View.Information.IsOriginal, Mode=OneWay}"
                         Tag="2" />
                 </StackPanel>
-                <TextBlock
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Grid.Row="2"
-                    FontSize="10"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    Text="{loc:Locale Name=CoinNumberTip}" />
                 <CheckBox
                     x:Name="AlsoLikeCheckBox"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     MinWidth="0"
                     Content="{loc:Locale Name=AlsoLike}"
                     IsChecked="{x:Bind ViewModel.IsCoinWithLiked, Mode=TwoWay}" />
@@ -116,7 +107,7 @@
                             x:Name="RequestFavoriteButton"
                             Style="{StaticResource AccentButtonStyle}"
                             HorizontalAlignment="Stretch"
-                            Command="{x:Bind ViewModel.FavoriteVideoCommand}"
+                            Command="{x:Bind ViewModel.FavoriteEpisodeCommand}"
                             Content="{loc:Locale Name=Confirm}" />
                     </StackPanel>
                     <muxc:ProgressRing
@@ -125,13 +116,13 @@
                         IsActive="{x:Bind ViewModel.IsFavoriteFolderRequesting, Mode=OneWay}" />
                 </Grid>
                 <controls:ErrorPanel
-                    ActionButtonClick="OnRefreshFavoriteButtonClick"
+                    ActionButtonClick="OnRefreshFavoriteButtonClickAsync"
                     ActionContent="{loc:Locale Name=Refresh}"
                     Text="{loc:Locale Name=RequestFavoriteError}"
                     Visibility="{x:Bind ViewModel.IsFavoriteFoldersError}" />
             </Grid>
         </Flyout>
-    </base:VideoPlayerPageBase.Resources>
+    </base:PgcPlayerPageBase.Resources>
 
     <Grid>
         <player:PlayerPagePanel
@@ -146,99 +137,31 @@
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <player:BiliMediaPlayer Style="{StaticResource XboxVideoPlayerStyle}" ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
             <player:PlayerPagePanel.Descriptor>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid>
-                        <StackPanel
-                            x:Name="SinglePublisherContainer"
-                            Margin="0,0,0,12"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal"
-                            Spacing="12"
-                            Visibility="{x:Bind ViewModel.IsCooperationVideo, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                            <controls:UserAvatar
-                                Width="40"
-                                Height="40"
-                                Avatar="{x:Bind ViewModel.Author.User.Avatar.Uri, Mode=OneWay}"
-                                Command="{x:Bind ViewModel.Author.ShowDetailCommand, Mode=OneWay}"
-                                UserName="{x:Bind ViewModel.Author.User.Name, Mode=OneWay}" />
-                            <StackPanel Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontSize="12"
-                                    IsTextSelectionEnabled="True"
-                                    Text="{x:Bind ViewModel.Author.User.Name, Mode=OneWay}" />
-                                <Button
-                                    Style="{x:Bind ViewModel.Author.Relation, Converter={StaticResource RelationButtonStyleConverter}, Mode=OneWay}"
-                                    Padding="8,2"
-                                    HorizontalAlignment="Left"
-                                    Command="{x:Bind ViewModel.Author.ToggleRelationCommand, Mode=OneWay}"
-                                    Content="{x:Bind ViewModel.Author.Relation, Converter={StaticResource RelationTextConverter}, Mode=OneWay}"
-                                    FontSize="10"
-                                    Visibility="{x:Bind ViewModel.Author.IsRelationButtonShown, Mode=OneWay}" />
-                            </StackPanel>
-                        </StackPanel>
-                        <StackPanel
-                            x:Name="StaffContainer"
-                            Margin="0,0,0,8"
-                            Orientation="Horizontal"
-                            Visibility="{x:Bind ViewModel.IsCooperationVideo, Mode=OneWay}">
-                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Collaborators}">
-                                <muxc:ItemsRepeater.ItemTemplate>
-                                    <DataTemplate x:DataType="account:UserItemViewModel">
-                                        <Grid>
-                                            <StackPanel Spacing="4">
-                                                <controls:UserAvatar
-                                                    Width="24"
-                                                    Height="24"
-                                                    Avatar="{x:Bind User.Avatar.Uri}"
-                                                    Command="{x:Bind ShowDetailCommand}"
-                                                    DataContext="{x:Bind}"
-                                                    UserName="{x:Bind User.Name}" />
-                                                <TextBlock
-                                                    MaxWidth="52"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="10"
-                                                    Text="{x:Bind User.Name}"
-                                                    TextAlignment="Center"
-                                                    TextTrimming="CharacterEllipsis"
-                                                    ToolTipService.ToolTip="{x:Bind User.Name}" />
-                                            </StackPanel>
-                                            <Border
-                                                Margin="0,-8,-8,0"
-                                                Padding="4"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top"
-                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="{StaticResource ControlCornerRadius}">
-                                                <TextBlock FontSize="10" Text="{x:Bind Role, Mode=OneWay}" />
-                                            </Border>
-                                        </Grid>
-
-                                    </DataTemplate>
-                                </muxc:ItemsRepeater.ItemTemplate>
-                                <muxc:ItemsRepeater.Layout>
-                                    <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                                </muxc:ItemsRepeater.Layout>
-                            </muxc:ItemsRepeater>
-                        </StackPanel>
-                    </Grid>
-
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:CommonImageEx
+                        x:Name="PgcImage"
+                        Width="60"
+                        Height="80"
+                        CornerRadius="{StaticResource ControlCornerRadius}"
+                        ImageUrl="{x:Bind ViewModel.View.Information.Identifier.Cover.Uri, Mode=OneWay}" />
                     <StackPanel
-                        Grid.Row="1"
+                        Grid.Column="1"
                         HorizontalAlignment="Left"
                         Spacing="8">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         <TextBlock
                             x:Name="TitleBlock"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
                             IsTextSelectionEnabled="True"
                             MaxLines="2"
                             Text="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}"
@@ -247,38 +170,28 @@
                                 <ToolTip Content="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                                Text="{x:Bind ViewModel.PublishTime, Mode=OneWay}" />
+                        <StackPanel Margin="0,4,0,8" Orientation="Horizontal">
                             <controls:IconTextBlock
-                                Margin="0,0,8,0"
+                                Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="EyeShow16"
                                 Text="{x:Bind ViewModel.PlayCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=View}"
                                 Visibility="{x:Bind ViewModel.PlayCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
-                                Margin="0,0,8,0"
+                                Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="SlideText16"
                                 Text="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=Danmaku}"
                                 Visibility="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
-                                Margin="0,0,8,0"
+                                Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Symbol="Chat16"
                                 Text="{x:Bind ViewModel.CommentCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=Reply}"
                                 Visibility="{x:Bind ViewModel.CommentCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                            <controls:IconTextBlock
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Symbol="EyeShow16"
-                                Text="{x:Bind ViewModel.WatchingCountText, Mode=OneWay}"
-                                ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
-                                Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -309,7 +222,7 @@
                     </controls:ProgressButton>
                     <controls:ProgressButton
                         x:Name="FavoriteButton"
-                        Click="OnFavoriteButtonClick"
+                        Click="OnFavoriteButtonClickAsync"
                         Description="{x:Bind ViewModel.FavoriteCountText, Mode=OneWay}"
                         IsChecked="{x:Bind ViewModel.IsFavorited, Mode=OneWay}"
                         IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
@@ -317,15 +230,25 @@
                         ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
                         <icons:RegularFluentIcon Symbol="Star16" />
                     </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="TrackButton"
+                        Command="{x:Bind ViewModel.TrackSeasonCommand}"
+                        Description="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
+                        IsChecked="{x:Bind ViewModel.IsTracking, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}">
+                        <icons:RegularFluentIcon Symbol="RibbonStar20" />
+                    </controls:ProgressButton>
                 </StackPanel>
             </player:PlayerPagePanel.Dashboard>
             <player:PlayerPagePanel.SectionContent>
                 <Grid>
-                    <player:VideoPartView x:Name="VideoPartView" Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
-                    <player:VideoPlaylistView x:Name="VideoPlaylistView" Visibility="{x:Bind ViewModel.IsShowVideoPlaylist, Mode=OneWay}" />
-                    <player:UgcSeasonView x:Name="UgcEpisodeView" Visibility="{x:Bind ViewModel.IsShowUgcSeason, Mode=OneWay}" />
-                    <player:RelatedVideoView x:Name="RelatedVideoView" Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
+                    <player:PgcEpisodeView x:Name="EpisodeView" Visibility="{x:Bind ViewModel.IsShowEpisodes, Mode=OneWay}" />
+                    <player:PgcSeasonView x:Name="SeasonView" Visibility="{x:Bind ViewModel.IsShowSeasons, Mode=OneWay}" />
+                    <player:PgcExtraView x:Name="ExtraView" Visibility="{x:Bind ViewModel.IsShowExtras, Mode=OneWay}" />
                     <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
+                    <controls:ErrorPanel Text="{loc:Locale Name=NoEpisode}" Visibility="{x:Bind ViewModel.IsSectionsEmpty, Mode=OneWay}" />
                 </Grid>
             </player:PlayerPagePanel.SectionContent>
         </player:PlayerPagePanel>
@@ -341,4 +264,4 @@
         </controls:ErrorPanel>
         <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
     </Grid>
-</base:VideoPlayerPageBase>
+</base:PgcPlayerPageBase>
