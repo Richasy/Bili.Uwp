@@ -610,7 +610,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>目前嗶哩不能播放 flv 格式的直播，請在網頁中打開該直播間</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value></value>
+    <value>追蹤</value>
   </data>
   <data name="FollowCount" xml:space="preserve">
     <value>追蹤人數</value>
@@ -634,7 +634,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>跟隨系統</value>
   </data>
   <data name="FontSize" xml:space="preserve">
-    <value>字號</value>
+    <value>文字大小</value>
   </data>
   <data name="ForwardSkip" xml:space="preserve">
     <value>向前跳轉</value>
@@ -1637,7 +1637,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>影片</value>
   </data>
   <data name="VideoCount" xml:space="preserve">
-    <value></value>
+    <value>影片數</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>影片</value>
