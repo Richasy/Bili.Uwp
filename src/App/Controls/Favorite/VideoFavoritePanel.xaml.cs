@@ -24,14 +24,14 @@ namespace Bili.App.Controls.Favorite
         public VideoFavoritePanel()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoFavoriteModuleViewModel>();
+            ViewModel = Locator.Current.GetService<VideoFavoriteModuleViewModel>();
             DataContext = ViewModel;
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
 
         private async void OnRemoveFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
             => await RemoveAsync(sender);
@@ -39,7 +39,7 @@ namespace Bili.App.Controls.Favorite
         private async Task RemoveAsync(object sender)
         {
             var vm = (sender as FrameworkElement).DataContext as VideoFavoriteFolderViewModel;
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             var warning = vm.IsMine
                 ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.DeleteFavoriteWarning)
                 : resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UnFavoriteWarning);
@@ -51,6 +51,9 @@ namespace Bili.App.Controls.Favorite
                 vm.RemoveCommand.Execute().Subscribe();
             }
         }
+
+        private void OnDefaultExpanderClick(object sender, Richasy.ExpanderEx.Uwp.ExpanderExClickEventArgs e)
+            => ViewModel.ShowDefaultFolderDetailCommand.Execute().Subscribe();
     }
 
     /// <summary>

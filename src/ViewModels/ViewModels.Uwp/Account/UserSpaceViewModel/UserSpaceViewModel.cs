@@ -56,6 +56,10 @@ namespace Bili.ViewModels.Uwp.Account
             _isSearching = SearchCommand.IsExecuting.ToProperty(this, x => x.IsSearching, scheduler: RxApp.MainThreadScheduler);
             _canSearch = canSearch.ToProperty(this, x => x.CanSearch, scheduler: RxApp.MainThreadScheduler);
             SearchCommand.ThrownExceptions.Subscribe(ex => DisplayException(ex));
+
+            this.WhenAnyValue(p => p.Keyword)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => IsSearchMode = !string.IsNullOrEmpty(x));
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ using Bili.Models.Data.Dynamic;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
+using Bili.Models.Enums;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
@@ -162,9 +163,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             if (Information.User != null)
             {
-                var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
-                userVM.SetProfile(Information.User);
-                _appViewModel.ShowUserDetail(userVM);
+                _navigationViewModel.Navigate(PageIds.UserSpace, Information.User);
             }
         }
 

@@ -178,9 +178,6 @@
     <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Favorite\VideoFavoriteView.xaml.cs">
-      <DependentUpon>VideoFavoriteView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Favorite\PgcFavoritePanel.xaml.cs">
       <DependentUpon>PgcFavoritePanel.xaml</DependentUpon>
     </Compile>
@@ -290,9 +287,6 @@
       <DependentUpon>ThemeSettingSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\User\UserItem\UserItem.cs" />
-    <Compile Include="Controls\User\UserSpaceView.xaml.cs">
-      <DependentUpon>UserSpaceView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\User\AccountAvatar.xaml.cs">
       <DependentUpon>AccountAvatar.xaml</DependentUpon>
     </Compile>
@@ -338,6 +332,8 @@
     <Compile Include="Pages\Base\SearchPageBase.cs" />
     <Compile Include="Pages\Base\SettingsPageBase.cs" />
     <Compile Include="Pages\Base\TvPageBase.cs" />
+    <Compile Include="Pages\Base\UserSpacePageBase.cs" />
+    <Compile Include="Pages\Base\VideoFavoriteDetailPageBase.cs" />
     <Compile Include="Pages\Base\VideoPartitionDetailPageBase.cs" />
     <Compile Include="Pages\Base\VideoPartitionPageBase.cs" />
     <Compile Include="Pages\Base\PopularPageBase.cs" />
@@ -397,6 +393,12 @@
     </Compile>
     <Compile Include="Pages\Desktop\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Desktop\Overlay\UserSpacePage.xaml.cs">
+      <DependentUpon>UserSpacePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Desktop\Overlay\VideoFavoriteDetailPage.xaml.cs">
+      <DependentUpon>VideoFavoriteDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Desktop\Overlay\VideoPlayerPage.xaml.cs">
       <DependentUpon>VideoPlayerPage.xaml</DependentUpon>
@@ -475,6 +477,12 @@
     </Compile>
     <Compile Include="Pages\Xbox\Overlay\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\UserSpacePage.xaml.cs">
+      <DependentUpon>UserSpacePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\VideoFavoriteDetailPage.xaml.cs">
+      <DependentUpon>VideoFavoriteDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml.cs">
       <DependentUpon>VideoPartitionDetailPage.xaml</DependentUpon>
@@ -864,10 +872,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Favorite\VideoFavoriteView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Favorite\PgcFavoritePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1016,10 +1020,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\User\UserSpaceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\User\AccountAvatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1128,6 +1128,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Desktop\Overlay\UserSpacePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Desktop\Overlay\VideoFavoriteDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Desktop\Overlay\VideoPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1229,6 +1237,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\Overlay\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\UserSpacePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\VideoFavoriteDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

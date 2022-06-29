@@ -4,12 +4,11 @@ using System;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using Humanizer;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -25,12 +24,14 @@ namespace Bili.ViewModels.Uwp.Community
              ICommunityProvider communityProvider,
              INumberToolkit numberToolkit,
              IResourceToolkit resourceToolkit,
-             AppViewModel appViewModel)
+             AppViewModel appViewModel,
+             NavigationViewModel navigationViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
+            _navigationViewModel = navigationViewModel;
 
             ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
             ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -107,10 +108,6 @@ namespace Bili.ViewModels.Uwp.Community
         }
 
         private void ShowUserDetail()
-        {
-            var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
-            userVM.SetProfile(Information.Publisher.User);
-            _appViewModel.ShowUserDetail(userVM);
-        }
+            => _navigationViewModel.Navigate(PageIds.UserSpace, Information.Publisher.User);
     }
 }

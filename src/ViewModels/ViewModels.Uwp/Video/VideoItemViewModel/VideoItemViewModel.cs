@@ -46,6 +46,13 @@ namespace Bili.ViewModels.Uwp.Video
             RemoveFromHistoryCommand = ReactiveCommand.CreateFromTask(RemoveFromHistoryAsync, outputScheduler: RxApp.MainThreadScheduler);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
             RemoveFromFavoriteCommand = ReactiveCommand.CreateFromTask(RemoveFromFavoriteAsync, outputScheduler: RxApp.MainThreadScheduler);
+
+            RemoveFromFavoriteCommand.ThrownExceptions.Subscribe(x =>
+            {
+                _appViewModel.ShowTip(
+                    x.Message,
+                    Models.Enums.App.InfoType.Error);
+            });
         }
 
         /// <summary>

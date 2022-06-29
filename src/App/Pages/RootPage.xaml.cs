@@ -24,7 +24,6 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -56,8 +55,6 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
             CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
             CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetail;
-            CoreViewModel.RequestShowUserDetail += OnRequestShowUserDetail;
-            CoreViewModel.RequestShowVideoFavoriteFolderDetail += OnRequestShowVideoFavoriteFolderDetail;
             CoreViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -236,17 +233,11 @@ namespace Bili.App.Pages.Desktop
             await view.ShowAsync(e);
         }
 
-        private void OnRequestShowVideoFavoriteFolderDetail(object sender, VideoFavoriteFolder e)
-            => new Controls.VideoFavoriteView().Show(e);
-
         private void OnRequestShowReplyDetail(object sender, ShowCommentEventArgs e)
         {
             var commentPopup = new CommentPopup();
             commentPopup.Show(e);
         }
-
-        private void OnRequestShowUserDetail(object sender, UserItemViewModel e)
-            => new UserSpaceView().Show(e.User);
 
         private void OnRequestShowPgcSeasonDetail(object sender, EventArgs e)
             => new PgcSeasonDetailView().Show();
@@ -271,6 +262,12 @@ namespace Bili.App.Pages.Desktop
                 PageIds.PgcIndex => typeof(PgcIndexPage),
                 PageIds.TimeLine => typeof(TimelinePage),
                 PageIds.Message => typeof(MessagePage),
+                PageIds.UserSpace => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.UserSpacePage)
+                    : typeof(Desktop.Overlay.UserSpacePage),
+                PageIds.VideoFavoriteDetail => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.VideoFavoriteDetailPage)
+                    : typeof(Desktop.Overlay.VideoFavoriteDetailPage),
                 PageIds.LivePartition => CoreViewModel.IsXbox
                     ? typeof(Xbox.Overlay.LivePartitionPage)
                     : typeof(Desktop.Overlay.LivePartitionPage),

@@ -74,11 +74,19 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
                 videoVM.SetInformation(item);
+                videoVM.SetAdditionalData(Folder.Id);
+                videoVM.SetAdditionalAction(RemoveVideo);
                 Items.Add(videoVM);
             }
 
             IsEmpty = Items.Count == 0;
             _isEnd = Items.Count == Folder.TotalCount;
+        }
+
+        private void RemoveVideo(VideoItemViewModel vm)
+        {
+            Items.Remove(vm);
+            IsEmpty = Items.Count == 0;
         }
     }
 }

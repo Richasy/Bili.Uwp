@@ -57,12 +57,14 @@
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="{ThemeResource OverlayCornerRadius}"
-                            RowSpacing="12">
+                            RowSpacing="12"
+                            TabFocusNavigation="Local"
+                            XYFocusKeyboardNavigation="Enabled">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Grid>
+                            <Grid XYFocusKeyboardNavigation="Enabled">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -77,6 +79,7 @@
                                     AutomationProperties.Name="{loc:Locale Name=Close}"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
+                                    TabIndex="1"
                                     ToolTipService.ToolTip="{loc:Locale Name=Close}">
                                     <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
                                     <Button.KeyboardAccelerators>
@@ -88,7 +91,8 @@
                                 Grid.Row="1"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalContentAlignment="Stretch"
-                                Content="{TemplateBinding Content}" />
+                                Content="{TemplateBinding Content}"
+                                XYFocusKeyboardNavigation="Enabled" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>
