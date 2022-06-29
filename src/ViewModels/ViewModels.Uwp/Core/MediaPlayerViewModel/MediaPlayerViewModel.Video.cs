@@ -171,19 +171,25 @@ namespace Bili.ViewModels.Uwp.Core
             // 剔除 P2P CDN URL
             if (_mediaInformation.AudioSegments != null)
             {
-                var filteredAudios = _mediaInformation.AudioSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
-                foreach (var item in filteredAudios)
+                var filteredAudios = _mediaInformation.AudioSegments.Where(p => !(p.BaseUrl?.Contains("bilivideo.com") ?? false));
+                if (filteredAudios.Any())
                 {
-                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
+                    foreach (var item in filteredAudios)
+                    {
+                        item.BaseUrl = item.BackupUrls?.FirstOrDefault(p => p?.Contains("bilivideo.com") ?? false) ?? item.BaseUrl;
+                    }
                 }
             }
 
             if (_mediaInformation.VideoSegments != null)
             {
-                var filteredAudios = _mediaInformation.VideoSegments.Where(p => !p.BaseUrl.Contains("bilivideo.com"));
-                foreach (var item in filteredAudios)
+                var filteredVideos = _mediaInformation.VideoSegments.Where(p => !(p.BaseUrl?.Contains("bilivideo.com") ?? false));
+                if (filteredVideos.Any())
                 {
-                    item.BaseUrl = item.BackupUrls.FirstOrDefault(p => p.Contains("bilivideo.com")) ?? item.BaseUrl;
+                    foreach (var item in filteredVideos)
+                    {
+                        item.BaseUrl = item.BackupUrls?.FirstOrDefault(p => p?.Contains("bilivideo.com") ?? false) ?? item.BaseUrl;
+                    }
                 }
             }
         }
