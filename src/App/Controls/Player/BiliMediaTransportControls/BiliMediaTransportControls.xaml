@@ -1006,7 +1006,8 @@
                             <Grid
                                 x:Name="NormalProgressContainer"
                                 Grid.Column="1"
-                                Background="{ThemeResource TransparentBackground}">
+                                Background="{ThemeResource TransparentBackground}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                                 <StackPanel
                                     Margin="0,-8,0,0"
                                     VerticalAlignment="Center"
