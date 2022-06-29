@@ -61,12 +61,15 @@
                     </muxc:NavigationViewItem>
                 </DataTemplate>
             </muxc:NavigationView.MenuItemTemplate>
-            <Grid>
+            <Grid RowSpacing="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid x:Name="FilterContainer" Visibility="{x:Bind ViewModel.IsCurrentFilterEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <Grid
+                    x:Name="FilterContainer"
+                    Margin="4"
+                    Visibility="{x:Bind ViewModel.IsCurrentFilterEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <muxc:ItemsRepeater x:Name="FilterRepeater" ItemsSource="{x:Bind ViewModel.CurrentFilters}">
                         <muxc:ItemsRepeater.Layout>
                             <muxc:UniformGridLayout
@@ -93,7 +96,7 @@
                 <Grid
                     x:Name="ContentContainer"
                     Grid.Row="1"
-                    Margin="-40,0">
+                    Margin="-36,0">
                     <controls:SearchVideoView
                         x:Name="VideoView"
                         DataContext="{x:Bind ViewModel}"

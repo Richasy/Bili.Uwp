@@ -7,19 +7,17 @@
     xmlns:local="using:Bili.App.Controls.Article"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <muxc:CommandBarFlyout x:Key="DefaultArticleItemContextFlyout">
-        <muxc:CommandBarFlyout.SecondaryCommands>
-            <AppBarButton
-                x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                Label="{loc:Locale Name=OpenInBroswer}">
-                <AppBarButton.Icon>
-                    <icons:RegularFluentIcon Symbol="Globe16" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </muxc:CommandBarFlyout.SecondaryCommands>
-    </muxc:CommandBarFlyout>
+    <MenuFlyout x:Key="DefaultArticleItemContextFlyout">
+        <MenuFlyoutItem
+            x:Name="OpenInBroswerItem"
+            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+            Text="{loc:Locale Name=OpenInBroswer}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Globe16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+    </MenuFlyout>
 
     <Style x:Key="VerticalArticleItemStyle" TargetType="local:ArticleItem">
         <Setter Property="Template">

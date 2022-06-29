@@ -7,28 +7,18 @@
     xmlns:local="using:Bili.App.Controls.Videos"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <muxc:CommandBarFlyout x:Key="DefaultVideoItemContextFlyout">
-        <muxc:CommandBarFlyout.SecondaryCommands>
-            <AppBarButton
-                x:Name="AddToViewLaterItem"
-                AutomationProperties.Name="{loc:Locale Name=AddToViewLater}"
-                Command="{Binding AddToViewLaterCommand}"
-                Label="{loc:Locale Name=AddToViewLater}">
-                <AppBarButton.Icon>
-                    <icons:RegularFluentIcon Symbol="Add16" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton
-                x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                Command="{Binding OpenInBroswerCommand}"
-                Label="{loc:Locale Name=OpenInBroswer}">
-                <AppBarButton.Icon>
-                    <icons:RegularFluentIcon Symbol="Globe16" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </muxc:CommandBarFlyout.SecondaryCommands>
-    </muxc:CommandBarFlyout>
+    <MenuFlyout x:Key="DefaultVideoItemContextFlyout">
+        <MenuFlyoutItem Command="{Binding AddToViewLaterCommand}" Text="{loc:Locale Name=AddToViewLater}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Add16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+        <MenuFlyoutItem Command="{Binding OpenInBroswerCommand}" Text="{loc:Locale Name=OpenInBroswer}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Globe16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+    </MenuFlyout>
 
     <Style x:Key="VerticalVideoItemStyle" TargetType="local:VideoItem">
         <Setter Property="IsTabStop" Value="False" />

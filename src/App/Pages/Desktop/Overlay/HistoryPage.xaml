@@ -56,7 +56,6 @@
                     IsTabStop="False"
                     ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                     MinWideItemHeight="212"
-                    MinWideItemWidth="200"
                     Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:IncrementalBehavior />

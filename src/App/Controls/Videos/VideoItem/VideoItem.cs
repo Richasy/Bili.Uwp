@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Diagnostics;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Video;
 using Splat;

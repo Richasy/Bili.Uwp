@@ -9,6 +9,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequiresPointer="WhenFocused"
     mc:Ignorable="d">
 
     <base:SettingsPageBase.Resources>

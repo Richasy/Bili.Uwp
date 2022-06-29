@@ -64,19 +64,17 @@
                                     BorderThickness="0">
                                     <icons:RegularFluentIcon Symbol="MoreHorizontal16" />
                                     <Button.Flyout>
-                                        <muxc:CommandBarFlyout Placement="Bottom">
-                                            <muxc:CommandBarFlyout.SecondaryCommands>
-                                                <AppBarButton
-                                                    x:Name="AddViewLaterButton"
-                                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.AddToViewLaterCommand}"
-                                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanAddViewLater}"
-                                                    Label="{loc:Locale Name=AddToViewLater}">
-                                                    <AppBarButton.Icon>
-                                                        <icons:RegularFluentIcon Symbol="Add16" />
-                                                    </AppBarButton.Icon>
-                                                </AppBarButton>
-                                            </muxc:CommandBarFlyout.SecondaryCommands>
-                                        </muxc:CommandBarFlyout>
+                                        <MenuFlyout Placement="Bottom">
+                                            <MenuFlyoutItem
+                                                x:Name="AddViewLaterButton"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.AddToViewLaterCommand}"
+                                                IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanAddViewLater}"
+                                                Text="{loc:Locale Name=AddToViewLater}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <icons:RegularFluentIcon Symbol="Add16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
                                     </Button.Flyout>
                                 </Button>
                             </Grid>

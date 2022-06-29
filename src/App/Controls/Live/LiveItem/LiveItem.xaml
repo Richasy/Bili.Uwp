@@ -18,19 +18,17 @@
                         IsEnableCheck="False">
 
                         <controls:CardPanel.ContextFlyout>
-                            <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                <muxc:CommandBarFlyout.SecondaryCommands>
-                                    <AppBarButton
-                                        x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:Locale Name=OpenInBroswer}">
-                                        <AppBarButton.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </muxc:CommandBarFlyout.SecondaryCommands>
-                            </muxc:CommandBarFlyout>
+                            <MenuFlyout x:Name="LiveFlyout">
+                                <MenuFlyoutItem
+                                    x:Name="OpenInBroswerItem"
+                                    AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                    Text="{loc:Locale Name=OpenInBroswer}">
+                                    <MenuFlyoutItem.Icon>
+                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
                         </controls:CardPanel.ContextFlyout>
 
                         <Grid>
@@ -138,19 +136,17 @@
                         IsEnableHoverAnimation="False">
 
                         <controls:CardPanel.ContextFlyout>
-                            <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                <muxc:CommandBarFlyout.SecondaryCommands>
-                                    <AppBarButton
-                                        x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:Locale Name=OpenInBroswer}">
-                                        <AppBarButton.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </muxc:CommandBarFlyout.SecondaryCommands>
-                            </muxc:CommandBarFlyout>
+                            <MenuFlyout x:Name="LiveFlyout">
+                                <MenuFlyoutItem
+                                    x:Name="OpenInBroswerItem"
+                                    AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                    Text="{loc:Locale Name=OpenInBroswer}">
+                                    <MenuFlyoutItem.Icon>
+                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
                         </controls:CardPanel.ContextFlyout>
 
                         <Grid>
@@ -258,19 +254,17 @@
                         IsEnableHoverAnimation="False">
 
                         <controls:CardPanel.ContextFlyout>
-                            <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                <muxc:CommandBarFlyout.SecondaryCommands>
-                                    <AppBarButton
-                                        x:Name="OpenInBroswerItem"
-                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                        Label="{loc:Locale Name=OpenInBroswer}">
-                                        <AppBarButton.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </muxc:CommandBarFlyout.SecondaryCommands>
-                            </muxc:CommandBarFlyout>
+                            <MenuFlyout x:Name="LiveFlyout">
+                                <MenuFlyoutItem
+                                    x:Name="OpenInBroswerItem"
+                                    AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                    Text="{loc:Locale Name=OpenInBroswer}">
+                                    <MenuFlyoutItem.Icon>
+                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
                         </controls:CardPanel.ContextFlyout>
 
                         <Grid Padding="12" RowSpacing="12">

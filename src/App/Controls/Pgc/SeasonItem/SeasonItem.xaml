@@ -4,22 +4,19 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Controls.Pgc"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.App.Controls.Pgc">
 
-    <muxc:CommandBarFlyout x:Key="DefaultSeasonItemContextFlyout">
-        <muxc:CommandBarFlyout.SecondaryCommands>
-            <AppBarButton
-                x:Name="OpenInBroswerItem"
-                AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                Label="{loc:Locale Name=OpenInBroswer}">
-                <AppBarButton.Icon>
-                    <icons:RegularFluentIcon Symbol="Globe16" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </muxc:CommandBarFlyout.SecondaryCommands>
-    </muxc:CommandBarFlyout>
+    <MenuFlyout x:Key="DefaultSeasonItemContextFlyout">
+        <MenuFlyoutItem
+            x:Name="OpenInBroswerItem"
+            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+            Text="{loc:Locale Name=OpenInBroswer}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Globe16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+    </MenuFlyout>
 
     <Style x:Key="DefaultSeasonItemStyle" TargetType="local:SeasonItem">
         <Setter Property="CoverWidth" Value="120" />

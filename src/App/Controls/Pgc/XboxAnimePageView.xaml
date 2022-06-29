@@ -38,7 +38,7 @@
             Grid.Row="1"
             ItemInvoked="OnRootNavViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
-            OpenPaneLength="120"
+            OpenPaneLength="160"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="community:Partition">
@@ -142,7 +142,7 @@
                         x:Name="VideoView"
                         Grid.Row="2"
                         Margin="0,0,0,12"
-                        HeaderText="{loc:Locale Name=ComprehensiveDynamics}"
+                        HeaderVisibility="Collapsed"
                         IsTabStop="False"
                         ItemsSource="{x:Bind ViewModel.Videos}"
                         Visibility="{x:Bind ViewModel.IsShowVideo, Mode=OneWay}">
@@ -153,6 +153,7 @@
                             <DataTemplate x:DataType="video:VideoItemViewModel">
                                 <videos:VideoItem
                                     Style="{StaticResource XboxVerticalVideoItemStyle}"
+                                    ContextFlyout="{x:Null}"
                                     IsCustom="True"
                                     ViewModel="{x:Bind}" />
                             </DataTemplate>

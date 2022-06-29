@@ -12,10 +12,12 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Base;
+using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Live;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -155,7 +157,11 @@ namespace Bili.ViewModels.Uwp.Search
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Live, _resourceToolkit.GetLocaleString(LanguageNames.Live)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.User, _resourceToolkit.GetLocaleString(LanguageNames.User)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Movie, _resourceToolkit.GetLocaleString(LanguageNames.Movie)));
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
+
+            if (!Locator.Current.GetService<AppViewModel>().IsXbox)
+            {
+                Items.Add(new SearchModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
+            }
         }
 
         private void ClearCurrentModule()
