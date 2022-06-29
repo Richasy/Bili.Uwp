@@ -1,0 +1,91 @@
+﻿<base:LivePartitionPageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.LivePartitionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:communityControl="using:Bili.App.Controls.Community"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <app:PageHeader Title="{loc:Locale Name=TotalTags}" IsTabStop="False" />
+        <muxc:NavigationView
+            Style="{StaticResource XboxSideNavigationViewStyle}"
+            Grid.Row="1"
+            ItemInvoked="OnParentItemInvoked"
+            MenuItemsSource="{x:Bind ViewModel.ParentPartitions}"
+            SelectedItem="{x:Bind ViewModel.CurrentParentPartition, Mode=OneWay}">
+            <muxc:NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="community:Partition">
+                    <muxc:NavigationViewItem Content="{x:Bind}">
+                        <muxc:NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="community:Partition">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Name}" />
+                            </DataTemplate>
+                        </muxc:NavigationViewItem.ContentTemplate>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </muxc:NavigationView.MenuItemTemplate>
+
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                HorizontalScrollMode="Disabled"
+                IsTabStop="False"
+                VerticalScrollBarVisibility="Auto"
+                Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <muxc:ItemsRepeater Margin="0,4,0,20" ItemsSource="{x:Bind ViewModel.DisplayPartitions}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="12"
+                            MinItemHeight="180"
+                            MinItemWidth="180"
+                            MinRowSpacing="12" />
+                    </muxc:ItemsRepeater.Layout>
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="community:Partition">
+                            <communityControl:PartitionItem
+                                Style="{StaticResource XboxPartitionItemStyle}"
+                                Type="Live"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                </muxc:ItemsRepeater>
+            </ScrollViewer>
+        </muxc:NavigationView>
+
+        <muxc:ProgressRing
+            Style="{StaticResource PageProgressRingStyle}"
+            Grid.Row="1"
+            IsActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+    </Grid>
+</base:LivePartitionPageBase>

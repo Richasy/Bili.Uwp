@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Video
                 return;
             }
 
-            FavoriteFolders.Clear();
+            TryClear(FavoriteFolders);
             var data = await _favoriteProvider.GetCurrentPlayerFavoriteListAsync(_authorizeProvider.CurrentUserId, View.Information.Identifier.Id);
             var selectIds = data.Item2;
             foreach (var item in data.Item1.Items)

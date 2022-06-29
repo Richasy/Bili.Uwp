@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
-using Bili.ViewModels.Uwp.Pgc;
-using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
@@ -100,12 +99,5 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             FavoriteFlyout.ShowAt(FavoriteButton);
         }
-    }
-
-    /// <summary>
-    /// <see cref="PgcPlayerPage"/> 的基类.
-    /// </summary>
-    public class PgcPlayerPageBase : AppPage<PgcPlayerPageViewModel>
-    {
     }
 }

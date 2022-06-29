@@ -37,7 +37,7 @@ namespace Bili.ViewModels.Uwp.Video
         public void SetGroup(VideoFavoriteFolderGroup group)
         {
             Group = group;
-            Items.Clear();
+            TryClear(Items);
             HandleFavoriteFolderList(group.FavoriteSet);
         }
 

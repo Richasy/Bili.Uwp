@@ -37,12 +37,23 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Behaviors\IncrementalBehavior.cs" />
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\ReloadBehavior.cs" />
     <Compile Include="Controls\App\CommonImageEx\CommonImageEx.cs" />
     <Compile Include="Controls\App\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\App\XboxNavigationView.xaml.cs">
+      <DependentUpon>XboxNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Base\NavigationViewBase.cs" />
+    <Compile Include="Controls\Pgc\XboxAnimePageView.xaml.cs">
+      <DependentUpon>XboxAnimePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Pgc\XboxPgcPageView.xaml.cs">
+      <DependentUpon>XboxPgcPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.cs" />
     <Compile Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.Fields.cs" />
@@ -107,12 +118,12 @@
     <Compile Include="Controls\IIncrementalControl.cs" />
     <Compile Include="Controls\IOrientationControl.cs" />
     <Compile Include="Controls\Live\LiveItem\LiveItem.cs" />
-    <Compile Include="Controls\Pgc\AnimePageView.xaml.cs">
-      <DependentUpon>AnimePageView.xaml</DependentUpon>
+    <Compile Include="Controls\Pgc\DesktopAnimePageView.xaml.cs">
+      <DependentUpon>DesktopAnimePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Pgc\EpisodeItem\EpisodeItem.cs" />
-    <Compile Include="Controls\Pgc\PgcPageView.xaml.cs">
-      <DependentUpon>PgcPageView.xaml</DependentUpon>
+    <Compile Include="Controls\Pgc\DesktopPgcPageView.xaml.cs">
+      <DependentUpon>DesktopPgcPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Pgc\SeasonItem\SeasonItem.cs" />
     <Compile Include="Controls\ReactiveControl.cs" />
@@ -313,6 +324,26 @@
     <Compile Include="Controls\Videos\VideoItem\VideoItem.cs" />
     <Compile Include="Controls\VisualExtensions.cs" />
     <Compile Include="Pages\AppPage.cs" />
+    <Compile Include="Pages\Base\BangumiPageBase.cs" />
+    <Compile Include="Pages\Base\DocumentaryPageBase.cs" />
+    <Compile Include="Pages\Base\DomesticPageBase.cs" />
+    <Compile Include="Pages\Base\DynamicPageBase.cs" />
+    <Compile Include="Pages\Base\FavoritePageBase.cs" />
+    <Compile Include="Pages\Base\LiveFeedPageBase.cs" />
+    <Compile Include="Pages\Base\LivePartitionDetailPageBase.cs" />
+    <Compile Include="Pages\Base\LivePartitionPageBase.cs" />
+    <Compile Include="Pages\Base\LivePlayerPageBase.cs" />
+    <Compile Include="Pages\Base\MoviePageBase.cs" />
+    <Compile Include="Pages\Base\PgcPlayerPageBase.cs" />
+    <Compile Include="Pages\Base\SearchPageBase.cs" />
+    <Compile Include="Pages\Base\SettingsPageBase.cs" />
+    <Compile Include="Pages\Base\TvPageBase.cs" />
+    <Compile Include="Pages\Base\VideoPartitionDetailPageBase.cs" />
+    <Compile Include="Pages\Base\VideoPartitionPageBase.cs" />
+    <Compile Include="Pages\Base\PopularPageBase.cs" />
+    <Compile Include="Pages\Base\RankPageBase.cs" />
+    <Compile Include="Pages\Base\RecommendPageBase.cs" />
+    <Compile Include="Pages\Base\VideoPlayerPageBase.cs" />
     <Compile Include="Pages\Desktop\Overlay\LivePartitionPage.xaml.cs">
       <DependentUpon>LivePartitionPage.xaml</DependentUpon>
     </Compile>
@@ -409,6 +440,72 @@
     <Compile Include="Pages\Desktop\TvPage.xaml.cs">
       <DependentUpon>TvPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Xbox\BangumiPage.xaml.cs">
+      <DependentUpon>BangumiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\DocumentaryPage.xaml.cs">
+      <DependentUpon>DocumentaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\DomesticPage.xaml.cs">
+      <DependentUpon>DomesticPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\DynamicPage.xaml.cs">
+      <DependentUpon>DynamicPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\LiveFeedPage.xaml.cs">
+      <DependentUpon>LiveFeedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\MoviePage.xaml.cs">
+      <DependentUpon>MoviePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\FavoritePage.xaml.cs">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\LivePartitionDetailPage.xaml.cs">
+      <DependentUpon>LivePartitionDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\LivePartitionPage.xaml.cs">
+      <DependentUpon>LivePartitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\LivePlayerPage.xaml.cs">
+      <DependentUpon>LivePlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\PgcPlayerPage.xaml.cs">
+      <DependentUpon>PgcPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml.cs">
+      <DependentUpon>VideoPartitionDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml.cs">
+      <DependentUpon>VideoPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\PreSearchPage.xaml.cs">
+      <DependentUpon>PreSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\TvPage.xaml.cs">
+      <DependentUpon>TvPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\VideoPartitionPage.xaml.cs">
+      <DependentUpon>VideoPartitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\PopularPage.xaml.cs">
+      <DependentUpon>PopularPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RankPage.xaml.cs">
+      <DependentUpon>RankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RecommendPage.xaml.cs">
+      <DependentUpon>RecommendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\XboxAccountPage.xaml.cs">
+      <DependentUpon>XboxAccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\ColorConverter.cs" />
@@ -462,6 +559,7 @@
     <Content Include="Assets\Level\level_4.png" />
     <Content Include="Assets\Level\level_5.png" />
     <Content Include="Assets\Level\level_6.png" />
+    <Content Include="Assets\logo.svg" />
     <Content Include="Assets\Logo\LargeTile.scale-100.png" />
     <Content Include="Assets\Logo\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\LargeTile.scale-150.png" />
@@ -566,6 +664,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\App\XboxNavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Pgc\XboxAnimePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Pgc\XboxPgcPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Player\BiliMediaPlayer\BiliMediaPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -666,7 +776,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\AnimePageView.xaml">
+    <Page Include="Controls\Pgc\DesktopAnimePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -674,7 +784,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pgc\PgcPageView.xaml">
+    <Page Include="Controls\Pgc\DesktopPgcPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1071,6 +1181,94 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Desktop\TvPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\BangumiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\DocumentaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\DomesticPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\DynamicPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\LiveFeedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\MoviePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\FavoritePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\LivePartitionDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\LivePartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\LivePlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\PgcPlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\PreSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\TvPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\VideoPartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\PopularPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\RankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\RecommendPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Xbox\XboxAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -128,7 +128,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <param name="playIndex">需要播放的视频索引.</param>
         public void SetPlaylist(IEnumerable<VideoInformation> videos, int playIndex = 0)
         {
-            VideoPlaylist.Clear();
+            TryClear(VideoPlaylist);
             foreach (var item in videos)
             {
                 VideoPlaylist.Add(GetItemViewModel(item));

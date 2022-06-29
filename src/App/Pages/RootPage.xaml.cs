@@ -4,7 +4,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.App.Controls;
+using Bili.App.Controls.App;
 using Bili.App.Controls.Article;
+using Bili.App.Controls.Base;
 using Bili.App.Controls.Community;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
@@ -18,9 +20,12 @@ using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.ApplicationModel.Activation;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -56,6 +61,17 @@ namespace Bili.App.Pages.Desktop
             CoreViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
             SizeChanged += OnSizeChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            NavigationViewBase navView = CoreViewModel.IsXbox
+                ? new XboxNavigationView()
+                : new DesktopNavigationView();
+            navView.FirstLoaded += OnRootNavViewFirstLoadAsync;
+            NavViewPresenter.Content = navView;
+
+            if (CoreViewModel.IsXbox)
+            {
+                Resources.Add("NavigationViewContentGridBorderBrush", new SolidColorBrush(Colors.Transparent));
+            }
         }
 
         /// <summary>
@@ -83,6 +99,11 @@ namespace Bili.App.Pages.Desktop
                     RemoveFromHolder((UIElement)ele);
                 },
                 element);
+
+            if (element is Control e)
+            {
+                e.Focus(FocusState.Programmatic);
+            }
         }
 
         /// <summary>
@@ -234,18 +255,28 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.VideoPartitionDetail => typeof(VideoPartitionDetailPage),
-                PageIds.Search => typeof(SearchPage),
+                PageIds.VideoPartitionDetail => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.VideoPartitionDetailPage)
+                    : typeof(Desktop.Overlay.VideoPartitionDetailPage),
+                PageIds.Search => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.SearchPage)
+                    : typeof(Desktop.Overlay.SearchPage),
                 PageIds.ViewHistory => typeof(HistoryPage),
-                PageIds.Favorite => typeof(FavoritePage),
+                PageIds.Favorite => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.FavoritePage)
+                    : typeof(Desktop.Overlay.FavoritePage),
                 PageIds.ViewLater => typeof(ViewLaterPage),
                 PageIds.Fans => typeof(FansPage),
                 PageIds.Follows => typeof(FollowsPage),
                 PageIds.PgcIndex => typeof(PgcIndexPage),
                 PageIds.TimeLine => typeof(TimelinePage),
                 PageIds.Message => typeof(MessagePage),
-                PageIds.LivePartition => typeof(LivePartitionPage),
-                PageIds.LivePartitionDetail => typeof(LivePartitionDetailPage),
+                PageIds.LivePartition => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePartitionPage)
+                    : typeof(Desktop.Overlay.LivePartitionPage),
+                PageIds.LivePartitionDetail => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePartitionDetailPage)
+                    : typeof(Desktop.Overlay.LivePartitionDetailPage),
                 PageIds.MyFollows => typeof(MyFollowsPage),
                 _ => typeof(Page)
             };
@@ -257,9 +288,15 @@ namespace Bili.App.Pages.Desktop
         {
             var pageType = pageId switch
             {
-                PageIds.VideoPlayer => typeof(VideoPlayerPage),
-                PageIds.PgcPlayer => typeof(PgcPlayerPage),
-                PageIds.LivePlayer => typeof(LivePlayerPage),
+                PageIds.VideoPlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.VideoPlayerPage)
+                    : typeof(Desktop.Overlay.VideoPlayerPage),
+                PageIds.PgcPlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.PgcPlayerPage)
+                    : typeof(Desktop.Overlay.PgcPlayerPage),
+                PageIds.LivePlayer => CoreViewModel.IsXbox
+                    ? typeof(Xbox.Overlay.LivePlayerPage)
+                    : typeof(Desktop.Overlay.LivePlayerPage),
                 _ => typeof(Page)
             };
 

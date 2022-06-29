@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp;
-using Bili.ViewModels.Uwp.Home;
+using Bili.App.Pages.Base;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -15,12 +14,5 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         public PopularPage()
             : base() => InitializeComponent();
-    }
-
-    /// <summary>
-    /// <see cref="PopularPage"/> 的基类.
-    /// </summary>
-    public class PopularPageBase : AppPage<PopularPageViewModel>
-    {
     }
 }

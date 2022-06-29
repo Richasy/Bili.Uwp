@@ -51,6 +51,8 @@ namespace Bili.ViewModels.Uwp.Account
             AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
             RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
 
+            _isSigning = TrySignInCommand.IsExecuting.ToProperty(this, x => x.IsSigning, scheduler: RxApp.MainThreadScheduler);
+
             FixedItemCollection = new ObservableCollection<FixedItem>();
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             State = _authorizeProvider.State;
@@ -193,7 +195,7 @@ namespace Bili.ViewModels.Uwp.Account
                 return;
             }
 
-            Avatar = AccountInformation.User.Avatar.Uri;
+            Avatar = AccountInformation.User.Avatar.GetSourceUri().ToString();
             DisplayName = AccountInformation.User.Name;
             Level = AccountInformation.Level;
             TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
@@ -225,7 +227,7 @@ namespace Bili.ViewModels.Uwp.Account
                     string.Format(AppConstants.FixedContentFileName, Mid),
                     "[]",
                     AppConstants.FixedFolderName);
-                FixedItemCollection.Clear();
+                TryClear(FixedItemCollection);
                 if (data.Count > 0)
                 {
                     data.ForEach(p => FixedItemCollection.Add(p));

@@ -78,7 +78,7 @@ namespace Bili.Adapter
             if (userModule != null)
             {
                 var author = userModule.Author;
-                user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, Models.Enums.App.AvatarSize.Size32);
+                user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, Models.Enums.App.AvatarSize.Size64);
                 tip = userModule.PtimeLabelText;
             }
             else

@@ -173,9 +173,13 @@ namespace Bili.ViewModels.Uwp.Home
                 PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
                 {
                     PlayerDisplayMode.Default,
-                    PlayerDisplayMode.FullWindow,
                     PlayerDisplayMode.FullScreen,
                 };
+
+                if (!_appViewModel.IsXbox)
+                {
+                    PlayerDisplayModeCollection.Insert(1, PlayerDisplayMode.FullWindow);
+                }
             }
 
             DefaultPlayerDisplayMode = ReadSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);

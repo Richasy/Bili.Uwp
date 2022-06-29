@@ -1,0 +1,81 @@
+﻿<base:DynamicPageBase
+    x:Class="Bili.App.Pages.Xbox.DynamicPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.ViewModels.Uwp.Community"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dynamic="using:Bili.App.Controls.Dynamic"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <app:PageHeader Title="{loc:Locale Name=DynamicFeed}" IsShowLogo="True" />
+
+        <Grid
+            x:Name="VideoModule"
+            Grid.Row="1"
+            DataContext="{x:Bind ViewModel.VideoModule, Mode=OneWay}">
+
+            <ScrollViewer
+                x:Name="VideoContentScrollViewer"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                BringIntoViewOnFocusChange="True"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                Visibility="{x:Bind ViewModel.VideoModule.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <controls:VerticalRepeaterView
+                    x:Name="VideoRepeaterView"
+                    Margin="0,0,0,24"
+                    DataContext="{x:Bind ViewModel.VideoModule, Mode=OneWay}"
+                    HeaderVisibility="Collapsed"
+                    IsTabStop="False"
+                    ItemsSource="{x:Bind ViewModel.VideoModule.Items, Mode=OneWay}"
+                    MinWideItemHeight="320"
+                    MinWideItemWidth="300">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="community:DynamicItemViewModel">
+                            <dynamic:DynamicItem Style="{StaticResource XboxVideoDynamicItemStyle}" ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </ScrollViewer>
+
+            <controls:ErrorPanel Text="{x:Bind ViewModel.VideoModule.ErrorText, Mode=OneWay}" Visibility="{x:Bind ViewModel.VideoModule.IsError, Mode=OneWay}" />
+            <controls:ErrorPanel Text="{loc:Locale Name=NoSpecificData}" Visibility="{x:Bind ViewModel.VideoModule.IsEmpty, Mode=OneWay}" />
+            <controls:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.VideoModule.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.VideoModule.IsReloading, Mode=OneWay}" />
+        </Grid>
+
+        <StackPanel
+            x:Name="LoginContainer"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            x:Load="{x:Bind ViewModel.NeedSignIn, Mode=OneWay}"
+            Spacing="16"
+            Visibility="{x:Bind ViewModel.NeedSignIn, Mode=OneWay}">
+            <TextBlock
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                LineHeight="40"
+                Text="{loc:Locale Name=DynamicNeedLoginFirst}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</base:DynamicPageBase>

@@ -1,0 +1,267 @@
+﻿<base:PgcPlayerPageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.PgcPlayerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:player="using:Bili.App.Controls.Player"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    RequiresPointer="WhenFocused"
+    mc:Ignorable="d">
+
+    <base:PgcPlayerPageBase.Resources>
+        <Style TargetType="controls:IconTextBlock">
+            <Setter Property="IconFontSize" Value="20" />
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Style>
+
+        <Flyout x:Name="CoinFlyout">
+            <Grid RowSpacing="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{loc:Locale Name=ChooseCoinNumber}" />
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="1"
+                        FontWeight="Bold"
+                        Tag="1" />
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnGiveCoinButtonClickAsync"
+                        Content="2"
+                        FontWeight="Bold"
+                        Tag="2" />
+                </StackPanel>
+                <CheckBox
+                    x:Name="AlsoLikeCheckBox"
+                    Grid.Row="2"
+                    MinWidth="0"
+                    Content="{loc:Locale Name=AlsoLike}"
+                    IsChecked="{x:Bind ViewModel.IsCoinWithLiked, Mode=TwoWay}" />
+            </Grid>
+        </Flyout>
+
+        <Flyout x:Name="FavoriteFlyout">
+            <Grid>
+                <Grid Visibility="{x:Bind ViewModel.IsFavoriteFoldersError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.IsFavoriteFolderRequesting, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{loc:Locale Name=ChooseFavorite}" />
+                        <ScrollViewer
+                            MaxHeight="320"
+                            HorizontalScrollMode="Disabled"
+                            VerticalScrollBarVisibility="Hidden">
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FavoriteFolders}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Spacing="4" />
+                                </muxc:ItemsRepeater.Layout>
+                                <muxc:ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="video:VideoFavoriteFolderSelectableViewModel">
+                                        <controls:CardPanel
+                                            IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                            IsEnableCheck="True"
+                                            IsEnableHoverAnimation="False">
+                                            <Grid
+                                                Width="240"
+                                                Height="40"
+                                                Padding="12,8">
+                                                <TextBlock
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Text="{x:Bind Data.Title}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </Grid>
+                                        </controls:CardPanel>
+                                    </DataTemplate>
+                                </muxc:ItemsRepeater.ItemTemplate>
+                            </muxc:ItemsRepeater>
+                        </ScrollViewer>
+                        <Button
+                            x:Name="RequestFavoriteButton"
+                            Style="{StaticResource AccentButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Command="{x:Bind ViewModel.FavoriteEpisodeCommand}"
+                            Content="{loc:Locale Name=Confirm}" />
+                    </StackPanel>
+                    <muxc:ProgressRing
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsActive="{x:Bind ViewModel.IsFavoriteFolderRequesting, Mode=OneWay}" />
+                </Grid>
+                <controls:ErrorPanel
+                    ActionButtonClick="OnRefreshFavoriteButtonClickAsync"
+                    ActionContent="{loc:Locale Name=Refresh}"
+                    Text="{loc:Locale Name=RequestFavoriteError}"
+                    Visibility="{x:Bind ViewModel.IsFavoriteFoldersError}" />
+            </Grid>
+        </Flyout>
+    </base:PgcPlayerPageBase.Resources>
+
+    <Grid>
+        <player:PlayerPagePanel
+            Style="{StaticResource XboxPlayerPagePanelStyle}"
+            IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
+            SectionHeaderItemInvoked="OnSectionHeaderItemInvoked"
+            SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
+            SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
+            ViewModel="{x:Bind ViewModel}"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <player:BiliMediaPlayer Style="{StaticResource XboxVideoPlayerStyle}" ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
+            <player:PlayerPagePanel.Descriptor>
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:CommonImageEx
+                        x:Name="PgcImage"
+                        Width="60"
+                        Height="80"
+                        CornerRadius="{StaticResource ControlCornerRadius}"
+                        ImageUrl="{x:Bind ViewModel.View.Information.Identifier.Cover.Uri, Mode=OneWay}" />
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Spacing="8">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.View.Information.OriginName, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <TextBlock
+                            x:Name="TitleBlock"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            HorizontalAlignment="Left"
+                            IsTextSelectionEnabled="True"
+                            MaxLines="2"
+                            Text="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}"
+                            TextWrapping="Wrap">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
+                        <StackPanel Margin="0,4,0,8" Orientation="Horizontal">
+                            <controls:IconTextBlock
+                                Margin="0,0,12,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="EyeShow16"
+                                Text="{x:Bind ViewModel.PlayCountText, Mode=OneWay}"
+                                ToolTipService.ToolTip="{loc:Locale Name=View}"
+                                Visibility="{x:Bind ViewModel.PlayCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                            <controls:IconTextBlock
+                                Margin="0,0,12,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="SlideText16"
+                                Text="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Danmaku}"
+                                Visibility="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                            <controls:IconTextBlock
+                                Margin="0,0,12,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="Chat16"
+                                Text="{x:Bind ViewModel.CommentCountText, Mode=OneWay}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Reply}"
+                                Visibility="{x:Bind ViewModel.CommentCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </player:PlayerPagePanel.Descriptor>
+            <player:PlayerPagePanel.Dashboard>
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <controls:ProgressButton
+                        x:Name="LikeButton"
+                        Click="OnLikeButtonClick"
+                        Description="{x:Bind ViewModel.LikeCountText, Mode=OneWay}"
+                        HoldingCompleted="OnLikeButtonHoldingCompleted"
+                        HoldingSuspend="OnLikeButtonHoldingSuspend"
+                        IsChecked="{x:Bind ViewModel.IsLiked, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        ToolTipService.ToolTip="{loc:Locale Name=Like}">
+                        <icons:RegularFluentIcon Symbol="ThumbLike16" />
+                    </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="CoinButton"
+                        Click="OnCoinButtonClick"
+                        Description="{x:Bind ViewModel.CoinCountText, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IsCoined, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{loc:Locale Name=Coin}">
+                        <icons:RegularFluentIcon Symbol="Blur16" />
+                    </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="FavoriteButton"
+                        Click="OnFavoriteButtonClickAsync"
+                        Description="{x:Bind ViewModel.FavoriteCountText, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IsFavorited, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
+                        <icons:RegularFluentIcon Symbol="Star16" />
+                    </controls:ProgressButton>
+                    <controls:ProgressButton
+                        x:Name="TrackButton"
+                        Command="{x:Bind ViewModel.TrackSeasonCommand}"
+                        Description="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}"
+                        IsChecked="{x:Bind ViewModel.IsTracking, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
+                        IsHoldingEnabled="False"
+                        ToolTipService.ToolTip="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}">
+                        <icons:RegularFluentIcon Symbol="RibbonStar20" />
+                    </controls:ProgressButton>
+                </StackPanel>
+            </player:PlayerPagePanel.Dashboard>
+            <player:PlayerPagePanel.SectionContent>
+                <Grid>
+                    <player:PgcEpisodeView x:Name="EpisodeView" Visibility="{x:Bind ViewModel.IsShowEpisodes, Mode=OneWay}" />
+                    <player:PgcSeasonView x:Name="SeasonView" Visibility="{x:Bind ViewModel.IsShowSeasons, Mode=OneWay}" />
+                    <player:PgcExtraView x:Name="ExtraView" Visibility="{x:Bind ViewModel.IsShowExtras, Mode=OneWay}" />
+                    <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
+                    <controls:ErrorPanel Text="{loc:Locale Name=NoEpisode}" Visibility="{x:Bind ViewModel.IsSectionsEmpty, Mode=OneWay}" />
+                </Grid>
+            </player:PlayerPagePanel.SectionContent>
+        </player:PlayerPagePanel>
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+    </Grid>
+</base:PgcPlayerPageBase>

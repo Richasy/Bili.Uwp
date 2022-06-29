@@ -16,10 +16,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:DesktopNavigationView
-            x:Name="RootNavView"
+        <ContentPresenter
+            x:Name="NavViewPresenter"
             Grid.Row="1"
-            FirstLoaded="OnRootNavViewFirstLoadAsync"
             Visibility="{x:Bind ViewModel.IsMainViewShown, Mode=OneWay}" />
 
         <Frame
@@ -44,6 +43,8 @@
             Grid.Row="1"
             Visibility="Collapsed" />
 
-        <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
+        <Grid Visibility="{x:Bind CoreViewModel.IsXbox, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
+        </Grid>
     </Grid>
 </local:RootPageBase>

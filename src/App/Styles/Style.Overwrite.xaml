@@ -73,6 +73,15 @@
     </Style>
 
     <Style
+        x:Key="XboxSideNavigationViewStyle"
+        BasedOn="{StaticResource TopNavigationViewStyle}"
+        TargetType="muxc:NavigationView">
+        <Setter Property="PaneDisplayMode" Value="Left" />
+        <Setter Property="OpenPaneLength" Value="200" />
+        <Setter Property="Margin" Value="24,0,0,0" />
+    </Style>
+
+    <Style
         x:Key="RightAlignedCompactToggleSwitchStyle"
         BasedOn="{StaticResource DefaultToggleSwitchStyle}"
         TargetType="ToggleSwitch">

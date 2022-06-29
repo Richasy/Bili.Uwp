@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    IsTabStop="False"
     mc:Ignorable="d">
 
     <Grid
@@ -40,5 +41,12 @@
             Visibility="{x:Bind RefreshCommand, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
             <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
         </Button>
+
+        <Image
+            Grid.Column="1"
+            Width="68"
+            VerticalAlignment="Center"
+            Source="ms-appx:///Assets/logo.svg"
+            Visibility="{x:Bind IsShowLogo, Mode=OneWay}" />
     </Grid>
 </UserControl>

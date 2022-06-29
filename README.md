@@ -16,15 +16,17 @@
 
 ---
 
-`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 系统。主打设计和易用性，广受用户好评。
+`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 桌面系统以及版本号在 22000 以上的 XBOX。主打设计和易用性，广受用户好评。
 
 ## 🙌 简单的开始
 
 > **商店版本** 和 **侧加载版本** 可以共存
 
-### 从商店安装
+### 从商店安装 (推荐)
 
 将链接 `ms-windows-store://pdp/?productid=9mvn4nslt150` 复制到浏览器地址栏打开，从 Microsoft Store 下载。
+
+**对于 XBOX 用户，请先在桌面设备中登录你的微软账户，并通过上面的方式进入哔哩的商店页面并获取应用，然后你就可以在 XBOX 中登录相同的账户，并在 "我的应用" 中找到哔哩了**。
 
 商店版本仅支持 Windows 11 及以上的系统，更新频率为每月一次（如果当月有更新的话），时间是月底。
 
@@ -62,4 +64,8 @@
 
 ## 🧩 截图
 
-![截图](./assets/screenshot.png)
+*桌面*
+![桌面截图](./assets/screenshot_desktop.png)
+
+*XBOX*
+![XBOX截图](./assets/screenshot_xbox.png)

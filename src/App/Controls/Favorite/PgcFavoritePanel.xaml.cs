@@ -44,10 +44,10 @@ namespace Bili.App.Controls.Favorite
 
         private void OnItemFlyoutOpened(object sender, object e)
         {
-            var items = (sender as Microsoft.UI.Xaml.Controls.CommandBarFlyout).SecondaryCommands.OfType<AppBarButton>().Take(3);
+            var items = (sender as MenuFlyout).Items.OfType<MenuFlyoutItem>().Take(3);
             foreach (var item in items)
             {
-                if (item is AppBarButton btn)
+                if (item is MenuFlyoutItem btn)
                 {
                     var status = int.Parse(btn.Tag.ToString());
                     item.IsEnabled = status != ViewModel.Status;
@@ -57,9 +57,9 @@ namespace Bili.App.Controls.Favorite
 
         private void OnMarkStatusButtonClick(object sender, RoutedEventArgs e)
         {
-            var btn = sender as AppBarButton;
-            var context = btn.DataContext as SeasonItemViewModel;
-            var status = int.Parse(btn.Tag.ToString());
+            var item = sender as MenuFlyoutItem;
+            var context = item.DataContext as SeasonItemViewModel;
+            var status = int.Parse(item.Tag.ToString());
             context.ChangeFavoriteStatusCommand.Execute(status).Subscribe();
         }
 

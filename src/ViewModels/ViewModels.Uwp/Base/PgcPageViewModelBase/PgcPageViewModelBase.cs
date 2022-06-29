@@ -56,8 +56,8 @@ namespace Bili.ViewModels.Uwp.Base
         /// <inheritdoc/>
         protected override void BeforeReload()
         {
-            Items.Clear();
-            Banners.Clear();
+            TryClear(Items);
+            TryClear(Banners);
             IsShowBanner = false;
             _pgcProvider.ResetPageStatus(_type);
         }

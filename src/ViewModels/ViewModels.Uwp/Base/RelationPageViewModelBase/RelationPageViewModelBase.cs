@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Base
         public void SetProfile(UserProfile profile)
         {
             Profile = profile;
-            Items.Clear();
+            TryClear(Items);
             BeforeReload();
         }
 

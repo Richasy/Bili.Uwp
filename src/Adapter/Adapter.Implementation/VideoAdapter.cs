@@ -133,16 +133,18 @@ namespace Bili.Adapter
             var id = video.VideoId.ToString();
             var bvid = video.BvId;
             var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(video.Description);
-            var publishTime = DateTimeOffset.FromUnixTimeSeconds(video.PublishDateTime).ToLocalTime();
+            var publishTime = DateTimeOffset.FromUnixTimeSeconds(video.PublishDateTime);
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
             var publisher = _userAdapter.ConvertToRoleProfile(video.Publisher, Models.Enums.App.AvatarSize.Size48);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(video.StatusInfo);
             var identifier = new VideoIdentifier(id, title, duration, cover);
+            var subtitle = $"{publisher.User.Name} · {_textToolkit.ConvertToTraditionalChineseIfNeeded(publishTime.Humanize())}";
             return new VideoInformation(
                 identifier,
                 publisher,
                 bvid,
                 description: description,
+                subtitle: subtitle,
                 publishTime: publishTime.DateTime,
                 communityInformation: communityInfo);
         }

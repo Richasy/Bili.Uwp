@@ -31,6 +31,12 @@ namespace Bili.App.Controls.App
         public static readonly DependencyProperty RefreshCommandProperty =
             DependencyProperty.Register(nameof(RefreshCommand), typeof(ICommand), typeof(PageHeader), new PropertyMetadata(default));
 
+        /// <summary>
+        /// <see cref="IsShowLogo"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowLogoProperty =
+            DependencyProperty.Register(nameof(IsShowLogo), typeof(bool), typeof(PageHeader), new PropertyMetadata(default));
+
         private readonly AppViewModel _appViewModel;
 
         /// <summary>
@@ -67,6 +73,15 @@ namespace Bili.App.Controls.App
         {
             get { return (ICommand)GetValue(RefreshCommandProperty); }
             set { SetValue(RefreshCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示应用图标.
+        /// </summary>
+        public bool IsShowLogo
+        {
+            get { return (bool)GetValue(IsShowLogoProperty); }
+            set { SetValue(IsShowLogoProperty, value); }
         }
     }
 }

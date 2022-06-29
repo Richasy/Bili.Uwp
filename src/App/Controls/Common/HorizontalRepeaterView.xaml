@@ -8,10 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    IsTabStop="False"
     SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid XYFocusKeyboardNavigation="Enabled">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -48,6 +49,7 @@
                 x:Name="WideScrollViewer"
                 HorizontalScrollBarVisibility="Hidden"
                 HorizontalScrollMode="Enabled"
+                IsTabStop="False"
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled"
                 ViewChanged="OnWideScrollViewerChanged">
@@ -55,8 +57,7 @@
                     x:Name="BannerRepeater"
                     Margin="0,4"
                     ItemTemplate="{x:Bind WideItemTemplate, Mode=OneWay}"
-                    ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
-                    TabFocusNavigation="Local">
+                    ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
                     <controls:ItemsRepeater.Layout>
                         <controls:StackLayout Orientation="Horizontal" Spacing="12" />
                     </controls:ItemsRepeater.Layout>

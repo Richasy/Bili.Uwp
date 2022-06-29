@@ -61,7 +61,7 @@
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 
-                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExItemSeparator Visibility="{x:Bind CoreViewModel.IsXbox, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>

@@ -28,10 +28,11 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="FocusVisualMargin" Value="-3" />
+        <Setter Property="FocusVisualPrimaryThickness" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CardPanel">
-                    <Grid x:Name="RootContainer">
+                    <Grid x:Name="RootContainer" TabFocusNavigation="Once">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />

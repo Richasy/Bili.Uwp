@@ -2,14 +2,17 @@
 
 using Bili.ViewModels.Uwp.Community;
 using Windows.Foundation;
+using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls.Dynamic
 {
     /// <summary>
     /// 动态条目.
     /// </summary>
-    public sealed class DynamicItem : ReactiveControl<DynamicItemViewModel>, IRepeaterItem
+    public sealed class DynamicItem : ReactiveControl<DynamicItemViewModel>, IRepeaterItem, IOrientationControl
     {
+        private DynamicPresenter _presenter;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicItem"/> class.
         /// </summary>
@@ -17,5 +20,18 @@ namespace Bili.App.Controls.Dynamic
 
         /// <inheritdoc/>
         public Size GetHolderSize() => new Size(300, 200);
+
+        /// <inheritdoc/>
+        public void ChangeLayout(Orientation orientation)
+        {
+            if (_presenter != null)
+            {
+                _presenter.ChangeLayout(orientation);
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnApplyTemplate()
+            => _presenter = GetTemplateChild("Presenter") as DynamicPresenter;
     }
 }

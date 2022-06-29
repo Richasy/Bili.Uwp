@@ -12,12 +12,12 @@ namespace Bili.ViewModels.Uwp.Video
             IsError = false;
             IsCooperationVideo = false;
             Author = null;
-            Collaborators.Clear();
+            TryClear(Collaborators);
         }
 
         private void ResetOverview()
         {
-            Tags.Clear();
+            TryClear(Tags);
             IsShowTags = false;
             PublishTime = default;
             WatchingCountText = default;
@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Video
             IsLiked = false;
             IsCoined = false;
             IsFavorited = false;
-            FavoriteFolders.Clear();
+            TryClear(FavoriteFolders);
             FavoriteFoldersErrorText = default;
             IsFavoriteFoldersError = false;
         }
@@ -52,11 +52,11 @@ namespace Bili.ViewModels.Uwp.Video
 
         private void ResetSections()
         {
-            Sections.Clear();
-            RelatedVideos.Clear();
-            VideoParts.Clear();
-            Seasons.Clear();
-            CurrentSeasonVideos.Clear();
+            TryClear(Sections);
+            TryClear(RelatedVideos);
+            TryClear(VideoParts);
+            TryClear(Seasons);
+            TryClear(CurrentSeasonVideos);
             CurrentSection = null;
             CurrentSeason = null;
             IsShowUgcSeason = false;
@@ -68,6 +68,6 @@ namespace Bili.ViewModels.Uwp.Video
         }
 
         private void ClearPlaylist()
-            => VideoPlaylist.Clear();
+            => TryClear(VideoPlaylist);
     }
 }

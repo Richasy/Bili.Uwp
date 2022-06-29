@@ -1,14 +1,14 @@
-﻿<local:SearchPageBase
+﻿<base:SearchPageBase
     x:Class="Bili.App.Pages.Desktop.Overlay.SearchPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:search="using:Bili.ViewModels.Uwp.Search"
@@ -173,4 +173,4 @@
             Text="{loc:Locale Name=NoSpecificData}"
             Visibility="{x:Bind ViewModel.IsCurrentContentEmpty, Mode=OneWay}" />
     </Grid>
-</local:SearchPageBase>
+</base:SearchPageBase>

@@ -1,0 +1,132 @@
+﻿<base:VideoPartitionDetailPageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.VideoPartitionDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:Bili.Models.Enums"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid x:Name="RootContainer" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <app:PageHeader>
+            <app:PageHeader.Title>
+                <StackPanel
+                    x:Name="PartitionHeader"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <Image
+                        x:Name="PartitionLogo"
+                        Width="32"
+                        Height="32"
+                        Source="{x:Bind ViewModel.OriginPartition.Image.Uri, Mode=OneWay}" />
+                    <TextBlock
+                        x:Name="PartitionName"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        FontWeight="Bold"
+                        Text="{x:Bind ViewModel.OriginPartition.Name, Mode=OneWay}" />
+                </StackPanel>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
+        <muxc:NavigationView
+            x:Name="DetailNavigationView"
+            Style="{StaticResource XboxSideNavigationViewStyle}"
+            Grid.Row="1"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            ItemInvoked="OnDetailNavigationViewItemInvoked"
+            MenuItemsSource="{x:Bind ViewModel.SubPartitions}"
+            SelectedItem="{x:Bind ViewModel.CurrentSubPartition, Mode=OneWay}">
+            <muxc:NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="community:Partition">
+                    <muxc:NavigationViewItem Content="{x:Bind}">
+                        <muxc:NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="community:Partition">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Name}" />
+                            </DataTemplate>
+                        </muxc:NavigationViewItem.ContentTemplate>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </muxc:NavigationView.MenuItemTemplate>
+
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <controls:VerticalRepeaterView
+                    x:Name="VideoView"
+                    Margin="0,0,0,12"
+                    HeaderText="{loc:Locale Name=ComprehensiveDynamics}"
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.AdditionalContent>
+                        <ComboBox
+                            x:Name="VideoSortComboBox"
+                            Style="{StaticResource DefaultComboBoxStyle}"
+                            Margin="8,4,4,0"
+                            VerticalAlignment="Center"
+                            ItemsSource="{x:Bind ViewModel.SortTypes, Mode=OneWay}"
+                            PlaceholderText="{loc:Locale Name=SelectSortType}"
+                            SelectedItem="{x:Bind ViewModel.SortType, Mode=OneWay}"
+                            SelectionChanged="OnVideoSortComboBoxSlectionChanged"
+                            Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="enums:VideoSortType">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </controls:VerticalRepeaterView.AdditionalContent>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                            <videos:VideoItem
+                                Style="{StaticResource XboxVerticalVideoItemStyle}"
+                                IsCustom="True"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </ScrollViewer>
+        </muxc:NavigationView>
+
+
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+    </Grid>
+</base:VideoPartitionDetailPageBase>

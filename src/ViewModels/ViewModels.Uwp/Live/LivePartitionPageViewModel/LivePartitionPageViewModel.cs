@@ -64,8 +64,8 @@ namespace Bili.ViewModels.Uwp.Live
 
         private async Task ReloadAsync()
         {
-            ParentPartitions.Clear();
-            DisplayPartitions.Clear();
+            TryClear(ParentPartitions);
+            TryClear(DisplayPartitions);
             CurrentParentPartition = null;
             var partitions = (await _liveProvider.GetLiveAreaIndexAsync()).ToList();
             partitions.ForEach(p => ParentPartitions.Add(p));
@@ -76,7 +76,7 @@ namespace Bili.ViewModels.Uwp.Live
         {
             await Task.Delay(100);
             CurrentParentPartition = partition;
-            DisplayPartitions.Clear();
+            TryClear(DisplayPartitions);
             partition.Children.ToList().ForEach(p => DisplayPartitions.Add(p));
         }
 

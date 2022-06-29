@@ -33,6 +33,7 @@ namespace Bili.SignIn.Uwp
             State = AuthorizeState.SignedOut;
             RetrieveAuthorizeResult();
             _guid = Guid.NewGuid().ToString("N");
+            _isXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
         }
 
         /// <inheritdoc/>

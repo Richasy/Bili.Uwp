@@ -70,12 +70,14 @@
             Grid.Row="1"
             Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
+            IsTabStop="False"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <controls:VerticalRepeaterView
                 x:Name="PgcView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
+                IsTabStop="False"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 MinWideItemHeight="180"
                 MinWideItemWidth="300">
@@ -86,42 +88,40 @@
                     <DataTemplate x:DataType="pgc1:SeasonItemViewModel">
                         <pgc:SeasonItem ViewModel="{x:Bind}">
                             <pgc:SeasonItem.ContextFlyout>
-                                <muxc:CommandBarFlyout Opened="OnItemFlyoutOpened">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="MarkWantWatchButton"
-                                            Click="OnMarkStatusButtonClick"
-                                            Label="{loc:Locale Name=MarkWantWatch}"
-                                            Tag="1">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Thinking20" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                        <AppBarButton
-                                            x:Name="MarkWatchingButton"
-                                            Click="OnMarkStatusButtonClick"
-                                            Label="{loc:Locale Name=MarkWatching}"
-                                            Tag="2">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="EyeTrackingOn20" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                        <AppBarButton
-                                            x:Name="MarkWatchedButton"
-                                            Click="OnMarkStatusButtonClick"
-                                            Label="{loc:Locale Name=MarkWatched}"
-                                            Tag="3">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Folder16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                        <AppBarButton Command="{x:Bind UnfollowCommand}" Label="{loc:Locale Name=UnFavorite}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="StarOff16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
+                                <MenuFlyout Opened="OnItemFlyoutOpened">
+                                    <MenuFlyoutItem
+                                        x:Name="MarkWantWatchButton"
+                                        Click="OnMarkStatusButtonClick"
+                                        Tag="1"
+                                        Text="{loc:Locale Name=MarkWantWatch}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Thinking20" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem
+                                        x:Name="MarkWatchingButton"
+                                        Click="OnMarkStatusButtonClick"
+                                        Tag="2"
+                                        Text="{loc:Locale Name=MarkWatching}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="EyeTrackingOn20" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem
+                                        x:Name="MarkWatchedButton"
+                                        Click="OnMarkStatusButtonClick"
+                                        Tag="3"
+                                        Text="{loc:Locale Name=MarkWatched}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Folder16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Command="{x:Bind UnfollowCommand}" Text="{loc:Locale Name=UnFavorite}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </pgc:SeasonItem.ContextFlyout>
                         </pgc:SeasonItem>
                     </DataTemplate>

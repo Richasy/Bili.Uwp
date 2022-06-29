@@ -71,11 +71,11 @@ namespace Bili.ViewModels.Uwp.Community
             OriginPartition = partition;
             _caches.Clear();
             _homeProvider.ClearPartitionState();
-            SubPartitions.Clear();
+            TryClear(SubPartitions);
             partition.Children.ToList().ForEach(p => SubPartitions.Add(p));
             CurrentSubPartition = SubPartitions.First();
-            Banners.Clear();
-            Items.Clear();
+            TryClear(Banners);
+            TryClear(Items);
         }
 
         /// <inheritdoc/>
@@ -129,7 +129,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         private void SelectSubPartition(Partition subPartition)
         {
-            Items.Clear();
+            TryClear(Items);
             CurrentSubPartition = subPartition;
             if (_caches.ContainsKey(subPartition))
             {

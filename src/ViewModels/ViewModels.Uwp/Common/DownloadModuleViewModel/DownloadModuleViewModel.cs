@@ -97,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Common
         public void SetData(string downloadParam, IEnumerable<int> partList)
         {
             DownloadParameter = downloadParam;
-            TotalPartCollection.Clear();
+            TryClear(TotalPartCollection);
             foreach (var item in partList)
             {
                 TotalPartCollection.Add(new NumberPartViewModel(item, true));

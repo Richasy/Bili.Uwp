@@ -8,6 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Style x:Key="VerticalEpisodeItemStyle" TargetType="local:EpisodeItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EpisodeItem">
@@ -27,19 +28,17 @@
                             IsEnableCheck="False">
 
                             <controls:CardPanel.ContextFlyout>
-                                <muxc:CommandBarFlyout x:Name="EpisodeFlyout">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:Locale Name=OpenInBroswer}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Globe16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
+                                <MenuFlyout x:Name="EpisodeFlyout">
+                                    <MenuFlyoutItem
+                                        x:Name="OpenInBroswerItem"
+                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                        Text="{loc:Locale Name=OpenInBroswer}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </controls:CardPanel.ContextFlyout>
 
                             <Grid>
@@ -139,6 +138,7 @@
     </Style>
 
     <Style x:Key="HorizontalEpisodeItemStyle" TargetType="local:EpisodeItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EpisodeItem">
@@ -160,19 +160,17 @@
                             IsEnableHoverAnimation="False">
 
                             <controls:CardPanel.ContextFlyout>
-                                <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:Locale Name=OpenInBroswer}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Globe16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
+                                <MenuFlyout x:Name="EpisodeFlyout">
+                                    <MenuFlyoutItem
+                                        x:Name="OpenInBroswerItem"
+                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                        Text="{loc:Locale Name=OpenInBroswer}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </controls:CardPanel.ContextFlyout>
 
                             <Grid>
@@ -272,6 +270,7 @@
     </Style>
 
     <Style x:Key="RankEpisodeItemStyle" TargetType="local:EpisodeItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EpisodeItem">
@@ -296,19 +295,17 @@
                             IsEnableHoverAnimation="False">
 
                             <controls:CardPanel.ContextFlyout>
-                                <muxc:CommandBarFlyout x:Name="VideoFlyout">
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton
-                                            x:Name="OpenInBroswerItem"
-                                            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
-                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
-                                            Label="{loc:Locale Name=OpenInBroswer}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="Globe16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
+                                <MenuFlyout x:Name="EpisodeFlyout">
+                                    <MenuFlyoutItem
+                                        x:Name="OpenInBroswerItem"
+                                        AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+                                        Text="{loc:Locale Name=OpenInBroswer}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </controls:CardPanel.ContextFlyout>
 
                             <Grid>

@@ -34,6 +34,7 @@ namespace Bili.SignIn.Uwp
         private readonly IMD5Toolkit _md5Toolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly string _guid;
+        private readonly bool _isXbox;
         private AuthorizeState _state;
         private TokenInfo _tokenInfo;
         private DateTimeOffset _lastAuthorizeTime;
@@ -343,8 +344,11 @@ namespace Bili.SignIn.Uwp
         private async Task<AuthorizeResult> ShowAccountManagementPaneAndGetResultAsync()
         {
             var webAccountProviderTaskCompletionSource = new TaskCompletionSource<AuthorizeResult>();
-            var loginDialog = new AccountLoginDialog(webAccountProviderTaskCompletionSource, this);
-            await loginDialog.ShowAsync();
+
+            var dialog = new SignInDialog(webAccountProviderTaskCompletionSource, this);
+            dialog.IsShowSwitchButton = !_isXbox;
+            await dialog.ShowAsync();
+
             return await webAccountProviderTaskCompletionSource.Task;
         }
 

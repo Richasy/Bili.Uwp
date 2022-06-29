@@ -1,21 +1,21 @@
-﻿<local:SettingsPageBase
+﻿<base:SettingsPageBase
     x:Class="Bili.App.Pages.Desktop.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <base:SettingsPageBase.Resources>
         <Style x:Key="TipTextStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{ThemeResource TextFillColorDisabledBrush}" />
             <Setter Property="FontSize" Value="12" />
         </Style>
-    </Page.Resources>
+    </base:SettingsPageBase.Resources>
 
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
@@ -28,12 +28,13 @@
             Grid.Row="1"
             Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
+            IsTabStop="False"
             VerticalScrollBarVisibility="Auto">
             <StackPanel
                 x:Name="RootPanel"
                 Margin="0,0,0,24"
-                Spacing="4">
-
+                Spacing="4"
+                XYFocusKeyboardNavigation="Enabled">
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     Margin="0,0,0,8"
@@ -85,4 +86,4 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-</local:SettingsPageBase>
+</base:SettingsPageBase>

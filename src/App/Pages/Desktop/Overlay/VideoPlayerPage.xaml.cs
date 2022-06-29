@@ -3,11 +3,11 @@
 using System;
 using System.Collections.Generic;
 using Bili.App.Controls.Dialogs;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -136,12 +136,5 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             FavoriteFlyout.ShowAt(FavoriteButton);
         }
-    }
-
-    /// <summary>
-    /// 视频播放器页面基类.
-    /// </summary>
-    public class VideoPlayerPageBase : AppPage<VideoPlayerPageViewModel>
-    {
     }
 }

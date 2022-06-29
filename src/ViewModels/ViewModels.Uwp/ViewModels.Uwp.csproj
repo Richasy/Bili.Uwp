@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Account\AccountViewModel\AccountViewModel.SignIn.cs" />
+    <Compile Include="Account\XboxAccountPageViewModel\XboxAccountPageViewModel.cs" />
+    <Compile Include="Account\XboxAccountPageViewModel\XboxAccountPageViewModel.Properties.cs" />
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.cs" />
     <Compile Include="Base\DynamicModuleViewModelBase\DynamicModuleViewModelBase.Properties.cs" />
     <Compile Include="Base\PlayerPageViewModelBase.cs" />

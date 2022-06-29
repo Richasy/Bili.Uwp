@@ -82,7 +82,7 @@ namespace Bili.ViewModels.Uwp.Search
                 return;
             }
 
-            SearchSuggestion.Clear();
+            TryClear(SearchSuggestion);
             try
             {
                 var suggestion = await _searchProvider.GetSearchSuggestion(Keyword, _suggestionCancellationTokenSource.Token);
@@ -116,7 +116,7 @@ namespace Bili.ViewModels.Uwp.Search
             var data = await _searchProvider.GetHotSearchListAsync();
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                HotSearchCollection.Clear();
+                TryClear(HotSearchCollection);
                 data.ToList().ForEach(p => HotSearchCollection.Add(p));
             });
         }
@@ -129,7 +129,7 @@ namespace Bili.ViewModels.Uwp.Search
                 _isKeywordChanged = false;
                 _suggestionTimer.Stop();
                 InitializeSuggestionCancellationTokenSource();
-                SearchSuggestion.Clear();
+                TryClear(SearchSuggestion);
             }
             else
             {

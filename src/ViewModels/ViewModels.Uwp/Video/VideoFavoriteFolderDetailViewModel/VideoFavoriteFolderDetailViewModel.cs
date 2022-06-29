@@ -39,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             Folder = folder;
             User = folder.User;
-            Items.Clear();
+            TryClear(Items);
 
             if (User == null)
             {

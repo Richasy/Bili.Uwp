@@ -86,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 return;
             }
 
-            Seasons.Clear();
+            TryClear(Seasons);
             var list = await _pgcProvider.GetPgcPlaylistAsync(Data.Id);
             Subtitle = list.Subtitle;
             foreach (var item in list.Seasons)

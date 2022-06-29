@@ -2,9 +2,9 @@
 
 using System;
 using System.Linq;
+using Bili.App.Pages.Base;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.UI.Xaml.Navigation;
@@ -67,12 +67,5 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.SelectTypeCommand.Execute(type).Subscribe();
             }
         }
-    }
-
-    /// <summary>
-    /// <see cref="FavoritePage"/> 的基类.
-    /// </summary>
-    public class FavoritePageBase : AppPage<FavoritePageViewModel>
-    {
     }
 }

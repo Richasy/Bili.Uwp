@@ -29,8 +29,7 @@ namespace Bili.App.Controls.Videos
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoItem"/> class.
         /// </summary>
-        public VideoItem()
-            => DefaultStyleKey = typeof(VideoItem);
+        public VideoItem() => DefaultStyleKey = typeof(VideoItem);
 
         /// <summary>
         /// 是否是动态视频.
@@ -51,7 +50,7 @@ namespace Bili.App.Controls.Videos
         }
 
         /// <inheritdoc/>
-        public Size GetHolderSize() => new (210, 248);
+        public Size GetHolderSize() => new(210, 248);
 
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)

@@ -120,7 +120,7 @@ namespace Bili.ViewModels.Uwp.Base
 
             if (Partitions.Count > 0)
             {
-                Videos.Clear();
+                TryClear(Videos);
                 await FakeLoadingAsync();
 
                 if (!string.IsNullOrEmpty(_currentVideoPartitionId))
@@ -142,7 +142,7 @@ namespace Bili.ViewModels.Uwp.Base
                 return;
             }
 
-            Partitions.Clear();
+            TryClear(Partitions);
             var tabs = await _pgcProvider.GetAnimeTabsAsync(_type);
             tabs.ToList().ForEach(p => Partitions.Add(p));
 
@@ -154,10 +154,10 @@ namespace Bili.ViewModels.Uwp.Base
         {
             await FakeLoadingAsync();
             CurrentPartition = partition;
-            Banners.Clear();
-            Ranks.Clear();
-            Playlists.Clear();
-            Videos.Clear();
+            TryClear(Banners);
+            TryClear(Ranks);
+            TryClear(Playlists);
+            TryClear(Videos);
             IsShowVideo = false;
             _currentVideoPartitionId = string.Empty;
             _pgcProvider.ResetPageStatus(_type);

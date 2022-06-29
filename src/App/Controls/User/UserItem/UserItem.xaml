@@ -4,6 +4,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:local="using:Bili.App.Controls.User">
     <Style x:Key="DefaultUserItemStyle" TargetType="local:UserItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:UserItem">

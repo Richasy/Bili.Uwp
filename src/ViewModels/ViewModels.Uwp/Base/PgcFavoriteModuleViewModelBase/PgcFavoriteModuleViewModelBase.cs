@@ -90,7 +90,7 @@ namespace Bili.ViewModels.Uwp.Base
         private void SetStatus(int status)
         {
             Status = status;
-            Items.Clear();
+            TryClear(Items);
             InitializeCommand.Execute().Subscribe();
         }
 

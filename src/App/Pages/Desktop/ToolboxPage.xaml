@@ -14,9 +14,9 @@
     xmlns:toolbox="using:Bili.ViewModels.Uwp.Toolbox"
     mc:Ignorable="d">
 
-    <local:AppPage.Resources>
+    <local:ToolboxPageBase.Resources>
         <converter:ToolboxItemIconConverter x:Key="IconConverter" />
-    </local:AppPage.Resources>
+    </local:ToolboxPageBase.Resources>
 
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>

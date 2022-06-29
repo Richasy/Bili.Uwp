@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
-using Bili.ViewModels.Uwp.Live;
-using Windows.Media.Playback;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -39,12 +38,5 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly).Subscribe();
             }
         }
-    }
-
-    /// <summary>
-    /// <see cref="LivePlayerPage"/> 的基类.
-    /// </summary>
-    public class LivePlayerPageBase : AppPage<LivePlayerPageViewModel>
-    {
     }
 }

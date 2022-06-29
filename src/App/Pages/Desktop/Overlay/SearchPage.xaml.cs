@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Appearance;
 using Bili.ViewModels.Uwp.Search;
 using Windows.UI.Xaml.Controls;
@@ -52,12 +53,5 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.ReloadModuleCommand.Execute().Subscribe();
             }
         }
-    }
-
-    /// <summary>
-    /// <see cref="SearchPage"/> 的基类.
-    /// </summary>
-    public class SearchPageBase : AppPage<SearchPageViewModel>
-    {
     }
 }

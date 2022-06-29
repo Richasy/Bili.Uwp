@@ -3,56 +3,38 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Bili.App.Controls.Base;
 using Bili.App.Pages.Desktop;
 using Bili.App.Resources.Extension;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
-using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Bili.App.Controls
+namespace Bili.App.Controls.App
 {
     /// <summary>
     /// 桌面平台的主视图导航框架.
     /// </summary>
-    public sealed partial class DesktopNavigationView : DesktopNavigationViewBase
+    public sealed partial class DesktopNavigationView : NavigationViewBase
     {
-        private readonly AppViewModel _appViewModel;
-        private readonly AccountViewModel _accountViewModel;
-        private bool _isFirstLoaded;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DesktopNavigationView"/> class.
         /// </summary>
         public DesktopNavigationView()
+            : base()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<NavigationViewModel>();
-            _appViewModel = Locator.Current.GetService<AppViewModel>();
-            _accountViewModel = Locator.Current.GetService<AccountViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
-
-        /// <summary>
-        /// 在刚加载首页时发生.
-        /// </summary>
-        public event EventHandler FirstLoaded;
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.Navigating += OnNavigating;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-
-            if (_appViewModel.IsXbox)
-            {
-                RootNavView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftMinimal;
-            }
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -158,48 +140,22 @@ namespace Bili.App.Controls
 
             if (RootNavView.SelectedItem != null && RootNavView.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem selectItem)
             {
-                _appViewModel.HeaderText = selectItem.Content.ToString();
+                AppViewModel.HeaderText = selectItem.Content.ToString();
             }
         }
 
         private void OnFixedItemClick(object sender, RoutedEventArgs e)
         {
-            var context = (sender as FrameworkElement).DataContext as Models.Data.Local.FixedItem;
-            PlaySnapshot playRecord = null;
-            switch (context.Type)
-            {
-                case Models.Enums.App.FixedType.Publisher:
-                    new UserSpaceView().Show(context.Id);
-                    break;
-                case Models.Enums.App.FixedType.Pgc:
-                    playRecord = new PlaySnapshot(default, context.Id, VideoType.Pgc)
-                    {
-                        Title = context.Title,
-                    };
-                    break;
-                case Models.Enums.App.FixedType.Video:
-                    playRecord = new PlaySnapshot(context.Id, default, VideoType.Video);
-                    break;
-
-                case Models.Enums.App.FixedType.Live:
-                    playRecord = new PlaySnapshot(context.Id, default, VideoType.Live);
-                    break;
-                default:
-                    break;
-            }
-
-            if (playRecord != null)
-            {
-                ViewModel.NavigateToPlayView(playRecord);
-            }
+            var context = (sender as FrameworkElement).DataContext as FixedItem;
+            HandleFixItemClicked(context);
         }
 
         private void OnFrameLoaded(object sender, RoutedEventArgs e)
         {
-            if (!_isFirstLoaded)
+            if (!IsFirstLoaded)
             {
-                FirstLoaded?.Invoke(this, EventArgs.Empty);
-                _isFirstLoaded = true;
+                FireFirstLoadedEvent();
+                IsFirstLoaded = true;
             }
         }
 
@@ -216,15 +172,8 @@ namespace Bili.App.Controls
 
         private void CheckMenuButtonVisibility()
         {
-            _appViewModel.IsShowMenuButton = RootNavView.DisplayMode != Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Expanded
+            AppViewModel.IsShowMenuButton = RootNavView.DisplayMode != Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Expanded
                 && ViewModel.IsMainViewShown;
         }
-    }
-
-    /// <summary>
-    /// <see cref="DesktopNavigationView"/> 的基类.
-    /// </summary>
-    public class DesktopNavigationViewBase : ReactiveUserControl<NavigationViewModel>
-    {
     }
 }

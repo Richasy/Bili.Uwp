@@ -78,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Account
             var result = await _accountProvider.ClearViewLaterAsync();
             if (result)
             {
-                Items.Clear();
+                TryClear(Items);
                 ReloadCommand.Execute().Subscribe();
             }
         }

@@ -11,6 +11,7 @@ using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Markup;
 
 namespace Bili.App.Controls.Player
@@ -59,6 +60,7 @@ namespace Bili.App.Controls.Player
 
         private readonly double _mediumWindowWidth;
         private SplitView _splitView;
+        private ButtonBase _expandButton;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPagePanel"/> class.
@@ -151,10 +153,10 @@ namespace Bili.App.Controls.Player
         protected override void OnApplyTemplate()
         {
             _splitView = GetTemplateChild("RootView") as SplitView;
-            var expandButton = GetTemplateChild("ExpandButton") as Button;
+            _expandButton = GetTemplateChild("ExpandButton") as ButtonBase;
             var sectionView = GetTemplateChild("SectionNavigationView") as Microsoft.UI.Xaml.Controls.NavigationView;
 
-            expandButton.Click += OnExpandButtonClick;
+            _expandButton.Click += OnExpandButtonClick;
             sectionView.ItemInvoked += OnSectionViewItemInvoked;
         }
 
@@ -263,7 +265,13 @@ namespace Bili.App.Controls.Player
         }
 
         private void OnExpandButtonClick(object sender, RoutedEventArgs e)
-            => _splitView.IsPaneOpen = true;
+        {
+            _splitView.IsPaneOpen = true;
+            if (_expandButton is ToggleButton btn)
+            {
+                btn.IsChecked = false;
+            }
+        }
 
         private void OnSectionViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {

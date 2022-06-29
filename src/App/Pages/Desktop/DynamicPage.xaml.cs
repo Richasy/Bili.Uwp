@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.App.Other;
-using Bili.ViewModels.Uwp.Community;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -24,12 +24,5 @@ namespace Bili.App.Pages.Desktop
                 ViewModel.SelectHeaderCommand.Execute(data).Subscribe();
             }
         }
-    }
-
-    /// <summary>
-    /// <see cref="DynamicPage"/> 的基类.
-    /// </summary>
-    public class DynamicPageBase : AppPage<DynamicPageViewModel>
-    {
     }
 }

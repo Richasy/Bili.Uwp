@@ -52,6 +52,11 @@ namespace Bili.Adapter
         public MediaInformation ConvertToMediaInformation(PlayerInformation information)
         {
             var dash = information.VideoInformation;
+            if (dash == null)
+            {
+                return default;
+            }
+
             var minBuffer = dash.MinBufferTime;
             var videos = dash.Video?.Count > 0
                 ? dash.Video.Select(p => ConvertToSegmentInformation(p))

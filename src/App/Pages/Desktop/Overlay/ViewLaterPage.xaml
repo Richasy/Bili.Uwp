@@ -41,7 +41,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <app:PageHeader Title="{loc:Locale Name=ViewLater}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+        <app:PageHeader Title="{loc:Locale Name=ViewLater}" />
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
@@ -60,6 +60,13 @@
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.AdditionalContent>
                         <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button
+                                x:Name="RefreshButton"
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.ReloadCommand}"
+                                IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
+                                <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
+                            </Button>
                             <Button
                                 x:Name="PlayAllButton"
                                 Style="{StaticResource AccentButtonStyle}"

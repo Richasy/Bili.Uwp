@@ -58,15 +58,13 @@
                     <DataTemplate x:DataType="article:ArticleItemViewModel">
                         <article1:ArticleItem ViewModel="{x:Bind}">
                             <article1:ArticleItem.ContextFlyout>
-                                <muxc:CommandBarFlyout>
-                                    <muxc:CommandBarFlyout.SecondaryCommands>
-                                        <AppBarButton Command="{x:Bind UnfavoriteCommand}" Label="{loc:Locale Name=UnFavorite}">
-                                            <AppBarButton.Icon>
-                                                <icons:RegularFluentIcon Symbol="StarOff16" />
-                                            </AppBarButton.Icon>
-                                        </AppBarButton>
-                                    </muxc:CommandBarFlyout.SecondaryCommands>
-                                </muxc:CommandBarFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Command="{x:Bind UnfavoriteCommand}" Text="{loc:Locale Name=UnFavorite}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </article1:ArticleItem.ContextFlyout>
                         </article1:ArticleItem>
                     </DataTemplate>

@@ -18,13 +18,19 @@ namespace Bili.SignIn.Uwp
     /// <summary>
     /// 用户登录对话框.
     /// </summary>
-    public sealed partial class AccountLoginDialog : ContentDialog
+    public sealed partial class SignInDialog : ContentDialog
     {
         /// <summary>
         /// <see cref="IsShowWebView"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty IsShowWebViewProperty =
-            DependencyProperty.Register(nameof(IsShowWebView), typeof(bool), typeof(AccountLoginDialog), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsShowWebView), typeof(bool), typeof(SignInDialog), new PropertyMetadata(false));
+
+        /// <summary>
+        /// <see cref="IsShowSwitchButton"/> 的依赖属性.
+        /// </summary>
+        public static readonly DependencyProperty IsShowSwitchButtonProperty =
+            DependencyProperty.Register(nameof(IsShowSwitchButton), typeof(bool), typeof(SignInDialog), new PropertyMetadata(default));
 
         private readonly TaskCompletionSource<AuthorizeResult> _taskCompletionSource;
         private readonly AuthorizeProvider _authorizeProvider;
@@ -32,9 +38,9 @@ namespace Bili.SignIn.Uwp
         private string _sessionId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountLoginDialog"/> class.
+        /// Initializes a new instance of the <see cref="SignInDialog"/> class.
         /// </summary>
-        internal AccountLoginDialog(
+        internal SignInDialog(
             TaskCompletionSource<AuthorizeResult> taskCompletionSource,
             AuthorizeProvider authorizeProvider)
         {
@@ -52,6 +58,15 @@ namespace Bili.SignIn.Uwp
         {
             get { return (bool)GetValue(IsShowWebViewProperty); }
             set { SetValue(IsShowWebViewProperty, value); }
+        }
+
+        /// <summary>
+        /// 是否显示登录切换按钮.
+        /// </summary>
+        public bool IsShowSwitchButton
+        {
+            get { return (bool)GetValue(IsShowSwitchButtonProperty); }
+            set { SetValue(IsShowSwitchButtonProperty, value); }
         }
 
         private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)

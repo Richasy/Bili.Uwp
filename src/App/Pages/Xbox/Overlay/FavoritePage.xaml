@@ -1,0 +1,56 @@
+﻿<base:FavoritePageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.FavoritePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:favorite="using:Bili.App.Controls.Favorite"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:local="using:Bili.App.Pages.Xbox.Overlay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:other="using:Bili.Models.App.Other"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <app:PageHeader Title="{loc:Locale Name=MyFavorite}" />
+        <muxc:NavigationView
+            x:Name="Nav"
+            Style="{StaticResource XboxSideNavigationViewStyle}"
+            Grid.Row="1"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            ItemInvoked="OnNavItemInvoked"
+            MenuItemsSource="{x:Bind ViewModel.TypeCollection}"
+            SelectedItem="{x:Bind ViewModel.CurrentType, Mode=OneWay}">
+            <muxc:NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="other:FavoriteHeader">
+                    <muxc:NavigationViewItem Content="{x:Bind}">
+                        <muxc:NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="other:FavoriteHeader">
+                                <TextBlock Text="{x:Bind Title}" />
+                            </DataTemplate>
+                        </muxc:NavigationViewItem.ContentTemplate>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </muxc:NavigationView.MenuItemTemplate>
+            <muxc:NavigationView.PaneFooter>
+                <Button x:Name="RefreshButton" Click="OnRefreshButtonClickAsync">
+                    <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:Locale Name=RefreshCurrentSection}" />
+                </Button>
+            </muxc:NavigationView.PaneFooter>
+
+            <Grid>
+                <favorite:VideoFavoritePanel x:Name="VideoPanel" Visibility="{x:Bind ViewModel.IsVideoShown, Mode=OneWay}" />
+                <favorite:PgcFavoritePanel x:Name="AnimePanel" Visibility="{x:Bind ViewModel.IsAnimeShown, Mode=OneWay}" />
+                <favorite:PgcFavoritePanel x:Name="CinemaPanel" Visibility="{x:Bind ViewModel.IsCinemaShown, Mode=OneWay}" />
+            </Grid>
+        </muxc:NavigationView>
+    </Grid>
+</base:FavoritePageBase>

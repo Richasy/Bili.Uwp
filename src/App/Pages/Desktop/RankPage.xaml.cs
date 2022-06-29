@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.App.Pages.Base;
 using Bili.Models.Data.Community;
-using Bili.ViewModels.Uwp.Home;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -26,12 +26,5 @@ namespace Bili.App.Pages.Desktop
                 ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
             }
         }
-    }
-
-    /// <summary>
-    /// <see cref="RankPage"/> 的基类.
-    /// </summary>
-    public class RankPageBase : AppPage<RankPageViewModel>
-    {
     }
 }

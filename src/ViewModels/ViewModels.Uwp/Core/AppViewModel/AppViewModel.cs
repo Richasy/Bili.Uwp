@@ -40,8 +40,9 @@ namespace Bili.ViewModels.Uwp.Core
             _appToolkit = Locator.Current.GetService<IAppToolkit>();
             _updateProvider = Locator.Current.GetService<IUpdateProvider>();
             _networkHelper = Microsoft.Toolkit.Uwp.Connectivity.NetworkHelper.Instance;
+
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
-            IsNavigatePaneOpen = !IsXbox;
+            IsNavigatePaneOpen = true;
             _isWide = null;
             _networkHelper.NetworkChanged += OnNetworkChanged;
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;

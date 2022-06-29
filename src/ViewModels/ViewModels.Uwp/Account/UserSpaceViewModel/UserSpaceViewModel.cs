@@ -66,7 +66,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             _userProfile = user;
             IsMe = user.Id == _accountProvider.UserId.ToString();
-            Items.Clear();
+            TryClear(Items);
             BeforeReload();
         }
 
@@ -134,7 +134,7 @@ namespace Bili.ViewModels.Uwp.Account
             _requestKeyword = string.Empty;
             _isSearchVideoFinished = false;
             IsSearchVideoEmpty = false;
-            SearchVideos.Clear();
+            TryClear(SearchVideos);
         }
 
         private async Task SearchAsync()

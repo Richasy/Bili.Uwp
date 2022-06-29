@@ -73,6 +73,16 @@ namespace Bili.Models.Enums
         Dynamic = 12,
 
         /// <summary>
+        /// 预搜索页面.
+        /// </summary>
+        PreSearch = 13,
+
+        /// <summary>
+        /// Xbox的账户页面.
+        /// </summary>
+        XboxAccount = 14,
+
+        /// <summary>
         /// 设置页面.
         /// </summary>
         Settings = 20,

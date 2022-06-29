@@ -60,8 +60,8 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             _isFinished = false;
             IsEmpty = false;
-            Filters.Clear();
-            Items.Clear();
+            TryClear(Filters);
+            TryClear(Items);
             _pgcProvider.ResetIndexStatus();
         }
 
@@ -85,7 +85,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private async Task LoadFiltersAsync()
         {
-            Filters.Clear();
+            TryClear(Filters);
             var filters = await _pgcProvider.GetPgcIndexFiltersAsync(_type);
             var isAnime = _type == PgcType.Bangumi || _type == PgcType.Domestic;
             foreach (var item in filters)

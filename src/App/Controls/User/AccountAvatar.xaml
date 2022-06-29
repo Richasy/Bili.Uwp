@@ -11,6 +11,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    IsTabStop="False"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -24,14 +25,18 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <local:AccountPanel MinWidth="280" RequestCloseFlyout="OnRequestCloseFlyout" />
+                <local:AccountPanel
+                    MinWidth="280"
+                    IsTabStop="False"
+                    RequestCloseFlyout="OnRequestCloseFlyout" />
                 <StackPanel
                     Grid.Row="1"
                     Padding="0,4,0,0"
                     BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
                     BorderThickness="0,1,0,0"
                     Spacing="4"
-                    TabFocusNavigation="Local">
+                    TabFocusNavigation="Local"
+                    XYFocusKeyboardNavigation="Enabled">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -99,7 +104,7 @@
         </Flyout>
     </UserControl.Resources>
 
-    <Grid TabFocusNavigation="Local" ToolTipService.ToolTip="{x:Bind ViewModel.TipText, Mode=OneWay}">
+    <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="Common">
                 <VisualState x:Name="NormalState" />
@@ -111,6 +116,9 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <ToolTipService.ToolTip>
+            <ToolTip Content="{x:Bind ViewModel.TipText, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.TipText, Mode=OneWay, Converter={StaticResource ObjectToBoolConverter}}" />
+        </ToolTipService.ToolTip>
         <local:UserAvatar
             x:Name="UserAvatar"
             AutomationProperties.Name="{x:Bind ViewModel.TipText, Mode=OneWay}"

@@ -69,7 +69,7 @@ namespace Bili.App.Controls.Danmaku
         /// <returns><see cref="Task"/>.</returns>
         public async Task RedrawAsync()
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 _danmakuController?.Close();
 

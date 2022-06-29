@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Diagnostics;
 using Bili.App.Controls.Danmaku;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Input;

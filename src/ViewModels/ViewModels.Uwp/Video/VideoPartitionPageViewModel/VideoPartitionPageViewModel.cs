@@ -48,7 +48,7 @@ namespace Bili.ViewModels.Uwp.Video
 
         private async Task InitializeAsync()
         {
-            Partitions.Clear();
+            TryClear(Partitions);
             var items = await _homeProvider.GetVideoPartitionIndexAsync();
             items.ToList().ForEach(p => Partitions.Add(p));
         }

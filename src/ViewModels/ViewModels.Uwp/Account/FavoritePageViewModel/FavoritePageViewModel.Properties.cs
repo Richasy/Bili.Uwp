@@ -3,7 +3,6 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.App.Other;
-using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

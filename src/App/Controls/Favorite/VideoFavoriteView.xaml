@@ -76,12 +76,14 @@
             Grid.Row="1"
             Margin="-16,0"
             HorizontalScrollMode="Disabled"
+            IsTabStop="False"
             VerticalScrollBarVisibility="Auto">
             <local:VerticalRepeaterView
                 x:Name="VideoView"
                 Margin="16,0,16,12"
                 Background="Transparent"
                 HeaderVisibility="Collapsed"
+                IsTabStop="False"
                 ItemOrientation="Horizontal"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -105,6 +107,7 @@
             x:Name="ErrorPanel"
             Grid.Row="1"
             ActionContent="{loc:Locale Name=Refresh}"
+            IsTabStop="False"
             Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
             <interactivity:Interaction.Behaviors>
