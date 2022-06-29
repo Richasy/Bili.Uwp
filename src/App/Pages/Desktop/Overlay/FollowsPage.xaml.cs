@@ -1,11 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using Bili.App.Controls;
 using Bili.Models.Data.User;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Community;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay

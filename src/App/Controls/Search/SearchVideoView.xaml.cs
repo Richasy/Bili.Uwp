@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Windows.UI.Xaml;
-
 namespace Bili.App.Controls
 {
     /// <summary>

@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using Bili.ViewModels.Uwp;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;

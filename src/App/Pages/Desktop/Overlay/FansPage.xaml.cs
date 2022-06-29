@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.Models.Data.User;
 using Bili.ViewModels.Uwp.Community;
 using Windows.UI.Xaml.Navigation;

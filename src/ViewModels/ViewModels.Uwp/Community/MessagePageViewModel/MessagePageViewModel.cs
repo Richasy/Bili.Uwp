@@ -95,7 +95,7 @@ namespace Bili.ViewModels.Uwp.Community
             }
 
             _caches.Remove(CurrentType.Type);
-            _caches.Add(CurrentType.Type, new (Items.Select(p => p.Information).ToList(), _isEnd));
+            _caches.Add(CurrentType.Type, new(Items.Select(p => p.Information).ToList(), _isEnd));
             IsEmpty = Items.Count == 0;
             _accountViewModel.InitializeUnreadCommand.Execute().Subscribe();
         }

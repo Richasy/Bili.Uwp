@@ -1357,7 +1357,7 @@
       <Version>1.1.150</Version>
     </PackageReference>
     <PackageReference Include="Splat">
-      <Version>14.3.1</Version>
+      <Version>14.3.4</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

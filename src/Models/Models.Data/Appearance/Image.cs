@@ -75,7 +75,7 @@ namespace Bili.Models.Data.Appearance
         /// </summary>
         /// <returns>图片地址. 如果没有修改过图片链接则返回 <see cref="Uri"/>.</returns>
         public Uri GetSourceUri()
-            => new (_sourceUri ?? Uri);
+            => new(_sourceUri ?? Uri);
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is Image image && _sourceUri == image._sourceUri;

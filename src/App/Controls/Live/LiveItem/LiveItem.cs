@@ -21,7 +21,7 @@ namespace Bili.App.Controls.Live
             => DefaultStyleKey = typeof(LiveItem);
 
         /// <inheritdoc/>
-        public Size GetHolderSize() => new (210, 248);
+        public Size GetHolderSize() => new(210, 248);
 
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
