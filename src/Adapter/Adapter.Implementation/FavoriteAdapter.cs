@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Bili.Adapter.Interfaces;
 using Bili.Models.BiliBili;
@@ -68,7 +69,7 @@ namespace Bili.Adapter
         public VideoFavoriteFolderDetail ConvertToVideoFavoriteFolderDetail(VideoFavoriteListResponse response)
         {
             var folder = ConvertToVideoFavoriteFolder(response.Detail ?? response.Information);
-            var videos = response.Medias.Select(p => _videoAdapter.ConvertToVideoInformation(p));
+            var videos = response.Medias?.Select(p => _videoAdapter.ConvertToVideoInformation(p)) ?? new List<VideoInformation>();
             var videoSet = new VideoSet(videos, folder.TotalCount);
             return new VideoFavoriteFolderDetail(folder, videoSet);
         }
@@ -79,8 +80,8 @@ namespace Bili.Adapter
             var id = folder.Id;
             var name = _textToolkit.ConvertToTraditionalChineseIfNeeded(folder.Name);
             var isMine = id == 1;
-            var folders = folder.MediaList.List.Select(p => ConvertToVideoFavoriteFolder(p));
-            var set = new VideoFavoriteSet(folders, folder.MediaList.Count);
+            var folders = folder.MediaList?.List?.Select(p => ConvertToVideoFavoriteFolder(p)) ?? new List<VideoFavoriteFolder>();
+            var set = new VideoFavoriteSet(folders, folder.MediaList?.Count ?? 0);
             return new VideoFavoriteFolderGroup(id.ToString(), name, isMine, set);
         }
 
@@ -90,7 +91,7 @@ namespace Bili.Adapter
             var defaultFolder = ConvertToVideoFavoriteFolderDetail(response.DefaultFavoriteList);
 
             // 过滤稍后再看的内容，稍后再看列表的Id为3.
-            var favoriteSets = response.FavoriteFolderList
+            var favoriteSets = response.FavoriteFolderList?
                 .Where(p => p.Id != 3)
                 .Select(p => ConvertToVideoFavoriteFolderGroup(p));
             return new VideoFavoriteView(favoriteSets, defaultFolder);
