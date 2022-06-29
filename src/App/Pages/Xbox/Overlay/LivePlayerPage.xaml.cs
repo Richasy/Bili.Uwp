@@ -3,6 +3,7 @@
 using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Xbox.Overlay
@@ -29,6 +30,30 @@ namespace Bili.App.Pages.Xbox.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
             => ViewModel.ClearCommand.Execute().Subscribe();
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)
+            {
+                // 后退
+                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
+            {
+                // 跳进
+                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.Execute().Subscribe();
+            }
+            else if (e.Key == Windows.System.VirtualKey.GamepadB)
+            {
+                // 关闭控制器.
+                if (ViewModel.MediaPlayerViewModel.IsShowMediaTransport)
+                {
+                    ViewModel.MediaPlayerViewModel.IsShowMediaTransport = false;
+                    e.Handled = true;
+                }
+            }
+        }
 
         private void OnOnlyAudioButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

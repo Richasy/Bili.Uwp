@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
@@ -49,20 +50,10 @@ namespace Bili.App.Pages.Xbox.Overlay
         {
             if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
-                // 降低播放速率.
-                ViewModel.MediaPlayerViewModel.DecreasePlayRateCommand.Execute().Subscribe();
-            }
-            else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
-            {
-                // 提高播放速率
-                ViewModel.MediaPlayerViewModel.IncreasePlayRateCommand.Execute().Subscribe();
-            }
-            else if (e.Key == Windows.System.VirtualKey.GamepadLeftTrigger)
-            {
                 // 后退
                 ViewModel.MediaPlayerViewModel.BackwardSkipCommand.Execute().Subscribe();
             }
-            else if (e.Key == Windows.System.VirtualKey.GamepadRightTrigger)
+            else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
             {
                 // 跳进
                 ViewModel.MediaPlayerViewModel.ForwardSkipCommand.Execute().Subscribe();

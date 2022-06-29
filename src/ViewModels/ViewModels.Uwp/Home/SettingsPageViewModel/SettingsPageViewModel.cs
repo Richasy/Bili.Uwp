@@ -176,7 +176,7 @@ namespace Bili.ViewModels.Uwp.Home
                     PlayerDisplayMode.FullScreen,
                 };
 
-                if (_appViewModel.IsXbox)
+                if (!_appViewModel.IsXbox)
                 {
                     PlayerDisplayModeCollection.Insert(1, PlayerDisplayMode.FullWindow);
                 }

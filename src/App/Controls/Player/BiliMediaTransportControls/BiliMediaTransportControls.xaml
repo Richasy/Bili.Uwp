@@ -1035,6 +1035,28 @@
                                 </StackPanel>
                             </Grid>
 
+                            <Grid
+                                x:Name="InteractionProgressContainer"
+                                Grid.Column="1"
+                                Background="{ThemeResource TransparentBackground}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress}">
+                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressText}" />
+                                        <Run Text="/" />
+                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
+                                    </TextBlock>
+                                    <Slider
+                                        x:Name="InteractionProgressSlider"
+                                        Margin="0,-4"
+                                        HorizontalAlignment="Stretch"
+                                        IsThumbToolTipEnabled="False" />
+                                </StackPanel>
+                            </Grid>
+
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                 <Button
                                     AutomationProperties.Name="{loc:Locale Name=PlaybackRate}"
