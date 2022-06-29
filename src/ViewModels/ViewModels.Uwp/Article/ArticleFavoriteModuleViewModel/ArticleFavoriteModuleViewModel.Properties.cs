@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Collections.ObjectModel;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI.Fody.Helpers;

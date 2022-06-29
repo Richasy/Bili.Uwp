@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bili.Models.Data.Appearance;
-using Bili.Models.Enums;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Search

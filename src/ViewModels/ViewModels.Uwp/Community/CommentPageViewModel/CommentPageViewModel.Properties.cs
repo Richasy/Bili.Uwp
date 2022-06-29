@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Community

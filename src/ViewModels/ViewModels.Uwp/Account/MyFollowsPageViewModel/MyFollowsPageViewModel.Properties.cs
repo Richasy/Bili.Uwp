@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
-using Bili.Models.Data.User;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

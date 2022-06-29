@@ -129,12 +129,12 @@
       <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Splat.DependencyInjection.SourceGenerator">
-      <Version>1.1.33</Version>
+      <Version>1.1.69</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Splat.NLog">
-      <Version>14.3.1</Version>
+      <Version>14.3.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

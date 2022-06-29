@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.Generic;
-
 namespace Bili.Models.Data.Video
 {
     /// <summary>

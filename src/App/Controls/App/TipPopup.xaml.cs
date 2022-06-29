@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Threading.Tasks;
 using Bili.App.Pages.Desktop;
 using Bili.Models.Enums.App;
 using Windows.UI.Xaml;

@@ -170,7 +170,7 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicAll, req, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DynAllReply.Parser);
-            _comprehensiveDynamicOffset = new (result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
+            _comprehensiveDynamicOffset = new(result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
             return _dynamicAdapter.ConvertToDynamicView(result);
         }
 
@@ -189,7 +189,7 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(Community.DynamicVideo, req, true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync(response, DynVideoReply.Parser);
-            _videoDynamicOffset = new (result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
+            _videoDynamicOffset = new(result.DynamicList.HistoryOffset, result.DynamicList.UpdateBaseline);
             return _dynamicAdapter.ConvertToDynamicView(result);
         }
 
@@ -218,11 +218,11 @@ namespace Bili.Lib
 
         /// <inheritdoc/>
         public void ResetVideoDynamicStatus()
-            => _videoDynamicOffset = new (string.Empty, string.Empty);
+            => _videoDynamicOffset = new(string.Empty, string.Empty);
 
         /// <inheritdoc/>
         public void ResetComprehensiveDynamicStatus()
-            => _comprehensiveDynamicOffset = new (string.Empty, string.Empty);
+            => _comprehensiveDynamicOffset = new(string.Empty, string.Empty);
 
         /// <inheritdoc/>
         public void ResetMainCommentsStatus()
