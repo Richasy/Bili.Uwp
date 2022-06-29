@@ -49,6 +49,9 @@
                                     </exp:ExpanderExDescriptor.Icon>
                                 </exp:ExpanderExDescriptor>
                             </exp:ExpanderExWrapper.MainContent>
+                            <exp:ExpanderExWrapper.WrapContent>
+                                <icons:RegularFluentIcon Symbol="Open20" Margin="0,0,-76,0" />
+                            </exp:ExpanderExWrapper.WrapContent>
                         </exp:ExpanderExWrapper>
                     </exp:ExpanderEx.Header>
                 </exp:ExpanderEx>
