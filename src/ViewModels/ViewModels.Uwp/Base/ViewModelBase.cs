@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
@@ -33,7 +34,10 @@ namespace Bili.ViewModels.Uwp
         /// </summary>
         /// <param name="exception">错误信息.</param>
         protected void LogException(Exception exception)
-            => this.Log().Error(exception);
+        {
+            Debug.WriteLine(exception.StackTrace);
+            this.Log().Error(exception);
+        }
 
         /// <summary>
         /// 这是一种退避策略，当调用时，通常意味着重新导航到了加载过的页面，

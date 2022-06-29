@@ -19,11 +19,11 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderViewModel(
             IFavoriteProvider favoriteProvider,
             IAccountProvider accountProvider,
-            AppViewModel appViewModel)
+            NavigationViewModel navigationViewModel)
         {
             _favoriteProvider = favoriteProvider;
             _accountProvider = accountProvider;
-            _appViewModel = appViewModel;
+            _navigationViewModel = navigationViewModel;
 
             RemoveCommand = ReactiveCommand.CreateFromTask(RemoveAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShowDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
@@ -57,6 +57,6 @@ namespace Bili.ViewModels.Uwp.Video
         }
 
         private void ShowDetail()
-            => _appViewModel.ShowVideoFavoriteFolderDetail(Folder);
+            => _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.VideoFavoriteDetail, Folder);
     }
 }

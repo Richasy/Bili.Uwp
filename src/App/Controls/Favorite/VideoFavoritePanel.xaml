@@ -13,7 +13,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
-    xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -23,23 +22,6 @@
     </interactivity:Interaction.Behaviors>
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="Common">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="DefaultVideoView.ItemOrientation" Value="Horizontal" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
@@ -54,9 +36,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <exp:ExpanderEx x:Name="DefaultVideoExpander" InternalExpanderStyle="{StaticResource NoAnimationExpanderStyle}">
+                <exp:ExpanderEx
+                    x:Name="DefaultVideoExpander"
+                    Click="OnDefaultExpanderClick"
+                    IsEnabled="{x:Bind ViewModel.IsDefaultFolderEmpty, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
                     <exp:ExpanderEx.Header>
-                        <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                        <exp:ExpanderExWrapper Margin="0,10">
                             <exp:ExpanderExWrapper.MainContent>
                                 <exp:ExpanderExDescriptor Title="{loc:Locale Name=DefaultFavorite}" DescriptionVisibility="Collapsed">
                                     <exp:ExpanderExDescriptor.Icon>
@@ -65,43 +50,10 @@
                                 </exp:ExpanderExDescriptor>
                             </exp:ExpanderExWrapper.MainContent>
                             <exp:ExpanderExWrapper.WrapContent>
-                                <HyperlinkButton
-                                    x:Name="DefaultSeeAllButton"
-                                    Margin="0,4,0,0"
-                                    VerticalAlignment="Center"
-                                    Command="{x:Bind ViewModel.ShowDefaultFolderDetailCommand}"
-                                    Content="{loc:Locale Name=SeeAll}" />
+                                <icons:RegularFluentIcon Symbol="Open20" Margin="0,0,-76,0" />
                             </exp:ExpanderExWrapper.WrapContent>
                         </exp:ExpanderExWrapper>
                     </exp:ExpanderEx.Header>
-                    <exp:ExpanderEx.Content>
-                        <controls:VerticalRepeaterView
-                            x:Name="DefaultVideoView"
-                            Margin="12,8"
-                            HeaderVisibility="Collapsed"
-                            ItemsSource="{x:Bind ViewModel.DefaultVideos}">
-                            <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="video:VideoItemViewModel">
-                                    <videos:VideoItem DataContext="{x:Bind}" ViewModel="{x:Bind Mode=OneWay}">
-                                        <videos:VideoItem.ContextFlyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem Command="{x:Bind AddToViewLaterCommand}" Text="{loc:Locale Name=AddToViewLater}">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <icons:RegularFluentIcon Symbol="Add16" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutItem Command="{x:Bind RemoveFromFavoriteCommand}" Text="{loc:Locale Name=UnFavorite}">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <icons:RegularFluentIcon Symbol="StarOff16" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </videos:VideoItem.ContextFlyout>
-                                    </videos:VideoItem>
-                                </DataTemplate>
-                            </controls:VerticalRepeaterView.ItemTemplate>
-                        </controls:VerticalRepeaterView>
-                    </exp:ExpanderEx.Content>
                 </exp:ExpanderEx>
                 <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
                     <muxc:ItemsRepeater.Layout>
@@ -128,7 +80,7 @@
                                         <muxc:ItemsRepeater ItemsSource="{x:Bind Items}">
                                             <muxc:ItemsRepeater.ItemTemplate>
                                                 <DataTemplate x:DataType="video:VideoFavoriteFolderViewModel">
-                                                    <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                                                    <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" IsTabStop="False">
                                                         <exp:ExpanderExWrapper.MainContent>
                                                             <Grid Margin="-12,0,0,0" ColumnSpacing="12">
                                                                 <Grid.ColumnDefinitions>

@@ -55,7 +55,7 @@ namespace Bili.App.Controls.Base
             switch (item.Type)
             {
                 case Models.Enums.App.FixedType.Publisher:
-                    new UserSpaceView().Show(item.Id);
+                    ViewModel.NavigateToSecondaryView(PageIds.UserSpace, item.Id);
                     break;
                 case Models.Enums.App.FixedType.Pgc:
                     playRecord = new PlaySnapshot(default, item.Id, VideoType.Pgc)

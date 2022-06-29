@@ -1,0 +1,141 @@
+﻿<base:VideoFavoriteDetailPageBase
+    x:Class="Bili.App.Pages.Xbox.Overlay.VideoFavoriteDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:behaviors="using:Bili.App.Behaviors"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videos="using:Bili.App.Controls.Videos"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <app:PageHeader>
+            <app:PageHeader.Title>
+                <Grid RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,4"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        MaxLines="3"
+                        Text="{x:Bind ViewModel.Folder.Description, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind ViewModel.Folder.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <controls:UserAvatar
+                            Width="28"
+                            Height="28"
+                            Avatar="{x:Bind ViewModel.User.Avatar.Uri, Mode=OneWay}"
+                            IsEnabled="False"
+                            UserName="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                            <Run Text="{loc:Locale Name=VideoCount}" />
+                            <Run Text="{x:Bind ViewModel.Folder.TotalCount, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
+        <ScrollViewer
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            IsTabStop="False"
+            VerticalScrollBarVisibility="Auto">
+            <controls:VerticalRepeaterView
+                x:Name="VideoView"
+                Margin="0,0,0,24"
+                Background="Transparent"
+                HeaderVisibility="Collapsed"
+                IsTabStop="False"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:IncrementalBehavior />
+                </interactivity:Interaction.Behaviors>
+                <controls:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <videos:VideoItem
+                            Style="{StaticResource XboxVerticalVideoItemStyle}"
+                            IsCustom="True"
+                            ViewModel="{x:Bind}">
+                            <videos:VideoItem.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Command="{x:Bind AddToViewLaterCommand}" Text="{loc:Locale Name=AddToViewLater}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="Add16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Command="{x:Bind RemoveFromFavoriteCommand}" Text="{loc:Locale Name=UnFavorite}">
+                                        <MenuFlyoutItem.Icon>
+                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </videos:VideoItem.ContextFlyout>
+                        </videos:VideoItem>
+                    </DataTemplate>
+                </controls:VerticalRepeaterView.ItemTemplate>
+            </controls:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            IsTabStop="False"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:ErrorPanel
+            x:Name="EmptyPanel"
+            Grid.Row="1"
+            Text="{loc:Locale Name=FavoriteHaveNoVideos}"
+            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+    </Grid>
+</base:VideoFavoriteDetailPageBase>

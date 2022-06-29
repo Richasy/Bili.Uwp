@@ -8,7 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:favorite="using:Bili.App.Controls.Favorite"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Pages.Xbox.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:other="using:Bili.Models.App.Other"

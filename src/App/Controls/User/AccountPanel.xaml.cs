@@ -47,7 +47,8 @@ namespace Bili.App.Controls
 
         private void OnDynamicButtonClick(object sender, RoutedEventArgs e)
         {
-            new UserSpaceView().Show(Splat.Locator.Current.GetService<AccountViewModel>().AccountInformation.User);
+            var user = ViewModel.AccountInformation.User;
+            _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.UserSpace, user);
             RequestCloseFlyout?.Invoke(this, EventArgs.Empty);
         }
 

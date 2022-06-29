@@ -27,7 +27,7 @@
         <behaviors:InitializeBehavior />
     </interactivity:Interaction.Behaviors>
 
-    <Grid RowSpacing="8">
+    <Grid Padding="2,2,0,0" RowSpacing="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -57,7 +57,8 @@
             HorizontalAlignment="Left"
             ItemsSource="{x:Bind ViewModel.StatusCollection}"
             SelectedItem="{x:Bind ViewModel.Status, Mode=OneWay}"
-            SelectionChanged="OnStatusSelectionChanged">
+            SelectionChanged="OnStatusSelectionChanged"
+            TabIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate x:DataType="x:Int32">
                     <TextBlock Text="{x:Bind Converter={StaticResource StatusConverter}}" />

@@ -25,15 +25,14 @@ namespace Bili.App.Controls
             DefaultStyleKey = typeof(CenterPopup);
             _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
             GettingFocus += OnGettingFocus;
+            Loaded += OnLoaded;
         }
 
         /// <summary>
         /// 显示弹出层.
         /// </summary>
         public void Show()
-        {
-            RootPage.Current.ShowOnHolder(this);
-        }
+            => RootPage.Current.ShowOnHolder(this);
 
         /// <summary>
         /// 隐藏弹出层.
@@ -66,7 +65,11 @@ namespace Bili.App.Controls
             }
         }
 
-        private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Hide();
+        private void OnLoaded(object sender, RoutedEventArgs e)
+            => Focus(FocusState.Programmatic);
+
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+            => Hide();
 
         private void OnGettingFocus(UIElement sender, GettingFocusEventArgs args)
         {

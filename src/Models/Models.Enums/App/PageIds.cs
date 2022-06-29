@@ -163,6 +163,16 @@ namespace Bili.Models.Enums
         LivePartitionDetail = 205,
 
         /// <summary>
+        /// 用户空间页面.
+        /// </summary>
+        UserSpace = 300,
+
+        /// <summary>
+        /// 用户空间页面.
+        /// </summary>
+        VideoFavoriteDetail = 301,
+
+        /// <summary>
         /// 视频播放界面.
         /// </summary>
         VideoPlayer = 1001,

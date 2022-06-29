@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private readonly IFavoriteProvider _favoriteProvider;
         private readonly IAccountProvider _accountProvider;
-        private readonly AppViewModel _appViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isRemoving;
 
         private VideoFavoriteFolderGroupViewModel _groupViewModel;

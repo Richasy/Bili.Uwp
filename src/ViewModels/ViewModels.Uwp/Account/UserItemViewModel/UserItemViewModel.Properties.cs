@@ -21,6 +21,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AppViewModel _appViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
 

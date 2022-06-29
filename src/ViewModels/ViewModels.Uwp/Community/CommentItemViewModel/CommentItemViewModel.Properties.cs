@@ -20,6 +20,7 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AppViewModel _appViewModel;
+        private readonly NavigationViewModel _navigationViewModel;
         private Action<CommentItemViewModel> _showCommentDetailAction;
         private Action<CommentItemViewModel> _clickAction;
 

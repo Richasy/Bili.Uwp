@@ -9,11 +9,9 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
-using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
@@ -114,20 +112,6 @@ namespace Bili.ViewModels.Uwp.Core
         /// <param name="args">评论信息.</param>
         public void ShowReply(ShowCommentEventArgs args)
             => RequestShowReplyDetail?.Invoke(this, args);
-
-        /// <summary>
-        /// 显示用户详情.
-        /// </summary>
-        /// <param name="vm">用户条目视图模型.</param>
-        public void ShowUserDetail(UserItemViewModel vm)
-            => RequestShowUserDetail?.Invoke(this, vm);
-
-        /// <summary>
-        /// 显示视频收藏夹详情.
-        /// </summary>
-        /// <param name="folder">视频收藏夹.</param>
-        public void ShowVideoFavoriteFolderDetail(VideoFavoriteFolder folder)
-            => RequestShowVideoFavoriteFolderDetail.Invoke(this, folder);
 
         /// <summary>
         /// 显示正在播放的剧集信息详情.

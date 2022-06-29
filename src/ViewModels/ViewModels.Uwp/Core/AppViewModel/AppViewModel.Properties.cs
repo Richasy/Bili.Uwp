@@ -69,16 +69,6 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler<ShowCommentEventArgs> RequestShowReplyDetail;
 
         /// <summary>
-        /// 请求显示用户详情.
-        /// </summary>
-        public event EventHandler<UserItemViewModel> RequestShowUserDetail;
-
-        /// <summary>
-        /// 请求显示视频收藏夹详情详情.
-        /// </summary>
-        public event EventHandler<VideoFavoriteFolder> RequestShowVideoFavoriteFolderDetail;
-
-        /// <summary>
         /// 请求显示正在播放的剧集信息详情.
         /// </summary>
         public event EventHandler RequestShowPgcSeasonDetail;

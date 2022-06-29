@@ -27,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Account
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             AppViewModel appViewModel,
+            NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {
@@ -34,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Account
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _appViewModel = appViewModel;
+            _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
@@ -137,6 +139,6 @@ namespace Bili.ViewModels.Uwp.Account
         }
 
         private void ShowDetail()
-            => _appViewModel.ShowUserDetail(this);
+            => _navigationViewModel.Navigate(PageIds.UserSpace, User);
     }
 }

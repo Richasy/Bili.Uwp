@@ -50,7 +50,7 @@ namespace Bili.App.Controls.Videos
         }
 
         /// <inheritdoc/>
-        public Size GetHolderSize() => new(210, 248);
+        public Size GetHolderSize() => new Size(210, 248);
 
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
