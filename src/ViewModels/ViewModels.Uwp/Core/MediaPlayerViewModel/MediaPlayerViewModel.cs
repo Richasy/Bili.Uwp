@@ -69,6 +69,9 @@ namespace Bili.ViewModels.Uwp.Core
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
+            _videoConfig = new MediaSourceConfig();
+            _videoConfig.VideoDecoderMode = VideoDecoderMode.Automatic;
+
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
 
@@ -162,6 +165,16 @@ namespace Bili.ViewModels.Uwp.Core
                                 IsShowMediaTransport = false;
                             });
                         });
+                    }
+                });
+
+            this.WhenAnyValue(p => p.IsLoop)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x =>
+                {
+                    if (_mediaTimelineController != null)
+                    {
+                        _mediaTimelineController.IsLoopingEnabled = x;
                     }
                 });
         }
@@ -263,8 +276,8 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ChangeFormatAsync(FormatInformation information)
         {
-            var needResume = Status == PlayerStatus.Playing && _mediaPlayer != null;
-            _mediaPlayer?.Pause();
+            var needResume = Status == PlayerStatus.Playing && _mediaTimelineController != null;
+            _mediaTimelineController?.Pause();
             if (_videoType == VideoType.Video
                 || _videoType == VideoType.Pgc)
             {
@@ -277,7 +290,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (needResume)
             {
-                _mediaPlayer?.Play();
+                _mediaTimelineController?.Resume();
             }
         }
 

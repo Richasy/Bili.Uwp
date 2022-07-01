@@ -14,6 +14,7 @@ using Bili.ViewModels.Uwp.Common;
 using FFmpegInteropX;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.System.Display;
 using Windows.UI.Core;
@@ -39,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly MediaSourceConfig _liveConfig;
+        private readonly MediaSourceConfig _videoConfig;
         private readonly DisplayRequest _displayRequest;
 
         private VideoType _videoType;
@@ -50,9 +52,13 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaInformation _mediaInformation;
         private SegmentInformation _video;
         private SegmentInformation _audio;
-        private MediaPlayer _mediaPlayer;
-        private MediaPlaybackItem _playbackItem;
-        private FFmpegMediaSource _interopMSS;
+        private FFmpegMediaSource _videoFFSource;
+        private FFmpegMediaSource _audioFFSource;
+        private MediaPlayer _videoPlayer;
+        private MediaPlayer _audioPlayer;
+        private MediaPlaybackItem _videoPlaybackItem;
+        private MediaPlaybackItem _audioPlaybackItem;
+        private MediaTimelineController _mediaTimelineController;
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
         private TimeSpan _interactionProgress;

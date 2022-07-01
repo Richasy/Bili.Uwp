@@ -21,11 +21,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             await InitializeLiveMediaInformationAsync();
             await InitializeOrginalLiveSourceAsync();
-
-            if (_playbackItem != null)
-            {
-                FillLivePlaybackProperties();
-            }
+            FillLivePlaybackProperties();
         }
 
         private async Task InitializeLiveMediaInformationAsync()
@@ -103,9 +99,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeLivePlayerAsync(string url)
         {
-            InitializeMediaPlayer();
-            _playbackItem = await GetDashLiveSourceAsync(url.ToString());
-            _mediaPlayer.Source = _playbackItem;
+            await GetDashLiveSourceAsync(url.ToString());
         }
 
         private async Task ChangeLiveAudioOnlyAsync(bool isAudioOnly)
@@ -120,14 +114,19 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillLivePlaybackProperties()
         {
+            if (_videoPlaybackItem == null)
+            {
+                return;
+            }
+
             var view = _viewData as LivePlayerView;
-            var props = _playbackItem.GetDisplayProperties();
+            var props = _videoPlaybackItem.GetDisplayProperties();
             props.Type = Windows.Media.MediaPlaybackType.Video;
             props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(view.Information.User.Avatar.GetSourceUri() + "@100w_100h_1c_100q.jpg"));
             props.VideoProperties.Title = view.Information.Identifier.Title;
             props.VideoProperties.Subtitle = string.Join(string.Empty, view.Information.Description.Take(20));
             props.VideoProperties.Genres.Add(_videoType.ToString());
-            _playbackItem.ApplyDisplayProperties(props);
+            _videoPlaybackItem.ApplyDisplayProperties(props);
         }
     }
 }

@@ -27,16 +27,16 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 if (Status == PlayerStatus.Playing)
                 {
-                    _mediaPlayer.Pause();
+                    _mediaTimelineController.Pause();
                 }
                 else if (Status == PlayerStatus.Pause)
                 {
-                    _mediaPlayer.Play();
+                    _mediaTimelineController.Resume();
                 }
                 else if (Status == PlayerStatus.End)
                 {
-                    _mediaPlayer.PlaybackSession.Position = TimeSpan.Zero;
-                    _mediaPlayer.Play();
+                    _mediaTimelineController.Position = TimeSpan.Zero;
+                    _mediaTimelineController.Resume();
                 }
             });
         }
@@ -55,8 +55,8 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _mediaPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaPlayer.PlaybackSession.Position;
+                var duration = _mediaTimelineController.Duration.Value;
+                var currentPos = _mediaTimelineController.Position;
                 if ((duration - currentPos).TotalSeconds > seconds)
                 {
                     currentPos += TimeSpan.FromSeconds(seconds);
@@ -66,7 +66,7 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = duration;
                 }
 
-                _mediaPlayer.PlaybackSession.Position = currentPos;
+                _mediaTimelineController.Position = currentPos;
             });
         }
 
@@ -84,8 +84,8 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _mediaPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaPlayer.PlaybackSession.Position;
+                var duration = _mediaTimelineController.Duration;
+                var currentPos = _mediaTimelineController.Position;
                 if (currentPos.TotalSeconds > seconds)
                 {
                     currentPos -= TimeSpan.FromSeconds(seconds);
@@ -95,7 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = TimeSpan.Zero;
                 }
 
-                _mediaPlayer.PlaybackSession.Position = currentPos;
+                _mediaTimelineController.Position = currentPos;
             });
         }
 
@@ -122,7 +122,7 @@ namespace Bili.ViewModels.Uwp.Core
                     PlaybackRate = rate;
                 }
 
-                _mediaPlayer.PlaybackSession.PlaybackRate = PlaybackRate;
+                _mediaTimelineController.ClockRate = PlaybackRate;
 
                 foreach (var r in PlaybackRates)
                 {
@@ -185,10 +185,10 @@ namespace Bili.ViewModels.Uwp.Core
             EnsureMediaPlayerExist();
             var rendertarget = new CanvasRenderTarget(
                     CanvasDevice.GetSharedDevice(),
-                    _mediaPlayer.PlaybackSession.NaturalVideoWidth,
-                    _mediaPlayer.PlaybackSession.NaturalVideoHeight,
+                    _videoPlayer.PlaybackSession.NaturalVideoWidth,
+                    _videoPlayer.PlaybackSession.NaturalVideoHeight,
                     96);
-            _mediaPlayer.CopyFrameToVideoSurface(rendertarget);
+            _videoPlayer.CopyFrameToVideoSurface(rendertarget);
 
             var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync(AppConstants.ScreenshotFolderName, CreationCollisionOption.OpenIfExists);
             var file = await folder.CreateFileAsync(Guid.NewGuid().ToString("N") + ".png", CreationCollisionOption.OpenIfExists);
@@ -216,7 +216,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void EnsureMediaPlayerExist()
         {
-            if (_mediaPlayer == null || _mediaPlayer.PlaybackSession == null)
+            if (_videoPlayer == null || _videoPlayer.PlaybackSession == null)
             {
                 throw new InvalidOperationException("此时媒体播放器尚未就绪");
             }
