@@ -466,7 +466,11 @@ namespace Bili.ViewModels.Uwp.Core
             if (_isInteractionProgressChanged)
             {
                 _isInteractionProgressChanged = false;
-                _mediaTimelineController.Position = _interactionProgress;
+                if (_mediaTimelineController != null)
+                {
+                    _mediaTimelineController.Position = _interactionProgress;
+                }
+
                 _interactionProgress = TimeSpan.Zero;
             }
 

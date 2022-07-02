@@ -77,8 +77,8 @@ namespace Bili.App.Controls.Danmaku
                 if (_cachedDanmakus?.Count > 0)
                 {
                     Prepare(_cachedDanmakus);
-                    _danmakuController.Resume();
-                    _danmakuController.Seek(_currentTs);
+                    _danmakuController?.Resume();
+                    _danmakuController?.Seek(_currentTs);
                 }
             });
         }
