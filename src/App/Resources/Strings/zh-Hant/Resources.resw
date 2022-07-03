@@ -362,7 +362,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>封面下載</value>
   </data>
   <data name="CoverDownloaderDescription" xml:space="preserve">
-    <value>下載指定影片的封面到本機文堅</value>
+    <value>下載指定影片的封面到本機文件</value>
   </data>
   <data name="CoverDownloaderIntroduce" xml:space="preserve">
     <value>輸入影片的 AV 或 BV 號，軟體會嘗試取得其封面並提供預覽，確認後請點擊下載按鈕，軟體會將其下載到圖庫並打開</value>
