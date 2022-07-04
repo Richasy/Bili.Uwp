@@ -65,11 +65,11 @@ namespace Bili.Lib
         {
             var type = _videoToolkit.GetVideoIdType(videoId, out var avId);
             var viewRequest = new ViewReq();
-            if (type == Models.Enums.VideoIdType.Av && !string.IsNullOrEmpty(avId))
+            if (type == VideoIdType.Av && !string.IsNullOrEmpty(avId))
             {
                 viewRequest.Aid = Convert.ToInt64(avId);
             }
-            else if (type == Models.Enums.VideoIdType.Bv)
+            else if (type == VideoIdType.Bv)
             {
                 viewRequest.Bvid = videoId;
             }

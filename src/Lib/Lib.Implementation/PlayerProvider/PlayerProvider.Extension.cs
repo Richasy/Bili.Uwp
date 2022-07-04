@@ -109,6 +109,19 @@ namespace Bili.Lib
                 otherQuery = $"area={area}";
             }
 
+            // var playUrlReq = new PlayViewReq
+            // {
+            //    Aid = Convert.ToInt64(aid),
+            //    Cid = Convert.ToInt64(cid),
+            //    Fourk = true,
+            //    Fnval = 4048,
+            //    Qn = 64,
+            //    ForceHost = 2,
+            //    PreferCodecType = CodeType.Code264,
+            // };
+            // var appReq = await _httpProvider.GetRequestMessageAsync(ApiConstants.Video.PlayUrl, playUrlReq);
+            // var appRes = await _httpProvider.SendAsync(appReq);
+            // var result = await _httpProvider.ParseAsync(appRes, PlayViewReply.Parser);
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.Web, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>

@@ -40,7 +40,7 @@ namespace Bili.App.Controls.Danmaku
         /// </summary>
         /// <param name="item">弹幕条目.</param>
         public void SendDanmu(DanmakuItem item)
-            => _danmakuController.AddRealtimeDanmaku(item, insertToList: false);
+            => _danmakuController?.AddRealtimeDanmaku(item, insertToList: false);
 
         /// <summary>
         /// 更新内部计时.

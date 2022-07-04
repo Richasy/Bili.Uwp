@@ -417,7 +417,15 @@ namespace Bili.ViewModels.Uwp.Core
                 var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
                 if (autoPlay)
                 {
-                    _mediaTimelineController.Resume();
+                    if (_mediaTimelineController != null)
+                    {
+                        _mediaTimelineController.Resume();
+                    }
+                    else
+                    {
+                        _videoPlayer.AutoPlay = true;
+                        _videoPlayer.Play();
+                    }
                 }
             }
         }

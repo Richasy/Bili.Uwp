@@ -122,7 +122,14 @@ namespace Bili.ViewModels.Uwp.Core
                     PlaybackRate = rate;
                 }
 
-                _mediaTimelineController.ClockRate = PlaybackRate;
+                if(_mediaTimelineController != null)
+                {
+                    _mediaTimelineController.ClockRate = PlaybackRate;
+                }
+                else
+                {
+                    _videoPlayer.PlaybackSession.PlaybackRate = PlaybackRate;
+                }
 
                 foreach (var r in PlaybackRates)
                 {

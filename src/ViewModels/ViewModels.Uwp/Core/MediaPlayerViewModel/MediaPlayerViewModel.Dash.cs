@@ -1,9 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
 using FFmpegInteropX;
 using Windows.Media.Playback;
+using Windows.Web.Http;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -19,9 +22,25 @@ namespace Bili.ViewModels.Uwp.Core
                 _videoFFSource?.Dispose();
                 _audioFFSource?.Dispose();
 
-                _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(_video.BaseUrl, _videoConfig);
-                _audioFFSource = await FFmpegMediaSource.CreateFromUriAsync(_audio.BaseUrl, _videoConfig);
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
 
+                var tasks = new List<Task>
+                {
+                    Task.Run(async () =>
+                    {
+                        var videoStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_video.BaseUrl));
+                        _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(videoStream, _videoConfig);
+                    }),
+                    Task.Run(async () =>
+                    {
+                        var audioStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_audio.BaseUrl));
+                        _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(audioStream, _videoConfig);
+                    }),
+                };
+
+                await Task.WhenAll(tasks);
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
                 _audioPlaybackItem = _audioFFSource.CreateMediaPlaybackItem();
 
@@ -54,10 +73,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
-                _mediaTimelineController = GetTimelineController();
-
                 _videoPlayer = GetVideoPlayer();
-                _videoPlayer.CommandManager.IsEnabled = false;
                 _videoPlayer.Source = _videoPlaybackItem;
 
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
