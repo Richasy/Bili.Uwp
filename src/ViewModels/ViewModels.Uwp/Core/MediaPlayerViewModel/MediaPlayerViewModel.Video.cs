@@ -100,7 +100,10 @@ namespace Bili.ViewModels.Uwp.Core
 
             foreach (var item in _mediaInformation.Formats)
             {
-                Formats.Add(item);
+                if (!item.IsLimited)
+                {
+                    Formats.Add(item);
+                }
             }
 
             var formatId = _settingsToolkit.ReadLocalSetting(SettingNames.IsPreferHighQuality, false)
