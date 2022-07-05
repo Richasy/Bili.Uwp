@@ -82,6 +82,11 @@ namespace Bili.ViewModels.Uwp
                 _inputStream.Dispose();
                 _inputStream = null;
             }
+
+            if (_client != null)
+            {
+                _client?.Dispose();
+            }
         }
 
         public IAsyncOperationWithProgress<IBuffer, uint> ReadAsync(IBuffer buffer, uint count, InputStreamOptions options)

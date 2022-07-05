@@ -96,6 +96,7 @@ namespace Bili.ViewModels.Uwp.Core
             ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode, outputScheduler: RxApp.MainThreadScheduler);
             ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode, outputScheduler: RxApp.MainThreadScheduler);
             ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);
+            ExitFullPlayerCommand = ReactiveCommand.Create(ExitFullPlayer, outputScheduler: RxApp.MainThreadScheduler);
             ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync, outputScheduler: RxApp.MainThreadScheduler);
             ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress, outputScheduler: RxApp.MainThreadScheduler);
             StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
@@ -141,6 +142,8 @@ namespace Bili.ViewModels.Uwp.Core
                             });
                         });
                     }
+
+                    CheckExitFullPlayerButtonVisibility();
                 });
 
             this.WhenAnyValue(p => p.InteractionProgressSeconds)
@@ -165,6 +168,8 @@ namespace Bili.ViewModels.Uwp.Core
                             });
                         });
                     }
+
+                    CheckExitFullPlayerButtonVisibility();
                 });
 
             this.WhenAnyValue(p => p.IsLoop)
@@ -176,6 +181,10 @@ namespace Bili.ViewModels.Uwp.Core
                         _mediaTimelineController.IsLoopingEnabled = x;
                     }
                 });
+
+            this.WhenAnyValue(p => p.IsError)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => CheckExitFullPlayerButtonVisibility());
         }
 
         /// <summary>
@@ -263,8 +272,6 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 await LoadLiveAsync();
             }
-
-            StartTimersAndDisplayRequest();
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)

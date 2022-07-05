@@ -159,5 +159,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// 返回默认模式的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> BackToDefaultModeCommand { get; }
+
+        /// <summary>
+        /// 退出全尺寸播放器的命令.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ExitFullPlayerCommand { get; }
     }
 }

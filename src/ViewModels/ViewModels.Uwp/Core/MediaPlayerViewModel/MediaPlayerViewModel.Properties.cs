@@ -54,6 +54,8 @@ namespace Bili.ViewModels.Uwp.Core
         private SegmentInformation _audio;
         private FFmpegMediaSource _videoFFSource;
         private FFmpegMediaSource _audioFFSource;
+        private HttpRandomAccessStream _videoStream;
+        private HttpRandomAccessStream _audioStream;
         private MediaPlayer _videoPlayer;
         private MediaPlayer _audioPlayer;
         private MediaPlaybackItem _videoPlaybackItem;
@@ -319,5 +321,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool CanPlayNextPart { get; set; }
+
+        /// <summary>
+        /// 是否显示退出全尺寸播放界面按钮.
+        /// </summary>
+        [Reactive]
+        public bool IsShowExitFullPlayerButton { get; set; }
     }
 }

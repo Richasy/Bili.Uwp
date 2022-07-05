@@ -16,34 +16,28 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class MediaPlayerViewModel
     {
-        private async Task GetDashVideoSourceAsync()
+        private async Task LoadDashVideoSourceAsync()
         {
             try
             {
-                _videoFFSource?.Dispose();
-                _audioFFSource?.Dispose();
-                _videoFFSource = null;
-                _audioFFSource = null;
-
                 var hasAudio = _audio != null;
                 _videoConfig.VideoDecoderMode = GetDecoderMode();
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
-                httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
 
                 var tasks = new List<Task>
                 {
                     Task.Run(async () =>
                     {
-                        var videoStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_video.BaseUrl));
-                        _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(videoStream, _videoConfig);
+                        var client = GetClient();
+                        _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_video.BaseUrl));
+                        _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream, _videoConfig);
                     }),
                     Task.Run(async () =>
                     {
                         if (hasAudio)
                         {
-                            var audioStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_audio.BaseUrl));
-                            _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(audioStream, _videoConfig);
+                            var client = GetClient();
+                            _audioStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_audio.BaseUrl));
+                            _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_audioStream, _videoConfig);
                         }
                     }),
                 };
@@ -68,10 +62,19 @@ namespace Bili.ViewModels.Uwp.Core
 
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 IsError = true;
                 ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
+                LogException(ex);
+            }
+
+            HttpClient GetClient()
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
+                return httpClient;
             }
         }
 
@@ -89,10 +92,11 @@ namespace Bili.ViewModels.Uwp.Core
 
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 IsError = true;
                 ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestLivePlayInformationFailed);
+                LogException(ex);
             }
         }
 

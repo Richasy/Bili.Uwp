@@ -121,6 +121,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             MarkProgressBreakpoint();
             var codecId = GetVideoPreferCodecId();
+            ResetPlayer();
             if (_mediaInformation.VideoSegments != null)
             {
                 var filteredSegments = _mediaInformation.VideoSegments.Where(p => p.Id == format.Quality.ToString());
@@ -153,12 +154,9 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            await InitializeVideoPlayerAsync();
-        }
-
-        private async Task InitializeVideoPlayerAsync()
-        {
-            await GetDashVideoSourceAsync();
+            await Task.Delay(100);
+            await LoadDashVideoSourceAsync();
+            StartTimersAndDisplayRequest();
         }
 
         private void CheckVideoP2PUrls()
