@@ -15,35 +15,17 @@ namespace Bili.Models.Data.Player
         /// <param name="id">分段 Id.</param>
         /// <param name="baseUrl">基链接.</param>
         /// <param name="backupUrls">备份链接.</param>
-        /// <param name="bandwidth">媒体要求的带宽.</param>
-        /// <param name="mimeType">媒体格式.</param>
         /// <param name="codecs">媒体编码.</param>
-        /// <param name="width">媒体宽度.</param>
-        /// <param name="height">媒体高度.</param>
-        /// <param name="initialization">起始位置.</param>
-        /// <param name="indexRange">索引范围.</param>
         public SegmentInformation(
             string id,
             string baseUrl,
             IEnumerable<string> backupUrls,
-            int bandwidth,
-            string mimeType,
-            string codecs,
-            int width,
-            int height,
-            string initialization,
-            string indexRange)
+            string codecs)
         {
             Id = id;
             BaseUrl = baseUrl;
             BackupUrls = backupUrls;
-            Bandwidth = bandwidth;
-            MimeType = mimeType;
             Codecs = codecs;
-            Width = width;
-            Height = height;
-            Initialization = initialization;
-            IndexRange = indexRange;
         }
 
         /// <summary>
@@ -62,39 +44,9 @@ namespace Bili.Models.Data.Player
         public IEnumerable<string> BackupUrls { get; }
 
         /// <summary>
-        /// 媒体要求的带宽.
-        /// </summary>
-        public int Bandwidth { get; }
-
-        /// <summary>
-        /// 媒体格式.
-        /// </summary>
-        public string MimeType { get; }
-
-        /// <summary>
         /// 媒体编码.
         /// </summary>
         public string Codecs { get; }
-
-        /// <summary>
-        /// 媒体宽度.
-        /// </summary>
-        public int Width { get; }
-
-        /// <summary>
-        /// 媒体高度.
-        /// </summary>
-        public int Height { get; }
-
-        /// <summary>
-        /// 起始位置.
-        /// </summary>
-        public string Initialization { get; }
-
-        /// <summary>
-        /// 索引范围.
-        /// </summary>
-        public string IndexRange { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SegmentInformation information && Id == information.Id;

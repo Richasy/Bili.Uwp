@@ -39,13 +39,7 @@ namespace Bili.Adapter
                 item.Id.ToString(),
                 item.BaseUrl,
                 item.BackupUrl,
-                item.BandWidth,
-                item.MimeType,
-                item.Codecs,
-                item.Width,
-                item.Height,
-                item.SegmentBase.Initialization,
-                item.SegmentBase.IndexRange);
+                item.Codecs);
         }
 
         /// <inheritdoc/>
@@ -57,7 +51,6 @@ namespace Bili.Adapter
                 return default;
             }
 
-            var minBuffer = dash.MinBufferTime;
             var videos = dash.Video?.Count > 0
                 ? dash.Video.Select(p => ConvertToSegmentInformation(p))
                 : null;
@@ -65,7 +58,58 @@ namespace Bili.Adapter
                 ? dash.Audio.Select(p => ConvertToSegmentInformation(p))
                 : null;
             var formats = information.SupportFormats.Select(p => ConvertToFormatInformation(p)).ToList();
-            return new MediaInformation(minBuffer, videos, audios, formats);
+            return new MediaInformation(videos, audios, formats);
+        }
+
+        /// <inheritdoc/>
+        public MediaInformation ConvertToMediaInformation(Bilibili.App.Playurl.V1.PlayViewReply reply)
+        {
+            var info = reply.VideoInfo;
+            if (info == null)
+            {
+                return default;
+            }
+
+            var videoStreams = info.StreamList.ToList();
+            var audioStreams = info.DashAudio != null
+                ? info.DashAudio.ToList()
+                : new List<Bilibili.App.Playurl.V1.DashItem>();
+            var videos = new List<SegmentInformation>();
+            var audios = new List<SegmentInformation>();
+            var formats = new List<FormatInformation>();
+
+            foreach (var video in videoStreams)
+            {
+                if (video.DashVideo == null)
+                {
+                    continue;
+                }
+
+                var seg = new SegmentInformation(
+                    video.StreamInfo.Quality.ToString(),
+                    video.DashVideo.BaseUrl,
+                    video.DashVideo.BackupUrl.ToList(),
+                    video.DashVideo.Codecid.ToString());
+                var format = new FormatInformation(
+                    Convert.ToInt32(video.StreamInfo.Quality),
+                    video.StreamInfo.Description,
+                    video.StreamInfo.NeedVip);
+                videos.Add(seg);
+                formats.Add(format);
+            }
+
+            foreach (var audio in audioStreams)
+            {
+                var seg = new SegmentInformation(
+                    audio.Id.ToString(),
+                    audio.BaseUrl,
+                    audio.BackupUrl.ToList(),
+                    audio.Codecid.ToString());
+
+                audios.Add(seg);
+            }
+
+            return new MediaInformation(videos, audios, formats);
         }
 
         /// <inheritdoc/>

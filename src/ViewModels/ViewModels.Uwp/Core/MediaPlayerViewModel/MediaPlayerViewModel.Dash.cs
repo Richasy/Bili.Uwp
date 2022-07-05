@@ -21,7 +21,10 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _videoFFSource?.Dispose();
                 _audioFFSource?.Dispose();
+                _videoFFSource = null;
+                _audioFFSource = null;
 
+                var hasAudio = _audio != null;
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
                 httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
@@ -35,26 +38,31 @@ namespace Bili.ViewModels.Uwp.Core
                     }),
                     Task.Run(async () =>
                     {
-                        var audioStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_audio.BaseUrl));
-                        _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(audioStream, _videoConfig);
+                        if (hasAudio)
+                        {
+                            var audioStream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(_audio.BaseUrl));
+                            _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(audioStream, _videoConfig);
+                        }
                     }),
                 };
 
                 await Task.WhenAll(tasks);
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
-                _audioPlaybackItem = _audioFFSource.CreateMediaPlaybackItem();
-
-                _mediaTimelineController = GetTimelineController();
 
                 _videoPlayer = GetVideoPlayer();
-                _videoPlayer.CommandManager.IsEnabled = false;
                 _videoPlayer.Source = _videoPlaybackItem;
-                _videoPlayer.TimelineController = _mediaTimelineController;
 
-                _audioPlayer = new MediaPlayer();
-                _audioPlayer.CommandManager.IsEnabled = false;
-                _audioPlayer.Source = _audioPlaybackItem;
-                _audioPlayer.TimelineController = _mediaTimelineController;
+                if (hasAudio)
+                {
+                    _audioPlaybackItem = _audioFFSource.CreateMediaPlaybackItem();
+                    _mediaTimelineController = GetTimelineController();
+                    _videoPlayer.CommandManager.IsEnabled = false;
+                    _videoPlayer.TimelineController = _mediaTimelineController;
+                    _audioPlayer = new MediaPlayer();
+                    _audioPlayer.CommandManager.IsEnabled = false;
+                    _audioPlayer.Source = _audioPlaybackItem;
+                    _audioPlayer.TimelineController = _mediaTimelineController;
+                }
 
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
             }

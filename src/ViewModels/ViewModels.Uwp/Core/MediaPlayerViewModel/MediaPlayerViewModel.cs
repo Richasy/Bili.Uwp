@@ -237,6 +237,12 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void Reset()
         {
+            if (IsError)
+            {
+                // 说明解析出现了错误，可能是解码失败，此时应尝试重置清晰度.
+                CurrentFormat = null;
+            }
+
             ResetPlayer();
             ResetMediaData();
             ResetVideoData();

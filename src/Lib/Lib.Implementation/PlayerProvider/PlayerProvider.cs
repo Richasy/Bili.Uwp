@@ -20,6 +20,7 @@ using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Playeronline.V1;
+using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json;
@@ -36,16 +37,11 @@ namespace Bili.Lib
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerProvider"/> class.
         /// </summary>
-        /// <param name="httpProvider">网络操作工具.</param>
-        /// <param name="accountProvider">账户操作工具.</param>
-        /// <param name="videoToolkit">视频工具.</param>
-        /// <param name="videoAdapter">视频数据适配器.</param>
-        /// <param name="communityAdapter">社区数据适配器.</param>
-        /// <param name="playerAdapter">播放器数据适配器.</param>
         public PlayerProvider(
             IHttpProvider httpProvider,
             IAccountProvider accountProvider,
             IVideoToolkit videoToolkit,
+            ISettingsToolkit settingsToolkit,
             IVideoAdapter videoAdapter,
             ICommunityAdapter communityAdapter,
             IPlayerAdapter playerAdapter,
@@ -54,6 +50,7 @@ namespace Bili.Lib
             _httpProvider = httpProvider;
             _accountProvider = accountProvider;
             _videoToolkit = videoToolkit;
+            _settingsToolkit = settingsToolkit;
             _videoAdapter = videoAdapter;
             _pgcAdapter = pgcAdapter;
             _communityAdapter = communityAdapter;
@@ -127,7 +124,31 @@ namespace Bili.Lib
 
         /// <inheritdoc/>
         public async Task<MediaInformation> GetVideoMediaInformationAsync(string videoId, string partId)
-            => await InternalGetDashAsync(partId, videoId);
+        {
+            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
+            var codeType = preferCodec switch
+            {
+                PreferCodec.H265 => CodeType.Code265,
+                PreferCodec.H264 => CodeType.Code264,
+                PreferCodec.Av1 => CodeType.Codeav1,
+                _ => CodeType.Code264,
+            };
+
+            var playUrlReq = new PlayViewReq
+            {
+                Aid = Convert.ToInt64(videoId),
+                Cid = Convert.ToInt64(partId),
+                Fourk = true,
+                Fnval = 4048,
+                Qn = 64,
+                ForceHost = 2,
+                PreferCodecType = codeType,
+            };
+            var appReq = await _httpProvider.GetRequestMessageAsync(Video.PlayUrl, playUrlReq);
+            var appRes = await _httpProvider.SendAsync(appReq);
+            var reply = await _httpProvider.ParseAsync(appRes, PlayViewReply.Parser);
+            return _playerAdapter.ConvertToMediaInformation(reply);
+        }
 
         /// <inheritdoc/>
         public async Task<MediaInformation> GetPgcMediaInformationAsync(string partId, string episodeId, string seasonType, string proxy = default, string area = default)
