@@ -57,7 +57,7 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void InitializeInterop()
         {
-            var downloadParam = View.Information.Identifier.Id;
+            var downloadParam = $"ss{View.Information.Identifier.Id}";
             var downloadParts = Episodes.Select((_, index) => index + 1).ToList();
             DownloadViewModel.SetData(downloadParam, downloadParts);
             IsOnlyShowIndex = _settingsToolkit.ReadLocalSetting(SettingNames.IsOnlyShowIndex, false);

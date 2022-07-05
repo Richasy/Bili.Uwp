@@ -39,6 +39,7 @@
             <ComboBoxItem Content="{loc:Locale Name=Any}" Tag="Any" />
             <ComboBoxItem Content="{loc:Locale Name=H264}" Tag="H264" />
             <ComboBoxItem Content="{loc:Locale Name=H265}" Tag="H265" />
+            <ComboBoxItem Content="{loc:Locale Name=Av1}" Tag="AV1" />
         </ComboBox>
         <ComboBox
             x:Name="DownloadTypeComboBox"
@@ -119,16 +120,6 @@
                     HorizontalAlignment="Left"
                     Header="{loc:Locale Name=DownloadDanmaku}"
                     IsOn="{x:Bind ViewModel.DownloadDanmaku, Mode=TwoWay}" />
-                <ToggleSwitch
-                    x:Name="PartPrefixSwitch"
-                    HorizontalAlignment="Left"
-                    Header="{loc:Locale Name=PartPrefix}"
-                    IsOn="{x:Bind ViewModel.UsePartPerfix, Mode=TwoWay}" />
-                <ToggleSwitch
-                    x:Name="QualitySuffixSwitch"
-                    HorizontalAlignment="Left"
-                    Header="{loc:Locale Name=QualitySuffix}"
-                    IsOn="{x:Bind ViewModel.UseQualitySuffix, Mode=TwoWay}" />
                 <ToggleSwitch
                     x:Name="UseMp4BoxSwitch"
                     HorizontalAlignment="Left"

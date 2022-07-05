@@ -57,8 +57,6 @@ namespace Bili.Models.Enums
         Download_UseInternationalInterface,
         Download_DownloadDanmaku,
         Download_DownloadFolder,
-        Download_UsePartPerfix,
-        Download_UseQualitySuffix,
         Download_UseInteractionQuality,
         CanSaveScreenshot,
         OpenScreenshotAfterSave,

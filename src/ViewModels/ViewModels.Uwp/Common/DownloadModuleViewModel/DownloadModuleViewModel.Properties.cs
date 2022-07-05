@@ -61,6 +61,12 @@ namespace Bili.ViewModels.Uwp.Common
         public bool OnlyAvc { get; set; }
 
         /// <summary>
+        /// 仅下载AV1源.
+        /// </summary>
+        [Reactive]
+        public bool OnlyAv1 { get; set; }
+
+        /// <summary>
         /// 是否仅下载音频.
         /// </summary>
         [Reactive]
@@ -113,18 +119,6 @@ namespace Bili.ViewModels.Uwp.Common
         /// </summary>
         [Reactive]
         public string DownloadFolder { get; set; }
-
-        /// <summary>
-        /// 使用分P前缀.
-        /// </summary>
-        [Reactive]
-        public bool UsePartPerfix { get; set; }
-
-        /// <summary>
-        /// 使用分P后缀.
-        /// </summary>
-        [Reactive]
-        public bool UseQualitySuffix { get; set; }
 
         /// <summary>
         /// 使用交互式清晰度选择.
