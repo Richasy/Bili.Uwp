@@ -139,6 +139,7 @@ namespace Bili.ViewModels.Uwp.Search
             TryClear(CurrentFilters);
             await FakeLoadingAsync();
             CurrentModule = vm;
+            ClearCurrentModule();
             await GetDataAsync();
         }
 

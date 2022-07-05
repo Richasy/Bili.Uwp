@@ -235,7 +235,8 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public VideoInformation ConvertToVideoInformation(VideoSearchItem searchVideo)
         {
-            var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(searchVideo.Title);
+            var title = Regex.Replace(searchVideo.Title, @"<[^<>]+>", string.Empty);
+            title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
             var id = searchVideo.Parameter;
             var duration = string.IsNullOrEmpty(searchVideo.Duration)
                 ? 0
