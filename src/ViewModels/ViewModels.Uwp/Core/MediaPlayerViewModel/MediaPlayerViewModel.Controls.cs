@@ -55,7 +55,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _mediaTimelineController.Duration.Value;
+                var duration = _videoPlayer.PlaybackSession.NaturalDuration;
                 var currentPos = _mediaTimelineController.Position;
                 if ((duration - currentPos).TotalSeconds > seconds)
                 {
@@ -84,7 +84,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _mediaTimelineController.Duration;
+                var duration = _videoPlayer.PlaybackSession.NaturalDuration;
                 var currentPos = _mediaTimelineController.Position;
                 if (currentPos.TotalSeconds > seconds)
                 {
