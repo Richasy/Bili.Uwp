@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Core;
@@ -61,6 +62,7 @@ namespace Bili.ViewModels.Uwp.Home
             GlobalPlaybackRate = ReadSetting(SettingNames.GlobalPlaybackRate, false);
             IsFullTraditionalChinese = ReadSetting(SettingNames.IsFullTraditionalChinese, false);
             PreferCodecInit();
+            DecodeInit();
             PlayerModeInit();
             StartupInitAsync();
             BackgroundTaskInitAsync();
@@ -147,6 +149,9 @@ namespace Bili.ViewModels.Uwp.Home
                 case nameof(IsFullTraditionalChinese):
                     WriteSetting(SettingNames.IsFullTraditionalChinese, IsFullTraditionalChinese);
                     break;
+                case nameof(DecodeType):
+                    WriteSetting(SettingNames.DecodeType, DecodeType);
+                    break;
                 default:
                     break;
             }
@@ -198,6 +203,21 @@ namespace Bili.ViewModels.Uwp.Home
             }
 
             PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H264);
+        }
+
+        private void DecodeInit()
+        {
+            if (DecodeTypeCollection == null || DecodeTypeCollection.Count == 0)
+            {
+                DecodeTypeCollection = new ObservableCollection<DecodeType>
+                {
+                    DecodeType.Automatic,
+                    DecodeType.HardwareDecode,
+                    DecodeType.SoftwareDecode,
+                };
+            }
+
+            DecodeType = ReadSetting(SettingNames.DecodeType, DecodeType.Automatic);
         }
 
         private void RoamingInit()

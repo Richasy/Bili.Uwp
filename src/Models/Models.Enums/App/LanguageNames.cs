@@ -130,6 +130,8 @@ namespace Bili.Models.Enums
         Prefer4KDescription,
         PreferCodec,
         PreferCodecDescription,
+        DecodeType,
+        DecodeTypeDescription,
         SingleFastForwardAndRewindSpan,
         SingleFastForwardAndRewindSpanDescription,
         MTCControlMode,
@@ -529,6 +531,8 @@ namespace Bili.Models.Enums
         Menu,
         FullTraditionalChineseTitle,
         FullTraditionalChineseDescription,
+        HardwareDecode,
+        SoftwareDecode,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

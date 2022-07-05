@@ -430,6 +430,12 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
   </data>
+  <data name="DecodeType" xml:space="preserve">
+    <value>解碼類型</value>
+  </data>
+  <data name="DecodeTypeDescription" xml:space="preserve">
+    <value>選擇視頻的解碼方式，可以選擇強制硬解或軟解</value>
+  </data>
   <data name="DecodingError" xml:space="preserve">
     <value>解碼失敗或者正在切換片源</value>
   </data>
@@ -686,6 +692,9 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   </data>
   <data name="H265" xml:space="preserve">
     <value>HEVC/H.265</value>
+  </data>
+  <data name="HardwareDecode" xml:space="preserve">
+    <value>硬件解碼</value>
   </data>
   <data name="HasUpdate" xml:space="preserve">
     <value>新版本發布</value>
@@ -1437,6 +1446,9 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   </data>
   <data name="Small" xml:space="preserve">
     <value>小號</value>
+  </data>
+  <data name="SoftwareDecode" xml:space="preserve">
+    <value>軟件解碼</value>
   </data>
   <data name="SomeoneLiveRoom" xml:space="preserve">
     <value>{0}的直播間</value>

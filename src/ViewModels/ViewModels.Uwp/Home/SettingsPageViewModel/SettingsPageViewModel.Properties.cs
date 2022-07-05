@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.Enums;
+using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -35,6 +36,12 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public ObservableCollection<PreferCodec> PreferCodecCollection { get; set; }
+
+        /// <summary>
+        /// 解码类型可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<DecodeType> DecodeTypeCollection { get; set; }
 
         /// <summary>
         /// 应用主题.
@@ -107,6 +114,12 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public PreferCodec PreferCodec { get; set; }
+
+        /// <summary>
+        /// 解码类型.
+        /// </summary>
+        [Reactive]
+        public DecodeType DecodeType { get; set; }
 
         /// <summary>
         /// 单次快进/快退时长.

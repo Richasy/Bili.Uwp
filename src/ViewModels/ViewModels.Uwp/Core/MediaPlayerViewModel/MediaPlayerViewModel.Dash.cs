@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
+using Bili.Models.Enums.App;
 using FFmpegInteropX;
 using Windows.Media.Playback;
 using Windows.Web.Http;
@@ -25,6 +26,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _audioFFSource = null;
 
                 var hasAudio = _audio != null;
+                _videoConfig.VideoDecoderMode = GetDecoderMode();
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
                 httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
@@ -77,6 +79,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             try
             {
+                _liveConfig.VideoDecoderMode = GetDecoderMode();
                 _videoFFSource?.Dispose();
                 _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
@@ -91,6 +94,17 @@ namespace Bili.ViewModels.Uwp.Core
                 IsError = true;
                 ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestLivePlayInformationFailed);
             }
+        }
+
+        private VideoDecoderMode GetDecoderMode()
+        {
+            var decodeType = _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.DecodeType, DecodeType.Automatic);
+            return decodeType switch
+            {
+                DecodeType.HardwareDecode => VideoDecoderMode.ForceSystemDecoder,
+                DecodeType.SoftwareDecode => VideoDecoderMode.ForceFFmpegSoftwareDecoder,
+                _ => VideoDecoderMode.Automatic
+            };
         }
     }
 }

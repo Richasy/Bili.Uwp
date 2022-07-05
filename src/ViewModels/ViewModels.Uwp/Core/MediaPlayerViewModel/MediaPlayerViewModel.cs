@@ -68,10 +68,8 @@ namespace Bili.ViewModels.Uwp.Core
             _liveConfig = new MediaSourceConfig();
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
-            _liveConfig.VideoDecoderMode = VideoDecoderMode.Automatic;
 
             _videoConfig = new MediaSourceConfig();
-            _videoConfig.VideoDecoderMode = VideoDecoderMode.Automatic;
 
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);

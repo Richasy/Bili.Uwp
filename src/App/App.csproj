@@ -519,6 +519,7 @@
     <Compile Include="Resources\Converter\ColorConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuFontSizeConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
+    <Compile Include="Resources\Converter\DecodeTypeConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\ErrorOpacityConverter.cs" />
