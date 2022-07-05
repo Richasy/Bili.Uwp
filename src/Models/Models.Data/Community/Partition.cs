@@ -13,6 +13,13 @@ namespace Bili.Models.Data.Community
         /// <summary>
         /// Initializes a new instance of the <see cref="Partition"/> class.
         /// </summary>
+        public Partition()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Partition"/> class.
+        /// </summary>
         /// <param name="id">标识符.</param>
         /// <param name="name">分区名.</param>
         /// <param name="image">Logo.</param>

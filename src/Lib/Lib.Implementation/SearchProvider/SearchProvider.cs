@@ -158,8 +158,9 @@ namespace Bili.Lib
             var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Models.App.Constants.ApiConstants.Search.ComprehensiveSearch, queryParameters, Models.Enums.RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ComprehensiveSearchResultResponse>>(response);
+            var data = _searchAdapter.ConvertToComprehensiveSet(result.Data);
             _comprehensivePageNumber++;
-            return _searchAdapter.ConvertToComprehensiveSet(result.Data);
+            return data;
         }
 
         /// <inheritdoc/>

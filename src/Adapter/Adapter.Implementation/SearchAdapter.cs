@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bili.Adapter.Interfaces;
+using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Search;
 using Bili.Models.Data.Video;
@@ -45,7 +46,7 @@ namespace Bili.Adapter
             var isEnd = response.ItemList == null;
             var videos = isEnd
                 ? new List<VideoInformation>()
-                : response.ItemList.Select(p => _videoAdapter.ConvertToVideoInformation(p)).ToList();
+                : response.ItemList.Where(p => p.Goto == ServiceConstants.Av).Select(p => _videoAdapter.ConvertToVideoInformation(p)).ToList();
             var videoSet = new SearchSet<VideoInformation>(videos, isEnd);
 
             return new ComprehensiveSet(videoSet, metaList);
