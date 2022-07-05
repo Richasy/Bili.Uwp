@@ -62,6 +62,10 @@ namespace Bili.App.Controls.Player
             {
                 CodecComboBox.SelectedIndex = 2;
             }
+            else if (ViewModel.OnlyAv1)
+            {
+                CodecComboBox.SelectedIndex = 3;
+            }
             else
             {
                 CodecComboBox.SelectedIndex = 0;
@@ -125,14 +129,22 @@ namespace Bili.App.Controls.Player
                 case "Any":
                     ViewModel.OnlyAvc = false;
                     ViewModel.OnlyHevc = false;
+                    ViewModel.OnlyAv1 = false;
                     break;
                 case "H264":
                     ViewModel.OnlyAvc = true;
                     ViewModel.OnlyHevc = false;
+                    ViewModel.OnlyAv1 = false;
                     break;
                 case "H265":
                     ViewModel.OnlyAvc = false;
                     ViewModel.OnlyHevc = true;
+                    ViewModel.OnlyAv1 = false;
+                    break;
+                case "AV1":
+                    ViewModel.OnlyAvc = false;
+                    ViewModel.OnlyHevc = false;
+                    ViewModel.OnlyAv1 = true;
                     break;
                 default:
                     break;

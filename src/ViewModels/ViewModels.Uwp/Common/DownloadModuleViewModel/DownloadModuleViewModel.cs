@@ -53,8 +53,6 @@ namespace Bili.ViewModels.Uwp.Common
             UseInternationalInterface = ReadSetting(SettingNames.Download_UseInternationalInterface, false);
             DownloadDanmaku = ReadSetting(SettingNames.Download_DownloadDanmaku, false);
             DownloadFolder = ReadSetting(SettingNames.Download_DownloadFolder, string.Empty);
-            UsePartPerfix = ReadSetting(SettingNames.Download_UsePartPerfix, true);
-            UseQualitySuffix = ReadSetting(SettingNames.Download_UseQualitySuffix, false);
             UseInteractionQuality = ReadSetting(SettingNames.Download_UseInteractionQuality, false);
 
             this.WhenAnyValue(x => x.UseMp4Box)
@@ -75,10 +73,6 @@ namespace Bili.ViewModels.Uwp.Common
                 .Subscribe(x => WriteSetting(SettingNames.Download_UseInternationalInterface, x));
             this.WhenAnyValue(x => x.UseMultiThread)
                 .Subscribe(x => WriteSetting(SettingNames.Download_UseMultiThread, x));
-            this.WhenAnyValue(x => x.UsePartPerfix)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UsePartPerfix, x));
-            this.WhenAnyValue(x => x.UseQualitySuffix)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseQualitySuffix, x));
             this.WhenAnyValue(x => x.UseTvInterface)
                 .Subscribe(x => WriteSetting(SettingNames.Download_UseTvInterface, x));
             this.WhenAnyValue(x => x.DownloadDanmaku)
@@ -173,11 +167,18 @@ namespace Bili.ViewModels.Uwp.Common
 
             if (OnlyHevc)
             {
-                list.Add("-hevc");
+                list.Add("--encoding-priority");
+                list.Add("hevc");
             }
             else if (OnlyAvc)
             {
-                list.Add("-avc");
+                list.Add("--encoding-priority");
+                list.Add("avc");
+            }
+            else if (OnlyAv1)
+            {
+                list.Add("--encoding-priority");
+                list.Add("av1");
             }
 
             if (UseMultiThread)
@@ -194,16 +195,6 @@ namespace Bili.ViewModels.Uwp.Common
             {
                 list.Add("--work-dir");
                 list.Add($"\"{DownloadFolder}\"");
-            }
-
-            if (!UsePartPerfix)
-            {
-                list.Add("--no-part-prefix");
-            }
-
-            if (UseQualitySuffix)
-            {
-                list.Add("--add-dfn-subfix");
             }
 
             if (UseInteractionQuality)
