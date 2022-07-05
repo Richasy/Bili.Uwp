@@ -10,8 +10,11 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
+using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bilibili.App.Playurl.V1;
 using Newtonsoft.Json.Linq;
+using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
 namespace Bili.Lib
@@ -128,6 +131,33 @@ namespace Bili.Lib
             }
 
             return null;
+        }
+
+        private async Task<MediaInformation> InternalGetDashFromgRPCAsync(string videoId, string partId)
+        {
+            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
+            var codeType = preferCodec switch
+            {
+                PreferCodec.H265 => CodeType.Code265,
+                PreferCodec.H264 => CodeType.Code264,
+                PreferCodec.Av1 => CodeType.Codeav1,
+                _ => CodeType.Code264,
+            };
+
+            var playUrlReq = new PlayViewReq
+            {
+                Aid = Convert.ToInt64(videoId),
+                Cid = Convert.ToInt64(partId),
+                Fourk = true,
+                Fnval = 4048,
+                Qn = 64,
+                ForceHost = 2,
+                PreferCodecType = codeType,
+            };
+            var appReq = await _httpProvider.GetRequestMessageAsync(Video.PlayUrl, playUrlReq);
+            var appRes = await _httpProvider.SendAsync(appReq);
+            var reply = await _httpProvider.ParseAsync(appRes, PlayViewReply.Parser);
+            return _playerAdapter.ConvertToMediaInformation(reply);
         }
     }
 }

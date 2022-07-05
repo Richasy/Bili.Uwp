@@ -187,6 +187,9 @@ namespace Bili.ViewModels.Uwp.Core
                 : PlayerDisplayMode.Default;
         }
 
+        private void ExitFullPlayer()
+            => DisplayMode = PlayerDisplayMode.Default;
+
         private async Task ScreenShotAsync()
         {
             EnsureMediaPlayerExist();

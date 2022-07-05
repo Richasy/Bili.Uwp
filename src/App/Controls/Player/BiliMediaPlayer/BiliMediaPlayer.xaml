@@ -5,7 +5,8 @@
     xmlns:danmaku="using:Bili.App.Controls.Danmaku"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Player"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
     <Style TargetType="local:BiliMediaPlayer">
         <Setter Property="Template">
             <Setter.Value>
@@ -159,6 +160,21 @@
                                     Content="{loc:Locale Name=Refresh}" />
                             </StackPanel>
                         </Grid>
+                        <Button
+                            x:Name="ExitFullPlayerButton"
+                            AutomationProperties.Name="{loc:Locale Name=BackToDefaultView}"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Width="32"
+                            Height="32"
+                            Margin="32"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ExitFullPlayerCommand}"
+                            ToolTipService.ToolTip="{loc:Locale Name=BackToDefaultView}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowExitFullPlayerButton}">
+                            <uwp:RegularFluentIcon FontSize="14" Symbol="Dismiss20" />
+                        </Button>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -276,6 +292,21 @@
                                     Content="{loc:Locale Name=Refresh}" />
                             </StackPanel>
                         </Grid>
+                        <Button
+                            x:Name="ExitFullPlayerButton"
+                            AutomationProperties.Name="{loc:Locale Name=BackToDefaultView}"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Width="32"
+                            Height="32"
+                            Margin="32"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ExitFullPlayerCommand}"
+                            ToolTipService.ToolTip="{loc:Locale Name=BackToDefaultView}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowExitFullPlayerButton}">
+                            <uwp:RegularFluentIcon FontSize="14" Symbol="Dismiss20" />
+                        </Button>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

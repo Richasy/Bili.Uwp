@@ -101,8 +101,8 @@ namespace Bili.ViewModels.Uwp.Core
                 _mediaTimelineController = null;
             }
 
-            ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource);
-            ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource);
+            ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource, _videoStream);
+            ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource, _audioStream);
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer?.Stop();
@@ -119,7 +119,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, FFmpegMediaSource mediaSource)
+        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, FFmpegMediaSource mediaSource, HttpRandomAccessStream stream)
         {
             if (mediaPlayer == null)
             {
@@ -139,6 +139,12 @@ namespace Bili.ViewModels.Uwp.Core
 
             mediaPlayer.Source = null;
             mediaPlayer = null;
+
+            if (stream != null)
+            {
+                stream?.Dispose();
+                stream = null;
+            }
 
             if (mediaSource != null)
             {
@@ -281,6 +287,12 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 pgcPlayer.Progress = default;
             }
+        }
+
+        private void CheckExitFullPlayerButtonVisibility()
+        {
+            var isFullPlayer = DisplayMode != PlayerDisplayMode.Default;
+            IsShowExitFullPlayerButton = isFullPlayer && (IsError || IsShowMediaTransport);
         }
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)

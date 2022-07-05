@@ -20,7 +20,6 @@ using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bilibili.App.Playeronline.V1;
-using Bilibili.App.Playurl.V1;
 using Bilibili.App.View.V1;
 using Bilibili.Community.Service.Dm.V1;
 using Newtonsoft.Json;
@@ -124,31 +123,7 @@ namespace Bili.Lib
 
         /// <inheritdoc/>
         public async Task<MediaInformation> GetVideoMediaInformationAsync(string videoId, string partId)
-        {
-            var preferCodec = _settingsToolkit.ReadLocalSetting(SettingNames.PreferCodec, PreferCodec.H264);
-            var codeType = preferCodec switch
-            {
-                PreferCodec.H265 => CodeType.Code265,
-                PreferCodec.H264 => CodeType.Code264,
-                PreferCodec.Av1 => CodeType.Codeav1,
-                _ => CodeType.Code264,
-            };
-
-            var playUrlReq = new PlayViewReq
-            {
-                Aid = Convert.ToInt64(videoId),
-                Cid = Convert.ToInt64(partId),
-                Fourk = true,
-                Fnval = 4048,
-                Qn = 64,
-                ForceHost = 2,
-                PreferCodecType = codeType,
-            };
-            var appReq = await _httpProvider.GetRequestMessageAsync(Video.PlayUrl, playUrlReq);
-            var appRes = await _httpProvider.SendAsync(appReq);
-            var reply = await _httpProvider.ParseAsync(appRes, PlayViewReply.Parser);
-            return _playerAdapter.ConvertToMediaInformation(reply);
-        }
+            => await InternalGetDashAsync(partId, videoId);
 
         /// <inheritdoc/>
         public async Task<MediaInformation> GetPgcMediaInformationAsync(string partId, string episodeId, string seasonType, string proxy = default, string area = default)
