@@ -155,10 +155,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeVideoPlayerAsync()
         {
-            InitializeMediaPlayer();
-            var source = await GetDashVideoSourceAsync();
-            _playbackItem = new Windows.Media.Playback.MediaPlaybackItem(source);
-            _mediaPlayer.Source = _playbackItem;
+            await GetDashVideoSourceAsync();
         }
 
         private void CheckVideoP2PUrls()
@@ -196,14 +193,19 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillVideoPlaybackProperties()
         {
+            if (_videoPlaybackItem == null)
+            {
+                return;
+            }
+
             var view = _viewData as VideoPlayerView;
-            var props = _playbackItem.GetDisplayProperties();
+            var props = _videoPlaybackItem.GetDisplayProperties();
             props.Type = Windows.Media.MediaPlaybackType.Video;
             props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(view.Information.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg"));
             props.VideoProperties.Title = view.Information.Identifier.Title;
             props.VideoProperties.Subtitle = string.Join(string.Empty, view.Information.Description.Take(20));
             props.VideoProperties.Genres.Add(_videoType.ToString());
-            _playbackItem.ApplyDisplayProperties(props);
+            _videoPlaybackItem.ApplyDisplayProperties(props);
         }
 
         private void SelectInteractionChoice(InteractionInformation info)

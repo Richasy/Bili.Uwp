@@ -11,7 +11,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaPlayer">
                     <Grid>
-                        <Grid x:Name="RootGrid" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <Grid
+                            x:Name="RootGrid"
+                            Background="Black"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
                             <Grid x:Name="DanmakuContainer">
                                 <danmaku:DanmakuView
@@ -167,7 +170,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaPlayer">
                     <Grid>
-                        <Grid x:Name="RootGrid" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                        <Grid
+                            x:Name="RootGrid"
+                            Background="Black"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <MediaPlayerElement x:Name="MediaPlayerElement" AreTransportControlsEnabled="False" />
                             <Grid x:Name="CoverContainer" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLiveAudioOnly, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <controls:CommonImageEx ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Cover}" Stretch="UniformToFill" />

@@ -24,6 +24,7 @@ namespace Bili.Lib
         private readonly IHttpProvider _httpProvider;
         private readonly IAccountProvider _accountProvider;
         private readonly IVideoToolkit _videoToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
         private readonly IVideoAdapter _videoAdapter;
         private readonly IPgcAdapter _pgcAdapter;
         private readonly ICommunityAdapter _communityAdapter;

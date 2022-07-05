@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using Bili.Models.BiliBili;
 using Bili.Models.Data.Player;
+using Bilibili.App.Playurl.V1;
 using Bilibili.Community.Service.Dm.V1;
 
 namespace Bili.Adapter.Interfaces
@@ -17,7 +18,7 @@ namespace Bili.Adapter.Interfaces
         /// </summary>
         /// <param name="item">视频分段条目.</param>
         /// <returns><see cref="SegmentInformation"/>.</returns>
-        SegmentInformation ConvertToSegmentInformation(DashItem item);
+        SegmentInformation ConvertToSegmentInformation(Models.BiliBili.DashItem item);
 
         /// <summary>
         /// 将视频格式 <see cref="VideoFormat"/> 转换成格式信息.
@@ -32,6 +33,13 @@ namespace Bili.Adapter.Interfaces
         /// <param name="information">播放器信息.</param>
         /// <returns><see cref="MediaInformation"/>.</returns>
         MediaInformation ConvertToMediaInformation(PlayerInformation information);
+
+        /// <summary>
+        /// 将视频播放器信息 <see cref="PlayerInformation"/> 转换成媒体播放信息.
+        /// </summary>
+        /// <param name="reply">播放器信息.</param>
+        /// <returns><see cref="MediaInformation"/>.</returns>
+        MediaInformation ConvertToMediaInformation(PlayViewReply reply);
 
         /// <summary>
         /// 将字幕索引条目 <see cref="SubtitleIndexItem"/> 转换成字幕元数据.

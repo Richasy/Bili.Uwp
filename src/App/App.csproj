@@ -519,6 +519,7 @@
     <Compile Include="Resources\Converter\ColorConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuFontSizeConverter.cs" />
     <Compile Include="Resources\Converter\DanmakuLocationConverter.cs" />
+    <Compile Include="Resources\Converter\DecodeTypeConverter.cs" />
     <Compile Include="Resources\Converter\DurationConverter.cs" />
     <Compile Include="Resources\Converter\EpisodeCoverConverter.cs" />
     <Compile Include="Resources\Converter\ErrorOpacityConverter.cs" />
@@ -556,8 +557,6 @@
     <Content Include="Assets\Bili_rgba_80.png" />
     <Content Include="Assets\Bili_rgba_25.png" />
     <Content Include="Assets\Bili_rgba_500.png" />
-    <Content Include="Assets\DashVideoTemplate.xml" />
-    <Content Include="Assets\DashVideoWithoutAudioTemplate.xml" />
     <Content Include="Assets\ERROR_rgba.png" />
     <Content Include="Assets\img_holder_rect.png" />
     <Content Include="Assets\Level\level_0.png" />
@@ -632,25 +631,7 @@
     <Content Include="Resources\Html\Dark.css" />
     <Content Include="Resources\Html\Light.css" />
     <Content Include="Resources\Html\ReaderPage.html" />
-    <Content Include="$(SolutionDir)\ffmpeg\*.dll" />
   </ItemGroup>
-  <Choose>
-    <When Condition=" '$(Platform)' == 'x86' ">
-      <ItemGroup>
-        <Content Include="$(SolutionDir)\ffmpeg\x86\*.dll" />
-      </ItemGroup>
-    </When>
-    <When Condition=" '$(Platform)' == 'x64' ">
-      <ItemGroup>
-        <Content Include="$(SolutionDir)\ffmpeg\x64\*.dll" />
-      </ItemGroup>
-    </When>
-    <When Condition=" '$(Platform)' == 'ARM64' ">
-      <ItemGroup>
-        <Content Include="$(SolutionDir)\ffmpeg\ARM64\*.dll" />
-      </ItemGroup>
-    </When>
-  </Choose>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1316,6 +1297,9 @@
   <ItemGroup>
     <PackageReference Include="FFmpegInteropX">
       <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="FFmpegInteropX.FFmpegUWP">
+      <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="Humanizer.Core.zh-CN">
       <Version>2.14.1</Version>

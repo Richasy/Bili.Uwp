@@ -45,6 +45,7 @@
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Properties.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Video.cs" />
+    <Compile Include="HttpRandomAccessStream.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Methods.cs" />

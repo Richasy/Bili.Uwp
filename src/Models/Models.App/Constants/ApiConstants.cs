@@ -466,6 +466,11 @@ namespace Bili.Models.App.Constants
             /// <summary>
             /// 视频播放信息.
             /// </summary>
+            public const string PlayUrl = _grpcBase + "/bilibili.app.playurl.v1.PlayURL/PlayView";
+
+            /// <summary>
+            /// 视频播放信息.
+            /// </summary>
             public const string PlayConfig = _appBase + "/bilibili.app.playurl.v1.PlayURL/PlayConf";
 
             /// <summary>

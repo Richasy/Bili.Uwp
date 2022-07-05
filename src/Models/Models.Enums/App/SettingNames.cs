@@ -81,6 +81,7 @@ namespace Bili.Models.Enums
         DefaultLiveFormat,
         LastAppLanguage,
         IsFullTraditionalChinese,
+        DecodeType,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

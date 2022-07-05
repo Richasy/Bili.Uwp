@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using FFmpegInteropX;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -48,18 +50,21 @@ namespace Bili.ViewModels.Uwp.Core
             DanmakuViewModel.ResetCommand.Execute().Subscribe();
         }
 
-        private void InitializeMediaPlayer()
+        private MediaPlayer GetVideoPlayer()
         {
             var player = new MediaPlayer();
             player.MediaOpened += OnMediaPlayerOpened;
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
-            player.AutoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-            player.IsLoopingEnabled = IsLoop;
+            return player;
+        }
 
-            _mediaPlayer = player;
-            MediaPlayerChanged?.Invoke(this, _mediaPlayer);
+        private MediaTimelineController GetTimelineController()
+        {
+            var controller = new MediaTimelineController();
+            controller.IsLoopingEnabled = IsLoop;
+            return controller;
         }
 
         private void InitializePlaybackRates()
@@ -90,36 +95,18 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         private void ResetPlayer()
         {
-            if (_mediaPlayer != null)
+            if (_mediaTimelineController != null)
             {
-                if (_mediaPlayer.PlaybackSession != null)
-                {
-                    _mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
-                    if (_mediaPlayer.PlaybackSession.CanPause)
-                    {
-                        _mediaPlayer.Pause();
-                    }
-                }
-
-                if (_playbackItem != null)
-                {
-                    _playbackItem.Source.Dispose();
-                    _playbackItem = null;
-                }
-
-                _mediaPlayer.Source = null;
-                _mediaPlayer = null;
+                _mediaTimelineController.Pause();
+                _mediaTimelineController = null;
             }
+
+            ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource);
+            ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource);
 
             _lastReportProgress = TimeSpan.Zero;
             _progressTimer?.Stop();
             _unitTimer?.Stop();
-
-            if (_interopMSS != null)
-            {
-                _interopMSS.Dispose();
-                _interopMSS = null;
-            }
 
             Status = PlayerStatus.NotLoad;
 
@@ -129,6 +116,34 @@ namespace Bili.ViewModels.Uwp.Core
             }
             catch (Exception)
             {
+            }
+        }
+
+        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, FFmpegMediaSource mediaSource)
+        {
+            if (mediaPlayer == null)
+            {
+                return;
+            }
+
+            if (mediaPlayer.PlaybackSession != null)
+            {
+                mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
+            }
+
+            if (playback != null)
+            {
+                playback.Source?.Dispose();
+                playback = null;
+            }
+
+            mediaPlayer.Source = null;
+            mediaPlayer = null;
+
+            if (mediaSource != null)
+            {
+                mediaSource?.Dispose();
+                mediaSource = null;
             }
         }
 
@@ -193,9 +208,9 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         private void MarkProgressBreakpoint()
         {
-            if (_mediaPlayer != null && _mediaPlayer.PlaybackSession != null)
+            if (_mediaTimelineController != null)
             {
-                var progress = _mediaPlayer.PlaybackSession.Position;
+                var progress = _mediaTimelineController.Position;
                 if (progress.TotalSeconds > 1)
                 {
                     _initializeProgress = progress;
@@ -220,14 +235,13 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ReportViewProgressAsync()
         {
-            if (_mediaPlayer == null
-                || _mediaPlayer.PlaybackSession == null
+            if (_mediaTimelineController == null
                 || _accountViewModel.State != AuthorizeState.SignedIn)
             {
                 return;
             }
 
-            var progress = _mediaPlayer.PlaybackSession.Position;
+            var progress = _mediaTimelineController.Position;
             if (progress != _lastReportProgress)
             {
                 if (_videoType == VideoType.Video)
@@ -392,18 +406,27 @@ namespace Bili.ViewModels.Uwp.Core
                     session.PositionChanged += OnPlayerPositionChangedAsync;
                 }
 
-                if (_videoType == VideoType.Live && _interopMSS != null)
+                if (_initializeProgress != TimeSpan.Zero)
                 {
-                    _interopMSS.PlaybackSession = session;
-                }
-                else if (_initializeProgress != TimeSpan.Zero)
-                {
-                    session.Position = _initializeProgress;
+                    _mediaTimelineController.Position = _initializeProgress;
                     _initializeProgress = TimeSpan.Zero;
                 }
 
                 ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
                 ChangeVolumeCommand.Execute(Volume).Subscribe();
+                var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+                if (autoPlay)
+                {
+                    if (_mediaTimelineController != null)
+                    {
+                        _mediaTimelineController.Resume();
+                    }
+                    else
+                    {
+                        _videoPlayer.AutoPlay = true;
+                        _videoPlayer.Play();
+                    }
+                }
             }
         }
 
@@ -415,7 +438,7 @@ namespace Bili.ViewModels.Uwp.Core
                 ProgressSeconds = sender.Position.TotalSeconds;
                 if (ProgressSeconds > DurationSeconds)
                 {
-                    _mediaPlayer.Pause();
+                    _mediaTimelineController.Pause();
                     return;
                 }
 
@@ -451,7 +474,11 @@ namespace Bili.ViewModels.Uwp.Core
             if (_isInteractionProgressChanged)
             {
                 _isInteractionProgressChanged = false;
-                _mediaPlayer.PlaybackSession.Position = _interactionProgress;
+                if (_mediaTimelineController != null)
+                {
+                    _mediaTimelineController.Position = _interactionProgress;
+                }
+
                 _interactionProgress = TimeSpan.Zero;
             }
 
@@ -459,8 +486,9 @@ namespace Bili.ViewModels.Uwp.Core
             if (_presetVolumeHoldTime > 300)
             {
                 _presetVolumeHoldTime = 0;
-                if (_mediaPlayer != null
-                && Volume != _mediaPlayer.Volume * 100d)
+                var player = _videoType == VideoType.Live ? _videoPlayer : _audioPlayer;
+                if (player != null
+                && Volume != player.Volume * 100d)
                 {
                     await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
@@ -468,7 +496,7 @@ namespace Bili.ViewModels.Uwp.Core
                             ? $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentVolume)}: {Math.Round(Volume)}"
                             : _resourceToolkit.GetLocaleString(LanguageNames.Muted);
                         RequestShowTempMessage?.Invoke(this, msg);
-                        _mediaPlayer.Volume = Volume / 100d;
+                        player.Volume = Volume / 100d;
                     });
                 }
             }
