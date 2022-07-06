@@ -24,7 +24,7 @@ namespace Bili.App.Controls
             var text = sender.Text;
             if (string.IsNullOrEmpty(text?.Trim()))
             {
-                sender.Text = ViewModel.RoamingVideoAddress;
+                ViewModel.RoamingVideoAddress = string.Empty;
             }
             else
             {
@@ -46,7 +46,7 @@ namespace Bili.App.Controls
             var text = sender.Text;
             if (string.IsNullOrEmpty(text?.Trim()))
             {
-                sender.Text = ViewModel.RoamingViewAddress;
+                ViewModel.RoamingViewAddress = string.Empty;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Bili.App.Controls
             var text = sender.Text;
             if (string.IsNullOrEmpty(text?.Trim()))
             {
-                sender.Text = ViewModel.RoamingSearchAddress;
+                ViewModel.RoamingSearchAddress = string.Empty;
             }
             else
             {
