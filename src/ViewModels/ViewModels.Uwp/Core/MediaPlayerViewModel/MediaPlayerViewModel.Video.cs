@@ -154,7 +154,6 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            await Task.Delay(100);
             await LoadDashVideoSourceAsync();
             StartTimersAndDisplayRequest();
         }

@@ -62,7 +62,7 @@ namespace Bili.ViewModels.Uwp.Search
                     var module = Items.FirstOrDefault(p => p.Type == item.Key);
                     if (module != null)
                     {
-                        module.IsEnabled = item.Value > 0;
+                        module.IsEnabled = item.Value >= 0;
                     }
                 }
             }
