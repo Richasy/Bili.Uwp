@@ -35,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Search
             IResourceToolkit resourceToolkit,
             IHomeProvider homeProvider,
             IArticleProvider articleProvider,
+            ISettingsToolkit settingsToolkit,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -42,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Search
             _resourceToolkit = resourceToolkit;
             _homeProvider = homeProvider;
             _articleProvider = articleProvider;
+            _settingsToolkit = settingsToolkit;
 
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
             _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();

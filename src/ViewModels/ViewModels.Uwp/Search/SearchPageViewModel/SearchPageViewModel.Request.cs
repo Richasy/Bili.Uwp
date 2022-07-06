@@ -54,15 +54,18 @@ namespace Bili.ViewModels.Uwp.Search
             var duration = GetCondition(Duration);
             var data = await _searchProvider.GetComprehensiveSearchResultAsync(Keyword, orderType, partitionId, duration);
 
+            var isProxySearch = _settingsToolkit.ReadLocalSetting(SettingNames.IsOpenRoaming, false)
+                    && !string.IsNullOrEmpty(_settingsToolkit.ReadLocalSetting(SettingNames.RoamingSearchAddress, string.Empty));
+
             // 处理元数据.
-            if (data.Metadata != null && data.Metadata.Count > 0)
+            if (data.Metadata != null && data.Metadata.Count > 0 && !isProxySearch)
             {
                 foreach (var item in data.Metadata)
                 {
                     var module = Items.FirstOrDefault(p => p.Type == item.Key);
                     if (module != null)
                     {
-                        module.IsEnabled = item.Value >= 0;
+                        module.IsEnabled = item.Value > 0;
                     }
                 }
             }
@@ -75,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Search
                 {
                     if (!Videos.Any(p => p.Information.Equals(item)))
                     {
-                        var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
+                        var videoVM = Locator.Current.GetService<VideoItemViewModel>();
                         videoVM.SetInformation(item);
                         Videos.Add(videoVM);
                     }

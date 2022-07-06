@@ -25,6 +25,7 @@ namespace Bili.ViewModels.Uwp.Search
         private readonly IHomeProvider _homeProvider;
         private readonly IArticleProvider _articleProvider;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
         private readonly Dictionary<SearchModuleType, bool> _requestStatusCache;
         private readonly Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>> _filters;
         private readonly ObservableAsPropertyHelper<bool> _isReloadingModule;
