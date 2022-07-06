@@ -102,7 +102,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task InitializeLivePlayerAsync(string url)
         {
-            await GetDashLiveSourceAsync(url.ToString());
+            await LoadDashLiveSourceAsync(url.ToString());
         }
 
         private async Task ChangeLiveAudioOnlyAsync(bool isAudioOnly)

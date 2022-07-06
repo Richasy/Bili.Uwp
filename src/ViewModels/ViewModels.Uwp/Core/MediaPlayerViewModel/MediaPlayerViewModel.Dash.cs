@@ -78,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private async Task GetDashLiveSourceAsync(string url)
+        private async Task LoadDashLiveSourceAsync(string url)
         {
             try
             {
