@@ -571,6 +571,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="FavoriteHaveNoVideos" xml:space="preserve">
     <value>收藏夹内没有视频</value>
   </data>
+  <data name="FFmpegPlayer" xml:space="preserve">
+    <value>FFmpeg</value>
+  </data>
   <data name="FilterByGreaterThan60Min" xml:space="preserve">
     <value>60分钟+</value>
   </data>
@@ -888,6 +891,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="MyWebPage" xml:space="preserve">
     <value>个人主页</value>
   </data>
+  <data name="NativePlayer" xml:space="preserve">
+    <value>原生</value>
+  </data>
   <data name="Navigation" xml:space="preserve">
     <value>导航</value>
   </data>
@@ -1073,6 +1079,12 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   </data>
   <data name="PlayerModeDescription" xml:space="preserve">
     <value>包含播放器的基础设置和默认行为</value>
+  </data>
+  <data name="PlayerType" xml:space="preserve">
+    <value>播放器类型</value>
+  </data>
+  <data name="PlayerTypeDescription" xml:space="preserve">
+    <value>对于集显或无显，建议使用原生播放；独显或者原生播放有问题的，可以使用FFmpeg播放</value>
   </data>
   <data name="PlayLine" xml:space="preserve">
     <value>线路</value>

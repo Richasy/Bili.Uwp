@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -42,6 +43,12 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public ObservableCollection<DecodeType> DecodeTypeCollection { get; set; }
+
+        /// <summary>
+        /// 播放器类型可选集合.
+        /// </summary>
+        [Reactive]
+        public ObservableCollection<PlayerType> PlayerTypeCollection { get; set; }
 
         /// <summary>
         /// 应用主题.
@@ -120,6 +127,12 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public DecodeType DecodeType { get; set; }
+
+        /// <summary>
+        /// 播放器类型.
+        /// </summary>
+        [Reactive]
+        public PlayerType PlayerType { get; set; }
 
         /// <summary>
         /// 单次快进/快退时长.
@@ -210,5 +223,11 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public bool IsFullTraditionalChinese { get; set; }
+
+        /// <summary>
+        /// 是否为FFmpeg播放器.
+        /// </summary>
+        [Reactive]
+        public bool IsFFmpegPlayer { get; set; }
     }
 }

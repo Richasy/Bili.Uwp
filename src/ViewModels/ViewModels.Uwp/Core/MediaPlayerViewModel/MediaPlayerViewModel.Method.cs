@@ -214,13 +214,13 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         private void MarkProgressBreakpoint()
         {
-            if (_mediaTimelineController != null)
+            var progress = _mediaTimelineController != null
+                ? _mediaTimelineController.Position
+                : _videoPlayer?.PlaybackSession?.Position;
+
+            if (progress != null && progress.Value.TotalSeconds > 1)
             {
-                var progress = _mediaTimelineController.Position;
-                if (progress.TotalSeconds > 1)
-                {
-                    _initializeProgress = progress;
-                }
+                _initializeProgress = progress.Value;
             }
         }
 
@@ -241,13 +241,15 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ReportViewProgressAsync()
         {
-            if (_mediaTimelineController == null
+            if (_videoPlayer?.PlaybackSession == null
                 || _accountViewModel.State != AuthorizeState.SignedIn)
             {
                 return;
             }
 
-            var progress = _mediaTimelineController.Position;
+            var progress = _mediaTimelineController != null
+                ? _mediaTimelineController.Position
+                : _videoPlayer.PlaybackSession.Position;
             if (progress != _lastReportProgress)
             {
                 if (_videoType == VideoType.Video)
@@ -420,7 +422,15 @@ namespace Bili.ViewModels.Uwp.Core
 
                 if (_initializeProgress != TimeSpan.Zero)
                 {
-                    _mediaTimelineController.Position = _initializeProgress;
+                    if (_mediaTimelineController != null)
+                    {
+                        _mediaTimelineController.Position = _initializeProgress;
+                    }
+                    else
+                    {
+                        session.Position = _initializeProgress;
+                    }
+
                     _initializeProgress = TimeSpan.Zero;
                 }
 
@@ -450,7 +460,15 @@ namespace Bili.ViewModels.Uwp.Core
                 ProgressSeconds = sender.Position.TotalSeconds;
                 if (ProgressSeconds > DurationSeconds)
                 {
-                    _mediaTimelineController.Pause();
+                    if (_mediaTimelineController != null)
+                    {
+                        _mediaTimelineController.Pause();
+                    }
+                    else
+                    {
+                        _videoPlayer.Pause();
+                    }
+
                     return;
                 }
 
@@ -490,6 +508,10 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     _mediaTimelineController.Position = _interactionProgress;
                 }
+                else if (_videoPlayer?.PlaybackSession != null)
+                {
+                    _videoPlayer.PlaybackSession.Position = _interactionProgress;
+                }
 
                 _interactionProgress = TimeSpan.Zero;
             }
@@ -498,7 +520,7 @@ namespace Bili.ViewModels.Uwp.Core
             if (_presetVolumeHoldTime > 300)
             {
                 _presetVolumeHoldTime = 0;
-                var player = _videoType == VideoType.Live ? _videoPlayer : _audioPlayer;
+                var player = _videoType == VideoType.Live || _audioPlayer == null ? _videoPlayer : _audioPlayer;
                 if (player != null
                 && Volume != player.Volume * 100d)
                 {

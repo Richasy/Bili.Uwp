@@ -39,7 +39,13 @@ namespace Bili.Adapter
                 item.Id.ToString(),
                 item.BaseUrl,
                 item.BackupUrl,
-                item.Codecs);
+                item.BandWidth,
+                item.MimeType,
+                item.Codecs,
+                item.Width,
+                item.Height,
+                item.SegmentBase.Initialization,
+                item.SegmentBase.IndexRange);
         }
 
         /// <inheritdoc/>
@@ -51,6 +57,7 @@ namespace Bili.Adapter
                 return default;
             }
 
+            var minBuffer = dash.MinBufferTime;
             var videos = dash.Video?.Count > 0
                 ? dash.Video.Select(p => ConvertToSegmentInformation(p))
                 : null;
@@ -58,7 +65,7 @@ namespace Bili.Adapter
                 ? dash.Audio.Select(p => ConvertToSegmentInformation(p))
                 : null;
             var formats = information.SupportFormats.Select(p => ConvertToFormatInformation(p)).ToList();
-            return new MediaInformation(videos, audios, formats);
+            return new MediaInformation(minBuffer, videos, audios, formats);
         }
 
         /// <inheritdoc/>
@@ -89,7 +96,13 @@ namespace Bili.Adapter
                     video.StreamInfo.Quality.ToString(),
                     video.DashVideo.BaseUrl,
                     video.DashVideo.BackupUrl.ToList(),
-                    video.DashVideo.Codecid.ToString());
+                    default,
+                    default,
+                    video.DashVideo.Codecid.ToString(),
+                    default,
+                    default,
+                    default,
+                    default);
                 var format = new FormatInformation(
                     Convert.ToInt32(video.StreamInfo.Quality),
                     video.StreamInfo.Description,
@@ -104,12 +117,18 @@ namespace Bili.Adapter
                     audio.Id.ToString(),
                     audio.BaseUrl,
                     audio.BackupUrl.ToList(),
-                    audio.Codecid.ToString());
+                    default,
+                    default,
+                    audio.Codecid.ToString(),
+                    default,
+                    default,
+                    default,
+                    default);
 
                 audios.Add(seg);
             }
 
-            return new MediaInformation(videos, audios, formats);
+            return new MediaInformation(default, videos, audios, formats);
         }
 
         /// <inheritdoc/>
