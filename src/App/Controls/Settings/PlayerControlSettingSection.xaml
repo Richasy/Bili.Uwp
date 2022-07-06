@@ -12,6 +12,7 @@
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:player="using:Bili.Models.Enums.Player"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -19,6 +20,7 @@
     <local:SettingSectionControl.Resources>
         <converter:PreferCodecConverter x:Key="PreferCodecConverter" />
         <converter:DecodeTypeConverter x:Key="DecodeTypeConverter" />
+        <converter:PlayerTypeConverter x:Key="PlayerTypeConverter" />
     </local:SettingSectionControl.Resources>
 
     <exp:ExpanderEx>
@@ -37,6 +39,30 @@
             <exp:ExpanderExMenuPanel>
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=PlayerType}"
+                            Description="{loc:Locale Name=PlayerTypeDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PlayerTypeCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.PlayerType, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="player:PlayerType">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource PlayerTypeConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" Visibility="{x:Bind ViewModel.IsFFmpegPlayer, Mode=OneWay}">
                     <exp:ExpanderExWrapper.MainContent>
                         <exp:ExpanderExDescriptor
                             Title="{loc:Locale Name=DecodeType}"
@@ -58,7 +84,7 @@
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 
-                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExItemSeparator Visibility="{x:Bind ViewModel.IsFFmpegPlayer, Mode=OneWay}" />
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>

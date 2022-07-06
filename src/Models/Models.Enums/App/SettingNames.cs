@@ -80,6 +80,7 @@ namespace Bili.Models.Enums
         LastAppLanguage,
         IsFullTraditionalChinese,
         DecodeType,
+        PlayerType,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

@@ -27,16 +27,38 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 if (Status == PlayerStatus.Playing)
                 {
-                    _mediaTimelineController.Pause();
+                    if (_mediaTimelineController == null)
+                    {
+                        _videoPlayer.Pause();
+                    }
+                    else
+                    {
+                        _mediaTimelineController.Pause();
+                    }
                 }
                 else if (Status == PlayerStatus.Pause)
                 {
-                    _mediaTimelineController.Resume();
+                    if (_mediaTimelineController == null)
+                    {
+                        _videoPlayer.Play();
+                    }
+                    else
+                    {
+                        _mediaTimelineController.Resume();
+                    }
                 }
                 else if (Status == PlayerStatus.End)
                 {
-                    _mediaTimelineController.Position = TimeSpan.Zero;
-                    _mediaTimelineController.Resume();
+                    if (_mediaTimelineController == null)
+                    {
+                        _videoPlayer.PlaybackSession.Position = TimeSpan.Zero;
+                        _videoPlayer.Play();
+                    }
+                    else
+                    {
+                        _mediaTimelineController.Position = TimeSpan.Zero;
+                        _mediaTimelineController.Resume();
+                    }
                 }
             });
         }
@@ -56,7 +78,9 @@ namespace Bili.ViewModels.Uwp.Core
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 var duration = _videoPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaTimelineController.Position;
+                var currentPos = _mediaTimelineController == null
+                    ? _videoPlayer.PlaybackSession.Position
+                    : _mediaTimelineController.Position;
                 if ((duration - currentPos).TotalSeconds > seconds)
                 {
                     currentPos += TimeSpan.FromSeconds(seconds);
@@ -66,7 +90,14 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = duration;
                 }
 
-                _mediaTimelineController.Position = currentPos;
+                if (_mediaTimelineController == null)
+                {
+                    _videoPlayer.PlaybackSession.Position = currentPos;
+                }
+                else
+                {
+                    _mediaTimelineController.Position = currentPos;
+                }
             });
         }
 
@@ -85,7 +116,9 @@ namespace Bili.ViewModels.Uwp.Core
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 var duration = _videoPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaTimelineController.Position;
+                var currentPos = _mediaTimelineController == null
+                    ? _videoPlayer.PlaybackSession.Position
+                    : _mediaTimelineController.Position;
                 if (currentPos.TotalSeconds > seconds)
                 {
                     currentPos -= TimeSpan.FromSeconds(seconds);
@@ -95,7 +128,14 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = TimeSpan.Zero;
                 }
 
-                _mediaTimelineController.Position = currentPos;
+                if (_mediaTimelineController == null)
+                {
+                    _videoPlayer.PlaybackSession.Position = currentPos;
+                }
+                else
+                {
+                    _mediaTimelineController.Position = currentPos;
+                }
             });
         }
 
@@ -122,7 +162,7 @@ namespace Bili.ViewModels.Uwp.Core
                     PlaybackRate = rate;
                 }
 
-                if(_mediaTimelineController != null)
+                if (_mediaTimelineController != null)
                 {
                     _mediaTimelineController.ClockRate = PlaybackRate;
                 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Models.Enums.Player;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -154,8 +155,26 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            await LoadDashVideoSourceAsync();
-            StartTimersAndDisplayRequest();
+            try
+            {
+                var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
+                if(playerType == PlayerType.Native)
+                {
+                    await LoadDashVideoSourceFromNativeAsync();
+                }
+                else
+                {
+                    await LoadDashVideoSourceFromFFmpegAsync();
+                }
+
+                StartTimersAndDisplayRequest();
+            }
+            catch (Exception ex)
+            {
+                IsError = true;
+                ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
+                LogException(ex);
+            }
         }
 
         private void CheckVideoP2PUrls()

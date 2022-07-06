@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Core;
@@ -67,6 +68,7 @@ namespace Bili.ViewModels.Uwp.Home
             StartupInitAsync();
             BackgroundTaskInitAsync();
             RoamingInit();
+            PlayerTypeInit();
 
             Version = _appToolkit.GetPackageVersion();
             PropertyChanged += OnPropertyChangedAsync;
@@ -152,6 +154,10 @@ namespace Bili.ViewModels.Uwp.Home
                 case nameof(DecodeType):
                     WriteSetting(SettingNames.DecodeType, DecodeType);
                     break;
+                case nameof(PlayerType):
+                    WriteSetting(SettingNames.PlayerType, PlayerType);
+                    IsFFmpegPlayer = PlayerType == PlayerType.FFmpeg;
+                    break;
                 default:
                     break;
             }
@@ -218,6 +224,21 @@ namespace Bili.ViewModels.Uwp.Home
             }
 
             DecodeType = ReadSetting(SettingNames.DecodeType, DecodeType.Automatic);
+        }
+
+        private void PlayerTypeInit()
+        {
+            if (PlayerTypeCollection == null || PlayerTypeCollection.Count == 0)
+            {
+                PlayerTypeCollection = new ObservableCollection<PlayerType>
+                {
+                    PlayerType.Native,
+                    PlayerType.FFmpeg,
+                };
+            }
+
+            PlayerType = ReadSetting(SettingNames.PlayerType, PlayerType.Native);
+            IsFFmpegPlayer = PlayerType == PlayerType.FFmpeg;
         }
 
         private void RoamingInit()

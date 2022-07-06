@@ -17,14 +17,21 @@ namespace Bili.Models.Data.Player
         /// <param name="audioSegments">不同码率的音频列表.</param>
         /// <param name="formats">格式列表.</param>
         public MediaInformation(
+            double minBufferTime,
             IEnumerable<SegmentInformation> videoSegments,
             IEnumerable<SegmentInformation> audioSegments,
             IEnumerable<FormatInformation> formats)
         {
+            MinBufferTime = minBufferTime;
             VideoSegments = videoSegments;
             AudioSegments = audioSegments;
             Formats = formats;
         }
+
+        /// <summary>
+        /// 最低缓冲时间.
+        /// </summary>
+        public double MinBufferTime { get; }
 
         /// <summary>
         /// 不同清晰度的视频列表.

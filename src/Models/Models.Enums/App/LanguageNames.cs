@@ -533,6 +533,10 @@ namespace Bili.Models.Enums
         FullTraditionalChineseDescription,
         HardwareDecode,
         SoftwareDecode,
+        NativePlayer,
+        FFmpegPlayer,
+        PlayerType,
+        PlayerTypeDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
