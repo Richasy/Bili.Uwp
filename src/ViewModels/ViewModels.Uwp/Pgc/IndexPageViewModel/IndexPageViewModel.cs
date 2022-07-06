@@ -53,6 +53,10 @@ namespace Bili.ViewModels.Uwp.Pgc
                 PgcType.TV => _resourceToolkit.GetLocaleString(LanguageNames.TV),
                 _ => throw new ArgumentException("错误的PGC类型", nameof(type))
             };
+
+            TryClear(Filters);
+            TryClear(Items);
+            BeforeReload();
         }
 
         /// <inheritdoc/>
@@ -60,8 +64,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             _isFinished = false;
             IsEmpty = false;
-            TryClear(Filters);
-            TryClear(Items);
             _pgcProvider.ResetIndexStatus();
         }
 

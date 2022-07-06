@@ -104,7 +104,7 @@ namespace Bili.ViewModels.Uwp.Base
             ClearException();
 
             var task = _dispatcher.RunAsync(
-                CoreDispatcherPriority.High,
+                CoreDispatcherPriority.Normal,
                 async () =>
                 {
                     try
