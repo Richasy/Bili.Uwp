@@ -107,14 +107,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
             }
 
-            var formatId = _settingsToolkit.ReadLocalSetting(SettingNames.IsPreferHighQuality, false)
-                ? Formats.Where(p => !p.IsLimited).Max(p => p.Quality)
-                : _settingsToolkit.ReadLocalSetting(SettingNames.DefaultVideoFormat, 64);
-            if (!Formats.Any(p => p.Quality == formatId))
-            {
-                formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
-            }
-
+            var formatId = GetFormatId();
             await SelectVideoFormatAsync(Formats.First(p => p.Quality == formatId));
         }
 
@@ -158,7 +151,7 @@ namespace Bili.ViewModels.Uwp.Core
             try
             {
                 var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
-                if(playerType == PlayerType.Native)
+                if (playerType == PlayerType.Native)
                 {
                     await LoadDashVideoSourceFromNativeAsync();
                 }

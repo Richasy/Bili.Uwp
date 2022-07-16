@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Models.Enums.Player;
 using FFmpegInteropX;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -547,5 +548,35 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void OnInteractionModuleNoMoreChoices(object sender, EventArgs e)
             => IsInteractionEnd = true;
+
+        private int GetFormatId(bool isLive = false)
+        {
+            var defaultPreferQuality = _appViewModel.IsXbox ? PreferQuality.HDFirst : PreferQuality.Auto;
+            var preferQuality = _settingsToolkit.ReadLocalSetting(SettingNames.PreferQuality, defaultPreferQuality);
+            var formatId = 0;
+            if (preferQuality == PreferQuality.HDFirst)
+            {
+                var hdQuality = isLive ? 10000 : 116;
+                formatId = Formats.Where(p => !p.IsLimited && p.Quality <= hdQuality).Max(p => p.Quality);
+            }
+            else if (preferQuality == PreferQuality.HighQuality)
+            {
+                formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
+            }
+
+            if (formatId == 0)
+            {
+                var formatSetting = isLive ? SettingNames.DefaultLiveFormat : SettingNames.DefaultVideoFormat;
+                var defaultFormat = isLive ? 400 : 64;
+                formatId = _settingsToolkit.ReadLocalSetting(formatSetting, defaultFormat);
+            }
+
+            if (!Formats.Any(p => p.Quality == formatId))
+            {
+                formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
+            }
+
+            return formatId;
+        }
     }
 }

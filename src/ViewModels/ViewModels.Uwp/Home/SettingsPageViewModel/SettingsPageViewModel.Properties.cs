@@ -29,26 +29,27 @@ namespace Bili.ViewModels.Uwp.Home
         /// <summary>
         /// 播放器显示模式可选集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PlayerDisplayMode> PlayerDisplayModeCollection { get; set; }
+        public ObservableCollection<PlayerDisplayMode> PlayerDisplayModeCollection { get; }
 
         /// <summary>
         /// 偏好的解码模式可选集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PreferCodec> PreferCodecCollection { get; set; }
+        public ObservableCollection<PreferCodec> PreferCodecCollection { get; }
 
         /// <summary>
         /// 解码类型可选集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<DecodeType> DecodeTypeCollection { get; set; }
+        public ObservableCollection<DecodeType> DecodeTypeCollection { get; }
 
         /// <summary>
         /// 播放器类型可选集合.
         /// </summary>
-        [Reactive]
-        public ObservableCollection<PlayerType> PlayerTypeCollection { get; set; }
+        public ObservableCollection<PlayerType> PlayerTypeCollection { get; }
+
+        /// <summary>
+        /// 偏好的画质可选集合.
+        /// </summary>
+        public ObservableCollection<PreferQuality> PreferQualities { get; }
 
         /// <summary>
         /// 应用主题.
@@ -99,12 +100,6 @@ namespace Bili.ViewModels.Uwp.Home
         public PlayerDisplayMode DefaultPlayerDisplayMode { get; set; }
 
         /// <summary>
-        /// 优先高画质.
-        /// </summary>
-        [Reactive]
-        public bool IsPreferHighQuality { get; set; }
-
-        /// <summary>
         /// 禁用 P2P CDN.
         /// </summary>
         [Reactive]
@@ -133,6 +128,12 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         [Reactive]
         public PlayerType PlayerType { get; set; }
+
+        /// <summary>
+        /// 偏好的画质选择.
+        /// </summary>
+        [Reactive]
+        public PreferQuality PreferQuality { get; set; }
 
         /// <summary>
         /// 单次快进/快退时长.

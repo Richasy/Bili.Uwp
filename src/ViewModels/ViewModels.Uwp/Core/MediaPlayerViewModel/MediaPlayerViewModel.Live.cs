@@ -60,14 +60,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
             }
 
-            var formatId = _settingsToolkit.ReadLocalSetting(SettingNames.IsPreferHighQuality, false)
-                ? Formats.Where(p => !p.IsLimited).Max(p => p.Quality)
-                : _settingsToolkit.ReadLocalSetting(SettingNames.DefaultLiveFormat, 400);
-            if (!Formats.Any(p => p.Quality == formatId))
-            {
-                formatId = Formats.Where(p => !p.IsLimited).Max(p => p.Quality);
-            }
-
+            var formatId = GetFormatId(true);
             await SelectLiveFormatAsync(Formats.First(p => p.Quality == formatId));
         }
 

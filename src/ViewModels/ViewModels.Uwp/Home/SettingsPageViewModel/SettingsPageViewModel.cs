@@ -36,6 +36,12 @@ namespace Bili.ViewModels.Uwp.Home
             _resourceToolkit = resourceToolkit;
             _appToolkit = appToolkit;
 
+            PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>();
+            PreferCodecCollection = new ObservableCollection<PreferCodec>();
+            DecodeTypeCollection = new ObservableCollection<DecodeType>();
+            PlayerTypeCollection = new ObservableCollection<PlayerType>();
+            PreferQualities = new ObservableCollection<PreferQuality>();
+
             InitializeCommand = ReactiveCommand.Create(InitializeSettings, outputScheduler: RxApp.MainThreadScheduler);
 
             InitializeSettings();
@@ -52,7 +58,6 @@ namespace Bili.ViewModels.Uwp.Home
             IsPrelaunch = ReadSetting(SettingNames.IsPrelaunch, true);
             IsAutoPlayWhenLoaded = ReadSetting(SettingNames.IsAutoPlayWhenLoaded, true);
             IsAutoPlayNextRelatedVideo = ReadSetting(SettingNames.IsAutoPlayNextRelatedVideo, false);
-            IsPreferHighQuality = ReadSetting(SettingNames.IsPreferHighQuality, false);
             DisableP2PCdn = ReadSetting(SettingNames.DisableP2PCdn, false);
             IsContinusPlay = ReadSetting(SettingNames.IsContinusPlay, true);
             SingleFastForwardAndRewindSpan = ReadSetting(SettingNames.SingleFastForwardAndRewindSpan, 30d);
@@ -69,6 +74,7 @@ namespace Bili.ViewModels.Uwp.Home
             BackgroundTaskInitAsync();
             RoamingInit();
             PlayerTypeInit();
+            PreferQualityInit();
 
             Version = _appToolkit.GetPackageVersion();
             PropertyChanged += OnPropertyChangedAsync;
@@ -95,9 +101,6 @@ namespace Bili.ViewModels.Uwp.Home
                     break;
                 case nameof(DefaultPlayerDisplayMode):
                     WriteSetting(SettingNames.DefaultPlayerDisplayMode, DefaultPlayerDisplayMode);
-                    break;
-                case nameof(IsPreferHighQuality):
-                    WriteSetting(SettingNames.IsPreferHighQuality, IsPreferHighQuality);
                     break;
                 case nameof(DisableP2PCdn):
                     WriteSetting(SettingNames.DisableP2PCdn, DisableP2PCdn);
@@ -158,6 +161,9 @@ namespace Bili.ViewModels.Uwp.Home
                     WriteSetting(SettingNames.PlayerType, PlayerType);
                     IsFFmpegPlayer = PlayerType == PlayerType.FFmpeg;
                     break;
+                case nameof(PreferQuality):
+                    WriteSetting(SettingNames.PreferQuality, PreferQuality);
+                    break;
                 default:
                     break;
             }
@@ -179,13 +185,10 @@ namespace Bili.ViewModels.Uwp.Home
 
         private void PlayerModeInit()
         {
-            if (PlayerDisplayModeCollection == null || PlayerDisplayModeCollection.Count == 0)
+            if (PlayerDisplayModeCollection.Count == 0)
             {
-                PlayerDisplayModeCollection = new ObservableCollection<PlayerDisplayMode>
-                {
-                    PlayerDisplayMode.Default,
-                    PlayerDisplayMode.FullScreen,
-                };
+                PlayerDisplayModeCollection.Add(PlayerDisplayMode.Default);
+                PlayerDisplayModeCollection.Add(PlayerDisplayMode.FullScreen);
 
                 if (!_appViewModel.IsXbox)
                 {
@@ -198,14 +201,11 @@ namespace Bili.ViewModels.Uwp.Home
 
         private void PreferCodecInit()
         {
-            if (PreferCodecCollection == null || PreferCodecCollection.Count == 0)
+            if (PreferCodecCollection.Count == 0)
             {
-                PreferCodecCollection = new ObservableCollection<PreferCodec>
-                {
-                    PreferCodec.H264,
-                    PreferCodec.H265,
-                    PreferCodec.Av1,
-                };
+                PreferCodecCollection.Add(PreferCodec.H264);
+                PreferCodecCollection.Add(PreferCodec.H265);
+                PreferCodecCollection.Add(PreferCodec.Av1);
             }
 
             PreferCodec = ReadSetting(SettingNames.PreferCodec, PreferCodec.H264);
@@ -213,14 +213,11 @@ namespace Bili.ViewModels.Uwp.Home
 
         private void DecodeInit()
         {
-            if (DecodeTypeCollection == null || DecodeTypeCollection.Count == 0)
+            if (DecodeTypeCollection.Count == 0)
             {
-                DecodeTypeCollection = new ObservableCollection<DecodeType>
-                {
-                    DecodeType.Automatic,
-                    DecodeType.HardwareDecode,
-                    DecodeType.SoftwareDecode,
-                };
+                DecodeTypeCollection.Add(DecodeType.Automatic);
+                DecodeTypeCollection.Add(DecodeType.HardwareDecode);
+                DecodeTypeCollection.Add(DecodeType.SoftwareDecode);
             }
 
             DecodeType = ReadSetting(SettingNames.DecodeType, DecodeType.Automatic);
@@ -228,17 +225,27 @@ namespace Bili.ViewModels.Uwp.Home
 
         private void PlayerTypeInit()
         {
-            if (PlayerTypeCollection == null || PlayerTypeCollection.Count == 0)
+            if (PlayerTypeCollection.Count == 0)
             {
-                PlayerTypeCollection = new ObservableCollection<PlayerType>
-                {
-                    PlayerType.Native,
-                    PlayerType.FFmpeg,
-                };
+                PlayerTypeCollection.Add(PlayerType.Native);
+                PlayerTypeCollection.Add(PlayerType.FFmpeg);
             }
 
             PlayerType = ReadSetting(SettingNames.PlayerType, PlayerType.Native);
             IsFFmpegPlayer = PlayerType == PlayerType.FFmpeg;
+        }
+
+        private void PreferQualityInit()
+        {
+            if(PreferQualities.Count == 0)
+            {
+                PreferQualities.Add(PreferQuality.Auto);
+                PreferQualities.Add(PreferQuality.HDFirst);
+                PreferQualities.Add(PreferQuality.HighQuality);
+            }
+
+            var defaultQuality = _appViewModel.IsXbox ? PreferQuality.HDFirst : PreferQuality.Auto;
+            PreferQuality = ReadSetting(SettingNames.PreferQuality, defaultQuality);
         }
 
         private void RoamingInit()

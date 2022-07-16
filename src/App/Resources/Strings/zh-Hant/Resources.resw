@@ -702,6 +702,9 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   <data name="HasUpdate" xml:space="preserve">
     <value>新版本發布</value>
   </data>
+  <data name="HDFirst" xml:space="preserve">
+    <value>高清（1080P）優先</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>支援 &amp; 協助</value>
   </data>
@@ -1128,6 +1131,9 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   </data>
   <data name="PreferHighQualityDescription" xml:space="preserve">
     <value>優先播放最高畫質的影片來源</value>
+  </data>
+  <data name="PreferQuality" xml:space="preserve">
+    <value>畫質偏好</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
     <value>預先啟動</value>

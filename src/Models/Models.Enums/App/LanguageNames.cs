@@ -537,6 +537,8 @@ namespace Bili.Models.Enums
         FFmpegPlayer,
         PlayerType,
         PlayerTypeDescription,
+        HDFirst,
+        PreferQuality,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
