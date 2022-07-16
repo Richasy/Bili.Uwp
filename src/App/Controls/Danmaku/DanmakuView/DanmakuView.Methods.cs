@@ -120,9 +120,9 @@ namespace Bili.App.Controls.Danmaku
                 StartMs = 0,
                 Mode = DanmakuMode.Rolling,
                 TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(e.TextColor ?? "#FFFFFF"),
-                BaseFontSize = ViewModel.IsStandardSize ? 25 : 18,
+                BaseFontSize = ViewModel.IsStandardSize ? 20 : 24,
                 Text = e.Text,
-                HasOutline = isOwn,
+                HasOutline = true,
             };
 
             SendDanmu(model);
@@ -135,7 +135,7 @@ namespace Bili.App.Controls.Danmaku
                 StartMs = _currentTs,
                 Mode = (DanmakuMode)((int)ViewModel.Location),
                 TextColor = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(ViewModel.Color),
-                BaseFontSize = ViewModel.IsStandardSize ? 25 : 18,
+                BaseFontSize = ViewModel.IsStandardSize ? 20 : 24,
                 Text = e,
                 HasOutline = true,
             };
