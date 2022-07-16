@@ -701,6 +701,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="HasUpdate" xml:space="preserve">
     <value>新版本发布</value>
   </data>
+  <data name="HDFirst" xml:space="preserve">
+    <value>高清（1080P）优先</value>
+  </data>
   <data name="HelpAndSupport" xml:space="preserve">
     <value>帮助 &amp; 支持</value>
   </data>
@@ -1127,6 +1130,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   </data>
   <data name="PreferHighQualityDescription" xml:space="preserve">
     <value>优先播放最高清画质的视频源</value>
+  </data>
+  <data name="PreferQuality" xml:space="preserve">
+    <value>画质偏好</value>
   </data>
   <data name="Prelaunch" xml:space="preserve">
     <value>预启动</value>

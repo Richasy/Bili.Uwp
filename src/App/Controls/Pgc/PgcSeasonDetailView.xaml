@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:account="using:Bili.ViewModels.Uwp.Account"
-    xmlns:bilibili="using:Bili.Models.BiliBili"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"

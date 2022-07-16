@@ -532,6 +532,7 @@
     <Compile Include="Resources\Converter\PlayerDisplayModeConverter.cs" />
     <Compile Include="Resources\Converter\PlayerTypeConverter.cs" />
     <Compile Include="Resources\Converter\PreferCodecConverter.cs" />
+    <Compile Include="Resources\Converter\PreferQualityConverter.cs" />
     <Compile Include="Resources\Converter\RelationButtonStyleConverter.cs" />
     <Compile Include="Resources\Converter\RelationTextConverter.cs" />
     <Compile Include="Resources\Converter\SeasonCoverConverter.cs" />

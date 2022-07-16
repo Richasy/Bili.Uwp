@@ -9,6 +9,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:player="using:Bili.Models.Enums.Player"
     xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -16,6 +17,7 @@
 
     <local:SettingSectionControl.Resources>
         <converter:PlayerDisplayModeConverter x:Key="PlayerDisplayModeConverter" />
+        <converter:PreferQualityConverter x:Key="PreferQualityConverter" />
     </local:SettingSectionControl.Resources>
 
     <exp:ExpanderEx>
@@ -34,17 +36,6 @@
             <exp:ExpanderExMenuPanel>
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
-                        <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=AutoPlayWhenLoaded}" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayWhenLoaded, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
-
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
                         <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=DefaultPlayerDisplayMode}" />
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
@@ -61,7 +52,38 @@
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 
-                <exp:ExpanderExItemSeparator Visibility="{x:Bind CoreViewModel.IsXbox, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=PreferQuality}" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PreferQualities}"
+                            SelectedItem="{x:Bind ViewModel.PreferQuality, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="player:PreferQuality">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource PreferQualityConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=AutoPlayWhenLoaded}" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsAutoPlayWhenLoaded, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
 
                 <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
                     <exp:ExpanderExWrapper.MainContent>
@@ -96,21 +118,6 @@
                     </exp:ExpanderExWrapper.MainContent>
                     <exp:ExpanderExWrapper.WrapContent>
                         <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsContinusPlay, Mode=TwoWay}" />
-                    </exp:ExpanderExWrapper.WrapContent>
-                </exp:ExpanderExWrapper>
-
-                <exp:ExpanderExItemSeparator />
-
-                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <exp:ExpanderExWrapper.MainContent>
-                        <exp:ExpanderExDescriptor
-                            Title="{loc:Locale Name=PreferHighQuality}"
-                            Description="{loc:Locale Name=PreferHighQualityDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </exp:ExpanderExWrapper.MainContent>
-                    <exp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPreferHighQuality, Mode=TwoWay}" />
                     </exp:ExpanderExWrapper.WrapContent>
                 </exp:ExpanderExWrapper>
 

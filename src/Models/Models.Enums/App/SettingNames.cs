@@ -15,7 +15,6 @@ namespace Bili.Models.Enums
         IsStartup,
         IsAutoPlayWhenLoaded,
         DefaultPlayerDisplayMode,
-        IsPreferHighQuality,
         PreferCodec,
         SingleFastForwardAndRewindSpan,
         DefaultMTCControlMode,
@@ -81,6 +80,7 @@ namespace Bili.Models.Enums
         IsFullTraditionalChinese,
         DecodeType,
         PlayerType,
+        PreferQuality,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }
