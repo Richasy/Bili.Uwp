@@ -55,6 +55,10 @@ namespace Bili.App.Controls.Player
             {
                 _playPauseButton?.Focus(FocusState.Programmatic);
             }
+            else if (e.PropertyName == nameof(ViewModel.InteractionProgressSeconds) && !ViewModel.IsShowInteractionProgress)
+            {
+                _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
+            }
         }
 
         private void OnVolumeSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
@@ -83,6 +87,7 @@ namespace Bili.App.Controls.Player
                 _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
                 _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
             }
+            _isInteractionProgressAutoAssign = false;
         }
 
         private void OnInteractionProgressContainerPointerExited(object sender, PointerRoutedEventArgs e)
