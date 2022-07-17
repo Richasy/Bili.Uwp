@@ -87,6 +87,7 @@ namespace Bili.App.Controls.Player
                 _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
                 _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
             }
+
             _isInteractionProgressAutoAssign = false;
         }
 
