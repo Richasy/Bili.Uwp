@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Diagnostics;
 using System.Text;
 using Bili.DI.App;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Home;
-using FFmpegInteropX;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -23,7 +21,7 @@ namespace Bili.App
     /// <summary>
     /// Provide application-specific behaviors to supplement the default application classes.
     /// </summary>
-    public sealed partial class App : Application, ILogProvider
+    public sealed partial class App : Application
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
@@ -34,17 +32,11 @@ namespace Bili.App
             DIFactory.RegisterAppRequiredServices();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
-            FFmpegInteropLogging.SetLogLevel(FFmpegInteropX.LogLevel.Error);
-            FFmpegInteropLogging.SetLogProvider(this);
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
             Locator.Current.GetService<IAppToolkit>().InitializeTheme();
             RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
         }
-
-        /// <inheritdoc/>
-        public void Log(FFmpegInteropX.LogLevel level, string message)
-            => Debug.WriteLine($"{level} | {message}");
 
         /// <summary>
         /// Called when the application is normally launched by the end user.
