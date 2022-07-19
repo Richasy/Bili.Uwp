@@ -17,7 +17,6 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class FFmpegPlayerViewModel
     {
-        private readonly IFileToolkit _fileToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly CoreDispatcher _dispatcher;

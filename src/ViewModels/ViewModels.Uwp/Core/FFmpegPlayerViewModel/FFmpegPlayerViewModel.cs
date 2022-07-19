@@ -21,12 +21,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// Initializes a new instance of the <see cref="FFmpegPlayerViewModel"/> class.
         /// </summary>
         public FFmpegPlayerViewModel(
-            IFileToolkit fileToolkit,
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,
             CoreDispatcher dispatcher)
         {
-            _fileToolkit = fileToolkit;
             _resourceToolkit = resourceToolkit;
             _settingsToolkit = settingsToolkit;
             _dispatcher = dispatcher;
