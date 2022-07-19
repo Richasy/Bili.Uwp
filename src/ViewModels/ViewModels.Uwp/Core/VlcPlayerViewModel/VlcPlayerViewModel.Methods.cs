@@ -61,6 +61,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task LoadDashVideoSourceAsync()
         {
             var hasAudio = _audio != null;
+            var config = new LibVLC(_appViewModel.VlcOptions);
             var tasks = new List<Task>
                 {
                     Task.Run(async () =>
@@ -68,7 +69,7 @@ namespace Bili.ViewModels.Uwp.Core
                         var client = GetVideoClient();
                         _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_video.BaseUrl));
                         _videoInput = new StreamMediaInput(_videoStream.AsStream());
-                        _videoMedia = new Media(_config, _videoInput);
+                        _videoMedia = new Media(config, _videoInput);
                         _videoPlayer = GetVideoPlayer(_videoMedia);
                     }),
                     Task.Run(async () =>
@@ -78,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Core
                             var client = GetVideoClient();
                             _audioStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_audio.BaseUrl));
                             _audioInput = new StreamMediaInput(_audioStream.AsStream());
-                            _audioMedia = new Media(_config, _audioInput);
+                            _audioMedia = new Media(config, _audioInput);
                             _audioPlayer = GetVideoPlayer(_audioMedia);
                         }
                     }),
@@ -92,10 +93,11 @@ namespace Bili.ViewModels.Uwp.Core
         {
             try
             {
+                var config = new LibVLC(_appViewModel.VlcOptions);
                 var client = GetVideoClient();
                 _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
                 _videoInput = new StreamMediaInput(_videoStream.AsStream());
-                _videoMedia = new Media(_config, _videoInput);
+                _videoMedia = new Media(config, _videoInput);
                 _videoPlayer = GetVideoPlayer(_videoMedia);
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
             }
@@ -156,6 +158,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void OnBuffering(object sender, MediaPlayerBufferingEventArgs e)
         {
             Status = PlayerStatus.Buffering;
+            MediaOpened?.Invoke(this, EventArgs.Empty);
             StateChanged?.Invoke(this, new Models.App.Args.MediaStateChangedEventArgs(Status, string.Empty));
         }
 
@@ -201,20 +204,12 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void Dispose(bool disposing)
+        private void Clear()
         {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    ClearMediaPlayerData(_videoPlayer, _videoInput, _videoMedia, _videoStream);
-                    ClearMediaPlayerData(_audioPlayer, _audioInput, _audioMedia, _audioStream);
+            ClearMediaPlayerData(_videoPlayer, _videoInput, _videoMedia, _videoStream);
+            ClearMediaPlayerData(_audioPlayer, _audioInput, _audioMedia, _audioStream);
 
-                    Status = PlayerStatus.NotLoad;
-                }
-
-                _disposedValue = true;
-            }
+            Status = PlayerStatus.NotLoad;
         }
     }
 }

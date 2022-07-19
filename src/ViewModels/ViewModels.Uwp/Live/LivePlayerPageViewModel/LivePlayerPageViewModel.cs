@@ -63,7 +63,6 @@ namespace Bili.ViewModels.Uwp.Live
 
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            _liveProvider.MessageReceived += OnMessageReceivedAsync;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
@@ -94,6 +93,7 @@ namespace Bili.ViewModels.Uwp.Live
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.Execute().Subscribe();
+            _liveProvider.MessageReceived += OnMessageReceivedAsync;
         }
 
         private void Reset()

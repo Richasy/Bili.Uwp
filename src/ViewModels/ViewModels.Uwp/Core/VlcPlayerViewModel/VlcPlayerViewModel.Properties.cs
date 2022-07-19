@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using LibVLCSharp.Shared;
+using ReactiveUI;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -17,10 +19,9 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
 
-        private bool _disposedValue;
-        private LibVLC _config;
         private SegmentInformation _video;
         private SegmentInformation _audio;
         private HttpRandomAccessStream _videoStream;
@@ -43,6 +44,9 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public event EventHandler<object> MediaPlayerChanged;
+
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <inheritdoc/>
         public TimeSpan Position => GetPosition();

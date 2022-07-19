@@ -12,7 +12,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using FFmpegInteropX;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.Media.Playback;
@@ -42,7 +41,6 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly DisplayRequest _displayRequest;
 
         private IPlayerViewModel _player;
-        private bool _disposedValue;
         private VideoType _videoType;
         private object _viewData;
         private VideoIdentifier _currentPart;

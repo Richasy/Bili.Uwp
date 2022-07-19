@@ -253,18 +253,5 @@ namespace Bili.ViewModels.Uwp.Core
                 _liveStream = null;
             }
         }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    Clear();
-                }
-
-                _disposedValue = true;
-            }
-        }
     }
 }

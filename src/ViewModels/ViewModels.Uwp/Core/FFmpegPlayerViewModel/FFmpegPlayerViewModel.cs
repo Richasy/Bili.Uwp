@@ -8,6 +8,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using FFmpegInteropX;
 using Microsoft.Graphics.Canvas;
+using ReactiveUI;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -33,14 +34,9 @@ namespace Bili.ViewModels.Uwp.Core
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
-            _videoConfig = new MediaSourceConfig();
-        }
+            ClearCommand = ReactiveCommand.Create(Clear);
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            _videoConfig = new MediaSourceConfig();
         }
 
         /// <inheritdoc/>

@@ -2,17 +2,19 @@
 
 using System;
 using System.IO;
+using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
+using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces
 {
     /// <summary>
     /// 播放器视图模型的接口定义.
     /// </summary>
-    public interface IPlayerViewModel : IDisposable
+    public interface IPlayerViewModel
     {
         /// <summary>
         /// 媒体已打开（成功连接到媒体源）.
@@ -33,6 +35,11 @@ namespace Bili.ViewModels.Interfaces
         /// 媒体播放器发生改变.
         /// </summary>
         event EventHandler<object> MediaPlayerChanged;
+
+        /// <summary>
+        /// 清理命令.
+        /// </summary>
+        ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 当前媒体播放位置.

@@ -249,7 +249,7 @@ namespace Bili.ViewModels.Uwp.Core
             return controller;
         }
 
-        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, HttpRandomAccessStream stream)
+        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, FFmpegMediaSource source, HttpRandomAccessStream stream)
         {
             if (mediaPlayer == null)
             {
@@ -266,11 +266,11 @@ namespace Bili.ViewModels.Uwp.Core
                 mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
             }
 
-            if (playback != null)
-            {
-                playback.Source?.Dispose();
-                playback = null;
-            }
+            playback?.Source?.Dispose();
+            playback = null;
+
+            source?.Dispose();
+            source = null;
 
             mediaPlayer.Source = null;
             mediaPlayer = null;
@@ -282,26 +282,18 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void Dispose(bool disposing)
+        private void Clear()
         {
-            if (!_disposedValue)
+            if (_mediaTimelineController != null)
             {
-                if (disposing)
-                {
-                    if (_mediaTimelineController != null)
-                    {
-                        _mediaTimelineController.Pause();
-                        _mediaTimelineController = null;
-                    }
-
-                    ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoStream);
-                    ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioStream);
-
-                    Status = PlayerStatus.NotLoad;
-                }
-
-                _disposedValue = true;
+                _mediaTimelineController.Pause();
+                _mediaTimelineController = null;
             }
+
+            ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource, _videoStream);
+            ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource, _audioStream);
+
+            Status = PlayerStatus.NotLoad;
         }
     }
 }

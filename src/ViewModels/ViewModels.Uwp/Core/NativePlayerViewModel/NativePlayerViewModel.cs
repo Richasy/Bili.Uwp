@@ -7,6 +7,7 @@ using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Microsoft.Graphics.Canvas;
+using ReactiveUI;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -29,13 +30,8 @@ namespace Bili.ViewModels.Uwp.Core
             _resourceToolkit = resourceToolkit;
             _settingsToolkit = settingsToolkit;
             _dispatcher = dispatcher;
-        }
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            ClearCommand = ReactiveCommand.Create(Clear);
         }
 
         /// <inheritdoc/>

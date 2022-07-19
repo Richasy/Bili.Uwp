@@ -26,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 媒体播放器视图模型.
     /// </summary>
-    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel, IDisposable
+    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaPlayerViewModel"/> class.
@@ -234,13 +234,6 @@ namespace Bili.ViewModels.Uwp.Core
             LogException(exception);
         }
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
         private void Reset()
         {
             if (IsError)
@@ -324,6 +317,7 @@ namespace Bili.ViewModels.Uwp.Core
             _player = playerType switch
             {
                 PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
+                PlayerType.Vlc => Locator.Current.GetService<IVlcPlayerViewModel>(),
                 _ => Locator.Current.GetService<INativePlayerViewModel>(),
             };
 
@@ -331,51 +325,6 @@ namespace Bili.ViewModels.Uwp.Core
             _player.MediaPlayerChanged += OnMediaPlayerChanged;
             _player.PositionChanged += OnMediaPositionChanged;
             _player.StateChanged += OnMediaStateChanged;
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    _isReloading.Dispose();
-                    BackToDefaultModeCommand?.Dispose();
-                    BackToInteractionVideoStartCommand?.Dispose();
-                    BackwardSkipCommand?.Dispose();
-                    ChangeFormatCommand?.Dispose();
-                    ChangeLiveAudioOnlyCommand?.Dispose();
-                    ChangePartCommand?.Dispose();
-                    ChangePlayRateCommand?.Dispose();
-                    ChangeProgressCommand?.Dispose();
-                    ChangeVolumeCommand?.Dispose();
-                    ClearCommand?.Dispose();
-                    ClearSourceProgressCommand?.Dispose();
-                    DecreasePlayRateCommand?.Dispose();
-                    DecreaseVolumeCommand?.Dispose();
-                    ExitFullPlayerCommand?.Dispose();
-                    ForwardSkipCommand?.Dispose();
-                    IncreasePlayRateCommand?.Dispose();
-                    IncreaseVolumeCommand?.Dispose();
-                    JumpToLastProgressCommand?.Dispose();
-                    PlayNextCommand?.Dispose();
-                    PlayPauseCommand?.Dispose();
-                    ReloadCommand?.Dispose();
-                    ReportViewProgressCommand?.Dispose();
-                    ResetProgressHistoryCommand?.Dispose();
-                    ScreenShotCommand?.Dispose();
-                    SelectInteractionChoiceCommand?.Dispose();
-                    ShowNextVideoTipCommand?.Dispose();
-                    StartTempQuickPlayCommand?.Dispose();
-                    StopTempQuickPlayCommand?.Dispose();
-                    ToggleCompactOverlayCommand?.Dispose();
-                    ToggleFullScreenCommand?.Dispose();
-                    ToggleFullWindowCommand?.Dispose();
-                }
-
-                Reset();
-                _disposedValue = true;
-            }
         }
     }
 }

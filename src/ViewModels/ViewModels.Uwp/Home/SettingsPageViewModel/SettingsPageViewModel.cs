@@ -229,6 +229,7 @@ namespace Bili.ViewModels.Uwp.Home
             {
                 PlayerTypeCollection.Add(PlayerType.Native);
                 PlayerTypeCollection.Add(PlayerType.FFmpeg);
+                PlayerTypeCollection.Add(PlayerType.Vlc);
             }
 
             PlayerType = ReadSetting(SettingNames.PlayerType, PlayerType.Native);

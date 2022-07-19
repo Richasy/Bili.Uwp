@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using ReactiveUI;
 using Windows.Storage;
 using Windows.UI.Core;
 
@@ -22,20 +23,15 @@ namespace Bili.ViewModels.Uwp.Core
         public VlcPlayerViewModel(
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,
+            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _settingsToolkit = settingsToolkit;
+            _appViewModel = appViewModel;
             _dispatcher = dispatcher;
 
-            _config = new LibVLCSharp.Shared.LibVLC();
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            ClearCommand = ReactiveCommand.Create(Clear);
         }
 
         /// <inheritdoc/>
