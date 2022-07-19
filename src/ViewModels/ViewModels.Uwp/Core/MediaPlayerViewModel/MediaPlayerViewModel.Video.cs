@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
-using Bili.Models.Enums.Player;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -116,6 +115,7 @@ namespace Bili.ViewModels.Uwp.Core
             MarkProgressBreakpoint();
             var codecId = GetVideoPreferCodecId();
             ResetPlayer();
+            InitializePlayer();
             if (_mediaInformation.VideoSegments != null)
             {
                 var filteredSegments = _mediaInformation.VideoSegments.Where(p => p.Id == format.Quality.ToString());
@@ -150,16 +150,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             try
             {
-                var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
-                if (playerType == PlayerType.Native)
-                {
-                    await LoadDashVideoSourceFromNativeAsync();
-                }
-                else
-                {
-                    await LoadDashVideoSourceFromFFmpegAsync();
-                }
-
+                await _player.SetSourceAsync(_video, _audio);
                 StartTimersAndDisplayRequest();
             }
             catch (Exception ex)
@@ -205,19 +196,12 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillVideoPlaybackProperties()
         {
-            if (_videoPlaybackItem == null)
-            {
-                return;
-            }
-
             var view = _viewData as VideoPlayerView;
-            var props = _videoPlaybackItem.GetDisplayProperties();
-            props.Type = Windows.Media.MediaPlaybackType.Video;
-            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(view.Information.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg"));
-            props.VideoProperties.Title = view.Information.Identifier.Title;
-            props.VideoProperties.Subtitle = string.Join(string.Empty, view.Information.Description.Take(20));
-            props.VideoProperties.Genres.Add(_videoType.ToString());
-            _videoPlaybackItem.ApplyDisplayProperties(props);
+            _player.SetDisplayProperties(
+                view.Information.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg",
+                view.Information.Identifier.Title,
+                string.Join(string.Empty, view.Information.Description.Take(20)),
+                _videoType.ToString());
         }
 
         private void SelectInteractionChoice(InteractionInformation info)

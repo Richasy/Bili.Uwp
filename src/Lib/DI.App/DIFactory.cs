@@ -7,6 +7,7 @@ using Bili.Models.App.Constants;
 using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Common;
@@ -127,6 +128,8 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<XboxAccountPageViewModel>();
 
+            SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
+            SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.Register<SeasonItemViewModel>();

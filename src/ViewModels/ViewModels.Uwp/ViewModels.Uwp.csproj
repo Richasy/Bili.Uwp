@@ -36,15 +36,20 @@
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Methods.cs" />
+    <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.cs" />
+    <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Methods.cs" />
+    <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Properties.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Commands.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Controls.cs" />
-    <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Dash.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Live.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Episode.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Method.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Properties.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.cs" />
     <Compile Include="Core\MediaPlayerViewModel\MediaPlayerViewModel.Video.cs" />
+    <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.cs" />
+    <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Methods.cs" />
+    <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Properties.cs" />
     <Compile Include="HttpRandomAccessStream.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
@@ -206,6 +211,9 @@
     <PackageReference Include="Humanizer.Core.zh-CN">
       <Version>2.14.1</Version>
     </PackageReference>
+    <PackageReference Include="LibVLCSharp">
+      <Version>3.6.6</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>6.0.0</Version>
     </PackageReference>
@@ -240,6 +248,9 @@
     </PackageReference>
     <PackageReference Include="ToolGood.Words">
       <Version>3.0.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="VideoLAN.LibVLC.UWP">
+      <Version>3.3.2</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.26.0</Version>

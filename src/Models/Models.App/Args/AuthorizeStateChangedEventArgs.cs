@@ -11,7 +11,7 @@ namespace Bili.Models.App.Args
     public class AuthorizeStateChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// 创建一个 <see cref="ProviderStateChangedEventArgs"/> 类型的实例.
+        /// 创建一个 <see cref="AuthorizeStateChangedEventArgs"/> 类型的实例.
         /// </summary>
         /// <param name="oldState">前一个<see cref="AuthorizeState"/>.</param>
         /// <param name="newState">当前的<see cref="AuthorizeState"/>.</param>

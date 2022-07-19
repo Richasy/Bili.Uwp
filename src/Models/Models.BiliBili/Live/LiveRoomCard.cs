@@ -21,7 +21,7 @@ namespace Bili.Models.BiliBili
         /// 所属分区Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "area_id", Required = Required.Default)]
-        public int AreaId { get; set; }
+        public long AreaId { get; set; }
 
         /// <summary>
         /// 显示分区名.
@@ -33,7 +33,7 @@ namespace Bili.Models.BiliBili
         /// 父分区Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_area_id", Required = Required.Default)]
-        public int ParentAreaId { get; set; }
+        public long ParentAreaId { get; set; }
 
         /// <summary>
         /// 父分区名称.
@@ -63,7 +63,7 @@ namespace Bili.Models.BiliBili
         /// 序号.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "index", Required = Required.Default)]
-        public int Index { get; set; }
+        public long Index { get; set; }
 
         /// <summary>
         /// 是否隐藏反馈.0-不隐藏，1-隐藏.

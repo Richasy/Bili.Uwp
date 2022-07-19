@@ -15,7 +15,7 @@ namespace Bili.Models.BiliBili
         /// 直播间Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "roomid", Required = Required.Default)]
-        public int RoomId { get; set; }
+        public long RoomId { get; set; }
 
         /// <summary>
         /// 用户名.
@@ -33,7 +33,7 @@ namespace Bili.Models.BiliBili
         /// 直播开始时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "live_time", Required = Required.Default)]
-        public int LiveStartTime { get; set; }
+        public long LiveStartTime { get; set; }
 
         /// <summary>
         /// 显示分区Id.
@@ -51,7 +51,7 @@ namespace Bili.Models.BiliBili
         /// 分区Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "area_v2_id", Required = Required.Default)]
-        public int AreaId { get; set; }
+        public long AreaId { get; set; }
 
         /// <summary>
         /// 分区名.
@@ -69,7 +69,7 @@ namespace Bili.Models.BiliBili
         /// 父分区Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "area_v2_parent_id", Required = Required.Default)]
-        public int ParentAreaId { get; set; }
+        public long ParentAreaId { get; set; }
 
         /// <summary>
         /// 直播标签名.

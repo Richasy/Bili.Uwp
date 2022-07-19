@@ -31,5 +31,10 @@ namespace Bili.Models.Enums
         /// 播放结束.
         /// </summary>
         End,
+
+        /// <summary>
+        /// 播放错误.
+        /// </summary>
+        Failed,
     }
 }

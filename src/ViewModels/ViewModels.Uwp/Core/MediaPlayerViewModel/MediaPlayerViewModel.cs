@@ -10,12 +10,13 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
-using FFmpegInteropX;
 using ReactiveUI;
+using Splat;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -25,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 媒体播放器视图模型.
     /// </summary>
-    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel, IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaPlayerViewModel"/> class.
@@ -64,12 +65,6 @@ namespace Bili.ViewModels.Uwp.Core
             InteractionViewModel = interactionModuleViewModel;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
             InteractionViewModel.NoMoreChoices += OnInteractionModuleNoMoreChoices;
-
-            _liveConfig = new MediaSourceConfig();
-            _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
-            _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
-
-            _videoConfig = new MediaSourceConfig();
 
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
@@ -176,10 +171,7 @@ namespace Bili.ViewModels.Uwp.Core
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x =>
                 {
-                    if (_mediaTimelineController != null)
-                    {
-                        _mediaTimelineController.IsLoopingEnabled = x;
-                    }
+                    _player?.SetLoop(x);
                 });
 
             this.WhenAnyValue(p => p.IsError)
@@ -242,6 +234,13 @@ namespace Bili.ViewModels.Uwp.Core
             LogException(exception);
         }
 
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
         private void Reset()
         {
             if (IsError)
@@ -288,8 +287,8 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async Task ChangeFormatAsync(FormatInformation information)
         {
-            var needResume = Status == PlayerStatus.Playing && _mediaTimelineController != null;
-            _mediaTimelineController?.Pause();
+            var needResume = Status == PlayerStatus.Playing;
+            _player.Pause();
             if (_videoType == VideoType.Video
                 || _videoType == VideoType.Pgc)
             {
@@ -302,7 +301,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (needResume)
             {
-                _mediaTimelineController?.Resume();
+                _player.Play();
             }
         }
 
@@ -316,6 +315,66 @@ namespace Bili.ViewModels.Uwp.Core
             else if (_videoType == VideoType.Pgc && _viewData is PgcPlayerView pgcView)
             {
                 pgcView.Progress = null;
+            }
+        }
+
+        private void InitializePlayer()
+        {
+            var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
+            _player = playerType switch
+            {
+                PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
+                _ => Locator.Current.GetService<INativePlayerViewModel>(),
+            };
+
+            _player.MediaOpened += OnMediaOpened;
+            _player.MediaPlayerChanged += OnMediaPlayerChanged;
+            _player.PositionChanged += OnMediaPositionChanged;
+            _player.StateChanged += OnMediaStateChanged;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _isReloading.Dispose();
+                    BackToDefaultModeCommand?.Dispose();
+                    BackToInteractionVideoStartCommand?.Dispose();
+                    BackwardSkipCommand?.Dispose();
+                    ChangeFormatCommand?.Dispose();
+                    ChangeLiveAudioOnlyCommand?.Dispose();
+                    ChangePartCommand?.Dispose();
+                    ChangePlayRateCommand?.Dispose();
+                    ChangeProgressCommand?.Dispose();
+                    ChangeVolumeCommand?.Dispose();
+                    ClearCommand?.Dispose();
+                    ClearSourceProgressCommand?.Dispose();
+                    DecreasePlayRateCommand?.Dispose();
+                    DecreaseVolumeCommand?.Dispose();
+                    ExitFullPlayerCommand?.Dispose();
+                    ForwardSkipCommand?.Dispose();
+                    IncreasePlayRateCommand?.Dispose();
+                    IncreaseVolumeCommand?.Dispose();
+                    JumpToLastProgressCommand?.Dispose();
+                    PlayNextCommand?.Dispose();
+                    PlayPauseCommand?.Dispose();
+                    ReloadCommand?.Dispose();
+                    ReportViewProgressCommand?.Dispose();
+                    ResetProgressHistoryCommand?.Dispose();
+                    ScreenShotCommand?.Dispose();
+                    SelectInteractionChoiceCommand?.Dispose();
+                    ShowNextVideoTipCommand?.Dispose();
+                    StartTempQuickPlayCommand?.Dispose();
+                    StopTempQuickPlayCommand?.Dispose();
+                    ToggleCompactOverlayCommand?.Dispose();
+                    ToggleFullScreenCommand?.Dispose();
+                    ToggleFullWindowCommand?.Dispose();
+                }
+
+                Reset();
+                _disposedValue = true;
             }
         }
     }

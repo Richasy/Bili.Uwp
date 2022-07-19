@@ -72,7 +72,7 @@ namespace Bili.ViewModels.Uwp.Video
 
             DownloadViewModel = downloadViewModel;
 
-            IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
+            IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
