@@ -1342,16 +1342,16 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220601001</Version>
+      <Version>2.8.0-prerelease.220712001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>18.2.9</Version>
+      <Version>18.3.1</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Uwp">
-      <Version>18.2.9</Version>
+      <Version>18.3.1</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>
