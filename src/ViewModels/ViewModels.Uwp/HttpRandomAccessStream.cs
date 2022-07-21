@@ -105,7 +105,6 @@ namespace Bili.ViewModels.Uwp
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
-                    throw;
                 }
 
                 var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress).ConfigureAwait(false);
@@ -147,7 +146,7 @@ namespace Bili.ViewModels.Uwp
 
             if (response.Content.Headers.ContentType != null)
             {
-                this.ContentType = response.Content.Headers.ContentType.MediaType;
+                ContentType = response.Content.Headers.ContentType.MediaType;
             }
 
             _size = response.Content?.Headers?.ContentLength ?? 0;
