@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
@@ -47,7 +46,6 @@ namespace Bili.ViewModels.Uwp.Live
 
             SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions, outputScheduler: RxApp.MainThreadScheduler);
 
-            Follows.CollectionChanged += OnFollowsCollectionChanged;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
         }
@@ -99,6 +97,8 @@ namespace Bili.ViewModels.Uwp.Live
                     Follows.Add(liveVM);
                 }
             }
+
+            IsFollowsEmpty = Follows.Count == 0;
         }
 
         private void SeeAllPartitions()
@@ -106,8 +106,5 @@ namespace Bili.ViewModels.Uwp.Live
 
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
             => IsLoggedIn = e.NewState == AuthorizeState.SignedIn;
-
-        private void OnFollowsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-            => IsFollowsEmpty = Follows.Count == 0;
     }
 }
