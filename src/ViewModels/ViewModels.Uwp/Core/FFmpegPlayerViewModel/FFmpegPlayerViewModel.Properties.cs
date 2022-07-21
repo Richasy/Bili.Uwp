@@ -36,6 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaPlaybackItem _videoPlaybackItem;
         private MediaPlaybackItem _audioPlaybackItem;
         private MediaTimelineController _mediaTimelineController;
+        private int _liveRetryCount;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;

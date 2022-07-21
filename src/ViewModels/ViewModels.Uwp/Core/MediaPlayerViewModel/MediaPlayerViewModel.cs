@@ -314,11 +314,18 @@ namespace Bili.ViewModels.Uwp.Core
         private void InitializePlayer()
         {
             var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
-            _player = playerType switch
+            if(_videoType == VideoType.Live)
             {
-                PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
-                _ => Locator.Current.GetService<INativePlayerViewModel>(),
-            };
+                _player = Locator.Current.GetService<IFFmpegPlayerViewModel>();
+            }
+            else
+            {
+                _player = playerType switch
+                {
+                    PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
+                    _ => Locator.Current.GetService<INativePlayerViewModel>(),
+                };
+            }
 
             _player.MediaOpened += OnMediaOpened;
             _player.MediaPlayerChanged += OnMediaPlayerChanged;

@@ -31,6 +31,7 @@ namespace Bili.ViewModels.Uwp.Core
             _dispatcher = dispatcher;
 
             _liveConfig = new MediaSourceConfig();
+            _liveConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
@@ -52,6 +53,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _video = null;
             _audio = null;
+            _liveRetryCount = 0;
             await LoadDashLiveSourceAsync(url);
         }
 
