@@ -77,7 +77,9 @@ namespace Bili.ViewModels.Uwp.Core
             try
             {
                 _liveConfig.VideoDecoderMode = GetDecoderMode();
-                _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
+                var client = GetVideoClient();
+                _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
+                _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream, _liveConfig);
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
                 _videoPlayer = GetVideoPlayer();

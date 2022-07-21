@@ -26,9 +26,6 @@ namespace Bili.App.Resources.Converter
                     case PlayerType.FFmpeg:
                         result = resourceToolkit.GetLocaleString(LanguageNames.FFmpegPlayer);
                         break;
-                    case PlayerType.Vlc:
-                        result = "VLC";
-                        break;
                     default:
                         break;
                 }

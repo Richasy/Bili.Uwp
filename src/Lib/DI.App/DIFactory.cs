@@ -130,7 +130,6 @@ namespace Bili.DI.App
 
             SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
             SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
-            SplatRegistrations.Register<IVlcPlayerViewModel, VlcPlayerViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.Register<SeasonItemViewModel>();

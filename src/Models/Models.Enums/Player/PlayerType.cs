@@ -16,10 +16,5 @@ namespace Bili.Models.Enums.Player
         /// FFmpeg解码，借助 FFmpegInteropX.
         /// </summary>
         FFmpeg,
-
-        /// <summary>
-        /// 使用 VLC 播放器播放.
-        /// </summary>
-        Vlc,
     }
 }

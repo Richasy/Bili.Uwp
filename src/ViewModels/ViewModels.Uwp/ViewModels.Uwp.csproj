@@ -50,9 +50,6 @@
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.cs" />
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Methods.cs" />
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Properties.cs" />
-    <Compile Include="Core\VlcPlayerViewModel\VlcPlayerViewModel.cs" />
-    <Compile Include="Core\VlcPlayerViewModel\VlcPlayerViewModel.Methods.cs" />
-    <Compile Include="Core\VlcPlayerViewModel\VlcPlayerViewModel.Properties.cs" />
     <Compile Include="HttpRandomAccessStream.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />

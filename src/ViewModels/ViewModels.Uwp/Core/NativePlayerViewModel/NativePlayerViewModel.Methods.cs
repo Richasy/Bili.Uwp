@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
+using Bili.Models.Enums.App;
+using FFmpegInteropX;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
@@ -85,13 +87,26 @@ namespace Bili.ViewModels.Uwp.Core
         {
             try
             {
-                var httpClient = GetVideoClient();
-                var stream = await HttpRandomAccessStream.CreateAsync(httpClient, new Uri(url));
-                var source = await AdaptiveMediaSource.CreateFromStreamAsync(stream.GetInputStreamAt(0), new Uri(url), stream.ContentType, httpClient);
-                var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(source.MediaSource);
-                _videoPlaybackItem = new MediaPlaybackItem(mediaSource);
+                var decodeType = _settingsToolkit.ReadLocalSetting(SettingNames.DecodeType, DecodeType.Automatic);
+                var mode = decodeType switch
+                {
+                    DecodeType.HardwareDecode => VideoDecoderMode.ForceSystemDecoder,
+                    DecodeType.SoftwareDecode => VideoDecoderMode.ForceFFmpegSoftwareDecoder,
+                    _ => VideoDecoderMode.Automatic
+                };
+
+                var liveConfig = new MediaSourceConfig
+                {
+                    VideoDecoderMode = mode,
+                };
+                var client = GetVideoClient();
+                var stream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
+                var source = await FFmpegMediaSource.CreateFromStreamAsync(stream, liveConfig);
+                _videoPlaybackItem = source.CreateMediaPlaybackItem();
+
                 _videoPlayer = GetVideoPlayer();
                 _videoPlayer.Source = _videoPlaybackItem;
+
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
             }
             catch (Exception ex)

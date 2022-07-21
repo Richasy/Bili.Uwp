@@ -317,7 +317,6 @@ namespace Bili.ViewModels.Uwp.Core
             _player = playerType switch
             {
                 PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
-                PlayerType.Vlc => Locator.Current.GetService<IVlcPlayerViewModel>(),
                 _ => Locator.Current.GetService<INativePlayerViewModel>(),
             };
 
