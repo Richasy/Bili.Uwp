@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
-using Microsoft.Graphics.Canvas;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -27,38 +27,16 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 if (Status == PlayerStatus.Playing)
                 {
-                    if (_mediaTimelineController == null)
-                    {
-                        _videoPlayer.Pause();
-                    }
-                    else
-                    {
-                        _mediaTimelineController.Pause();
-                    }
+                    _player.Pause();
                 }
                 else if (Status == PlayerStatus.Pause)
                 {
-                    if (_mediaTimelineController == null)
-                    {
-                        _videoPlayer.Play();
-                    }
-                    else
-                    {
-                        _mediaTimelineController.Resume();
-                    }
+                    _player.Play();
                 }
                 else if (Status == PlayerStatus.End)
                 {
-                    if (_mediaTimelineController == null)
-                    {
-                        _videoPlayer.PlaybackSession.Position = TimeSpan.Zero;
-                        _videoPlayer.Play();
-                    }
-                    else
-                    {
-                        _mediaTimelineController.Position = TimeSpan.Zero;
-                        _mediaTimelineController.Resume();
-                    }
+                    _player.SeekTo(TimeSpan.Zero);
+                    _player.Play();
                 }
             });
         }
@@ -77,10 +55,8 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _videoPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaTimelineController == null
-                    ? _videoPlayer.PlaybackSession.Position
-                    : _mediaTimelineController.Position;
+                var duration = _player.Duration;
+                var currentPos = _player.Position;
                 if ((duration - currentPos).TotalSeconds > seconds)
                 {
                     currentPos += TimeSpan.FromSeconds(seconds);
@@ -90,14 +66,7 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = duration;
                 }
 
-                if (_mediaTimelineController == null)
-                {
-                    _videoPlayer.PlaybackSession.Position = currentPos;
-                }
-                else
-                {
-                    _mediaTimelineController.Position = currentPos;
-                }
+                _player.SeekTo(currentPos);
             });
         }
 
@@ -115,10 +84,8 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = _videoPlayer.PlaybackSession.NaturalDuration;
-                var currentPos = _mediaTimelineController == null
-                    ? _videoPlayer.PlaybackSession.Position
-                    : _mediaTimelineController.Position;
+                var duration = _player.Duration;
+                var currentPos = _player.Position;
                 if (currentPos.TotalSeconds > seconds)
                 {
                     currentPos -= TimeSpan.FromSeconds(seconds);
@@ -128,14 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
                     currentPos = TimeSpan.Zero;
                 }
 
-                if (_mediaTimelineController == null)
-                {
-                    _videoPlayer.PlaybackSession.Position = currentPos;
-                }
-                else
-                {
-                    _mediaTimelineController.Position = currentPos;
-                }
+                _player.SeekTo(currentPos);
             });
         }
 
@@ -162,14 +122,7 @@ namespace Bili.ViewModels.Uwp.Core
                     PlaybackRate = rate;
                 }
 
-                if (_mediaTimelineController != null)
-                {
-                    _mediaTimelineController.ClockRate = PlaybackRate;
-                }
-                else
-                {
-                    _videoPlayer.PlaybackSession.PlaybackRate = PlaybackRate;
-                }
+                _player.SetPlayRate(rate);
 
                 foreach (var r in PlaybackRates)
                 {
@@ -233,19 +186,11 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task ScreenShotAsync()
         {
             EnsureMediaPlayerExist();
-            var rendertarget = new CanvasRenderTarget(
-                    CanvasDevice.GetSharedDevice(),
-                    _videoPlayer.PlaybackSession.NaturalVideoWidth,
-                    _videoPlayer.PlaybackSession.NaturalVideoHeight,
-                    96);
-            _videoPlayer.CopyFrameToVideoSurface(rendertarget);
 
             var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync(AppConstants.ScreenshotFolderName, CreationCollisionOption.OpenIfExists);
             var file = await folder.CreateFileAsync(Guid.NewGuid().ToString("N") + ".png", CreationCollisionOption.OpenIfExists);
-            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
-            {
-                await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
-            }
+            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            await _player.ScreenshotAsync(stream.AsStreamForWrite());
 
             _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
 
@@ -266,10 +211,12 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void EnsureMediaPlayerExist()
         {
-            if (_videoPlayer == null || _videoPlayer.PlaybackSession == null)
+            if (_player?.IsPlayerReady ?? false)
             {
-                throw new InvalidOperationException("此时媒体播放器尚未就绪");
+                return;
             }
+
+            throw new InvalidOperationException("此时媒体播放器尚未就绪");
         }
 
         private void ChangeProgress(double seconds)

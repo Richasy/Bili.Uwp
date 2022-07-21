@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.Data.Live;
@@ -68,6 +67,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             CurrentFormat = format;
             ResetPlayer();
+            InitializePlayer();
             var view = _viewData as LivePlayerView;
             var codecId = GetLivePreferCodecId();
             var quality = format.Quality;
@@ -94,9 +94,7 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         private async Task InitializeLivePlayerAsync(string url)
-        {
-            await LoadDashLiveSourceAsync(url.ToString());
-        }
+            => await _player.SetSourceAsync(url);
 
         private async Task ChangeLiveAudioOnlyAsync(bool isAudioOnly)
         {
@@ -110,19 +108,12 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillLivePlaybackProperties()
         {
-            if (_videoPlaybackItem == null)
-            {
-                return;
-            }
-
             var view = _viewData as LivePlayerView;
-            var props = _videoPlaybackItem.GetDisplayProperties();
-            props.Type = Windows.Media.MediaPlaybackType.Video;
-            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(view.Information.User.Avatar.GetSourceUri() + "@100w_100h_1c_100q.jpg"));
-            props.VideoProperties.Title = view.Information.Identifier.Title;
-            props.VideoProperties.Subtitle = string.Join(string.Empty, view.Information.Description.Take(20));
-            props.VideoProperties.Genres.Add(_videoType.ToString());
-            _videoPlaybackItem.ApplyDisplayProperties(props);
+            _player.SetDisplayProperties(
+                view.Information.User.Avatar.GetSourceUri() + "@100w_100h_1c_100q.jpg",
+                view.Information.Identifier.Title,
+                string.Join(string.Empty, view.Information.Description.Take(20)),
+                _videoType.ToString());
         }
     }
 }

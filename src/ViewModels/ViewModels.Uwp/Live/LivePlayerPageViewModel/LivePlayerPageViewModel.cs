@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
@@ -62,7 +63,6 @@ namespace Bili.ViewModels.Uwp.Live
 
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            _liveProvider.MessageReceived += OnMessageReceivedAsync;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
             ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
@@ -72,7 +72,13 @@ namespace Bili.ViewModels.Uwp.Live
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
 
-            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+            ReloadCommand.ThrownExceptions
+                .Subscribe(DisplayException);
+            ClearCommand.ThrownExceptions
+                .Merge(ShareCommand.ThrownExceptions)
+                .Merge(FixedCommand.ThrownExceptions)
+                .Merge(OpenInBroswerCommand.ThrownExceptions)
+                .Subscribe(LogException);
 
             Danmakus.CollectionChanged += OnDanmakusCollectionChanged;
         }
@@ -87,6 +93,7 @@ namespace Bili.ViewModels.Uwp.Live
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.Execute().Subscribe();
+            _liveProvider.MessageReceived += OnMessageReceivedAsync;
         }
 
         private void Reset()

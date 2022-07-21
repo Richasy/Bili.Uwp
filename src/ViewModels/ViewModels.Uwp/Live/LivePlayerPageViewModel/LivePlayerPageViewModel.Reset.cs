@@ -29,6 +29,7 @@ namespace Bili.ViewModels.Uwp.Live
             IsLiveFixed = false;
             IsDanmakusAutoScroll = true;
             TryClear(Danmakus);
+            _liveProvider.MessageReceived -= OnMessageReceivedAsync;
             _liveProvider.ResetLiveConnection();
         }
     }

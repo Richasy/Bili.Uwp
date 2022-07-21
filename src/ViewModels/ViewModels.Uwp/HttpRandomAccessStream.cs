@@ -55,7 +55,7 @@ namespace Bili.ViewModels.Uwp
         public IRandomAccessStream CloneStream() => this;
 
         public IInputStream GetInputStreamAt(ulong position)
-            => throw new NotImplementedException();
+            => _inputStream;
 
         public IOutputStream GetOutputStreamAt(ulong position)
             => throw new NotImplementedException();
@@ -150,7 +150,7 @@ namespace Bili.ViewModels.Uwp
                 this.ContentType = response.Content.Headers.ContentType.MediaType;
             }
 
-            _size = response.Content.Headers.ContentLength.Value;
+            _size = response.Content?.Headers?.ContentLength ?? 0;
 
             if (response.StatusCode != HttpStatusCode.PartialContent && Position != 0)
             {

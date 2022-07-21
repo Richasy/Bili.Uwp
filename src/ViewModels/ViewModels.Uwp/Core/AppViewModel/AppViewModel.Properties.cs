@@ -181,5 +181,10 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsTraditionalChinese { get; set; }
+
+        /// <summary>
+        /// VLC 播放器的选项.
+        /// </summary>
+        public string[] VlcOptions { get; set; }
     }
 }

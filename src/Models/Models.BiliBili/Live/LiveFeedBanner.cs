@@ -22,12 +22,6 @@ namespace Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "session_id", Required = Required.Default)]
         public string SessionId { get; set; }
-
-        /// <summary>
-        /// 分组标识符.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "group_id", Required = Required.Default)]
-        public int GroupId { get; set; }
     }
 
     /// <summary>

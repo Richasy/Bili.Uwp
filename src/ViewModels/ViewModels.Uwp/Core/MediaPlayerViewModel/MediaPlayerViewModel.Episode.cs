@@ -96,17 +96,11 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillEpisodePlaybackProperties()
         {
-            if (_videoPlaybackItem == null)
-            {
-                return;
-            }
-
-            var props = _videoPlaybackItem.GetDisplayProperties();
-            props.Type = Windows.Media.MediaPlaybackType.Video;
-            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(_currentEpisode.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg"));
-            props.VideoProperties.Title = _currentEpisode.Identifier.Title;
-            props.VideoProperties.Genres.Add(_videoType.ToString());
-            _videoPlaybackItem.ApplyDisplayProperties(props);
+            _player.SetDisplayProperties(
+                _currentEpisode.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg",
+                _currentEpisode.Identifier.Title,
+                _currentEpisode.PublishTime.ToString("yyyy/MM/dd HH:mm"),
+                _videoType.ToString());
         }
     }
 }

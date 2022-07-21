@@ -19,6 +19,6 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 媒体播放视图模型.
         /// </summary>
-        public MediaPlayerViewModel MediaPlayerViewModel { get; }
+        public MediaPlayerViewModel MediaPlayerViewModel { get; set; }
     }
 }
