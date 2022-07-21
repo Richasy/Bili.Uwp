@@ -88,14 +88,16 @@ namespace Bili.ViewModels.Uwp.Core
                 _liveConfig.VideoDecoderMode = GetDecoderMode();
                 var client = GetLiveClient();
 
+                // 这里是一种试错的机制。对于国内用户来说，可以通过 Url 直接创建播放源
+                // 但是对于海外地区，直接创建播放源可能会崩，需要先获取网络流.
                 if (_liveRetryCount == 0)
-                {
-                    _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
-                }
-                else
                 {
                     _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
                     _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream);
+                }
+                else
+                {
+                    _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
                 }
 
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
