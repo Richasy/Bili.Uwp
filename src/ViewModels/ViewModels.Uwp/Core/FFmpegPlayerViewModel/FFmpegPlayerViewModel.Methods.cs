@@ -27,6 +27,15 @@ namespace Bili.ViewModels.Uwp.Core
             return httpClient;
         }
 
+        private HttpClient GetLiveClient()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Referer = new Uri("https://live.bilibili.com/");
+            httpClient.DefaultRequestHeaders.Add("rtsp_transport", "tcp");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
+            return httpClient;
+        }
+
         private async Task LoadDashVideoSourceAsync()
         {
             var hasAudio = _audio != null;
@@ -77,9 +86,18 @@ namespace Bili.ViewModels.Uwp.Core
             try
             {
                 _liveConfig.VideoDecoderMode = GetDecoderMode();
-                var client = GetVideoClient();
-                _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
-                _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream, _liveConfig);
+                var client = GetLiveClient();
+
+                if (_liveRetryCount == 0)
+                {
+                    _videoFFSource = await FFmpegMediaSource.CreateFromUriAsync(url, _liveConfig);
+                }
+                else
+                {
+                    _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(url));
+                    _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream);
+                }
+
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
                 _videoPlayer = GetVideoPlayer();
@@ -89,9 +107,19 @@ namespace Bili.ViewModels.Uwp.Core
             }
             catch (Exception ex)
             {
-                Status = PlayerStatus.Failed;
-                StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, ex.Message));
-                LogException(ex);
+                _liveRetryCount++;
+
+                if (_liveRetryCount < 2)
+                {
+                    await LoadDashLiveSourceAsync(url);
+                }
+                else
+                {
+                    Status = PlayerStatus.Failed;
+                    var msg = _resourceToolkit.GetLocaleString(LanguageNames.RequestLivePlayInformationFailed) + "\n" + ex.Message;
+                    StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, msg));
+                    LogException(ex);
+                }
             }
         }
 

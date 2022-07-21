@@ -45,9 +45,8 @@ namespace Bili.ViewModels.Uwp.Core
         /// <inheritdoc/>
         public async Task SetSourceAsync(string url)
         {
-            _video = null;
-            _audio = null;
-            await LoadDashLiveSourceAsync(url);
+            // 原生不支持直播（多为 flv，编码不支持）
+            await Task.CompletedTask;
         }
 
         /// <inheritdoc/>
