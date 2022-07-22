@@ -15,7 +15,7 @@ namespace Bili.Models.BiliBili
         /// 用户Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "uid", Required = Required.Default)]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 直播间封面.

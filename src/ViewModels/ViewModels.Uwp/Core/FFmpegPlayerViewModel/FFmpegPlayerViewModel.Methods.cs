@@ -137,17 +137,19 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnMediaPlayerFailedAsync(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
-            if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)
-            {
-                // 不处理 Shutdown 造成的错误.
-                return;
-            }
+            Pause();
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // 在视频未加载时不对报错进行处理.
                 if (Status == PlayerStatus.NotLoad)
                 {
+                    return;
+                }
+
+                if (args.ExtendedErrorCode?.HResult == -1072873851 || args.Error == MediaPlayerError.Unknown)
+                {
+                    // 不处理 Shutdown 造成的错误.
                     return;
                 }
 
@@ -181,6 +183,17 @@ namespace Bili.ViewModels.Uwp.Core
         {
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                // 当视频播放中断时，尝试重连，但最多尝试2次
+                if (_video != null && Position < Duration - TimeSpan.FromSeconds(1) && _videoRetryCount < 2)
+                {
+                    _videoRetryCount++;
+
+                    // 此时认为应该尝试重新连接媒体源.
+                    TryReconnectPlayer(_audioPlayer);
+                    TryReconnectPlayer(_videoPlayer);
+                    return;
+                }
+
                 Status = PlayerStatus.End;
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
             });
@@ -326,6 +339,17 @@ namespace Bili.ViewModels.Uwp.Core
             ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource, _audioStream);
 
             Status = PlayerStatus.NotLoad;
+        }
+
+        private void TryReconnectPlayer(MediaPlayer player)
+        {
+            if (player.PlaybackSession != null && player.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
+            {
+                // 该 Player 出了问题，重新播放一下.
+                var position = Position;
+                Play();
+                _mediaTimelineController.Position = position;
+            }
         }
     }
 }
