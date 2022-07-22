@@ -45,6 +45,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _video = video;
             _audio = audio;
+            _videoRetryCount = 0;
             await LoadDashVideoSourceAsync();
         }
 
