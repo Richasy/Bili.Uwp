@@ -60,8 +60,8 @@ namespace Bili.ViewModels.Uwp.Core
             : _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;
 
         /// <inheritdoc/>
-        public TimeSpan Duration => _mediaTimelineController != null
-            ? _mediaTimelineController.Duration ?? TimeSpan.Zero
+        public TimeSpan Duration => _videoFFSource != null
+            ? _videoFFSource.Duration
             : _videoPlayer?.PlaybackSession?.NaturalDuration ?? TimeSpan.Zero;
 
         /// <inheritdoc/>

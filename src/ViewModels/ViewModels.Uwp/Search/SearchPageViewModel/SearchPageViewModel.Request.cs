@@ -169,7 +169,7 @@ namespace Bili.ViewModels.Uwp.Search
         }
 
         private string GetCondition(string id)
-            => CurrentFilters.First(p => p.Filter.Id == id).CurrentCondition.Id;
+            => CurrentFilters.FirstOrDefault(p => p.Filter.Id == id)?.CurrentCondition?.Id ?? string.Empty;
 
         private void ResetModuleEndIdentifier(SearchModuleType type, bool isEnd)
         {

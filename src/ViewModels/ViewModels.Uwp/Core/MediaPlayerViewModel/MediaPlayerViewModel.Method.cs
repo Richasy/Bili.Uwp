@@ -78,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _player.MediaOpened -= OnMediaOpened;
                 _player.MediaPlayerChanged -= OnMediaPlayerChanged;
                 _player.PositionChanged -= OnMediaPositionChanged;
-                _player.StateChanged -= OnMediaStateChanged;
+                _player.StateChanged -= OnMediaStateChangedAsync;
                 _player.ClearCommand.Execute().Subscribe(_ =>
                 {
                     _player = null;
@@ -239,7 +239,7 @@ namespace Bili.ViewModels.Uwp.Core
             IsShowExitFullPlayerButton = isFullPlayer && (IsError || IsShowMediaTransport);
         }
 
-        private void OnMediaStateChanged(object sender, MediaStateChangedEventArgs e)
+        private async void OnMediaStateChangedAsync(object sender, MediaStateChangedEventArgs e)
         {
             IsError = e.Status == PlayerStatus.Failed;
             Status = e.Status;
@@ -253,6 +253,7 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 if (_player.Position < _initializeProgress)
                 {
+                    await Task.Delay(400);
                     _player.SeekTo(_initializeProgress);
                     _initializeProgress = TimeSpan.Zero;
                 }

@@ -41,7 +41,7 @@ namespace Bili.ViewModels.Uwp
             set => throw new NotImplementedException();
         }
 
-        public static IAsyncOperation<HttpRandomAccessStream> CreateAsync(HttpClient client, Uri uri)
+        public static Task<HttpRandomAccessStream> CreateAsync(HttpClient client, Uri uri)
         {
             var randomStream = new HttpRandomAccessStream(client, uri);
 
@@ -49,7 +49,7 @@ namespace Bili.ViewModels.Uwp
             {
                 await randomStream.SendRequesAsync();
                 return randomStream;
-            });
+            }).AsTask();
         }
 
         public IRandomAccessStream CloneStream() => this;
@@ -107,13 +107,17 @@ namespace Bili.ViewModels.Uwp
                     Debug.WriteLine(ex);
                 }
 
-                var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress);
+                if (_inputStream != null)
+                {
+                    var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress).ConfigureAwait(false);
 
-                // Move position forward.
-                Position += result.Length;
-                Debug.WriteLine("requestedPosition = {0:N0}", Position);
+                    // Move position forward.
+                    Position += result.Length;
+                    Debug.WriteLine("requestedPosition = {0:N0}", Position);
+                    return result;
+                }
 
-                return result;
+                return default;
             });
         }
 
@@ -143,7 +147,7 @@ namespace Bili.ViewModels.Uwp
 
             var response = await _client.SendRequestAsync(
                 request,
-                HttpCompletionOption.ResponseHeadersRead).AsTask();
+                HttpCompletionOption.ResponseHeadersRead).AsTask().ConfigureAwait(false);
 
             if (response.Content.Headers.ContentType != null)
             {
@@ -151,11 +155,6 @@ namespace Bili.ViewModels.Uwp
             }
 
             _size = response.Content?.Headers?.ContentLength ?? 0;
-
-            if (response.StatusCode != HttpStatusCode.PartialContent && Position != 0)
-            {
-                throw new Exception("HTTP server did not reply with a '206 Partial Content' status.");
-            }
 
             if (string.IsNullOrEmpty(_etagHeader) && response.Headers.ContainsKey("ETag"))
             {
@@ -172,7 +171,7 @@ namespace Bili.ViewModels.Uwp
                 ContentType = response.Content.Headers["Content-Type"];
             }
 
-            _inputStream = await response.Content.ReadAsInputStreamAsync().AsTask();
+            _inputStream = await response.Content.ReadAsInputStreamAsync().AsTask().ConfigureAwait(false);
         }
     }
 }

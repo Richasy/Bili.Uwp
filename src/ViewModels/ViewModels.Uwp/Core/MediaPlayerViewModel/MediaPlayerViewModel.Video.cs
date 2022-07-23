@@ -156,7 +156,7 @@ namespace Bili.ViewModels.Uwp.Core
             catch (Exception ex)
             {
                 IsError = true;
-                ErrorText = _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestVideoFailed);
+                ErrorText = _resourceToolkit.GetLocaleString(LanguageNames.RequestVideoFailed);
                 LogException(ex);
             }
         }

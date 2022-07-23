@@ -281,6 +281,16 @@
                                         <uwp:RegularFluentIcon Symbol="Next20" />
                                     </Button.Content>
                                 </Button>
+                                <Button
+                                    x:Name="RefreshButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Refresh}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <Grid
@@ -672,6 +682,16 @@
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
+                                <Button
+                                    x:Name="RefreshButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Refresh}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <Grid
@@ -969,17 +989,23 @@
                                         <uwp:RegularFluentIcon Symbol="Next20" />
                                     </Button.Content>
                                 </Button>
+                                <Button
+                                    x:Name="RefreshButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Refresh}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                    </Button.Content>
+                                </Button>
                             </StackPanel>
 
                             <Grid
-                                x:Name="NormalProgressContainer"
+                                x:Name="InteractionProgressContainer"
                                 Grid.Column="1"
-                                Background="{ThemeResource TransparentBackground}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                                <StackPanel
-                                    Margin="0,-8,0,0"
-                                    VerticalAlignment="Center"
-                                    Spacing="4">
+                                Background="{ThemeResource TransparentBackground}">
+                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         HorizontalAlignment="Left"
@@ -988,41 +1014,13 @@
                                         <Run Text="/" />
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
                                     </TextBlock>
-                                    <controls:ProgressBar
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Center"
-                                        Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds}"
-                                        ShowError="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}"
-                                        ShowPaused="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsMediaPause}"
-                                        Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds}">
-                                        <controls:ProgressBar.Resources>
-                                            <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
-                                            <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
-                                            <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
-                                        </controls:ProgressBar.Resources>
-                                    </controls:ProgressBar>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid
-                                x:Name="InteractionProgressContainer"
-                                Grid.Column="1"
-                                Background="{ThemeResource TransparentBackground}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowInteractionProgress}">
-                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
-                                    <TextBlock
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        HorizontalAlignment="Left"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.InteractionProgressText}" />
-                                        <Run Text="/" />
-                                        <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
-                                    </TextBlock>
                                     <Slider
                                         x:Name="InteractionProgressSlider"
                                         Margin="0,-4"
                                         HorizontalAlignment="Stretch"
-                                        IsThumbToolTipEnabled="False" />
+                                        IsThumbToolTipEnabled="False"
+                                        Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds, Mode=OneWay}"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressSeconds, Mode=TwoWay}" />
                                 </StackPanel>
                             </Grid>
 
@@ -1262,6 +1260,16 @@
                                             Symbol="Pause16"
                                             Visibility="Collapsed" />
                                     </Grid>
+                                </Button>
+                                <Button
+                                    x:Name="RefreshButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Refresh}"
+                                    Style="{StaticResource PlayerButtonStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
+                                    <Button.Content>
+                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                    </Button.Content>
                                 </Button>
                             </StackPanel>
 

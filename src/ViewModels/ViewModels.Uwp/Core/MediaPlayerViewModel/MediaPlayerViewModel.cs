@@ -239,8 +239,8 @@ namespace Bili.ViewModels.Uwp.Core
                 CurrentFormat = null;
             }
 
-            ResetPlayer();
             ResetMediaData();
+            ResetPlayer();
             ResetVideoData();
             ResetLiveData();
             InitializePlaybackRates();
@@ -327,7 +327,7 @@ namespace Bili.ViewModels.Uwp.Core
             _player.MediaOpened += OnMediaOpened;
             _player.MediaPlayerChanged += OnMediaPlayerChanged;
             _player.PositionChanged += OnMediaPositionChanged;
-            _player.StateChanged += OnMediaStateChanged;
+            _player.StateChanged += OnMediaStateChangedAsync;
         }
     }
 }
