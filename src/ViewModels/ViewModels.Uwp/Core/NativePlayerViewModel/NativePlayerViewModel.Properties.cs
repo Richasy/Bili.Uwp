@@ -7,6 +7,7 @@ using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using ReactiveUI;
+using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 
@@ -25,6 +26,7 @@ namespace Bili.ViewModels.Uwp.Core
         private SegmentInformation _video;
         private SegmentInformation _audio;
         private MediaPlayer _videoPlayer;
+        private MediaSource _videoSource;
         private MediaPlaybackItem _videoPlaybackItem;
         private HttpRandomAccessStream _liveStream;
 

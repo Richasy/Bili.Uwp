@@ -297,18 +297,20 @@
                                 x:Name="InteractionProgressContainer"
                                 Grid.Column="1"
                                 Background="{ThemeResource TransparentBackground}">
-                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
+                                <StackPanel VerticalAlignment="Center">
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         HorizontalAlignment="Left"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        TextLineBounds="Tight">
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
                                         <Run Text="/" />
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
                                     </TextBlock>
                                     <Slider
                                         x:Name="InteractionProgressSlider"
-                                        Margin="0,-4"
+                                        MinHeight="0"
+                                        Margin="0,0,0,-8"
                                         HorizontalAlignment="Stretch"
                                         IsThumbToolTipEnabled="False"
                                         Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds, Mode=OneWay}"
@@ -1005,18 +1007,20 @@
                                 x:Name="InteractionProgressContainer"
                                 Grid.Column="1"
                                 Background="{ThemeResource TransparentBackground}">
-                                <StackPanel Margin="0,-8" VerticalAlignment="Center">
+                                <StackPanel VerticalAlignment="Center">
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         HorizontalAlignment="Left"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        TextLineBounds="Tight">
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressText}" />
                                         <Run Text="/" />
                                         <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText}" />
                                     </TextBlock>
                                     <Slider
                                         x:Name="InteractionProgressSlider"
-                                        Margin="0,-4"
+                                        MinHeight="0"
+                                        Margin="0,0,0,-8"
                                         HorizontalAlignment="Stretch"
                                         IsThumbToolTipEnabled="False"
                                         Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationSeconds, Mode=OneWay}"

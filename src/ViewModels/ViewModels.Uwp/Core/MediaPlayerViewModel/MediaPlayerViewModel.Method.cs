@@ -168,11 +168,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         private void MarkProgressBreakpoint()
         {
-            var progress = _player?.Position;
+            var progress = TimeSpan.FromSeconds(ProgressSeconds);
 
-            if (progress != null && progress > TimeSpan.FromSeconds(1))
+            if (progress > TimeSpan.FromSeconds(1))
             {
-                _initializeProgress = progress.Value;
+                _initializeProgress = progress;
             }
         }
 
