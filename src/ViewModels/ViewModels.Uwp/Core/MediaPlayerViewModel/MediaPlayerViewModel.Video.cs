@@ -37,7 +37,6 @@ namespace Bili.ViewModels.Uwp.Core
             InitializeVideoInformation();
             await InitializeVideoMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
-            FillVideoPlaybackProperties();
             CheckVideoHistory();
         }
 
@@ -197,7 +196,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void FillVideoPlaybackProperties()
         {
             var view = _viewData as VideoPlayerView;
-            _player.SetDisplayProperties(
+            SetDisplayProperties(
                 view.Information.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg",
                 view.Information.Identifier.Title,
                 string.Join(string.Empty, view.Information.Description.Take(20)),

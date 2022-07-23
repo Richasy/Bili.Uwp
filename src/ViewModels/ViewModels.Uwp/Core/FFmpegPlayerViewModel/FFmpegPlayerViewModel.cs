@@ -190,22 +190,5 @@ namespace Bili.ViewModels.Uwp.Core
                 await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
             }
         }
-
-        /// <inheritdoc/>
-        public void SetDisplayProperties(string cover, string title, string subtitle, string videoType)
-        {
-            if (_videoPlaybackItem == null)
-            {
-                return;
-            }
-
-            var props = _videoPlaybackItem.GetDisplayProperties();
-            props.Type = Windows.Media.MediaPlaybackType.Video;
-            props.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(cover));
-            props.VideoProperties.Title = title;
-            props.VideoProperties.Subtitle = subtitle;
-            props.VideoProperties.Genres.Add(videoType);
-            _videoPlaybackItem.ApplyDisplayProperties(props);
-        }
     }
 }

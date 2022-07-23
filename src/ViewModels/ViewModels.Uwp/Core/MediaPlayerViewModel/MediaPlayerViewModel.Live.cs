@@ -20,7 +20,6 @@ namespace Bili.ViewModels.Uwp.Core
         {
             await InitializeLiveMediaInformationAsync();
             await InitializeOrginalLiveSourceAsync();
-            FillLivePlaybackProperties();
         }
 
         private async Task InitializeLiveMediaInformationAsync()
@@ -112,7 +111,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void FillLivePlaybackProperties()
         {
             var view = _viewData as LivePlayerView;
-            _player.SetDisplayProperties(
+            SetDisplayProperties(
                 view.Information.User.Avatar.GetSourceUri() + "@100w_100h_1c_100q.jpg",
                 view.Information.Identifier.Title,
                 string.Join(string.Empty, view.Information.Description.Take(20)),

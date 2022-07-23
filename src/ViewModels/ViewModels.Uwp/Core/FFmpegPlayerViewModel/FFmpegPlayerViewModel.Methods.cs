@@ -282,7 +282,10 @@ namespace Bili.ViewModels.Uwp.Core
                     {
                         _mediaTimelineController.Pause();
                     }
-                    else if (_videoPlayer != null && _videoPlayer.PlaybackSession != null && _videoPlayer.PlaybackSession.CanPause)
+                    else if (_videoPlayer != null
+                    && _videoPlayer.PlaybackSession != null
+                    && _videoPlayer.PlaybackSession.CanPause
+                    && _videoPlayer.TimelineController == null)
                     {
                         _videoPlayer.Pause();
                     }

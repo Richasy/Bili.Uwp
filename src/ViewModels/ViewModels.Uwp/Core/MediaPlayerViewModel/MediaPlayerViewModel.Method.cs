@@ -9,6 +9,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -43,6 +44,12 @@ namespace Bili.ViewModels.Uwp.Core
             IsInteractionVideo = false;
             IsShowInteractionChoices = false;
             DanmakuViewModel.ResetCommand.Execute().Subscribe();
+
+            if (_systemMediaTransportControls != null)
+            {
+                _systemMediaTransportControls.IsEnabled = false;
+                _systemMediaTransportControls = null;
+            }
         }
 
         private void InitializePlaybackRates()
@@ -239,6 +246,40 @@ namespace Bili.ViewModels.Uwp.Core
             IsShowExitFullPlayerButton = isFullPlayer && (IsError || IsShowMediaTransport);
         }
 
+        private void InitializeDisplayInformation()
+        {
+            switch (_videoType)
+            {
+                case VideoType.Video:
+                    FillVideoPlaybackProperties();
+                    break;
+                case VideoType.Pgc:
+                    FillEpisodePlaybackProperties();
+                    break;
+                case VideoType.Live:
+                    FillLivePlaybackProperties();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetDisplayProperties(string cover, string title, string subtitle, string videoType)
+        {
+            if (_systemMediaTransportControls == null)
+            {
+                return;
+            }
+
+            var updater = _systemMediaTransportControls.DisplayUpdater;
+            updater.Type = MediaPlaybackType.Video;
+            updater.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(cover));
+            updater.VideoProperties.Title = title;
+            updater.VideoProperties.Subtitle = subtitle;
+            updater.VideoProperties.Genres.Add(videoType);
+            updater.Update();
+        }
+
         private async void OnMediaStateChangedAsync(object sender, MediaStateChangedEventArgs e)
         {
             IsError = e.Status == PlayerStatus.Failed;
@@ -248,9 +289,11 @@ namespace Bili.ViewModels.Uwp.Core
             if (e.Status == PlayerStatus.Failed)
             {
                 ErrorText = e.Message;
+                _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Stopped;
             }
             else if (e.Status == PlayerStatus.Playing)
             {
+                _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Playing;
                 if (_player.Position < _initializeProgress)
                 {
                     await Task.Delay(400);
@@ -260,6 +303,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
             else if (e.Status == PlayerStatus.End)
             {
+                _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Stopped;
                 if (IsInteractionVideo)
                 {
                     if (InteractionViewModel.Choices.Count == 1 && string.IsNullOrEmpty(InteractionViewModel.Choices.First().Text))
@@ -274,6 +318,10 @@ namespace Bili.ViewModels.Uwp.Core
                 }
 
                 MediaEnded?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Paused;
             }
         }
 
@@ -318,6 +366,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
             ChangeVolumeCommand.Execute(Volume).Subscribe();
+            InitializeDisplayInformation();
         }
 
         private void OnProgressTimerTick(object sender, object e)
@@ -354,6 +403,27 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void OnInteractionModuleNoMoreChoices(object sender, EventArgs e)
             => IsInteractionEnd = true;
+
+        private async void OnSystemControlsButtonPressedAsync(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        {
+            switch (args.Button)
+            {
+                case SystemMediaTransportControlsButton.Play:
+                    await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        _player?.Play();
+                    });
+                    break;
+                case SystemMediaTransportControlsButton.Pause:
+                    await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        _player?.Pause();
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private int GetFormatId(bool isLive = false)
         {

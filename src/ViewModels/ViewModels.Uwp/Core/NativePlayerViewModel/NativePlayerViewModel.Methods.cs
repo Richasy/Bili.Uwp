@@ -84,6 +84,7 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaPlayer GetVideoPlayer()
         {
             var player = new MediaPlayer();
+            player.CommandManager.IsEnabled = false;
             player.MediaOpened += OnMediaPlayerOpened;
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;

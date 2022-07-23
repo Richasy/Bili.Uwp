@@ -14,6 +14,7 @@ using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.System.Display;
 using Windows.UI.Core;
@@ -53,6 +54,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
         private Action _playNextAction;
+        private SystemMediaTransportControls _systemMediaTransportControls;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
