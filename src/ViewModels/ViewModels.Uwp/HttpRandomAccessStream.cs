@@ -12,12 +12,13 @@ namespace Bili.ViewModels.Uwp
 {
     internal class HttpRandomAccessStream : IRandomAccessStreamWithContentType
     {
-        private readonly HttpClient _client;
         private readonly Uri _requestedUri;
+        private HttpClient _client;
         private IInputStream _inputStream;
         private ulong _size;
         private string _etagHeader;
         private string _lastModifiedHeader;
+        private HttpResponseMessage _httpResponseMessage;
 
         // No public constructor, factory methods instead to handle async tasks.
         private HttpRandomAccessStream(HttpClient client, Uri uri)
@@ -86,6 +87,13 @@ namespace Bili.ViewModels.Uwp
             if (_client != null)
             {
                 _client?.Dispose();
+                _client = null;
+            }
+
+            if (_httpResponseMessage != null)
+            {
+                _httpResponseMessage?.Dispose();
+                _httpResponseMessage = null;
             }
         }
 
@@ -148,6 +156,14 @@ namespace Bili.ViewModels.Uwp
             var response = await _client.SendRequestAsync(
                 request,
                 HttpCompletionOption.ResponseHeadersRead).AsTask().ConfigureAwait(false);
+
+            if (_httpResponseMessage != null)
+            {
+                _httpResponseMessage?.Dispose();
+                _httpResponseMessage = null;
+            }
+
+            _httpResponseMessage = response;
 
             if (response.Content.Headers.ContentType != null)
             {

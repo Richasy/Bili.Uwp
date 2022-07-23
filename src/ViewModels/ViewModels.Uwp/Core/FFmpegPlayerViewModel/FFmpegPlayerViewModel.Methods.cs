@@ -45,16 +45,16 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     Task.Run(async () =>
                     {
-                        var client = GetVideoClient();
-                        _videoStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_video.BaseUrl));
+                        _videoHttpClient = GetVideoClient();
+                        _videoStream = await HttpRandomAccessStream.CreateAsync(_videoHttpClient, new Uri(_video.BaseUrl));
                         _videoFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_videoStream, _videoConfig);
                     }),
                     Task.Run(async () =>
                     {
                         if (hasAudio)
                         {
-                            var client = GetVideoClient();
-                            _audioStream = await HttpRandomAccessStream.CreateAsync(client, new Uri(_audio.BaseUrl));
+                            _audioHttpClient = GetVideoClient();
+                            _audioStream = await HttpRandomAccessStream.CreateAsync(_audioHttpClient, new Uri(_audio.BaseUrl));
                             _audioFFSource = await FFmpegMediaSource.CreateFromStreamAsync(_audioStream, _videoConfig);
                         }
                     }),
@@ -337,19 +337,24 @@ namespace Bili.ViewModels.Uwp.Core
                 mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
             }
 
+            _videoHttpClient?.Dispose();
+            _videoHttpClient = null;
+            _audioHttpClient?.Dispose();
+            _audioHttpClient = null;
+
             playback?.Source?.Dispose();
             playback = null;
 
             source?.Dispose();
             source = null;
 
-            mediaPlayer.Source = null;
-
             if (stream != null)
             {
                 stream?.Dispose();
                 stream = null;
             }
+
+            mediaPlayer.Source = null;
         }
 
         private void Clear()

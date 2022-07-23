@@ -74,9 +74,14 @@ namespace Bili.ViewModels.Uwp.Core
                 }
             };
 
-            var mediaSource = MediaSource.CreateFromAdaptiveMediaSource(source.MediaSource);
-            _videoPlaybackItem = new MediaPlaybackItem(mediaSource);
-            _videoPlayer = GetVideoPlayer();
+            _videoSource = MediaSource.CreateFromAdaptiveMediaSource(source.MediaSource);
+            _videoPlaybackItem = new MediaPlaybackItem(_videoSource);
+
+            if (_videoPlayer == null)
+            {
+                _videoPlayer = GetVideoPlayer();
+            }
+
             _videoPlayer.Source = _videoPlaybackItem;
             MediaPlayerChanged?.Invoke(this, _videoPlayer);
         }
@@ -194,15 +199,21 @@ namespace Bili.ViewModels.Uwp.Core
         {
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = sender.NaturalDuration.TotalSeconds;
-                var progress = sender.Position.TotalSeconds;
-                if (progress > duration)
+                try
                 {
-                    _videoPlayer.Pause();
-                    return;
-                }
+                    var duration = sender.NaturalDuration.TotalSeconds;
+                    var progress = sender.Position.TotalSeconds;
+                    if (progress > duration)
+                    {
+                        _videoPlayer.Pause();
+                        return;
+                    }
 
-                PositionChanged?.Invoke(this, new MediaPositionChangedEventArgs(sender.Position, sender.NaturalDuration));
+                    PositionChanged?.Invoke(this, new MediaPositionChangedEventArgs(sender.Position, sender.NaturalDuration));
+                }
+                catch (Exception)
+                {
+                }
             });
         }
 
@@ -215,7 +226,14 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (_videoPlayer.PlaybackSession != null)
             {
+                _videoPlayer.Pause();
                 _videoPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
+            }
+
+            if (_videoSource != null)
+            {
+                _videoSource?.Dispose();
+                _videoSource = null;
             }
 
             if (_videoPlaybackItem != null)
@@ -224,14 +242,13 @@ namespace Bili.ViewModels.Uwp.Core
                 _videoPlaybackItem = null;
             }
 
-            _videoPlayer.Source = null;
-            _videoPlayer = null;
-
             if (_liveStream != null)
             {
                 _liveStream?.Dispose();
                 _liveStream = null;
             }
+
+            _videoPlayer.Source = null;
         }
     }
 }

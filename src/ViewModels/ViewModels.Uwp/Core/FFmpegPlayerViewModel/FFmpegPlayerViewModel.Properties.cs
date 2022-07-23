@@ -11,6 +11,7 @@ using ReactiveUI;
 using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.Core;
+using Windows.Web.Http;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -29,6 +30,8 @@ namespace Bili.ViewModels.Uwp.Core
         private SegmentInformation _audio;
         private FFmpegMediaSource _videoFFSource;
         private FFmpegMediaSource _audioFFSource;
+        private HttpClient _videoHttpClient;
+        private HttpClient _audioHttpClient;
         private HttpRandomAccessStream _videoStream;
         private HttpRandomAccessStream _audioStream;
         private MediaPlayer _videoPlayer;
@@ -55,9 +58,7 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <inheritdoc/>
-        public TimeSpan Position => _mediaTimelineController != null
-            ? _mediaTimelineController.Position
-            : _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;
+        public TimeSpan Position => _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;
 
         /// <inheritdoc/>
         public TimeSpan Duration => _videoFFSource != null
