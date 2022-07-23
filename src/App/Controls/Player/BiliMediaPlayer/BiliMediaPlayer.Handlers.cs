@@ -210,7 +210,9 @@ namespace Bili.App.Controls.Player
 
             _manipulationProgress = ViewModel.ProgressSeconds;
             _manipulationVolume = ViewModel.Volume;
-            _manipulationBeforeIsPlay = ViewModel.Status == PlayerStatus.Playing;
+
+            // 点击事件先于手势事件，当该事件触发时，可能已经切换了播放状态.
+            _manipulationBeforeIsPlay = ViewModel.Status == PlayerStatus.Pause;
             if (ViewModel.DurationSeconds > 0)
             {
                 // 获取单位像素对应的时长
