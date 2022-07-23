@@ -54,6 +54,7 @@ namespace Bili.App.Controls.Player
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
+            _isForceHiddenTransportControls = true;
             ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
             ViewModel.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
             ViewModel.RequestShowTempMessage += OnRequestShowTempMessage;

@@ -317,7 +317,10 @@ namespace Bili.ViewModels.Uwp.Core
                     }
                 }
 
-                MediaEnded?.Invoke(this, EventArgs.Empty);
+                if (!IsLoop)
+                {
+                    MediaEnded?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
