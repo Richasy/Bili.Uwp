@@ -49,5 +49,6 @@ namespace Bili.App.Controls.Player
         private bool _isTouch = false;
         private bool _isHolding = false;
         private bool _isCursorInPlayer = false;
+        private bool _isForceHiddenTransportControls;
     }
 }
