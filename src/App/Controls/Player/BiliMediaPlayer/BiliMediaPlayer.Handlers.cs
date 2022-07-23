@@ -48,7 +48,7 @@ namespace Bili.App.Controls.Player
             ViewModel.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

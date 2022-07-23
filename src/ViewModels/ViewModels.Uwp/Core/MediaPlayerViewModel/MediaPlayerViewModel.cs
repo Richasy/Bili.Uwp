@@ -141,12 +141,9 @@ namespace Bili.ViewModels.Uwp.Core
                     CheckExitFullPlayerButtonVisibility();
                 });
 
-            this.WhenAnyValue(p => p.InteractionProgressSeconds)
+            this.WhenAnyValue(p => p.ProgressSeconds)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    InteractionProgressText = _numberToolkit.FormatDurationText(TimeSpan.FromSeconds(x), DurationSeconds > 3600);
-                });
+                .InvokeCommand(ChangeProgressCommand);
 
             this.WhenAnyValue(p => p.IsShowMediaTransport)
                 .ObserveOn(RxApp.MainThreadScheduler)

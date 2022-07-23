@@ -25,7 +25,6 @@ namespace Bili.ViewModels.Uwp.Core
             TryClear(Formats);
             TryClear(PlaybackRates);
             IsShowProgressTip = false;
-            IsShowInteractionProgress = false;
             IsShowMediaTransport = false;
             ProgressTip = default;
             _video = null;
@@ -36,13 +35,9 @@ namespace Bili.ViewModels.Uwp.Core
             DurationText = "--";
             ProgressSeconds = 0;
             ProgressText = "--";
-            InteractionProgressSeconds = 0;
-            InteractionProgressText = "--";
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             _lastReportProgress = TimeSpan.Zero;
             _initializeProgress = TimeSpan.Zero;
-            _interactionProgress = TimeSpan.Zero;
-            _isInteractionProgressChanged = false;
             _originalPlayRate = 0;
             IsInteractionEnd = false;
             IsInteractionVideo = false;
@@ -286,11 +281,6 @@ namespace Bili.ViewModels.Uwp.Core
             DurationSeconds = e.Duration.TotalSeconds;
             ProgressSeconds = e.Position.TotalSeconds;
 
-            if (!IsShowInteractionProgress)
-            {
-                InteractionProgressSeconds = ProgressSeconds;
-            }
-
             DurationText = _numberToolkit.FormatDurationText(e.Duration, e.Duration.Hours > 0);
             ProgressText = _numberToolkit.FormatDurationText(e.Position, e.Duration.Hours > 0);
 
@@ -334,13 +324,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnUnitTimerTickAsync(object sender, object e)
         {
-            if (_isInteractionProgressChanged)
-            {
-                _isInteractionProgressChanged = false;
-                _player.SeekTo(_interactionProgress);
-                _interactionProgress = TimeSpan.Zero;
-            }
-
             _presetVolumeHoldTime += 100;
             if (_presetVolumeHoldTime > 300)
             {

@@ -40,9 +40,6 @@ namespace Bili.App.Controls.Player
             _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
-            _normalProgressContainer = GetTemplateChild(NormalProgressContainerName) as Panel;
-            _interactionProgressContainer = GetTemplateChild(InteractionProgressContainerName) as Panel;
-            _interactionProgressSlider = GetTemplateChild(InteractionProgressSliderName) as Slider;
             _danmakuBox = GetTemplateChild(DanmakuBoxName) as DanmakuBox;
 
             if (_formatListView != null)
@@ -53,22 +50,6 @@ namespace Bili.App.Controls.Player
             if (_volumeSlider != null)
             {
                 _volumeSlider.ValueChanged += OnVolumeSliderValueChanged;
-            }
-
-            if (_normalProgressContainer != null)
-            {
-                _normalProgressContainer.PointerEntered += OnNormalProgressContainerPointerEntered;
-            }
-
-            if (_interactionProgressContainer != null)
-            {
-                _interactionProgressContainer.PointerExited += OnInteractionProgressContainerPointerExited;
-                _interactionProgressContainer.PointerCanceled += OnInteractionProgressContainerPointerExited;
-            }
-
-            if (_interactionProgressSlider != null)
-            {
-                _interactionProgressSlider.ValueChanged += OnInteractionProgressSliderValueChanged;
             }
         }
 

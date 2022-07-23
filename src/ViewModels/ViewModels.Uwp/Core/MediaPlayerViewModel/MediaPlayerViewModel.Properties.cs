@@ -52,8 +52,6 @@ namespace Bili.ViewModels.Uwp.Core
         private SegmentInformation _audio;
         private TimeSpan _lastReportProgress;
         private TimeSpan _initializeProgress;
-        private TimeSpan _interactionProgress;
-        private bool _isInteractionProgressChanged;
         private Action _playNextAction;
 
         private DispatcherTimer _unitTimer;
@@ -226,24 +224,6 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public string CompactOverlayText { get; set; }
-
-        /// <summary>
-        /// 是否显示互动播放进度条.
-        /// </summary>
-        [Reactive]
-        public bool IsShowInteractionProgress { get; set; }
-
-        /// <summary>
-        /// [互动进度条] 当前已播放的秒数.
-        /// </summary>
-        [Reactive]
-        public double InteractionProgressSeconds { get; set; }
-
-        /// <summary>
-        /// [互动进度条] 当前已播放的秒数的可读文本.
-        /// </summary>
-        [Reactive]
-        public string InteractionProgressText { get; set; }
 
         /// <summary>
         /// 是否显示媒体传输控件.

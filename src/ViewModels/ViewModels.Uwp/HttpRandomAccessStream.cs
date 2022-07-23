@@ -47,7 +47,7 @@ namespace Bili.ViewModels.Uwp
 
             return AsyncInfo.Run(async (cancellationToken) =>
             {
-                await randomStream.SendRequesAsync().ConfigureAwait(false);
+                await randomStream.SendRequesAsync();
                 return randomStream;
             });
         }
@@ -99,7 +99,7 @@ namespace Bili.ViewModels.Uwp
                 {
                     if (_inputStream == null)
                     {
-                        await SendRequesAsync().ConfigureAwait(false);
+                        await SendRequesAsync();
                     }
                 }
                 catch (Exception ex)
@@ -107,7 +107,7 @@ namespace Bili.ViewModels.Uwp
                     Debug.WriteLine(ex);
                 }
 
-                var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress).ConfigureAwait(false);
+                var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress);
 
                 // Move position forward.
                 Position += result.Length;
@@ -129,6 +129,7 @@ namespace Bili.ViewModels.Uwp
             request = new HttpRequestMessage(HttpMethod.Get, _requestedUri);
 
             request.Headers.Add("Range", string.Format("bytes={0}-", Position));
+            request.Headers.Add("Connection", "Keep-Alive");
 
             if (!string.IsNullOrEmpty(_etagHeader))
             {
@@ -142,7 +143,7 @@ namespace Bili.ViewModels.Uwp
 
             var response = await _client.SendRequestAsync(
                 request,
-                HttpCompletionOption.ResponseHeadersRead).AsTask().ConfigureAwait(false);
+                HttpCompletionOption.ResponseHeadersRead).AsTask();
 
             if (response.Content.Headers.ContentType != null)
             {
@@ -171,7 +172,7 @@ namespace Bili.ViewModels.Uwp
                 ContentType = response.Content.Headers["Content-Type"];
             }
 
-            _inputStream = await response.Content.ReadAsInputStreamAsync().AsTask().ConfigureAwait(false);
+            _inputStream = await response.Content.ReadAsInputStreamAsync().AsTask();
         }
     }
 }
