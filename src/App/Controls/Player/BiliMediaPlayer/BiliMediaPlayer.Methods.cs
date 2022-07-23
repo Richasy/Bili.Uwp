@@ -69,8 +69,9 @@ namespace Bili.App.Controls.Player
             {
                 _transportStayTime = 0;
                 if (!_mediaTransportControls.IsDanmakuBoxFocused
-                && (_isTouch || !IsCursorInTransportControls()))
+                && (_isTouch || !IsCursorInTransportControls() || !IsCursorInMediaElement()))
                 {
+                    ViewModel.IsShowMediaTransport = true;
                     ViewModel.IsShowMediaTransport = false;
                 }
             }
