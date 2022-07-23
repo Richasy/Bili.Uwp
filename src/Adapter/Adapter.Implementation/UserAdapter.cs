@@ -151,7 +151,7 @@ namespace Bili.Adapter
         }
 
         /// <inheritdoc/>
-        public UserProfile ConvertToUserProfile(int userId, string userName, string avatar, AvatarSize avatarSize)
+        public UserProfile ConvertToUserProfile(long userId, string userName, string avatar, AvatarSize avatarSize)
         {
             var size = int.Parse(avatarSize.ToString().Replace("Size", string.Empty));
             var image = _imageAdapter.ConvertToImage(avatar, size, size);

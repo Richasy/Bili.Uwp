@@ -222,15 +222,12 @@ namespace Bili.ViewModels.Uwp.Core
         private void ChangeProgress(double seconds)
         {
             var ts = TimeSpan.FromSeconds(seconds);
-            if (ts.TotalSeconds == _interactionProgress.TotalSeconds)
+            if (_player == null || Math.Abs(ts.TotalSeconds - _player.Position.TotalSeconds) < 1)
             {
                 return;
             }
 
-            InteractionProgressSeconds = seconds;
-            _interactionProgress = ts;
-            _isInteractionProgressChanged = true;
-
+            _player.SeekTo(ts);
             var msg = $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentProgress)}: {TimeSpan.FromSeconds(seconds):g}";
             RequestShowTempMessage?.Invoke(this, msg);
         }

@@ -59,7 +59,6 @@ namespace Bili.ViewModels.Uwp.Core
             DanmakuViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId, _videoType);
             await InitializeEpisodeMediaInformationAsync();
             await InitializeOrginalVideoSourceAsync();
-            FillEpisodePlaybackProperties();
             CheckEpisodeHistory();
         }
 
@@ -96,7 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void FillEpisodePlaybackProperties()
         {
-            _player.SetDisplayProperties(
+            SetDisplayProperties(
                 _currentEpisode.Identifier.Cover.GetSourceUri().ToString() + "@100w_100h_1c_100q.jpg",
                 _currentEpisode.Identifier.Title,
                 _currentEpisode.PublishTime.ToString("yyyy/MM/dd HH:mm"),

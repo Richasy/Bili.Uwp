@@ -41,15 +41,15 @@ namespace Bili.ViewModels.Uwp
             set => throw new NotImplementedException();
         }
 
-        public static IAsyncOperation<HttpRandomAccessStream> CreateAsync(HttpClient client, Uri uri)
+        public static Task<HttpRandomAccessStream> CreateAsync(HttpClient client, Uri uri)
         {
             var randomStream = new HttpRandomAccessStream(client, uri);
 
             return AsyncInfo.Run(async (cancellationToken) =>
             {
-                await randomStream.SendRequesAsync().ConfigureAwait(false);
+                await randomStream.SendRequesAsync();
                 return randomStream;
-            });
+            }).AsTask();
         }
 
         public IRandomAccessStream CloneStream() => this;
@@ -99,7 +99,7 @@ namespace Bili.ViewModels.Uwp
                 {
                     if (_inputStream == null)
                     {
-                        await SendRequesAsync().ConfigureAwait(false);
+                        await SendRequesAsync();
                     }
                 }
                 catch (Exception ex)
@@ -107,13 +107,17 @@ namespace Bili.ViewModels.Uwp
                     Debug.WriteLine(ex);
                 }
 
-                var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress).ConfigureAwait(false);
+                if (_inputStream != null)
+                {
+                    var result = await _inputStream.ReadAsync(buffer, count, options).AsTask(cancellationToken, progress).ConfigureAwait(false);
 
-                // Move position forward.
-                Position += result.Length;
-                Debug.WriteLine("requestedPosition = {0:N0}", Position);
+                    // Move position forward.
+                    Position += result.Length;
+                    Debug.WriteLine("requestedPosition = {0:N0}", Position);
+                    return result;
+                }
 
-                return result;
+                return default;
             });
         }
 
@@ -129,6 +133,7 @@ namespace Bili.ViewModels.Uwp
             request = new HttpRequestMessage(HttpMethod.Get, _requestedUri);
 
             request.Headers.Add("Range", string.Format("bytes={0}-", Position));
+            request.Headers.Add("Connection", "Keep-Alive");
 
             if (!string.IsNullOrEmpty(_etagHeader))
             {
@@ -150,11 +155,6 @@ namespace Bili.ViewModels.Uwp
             }
 
             _size = response.Content?.Headers?.ContentLength ?? 0;
-
-            if (response.StatusCode != HttpStatusCode.PartialContent && Position != 0)
-            {
-                throw new Exception("HTTP server did not reply with a '206 Partial Content' status.");
-            }
 
             if (string.IsNullOrEmpty(_etagHeader) && response.Headers.ContainsKey("ETag"))
             {

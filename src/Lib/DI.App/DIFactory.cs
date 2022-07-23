@@ -130,6 +130,7 @@ namespace Bili.DI.App
 
             SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
             SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
+            SplatRegistrations.Register<MediaPlayerViewModel>();
             SplatRegistrations.Register<VideoItemViewModel>();
             SplatRegistrations.Register<EpisodeItemViewModel>();
             SplatRegistrations.Register<SeasonItemViewModel>();
@@ -147,7 +148,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<DanmakuModuleViewModel>();
             SplatRegistrations.Register<InteractionModuleViewModel>();
             SplatRegistrations.Register<DownloadModuleViewModel>();
-            SplatRegistrations.Register<MediaPlayerViewModel>();
+
             SplatRegistrations.SetupIOC();
         }
 

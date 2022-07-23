@@ -63,7 +63,11 @@ namespace Bili.ViewModels.Uwp.Core
             await Task.WhenAll(tasks);
             _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
-            _videoPlayer = GetVideoPlayer();
+            if (_videoPlayer == null)
+            {
+                _videoPlayer = GetVideoPlayer();
+            }
+
             _videoPlayer.Source = _videoPlaybackItem;
 
             if (hasAudio)
@@ -72,10 +76,19 @@ namespace Bili.ViewModels.Uwp.Core
                 _mediaTimelineController = GetTimelineController();
                 _videoPlayer.CommandManager.IsEnabled = false;
                 _videoPlayer.TimelineController = _mediaTimelineController;
-                _audioPlayer = new MediaPlayer();
+
+                if (_audioPlayer == null)
+                {
+                    _audioPlayer = GetVideoPlayer();
+                }
+
                 _audioPlayer.CommandManager.IsEnabled = false;
                 _audioPlayer.Source = _audioPlaybackItem;
                 _audioPlayer.TimelineController = _mediaTimelineController;
+            }
+            else
+            {
+                _audioPlayer = null;
             }
 
             MediaPlayerChanged?.Invoke(this, _videoPlayer);
@@ -102,7 +115,11 @@ namespace Bili.ViewModels.Uwp.Core
 
                 _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
-                _videoPlayer = GetVideoPlayer();
+                if (_videoPlayer == null)
+                {
+                    _videoPlayer = GetVideoPlayer();
+                }
+
                 _videoPlayer.Source = _videoPlaybackItem;
 
                 MediaPlayerChanged?.Invoke(this, _videoPlayer);
@@ -259,15 +276,24 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 var duration = sender.NaturalDuration.TotalSeconds;
                 var progress = sender.Position.TotalSeconds;
-                if (progress > duration)
+                if (progress >= duration)
                 {
                     if (_mediaTimelineController != null)
                     {
                         _mediaTimelineController.Pause();
                     }
-                    else
+                    else if (_videoPlayer != null
+                    && _videoPlayer.PlaybackSession != null
+                    && _videoPlayer.PlaybackSession.CanPause
+                    && _videoPlayer.TimelineController == null)
                     {
                         _videoPlayer.Pause();
+                    }
+
+                    if (progress == duration)
+                    {
+                        Status = PlayerStatus.End;
+                        StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
                     }
 
                     return;
@@ -318,7 +344,6 @@ namespace Bili.ViewModels.Uwp.Core
             source = null;
 
             mediaPlayer.Source = null;
-            mediaPlayer = null;
 
             if (stream != null)
             {
@@ -332,6 +357,7 @@ namespace Bili.ViewModels.Uwp.Core
             if (_mediaTimelineController != null)
             {
                 _mediaTimelineController.Pause();
+                _mediaTimelineController.Position = TimeSpan.Zero;
                 _mediaTimelineController = null;
             }
 

@@ -17,6 +17,7 @@ using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using Splat;
+using Windows.Media;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -141,12 +142,9 @@ namespace Bili.ViewModels.Uwp.Core
                     CheckExitFullPlayerButtonVisibility();
                 });
 
-            this.WhenAnyValue(p => p.InteractionProgressSeconds)
+            this.WhenAnyValue(p => p.ProgressSeconds)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    InteractionProgressText = _numberToolkit.FormatDurationText(TimeSpan.FromSeconds(x), DurationSeconds > 3600);
-                });
+                .InvokeCommand(ChangeProgressCommand);
 
             this.WhenAnyValue(p => p.IsShowMediaTransport)
                 .ObserveOn(RxApp.MainThreadScheduler)
@@ -242,8 +240,8 @@ namespace Bili.ViewModels.Uwp.Core
                 CurrentFormat = null;
             }
 
-            ResetPlayer();
             ResetMediaData();
+            ResetPlayer();
             ResetVideoData();
             ResetLiveData();
             InitializePlaybackRates();
@@ -264,6 +262,8 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 await LoadLiveAsync();
             }
+
+            InitializeSmtc();
         }
 
         private async Task ChangePartAsync(VideoIdentifier part)
@@ -330,7 +330,17 @@ namespace Bili.ViewModels.Uwp.Core
             _player.MediaOpened += OnMediaOpened;
             _player.MediaPlayerChanged += OnMediaPlayerChanged;
             _player.PositionChanged += OnMediaPositionChanged;
-            _player.StateChanged += OnMediaStateChanged;
+            _player.StateChanged += OnMediaStateChangedAsync;
+        }
+
+        private void InitializeSmtc()
+        {
+            _systemMediaTransportControls = SystemMediaTransportControls.GetForCurrentView();
+            _systemMediaTransportControls.IsEnabled = true;
+            _systemMediaTransportControls.IsPlayEnabled = true;
+            _systemMediaTransportControls.IsPauseEnabled = true;
+            _systemMediaTransportControls.ButtonPressed -= OnSystemControlsButtonPressedAsync;
+            _systemMediaTransportControls.ButtonPressed += OnSystemControlsButtonPressedAsync;
         }
     }
 }

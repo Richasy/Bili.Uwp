@@ -22,7 +22,7 @@ namespace Bili.Adapter.Interfaces
         /// <param name="avatar">封面.</param>
         /// <param name="avatarSize">头像尺寸.</param>
         /// <returns><see cref="UserProfile"/>.</returns>
-        UserProfile ConvertToUserProfile(int userId, string userName, string avatar, AvatarSize avatarSize);
+        UserProfile ConvertToUserProfile(long userId, string userName, string avatar, AvatarSize avatarSize);
 
         /// <summary>
         /// 将 <see cref="PublisherInfo"/> 转换为发布者资料.

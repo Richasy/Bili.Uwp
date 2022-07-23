@@ -111,15 +111,6 @@ namespace Bili.ViewModels.Interfaces
         void SetLoop(bool isLoop);
 
         /// <summary>
-        /// 设置显示在 SMTC 上的播放信息.
-        /// </summary>
-        /// <param name="cover">视频封面.</param>
-        /// <param name="title">标题.</param>
-        /// <param name="subtitle">副标题（说明文字）.</param>
-        /// <param name="videoType">视频类型.</param>
-        void SetDisplayProperties(string cover, string title, string subtitle, string videoType);
-
-        /// <summary>
         /// 设置播放源.
         /// </summary>
         /// <param name="video">视频源.</param>

@@ -6,7 +6,6 @@ using Bili.Models.Data.Player;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Input;
 
 namespace Bili.App.Controls.Player
 {
@@ -55,10 +54,6 @@ namespace Bili.App.Controls.Player
             {
                 _playPauseButton?.Focus(FocusState.Programmatic);
             }
-            else if (e.PropertyName == nameof(ViewModel.InteractionProgressSeconds) && !ViewModel.IsShowInteractionProgress)
-            {
-                _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
-            }
         }
 
         private void OnVolumeSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
@@ -76,37 +71,6 @@ namespace Bili.App.Controls.Player
             {
                 ViewModel.ChangeFormatCommand.Execute(info).Subscribe();
             }
-        }
-
-        private void OnNormalProgressContainerPointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            ViewModel.IsShowInteractionProgress = true;
-            _isInteractionProgressAutoAssign = true;
-            if (_interactionProgressSlider != null)
-            {
-                _interactionProgressSlider.Value = ViewModel.InteractionProgressSeconds;
-                _interactionProgressSlider.Maximum = ViewModel.DurationSeconds;
-            }
-
-            _isInteractionProgressAutoAssign = false;
-        }
-
-        private void OnInteractionProgressContainerPointerExited(object sender, PointerRoutedEventArgs e)
-            => ViewModel.IsShowInteractionProgress = false;
-
-        private void OnInteractionProgressSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            if (!ViewModel.IsShowInteractionProgress)
-            {
-                return;
-            }
-            else if (_isInteractionProgressAutoAssign)
-            {
-                _isInteractionProgressAutoAssign = false;
-                return;
-            }
-
-            ViewModel.ChangeProgressCommand.Execute(e.NewValue).Subscribe();
         }
     }
 }
