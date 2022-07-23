@@ -40,7 +40,7 @@
         <ScrollViewer
             Grid.Row="1"
             HorizontalScrollMode="Disabled"
-            VerticalScrollBarVisibility="Hidden"
+            VerticalScrollBarVisibility="Auto"
             VerticalScrollMode="Auto">
             <Grid>
                 <controls:VerticalRepeaterView

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
@@ -187,6 +188,14 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
 
             ChangeEpisodeCommand.Execute(episode.Information).Subscribe();
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IsOnlyShowIndex))
+            {
+                _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, IsOnlyShowIndex);
+            }
         }
     }
 }

@@ -103,9 +103,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ => CheckSectionVisibility());
 
-            this.WhenAnyValue(p => p.IsOnlyShowIndex)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsOnlyShowIndex, isShow));
+            PropertyChanged += OnPropertyChanged;
         }
 
         /// <summary>
