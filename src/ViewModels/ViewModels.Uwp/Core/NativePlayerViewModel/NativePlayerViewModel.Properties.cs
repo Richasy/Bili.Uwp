@@ -29,6 +29,7 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaSource _videoSource;
         private MediaPlaybackItem _videoPlaybackItem;
         private HttpRandomAccessStream _liveStream;
+        private bool _isInitializePlaying;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;

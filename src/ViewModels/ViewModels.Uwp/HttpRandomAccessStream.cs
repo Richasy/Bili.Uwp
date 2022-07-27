@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp
         private ulong _size;
         private string _etagHeader;
         private string _lastModifiedHeader;
-        private HttpResponseMessage _httpResponseMessage;
+        private bool _isDisposing;
 
         // No public constructor, factory methods instead to handle async tasks.
         private HttpRandomAccessStream(HttpClient client, Uri uri)
@@ -78,6 +78,12 @@ namespace Bili.ViewModels.Uwp
 
         public void Dispose()
         {
+            if (_isDisposing)
+            {
+                return;
+            }
+
+            _isDisposing = true;
             if (_inputStream != null)
             {
                 _inputStream.Dispose();
@@ -89,18 +95,17 @@ namespace Bili.ViewModels.Uwp
                 _client?.Dispose();
                 _client = null;
             }
-
-            if (_httpResponseMessage != null)
-            {
-                _httpResponseMessage?.Dispose();
-                _httpResponseMessage = null;
-            }
         }
 
         public IAsyncOperationWithProgress<IBuffer, uint> ReadAsync(IBuffer buffer, uint count, InputStreamOptions options)
         {
             return AsyncInfo.Run<IBuffer, uint>(async (cancellationToken, progress) =>
             {
+                if (_isDisposing)
+                {
+                    return default;
+                }
+
                 progress.Report(0);
 
                 try
@@ -137,8 +142,12 @@ namespace Bili.ViewModels.Uwp
 
         private async Task SendRequesAsync()
         {
-            HttpRequestMessage request = null;
-            request = new HttpRequestMessage(HttpMethod.Get, _requestedUri);
+            if (_isDisposing)
+            {
+                return;
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get, _requestedUri);
 
             request.Headers.Add("Range", string.Format("bytes={0}-", Position));
             request.Headers.Add("Connection", "Keep-Alive");
@@ -153,17 +162,14 @@ namespace Bili.ViewModels.Uwp
                 request.Headers.Add("If-Unmodified-Since", _lastModifiedHeader);
             }
 
+            if (_client == null)
+            {
+                return;
+            }
+
             var response = await _client.SendRequestAsync(
                 request,
                 HttpCompletionOption.ResponseHeadersRead).AsTask().ConfigureAwait(false);
-
-            if (_httpResponseMessage != null)
-            {
-                _httpResponseMessage?.Dispose();
-                _httpResponseMessage = null;
-            }
-
-            _httpResponseMessage = response;
 
             if (response.Content.Headers.ContentType != null)
             {

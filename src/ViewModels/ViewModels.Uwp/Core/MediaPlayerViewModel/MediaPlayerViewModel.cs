@@ -66,6 +66,7 @@ namespace Bili.ViewModels.Uwp.Core
             InteractionViewModel = interactionModuleViewModel;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
             InteractionViewModel.NoMoreChoices += OnInteractionModuleNoMoreChoices;
+            PropertyChanged += OnPropertyChanged;
 
             Volume = _settingsToolkit.ReadLocalSetting(SettingNames.Volume, 100d);
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
@@ -141,10 +142,6 @@ namespace Bili.ViewModels.Uwp.Core
 
                     CheckExitFullPlayerButtonVisibility();
                 });
-
-            this.WhenAnyValue(p => p.ProgressSeconds)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .InvokeCommand(ChangeProgressCommand);
 
             this.WhenAnyValue(p => p.IsShowMediaTransport)
                 .ObserveOn(RxApp.MainThreadScheduler)
@@ -300,7 +297,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void ResetProgressHistory()
         {
-            _initializeProgress = TimeSpan.Zero;
             if (_videoType == VideoType.Video && _viewData is VideoPlayerView videoView)
             {
                 videoView.Progress = null;
@@ -314,7 +310,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void InitializePlayer()
         {
             var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
-            if(_videoType == VideoType.Live)
+            if (_videoType == VideoType.Live)
             {
                 _player = Locator.Current.GetService<IFFmpegPlayerViewModel>();
             }
@@ -330,7 +326,7 @@ namespace Bili.ViewModels.Uwp.Core
             _player.MediaOpened += OnMediaOpened;
             _player.MediaPlayerChanged += OnMediaPlayerChanged;
             _player.PositionChanged += OnMediaPositionChanged;
-            _player.StateChanged += OnMediaStateChangedAsync;
+            _player.StateChanged += OnMediaStateChanged;
         }
 
         private void InitializeSmtc()

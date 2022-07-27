@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
@@ -85,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _player.MediaOpened -= OnMediaOpened;
                 _player.MediaPlayerChanged -= OnMediaPlayerChanged;
                 _player.PositionChanged -= OnMediaPositionChanged;
-                _player.StateChanged -= OnMediaStateChangedAsync;
+                _player.StateChanged -= OnMediaStateChanged;
                 _player.ClearCommand.Execute().Subscribe(_ =>
                 {
                     _player = null;
@@ -280,7 +281,7 @@ namespace Bili.ViewModels.Uwp.Core
             updater.Update();
         }
 
-        private async void OnMediaStateChangedAsync(object sender, MediaStateChangedEventArgs e)
+        private void OnMediaStateChanged(object sender, MediaStateChangedEventArgs e)
         {
             IsError = e.Status == PlayerStatus.Failed;
             Status = e.Status;
@@ -296,7 +297,6 @@ namespace Bili.ViewModels.Uwp.Core
                 _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Playing;
                 if (_player.Position < _initializeProgress)
                 {
-                    await Task.Delay(400);
                     _player.SeekTo(_initializeProgress);
                     _initializeProgress = TimeSpan.Zero;
                 }
@@ -361,12 +361,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void OnMediaOpened(object sender, EventArgs e)
         {
-            if (_initializeProgress != TimeSpan.Zero)
-            {
-                _player.SeekTo(_initializeProgress);
-                _initializeProgress = TimeSpan.Zero;
-            }
-
             ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
             ChangeVolumeCommand.Execute(Volume).Subscribe();
             InitializeDisplayInformation();
@@ -381,7 +375,7 @@ namespace Bili.ViewModels.Uwp.Core
             if (_presetVolumeHoldTime > 300)
             {
                 _presetVolumeHoldTime = 0;
-                if (Volume != _player.Volume)
+                if (_player != null && Volume != _player.Volume)
                 {
                     await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
@@ -425,6 +419,14 @@ namespace Bili.ViewModels.Uwp.Core
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ProgressSeconds))
+            {
+                ChangeProgressCommand.Execute(ProgressSeconds).Subscribe();
             }
         }
 

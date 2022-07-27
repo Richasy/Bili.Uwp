@@ -23,6 +23,11 @@ namespace Bili.Models.Enums
         Pause,
 
         /// <summary>
+        /// 已打开媒体流.
+        /// </summary>
+        Opened,
+
+        /// <summary>
         /// 缓冲中.
         /// </summary>
         Buffering,

@@ -46,6 +46,12 @@ namespace Bili.ViewModels.Uwp.Core
             _video = video;
             _audio = audio;
             _videoRetryCount = 0;
+            _isInitializePlaying = true;
+            if (_mediaTimelineController != null && _mediaTimelineController.Position > TimeSpan.Zero)
+            {
+                _mediaTimelineController.Position = TimeSpan.Zero;
+            }
+
             await LoadDashVideoSourceAsync();
         }
 
@@ -55,6 +61,12 @@ namespace Bili.ViewModels.Uwp.Core
             _video = null;
             _audio = null;
             _liveRetryCount = 0;
+            _isInitializePlaying = true;
+            if (_mediaTimelineController != null && _mediaTimelineController.Position > TimeSpan.Zero)
+            {
+                _mediaTimelineController.Position = TimeSpan.Zero;
+            }
+
             await LoadDashLiveSourceAsync(url);
         }
 
@@ -63,11 +75,17 @@ namespace Bili.ViewModels.Uwp.Core
         {
             if (_mediaTimelineController != null)
             {
+                if (_mediaTimelineController.Position != Position)
+                {
+                    _mediaTimelineController.Position -= TimeSpan.FromMilliseconds(500);
+                }
+
                 _mediaTimelineController.Pause();
             }
             else
             {
                 if (_audioPlayer != null
+                    && _audioPlayer.TimelineController == null
                     && _audioPlayer.PlaybackSession != null
                     && _audioPlayer.PlaybackSession.CanPause)
                 {
