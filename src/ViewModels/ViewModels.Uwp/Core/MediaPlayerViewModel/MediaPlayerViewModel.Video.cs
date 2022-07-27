@@ -47,18 +47,9 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 var history = view.Progress.Identifier;
 
-                if (_currentPart.Id == history.Id)
-                {
-                    var ts = TimeSpan.FromSeconds(view.Progress.Progress);
-                    _initializeProgress = ts;
-                    view.Progress = null;
-                }
-                else
-                {
-                    var ts = TimeSpan.FromSeconds(view.Progress.Progress);
-                    IsShowProgressTip = true;
-                    ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
-                }
+                var ts = TimeSpan.FromSeconds(view.Progress.Progress);
+                IsShowProgressTip = true;
+                ProgressTip = $"{_resourceToolkit.GetLocaleString(LanguageNames.PreviousView)}{history.Title} {ts}";
             }
         }
 

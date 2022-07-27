@@ -222,7 +222,9 @@ namespace Bili.ViewModels.Uwp.Core
         private void ChangeProgress(double seconds)
         {
             var ts = TimeSpan.FromSeconds(seconds);
-            if (_player == null || Math.Abs(ts.TotalSeconds - _player.Position.TotalSeconds) < 1)
+            if (_player == null
+                || Math.Abs(ts.TotalSeconds - _player.Position.TotalSeconds) < 1
+                || ts > _player.Duration)
             {
                 if (Math.Abs(ProgressSeconds - ts.TotalSeconds) > 1)
                 {

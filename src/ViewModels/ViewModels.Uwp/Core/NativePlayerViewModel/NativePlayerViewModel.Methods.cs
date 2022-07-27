@@ -191,13 +191,6 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     session.PositionChanged += OnPlayerPositionChangedAsync;
                 }
-
-                var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-                if (autoPlay)
-                {
-                    _videoPlayer.AutoPlay = true;
-                    _videoPlayer.Play();
-                }
             }
 
             MediaOpened?.Invoke(this, EventArgs.Empty);
@@ -236,6 +229,8 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _videoPlayer.Pause();
                 _videoPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
+                _videoPlayer.PlaybackSession.Position = TimeSpan.Zero;
+                _videoPlayer.CommandManager.IsEnabled = true;
             }
 
             if (_videoSource != null)

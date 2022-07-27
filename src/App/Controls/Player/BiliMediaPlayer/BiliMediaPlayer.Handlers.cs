@@ -29,16 +29,16 @@ namespace Bili.App.Controls.Player
             => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
-        protected override async void OnPointerExited(PointerRoutedEventArgs e)
-            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override void OnPointerExited(PointerRoutedEventArgs e)
+            => HideAndResetMediaTransport();
 
         /// <inheritdoc/>
-        protected override async void OnPointerCanceled(PointerRoutedEventArgs e)
-            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override void OnPointerCanceled(PointerRoutedEventArgs e)
+            => HideAndResetMediaTransport();
 
         /// <inheritdoc/>
-        protected override async void OnPointerCaptureLost(PointerRoutedEventArgs e)
-            => await HideAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+        protected override void OnPointerCaptureLost(PointerRoutedEventArgs e)
+            => HideAndResetMediaTransport();
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {

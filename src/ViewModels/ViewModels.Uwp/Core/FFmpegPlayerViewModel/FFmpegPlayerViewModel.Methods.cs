@@ -243,18 +243,6 @@ namespace Bili.ViewModels.Uwp.Core
                     Status = PlayerStatus.NotLoad;
                 }
 
-                if (Status == PlayerStatus.Opened
-                && _isInitializePlaying)
-                {
-                    SeekTo(TimeSpan.Zero);
-                    _isInitializePlaying = false;
-                }
-
-                if(Status == PlayerStatus.Playing && _isInitializePlaying)
-                {
-                    _isInitializePlaying = false;
-                }
-
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
             });
         }
@@ -271,20 +259,6 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     session.PositionChanged += OnPlayerPositionChangedAsync;
                 }
-
-                var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-                if (autoPlay)
-                {
-                    if (_mediaTimelineController != null)
-                    {
-                        _mediaTimelineController.Resume();
-                    }
-                    else
-                    {
-                        _videoPlayer.AutoPlay = true;
-                        _videoPlayer.Play();
-                    }
-                }
             }
 
             MediaOpened?.Invoke(this, EventArgs.Empty);
@@ -292,8 +266,9 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnPlayerPositionChangedAsync(MediaPlaybackSession sender, object args)
         {
-            if (_isInitializePlaying)
+            if (_shouldPreventSkip && Position != TimeSpan.Zero)
             {
+                _shouldPreventSkip = false;
                 return;
             }
 
@@ -307,7 +282,7 @@ namespace Bili.ViewModels.Uwp.Core
                 var duration = _videoCurrentSession?.NaturalDuration.TotalSeconds;
                 var progress = _videoCurrentSession?.Position.TotalSeconds;
 
-                if (progress >= duration)
+                if (progress > duration)
                 {
                     if (_mediaTimelineController != null)
                     {
@@ -319,12 +294,6 @@ namespace Bili.ViewModels.Uwp.Core
                     && _videoPlayer.TimelineController == null)
                     {
                         _videoPlayer.Pause();
-                    }
-
-                    if (progress == duration)
-                    {
-                        Status = PlayerStatus.End;
-                        StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
                     }
 
                     return;
@@ -362,6 +331,12 @@ namespace Bili.ViewModels.Uwp.Core
             _videoHttpClient = null;
             _audioHttpClient?.Dispose();
             _audioHttpClient = null;
+
+            if (mediaPlayer.TimelineController != null)
+            {
+                mediaPlayer.TimelineController = null;
+                mediaPlayer.CommandManager.IsEnabled = true;
+            }
 
             playback?.Source?.Dispose();
             source?.Dispose();

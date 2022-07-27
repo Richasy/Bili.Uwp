@@ -65,7 +65,7 @@ namespace Bili.App.Controls.Player
 
         private void HandleTransportAutoHide()
         {
-            if (_transportStayTime > 1.5)
+            if (_transportStayTime > 1.2)
             {
                 _transportStayTime = 0;
                 if (!_mediaTransportControls.IsDanmakuBoxFocused
@@ -84,7 +84,7 @@ namespace Bili.App.Controls.Player
 
         private void HandleCursorAutoHide()
         {
-            if (_cursorStayTime > 2
+            if (_cursorStayTime > 1.5
                 && !ViewModel.IsShowMediaTransport
                 && IsCursorInMediaElement())
             {
@@ -133,19 +133,9 @@ namespace Bili.App.Controls.Player
             _isCursorInPlayer = true;
         }
 
-        private async Task HideAndResetMediaTransportAsync(bool isMouse)
+        private void HideAndResetMediaTransport()
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-
-            if (isMouse
-                && ViewModel.IsShowMediaTransport
-                && !IsCursorInTransportControls())
-            {
-                await Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                {
-                    ViewModel.IsShowMediaTransport = false;
-                });
-            }
 
             _cursorStayTime = 0;
             _transportStayTime = 0;

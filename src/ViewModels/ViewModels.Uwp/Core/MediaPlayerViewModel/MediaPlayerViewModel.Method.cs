@@ -87,10 +87,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _player.MediaPlayerChanged -= OnMediaPlayerChanged;
                 _player.PositionChanged -= OnMediaPositionChanged;
                 _player.StateChanged -= OnMediaStateChanged;
-                _player.ClearCommand.Execute().Subscribe(_ =>
-                {
-                    _player = null;
-                });
+                _player.ClearCommand.Execute().Subscribe();
             }
 
             _lastReportProgress = TimeSpan.Zero;
@@ -364,6 +361,12 @@ namespace Bili.ViewModels.Uwp.Core
             ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
             ChangeVolumeCommand.Execute(Volume).Subscribe();
             InitializeDisplayInformation();
+
+            var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+            if (autoPlay)
+            {
+                _player.Play();
+            }
         }
 
         private void OnProgressTimerTick(object sender, object e)
