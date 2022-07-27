@@ -364,6 +364,12 @@ namespace Bili.ViewModels.Uwp.Core
             ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
             ChangeVolumeCommand.Execute(Volume).Subscribe();
             InitializeDisplayInformation();
+
+            var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
+            if (autoPlay)
+            {
+                _player.Play();
+            }
         }
 
         private void OnProgressTimerTick(object sender, object e)

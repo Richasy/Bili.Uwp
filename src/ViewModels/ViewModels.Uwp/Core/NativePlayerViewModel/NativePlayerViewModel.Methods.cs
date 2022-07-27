@@ -191,13 +191,6 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     session.PositionChanged += OnPlayerPositionChangedAsync;
                 }
-
-                var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
-                if (autoPlay)
-                {
-                    _videoPlayer.AutoPlay = true;
-                    _videoPlayer.Play();
-                }
             }
 
             MediaOpened?.Invoke(this, EventArgs.Empty);
