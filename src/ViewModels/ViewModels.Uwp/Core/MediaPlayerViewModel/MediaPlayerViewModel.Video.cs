@@ -36,8 +36,8 @@ namespace Bili.ViewModels.Uwp.Core
         {
             InitializeVideoInformation();
             await InitializeVideoMediaInformationAsync();
-            await InitializeOrginalVideoSourceAsync();
             CheckVideoHistory();
+            await InitializeOrginalVideoSourceAsync();
         }
 
         private void CheckVideoHistory()
@@ -49,7 +49,8 @@ namespace Bili.ViewModels.Uwp.Core
 
                 if (_currentPart.Id == history.Id)
                 {
-                    ChangeProgress(view.Progress.Progress);
+                    var ts = TimeSpan.FromSeconds(view.Progress.Progress);
+                    _initializeProgress = ts;
                     view.Progress = null;
                 }
                 else

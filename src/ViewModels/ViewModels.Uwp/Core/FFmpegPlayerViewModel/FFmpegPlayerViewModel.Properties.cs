@@ -39,8 +39,10 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaPlaybackItem _videoPlaybackItem;
         private MediaPlaybackItem _audioPlaybackItem;
         private MediaTimelineController _mediaTimelineController;
+        private MediaPlaybackSession _videoCurrentSession;
         private int _liveRetryCount;
         private int _videoRetryCount;
+        private bool _isInitializePlaying;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;
@@ -58,7 +60,9 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <inheritdoc/>
-        public TimeSpan Position => _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;
+        public TimeSpan Position => _mediaTimelineController == null
+            ? _videoCurrentSession?.Position ?? TimeSpan.Zero
+            : _mediaTimelineController.Position;
 
         /// <inheritdoc/>
         public TimeSpan Duration => _videoFFSource != null

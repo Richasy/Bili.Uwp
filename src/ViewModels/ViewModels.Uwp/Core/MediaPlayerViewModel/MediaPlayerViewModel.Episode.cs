@@ -58,8 +58,8 @@ namespace Bili.ViewModels.Uwp.Core
             SubtitleViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId);
             DanmakuViewModel.SetData(_currentEpisode.VideoId, _currentEpisode.PartId, _videoType);
             await InitializeEpisodeMediaInformationAsync();
-            await InitializeOrginalVideoSourceAsync();
             CheckEpisodeHistory();
+            await InitializeOrginalVideoSourceAsync();
         }
 
         private void CheckEpisodeHistory()
@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Core
                 var history = view.Progress.Identifier;
                 if (_currentEpisode != null && history.Id == _currentEpisode.Identifier.Id)
                 {
-                    ChangeProgress(view.Progress.Progress);
+                    _initializeProgress = TimeSpan.FromSeconds(view.Progress.Progress);
                 }
                 else
                 {

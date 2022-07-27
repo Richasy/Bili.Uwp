@@ -156,7 +156,7 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     Status = sender.PlaybackSession.PlaybackState switch
                     {
-                        MediaPlaybackState.Opening => PlayerStatus.Buffering,
+                        MediaPlaybackState.Opening => PlayerStatus.Opened,
                         MediaPlaybackState.Playing => PlayerStatus.Playing,
                         MediaPlaybackState.Buffering => PlayerStatus.Buffering,
                         MediaPlaybackState.Paused => PlayerStatus.Pause,
@@ -166,6 +166,14 @@ namespace Bili.ViewModels.Uwp.Core
                 catch (Exception)
                 {
                     Status = PlayerStatus.NotLoad;
+                }
+
+                if (Status == PlayerStatus.Opened
+                && _isInitializePlaying
+                && _videoPlayer.PlaybackSession.Position != TimeSpan.Zero)
+                {
+                    SeekTo(TimeSpan.Zero);
+                    _isInitializePlaying = false;
                 }
 
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));

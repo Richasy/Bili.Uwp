@@ -79,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Core
 
                 if (_audioPlayer == null)
                 {
-                    _audioPlayer = GetVideoPlayer();
+                    _audioPlayer = GetAudioPlayer();
                 }
 
                 _audioPlayer.CommandManager.IsEnabled = false;
@@ -148,6 +148,13 @@ namespace Bili.ViewModels.Uwp.Core
             player.MediaOpened += OnMediaPlayerOpened;
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
+            player.MediaFailed += OnMediaPlayerFailedAsync;
+            return player;
+        }
+
+        private MediaPlayer GetAudioPlayer()
+        {
+            var player = new MediaPlayer();
             player.MediaFailed += OnMediaPlayerFailedAsync;
             return player;
         }
@@ -224,7 +231,7 @@ namespace Bili.ViewModels.Uwp.Core
                 {
                     Status = sender.PlaybackSession.PlaybackState switch
                     {
-                        MediaPlaybackState.Opening => PlayerStatus.Buffering,
+                        MediaPlaybackState.Opening => PlayerStatus.Opened,
                         MediaPlaybackState.Playing => PlayerStatus.Playing,
                         MediaPlaybackState.Buffering => PlayerStatus.Buffering,
                         MediaPlaybackState.Paused => PlayerStatus.Pause,
@@ -236,6 +243,18 @@ namespace Bili.ViewModels.Uwp.Core
                     Status = PlayerStatus.NotLoad;
                 }
 
+                if (Status == PlayerStatus.Opened
+                && _isInitializePlaying)
+                {
+                    SeekTo(TimeSpan.Zero);
+                    _isInitializePlaying = false;
+                }
+
+                if(Status == PlayerStatus.Playing && _isInitializePlaying)
+                {
+                    _isInitializePlaying = false;
+                }
+
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
             });
         }
@@ -245,6 +264,7 @@ namespace Bili.ViewModels.Uwp.Core
             var session = sender.PlaybackSession;
             if (session != null)
             {
+                _videoCurrentSession = session;
                 session.PositionChanged -= OnPlayerPositionChangedAsync;
 
                 if (_video != null)
@@ -272,10 +292,21 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnPlayerPositionChangedAsync(MediaPlaybackSession sender, object args)
         {
+            if (_isInitializePlaying)
+            {
+                return;
+            }
+
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                var duration = sender.NaturalDuration.TotalSeconds;
-                var progress = sender.Position.TotalSeconds;
+                if (_videoCurrentSession == null)
+                {
+                    return;
+                }
+
+                var duration = _videoCurrentSession?.NaturalDuration.TotalSeconds;
+                var progress = _videoCurrentSession?.Position.TotalSeconds;
+
                 if (progress >= duration)
                 {
                     if (_mediaTimelineController != null)
@@ -299,7 +330,7 @@ namespace Bili.ViewModels.Uwp.Core
                     return;
                 }
 
-                PositionChanged?.Invoke(this, new MediaPositionChangedEventArgs(sender.Position, sender.NaturalDuration));
+                PositionChanged?.Invoke(this, new MediaPositionChangedEventArgs(Position, sender.NaturalDuration));
             });
         }
 
@@ -327,32 +358,14 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            mediaPlayer.MediaOpened -= OnMediaPlayerOpened;
-            mediaPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
-            mediaPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
-            mediaPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
-
-            if (mediaPlayer.PlaybackSession != null)
-            {
-                mediaPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
-            }
-
             _videoHttpClient?.Dispose();
             _videoHttpClient = null;
             _audioHttpClient?.Dispose();
             _audioHttpClient = null;
 
             playback?.Source?.Dispose();
-            playback = null;
-
             source?.Dispose();
-            source = null;
-
-            if (stream != null)
-            {
-                stream?.Dispose();
-                stream = null;
-            }
+            stream?.Dispose();
 
             mediaPlayer.Source = null;
         }
@@ -362,10 +375,15 @@ namespace Bili.ViewModels.Uwp.Core
             if (_mediaTimelineController != null)
             {
                 _mediaTimelineController.Pause();
-                _mediaTimelineController.Position = TimeSpan.Zero;
                 _mediaTimelineController = null;
             }
 
+            if (_videoCurrentSession != null)
+            {
+                _videoCurrentSession.PositionChanged -= OnPlayerPositionChangedAsync;
+            }
+
+            _videoCurrentSession = null;
             ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource, _videoStream);
             ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource, _audioStream);
 
