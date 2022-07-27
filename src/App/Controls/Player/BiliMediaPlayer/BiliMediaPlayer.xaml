@@ -74,6 +74,7 @@
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ActionContent="{loc:Locale Name=ContinuePreviousView}"
+                                        AdditionalTitle="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ProgressTipCountdown}"
                                         CloseCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ClearSourceProgressCommand}"
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.JumpToLastProgressCommand}"
                                         IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowProgressTip, Mode=TwoWay}"

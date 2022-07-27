@@ -251,10 +251,16 @@ namespace Bili.App.Controls.Player
                 _nextVideoStayTime += 0.5;
             }
 
+            if (ViewModel.IsShowProgressTip)
+            {
+                _progressTipStayTime += 0.5;
+            }
+
             HandleTransportAutoHide();
             HandleCursorAutoHide();
             HandleTempMessageAutoHide();
             HandleNextVideoAutoHide();
+            HandleProgressTipAutoHide();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)

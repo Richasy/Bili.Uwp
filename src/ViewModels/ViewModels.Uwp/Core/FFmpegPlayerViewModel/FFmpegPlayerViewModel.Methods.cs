@@ -269,6 +269,7 @@ namespace Bili.ViewModels.Uwp.Core
             if (_shouldPreventSkip && Position != TimeSpan.Zero)
             {
                 _shouldPreventSkip = false;
+                SeekTo(TimeSpan.Zero);
                 return;
             }
 
@@ -350,6 +351,7 @@ namespace Bili.ViewModels.Uwp.Core
             if (_mediaTimelineController != null)
             {
                 _mediaTimelineController.Pause();
+                _mediaTimelineController.Position = TimeSpan.Zero;
                 _mediaTimelineController = null;
             }
 
