@@ -252,6 +252,12 @@ namespace Bili.ViewModels.Uwp.Core
         public double NextVideoCountdown { get; set; }
 
         /// <summary>
+        /// 自动关闭进度提示的倒计时秒数.
+        /// </summary>
+        [Reactive]
+        public double ProgressTipCountdown { get; set; }
+
+        /// <summary>
         /// 是否为互动视频.
         /// </summary>
         [Reactive]

@@ -116,6 +116,20 @@ namespace Bili.App.Controls.Player
             }
         }
 
+        private void HandleProgressTipAutoHide()
+        {
+            if (_progressTipStayTime > 5)
+            {
+                _progressTipStayTime = 0;
+                ViewModel.ProgressTipCountdown = 0;
+                ViewModel.IsShowProgressTip = false;
+            }
+            else
+            {
+                ViewModel.ProgressTipCountdown = Math.Ceiling(5 - _progressTipStayTime);
+            }
+        }
+
         private async Task ShowAndResetMediaTransportAsync(bool isMouse)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);

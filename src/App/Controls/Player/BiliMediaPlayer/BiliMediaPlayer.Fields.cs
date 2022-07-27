@@ -37,6 +37,7 @@ namespace Bili.App.Controls.Player
         private double _tempMessageStayTime;
         private double _transportStayTime;
         private double _nextVideoStayTime;
+        private double _progressTipStayTime;
 
         private double _manipulationDeltaX = 0d;
         private double _manipulationDeltaY = 0d;
