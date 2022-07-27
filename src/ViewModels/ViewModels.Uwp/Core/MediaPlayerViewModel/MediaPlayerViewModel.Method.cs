@@ -87,10 +87,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _player.MediaPlayerChanged -= OnMediaPlayerChanged;
                 _player.PositionChanged -= OnMediaPositionChanged;
                 _player.StateChanged -= OnMediaStateChanged;
-                _player.ClearCommand.Execute().Subscribe(_ =>
-                {
-                    _player = null;
-                });
+                _player.ClearCommand.Execute().Subscribe();
             }
 
             _lastReportProgress = TimeSpan.Zero;

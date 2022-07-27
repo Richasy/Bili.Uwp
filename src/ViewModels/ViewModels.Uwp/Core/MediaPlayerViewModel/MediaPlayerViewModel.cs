@@ -64,6 +64,7 @@ namespace Bili.ViewModels.Uwp.Core
             SubtitleViewModel = subtitleModuleViewModel;
             DanmakuViewModel = danmakuModuleViewModel;
             InteractionViewModel = interactionModuleViewModel;
+
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnViewVisibleBoundsChanged;
             InteractionViewModel.NoMoreChoices += OnInteractionModuleNoMoreChoices;
             PropertyChanged += OnPropertyChanged;
@@ -147,16 +148,19 @@ namespace Bili.ViewModels.Uwp.Core
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x =>
                 {
-                    _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown);
-                    if (x)
+                    if (_appViewModel.IsXbox)
                     {
-                        _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown, async _ =>
+                        _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown);
+                        if (x)
                         {
-                            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown, async _ =>
                             {
-                                IsShowMediaTransport = false;
+                                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    IsShowMediaTransport = false;
+                                });
                             });
-                        });
+                        }
                     }
 
                     CheckExitFullPlayerButtonVisibility();
@@ -310,17 +314,16 @@ namespace Bili.ViewModels.Uwp.Core
         private void InitializePlayer()
         {
             var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
-            if (_videoType == VideoType.Live)
+
+            if (_player == null)
             {
-                _player = Locator.Current.GetService<IFFmpegPlayerViewModel>();
-            }
-            else
-            {
-                _player = playerType switch
-                {
-                    PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
-                    _ => Locator.Current.GetService<INativePlayerViewModel>(),
-                };
+                _player = _videoType == VideoType.Live
+                    ? Locator.Current.GetService<IFFmpegPlayerViewModel>()
+                    : playerType switch
+                    {
+                        PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
+                        _ => Locator.Current.GetService<INativePlayerViewModel>(),
+                    };
             }
 
             _player.MediaOpened += OnMediaOpened;

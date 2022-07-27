@@ -332,6 +332,12 @@ namespace Bili.ViewModels.Uwp.Core
             _audioHttpClient?.Dispose();
             _audioHttpClient = null;
 
+            if (mediaPlayer.TimelineController != null)
+            {
+                mediaPlayer.TimelineController = null;
+                mediaPlayer.CommandManager.IsEnabled = true;
+            }
+
             playback?.Source?.Dispose();
             source?.Dispose();
             stream?.Dispose();

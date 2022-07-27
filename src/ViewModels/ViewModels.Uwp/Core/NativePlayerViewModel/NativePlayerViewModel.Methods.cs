@@ -229,6 +229,8 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _videoPlayer.Pause();
                 _videoPlayer.PlaybackSession.PositionChanged -= OnPlayerPositionChangedAsync;
+                _videoPlayer.PlaybackSession.Position = TimeSpan.Zero;
+                _videoPlayer.CommandManager.IsEnabled = true;
             }
 
             if (_videoSource != null)
