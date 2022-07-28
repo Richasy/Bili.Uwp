@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Bili.Models.Data.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 
@@ -24,11 +25,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             string currentId)
         {
             Title = title;
-            Episodes = new ObservableCollection<EpisodeItemViewModel>();
+            Episodes = new ObservableCollection<IEpisodeItemViewModel>();
             foreach (var item in episodes)
             {
-                var vm = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
-                vm.SetInformation(item);
+                var vm = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                vm.InjectData(item);
                 vm.IsSelected = item.Identifier.Id == currentId;
                 Episodes.Add(vm);
             }
@@ -43,6 +44,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 分集.
         /// </summary>
-        public ObservableCollection<EpisodeItemViewModel> Episodes { get; }
+        public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -17,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 内容索引页面视图模型.
     /// </summary>
-    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase<SeasonItemViewModel>
+    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase<ISeasonItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IndexPageViewModel"/> class.
@@ -126,8 +127,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _isFinished = isFinished;
             foreach (var item in items)
             {
-                var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                seasonVM.SetInformation(item);
+                var seasonVM = Splat.Locator.Current.GetService<ISeasonItemViewModel>();
+                seasonVM.InjectData(item);
                 Items.Add(seasonVM);
             }
 

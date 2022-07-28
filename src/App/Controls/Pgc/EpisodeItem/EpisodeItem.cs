@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,7 +12,7 @@ namespace Bili.App.Controls.Pgc
     /// <summary>
     /// 剧集单集条目视图.
     /// </summary>
-    public sealed class EpisodeItem : ReactiveControl<EpisodeItemViewModel>, IRepeaterItem, IOrientationControl
+    public sealed class EpisodeItem : ReactiveControl<IEpisodeItemViewModel>, IRepeaterItem, IOrientationControl
     {
         /// <summary>
         /// <see cref="IsDynamic"/> 的依赖属性.

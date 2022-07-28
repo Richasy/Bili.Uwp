@@ -6,6 +6,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -20,6 +21,7 @@ namespace Bili.ViewModels.Uwp.Home
         private readonly IAppToolkit _appToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AppViewModel _appViewModel;
         private string _initializeTheme;
 

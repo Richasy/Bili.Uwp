@@ -35,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Account
                 TypeCollection.Add(CreateHeader(FavoriteType.Article));
             }
 
-            SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType, outputScheduler: RxApp.MainThreadScheduler);
+            SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType);
             SelectType(TypeCollection.First());
         }
 

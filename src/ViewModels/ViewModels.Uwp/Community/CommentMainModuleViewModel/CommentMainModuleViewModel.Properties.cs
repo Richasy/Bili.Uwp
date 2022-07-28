@@ -7,7 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Community
     {
         private readonly ICommunityProvider _communityProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isSending;
         private bool _isEnd;
         private CommentType _commentType;

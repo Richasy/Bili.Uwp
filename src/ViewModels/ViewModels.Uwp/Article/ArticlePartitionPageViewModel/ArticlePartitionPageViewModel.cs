@@ -11,6 +11,7 @@ using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
 using Splat;
@@ -21,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Article
     /// <summary>
     /// 文章分区页面视图模型.
     /// </summary>
-    public sealed partial class ArticlePartitionPageViewModel : InformationFlowViewModelBase<ArticleItemViewModel>
+    public sealed partial class ArticlePartitionPageViewModel : InformationFlowViewModelBase<IArticleItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticlePartitionPageViewModel"/> class.
@@ -40,7 +41,7 @@ namespace Bili.ViewModels.Uwp.Article
             _caches = new Dictionary<Partition, IEnumerable<ArticleInformation>>();
 
             Banners = new ObservableCollection<BannerViewModel>();
-            Ranks = new ObservableCollection<ArticleItemViewModel>();
+            Ranks = new ObservableCollection<IArticleItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
             SortTypes = new ObservableCollection<ArticleSortType>()
             {
@@ -59,12 +60,12 @@ namespace Bili.ViewModels.Uwp.Article
                 partition => partition?.Id == "0");
 
             _isShowBanner = isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
-                .ToProperty(this, x => x.IsShowBanner, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsShowBanner);
 
             _isRecommendPartition = isRecommend
-                .ToProperty(this, x => x.IsRecommendPartition, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsRecommendPartition);
 
-            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectPartition, outputScheduler: RxApp.MainThreadScheduler);
+            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectPartition);
         }
 
         /// <inheritdoc/>
@@ -109,10 +110,10 @@ namespace Bili.ViewModels.Uwp.Article
             {
                 foreach (var article in data.Ranks)
                 {
-                    if (!Ranks.Any(p => p.Information.Equals(article)))
+                    if (!Ranks.Any(p => p.Data.Equals(article)))
                     {
-                        var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                        articleVM.SetInformation(article);
+                        var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                        articleVM.InjectData(article);
                         Ranks.Add(articleVM);
                     }
                 }
@@ -122,19 +123,19 @@ namespace Bili.ViewModels.Uwp.Article
             {
                 foreach (var article in data.Articles)
                 {
-                    if (Items.Any(p => p.Information.Equals(article)))
+                    if (Items.Any(p => p.Data.Equals(article)))
                     {
                         continue;
                     }
 
-                    var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                    articleVM.SetInformation(article);
+                    var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                    articleVM.InjectData(article);
                     Items.Add(articleVM);
                 }
 
                 var videos = Items
-                        .OfType<ArticleItemViewModel>()
-                        .Select(p => p.Information)
+                        .OfType<IArticleItemViewModel>()
+                        .Select(p => p.Data)
                         .ToList();
                 if (_caches.ContainsKey(CurrentPartition))
                 {
@@ -153,12 +154,12 @@ namespace Bili.ViewModels.Uwp.Article
             CurrentPartition = partition;
             if (_caches.ContainsKey(partition))
             {
-                var data = _caches[partition];
-                foreach (var video in data)
+                var items = _caches[partition];
+                foreach (var data in items)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                    videoVM.SetInformation(video);
-                    Items.Add(videoVM);
+                    var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                    articleVM.InjectData(data);
+                    Items.Add(articleVM);
                 }
             }
             else

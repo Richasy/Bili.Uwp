@@ -54,7 +54,7 @@ namespace Bili.ViewModels.Uwp.Core
             var canPlay = _settingsToolkit.ReadLocalSetting(SettingNames.CanContinuePlay, false);
             if (supportCheck && canPlay)
             {
-                RequestContinuePlay?.Invoke(this, EventArgs.Empty);
+                _callerViewModel.ShowContinuePlayDialog();
             }
         }
 
@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Core
             var args = new UpdateEventArgs(data);
             if (args.Version != currentVersion && args.Version != ignoreVersion)
             {
-                RequestShowUpdateDialog?.Invoke(this, args);
+                _callerViewModel.ShowUpdateDialog(args);
             }
         }
 
@@ -132,9 +132,6 @@ namespace Bili.ViewModels.Uwp.Core
                 task.Unregister(true);
             }
         }
-
-        private void OnUpdateReceived(object sender, UpdateEventArgs e)
-            => RequestShowUpdateDialog?.Invoke(this, e);
 
         private void OnNetworkChanged(object sender, EventArgs e)
             => IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;

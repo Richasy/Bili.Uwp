@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// PGC 信息流页面（不包括动漫）的通用视图模型.
     /// </summary>
-    public partial class PgcPageViewModelBase : InformationFlowViewModelBase<SeasonItemViewModel>
+    public partial class PgcPageViewModelBase : InformationFlowViewModelBase<ISeasonItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPageViewModelBase"/> class.
@@ -42,7 +42,7 @@ namespace Bili.ViewModels.Uwp.Base
             _navigationViewModel = navigationViewModel;
             Banners = new ObservableCollection<BannerViewModel>();
 
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage, outputScheduler: RxApp.MainThreadScheduler);
+            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
 
             Title = _type switch
             {
@@ -77,8 +77,8 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 foreach (var item in data.Seasons)
                 {
-                    var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                    seasonVM.SetInformation(item);
+                    var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                    seasonVM.InjectData(item);
                     Items.Add(seasonVM);
                 }
             }

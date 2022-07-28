@@ -8,6 +8,9 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
@@ -30,6 +33,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
@@ -125,7 +129,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 视频协作者.
         /// </summary>
-        public ObservableCollection<UserItemViewModel> Collaborators { get; }
+        public ObservableCollection<IUserItemViewModel> Collaborators { get; }
 
         /// <summary>
         /// 视频标签集.
@@ -145,12 +149,12 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 关联的视频集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> RelatedVideos { get; }
+        public ObservableCollection<IVideoItemViewModel> RelatedVideos { get; }
 
         /// <summary>
         /// 视频播放列表.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> VideoPlaylist { get; }
+        public ObservableCollection<IVideoItemViewModel> VideoPlaylist { get; }
 
         /// <summary>
         /// 视频分集集合.
@@ -165,7 +169,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 当前合集下的视频列表.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> CurrentSeasonVideos { get; set; }
+        public ObservableCollection<IVideoItemViewModel> CurrentSeasonVideos { get; set; }
 
         /// <summary>
         /// 下载模块视图模型.
@@ -188,7 +192,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// 视频作者.
         /// </summary>
         [Reactive]
-        public UserItemViewModel Author { get; set; }
+        public IUserItemViewModel Author { get; set; }
 
         /// <summary>
         /// 是否为合作视频，<c>True</c> 则显示 <see cref="Collaborators"/>，<c>False</c> 则显示 <see cref="Author"/>.

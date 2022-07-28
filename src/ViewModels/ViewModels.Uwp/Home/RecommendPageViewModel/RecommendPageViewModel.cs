@@ -7,9 +7,9 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.UI.Core;
 
@@ -46,18 +46,21 @@ namespace Bili.ViewModels.Uwp.Home
                 foreach (var item in videos)
                 {
                     IVideoBaseViewModel vm = null;
-                    if (item is VideoInformation)
+                    if (item is VideoInformation videoInfo)
                     {
-                        vm = Splat.Locator.Current.GetService<VideoItemViewModel>();
+                        var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                        videoVM.InjectData(videoInfo);
+                        vm = videoVM;
                     }
-                    else if (item is EpisodeInformation)
+                    else if (item is EpisodeInformation episodeInfo)
                     {
-                        vm = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
+                        var episodeVM = Locator.Current.GetService<IEpisodeItemViewModel>();
+                        episodeVM.InjectData(episodeInfo);
+                        vm = episodeVM;
                     }
 
                     if (vm != null)
                     {
-                        vm.SetInformation(item);
                         Items.Add(vm);
                     }
                 }

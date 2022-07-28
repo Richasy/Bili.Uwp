@@ -8,6 +8,11 @@ using Bili.SignIn.Uwp;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Common;
@@ -78,6 +83,15 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
             SplatRegistrations.RegisterLazySingleton<IFavoriteProvider, FavoriteProvider>();
 
+            SplatRegistrations.Register<IUserItemViewModel, UserItemViewModel>();
+            SplatRegistrations.Register<IVideoItemViewModel, VideoItemViewModel>();
+            SplatRegistrations.Register<IEpisodeItemViewModel, EpisodeItemViewModel>();
+            SplatRegistrations.Register<IArticleItemViewModel, ArticleItemViewModel>();
+            SplatRegistrations.Register<ISeasonItemViewModel, SeasonItemViewModel>();
+            SplatRegistrations.Register<IPgcPlaylistViewModel, PgcPlaylistViewModel>();
+
+            SplatRegistrations.RegisterLazySingleton<ICallerViewModel, CallerViewModel>();
+
             SplatRegistrations.RegisterLazySingleton<AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<AccountViewModel>();
@@ -131,14 +145,8 @@ namespace Bili.DI.App
             SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
             SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
             SplatRegistrations.Register<MediaPlayerViewModel>();
-            SplatRegistrations.Register<VideoItemViewModel>();
-            SplatRegistrations.Register<EpisodeItemViewModel>();
-            SplatRegistrations.Register<SeasonItemViewModel>();
             SplatRegistrations.Register<LiveItemViewModel>();
-            SplatRegistrations.Register<PgcPlaylistViewModel>();
-            SplatRegistrations.Register<ArticleItemViewModel>();
             SplatRegistrations.Register<MessageItemViewModel>();
-            SplatRegistrations.Register<UserItemViewModel>();
             SplatRegistrations.Register<VideoFavoriteFolderViewModel>();
             SplatRegistrations.Register<VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.Register<DynamicItemViewModel>();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Bili.Models.Data.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 
@@ -22,12 +23,12 @@ namespace Bili.ViewModels.Uwp.Pgc
         internal PgcRankViewModel(string title, IEnumerable<EpisodeInformation> episodes)
         {
             Title = title;
-            Episodes = new ObservableCollection<EpisodeItemViewModel>();
+            Episodes = new ObservableCollection<IEpisodeItemViewModel>();
             episodes
                 .Select(p =>
                 {
-                    var episodeVM = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
-                    episodeVM.SetInformation(p);
+                    var episodeVM = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                    episodeVM.InjectData(p);
                     return episodeVM;
                 })
                 .ToList()
@@ -43,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 剧集列表.
         /// </summary>
-        public ObservableCollection<EpisodeItemViewModel> Episodes { get; }
+        public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is PgcRankViewModel model && Title == model.Title;

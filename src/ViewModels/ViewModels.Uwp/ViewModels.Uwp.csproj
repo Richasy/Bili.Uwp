@@ -36,6 +36,8 @@
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Methods.cs" />
+    <Compile Include="Core\CallerViewModel\CallerViewModel.cs" />
+    <Compile Include="Core\CallerViewModel\CallerViewModel.Properties.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Methods.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Properties.cs" />

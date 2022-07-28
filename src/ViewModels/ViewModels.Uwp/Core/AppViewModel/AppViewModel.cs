@@ -12,6 +12,7 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
@@ -31,6 +32,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public AppViewModel()
         {
+            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
             _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
             _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             _settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
@@ -48,14 +50,14 @@ namespace Bili.ViewModels.Uwp.Core
             IsShowPlayRecordButton = false;
             PlayRecords = new ObservableCollection<PlayRecord>();
 
-            CheckUpdateCommand = ReactiveCommand.CreateFromTask(CheckUpdateAsync, outputScheduler: RxApp.MainThreadScheduler);
-            CheckContinuePlayCommand = ReactiveCommand.Create(CheckContinuePlay, outputScheduler: RxApp.MainThreadScheduler);
-            CheckNewDynamicRegistrationCommand = ReactiveCommand.CreateFromTask(CheckNewDynamicRegistrationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            AddLastPlayItemCommand = ReactiveCommand.CreateFromTask<PlaySnapshot>(AddLastPlayItemAsync, outputScheduler: RxApp.MainThreadScheduler);
-            DeleteLastPlayItemCommand = ReactiveCommand.CreateFromTask(DeleteLastPlayItemAsync, outputScheduler: RxApp.MainThreadScheduler);
-            AddPlayRecordCommand = ReactiveCommand.Create<PlayRecord>(AddPlayRecord, outputScheduler: RxApp.MainThreadScheduler);
-            RemovePlayRecordCommand = ReactiveCommand.Create<PlayRecord>(RemovePlayRecord, outputScheduler: RxApp.MainThreadScheduler);
-            ClearPlayRecordCommand = ReactiveCommand.Create(ClearPlayRecords, outputScheduler: RxApp.MainThreadScheduler);
+            CheckUpdateCommand = ReactiveCommand.CreateFromTask(CheckUpdateAsync);
+            CheckContinuePlayCommand = ReactiveCommand.Create(CheckContinuePlay);
+            CheckNewDynamicRegistrationCommand = ReactiveCommand.CreateFromTask(CheckNewDynamicRegistrationAsync);
+            AddLastPlayItemCommand = ReactiveCommand.CreateFromTask<PlaySnapshot>(AddLastPlayItemAsync);
+            DeleteLastPlayItemCommand = ReactiveCommand.CreateFromTask(DeleteLastPlayItemAsync);
+            AddPlayRecordCommand = ReactiveCommand.Create<PlayRecord>(AddPlayRecord);
+            RemovePlayRecordCommand = ReactiveCommand.Create<PlayRecord>(RemovePlayRecord);
+            ClearPlayRecordCommand = ReactiveCommand.Create(ClearPlayRecords);
 
             CheckUpdateCommand.ThrownExceptions.Subscribe(LogException);
             PlayRecords.CollectionChanged += OnPlayRecordsCollectionChanged;
@@ -66,58 +68,6 @@ namespace Bili.ViewModels.Uwp.Core
             _settingsToolkit.WriteLocalSetting(SettingNames.LastAppLanguage, lan);
             IsTraditionalChinese = lan.Contains("zh-hant", StringComparison.OrdinalIgnoreCase);
         }
-
-        /// <summary>
-        /// 显示提示.
-        /// </summary>
-        /// <param name="message">消息内容.</param>
-        /// <param name="type">消息类型.</param>
-        public void ShowTip(string message, InfoType type = InfoType.Information)
-            => RequestShowTip?.Invoke(this, new AppTipNotificationEventArgs(message, type));
-
-        /// <summary>
-        /// 显示图片.
-        /// </summary>
-        /// <param name="images">图片列表.</param>
-        /// <param name="firstIndex">初始索引.</param>
-        public void ShowImages(IEnumerable<Models.Data.Appearance.Image> images, int firstIndex)
-        {
-            if (images == null)
-            {
-                RequestShowImages?.Invoke(this, null);
-            }
-            else
-            {
-                RequestShowImages?.Invoke(this, new ShowImageEventArgs(images, firstIndex));
-            }
-        }
-
-        /// <summary>
-        /// 显示 PGC 播放列表.
-        /// </summary>
-        /// <param name="vm">播放列表视图模型.</param>
-        public void ShowPgcPlaylist(PgcPlaylistViewModel vm)
-            => RequestShowPgcPlaylist?.Invoke(this, vm);
-
-        /// <summary>
-        /// 显示文章阅读器.
-        /// </summary>
-        /// <param name="article">文章信息.</param>
-        public void ShowArticleReader(ArticleItemViewModel article)
-            => RequestShowArticleReader?.Invoke(this, article);
-
-        /// <summary>
-        /// 显示评论详情.
-        /// </summary>
-        /// <param name="args">评论信息.</param>
-        public void ShowReply(ShowCommentEventArgs args)
-            => RequestShowReplyDetail?.Invoke(this, args);
-
-        /// <summary>
-        /// 显示正在播放的剧集信息详情.
-        /// </summary>
-        public void ShowPgcSeasonDetail()
-            => RequestShowPgcSeasonDetail.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// 初始化主题.

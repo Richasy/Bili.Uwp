@@ -14,10 +14,12 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
@@ -37,21 +39,21 @@ namespace Bili.ViewModels.Uwp.Community
             ICommunityProvider communityProvider,
             INumberToolkit numberToolkit,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             NavigationViewModel navigationViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
 
-            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ActiveCommand = ReactiveCommand.Create(Active, outputScheduler: RxApp.MainThreadScheduler);
-            AddToViewLaterCommand = ReactiveCommand.Create(AddToViewLater, outputScheduler: RxApp.MainThreadScheduler);
-            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ShowCommentDetailCommand = ReactiveCommand.Create(ShowCommentDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ShareCommand = ReactiveCommand.Create(ShowShareUI, outputScheduler: RxApp.MainThreadScheduler);
+            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync);
+            ActiveCommand = ReactiveCommand.Create(Active);
+            AddToViewLaterCommand = ReactiveCommand.Create(AddToViewLater);
+            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail);
+            ShowCommentDetailCommand = ReactiveCommand.Create(ShowCommentDetail);
+            ShareCommand = ReactiveCommand.Create(ShowShareUI);
         }
 
         /// <summary>
@@ -76,7 +78,7 @@ namespace Bili.ViewModels.Uwp.Community
 
             if (Information.User != null)
             {
-                var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                 userVM.SetProfile(Information.User);
                 Publisher = userVM;
             }
@@ -104,7 +106,7 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -139,9 +141,9 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else if (data is ArticleInformation article)
             {
-                var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                articleVM.SetInformation(article);
-                _appViewModel.ShowArticleReader(articleVM);
+                var articleVM = Splat.Locator.Current.GetService<IArticleItemViewModel>();
+                articleVM.InjectData(article);
+                _callerViewModel.ShowArticleReader(articleVM);
             }
             else if (data is DynamicInformation dynamic)
             {
@@ -153,8 +155,8 @@ namespace Bili.ViewModels.Uwp.Community
         {
             if (Information.Data is VideoInformation videoInfo)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(videoInfo);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(videoInfo);
                 videoVM.AddToViewLaterCommand.Execute().Subscribe();
             }
         }
@@ -170,7 +172,7 @@ namespace Bili.ViewModels.Uwp.Community
         private void ShowCommentDetail()
         {
             var args = new ShowCommentEventArgs(Information.CommentType, Models.Enums.Bili.CommentSortType.Hot, Information.CommentId);
-            _appViewModel.ShowReply(args);
+            _callerViewModel.ShowReply(args);
         }
 
         private void ShowShareUI()

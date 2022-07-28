@@ -33,12 +33,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             _resourceToolkit = resourceToolkit;
             Timelines = new ObservableCollection<TimelineInformation>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
 
             _isReloading = InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloading);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)

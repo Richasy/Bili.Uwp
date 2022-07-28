@@ -6,6 +6,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using Humanizer;
 using ReactiveUI;
@@ -24,19 +25,19 @@ namespace Bili.ViewModels.Uwp.Community
              ICommunityProvider communityProvider,
              INumberToolkit numberToolkit,
              IResourceToolkit resourceToolkit,
-             AppViewModel appViewModel,
+             ICallerViewModel callerViewModel,
              NavigationViewModel navigationViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
 
-            ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ClickCommand = ReactiveCommand.Create(Click, outputScheduler: RxApp.MainThreadScheduler);
+            ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail);
+            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync);
+            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail);
+            ClickCommand = ReactiveCommand.Create(Click);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
 

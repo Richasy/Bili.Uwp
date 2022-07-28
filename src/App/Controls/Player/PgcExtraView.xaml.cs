@@ -26,9 +26,9 @@ namespace Bili.App.Controls.Player
         {
             var card = sender as CardPanel;
             var data = card.DataContext as EpisodeItemViewModel;
-            if (!ViewModel.CurrentEpisode.Equals(data.Information))
+            if (!ViewModel.CurrentEpisode.Equals(data.Data))
             {
-                ViewModel.ChangeEpisodeCommand.Execute(data.Information).Subscribe();
+                ViewModel.ChangeEpisodeCommand.Execute(data.Data).Subscribe();
             }
         }
     }

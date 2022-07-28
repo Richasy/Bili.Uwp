@@ -32,25 +32,25 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 剧集单集信息.
         /// </summary>
         [Reactive]
-        public EpisodeInformation Information { get; internal set; }
+        public EpisodeInformation Data { get; set; }
 
         /// <summary>
         /// 播放次数的可读文本.
         /// </summary>
         [Reactive]
-        public string PlayCountText { get; internal set; }
+        public string PlayCountText { get; set; }
 
         /// <summary>
         /// 播放次数的可读文本.
         /// </summary>
         [Reactive]
-        public string DanmakuCountText { get; internal set; }
+        public string DanmakuCountText { get; set; }
 
         /// <summary>
         /// 追番/追剧次数的可读文本.
         /// </summary>
         [Reactive]
-        public string TrackCountText { get; internal set; }
+        public string TrackCountText { get; set; }
 
         /// <summary>
         /// 是否被选中.
@@ -65,9 +65,9 @@ namespace Bili.ViewModels.Uwp.Pgc
         public string DurationText { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is EpisodeItemViewModel model && EqualityComparer<EpisodeInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is EpisodeItemViewModel model && EqualityComparer<EpisodeInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

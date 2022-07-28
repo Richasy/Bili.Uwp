@@ -7,7 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -62,7 +62,7 @@ namespace Bili.ViewModels.Uwp.Home
         /// <summary>
         /// 当前展示的视频集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> VideoCollection { get; }
+        public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
         /// <summary>
         /// 是否正在加载.

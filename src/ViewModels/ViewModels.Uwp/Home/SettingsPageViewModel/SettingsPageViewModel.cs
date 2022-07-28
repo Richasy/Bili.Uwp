@@ -9,6 +9,7 @@ using Bili.Models.Enums.App;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
@@ -26,11 +27,13 @@ namespace Bili.ViewModels.Uwp.Home
         /// Initializes a new instance of the <see cref="SettingsPageViewModel"/> class.
         /// </summary>
         public SettingsPageViewModel(
+            ICallerViewModel callerViewModel,
             AppViewModel appViewModel,
             ISettingsToolkit settingsToolkit,
             IResourceToolkit resourceToolkit,
             IAppToolkit appToolkit)
         {
+            _callerViewModel = callerViewModel;
             _appViewModel = appViewModel;
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;
@@ -42,7 +45,7 @@ namespace Bili.ViewModels.Uwp.Home
             PlayerTypeCollection = new ObservableCollection<PlayerType>();
             PreferQualities = new ObservableCollection<PreferQuality>();
 
-            InitializeCommand = ReactiveCommand.Create(InitializeSettings, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.Create(InitializeSettings);
 
             InitializeSettings();
         }

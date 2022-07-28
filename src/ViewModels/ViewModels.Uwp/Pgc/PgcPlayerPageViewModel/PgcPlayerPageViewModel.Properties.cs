@@ -7,6 +7,9 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
@@ -31,6 +34,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IAppToolkit _appToolkit;
         private readonly IPgcProvider _pgcProvider;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AppViewModel _appViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
@@ -134,7 +138,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 分集集合.
         /// </summary>
-        public ObservableCollection<EpisodeItemViewModel> Episodes { get; }
+        public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
 
         /// <summary>
         /// 剧集集合.
@@ -149,7 +153,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 演员集合.
         /// </summary>
-        public ObservableCollection<UserItemViewModel> Celebrities { get; }
+        public ObservableCollection<IUserItemViewModel> Celebrities { get; }
 
         /// <summary>
         /// 下载模块视图模型.

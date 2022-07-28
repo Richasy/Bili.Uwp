@@ -42,11 +42,11 @@ namespace Bili.ViewModels.Uwp.Common
             ConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, SubtitleConvertType.None);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeMetaCommand = ReactiveCommand.CreateFromTask<SubtitleMeta>(ChangeMetaAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SeekCommand = ReactiveCommand.Create<double>(Seek, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            ChangeMetaCommand = ReactiveCommand.CreateFromTask<SubtitleMeta>(ChangeMetaAsync);
+            SeekCommand = ReactiveCommand.Create<double>(Seek);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
 
             SeekCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)

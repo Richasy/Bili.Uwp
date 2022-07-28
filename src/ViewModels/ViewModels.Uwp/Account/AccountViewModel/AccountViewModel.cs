@@ -12,6 +12,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.UI.Core;
@@ -43,15 +44,15 @@ namespace Bili.ViewModels.Uwp.Account
             _appViewModel = appViewModel;
             _dispatcher = dispatcher;
 
-            TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LoadMyProfileCommand = ReactiveCommand.CreateFromTask(GetMyProfileAsync, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommunityCommand = ReactiveCommand.CreateFromTask(InitCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeUnreadCommand = ReactiveCommand.CreateFromTask(InitUnreadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync, outputScheduler: RxApp.MainThreadScheduler);
+            TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync);
+            SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync);
+            LoadMyProfileCommand = ReactiveCommand.CreateFromTask(GetMyProfileAsync);
+            InitializeCommunityCommand = ReactiveCommand.CreateFromTask(InitCommunityInformationAsync);
+            InitializeUnreadCommand = ReactiveCommand.CreateFromTask(InitUnreadAsync);
+            AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync);
+            RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync);
 
-            _isSigning = TrySignInCommand.IsExecuting.ToProperty(this, x => x.IsSigning, scheduler: RxApp.MainThreadScheduler);
+            _isSigning = TrySignInCommand.IsExecuting.ToProperty(this, x => x.IsSigning);
 
             FixedItemCollection = new ObservableCollection<FixedItem>();
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;

@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Live;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -48,20 +49,20 @@ namespace Bili.ViewModels.Uwp.Search
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
             _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();
 
-            Videos = new ObservableCollection<VideoItemViewModel>();
-            Animes = new ObservableCollection<SeasonItemViewModel>();
-            Movies = new ObservableCollection<SeasonItemViewModel>();
-            Users = new ObservableCollection<UserItemViewModel>();
-            Articles = new ObservableCollection<ArticleItemViewModel>();
+            Videos = new ObservableCollection<IVideoItemViewModel>();
+            Animes = new ObservableCollection<ISeasonItemViewModel>();
+            Movies = new ObservableCollection<ISeasonItemViewModel>();
+            Users = new ObservableCollection<IUserItemViewModel>();
+            Articles = new ObservableCollection<IArticleItemViewModel>();
             Lives = new ObservableCollection<LiveItemViewModel>();
             CurrentFilters = new ObservableCollection<SearchFilterViewModel>();
 
-            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
+            SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync);
 
             _isReloadingModule = ReloadModuleCommand.IsExecuting
                 .Merge(SelectModuleCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloadingModule, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloadingModule);
 
             ReloadModuleCommand.ThrownExceptions
                 .Merge(SelectModuleCommand.ThrownExceptions)

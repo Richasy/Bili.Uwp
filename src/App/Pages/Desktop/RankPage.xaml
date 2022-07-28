@@ -87,7 +87,7 @@
                 x:Name="VideoView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
-                ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                ItemsSource="{x:Bind ViewModel.Videos}"
                 MinWideItemHeight="252"
                 Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:VerticalRepeaterView.ItemTemplate>

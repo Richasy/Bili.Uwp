@@ -7,6 +7,8 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -29,6 +31,7 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly ISettingsToolkit _settingsToolkit;
 
         private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
@@ -94,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// 直播 UP 主.
         /// </summary>
         [Reactive]
-        public UserItemViewModel User { get; set; }
+        public IUserItemViewModel User { get; set; }
 
         /// <summary>
         /// 正在观看人数的可读文本.

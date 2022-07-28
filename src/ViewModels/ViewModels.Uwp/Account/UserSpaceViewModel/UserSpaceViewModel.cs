@@ -9,9 +9,11 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -21,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 用户空间视图模型.
     /// </summary>
-    public sealed partial class UserSpaceViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class UserSpaceViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSpaceViewModel"/> class.
@@ -31,7 +33,7 @@ namespace Bili.ViewModels.Uwp.Account
             IResourceToolkit resourceToolkit,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -39,22 +41,22 @@ namespace Bili.ViewModels.Uwp.Account
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
 
-            SearchVideos = new ObservableCollection<VideoItemViewModel>();
+            SearchVideos = new ObservableCollection<IVideoItemViewModel>();
 
             var canSearch = this.WhenAnyValue(p => p.Keyword)
                 .Select(p => !string.IsNullOrEmpty(p));
 
-            EnterSearchModeCommand = ReactiveCommand.Create(EnterSearchMode, outputScheduler: RxApp.MainThreadScheduler);
-            ExitSearchModeCommand = ReactiveCommand.Create(ExitSearchMode, outputScheduler: RxApp.MainThreadScheduler);
+            EnterSearchModeCommand = ReactiveCommand.Create(EnterSearchMode);
+            ExitSearchModeCommand = ReactiveCommand.Create(ExitSearchMode);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, canSearch, RxApp.MainThreadScheduler);
-            GotoFollowsPageCommand = ReactiveCommand.Create(GotoFollowsPage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoFansPageCommand = ReactiveCommand.Create(GotoFansPage, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
+            GotoFollowsPageCommand = ReactiveCommand.Create(GotoFollowsPage);
+            GotoFansPageCommand = ReactiveCommand.Create(GotoFansPage);
+            FixedCommand = ReactiveCommand.Create(Fix);
 
-            _isSearching = SearchCommand.IsExecuting.ToProperty(this, x => x.IsSearching, scheduler: RxApp.MainThreadScheduler);
-            _canSearch = canSearch.ToProperty(this, x => x.CanSearch, scheduler: RxApp.MainThreadScheduler);
+            _isSearching = SearchCommand.IsExecuting.ToProperty(this, x => x.IsSearching);
+            _canSearch = canSearch.ToProperty(this, x => x.CanSearch);
             SearchCommand.ThrownExceptions.Subscribe(ex => DisplayException(ex));
 
             this.WhenAnyValue(p => p.Keyword)
@@ -97,7 +99,7 @@ namespace Bili.ViewModels.Uwp.Account
             {
                 // 请求用户数据.
                 var view = await _accountProvider.GetUserSpaceInformationAsync(_userProfile.Id);
-                var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                 userVM.SetInformation(view.Account);
                 UserViewModel = userVM;
                 LoadVideoSet(view.VideoSet);
@@ -158,8 +160,8 @@ namespace Bili.ViewModels.Uwp.Account
             var collection = IsSearchMode ? SearchVideos : Items;
             foreach (var item in set.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
                 collection.Add(videoVM);
             }
 
@@ -198,7 +200,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (_accountViewModel.State != Models.Enums.AuthorizeState.SignedIn)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
                 return;
             }
 

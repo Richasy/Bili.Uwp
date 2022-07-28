@@ -1,14 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Article;
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Core;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -26,50 +23,11 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IFileToolkit _fileToolkit;
         private readonly IAppToolkit _appToolkit;
         private readonly IUpdateProvider _updateProvider;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly NetworkHelper _networkHelper;
 
         private bool? _isWide;
-
-        /// <summary>
-        /// 请求显示提醒.
-        /// </summary>
-        public event EventHandler<AppTipNotificationEventArgs> RequestShowTip;
-
-        /// <summary>
-        /// 请求显示升级提示.
-        /// </summary>
-        public event EventHandler<UpdateEventArgs> RequestShowUpdateDialog;
-
-        /// <summary>
-        /// 请求进行之前的播放.
-        /// </summary>
-        public event EventHandler RequestContinuePlay;
-
-        /// <summary>
-        /// 请求显示图片列表.
-        /// </summary>
-        public event EventHandler<ShowImageEventArgs> RequestShowImages;
-
-        /// <summary>
-        /// 请求显示 PGC 的播放列表.
-        /// </summary>
-        public event EventHandler<PgcPlaylistViewModel> RequestShowPgcPlaylist;
-
-        /// <summary>
-        /// 请求显示文章阅读器.
-        /// </summary>
-        public event EventHandler<ArticleItemViewModel> RequestShowArticleReader;
-
-        /// <summary>
-        /// 请求显示评论回复详情.
-        /// </summary>
-        public event EventHandler<ShowCommentEventArgs> RequestShowReplyDetail;
-
-        /// <summary>
-        /// 请求显示正在播放的剧集信息详情.
-        /// </summary>
-        public event EventHandler RequestShowPgcSeasonDetail;
 
         /// <summary>
         /// 检查应用更新命令.
@@ -181,10 +139,5 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsTraditionalChinese { get; set; }
-
-        /// <summary>
-        /// VLC 播放器的选项.
-        /// </summary>
-        public string[] VlcOptions { get; set; }
     }
 }

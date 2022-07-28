@@ -13,6 +13,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
@@ -45,6 +46,7 @@ namespace Bili.ViewModels.Uwp.Core
             SubtitleModuleViewModel subtitleModuleViewModel,
             DanmakuModuleViewModel danmakuModuleViewModel,
             InteractionModuleViewModel interactionModuleViewModel,
+            ICallerViewModel callerViewModel,
             AppViewModel appViewModel,
             CoreDispatcher dispatcher,
             DisplayRequest displayRequest)
@@ -57,6 +59,7 @@ namespace Bili.ViewModels.Uwp.Core
             _numberToolkit = numberToolkit;
             _appToolkit = appToolkit;
             _accountViewModel = accountViewModel;
+            _callerViewModel = callerViewModel;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _dispatcher = dispatcher;
@@ -75,40 +78,40 @@ namespace Bili.ViewModels.Uwp.Core
             Formats = new ObservableCollection<FormatInformation>();
             PlaybackRates = new ObservableCollection<PlaybackRateItemViewModel>();
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip, outputScheduler: RxApp.MainThreadScheduler);
-            PlayNextCommand = ReactiveCommand.Create(PlayNextVideo, outputScheduler: RxApp.MainThreadScheduler);
-            SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice, outputScheduler: RxApp.MainThreadScheduler);
-            BackToInteractionVideoStartCommand = ReactiveCommand.Create(BackToInteractionVideoStart, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
+            ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync);
+            ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory);
+            ClearCommand = ReactiveCommand.Create(Reset);
+            ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync);
+            ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync);
+            ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip);
+            PlayNextCommand = ReactiveCommand.Create(PlayNextVideo);
+            SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice);
+            BackToInteractionVideoStartCommand = ReactiveCommand.Create(BackToInteractionVideoStart);
 
-            PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
-            BackwardSkipCommand = ReactiveCommand.CreateFromTask(BackwardSkipAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume, outputScheduler: RxApp.MainThreadScheduler);
-            ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode, outputScheduler: RxApp.MainThreadScheduler);
-            ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode, outputScheduler: RxApp.MainThreadScheduler);
-            ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode, outputScheduler: RxApp.MainThreadScheduler);
-            ExitFullPlayerCommand = ReactiveCommand.Create(ExitFullPlayer, outputScheduler: RxApp.MainThreadScheduler);
-            ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress, outputScheduler: RxApp.MainThreadScheduler);
-            StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
-            StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync, outputScheduler: RxApp.MainThreadScheduler);
-            JumpToLastProgressCommand = ReactiveCommand.Create(JumpToLastProgress, outputScheduler: RxApp.MainThreadScheduler);
-            ReportViewProgressCommand = ReactiveCommand.CreateFromTask(ReportViewProgressAsync, outputScheduler: RxApp.MainThreadScheduler);
-            IncreasePlayRateCommand = ReactiveCommand.Create(IncreasePlayRate, outputScheduler: RxApp.MainThreadScheduler);
-            DecreasePlayRateCommand = ReactiveCommand.Create(DecreasePlayRate, outputScheduler: RxApp.MainThreadScheduler);
-            IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
-            DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume, outputScheduler: RxApp.MainThreadScheduler);
-            BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode, outputScheduler: RxApp.MainThreadScheduler);
-            ClearSourceProgressCommand = ReactiveCommand.Create(ClearSourceProgress, outputScheduler: RxApp.MainThreadScheduler);
+            PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync);
+            ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync);
+            BackwardSkipCommand = ReactiveCommand.CreateFromTask(BackwardSkipAsync);
+            ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync);
+            ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume);
+            ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode);
+            ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode);
+            ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode);
+            ExitFullPlayerCommand = ReactiveCommand.Create(ExitFullPlayer);
+            ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync);
+            ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress);
+            StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync);
+            StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync);
+            JumpToLastProgressCommand = ReactiveCommand.Create(JumpToLastProgress);
+            ReportViewProgressCommand = ReactiveCommand.CreateFromTask(ReportViewProgressAsync);
+            IncreasePlayRateCommand = ReactiveCommand.Create(IncreasePlayRate);
+            DecreasePlayRateCommand = ReactiveCommand.Create(DecreasePlayRate);
+            IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume);
+            DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume);
+            BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode);
+            ClearSourceProgressCommand = ReactiveCommand.Create(ClearSourceProgress);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             ReportViewProgressCommand.ThrownExceptions.Subscribe(LogException);

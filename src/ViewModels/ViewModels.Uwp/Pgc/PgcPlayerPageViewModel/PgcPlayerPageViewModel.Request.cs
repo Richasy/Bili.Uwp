@@ -55,7 +55,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FavoriteFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FavoriteFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CoinFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CoinFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -112,7 +112,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
     }

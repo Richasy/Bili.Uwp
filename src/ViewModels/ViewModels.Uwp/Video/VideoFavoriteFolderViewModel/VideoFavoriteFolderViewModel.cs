@@ -25,9 +25,9 @@ namespace Bili.ViewModels.Uwp.Video
             _accountProvider = accountProvider;
             _navigationViewModel = navigationViewModel;
 
-            RemoveCommand = ReactiveCommand.CreateFromTask(RemoveAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
-            _isRemoving = RemoveCommand.IsExecuting.ToProperty(this, x => x.IsRemoving, scheduler: RxApp.MainThreadScheduler);
+            RemoveCommand = ReactiveCommand.CreateFromTask(RemoveAsync);
+            ShowDetailCommand = ReactiveCommand.Create(ShowDetail);
+            _isRemoving = RemoveCommand.IsExecuting.ToProperty(this, x => x.IsRemoving);
         }
 
         /// <summary>

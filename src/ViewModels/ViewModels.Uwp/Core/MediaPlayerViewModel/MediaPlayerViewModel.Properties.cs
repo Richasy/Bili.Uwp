@@ -10,6 +10,7 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
@@ -36,6 +37,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IAppToolkit _appToolkit;
         private readonly AccountViewModel _accountViewModel;
         private readonly NavigationViewModel _navigationViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;

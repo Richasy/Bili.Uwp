@@ -7,8 +7,8 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Community
     {
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly Dictionary<MessageType, (IEnumerable<MessageInformation> Items, bool IsEnd)> _caches;
 

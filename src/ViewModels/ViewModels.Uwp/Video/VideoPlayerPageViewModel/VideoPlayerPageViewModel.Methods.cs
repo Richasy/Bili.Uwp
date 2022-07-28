@@ -8,6 +8,7 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
+using Bili.ViewModels.Interfaces.Video;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
@@ -19,10 +20,10 @@ namespace Bili.ViewModels.Uwp.Video
     /// </summary>
     public sealed partial class VideoPlayerPageViewModel
     {
-        private VideoItemViewModel GetItemViewModel(VideoInformation information)
+        private IVideoItemViewModel GetItemViewModel(VideoInformation information)
         {
-            var vm = Locator.Current.GetService<VideoItemViewModel>();
-            vm.SetInformation(information);
+            var vm = Locator.Current.GetService<IVideoItemViewModel>();
+            vm.InjectData(information);
             return vm;
         }
 
@@ -50,7 +51,7 @@ namespace Bili.ViewModels.Uwp.Video
             foreach (var item in CurrentSeason.Videos)
             {
                 var vm = GetItemViewModel(item);
-                vm.IsSelected = vm.Information.Equals(View.Information);
+                vm.IsSelected = vm.Data.Equals(View.Information);
                 CurrentSeasonVideos.Add(vm);
             }
         }
@@ -66,7 +67,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             if (_accountViewModel.State != AuthorizeState.SignedIn)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
                 return;
             }
 
@@ -102,7 +103,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             MediaPlayerViewModel.CanPlayNextPart = View.InteractionVideo == null
                 && (VideoParts.FirstOrDefault(p => p.IsSelected).Index < VideoParts.Last().Index
-                    || (VideoPlaylist.Count > 0 && VideoPlaylist.Last().Information != View.Information));
+                    || (VideoPlaylist.Count > 0 && VideoPlaylist.Last().Data != View.Information));
             _playNextVideoAction = null;
 
             // 不处理互动视频.
@@ -124,14 +125,14 @@ namespace Bili.ViewModels.Uwp.Video
             }
             else if (Sections.Any(p => p.Type == PlayerSectionType.Playlist))
             {
-                var canContinue = VideoPlaylist.Count > 1 && !View.Information.Equals(VideoPlaylist.Last().Information);
+                var canContinue = VideoPlaylist.Count > 1 && !View.Information.Equals(VideoPlaylist.Last().Data);
                 if (canContinue)
                 {
-                    var currentIndex = VideoPlaylist.IndexOf(VideoPlaylist.FirstOrDefault(p => p.Information.Equals(View.Information)));
+                    var currentIndex = VideoPlaylist.IndexOf(VideoPlaylist.FirstOrDefault(p => p.Data.Equals(View.Information)));
                     if (currentIndex != -1)
                     {
                         isNewVideo = true;
-                        nextPart = VideoPlaylist[currentIndex + 1].Information.Identifier;
+                        nextPart = VideoPlaylist[currentIndex + 1].Data.Identifier;
                     }
                 }
             }
@@ -145,7 +146,7 @@ namespace Bili.ViewModels.Uwp.Video
                     if (canContinue)
                     {
                         var index = CurrentSeasonVideos.IndexOf(currentVideo);
-                        nextPart = CurrentSeasonVideos[index + 1].Information.Identifier;
+                        nextPart = CurrentSeasonVideos[index + 1].Data.Identifier;
                         isNewVideo = true;
                     }
                 }
@@ -154,7 +155,7 @@ namespace Bili.ViewModels.Uwp.Video
                 && RelatedVideos.Count > 0)
             {
                 ClearPlaylistCommand.Execute().Subscribe();
-                nextPart = RelatedVideos.First().Information.Identifier;
+                nextPart = RelatedVideos.First().Data.Identifier;
                 isNewVideo = true;
             }
 

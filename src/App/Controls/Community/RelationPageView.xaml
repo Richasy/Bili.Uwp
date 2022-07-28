@@ -2,7 +2,7 @@
     x:Class="Bili.App.Controls.Community.RelationPageView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:account="using:Bili.ViewModels.Uwp.Account"
+    xmlns:account="using:Bili.ViewModels.Interfaces.Account"
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
@@ -56,7 +56,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="account:UserItemViewModel">
+                    <DataTemplate x:DataType="account:IUserItemViewModel">
                         <user:UserItem ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </controls:VerticalRepeaterView.ItemTemplate>

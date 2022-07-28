@@ -34,8 +34,8 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _resourceToolkit = resourceToolkit;
             _videoToolkit = videoToolkit;
             _appViewModel = appViewModel;
-            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync, outputScheduler: RxApp.MainThreadScheduler);
-            _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting, scheduler: RxApp.MainThreadScheduler);
+            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync);
+            _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting);
 
             ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
             _dispatcher = dispatcher;

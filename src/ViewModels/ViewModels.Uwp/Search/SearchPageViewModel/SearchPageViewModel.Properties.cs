@@ -6,11 +6,12 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Live;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -43,27 +44,27 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// 视频集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> Videos { get; }
+        public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
         /// <summary>
         /// 动画集合.
         /// </summary>
-        public ObservableCollection<SeasonItemViewModel> Animes { get; }
+        public ObservableCollection<ISeasonItemViewModel> Animes { get; }
 
         /// <summary>
         /// 影视集合.
         /// </summary>
-        public ObservableCollection<SeasonItemViewModel> Movies { get; }
+        public ObservableCollection<ISeasonItemViewModel> Movies { get; }
 
         /// <summary>
         /// 用户集合.
         /// </summary>
-        public ObservableCollection<UserItemViewModel> Users { get; }
+        public ObservableCollection<IUserItemViewModel> Users { get; }
 
         /// <summary>
         /// 文章集合.
         /// </summary>
-        public ObservableCollection<ArticleItemViewModel> Articles { get; }
+        public ObservableCollection<IArticleItemViewModel> Articles { get; }
 
         /// <summary>
         /// 直播集合.

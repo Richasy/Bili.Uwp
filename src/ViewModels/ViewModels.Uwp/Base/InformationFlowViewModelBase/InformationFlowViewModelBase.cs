@@ -23,9 +23,9 @@ namespace Bili.ViewModels.Uwp.Base
             _dispatcher = dispatcher;
             Items = new ObservableCollection<T>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
 
             _isReloading = ReloadCommand.IsExecuting
                 .Merge(InitializeCommand.IsExecuting)

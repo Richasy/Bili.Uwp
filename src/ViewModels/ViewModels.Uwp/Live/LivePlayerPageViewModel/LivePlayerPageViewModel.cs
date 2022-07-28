@@ -13,6 +13,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
@@ -37,6 +38,7 @@ namespace Bili.ViewModels.Uwp.Live
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
             AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             MediaPlayerViewModel playerViewModel,
@@ -50,6 +52,7 @@ namespace Bili.ViewModels.Uwp.Live
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
             _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
@@ -64,13 +67,13 @@ namespace Bili.ViewModels.Uwp.Live
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
+            ShareCommand = ReactiveCommand.Create(Share);
+            FixedCommand = ReactiveCommand.Create(Fix);
+            ClearCommand = ReactiveCommand.Create(Reset);
+            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
 
             ReloadCommand.ThrownExceptions
                 .Subscribe(DisplayException);

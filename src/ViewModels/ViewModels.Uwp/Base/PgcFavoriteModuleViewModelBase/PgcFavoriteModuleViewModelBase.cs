@@ -8,7 +8,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// PGC收藏夹视图模型.
     /// </summary>
-    public partial class PgcFavoriteModuleViewModelBase : InformationFlowViewModelBase<SeasonItemViewModel>
+    public partial class PgcFavoriteModuleViewModelBase : InformationFlowViewModelBase<ISeasonItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcFavoriteModuleViewModelBase"/> class.
@@ -36,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Base
             StatusCollection = new ObservableCollection<int> { 1, 2, 3 };
             Status = 2;
 
-            SetStatusCommand = ReactiveCommand.Create<int>(SetStatus, outputScheduler: RxApp.MainThreadScheduler);
+            SetStatusCommand = ReactiveCommand.Create<int>(SetStatus);
         }
 
         /// <inheritdoc/>
@@ -77,9 +77,9 @@ namespace Bili.ViewModels.Uwp.Base
 
             foreach (var item in data.Items)
             {
-                var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                seasonVM.SetInformation(item);
-                seasonVM.SetAdditionalAction(vm => RemoveItem(vm));
+                var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                seasonVM.InjectData(item);
+                seasonVM.InjectAction(vm => RemoveItem(vm));
                 Items.Add(seasonVM);
             }
 
@@ -94,7 +94,7 @@ namespace Bili.ViewModels.Uwp.Base
             InitializeCommand.Execute().Subscribe();
         }
 
-        private void RemoveItem(SeasonItemViewModel vm)
+        private void RemoveItem(ISeasonItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

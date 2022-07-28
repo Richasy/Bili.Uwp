@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// </summary>
     public sealed partial class MessageItemViewModel
     {
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly IResourceToolkit _resourceToolkit;
 
         /// <summary>

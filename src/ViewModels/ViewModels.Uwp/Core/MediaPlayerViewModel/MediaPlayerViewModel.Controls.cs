@@ -192,7 +192,7 @@ namespace Bili.ViewModels.Uwp.Core
             var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             await _player.ScreenshotAsync(stream.AsStreamForWrite());
 
-            _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
+            _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
 
             var shouldCopy = _settingsToolkit.ReadLocalSetting(SettingNames.CopyScreenshotAfterSave, true);
             if (shouldCopy)

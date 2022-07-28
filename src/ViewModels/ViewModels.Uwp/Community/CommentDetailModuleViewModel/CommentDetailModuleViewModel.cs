@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -25,19 +25,19 @@ namespace Bili.ViewModels.Uwp.Community
         public CommentDetailModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
 
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync, outputScheduler: RxApp.MainThreadScheduler);
-            BackCommand = ReactiveCommand.Create(Back, outputScheduler: RxApp.MainThreadScheduler);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment, outputScheduler: RxApp.MainThreadScheduler);
+            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
+            BackCommand = ReactiveCommand.Create(Back);
+            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
 
-            _isSending = SendCommentCommand.IsExecuting.ToProperty(this, x => x.IsSending, scheduler: RxApp.MainThreadScheduler);
+            _isSending = SendCommentCommand.IsExecuting.ToProperty(this, x => x.IsSending);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
