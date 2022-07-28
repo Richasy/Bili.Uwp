@@ -168,14 +168,6 @@ namespace Bili.ViewModels.Uwp.Core
                     Status = PlayerStatus.NotLoad;
                 }
 
-                if (Status == PlayerStatus.Opened
-                && _isInitializePlaying
-                && _videoPlayer.PlaybackSession.Position != TimeSpan.Zero)
-                {
-                    SeekTo(TimeSpan.Zero);
-                    _isInitializePlaying = false;
-                }
-
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
             });
         }
@@ -198,6 +190,13 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnPlayerPositionChangedAsync(MediaPlaybackSession sender, object args)
         {
+            if (_shouldPreventSkip && Position != TimeSpan.Zero)
+            {
+                _shouldPreventSkip = false;
+                SeekTo(TimeSpan.Zero);
+                return;
+            }
+
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 try
