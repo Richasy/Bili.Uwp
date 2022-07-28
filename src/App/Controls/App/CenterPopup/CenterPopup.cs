@@ -23,8 +23,7 @@ namespace Bili.App.Controls
         public CenterPopup()
         {
             DefaultStyleKey = typeof(CenterPopup);
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
-            GettingFocus += OnGettingFocus;
+            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
             Loaded += OnLoaded;
         }
 
@@ -70,13 +69,5 @@ namespace Bili.App.Controls
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
             => Hide();
-
-        private void OnGettingFocus(UIElement sender, GettingFocusEventArgs args)
-        {
-            if (_closeButton != null)
-            {
-                args.TrySetNewFocusedElement(_closeButton);
-            }
-        }
     }
 }

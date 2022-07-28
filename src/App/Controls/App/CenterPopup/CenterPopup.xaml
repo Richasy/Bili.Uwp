@@ -92,6 +92,7 @@
                                 HorizontalContentAlignment="Stretch"
                                 VerticalContentAlignment="Stretch"
                                 Content="{TemplateBinding Content}"
+                                AllowFocusOnInteraction="True"
                                 XYFocusKeyboardNavigation="Enabled" />
                         </Grid>
                     </Grid>

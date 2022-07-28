@@ -59,6 +59,7 @@
 
                         <local:CommentBox
                             Grid.Row="2"
+                            AllowFocusOnInteraction="True"
                             ReplyTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReplyTip}"
                             ResetSelectedCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ResetSelectedCommentCommand}"
                             SendCommand="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SendCommentCommand}"

@@ -60,6 +60,7 @@
             VerticalAlignment="Stretch"
             AcceptsReturn="True"
             Background="Transparent"
+            AllowFocusOnInteraction="True"
             BorderThickness="0"
             PlaceholderText="{loc:Locale Name=ReplyPlaceholderText}"
             Text="{x:Bind Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
