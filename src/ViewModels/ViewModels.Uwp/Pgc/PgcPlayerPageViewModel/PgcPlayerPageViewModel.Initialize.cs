@@ -5,6 +5,8 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
@@ -23,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 foreach (var item in actors)
                 {
-                    var vm = Splat.Locator.Current.GetService<UserItemViewModel>();
+                    var vm = Splat.Locator.Current.GetService<IUserItemViewModel>();
                     vm.SetProfile(item);
                     Celebrities.Add(vm);
                 }
@@ -109,8 +111,8 @@ namespace Bili.ViewModels.Uwp.Pgc
                 for (var i = 0; i < subVideos.Count; i++)
                 {
                     var item = subVideos[i];
-                    var vm = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
-                    vm.SetInformation(item);
+                    var vm = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                    vm.InjectData(item);
                     vm.IsSelected = item.Equals(CurrentEpisode);
                     Episodes.Add(vm);
                 }

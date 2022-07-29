@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using Splat;
@@ -36,7 +37,7 @@ namespace Bili.App.Controls.Pgc
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
 
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -4,6 +4,8 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Dynamic;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -19,14 +21,14 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICommunityProvider _communityProvider;
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly NavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 用户信息.
         /// </summary>
         [Reactive]
-        public UserItemViewModel Publisher { get; set; }
+        public IUserItemViewModel Publisher { get; set; }
 
         /// <summary>
         /// 信息.

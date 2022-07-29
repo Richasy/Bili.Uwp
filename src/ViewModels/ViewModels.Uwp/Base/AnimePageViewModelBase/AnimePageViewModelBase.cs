@@ -16,6 +16,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Video;
@@ -64,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Base
             Banners = new ObservableCollection<BannerViewModel>();
             Ranks = new ObservableCollection<PgcRankViewModel>();
             Playlists = new ObservableCollection<PgcPlaylistViewModel>();
-            Videos = new ObservableCollection<VideoItemViewModel>();
+            Videos = new ObservableCollection<IVideoItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
 
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
@@ -74,21 +75,21 @@ namespace Bili.ViewModels.Uwp.Base
             Ranks.CollectionChanged += OnRanksCollectionChanged;
             Playlists.CollectionChanged += OnPlaylistsCollectionChanged;
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
+            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync);
+            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
+            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
+            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage);
 
             _isReloading = InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloading);
 
             _isIncrementalLoading = IncrementalCommand.IsExecuting
                 .Merge(IncrementalCommand.IsExecuting)
-                .ToProperty(this, x => x.IsIncrementalLoading, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsIncrementalLoading);
 
             ReloadCommand.ThrownExceptions
                 .Merge(InitializeCommand.ThrownExceptions)
@@ -216,13 +217,13 @@ namespace Bili.ViewModels.Uwp.Base
 
             foreach (var item in videos)
             {
-                if (Videos.Any(p => p.Information.Equals(item)))
+                if (Videos.Any(p => p.Data.Equals(item)))
                 {
                     continue;
                 }
 
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
                 Videos.Add(videoVM);
             }
         }

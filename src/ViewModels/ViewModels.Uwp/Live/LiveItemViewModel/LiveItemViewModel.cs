@@ -29,8 +29,8 @@ namespace Bili.ViewModels.Uwp.Live
             _numberToolkit = numberToolkit;
             _navigationViewModel = navigationViewModel;
 
-            PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
+            PlayCommand = ReactiveCommand.Create(Play);
+            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
         }
 
         /// <inheritdoc/>

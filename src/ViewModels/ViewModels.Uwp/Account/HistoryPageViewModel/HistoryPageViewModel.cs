@@ -4,8 +4,8 @@ using System;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 历史记录页面视图模型.
     /// </summary>
-    public sealed partial class HistoryPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class HistoryPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HistoryPageViewModel"/> class.
@@ -29,8 +29,8 @@ namespace Bili.ViewModels.Uwp.Account
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
 
-            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync, outputScheduler: RxApp.MainThreadScheduler);
-            _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing, scheduler: RxApp.MainThreadScheduler);
+            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync);
+            _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing);
         }
 
         /// <inheritdoc/>
@@ -52,9 +52,9 @@ namespace Bili.ViewModels.Uwp.Account
             var data = await _accountProvider.GetMyHistorySetAsync();
             foreach (var item in data.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
-                videoVM.SetAdditionalAction(vm => RemoveVideo(vm));
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
+                videoVM.InjectAction(vm => RemoveVideo(vm));
                 Items.Add(videoVM);
             }
 
@@ -76,7 +76,7 @@ namespace Bili.ViewModels.Uwp.Account
             }
         }
 
-        private void RemoveVideo(VideoItemViewModel vm)
+        private void RemoveVideo(IVideoItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

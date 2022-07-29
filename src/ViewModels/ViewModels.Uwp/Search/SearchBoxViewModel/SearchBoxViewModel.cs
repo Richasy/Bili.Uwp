@@ -35,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Search
             HotSearchCollection = new ObservableCollection<SearchSuggest>();
             SearchSuggestion = new ObservableCollection<SearchSuggest>();
 
-            SearchCommand = ReactiveCommand.Create<string>(Search, outputScheduler: RxApp.MainThreadScheduler);
-            SelectSuggestCommand = ReactiveCommand.Create<SearchSuggest>(Search, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommand = ReactiveCommand.CreateFromTask(LoadHotSearchAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SearchCommand = ReactiveCommand.Create<string>(Search);
+            SelectSuggestCommand = ReactiveCommand.Create<SearchSuggest>(Search);
+            InitializeCommand = ReactiveCommand.CreateFromTask(LoadHotSearchAsync);
 
             _suggestionTimer = new DispatcherTimer
             {

@@ -2,8 +2,8 @@
 
 using System;
 using System.Linq;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.UI.Xaml;
@@ -30,7 +30,7 @@ namespace Bili.App.Controls.Favorite
         /// <summary>
         /// 核心数据模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
 
         /// <summary>
         /// 视图模型.

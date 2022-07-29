@@ -21,10 +21,10 @@ namespace Bili.ViewModels.Uwp.Account
             _navigationViewModel = navigationViewModel;
             AccountViewModel = accountViewModel;
 
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoViewLaterPageCommand = ReactiveCommand.Create(GotoViewLaterPage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoHistoryPageCommand = ReactiveCommand.Create(GotoHistoryPage, outputScheduler: RxApp.MainThreadScheduler);
-            SignOutCommand = ReactiveCommand.Create(SignOut, outputScheduler: RxApp.MainThreadScheduler);
+            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
+            GotoViewLaterPageCommand = ReactiveCommand.Create(GotoViewLaterPage);
+            GotoHistoryPageCommand = ReactiveCommand.Create(GotoHistoryPage);
+            SignOutCommand = ReactiveCommand.Create(SignOut);
         }
 
         private void GotoFavoritePage()

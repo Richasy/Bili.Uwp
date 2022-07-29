@@ -8,6 +8,7 @@ using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Article;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -32,7 +33,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// <summary>
         /// 横幅集合.
         /// </summary>
-        public ObservableCollection<ArticleItemViewModel> Ranks { get; }
+        public ObservableCollection<IArticleItemViewModel> Ranks { get; }
 
         /// <summary>
         /// 子分区集合.

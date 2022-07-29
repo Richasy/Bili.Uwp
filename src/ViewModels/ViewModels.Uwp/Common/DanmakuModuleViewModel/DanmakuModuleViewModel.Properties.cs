@@ -11,7 +11,7 @@ using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly ILiveProvider _liveProvider;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isDanmakuLoading;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
 
         private string _mainId;
         private string _partId;

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,7 +12,7 @@ namespace Bili.App.Controls.Videos
     /// <summary>
     /// 用来显示视频条目的 UI 单元，可以通过样式展现不同的布局.
     /// </summary>
-    public sealed partial class VideoItem : ReactiveControl<VideoItemViewModel>, IRepeaterItem, IOrientationControl
+    public sealed partial class VideoItem : ReactiveControl<IVideoItemViewModel>, IRepeaterItem, IOrientationControl
     {
         /// <summary>
         /// <see cref="IsDynamic"/> 的依赖属性.
@@ -60,7 +60,7 @@ namespace Bili.App.Controls.Videos
                 return;
             }
 
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? IsDynamic ? resourceToolkit.GetResource<Style>("HorizontalDynamicVideoItemStyle") : resourceToolkit.GetResource<Style>("HorizontalVideoItemStyle")
                 : IsDynamic ? resourceToolkit.GetResource<Style>("VerticalDynamicVideoItemStyle") : resourceToolkit.GetResource<Style>("VerticalVideoItemStyle");

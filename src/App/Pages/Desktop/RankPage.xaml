@@ -48,7 +48,7 @@
             x:Name="RankNavigationView"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnDetailNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
@@ -79,7 +79,7 @@
             x:Name="ContentScrollViewer"
             Grid.Row="2"
             Margin="0,-4,0,0"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -87,7 +87,7 @@
                 x:Name="VideoView"
                 Margin="0,0,0,12"
                 HeaderVisibility="Collapsed"
-                ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                ItemsSource="{x:Bind ViewModel.Videos}"
                 MinWideItemHeight="252"
                 Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                 <controls:VerticalRepeaterView.ItemTemplate>

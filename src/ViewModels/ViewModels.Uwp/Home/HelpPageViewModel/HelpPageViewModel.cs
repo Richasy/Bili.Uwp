@@ -34,10 +34,10 @@ namespace Bili.ViewModels.Uwp.Home
             LinkCollection = new ObservableCollection<KeyValue<string>>();
             InitializeLinks();
 
-            AskIssueCommand = ReactiveCommand.CreateFromTask(AskIssueAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoProjectHomeCommand = ReactiveCommand.CreateFromTask(GotoProjectHomeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoDeveloperBiliBiliHomePageCommand = ReactiveCommand.CreateFromTask(GotoDeveloperBiliBiliHomePageAsync, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeQuestionsAsync, outputScheduler: RxApp.MainThreadScheduler);
+            AskIssueCommand = ReactiveCommand.CreateFromTask(AskIssueAsync);
+            GotoProjectHomeCommand = ReactiveCommand.CreateFromTask(GotoProjectHomeAsync);
+            GotoDeveloperBiliBiliHomePageCommand = ReactiveCommand.CreateFromTask(GotoDeveloperBiliBiliHomePageAsync);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeQuestionsAsync);
         }
 
         /// <summary>

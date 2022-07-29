@@ -51,7 +51,7 @@
             x:Name="ArticleNavigationView"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnSpecialColumnNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
@@ -67,7 +67,7 @@
             x:Name="ContentScrollViewer"
             Grid.Row="2"
             Margin="0,8,0,0"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

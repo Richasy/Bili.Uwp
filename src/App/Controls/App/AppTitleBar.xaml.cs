@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using Bili.Models.Data.Local;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
@@ -16,6 +17,7 @@ namespace Bili.App.Controls
     public sealed partial class AppTitleBar : AppTitleBarBase
     {
         private readonly NavigationViewModel _navigationViewModel;
+        private readonly IRecordViewModel _recordViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppTitleBar"/> class.
@@ -23,9 +25,10 @@ namespace Bili.App.Controls
         public AppTitleBar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<AppViewModel>();
+            ViewModel = Locator.Current.GetService<IAppViewModel>();
             _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
+            (ViewModel as ReactiveObject).PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
         }
 
@@ -60,7 +63,7 @@ namespace Bili.App.Controls
         private void OnRemoveRecordButtonClick(object sender, RoutedEventArgs e)
         {
             var context = (sender as FrameworkElement).DataContext as PlayRecord;
-            ViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
+            _recordViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
         }
 
         private void OnPlayRecordItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
@@ -76,7 +79,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// <see cref="AppTitleBar"/> 的基类.
     /// </summary>
-    public class AppTitleBarBase : ReactiveUserControl<AppViewModel>
+    public class AppTitleBarBase : ReactiveUserControl<IAppViewModel>
     {
     }
 }

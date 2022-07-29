@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
@@ -28,18 +28,18 @@ namespace Bili.ViewModels.Uwp.Common
             ISettingsToolkit settingsToolkit,
             IResourceToolkit resourceToolkit,
             IAuthorizeProvider authorizeProvider,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             AccountViewModel accountViewModel)
         {
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _accountViewModel = accountViewModel;
             _authorizeProvider = authorizeProvider;
             TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
 
-            ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SaveDownloadTextCommand = ReactiveCommand.CreateFromTask(SaveDownloadCommandAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync);
+            SaveDownloadTextCommand = ReactiveCommand.CreateFromTask(SaveDownloadCommandAsync);
 
             UseMp4Box = ReadSetting(SettingNames.Download_UseMp4Box, false);
             OnlyHevc = ReadSetting(SettingNames.Download_OnlyHevc, false);
@@ -128,7 +128,7 @@ namespace Bili.ViewModels.Uwp.Common
         {
             if (TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && TotalPartCollection.Count > 1)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.AtLeastChooseOnePart), Models.Enums.App.InfoType.Warning);
                 return;
             }
 
@@ -230,7 +230,7 @@ namespace Bili.ViewModels.Uwp.Common
             dp.SetText(command);
             Clipboard.SetContent(dp);
 
-            _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.Copied));
+            _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.Copied));
         }
 
         private void WriteSetting<T>(SettingNames name, T value)

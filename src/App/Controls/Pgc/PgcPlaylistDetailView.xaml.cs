@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls
@@ -14,7 +14,7 @@ namespace Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(PgcPlaylistViewModel), typeof(PgcPlayListDetailView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IPgcPlaylistViewModel), typeof(PgcPlayListDetailView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlayListDetailView"/> class.
@@ -24,9 +24,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public PgcPlaylistViewModel ViewModel
+        public IPgcPlaylistViewModel ViewModel
         {
-            get { return (PgcPlaylistViewModel)GetValue(ViewModelProperty); }
+            get { return (IPgcPlaylistViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

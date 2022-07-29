@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -28,6 +28,8 @@ namespace Bili.App.Controls
     public sealed partial class ImageViewer : UserControl
     {
         private readonly Dictionary<string, byte[]> _images;
+        private readonly ICallerViewModel _callerViewModel;
+        private readonly IResourceToolkit _resourceToolkit;
         private int _currentIndex;
         private int _currentImageHeight;
         private bool _isControlShown;
@@ -39,6 +41,8 @@ namespace Bili.App.Controls
         {
             InitializeComponent();
             _images = new Dictionary<string, byte[]>();
+            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
+            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             Instance = this;
             Images = new ObservableCollection<Models.Data.Appearance.Image>();
         }
@@ -240,8 +244,7 @@ namespace Bili.App.Controls
             var dp = new DataPackage();
             dp.SetBitmap(RandomAccessStreamReference.CreateFromUri(image.GetSourceUri()));
             Clipboard.SetContent(dp);
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
-            Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
+            _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Copied), Models.Enums.App.InfoType.Success);
         }
 
         private async void OnSaveButtonClickAsync(object sender, RoutedEventArgs e)
@@ -269,8 +272,7 @@ namespace Bili.App.Controls
             if (file != null)
             {
                 await FileIO.WriteBytesAsync(file, cache);
-                var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
-                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Saved), Models.Enums.App.InfoType.Success);
             }
         }
 
@@ -303,14 +305,13 @@ namespace Bili.App.Controls
                 ? await profileSettings.TrySetWallpaperImageAsync(file).AsTask()
                 : await profileSettings.TrySetLockScreenImageAsync(file).AsTask();
 
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             if (result)
             {
-                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetSuccess), Models.Enums.App.InfoType.Success);
             }
             else
             {
-                Splat.Locator.Current.GetService<AppViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
 
             await Task.Delay(1000);
@@ -341,7 +342,7 @@ namespace Bili.App.Controls
             _currentIndex = 0;
             Image.Source = null;
             Container.Visibility = Visibility.Collapsed;
-            Splat.Locator.Current.GetService<AppViewModel>().ShowImages(null, -1);
+            _callerViewModel.ShowImages(null, -1);
         }
 
         private void ShowControls()

@@ -53,7 +53,7 @@
             x:Name="DetailNavigationView"
             Style="{StaticResource XboxSideNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnDetailNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.SubPartitions}"
             SelectedItem="{x:Bind ViewModel.CurrentSubPartition, Mode=OneWay}">
@@ -71,7 +71,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <controls:VerticalRepeaterView

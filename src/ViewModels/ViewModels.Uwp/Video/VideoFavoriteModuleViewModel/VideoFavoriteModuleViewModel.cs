@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _accountProvider = accountProvider;
             _favoriteProvider = favoriteProvider;
-            ShowDefaultFolderDetailCommand = ReactiveCommand.Create(ShowDefaultFolderDetail, outputScheduler: RxApp.MainThreadScheduler);
+            ShowDefaultFolderDetailCommand = ReactiveCommand.Create(ShowDefaultFolderDetail);
         }
 
         /// <inheritdoc/>

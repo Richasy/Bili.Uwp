@@ -5,8 +5,10 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isSearching;
         private readonly ObservableAsPropertyHelper<bool> _canSearch;
         private UserProfile _userProfile;
@@ -62,13 +64,13 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// 搜索的视频结果.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> SearchVideos { get; }
+        public ObservableCollection<IVideoItemViewModel> SearchVideos { get; }
 
         /// <summary>
         /// 账户信息.
         /// </summary>
         [Reactive]
-        public UserItemViewModel UserViewModel { get; internal set; }
+        public IUserItemViewModel UserViewModel { get; internal set; }
 
         /// <summary>
         /// 是否为我自己（已登录用户）的用户空间.

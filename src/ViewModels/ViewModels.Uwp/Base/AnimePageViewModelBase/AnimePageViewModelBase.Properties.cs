@@ -9,9 +9,9 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -58,7 +58,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 相关的视频集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> Videos { get; }
+        public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }

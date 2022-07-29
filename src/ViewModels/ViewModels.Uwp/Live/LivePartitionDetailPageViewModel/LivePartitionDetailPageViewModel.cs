@@ -44,8 +44,8 @@ namespace Bili.ViewModels.Uwp.Live
 
             Tags = new ObservableCollection<LiveTag>();
 
-            SelectTagCommand = ReactiveCommand.CreateFromTask<LiveTag>(SelectTagAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions, outputScheduler: RxApp.MainThreadScheduler);
+            SelectTagCommand = ReactiveCommand.CreateFromTask<LiveTag>(SelectTagAsync);
+            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
         }
 
         /// <summary>

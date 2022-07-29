@@ -5,7 +5,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
 using Splat;
 using Windows.UI.Core;
 
@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 关系用户页面视图模型基类，是粉丝/关注页面的基础.
     /// </summary>
-    public partial class RelationPageViewModelBase : InformationFlowViewModelBase<UserItemViewModel>
+    public partial class RelationPageViewModelBase : InformationFlowViewModelBase<IUserItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RelationPageViewModelBase"/> class.
@@ -67,7 +67,7 @@ namespace Bili.ViewModels.Uwp.Base
             var data = await _accountProvider.GetUserFansOrFollowsAsync(Profile.Id, _relationType);
             foreach (var item in data.Accounts)
             {
-                var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                 userVM.SetInformation(item);
                 Items.Add(userVM);
             }

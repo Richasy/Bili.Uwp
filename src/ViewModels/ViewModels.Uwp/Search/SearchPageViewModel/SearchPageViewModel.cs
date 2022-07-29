@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Live;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -36,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Search
             IHomeProvider homeProvider,
             IArticleProvider articleProvider,
             ISettingsToolkit settingsToolkit,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -44,24 +44,25 @@ namespace Bili.ViewModels.Uwp.Search
             _homeProvider = homeProvider;
             _articleProvider = articleProvider;
             _settingsToolkit = settingsToolkit;
+            _appViewModel = appViewModel;
 
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
             _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();
 
-            Videos = new ObservableCollection<VideoItemViewModel>();
-            Animes = new ObservableCollection<SeasonItemViewModel>();
-            Movies = new ObservableCollection<SeasonItemViewModel>();
-            Users = new ObservableCollection<UserItemViewModel>();
-            Articles = new ObservableCollection<ArticleItemViewModel>();
+            Videos = new ObservableCollection<IVideoItemViewModel>();
+            Animes = new ObservableCollection<ISeasonItemViewModel>();
+            Movies = new ObservableCollection<ISeasonItemViewModel>();
+            Users = new ObservableCollection<IUserItemViewModel>();
+            Articles = new ObservableCollection<IArticleItemViewModel>();
             Lives = new ObservableCollection<LiveItemViewModel>();
             CurrentFilters = new ObservableCollection<SearchFilterViewModel>();
 
-            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
+            SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync);
 
             _isReloadingModule = ReloadModuleCommand.IsExecuting
                 .Merge(SelectModuleCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloadingModule, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloadingModule);
 
             ReloadModuleCommand.ThrownExceptions
                 .Merge(SelectModuleCommand.ThrownExceptions)
@@ -161,7 +162,7 @@ namespace Bili.ViewModels.Uwp.Search
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.User, _resourceToolkit.GetLocaleString(LanguageNames.User)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Movie, _resourceToolkit.GetLocaleString(LanguageNames.Movie)));
 
-            if (!Locator.Current.GetService<AppViewModel>().IsXbox)
+            if (!_appViewModel.IsXbox)
             {
                 Items.Add(new SearchModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
             }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
@@ -14,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频收藏夹详情视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteFolderDetailViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class VideoFavoriteFolderDetailViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteFolderDetailViewModel"/> class.
@@ -72,10 +73,10 @@ namespace Bili.ViewModels.Uwp.Video
             var data = await _favoriteProvider.GetVideoFavoriteFolderDetailAsync(Folder.Id);
             foreach (var item in data.VideoSet.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
                 videoVM.SetAdditionalData(Folder.Id);
-                videoVM.SetAdditionalAction(RemoveVideo);
+                videoVM.InjectAction(RemoveVideo);
                 Items.Add(videoVM);
             }
 
@@ -83,7 +84,7 @@ namespace Bili.ViewModels.Uwp.Video
             _isEnd = Items.Count == Folder.TotalCount;
         }
 
-        private void RemoveVideo(VideoItemViewModel vm)
+        private void RemoveVideo(IVideoItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

@@ -45,7 +45,7 @@
             x:Name="Nav"
             Style="{StaticResource XboxSideNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.Items}"
             OpenPaneLength="120"

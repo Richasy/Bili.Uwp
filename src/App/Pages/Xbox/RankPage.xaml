@@ -60,7 +60,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 IsTabStop="False"
                 VerticalScrollBarVisibility="Auto"
@@ -71,7 +71,7 @@
                     HeaderVisibility="Collapsed"
                     IsTabStop="False"
                     ItemOrientation="Horizontal"
-                    ItemsSource="{x:Bind ViewModel.VideoCollection}"
+                    ItemsSource="{x:Bind ViewModel.Videos}"
                     MinWideItemHeight="242"
                     Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>

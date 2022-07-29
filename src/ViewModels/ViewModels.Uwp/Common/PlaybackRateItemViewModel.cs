@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Common
             : base(rate, isSelected)
         {
             _action = action;
-            ActiveCommand = ReactiveCommand.Create(() => { _action.Invoke(Data); }, outputScheduler: RxApp.MainThreadScheduler);
+            ActiveCommand = ReactiveCommand.Create(() => { _action.Invoke(Data); });
         }
 
         /// <summary>

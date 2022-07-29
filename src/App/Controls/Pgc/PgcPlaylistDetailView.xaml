@@ -8,8 +8,8 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
-    xmlns:pgc1="using:Bili.App.Controls.Pgc"
+    xmlns:pgcControls="using:Bili.App.Controls.Pgc"
+    xmlns:pgcInterfaces="using:Bili.ViewModels.Interfaces.Pgc"
     Title="{x:Bind ViewModel.Data.Title, Mode=OneWay}"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -42,8 +42,8 @@
                         ItemsSource="{x:Bind ViewModel.Seasons}"
                         Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                         <local:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="pgc:SeasonItemViewModel">
-                                <pgc1:SeasonItem Style="{StaticResource SlimSeasonItemStyle}" ViewModel="{x:Bind}" />
+                            <DataTemplate x:DataType="pgcInterfaces:ISeasonItemViewModel">
+                                <pgcControls:SeasonItem Style="{StaticResource SlimSeasonItemStyle}" ViewModel="{x:Bind}" />
                             </DataTemplate>
                         </local:VerticalRepeaterView.ItemTemplate>
                     </local:VerticalRepeaterView>

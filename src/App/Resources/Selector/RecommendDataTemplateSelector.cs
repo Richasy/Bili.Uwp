@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -21,7 +21,7 @@ namespace Bili.App.Resources.Selector
         /// <inheritdoc/>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            return item is VideoItemViewModel
+            return item is IVideoItemViewModel
                 ? VideoTemplate
                 : EpisodeTemplate;
         }

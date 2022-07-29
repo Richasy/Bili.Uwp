@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Interfaces.Article;
 using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,7 +12,7 @@ namespace Bili.App.Controls.Article
     /// <summary>
     /// 文章条目.
     /// </summary>
-    public sealed class ArticleItem : ReactiveControl<ArticleItemViewModel>, IRepeaterItem, IOrientationControl
+    public sealed class ArticleItem : ReactiveControl<IArticleItemViewModel>, IRepeaterItem, IOrientationControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleItem"/> class.
@@ -25,7 +25,7 @@ namespace Bili.App.Controls.Article
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
         {
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? resourceToolkit.GetResource<Style>("HorizontalArticleItemStyle")
                 : resourceToolkit.GetResource<Style>("VerticalArticleItemStyle");

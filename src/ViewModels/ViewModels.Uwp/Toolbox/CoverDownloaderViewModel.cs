@@ -36,10 +36,10 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _videoToolkit = videoToolkit;
             _dispatcher = dispatcher;
 
-            DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync, outputScheduler: RxApp.MainThreadScheduler);
+            DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync);
+            LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync);
 
-            _isDownloading = DownloadCommand.IsExecuting.ToProperty(this, x => x.IsDownloading, scheduler: RxApp.MainThreadScheduler);
+            _isDownloading = DownloadCommand.IsExecuting.ToProperty(this, x => x.IsDownloading);
 
             this.WhenAnyValue(x => x.ErrorMessage)
                 .Subscribe(x => IsShowError = !string.IsNullOrEmpty(x));

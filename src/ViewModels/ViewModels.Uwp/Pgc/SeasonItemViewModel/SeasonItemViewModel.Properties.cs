@@ -6,6 +6,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -20,56 +21,40 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly INumberToolkit _numberToolkit;
         private readonly IFavoriteProvider _favoriteProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private Action<SeasonItemViewModel> _additionalAction;
+        private Action<ISeasonItemViewModel> _additionalAction;
 
-        /// <summary>
-        /// 在网页中打开的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
 
-        /// <summary>
-        /// 播放命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> PlayCommand { get; }
 
-        /// <summary>
-        /// 取消关注命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> UnfollowCommand { get; }
 
-        /// <summary>
-        /// 改变收藏状态命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<int, Unit> ChangeFavoriteStatusCommand { get; }
 
-        /// <summary>
-        /// 剧集单集信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public SeasonInformation Information { get; internal set; }
+        public SeasonInformation Data { get; set; }
 
-        /// <summary>
-        /// 是否被选中.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSelected { get; set; }
 
-        /// <summary>
-        /// 是否显示评分.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowRating { get; set; }
 
-        /// <summary>
-        /// 追番次数文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string TrackCountText { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SeasonItemViewModel model && EqualityComparer<SeasonInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is SeasonItemViewModel model && EqualityComparer<SeasonInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

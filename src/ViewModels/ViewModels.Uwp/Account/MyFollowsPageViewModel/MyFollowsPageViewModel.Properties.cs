@@ -6,6 +6,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly AccountViewModel _accountViewModel;
 
-        private readonly Dictionary<string, IEnumerable<UserItemViewModel>> _cache;
+        private readonly Dictionary<string, IEnumerable<IUserItemViewModel>> _cache;
         private readonly ObservableAsPropertyHelper<bool> _isSwitching;
 
         /// <summary>

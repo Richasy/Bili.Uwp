@@ -54,7 +54,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 BringIntoViewOnFocusChange="True"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">

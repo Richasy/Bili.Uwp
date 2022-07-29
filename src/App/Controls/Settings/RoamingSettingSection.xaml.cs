@@ -3,7 +3,7 @@
 using System;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 
 namespace Bili.App.Controls
@@ -91,7 +91,7 @@ namespace Bili.App.Controls
                 ? Models.Enums.App.InfoType.Success
                 : Models.Enums.App.InfoType.Error;
             var tip = Locator.Current.GetService<IResourceToolkit>().GetLocaleString(text);
-            Splat.Locator.Current.GetService<AppViewModel>().ShowTip(tip, type);
+            Locator.Current.GetService<ICallerViewModel>().ShowTip(tip, type);
         }
     }
 }

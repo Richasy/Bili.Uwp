@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Bili.App.Controls.Dialogs;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
@@ -31,7 +31,7 @@ namespace Bili.App.Controls.Favorite
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
 
         private async void OnRemoveFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
             => await RemoveAsync(sender);

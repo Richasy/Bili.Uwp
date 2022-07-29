@@ -10,9 +10,9 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -30,14 +30,14 @@ namespace Bili.ViewModels.Uwp.Community
         public MessagePageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _accountViewModel = accountViewModel;
 
             _caches = new Dictionary<MessageType, (IEnumerable<MessageInformation> Items, bool IsEnd)>();
@@ -54,7 +54,7 @@ namespace Bili.ViewModels.Uwp.Community
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ => InitializeMessageCount());
 
-            SelectTypeCommand = ReactiveCommand.CreateFromTask<MessageHeaderViewModel>(SelectTypeAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SelectTypeCommand = ReactiveCommand.CreateFromTask<MessageHeaderViewModel>(SelectTypeAsync);
         }
 
         /// <inheritdoc/>

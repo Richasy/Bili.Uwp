@@ -13,10 +13,11 @@ using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Pgc;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
@@ -34,6 +35,8 @@ namespace Bili.App.Pages.Desktop
     /// </summary>
     public sealed partial class RootPage : RootPageBase
     {
+        private readonly ICallerViewModel _callerViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private string _initialCommandParameters = null;
         private Uri _initialUri;
 
@@ -44,18 +47,23 @@ namespace Bili.App.Pages.Desktop
         {
             InitializeComponent();
             Current = this;
+            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
+            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
+
             ViewModel.Navigating += OnNavigating;
             ViewModel.ExitPlayer += OnExitPlayer;
             Loaded += OnLoaded;
-            CoreViewModel.RequestShowTip += OnRequestShowTip;
-            CoreViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
-            CoreViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
-            CoreViewModel.RequestShowImages += OnRequestShowImagesAsync;
-            CoreViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
-            CoreViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
-            CoreViewModel.RequestShowReplyDetail += OnRequestShowReplyDetail;
-            CoreViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
             SizeChanged += OnSizeChanged;
+
+            _callerViewModel.RequestShowTip += OnRequestShowTip;
+            _callerViewModel.RequestShowUpdateDialog += OnRequestShowUpdateDialogAsync;
+            _callerViewModel.RequestContinuePlay += OnRequestContinuePlayAsync;
+            _callerViewModel.RequestShowImages += OnRequestShowImagesAsync;
+            _callerViewModel.RequestShowPgcPlaylist += OnRequestShowPgcPlaylist;
+            _callerViewModel.RequestShowArticleReader += OnRequestShowArticleReaderAsync;
+            _callerViewModel.RequestShowReplyDetail += OnRequestShowReplyDetail;
+            _callerViewModel.RequestShowPgcSeasonDetail += OnRequestShowPgcSeasonDetail;
+
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
             NavigationViewBase navView = CoreViewModel.IsXbox
@@ -217,18 +225,19 @@ namespace Bili.App.Pages.Desktop
             }
         }
 
-        private void OnRequestShowPgcPlaylist(object sender, PgcPlaylistViewModel e)
+        private void OnRequestShowPgcPlaylist(object sender, IPgcPlaylistViewModel e)
         {
             var view = new PgcPlayListDetailView
             {
                 ViewModel = e,
             };
+
             view.Show();
         }
 
-        private async void OnRequestShowArticleReaderAsync(object sender, ArticleItemViewModel e)
+        private async void OnRequestShowArticleReaderAsync(object sender, IArticleItemViewModel e)
         {
-            var view = ArticleReaderView.Instance;
+            var view = new ArticleReaderView();
             await view.ShowAsync(e);
         }
 
@@ -326,7 +335,7 @@ namespace Bili.App.Pages.Desktop
             }
             else
             {
-                CoreViewModel.CheckContinuePlayCommand.Execute().Subscribe();
+                _recordViewModel.CheckContinuePlayCommand.Execute().Subscribe();
             }
 
             CoreViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();

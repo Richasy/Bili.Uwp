@@ -4,7 +4,7 @@ using System;
 using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Toolbox
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IVideoToolkit _videoToolkit;
-        private readonly AppViewModel _appViewModel;
+        private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isConverting;
 
@@ -28,14 +28,14 @@ namespace Bili.ViewModels.Uwp.Toolbox
         public AvBvConverterViewModel(
             IResourceToolkit resourceToolkit,
             IVideoToolkit videoToolkit,
-            AppViewModel appViewModel,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _videoToolkit = videoToolkit;
             _appViewModel = appViewModel;
-            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync, outputScheduler: RxApp.MainThreadScheduler);
-            _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting, scheduler: RxApp.MainThreadScheduler);
+            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync);
+            _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting);
 
             ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
             _dispatcher = dispatcher;

@@ -12,6 +12,9 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
@@ -38,7 +41,8 @@ namespace Bili.ViewModels.Uwp.Video
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
@@ -54,21 +58,22 @@ namespace Bili.ViewModels.Uwp.Video
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
+            _recordViewModel = recordViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
             _dispatcher = dispatcher;
 
-            Collaborators = new ObservableCollection<UserItemViewModel>();
+            Collaborators = new ObservableCollection<IUserItemViewModel>();
             Tags = new ObservableCollection<Tag>();
             FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
-            RelatedVideos = new ObservableCollection<VideoItemViewModel>();
+            RelatedVideos = new ObservableCollection<IVideoItemViewModel>();
             VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
             Seasons = new ObservableCollection<VideoSeason>();
-            CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
-            VideoPlaylist = new ObservableCollection<VideoItemViewModel>();
+            CurrentSeasonVideos = new ObservableCollection<IVideoItemViewModel>();
+            VideoPlaylist = new ObservableCollection<IVideoItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
 
@@ -77,24 +82,24 @@ namespace Bili.ViewModels.Uwp.Video
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag, outputScheduler: RxApp.MainThreadScheduler);
-            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync, outputScheduler: RxApp.MainThreadScheduler);
-            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
-            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart, outputScheduler: RxApp.MainThreadScheduler);
-            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
+            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
+            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag);
+            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason);
+            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync);
+            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync);
+            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
+            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
+            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
+            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
+            ShareCommand = ReactiveCommand.Create(Share);
+            FixedCommand = ReactiveCommand.Create(Fix);
+            ClearCommand = ReactiveCommand.Create(Reset);
+            ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
+            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
-            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
+            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
+            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
@@ -134,7 +139,7 @@ namespace Bili.ViewModels.Uwp.Video
                 VideoPlaylist.Add(GetItemViewModel(item));
             }
 
-            var current = VideoPlaylist[playIndex].Information.Identifier;
+            var current = VideoPlaylist[playIndex].Data.Identifier;
             var snapshot = new PlaySnapshot(current.Id, default, Models.Enums.VideoType.Video);
             SetSnapshot(snapshot);
         }
@@ -159,8 +164,9 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 Title = View.Information.Identifier.Title,
             };
-            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+
+            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();

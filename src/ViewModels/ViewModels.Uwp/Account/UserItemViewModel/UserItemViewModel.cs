@@ -7,6 +7,8 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
@@ -17,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 用户条目视图模型.
     /// </summary>
-    public sealed partial class UserItemViewModel : ViewModelBase
+    public sealed partial class UserItemViewModel : ViewModelBase, IUserItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserItemViewModel"/> class.
@@ -26,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Account
             INumberToolkit numberToolkit,
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
@@ -34,14 +36,14 @@ namespace Bili.ViewModels.Uwp.Account
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
-            ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
+            ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync);
+            InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync);
+            ShowDetailCommand = ReactiveCommand.Create(ShowDetail);
 
             _isRelationChanging = ToggleRelationCommand.IsExecuting.ToProperty(
                 this,
@@ -98,7 +100,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (_accountViewModel.State != AuthorizeState.SignedIn)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
                 return;
             }
 

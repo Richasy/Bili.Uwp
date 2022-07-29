@@ -63,7 +63,7 @@
             x:Name="Nav"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.Items}"
             SelectedItem="{x:Bind ViewModel.CurrentModule, Mode=OneWay}">
@@ -84,7 +84,7 @@
             x:Name="FilterContainer"
             Grid.Row="2"
             Margin="0,12,0,0"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsCurrentFilterEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:ItemsRepeater x:Name="FilterRepeater" ItemsSource="{x:Bind ViewModel.CurrentFilters}">
                 <muxc:ItemsRepeater.Layout>

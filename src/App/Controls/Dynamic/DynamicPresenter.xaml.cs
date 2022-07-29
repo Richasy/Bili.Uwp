@@ -5,10 +5,10 @@ using Bili.Models.Data.Article;
 using Bili.Models.Data.Dynamic;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -61,15 +61,15 @@ namespace Bili.App.Controls.Dynamic
 
             if (data is VideoInformation videoInfo)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(videoInfo);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(videoInfo);
                 instance.MainPresenter.Content = videoVM;
                 instance.MainPresenter.ContentTemplate = instance.VideoTemplate;
             }
             else if (data is EpisodeInformation episodeInfo)
             {
-                var episodeVM = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
-                episodeVM.SetInformation(episodeInfo);
+                var episodeVM = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                episodeVM.InjectData(episodeInfo);
                 instance.MainPresenter.Content = episodeVM;
                 instance.MainPresenter.ContentTemplate = instance.EpisodeTemplate;
             }
@@ -87,8 +87,8 @@ namespace Bili.App.Controls.Dynamic
             }
             else if (data is ArticleInformation article)
             {
-                var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                articleVM.SetInformation(article);
+                var articleVM = Splat.Locator.Current.GetService<IArticleItemViewModel>();
+                articleVM.InjectData(article);
                 instance.MainPresenter.Content = articleVM;
                 instance.MainPresenter.ContentTemplate = instance.ArticleTemplate;
             }

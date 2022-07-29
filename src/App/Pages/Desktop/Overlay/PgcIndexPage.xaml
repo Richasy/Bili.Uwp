@@ -58,7 +58,7 @@
         <Grid
             x:Name="FilterContainer"
             Grid.Row="1"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}">
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}">
             <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Filters, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:UniformGridLayout
@@ -93,7 +93,7 @@
         <Grid Grid.Row="2" Margin="0,12,0,0">
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{x:Bind ViewModel.IsReloading, Converter={StaticResource BoolToVisibilityReverseConverter}}">

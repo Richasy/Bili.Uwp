@@ -27,7 +27,7 @@
         <ScrollViewer
             x:Name="RootContainer"
             Grid.Row="1"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             VerticalAlignment="Stretch"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"

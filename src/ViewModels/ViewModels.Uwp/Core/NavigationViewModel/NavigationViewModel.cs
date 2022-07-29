@@ -9,8 +9,8 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -22,8 +22,9 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewModel"/> class.
         /// </summary>
-        public NavigationViewModel()
+        public NavigationViewModel(IRecordViewModel recordViewModel)
         {
+            _recordViewModel = recordViewModel;
             _backStack = new List<AppBackEventArgs>();
 
             IsMainViewShown = true;
@@ -244,12 +245,12 @@ namespace Bili.ViewModels.Uwp.Core
             if (last.Id == BackBehavior.MainView)
             {
                 NavigateToMainView((PageIds)last.Parameter, null);
-                Splat.Locator.Current.GetService<AppViewModel>().DeleteLastPlayItemCommand.Execute().Subscribe();
+                _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
             }
             else if (last.Id == BackBehavior.SecondaryView)
             {
                 NavigateToSecondaryView((PageIds)last.Parameter, null);
-                Splat.Locator.Current.GetService<AppViewModel>().DeleteLastPlayItemCommand.Execute().Subscribe();
+                _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
             }
             else if (last.Id == BackBehavior.OpenPlayer)
             {

@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAuthorizeProvider _authorizeProvider;
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly AccountViewModel _accountViewModel;
 
         /// <summary>

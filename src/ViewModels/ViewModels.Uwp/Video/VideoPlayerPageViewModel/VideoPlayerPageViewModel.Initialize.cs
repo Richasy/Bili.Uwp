@@ -5,6 +5,7 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Account;
 using Humanizer;
 using Splat;
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 foreach (var profile in View.Information.Collaborators)
                 {
-                    var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                    var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                     userVM.SetProfile(profile);
                     Collaborators.Add(userVM);
                 }
@@ -31,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Video
             else
             {
                 var myId = _authorizeProvider.CurrentUserId;
-                var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                 userVM.SetProfile(View.Information.Publisher);
                 userVM.Relation = View.PublisherCommunityInformation.Relation;
                 userVM.IsRelationButtonShown = !string.IsNullOrEmpty(myId)
@@ -114,7 +115,7 @@ namespace Bili.ViewModels.Uwp.Video
                 Sections.Add(new PlayerSectionHeader(PlayerSectionType.Playlist, _resourceToolkit.GetLocaleString(LanguageNames.Playlist)));
                 foreach (var item in VideoPlaylist)
                 {
-                    item.IsSelected = item.Information.Equals(View.Information);
+                    item.IsSelected = item.Data.Equals(View.Information);
                 }
             }
 

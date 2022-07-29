@@ -35,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Live
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
@@ -47,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Live
             _isReloading = InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
                 .Merge(SelectPartitionCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloading);
         }
 
         private async Task InitializeAsync()
