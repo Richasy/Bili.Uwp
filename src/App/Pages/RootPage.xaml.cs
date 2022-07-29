@@ -36,6 +36,7 @@ namespace Bili.App.Pages.Desktop
     public sealed partial class RootPage : RootPageBase
     {
         private readonly ICallerViewModel _callerViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private string _initialCommandParameters = null;
         private Uri _initialUri;
 
@@ -47,6 +48,7 @@ namespace Bili.App.Pages.Desktop
             InitializeComponent();
             Current = this;
             _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
+            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
 
             ViewModel.Navigating += OnNavigating;
             ViewModel.ExitPlayer += OnExitPlayer;
@@ -333,7 +335,7 @@ namespace Bili.App.Pages.Desktop
             }
             else
             {
-                CoreViewModel.CheckContinuePlayCommand.Execute().Subscribe();
+                _recordViewModel.CheckContinuePlayCommand.Execute().Subscribe();
             }
 
             CoreViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();

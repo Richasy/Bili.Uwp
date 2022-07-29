@@ -91,6 +91,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<IPgcPlaylistViewModel, PgcPlaylistViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<ICallerViewModel, CallerViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IRecordViewModel, RecordViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<NavigationViewModel>();

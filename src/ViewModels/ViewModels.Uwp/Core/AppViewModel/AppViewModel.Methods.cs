@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
-using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Windows.ApplicationModel.Background;
 
@@ -17,47 +15,6 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class AppViewModel
     {
-        private void AddPlayRecord(PlayRecord record)
-        {
-            PlayRecords.Remove(record);
-            PlayRecords.Insert(0, record);
-        }
-
-        private void RemovePlayRecord(PlayRecord record)
-            => PlayRecords.Remove(record);
-
-        private void ClearPlayRecords()
-            => TryClear(PlayRecords);
-
-        private async Task AddLastPlayItemAsync(PlaySnapshot data)
-        {
-            await _fileToolkit.WriteLocalDataAsync(AppConstants.LastOpenVideoFileName, data);
-            _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, true);
-        }
-
-        /// <summary>
-        /// 清除本地的继续播放视图模型.
-        /// </summary>
-        /// <returns><see cref="Task"/>.</returns>
-        private async Task DeleteLastPlayItemAsync()
-        {
-            await _fileToolkit.DeleteLocalDataAsync(AppConstants.LastOpenVideoFileName);
-            _settingsToolkit.WriteLocalSetting(SettingNames.CanContinuePlay, false);
-        }
-
-        /// <summary>
-        /// 检查是否可以继续播放.
-        /// </summary>
-        private void CheckContinuePlay()
-        {
-            var supportCheck = _settingsToolkit.ReadLocalSetting(SettingNames.SupportContinuePlay, true);
-            var canPlay = _settingsToolkit.ReadLocalSetting(SettingNames.CanContinuePlay, false);
-            if (supportCheck && canPlay)
-            {
-                _callerViewModel.ShowContinuePlayDialog();
-            }
-        }
-
         /// <summary>
         /// 检查更新.
         /// </summary>
@@ -135,8 +92,5 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void OnNetworkChanged(object sender, EventArgs e)
             => IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
-
-        private void OnPlayRecordsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-            => IsShowPlayRecordButton = PlayRecords.Count > 0;
     }
 }

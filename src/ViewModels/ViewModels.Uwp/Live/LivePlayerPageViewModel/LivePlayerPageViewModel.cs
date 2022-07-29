@@ -37,8 +37,8 @@ namespace Bili.ViewModels.Uwp.Live
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
-            AppViewModel appViewModel,
             ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             MediaPlayerViewModel playerViewModel,
@@ -51,8 +51,8 @@ namespace Bili.ViewModels.Uwp.Live
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
-            _appViewModel = appViewModel;
             _callerViewModel = callerViewModel;
+            _recordViewModel = recordViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
@@ -117,7 +117,7 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 Title = View.Information.Identifier.Title,
             };
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
 
             var isEnterSuccess = await _liveProvider.EnterLiveRoomAsync(_presetRoomId);
 

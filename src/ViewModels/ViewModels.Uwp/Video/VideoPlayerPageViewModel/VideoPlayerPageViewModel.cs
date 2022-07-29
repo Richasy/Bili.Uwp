@@ -42,12 +42,12 @@ namespace Bili.ViewModels.Uwp.Video
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
             ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
             DownloadModuleViewModel downloadViewModel,
-            AppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(playerViewModel)
         {
@@ -60,9 +60,9 @@ namespace Bili.ViewModels.Uwp.Video
             _settingsToolkit = settingsToolkit;
             _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
+            _recordViewModel = recordViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
-            _appViewModel = appViewModel;
             _dispatcher = dispatcher;
 
             Collaborators = new ObservableCollection<IUserItemViewModel>();
@@ -165,8 +165,8 @@ namespace Bili.ViewModels.Uwp.Video
                 Title = View.Information.Identifier.Title,
             };
 
-            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();

@@ -34,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;

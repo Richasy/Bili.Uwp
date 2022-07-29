@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly INumberToolkit _numberToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
 
-        private readonly AppViewModel _appViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private readonly ICallerViewModel _callerViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;

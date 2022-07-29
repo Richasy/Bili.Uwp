@@ -35,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IAppToolkit _appToolkit;
         private readonly IPgcProvider _pgcProvider;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;

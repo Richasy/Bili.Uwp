@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
-using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Microsoft.Toolkit.Uwp.Connectivity;
@@ -35,44 +33,9 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
 
         /// <summary>
-        /// 检查继续播放的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> CheckContinuePlayCommand { get; }
-
-        /// <summary>
         /// 检查新动态通知的命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> CheckNewDynamicRegistrationCommand { get; }
-
-        /// <summary>
-        /// 添加继续播放视图模型的命令.
-        /// </summary>
-        public ReactiveCommand<PlaySnapshot, Unit> AddLastPlayItemCommand { get; }
-
-        /// <summary>
-        /// 清除本地的继续播放视图模型的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
-
-        /// <summary>
-        /// 添加本地播放历史条目的命令.
-        /// </summary>
-        public ReactiveCommand<PlayRecord, Unit> AddPlayRecordCommand { get; }
-
-        /// <summary>
-        /// 移除本地播放历史条目的命令.
-        /// </summary>
-        public ReactiveCommand<PlayRecord, Unit> RemovePlayRecordCommand { get; }
-
-        /// <summary>
-        /// 清空本地历史条目的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ClearPlayRecordCommand { get; }
-
-        /// <summary>
-        /// 应用生命周期内的播放历史记录.
-        /// </summary>
-        public ObservableCollection<PlayRecord> PlayRecords { get; }
 
         /// <summary>
         /// 导航面板是否已展开.
@@ -121,12 +84,6 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         [Reactive]
         public bool IsShowMenuButton { get; set; }
-
-        /// <summary>
-        /// 是否可以显示播放历史记录的按钮.
-        /// </summary>
-        [Reactive]
-        public bool IsShowPlayRecordButton { get; set; }
 
         /// <summary>
         /// 网络是否可用.

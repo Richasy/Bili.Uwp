@@ -159,7 +159,7 @@
                 Padding="6,0,0,0"
                 TabIndex="3"
                 ToolTipService.ToolTip="{loc:Locale Name=ViewHistory}"
-                Visibility="{x:Bind ViewModel.IsShowPlayRecordButton, Mode=OneWay}">
+                Visibility="Collapsed">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"
@@ -210,7 +210,7 @@
                                     Padding="4"
                                     VerticalAlignment="Center"
                                     Click="OnClearRecordsButtonClick"
-                                    Command="{x:Bind ViewModel.ClearPlayRecordCommand}"
+                                    Command="{x:Bind _recordViewModel.ClearPlayRecordCommand}"
                                     Content="{loc:Locale Name=Clear}"
                                     FontSize="12" />
                             </Grid>
@@ -220,7 +220,7 @@
                                 HorizontalAlignment="Stretch"
                                 IsItemClickEnabled="True"
                                 ItemClick="OnPlayRecordItemClick"
-                                ItemsSource="{x:Bind ViewModel.PlayRecords}"
+                                ItemsSource="{x:Bind _recordViewModel.PlayRecords}"
                                 SelectionMode="None">
                                 <ListView.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">

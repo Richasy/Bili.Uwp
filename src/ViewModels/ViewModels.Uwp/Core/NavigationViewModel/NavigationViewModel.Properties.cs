@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class NavigationViewModel
     {
+        private readonly IRecordViewModel _recordViewModel;
         private readonly List<AppBackEventArgs> _backStack;
 
         /// <summary>

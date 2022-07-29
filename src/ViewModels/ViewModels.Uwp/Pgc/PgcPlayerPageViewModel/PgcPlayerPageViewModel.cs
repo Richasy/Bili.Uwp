@@ -43,8 +43,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
             IAppToolkit appToolkit,
-            AppViewModel appViewModel,
             ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
             NavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
@@ -61,8 +61,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
             _appToolkit = appToolkit;
-            _appViewModel = appViewModel;
             _callerViewModel = callerViewModel;
+            _recordViewModel = recordViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
@@ -163,8 +163,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 Title = View.Information.Identifier.Title,
             };
-            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();

@@ -1,20 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
-using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
-using Bili.Models.Data.Local;
 using Bili.Models.Enums;
-using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Article;
-using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
 using Windows.Globalization;
@@ -47,20 +39,11 @@ namespace Bili.ViewModels.Uwp.Core
             _networkHelper.NetworkChanged += OnNetworkChanged;
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
             IsShowTitleBar = true;
-            IsShowPlayRecordButton = false;
-            PlayRecords = new ObservableCollection<PlayRecord>();
 
             CheckUpdateCommand = ReactiveCommand.CreateFromTask(CheckUpdateAsync);
-            CheckContinuePlayCommand = ReactiveCommand.Create(CheckContinuePlay);
             CheckNewDynamicRegistrationCommand = ReactiveCommand.CreateFromTask(CheckNewDynamicRegistrationAsync);
-            AddLastPlayItemCommand = ReactiveCommand.CreateFromTask<PlaySnapshot>(AddLastPlayItemAsync);
-            DeleteLastPlayItemCommand = ReactiveCommand.CreateFromTask(DeleteLastPlayItemAsync);
-            AddPlayRecordCommand = ReactiveCommand.Create<PlayRecord>(AddPlayRecord);
-            RemovePlayRecordCommand = ReactiveCommand.Create<PlayRecord>(RemovePlayRecord);
-            ClearPlayRecordCommand = ReactiveCommand.Create(ClearPlayRecords);
 
             CheckUpdateCommand.ThrownExceptions.Subscribe(LogException);
-            PlayRecords.CollectionChanged += OnPlayRecordsCollectionChanged;
 
             RxApp.DefaultExceptionHandler = new UnhandledExceptionHandler();
 
@@ -114,12 +97,5 @@ namespace Bili.ViewModels.Uwp.Core
                 }
             }
         }
-
-        /// <summary>
-        /// 获取上一次播放的条目.
-        /// </summary>
-        /// <returns><see cref="PlaySnapshot"/>.</returns>
-        public Task<PlaySnapshot> GetLastPlayItemAsync()
-            => _fileToolkit.ReadLocalDataAsync<PlaySnapshot>(AppConstants.LastOpenVideoFileName);
     }
 }

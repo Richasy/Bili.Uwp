@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using Bili.Models.Data.Local;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
@@ -16,6 +17,7 @@ namespace Bili.App.Controls
     public sealed partial class AppTitleBar : AppTitleBarBase
     {
         private readonly NavigationViewModel _navigationViewModel;
+        private readonly IRecordViewModel _recordViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppTitleBar"/> class.
@@ -25,8 +27,18 @@ namespace Bili.App.Controls
             InitializeComponent();
             ViewModel = Locator.Current.GetService<AppViewModel>();
             _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
+            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
+            (_recordViewModel as ReactiveObject).PropertyChanged += OnRecordViewModelPropertyChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
+        }
+
+        private void OnRecordViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_recordViewModel.IsShowPlayRecordButton))
+            {
+                RecordsButton.Visibility = _recordViewModel.IsShowPlayRecordButton ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -60,7 +72,7 @@ namespace Bili.App.Controls
         private void OnRemoveRecordButtonClick(object sender, RoutedEventArgs e)
         {
             var context = (sender as FrameworkElement).DataContext as PlayRecord;
-            ViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
+            _recordViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
         }
 
         private void OnPlayRecordItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
