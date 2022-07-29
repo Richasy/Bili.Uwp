@@ -48,7 +48,7 @@
             <ScrollViewer
                 x:Name="RootScrollViewer"
                 Grid.Row="1"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

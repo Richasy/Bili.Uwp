@@ -11,14 +11,12 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Live;
 using ReactiveUI;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -37,6 +35,7 @@ namespace Bili.ViewModels.Uwp.Search
             IHomeProvider homeProvider,
             IArticleProvider articleProvider,
             ISettingsToolkit settingsToolkit,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -45,6 +44,7 @@ namespace Bili.ViewModels.Uwp.Search
             _homeProvider = homeProvider;
             _articleProvider = articleProvider;
             _settingsToolkit = settingsToolkit;
+            _appViewModel = appViewModel;
 
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
             _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();
@@ -162,7 +162,7 @@ namespace Bili.ViewModels.Uwp.Search
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.User, _resourceToolkit.GetLocaleString(LanguageNames.User)));
             Items.Add(new SearchModuleItemViewModel(SearchModuleType.Movie, _resourceToolkit.GetLocaleString(LanguageNames.Movie)));
 
-            if (!Locator.Current.GetService<AppViewModel>().IsXbox)
+            if (!_appViewModel.IsXbox)
             {
                 Items.Add(new SearchModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
             }

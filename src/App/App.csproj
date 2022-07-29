@@ -526,6 +526,7 @@
     <Compile Include="Resources\Converter\ErrorOpacityConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\FixedContentConverter.cs" />
+    <Compile Include="Resources\Converter\HorizontalThicknessConverter.cs" />
     <Compile Include="Resources\Converter\ImageConverter.cs" />
     <Compile Include="Resources\Converter\NumberToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\PgcFavoriteStatusConverter.cs" />
@@ -544,6 +545,7 @@
     <Compile Include="Resources\Converter\SubtitleConvertTypeConverter.cs" />
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\ToolboxItemIconConverter.cs" />
+    <Compile Include="Resources\Converter\TopThicknessConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
     <Compile Include="Resources\Extension\LocaleExtension.cs" />

@@ -159,7 +159,7 @@
                 Padding="6,0,0,0"
                 TabIndex="3"
                 ToolTipService.ToolTip="{loc:Locale Name=ViewHistory}"
-                Visibility="Collapsed">
+                Visibility="{x:Bind _recordViewModel.IsShowPlayRecordButton, Mode=OneWay}">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation
                         From="0"

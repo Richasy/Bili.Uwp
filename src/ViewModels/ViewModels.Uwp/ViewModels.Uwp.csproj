@@ -172,7 +172,6 @@
     <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
     <Compile Include="Pgc\DocumentaryPageViewModel.cs" />
-    <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />

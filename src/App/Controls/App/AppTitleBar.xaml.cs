@@ -25,20 +25,11 @@ namespace Bili.App.Controls
         public AppTitleBar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<AppViewModel>();
+            ViewModel = Locator.Current.GetService<IAppViewModel>();
             _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
             _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
-            (_recordViewModel as ReactiveObject).PropertyChanged += OnRecordViewModelPropertyChanged;
-            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            (ViewModel as ReactiveObject).PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
-        }
-
-        private void OnRecordViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(_recordViewModel.IsShowPlayRecordButton))
-            {
-                RecordsButton.Visibility = _recordViewModel.IsShowPlayRecordButton ? Visibility.Visible : Visibility.Collapsed;
-            }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -88,7 +79,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// <see cref="AppTitleBar"/> 的基类.
     /// </summary>
-    public class AppTitleBarBase : ReactiveUserControl<AppViewModel>
+    public class AppTitleBarBase : ReactiveUserControl<IAppViewModel>
     {
     }
 }

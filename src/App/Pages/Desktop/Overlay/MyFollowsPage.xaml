@@ -48,7 +48,7 @@
         <muxc:NavigationView
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Groups}"
             SelectedItem="{x:Bind ViewModel.CurrentGroup, Mode=OneWay}">
@@ -69,7 +69,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="2"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
             <controls:VerticalRepeaterView

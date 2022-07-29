@@ -5,7 +5,7 @@ using System.Text;
 using Bili.DI.App;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Home;
 using Splat;
 using Windows.ApplicationModel;
@@ -97,7 +97,7 @@ namespace Bili.App
                 }
                 else
                 {
-                    await Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<IAppViewModel>()
                         .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
@@ -119,7 +119,7 @@ namespace Bili.App
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<IAppViewModel>()
                         .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }

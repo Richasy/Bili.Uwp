@@ -51,7 +51,7 @@
             x:Name="Nav"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.MessageTypes}"
             SelectedItem="{x:Bind ViewModel.CurrentType, Mode=OneWay}">
@@ -81,7 +81,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="2"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

@@ -7,7 +7,7 @@ using Bili.ViewModels.Interfaces.Core;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Windows.UI.Xaml;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -18,12 +18,12 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
-        private readonly IFileToolkit _fileToolkit;
         private readonly IAppToolkit _appToolkit;
         private readonly IUpdateProvider _updateProvider;
         private readonly ICallerViewModel _callerViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly NetworkHelper _networkHelper;
+        private readonly CoreDispatcher _dispatcher;
 
         private bool? _isWide;
 
@@ -50,12 +50,6 @@ namespace Bili.ViewModels.Uwp.Core
         public string HeaderText { get; set; }
 
         /// <summary>
-        /// 主题.
-        /// </summary>
-        [Reactive]
-        public ElementTheme Theme { get; set; }
-
-        /// <summary>
         /// 是否在Xbox上运行.
         /// </summary>
         [Reactive]
@@ -65,13 +59,13 @@ namespace Bili.ViewModels.Uwp.Core
         /// 页面横向边距.
         /// </summary>
         [Reactive]
-        public Thickness PageHorizontalPadding { get; set; }
+        public double PageHorizontalPadding { get; set; }
 
         /// <summary>
         /// 页面顶部边距.
         /// </summary>
         [Reactive]
-        public Thickness PageTopPadding { get; set; }
+        public double PageTopPadding { get; set; }
 
         /// <summary>
         /// 是否显示标题栏.

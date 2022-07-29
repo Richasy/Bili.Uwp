@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -18,7 +19,7 @@ namespace Bili.App.Controls.Favorite
         public ArticleFavoritePanel()
         {
             InitializeComponent();
-            var vm = Splat.Locator.Current.GetService<ArticleFavoriteModuleViewModel>();
+            var vm = Locator.Current.GetService<ArticleFavoriteModuleViewModel>();
             ViewModel = vm;
             DataContext = vm;
         }
@@ -26,7 +27,7 @@ namespace Bili.App.Controls.Favorite
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Splat.Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
     }
 
     /// <summary>

@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Interfaces.Core
     /// <remarks>
     /// 这个视图模型不涉及在线数据，仅记录本地的播放记录，比如上一次播放了什么视频，或者在这次应用运行过程中看过哪些视频等.
     /// </remarks>
-    public interface IRecordViewModel
+    public interface IRecordViewModel : IReactiveObject
     {
         /// <summary>
         /// 添加继续播放视图模型的命令.

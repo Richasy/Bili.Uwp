@@ -44,8 +44,9 @@ namespace Bili.Models.App.Constants
         public const string FixedContentFileName = "User-{0}.json";
 
         public const string ScreenshotFolderName = "Bili Screenshots";
-
         public const string NewDynamicTaskName = "Bili.Tasks.DynamicNotifyTask";
+
+        public const string MediumWindowThresholdWidthKey = "MediumWindowThresholdWidth";
 
         /// <summary>
         /// 哔哩哔哩番剧出差账户Id.

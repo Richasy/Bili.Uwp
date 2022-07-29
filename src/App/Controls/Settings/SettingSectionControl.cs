@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Home;
 using ReactiveUI;
 using Splat;
@@ -24,6 +24,6 @@ namespace Bili.App.Controls
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
     }
 }

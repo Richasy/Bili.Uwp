@@ -8,8 +8,8 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
-using Splat;
 using Windows.Globalization;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -17,21 +17,28 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 应用ViewModel.
     /// </summary>
-    public sealed partial class AppViewModel : ViewModelBase
+    public sealed partial class AppViewModel : ViewModelBase, IAppViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AppViewModel"/> class.
         /// </summary>
-        public AppViewModel()
+        public AppViewModel(
+            IResourceToolkit resourceToolkit,
+            ISettingsToolkit settingsToolkit,
+            IAppToolkit appToolkit,
+            IUpdateProvider updateProvider,
+            ICallerViewModel callerViewModel,
+            NavigationViewModel navigationViewModel,
+            CoreDispatcher dispatcher)
         {
-            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
-            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
-            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
-            _settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
-            _fileToolkit = Locator.Current.GetService<IFileToolkit>();
-            _appToolkit = Locator.Current.GetService<IAppToolkit>();
-            _updateProvider = Locator.Current.GetService<IUpdateProvider>();
+            _callerViewModel = callerViewModel;
+            _navigationViewModel = navigationViewModel;
+            _resourceToolkit = resourceToolkit;
+            _settingsToolkit = settingsToolkit;
+            _appToolkit = appToolkit;
+            _updateProvider = updateProvider;
             _networkHelper = Microsoft.Toolkit.Uwp.Connectivity.NetworkHelper.Instance;
+            _dispatcher = dispatcher;
 
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = true;
@@ -53,20 +60,6 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         /// <summary>
-        /// 初始化主题.
-        /// </summary>
-        public void InitializeTheme()
-        {
-            var theme = _settingsToolkit.ReadLocalSetting(SettingNames.AppTheme, AppConstants.ThemeDefault);
-            Theme = theme switch
-            {
-                AppConstants.ThemeLight => ElementTheme.Light,
-                AppConstants.ThemeDark => ElementTheme.Dark,
-                _ => ElementTheme.Default
-            };
-        }
-
-        /// <summary>
         /// 初始化边距设置.
         /// </summary>
         public void InitializePadding()
@@ -74,28 +67,30 @@ namespace Bili.ViewModels.Uwp.Core
             var width = Window.Current.Bounds.Width;
             if (IsXbox)
             {
-                PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("XboxPageHorizontalPadding");
-                PageTopPadding = _resourceToolkit.GetResource<Thickness>("XboxPageTopPadding");
+                PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("XboxPageHorizontalPadding").Left;
+                PageTopPadding = _resourceToolkit.GetResource<Thickness>("XboxPageTopPadding").Top;
             }
             else
             {
                 var isWide = _isWide.HasValue && _isWide.Value;
-                if (width >= MediumWindowThresholdWidth)
+                if (width >= _resourceToolkit.GetResource<double>(AppConstants.MediumWindowThresholdWidthKey))
                 {
                     if (!isWide)
                     {
                         _isWide = true;
-                        PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageHorizontalPadding");
-                        PageTopPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageTopPadding");
+                        PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageHorizontalPadding").Left;
+                        PageTopPadding = _resourceToolkit.GetResource<Thickness>("DefaultPageTopPadding").Top;
                     }
                 }
                 else
                 {
                     _isWide = false;
-                    PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageHorizontalPadding");
-                    PageTopPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageTopPadding");
+                    PageHorizontalPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageHorizontalPadding").Left;
+                    PageTopPadding = _resourceToolkit.GetResource<Thickness>("NarrowPageTopPadding").Top;
                 }
             }
+
+            this.RaisePropertyChanged(nameof(PageHorizontalPadding));
         }
     }
 }

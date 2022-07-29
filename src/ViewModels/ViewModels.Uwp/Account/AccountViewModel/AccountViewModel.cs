@@ -33,7 +33,7 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            AppViewModel appViewModel,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;

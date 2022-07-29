@@ -20,7 +20,7 @@
         </Style>
     </local:XboxAccountPageBase.Resources>
 
-    <Grid Padding="{x:Bind CoreViewModel.PageHorizontalPadding}" ColumnSpacing="20">
+    <Grid Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}" ColumnSpacing="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />

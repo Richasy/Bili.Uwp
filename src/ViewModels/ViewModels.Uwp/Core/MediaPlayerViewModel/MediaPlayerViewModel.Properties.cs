@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly AccountViewModel _accountViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly DisplayRequest _displayRequest;

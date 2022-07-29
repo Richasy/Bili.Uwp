@@ -13,8 +13,8 @@
     mc:Ignorable="d">
 
     <Grid
-        Margin="{x:Bind _appViewModel.PageTopPadding, Mode=OneWay}"
-        Padding="{x:Bind _appViewModel.PageHorizontalPadding, Mode=OneWay}"
+        Margin="{x:Bind _appViewModel.PageTopPadding, Converter={StaticResource TopThicknessConverter}, Mode=OneWay}"
+        Padding="{x:Bind _appViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
         ColumnSpacing="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

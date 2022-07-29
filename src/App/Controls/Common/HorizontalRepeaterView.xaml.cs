@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -55,12 +56,16 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty AdditionalContentProperty =
             DependencyProperty.Register(nameof(AdditionalContent), typeof(object), typeof(HorizontalRepeaterView), new PropertyMetadata(null));
 
+        private const string MediumWindowWidthKey = "MediumWindowThresholdWidth";
+        private readonly IResourceToolkit _resourceToolkit;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BannerView"/> class.
         /// </summary>
         public HorizontalRepeaterView()
         {
             InitializeComponent();
+            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             SizeChanged += OnSizeChanged;
             Loaded += OnLoaded;
         }
@@ -159,7 +164,8 @@ namespace Bili.App.Controls
         private void CheckLayout()
         {
             var windowWidth = Window.Current.Bounds.Width;
-            if (windowWidth < Splat.Locator.Current.GetService<AppViewModel>().NarrowWindowThresholdWidth && NarrowItemTemplate != null)
+
+            if (windowWidth < _resourceToolkit.GetResource<double>(MediumWindowWidthKey) && NarrowItemTemplate != null)
             {
                 WideContainer.Visibility = Visibility.Collapsed;
                 NarrowContainer.Visibility = Visibility.Visible;

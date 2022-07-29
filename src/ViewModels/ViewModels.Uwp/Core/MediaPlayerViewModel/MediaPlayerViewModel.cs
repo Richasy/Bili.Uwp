@@ -47,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Core
             DanmakuModuleViewModel danmakuModuleViewModel,
             InteractionModuleViewModel interactionModuleViewModel,
             ICallerViewModel callerViewModel,
-            AppViewModel appViewModel,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher,
             DisplayRequest displayRequest)
         {

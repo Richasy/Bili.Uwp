@@ -8,9 +8,9 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Live;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -27,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Search
         private readonly IArticleProvider _articleProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IAppViewModel _appViewModel;
         private readonly Dictionary<SearchModuleType, bool> _requestStatusCache;
         private readonly Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>> _filters;
         private readonly ObservableAsPropertyHelper<bool> _isReloadingModule;

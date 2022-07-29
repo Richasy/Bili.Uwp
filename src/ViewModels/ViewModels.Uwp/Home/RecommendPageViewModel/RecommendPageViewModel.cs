@@ -7,6 +7,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
@@ -26,11 +27,13 @@ namespace Bili.ViewModels.Uwp.Home
         public RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
             IHomeProvider recommendProvider,
+            IAppViewModel appViewModel,
             CoreDispatcher coreDispatcher)
             : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = recommendProvider;
+            App = appViewModel;
         }
 
         /// <inheritdoc/>

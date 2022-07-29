@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Uwp.Account
     public sealed partial class FavoritePageViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IAppViewModel _appViewModel;
 
         /// <summary>
         /// 类型集合.

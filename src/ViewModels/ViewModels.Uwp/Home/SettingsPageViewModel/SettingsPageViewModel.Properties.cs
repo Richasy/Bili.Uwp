@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Home
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly IAppViewModel _appViewModel;
         private string _initializeTheme;
 
         /// <inheritdoc/>

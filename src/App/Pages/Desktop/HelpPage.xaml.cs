@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Home;
+using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,15 +17,21 @@ namespace Bili.App.Pages.Desktop
     /// </summary>
     public sealed partial class HelpPage : HelpPageBase
     {
+        private readonly IResourceToolkit _resourceToolkit;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpPage"/> class.
         /// </summary>
-        public HelpPage() => InitializeComponent();
+        public HelpPage()
+        {
+            InitializeComponent();
+            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+        }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = Window.Current.Bounds.Width;
-            if (width < CoreViewModel.MediumWindowThresholdWidth)
+            if (width < _resourceToolkit.GetResource<double>(AppConstants.MediumWindowThresholdWidthKey))
             {
                 if (WideContainer.Children.Count > 0)
                 {

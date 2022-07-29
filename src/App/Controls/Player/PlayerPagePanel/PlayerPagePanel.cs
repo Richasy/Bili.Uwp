@@ -3,9 +3,10 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
@@ -68,7 +69,7 @@ namespace Bili.App.Controls.Player
         public PlayerPagePanel()
         {
             DefaultStyleKey = typeof(PlayerPagePanel);
-            _mediumWindowWidth = Locator.Current.GetService<AppViewModel>().MediumWindowThresholdWidth;
+            _mediumWindowWidth = Locator.Current.GetService<IResourceToolkit>().GetResource<double>(AppConstants.MediumWindowThresholdWidthKey);
             SizeChanged += OnSizeChanged;
             Loaded += OnLoadedAsync;
             Unloaded += OnUnloaded;
