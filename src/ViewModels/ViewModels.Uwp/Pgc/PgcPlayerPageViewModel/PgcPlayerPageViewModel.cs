@@ -15,14 +15,12 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -45,12 +43,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             IAppToolkit appToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
-            INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
-            DownloadModuleViewModel downloadViewModel,
-            CoreDispatcher dispatcher)
+            DownloadModuleViewModel downloadViewModel)
             : base(playerViewModel)
         {
             _playerProvider = playerProvider;
@@ -63,10 +59,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _appToolkit = appToolkit;
             _callerViewModel = callerViewModel;
             _recordViewModel = recordViewModel;
-            _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
-            _dispatcher = dispatcher;
 
             FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<PlayerSectionHeader>();

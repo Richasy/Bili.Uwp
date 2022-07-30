@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
@@ -16,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         public XboxAccountPageViewModel(
             INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel)
+            IAccountViewModel accountViewModel)
         {
             _navigationViewModel = navigationViewModel;
             AccountViewModel = accountViewModel;

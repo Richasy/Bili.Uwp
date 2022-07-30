@@ -15,7 +15,6 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
@@ -37,14 +36,13 @@ namespace Bili.ViewModels.Uwp.Video
             IPlayerProvider playerProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
-            IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,
             DownloadModuleViewModel downloadViewModel,
@@ -54,15 +52,14 @@ namespace Bili.ViewModels.Uwp.Video
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
-            _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
             _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
             _recordViewModel = recordViewModel;
-            _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
+            _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
             Collaborators = new ObservableCollection<IUserItemViewModel>();
