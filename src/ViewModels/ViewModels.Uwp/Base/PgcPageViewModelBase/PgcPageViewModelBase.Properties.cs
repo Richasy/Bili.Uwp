@@ -5,7 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Base
     {
         private readonly IPgcProvider _pgcProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly PgcType _type;
 
         /// <summary>

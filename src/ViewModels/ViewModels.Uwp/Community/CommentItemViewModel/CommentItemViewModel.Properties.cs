@@ -6,7 +6,6 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private Action<CommentItemViewModel> _showCommentDetailAction;
         private Action<CommentItemViewModel> _clickAction;
 

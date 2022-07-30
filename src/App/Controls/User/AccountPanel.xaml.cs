@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,7 +20,7 @@ namespace Bili.App.Controls
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(Splat.Locator.Current.GetService<AccountViewModel>()));
 
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountPanel"/> class.
@@ -28,7 +28,7 @@ namespace Bili.App.Controls
         public AccountPanel()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
         }
 
         /// <summary>

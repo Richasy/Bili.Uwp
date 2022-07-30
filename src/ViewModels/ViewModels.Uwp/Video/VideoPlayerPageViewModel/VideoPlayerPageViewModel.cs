@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Video
             ISettingsToolkit settingsToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,

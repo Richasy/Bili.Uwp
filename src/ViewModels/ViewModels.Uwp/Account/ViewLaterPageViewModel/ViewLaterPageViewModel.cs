@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -26,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Account
         public ViewLaterPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {

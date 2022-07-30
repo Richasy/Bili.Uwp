@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Live
     public sealed partial class LiveItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 在网页中打开的命令.
@@ -32,18 +32,18 @@ namespace Bili.ViewModels.Uwp.Live
         /// 视频信息.
         /// </summary>
         [Reactive]
-        public LiveInformation Information { get; internal set; }
+        public LiveInformation Data { get; set; }
 
         /// <summary>
         /// 观看人数的可读文本.
         /// </summary>
         [Reactive]
-        public string ViewerCountText { get; internal set; }
+        public string ViewerCountText { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is LiveItemViewModel model && EqualityComparer<LiveInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is LiveItemViewModel model && EqualityComparer<LiveInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

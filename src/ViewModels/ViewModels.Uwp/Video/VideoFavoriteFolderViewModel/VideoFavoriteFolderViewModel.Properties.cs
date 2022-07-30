@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private readonly IFavoriteProvider _favoriteProvider;
         private readonly IAccountProvider _accountProvider;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly ObservableAsPropertyHelper<bool> _isRemoving;
 
         private VideoFavoriteFolderGroupViewModel _groupViewModel;

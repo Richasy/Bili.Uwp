@@ -3,7 +3,7 @@
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Account
     {
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         private readonly ObservableAsPropertyHelper<bool> _isClearing;
 

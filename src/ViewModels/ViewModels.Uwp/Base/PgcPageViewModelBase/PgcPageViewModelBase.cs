@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -32,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Base
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             PgcType type)
             : base(dispatcher)
         {

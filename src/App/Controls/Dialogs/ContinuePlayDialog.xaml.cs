@@ -4,7 +4,6 @@ using System;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +15,7 @@ namespace Bili.App.Controls.Dialogs
     /// </summary>
     public sealed partial class ContinuePlayDialog : ContentDialog
     {
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly IRecordViewModel _recordViewModel;
         private PlaySnapshot _snapshot = null;
 
@@ -26,7 +25,7 @@ namespace Bili.App.Controls.Dialogs
         public ContinuePlayDialog()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
             _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
             Loaded += OnLoadedAsync;
         }

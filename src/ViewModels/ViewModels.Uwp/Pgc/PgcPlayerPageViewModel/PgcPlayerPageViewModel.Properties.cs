@@ -13,7 +13,6 @@ using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -36,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IPgcProvider _pgcProvider;
         private readonly ICallerViewModel _callerViewModel;
         private readonly IRecordViewModel _recordViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;
         private readonly CoreDispatcher _dispatcher;

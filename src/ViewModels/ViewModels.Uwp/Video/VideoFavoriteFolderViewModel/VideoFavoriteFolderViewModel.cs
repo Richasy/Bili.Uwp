@@ -3,7 +3,7 @@
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderViewModel(
             IFavoriteProvider favoriteProvider,
             IAccountProvider accountProvider,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _favoriteProvider = favoriteProvider;
             _accountProvider = accountProvider;

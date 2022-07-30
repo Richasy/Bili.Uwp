@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IAppToolkit _appToolkit;
         private readonly IUpdateProvider _updateProvider;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly NetworkHelper _networkHelper;
         private readonly CoreDispatcher _dispatcher;
 

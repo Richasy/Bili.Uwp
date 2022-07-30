@@ -50,7 +50,7 @@ namespace Bili.App.Pages
                 || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
-                var navigationVM = Locator.Current.GetService<NavigationViewModel>();
+                var navigationVM = Locator.Current.GetService<INavigationViewModel>();
                 if (navigationVM.CanBack)
                 {
                     navigationVM.BackCommand.Execute().Subscribe();

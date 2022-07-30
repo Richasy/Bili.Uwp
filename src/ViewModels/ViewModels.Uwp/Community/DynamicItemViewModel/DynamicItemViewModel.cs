@@ -18,8 +18,6 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel.DataTransfer;
@@ -40,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Community
             INumberToolkit numberToolkit,
             IResourceToolkit resourceToolkit,
             ICallerViewModel callerViewModel,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;

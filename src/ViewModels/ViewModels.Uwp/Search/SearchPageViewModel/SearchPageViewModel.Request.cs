@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
-using Bili.ViewModels.Uwp.Live;
 using Splat;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
@@ -124,10 +122,10 @@ namespace Bili.ViewModels.Uwp.Search
             ResetModuleEndIdentifier(SearchModuleType.Live, data.IsEnd);
             foreach (var item in data.Items)
             {
-                if (!Lives.Any(p => p.Information.Equals(item)))
+                if (!Lives.Any(p => p.Data.Equals(item)))
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(item);
+                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(item);
                     Lives.Add(liveVM);
                 }
             }

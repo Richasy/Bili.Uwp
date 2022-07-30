@@ -3,10 +3,9 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.Data.Live;
-using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
 using Windows.System;
 
@@ -15,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播条目视图模型.
     /// </summary>
-    public sealed partial class LiveItemViewModel : ViewModelBase, IVideoBaseViewModel
+    public sealed partial class LiveItemViewModel : ViewModelBase, ILiveItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveItemViewModel"/> class.
@@ -24,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <param name="navigationViewModel">导航模块.</param>
         public LiveItemViewModel(
             INumberToolkit numberToolkit,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
             _navigationViewModel = navigationViewModel;
@@ -34,18 +33,18 @@ namespace Bili.ViewModels.Uwp.Live
         }
 
         /// <inheritdoc/>
-        public void SetInformation(IVideoBase information)
+        public void InjectData(LiveInformation information)
         {
-            Information = information as LiveInformation;
-            ViewerCountText = _numberToolkit.GetCountText(Information.ViewerCount);
+            Data = information;
+            ViewerCountText = _numberToolkit.GetCountText(Data.ViewerCount);
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, default, Models.Enums.VideoType.Live));
+            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, default, Models.Enums.VideoType.Live));
 
         private async Task OpenInBroswerAsync()
         {
-            var uri = $"https://live.bilibili.com/{Information.Identifier.Id}";
+            var uri = $"https://live.bilibili.com/{Data.Identifier.Id}";
             await Launcher.LaunchUriAsync(new Uri(uri));
         }
     }

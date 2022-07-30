@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// Initializes a new instance of the <see cref="XboxAccountPageViewModel"/> class.
         /// </summary>
         public XboxAccountPageViewModel(
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel)
         {
             _navigationViewModel = navigationViewModel;

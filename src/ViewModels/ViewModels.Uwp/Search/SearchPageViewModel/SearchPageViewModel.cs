@@ -12,10 +12,10 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Live;
 using ReactiveUI;
 using Windows.UI.Core;
 
@@ -54,7 +54,7 @@ namespace Bili.ViewModels.Uwp.Search
             Movies = new ObservableCollection<ISeasonItemViewModel>();
             Users = new ObservableCollection<IUserItemViewModel>();
             Articles = new ObservableCollection<IArticleItemViewModel>();
-            Lives = new ObservableCollection<LiveItemViewModel>();
+            Lives = new ObservableCollection<ILiveItemViewModel>();
             CurrentFilters = new ObservableCollection<SearchFilterViewModel>();
 
             ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);

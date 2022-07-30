@@ -6,8 +6,8 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     {
         private readonly INumberToolkit _numberToolkit;
         private readonly IFavoriteProvider _favoriteProvider;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private Action<ISeasonItemViewModel> _additionalAction;
 
         /// <inheritdoc/>

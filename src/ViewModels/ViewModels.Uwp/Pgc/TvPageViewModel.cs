@@ -3,8 +3,8 @@
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
             CoreDispatcher dispatcher,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
             : base(pgcProvider, resourceToolkit, dispatcher, navigationViewModel, PgcType.TV)
         {
         }

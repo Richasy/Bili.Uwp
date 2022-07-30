@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.System;
 
@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         public SeasonItemViewModel(
             INumberToolkit numberToolkit,
             IFavoriteProvider favoriteProvider,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
             _favoriteProvider = favoriteProvider;
