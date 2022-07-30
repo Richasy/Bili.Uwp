@@ -12,17 +12,17 @@ using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
-using Windows.UI.Core;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
     /// 用户视图模型.
     /// </summary>
-    public sealed partial class AccountViewModel : ViewModelBase
+    public sealed partial class AccountViewModel : ViewModelBase, IAccountViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountViewModel"/> class.
@@ -33,8 +33,7 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            IAppViewModel appViewModel,
-            CoreDispatcher dispatcher)
+            IAppViewModel appViewModel)
         {
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
@@ -42,7 +41,6 @@ namespace Bili.ViewModels.Uwp.Account
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
             _appViewModel = appViewModel;
-            _dispatcher = dispatcher;
 
             TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync);
             SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync);
@@ -52,7 +50,7 @@ namespace Bili.ViewModels.Uwp.Account
             AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync);
             RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync);
 
-            _isSigning = TrySignInCommand.IsExecuting.ToProperty(this, x => x.IsSigning);
+            TrySignInCommand.IsExecuting.ToPropertyEx(this, x => x.IsSigning);
 
             FixedItemCollection = new ObservableCollection<FixedItem>();
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;

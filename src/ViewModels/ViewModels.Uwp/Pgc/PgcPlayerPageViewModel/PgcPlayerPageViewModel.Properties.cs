@@ -10,7 +10,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Video;
@@ -35,10 +34,8 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IPgcProvider _pgcProvider;
         private readonly ICallerViewModel _callerViewModel;
         private readonly IRecordViewModel _recordViewModel;
-        private readonly INavigationViewModel _navigationViewModel;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;
-        private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
 

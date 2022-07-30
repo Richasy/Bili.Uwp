@@ -13,10 +13,10 @@ using Bili.App.Pages.Desktop.Overlay;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Account;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
@@ -174,7 +174,7 @@ namespace Bili.App.Pages.Desktop
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             CoreViewModel.InitializePadding();
-            Locator.Current.GetService<AccountViewModel>().TrySignInCommand.Execute(true).Subscribe();
+            Locator.Current.GetService<IAccountViewModel>().TrySignInCommand.Execute(true).Subscribe();
 #if !DEBUG
             CoreViewModel.CheckUpdateCommand.Execute().Subscribe();
 #endif

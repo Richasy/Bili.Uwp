@@ -13,8 +13,8 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using Splat;
@@ -37,11 +37,10 @@ namespace Bili.ViewModels.Uwp.Core
             IPlayerProvider playerProvider,
             ILiveProvider liveProvider,
             IResourceToolkit resourceToolkit,
-            IFileToolkit fileToolkit,
             ISettingsToolkit settingsToolkit,
             INumberToolkit numberToolkit,
             IAppToolkit appToolkit,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             INavigationViewModel navigationViewModel,
             SubtitleModuleViewModel subtitleModuleViewModel,
             DanmakuModuleViewModel danmakuModuleViewModel,
@@ -54,7 +53,6 @@ namespace Bili.ViewModels.Uwp.Core
             _playerProvider = playerProvider;
             _liveProvider = liveProvider;
             _resourceToolkit = resourceToolkit;
-            _fileToolkit = fileToolkit;
             _settingsToolkit = settingsToolkit;
             _numberToolkit = numberToolkit;
             _appToolkit = appToolkit;

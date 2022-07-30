@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,7 +18,7 @@ namespace Bili.App.Controls
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AccountViewModel), typeof(AccountAvatar), new PropertyMetadata(Splat.Locator.Current.GetService<AccountViewModel>()));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IAccountViewModel), typeof(AccountAvatar), new PropertyMetadata(Locator.Current.GetService<IAccountViewModel>()));
 
         private readonly INavigationViewModel _navigationViewModel;
 
@@ -39,9 +39,9 @@ namespace Bili.App.Controls
         /// <summary>
         /// 账户视图模型.
         /// </summary>
-        public AccountViewModel ViewModel
+        public IAccountViewModel ViewModel
         {
-            get { return (AccountViewModel)GetValue(ViewModelProperty); }
+            get { return (IAccountViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

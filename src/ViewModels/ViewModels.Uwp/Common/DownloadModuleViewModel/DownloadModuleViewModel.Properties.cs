@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
 
         /// <summary>
         /// 改变保存位置的命令.

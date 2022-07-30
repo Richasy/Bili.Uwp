@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Common
             IResourceToolkit resourceToolkit,
             IAuthorizeProvider authorizeProvider,
             ICallerViewModel callerViewModel,
-            AccountViewModel accountViewModel)
+            IAccountViewModel accountViewModel)
         {
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;

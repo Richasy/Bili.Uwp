@@ -10,8 +10,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
 using Splat;
@@ -30,14 +29,12 @@ namespace Bili.ViewModels.Uwp.Community
         public MessagePageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            ICallerViewModel callerViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
-            _callerViewModel = callerViewModel;
             _accountViewModel = accountViewModel;
 
             _caches = new Dictionary<MessageType, (IEnumerable<MessageInformation> Items, bool IsEnd)>();

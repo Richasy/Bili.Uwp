@@ -4,8 +4,8 @@ using System;
 using System.ComponentModel;
 using Bili.App.Resources.Extension;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using Splat;
 using Windows.System;
@@ -27,7 +27,7 @@ namespace Bili.App.Controls
         public AccountAvatar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<AccountViewModel>();
+            ViewModel = Locator.Current.GetService<IAccountViewModel>();
             _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -108,7 +108,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// <see cref="AccountAvatar"/> 的基类.
     /// </summary>
-    public class AccountAvatarBase : ReactiveUserControl<AccountViewModel>
+    public class AccountAvatarBase : ReactiveUserControl<IAccountViewModel>
     {
     }
 }

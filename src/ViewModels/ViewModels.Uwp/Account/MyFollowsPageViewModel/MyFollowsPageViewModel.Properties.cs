@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Account
     {
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
 
         private readonly Dictionary<string, IEnumerable<IUserItemViewModel>> _cache;
         private readonly ObservableAsPropertyHelper<bool> _isSwitching;

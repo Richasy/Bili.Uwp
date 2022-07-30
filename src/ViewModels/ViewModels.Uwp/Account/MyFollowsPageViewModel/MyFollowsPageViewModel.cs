@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Account
         public MyFollowsPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {

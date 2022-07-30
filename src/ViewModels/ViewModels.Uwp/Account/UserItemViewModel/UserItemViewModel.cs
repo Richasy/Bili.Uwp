@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Account
             IResourceToolkit resourceToolkit,
             ICallerViewModel callerViewModel,
             INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {
             _numberToolkit = numberToolkit;
@@ -127,7 +127,7 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task InitializeRelationAsync()
         {
-            var accountVM = Locator.Current.GetService<AccountViewModel>();
+            var accountVM = Locator.Current.GetService<IAccountViewModel>();
             if (accountVM.State != AuthorizeState.SignedIn)
             {
                 IsRelationButtonShown = false;

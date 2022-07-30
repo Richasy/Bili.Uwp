@@ -95,8 +95,8 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IRecordViewModel, RecordViewModel>();
             SplatRegistrations.RegisterLazySingleton<IAppViewModel, AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IAccountViewModel, AccountViewModel>();
 
-            SplatRegistrations.RegisterLazySingleton<AccountViewModel>();
             SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPartitionPageViewModel>();

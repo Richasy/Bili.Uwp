@@ -5,6 +5,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -22,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
         private readonly INavigationViewModel _navigationViewModel;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
 
         private readonly ObservableAsPropertyHelper<bool> _isRelationChanging;

@@ -13,8 +13,8 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
@@ -31,7 +31,6 @@ namespace Bili.ViewModels.Uwp.Live
         /// Initializes a new instance of the <see cref="LivePlayerPageViewModel"/> class.
         /// </summary>
         public LivePlayerPageViewModel(
-            IPlayerProvider playerProvider,
             IAuthorizeProvider authorizeProvider,
             ILiveProvider liveProvider,
             IResourceToolkit resourceToolkit,
@@ -39,13 +38,11 @@ namespace Bili.ViewModels.Uwp.Live
             ISettingsToolkit settingsToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
-            INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
             : base(playerViewModel)
         {
-            _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
             _liveProvider = liveProvider;
             _resourceToolkit = resourceToolkit;
@@ -53,7 +50,6 @@ namespace Bili.ViewModels.Uwp.Live
             _settingsToolkit = settingsToolkit;
             _callerViewModel = callerViewModel;
             _recordViewModel = recordViewModel;
-            _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 

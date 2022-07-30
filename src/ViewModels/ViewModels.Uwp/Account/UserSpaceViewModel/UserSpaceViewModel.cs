@@ -31,7 +31,7 @@ namespace Bili.ViewModels.Uwp.Account
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             INavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             ICallerViewModel callerViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)

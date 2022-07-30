@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderDetailViewModel(
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {

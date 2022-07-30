@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Reactive;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
@@ -16,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// 账户视图模型.
         /// </summary>
-        public AccountViewModel AccountViewModel { get; }
+        public IAccountViewModel AccountViewModel { get; }
 
         /// <summary>
         /// 前往收藏页面的命令.

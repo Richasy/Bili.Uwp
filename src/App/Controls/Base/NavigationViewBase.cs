@@ -3,8 +3,8 @@
 using System;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
 using ReactiveUI;
 using Splat;
 
@@ -22,7 +22,7 @@ namespace Bili.App.Controls.Base
         {
             ViewModel = Locator.Current.GetService<INavigationViewModel>();
             AppViewModel = Locator.Current.GetService<IAppViewModel>();
-            AccountViewModel = Locator.Current.GetService<AccountViewModel>();
+            AccountViewModel = Locator.Current.GetService<IAccountViewModel>();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Bili.App.Controls.Base
         /// <summary>
         /// 账户视图模型.
         /// </summary>
-        protected AccountViewModel AccountViewModel { get; }
+        protected IAccountViewModel AccountViewModel { get; }
 
         /// <summary>
         /// 是否为初次加载.
