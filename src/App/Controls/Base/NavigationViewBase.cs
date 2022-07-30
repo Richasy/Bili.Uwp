@@ -5,7 +5,6 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 
@@ -14,14 +13,14 @@ namespace Bili.App.Controls.Base
     /// <summary>
     /// 导航框架的基类.
     /// </summary>
-    public class NavigationViewBase : ReactiveUserControl<NavigationViewModel>
+    public class NavigationViewBase : ReactiveUserControl<INavigationViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewBase"/> class.
         /// </summary>
         public NavigationViewBase()
         {
-            ViewModel = Locator.Current.GetService<NavigationViewModel>();
+            ViewModel = Locator.Current.GetService<INavigationViewModel>();
             AppViewModel = Locator.Current.GetService<IAppViewModel>();
             AccountViewModel = Locator.Current.GetService<AccountViewModel>();
         }

@@ -45,7 +45,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IAppToolkit appToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
             MediaPlayerViewModel playerViewModel,

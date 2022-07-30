@@ -36,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly INumberToolkit _numberToolkit;
         private readonly IAppToolkit _appToolkit;
         private readonly AccountViewModel _accountViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly ICallerViewModel _callerViewModel;
         private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;

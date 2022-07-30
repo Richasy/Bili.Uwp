@@ -5,7 +5,7 @@ using System.Reactive;
 using System.Threading;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Search
     public sealed partial class SearchBoxViewModel
     {
         private readonly ISearchProvider _searchProvider;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly DispatcherTimer _suggestionTimer;
         private readonly CoreDispatcher _dispatcher;
 

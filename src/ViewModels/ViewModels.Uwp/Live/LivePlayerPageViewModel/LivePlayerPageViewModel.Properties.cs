@@ -10,7 +10,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -32,7 +31,7 @@ namespace Bili.ViewModels.Uwp.Live
 
         private readonly IRecordViewModel _recordViewModel;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;

@@ -39,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Live
             ISettingsToolkit settingsToolkit,
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             MediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)

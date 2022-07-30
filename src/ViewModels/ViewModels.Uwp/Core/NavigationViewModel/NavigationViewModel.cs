@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 处理导航的视图模型.
     /// </summary>
-    public sealed partial class NavigationViewModel : ViewModelBase
+    public sealed partial class NavigationViewModel : ViewModelBase, INavigationViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewModel"/> class.
@@ -59,11 +59,7 @@ namespace Bili.ViewModels.Uwp.Core
                 });
         }
 
-        /// <summary>
-        /// 传入页面 Id, 并由应用自行判断层级，导航到指定类型的页面.
-        /// </summary>
-        /// <param name="pageId">页面 Id.</param>
-        /// <param name="parameter">导航参数.</param>
+        /// <inheritdoc/>
         public void Navigate(PageIds pageId, object parameter = null)
         {
             var type = pageId.GetHashCode() switch
@@ -89,11 +85,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        /// <summary>
-        /// 在主视图中进行导航，传入的 PageIds 应该是主视图的页面 Id.
-        /// </summary>
-        /// <param name="pageId">页面 Id.</param>
-        /// <param name="parameter">导航参数.</param>
+        /// <inheritdoc/>
         public void NavigateToMainView(PageIds pageId, object parameter = null)
         {
             IsMainViewShown = true;
@@ -111,11 +103,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        /// <summary>
-        /// 导航到指定的二级页面，传入的 PageIds 应该是二级页面的页面 Id.
-        /// </summary>
-        /// <param name="pageId">页面 Id.</param>
-        /// <param name="parameter">导航参数.</param>
+        /// <inheritdoc/>
         public void NavigateToSecondaryView(PageIds pageId, object parameter = null)
         {
             IsSecondaryViewShown = true;
@@ -134,10 +122,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        /// <summary>
-        /// 导航到播放页，传入播放参数.
-        /// </summary>
-        /// <param name="parameter">播放参数.</param>
+        /// <inheritdoc/>
         public void NavigateToPlayView(PlaySnapshot parameter)
         {
             IsPlayViewShown = true;
@@ -161,10 +146,7 @@ namespace Bili.ViewModels.Uwp.Core
             Navigating?.Invoke(this, args);
         }
 
-        /// <summary>
-        /// 导航到播放页，传入播放参数.
-        /// </summary>
-        /// <param name="parameters">播放参数.</param>
+        /// <inheritdoc/>
         public void NavigateToPlayView(IEnumerable<VideoInformation> parameters, int startIndex = 0)
         {
             IsPlayViewShown = true;
@@ -188,18 +170,7 @@ namespace Bili.ViewModels.Uwp.Core
             Navigating?.Invoke(this, args);
         }
 
-        /// <summary>
-        /// 添加后退栈，应用会按照先进后出的顺序依次执行回退行为.
-        /// </summary>
-        /// <param name="id">行为标识.</param>
-        /// <param name="backBehavior">自定义的后退行为.</param>
-        /// <param name="parameter">后退时携带的参数.</param>
-        /// <remarks>
-        /// 这里的导航服务的主要职能是暂存和转发。应用各个组件定义自己的后退行为，按照顺序依次进入这个栈中，
-        /// 导航服务不必知道 <see cref="Action"/> 是做什么的，只负责在需要后退时按顺序执行这些组件自定义的行为即可.
-        /// 举例来说，当应用进入二级页面，由组件发送一个回退行为给导航服务，当应用点击标题栏的后退按钮时，
-        /// 服务检测到最后一个回退行为是二级页面定义的，那么就执行二级页面预设的 <see cref="Action"/>.
-        /// </remarks>
+        /// <inheritdoc/>
         public void AddBackStack(BackBehavior id, Action<object> backBehavior, object parameter = null)
         {
             var args = new AppBackEventArgs(id, backBehavior, parameter);
@@ -208,10 +179,7 @@ namespace Bili.ViewModels.Uwp.Core
             CheckBackStatus();
         }
 
-        /// <summary>
-        /// 移除已有的后退栈.
-        /// </summary>
-        /// <param name="id">行为标识.</param>
+        /// <inheritdoc/>
         public void RemoveBackStack(BackBehavior id)
         {
             if (_backStack.Any(p => p.Id == id))

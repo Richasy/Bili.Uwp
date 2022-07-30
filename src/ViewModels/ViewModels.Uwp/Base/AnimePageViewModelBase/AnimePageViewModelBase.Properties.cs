@@ -9,8 +9,8 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -26,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly IPgcProvider _pgcProvider;
         private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly Dictionary<Partition, PgcPageView> _viewCaches;
         private readonly Dictionary<string, IEnumerable<VideoInformation>> _videoCaches;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;

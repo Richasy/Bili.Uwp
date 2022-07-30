@@ -3,8 +3,8 @@
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IAuthorizeProvider authorizeProvider,
             IHomeProvider homeProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
             : base(pgcProvider, authorizeProvider, homeProvider, resourceToolkit, navigationViewModel, PgcType.Domestic)
         {
         }

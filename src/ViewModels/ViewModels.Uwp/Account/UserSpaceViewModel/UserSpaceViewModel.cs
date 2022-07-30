@@ -13,7 +13,6 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -31,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Account
         public UserSpaceViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             ICallerViewModel callerViewModel,
             CoreDispatcher dispatcher)

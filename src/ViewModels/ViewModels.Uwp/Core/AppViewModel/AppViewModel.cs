@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Core
             IAppToolkit appToolkit,
             IUpdateProvider updateProvider,
             ICallerViewModel callerViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)
         {
             _callerViewModel = callerViewModel;

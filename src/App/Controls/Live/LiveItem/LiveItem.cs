@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Live;
+using Bili.ViewModels.Interfaces.Live;
 using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,7 +12,7 @@ namespace Bili.App.Controls.Live
     /// <summary>
     /// 直播间视频卡片.
     /// </summary>
-    public sealed class LiveItem : ReactiveControl<LiveItemViewModel>, IRepeaterItem, IOrientationControl
+    public sealed class LiveItem : ReactiveControl<ILiveItemViewModel>, IRepeaterItem, IOrientationControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveItem"/> class.

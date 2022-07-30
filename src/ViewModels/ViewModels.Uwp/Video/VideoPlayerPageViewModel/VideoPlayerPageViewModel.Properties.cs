@@ -14,7 +14,6 @@ using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -35,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly ICallerViewModel _callerViewModel;
         private readonly IRecordViewModel _recordViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;
         private readonly CoreDispatcher _dispatcher;

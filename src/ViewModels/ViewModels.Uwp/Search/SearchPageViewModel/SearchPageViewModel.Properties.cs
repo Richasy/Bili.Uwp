@@ -9,9 +9,9 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Live;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// 直播集合.
         /// </summary>
-        public ObservableCollection<LiveItemViewModel> Lives { get; }
+        public ObservableCollection<ILiveItemViewModel> Lives { get; }
 
         /// <summary>
         /// 当前的过滤器集合.

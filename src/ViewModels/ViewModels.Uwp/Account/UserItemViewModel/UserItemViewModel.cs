@@ -9,7 +9,6 @@ using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -29,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Account
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             ICallerViewModel callerViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             AccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
         {

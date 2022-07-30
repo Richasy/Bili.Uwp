@@ -2,7 +2,7 @@
 
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -47,7 +47,7 @@ namespace Bili.App.Controls.Community
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var vm = Splat.Locator.Current.GetService<NavigationViewModel>();
+            var vm = Locator.Current.GetService<INavigationViewModel>();
             var pageId = Type == PartitionType.Video
                 ? Models.Enums.PageIds.VideoPartitionDetail
                 : Models.Enums.PageIds.LivePartitionDetail;

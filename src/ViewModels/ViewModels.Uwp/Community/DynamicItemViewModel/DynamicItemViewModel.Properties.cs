@@ -6,8 +6,6 @@ using Bili.Models.Data.Dynamic;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -22,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 用户信息.

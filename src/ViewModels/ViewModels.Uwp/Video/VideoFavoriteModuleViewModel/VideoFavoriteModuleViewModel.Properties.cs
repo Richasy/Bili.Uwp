@@ -3,7 +3,7 @@
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// </summary>
     public sealed partial class VideoFavoriteModuleViewModel
     {
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly IAccountProvider _accountProvider;
         private readonly IFavoriteProvider _favoriteProvider;
 

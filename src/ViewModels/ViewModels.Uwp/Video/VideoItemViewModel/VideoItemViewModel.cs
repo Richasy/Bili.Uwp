@@ -9,7 +9,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.System;
@@ -30,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Video
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             ICallerViewModel callerViewModel)
         {
             _numberToolkit = numberToolkit;

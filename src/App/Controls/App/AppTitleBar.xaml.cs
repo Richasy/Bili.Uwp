@@ -16,7 +16,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class AppTitleBar : AppTitleBarBase
     {
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly IRecordViewModel _recordViewModel;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Bili.App.Controls
         {
             InitializeComponent();
             ViewModel = Locator.Current.GetService<IAppViewModel>();
-            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
+            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
             _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
             (ViewModel as ReactiveObject).PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;

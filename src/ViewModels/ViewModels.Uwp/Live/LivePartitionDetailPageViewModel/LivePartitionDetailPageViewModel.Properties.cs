@@ -7,7 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Live
     {
         private readonly ILiveProvider _liveProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly Dictionary<LiveTag, IEnumerable<LiveInformation>> _caches;
 
         private int _totalCount;

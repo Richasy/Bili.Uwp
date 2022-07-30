@@ -6,7 +6,6 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -22,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly AccountViewModel _accountViewModel;
         private readonly CoreDispatcher _dispatcher;
 

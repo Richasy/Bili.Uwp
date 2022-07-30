@@ -17,7 +17,6 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
@@ -345,7 +344,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="RootPage"/> 的基类.
     /// </summary>
-    public class RootPageBase : AppPage<NavigationViewModel>
+    public class RootPageBase : AppPage<INavigationViewModel>
     {
     }
 }

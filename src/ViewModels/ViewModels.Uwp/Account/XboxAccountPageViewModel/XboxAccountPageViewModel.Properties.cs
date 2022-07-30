@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Reactive;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -11,7 +11,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// </summary>
     public sealed partial class XboxAccountPageViewModel
     {
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 账户视图模型.

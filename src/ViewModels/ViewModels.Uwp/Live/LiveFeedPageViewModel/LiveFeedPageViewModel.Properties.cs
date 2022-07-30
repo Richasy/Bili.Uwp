@@ -5,7 +5,8 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -19,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly ILiveProvider _liveProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// 横幅集合.
@@ -29,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <summary>
         /// 关注的直播间集合.
         /// </summary>
-        public ObservableCollection<LiveItemViewModel> Follows { get; }
+        public ObservableCollection<ILiveItemViewModel> Follows { get; }
 
         /// <summary>
         /// 热门分区.

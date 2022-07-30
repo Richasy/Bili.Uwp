@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
 using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Search
         /// </summary>
         public SearchBoxViewModel(
             ISearchProvider searchProvider,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)
         {
             _searchProvider = searchProvider;

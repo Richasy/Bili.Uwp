@@ -42,7 +42,7 @@ namespace Bili.ViewModels.Uwp.Core
             INumberToolkit numberToolkit,
             IAppToolkit appToolkit,
             AccountViewModel accountViewModel,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             SubtitleModuleViewModel subtitleModuleViewModel,
             DanmakuModuleViewModel danmakuModuleViewModel,
             InteractionModuleViewModel interactionModuleViewModel,

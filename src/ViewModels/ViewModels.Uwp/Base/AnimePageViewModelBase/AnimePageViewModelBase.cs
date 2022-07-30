@@ -16,10 +16,9 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Core;
 using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 
@@ -43,7 +42,7 @@ namespace Bili.ViewModels.Uwp.Base
             IAuthorizeProvider authorizeProvider,
             IHomeProvider homeProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             PgcType type)
         {
             _pgcProvider = pgcProvider;
