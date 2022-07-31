@@ -6,6 +6,7 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
@@ -14,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 收藏页视图模型.
     /// </summary>
-    public sealed partial class FavoritePageViewModel : ViewModelBase
+    public sealed partial class FavoritePageViewModel : ViewModelBase, IFavoritePageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FavoritePageViewModel"/> class.
