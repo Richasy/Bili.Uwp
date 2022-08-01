@@ -107,6 +107,8 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IToolboxPageViewModel, ToolboxPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ISettingsPageViewModel, SettingsPageViewModel>();
+
             SplatRegistrations.RegisterLazySingleton<VideoPartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();

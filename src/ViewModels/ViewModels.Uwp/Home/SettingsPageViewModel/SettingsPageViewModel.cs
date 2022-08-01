@@ -8,8 +8,8 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Home;
 using ReactiveUI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 设置视图模型.
     /// </summary>
-    public sealed partial class SettingsPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class SettingsPageViewModel : ViewModelBase, ISettingsPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsPageViewModel"/> class.
