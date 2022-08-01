@@ -11,6 +11,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
@@ -95,7 +96,7 @@ namespace Bili.ViewModels.Uwp.Core
         /// <summary>
         /// 播放速率的预设集合.
         /// </summary>
-        public ObservableCollection<PlaybackRateItemViewModel> PlaybackRates { get; }
+        public ObservableCollection<IPlaybackRateItemViewModel> PlaybackRates { get; }
 
         /// <summary>
         /// 字幕模块视图模型.

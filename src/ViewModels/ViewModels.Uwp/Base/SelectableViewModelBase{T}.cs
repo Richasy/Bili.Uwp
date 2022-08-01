@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Bili.ViewModels.Interfaces;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp
@@ -9,30 +10,19 @@ namespace Bili.ViewModels.Uwp
     /// 可选择的视图模型.
     /// </summary>
     /// <typeparam name="T">数据类型.</typeparam>
-    public class SelectableViewModelBase<T> : ViewModelBase
+    public class SelectableViewModelBase<T> : ViewModelBase, ISelectableViewModel<T>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SelectableViewModelBase{T}"/> class.
-        /// </summary>
-        /// <param name="data">数据.</param>
-        /// <param name="isSelected">是否被选中.</param>
-        public SelectableViewModelBase(T data, bool isSelected = false)
-        {
-            Data = data;
-            IsSelected = isSelected;
-        }
-
-        /// <summary>
-        /// 核心数据.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public T Data { get; set; }
 
-        /// <summary>
-        /// 是否被选中.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSelected { get; set; }
+
+        /// <inheritdoc/>
+        public void InjectData(T data)
+            => Data = data;
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SelectableViewModelBase<T> model && EqualityComparer<T>.Default.Equals(Data, model.Data);

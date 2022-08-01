@@ -14,6 +14,7 @@ using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
@@ -74,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
 
             Formats = new ObservableCollection<FormatInformation>();
-            PlaybackRates = new ObservableCollection<PlaybackRateItemViewModel>();
+            PlaybackRates = new ObservableCollection<IPlaybackRateItemViewModel>();
 
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync);
