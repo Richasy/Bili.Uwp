@@ -5,7 +5,9 @@ using System.Net.Http;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Toolbox;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.Storage;
@@ -17,29 +19,28 @@ namespace Bili.ViewModels.Uwp.Toolbox
     /// <summary>
     /// 封面下载器视图模型.
     /// </summary>
-    public sealed class CoverDownloaderViewModel : ViewModelBase
+    public sealed class CoverDownloaderViewModel : ViewModelBase, ICoverDownloaderViewModel
     {
-        private readonly IResourceToolkit _resourceToolkit;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IVideoToolkit _videoToolkit;
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isDownloading;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoverDownloaderViewModel"/> class.
         /// </summary>
         public CoverDownloaderViewModel(
-             IResourceToolkit resourceToolkit,
              IVideoToolkit videoToolkit,
+             IPlayerProvider playerProvider,
              CoreDispatcher dispatcher)
         {
-            _resourceToolkit = resourceToolkit;
             _videoToolkit = videoToolkit;
+            _playerProvider = playerProvider;
             _dispatcher = dispatcher;
 
             DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync);
             LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync);
 
-            _isDownloading = DownloadCommand.IsExecuting.ToProperty(this, x => x.IsDownloading);
+            DownloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsDownloading);
 
             this.WhenAnyValue(x => x.ErrorMessage)
                 .Subscribe(x => IsShowError = !string.IsNullOrEmpty(x));
@@ -50,44 +51,31 @@ namespace Bili.ViewModels.Uwp.Toolbox
                 .Subscribe(DisplayExAsync);
         }
 
-        /// <summary>
-        /// 预览图片.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string CoverUrl { get; set; }
 
-        /// <summary>
-        /// 输入Id.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string InputId { get; set; }
 
-        /// <summary>
-        /// 是否显示错误信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowError { get; set; }
 
-        /// <summary>
-        /// 错误信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        /// 加载预览命令.
-        /// </summary>
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsDownloading { get; set; }
+
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> LoadPreviewCommand { get; }
 
-        /// <summary>
-        /// 下载命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> DownloadCommand { get; }
-
-        /// <summary>
-        /// 是否正在下载.
-        /// </summary>
-        public bool IsDownloading => _isDownloading.Value;
 
         private async Task LoadPreviewAsync()
         {
@@ -95,21 +83,9 @@ namespace Bili.ViewModels.Uwp.Toolbox
             {
                 IsShowError = false;
                 var type = _videoToolkit.GetVideoIdType(InputId, out var avid);
-                if (type == Models.Enums.VideoIdType.Av)
-                {
-                    // reply = await BiliController.Instance.GetVideoDetailAsync(avid);
-                    await Task.CompletedTask;
-                }
-                else if (type == Models.Enums.VideoIdType.Bv)
-                {
-                    // reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
-                }
-                else
-                {
-                    throw new ArgumentException(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.InvalidVideoId));
-                }
-
-                CoverUrl = string.Empty;
+                var id = type == Models.Enums.VideoIdType.Bv ? InputId : avid;
+                var reply = await _playerProvider.GetVideoDetailAsync(id);
+                CoverUrl = reply.Information.Identifier.Cover.GetSourceUri().ToString();
             }
         }
 

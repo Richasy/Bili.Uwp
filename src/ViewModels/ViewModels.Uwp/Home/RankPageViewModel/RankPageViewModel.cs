@@ -12,9 +12,10 @@ using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 排行榜页面视图模型.
     /// </summary>
-    public sealed partial class RankPageViewModel : ViewModelBase, IInitializeViewModel, IReloadViewModel
+    public sealed partial class RankPageViewModel : ViewModelBase, IRankPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RankPageViewModel"/> class.
@@ -55,10 +56,21 @@ namespace Bili.ViewModels.Uwp.Home
                 .Merge(SelectPartitionCommand.ThrownExceptions)
                 .Subscribe(DisplayException);
 
-            _isReloading = InitializeCommand.IsExecuting
+            InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
                 .Merge(SelectPartitionCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading);
+                .ToPropertyEx(this, x => x.IsReloading);
+        }
+
+        /// <inheritdoc/>
+        public void DisplayException(Exception exception)
+        {
+            IsError = true;
+            var msg = exception is ServiceException se
+                ? se.GetMessage()
+                : exception.Message;
+            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n{msg}";
+            LogException(exception);
         }
 
         private async Task InitializeAsync()
@@ -108,16 +120,6 @@ namespace Bili.ViewModels.Uwp.Home
                     Videos.Add(videoVM);
                 }
             }
-        }
-
-        private void DisplayException(Exception exception)
-        {
-            IsError = true;
-            var msg = exception is ServiceException se
-                ? se.GetMessage()
-                : exception.Message;
-            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n{msg}";
-            LogException(exception);
         }
     }
 }

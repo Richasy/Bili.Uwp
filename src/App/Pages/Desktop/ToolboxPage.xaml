@@ -11,7 +11,7 @@
     xmlns:local="using:Bili.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:toolbox="using:Bili.ViewModels.Uwp.Toolbox"
+    xmlns:toolbox="using:Bili.ViewModels.Interfaces.Toolbox"
     mc:Ignorable="d">
 
     <local:ToolboxPageBase.Resources>
@@ -42,7 +42,7 @@
                             MinRowSpacing="12" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="toolbox:ToolboxItemViewModel">
+                        <DataTemplate x:DataType="toolbox:IToolboxItemViewModel">
                             <controls:CardPanel Click="OnItemClick" DataContext="{x:Bind}">
                                 <Grid Padding="16,20" RowSpacing="8">
                                     <Grid.RowDefinitions>

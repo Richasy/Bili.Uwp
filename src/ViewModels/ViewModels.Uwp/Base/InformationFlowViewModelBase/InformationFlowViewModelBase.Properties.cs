@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using ReactiveUI;
@@ -16,53 +15,34 @@ namespace Bili.ViewModels.Uwp.Base
     public partial class InformationFlowViewModelBase<T>
     {
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
         private bool _isNeedLoadAgain;
 
         /// <inheritdoc/>
-        public event EventHandler CollectionInitialized;
-
-        /// <summary>
-        /// 初始化命令.
-        /// </summary>
         public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
 
-        /// <summary>
-        /// 重新加载命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 增量请求命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> IncrementalCommand { get; }
 
-        /// <summary>
-        /// 视频集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<T> Items { get; }
 
-        /// <summary>
-        /// 是否正在初始化.
-        /// </summary>
-        public bool IsReloading => _isReloading?.Value ?? false;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
 
-        /// <summary>
-        /// 是否正在增量加载.
-        /// </summary>
-        public bool IsIncrementalLoading => _isIncrementalLoading?.Value ?? false;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsIncrementalLoading { get; set; }
 
-        /// <summary>
-        /// 是否出错.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public bool IsError { get; internal set; }
+        public bool IsError { get; set; }
 
-        /// <summary>
-        /// 错误文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string ErrorText { get; internal set; }
+        public string ErrorText { get; set; }
     }
 }

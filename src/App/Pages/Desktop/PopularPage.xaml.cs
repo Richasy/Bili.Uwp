@@ -14,5 +14,13 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         public PopularPage()
             : base() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }
