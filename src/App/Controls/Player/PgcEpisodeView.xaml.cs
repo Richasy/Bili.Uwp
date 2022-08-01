@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
@@ -28,7 +29,7 @@ namespace Bili.App.Controls.Player
         private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as EpisodeItemViewModel;
+            var data = card.DataContext as IEpisodeItemViewModel;
             if (!data.Data.Equals(ViewModel.CurrentEpisode))
             {
                 ViewModel.ChangeEpisodeCommand.Execute(data.Data).Subscribe();

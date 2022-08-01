@@ -7,6 +7,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Video;
 using Splat;
@@ -125,7 +126,10 @@ namespace Bili.ViewModels.Uwp.Pgc
                 for (var i = 0; i < seasons.Count; i++)
                 {
                     var item = seasons[i];
-                    var vm = new VideoIdentifierSelectableViewModel(item, i + 1, item.Id == View.Information.Identifier.Id);
+                    var vm = Locator.Current.GetService<IVideoIdentifierSelectableViewModel>();
+                    vm.InjectData(item);
+                    vm.Index = i + 1;
+                    vm.IsSelected = item.Id == View.Information.Identifier.Id;
                     Seasons.Add(vm);
                 }
             }

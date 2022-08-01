@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using Splat;
 
@@ -20,7 +20,7 @@ namespace Bili.App.Controls.Player
         public UgcSeasonView()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<VideoPlayerPageViewModel>();
+            ViewModel = Locator.Current.GetService<IVideoPlayerPageViewModel>();
             DataContext = ViewModel;
         }
 
@@ -54,7 +54,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="UgcSeason"/> 的基类.
     /// </summary>
-    public class UgcSeasonViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class UgcSeasonViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

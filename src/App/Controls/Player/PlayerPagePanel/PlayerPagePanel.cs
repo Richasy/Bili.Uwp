@@ -8,7 +8,6 @@ using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
-using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -199,7 +198,7 @@ namespace Bili.App.Controls.Player
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
             => await ChangeVisualStateFromDisplayModeAsync();
 
-        private async void OnMediaPlayerChangedAsync(object sender, MediaPlayer e)
+        private async void OnMediaPlayerChangedAsync(object sender, object e)
             => await ChangeVisualStateFromDisplayModeAsync();
 
         private async Task ChangeVisualStateFromDisplayModeAsync()

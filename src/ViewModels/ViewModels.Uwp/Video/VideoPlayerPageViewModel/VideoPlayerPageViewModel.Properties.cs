@@ -9,9 +9,9 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -36,19 +36,9 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountViewModel _accountViewModel;
         private readonly CommentPageViewModel _commentPageViewModel;
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly ObservableAsPropertyHelper<bool> _isFavoriteFolderRequesting;
 
         private string _presetVideoId;
         private Action _playNextVideoAction;
-
-        /// <inheritdoc/>
-        public bool IsReloading => _isReloading.Value;
-
-        /// <summary>
-        /// 是否正在请求收藏夹信息.
-        /// </summary>
-        public bool IsFavoriteFolderRequesting => _isFavoriteFolderRequesting.Value;
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
@@ -136,7 +126,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 收藏夹列表.
         /// </summary>
-        public ObservableCollection<VideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
+        public ObservableCollection<IVideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
 
         /// <summary>
         /// 播放时的关联区块集合.
@@ -156,7 +146,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 视频分集集合.
         /// </summary>
-        public ObservableCollection<VideoIdentifierSelectableViewModel> VideoParts { get; }
+        public ObservableCollection<IVideoIdentifierSelectableViewModel> VideoParts { get; }
 
         /// <summary>
         /// 合集集合.
@@ -171,7 +161,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 下载模块视图模型.
         /// </summary>
-        public DownloadModuleViewModel DownloadViewModel { get; }
+        public IDownloadModuleViewModel DownloadViewModel { get; }
 
         /// <summary>
         /// 视图信息.
@@ -354,5 +344,15 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         [Reactive]
         public bool IsShowParts { get; set; }
+
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
+
+        /// <summary>
+        /// 是否正在请求收藏夹信息.
+        /// </summary>
+        [ObservableAsProperty]
+        public bool IsFavoriteFolderRequesting { get; set; }
     }
 }

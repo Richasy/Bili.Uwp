@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
@@ -17,7 +18,7 @@ namespace Bili.App.Controls.Player
         public RelatedVideoView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+            ViewModel = Locator.Current.GetService<IVideoPlayerPageViewModel>();
             DataContext = ViewModel;
         }
     }
@@ -25,7 +26,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="RelatedVideoView"/> 的基类.
     /// </summary>
-    public class RelatedVideoViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class RelatedVideoViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

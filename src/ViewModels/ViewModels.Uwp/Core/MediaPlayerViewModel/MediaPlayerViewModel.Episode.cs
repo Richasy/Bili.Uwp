@@ -14,9 +14,6 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class MediaPlayerViewModel
     {
-        private void ResetEpisodeData()
-            => _currentEpisode = default;
-
         private async Task ChangeEpisodeAsync(VideoIdentifier identifier)
         {
             var view = _viewData as PgcPlayerView;

@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
@@ -20,14 +21,14 @@ namespace Bili.App.Controls.Player
         public VideoPartView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+            ViewModel = Locator.Current.GetService<VideoPlayerPageViewModel>();
             DataContext = ViewModel;
         }
 
         private void OnPartItemClick(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as VideoIdentifierSelectableViewModel;
+            var data = card.DataContext as IVideoIdentifierSelectableViewModel;
             if (!data.Data.Equals(ViewModel.CurrentVideoPart))
             {
                 ViewModel.ChangeVideoPartCommand.Execute(data.Data).Subscribe();

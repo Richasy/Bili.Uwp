@@ -15,11 +15,11 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -62,10 +62,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
 
-            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            FavoriteFolders = new ObservableCollection<IVideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<PlayerSectionHeader>();
             Episodes = new ObservableCollection<IEpisodeItemViewModel>();
-            Seasons = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            Seasons = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
             Extras = new ObservableCollection<PgcExtraItemViewModel>();
             Celebrities = new ObservableCollection<IUserItemViewModel>();
 

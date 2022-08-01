@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -13,12 +13,12 @@ namespace Bili.ViewModels.Uwp.Base
         /// Initializes a new instance of the <see cref="PlayerPageViewModelBase"/> class.
         /// </summary>
         public PlayerPageViewModelBase(
-            MediaPlayerViewModel playerViewModel)
+            IMediaPlayerViewModel playerViewModel)
             => MediaPlayerViewModel = playerViewModel;
 
         /// <summary>
         /// 媒体播放视图模型.
         /// </summary>
-        public MediaPlayerViewModel MediaPlayerViewModel { get; set; }
+        public IMediaPlayerViewModel MediaPlayerViewModel { get; }
     }
 }

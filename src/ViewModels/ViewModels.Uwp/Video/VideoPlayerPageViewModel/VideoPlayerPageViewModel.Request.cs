@@ -3,6 +3,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.ViewModels.Interfaces.Video;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -26,7 +28,9 @@ namespace Bili.ViewModels.Uwp.Video
             foreach (var item in data.Item1.Items)
             {
                 var isSelected = selectIds != null && selectIds.Contains(item.Id);
-                var vm = new VideoFavoriteFolderSelectableViewModel(item, isSelected);
+                var vm = Locator.Current.GetService<IVideoFavoriteFolderSelectableViewModel>();
+                vm.InjectData(item);
+                vm.IsSelected = isSelected;
                 FavoriteFolders.Add(vm);
             }
         }

@@ -9,16 +9,17 @@ using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 弹幕视图模型.
     /// </summary>
-    public sealed partial class DanmakuModuleViewModel : ViewModelBase, IReloadViewModel
+    public sealed partial class DanmakuModuleViewModel : ViewModelBase, IDanmakuModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuModuleViewModel"/> class.
@@ -49,8 +50,8 @@ namespace Bili.ViewModels.Uwp.Common
             SeekCommand = ReactiveCommand.Create<double>(Seek);
             AddLiveDanmakuCommand = ReactiveCommand.Create<LiveDanmakuInformation>(AddLiveDanmaku);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
-            _isDanmakuLoading = LoadSegmentDanmakuCommand.IsExecuting.ToProperty(this, x => x.IsDanmakuLoading);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            LoadSegmentDanmakuCommand.IsExecuting.ToPropertyEx(this, x => x.IsDanmakuLoading);
 
             SendDanmakuCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
@@ -60,11 +61,7 @@ namespace Bili.ViewModels.Uwp.Common
             Initialize();
         }
 
-        /// <summary>
-        /// 加载弹幕.
-        /// </summary>
-        /// <param name="mainId">视频 Id.</param>
-        /// <param name="partId">分P Id.</param>
+        /// <inheritdoc/>
         public void SetData(string mainId, string partId, VideoType type)
         {
             _mainId = mainId;

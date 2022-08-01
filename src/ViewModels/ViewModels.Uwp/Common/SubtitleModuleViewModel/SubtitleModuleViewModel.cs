@@ -11,15 +11,16 @@ using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 字幕模块视图模型.
     /// </summary>
-    public sealed partial class SubtitleModuleViewModel : ViewModelBase, IReloadViewModel
+    public sealed partial class SubtitleModuleViewModel : ViewModelBase, ISubtitleModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SubtitleModuleViewModel"/> class.
@@ -32,11 +33,11 @@ namespace Bili.ViewModels.Uwp.Common
             _settingsToolkit = settingsToolkit;
             _subtitles = new List<SubtitleInformation>();
             Metas = new ObservableCollection<SubtitleMeta>();
-            ConvertTypeCollection = new ObservableCollection<Models.Enums.App.SubtitleConvertType>
+            ConvertTypeCollection = new ObservableCollection<SubtitleConvertType>
             {
-                Models.Enums.App.SubtitleConvertType.None,
-                Models.Enums.App.SubtitleConvertType.ToTraditionalChinese,
-                Models.Enums.App.SubtitleConvertType.ToSimplifiedChinese,
+                SubtitleConvertType.None,
+                SubtitleConvertType.ToTraditionalChinese,
+                SubtitleConvertType.ToSimplifiedChinese,
             };
 
             ConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, SubtitleConvertType.None);
@@ -46,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Common
             ChangeMetaCommand = ReactiveCommand.CreateFromTask<SubtitleMeta>(ChangeMetaAsync);
             SeekCommand = ReactiveCommand.Create<double>(Seek);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
 
             SeekCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
@@ -67,11 +68,7 @@ namespace Bili.ViewModels.Uwp.Common
                 });
         }
 
-        /// <summary>
-        /// 设置初始数据.
-        /// </summary>
-        /// <param name="mainId">主 Id, 比如视频的 Aid.</param>
-        /// <param name="partId">分部 Id, 比如视频的 Cid.</param>
+        /// <inheritdoc/>
         public void SetData(string mainId, string partId)
         {
             _mainId = mainId;

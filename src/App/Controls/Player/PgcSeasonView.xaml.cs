@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -27,7 +27,7 @@ namespace Bili.App.Controls.Player
         private async void OnSeasonItemClickAsync(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as VideoIdentifierSelectableViewModel;
+            var data = card.DataContext as IVideoIdentifierSelectableViewModel;
             if (!data.Data.Id.Equals(ViewModel.View.Information.Identifier.Id) || ViewModel.CurrentEpisode.IsPreviewVideo)
             {
                 ViewModel.SetSnapshot(new Models.Data.Local.PlaySnapshot(default, data.Data.Id, Models.Enums.VideoType.Pgc)

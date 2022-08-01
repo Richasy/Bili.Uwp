@@ -16,7 +16,6 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using Splat;
 using Windows.Media;
@@ -29,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 媒体播放器视图模型.
     /// </summary>
-    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class MediaPlayerViewModel : ViewModelBase, IMediaPlayerViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaPlayerViewModel"/> class.
@@ -43,9 +42,9 @@ namespace Bili.ViewModels.Uwp.Core
             IAppToolkit appToolkit,
             IAccountViewModel accountViewModel,
             INavigationViewModel navigationViewModel,
-            SubtitleModuleViewModel subtitleModuleViewModel,
-            DanmakuModuleViewModel danmakuModuleViewModel,
-            InteractionModuleViewModel interactionModuleViewModel,
+            ISubtitleModuleViewModel subtitleModuleViewModel,
+            IDanmakuModuleViewModel danmakuModuleViewModel,
+            IInteractionModuleViewModel interactionModuleViewModel,
             ICallerViewModel callerViewModel,
             IAppViewModel appViewModel,
             CoreDispatcher dispatcher,
@@ -180,10 +179,7 @@ namespace Bili.ViewModels.Uwp.Core
                 .Subscribe(x => CheckExitFullPlayerButtonVisibility());
         }
 
-        /// <summary>
-        /// 设置视频播放数据.
-        /// </summary>
-        /// <param name="data">视频视图数据.</param>
+        /// <inheritdoc/>
         public void SetVideoData(VideoPlayerView data)
         {
             _viewData = data;
@@ -191,11 +187,7 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置 PGC 播放数据.
-        /// </summary>
-        /// <param name="view">PGC 内容视图.</param>
-        /// <param name="episode">单集信息.</param>
+        /// <inheritdoc/>
         public void SetPgcData(PgcPlayerView view, EpisodeInformation episode)
         {
             _viewData = view;
@@ -204,10 +196,7 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置直播播放数据.
-        /// </summary>
-        /// <param name="data">直播视图数据.</param>
+        /// <inheritdoc/>
         public void SetLiveData(LivePlayerView data)
         {
             _viewData = data;

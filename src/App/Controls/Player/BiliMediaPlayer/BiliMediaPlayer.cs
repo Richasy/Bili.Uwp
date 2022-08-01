@@ -2,6 +2,7 @@
 
 using System;
 using Bili.App.Controls.Danmaku;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
@@ -14,7 +15,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// 媒体播放器.
     /// </summary>
-    public sealed partial class BiliMediaPlayer : ReactiveControl<MediaPlayerViewModel>
+    public sealed partial class BiliMediaPlayer : ReactiveControl<IMediaPlayerViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliMediaPlayer"/> class.
