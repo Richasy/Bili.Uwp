@@ -38,7 +38,6 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Behaviors\IncrementalBehavior.cs" />
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\ReloadBehavior.cs" />

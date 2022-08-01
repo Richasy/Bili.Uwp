@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Threading.Tasks;
 using Bili.App.Pages.Base;
-using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Desktop
 {

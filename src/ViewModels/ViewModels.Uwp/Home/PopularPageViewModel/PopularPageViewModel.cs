@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
@@ -15,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 热门视图模型.
     /// </summary>
-    public sealed partial class PopularPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
+    public sealed partial class PopularPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IPopularPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PopularPageViewModel"/> class.

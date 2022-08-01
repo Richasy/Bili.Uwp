@@ -3,16 +3,16 @@
 using System.Collections.ObjectModel;
 using Bili.ViewModels.Interfaces.Toolbox;
 
-namespace Bili.ViewModels.Uwp.Home
+namespace Bili.ViewModels.Interfaces.Home
 {
     /// <summary>
-    /// 工具箱页面视图模型.
+    /// 工具页面视图模型的接口定义.
     /// </summary>
-    public sealed partial class ToolboxPageViewModel
+    public interface IToolboxPageViewModel
     {
         /// <summary>
         /// 工具集合.
         /// </summary>
-        public ObservableCollection<IToolboxItemViewModel> ToolCollection { get; }
+        ObservableCollection<IToolboxItemViewModel> ToolCollection { get; }
     }
 }

@@ -12,7 +12,9 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Toolbox;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Account;
 using Bili.ViewModels.Uwp.Article;
@@ -90,6 +92,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<IArticleItemViewModel, ArticleItemViewModel>();
             SplatRegistrations.Register<ISeasonItemViewModel, SeasonItemViewModel>();
             SplatRegistrations.Register<IPgcPlaylistViewModel, PgcPlaylistViewModel>();
+            SplatRegistrations.Register<IToolboxItemViewModel, ToolboxItemViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<ICallerViewModel, CallerViewModel>();
             SplatRegistrations.RegisterLazySingleton<IRecordViewModel, RecordViewModel>();
@@ -98,11 +101,14 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IAccountViewModel, AccountViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<IFavoritePageViewModel, FavoritePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<RecommendPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<PopularPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IRecommendPageViewModel, RecommendPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IPopularPageViewModel, PopularPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IRankPageViewModel, RankPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IToolboxPageViewModel, ToolboxPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<RankPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
@@ -113,7 +119,6 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<TvPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IndexPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ToolboxPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<HelpPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
@@ -137,8 +142,6 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<CommentMainModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<CommentDetailModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<AvBvConverterViewModel>();
-            SplatRegistrations.RegisterLazySingleton<CoverDownloaderViewModel>();
             SplatRegistrations.RegisterLazySingleton<VideoPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<PgcPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
@@ -153,7 +156,6 @@ namespace Bili.DI.App
             SplatRegistrations.Register<VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.Register<DynamicItemViewModel>();
             SplatRegistrations.Register<CommentItemViewModel>();
-            SplatRegistrations.Register<ToolboxItemViewModel>();
             SplatRegistrations.Register<SubtitleModuleViewModel>();
             SplatRegistrations.Register<DanmakuModuleViewModel>();
             SplatRegistrations.Register<InteractionModuleViewModel>();

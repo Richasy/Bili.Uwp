@@ -7,7 +7,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 视频推荐视图模型.
     /// </summary>
-    public partial class RecommendPageViewModel : InformationFlowViewModelBase<IVideoBaseViewModel>
+    public partial class RecommendPageViewModel : InformationFlowViewModelBase<IVideoBaseViewModel>, IRecommendPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecommendPageViewModel"/> class.
@@ -27,13 +27,11 @@ namespace Bili.ViewModels.Uwp.Home
         public RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
             IHomeProvider recommendProvider,
-            IAppViewModel appViewModel,
             CoreDispatcher coreDispatcher)
             : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = recommendProvider;
-            App = appViewModel;
         }
 
         /// <inheritdoc/>

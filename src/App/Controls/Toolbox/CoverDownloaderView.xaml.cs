@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp.Toolbox;
+using Bili.ViewModels.Interfaces.Toolbox;
 using Splat;
 
 namespace Bili.App.Controls
@@ -11,7 +11,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class CoverDownloaderView : CenterPopup
     {
-        private readonly CoverDownloaderViewModel _viewModel = Splat.Locator.Current.GetService<CoverDownloaderViewModel>();
+        private readonly ICoverDownloaderViewModel _viewModel = Locator.Current.GetService<ICoverDownloaderViewModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoverDownloaderView"/> class.

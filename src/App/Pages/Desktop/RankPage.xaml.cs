@@ -16,6 +16,14 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         public RankPage() => InitializeComponent();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnDetailNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             ContentScrollViewer.ChangeView(0, 0, 1, true);
