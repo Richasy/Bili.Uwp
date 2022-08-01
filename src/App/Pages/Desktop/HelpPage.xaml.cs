@@ -28,6 +28,14 @@ namespace Bili.App.Pages.Desktop
             _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
         }
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = Window.Current.Bounds.Width;

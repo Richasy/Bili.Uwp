@@ -8,6 +8,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,55 +22,37 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
-        private readonly ObservableAsPropertyHelper<bool> _isShowBanner;
-        private readonly ObservableAsPropertyHelper<bool> _isRecommendPartition;
 
-        /// <summary>
-        /// 横幅集合.
-        /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
-
-        /// <summary>
-        /// 子分区集合.
-        /// </summary>
-        public ObservableCollection<Partition> SubPartitions { get; }
-
-        /// <summary>
-        /// 视频排序方式集合.
-        /// </summary>
-        public ObservableCollection<VideoSortType> SortTypes { get; }
-
-        /// <summary>
-        /// 选中子分区命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
 
-        /// <summary>
-        /// 父分区.
-        /// </summary>
-        [Reactive]
-        public Partition OriginPartition { get; private set; }
+        /// <inheritdoc/>
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
-        /// <summary>
-        /// 当前选中的子分区.
-        /// </summary>
+        /// <inheritdoc/>
+        public ObservableCollection<Partition> SubPartitions { get; }
+
+        /// <inheritdoc/>
+        public ObservableCollection<VideoSortType> SortTypes { get; }
+
+        /// <inheritdoc/>
+        [Reactive]
+        public Partition OriginPartition { get; set; }
+
+        /// <inheritdoc/>
         [Reactive]
         public Partition CurrentSubPartition { get; set; }
 
-        /// <summary>
-        /// 排序方式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public VideoSortType SortType { get; set; }
 
-        /// <summary>
-        /// 是否为推荐子分区.
-        /// </summary>
-        public bool IsRecommendPartition => _isRecommendPartition.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsRecommendPartition { get; set; }
 
-        /// <summary>
-        /// 是否显示横幅内容.
-        /// </summary>
-        public bool IsShowBanner => _isShowBanner.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsShowBanner { get; set; }
     }
 }

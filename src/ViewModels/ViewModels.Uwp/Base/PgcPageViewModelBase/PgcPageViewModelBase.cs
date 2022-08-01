@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI;
@@ -40,7 +41,7 @@ namespace Bili.ViewModels.Uwp.Base
             _pgcProvider = pgcProvider;
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
-            Banners = new ObservableCollection<BannerViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
 
             GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
 
@@ -68,7 +69,12 @@ namespace Bili.ViewModels.Uwp.Base
             var data = await _pgcProvider.GetPageDetailAsync(_type);
             if (data.Banners != null && data.Banners.Count() > 0)
             {
-                data.Banners.ToList().ForEach(p => Banners.Add(new BannerViewModel(p)));
+                data.Banners.ToList().ForEach(p =>
+                {
+                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    vm.InjectData(p);
+                    Banners.Add(vm);
+                });
             }
 
             IsShowBanner = Banners.Count > 0;

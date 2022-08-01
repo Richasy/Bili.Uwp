@@ -33,7 +33,7 @@
                         </Grid.Resources>
                         <controls:CardPanel
                             x:Name="RootCard"
-                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
                             ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
                             IsEnableCheck="False">
@@ -51,7 +51,7 @@
                                     <controls:CommonImageEx
                                         x:Name="CoverImage"
                                         VerticalAlignment="Center"
-                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}"
+                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                         Stretch="UniformToFill" />
                                 </Grid>
 
@@ -59,7 +59,7 @@
                                     Margin="0,0,12,-18"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
                                     <Ellipse
                                         Width="40"
                                         Height="40"
@@ -70,8 +70,8 @@
                                         Height="36"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Avatar.Uri}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Avatar.Uri}"
+                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                 </Grid>
 
                                 <Grid
@@ -90,18 +90,18 @@
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         VerticalAlignment="Center"
                                         Opacity="0.6"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
 
                                     <TextBlock
                                         x:Name="TitleBlock"
                                         Grid.Row="1"
                                         VerticalAlignment="Top"
                                         MaxLines="2"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
@@ -112,11 +112,11 @@
                                         Margin="0,0,0,-8"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         MaxLines="2"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}" IsEnabled="{Binding ElementName=SummaryBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}" IsEnabled="{Binding ElementName=SummaryBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
@@ -170,7 +170,7 @@
                         </Grid.Resources>
                         <controls:CardPanel
                             x:Name="RootCard"
-                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                             MaxHeight="148"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
                             ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
@@ -190,7 +190,7 @@
                                         x:Name="CoverImage"
                                         Width="180"
                                         VerticalAlignment="Center"
-                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}"
+                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                         Stretch="UniformToFill" />
                                 </Grid>
                                 <Grid
@@ -210,17 +210,17 @@
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         VerticalAlignment="Center"
                                         Opacity="0.6"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
 
                                     <TextBlock
                                         x:Name="TitleBlock"
                                         Grid.Row="1"
                                         VerticalAlignment="Top"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
@@ -228,20 +228,20 @@
                                         x:Name="InlineUserContainer"
                                         Grid.Row="2"
                                         Orientation="Horizontal"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <controls:UserAvatar
                                             x:Name="InlineAvatar"
                                             Width="24"
                                             Height="24"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
-                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Avatar.Uri}"
-                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Avatar.Uri}"
+                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             VerticalAlignment="Center"
                                             Opacity="0.6"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                     </StackPanel>
 
                                     <TextBlock
@@ -251,11 +251,11 @@
                                         Margin="0,0,0,-4"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         MaxLines="2"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="Wrap">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
 
@@ -311,7 +311,7 @@
                                 x:Name="TitleBlock"
                                 HorizontalAlignment="Left"
                                 FontWeight="Bold"
-                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                 TextWrapping="Wrap" />
                             <TextBlock
                                 x:Name="DescriptionBlock"
@@ -320,7 +320,7 @@
                                 HorizontalAlignment="Left"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 MaxLines="3"
-                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Summary}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
 
@@ -329,14 +329,14 @@
                             Grid.Row="1"
                             Height="100"
                             CornerRadius="{StaticResource ControlCornerRadius}"
-                            ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+                            ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}" />
 
                         <TextBlock
                             x:Name="AdditionalBlock"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Grid.Row="2"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

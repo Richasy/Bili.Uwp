@@ -7,7 +7,6 @@ namespace Bili.ViewModels.Interfaces
     /// </summary>
     /// <typeparam name="T">数据类型.</typeparam>
     public interface IInjectDataViewModel<T>
-        where T : class
     {
         /// <summary>
         /// 被注入的数据.

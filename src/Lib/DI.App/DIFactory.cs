@@ -11,6 +11,7 @@ using Bili.Toolkit.Uwp;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Pgc;
@@ -93,6 +94,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<ISeasonItemViewModel, SeasonItemViewModel>();
             SplatRegistrations.Register<IPgcPlaylistViewModel, PgcPlaylistViewModel>();
             SplatRegistrations.Register<IToolboxItemViewModel, ToolboxItemViewModel>();
+            SplatRegistrations.Register<IBannerViewModel, BannerViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<ICallerViewModel, CallerViewModel>();
             SplatRegistrations.RegisterLazySingleton<IRecordViewModel, RecordViewModel>();
@@ -108,9 +110,10 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISettingsPageViewModel, SettingsPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IHelpPageViewModel, HelpPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IVideoPartitionPageViewModel, VideoPartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IVideoPartitionDetailPageViewModel, VideoPartitionDetailPageViewModel>();
 
-            SplatRegistrations.RegisterLazySingleton<VideoPartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<VideoPartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
@@ -121,7 +124,6 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<TvPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IndexPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<HelpPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ViewLaterPageViewModel>();

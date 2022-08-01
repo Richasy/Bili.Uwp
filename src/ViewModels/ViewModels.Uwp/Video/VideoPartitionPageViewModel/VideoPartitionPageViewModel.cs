@@ -6,16 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Video
 {
     /// <summary>
     /// 分区页面视图模型.
     /// </summary>
-    public sealed partial class VideoPartitionPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class VideoPartitionPageViewModel : ViewModelBase, IVideoPartitionPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionPageViewModel"/> class.
@@ -35,15 +35,10 @@ namespace Bili.ViewModels.Uwp.Video
                 canInitialize,
                 outputScheduler: RxApp.MainThreadScheduler);
 
-            InitializeCommand.ThrownExceptions.Subscribe(ex =>
-            {
-                this.Log().Debug(ex);
-            });
-
-            _isInitializing = InitializeCommand.IsExecuting.ToProperty(
+            InitializeCommand.ThrownExceptions.Subscribe(LogException);
+            InitializeCommand.IsExecuting.ToPropertyEx(
                 this,
-                x => x.IsInitializing,
-                scheduler: RxApp.MainThreadScheduler);
+                x => x.IsInitializing);
         }
 
         private async Task InitializeAsync()

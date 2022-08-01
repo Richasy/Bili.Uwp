@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
@@ -25,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Live
         /// <summary>
         /// 横幅集合.
         /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
         /// <summary>
         /// 关注的直播间集合.

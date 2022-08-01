@@ -16,6 +16,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Pgc;
@@ -61,7 +62,7 @@ namespace Bili.ViewModels.Uwp.Base
 
             _viewCaches = new Dictionary<Partition, PgcPageView>();
             _videoCaches = new Dictionary<string, IEnumerable<Models.Data.Video.VideoInformation>>();
-            Banners = new ObservableCollection<BannerViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
             Ranks = new ObservableCollection<PgcRankViewModel>();
             Playlists = new ObservableCollection<PgcPlaylistViewModel>();
             Videos = new ObservableCollection<IVideoItemViewModel>();
@@ -176,7 +177,12 @@ namespace Bili.ViewModels.Uwp.Base
         {
             if (view.Banners.Count() > 0)
             {
-                view.Banners.ToList().ForEach(p => Banners.Add(new BannerViewModel(p)));
+                view.Banners.ToList().ForEach(p =>
+                {
+                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    vm.InjectData(p);
+                    Banners.Add(vm);
+                });
             }
 
             if (view.Ranks.Count > 0)
