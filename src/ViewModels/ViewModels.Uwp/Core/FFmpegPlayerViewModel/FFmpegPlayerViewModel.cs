@@ -5,10 +5,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using FFmpegInteropX;
 using Microsoft.Graphics.Canvas;
-using ReactiveUI;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -35,9 +34,14 @@ namespace Bili.ViewModels.Uwp.Core
             _liveConfig.FFmpegOptions.Add("referer", "https://live.bilibili.com/");
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
-            ClearCommand = ReactiveCommand.Create(Clear);
-
             _videoConfig = new MediaSourceConfig();
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>
@@ -192,6 +196,19 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 var stream = targetFileStream.AsRandomAccessStream();
                 await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
+            }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Clear();
+                }
+
+                _disposedValue = true;
             }
         }
     }

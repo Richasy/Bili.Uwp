@@ -40,8 +40,8 @@ namespace Bili.App.Pages.Xbox.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            ViewModel.ClearCommand.Execute().Subscribe();
             ViewModel.ClearPlaylistCommand.Execute().Subscribe();
+            ViewModel?.Dispose();
         }
 
         /// <inheritdoc/>

@@ -19,6 +19,7 @@ using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -42,11 +43,9 @@ namespace Bili.ViewModels.Uwp.Video
             IRecordViewModel recordViewModel,
             INavigationViewModel navigationViewModel,
             IAccountViewModel accountViewModel,
-            IMediaPlayerViewModel playerViewModel,
             IDownloadModuleViewModel downloadViewModel,
             CommentPageViewModel commentPageViewModel,
             CoreDispatcher dispatcher)
-            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -73,10 +72,9 @@ namespace Bili.ViewModels.Uwp.Video
 
             DownloadViewModel = downloadViewModel;
 
+            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
-            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
@@ -90,7 +88,6 @@ namespace Bili.ViewModels.Uwp.Video
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
             ShareCommand = ReactiveCommand.Create(Share);
             FixedCommand = ReactiveCommand.Create(Fix);
-            ClearCommand = ReactiveCommand.Create(Reset);
             ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
             ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
 
@@ -108,6 +105,13 @@ namespace Bili.ViewModels.Uwp.Video
             this.WhenAnyValue(p => p.IsOnlyShowIndex)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>
@@ -136,7 +140,6 @@ namespace Bili.ViewModels.Uwp.Video
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetPublisher();
             ResetOverview();
             ResetOperation();
@@ -164,6 +167,47 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeInterop();
 
             MediaPlayerViewModel.SetVideoData(View);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Reset();
+                    if (MediaPlayerViewModel != null)
+                    {
+                        MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                        MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                        MediaPlayerViewModel?.Dispose();
+                        MediaPlayerViewModel = null;
+                    }
+
+                    ReloadCommand?.Dispose();
+                    RequestFavoriteFoldersCommand?.Dispose();
+                    RequestOnlineCountCommand?.Dispose();
+                    ChangeVideoPartCommand?.Dispose();
+                    SearchTagCommand?.Dispose();
+                    FavoriteVideoCommand?.Dispose();
+                    CoinCommand?.Dispose();
+                    LikeCommand?.Dispose();
+                    TripleCommand?.Dispose();
+                    ReloadCommunityInformationCommand?.Dispose();
+                    ShareCommand?.Dispose();
+                    FixedCommand?.Dispose();
+                    ClearPlaylistCommand?.Dispose();
+                }
+
+                _disposedValue = true;
+            }
+        }
+
+        private void ReloadMediaPlayer()
+        {
+            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
         }
     }
 }

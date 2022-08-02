@@ -22,9 +22,6 @@ namespace Bili.ViewModels.Uwp.Core
         public ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
-
-        /// <inheritdoc/>
         public ReactiveCommand<bool, Unit> ChangeLiveAudioOnlyCommand { get; }
 
         /// <inheritdoc/>

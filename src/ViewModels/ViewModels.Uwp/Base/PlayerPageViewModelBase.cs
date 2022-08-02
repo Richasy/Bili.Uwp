@@ -11,15 +11,8 @@ namespace Bili.ViewModels.Uwp.Base
     public class PlayerPageViewModelBase : ViewModelBase, IPlayerPageViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PlayerPageViewModelBase"/> class.
-        /// </summary>
-        public PlayerPageViewModelBase(
-            IMediaPlayerViewModel playerViewModel)
-            => MediaPlayerViewModel = playerViewModel;
-
-        /// <summary>
         /// 媒体播放视图模型.
         /// </summary>
-        public IMediaPlayerViewModel MediaPlayerViewModel { get; }
+        public IMediaPlayerViewModel MediaPlayerViewModel { get; set; }
     }
 }

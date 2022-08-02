@@ -17,6 +17,7 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -38,9 +39,7 @@ namespace Bili.ViewModels.Uwp.Live
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
-            IMediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
-            : base(playerViewModel)
         {
             _authorizeProvider = authorizeProvider;
             _liveProvider = liveProvider;
@@ -72,8 +71,7 @@ namespace Bili.ViewModels.Uwp.Live
 
             ReloadCommand.ThrownExceptions
                 .Subscribe(DisplayException);
-            ClearCommand.ThrownExceptions
-                .Merge(ShareCommand.ThrownExceptions)
+            ShareCommand.ThrownExceptions
                 .Merge(FixedCommand.ThrownExceptions)
                 .Merge(OpenInBroswerCommand.ThrownExceptions)
                 .Subscribe(LogException);
@@ -97,7 +95,8 @@ namespace Bili.ViewModels.Uwp.Live
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+            MediaPlayerViewModel?.Dispose();
+            MediaPlayerViewModel = null;
             ResetTimers();
             ResetPublisher();
             ResetOverview();
@@ -107,6 +106,7 @@ namespace Bili.ViewModels.Uwp.Live
         private async Task GetDataAsync()
         {
             Reset();
+            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
             View = await _liveProvider.GetLiveRoomDetailAsync(_presetRoomId);
             var snapshot = new PlaySnapshot(View.Information.Identifier.Id, default, VideoType.Live)
             {

@@ -39,6 +39,7 @@ namespace Bili.ViewModels.Uwp.Video
 
         private string _presetVideoId;
         private Action _playNextVideoAction;
+        private bool _disposedValue;
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
@@ -102,11 +103,6 @@ namespace Bili.ViewModels.Uwp.Video
         /// 固定条目命令.
         /// </summary>
         public ReactiveCommand<Unit, Unit> FixedCommand { get; }
-
-        /// <summary>
-        /// 清除数据命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 清除播放列表命令.

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
@@ -16,7 +17,7 @@ namespace Bili.ViewModels.Interfaces.Video
     /// <summary>
     /// 视频播放器页面视图模型的接口定义.
     /// </summary>
-    public interface IVideoPlayerPageViewModel : IPlayerPageViewModel, IReloadViewModel, IErrorViewModel
+    public interface IVideoPlayerPageViewModel : IPlayerPageViewModel, IReloadViewModel, IErrorViewModel, IDisposable
     {
         /// <summary>
         /// 请求用户已有的收藏夹列表的命令.
@@ -77,11 +78,6 @@ namespace Bili.ViewModels.Interfaces.Video
         /// 固定条目命令.
         /// </summary>
         ReactiveCommand<Unit, Unit> FixedCommand { get; }
-
-        /// <summary>
-        /// 清除数据命令.
-        /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 清除播放列表命令.

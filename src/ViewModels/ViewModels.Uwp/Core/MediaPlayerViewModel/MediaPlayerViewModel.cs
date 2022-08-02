@@ -12,7 +12,6 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
@@ -79,7 +78,6 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync);
             ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory);
-            ClearCommand = ReactiveCommand.Create(Reset);
             ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync);
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync);
             ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip);
@@ -177,6 +175,13 @@ namespace Bili.ViewModels.Uwp.Core
             this.WhenAnyValue(p => p.IsError)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x => CheckExitFullPlayerButtonVisibility());
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>
@@ -331,6 +336,48 @@ namespace Bili.ViewModels.Uwp.Core
             _systemMediaTransportControls.IsPauseEnabled = true;
             _systemMediaTransportControls.ButtonPressed -= OnSystemControlsButtonPressedAsync;
             _systemMediaTransportControls.ButtonPressed += OnSystemControlsButtonPressedAsync;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Reset();
+                    ChangePartCommand?.Dispose();
+                    ReportViewProgressCommand?.Dispose();
+                    ChangeLiveAudioOnlyCommand?.Dispose();
+                    ChangeFormatCommand?.Dispose();
+                    PlayPauseCommand?.Dispose();
+                    ForwardSkipCommand?.Dispose();
+                    BackwardSkipCommand?.Dispose();
+                    ChangePlayRateCommand?.Dispose();
+                    ChangeVolumeCommand?.Dispose();
+                    ToggleFullScreenCommand?.Dispose();
+                    ToggleFullWindowCommand?.Dispose();
+                    ToggleCompactOverlayCommand?.Dispose();
+                    ScreenShotCommand?.Dispose();
+                    ChangeProgressCommand?.Dispose();
+                    StartTempQuickPlayCommand?.Dispose();
+                    StopTempQuickPlayCommand?.Dispose();
+                    JumpToLastProgressCommand?.Dispose();
+                    ClearSourceProgressCommand?.Dispose();
+                    ReportViewProgressCommand?.Dispose();
+                    ShowNextVideoTipCommand?.Dispose();
+                    PlayNextCommand?.Dispose();
+                    IncreasePlayRateCommand?.Dispose();
+                    DecreasePlayRateCommand?.Dispose();
+                    IncreaseVolumeCommand?.Dispose();
+                    DecreaseVolumeCommand?.Dispose();
+                    SelectInteractionChoiceCommand?.Dispose();
+                    BackToInteractionVideoStartCommand?.Dispose();
+                    BackToDefaultModeCommand?.Dispose();
+                    ExitFullPlayerCommand?.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
     }
 }

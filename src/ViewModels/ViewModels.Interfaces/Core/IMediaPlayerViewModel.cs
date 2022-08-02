@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Interfaces.Core
     /// <summary>
     /// 媒体播放器视图模型的接口定义.
     /// </summary>
-    public interface IMediaPlayerViewModel : IReactiveObject, IReloadViewModel, IErrorViewModel
+    public interface IMediaPlayerViewModel : IReactiveObject, IReloadViewModel, IErrorViewModel, IDisposable
     {
         /// <summary>
         /// 媒体播放器改变.
@@ -47,11 +47,6 @@ namespace Bili.ViewModels.Interfaces.Core
         /// 重置播放历史的命令.
         /// </summary>
         ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
-
-        /// <summary>
-        /// 清除播放数据的命令.
-        /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 改变直播源是否仅有音频的命令.

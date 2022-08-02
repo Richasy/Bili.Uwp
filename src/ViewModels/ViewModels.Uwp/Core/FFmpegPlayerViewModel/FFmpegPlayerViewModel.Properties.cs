@@ -43,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Core
         private int _liveRetryCount;
         private int _videoRetryCount;
         private bool _shouldPreventSkip;
+        private bool _disposedValue;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;
@@ -55,9 +56,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public event EventHandler<object> MediaPlayerChanged;
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <inheritdoc/>
         public TimeSpan Position => _videoCurrentSession?.Position ?? TimeSpan.Zero;
