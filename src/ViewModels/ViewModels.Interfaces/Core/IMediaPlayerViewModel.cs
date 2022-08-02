@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Interfaces.Core
     /// <summary>
     /// 媒体播放器视图模型的接口定义.
     /// </summary>
-    public interface IMediaPlayerViewModel : IReactiveObject, IReloadViewModel, IErrorViewModel, IDisposable
+    public interface IMediaPlayerViewModel : IReactiveObject, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// 媒体播放器改变.
@@ -182,6 +182,11 @@ namespace Bili.ViewModels.Interfaces.Core
         /// 退出全尺寸播放器的命令.
         /// </summary>
         ReactiveCommand<Unit, Unit> ExitFullPlayerCommand { get; }
+
+        /// <summary>
+        /// 清除播放数据的命令.
+        /// </summary>
+        ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

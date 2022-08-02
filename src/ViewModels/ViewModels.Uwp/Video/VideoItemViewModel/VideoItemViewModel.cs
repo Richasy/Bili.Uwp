@@ -99,7 +99,7 @@ namespace Bili.ViewModels.Uwp.Video
             var snapshot = new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, "0", VideoType.Video);
             if (_navigationViewModel.IsPlayViewShown && _navigationViewModel.PlayViewId == PageIds.VideoPlayer)
             {
-                var videoPlayerPageVM = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
+                var videoPlayerPageVM = Locator.Current.GetService<IVideoPlayerPageViewModel>();
                 videoPlayerPageVM.SetSnapshot(snapshot);
             }
             else

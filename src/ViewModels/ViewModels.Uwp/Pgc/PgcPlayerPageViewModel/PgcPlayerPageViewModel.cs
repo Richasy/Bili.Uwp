@@ -11,8 +11,8 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
@@ -20,6 +20,7 @@ using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -27,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 播放页面视图模型.
     /// </summary>
-    public sealed partial class PgcPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class PgcPlayerPageViewModel : PlayerPageViewModelBase, IPgcPlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlayerPageViewModel"/> class.
@@ -45,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
-            DownloadModuleViewModel downloadViewModel)
+            IDownloadModuleViewModel downloadViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -64,11 +65,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             Sections = new ObservableCollection<PlayerSectionHeader>();
             Episodes = new ObservableCollection<IEpisodeItemViewModel>();
             Seasons = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
-            Extras = new ObservableCollection<PgcExtraItemViewModel>();
+            Extras = new ObservableCollection<IPgcExtraItemViewModel>();
             Celebrities = new ObservableCollection<IUserItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
-
+            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
@@ -76,7 +77,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
             ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason);
             ChangeEpisodeCommand = ReactiveCommand.Create<EpisodeInformation>(SelectEpisode);
-            ReloadInteractionInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync);
+            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync);
             FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
             CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
             LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
@@ -86,8 +87,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
-            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
@@ -100,10 +101,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             PropertyChanged += OnPropertyChanged;
         }
 
-        /// <summary>
-        /// 设置视频.
-        /// </summary>
-        /// <param name="snapshot">视频信息.</param>
+        /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetEpisodeId = string.IsNullOrEmpty(snapshot.VideoId)
@@ -119,17 +117,16 @@ namespace Bili.ViewModels.Uwp.Pgc
             ReloadCommand.Execute().Subscribe();
         }
 
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
         private void Reset()
         {
             View = null;
-            if (MediaPlayerViewModel != null)
-            {
-                MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
-                MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
-                MediaPlayerViewModel?.Dispose();
-                MediaPlayerViewModel = null;
-            }
-
             ResetOverview();
             ResetOperation();
             ResetCommunityInformation();
@@ -140,7 +137,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         private async Task GetDataAsync()
         {
             Reset();
-            ReloadMediaPlayer();
             if (_needBiliPlus && !string.IsNullOrEmpty(_presetEpisodeId))
             {
                 var data = await _pgcProvider.GetBiliPlusBangumiInformationAsync(_presetEpisodeId);
@@ -176,6 +172,40 @@ namespace Bili.ViewModels.Uwp.Pgc
             MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Reset();
+                    if (MediaPlayerViewModel != null)
+                    {
+                        MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                        MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                        MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+                        MediaPlayerViewModel = null;
+                    }
+
+                    ReloadCommand?.Dispose();
+                    RequestFavoriteFoldersCommand?.Dispose();
+                    ChangeEpisodeCommand?.Dispose();
+                    ChangeSeasonCommand?.Dispose();
+                    FavoriteEpisodeCommand?.Dispose();
+                    CoinCommand?.Dispose();
+                    LikeCommand?.Dispose();
+                    TripleCommand?.Dispose();
+                    TrackSeasonCommand?.Dispose();
+                    ReloadCommunityInformationCommand?.Dispose();
+                    ShareCommand?.Dispose();
+                    FixedCommand?.Dispose();
+                    ShowSeasonDetailCommand?.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -18,13 +18,13 @@
         VerticalScrollMode="Auto">
         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Extras}">
             <muxc:ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="pgc:PgcExtraItemViewModel">
+                <DataTemplate x:DataType="pgc:IPgcExtraItemViewModel">
                     <controls:VerticalRepeaterView
                         HeaderText="{x:Bind Title, Mode=OneWay}"
                         ItemOrientation="Horizontal"
                         ItemsSource="{x:Bind Episodes, Mode=OneWay}">
                         <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                            <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                                 <controls:CardPanel
                                     Click="OnEpisodeItemClick"
                                     DataContext="{x:Bind}"

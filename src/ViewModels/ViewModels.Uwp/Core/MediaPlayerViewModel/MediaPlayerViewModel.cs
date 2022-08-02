@@ -106,6 +106,7 @@ namespace Bili.ViewModels.Uwp.Core
             DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume);
             BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode);
             ClearSourceProgressCommand = ReactiveCommand.Create(ClearSourceProgress);
+            ClearCommand = ReactiveCommand.Create(Reset);
 
             _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
 
@@ -175,13 +176,6 @@ namespace Bili.ViewModels.Uwp.Core
             this.WhenAnyValue(p => p.IsError)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(x => CheckExitFullPlayerButtonVisibility());
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>
@@ -336,48 +330,6 @@ namespace Bili.ViewModels.Uwp.Core
             _systemMediaTransportControls.IsPauseEnabled = true;
             _systemMediaTransportControls.ButtonPressed -= OnSystemControlsButtonPressedAsync;
             _systemMediaTransportControls.ButtonPressed += OnSystemControlsButtonPressedAsync;
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    Reset();
-                    ChangePartCommand?.Dispose();
-                    ReportViewProgressCommand?.Dispose();
-                    ChangeLiveAudioOnlyCommand?.Dispose();
-                    ChangeFormatCommand?.Dispose();
-                    PlayPauseCommand?.Dispose();
-                    ForwardSkipCommand?.Dispose();
-                    BackwardSkipCommand?.Dispose();
-                    ChangePlayRateCommand?.Dispose();
-                    ChangeVolumeCommand?.Dispose();
-                    ToggleFullScreenCommand?.Dispose();
-                    ToggleFullWindowCommand?.Dispose();
-                    ToggleCompactOverlayCommand?.Dispose();
-                    ScreenShotCommand?.Dispose();
-                    ChangeProgressCommand?.Dispose();
-                    StartTempQuickPlayCommand?.Dispose();
-                    StopTempQuickPlayCommand?.Dispose();
-                    JumpToLastProgressCommand?.Dispose();
-                    ClearSourceProgressCommand?.Dispose();
-                    ReportViewProgressCommand?.Dispose();
-                    ShowNextVideoTipCommand?.Dispose();
-                    PlayNextCommand?.Dispose();
-                    IncreasePlayRateCommand?.Dispose();
-                    DecreasePlayRateCommand?.Dispose();
-                    IncreaseVolumeCommand?.Dispose();
-                    DecreaseVolumeCommand?.Dispose();
-                    SelectInteractionChoiceCommand?.Dispose();
-                    BackToInteractionVideoStartCommand?.Dispose();
-                    BackToDefaultModeCommand?.Dispose();
-                    ExitFullPlayerCommand?.Dispose();
-                }
-
-                _disposedValue = true;
-            }
         }
     }
 }

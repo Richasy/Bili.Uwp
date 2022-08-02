@@ -39,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private void ResetInterop()
         {
             _playNextEpisodeAction = default;
-            MediaPlayerViewModel.SetPlayNextAction(default);
+            MediaPlayerViewModel?.SetPlayNextAction(default);
             IsVideoFixed = false;
         }
 

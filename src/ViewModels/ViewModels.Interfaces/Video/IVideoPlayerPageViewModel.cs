@@ -17,7 +17,7 @@ namespace Bili.ViewModels.Interfaces.Video
     /// <summary>
     /// 视频播放器页面视图模型的接口定义.
     /// </summary>
-    public interface IVideoPlayerPageViewModel : IPlayerPageViewModel, IReloadViewModel, IErrorViewModel, IDisposable
+    public interface IVideoPlayerPageViewModel : IPlayerPageViewModel, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// 请求用户已有的收藏夹列表的命令.
@@ -83,6 +83,11 @@ namespace Bili.ViewModels.Interfaces.Video
         /// 清除播放列表命令.
         /// </summary>
         ReactiveCommand<Unit, Unit> ClearPlaylistCommand { get; }
+
+        /// <summary>
+        /// 清除播放数据的命令.
+        /// </summary>
+        ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <summary>
         /// 视频协作者.

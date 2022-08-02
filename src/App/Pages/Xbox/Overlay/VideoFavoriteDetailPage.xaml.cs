@@ -26,5 +26,13 @@ namespace Bili.App.Pages.Xbox.Overlay
                 ViewModel.ReloadCommand.Execute().Subscribe();
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }

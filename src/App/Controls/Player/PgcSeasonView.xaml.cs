@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -20,7 +20,6 @@ namespace Bili.App.Controls.Player
         public PgcSeasonView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<PgcPlayerPageViewModel>();
             DataContext = ViewModel;
         }
 
@@ -47,7 +46,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="PgcSeasonView"/> 的基类.
     /// </summary>
-    public class PgcSeasonViewBase : ReactiveUserControl<PgcPlayerPageViewModel>
+    public class PgcSeasonViewBase : ReactiveUserControl<IPgcPlayerPageViewModel>
     {
     }
 }

@@ -101,5 +101,8 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ExitFullPlayerCommand { get; }
+
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
     }
 }

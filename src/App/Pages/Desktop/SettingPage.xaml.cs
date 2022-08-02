@@ -13,5 +13,13 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="SettingsPage"/> class.
         /// </summary>
         public SettingsPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }

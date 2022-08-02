@@ -30,6 +30,14 @@ namespace Bili.App.Pages.Desktop
             }
         }
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnConditionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;

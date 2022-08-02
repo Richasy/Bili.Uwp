@@ -30,6 +30,14 @@ namespace Bili.App.Pages.Desktop.Overlay
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
             => ViewModel.ClearCommand.Execute().Subscribe();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnLiveOnlyAudioToggledAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var isAudioOnly = LiveAudioOnlySwitch.IsOn;

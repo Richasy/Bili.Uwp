@@ -306,9 +306,18 @@
             </player:PlayerPagePanel.Dashboard>
             <player:PlayerPagePanel.SectionContent>
                 <Grid>
-                    <player:PgcEpisodeView x:Name="EpisodeView" Visibility="{x:Bind ViewModel.IsShowEpisodes, Mode=OneWay}" />
-                    <player:PgcSeasonView x:Name="SeasonView" Visibility="{x:Bind ViewModel.IsShowSeasons, Mode=OneWay}" />
-                    <player:PgcExtraView x:Name="ExtraView" Visibility="{x:Bind ViewModel.IsShowExtras, Mode=OneWay}" />
+                    <player:PgcEpisodeView
+                        x:Name="EpisodeView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowEpisodes, Mode=OneWay}" />
+                    <player:PgcSeasonView
+                        x:Name="SeasonView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowSeasons, Mode=OneWay}" />
+                    <player:PgcExtraView
+                        x:Name="ExtraView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowExtras, Mode=OneWay}" />
                     <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
                     <controls:ErrorPanel Text="{loc:Locale Name=NoEpisode}" Visibility="{x:Bind ViewModel.IsSectionsEmpty, Mode=OneWay}" />
                 </Grid>

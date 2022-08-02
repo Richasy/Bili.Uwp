@@ -16,6 +16,14 @@ namespace Bili.App.Pages.Xbox
         /// </summary>
         public PreSearchPage() => InitializeComponent();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnSuggstItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
             => SelectSuggestItem(e.ClickedItem);
 
