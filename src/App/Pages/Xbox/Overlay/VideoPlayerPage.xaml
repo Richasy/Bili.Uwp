@@ -322,10 +322,22 @@
             </player:PlayerPagePanel.Dashboard>
             <player:PlayerPagePanel.SectionContent>
                 <Grid>
-                    <player:VideoPartView x:Name="VideoPartView" Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
-                    <player:VideoPlaylistView x:Name="VideoPlaylistView" Visibility="{x:Bind ViewModel.IsShowVideoPlaylist, Mode=OneWay}" />
-                    <player:UgcSeasonView x:Name="UgcEpisodeView" Visibility="{x:Bind ViewModel.IsShowUgcSeason, Mode=OneWay}" />
-                    <player:RelatedVideoView x:Name="RelatedVideoView" Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
+                    <player:VideoPartView
+                        x:Name="VideoPartView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowParts, Mode=OneWay}" />
+                    <player:VideoPlaylistView
+                        x:Name="VideoPlaylistView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowVideoPlaylist, Mode=OneWay}" />
+                    <player:UgcSeasonView
+                        x:Name="UgcEpisodeView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowUgcSeason, Mode=OneWay}" />
+                    <player:RelatedVideoView
+                        x:Name="RelatedVideoView"
+                        ViewModel="{x:Bind ViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsShowRelatedVideos, Mode=OneWay}" />
                     <player:PlayerCommentView x:Name="CommentView" Visibility="{x:Bind ViewModel.IsShowComments, Mode=OneWay}" />
                 </Grid>
             </player:PlayerPagePanel.SectionContent>

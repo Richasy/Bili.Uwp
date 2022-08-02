@@ -16,7 +16,6 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Windows.UI.Core;
 
@@ -39,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Live
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
-            MediaPlayerViewModel playerViewModel,
+            IMediaPlayerViewModel playerViewModel,
             CoreDispatcher dispatcher)
             : base(playerViewModel)
         {

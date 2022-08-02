@@ -3,9 +3,7 @@
 using System;
 using System.Linq;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player
@@ -18,12 +16,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartView"/> class.
         /// </summary>
-        public VideoPartView()
-        {
-            InitializeComponent();
-            ViewModel = Locator.Current.GetService<VideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public VideoPartView() => InitializeComponent();
 
         private void OnPartItemClick(object sender, RoutedEventArgs e)
         {
@@ -67,7 +60,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="VideoPartView"/> 的基类.
     /// </summary>
-    public class VideoPartViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class VideoPartViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

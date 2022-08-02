@@ -5,7 +5,6 @@ using System.Linq;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -17,12 +16,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="UgcSeasonView"/> class.
         /// </summary>
-        public UgcSeasonView()
-        {
-            InitializeComponent();
-            ViewModel = Locator.Current.GetService<IVideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public UgcSeasonView() => InitializeComponent();
 
         private void OnSeasonComboBoxSelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {

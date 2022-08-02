@@ -2,7 +2,6 @@
 
 using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -14,12 +13,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlaylistView"/> class.
         /// </summary>
-        public VideoPlaylistView()
-        {
-            InitializeComponent();
-            ViewModel = Locator.Current.GetService<IVideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public VideoPlaylistView() => InitializeComponent();
     }
 
     /// <summary>

@@ -19,7 +19,6 @@ using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -45,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
-            MediaPlayerViewModel playerViewModel,
+            IMediaPlayerViewModel playerViewModel,
             DownloadModuleViewModel downloadViewModel)
             : base(playerViewModel)
         {

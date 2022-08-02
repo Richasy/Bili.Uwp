@@ -23,17 +23,14 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="InteractionChoicePanel"/> class.
         /// </summary>
-        public InteractionChoicePanel()
-        {
-            InitializeComponent();
-        }
+        public InteractionChoicePanel() => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
         /// </summary>
         public IMediaPlayerViewModel ViewModel
         {
-            get { return (MediaPlayerViewModel)GetValue(ViewModelProperty); }
+            get { return (IMediaPlayerViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

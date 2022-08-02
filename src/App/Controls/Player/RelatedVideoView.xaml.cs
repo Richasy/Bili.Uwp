@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -15,12 +13,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="RelatedVideoView"/> class.
         /// </summary>
-        public RelatedVideoView()
-        {
-            InitializeComponent();
-            ViewModel = Locator.Current.GetService<IVideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public RelatedVideoView() => InitializeComponent();
     }
 
     /// <summary>

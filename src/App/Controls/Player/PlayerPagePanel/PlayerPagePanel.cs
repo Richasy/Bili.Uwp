@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.ViewManagement;
@@ -20,7 +21,7 @@ namespace Bili.App.Controls.Player
     /// 播放页面面板.
     /// </summary>
     [ContentProperty(Name = "Player")]
-    public sealed class PlayerPagePanel : ReactiveControl<PlayerPageViewModelBase>
+    public sealed class PlayerPagePanel : ReactiveControl<IPlayerPageViewModel>
     {
         /// <summary>
         /// <see cref="Player"/> 的依赖属性.

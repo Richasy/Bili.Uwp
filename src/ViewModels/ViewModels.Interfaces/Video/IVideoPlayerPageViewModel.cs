@@ -181,7 +181,7 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 正在观看人数的可读文本.
         /// </summary>
-        string WatchingCountText { get; }
+        string WatchingCountText { get; set; }
 
         /// <summary>
         /// 是否显示标签组.
@@ -221,12 +221,12 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 投币同时是否点赞视频.
         /// </summary>
-        bool IsCoinWithLiked { get; }
+        bool IsCoinWithLiked { get; set; }
 
         /// <summary>
         /// 收藏夹列表请求是否出错.
         /// </summary>
-        bool IsFavoriteFoldersError { get; }
+        bool IsFavoriteFoldersError { get; set; }
 
         /// <summary>
         /// 收藏夹列表请求错误文本.
@@ -241,7 +241,7 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 有分集的时候是否仅显示索引.
         /// </summary>
-        bool IsOnlyShowIndex { get; }
+        bool IsOnlyShowIndex { get; set; }
 
         /// <summary>
         /// 当前区块.

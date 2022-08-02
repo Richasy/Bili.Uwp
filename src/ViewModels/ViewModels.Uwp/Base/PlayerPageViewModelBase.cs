@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -7,7 +8,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 播放器页面视图模型基类.
     /// </summary>
-    public class PlayerPageViewModelBase : ViewModelBase
+    public class PlayerPageViewModelBase : ViewModelBase, IPlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPageViewModelBase"/> class.
