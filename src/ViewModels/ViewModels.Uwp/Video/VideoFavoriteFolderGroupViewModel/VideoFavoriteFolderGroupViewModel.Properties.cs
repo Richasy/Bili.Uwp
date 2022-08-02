@@ -17,28 +17,22 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAccountProvider _accountProvider;
 
-        /// <summary>
-        /// 收藏夹分组信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public VideoFavoriteFolderGroup Group { get; set; }
+        public VideoFavoriteFolderGroup Data { get; set; }
 
-        /// <summary>
-        /// 收藏夹分组下是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsEmpty { get; set; }
 
-        /// <summary>
-        /// 是否还有更多内容.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool HasMore { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is VideoFavoriteFolderGroupViewModel model && EqualityComparer<VideoFavoriteFolderGroup>.Default.Equals(Group, model.Group);
+        public override bool Equals(object obj) => obj is VideoFavoriteFolderGroupViewModel model && EqualityComparer<VideoFavoriteFolderGroup>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Group.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

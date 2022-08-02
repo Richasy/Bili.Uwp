@@ -12,7 +12,7 @@
     xmlns:local="using:Bili.App.Controls.Favorite"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -50,7 +50,7 @@
                                 </exp:ExpanderExDescriptor>
                             </exp:ExpanderExWrapper.MainContent>
                             <exp:ExpanderExWrapper.WrapContent>
-                                <icons:RegularFluentIcon Symbol="Open20" Margin="0,0,-76,0" />
+                                <icons:RegularFluentIcon Margin="0,0,-76,0" Symbol="Open20" />
                             </exp:ExpanderExWrapper.WrapContent>
                         </exp:ExpanderExWrapper>
                     </exp:ExpanderEx.Header>
@@ -60,11 +60,11 @@
                         <muxc:StackLayout Spacing="12" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoFavoriteFolderGroupViewModel">
+                        <DataTemplate x:DataType="video:IVideoFavoriteFolderGroupViewModel">
                             <exp:ExpanderEx InternalExpanderStyle="{StaticResource NoAnimationExpanderStyle}">
                                 <exp:ExpanderEx.Header>
                                     <Grid MinHeight="56">
-                                        <exp:ExpanderExDescriptor Title="{x:Bind Group.Title, Mode=OneWay}" DescriptionVisibility="Collapsed">
+                                        <exp:ExpanderExDescriptor Title="{x:Bind Data.Title, Mode=OneWay}" DescriptionVisibility="Collapsed">
                                             <exp:ExpanderExDescriptor.Icon>
                                                 <icons:RegularFluentIcon Symbol="Folder20" />
                                             </exp:ExpanderExDescriptor.Icon>
@@ -79,7 +79,7 @@
                                         </Grid.RowDefinitions>
                                         <muxc:ItemsRepeater ItemsSource="{x:Bind Items}">
                                             <muxc:ItemsRepeater.ItemTemplate>
-                                                <DataTemplate x:DataType="video:VideoFavoriteFolderViewModel">
+                                                <DataTemplate x:DataType="video:IVideoFavoriteFolderViewModel">
                                                     <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" IsTabStop="False">
                                                         <exp:ExpanderExWrapper.MainContent>
                                                             <Grid Margin="-12,0,0,0" ColumnSpacing="12">

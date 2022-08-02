@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// 收藏夹信息..
         /// </summary>
         [Reactive]
-        public VideoFavoriteFolder Folder { get; set; }
+        public VideoFavoriteFolder Data { get; set; }
 
         /// <summary>
         /// 收藏夹是否为空.
