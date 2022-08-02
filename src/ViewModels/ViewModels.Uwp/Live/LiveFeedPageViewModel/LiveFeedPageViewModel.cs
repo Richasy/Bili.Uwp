@@ -7,6 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
@@ -41,7 +42,7 @@ namespace Bili.ViewModels.Uwp.Live
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
 
-            Banners = new ObservableCollection<BannerViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
             Follows = new ObservableCollection<ILiveItemViewModel>();
             HotPartitions = new ObservableCollection<Models.Data.Community.Partition>();
 
@@ -71,7 +72,12 @@ namespace Bili.ViewModels.Uwp.Live
 
             if (data.Banners.Count() > 0)
             {
-                data.Banners.ToList().ForEach(p => Banners.Add(new BannerViewModel(p)));
+                data.Banners.ToList().ForEach(p =>
+                {
+                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    vm.InjectData(p);
+                    Banners.Add(vm);
+                });
             }
 
             if (data.HotPartitions.Count() > 0)

@@ -2,33 +2,28 @@
 
 using System;
 using System.Reactive;
+using Bili.ViewModels.Interfaces.Common;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 播放速率条目视图模型.
     /// </summary>
-    public sealed class PlaybackRateItemViewModel : SelectableViewModelBase<double>
+    public sealed class PlaybackRateItemViewModel : SelectableViewModelBase<double>, IPlaybackRateItemViewModel
     {
-        private readonly Action<double> _action;
+        private Action<double> _action;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PlaybackRateItemViewModel"/> class.
-        /// </summary>
-        /// <param name="rate">播放速率.</param>
-        /// <param name="isSelected">是否选中.</param>
-        /// <param name="action">点击执行动作.</param>
-        public PlaybackRateItemViewModel(double rate, bool isSelected, Action<double> action)
-            : base(rate, isSelected)
+        /// <inheritdoc/>
+        [Reactive]
+        public ReactiveCommand<Unit, Unit> ActiveCommand { get; set; }
+
+        /// <inheritdoc/>
+        public void InjectAction(Action<double> action)
         {
             _action = action;
             ActiveCommand = ReactiveCommand.Create(() => { _action.Invoke(Data); });
         }
-
-        /// <summary>
-        /// 执行命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ActiveCommand { get; }
     }
 }

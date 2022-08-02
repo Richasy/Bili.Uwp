@@ -9,8 +9,10 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
+using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 
@@ -19,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Common
     /// <summary>
     /// 下载配置视图模型.
     /// </summary>
-    public sealed partial class DownloadModuleViewModel : ViewModelBase
+    public sealed partial class DownloadModuleViewModel : ViewModelBase, IDownloadModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DownloadModuleViewModel"/> class.
@@ -36,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Common
             _callerViewModel = callerViewModel;
             _accountViewModel = accountViewModel;
             _authorizeProvider = authorizeProvider;
-            TotalPartCollection = new ObservableCollection<NumberPartViewModel>();
+            TotalPartCollection = new ObservableCollection<INumberPartViewModel>();
 
             ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync);
             SaveDownloadTextCommand = ReactiveCommand.CreateFromTask(SaveDownloadCommandAsync);
@@ -83,18 +85,17 @@ namespace Bili.ViewModels.Uwp.Common
                 .Subscribe(x => WriteSetting(SettingNames.Download_UseInteractionQuality, x));
         }
 
-        /// <summary>
-        /// 加载.
-        /// </summary>
-        /// <param name="downloadParam">下载参数标识，比如视频 Id.</param>
-        /// <param name="partList">分集列表.</param>
+        /// <inheritdoc/>
         public void SetData(string downloadParam, IEnumerable<int> partList)
         {
             DownloadParameter = downloadParam;
             TryClear(TotalPartCollection);
             foreach (var item in partList)
             {
-                TotalPartCollection.Add(new NumberPartViewModel(item, true));
+                var vm = Locator.Current.GetService<INumberPartViewModel>();
+                vm.InjectData(item);
+                vm.IsSelected = true;
+                TotalPartCollection.Add(vm);
             }
 
             IsShowPart = TotalPartCollection.Count > 1;
@@ -104,7 +105,7 @@ namespace Bili.ViewModels.Uwp.Common
         /// 设置下载文件夹.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ChangeSaveLocationAsync()
+        private async Task ChangeSaveLocationAsync()
         {
             var folderPicker = new FolderPicker
             {
@@ -124,7 +125,7 @@ namespace Bili.ViewModels.Uwp.Common
         /// 创建下载命令.
         /// </summary>
         /// <returns>下载命令.</returns>
-        public async Task SaveDownloadCommandAsync()
+        private async Task SaveDownloadCommandAsync()
         {
             if (TotalPartCollection.Where(p => p.IsSelected).Count() == 0 && TotalPartCollection.Count > 1)
             {

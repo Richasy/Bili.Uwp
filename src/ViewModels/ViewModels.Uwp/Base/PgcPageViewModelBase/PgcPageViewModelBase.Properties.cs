@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -24,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 横幅列表.
         /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
         /// <summary>
         /// 导航至索引页面的命令.

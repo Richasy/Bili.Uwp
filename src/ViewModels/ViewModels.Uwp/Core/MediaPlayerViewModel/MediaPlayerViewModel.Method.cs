@@ -10,6 +10,8 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
+using Bili.ViewModels.Interfaces.Common;
+using Splat;
 using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
@@ -64,10 +66,14 @@ namespace Bili.ViewModels.Uwp.Core
                 ? new List<double> { 0.5, 0.75, 1.0, 1.25, 1.5, 2.0 }
                 : new List<double> { 0.5, 1.0, 1.5, 2.0, 3.0, 4.0 };
 
-            defaultList.ForEach(p => PlaybackRates.Add(new Common.PlaybackRateItemViewModel(
-                p,
-                p == PlaybackRate,
-                rate => ChangePlayRateCommand.Execute(rate).Subscribe())));
+            defaultList.ForEach(p =>
+            {
+                var vm = Locator.Current.GetService<IPlaybackRateItemViewModel>();
+                vm.InjectData(p);
+                vm.InjectAction(rate => ChangePlayRateCommand.Execute(rate).Subscribe());
+                vm.IsSelected = p == PlaybackRate;
+                PlaybackRates.Add(vm);
+            });
 
             var isGlobal = _settingsToolkit.ReadLocalSetting(SettingNames.GlobalPlaybackRate, false);
             if (!isGlobal)
@@ -87,7 +93,8 @@ namespace Bili.ViewModels.Uwp.Core
                 _player.MediaPlayerChanged -= OnMediaPlayerChanged;
                 _player.PositionChanged -= OnMediaPositionChanged;
                 _player.StateChanged -= OnMediaStateChanged;
-                _player.ClearCommand.Execute().Subscribe();
+                _player?.Dispose();
+                _player = null;
             }
 
             _lastReportProgress = TimeSpan.Zero;

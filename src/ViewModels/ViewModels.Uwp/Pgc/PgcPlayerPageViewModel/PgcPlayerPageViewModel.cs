@@ -15,12 +15,12 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -45,9 +45,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
             CommentPageViewModel commentPageViewModel,
-            MediaPlayerViewModel playerViewModel,
             DownloadModuleViewModel downloadViewModel)
-            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -62,19 +60,17 @@ namespace Bili.ViewModels.Uwp.Pgc
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
 
-            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            FavoriteFolders = new ObservableCollection<IVideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<PlayerSectionHeader>();
             Episodes = new ObservableCollection<IEpisodeItemViewModel>();
-            Seasons = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            Seasons = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
             Extras = new ObservableCollection<PgcExtraItemViewModel>();
             Celebrities = new ObservableCollection<IUserItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
 
-            IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
+            IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
-            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
@@ -87,7 +83,6 @@ namespace Bili.ViewModels.Uwp.Pgc
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
             ShareCommand = ReactiveCommand.Create(Share);
             FixedCommand = ReactiveCommand.Create(Fix);
-            ClearCommand = ReactiveCommand.Create(Reset);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync);
 
@@ -127,7 +122,14 @@ namespace Bili.ViewModels.Uwp.Pgc
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+            if (MediaPlayerViewModel != null)
+            {
+                MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                MediaPlayerViewModel?.Dispose();
+                MediaPlayerViewModel = null;
+            }
+
             ResetOverview();
             ResetOperation();
             ResetCommunityInformation();
@@ -138,6 +140,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private async Task GetDataAsync()
         {
             Reset();
+            ReloadMediaPlayer();
             if (_needBiliPlus && !string.IsNullOrEmpty(_presetEpisodeId))
             {
                 var data = await _pgcProvider.GetBiliPlusBangumiInformationAsync(_presetEpisodeId);
@@ -166,6 +169,13 @@ namespace Bili.ViewModels.Uwp.Pgc
             InitializeInterop();
 
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
+        }
+
+        private void ReloadMediaPlayer()
+        {
+            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
         }
     }
 }

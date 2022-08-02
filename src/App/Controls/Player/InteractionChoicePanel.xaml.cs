@@ -2,6 +2,7 @@
 
 using System;
 using Bili.Models.Data.Player;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,22 +18,19 @@ namespace Bili.App.Controls.Player
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(MediaPlayerViewModel), typeof(InteractionChoicePanel), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IMediaPlayerViewModel), typeof(InteractionChoicePanel), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InteractionChoicePanel"/> class.
         /// </summary>
-        public InteractionChoicePanel()
-        {
-            InitializeComponent();
-        }
+        public InteractionChoicePanel() => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public MediaPlayerViewModel ViewModel
+        public IMediaPlayerViewModel ViewModel
         {
-            get { return (MediaPlayerViewModel)GetValue(ViewModelProperty); }
+            get { return (IMediaPlayerViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

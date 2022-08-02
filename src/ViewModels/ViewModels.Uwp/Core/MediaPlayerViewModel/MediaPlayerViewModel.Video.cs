@@ -38,6 +38,10 @@ namespace Bili.ViewModels.Uwp.Core
             await InitializeVideoMediaInformationAsync();
             CheckVideoHistory();
             await InitializeOrginalVideoSourceAsync();
+
+            var view = _viewData as VideoPlayerView;
+            SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
+            DanmakuViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id, _videoType);
         }
 
         private void CheckVideoHistory()
@@ -66,9 +70,6 @@ namespace Bili.ViewModels.Uwp.Core
                     InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
                 }
             }
-
-            SubtitleViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id);
-            DanmakuViewModel.SetData(view.Information.Identifier.Id, _currentPart.Id, _videoType);
         }
 
         private async Task InitializeVideoMediaInformationAsync()

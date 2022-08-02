@@ -9,6 +9,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Pgc;
@@ -43,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 横幅集合.
         /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
         /// <summary>
         /// 排行榜集合.

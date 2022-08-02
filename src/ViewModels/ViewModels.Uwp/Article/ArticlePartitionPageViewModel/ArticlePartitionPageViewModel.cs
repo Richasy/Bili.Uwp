@@ -12,6 +12,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
 using Splat;
@@ -40,7 +41,7 @@ namespace Bili.ViewModels.Uwp.Article
             _articleProvider = articleProvider;
             _caches = new Dictionary<Partition, IEnumerable<ArticleInformation>>();
 
-            Banners = new ObservableCollection<BannerViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
             Ranks = new ObservableCollection<IArticleItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
             SortTypes = new ObservableCollection<ArticleSortType>()
@@ -101,7 +102,9 @@ namespace Bili.ViewModels.Uwp.Article
                 {
                     if (!Banners.Any(p => p.Uri == item.Uri))
                     {
-                        Banners.Add(new BannerViewModel(item));
+                        var vm = Locator.Current.GetService<IBannerViewModel>();
+                        vm.InjectData(item);
+                        Banners.Add(vm);
                     }
                 }
             }

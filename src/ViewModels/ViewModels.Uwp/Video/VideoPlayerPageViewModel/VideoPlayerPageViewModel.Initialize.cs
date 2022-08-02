@@ -6,7 +6,7 @@ using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Interfaces.Account;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Video;
 using Humanizer;
 using Splat;
 
@@ -106,7 +106,11 @@ namespace Bili.ViewModels.Uwp.Video
                 for (var i = 0; i < subVideos.Count; i++)
                 {
                     var item = subVideos[i];
-                    VideoParts.Add(new VideoIdentifierSelectableViewModel(item, i + 1, item.Equals(CurrentVideoPart)));
+                    var vm = Locator.Current.GetService<IVideoIdentifierSelectableViewModel>();
+                    vm.InjectData(item);
+                    vm.Index = i + 1;
+                    vm.IsSelected = item.Equals(CurrentVideoPart);
+                    VideoParts.Add(vm);
                 }
             }
 

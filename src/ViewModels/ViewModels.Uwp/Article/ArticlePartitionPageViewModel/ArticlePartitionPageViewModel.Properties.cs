@@ -9,6 +9,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Common;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -28,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// <summary>
         /// 横幅集合.
         /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
         /// <summary>
         /// 横幅集合.

@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -22,113 +23,75 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly ICallerViewModel _callerViewModel;
         private readonly IAccountViewModel _accountViewModel;
 
-        /// <summary>
-        /// 改变保存位置的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ChangeSaveLocationCommand { get; }
 
-        /// <summary>
-        /// 保存下载命令到剪切板.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> SaveDownloadTextCommand { get; }
 
-        /// <summary>
-        /// 全部分P集合.
-        /// </summary>
-        public ObservableCollection<NumberPartViewModel> TotalPartCollection { get; }
+        /// <inheritdoc/>
+        public ObservableCollection<INumberPartViewModel> TotalPartCollection { get; }
 
-        /// <summary>
-        /// 下载参数.
-        /// </summary>
+        /// <inheritdoc/>
         public string DownloadParameter { get; set; }
 
-        /// <summary>
-        /// 使用MP4Box来混流.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseMp4Box { get; set; }
 
-        /// <summary>
-        /// 仅下载HEVC源.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlyHevc { get; set; }
 
-        /// <summary>
-        /// 仅下载AVC源.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlyAvc { get; set; }
 
-        /// <summary>
-        /// 仅下载AV1源.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlyAv1 { get; set; }
 
-        /// <summary>
-        /// 是否仅下载音频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlyAudio { get; set; }
 
-        /// <summary>
-        /// 是否仅下载视频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlyVideo { get; set; }
 
-        /// <summary>
-        /// 是否仅下载字幕.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool OnlySubtitle { get; set; }
 
-        /// <summary>
-        /// 使用多线程.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseMultiThread { get; set; }
 
-        /// <summary>
-        /// 使用TV接口.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseTvInterface { get; set; }
 
-        /// <summary>
-        /// 使用App接口.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseAppInterface { get; set; }
 
-        /// <summary>
-        /// 使用国际版接口.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseInternationalInterface { get; set; }
 
-        /// <summary>
-        /// 是否下载弹幕.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool DownloadDanmaku { get; set; }
 
-        /// <summary>
-        /// 下载文件夹.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string DownloadFolder { get; set; }
 
-        /// <summary>
-        /// 使用交互式清晰度选择.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool UseInteractionQuality { get; set; }
 
-        /// <summary>
-        /// 是否显示分P.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowPart { get; set; }
     }

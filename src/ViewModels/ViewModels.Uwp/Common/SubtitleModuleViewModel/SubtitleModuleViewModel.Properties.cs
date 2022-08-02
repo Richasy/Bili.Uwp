@@ -17,7 +17,6 @@ namespace Bili.ViewModels.Uwp.Common
     /// </summary>
     public sealed partial class SubtitleModuleViewModel
     {
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly List<SubtitleInformation> _subtitles;
         private readonly IPlayerProvider _playerProvider;
         private readonly ISettingsToolkit _settingsToolkit;
@@ -26,60 +25,43 @@ namespace Bili.ViewModels.Uwp.Common
         private string _partId;
         private double _currentSeconds;
 
-        /// <summary>
-        /// 重新定位命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<double, Unit> SeekCommand { get; }
 
-        /// <summary>
-        /// 更换字幕的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<SubtitleMeta, Unit> ChangeMetaCommand { get; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 字幕元数据集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<SubtitleMeta> Metas { get; }
 
-        /// <summary>
-        /// 字幕转换类型集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<SubtitleConvertType> ConvertTypeCollection { get; }
 
-        /// <summary>
-        /// 当前字幕.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string CurrentSubtitle { get; set; }
 
-        /// <summary>
-        /// 当前的元数据.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public SubtitleMeta CurrentMeta { get; set; }
 
-        /// <summary>
-        /// 字幕转换类型.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public SubtitleConvertType ConvertType { get; set; }
 
-        /// <summary>
-        /// 是否有字幕.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool HasSubtitles { get; set; }
 
-        /// <summary>
-        /// 是否需要显示字幕.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool CanShowSubtitle { get; set; }
 
         /// <inheritdoc/>
-        public bool IsReloading => _isReloading.Value;
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
     }
 }

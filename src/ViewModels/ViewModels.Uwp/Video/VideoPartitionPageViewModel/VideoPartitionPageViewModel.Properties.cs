@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -14,21 +15,15 @@ namespace Bili.ViewModels.Uwp.Video
     public sealed partial class VideoPartitionPageViewModel
     {
         private readonly IHomeProvider _homeProvider;
-        private readonly ObservableAsPropertyHelper<bool> _isInitializing;
 
-        /// <summary>
-        /// 分区集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<Partition> Partitions { get; }
 
-        /// <summary>
-        /// 初始化命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
 
-        /// <summary>
-        /// 是否正在初始化.
-        /// </summary>
-        public bool IsInitializing => _isInitializing.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsInitializing { get; set; }
     }
 }

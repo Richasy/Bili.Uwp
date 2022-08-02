@@ -11,15 +11,15 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频播放页面视图模型.
     /// </summary>
-    public sealed partial class VideoPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class VideoPlayerPageViewModel : PlayerPageViewModelBase, IVideoPlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlayerPageViewModel"/> class.
@@ -43,11 +43,9 @@ namespace Bili.ViewModels.Uwp.Video
             IRecordViewModel recordViewModel,
             INavigationViewModel navigationViewModel,
             IAccountViewModel accountViewModel,
+            IDownloadModuleViewModel downloadViewModel,
             CommentPageViewModel commentPageViewModel,
-            MediaPlayerViewModel playerViewModel,
-            DownloadModuleViewModel downloadViewModel,
             CoreDispatcher dispatcher)
-            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -64,20 +62,19 @@ namespace Bili.ViewModels.Uwp.Video
 
             Collaborators = new ObservableCollection<IUserItemViewModel>();
             Tags = new ObservableCollection<Tag>();
-            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            FavoriteFolders = new ObservableCollection<IVideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
             RelatedVideos = new ObservableCollection<IVideoItemViewModel>();
-            VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            VideoParts = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
             Seasons = new ObservableCollection<VideoSeason>();
             CurrentSeasonVideos = new ObservableCollection<IVideoItemViewModel>();
             VideoPlaylist = new ObservableCollection<IVideoItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
 
+            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
-            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
             ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
             RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
@@ -91,12 +88,11 @@ namespace Bili.ViewModels.Uwp.Video
             TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
             ShareCommand = ReactiveCommand.Create(Share);
             FixedCommand = ReactiveCommand.Create(Fix);
-            ClearCommand = ReactiveCommand.Create(Reset);
             ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
             ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
-            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
@@ -111,10 +107,14 @@ namespace Bili.ViewModels.Uwp.Video
                 .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
         }
 
-        /// <summary>
-        /// 设置视频.
-        /// </summary>
-        /// <param name="snapshot">视频信息.</param>
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetVideoId = snapshot.VideoId;
@@ -123,11 +123,7 @@ namespace Bili.ViewModels.Uwp.Video
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置播放列表.
-        /// </summary>
-        /// <param name="videos">视频列表.</param>
-        /// <param name="playIndex">需要播放的视频索引.</param>
+        /// <inheritdoc/>
         public void SetPlaylist(IEnumerable<VideoInformation> videos, int playIndex = 0)
         {
             TryClear(VideoPlaylist);
@@ -144,7 +140,6 @@ namespace Bili.ViewModels.Uwp.Video
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetPublisher();
             ResetOverview();
             ResetOperation();
@@ -172,6 +167,47 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeInterop();
 
             MediaPlayerViewModel.SetVideoData(View);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Reset();
+                    if (MediaPlayerViewModel != null)
+                    {
+                        MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                        MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                        MediaPlayerViewModel?.Dispose();
+                        MediaPlayerViewModel = null;
+                    }
+
+                    ReloadCommand?.Dispose();
+                    RequestFavoriteFoldersCommand?.Dispose();
+                    RequestOnlineCountCommand?.Dispose();
+                    ChangeVideoPartCommand?.Dispose();
+                    SearchTagCommand?.Dispose();
+                    FavoriteVideoCommand?.Dispose();
+                    CoinCommand?.Dispose();
+                    LikeCommand?.Dispose();
+                    TripleCommand?.Dispose();
+                    ReloadCommunityInformationCommand?.Dispose();
+                    ShareCommand?.Dispose();
+                    FixedCommand?.Dispose();
+                    ClearPlaylistCommand?.Dispose();
+                }
+
+                _disposedValue = true;
+            }
+        }
+
+        private void ReloadMediaPlayer()
+        {
+            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
         }
     }
 }

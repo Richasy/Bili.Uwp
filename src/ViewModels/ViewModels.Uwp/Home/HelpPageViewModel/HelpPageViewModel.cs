@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Home;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Windows.System;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 帮助支持的视图模型.
     /// </summary>
-    public sealed partial class HelpPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class HelpPageViewModel : ViewModelBase, IHelpPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpPageViewModel"/> class.

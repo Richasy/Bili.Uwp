@@ -18,35 +18,23 @@ namespace Bili.ViewModels.Uwp.Home
         private readonly IFileToolkit _fileToolkit;
         private readonly IAppToolkit _appToolkit;
 
-        /// <summary>
-        /// 关联链接集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<KeyValue<string>> LinkCollection { get; }
 
-        /// <summary>
-        /// 问题集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<QuestionModule> QuestionCollection { get; }
 
-        /// <summary>
-        /// 当前问题模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public QuestionModule CurrentQuestionModule { get; set; }
 
-        /// <summary>
-        /// 报告问题命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> AskIssueCommand { get; }
 
-        /// <summary>
-        /// 打开项目主页命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> GotoProjectHomeCommand { get; }
 
-        /// <summary>
-        /// 打开开发者B站账户页面命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> GotoDeveloperBiliBiliHomePageCommand { get; }
 
         /// <inheritdoc/>

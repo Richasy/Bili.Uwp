@@ -67,9 +67,9 @@ namespace Bili.App.Controls.Player
         private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
             => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(e, ViewModel.DanmakuViewModel.IsDanmakuMerge), true);
 
-        private async void OnMediaPlayerChangedAsync(object sender, MediaPlayer e)
+        private async void OnMediaPlayerChangedAsync(object sender, object e)
         {
-            _mediaPlayerElement.SetMediaPlayer(e);
+            _mediaPlayerElement.SetMediaPlayer(e as MediaPlayer);
 
             await Task.Delay(200);
             await _danmakuView?.RedrawAsync();

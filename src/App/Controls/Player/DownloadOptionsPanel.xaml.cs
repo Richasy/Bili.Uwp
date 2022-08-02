@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Interfaces.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,7 +15,7 @@ namespace Bili.App.Controls.Player
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DownloadModuleViewModel), typeof(DownloadOptionsPanel), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IDownloadModuleViewModel), typeof(DownloadOptionsPanel), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DownloadOptionsPanel"/> class.
@@ -29,9 +29,9 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DownloadModuleViewModel ViewModel
+        public IDownloadModuleViewModel ViewModel
         {
-            get { return (DownloadModuleViewModel)GetValue(ViewModelProperty); }
+            get { return (IDownloadModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

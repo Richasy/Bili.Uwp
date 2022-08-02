@@ -10,12 +10,11 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -124,7 +123,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 收藏夹列表.
         /// </summary>
-        public ObservableCollection<VideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
+        public ObservableCollection<IVideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
 
         /// <summary>
         /// 播放时的关联区块集合.
@@ -139,7 +138,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 剧集集合.
         /// </summary>
-        public ObservableCollection<VideoIdentifierSelectableViewModel> Seasons { get; }
+        public ObservableCollection<IVideoIdentifierSelectableViewModel> Seasons { get; }
 
         /// <summary>
         /// 附加内容集合.

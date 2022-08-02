@@ -1358,9 +1358,7 @@
   <ItemGroup>
     <PRIResource Include="Resources\Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Player\Related\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Lib\DI.App\DI.App.csproj">
       <Project>{18d92f2f-046e-4a35-83fc-476b097bb8b7}</Project>

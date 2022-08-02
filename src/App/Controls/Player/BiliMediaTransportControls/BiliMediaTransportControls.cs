@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.App.Controls.Danmaku;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +11,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// 媒体传输控件.
     /// </summary>
-    public sealed partial class BiliMediaTransportControls : ReactiveControl<MediaPlayerViewModel>
+    public sealed partial class BiliMediaTransportControls : ReactiveControl<IMediaPlayerViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliMediaTransportControls"/> class.

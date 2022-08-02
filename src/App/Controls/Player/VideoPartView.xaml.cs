@@ -2,9 +2,8 @@
 
 using System;
 using System.Linq;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player
@@ -17,17 +16,12 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartView"/> class.
         /// </summary>
-        public VideoPartView()
-        {
-            InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public VideoPartView() => InitializeComponent();
 
         private void OnPartItemClick(object sender, RoutedEventArgs e)
         {
             var card = sender as CardPanel;
-            var data = card.DataContext as VideoIdentifierSelectableViewModel;
+            var data = card.DataContext as IVideoIdentifierSelectableViewModel;
             if (!data.Data.Equals(ViewModel.CurrentVideoPart))
             {
                 ViewModel.ChangeVideoPartCommand.Execute(data.Data).Subscribe();
@@ -66,7 +60,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="VideoPartView"/> 的基类.
     /// </summary>
-    public class VideoPartViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class VideoPartViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

@@ -3,8 +3,6 @@
 using Bili.App.Controls;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Toolbox;
-using Bili.ViewModels.Uwp.Home;
-using Bili.ViewModels.Uwp.Toolbox;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Desktop
@@ -18,6 +16,14 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="ToolboxPage"/> class.
         /// </summary>
         public ToolboxPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnItemClick(object sender, RoutedEventArgs e)
         {

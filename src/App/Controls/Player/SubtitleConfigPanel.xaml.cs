@@ -2,6 +2,7 @@
 
 using System;
 using Bili.Models.Data.Player;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Uwp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +18,7 @@ namespace Bili.App.Controls.Player
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(SubtitleModuleViewModel), typeof(SubtitleConfigPanel), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(ViewModel), typeof(ISubtitleModuleViewModel), typeof(SubtitleConfigPanel), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SubtitleConfigPanel"/> class.
@@ -27,9 +28,9 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public SubtitleModuleViewModel ViewModel
+        public ISubtitleModuleViewModel ViewModel
         {
-            get { return (SubtitleModuleViewModel)GetValue(ViewModelProperty); }
+            get { return (ISubtitleModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 

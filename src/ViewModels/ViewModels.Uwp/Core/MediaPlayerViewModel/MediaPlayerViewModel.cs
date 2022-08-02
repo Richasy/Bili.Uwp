@@ -12,10 +12,9 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using Splat;
 using Windows.Media;
@@ -28,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// <summary>
     /// 媒体播放器视图模型.
     /// </summary>
-    public sealed partial class MediaPlayerViewModel : ViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class MediaPlayerViewModel : ViewModelBase, IMediaPlayerViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaPlayerViewModel"/> class.
@@ -42,9 +41,9 @@ namespace Bili.ViewModels.Uwp.Core
             IAppToolkit appToolkit,
             IAccountViewModel accountViewModel,
             INavigationViewModel navigationViewModel,
-            SubtitleModuleViewModel subtitleModuleViewModel,
-            DanmakuModuleViewModel danmakuModuleViewModel,
-            InteractionModuleViewModel interactionModuleViewModel,
+            ISubtitleModuleViewModel subtitleModuleViewModel,
+            IDanmakuModuleViewModel danmakuModuleViewModel,
+            IInteractionModuleViewModel interactionModuleViewModel,
             ICallerViewModel callerViewModel,
             IAppViewModel appViewModel,
             CoreDispatcher dispatcher,
@@ -74,12 +73,11 @@ namespace Bili.ViewModels.Uwp.Core
             PlaybackRate = _settingsToolkit.ReadLocalSetting(SettingNames.PlaybackRate, 1d);
 
             Formats = new ObservableCollection<FormatInformation>();
-            PlaybackRates = new ObservableCollection<PlaybackRateItemViewModel>();
+            PlaybackRates = new ObservableCollection<IPlaybackRateItemViewModel>();
 
             ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
             ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync);
             ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory);
-            ClearCommand = ReactiveCommand.Create(Reset);
             ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync);
             ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync);
             ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip);
@@ -179,10 +177,14 @@ namespace Bili.ViewModels.Uwp.Core
                 .Subscribe(x => CheckExitFullPlayerButtonVisibility());
         }
 
-        /// <summary>
-        /// 设置视频播放数据.
-        /// </summary>
-        /// <param name="data">视频视图数据.</param>
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc/>
         public void SetVideoData(VideoPlayerView data)
         {
             _viewData = data;
@@ -190,11 +192,7 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置 PGC 播放数据.
-        /// </summary>
-        /// <param name="view">PGC 内容视图.</param>
-        /// <param name="episode">单集信息.</param>
+        /// <inheritdoc/>
         public void SetPgcData(PgcPlayerView view, EpisodeInformation episode)
         {
             _viewData = view;
@@ -203,10 +201,7 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置直播播放数据.
-        /// </summary>
-        /// <param name="data">直播视图数据.</param>
+        /// <inheritdoc/>
         public void SetLiveData(LivePlayerView data)
         {
             _viewData = data;
@@ -341,6 +336,48 @@ namespace Bili.ViewModels.Uwp.Core
             _systemMediaTransportControls.IsPauseEnabled = true;
             _systemMediaTransportControls.ButtonPressed -= OnSystemControlsButtonPressedAsync;
             _systemMediaTransportControls.ButtonPressed += OnSystemControlsButtonPressedAsync;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Reset();
+                    ChangePartCommand?.Dispose();
+                    ReportViewProgressCommand?.Dispose();
+                    ChangeLiveAudioOnlyCommand?.Dispose();
+                    ChangeFormatCommand?.Dispose();
+                    PlayPauseCommand?.Dispose();
+                    ForwardSkipCommand?.Dispose();
+                    BackwardSkipCommand?.Dispose();
+                    ChangePlayRateCommand?.Dispose();
+                    ChangeVolumeCommand?.Dispose();
+                    ToggleFullScreenCommand?.Dispose();
+                    ToggleFullWindowCommand?.Dispose();
+                    ToggleCompactOverlayCommand?.Dispose();
+                    ScreenShotCommand?.Dispose();
+                    ChangeProgressCommand?.Dispose();
+                    StartTempQuickPlayCommand?.Dispose();
+                    StopTempQuickPlayCommand?.Dispose();
+                    JumpToLastProgressCommand?.Dispose();
+                    ClearSourceProgressCommand?.Dispose();
+                    ReportViewProgressCommand?.Dispose();
+                    ShowNextVideoTipCommand?.Dispose();
+                    PlayNextCommand?.Dispose();
+                    IncreasePlayRateCommand?.Dispose();
+                    DecreasePlayRateCommand?.Dispose();
+                    IncreaseVolumeCommand?.Dispose();
+                    DecreaseVolumeCommand?.Dispose();
+                    SelectInteractionChoiceCommand?.Dispose();
+                    BackToInteractionVideoStartCommand?.Dispose();
+                    BackToDefaultModeCommand?.Dispose();
+                    ExitFullPlayerCommand?.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
     }
 }

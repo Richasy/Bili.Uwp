@@ -11,12 +11,11 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Common;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.Media;
-using Windows.Media.Playback;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -56,6 +55,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
         private Action _playNextAction;
         private SystemMediaTransportControls _systemMediaTransportControls;
+        private bool _disposedValue;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;
@@ -64,123 +64,81 @@ namespace Bili.ViewModels.Uwp.Core
         private double _originalDanmakuSpeed;
         private double _presetVolumeHoldTime;
 
-        /// <summary>
-        /// 媒体播放器改变.
-        /// </summary>
-        public event EventHandler<MediaPlayer> MediaPlayerChanged;
+        /// <inheritdoc/>
+        public event EventHandler<object> MediaPlayerChanged;
 
-        /// <summary>
-        /// 请求显示临时信息.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<string> RequestShowTempMessage;
 
-        /// <summary>
-        /// 媒体播放结束.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler MediaEnded;
 
-        /// <summary>
-        /// 由视图模型内部改变了当前选中的分集.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<VideoIdentifier> InternalPartChanged;
 
         /// <inheritdoc/>
         public bool IsReloading => _isReloading.Value;
 
-        /// <summary>
-        /// 视频格式集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<FormatInformation> Formats { get; }
 
-        /// <summary>
-        /// 播放速率的预设集合.
-        /// </summary>
-        public ObservableCollection<PlaybackRateItemViewModel> PlaybackRates { get; }
+        /// <inheritdoc/>
+        public ObservableCollection<IPlaybackRateItemViewModel> PlaybackRates { get; }
 
-        /// <summary>
-        /// 字幕模块视图模型.
-        /// </summary>
-        public SubtitleModuleViewModel SubtitleViewModel { get; }
+        /// <inheritdoc/>
+        public ISubtitleModuleViewModel SubtitleViewModel { get; }
 
-        /// <summary>
-        /// 字幕模块视图模型.
-        /// </summary>
-        public DanmakuModuleViewModel DanmakuViewModel { get; }
+        /// <inheritdoc/>
+        public IDanmakuModuleViewModel DanmakuViewModel { get; }
 
-        /// <summary>
-        /// 互动视频模块视图模型.
-        /// </summary>
-        public InteractionModuleViewModel InteractionViewModel { get; }
+        /// <inheritdoc/>
+        public IInteractionModuleViewModel InteractionViewModel { get; }
 
-        /// <summary>
-        /// 播放器状态.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public PlayerStatus Status { get; set; }
 
-        /// <summary>
-        /// 播放器显示模式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public PlayerDisplayMode DisplayMode { get; set; }
 
-        /// <summary>
-        /// 当前的视频格式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public FormatInformation CurrentFormat { get; set; }
 
-        /// <summary>
-        /// 音量.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double Volume { get; set; }
 
-        /// <summary>
-        /// 播放速率.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double PlaybackRate { get; set; }
 
-        /// <summary>
-        /// 最大播放速率.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double MaxPlaybackRate { get; set; }
 
-        /// <summary>
-        /// 播放速率调整间隔.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double PlaybackRateStep { get; set; }
 
-        /// <summary>
-        /// 视频时长秒数.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double DurationSeconds { get; set; }
 
-        /// <summary>
-        /// 当前已播放的秒数.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double ProgressSeconds { get; set; }
 
-        /// <summary>
-        /// 当前已播放的秒数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ProgressText { get; set; }
 
-        /// <summary>
-        /// 视频时长秒数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string DurationText { get; set; }
 
-        /// <summary>
-        /// 是否循环播放.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsLoop { get; set; }
 
@@ -192,117 +150,79 @@ namespace Bili.ViewModels.Uwp.Core
         [Reactive]
         public string ErrorText { get; set; }
 
-        /// <summary>
-        /// 是否显示历史记录提示.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowProgressTip { get; set; }
 
-        /// <summary>
-        /// 进度提示.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ProgressTip { get; set; }
 
-        /// <summary>
-        /// 是否仅播放直播音频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsLiveAudioOnly { get; set; }
 
-        /// <summary>
-        /// 全屏提示文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string FullScreenText { get; set; }
 
-        /// <summary>
-        /// 全窗口提示文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string FullWindowText { get; set; }
 
-        /// <summary>
-        /// 小窗提示文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string CompactOverlayText { get; set; }
 
-        /// <summary>
-        /// 是否显示媒体传输控件.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowMediaTransport { get; set; }
 
-        /// <summary>
-        /// 显示的下一个视频提示文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string NextVideoTipText { get; set; }
 
-        /// <summary>
-        /// 是否显示下一个视频提醒.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowNextVideoTip { get; set; }
 
-        /// <summary>
-        /// 自动播放下一个视频的倒计时秒数.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double NextVideoCountdown { get; set; }
 
-        /// <summary>
-        /// 自动关闭进度提示的倒计时秒数.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public double ProgressTipCountdown { get; set; }
 
-        /// <summary>
-        /// 是否为互动视频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsInteractionVideo { get; set; }
 
-        /// <summary>
-        /// 是否显示互动视频选项.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowInteractionChoices { get; set; }
 
-        /// <summary>
-        /// 互动视频是否已结束.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsInteractionEnd { get; set; }
 
-        /// <summary>
-        /// 是否正在缓冲.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsBuffering { get; set; }
 
-        /// <summary>
-        /// 媒体是否暂停.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsMediaPause { get; set; }
 
-        /// <summary>
-        /// 视频封面.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Cover { get; set; }
 
-        /// <summary>
-        /// 是否可以播放下一个分集.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool CanPlayNextPart { get; set; }
 
-        /// <summary>
-        /// 是否显示退出全尺寸播放界面按钮.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowExitFullPlayerButton { get; set; }
     }
