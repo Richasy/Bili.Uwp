@@ -136,11 +136,11 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IMoviePageViewModel, MoviePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ITvPageViewModel, TvPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IDocumentaryPageViewModel, DocumentaryPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ITimelinePageViewModel, TimelinePageViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<TimelinePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ViewLaterPageViewModel>();
