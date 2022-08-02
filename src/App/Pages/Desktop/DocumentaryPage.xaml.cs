@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.App.Pages.Base;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -13,12 +13,5 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="DocumentaryPage"/> class.
         /// </summary>
         public DocumentaryPage() => InitializeComponent();
-    }
-
-    /// <summary>
-    /// <see cref="DocumentaryPage"/> 的基类.
-    /// </summary>
-    public class DocumentaryPageBase : AppPage<DocumentaryPageViewModel>
-    {
     }
 }

@@ -10,7 +10,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     IsTabStop="False"
@@ -47,7 +47,7 @@
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:SeasonItemViewModel">
+                        <DataTemplate x:DataType="pgc:ISeasonItemViewModel">
                             <local:SeasonItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

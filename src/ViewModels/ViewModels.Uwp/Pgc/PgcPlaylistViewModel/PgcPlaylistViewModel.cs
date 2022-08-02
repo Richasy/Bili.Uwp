@@ -47,7 +47,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 设置播放列表.
         /// </summary>
         /// <param name="data">列表数据.</param>
-        public void SetPlaylist(PgcPlaylist data)
+        public void InjectData(PgcPlaylist data)
         {
             Data = data;
             IsShowDetailButton = !string.IsNullOrEmpty(data.Id);

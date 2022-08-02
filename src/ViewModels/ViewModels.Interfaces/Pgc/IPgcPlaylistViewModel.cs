@@ -10,13 +10,8 @@ namespace Bili.ViewModels.Interfaces.Pgc
     /// <summary>
     /// PGC 播放列表的视图模型接口定义.
     /// </summary>
-    public interface IPgcPlaylistViewModel : IInitializeViewModel, IReloadViewModel, IErrorViewModel
+    public interface IPgcPlaylistViewModel : IInjectDataViewModel<PgcPlaylist>, IInitializeViewModel, IReloadViewModel, IErrorViewModel
     {
-        /// <summary>
-        /// 初始数据.
-        /// </summary>
-        PgcPlaylist Data { get; }
-
         /// <summary>
         /// 副标题.
         /// </summary>

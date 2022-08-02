@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 
 namespace Bili.App.Pages.Base
 {
     /// <summary>
     /// 纪录片页面的基类.
     /// </summary>
-    public class DocumentaryPageBase : AppPage<DocumentaryPageViewModel>
+    public class DocumentaryPageBase : AppPage<IDocumentaryPageViewModel>
     {
     }
 }

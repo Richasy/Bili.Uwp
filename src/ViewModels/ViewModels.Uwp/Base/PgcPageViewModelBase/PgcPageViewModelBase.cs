@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// PGC 信息流页面（不包括动漫）的通用视图模型.
     /// </summary>
-    public partial class PgcPageViewModelBase : InformationFlowViewModelBase<ISeasonItemViewModel>
+    public partial class PgcPageViewModelBase : InformationFlowViewModelBase<ISeasonItemViewModel>, IPgcPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPageViewModelBase"/> class.

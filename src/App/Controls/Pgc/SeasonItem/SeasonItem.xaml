@@ -27,7 +27,7 @@
                 <ControlTemplate TargetType="local:SeasonItem">
                     <controls:CardPanel
                         x:Name="RootCard"
-                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultSeasonItemContextFlyout}}"
                         IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
@@ -43,7 +43,7 @@
                                     x:Name="CoverImage"
                                     Width="{TemplateBinding CoverWidth}"
                                     Height="{TemplateBinding CoverHeight}"
-                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}" />
                             </Grid>
                             <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
@@ -61,9 +61,9 @@
                                         HorizontalAlignment="Left"
                                         FontSize="14"
                                         MaxLines="2"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}">
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
                                 </Grid>
@@ -74,14 +74,14 @@
                                     HorizontalAlignment="Left"
                                     MaxLines="1"
                                     Opacity="0.6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}"
-                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
 
                                 <Grid
                                     Grid.Row="2"
                                     Margin="0,4,0,0"
                                     HorizontalAlignment="Left"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.HighlightTitle, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.HighlightTitle, Converter={StaticResource ObjectToVisibilityConverter}}">
                                     <Rectangle
                                         Fill="{ThemeResource AccentBadgeBackground}"
                                         RadiusX="4"
@@ -91,7 +91,7 @@
                                         Margin="6,4"
                                         FontSize="10"
                                         Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.HighlightTitle}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.HighlightTitle}" />
                                 </Grid>
 
                                 <TextBlock
@@ -101,21 +101,21 @@
                                     HorizontalAlignment="Left"
                                     MaxLines="2"
                                     Opacity="0.6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
-                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
 
                                 <Grid Grid.Row="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tags, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    <Grid Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tags, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             VerticalAlignment="Bottom"
                                             Opacity="0.6"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tags}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tags}" />
                                     </Grid>
                                     <TextBlock
                                         Grid.RowSpan="2"
@@ -125,7 +125,7 @@
                                         FontSize="28"
                                         FontWeight="Bold"
                                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.Score, Mode=OneWay}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.CommunityInformation.Score, Mode=OneWay}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowRating}" />
                                 </Grid>
                             </Grid>
@@ -145,7 +145,7 @@
                 <ControlTemplate TargetType="local:SeasonItem">
                     <controls:CardPanel
                         x:Name="RootCard"
-                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultSeasonItemContextFlyout}}"
                         IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsSelected}"
@@ -162,7 +162,7 @@
                                     x:Name="CoverImage"
                                     Width="{TemplateBinding CoverWidth}"
                                     Height="{TemplateBinding CoverHeight}"
-                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}" />
+                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}" />
                             </Grid>
                             <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
@@ -179,9 +179,9 @@
                                         HorizontalAlignment="Left"
                                         FontSize="14"
                                         MaxLines="2"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}">
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
                                 </Grid>
@@ -192,14 +192,14 @@
                                     HorizontalAlignment="Left"
                                     MaxLines="2"
                                     Opacity="0.6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
-                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}" />
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                                    ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}" />
 
                                 <Grid
                                     Grid.Row="2"
                                     Margin="0,8,0,0"
                                     HorizontalAlignment="Left"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.HighlightTitle, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.HighlightTitle, Converter={StaticResource ObjectToVisibilityConverter}}">
                                     <Rectangle
                                         Fill="{ThemeResource AccentBadgeBackground}"
                                         RadiusX="4"
@@ -209,7 +209,7 @@
                                         Margin="6,4"
                                         FontSize="10"
                                         Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.HighlightTitle}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.HighlightTitle}" />
                                 </Grid>
 
                                 <Grid Grid.Row="4">
@@ -217,11 +217,11 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid VerticalAlignment="Bottom" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tags, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    <Grid VerticalAlignment="Bottom" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tags, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Opacity="0.6"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tags}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tags}" />
                                     </Grid>
 
                                     <TextBlock
@@ -232,7 +232,7 @@
                                         FontSize="28"
                                         FontWeight="Bold"
                                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.CommunityInformation.Score, Mode=OneWay}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.CommunityInformation.Score, Mode=OneWay}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowRating}" />
                                 </Grid>
                             </Grid>

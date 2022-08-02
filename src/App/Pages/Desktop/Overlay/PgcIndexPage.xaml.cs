@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -48,7 +49,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="PgcIndexPage"/> 的基类.
     /// </summary>
-    public class PgcIndexPageBase : AppPage<IndexPageViewModel>
+    public class PgcIndexPageBase : AppPage<IIndexPageViewModel>
     {
     }
 }
