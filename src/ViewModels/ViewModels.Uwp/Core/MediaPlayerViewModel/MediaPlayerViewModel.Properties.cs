@@ -55,7 +55,6 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
         private Action _playNextAction;
         private SystemMediaTransportControls _systemMediaTransportControls;
-        private bool _disposedValue;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;

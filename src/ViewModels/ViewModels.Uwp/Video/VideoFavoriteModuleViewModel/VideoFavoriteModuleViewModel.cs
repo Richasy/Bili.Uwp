@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
 using Splat;
@@ -13,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频收藏模块视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteModuleViewModel : InformationFlowViewModelBase<VideoFavoriteFolderGroupViewModel>
+    public sealed partial class VideoFavoriteModuleViewModel : InformationFlowViewModelBase<IVideoFavoriteFolderGroupViewModel>, IVideoFavoriteModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteModuleViewModel"/> class.
@@ -47,8 +48,8 @@ namespace Bili.ViewModels.Uwp.Video
 
             foreach (var item in data.Groups)
             {
-                var groupVM = Locator.Current.GetService<VideoFavoriteFolderGroupViewModel>();
-                groupVM.SetGroup(item);
+                var groupVM = Locator.Current.GetService<IVideoFavoriteFolderGroupViewModel>();
+                groupVM.InjectData(item);
                 Items.Add(groupVM);
             }
         }

@@ -36,6 +36,14 @@ namespace Bili.App.Pages.Xbox.Overlay
             }
         }
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             switch (ViewModel.CurrentType.Type)

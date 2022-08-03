@@ -12,28 +12,13 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 附加内容条目视图模型.
     /// </summary>
-    public sealed class PgcExtraItemViewModel : ViewModelBase
+    public sealed class PgcExtraItemViewModel : ViewModelBase, IPgcExtraItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcExtraItemViewModel"/> class.
         /// </summary>
-        /// <param name="title">标题.</param>
-        /// <param name="episodes">分集列表.</param>
-        public PgcExtraItemViewModel(
-            string title,
-            IEnumerable<EpisodeInformation> episodes,
-            string currentId)
-        {
-            Title = title;
-            Episodes = new ObservableCollection<IEpisodeItemViewModel>();
-            foreach (var item in episodes)
-            {
-                var vm = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
-                vm.InjectData(item);
-                vm.IsSelected = item.Identifier.Id == currentId;
-                Episodes.Add(vm);
-            }
-        }
+        public PgcExtraItemViewModel()
+            => Episodes = new ObservableCollection<IEpisodeItemViewModel>();
 
         /// <summary>
         /// 标题.
@@ -45,5 +30,18 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// 分集.
         /// </summary>
         public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
+
+        /// <inheritdoc/>
+        public void SetData(string title, IEnumerable<EpisodeInformation> episodes, string currentId)
+        {
+            Title = title;
+            foreach (var item in episodes)
+            {
+                var vm = Locator.Current.GetService<IEpisodeItemViewModel>();
+                vm.InjectData(item);
+                vm.IsSelected = item.Identifier.Id == currentId;
+                Episodes.Add(vm);
+            }
+        }
     }
 }

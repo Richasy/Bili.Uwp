@@ -90,6 +90,7 @@ namespace Bili.ViewModels.Uwp.Video
             FixedCommand = ReactiveCommand.Create(Fix);
             ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
             ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
+            ClearCommand = ReactiveCommand.Create(Clear);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
@@ -105,13 +106,6 @@ namespace Bili.ViewModels.Uwp.Video
             this.WhenAnyValue(p => p.IsOnlyShowIndex)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>
@@ -169,42 +163,24 @@ namespace Bili.ViewModels.Uwp.Video
             MediaPlayerViewModel.SetVideoData(View);
         }
 
-        private void Dispose(bool disposing)
+        private void Clear()
         {
-            if (!_disposedValue)
+            Reset();
+            if (MediaPlayerViewModel != null)
             {
-                if (disposing)
-                {
-                    Reset();
-                    if (MediaPlayerViewModel != null)
-                    {
-                        MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
-                        MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
-                        MediaPlayerViewModel?.Dispose();
-                        MediaPlayerViewModel = null;
-                    }
-
-                    ReloadCommand?.Dispose();
-                    RequestFavoriteFoldersCommand?.Dispose();
-                    RequestOnlineCountCommand?.Dispose();
-                    ChangeVideoPartCommand?.Dispose();
-                    SearchTagCommand?.Dispose();
-                    FavoriteVideoCommand?.Dispose();
-                    CoinCommand?.Dispose();
-                    LikeCommand?.Dispose();
-                    TripleCommand?.Dispose();
-                    ReloadCommunityInformationCommand?.Dispose();
-                    ShareCommand?.Dispose();
-                    FixedCommand?.Dispose();
-                    ClearPlaylistCommand?.Dispose();
-                }
-
-                _disposedValue = true;
+                MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             }
         }
 
         private void ReloadMediaPlayer()
         {
+            if (MediaPlayerViewModel != null)
+            {
+                return;
+            }
+
             MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;

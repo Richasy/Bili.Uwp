@@ -2,7 +2,7 @@
     x:Class="Bili.App.Controls.Favorite.ArticleFavoritePanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:article="using:Bili.ViewModels.Uwp.Article"
+    xmlns:article="using:Bili.ViewModels.Interfaces.Article"
     xmlns:article1="using:Bili.App.Controls.Article"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:controls="using:Bili.App.Controls"
@@ -12,7 +12,6 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls.Favorite"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -55,7 +54,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="article:ArticleItemViewModel">
+                    <DataTemplate x:DataType="article:IArticleItemViewModel">
                         <article1:ArticleItem ViewModel="{x:Bind}">
                             <article1:ArticleItem.ContextFlyout>
                                 <MenuFlyout>

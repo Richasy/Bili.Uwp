@@ -8,8 +8,6 @@ using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Video;
 using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -39,7 +37,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             IsTracking = View.Information.IsTracking;
             IsCoinWithLiked = true;
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
         }
 
         private void InitializeCommunityInformation()
@@ -138,7 +136,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 Sections.Add(new PlayerSectionHeader(PlayerSectionType.Extras, _resourceToolkit.GetLocaleString(LanguageNames.Sections)));
                 var currentId = CurrentEpisode == null ? string.Empty : CurrentEpisode.Identifier.Id;
-                View.Extras.ToList().ForEach(p => Extras.Add(new PgcExtraItemViewModel(p.Key, p.Value, currentId)));
+                foreach (var item in View.Extras)
+                {
+                    var vm = Locator.Current.GetService<IPgcExtraItemViewModel>();
+                    vm.SetData(item.Key, item.Value, currentId);
+                    Extras.Add(vm);
+                }
             }
 
             if (CurrentEpisode != null)

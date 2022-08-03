@@ -18,18 +18,10 @@ namespace Bili.ViewModels.Uwp.Pgc
     {
         private readonly IPgcProvider _pgcProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private PgcType _type;
 
-        /// <summary>
-        /// 时间线集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<TimelineInformation> Timelines { get; }
-
-        /// <summary>
-        /// 是否正在初始化.
-        /// </summary>
-        public bool IsReloading => _isReloading.Value;
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
@@ -37,15 +29,11 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 标题.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Title { get; set; }
 
-        /// <summary>
-        /// 描述.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Description { get; set; }
 
@@ -56,5 +44,9 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <inheritdoc/>
         [Reactive]
         public string ErrorText { get; set; }
+
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
     }
 }

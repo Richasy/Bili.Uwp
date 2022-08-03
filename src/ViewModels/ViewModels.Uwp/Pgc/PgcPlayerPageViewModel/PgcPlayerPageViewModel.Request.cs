@@ -54,7 +54,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             if (result == Models.Enums.Bili.FavoriteResult.Success || result == Models.Enums.Bili.FavoriteResult.InsufficientAccess)
             {
                 IsFavorited = selectedFolders.Count > 0;
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
@@ -73,7 +73,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                     IsLiked = true;
                 }
 
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
@@ -88,7 +88,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             if (isSuccess)
             {
                 IsLiked = isLike;
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
@@ -102,7 +102,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsLiked = info.IsLiked;
             IsFavorited = info.IsFavorited;
             IsCoined = info.IsCoined;
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
         }
 
         private async Task TrackAsync()

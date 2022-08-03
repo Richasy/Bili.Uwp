@@ -13,5 +13,13 @@ namespace Bili.App.Pages.Xbox
         /// Initializes a new instance of the <see cref="DomesticPage"/> class.
         /// </summary>
         public DomesticPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }

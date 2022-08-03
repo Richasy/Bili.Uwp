@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Account;
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using Splat;
 
 namespace Bili.App.Pages.Base
@@ -14,11 +14,11 @@ namespace Bili.App.Pages.Base
         /// <summary>
         /// 动漫收藏模块.
         /// </summary>
-        protected AnimeFavoriteModuleViewModel AnimeFavoriteModule { get; } = Locator.Current.GetService<AnimeFavoriteModuleViewModel>();
+        protected IAnimeFavoriteModuleViewModel AnimeFavoriteModule { get; } = Locator.Current.GetService<IAnimeFavoriteModuleViewModel>();
 
         /// <summary>
         /// 影视收藏模块.
         /// </summary>
-        protected CinemaFavoriteModuleViewModel CinemaFavoriteModule { get; } = Locator.Current.GetService<CinemaFavoriteModuleViewModel>();
+        protected ICinemaFavoriteModuleViewModel CinemaFavoriteModule { get; } = Locator.Current.GetService<ICinemaFavoriteModuleViewModel>();
     }
 }

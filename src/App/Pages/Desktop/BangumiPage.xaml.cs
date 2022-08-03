@@ -13,5 +13,13 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="BangumiPage"/> class.
         /// </summary>
         public BangumiPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }

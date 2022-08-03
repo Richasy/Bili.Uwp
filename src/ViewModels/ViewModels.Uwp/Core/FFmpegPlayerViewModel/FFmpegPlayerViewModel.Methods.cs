@@ -344,7 +344,6 @@ namespace Bili.ViewModels.Uwp.Core
             stream?.Dispose();
 
             mediaPlayer.Source = null;
-            mediaPlayer?.Dispose();
         }
 
         private void Clear()

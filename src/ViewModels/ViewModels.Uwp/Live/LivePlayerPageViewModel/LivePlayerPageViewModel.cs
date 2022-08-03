@@ -95,8 +95,7 @@ namespace Bili.ViewModels.Uwp.Live
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel?.Dispose();
-            MediaPlayerViewModel = null;
+            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetTimers();
             ResetPublisher();
             ResetOverview();

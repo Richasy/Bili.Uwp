@@ -12,7 +12,7 @@
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.Models.Data.Pgc"
     xmlns:video="using:Bili.ViewModels.Uwp.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
@@ -128,7 +128,7 @@
                         HeaderVisibility="Visible"
                         ItemsSource="{x:Bind ViewModel.Ranks}">
                         <controls:HorizontalRepeaterView.WideItemTemplate>
-                            <DataTemplate x:DataType="pgc:PgcRankViewModel">
+                            <DataTemplate x:DataType="pgc:IPgcRankViewModel">
                                 <controls:CardPanel MaxWidth="340" IsEnableHoverAnimation="False">
                                     <Grid Padding="8">
                                         <Grid.RowDefinitions>
@@ -145,7 +145,7 @@
                                                 <muxc:StackLayout Orientation="Vertical" Spacing="0" />
                                             </muxc:ItemsRepeater.Layout>
                                             <muxc:ItemsRepeater.ItemTemplate>
-                                                <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                                                <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                                                     <local:EpisodeItem
                                                         Style="{StaticResource RankEpisodeItemStyle}"
                                                         Width="322"
@@ -167,7 +167,7 @@
                     Visibility="{x:Bind ViewModel.IsShowPlaylist, Mode=OneWay}">
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Playlists}" Layout="{StaticResource HorizontalLayout}">
                         <muxc:ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="pgc:PgcPlaylistViewModel">
+                            <DataTemplate x:DataType="pgc:IPgcPlaylistViewModel">
                                 <Grid>
                                     <controls:HorizontalRepeaterView
                                         Header="{x:Bind Data.Title}"

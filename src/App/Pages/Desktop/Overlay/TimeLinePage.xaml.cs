@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml.Navigation;
 
@@ -24,12 +25,20 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.SetType(type);
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 
     /// <summary>
     /// <see cref="TimelinePage"/> 的基类.
     /// </summary>
-    public class TimelinePageBase : AppPage<TimelinePageViewModel>
+    public class TimelinePageBase : AppPage<ITimelinePageViewModel>
     {
     }
 }

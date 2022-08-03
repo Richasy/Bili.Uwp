@@ -13,6 +13,14 @@ namespace Bili.App.Pages.Xbox
         /// Initializes a new instance of the <see cref="XboxAccountPage"/> class.
         /// </summary>
         public XboxAccountPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 
     /// <summary>

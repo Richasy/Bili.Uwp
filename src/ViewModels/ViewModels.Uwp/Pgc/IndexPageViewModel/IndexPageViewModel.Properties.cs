@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -24,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 筛选条件集合.
         /// </summary>
-        public ObservableCollection<IndexFilterViewModel> Filters { get; }
+        public ObservableCollection<IIndexFilterViewModel> Filters { get; }
 
         /// <summary>
         /// 页面类型.

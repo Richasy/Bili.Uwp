@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pages="using:Bili.App.Pages.Desktop"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.App.Controls.Pgc"
     mc:Ignorable="d">
 
@@ -68,7 +68,7 @@
                         MinRowSpacing="12" />
                 </muxc:ItemsRepeater.Layout>
                 <muxc:ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="pgc:IndexFilterViewModel">
+                    <DataTemplate x:DataType="pgc:IIndexFilterViewModel">
                         <ComboBox
                             HorizontalAlignment="Stretch"
                             DataContext="{x:Bind}"
@@ -108,7 +108,7 @@
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:SeasonItemViewModel">
+                        <DataTemplate x:DataType="pgc:ISeasonItemViewModel">
                             <pgc1:SeasonItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

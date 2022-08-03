@@ -43,7 +43,10 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel?.Dispose();
+        {
+            ViewModel.ClearPlaylistCommand.Execute().Subscribe();
+            ViewModel.ClearCommand.Execute().Subscribe();
+        }
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()

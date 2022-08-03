@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 }
             }
 
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
             _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
             CreatePlayNextAction();

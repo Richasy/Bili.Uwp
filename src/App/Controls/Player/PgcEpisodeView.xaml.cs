@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Pgc;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -19,12 +18,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcEpisodeView"/> class.
         /// </summary>
-        public PgcEpisodeView()
-        {
-            InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<PgcPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public PgcEpisodeView() => InitializeComponent();
 
         private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
         {
@@ -70,7 +64,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="PgcEpisodeView"/> 的基类.
     /// </summary>
-    public class PgcEpisodeViewBase : ReactiveUserControl<PgcPlayerPageViewModel>
+    public class PgcEpisodeViewBase : ReactiveUserControl<IPgcPlayerPageViewModel>
     {
     }
 }

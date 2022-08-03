@@ -23,20 +23,13 @@ namespace Bili.ViewModels.Uwp.Core
         public NativePlayerViewModel(
             IFileToolkit fileToolkit,
             IResourceToolkit resourceToolkit,
-            ISettingsToolkit settingsToolkit,
             CoreDispatcher dispatcher)
         {
             _fileToolkit = fileToolkit;
             _resourceToolkit = resourceToolkit;
-            _settingsToolkit = settingsToolkit;
             _dispatcher = dispatcher;
-        }
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            ClearCommand = ReactiveCommand.Create(Clear);
         }
 
         /// <inheritdoc/>
@@ -133,19 +126,6 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 var stream = targetFileStream.AsRandomAccessStream();
                 await rendertarget.SaveAsync(stream, CanvasBitmapFileFormat.Png);
-            }
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    Clear();
-                }
-
-                _disposedValue = true;
             }
         }
     }
