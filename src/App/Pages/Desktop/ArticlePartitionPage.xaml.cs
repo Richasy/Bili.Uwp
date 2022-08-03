@@ -3,6 +3,7 @@
 using System;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
+using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Uwp.Article;
 using Windows.UI.Xaml.Controls;
 
@@ -47,7 +48,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="ArticlePartitionPage"/> 的基类.
     /// </summary>
-    public class ArticlePartitionPageBase : AppPage<ArticlePartitionPageViewModel>
+    public class ArticlePartitionPageBase : AppPage<IArticlePartitionPageViewModel>
     {
     }
 }

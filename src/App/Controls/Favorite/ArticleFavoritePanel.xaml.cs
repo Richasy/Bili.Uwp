@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Article;
 using Bili.ViewModels.Uwp.Core;
@@ -19,7 +20,7 @@ namespace Bili.App.Controls.Favorite
         public ArticleFavoritePanel()
         {
             InitializeComponent();
-            var vm = Locator.Current.GetService<ArticleFavoriteModuleViewModel>();
+            var vm = Locator.Current.GetService<IArticleFavoriteModuleViewModel>();
             ViewModel = vm;
             DataContext = vm;
         }
@@ -33,7 +34,7 @@ namespace Bili.App.Controls.Favorite
     /// <summary>
     /// <see cref="ArticleFavoritePanel"/> 的基类.
     /// </summary>
-    public class ArticleFavoritePanelBase : ReactiveUserControl<ArticleFavoriteModuleViewModel>
+    public class ArticleFavoritePanelBase : ReactiveUserControl<IArticleFavoriteModuleViewModel>
     {
     }
 }

@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Article
     /// <summary>
     /// 文章收藏夹视图模型.
     /// </summary>
-    public partial class ArticleFavoriteModuleViewModel : InformationFlowViewModelBase<IArticleItemViewModel>
+    public partial class ArticleFavoriteModuleViewModel : InformationFlowViewModelBase<IArticleItemViewModel>, IArticleFavoriteModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleFavoriteModuleViewModel"/> class.

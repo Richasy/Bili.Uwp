@@ -15,6 +15,7 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Article
     /// <summary>
     /// 文章分区页面视图模型.
     /// </summary>
-    public sealed partial class ArticlePartitionPageViewModel : InformationFlowViewModelBase<IArticleItemViewModel>
+    public sealed partial class ArticlePartitionPageViewModel : InformationFlowViewModelBase<IArticleItemViewModel>, IArticlePartitionPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticlePartitionPageViewModel"/> class.
@@ -60,11 +61,10 @@ namespace Bili.ViewModels.Uwp.Article
                 x => x.CurrentPartition,
                 partition => partition?.Id == "0");
 
-            _isShowBanner = isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
-                .ToProperty(this, x => x.IsShowBanner);
+            isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
+                .ToPropertyEx(this, x => x.IsShowBanner);
 
-            _isRecommendPartition = isRecommend
-                .ToProperty(this, x => x.IsRecommendPartition);
+            isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
 
             SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectPartition);
         }

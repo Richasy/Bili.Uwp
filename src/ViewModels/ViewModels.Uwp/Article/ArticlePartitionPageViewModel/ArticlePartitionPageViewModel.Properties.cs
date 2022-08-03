@@ -23,54 +23,36 @@ namespace Bili.ViewModels.Uwp.Article
         private readonly IArticleProvider _articleProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<ArticleInformation>> _caches;
-        private readonly ObservableAsPropertyHelper<bool> _isShowBanner;
-        private readonly ObservableAsPropertyHelper<bool> _isRecommendPartition;
 
-        /// <summary>
-        /// 横幅集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IBannerViewModel> Banners { get; }
 
-        /// <summary>
-        /// 横幅集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IArticleItemViewModel> Ranks { get; }
 
-        /// <summary>
-        /// 子分区集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<Partition> Partitions { get; }
 
-        /// <summary>
-        /// 文章排序方式集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<ArticleSortType> SortTypes { get; }
 
-        /// <summary>
-        /// 选中子分区命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
 
-        /// <summary>
-        /// 当前选中的子分区.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public Partition CurrentPartition { get; set; }
 
-        /// <summary>
-        /// 排序方式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public ArticleSortType SortType { get; set; }
 
-        /// <summary>
-        /// 是否为推荐子分区.
-        /// </summary>
-        public bool IsRecommendPartition => _isRecommendPartition.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsRecommendPartition { get; set; }
 
-        /// <summary>
-        /// 是否显示横幅内容.
-        /// </summary>
-        public bool IsShowBanner => _isShowBanner.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsShowBanner { get; set; }
     }
 }

@@ -122,6 +122,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IVideoFavoriteFolderDetailViewModel, VideoFavoriteFolderDetailViewModel>();
             SplatRegistrations.RegisterLazySingleton<IAnimeFavoriteModuleViewModel, AnimeFavoriteModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICinemaFavoriteModuleViewModel, CinemaFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IArticleFavoriteModuleViewModel, ArticleFavoriteModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<IUserSpaceViewModel, UserSpaceViewModel>();
             SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
@@ -149,16 +150,15 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IHistoryPageViewModel, HistoryPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IMyFollowsPageViewModel, MyFollowsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IXboxAccountPageViewModel, XboxAccountPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IArticlePartitionPageViewModel, ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FansPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FollowsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ArticleFavoriteModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicAllModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicVideoModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicPageViewModel>();
