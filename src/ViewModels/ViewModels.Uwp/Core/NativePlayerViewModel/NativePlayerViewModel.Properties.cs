@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using ReactiveUI;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Core;
@@ -18,7 +20,6 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private readonly IFileToolkit _fileToolkit;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly ISettingsToolkit _settingsToolkit;
         private readonly CoreDispatcher _dispatcher;
 
         private SegmentInformation _video;
@@ -28,7 +29,6 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaPlaybackItem _videoPlaybackItem;
         private HttpRandomAccessStream _liveStream;
         private bool _shouldPreventSkip;
-        private bool _disposedValue;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;
@@ -41,6 +41,9 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public event EventHandler<object> MediaPlayerChanged;
+
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
         /// <inheritdoc/>
         public TimeSpan Position => _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;

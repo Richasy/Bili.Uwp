@@ -17,7 +17,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Common;
 using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

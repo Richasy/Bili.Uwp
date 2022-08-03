@@ -142,7 +142,6 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<ITimelinePageViewModel, TimelinePageViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
@@ -172,6 +171,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
             SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
             SplatRegistrations.Register<IMediaPlayerViewModel, MediaPlayerViewModel>();
+            SplatRegistrations.Register<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
             SplatRegistrations.Register<MessageItemViewModel>();
             SplatRegistrations.Register<DynamicItemViewModel>();
             SplatRegistrations.Register<CommentItemViewModel>();
