@@ -14,6 +14,7 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
@@ -47,7 +48,7 @@ namespace Bili.ViewModels.Uwp.Search
             _appViewModel = appViewModel;
 
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
-            _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();
+            _filters = new Dictionary<SearchModuleType, IEnumerable<ISearchFilterViewModel>>();
 
             Videos = new ObservableCollection<IVideoItemViewModel>();
             Animes = new ObservableCollection<ISeasonItemViewModel>();
@@ -55,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Search
             Users = new ObservableCollection<IUserItemViewModel>();
             Articles = new ObservableCollection<IArticleItemViewModel>();
             Lives = new ObservableCollection<ILiveItemViewModel>();
-            CurrentFilters = new ObservableCollection<SearchFilterViewModel>();
+            CurrentFilters = new ObservableCollection<ISearchFilterViewModel>();
 
             ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
             SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync);

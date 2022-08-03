@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
-
+using Bili.ViewModels.Interfaces.Search;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -32,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Search
             }
             else
             {
-                _filters.Add(type, new List<SearchFilterViewModel>());
+                _filters.Add(type, new List<ISearchFilterViewModel>());
             }
         }
 
@@ -65,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Search
             var orderVM = new SearchFilterViewModel(orderFilter);
             var durationVM = new SearchFilterViewModel(durationFilter);
             var partitionVM = new SearchFilterViewModel(partitionFilter);
-            _filters.Add(SearchModuleType.Video, new List<SearchFilterViewModel> { orderVM, durationVM, partitionVM });
+            _filters.Add(SearchModuleType.Video, new List<ISearchFilterViewModel> { orderVM, durationVM, partitionVM });
         }
 
         private async Task InitializeArticleFiltersAsync()
@@ -87,7 +87,7 @@ namespace Bili.ViewModels.Uwp.Search
 
             var orderVM = new SearchFilterViewModel(orderFilter);
             var partitionVM = new SearchFilterViewModel(partitionFilter);
-            _filters.Add(SearchModuleType.Article, new List<SearchFilterViewModel> { orderVM, partitionVM });
+            _filters.Add(SearchModuleType.Article, new List<ISearchFilterViewModel> { orderVM, partitionVM });
         }
 
         private void InitializeUserFilters()
@@ -111,7 +111,7 @@ namespace Bili.ViewModels.Uwp.Search
 
             var orderVM = new SearchFilterViewModel(orderFilter);
             var typeVM = new SearchFilterViewModel(typeFilter);
-            _filters.Add(SearchModuleType.User, new List<SearchFilterViewModel> { orderVM, typeVM });
+            _filters.Add(SearchModuleType.User, new List<ISearchFilterViewModel> { orderVM, typeVM });
         }
     }
 }

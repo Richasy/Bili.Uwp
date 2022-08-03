@@ -3,6 +3,7 @@
 using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Appearance;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Uwp.Search;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -48,7 +49,7 @@ namespace Bili.App.Pages.Xbox.Overlay
         private void OnFilterItemSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox.DataContext is not SearchFilterViewModel context)
+            if (comboBox.DataContext is not ISearchFilterViewModel context)
             {
                 return;
             }
