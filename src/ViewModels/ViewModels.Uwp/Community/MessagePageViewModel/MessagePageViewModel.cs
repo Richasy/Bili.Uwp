@@ -11,6 +11,7 @@ using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
 using Splat;
@@ -21,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 消息页面视图模型.
     /// </summary>
-    public sealed partial class MessagePageViewModel : InformationFlowViewModelBase<MessageItemViewModel>
+    public sealed partial class MessagePageViewModel : InformationFlowViewModelBase<IMessageItemViewModel>, IMessagePageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagePageViewModel"/> class.
@@ -38,11 +39,11 @@ namespace Bili.ViewModels.Uwp.Community
             _accountViewModel = accountViewModel;
 
             _caches = new Dictionary<MessageType, (IEnumerable<MessageInformation> Items, bool IsEnd)>();
-            MessageTypes = new ObservableCollection<MessageHeaderViewModel>
+            MessageTypes = new ObservableCollection<IMessageHeaderViewModel>
             {
-                new MessageHeaderViewModel(MessageType.Reply),
-                new MessageHeaderViewModel(MessageType.At),
-                new MessageHeaderViewModel(MessageType.Like),
+                GetMessageHeader(MessageType.Reply),
+                GetMessageHeader(MessageType.At),
+                GetMessageHeader(MessageType.Like),
             };
 
             InitializeMessageCount();
@@ -51,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Community
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ => InitializeMessageCount());
 
-            SelectTypeCommand = ReactiveCommand.CreateFromTask<MessageHeaderViewModel>(SelectTypeAsync);
+            SelectTypeCommand = ReactiveCommand.CreateFromTask<IMessageHeaderViewModel>(SelectTypeAsync);
         }
 
         /// <inheritdoc/>
@@ -86,13 +87,13 @@ namespace Bili.ViewModels.Uwp.Community
             _isEnd = view.IsFinished;
             foreach (var item in view.Messages)
             {
-                var messageVM = Splat.Locator.Current.GetService<MessageItemViewModel>();
-                messageVM.SetInformation(item);
+                var messageVM = Splat.Locator.Current.GetService<IMessageItemViewModel>();
+                messageVM.InjectData(item);
                 Items.Add(messageVM);
             }
 
             _caches.Remove(CurrentType.Type);
-            _caches.Add(CurrentType.Type, new(Items.Select(p => p.Information).ToList(), _isEnd));
+            _caches.Add(CurrentType.Type, new(Items.Select(p => p.Data).ToList(), _isEnd));
             IsEmpty = Items.Count == 0;
             _accountViewModel.InitializeUnreadCommand.Execute().Subscribe();
         }
@@ -101,7 +102,7 @@ namespace Bili.ViewModels.Uwp.Community
         protected override string FormatException(string errorMsg)
             => $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestMessageFailed)}\n{errorMsg}";
 
-        private async Task SelectTypeAsync(MessageHeaderViewModel type)
+        private async Task SelectTypeAsync(IMessageHeaderViewModel type)
         {
             await FakeLoadingAsync();
             TryClear(Items);
@@ -111,8 +112,8 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 foreach (var item in data.Items)
                 {
-                    var messageVM = Splat.Locator.Current.GetService<MessageItemViewModel>();
-                    messageVM.SetInformation(item);
+                    var messageVM = Locator.Current.GetService<IMessageItemViewModel>();
+                    messageVM.InjectData(item);
                     Items.Add(messageVM);
                 }
 
@@ -142,6 +143,13 @@ namespace Bili.ViewModels.Uwp.Community
                     item.Count = 0;
                 }
             }
+        }
+
+        private IMessageHeaderViewModel GetMessageHeader(MessageType type)
+        {
+            var vm = Locator.Current.GetService<IMessageHeaderViewModel>();
+            vm.SetData(type);
+            return vm;
         }
     }
 }

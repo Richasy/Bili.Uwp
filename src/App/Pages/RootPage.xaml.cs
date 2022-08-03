@@ -35,6 +35,7 @@ namespace Bili.App.Pages.Desktop
     public sealed partial class RootPage : RootPageBase
     {
         private readonly ICallerViewModel _callerViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly IRecordViewModel _recordViewModel;
         private string _initialCommandParameters = null;
         private Uri _initialUri;
@@ -48,6 +49,7 @@ namespace Bili.App.Pages.Desktop
             Current = this;
             _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
             _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
+            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
 
             ViewModel.Navigating += OnNavigating;
             ViewModel.ExitPlayer += OnExitPlayer;
@@ -196,6 +198,10 @@ namespace Bili.App.Pages.Desktop
             {
                 ShowOnHolder(viewer);
                 await viewer.LoadImagesAsync(e.Images, e.ShowIndex);
+            }
+            else
+            {
+                _navigationViewModel.BackCommand.Execute().Subscribe();
             }
         }
 

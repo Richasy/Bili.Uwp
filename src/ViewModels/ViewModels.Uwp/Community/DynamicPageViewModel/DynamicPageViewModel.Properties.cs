@@ -5,6 +5,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -18,52 +19,34 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAuthorizeProvider _authorizeProvider;
 
-        /// <summary>
-        /// 分区集合.
-        /// </summary>
-        public ObservableCollection<DynamicHeader> Headers { get; }
-
-        /// <summary>
-        /// 视频模块.
-        /// </summary>
-        public DynamicVideoModuleViewModel VideoModule { get; }
-
-        /// <summary>
-        /// 综合模块.
-        /// </summary>
-        public DynamicAllModuleViewModel AllModule { get; }
-
-        /// <summary>
-        /// 刷新当前模块命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RefreshModuleCommand { get; }
 
-        /// <summary>
-        /// 选中分区命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<DynamicHeader, Unit> SelectHeaderCommand { get; }
 
-        /// <summary>
-        /// 当前分区.
-        /// </summary>
+        /// <inheritdoc/>
+        public ObservableCollection<DynamicHeader> Headers { get; }
+
+        /// <inheritdoc/>
+        public IDynamicVideoModuleViewModel VideoModule { get; }
+
+        /// <inheritdoc/>
+        public IDynamicAllModuleViewModel AllModule { get; }
+
+        /// <inheritdoc/>
         [Reactive]
         public DynamicHeader CurrentHeader { get; set; }
 
-        /// <summary>
-        /// 是否显示视频动态.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowVideo { get; set; }
 
-        /// <summary>
-        /// 是否显示全部动态.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowAll { get; set; }
 
-        /// <summary>
-        /// 是否需要用户登录.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool NeedSignIn { get; set; }
     }

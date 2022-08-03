@@ -28,27 +28,27 @@
                                             Width="32"
                                             Height="32"
                                             VerticalAlignment="Center"
-                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Avatar.Uri}"
-                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.UserName}" />
+                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Avatar.Uri}"
+                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.UserName}" />
                                         <Ellipse
                                             x:Name="MultipleHolder"
                                             Width="32"
                                             Height="32"
                                             Margin="0,0,-20,0"
                                             Fill="{ThemeResource SubtleFillColorSecondaryBrush}"
-                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.IsMultipleUsers, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.IsMultipleUsers, Converter={StaticResource BoolToVisibilityConverter}}" />
                                     </Grid>
 
                                     <StackPanel
                                         VerticalAlignment="Center"
                                         Orientation="Horizontal"
                                         Spacing="8"
-                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.UserName, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.UserName, Converter={StaticResource ObjectToVisibilityConverter}}">
                                         <TextBlock
                                             x:Name="UserNameBlock"
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             VerticalAlignment="Center"
-                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.UserName}" />
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.UserName}" />
                                         <TextBlock
                                             x:Name="MultipleBlock"
                                             Style="{StaticResource CaptionTextBlockStyle}"
@@ -56,7 +56,7 @@
                                             VerticalAlignment="Center"
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                             Text="{loc:Locale Name=MorePeople}"
-                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.IsMultipleUsers, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.IsMultipleUsers, Converter={StaticResource BoolToVisibilityConverter}}" />
                                     </StackPanel>
                                 </StackPanel>
                                 <TextBlock
@@ -76,13 +76,13 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}"
                                     TextWrapping="Wrap"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                 <TextBlock
                                     x:Name="DetailBlock"
                                     LineHeight="22"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Message}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Message}"
                                     TextWrapping="Wrap" />
                             </StackPanel>
                             <Border
@@ -95,7 +95,7 @@
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     MaxLines="6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.SourceContent}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.SourceContent}"
                                     TextWrapping="Wrap" />
                             </Border>
                         </Grid>

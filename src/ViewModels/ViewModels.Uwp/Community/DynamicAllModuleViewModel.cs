@@ -2,6 +2,7 @@
 
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Base;
 using Windows.UI.Core;
 
@@ -10,7 +11,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 综合动态模块视图模型.
     /// </summary>
-    public sealed class DynamicAllModuleViewModel : DynamicModuleViewModelBase
+    public sealed class DynamicAllModuleViewModel : DynamicModuleViewModelBase, IDynamicAllModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicAllModuleViewModel"/> class.

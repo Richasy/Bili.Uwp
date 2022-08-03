@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 
 namespace Bili.App.Pages.Desktop.Overlay
 {
@@ -26,7 +26,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             ContentScrollViewer.ChangeView(0, 0, 1, true);
-            var data = args.InvokedItem as MessageHeaderViewModel;
+            var data = args.InvokedItem as IMessageHeaderViewModel;
 
             if (data != ViewModel.CurrentType)
             {
@@ -38,7 +38,7 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// <see cref="MessagePage"/> 的基类.
     /// </summary>
-    public class MessagePageBase : AppPage<MessagePageViewModel>
+    public class MessagePageBase : AppPage<IMessagePageViewModel>
     {
     }
 }

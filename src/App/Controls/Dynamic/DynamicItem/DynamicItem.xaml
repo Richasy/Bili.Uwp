@@ -5,8 +5,8 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Controls.Dynamic"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.App.Controls.Dynamic">
+
     <Style x:Key="DefaultDynamicItemStyle" TargetType="local:DynamicItem">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
@@ -54,7 +54,7 @@
                                         HorizontalAlignment="Left"
                                         FontSize="12"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tip}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tip}" />
                                 </StackPanel>
                                 <Button
                                     x:Name="MoreButton"
@@ -86,16 +86,16 @@
                                 Margin="0,0,0,12"
                                 FontSize="13"
                                 MaxLines="8"
-                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
 
                             <!-- 主体内容，比如视频封面 -->
                             <Grid
                                 x:Name="MainContainer"
                                 Grid.Row="2"
                                 Margin="0,0,0,12"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Data}" />
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
                             </Grid>
 
                             <!-- 操作 -->
@@ -180,10 +180,10 @@
                             Margin="0,0,0,12"
                             FontSize="13"
                             MaxLines="8"
-                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description}"
-                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
                         <Grid x:Name="MainContainer" Grid.Row="2">
-                            <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Data}" />
+                            <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>
@@ -236,7 +236,7 @@
                                         HorizontalAlignment="Left"
                                         FontSize="12"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Tip}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tip}" />
                                 </StackPanel>
                             </Grid>
 
@@ -244,8 +244,8 @@
                             <Grid
                                 x:Name="MainContainer"
                                 Grid.Row="1"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Data}" />
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
                             </Grid>
                         </Grid>
                     </controls:CardPanel>

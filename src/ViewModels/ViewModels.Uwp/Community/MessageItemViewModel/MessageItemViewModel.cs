@@ -8,6 +8,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Humanizer;
 using ReactiveUI;
@@ -18,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 消息条目视图模型.
     /// </summary>
-    public sealed partial class MessageItemViewModel : ViewModelBase
+    public sealed partial class MessageItemViewModel : ViewModelBase, IMessageItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageItemViewModel"/> class.
@@ -32,19 +33,16 @@ namespace Bili.ViewModels.Uwp.Community
             ActiveCommand = ReactiveCommand.CreateFromTask(ActiveAsync);
         }
 
-        /// <summary>
-        /// 设置具体的消息信息.
-        /// </summary>
-        /// <param name="information">消息信息.</param>
-        public void SetInformation(MessageInformation information)
+        /// <inheritdoc/>
+        public void InjectData(MessageInformation information)
         {
-            Information = information;
+            Data = information;
             PublishTime = information.PublishTime.Humanize();
         }
 
         private async Task ActiveAsync()
         {
-            var sourceId = Information.SourceId;
+            var sourceId = Data.SourceId;
             if (string.IsNullOrEmpty(sourceId))
             {
                 return;
@@ -55,14 +53,14 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 await Launcher.LaunchUriAsync(new Uri(sourceId));
             }
-            else if (Information.Type == MessageType.Reply)
+            else if (Data.Type == MessageType.Reply)
             {
                 // 显示回复信息.
                 var type = CommentType.None;
                 var isParseFaield = false;
                 try
                 {
-                    type = (CommentType)Convert.ToInt32(Information.Properties["type"]);
+                    type = (CommentType)Convert.ToInt32(Data.Properties["type"]);
                 }
                 catch (Exception)
                 {

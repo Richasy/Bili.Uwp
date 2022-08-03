@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +17,7 @@ namespace Bili.App.Controls.Community
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(RelationPageViewModelBase), typeof(RelationPageView), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IRelationPageViewModel), typeof(RelationPageView), new PropertyMetadata(default));
 
         private readonly IAppViewModel _appViewModel = Locator.Current.GetService<IAppViewModel>();
 
@@ -29,9 +29,9 @@ namespace Bili.App.Controls.Community
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public RelationPageViewModelBase ViewModel
+        public IRelationPageViewModel ViewModel
         {
-            get { return (RelationPageViewModelBase)GetValue(ViewModelProperty); }
+            get { return (IRelationPageViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
     }

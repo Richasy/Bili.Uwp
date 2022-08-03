@@ -16,6 +16,7 @@ using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
@@ -28,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 动态条目视图模型.
     /// </summary>
-    public sealed partial class DynamicItemViewModel : ViewModelBase
+    public sealed partial class DynamicItemViewModel : ViewModelBase, IDynamicItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicItemViewModel"/> class.
@@ -58,49 +59,49 @@ namespace Bili.ViewModels.Uwp.Community
         /// 设置信息.
         /// </summary>
         /// <param name="information">动态信息.</param>
-        public void SetInformation(DynamicInformation information)
+        public void InjectData(DynamicInformation information)
         {
-            Information = information;
+            Data = information;
             InitializeData();
         }
 
         private void InitializeData()
         {
-            IsShowCommunity = Information.CommunityInformation != null;
+            IsShowCommunity = Data.CommunityInformation != null;
             if (IsShowCommunity)
             {
-                IsLiked = Information.CommunityInformation.IsLiked;
-                LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
-                CommentCountText = _numberToolkit.GetCountText(Information.CommunityInformation.CommentCount);
+                IsLiked = Data.CommunityInformation.IsLiked;
+                LikeCountText = _numberToolkit.GetCountText(Data.CommunityInformation.LikeCount);
+                CommentCountText = _numberToolkit.GetCountText(Data.CommunityInformation.CommentCount);
             }
 
-            if (Information.User != null)
+            if (Data.User != null)
             {
                 var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
-                userVM.SetProfile(Information.User);
+                userVM.SetProfile(Data.User);
                 Publisher = userVM;
             }
 
-            CanAddViewLater = Information.Data is VideoInformation;
+            CanAddViewLater = Data.Data is VideoInformation;
         }
 
         private async Task ToggleLikeAsync()
         {
             var isLike = !IsLiked;
-            var result = await _communityProvider.LikeDynamicAsync(Information.Id, isLike, Publisher.User.Id, Information.CommentId);
+            var result = await _communityProvider.LikeDynamicAsync(Data.Id, isLike, Publisher.User.Id, Data.CommentId);
             if (result)
             {
                 IsLiked = isLike;
                 if (isLike)
                 {
-                    Information.CommunityInformation.LikeCount += 1;
+                    Data.CommunityInformation.LikeCount += 1;
                 }
                 else
                 {
-                    Information.CommunityInformation.LikeCount -= 1;
+                    Data.CommunityInformation.LikeCount -= 1;
                 }
 
-                LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
+                LikeCountText = _numberToolkit.GetCountText(Data.CommunityInformation.LikeCount);
             }
             else
             {
@@ -109,7 +110,7 @@ namespace Bili.ViewModels.Uwp.Community
         }
 
         private void Active()
-            => ActiveData(Information.Data);
+            => ActiveData(Data.Data);
 
         private void ActiveData(object data)
         {
@@ -130,7 +131,7 @@ namespace Bili.ViewModels.Uwp.Community
                     ? episode.VideoId
                     : episode.Identifier.Id;
 
-                var playSnapshot = new PlaySnapshot(id, episode.SeasonId, Models.Enums.VideoType.Pgc)
+                var playSnapshot = new PlaySnapshot(id, episode.SeasonId, VideoType.Pgc)
                 {
                     Title = episode.Identifier.Title,
                     NeedBiliPlus = needBiliPlus,
@@ -151,7 +152,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         private void AddToViewLater()
         {
-            if (Information.Data is VideoInformation videoInfo)
+            if (Data.Data is VideoInformation videoInfo)
             {
                 var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(videoInfo);
@@ -161,15 +162,15 @@ namespace Bili.ViewModels.Uwp.Community
 
         private void ShowUserDetail()
         {
-            if (Information.User != null)
+            if (Data.User != null)
             {
-                _navigationViewModel.Navigate(PageIds.UserSpace, Information.User);
+                _navigationViewModel.Navigate(PageIds.UserSpace, Data.User);
             }
         }
 
         private void ShowCommentDetail()
         {
-            var args = new ShowCommentEventArgs(Information.CommentType, Models.Enums.Bili.CommentSortType.Hot, Information.CommentId);
+            var args = new ShowCommentEventArgs(Data.CommentType, Models.Enums.Bili.CommentSortType.Hot, Data.CommentId);
             _callerViewModel.ShowReply(args);
         }
 
@@ -187,17 +188,17 @@ namespace Bili.ViewModels.Uwp.Community
             Uri coverUri = null;
             var title = string.Empty;
 
-            request.Data.SetText(Information.Description?.Text ?? string.Empty);
-            if (Information.DynamicType == DynamicItemType.Video)
+            request.Data.SetText(Data.Description?.Text ?? string.Empty);
+            if (Data.DynamicType == DynamicItemType.Video)
             {
-                var videoInfo = Information.Data as VideoInformation;
+                var videoInfo = Data.Data as VideoInformation;
                 title = videoInfo.Identifier.Title;
                 coverUri = videoInfo.Identifier.Cover.GetSourceUri();
                 url = $"https://www.bilibili.com/video/{videoInfo.AlternateId}";
             }
-            else if (Information.DynamicType == DynamicItemType.Pgc)
+            else if (Data.DynamicType == DynamicItemType.Pgc)
             {
-                var episodeInfo = Information.Data as EpisodeInformation;
+                var episodeInfo = Data.Data as EpisodeInformation;
                 title = episodeInfo.Identifier.Title;
                 coverUri = episodeInfo.Identifier.Cover.GetSourceUri();
                 url = $"https://www.bilibili.com/bangumi/play/ss{episodeInfo.SeasonId}";
