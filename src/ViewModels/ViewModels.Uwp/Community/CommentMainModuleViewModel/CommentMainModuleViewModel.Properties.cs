@@ -7,6 +7,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -21,70 +22,48 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICommunityProvider _communityProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isSending;
         private bool _isEnd;
         private CommentType _commentType;
         private string _targetId;
-        private CommentItemViewModel _selectedComment;
+        private ICommentItemViewModel _selectedComment;
 
-        /// <summary>
-        /// 请求显示某评论的详情.
-        /// </summary>
-        public event EventHandler<CommentItemViewModel> RequestShowDetail;
+        /// <inheritdoc/>
+        public event EventHandler<ICommentItemViewModel> RequestShowDetail;
 
-        /// <summary>
-        /// 排序方式集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<CommentSortHeader> SortCollection { get; }
 
-        /// <summary>
-        /// 改变排序方式的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<CommentSortHeader, Unit> ChangeSortCommand { get; }
 
-        /// <summary>
-        /// 重置选中的评论.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
 
-        /// <summary>
-        /// 发送评论命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
 
-        /// <summary>
-        /// 置顶评论.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public CommentItemViewModel TopComment { get; set; }
+        public ICommentItemViewModel TopComment { get; set; }
 
-        /// <summary>
-        /// 内容是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsEmpty { get; set; }
 
-        /// <summary>
-        /// 当前的排序方式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public CommentSortHeader CurrentSort { get; set; }
 
-        /// <summary>
-        /// 回复框提示文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ReplyTip { get; set; }
 
-        /// <summary>
-        /// 回复框的输入文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ReplyText { get; set; }
 
-        /// <summary>
-        /// 是否正在发送评论.
-        /// </summary>
-        public bool IsSending => _isSending.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsSending { get; set; }
     }
 }

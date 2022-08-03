@@ -33,9 +33,9 @@
                                         Height="32"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Avatar.Uri}"
+                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Avatar.Uri}"
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowUserDetailCommand}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                 </Grid>
 
                                 <Border
@@ -46,7 +46,7 @@
                                     BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
                                     BorderThickness="1"
                                     CornerRadius="{StaticResource ControlCornerRadius}"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.IsTop}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.IsTop}">
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         FontSize="10"
@@ -71,14 +71,14 @@
                                         x:Name="UserNameBlock"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         FontWeight="Bold"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.User.Name}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                     <Image
                                         x:Name="LevelImage"
                                         Grid.Column="1"
                                         Height="8"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Publisher.Level, Converter={StaticResource UserLevelConverter}}" />
+                                        Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.Level, Converter={StaticResource UserLevelConverter}}" />
                                     <TextBlock
                                         x:Name="PublishTimeBlock"
                                         Style="{StaticResource CaptionTextBlockStyle}"
@@ -86,13 +86,13 @@
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PublishDateText}"
-                                        ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.PublishTime}" />
+                                        ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.PublishTime}" />
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <app:EmoteTextBlock
                                         x:Name="ReplyContentBlock"
                                         HorizontalAlignment="Left"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Content}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Content}" />
                                 </Grid>
                                 <Grid Grid.Row="2" ColumnSpacing="12">
                                     <Grid.ColumnDefinitions>

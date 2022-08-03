@@ -4,6 +4,7 @@ using System;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -18,9 +19,8 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICommunityProvider _communityProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isSending;
         private bool _isEnd;
-        private CommentItemViewModel _selectedComment;
+        private ICommentItemViewModel _selectedComment;
 
         /// <summary>
         /// 请求返回到主评论视图.
@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// 根评论.
         /// </summary>
         [Reactive]
-        public CommentItemViewModel RootComment { get; set; }
+        public ICommentItemViewModel RootComment { get; set; }
 
         /// <summary>
         /// 是否为空.
@@ -69,6 +69,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// 是否正在发送评论.
         /// </summary>
-        public bool IsSending => _isSending.Value;
+        [ObservableAsProperty]
+        public bool IsSending { get; set; }
     }
 }

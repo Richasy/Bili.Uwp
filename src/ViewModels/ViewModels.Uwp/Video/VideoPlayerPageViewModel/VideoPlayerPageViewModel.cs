@@ -13,10 +13,10 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Video
             INavigationViewModel navigationViewModel,
             IAccountViewModel accountViewModel,
             IDownloadModuleViewModel downloadViewModel,
-            CommentPageViewModel commentPageViewModel,
+            ICommentPageViewModel commentPageViewModel,
             CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;

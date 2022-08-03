@@ -101,6 +101,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<IMessageItemViewModel, MessageItemViewModel>();
             SplatRegistrations.Register<IMessageHeaderViewModel, MessageHeaderViewModel>();
             SplatRegistrations.Register<IDynamicItemViewModel, DynamicItemViewModel>();
+            SplatRegistrations.Register<ICommentItemViewModel, CommentItemViewModel>();
             SplatRegistrations.Register<IFavoriteMetaViewModel, FavoriteMetaViewModel>();
             SplatRegistrations.Register<INumberPartViewModel, NumberPartViewModel>();
             SplatRegistrations.Register<IPlaybackRateItemViewModel, PlaybackRateItemViewModel>();
@@ -164,17 +165,15 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IFansPageViewModel, FansPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IMessagePageViewModel, MessagePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IDynamicPageViewModel, DynamicPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICommentMainModuleViewModel, CommentMainModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICommentDetailModuleViewModel, CommentDetailModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICommentPageViewModel, CommentPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<CommentMainModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<CommentDetailModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
-
-            SplatRegistrations.Register<CommentItemViewModel>();
 
             SplatRegistrations.SetupIOC();
         }

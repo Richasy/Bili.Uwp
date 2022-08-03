@@ -10,6 +10,7 @@ using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Community;
@@ -34,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IRecordViewModel _recordViewModel;
         private readonly INavigationViewModel _navigationViewModel;
         private readonly IAccountViewModel _accountViewModel;
-        private readonly CommentPageViewModel _commentPageViewModel;
+        private readonly ICommentPageViewModel _commentPageViewModel;
         private readonly CoreDispatcher _dispatcher;
 
         private string _presetVideoId;

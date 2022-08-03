@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.App.Other;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls.Community
@@ -10,7 +10,7 @@ namespace Bili.App.Controls.Community
     /// <summary>
     /// 评论区主视图.
     /// </summary>
-    public sealed class CommentMainView : ReactiveControl<CommentMainModuleViewModel>
+    public sealed class CommentMainView : ReactiveControl<ICommentMainModuleViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentMainView"/> class.

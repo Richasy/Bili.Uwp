@@ -13,11 +13,11 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
             IMediaPlayerViewModel mediaPlayerViewModel,
-            CommentPageViewModel commentPageViewModel,
+            ICommentPageViewModel commentPageViewModel,
             IDownloadModuleViewModel downloadViewModel)
         {
             _playerProvider = playerProvider;

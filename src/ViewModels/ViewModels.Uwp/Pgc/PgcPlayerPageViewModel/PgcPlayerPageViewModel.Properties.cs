@@ -9,6 +9,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
@@ -34,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly ICallerViewModel _callerViewModel;
         private readonly IRecordViewModel _recordViewModel;
         private readonly IAccountViewModel _accountViewModel;
-        private readonly CommentPageViewModel _commentPageViewModel;
+        private readonly ICommentPageViewModel _commentPageViewModel;
 
         private string _presetEpisodeId;
         private string _presetSeasonId;

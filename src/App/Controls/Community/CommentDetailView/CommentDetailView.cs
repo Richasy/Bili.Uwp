@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 
 namespace Bili.App.Controls.Community
 {
     /// <summary>
     /// 评论区详情视图.
     /// </summary>
-    public sealed class CommentDetailView : ReactiveControl<CommentDetailModuleViewModel>
+    public sealed class CommentDetailView : ReactiveControl<ICommentDetailModuleViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentDetailView"/> class.
