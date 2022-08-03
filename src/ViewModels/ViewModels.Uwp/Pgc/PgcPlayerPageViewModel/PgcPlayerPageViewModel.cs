@@ -20,7 +20,6 @@ using Bili.ViewModels.Uwp.Base;
 using Bili.ViewModels.Uwp.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -44,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
+            IMediaPlayerViewModel mediaPlayerViewModel,
             CommentPageViewModel commentPageViewModel,
             IDownloadModuleViewModel downloadViewModel)
         {
@@ -67,8 +67,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             Extras = new ObservableCollection<IPgcExtraItemViewModel>();
             Celebrities = new ObservableCollection<IUserItemViewModel>();
 
+            MediaPlayerViewModel = mediaPlayerViewModel;
+            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
             DownloadViewModel = downloadViewModel;
-            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
@@ -85,6 +87,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             FixedCommand = ReactiveCommand.Create(Fix);
             ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail);
             TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync);
+            ClearCommand = ReactiveCommand.Create(Reset);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
@@ -116,16 +119,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
         private void Reset()
         {
             View = null;
+            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetOverview();
             ResetOperation();
             ResetCommunityInformation();
@@ -164,47 +161,6 @@ namespace Bili.ViewModels.Uwp.Pgc
             InitializeInterop();
 
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
-        }
-
-        private void ReloadMediaPlayer()
-        {
-            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
-            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
-            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    Reset();
-                    if (MediaPlayerViewModel != null)
-                    {
-                        MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
-                        MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
-                        MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
-                        MediaPlayerViewModel = null;
-                    }
-
-                    ReloadCommand?.Dispose();
-                    RequestFavoriteFoldersCommand?.Dispose();
-                    ChangeEpisodeCommand?.Dispose();
-                    ChangeSeasonCommand?.Dispose();
-                    FavoriteEpisodeCommand?.Dispose();
-                    CoinCommand?.Dispose();
-                    LikeCommand?.Dispose();
-                    TripleCommand?.Dispose();
-                    TrackSeasonCommand?.Dispose();
-                    ReloadCommunityInformationCommand?.Dispose();
-                    ShareCommand?.Dispose();
-                    FixedCommand?.Dispose();
-                    ShowSeasonDetailCommand?.Dispose();
-                }
-
-                _disposedValue = true;
-            }
         }
     }
 }

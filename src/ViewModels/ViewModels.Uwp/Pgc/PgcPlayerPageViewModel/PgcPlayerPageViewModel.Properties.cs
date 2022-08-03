@@ -41,197 +41,131 @@ namespace Bili.ViewModels.Uwp.Pgc
         private string _presetTitle;
         private bool _needBiliPlus;
         private Action _playNextEpisodeAction;
-        private bool _disposedValue;
 
         /// <inheritdoc/>
         [ObservableAsProperty]
         public bool IsReloading { get; set; }
 
-        /// <summary>
-        /// 是否正在请求收藏夹信息.
-        /// </summary>
+        /// <inheritdoc/>
         [ObservableAsProperty]
         public bool IsFavoriteFolderRequesting { get; set; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 请求用户已有的收藏夹列表的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
 
-        /// <summary>
-        /// 改变视频分P的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<EpisodeInformation, Unit> ChangeEpisodeCommand { get; }
 
-        /// <summary>
-        /// 改变剧集季度的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<SeasonInformation, Unit> ChangeSeasonCommand { get; }
 
-        /// <summary>
-        /// 收藏视频命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> FavoriteEpisodeCommand { get; }
 
-        /// <summary>
-        /// 追番/追剧命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> TrackSeasonCommand { get; }
 
-        /// <summary>
-        /// 投币命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<int, Unit> CoinCommand { get; }
 
-        /// <summary>
-        /// 点赞/取消点赞命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> LikeCommand { get; }
 
-        /// <summary>
-        /// 一键三连命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> TripleCommand { get; }
 
-        /// <summary>
-        /// 重置社区信息命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
 
-        /// <summary>
-        /// 分享命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ShareCommand { get; }
 
-        /// <summary>
-        /// 固定条目命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> FixedCommand { get; }
 
-        /// <summary>
-        /// 显示剧集详情的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ShowSeasonDetailCommand { get; }
 
-        /// <summary>
-        /// 收藏夹列表.
-        /// </summary>
+        /// <inheritdoc/>
+        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+
+        /// <inheritdoc/>
         public ObservableCollection<IVideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
 
-        /// <summary>
-        /// 播放时的关联区块集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<PlayerSectionHeader> Sections { get; }
 
-        /// <summary>
-        /// 分集集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
 
-        /// <summary>
-        /// 剧集集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IVideoIdentifierSelectableViewModel> Seasons { get; }
 
-        /// <summary>
-        /// 附加内容集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IPgcExtraItemViewModel> Extras { get; }
 
-        /// <summary>
-        /// 演员集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IUserItemViewModel> Celebrities { get; }
 
-        /// <summary>
-        /// 下载模块视图模型.
-        /// </summary>
+        /// <inheritdoc/>
         public IDownloadModuleViewModel DownloadViewModel { get; }
 
-        /// <summary>
-        /// 视图信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public PgcPlayerView View { get; set; }
 
-        /// <summary>
-        /// 用户是否已登录.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSignedIn { get; set; }
 
-        /// <summary>
-        /// 播放次数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string PlayCountText { get; set; }
 
-        /// <summary>
-        /// 弹幕数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string DanmakuCountText { get; set; }
 
-        /// <summary>
-        /// 评论数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string CommentCountText { get; set; }
 
-        /// <summary>
-        /// 点赞数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string LikeCountText { get; set; }
 
-        /// <summary>
-        /// 投币数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string CoinCountText { get; set; }
 
-        /// <summary>
-        /// 收藏数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string FavoriteCountText { get; set; }
 
-        /// <summary>
-        /// 评分人次的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string RatingCountText { get; set; }
 
-        /// <summary>
-        /// 是否已点赞.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsLiked { get; set; }
 
-        /// <summary>
-        /// 是否已投币.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsCoined { get; set; }
 
-        /// <summary>
-        /// 是否已收藏.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsFavorited { get; set; }
 
-        /// <summary>
-        /// 是否已追番/追剧.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsTracking { get; set; }
 
-        /// <summary>
-        /// 投币同时是否点赞视频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsCoinWithLiked { get; set; }
 
@@ -243,75 +177,51 @@ namespace Bili.ViewModels.Uwp.Pgc
         [Reactive]
         public string ErrorText { get; set; }
 
-        /// <summary>
-        /// 收藏夹列表请求是否出错.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsFavoriteFoldersError { get; set; }
 
-        /// <summary>
-        /// 收藏夹列表请求错误文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string FavoriteFoldersErrorText { get; set; }
 
-        /// <summary>
-        /// 该视频是否已经被固定在首页.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsVideoFixed { get; set; }
 
-        /// <summary>
-        /// 有分集的时候是否仅显示索引.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsOnlyShowIndex { get; set; }
 
-        /// <summary>
-        /// 是否显示演员.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowCelebrities { get; set; }
 
-        /// <summary>
-        /// 当前区块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public PlayerSectionHeader CurrentSection { get; set; }
 
-        /// <summary>
-        /// 当前分集.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public EpisodeInformation CurrentEpisode { get; set; }
 
-        /// <summary>
-        /// 是否显示视频合集.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowSeasons { get; set; }
 
-        /// <summary>
-        /// 是否显示关联视频.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowEpisodes { get; set; }
 
-        /// <summary>
-        /// 是否显示评论区.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowComments { get; set; }
 
-        /// <summary>
-        /// 是否显示附加内容.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowExtras { get; set; }
 
-        /// <summary>
-        /// 可选分区是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSectionsEmpty { get; set; }
     }

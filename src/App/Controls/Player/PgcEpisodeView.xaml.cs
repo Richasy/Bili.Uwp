@@ -18,11 +18,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcEpisodeView"/> class.
         /// </summary>
-        public PgcEpisodeView()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
+        public PgcEpisodeView() => InitializeComponent();
 
         private async void OnEpisodeItemClickAsync(object sender, RoutedEventArgs e)
         {

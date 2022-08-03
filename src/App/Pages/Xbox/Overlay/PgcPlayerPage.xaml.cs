@@ -33,7 +33,7 @@ namespace Bili.App.Pages.Xbox.Overlay
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel?.Dispose();
+            => ViewModel.ClearCommand.Execute().Subscribe();
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
