@@ -14,6 +14,7 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -22,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 用户空间视图模型.
     /// </summary>
-    public sealed partial class UserSpaceViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
+    public sealed partial class UserSpaceViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IUserSpaceViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSpaceViewModel"/> class.
@@ -49,13 +50,13 @@ namespace Bili.ViewModels.Uwp.Account
 
             EnterSearchModeCommand = ReactiveCommand.Create(EnterSearchMode);
             ExitSearchModeCommand = ReactiveCommand.Create(ExitSearchMode);
-            SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, canSearch, RxApp.MainThreadScheduler);
+            SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, canSearch);
             GotoFollowsPageCommand = ReactiveCommand.Create(GotoFollowsPage);
             GotoFansPageCommand = ReactiveCommand.Create(GotoFansPage);
             FixedCommand = ReactiveCommand.Create(Fix);
 
-            _isSearching = SearchCommand.IsExecuting.ToProperty(this, x => x.IsSearching);
-            _canSearch = canSearch.ToProperty(this, x => x.CanSearch);
+            SearchCommand.IsExecuting.ToPropertyEx(this, x => x.IsSearching);
+            canSearch.ToPropertyEx(this, x => x.CanSearch);
             SearchCommand.ThrownExceptions.Subscribe(ex => DisplayException(ex));
 
             this.WhenAnyValue(p => p.Keyword)
@@ -63,10 +64,7 @@ namespace Bili.ViewModels.Uwp.Account
                 .Subscribe(x => IsSearchMode = !string.IsNullOrEmpty(x));
         }
 
-        /// <summary>
-        /// 设置用户信息.
-        /// </summary>
-        /// <param name="user">用户资料.</param>
+        /// <inheritdoc/>
         public void SetUserProfile(UserProfile user)
         {
             _userProfile = user;

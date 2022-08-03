@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -18,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 稍后再看页面视图模型.
     /// </summary>
-    public sealed partial class ViewLaterPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
+    public sealed partial class ViewLaterPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IViewLaterPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewLaterPageViewModel"/> class.
@@ -37,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Account
             ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync);
             PlayAllCommand = ReactiveCommand.Create(PlayAll);
 
-            _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing);
+            ClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsClearing);
         }
 
         /// <inheritdoc/>
@@ -49,7 +51,7 @@ namespace Bili.ViewModels.Uwp.Account
         }
 
         /// <inheritdoc/>
-        protected async override Task GetDataAsync()
+        protected override async Task GetDataAsync()
         {
             if (_isEnd)
             {
@@ -59,7 +61,7 @@ namespace Bili.ViewModels.Uwp.Account
             var data = await _accountProvider.GetViewLaterListAsync();
             foreach (var item in data.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(item);
                 videoVM.InjectAction(vm => RemoveVideo(vm));
                 Items.Add(videoVM);

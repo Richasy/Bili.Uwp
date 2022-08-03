@@ -18,29 +18,20 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INavigationViewModel _navigationViewModel;
 
-        private readonly ObservableAsPropertyHelper<bool> _isClearing;
-
         private bool _isEnd;
 
-        /// <summary>
-        /// 播放全部命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> PlayAllCommand { get; }
 
-        /// <summary>
-        /// 清空全部命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
 
-        /// <summary>
-        /// 稍后再看列表是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsEmpty { get; set; }
 
-        /// <summary>
-        /// 是否正在清空内容.
-        /// </summary>
-        public bool IsClearing => _isClearing.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsClearing { get; set; }
     }
 }

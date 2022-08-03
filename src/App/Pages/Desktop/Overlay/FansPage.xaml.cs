@@ -24,6 +24,14 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.SetProfile(profile);
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 
     /// <summary>

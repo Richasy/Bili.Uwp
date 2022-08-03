@@ -20,6 +20,14 @@ namespace Bili.App.Pages.Desktop.Overlay
         public SearchPage() => InitializeComponent();
 
         /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.NavigationMode != NavigationMode.Back && e.Parameter is string keyword)

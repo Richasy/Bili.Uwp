@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Account;
 
 namespace Bili.App.Pages.Xbox
@@ -26,7 +27,7 @@ namespace Bili.App.Pages.Xbox
     /// <summary>
     /// <see cref="XboxAccountPage"/> 的基类.
     /// </summary>
-    public class XboxAccountPageBase : AppPage<XboxAccountPageViewModel>
+    public class XboxAccountPageBase : AppPage<IXboxAccountPageViewModel>
     {
     }
 }

@@ -4,9 +4,11 @@ using System;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -15,7 +17,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 历史记录页面视图模型.
     /// </summary>
-    public sealed partial class HistoryPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>
+    public sealed partial class HistoryPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IHistoryPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HistoryPageViewModel"/> class.
@@ -30,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Account
             _resourceToolkit = resourceToolkit;
 
             ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync);
-            _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing);
+            ClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsClearing);
         }
 
         /// <inheritdoc/>

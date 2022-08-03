@@ -18,6 +18,14 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         public ArticlePartitionPage() => InitializeComponent();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnArticleSortComboBoxSlectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ArticleSortComboBox.SelectedItem is ArticleSortType type

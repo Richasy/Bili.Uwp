@@ -118,22 +118,23 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IAppViewModel, AppViewModel>();
             SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
             SplatRegistrations.RegisterLazySingleton<IAccountViewModel, AccountViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteModuleViewModel, VideoFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteFolderDetailViewModel, VideoFavoriteFolderDetailViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IAnimeFavoriteModuleViewModel, AnimeFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICinemaFavoriteModuleViewModel, CinemaFavoriteModuleViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IUserSpaceViewModel, UserSpaceViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<IFavoritePageViewModel, FavoritePageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IRecommendPageViewModel, RecommendPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IPopularPageViewModel, PopularPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IRankPageViewModel, RankPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IToolboxPageViewModel, ToolboxPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISettingsPageViewModel, SettingsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IHelpPageViewModel, HelpPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IVideoPartitionPageViewModel, VideoPartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IVideoPartitionDetailPageViewModel, VideoPartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteModuleViewModel, VideoFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteFolderDetailViewModel, VideoFavoriteFolderDetailViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAnimeFavoriteModuleViewModel, AnimeFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICinemaFavoriteModuleViewModel, CinemaFavoriteModuleViewModel>();
 
             SplatRegistrations.RegisterLazySingleton<IIndexPageViewModel, IndexPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IBangumiPageViewModel, BangumiPageViewModel>();
@@ -145,20 +146,18 @@ namespace Bili.DI.App
 
             SplatRegistrations.RegisterLazySingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IHistoryPageViewModel, HistoryPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IMyFollowsPageViewModel, MyFollowsPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IXboxAccountPageViewModel, XboxAccountPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticlePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<MessagePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ViewLaterPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<HistoryPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FansPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<FollowsPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<UserSpaceViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<SettingsPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<MyFollowsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ArticleFavoriteModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicAllModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<DynamicVideoModuleViewModel>();
@@ -167,7 +166,6 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<CommentDetailModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<CommentPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<XboxAccountPageViewModel>();
 
             SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
             SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();

@@ -9,12 +9,12 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
 
     <base:UserSpacePageBase.Resources>
-        <DataTemplate x:Key="VideoItemTemplate" x:DataType="video:VideoItemViewModel">
+        <DataTemplate x:Key="VideoItemTemplate" x:DataType="video:IVideoItemViewModel">
             <videos:VideoItem ViewModel="{x:Bind}" />
         </DataTemplate>
     </base:UserSpacePageBase.Resources>

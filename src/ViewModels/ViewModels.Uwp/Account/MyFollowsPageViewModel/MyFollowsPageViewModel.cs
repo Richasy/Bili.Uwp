@@ -11,6 +11,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -19,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 我的关注页面视图模型.
     /// </summary>
-    public sealed partial class MyFollowsPageViewModel : InformationFlowViewModelBase<IUserItemViewModel>
+    public sealed partial class MyFollowsPageViewModel : InformationFlowViewModelBase<IUserItemViewModel>, IMyFollowsPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MyFollowsPageViewModel"/> class.
@@ -39,7 +40,7 @@ namespace Bili.ViewModels.Uwp.Account
             UserName = _accountViewModel.DisplayName;
 
             SelectGroupCommand = ReactiveCommand.CreateFromTask<FollowGroup>(SelectGroupAsync);
-            _isSwitching = SelectGroupCommand.IsExecuting.ToProperty(this, x => x.IsSwitching);
+            SelectGroupCommand.IsExecuting.ToPropertyEx(this, x => x.IsSwitching);
             SelectGroupCommand.ThrownExceptions.Subscribe(DisplayException);
         }
 

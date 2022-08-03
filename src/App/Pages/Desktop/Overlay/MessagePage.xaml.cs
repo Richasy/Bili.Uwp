@@ -15,6 +15,14 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// </summary>
         public MessagePage() => InitializeComponent();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             ContentScrollViewer.ChangeView(0, 0, 1, true);

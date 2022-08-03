@@ -23,98 +23,66 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly INavigationViewModel _navigationViewModel;
         private readonly IAccountViewModel _accountViewModel;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isSearching;
-        private readonly ObservableAsPropertyHelper<bool> _canSearch;
         private UserProfile _userProfile;
         private bool _isSpaceVideoFinished;
         private bool _isSearchVideoFinished;
         private string _requestKeyword;
 
-        /// <summary>
-        /// 搜索命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
 
-        /// <summary>
-        /// 进入搜索模式的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> EnterSearchModeCommand { get; }
 
-        /// <summary>
-        /// 退出搜索模式的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ExitSearchModeCommand { get; }
 
-        /// <summary>
-        /// 前往粉丝页面的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> GotoFansPageCommand { get; }
 
-        /// <summary>
-        /// 前往关注者页面的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> GotoFollowsPageCommand { get; }
 
-        /// <summary>
-        /// 固定条目的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> FixedCommand { get; }
 
-        /// <summary>
-        /// 搜索的视频结果.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> SearchVideos { get; }
 
-        /// <summary>
-        /// 账户信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public IUserItemViewModel UserViewModel { get; internal set; }
 
-        /// <summary>
-        /// 是否为我自己（已登录用户）的用户空间.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsMe { get; internal set; }
 
-        /// <summary>
-        /// 是否为搜索模式.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSearchMode { get; internal set; }
 
-        /// <summary>
-        /// 搜索关键词.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Keyword { get; set; }
 
-        /// <summary>
-        /// 空间视频是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSpaceVideoEmpty { get; set; }
 
-        /// <summary>
-        /// 视频搜索结果是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSearchVideoEmpty { get; set; }
 
-        /// <summary>
-        /// 该用户是否已经被固定在首页.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsFixed { get; set; }
 
-        /// <summary>
-        /// 是否正在搜索.
-        /// </summary>
-        public bool IsSearching => _isSearching.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsSearching { get; set; }
 
-        /// <summary>
-        /// 是否可以搜索.
-        /// </summary>
-        public bool CanSearch => _canSearch.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool CanSearch { get; set; }
     }
 }

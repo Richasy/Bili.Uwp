@@ -10,7 +10,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// XBOX 账户页面视图模型.
     /// </summary>
-    public sealed partial class XboxAccountPageViewModel : ViewModelBase
+    public sealed partial class XboxAccountPageViewModel : ViewModelBase, IXboxAccountPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="XboxAccountPageViewModel"/> class.

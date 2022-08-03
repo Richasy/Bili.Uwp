@@ -22,39 +22,27 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAccountViewModel _accountViewModel;
 
         private readonly Dictionary<string, IEnumerable<IUserItemViewModel>> _cache;
-        private readonly ObservableAsPropertyHelper<bool> _isSwitching;
 
-        /// <summary>
-        /// 关注分组列表.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<FollowGroup> Groups { get; }
 
-        /// <summary>
-        /// 选中分组命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<FollowGroup, Unit> SelectGroupCommand { get; }
 
-        /// <summary>
-        /// 当前分组.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public FollowGroup CurrentGroup { get; internal set; }
+        public FollowGroup CurrentGroup { get; set; }
 
-        /// <summary>
-        /// 当前分组内容是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public bool IsCurrentGroupEmpty { get; internal set; }
+        public bool IsCurrentGroupEmpty { get; set; }
 
-        /// <summary>
-        /// 用户名.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string UserName { get; internal set; }
+        public string UserName { get; set; }
 
-        /// <summary>
-        /// 是否正在切换分组.
-        /// </summary>
-        public bool IsSwitching => _isSwitching.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsSwitching { get; set; }
     }
 }

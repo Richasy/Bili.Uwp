@@ -11,7 +11,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
 
@@ -83,7 +83,7 @@
                         </StackPanel>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <DataTemplate x:DataType="video:IVideoItemViewModel">
                             <videos:VideoItem ViewModel="{x:Bind}">
                                 <videos:VideoItem.ContextFlyout>
                                     <MenuFlyout>
