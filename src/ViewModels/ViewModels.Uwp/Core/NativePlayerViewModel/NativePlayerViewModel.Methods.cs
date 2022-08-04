@@ -77,11 +77,7 @@ namespace Bili.ViewModels.Uwp.Core
             _videoSource = MediaSource.CreateFromAdaptiveMediaSource(source.MediaSource);
             _videoPlaybackItem = new MediaPlaybackItem(_videoSource);
 
-            if (_videoPlayer == null)
-            {
-                _videoPlayer = GetVideoPlayer();
-            }
-
+            _videoPlayer = GetVideoPlayer();
             _videoPlayer.Source = _videoPlaybackItem;
             MediaPlayerChanged?.Invoke(this, _videoPlayer);
         }
@@ -144,7 +140,7 @@ namespace Bili.ViewModels.Uwp.Core
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 Status = PlayerStatus.End;
-                StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
+                MediaEnded?.Invoke(this, EventArgs.Empty);
             });
         }
 
@@ -165,7 +161,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
                 catch (Exception)
                 {
-                    Status = PlayerStatus.NotLoad;
+                    Status = PlayerStatus.Failed;
                 }
 
                 StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
@@ -251,6 +247,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             _videoPlayer.Source = null;
+            _videoPlayer = null;
         }
     }
 }

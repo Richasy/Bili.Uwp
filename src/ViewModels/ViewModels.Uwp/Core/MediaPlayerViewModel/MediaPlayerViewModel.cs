@@ -226,7 +226,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                _displayRequest.RequestRelease();
+                _displayRequest?.RequestRelease();
                 _displayRequest = null;
             });
         }
@@ -342,12 +342,13 @@ namespace Bili.ViewModels.Uwp.Core
                         PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
                         _ => Locator.Current.GetService<INativePlayerViewModel>(),
                     };
-            }
 
-            _player.MediaOpened += OnMediaOpened;
-            _player.MediaPlayerChanged += OnMediaPlayerChanged;
-            _player.PositionChanged += OnMediaPositionChanged;
-            _player.StateChanged += OnMediaStateChanged;
+                _player.MediaOpened += OnMediaOpened;
+                _player.MediaEnded += OnMediaEnded;
+                _player.MediaPlayerChanged += OnMediaPlayerChanged;
+                _player.PositionChanged += OnMediaPositionChanged;
+                _player.StateChanged += OnMediaStateChanged;
+            }
         }
 
         private void InitializeSmtc()

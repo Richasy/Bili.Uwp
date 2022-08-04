@@ -233,8 +233,12 @@
                 Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay}" />
 
             <Grid VerticalAlignment="Center">
-                <controls:ErrorPanel Text="{loc:Locale Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsSpaceVideoEmpty, Mode=OneWay}" />
-                <controls:ErrorPanel Text="{loc:Locale Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsSearchVideoEmpty, Mode=OneWay}" />
+                <StackPanel Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <controls:ErrorPanel Text="{loc:Locale Name=UserHaveNoVideos}" Visibility="{x:Bind ViewModel.IsSpaceVideoEmpty, Mode=OneWay}" />
+                </StackPanel>
+                <StackPanel Visibility="{x:Bind ViewModel.IsSearchMode, Mode=OneWay}">
+                    <controls:ErrorPanel Text="{loc:Locale Name=NoUserVideoSearchResult}" Visibility="{x:Bind ViewModel.IsSearchVideoEmpty, Mode=OneWay}" />
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
