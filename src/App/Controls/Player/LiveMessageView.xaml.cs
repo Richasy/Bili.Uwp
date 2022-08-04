@@ -2,7 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Bili.ViewModels.Uwp.Live;
+using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
 using Splat;
 
@@ -19,7 +19,7 @@ namespace Bili.App.Controls.Player
         public LiveMessageView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<LivePlayerPageViewModel>();
+            ViewModel = Splat.Locator.Current.GetService<ILivePlayerPageViewModel>();
             DataContext = ViewModel;
             ViewModel.RequestDanmakusScrollToBottom += OnRequestDanmakusScrollToBottomAsync;
         }
@@ -44,7 +44,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="LiveMessageView"/> 的基类.
     /// </summary>
-    public class LiveMessageViewBase : ReactiveUserControl<LivePlayerPageViewModel>
+    public class LiveMessageViewBase : ReactiveUserControl<ILivePlayerPageViewModel>
     {
     }
 }

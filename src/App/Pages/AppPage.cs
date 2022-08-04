@@ -2,7 +2,6 @@
 
 using System;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -25,7 +24,7 @@ namespace Bili.App.Pages
         /// <summary>
         /// Initializes a new instance of the <see cref="AppPage"/> class.
         /// </summary>
-        public AppPage() => CoreViewModel = Locator.Current.GetService<IAppViewModel>() as AppViewModel;
+        public AppPage() => CoreViewModel = Locator.Current.GetService<IAppViewModel>();
 
         /// <summary>
         /// 应用核心视图模型.

@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Live;
+using Bili.ViewModels.Interfaces.Live;
 
 namespace Bili.App.Pages.Base
 {
     /// <summary>
     /// 直播播放页的基类.
     /// </summary>
-    public class LivePlayerPageBase : AppPage<LivePlayerPageViewModel>
+    public class LivePlayerPageBase : AppPage<ILivePlayerPageViewModel>
     {
     }
 }

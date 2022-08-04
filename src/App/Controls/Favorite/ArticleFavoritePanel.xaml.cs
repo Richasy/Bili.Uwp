@@ -2,8 +2,6 @@
 
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Article;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 

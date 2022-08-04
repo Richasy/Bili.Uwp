@@ -7,7 +7,6 @@ using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -136,13 +135,13 @@ namespace Bili.App.Controls.Player
 
         internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.OldValue is PlayerPageViewModelBase oldVM)
+            if (e.OldValue is IPlayerPageViewModel oldVM)
             {
                 oldVM.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
                 oldVM.MediaPlayerViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
 
-            if (e.NewValue is PlayerPageViewModelBase vm)
+            if (e.NewValue is IPlayerPageViewModel vm)
             {
                 vm.MediaPlayerViewModel.PropertyChanged -= OnViewModelPropertyChangedAsync;
                 vm.MediaPlayerViewModel.PropertyChanged += OnViewModelPropertyChangedAsync;

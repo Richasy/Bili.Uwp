@@ -15,7 +15,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:player="using:Bili.App.Controls.Player"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     mc:Ignorable="d">
 
     <base:VideoPlayerPageBase.Resources>
@@ -92,7 +92,7 @@
                                     <muxc:StackLayout Spacing="4" />
                                 </muxc:ItemsRepeater.Layout>
                                 <muxc:ItemsRepeater.ItemTemplate>
-                                    <DataTemplate x:DataType="video:VideoFavoriteFolderSelectableViewModel">
+                                    <DataTemplate x:DataType="video:IVideoFavoriteFolderSelectableViewModel">
                                         <controls:CardPanel
                                             IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
                                             IsEnableCheck="True"

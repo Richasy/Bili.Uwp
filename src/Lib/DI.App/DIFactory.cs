@@ -158,8 +158,7 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<IDocumentaryPageViewModel, DocumentaryPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ITimelinePageViewModel, TimelinePageViewModel>();
 
-            SplatRegistrations.RegisterLazySingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IViewLaterPageViewModel, ViewLaterPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IHistoryPageViewModel, HistoryPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IMyFollowsPageViewModel, MyFollowsPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<IXboxAccountPageViewModel, XboxAccountPageViewModel>();
@@ -176,7 +175,9 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<ILivePartitionDetailPageViewModel, LivePartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISearchBoxViewModel, SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISearchPageViewModel, SearchPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ILivePlayerPageViewModel, LivePlayerPageViewModel>();
 
             SplatRegistrations.SetupIOC();
         }

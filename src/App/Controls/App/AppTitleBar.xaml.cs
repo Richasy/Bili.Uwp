@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using Bili.Models.Data.Local;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;

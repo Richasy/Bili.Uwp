@@ -14,7 +14,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.Models.Data.Pgc"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -219,7 +219,7 @@
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <DataTemplate x:DataType="video:IVideoItemViewModel">
                             <videos:VideoItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

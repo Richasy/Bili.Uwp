@@ -2,7 +2,6 @@
 
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay

@@ -12,11 +12,12 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -25,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播播放页面视图模型.
     /// </summary>
-    public sealed partial class LivePlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class LivePlayerPageViewModel : PlayerPageViewModelBase, ILivePlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePlayerPageViewModel"/> class.
@@ -39,6 +40,7 @@ namespace Bili.ViewModels.Uwp.Live
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
+            IMediaPlayerViewModel mediaPlayerViewModel,
             CoreDispatcher dispatcher)
         {
             _authorizeProvider = authorizeProvider;
@@ -58,6 +60,7 @@ namespace Bili.ViewModels.Uwp.Live
             };
             CurrentSection = Sections.First();
 
+            MediaPlayerViewModel = mediaPlayerViewModel;
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
@@ -67,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Live
             ClearCommand = ReactiveCommand.Create(Reset);
             OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
 
             ReloadCommand.ThrownExceptions
                 .Subscribe(DisplayException);
@@ -79,10 +82,7 @@ namespace Bili.ViewModels.Uwp.Live
             Danmakus.CollectionChanged += OnDanmakusCollectionChanged;
         }
 
-        /// <summary>
-        /// 设置直播间.
-        /// </summary>
-        /// <param name="snapshot">直播间信息.</param>
+        /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetRoomId = snapshot.VideoId;

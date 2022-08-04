@@ -4,7 +4,7 @@ using System;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Interfaces.Home;
 using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -77,7 +77,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="HelpPage"/> 的基类.
     /// </summary>
-    public class HelpPageBase : AppPage<HelpPageViewModel>
+    public class HelpPageBase : AppPage<IHelpPageViewModel>
     {
     }
 }

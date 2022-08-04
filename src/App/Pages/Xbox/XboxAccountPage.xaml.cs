@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Account;
-using Bili.ViewModels.Uwp.Account;
 
 namespace Bili.App.Pages.Xbox
 {
