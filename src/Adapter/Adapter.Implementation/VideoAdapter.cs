@@ -262,7 +262,7 @@ namespace Bili.Adapter
         {
             var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(spaceVideo.Title);
             var id = spaceVideo.Id;
-            var publishDate = DateTimeOffset.FromUnixTimeSeconds(spaceVideo.CreateTime).ToLocalTime();
+            var publishDate = DateTimeOffset.FromUnixTimeSeconds(spaceVideo.CreateTime);
             var duration = spaceVideo.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(spaceVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(spaceVideo);
