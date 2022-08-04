@@ -171,9 +171,9 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<ICommentMainModuleViewModel, CommentMainModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICommentDetailModuleViewModel, CommentDetailModuleViewModel>();
             SplatRegistrations.RegisterLazySingleton<ICommentPageViewModel, CommentPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ILiveFeedPageViewModel, LiveFeedPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ILivePartitionPageViewModel, LivePartitionPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ILivePartitionDetailPageViewModel, LivePartitionDetailPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISearchBoxViewModel, SearchBoxViewModel>();
             SplatRegistrations.RegisterLazySingleton<ISearchPageViewModel, SearchPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
