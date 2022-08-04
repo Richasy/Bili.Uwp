@@ -16,6 +16,7 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -33,7 +34,8 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            IAppViewModel appViewModel)
+            IAppViewModel appViewModel,
+            CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
@@ -41,6 +43,7 @@ namespace Bili.ViewModels.Uwp.Account
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
             _appViewModel = appViewModel;
+            _dispatcher = dispatcher;
 
             TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync);
             SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync);
@@ -70,7 +73,7 @@ namespace Bili.ViewModels.Uwp.Account
 
             if (State == AuthorizeState.SignedIn)
             {
-                LoadMyProfileCommand.Execute().Subscribe();
+                HandleLogged();
             }
         }
 

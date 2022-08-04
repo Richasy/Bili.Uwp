@@ -12,6 +12,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -26,6 +27,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
         private readonly IAppViewModel _appViewModel;
+        private readonly CoreDispatcher _dispatcher;
 
         private bool _isRequestLogout = false;
 
