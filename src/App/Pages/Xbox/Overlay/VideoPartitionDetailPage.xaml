@@ -13,7 +13,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
@@ -53,7 +53,7 @@
             x:Name="DetailNavigationView"
             Style="{StaticResource XboxSideNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnDetailNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.SubPartitions}"
             SelectedItem="{x:Bind ViewModel.CurrentSubPartition, Mode=OneWay}">
@@ -71,7 +71,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <controls:VerticalRepeaterView
@@ -101,7 +101,7 @@
                         </ComboBox>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <DataTemplate x:DataType="video:IVideoItemViewModel">
                             <videos:VideoItem
                                 Style="{StaticResource XboxVerticalVideoItemStyle}"
                                 IsCustom="True"

@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.App.Controls;
-using Bili.ViewModels.Uwp.Home;
-using Bili.ViewModels.Uwp.Toolbox;
+using Bili.ViewModels.Interfaces.Home;
+using Bili.ViewModels.Interfaces.Toolbox;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Desktop
@@ -17,9 +17,17 @@ namespace Bili.App.Pages.Desktop
         /// </summary>
         public ToolboxPage() => InitializeComponent();
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnItemClick(object sender, RoutedEventArgs e)
         {
-            var item = (sender as FrameworkElement).DataContext as ToolboxItemViewModel;
+            var item = (sender as FrameworkElement).DataContext as IToolboxItemViewModel;
             switch (item.Type)
             {
                 case Models.Enums.ToolboxItemType.AvBvConverter:
@@ -37,7 +45,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="ToolboxPage"/> 的基类.
     /// </summary>
-    public class ToolboxPageBase : AppPage<ToolboxPageViewModel>
+    public class ToolboxPageBase : AppPage<IToolboxPageViewModel>
     {
     }
 }

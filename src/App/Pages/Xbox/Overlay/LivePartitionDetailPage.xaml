@@ -10,7 +10,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:live="using:Bili.Models.Data.Live"
     xmlns:liveControl="using:Bili.App.Controls.Live"
-    xmlns:liveModel="using:Bili.ViewModels.Uwp.Live"
+    xmlns:liveModel="using:Bili.ViewModels.Interfaces.Live"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -65,7 +65,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 IsTabStop="False"
                 VerticalScrollBarVisibility="Auto">
@@ -88,7 +88,7 @@
                                 Content="{loc:Locale Name=TotalTags}" />
                         </controls:VerticalRepeaterView.AdditionalContent>
                         <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="liveModel:LiveItemViewModel">
+                            <DataTemplate x:DataType="liveModel:ILiveItemViewModel">
                                 <liveControl:LiveItem ViewModel="{x:Bind}" />
                             </DataTemplate>
                         </controls:VerticalRepeaterView.ItemTemplate>

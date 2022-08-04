@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.User;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -24,12 +24,20 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.SetProfile(profile);
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 
     /// <summary>
     /// <see cref="FansPage"/> 的基类.
     /// </summary>
-    public class FansPageBase : AppPage<FansPageViewModel>
+    public class FansPageBase : AppPage<IFansPageViewModel>
     {
     }
 }

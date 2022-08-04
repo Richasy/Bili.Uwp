@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -18,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 稍后再看页面视图模型.
     /// </summary>
-    public sealed partial class ViewLaterPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class ViewLaterPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IViewLaterPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewLaterPageViewModel"/> class.
@@ -26,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Account
         public ViewLaterPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -34,10 +36,10 @@ namespace Bili.ViewModels.Uwp.Account
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
 
-            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync, outputScheduler: RxApp.MainThreadScheduler);
-            PlayAllCommand = ReactiveCommand.Create(PlayAll, outputScheduler: RxApp.MainThreadScheduler);
+            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync);
+            PlayAllCommand = ReactiveCommand.Create(PlayAll);
 
-            _isClearing = ClearCommand.IsExecuting.ToProperty(this, x => x.IsClearing, scheduler: RxApp.MainThreadScheduler);
+            ClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsClearing);
         }
 
         /// <inheritdoc/>
@@ -49,7 +51,7 @@ namespace Bili.ViewModels.Uwp.Account
         }
 
         /// <inheritdoc/>
-        protected async override Task GetDataAsync()
+        protected override async Task GetDataAsync()
         {
             if (_isEnd)
             {
@@ -59,9 +61,9 @@ namespace Bili.ViewModels.Uwp.Account
             var data = await _accountProvider.GetViewLaterListAsync();
             foreach (var item in data.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
-                videoVM.SetAdditionalAction(vm => RemoveVideo(vm));
+                var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
+                videoVM.InjectAction(vm => RemoveVideo(vm));
                 Items.Add(videoVM);
             }
 
@@ -87,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (Items.Count > 1)
             {
-                _navigationViewModel.NavigateToPlayView(Items.Select(p => p.Information).ToList());
+                _navigationViewModel.NavigateToPlayView(Items.Select(p => p.Data).ToList());
             }
             else if (Items.Count > 0)
             {
@@ -95,13 +97,13 @@ namespace Bili.ViewModels.Uwp.Account
             }
         }
 
-        private PlaySnapshot GetSnapshot(VideoItemViewModel vm)
+        private PlaySnapshot GetSnapshot(IVideoItemViewModel vm)
         {
-            var info = vm.Information;
+            var info = vm.Data;
             return new PlaySnapshot(info.Identifier.Id, "0", Models.Enums.VideoType.Video);
         }
 
-        private void RemoveVideo(VideoItemViewModel vm)
+        private void RemoveVideo(IVideoItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

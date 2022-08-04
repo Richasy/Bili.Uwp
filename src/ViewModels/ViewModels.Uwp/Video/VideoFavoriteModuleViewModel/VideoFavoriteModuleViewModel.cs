@@ -2,8 +2,9 @@
 
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -13,13 +14,13 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频收藏模块视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteModuleViewModel : InformationFlowViewModelBase<VideoFavoriteFolderGroupViewModel>
+    public sealed partial class VideoFavoriteModuleViewModel : InformationFlowViewModelBase<IVideoFavoriteFolderGroupViewModel>, IVideoFavoriteModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteModuleViewModel"/> class.
         /// </summary>
         public VideoFavoriteModuleViewModel(
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             IAccountProvider accountProvider,
             IFavoriteProvider favoriteProvider,
             CoreDispatcher dispatcher)
@@ -28,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _accountProvider = accountProvider;
             _favoriteProvider = favoriteProvider;
-            ShowDefaultFolderDetailCommand = ReactiveCommand.Create(ShowDefaultFolderDetail, outputScheduler: RxApp.MainThreadScheduler);
+            ShowDefaultFolderDetailCommand = ReactiveCommand.Create(ShowDefaultFolderDetail);
         }
 
         /// <inheritdoc/>
@@ -47,8 +48,8 @@ namespace Bili.ViewModels.Uwp.Video
 
             foreach (var item in data.Groups)
             {
-                var groupVM = Locator.Current.GetService<VideoFavoriteFolderGroupViewModel>();
-                groupVM.SetGroup(item);
+                var groupVM = Locator.Current.GetService<IVideoFavoriteFolderGroupViewModel>();
+                groupVM.InjectData(item);
                 Items.Add(groupVM);
             }
         }

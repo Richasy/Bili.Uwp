@@ -59,6 +59,8 @@
             <converter:PgcFollowTextConverter x:Key="FollowTextConverter" />
             <converter:ImageConverter x:Key="ImageConverter" />
             <converter:ErrorOpacityConverter x:Key="ErrorOpacityConverter" />
+            <converter:HorizontalThicknessConverter x:Key="HorizontalThicknessConverter" />
+            <converter:TopThicknessConverter x:Key="TopThicknessConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

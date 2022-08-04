@@ -18,11 +18,19 @@ namespace Bili.App.Pages.Desktop.Overlay
         public VideoFavoriteDetailPage() => InitializeComponent();
 
         /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is VideoFavoriteFolder folder)
             {
-                ViewModel.SetFavoriteFolder(folder);
+                ViewModel.InjectData(folder);
                 ViewModel.ReloadCommand.Execute().Subscribe();
             }
         }

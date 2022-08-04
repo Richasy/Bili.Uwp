@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Home;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Windows.System;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 帮助支持的视图模型.
     /// </summary>
-    public sealed partial class HelpPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class HelpPageViewModel : ViewModelBase, IHelpPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpPageViewModel"/> class.
@@ -34,10 +34,10 @@ namespace Bili.ViewModels.Uwp.Home
             LinkCollection = new ObservableCollection<KeyValue<string>>();
             InitializeLinks();
 
-            AskIssueCommand = ReactiveCommand.CreateFromTask(AskIssueAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoProjectHomeCommand = ReactiveCommand.CreateFromTask(GotoProjectHomeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoDeveloperBiliBiliHomePageCommand = ReactiveCommand.CreateFromTask(GotoDeveloperBiliBiliHomePageAsync, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeQuestionsAsync, outputScheduler: RxApp.MainThreadScheduler);
+            AskIssueCommand = ReactiveCommand.CreateFromTask(AskIssueAsync);
+            GotoProjectHomeCommand = ReactiveCommand.CreateFromTask(GotoProjectHomeAsync);
+            GotoDeveloperBiliBiliHomePageCommand = ReactiveCommand.CreateFromTask(GotoDeveloperBiliBiliHomePageAsync);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeQuestionsAsync);
         }
 
         /// <summary>

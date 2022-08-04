@@ -11,9 +11,11 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -22,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 分区详情页视图模型.
     /// </summary>
-    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class VideoPartitionDetailPageViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IVideoPartitionDetailPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPartitionDetailPageViewModel"/> class.
@@ -37,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Community
             _homeProvider = homeProvider;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
-            Banners = new ObservableCollection<BannerViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
             SubPartitions = new ObservableCollection<Partition>();
             SortTypes = new ObservableCollection<VideoSortType>()
             {
@@ -53,13 +55,12 @@ namespace Bili.ViewModels.Uwp.Community
                 x => x.CurrentSubPartition,
                 partition => partition?.Id == OriginPartition?.Id);
 
-            _isShowBanner = isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
-                .ToProperty(this, x => x.IsShowBanner, scheduler: RxApp.MainThreadScheduler);
+            isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
+                .ToPropertyEx(this, x => x.IsShowBanner);
 
-            _isRecommendPartition = isRecommend
-                .ToProperty(this, x => x.IsRecommendPartition, scheduler: RxApp.MainThreadScheduler);
+            isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
 
-            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectSubPartition, outputScheduler: RxApp.MainThreadScheduler);
+            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectSubPartition);
         }
 
         /// <summary>
@@ -98,7 +99,9 @@ namespace Bili.ViewModels.Uwp.Community
                 {
                     if (!Banners.Any(p => p.Uri == item.Uri))
                     {
-                        Banners.Add(new BannerViewModel(item));
+                        var vm = Locator.Current.GetService<IBannerViewModel>();
+                        vm.InjectData(item);
+                        Banners.Add(vm);
                     }
                 }
             }
@@ -107,14 +110,14 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 foreach (var video in data.Videos)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                    videoVM.SetInformation(video);
+                    var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                    videoVM.InjectData(video);
                     Items.Add(videoVM);
                 }
 
                 var videos = Items
-                        .OfType<VideoItemViewModel>()
-                        .Select(p => p.Information)
+                        .OfType<IVideoItemViewModel>()
+                        .Select(p => p.Data)
                         .ToList();
                 if (_caches.ContainsKey(CurrentSubPartition))
                 {
@@ -136,8 +139,8 @@ namespace Bili.ViewModels.Uwp.Community
                 var data = _caches[subPartition];
                 foreach (var video in data)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                    videoVM.SetInformation(video);
+                    var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                    videoVM.InjectData(video);
                     Items.Add(videoVM);
                 }
             }

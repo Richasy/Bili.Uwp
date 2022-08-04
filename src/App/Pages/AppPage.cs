@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -16,9 +16,24 @@ namespace Bili.App.Pages
     public class AppPage : Page
     {
         /// <summary>
-        /// 核心视图模型.
+        /// <see cref="CoreViewModel"/> 的依赖属性.
         /// </summary>
-        protected AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public static readonly DependencyProperty CoreViewModelProperty =
+            DependencyProperty.Register(nameof(CoreViewModel), typeof(IAppViewModel), typeof(IAppViewModel), new PropertyMetadata(default));
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppPage"/> class.
+        /// </summary>
+        public AppPage() => CoreViewModel = Locator.Current.GetService<IAppViewModel>();
+
+        /// <summary>
+        /// 应用核心视图模型.
+        /// </summary>
+        public IAppViewModel CoreViewModel
+        {
+            get { return (IAppViewModel)GetValue(CoreViewModelProperty); }
+            set { SetValue(CoreViewModelProperty, value); }
+        }
 
         /// <summary>
         /// 获取页面注册的视图模型.
@@ -34,7 +49,7 @@ namespace Bili.App.Pages
                 || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
-                var navigationVM = Locator.Current.GetService<NavigationViewModel>();
+                var navigationVM = Locator.Current.GetService<INavigationViewModel>();
                 if (navigationVM.CanBack)
                 {
                     navigationVM.BackCommand.Execute().Subscribe();
@@ -63,8 +78,11 @@ namespace Bili.App.Pages
         /// </summary>
         public AppPage()
         {
-            ViewModel = Splat.Locator.Current.GetService<TViewModel>();
+            ViewModel = Locator.Current.GetService<TViewModel>();
             DataContext = ViewModel;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         /// <summary>
@@ -81,5 +99,35 @@ namespace Bili.App.Pages
 
         /// <inheritdoc/>
         public override object GetViewModel() => ViewModel;
+
+        /// <summary>
+        /// 在页面加载完成后调用.
+        /// </summary>
+        protected virtual void OnPageLoaded()
+        {
+        }
+
+        /// <summary>
+        /// 在页面卸载完成后调用.
+        /// </summary>
+        protected virtual void OnPageUnloaded()
+        {
+        }
+
+        /// <summary>
+        /// 当页面大小变化时调用.
+        /// </summary>
+        protected virtual void OnPageSizeChanged(SizeChangedEventArgs args)
+        {
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+            => OnPageLoaded();
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+            => OnPageUnloaded();
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+            => OnPageSizeChanged(e);
     }
 }

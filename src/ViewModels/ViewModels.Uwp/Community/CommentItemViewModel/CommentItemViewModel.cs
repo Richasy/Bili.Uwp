@@ -6,7 +6,8 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Community;
+using Bili.ViewModels.Interfaces.Core;
 using Humanizer;
 using ReactiveUI;
 
@@ -15,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 评论条目视图模型.
     /// </summary>
-    public sealed partial class CommentItemViewModel : ViewModelBase
+    public sealed partial class CommentItemViewModel : ViewModelBase, ICommentItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentItemViewModel"/> class.
@@ -24,53 +25,42 @@ namespace Bili.ViewModels.Uwp.Community
              ICommunityProvider communityProvider,
              INumberToolkit numberToolkit,
              IResourceToolkit resourceToolkit,
-             AppViewModel appViewModel,
-             NavigationViewModel navigationViewModel)
+             ICallerViewModel callerViewModel,
+             INavigationViewModel navigationViewModel)
         {
             _communityProvider = communityProvider;
             _numberToolkit = numberToolkit;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
 
-            ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail, outputScheduler: RxApp.MainThreadScheduler);
-            ClickCommand = ReactiveCommand.Create(Click, outputScheduler: RxApp.MainThreadScheduler);
+            ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail);
+            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync);
+            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail);
+            ClickCommand = ReactiveCommand.Create(Click);
         }
 
-        /// <summary>
-        /// 设置评论信息.
-        /// </summary>
-        /// <param name="information">评论信息.</param>
-        /// <param name="hightlightUserId">需要高亮的用户Id.</param>
-        public void SetInformation(CommentInformation information, string hightlightUserId = null)
+        /// <inheritdoc/>
+        public void InjectData(CommentInformation information)
         {
-            Information = information;
-            IsUserHighlight = !string.IsNullOrEmpty(hightlightUserId) && Information.Publisher.User.Id == hightlightUserId;
+            Data = information;
             InitializeData();
         }
 
-        /// <summary>
-        /// 设置显示详情的行为.
-        /// </summary>
-        /// <param name="action">显示详情（展开评论）的行为.</param>
-        public void SetDetailAction(Action<CommentItemViewModel> action)
+        /// <inheritdoc/>
+        public void SetDetailAction(Action<ICommentItemViewModel> action)
             => _showCommentDetailAction = action;
 
-        /// <summary>
-        /// 设置点击的行为.
-        /// </summary>
-        /// <param name="action">显示详情（展开评论）的行为.</param>
-        public void SetClickAction(Action<CommentItemViewModel> action)
+        /// <inheritdoc/>
+        public void SetClickAction(Action<ICommentItemViewModel> action)
             => _clickAction = action;
 
         private void InitializeData()
         {
-            IsLiked = Information.CommunityInformation.IsLiked;
-            LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
-            PublishDateText = Information.PublishTime.Humanize();
-            var replyCount = Information.CommunityInformation.ChildCommentCount;
+            IsLiked = Data.CommunityInformation.IsLiked;
+            LikeCountText = _numberToolkit.GetCountText(Data.CommunityInformation.LikeCount);
+            PublishDateText = Data.PublishTime.Humanize();
+            var replyCount = Data.CommunityInformation.ChildCommentCount;
             if (replyCount > 0)
             {
                 ReplyCountText = string.Format(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.MoreReplyDisplay), replyCount);
@@ -86,28 +76,28 @@ namespace Bili.ViewModels.Uwp.Community
         private async Task ToggleLikeAsync()
         {
             var isLike = !IsLiked;
-            var result = await _communityProvider.LikeCommentAsync(isLike, Information.Id, Information.CommentId, Information.CommentType);
+            var result = await _communityProvider.LikeCommentAsync(isLike, Data.Id, Data.CommentId, Data.CommentType);
             if (result)
             {
                 IsLiked = isLike;
                 if (isLike)
                 {
-                    Information.CommunityInformation.LikeCount += 1;
+                    Data.CommunityInformation.LikeCount += 1;
                 }
                 else
                 {
-                    Information.CommunityInformation.LikeCount -= 1;
+                    Data.CommunityInformation.LikeCount -= 1;
                 }
 
-                LikeCountText = _numberToolkit.GetCountText(Information.CommunityInformation.LikeCount);
+                LikeCountText = _numberToolkit.GetCountText(Data.CommunityInformation.LikeCount);
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
         private void ShowUserDetail()
-            => _navigationViewModel.Navigate(PageIds.UserSpace, Information.Publisher.User);
+            => _navigationViewModel.Navigate(PageIds.UserSpace, Data.Publisher.User);
     }
 }

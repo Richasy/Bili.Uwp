@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.ViewModels.Interfaces;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -15,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// 信息流视图模型基类，支持重载和增量加载.
     /// </summary>
     /// <typeparam name="T">核心数据集合的类型.</typeparam>
-    public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel, ICollectionViewModel
+    public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInformationFlowViewModel<T>
         where T : class
     {
         internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
@@ -23,21 +24,19 @@ namespace Bili.ViewModels.Uwp.Base
             _dispatcher = dispatcher;
             Items = new ObservableCollection<T>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
 
-            _isReloading = ReloadCommand.IsExecuting
+            ReloadCommand.IsExecuting
                 .Merge(InitializeCommand.IsExecuting)
-                .ToProperty(
+                .ToPropertyEx(
                 this,
-                x => x.IsReloading,
-                scheduler: RxApp.MainThreadScheduler);
+                x => x.IsReloading);
 
-            _isIncrementalLoading = IncrementalCommand.IsExecuting.ToProperty(
+            IncrementalCommand.IsExecuting.ToPropertyEx(
                 this,
-                x => x.IsIncrementalLoading,
-                scheduler: RxApp.MainThreadScheduler);
+                x => x.IsIncrementalLoading);
 
             ReloadCommand.ThrownExceptions
                 .Merge(InitializeCommand.ThrownExceptions)
@@ -118,11 +117,6 @@ namespace Bili.ViewModels.Uwp.Base
                 })
                 .AsTask();
             await RunDelayTask(task);
-
-            if (Items.Count > 0)
-            {
-                CollectionInitialized?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         private async Task IncrementalAsync()

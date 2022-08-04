@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -14,18 +13,13 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlaylistView"/> class.
         /// </summary>
-        public VideoPlaylistView()
-        {
-            this.InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<VideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public VideoPlaylistView() => InitializeComponent();
     }
 
     /// <summary>
     /// <see cref="RelatedVideoView"/> 的基类.
     /// </summary>
-    public class VideoPlaylistViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class VideoPlaylistViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

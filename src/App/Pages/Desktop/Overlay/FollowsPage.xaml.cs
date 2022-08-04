@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.User;
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
@@ -20,6 +20,14 @@ namespace Bili.App.Pages.Desktop.Overlay
         }
 
         /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is UserProfile profile)
@@ -32,7 +40,7 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// <see cref="FollowsPage"/> 的基类.
     /// </summary>
-    public class FollowsPageBase : AppPage<FollowsPageViewModel>
+    public class FollowsPageBase : AppPage<IFollowsPageViewModel>
     {
     }
 }

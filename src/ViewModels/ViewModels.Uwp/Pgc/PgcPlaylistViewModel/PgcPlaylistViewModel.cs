@@ -9,8 +9,8 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI;
 using Splat;
 
@@ -19,38 +19,35 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 播放列表视图模型.
     /// </summary>
-    public sealed partial class PgcPlaylistViewModel : ViewModelBase, IInitializeViewModel, IReloadViewModel, IErrorViewModel
+    public sealed partial class PgcPlaylistViewModel : ViewModelBase, IPgcPlaylistViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlaylistViewModel"/> class.
         /// </summary>
-        /// <param name="appViewModel">应用视图模型.</param>
-        /// <param name="pgcProvider">PGC服务提供工具.</param>
-        /// <param name="resourceToolkit">本地资源管理工具.</param>
         public PgcPlaylistViewModel(
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit)
         {
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _pgcProvider = pgcProvider;
             _resourceToolkit = resourceToolkit;
 
-            Seasons = new ObservableCollection<SeasonItemViewModel>();
+            Seasons = new ObservableCollection<ISeasonItemViewModel>();
 
-            ShowMoreCommand = ReactiveCommand.Create(ShowMore, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ShowMoreCommand = ReactiveCommand.Create(ShowMore);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
 
             _isReloading = InitializeCommand.IsExecuting.Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToProperty(this, x => x.IsReloading);
         }
 
         /// <summary>
         /// 设置播放列表.
         /// </summary>
         /// <param name="data">列表数据.</param>
-        public void SetPlaylist(PgcPlaylist data)
+        public void InjectData(PgcPlaylist data)
         {
             Data = data;
             IsShowDetailButton = !string.IsNullOrEmpty(data.Id);
@@ -67,7 +64,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             LogException(exception);
         }
 
-        private void ShowMore() => _appViewModel.ShowPgcPlaylist(this);
+        private void ShowMore() => _callerViewModel.ShowPgcPlaylist(this);
 
         private async Task InitializeAsync()
         {
@@ -91,8 +88,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             Subtitle = list.Subtitle;
             foreach (var item in list.Seasons)
             {
-                var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                seasonVM.SetInformation(item);
+                var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                seasonVM.InjectData(item);
                 Seasons.Add(seasonVM);
             }
         }

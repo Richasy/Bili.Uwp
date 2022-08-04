@@ -65,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Live
         {
             if (_accountViewModel.State != AuthorizeState.SignedIn)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
                 return;
             }
 

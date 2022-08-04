@@ -5,7 +5,7 @@
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:live="using:Bili.ViewModels.Uwp.Live"
+    xmlns:live="using:Bili.ViewModels.Interfaces.Live"
     xmlns:live1="using:Bili.App.Controls.Live"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <ScrollViewer
-        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
@@ -44,7 +44,7 @@
                 <behaviors:IncrementalBehavior />
             </interactivity:Interaction.Behaviors>
             <local:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="live:LiveItemViewModel">
+                <DataTemplate x:DataType="live:ILiveItemViewModel">
                     <live1:LiveItem ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>

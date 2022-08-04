@@ -9,12 +9,9 @@
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
-    xmlns:local="using:Bili.App.Controls.Favorite"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pgc="using:Bili.App.Controls.Pgc"
-    xmlns:pgc1="using:Bili.ViewModels.Uwp.Pgc"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
+    xmlns:pgc1="using:Bili.ViewModels.Interfaces.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -53,7 +50,7 @@
         <ComboBox
             x:Name="StatusComboBox"
             MinWidth="120"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalAlignment="Left"
             ItemsSource="{x:Bind ViewModel.StatusCollection}"
             SelectedItem="{x:Bind ViewModel.Status, Mode=OneWay}"
@@ -69,7 +66,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="1"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             IsTabStop="False"
             VerticalScrollBarVisibility="Auto"
@@ -86,7 +83,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="pgc1:SeasonItemViewModel">
+                    <DataTemplate x:DataType="pgc1:ISeasonItemViewModel">
                         <pgc:SeasonItem ViewModel="{x:Bind}">
                             <pgc:SeasonItem.ContextFlyout>
                                 <MenuFlyout Opened="OnItemFlyoutOpened">

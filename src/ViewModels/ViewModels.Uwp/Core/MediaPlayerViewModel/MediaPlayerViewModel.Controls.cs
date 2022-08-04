@@ -192,7 +192,7 @@ namespace Bili.ViewModels.Uwp.Core
             var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             await _player.ScreenshotAsync(stream.AsStreamForWrite());
 
-            _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
+            _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.ScreenshotSuccess), Models.Enums.App.InfoType.Success);
 
             var shouldCopy = _settingsToolkit.ReadLocalSetting(SettingNames.CopyScreenshotAfterSave, true);
             if (shouldCopy)
@@ -223,14 +223,8 @@ namespace Bili.ViewModels.Uwp.Core
         {
             var ts = TimeSpan.FromSeconds(seconds);
             if (_player == null
-                || Math.Abs(ts.TotalSeconds - _player.Position.TotalSeconds) < 1
-                || ts > _player.Duration)
+                || Math.Abs(ts.TotalSeconds - _player.Position.TotalSeconds) < 1)
             {
-                if (Math.Abs(ProgressSeconds - ts.TotalSeconds) > 1)
-                {
-                    _player.SeekTo(TimeSpan.FromSeconds(ProgressSeconds));
-                }
-
                 return;
             }
 

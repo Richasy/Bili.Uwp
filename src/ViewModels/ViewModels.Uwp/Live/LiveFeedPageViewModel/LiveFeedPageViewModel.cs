@@ -7,8 +7,10 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -18,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播首页视图模型.
     /// </summary>
-    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase<LiveItemViewModel>
+    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>, ILiveFeedPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveFeedPageViewModel"/> class.
@@ -32,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Live
             ILiveProvider liveProvider,
             IAuthorizeProvider authorizeProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
             : base(dispatcher)
         {
             _liveProvider = liveProvider;
@@ -40,11 +42,11 @@ namespace Bili.ViewModels.Uwp.Live
             _resourceToolkit = resourceToolkit;
             _navigationViewModel = navigationViewModel;
 
-            Banners = new ObservableCollection<BannerViewModel>();
-            Follows = new ObservableCollection<LiveItemViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
+            Follows = new ObservableCollection<ILiveItemViewModel>();
             HotPartitions = new ObservableCollection<Models.Data.Community.Partition>();
 
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions, outputScheduler: RxApp.MainThreadScheduler);
+            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
 
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
@@ -70,7 +72,12 @@ namespace Bili.ViewModels.Uwp.Live
 
             if (data.Banners.Count() > 0)
             {
-                data.Banners.ToList().ForEach(p => Banners.Add(new BannerViewModel(p)));
+                data.Banners.ToList().ForEach(p =>
+                {
+                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    vm.InjectData(p);
+                    Banners.Add(vm);
+                });
             }
 
             if (data.HotPartitions.Count() > 0)
@@ -82,8 +89,8 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var item in data.RecommendLives)
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(item);
+                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(item);
                     Items.Add(liveVM);
                 }
             }
@@ -92,8 +99,8 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var item in data.FollowLives)
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(item);
+                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(item);
                     Follows.Add(liveVM);
                 }
             }

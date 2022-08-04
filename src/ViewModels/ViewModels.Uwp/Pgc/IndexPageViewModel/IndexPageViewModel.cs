@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -17,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// PGC 内容索引页面视图模型.
     /// </summary>
-    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase<SeasonItemViewModel>
+    public sealed partial class IndexPageViewModel : InformationFlowViewModelBase<ISeasonItemViewModel>, IIndexPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IndexPageViewModel"/> class.
@@ -33,14 +34,10 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             _pgcProvider = pgcProvider;
             _resourceToolkit = resourceToolkit;
-            Filters = new ObservableCollection<IndexFilterViewModel>();
+            Filters = new ObservableCollection<IIndexFilterViewModel>();
         }
 
-        /// <summary>
-        /// 设置类型.
-        /// </summary>
-        /// <param name="type">PGC 类型.</param>
-        /// <exception cref="ArgumentException">PGC类型非预期.</exception>
+        /// <inheritdoc/>
         public void SetType(PgcType type)
         {
             _type = type;
@@ -92,16 +89,19 @@ namespace Bili.ViewModels.Uwp.Pgc
             var isAnime = _type == PgcType.Bangumi || _type == PgcType.Domestic;
             foreach (var item in filters)
             {
+                var vm = Locator.Current.GetService<IIndexFilterViewModel>();
                 if (isAnime && item.Id == "area")
                 {
                     var areaId = _type == PgcType.Bangumi ? "2" : "1,";
                     var selectedItem = item.Conditions.FirstOrDefault(p => p.Id.Contains(areaId));
-                    Filters.Add(new IndexFilterViewModel(item, selectedItem));
+                    vm.SetData(item, selectedItem);
                 }
                 else
                 {
-                    Filters.Add(new IndexFilterViewModel(item));
+                    vm.SetData(item);
                 }
+
+                Filters.Add(vm);
             }
         }
 
@@ -126,8 +126,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _isFinished = isFinished;
             foreach (var item in items)
             {
-                var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                seasonVM.SetInformation(item);
+                var seasonVM = Splat.Locator.Current.GetService<ISeasonItemViewModel>();
+                seasonVM.InjectData(item);
                 Items.Add(seasonVM);
             }
 

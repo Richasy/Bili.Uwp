@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.Data.Community;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -15,6 +15,14 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="MyFollowsPage"/> class.
         /// </summary>
         public MyFollowsPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnNavItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
@@ -29,7 +37,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="MyFollowsPage"/> 的基类.
     /// </summary>
-    public class MyFollowsPageBase : AppPage<MyFollowsPageViewModel>
+    public class MyFollowsPageBase : AppPage<IMyFollowsPageViewModel>
     {
     }
 }

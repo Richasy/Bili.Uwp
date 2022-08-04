@@ -1,22 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Video;
+using Bili.ViewModels.Interfaces.Common;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 收藏夹元数据视图模型.
     /// </summary>
-    public class FavoriteMetaViewModel : SelectableViewModelBase<VideoFavoriteFolder>
+    public class FavoriteMetaViewModel : SelectableViewModelBase<VideoFavoriteFolder>, IFavoriteMetaViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FavoriteMetaViewModel"/> class.
-        /// </summary>
-        /// <param name="data">数据.</param>
-        /// <param name="isSelected">是否选中.</param>
-        public FavoriteMetaViewModel(VideoFavoriteFolder data, bool isSelected)
-            : base(data, isSelected)
-        {
-        }
     }
 }

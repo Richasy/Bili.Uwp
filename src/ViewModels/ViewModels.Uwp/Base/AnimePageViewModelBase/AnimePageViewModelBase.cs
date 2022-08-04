@@ -15,11 +15,12 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -27,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Base
     /// <summary>
     /// 动漫页面视图模型基类.
     /// </summary>
-    public partial class AnimePageViewModelBase : ViewModelBase, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
+    public partial class AnimePageViewModelBase : ViewModelBase, IAnimePageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimePageViewModelBase"/> class.
@@ -42,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Base
             IAuthorizeProvider authorizeProvider,
             IHomeProvider homeProvider,
             IResourceToolkit resourceToolkit,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             PgcType type)
         {
             _pgcProvider = pgcProvider;
@@ -61,10 +62,10 @@ namespace Bili.ViewModels.Uwp.Base
 
             _viewCaches = new Dictionary<Partition, PgcPageView>();
             _videoCaches = new Dictionary<string, IEnumerable<Models.Data.Video.VideoInformation>>();
-            Banners = new ObservableCollection<BannerViewModel>();
-            Ranks = new ObservableCollection<PgcRankViewModel>();
-            Playlists = new ObservableCollection<PgcPlaylistViewModel>();
-            Videos = new ObservableCollection<VideoItemViewModel>();
+            Banners = new ObservableCollection<IBannerViewModel>();
+            Ranks = new ObservableCollection<IPgcRankViewModel>();
+            Playlists = new ObservableCollection<IPgcPlaylistViewModel>();
+            Videos = new ObservableCollection<IVideoItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
 
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
@@ -74,21 +75,21 @@ namespace Bili.ViewModels.Uwp.Base
             Ranks.CollectionChanged += OnRanksCollectionChanged;
             Playlists.CollectionChanged += OnPlaylistsCollectionChanged;
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
+            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync);
+            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
+            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
+            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage);
 
-            _isReloading = InitializeCommand.IsExecuting
+            InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToPropertyEx(this, x => x.IsReloading);
 
-            _isIncrementalLoading = IncrementalCommand.IsExecuting
+            IncrementalCommand.IsExecuting
                 .Merge(IncrementalCommand.IsExecuting)
-                .ToProperty(this, x => x.IsIncrementalLoading, scheduler: RxApp.MainThreadScheduler);
+                .ToPropertyEx(this, x => x.IsIncrementalLoading);
 
             ReloadCommand.ThrownExceptions
                 .Merge(InitializeCommand.ThrownExceptions)
@@ -176,15 +177,21 @@ namespace Bili.ViewModels.Uwp.Base
         {
             if (view.Banners.Count() > 0)
             {
-                view.Banners.ToList().ForEach(p => Banners.Add(new BannerViewModel(p)));
+                view.Banners.ToList().ForEach(p =>
+                {
+                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    vm.InjectData(p);
+                    Banners.Add(vm);
+                });
             }
 
             if (view.Ranks.Count > 0)
             {
                 foreach (var item in view.Ranks)
                 {
-                    var rankVM = new PgcRankViewModel(item.Key, item.Value);
-                    Ranks.Add(rankVM);
+                    var vm = Locator.Current.GetService<IPgcRankViewModel>();
+                    vm.SetData(item.Key, item.Value);
+                    Ranks.Add(vm);
                 }
             }
 
@@ -192,8 +199,8 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 foreach (var item in view.Playlists)
                 {
-                    var playlistVM = Splat.Locator.Current.GetService<PgcPlaylistViewModel>();
-                    playlistVM.SetPlaylist(item);
+                    var playlistVM = Locator.Current.GetService<IPgcPlaylistViewModel>();
+                    playlistVM.InjectData(item);
                     Playlists.Add(playlistVM);
                 }
             }
@@ -216,13 +223,13 @@ namespace Bili.ViewModels.Uwp.Base
 
             foreach (var item in videos)
             {
-                if (Videos.Any(p => p.Information.Equals(item)))
+                if (Videos.Any(p => p.Data.Equals(item)))
                 {
                     continue;
                 }
 
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
                 Videos.Add(videoVM);
             }
         }

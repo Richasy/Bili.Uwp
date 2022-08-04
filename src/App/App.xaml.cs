@@ -5,11 +5,11 @@ using System.Text;
 using Bili.DI.App;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -80,8 +80,9 @@ namespace Bili.App
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
-                var settingsVM = Locator.Current.GetService<SettingsPageViewModel>();
-                settingsVM.SetPrelaunch();
+                var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+                var isPrelaunch = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsPrelaunch, true);
+                CoreApplication.EnablePrelaunch(isPrelaunch);
                 if (rootFrame.Content == null)
                 {
                     rootFrame.Navigate(typeof(Pages.Desktop.RootPage), (e as LaunchActivatedEventArgs).Arguments);
@@ -97,7 +98,7 @@ namespace Bili.App
                 }
                 else
                 {
-                    await Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<IAppViewModel>()
                         .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
@@ -119,7 +120,7 @@ namespace Bili.App
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await Locator.Current.GetService<AppViewModel>()
+                    await Locator.Current.GetService<IAppViewModel>()
                         .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }

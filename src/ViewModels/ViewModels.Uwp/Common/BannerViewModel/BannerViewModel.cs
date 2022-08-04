@@ -1,24 +1,22 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Community;
+using Bili.ViewModels.Interfaces.Common;
 
-namespace Bili.ViewModels.Uwp
+namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 横幅视图模型.
     /// </summary>
-    public partial class BannerViewModel : ViewModelBase
+    public partial class BannerViewModel : ViewModelBase, IBannerViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BannerViewModel"/> class.
-        /// </summary>
-        /// <param name="identifier">横幅标识.</param>
-        public BannerViewModel(BannerIdentifier identifier)
+        /// <inheritdoc/>
+        public void InjectData(BannerIdentifier data)
         {
-            Uri = identifier.Uri;
-            Description = identifier.Title;
+            Uri = data.Uri;
+            Description = data.Title;
             IsTooltipEnabled = !string.IsNullOrEmpty(Description);
-            Cover = identifier.Image.Uri;
+            Cover = data.Image.Uri;
             MinHeight = 100d;
         }
     }

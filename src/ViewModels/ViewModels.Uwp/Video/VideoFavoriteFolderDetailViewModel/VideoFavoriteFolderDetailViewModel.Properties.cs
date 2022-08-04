@@ -4,7 +4,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private readonly IFavoriteProvider _favoriteProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
         private bool _isEnd;
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// 收藏夹信息..
         /// </summary>
         [Reactive]
-        public VideoFavoriteFolder Folder { get; set; }
+        public VideoFavoriteFolder Data { get; set; }
 
         /// <summary>
         /// 收藏夹是否为空.

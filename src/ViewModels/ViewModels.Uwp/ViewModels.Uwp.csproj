@@ -36,6 +36,8 @@
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.cs" />
     <Compile Include="Common\SubtitleModuleViewModel\SubtitleModuleViewModel.Properties.cs" />
     <Compile Include="Core\AppViewModel\AppViewModel.Methods.cs" />
+    <Compile Include="Core\CallerViewModel\CallerViewModel.cs" />
+    <Compile Include="Core\CallerViewModel\CallerViewModel.Properties.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Methods.cs" />
     <Compile Include="Core\FFmpegPlayerViewModel\FFmpegPlayerViewModel.Properties.cs" />
@@ -50,6 +52,8 @@
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.cs" />
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Methods.cs" />
     <Compile Include="Core\NativePlayerViewModel\NativePlayerViewModel.Properties.cs" />
+    <Compile Include="Core\RecordViewModel\RecordViewModel.cs" />
+    <Compile Include="Core\RecordViewModel\RecordViewModel.Properties.cs" />
     <Compile Include="HttpRandomAccessStream.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Exception.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
@@ -168,7 +172,6 @@
     <Compile Include="Common\DownloadModuleViewModel\DownloadModuleViewModel.cs" />
     <Compile Include="Common\NumberPartViewModel.cs" />
     <Compile Include="Pgc\DocumentaryPageViewModel.cs" />
-    <Compile Include="Core\AppViewModel\AppViewModel.Threshold.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Methods.cs" />
     <Compile Include="Home\SettingsPageViewModel\SettingsPageViewModel.Properties.cs" />

@@ -5,7 +5,7 @@
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:base="using:Bili.App.Pages.Base"
     xmlns:behaviors="using:Bili.App.Behaviors"
-    xmlns:community="using:Bili.ViewModels.Uwp.Community"
+    xmlns:community="using:Bili.ViewModels.Interfaces.Community"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dynamic="using:Bili.App.Controls.Dynamic"
@@ -30,7 +30,7 @@
 
             <ScrollViewer
                 x:Name="VideoContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 BringIntoViewOnFocusChange="True"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto"
@@ -48,7 +48,7 @@
                         <behaviors:IncrementalBehavior />
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="community:DynamicItemViewModel">
+                        <DataTemplate x:DataType="community:IDynamicItemViewModel">
                             <dynamic:DynamicItem Style="{StaticResource XboxVideoDynamicItemStyle}" ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

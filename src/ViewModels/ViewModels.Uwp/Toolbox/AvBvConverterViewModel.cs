@@ -3,8 +3,10 @@
 using System;
 using System.Reactive;
 using System.Threading.Tasks;
+using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Toolbox;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -14,13 +16,13 @@ namespace Bili.ViewModels.Uwp.Toolbox
     /// <summary>
     /// AV/BV互转视图模型.
     /// </summary>
-    public sealed class AvBvConverterViewModel : ViewModelBase
+    public sealed class AvBvConverterViewModel : ViewModelBase, IAvBvConverterViewModel
     {
+        private readonly IPlayerProvider _playerProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IVideoToolkit _videoToolkit;
-        private readonly AppViewModel _appViewModel;
+        private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isConverting;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AvBvConverterViewModel"/> class.
@@ -28,52 +30,43 @@ namespace Bili.ViewModels.Uwp.Toolbox
         public AvBvConverterViewModel(
             IResourceToolkit resourceToolkit,
             IVideoToolkit videoToolkit,
-            AppViewModel appViewModel,
+            IPlayerProvider playerProvider,
+            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _videoToolkit = videoToolkit;
             _appViewModel = appViewModel;
-            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync, outputScheduler: RxApp.MainThreadScheduler);
-            _isConverting = ConvertCommand.IsExecuting.ToProperty(this, x => x.IsConverting, scheduler: RxApp.MainThreadScheduler);
+            _playerProvider = playerProvider;
+            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync);
+            ConvertCommand.IsExecuting.ToPropertyEx(this, x => x.IsConverting);
 
             ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
             _dispatcher = dispatcher;
         }
 
-        /// <summary>
-        /// 转换命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ConvertCommand { get; }
 
-        /// <summary>
-        /// 输入的Id.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string InputId { get; set; }
 
-        /// <summary>
-        /// 输出的Id.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string OutputId { get; set; }
 
-        /// <summary>
-        /// 是否出错.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsError { get; set; }
 
-        /// <summary>
-        /// 错误信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        /// 是否正在转换中.
-        /// </summary>
-        public bool IsConverting => _isConverting.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsConverting { get; set; }
 
         /// <summary>
         /// 转换.
@@ -92,17 +85,15 @@ namespace Bili.ViewModels.Uwp.Toolbox
                 OutputId = string.Empty;
 
                 var type = _videoToolkit.GetVideoIdType(InputId, out var aid);
-
+                var id = type == Models.Enums.VideoIdType.Bv ? InputId : aid;
+                var reply = await _playerProvider.GetVideoDetailAsync(id);
                 if (type == Models.Enums.VideoIdType.Bv)
                 {
-                    // var reply = await BiliController.Instance.GetVideoDetailAsync(InputId);
-                    // OutputId = reply.Arc.Aid.ToString();
-                    await Task.CompletedTask;
+                    OutputId = reply.Information.Identifier.Id;
                 }
                 else if (type == Models.Enums.VideoIdType.Av)
                 {
-                    // var reply = await BiliController.Instance.GetVideoDetailAsync(aid);
-                    // OutputId = reply.Bvid;
+                    OutputId = reply.Information.AlternateId;
                 }
                 else
                 {

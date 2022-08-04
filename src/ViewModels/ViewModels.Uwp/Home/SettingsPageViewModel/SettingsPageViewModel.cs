@@ -8,10 +8,9 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Home;
 using ReactiveUI;
-using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
@@ -20,17 +19,19 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 设置视图模型.
     /// </summary>
-    public sealed partial class SettingsPageViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class SettingsPageViewModel : ViewModelBase, ISettingsPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsPageViewModel"/> class.
         /// </summary>
         public SettingsPageViewModel(
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
+            IAppViewModel appViewModel,
             ISettingsToolkit settingsToolkit,
             IResourceToolkit resourceToolkit,
             IAppToolkit appToolkit)
         {
+            _callerViewModel = callerViewModel;
             _appViewModel = appViewModel;
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;
@@ -42,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Home
             PlayerTypeCollection = new ObservableCollection<PlayerType>();
             PreferQualities = new ObservableCollection<PreferQuality>();
 
-            InitializeCommand = ReactiveCommand.Create(InitializeSettings, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.Create(InitializeSettings);
 
             InitializeSettings();
         }
@@ -87,7 +88,6 @@ namespace Bili.ViewModels.Uwp.Home
                 case nameof(AppTheme):
                     WriteSetting(SettingNames.AppTheme, AppTheme);
                     IsShowThemeRestartTip = AppTheme != _initializeTheme;
-                    Splat.Locator.Current.GetService<AppViewModel>().InitializeTheme();
                     break;
                 case nameof(IsPrelaunch):
                     WriteSetting(SettingNames.IsPrelaunch, IsPrelaunch);

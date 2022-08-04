@@ -42,7 +42,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             CurrentEpisode = episode;
             foreach (var item in Episodes)
             {
-                item.IsSelected = episode.Identifier.Id == item.Information.Identifier.Id;
+                item.IsSelected = episode.Identifier.Id == item.Data.Identifier.Id;
             }
 
             if (Extras.Count > 0)
@@ -51,12 +51,12 @@ namespace Bili.ViewModels.Uwp.Pgc
                 {
                     foreach (var item in extra.Episodes)
                     {
-                        item.IsSelected = episode.Identifier.Id == item.Information.Identifier.Id;
+                        item.IsSelected = episode.Identifier.Id == item.Data.Identifier.Id;
                     }
                 }
             }
 
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
             _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
             CreatePlayNextAction();
@@ -80,20 +80,20 @@ namespace Bili.ViewModels.Uwp.Pgc
             var isPreview = CurrentEpisode.IsPreviewVideo;
             if (!isPreview && Sections.Any(p => p.Type == PlayerSectionType.Episodes))
             {
-                var canContinue = Episodes.Count > 1 && CurrentEpisode != Episodes.Last().Information;
+                var canContinue = Episodes.Count > 1 && CurrentEpisode != Episodes.Last().Data;
                 if (canContinue)
                 {
-                    nextPart = Episodes.FirstOrDefault(p => p.Information.Index == CurrentEpisode.Index + 1)?.Information;
+                    nextPart = Episodes.FirstOrDefault(p => p.Data.Index == CurrentEpisode.Index + 1)?.Data;
                 }
             }
             else if (isPreview && Sections.Any(p => p.Type == PlayerSectionType.Extras))
             {
                 var extras = Extras.SelectMany(p => p.Episodes).ToList();
                 var index = extras.IndexOf(extras.FirstOrDefault(p => p.Equals(CurrentEpisode)));
-                var canContinue = index != -1 && extras.Count > 1 && CurrentEpisode != extras.Last().Information;
+                var canContinue = index != -1 && extras.Count > 1 && CurrentEpisode != extras.Last().Data;
                 if (canContinue)
                 {
-                    nextPart = extras[index + 1].Information;
+                    nextPart = extras[index + 1].Data;
                 }
             }
 
@@ -112,13 +112,13 @@ namespace Bili.ViewModels.Uwp.Pgc
         }
 
         private void ShowSeasonDetail()
-            => _appViewModel.ShowPgcSeasonDetail();
+            => _callerViewModel.ShowPgcSeasonDetail();
 
         private void Fix()
         {
             if (_accountViewModel.State != AuthorizeState.SignedIn)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst), Models.Enums.App.InfoType.Warning);
                 return;
             }
 
@@ -176,10 +176,10 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         private void OnInternalPartChanged(object sender, VideoIdentifier e)
         {
-            var episode = Episodes.FirstOrDefault(p => p.Information.Identifier.Id == e.Id);
+            var episode = Episodes.FirstOrDefault(p => p.Data.Identifier.Id == e.Id);
             if (episode == null && Extras.Count > 0)
             {
-                episode = Extras.SelectMany(p => p.Episodes).FirstOrDefault(p => p.Information.Identifier.Id == e.Id);
+                episode = Extras.SelectMany(p => p.Episodes).FirstOrDefault(p => p.Data.Identifier.Id == e.Id);
             }
 
             if (episode == null)
@@ -187,7 +187,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 return;
             }
 
-            ChangeEpisodeCommand.Execute(episode.Information).Subscribe();
+            ChangeEpisodeCommand.Execute(episode.Data).Subscribe();
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

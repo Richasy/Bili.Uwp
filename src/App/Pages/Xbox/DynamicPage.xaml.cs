@@ -14,13 +14,17 @@ namespace Bili.App.Pages.Xbox
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicPage"/> class.
         /// </summary>
-        public DynamicPage()
+        public DynamicPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
         {
-            InitializeComponent();
-            Loaded += OnLoaded;
+            Bindings.Update();
+            ViewModel.VideoModule.InitializeCommand.Execute().Subscribe();
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
-            => ViewModel.VideoModule.InitializeCommand.Execute().Subscribe();
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
     }
 }

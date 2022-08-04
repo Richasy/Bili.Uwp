@@ -11,22 +11,22 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Common;
-using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
 using ReactiveUI;
-using Windows.UI.Core;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
     /// PGC 播放页面视图模型.
     /// </summary>
-    public sealed partial class PgcPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class PgcPlayerPageViewModel : PlayerPageViewModelBase, IPgcPlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcPlayerPageViewModel"/> class.
@@ -40,14 +40,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
             IAppToolkit appToolkit,
-            AppViewModel appViewModel,
-            NavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
-            CommentPageViewModel commentPageViewModel,
-            MediaPlayerViewModel playerViewModel,
-            DownloadModuleViewModel downloadViewModel,
-            CoreDispatcher dispatcher)
-            : base(playerViewModel)
+            ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
+            IAccountViewModel accountViewModel,
+            IMediaPlayerViewModel mediaPlayerViewModel,
+            ICommentPageViewModel commentPageViewModel,
+            IDownloadModuleViewModel downloadViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -57,43 +55,42 @@ namespace Bili.ViewModels.Uwp.Pgc
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
             _appToolkit = appToolkit;
-            _appViewModel = appViewModel;
-            _navigationViewModel = navigationViewModel;
+            _callerViewModel = callerViewModel;
+            _recordViewModel = recordViewModel;
             _accountViewModel = accountViewModel;
             _commentPageViewModel = commentPageViewModel;
-            _dispatcher = dispatcher;
 
-            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            FavoriteFolders = new ObservableCollection<IVideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<PlayerSectionHeader>();
-            Episodes = new ObservableCollection<EpisodeItemViewModel>();
-            Seasons = new ObservableCollection<VideoIdentifierSelectableViewModel>();
-            Extras = new ObservableCollection<PgcExtraItemViewModel>();
-            Celebrities = new ObservableCollection<UserItemViewModel>();
+            Episodes = new ObservableCollection<IEpisodeItemViewModel>();
+            Seasons = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
+            Extras = new ObservableCollection<IPgcExtraItemViewModel>();
+            Celebrities = new ObservableCollection<IUserItemViewModel>();
 
-            DownloadViewModel = downloadViewModel;
-
-            IsSignedIn = _authorizeProvider.State == Models.Enums.AuthorizeState.SignedIn;
-            _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
+            MediaPlayerViewModel = mediaPlayerViewModel;
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
+            DownloadViewModel = downloadViewModel;
+            IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
+            _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeEpisodeCommand = ReactiveCommand.Create<EpisodeInformation>(SelectEpisode, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadInteractionInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
-            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail, outputScheduler: RxApp.MainThreadScheduler);
-            TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
+            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
+            ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason);
+            ChangeEpisodeCommand = ReactiveCommand.Create<EpisodeInformation>(SelectEpisode);
+            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync);
+            FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
+            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
+            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
+            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
+            ShareCommand = ReactiveCommand.Create(Share);
+            FixedCommand = ReactiveCommand.Create(Fix);
+            ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail);
+            TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync);
+            ClearCommand = ReactiveCommand.Create(Reset);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
-            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
@@ -106,10 +103,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             PropertyChanged += OnPropertyChanged;
         }
 
-        /// <summary>
-        /// 设置视频.
-        /// </summary>
-        /// <param name="snapshot">视频信息.</param>
+        /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetEpisodeId = string.IsNullOrEmpty(snapshot.VideoId)
@@ -158,8 +152,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 Title = View.Information.Identifier.Title,
             };
-            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();

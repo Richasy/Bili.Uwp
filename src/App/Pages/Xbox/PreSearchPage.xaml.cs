@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Uwp.Search;
+using Bili.ViewModels.Interfaces.Search;
 
 namespace Bili.App.Pages.Xbox
 {
@@ -15,6 +15,14 @@ namespace Bili.App.Pages.Xbox
         /// Initializes a new instance of the <see cref="PreSearchPage"/> class.
         /// </summary>
         public PreSearchPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnSuggstItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
             => SelectSuggestItem(e.ClickedItem);
@@ -40,7 +48,7 @@ namespace Bili.App.Pages.Xbox
     /// <summary>
     /// <see cref="PreSearchPage"/> 的基类.
     /// </summary>
-    public class PreSearchPageBase : AppPage<SearchBoxViewModel>
+    public class PreSearchPageBase : AppPage<ISearchBoxViewModel>
     {
     }
 }

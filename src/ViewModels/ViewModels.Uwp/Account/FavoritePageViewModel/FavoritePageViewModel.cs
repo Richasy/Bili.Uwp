@@ -6,23 +6,27 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Account
 {
     /// <summary>
     /// 收藏页视图模型.
     /// </summary>
-    public sealed partial class FavoritePageViewModel : ViewModelBase
+    public sealed partial class FavoritePageViewModel : ViewModelBase, IFavoritePageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FavoritePageViewModel"/> class.
         /// </summary>
-        public FavoritePageViewModel(IResourceToolkit resourceToolkit)
+        public FavoritePageViewModel(
+            IResourceToolkit resourceToolkit,
+            IAppViewModel appViewModel)
         {
             _resourceToolkit = resourceToolkit;
+            _appViewModel = appViewModel;
+
             TypeCollection = new ObservableCollection<FavoriteHeader>()
             {
                 CreateHeader(FavoriteType.Video),
@@ -30,12 +34,12 @@ namespace Bili.ViewModels.Uwp.Account
                 CreateHeader(FavoriteType.Cinema),
             };
 
-            if (!Locator.Current.GetService<AppViewModel>().IsXbox)
+            if (!_appViewModel.IsXbox)
             {
                 TypeCollection.Add(CreateHeader(FavoriteType.Article));
             }
 
-            SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType, outputScheduler: RxApp.MainThreadScheduler);
+            SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType);
             SelectType(TypeCollection.First());
         }
 

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -18,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// 我的关注页面视图模型.
     /// </summary>
-    public sealed partial class MyFollowsPageViewModel : InformationFlowViewModelBase<UserItemViewModel>
+    public sealed partial class MyFollowsPageViewModel : InformationFlowViewModelBase<IUserItemViewModel>, IMyFollowsPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MyFollowsPageViewModel"/> class.
@@ -26,19 +28,19 @@ namespace Bili.ViewModels.Uwp.Account
         public MyFollowsPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _accountViewModel = accountViewModel;
-            _cache = new Dictionary<string, IEnumerable<UserItemViewModel>>();
+            _cache = new Dictionary<string, IEnumerable<IUserItemViewModel>>();
             Groups = new ObservableCollection<FollowGroup>();
             UserName = _accountViewModel.DisplayName;
 
-            SelectGroupCommand = ReactiveCommand.CreateFromTask<FollowGroup>(SelectGroupAsync, outputScheduler: RxApp.MainThreadScheduler);
-            _isSwitching = SelectGroupCommand.IsExecuting.ToProperty(this, x => x.IsSwitching, scheduler: RxApp.MainThreadScheduler);
+            SelectGroupCommand = ReactiveCommand.CreateFromTask<FollowGroup>(SelectGroupAsync);
+            SelectGroupCommand.IsExecuting.ToPropertyEx(this, x => x.IsSwitching);
             SelectGroupCommand.ThrownExceptions.Subscribe(DisplayException);
         }
 
@@ -80,7 +82,7 @@ namespace Bili.ViewModels.Uwp.Account
                     return;
                 }
 
-                var accVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                var accVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                 accVM.SetInformation(item);
                 Items.Add(accVM);
             }

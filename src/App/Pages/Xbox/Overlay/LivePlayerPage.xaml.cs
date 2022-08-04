@@ -32,6 +32,14 @@ namespace Bili.App.Pages.Xbox.Overlay
             => ViewModel.ClearCommand.Execute().Subscribe();
 
         /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
+        /// <inheritdoc/>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)

@@ -3,10 +3,9 @@
 using System;
 using System.Threading.Tasks;
 using Bili.Models.Data.Pgc;
-using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI;
 using Windows.System;
 
@@ -15,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Pgc
     /// <summary>
     /// 剧集单集视图模型.
     /// </summary>
-    public sealed partial class EpisodeItemViewModel : ViewModelBase, IVideoBaseViewModel
+    public sealed partial class EpisodeItemViewModel : ViewModelBase, IEpisodeItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EpisodeItemViewModel"/> class.
@@ -24,48 +23,45 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <param name="navigationViewModel">导航服务.</param>
         public EpisodeItemViewModel(
             INumberToolkit numberToolkit,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _numberToolkit = numberToolkit;
             _navigationViewModel = navigationViewModel;
 
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync, outputScheduler: RxApp.MainThreadScheduler);
-            PlayCommand = ReactiveCommand.Create(Play, outputScheduler: RxApp.MainThreadScheduler);
+            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
+            PlayCommand = ReactiveCommand.Create(Play);
         }
 
-        /// <summary>
-        /// 设置单集信息，并进行视图模型的初始化.
-        /// </summary>
-        /// <param name="information">单集信息.</param>
-        public void SetInformation(IVideoBase information)
+        /// <inheritdoc/>
+        public void InjectData(EpisodeInformation information)
         {
-            Information = information as EpisodeInformation;
+            Data = information;
             InitializeData();
         }
 
         private void InitializeData()
         {
-            if (Information.CommunityInformation != null)
+            if (Data.CommunityInformation != null)
             {
-                PlayCountText = _numberToolkit.GetCountText(Information.CommunityInformation.PlayCount);
-                DanmakuCountText = _numberToolkit.GetCountText(Information.CommunityInformation.DanmakuCount);
+                PlayCountText = _numberToolkit.GetCountText(Data.CommunityInformation.PlayCount);
+                DanmakuCountText = _numberToolkit.GetCountText(Data.CommunityInformation.DanmakuCount);
             }
 
-            if (Information.Identifier.Duration > 0)
+            if (Data.Identifier.Duration > 0)
             {
-                DurationText = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(Information.Identifier.Duration));
+                DurationText = _numberToolkit.GetDurationText(TimeSpan.FromSeconds(Data.Identifier.Duration));
             }
         }
 
         private void Play()
-            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Information.Identifier.Id, Information.SeasonId, Models.Enums.VideoType.Pgc)
+            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, Data.SeasonId, Models.Enums.VideoType.Pgc)
             {
-                Title = Information.Identifier.Title,
+                Title = Data.Identifier.Title,
             });
 
         private async Task OpenInBroswerAsync()
         {
-            var uri = $"https://www.bilibili.com/bangumi/play/ep{Information.Identifier.Id}";
+            var uri = $"https://www.bilibili.com/bangumi/play/ep{Data.Identifier.Id}";
             await Launcher.LaunchUriAsync(new Uri(uri));
         }
     }

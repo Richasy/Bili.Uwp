@@ -5,7 +5,9 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -19,37 +21,25 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly ILiveProvider _liveProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
-        /// <summary>
-        /// 横幅集合.
-        /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        /// <inheritdoc/>
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
-        /// <summary>
-        /// 关注的直播间集合.
-        /// </summary>
-        public ObservableCollection<LiveItemViewModel> Follows { get; }
+        /// <inheritdoc/>
+        public ObservableCollection<ILiveItemViewModel> Follows { get; }
 
-        /// <summary>
-        /// 热门分区.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<Partition> HotPartitions { get; }
 
-        /// <summary>
-        /// 查看全部分区的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
 
-        /// <summary>
-        /// 用户是否已登录.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsLoggedIn { get; set; }
 
-        /// <summary>
-        /// 关注的直播间是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsFollowsEmpty { get; set; }
     }

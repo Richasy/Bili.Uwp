@@ -8,8 +8,7 @@
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
-    xmlns:pgcControls="using:Bili.App.Controls.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -51,7 +50,7 @@
                     Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                        <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                             <controls:CardPanel
                                 Click="OnEpisodeItemClickAsync"
                                 DataContext="{x:Bind}"
@@ -71,7 +70,7 @@
                                         Height="64"
                                         VerticalAlignment="Center"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <Image Source="{x:Bind Information.Identifier.Cover.Uri}" Stretch="UniformToFill" />
+                                        <Image Source="{x:Bind Data.Identifier.Cover.Uri}" Stretch="UniformToFill" />
                                         <Grid
                                             x:Name="BadgeContainer"
                                             Margin="4,4,0,0"
@@ -80,12 +79,12 @@
                                             VerticalAlignment="Top"
                                             Background="{ThemeResource AccentFillColorTertiaryBrush}"
                                             CornerRadius="{StaticResource ControlCornerRadius}"
-                                            Visibility="{x:Bind Information.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                            Visibility="{x:Bind Data.Highlight, Converter={StaticResource ObjectToVisibilityConverter}}">
                                             <TextBlock
                                                 Style="{StaticResource CaptionTextBlockStyle}"
                                                 FontSize="10"
                                                 Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                                Text="{x:Bind Information.Highlight}" />
+                                                Text="{x:Bind Data.Highlight}" />
                                         </Grid>
                                     </Grid>
                                     <StackPanel
@@ -96,8 +95,8 @@
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             FontWeight="Bold"
                                             MaxLines="2"
-                                            Text="{x:Bind Information.Identifier.Title}"
-                                            ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}" />
+                                            Text="{x:Bind Data.Identifier.Title}"
+                                            ToolTipService.ToolTip="{x:Bind Data.Identifier.Title}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -105,7 +104,7 @@
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                            Text="{x:Bind Information.Subtitle}" />
+                                            Text="{x:Bind Data.Subtitle}" />
                                     </StackPanel>
                                 </Grid>
                             </controls:CardPanel>
@@ -126,21 +125,21 @@
                             MinRowSpacing="8" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                        <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                             <controls:CardPanel
-                                AutomationProperties.Name="{x:Bind Information.Identifier.Id}"
+                                AutomationProperties.Name="{x:Bind Data.Identifier.Id}"
                                 Click="OnEpisodeItemClickAsync"
                                 DataContext="{x:Bind}"
                                 IsChecked="{x:Bind IsSelected, Mode=OneWay}"
                                 IsEnableCheck="True"
                                 IsEnableHoverAnimation="False"
-                                ToolTipService.ToolTip="{x:Bind Information.Identifier.Title}">
+                                ToolTipService.ToolTip="{x:Bind Data.Identifier.Title}">
                                 <Grid>
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
-                                        Text="{x:Bind Information.Index}" />
+                                        Text="{x:Bind Data.Index}" />
                                 </Grid>
                             </controls:CardPanel>
                         </DataTemplate>

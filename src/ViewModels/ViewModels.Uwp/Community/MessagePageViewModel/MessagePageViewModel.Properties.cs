@@ -7,8 +7,8 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Community;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,28 +21,27 @@ namespace Bili.ViewModels.Uwp.Community
     {
         private readonly IAccountProvider _accountProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly AppViewModel _appViewModel;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly IAccountViewModel _accountViewModel;
         private readonly Dictionary<MessageType, (IEnumerable<MessageInformation> Items, bool IsEnd)> _caches;
 
         private bool _isEnd;
         private bool _shouldClearCache;
 
         /// <summary>
+        /// 选择消息类型命令.
+        /// </summary>
+        public ReactiveCommand<IMessageHeaderViewModel, Unit> SelectTypeCommand { get; }
+
+        /// <summary>
         /// 消息类型集合.
         /// </summary>
-        public ObservableCollection<MessageHeaderViewModel> MessageTypes { get; }
+        public ObservableCollection<IMessageHeaderViewModel> MessageTypes { get; }
 
         /// <summary>
         /// 当前选中的消息类型.
         /// </summary>
         [Reactive]
-        public MessageHeaderViewModel CurrentType { get; set; }
-
-        /// <summary>
-        /// 选择消息类型命令.
-        /// </summary>
-        public ReactiveCommand<MessageHeaderViewModel, Unit> SelectTypeCommand { get; }
+        public IMessageHeaderViewModel CurrentType { get; set; }
 
         /// <summary>
         /// 是否为空.

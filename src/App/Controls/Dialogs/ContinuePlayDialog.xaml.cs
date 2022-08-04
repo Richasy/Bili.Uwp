@@ -3,7 +3,7 @@
 using System;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,8 +15,8 @@ namespace Bili.App.Controls.Dialogs
     /// </summary>
     public sealed partial class ContinuePlayDialog : ContentDialog
     {
-        private readonly NavigationViewModel _navigationViewModel;
-        private readonly AppViewModel _appViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
+        private readonly IRecordViewModel _recordViewModel;
         private PlaySnapshot _snapshot = null;
 
         /// <summary>
@@ -25,15 +25,15 @@ namespace Bili.App.Controls.Dialogs
         public ContinuePlayDialog()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<NavigationViewModel>();
-            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
+            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
+            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
             Loaded += OnLoadedAsync;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
-            _snapshot = await _appViewModel.GetLastPlayItemAsync();
+            _snapshot = await _recordViewModel.GetLastPlayItemAsync();
             if (_snapshot == null)
             {
                 settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.CanContinuePlay, false);
@@ -47,6 +47,6 @@ namespace Bili.App.Controls.Dialogs
             => _navigationViewModel.NavigateToPlayView(_snapshot);
 
         private void OnContentDialogCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-            => _appViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
+            => _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
     }
 }

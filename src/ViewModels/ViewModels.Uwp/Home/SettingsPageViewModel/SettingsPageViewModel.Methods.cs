@@ -17,16 +17,14 @@ namespace Bili.ViewModels.Uwp.Home
         /// <summary>
         /// 设置预启动.
         /// </summary>
-        public void SetPrelaunch()
-        {
-            CoreApplication.EnablePrelaunch(IsPrelaunch);
-        }
+        private void SetPrelaunch()
+            => CoreApplication.EnablePrelaunch(IsPrelaunch);
 
         /// <summary>
         /// 尝试设置应用自启动.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task TrySetStartupAsync()
+        private async Task TrySetStartupAsync()
         {
             var task = await StartupTask.GetAsync(AppConstants.StartupTaskId);
             if (IsStartup)

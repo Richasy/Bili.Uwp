@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Community;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -17,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Community
     /// <summary>
     /// 二级评论模块视图详情.
     /// </summary>
-    public sealed partial class CommentDetailModuleViewModel : InformationFlowViewModelBase<CommentItemViewModel>
+    public sealed partial class CommentDetailModuleViewModel : InformationFlowViewModelBase<ICommentItemViewModel>, ICommentDetailModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentDetailModuleViewModel"/> class.
@@ -25,44 +27,36 @@ namespace Bili.ViewModels.Uwp.Community
         public CommentDetailModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
-            AppViewModel appViewModel,
+            ICallerViewModel callerViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
 
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync, outputScheduler: RxApp.MainThreadScheduler);
-            BackCommand = ReactiveCommand.Create(Back, outputScheduler: RxApp.MainThreadScheduler);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment, outputScheduler: RxApp.MainThreadScheduler);
+            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
+            BackCommand = ReactiveCommand.Create(Back);
+            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
 
-            _isSending = SendCommentCommand.IsExecuting.ToProperty(this, x => x.IsSending, scheduler: RxApp.MainThreadScheduler);
+            SendCommentCommand.IsExecuting.ToPropertyEx(this, x => x.IsSending);
         }
 
-        /// <summary>
-        /// 设置根评论.
-        /// </summary>
-        /// <param name="rootItem">评论条目.</param>
-        internal void SetRoot(CommentItemViewModel rootItem)
+        /// <inheritdoc/>
+        public void SetRoot(ICommentItemViewModel rootItem)
         {
             TryClear(Items);
-            RootComment = GetItemViewModel(rootItem.Information);
+            RootComment = GetItemViewModel(rootItem.Data);
             InitializeCommand.Execute().Subscribe();
         }
 
-        internal void ClearData()
+        /// <inheritdoc/>
+        public void ClearData()
         {
             RootComment = null;
             TryClear(Items);
             BeforeReload();
             UnselectComment();
-        }
-
-        internal void UnselectComment()
-        {
-            _selectedComment = null;
-            ReplyTip = string.Empty;
         }
 
         /// <inheritdoc/>
@@ -84,13 +78,13 @@ namespace Bili.ViewModels.Uwp.Community
                 return;
             }
 
-            var targetId = RootComment.Information.CommentId;
-            var commentType = RootComment.Information.CommentType;
-            var data = await _communityProvider.GetCommentsAsync(targetId, commentType, Models.Enums.Bili.CommentSortType.Time, RootComment.Information.Id);
+            var targetId = RootComment.Data.CommentId;
+            var commentType = RootComment.Data.CommentType;
+            var data = await _communityProvider.GetCommentsAsync(targetId, commentType, Models.Enums.Bili.CommentSortType.Time, RootComment.Data.Id);
             _isEnd = data.IsEnd;
             foreach (var item in data.Comments)
             {
-                if (!Items.Any(p => p.Information.Equals(item)))
+                if (!Items.Any(p => p.Data.Equals(item)))
                 {
                     Items.Add(GetItemViewModel(item));
                 }
@@ -102,6 +96,12 @@ namespace Bili.ViewModels.Uwp.Community
         private void Back()
             => RequestBackToMain?.Invoke(this, EventArgs.Empty);
 
+        private void UnselectComment()
+        {
+            _selectedComment = null;
+            ReplyTip = string.Empty;
+        }
+
         private async Task SendCommentAsync()
         {
             if (IsSending || string.IsNullOrEmpty(ReplyText))
@@ -110,11 +110,11 @@ namespace Bili.ViewModels.Uwp.Community
             }
 
             var content = ReplyText;
-            var targetId = RootComment.Information.CommentId;
-            var rootId = _selectedComment == null ? RootComment.Information.Id : _selectedComment.Information.RootId;
-            var replyCommentId = _selectedComment == null ? rootId : _selectedComment.Information.Id;
+            var targetId = RootComment.Data.CommentId;
+            var rootId = _selectedComment == null ? RootComment.Data.Id : _selectedComment.Data.RootId;
+            var replyCommentId = _selectedComment == null ? rootId : _selectedComment.Data.Id;
 
-            var commentType = RootComment.Information.CommentType;
+            var commentType = RootComment.Data.CommentType;
             var result = await _communityProvider.AddCommentAsync(content, targetId, commentType, rootId, replyCommentId);
             if (result)
             {
@@ -127,29 +127,31 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.AddReplyFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
-        private CommentItemViewModel GetItemViewModel(CommentInformation information)
+        private ICommentItemViewModel GetItemViewModel(CommentInformation information)
         {
-            var vm = Splat.Locator.Current.GetService<CommentItemViewModel>();
+            var vm = Locator.Current.GetService<ICommentItemViewModel>();
             var highlightUserId = RootComment == null
                 ? information.Publisher.User.Id
-                : RootComment.Information.Publisher.User.Id;
-            vm.SetInformation(information, highlightUserId);
+                : RootComment.Data.Publisher.User.Id;
+            vm.InjectData(information);
+            vm.IsUserHighlight = !string.IsNullOrEmpty(highlightUserId) && information.Publisher.User.Id == highlightUserId;
             vm.SetClickAction(vm =>
             {
                 if (vm != RootComment)
                 {
                     _selectedComment = vm;
-                    ReplyTip = string.Format(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), vm.Information.Publisher.User.Name);
+                    ReplyTip = string.Format(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ReplySomeone), vm.Data.Publisher.User.Name);
                 }
                 else
                 {
                     UnselectComment();
                 }
             });
+
             vm.ReplyCountText = string.Empty;
             return vm;
         }

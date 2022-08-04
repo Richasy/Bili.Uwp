@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -152,9 +151,7 @@ namespace Bili.Lib
 
         /// <inheritdoc/>
         public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
-        {
-            return this.SendAsync(request, CancellationToken.None);
-        }
+            => SendAsync(request, CancellationToken.None);
 
         /// <inheritdoc/>
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -162,7 +159,7 @@ namespace Bili.Lib
             HttpResponseMessage response = null;
             try
             {
-                response = await this.SendRequestAsync(request, cancellationToken);
+                response = await SendRequestAsync(request, cancellationToken);
             }
             catch (Exception)
             {

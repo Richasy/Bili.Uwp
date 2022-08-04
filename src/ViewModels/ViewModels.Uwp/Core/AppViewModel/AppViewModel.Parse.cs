@@ -7,7 +7,6 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using CommandLine;
 using Microsoft.QueryStringDotNET;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -17,11 +16,7 @@ namespace Bili.ViewModels.Uwp.Core
     /// </summary>
     public sealed partial class AppViewModel
     {
-        /// <summary>
-        /// 从命令行参数初始化命令.
-        /// </summary>
-        /// <param name="arguments">命令行参数.</param>
-        /// <returns><see cref="Task"/>.</returns>
+        /// <inheritdoc/>
         public async Task InitializeCommandFromArgumentsAsync(string arguments)
         {
             if (string.IsNullOrEmpty(arguments) || !arguments.Contains(" "))
@@ -99,7 +94,7 @@ namespace Bili.ViewModels.Uwp.Core
                                     }
                                 }
 
-                                await GetDispatcher().RunAsync(CoreDispatcherPriority.High, () =>
+                                await _dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                                 {
                                     _navigationViewModel.NavigateToPlayView(record);
                                 });
@@ -128,11 +123,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        /// <summary>
-        /// 从参数初始化协议调用.
-        /// </summary>
-        /// <param name="link">协议调用链接.</param>
-        /// <returns><see cref="Task"/>.</returns>
+        /// <inheritdoc/>
         public async Task InitializeProtocolFromQueryAsync(Uri link)
         {
             PlaySnapshot record = null;
@@ -220,14 +211,11 @@ namespace Bili.ViewModels.Uwp.Core
                     }
                 }
 
-                await GetDispatcher().RunAsync(CoreDispatcherPriority.High, () =>
+                await _dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
                     _navigationViewModel.NavigateToPlayView(record);
                 });
             }
         }
-
-        private CoreDispatcher GetDispatcher()
-            => Splat.Locator.Current.GetService<CoreDispatcher>();
     }
 }

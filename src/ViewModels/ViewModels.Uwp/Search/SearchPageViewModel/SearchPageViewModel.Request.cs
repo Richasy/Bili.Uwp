@@ -3,11 +3,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Article;
-using Bili.ViewModels.Uwp.Live;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Live;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Splat;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
@@ -76,10 +76,10 @@ namespace Bili.ViewModels.Uwp.Search
                 ResetModuleEndIdentifier(SearchModuleType.Video, data.VideoSet.IsEnd);
                 foreach (var item in data.VideoSet.Items)
                 {
-                    if (!Videos.Any(p => p.Information.Equals(item)))
+                    if (!Videos.Any(p => p.Data.Equals(item)))
                     {
-                        var videoVM = Locator.Current.GetService<VideoItemViewModel>();
-                        videoVM.SetInformation(item);
+                        var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                        videoVM.InjectData(item);
                         Videos.Add(videoVM);
                     }
                 }
@@ -92,10 +92,10 @@ namespace Bili.ViewModels.Uwp.Search
             ResetModuleEndIdentifier(SearchModuleType.Anime, data.IsEnd);
             foreach (var item in data.Items)
             {
-                if (!Animes.Any(p => p.Information.Equals(item)))
+                if (!Animes.Any(p => p.Data.Equals(item)))
                 {
-                    var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                    seasonVM.SetInformation(item);
+                    var seasonVM = Splat.Locator.Current.GetService<ISeasonItemViewModel>();
+                    seasonVM.InjectData(item);
                     Animes.Add(seasonVM);
                 }
             }
@@ -107,10 +107,10 @@ namespace Bili.ViewModels.Uwp.Search
             ResetModuleEndIdentifier(SearchModuleType.Movie, data.IsEnd);
             foreach (var item in data.Items)
             {
-                if (!Movies.Any(p => p.Information.Equals(item)))
+                if (!Movies.Any(p => p.Data.Equals(item)))
                 {
-                    var seasonVM = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                    seasonVM.SetInformation(item);
+                    var seasonVM = Splat.Locator.Current.GetService<ISeasonItemViewModel>();
+                    seasonVM.InjectData(item);
                     Movies.Add(seasonVM);
                 }
             }
@@ -122,10 +122,10 @@ namespace Bili.ViewModels.Uwp.Search
             ResetModuleEndIdentifier(SearchModuleType.Live, data.IsEnd);
             foreach (var item in data.Items)
             {
-                if (!Lives.Any(p => p.Information.Equals(item)))
+                if (!Lives.Any(p => p.Data.Equals(item)))
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(item);
+                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(item);
                     Lives.Add(liveVM);
                 }
             }
@@ -144,7 +144,7 @@ namespace Bili.ViewModels.Uwp.Search
             {
                 if (!Users.Any(p => p.User.Equals(item.User)))
                 {
-                    var userVM = Splat.Locator.Current.GetService<UserItemViewModel>();
+                    var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
                     userVM.SetInformation(item);
                     Users.Add(userVM);
                 }
@@ -159,10 +159,10 @@ namespace Bili.ViewModels.Uwp.Search
             ResetModuleEndIdentifier(SearchModuleType.Article, data.IsEnd);
             foreach (var item in data.Items)
             {
-                if (!Articles.Any(p => p.Information.Equals(item)))
+                if (!Articles.Any(p => p.Data.Equals(item)))
                 {
-                    var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                    articleVM.SetInformation(item);
+                    var articleVM = Splat.Locator.Current.GetService<IArticleItemViewModel>();
+                    articleVM.InjectData(item);
                     Articles.Add(articleVM);
                 }
             }

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.Foundation;
 
 namespace Bili.App.Controls.Community
@@ -8,7 +8,7 @@ namespace Bili.App.Controls.Community
     /// <summary>
     /// 评论条目.
     /// </summary>
-    public sealed class CommentItem : ReactiveControl<CommentItemViewModel>, IRepeaterItem
+    public sealed class CommentItem : ReactiveControl<ICommentItemViewModel>, IRepeaterItem
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentItem"/> class.

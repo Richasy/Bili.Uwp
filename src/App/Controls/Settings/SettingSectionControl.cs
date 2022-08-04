@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Home;
 using ReactiveUI;
 using Splat;
 
@@ -10,20 +10,20 @@ namespace Bili.App.Controls
     /// <summary>
     /// 设置区块基类.
     /// </summary>
-    public class SettingSectionControl : ReactiveUserControl<SettingsPageViewModel>
+    public class SettingSectionControl : ReactiveUserControl<ISettingsPageViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingSectionControl"/> class.
         /// </summary>
         public SettingSectionControl()
         {
-            ViewModel = Locator.Current.GetService<SettingsPageViewModel>();
+            ViewModel = Locator.Current.GetService<ISettingsPageViewModel>();
             IsTabStop = false;
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
     }
 }

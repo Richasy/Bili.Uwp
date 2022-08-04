@@ -7,14 +7,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.App.Controls.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <ScrollViewer
-        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
@@ -44,7 +44,7 @@
                 <behaviors:IncrementalBehavior />
             </interactivity:Interaction.Behaviors>
             <local:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="pgc:SeasonItemViewModel">
+                <DataTemplate x:DataType="pgc:ISeasonItemViewModel">
                     <pgc1:SeasonItem ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>

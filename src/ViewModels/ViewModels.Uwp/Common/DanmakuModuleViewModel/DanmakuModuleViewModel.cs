@@ -9,16 +9,17 @@ using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 弹幕视图模型.
     /// </summary>
-    public sealed partial class DanmakuModuleViewModel : ViewModelBase, IReloadViewModel
+    public sealed partial class DanmakuModuleViewModel : ViewModelBase, IDanmakuModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuModuleViewModel"/> class.
@@ -29,28 +30,28 @@ namespace Bili.ViewModels.Uwp.Common
             IResourceToolkit resourceToolkit,
             IPlayerProvider playerProvider,
             ILiveProvider liveProvider,
-            AppViewModel appViewModel)
+            ICallerViewModel callerViewModel)
         {
             _settingsToolkit = settingsToolkit;
             _fontToolkit = fontToolkit;
             _resourceToolkit = resourceToolkit;
             _playerProvider = playerProvider;
             _liveProvider = liveProvider;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
 
             FontCollection = new ObservableCollection<string>();
             LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
             ColorCollection = new ObservableCollection<KeyValue<string>>();
 
-            ResetCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            SendDanmakuCommand = ReactiveCommand.CreateFromTask<string, bool>(SendDanmakuAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LoadSegmentDanmakuCommand = ReactiveCommand.CreateFromTask<int>(LoadSegmentDanmakuAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SeekCommand = ReactiveCommand.Create<double>(Seek, outputScheduler: RxApp.MainThreadScheduler);
-            AddLiveDanmakuCommand = ReactiveCommand.Create<LiveDanmakuInformation>(AddLiveDanmaku, outputScheduler: RxApp.MainThreadScheduler);
+            ResetCommand = ReactiveCommand.Create(Reset);
+            SendDanmakuCommand = ReactiveCommand.CreateFromTask<string, bool>(SendDanmakuAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            LoadSegmentDanmakuCommand = ReactiveCommand.CreateFromTask<int>(LoadSegmentDanmakuAsync);
+            SeekCommand = ReactiveCommand.Create<double>(Seek);
+            AddLiveDanmakuCommand = ReactiveCommand.Create<LiveDanmakuInformation>(AddLiveDanmaku);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
-            _isDanmakuLoading = LoadSegmentDanmakuCommand.IsExecuting.ToProperty(this, x => x.IsDanmakuLoading, scheduler: RxApp.MainThreadScheduler);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            LoadSegmentDanmakuCommand.IsExecuting.ToPropertyEx(this, x => x.IsDanmakuLoading);
 
             SendDanmakuCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
@@ -60,11 +61,7 @@ namespace Bili.ViewModels.Uwp.Common
             Initialize();
         }
 
-        /// <summary>
-        /// 加载弹幕.
-        /// </summary>
-        /// <param name="mainId">视频 Id.</param>
-        /// <param name="partId">分P Id.</param>
+        /// <inheritdoc/>
         public void SetData(string mainId, string partId, VideoType type)
         {
             _mainId = mainId;
@@ -115,7 +112,7 @@ namespace Bili.ViewModels.Uwp.Common
 
             if (!result)
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToSendDanmaku), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(LanguageNames.FailedToSendDanmaku), Models.Enums.App.InfoType.Error);
             }
 
             return result;

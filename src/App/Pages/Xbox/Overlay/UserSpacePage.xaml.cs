@@ -33,6 +33,14 @@ namespace Bili.App.Pages.Xbox.Overlay
             ViewModel.ReloadCommand.Execute().Subscribe();
         }
 
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
         private void OnSearchBoxQuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!ViewModel.CanSearch)

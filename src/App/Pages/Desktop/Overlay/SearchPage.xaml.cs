@@ -3,7 +3,7 @@
 using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Appearance;
-using Bili.ViewModels.Uwp.Search;
+using Bili.ViewModels.Interfaces.Search;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,6 +20,14 @@ namespace Bili.App.Pages.Desktop.Overlay
         public SearchPage() => InitializeComponent();
 
         /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.NavigationMode != NavigationMode.Back && e.Parameter is string keyword)
@@ -30,7 +38,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var item = args.InvokedItem as SearchModuleItemViewModel;
+            var item = args.InvokedItem as ISearchModuleItemViewModel;
             if (item != ViewModel.CurrentModule)
             {
                 ViewModel.SelectModuleCommand.Execute(item).Subscribe();
@@ -40,7 +48,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         private void OnFilterItemSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox.DataContext is not SearchFilterViewModel context)
+            if (comboBox.DataContext is not ISearchFilterViewModel context)
             {
                 return;
             }

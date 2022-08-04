@@ -40,8 +40,8 @@ namespace Bili.App.Pages.Xbox.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            ViewModel.ClearCommand.Execute().Subscribe();
             ViewModel.ClearPlaylistCommand.Execute().Subscribe();
+            ViewModel.ClearCommand.Execute().Subscribe();
         }
 
         /// <inheritdoc/>
@@ -67,6 +67,14 @@ namespace Bili.App.Pages.Xbox.Overlay
                 }
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnSectionHeaderItemInvoked(object sender, Models.App.Other.PlayerSectionHeader e)
         {

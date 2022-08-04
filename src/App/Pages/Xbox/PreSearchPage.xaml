@@ -23,7 +23,7 @@
         </Style>
     </local:PreSearchPageBase.Resources>
 
-    <Grid Padding="{x:Bind CoreViewModel.PageHorizontalPadding}" ColumnSpacing="24">
+    <Grid Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}" ColumnSpacing="24">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />

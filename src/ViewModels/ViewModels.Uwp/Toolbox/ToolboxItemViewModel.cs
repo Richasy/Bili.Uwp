@@ -2,6 +2,7 @@
 
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Toolbox;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Toolbox
@@ -9,7 +10,7 @@ namespace Bili.ViewModels.Uwp.Toolbox
     /// <summary>
     /// 工具箱条目视图模型.
     /// </summary>
-    public sealed class ToolboxItemViewModel : ViewModelBase
+    public sealed class ToolboxItemViewModel : ViewModelBase, IToolboxItemViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
 
@@ -19,28 +20,19 @@ namespace Bili.ViewModels.Uwp.Toolbox
         public ToolboxItemViewModel(IResourceToolkit resourceToolkit)
             => _resourceToolkit = resourceToolkit;
 
-        /// <summary>
-        /// 类型.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public ToolboxItemType Type { get; set; }
 
-        /// <summary>
-        /// 标题.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Title { get; set; }
 
-        /// <summary>
-        /// 描述.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Description { get; set; }
 
-        /// <summary>
-        /// 设置工具类型.
-        /// </summary>
-        /// <param name="type">工具类型.</param>
+        /// <inheritdoc/>
         public void SetType(ToolboxItemType type)
         {
             Type = type;

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Pgc;
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using Splat;
 using Windows.UI.Xaml;
 
@@ -10,7 +10,7 @@ namespace Bili.App.Controls.Pgc
     /// <summary>
     /// 剧集条目.
     /// </summary>
-    public sealed class SeasonItem : ReactiveControl<SeasonItemViewModel>
+    public sealed class SeasonItem : ReactiveControl<ISeasonItemViewModel>
     {
         /// <summary>
         /// <see cref="Information"/> 的依赖属性.
@@ -68,8 +68,8 @@ namespace Bili.App.Controls.Pgc
             var instance = d as SeasonItem;
             if (e.NewValue is SeasonInformation information)
             {
-                var vm = Splat.Locator.Current.GetService<SeasonItemViewModel>();
-                vm.SetInformation(information);
+                var vm = Locator.Current.GetService<ISeasonItemViewModel>();
+                vm.InjectData(information);
                 instance.ViewModel = vm;
             }
         }

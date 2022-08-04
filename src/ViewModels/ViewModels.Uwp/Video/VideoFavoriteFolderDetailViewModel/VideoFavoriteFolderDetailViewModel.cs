@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -14,7 +15,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频收藏夹详情视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteFolderDetailViewModel : InformationFlowViewModelBase<VideoItemViewModel>
+    public sealed partial class VideoFavoriteFolderDetailViewModel : InformationFlowViewModelBase<IVideoItemViewModel>, IVideoFavoriteFolderDetailViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteFolderDetailViewModel"/> class.
@@ -22,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderDetailViewModel(
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
-            AccountViewModel accountViewModel,
+            IAccountViewModel accountViewModel,
             CoreDispatcher dispatcher)
             : base(dispatcher)
         {
@@ -31,13 +32,10 @@ namespace Bili.ViewModels.Uwp.Video
             _accountViewModel = accountViewModel;
         }
 
-        /// <summary>
-        /// 设置收藏夹信息.
-        /// </summary>
-        /// <param name="folder">收藏夹信息.</param>
-        public void SetFavoriteFolder(VideoFavoriteFolder folder)
+        /// <inheritdoc/>
+        public void InjectData(VideoFavoriteFolder folder)
         {
-            Folder = folder;
+            Data = folder;
             User = folder.User;
             TryClear(Items);
 
@@ -53,8 +51,8 @@ namespace Bili.ViewModels.Uwp.Video
         protected override void BeforeReload()
         {
             _favoriteProvider.ResetVideoFolderDetailStatus();
-            IsEmpty = Folder.TotalCount == 0;
-            _isEnd = Folder.TotalCount == 0;
+            IsEmpty = Data.TotalCount == 0;
+            _isEnd = Data.TotalCount == 0;
         }
 
         /// <inheritdoc/>
@@ -64,26 +62,26 @@ namespace Bili.ViewModels.Uwp.Video
         /// <inheritdoc/>
         protected override async Task GetDataAsync()
         {
-            if (_isEnd || Folder.TotalCount == 0)
+            if (_isEnd || Data.TotalCount == 0)
             {
                 return;
             }
 
-            var data = await _favoriteProvider.GetVideoFavoriteFolderDetailAsync(Folder.Id);
+            var data = await _favoriteProvider.GetVideoFavoriteFolderDetailAsync(Data.Id);
             foreach (var item in data.VideoSet.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                videoVM.SetInformation(item);
-                videoVM.SetAdditionalData(Folder.Id);
-                videoVM.SetAdditionalAction(RemoveVideo);
+                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                videoVM.InjectData(item);
+                videoVM.SetAdditionalData(Data.Id);
+                videoVM.InjectAction(RemoveVideo);
                 Items.Add(videoVM);
             }
 
             IsEmpty = Items.Count == 0;
-            _isEnd = Items.Count == Folder.TotalCount;
+            _isEnd = Items.Count == Data.TotalCount;
         }
 
-        private void RemoveVideo(VideoItemViewModel vm)
+        private void RemoveVideo(IVideoItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

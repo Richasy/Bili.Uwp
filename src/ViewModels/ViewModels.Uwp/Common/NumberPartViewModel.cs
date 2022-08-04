@@ -1,20 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Common;
+
 namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// 数字组件视图模型.
     /// </summary>
-    public class NumberPartViewModel : SelectableViewModelBase<int>
+    public class NumberPartViewModel : SelectableViewModelBase<int>, INumberPartViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NumberPartViewModel"/> class.
-        /// </summary>
-        /// <param name="i">索引.</param>
-        /// <param name="isSelected">是否已选中.</param>
-        public NumberPartViewModel(int i, bool isSelected)
-            : base(i, isSelected)
-        {
-        }
     }
 }

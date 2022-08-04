@@ -7,14 +7,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <ScrollViewer
-        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
@@ -42,7 +42,7 @@
                 <behaviors:IncrementalBehavior />
             </interactivity:Interaction.Behaviors>
             <local:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="video:VideoItemViewModel">
+                <DataTemplate x:DataType="video:IVideoItemViewModel">
                     <videos:VideoItem ViewModel="{x:Bind}" />
                 </DataTemplate>
             </local:VerticalRepeaterView.ItemTemplate>

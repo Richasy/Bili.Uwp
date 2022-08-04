@@ -4,7 +4,7 @@ using System;
 using Bili.App.Controls.Dialogs;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,10 +19,15 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewLaterPage"/> class.
         /// </summary>
-        public ViewLaterPage()
-        {
-            InitializeComponent();
-        }
+        public ViewLaterPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private async void OnClearButtonClickAsync(object sender, RoutedEventArgs e)
         {
@@ -51,7 +56,7 @@ namespace Bili.App.Pages.Desktop.Overlay
     /// <summary>
     /// <see cref="ViewLaterPage"/> 的基类.
     /// </summary>
-    public class ViewLaterPageBase : AppPage<ViewLaterPageViewModel>
+    public class ViewLaterPageBase : AppPage<IViewLaterPageViewModel>
     {
     }
 }

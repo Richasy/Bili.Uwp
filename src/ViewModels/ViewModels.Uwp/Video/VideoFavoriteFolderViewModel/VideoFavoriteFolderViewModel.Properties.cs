@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -17,37 +18,27 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private readonly IFavoriteProvider _favoriteProvider;
         private readonly IAccountProvider _accountProvider;
-        private readonly NavigationViewModel _navigationViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isRemoving;
+        private readonly INavigationViewModel _navigationViewModel;
 
-        private VideoFavoriteFolderGroupViewModel _groupViewModel;
+        private IVideoFavoriteFolderGroupViewModel _groupViewModel;
 
-        /// <summary>
-        /// 移除收藏夹命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RemoveCommand { get; }
 
-        /// <summary>
-        /// 显示收藏夹详情命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ShowDetailCommand { get; }
 
-        /// <summary>
-        /// 收藏夹信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public VideoFavoriteFolder Folder { get; set; }
 
-        /// <summary>
-        /// 是否由自己创建.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsMine { get; set; }
 
-        /// <summary>
-        /// 是否正在移除.
-        /// </summary>
-        public bool IsRemoving => _isRemoving.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsRemoving { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoFavoriteFolderViewModel model && EqualityComparer<VideoFavoriteFolder>.Default.Equals(Folder, model.Folder);

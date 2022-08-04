@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,30 +15,24 @@ namespace Bili.ViewModels.Uwp.Community
     /// </summary>
     public sealed partial class MessageItemViewModel
     {
-        private readonly AppViewModel _appViewModel;
+        private readonly ICallerViewModel _callerViewModel;
         private readonly IResourceToolkit _resourceToolkit;
 
-        /// <summary>
-        /// 消息信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public MessageInformation Information { get; internal set; }
+        public MessageInformation Data { get; set; }
 
-        /// <summary>
-        /// 可读的发布时间.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string PublishTime { get; set; }
 
-        /// <summary>
-        /// 激活命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ActiveCommand { get; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is MessageItemViewModel model && EqualityComparer<MessageInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is MessageItemViewModel model && EqualityComparer<MessageInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

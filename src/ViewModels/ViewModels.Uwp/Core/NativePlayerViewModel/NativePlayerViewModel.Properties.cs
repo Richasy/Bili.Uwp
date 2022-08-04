@@ -20,7 +20,6 @@ namespace Bili.ViewModels.Uwp.Core
     {
         private readonly IFileToolkit _fileToolkit;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly ISettingsToolkit _settingsToolkit;
         private readonly CoreDispatcher _dispatcher;
 
         private SegmentInformation _video;

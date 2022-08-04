@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using Bili.ViewModels.Uwp.Toolbox;
+using Bili.ViewModels.Interfaces.Toolbox;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -13,6 +13,6 @@ namespace Bili.ViewModels.Uwp.Home
         /// <summary>
         /// 工具集合.
         /// </summary>
-        public ObservableCollection<ToolboxItemViewModel> ToolCollection { get; }
+        public ObservableCollection<IToolboxItemViewModel> ToolCollection { get; }
     }
 }

@@ -9,8 +9,9 @@ using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Live;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -18,7 +19,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播分区页面视图模型.
     /// </summary>
-    public sealed partial class LivePartitionPageViewModel : ViewModelBase, IInitializeViewModel, IReloadViewModel
+    public sealed partial class LivePartitionPageViewModel : ViewModelBase, ILivePartitionPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RankPageViewModel"/> class.
@@ -35,19 +36,19 @@ namespace Bili.ViewModels.Uwp.Live
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
                 .Merge(SelectPartitionCommand.ThrownExceptions)
                 .Subscribe(DisplayException);
 
-            _isReloading = InitializeCommand.IsExecuting
+            InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
                 .Merge(SelectPartitionCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToPropertyEx(this, x => x.IsReloading);
         }
 
         private async Task InitializeAsync()

@@ -10,15 +10,16 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Pgc;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
     /// 时间线页面视图模型.
     /// </summary>
-    public sealed partial class TimelinePageViewModel : ViewModelBase, IInitializeViewModel, IReloadViewModel, IErrorViewModel
+    public sealed partial class TimelinePageViewModel : ViewModelBase, ITimelinePageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TimelinePageViewModel"/> class.
@@ -33,12 +34,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             _resourceToolkit = resourceToolkit;
             Timelines = new ObservableCollection<TimelineInformation>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
 
-            _isReloading = InitializeCommand.IsExecuting
+            InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToPropertyEx(this, x => x.IsReloading);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)

@@ -7,15 +7,16 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Player;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Common;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 互动视频模块视图模型.
     /// </summary>
-    public sealed partial class InteractionModuleViewModel : ViewModelBase, IReloadViewModel
+    public sealed partial class InteractionModuleViewModel : ViewModelBase, IInteractionModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InteractionModuleViewModel"/> class.
@@ -25,18 +26,13 @@ namespace Bili.ViewModels.Uwp.Common
         {
             _playerProvider = playerProvider;
             Choices = new ObservableCollection<InteractionInformation>();
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             ReloadCommand.ThrownExceptions.ObserveOn(RxApp.MainThreadScheduler).Subscribe(LogException);
         }
 
-        /// <summary>
-        /// 设置初始数据.
-        /// </summary>
-        /// <param name="partId">视频分P Id.</param>
-        /// <param name="choiceId">选项 Id.</param>
-        /// <param name="graphVersion">互动版本.</param>
+        /// <inheritdoc/>
         public void SetData(string partId, string choiceId, string graphVersion)
         {
             _partId = partId;

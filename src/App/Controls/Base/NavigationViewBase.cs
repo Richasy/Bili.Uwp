@@ -3,8 +3,8 @@
 using System;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using Splat;
 
@@ -13,16 +13,16 @@ namespace Bili.App.Controls.Base
     /// <summary>
     /// 导航框架的基类.
     /// </summary>
-    public class NavigationViewBase : ReactiveUserControl<NavigationViewModel>
+    public class NavigationViewBase : ReactiveUserControl<INavigationViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationViewBase"/> class.
         /// </summary>
         public NavigationViewBase()
         {
-            ViewModel = Locator.Current.GetService<NavigationViewModel>();
-            AppViewModel = Locator.Current.GetService<AppViewModel>();
-            AccountViewModel = Locator.Current.GetService<AccountViewModel>();
+            ViewModel = Locator.Current.GetService<INavigationViewModel>();
+            AppViewModel = Locator.Current.GetService<IAppViewModel>();
+            AccountViewModel = Locator.Current.GetService<IAccountViewModel>();
         }
 
         /// <summary>
@@ -33,12 +33,12 @@ namespace Bili.App.Controls.Base
         /// <summary>
         /// 应用视图模型.
         /// </summary>
-        protected AppViewModel AppViewModel { get; }
+        protected IAppViewModel AppViewModel { get; }
 
         /// <summary>
         /// 账户视图模型.
         /// </summary>
-        protected AccountViewModel AccountViewModel { get; }
+        protected IAccountViewModel AccountViewModel { get; }
 
         /// <summary>
         /// 是否为初次加载.

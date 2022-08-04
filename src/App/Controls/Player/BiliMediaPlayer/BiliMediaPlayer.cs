@@ -2,7 +2,7 @@
 
 using System;
 using Bili.App.Controls.Danmaku;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,7 +14,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// 媒体播放器.
     /// </summary>
-    public sealed partial class BiliMediaPlayer : ReactiveControl<MediaPlayerViewModel>
+    public sealed partial class BiliMediaPlayer : ReactiveControl<IMediaPlayerViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliMediaPlayer"/> class.
@@ -32,12 +32,12 @@ namespace Bili.App.Controls.Player
 
         internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.OldValue is MediaPlayerViewModel oldVM)
+            if (e.OldValue is IMediaPlayerViewModel oldVM)
             {
                 oldVM.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
 
-            var vm = e.NewValue as MediaPlayerViewModel;
+            var vm = e.NewValue as IMediaPlayerViewModel;
             vm.IsShowMediaTransport = true;
             vm.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             vm.MediaPlayerChanged += OnMediaPlayerChangedAsync;

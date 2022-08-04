@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bili.Models.Data.Appearance;
+using Bili.ViewModels.Interfaces.Search;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -10,21 +11,8 @@ namespace Bili.ViewModels.Uwp.Search
     /// <summary>
     /// 搜索过滤视图模型.
     /// </summary>
-    public sealed class SearchFilterViewModel : ViewModelBase
+    public sealed class SearchFilterViewModel : ViewModelBase, ISearchFilterViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SearchFilterViewModel"/> class.
-        /// </summary>
-        /// <param name="filter">过滤器.</param>
-        /// <param name="currentCondition">当前选中的条件.</param>
-        public SearchFilterViewModel(
-            Filter filter,
-            Condition currentCondition = default)
-        {
-            Filter = filter;
-            CurrentCondition = currentCondition ?? filter.Conditions.First();
-        }
-
         /// <summary>
         /// 筛选器.
         /// </summary>
@@ -36,6 +24,13 @@ namespace Bili.ViewModels.Uwp.Search
         /// </summary>
         [Reactive]
         public Condition CurrentCondition { get; set; }
+
+        /// <inheritdoc/>
+        public void SetData(Filter filter, Condition currentCondition = null)
+        {
+            Filter = filter;
+            CurrentCondition = currentCondition ?? filter.Conditions.First();
+        }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SearchFilterViewModel model && EqualityComparer<Filter>.Default.Equals(Filter, model.Filter);

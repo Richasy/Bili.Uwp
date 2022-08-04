@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -23,7 +23,7 @@
             MinWideItemHeight="220"
             MinWideItemWidth="120">
             <controls:VerticalRepeaterView.ItemTemplate>
-                <DataTemplate x:DataType="video:VideoIdentifierSelectableViewModel">
+                <DataTemplate x:DataType="video:IVideoIdentifierSelectableViewModel">
                     <controls:CardPanel
                         Click="OnSeasonItemClickAsync"
                         DataContext="{x:Bind}"

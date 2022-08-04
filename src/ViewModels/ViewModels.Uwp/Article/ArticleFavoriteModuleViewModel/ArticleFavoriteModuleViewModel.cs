@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -13,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Article
     /// <summary>
     /// 文章收藏夹视图模型.
     /// </summary>
-    public partial class ArticleFavoriteModuleViewModel : InformationFlowViewModelBase<ArticleItemViewModel>
+    public partial class ArticleFavoriteModuleViewModel : InformationFlowViewModelBase<IArticleItemViewModel>, IArticleFavoriteModuleViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleFavoriteModuleViewModel"/> class.
@@ -52,9 +53,9 @@ namespace Bili.ViewModels.Uwp.Article
             var data = await _favoriteProvider.GetFavortieArticleListAsync();
             foreach (var item in data.Items)
             {
-                var articleVM = Splat.Locator.Current.GetService<ArticleItemViewModel>();
-                articleVM.SetInformation(item);
-                articleVM.SetAdditionalAction(vm => RemoveItem(vm));
+                var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                articleVM.InjectData(item);
+                articleVM.InjectAction(vm => RemoveItem(vm));
                 Items.Add(articleVM);
             }
 
@@ -62,7 +63,7 @@ namespace Bili.ViewModels.Uwp.Article
             _isEnd = Items.Count >= data.TotalCount;
         }
 
-        private void RemoveItem(ArticleItemViewModel vm)
+        private void RemoveItem(IArticleItemViewModel vm)
         {
             Items.Remove(vm);
             IsEmpty = Items.Count == 0;

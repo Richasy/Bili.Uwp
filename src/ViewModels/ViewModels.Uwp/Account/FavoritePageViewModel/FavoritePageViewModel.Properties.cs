@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,44 +16,31 @@ namespace Bili.ViewModels.Uwp.Account
     public sealed partial class FavoritePageViewModel
     {
         private readonly IResourceToolkit _resourceToolkit;
+        private readonly IAppViewModel _appViewModel;
 
-        /// <summary>
-        /// 类型集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<FavoriteHeader> TypeCollection { get; }
 
-        /// <summary>
-        /// 选择收藏类型的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<FavoriteHeader, Unit> SelectTypeCommand { get; }
 
-        /// <summary>
-        /// 当前选中项.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public FavoriteHeader CurrentType { get; set; }
 
-        /// <summary>
-        /// 是否显示视频收藏.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsVideoShown { get; set; }
 
-        /// <summary>
-        /// 是否显示动漫收藏.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsAnimeShown { get; set; }
 
-        /// <summary>
-        /// 是否显示影视收藏.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsCinemaShown { get; set; }
 
-        /// <summary>
-        /// 是否显示文章收藏.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsArticleShown { get; set; }
     }

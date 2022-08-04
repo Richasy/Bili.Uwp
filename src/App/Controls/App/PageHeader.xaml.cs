@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Windows.Input;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,15 +37,15 @@ namespace Bili.App.Controls.App
         public static readonly DependencyProperty IsShowLogoProperty =
             DependencyProperty.Register(nameof(IsShowLogo), typeof(bool), typeof(PageHeader), new PropertyMetadata(default));
 
-        private readonly AppViewModel _appViewModel;
+        private readonly IAppViewModel _appViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageHeader"/> class.
         /// </summary>
         public PageHeader()
         {
-            this.InitializeComponent();
-            _appViewModel = Splat.Locator.Current.GetService<AppViewModel>();
+            InitializeComponent();
+            _appViewModel = Locator.Current.GetService<IAppViewModel>();
         }
 
         /// <summary>

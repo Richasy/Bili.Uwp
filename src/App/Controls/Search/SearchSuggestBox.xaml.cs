@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Uwp.Search;
+using Bili.ViewModels.Interfaces.Search;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -21,7 +21,7 @@ namespace Bili.App.Controls
         public SearchSuggestBox()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<SearchBoxViewModel>();
+            ViewModel = Locator.Current.GetService<ISearchBoxViewModel>();
             DataContext = ViewModel;
         }
 
@@ -72,7 +72,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// <see cref="SearchSuggestBox"/> 的基类.
     /// </summary>
-    public class SearchSuggestBoxBase : ReactiveUserControl<SearchBoxViewModel>
+    public class SearchSuggestBoxBase : ReactiveUserControl<ISearchBoxViewModel>
     {
     }
 }

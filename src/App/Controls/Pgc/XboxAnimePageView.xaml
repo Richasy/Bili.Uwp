@@ -12,9 +12,9 @@
     xmlns:local="using:Bili.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.Models.Data.Pgc"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -54,7 +54,7 @@
 
             <ScrollViewer
                 x:Name="ContentScrollViewer"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 BringIntoViewOnFocusChange="True"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
@@ -76,7 +76,7 @@
                             ItemsSource="{x:Bind ViewModel.Ranks}"
                             XYFocusKeyboardNavigation="Enabled">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
-                                <DataTemplate x:DataType="pgc:PgcRankViewModel">
+                                <DataTemplate x:DataType="pgc:IPgcRankViewModel">
                                     <controls:CardPanel
                                         MaxWidth="340"
                                         IsEnableHoverAnimation="False"
@@ -96,7 +96,7 @@
                                                     <muxc:StackLayout Orientation="Vertical" Spacing="0" />
                                                 </muxc:ItemsRepeater.Layout>
                                                 <muxc:ItemsRepeater.ItemTemplate>
-                                                    <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                                                    <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                                                         <local:EpisodeItem
                                                             Style="{StaticResource RankEpisodeItemStyle}"
                                                             Width="322"
@@ -118,7 +118,7 @@
                         Visibility="{x:Bind ViewModel.IsShowPlaylist, Mode=OneWay}">
                         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Playlists}" Layout="{StaticResource HorizontalLayout}">
                             <muxc:ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="pgc:PgcPlaylistViewModel">
+                                <DataTemplate x:DataType="pgc:IPgcPlaylistViewModel">
                                     <Grid>
                                         <controls:HorizontalRepeaterView
                                             Header="{x:Bind Data.Title}"
@@ -150,7 +150,7 @@
                             <behaviors:IncrementalBehavior />
                         </interactivity:Interaction.Behaviors>
                         <controls:VerticalRepeaterView.ItemTemplate>
-                            <DataTemplate x:DataType="video:VideoItemViewModel">
+                            <DataTemplate x:DataType="video:IVideoItemViewModel">
                                 <videos:VideoItem
                                     Style="{StaticResource XboxVerticalVideoItemStyle}"
                                     ContextFlyout="{x:Null}"

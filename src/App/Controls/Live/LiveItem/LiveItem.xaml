@@ -13,7 +13,7 @@
                 <ControlTemplate TargetType="local:LiveItem">
                     <controls:CardPanel
                         x:Name="RootCard"
-                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         IsEnableCheck="False">
 
@@ -52,7 +52,7 @@
                                 <controls:CommonImageEx
                                     x:Name="CoverImage"
                                     VerticalAlignment="Center"
-                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}"
+                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                     Stretch="UniformToFill" />
                             </Grid>
 
@@ -60,7 +60,7 @@
                                 Margin="0,0,12,-18"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User, Converter={StaticResource ObjectToVisibilityConverter}}">
                                 <Ellipse
                                     Width="40"
                                     Height="40"
@@ -71,8 +71,8 @@
                                     Height="36"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Avatar.Uri}"
-                                    UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Name}" />
+                                    Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Avatar.Uri}"
+                                    UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Name}" />
                             </Grid>
 
                             <Grid
@@ -90,18 +90,18 @@
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     VerticalAlignment="Center"
                                     Opacity="0.6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
 
                                 <TextBlock
                                     x:Name="TitleBlock"
                                     Grid.Row="1"
                                     VerticalAlignment="Top"
                                     MaxLines="1"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                     TextTrimming="CharacterEllipsis"
                                     TextWrapping="Wrap">
                                     <ToolTipService.ToolTip>
-                                        <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                     </ToolTipService.ToolTip>
                                 </TextBlock>
 
@@ -129,7 +129,7 @@
                 <ControlTemplate TargetType="local:LiveItem">
                     <controls:CardPanel
                         x:Name="RootCard"
-                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         MaxHeight="124"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         IsEnableCheck="False"
@@ -170,7 +170,7 @@
                                     x:Name="CoverImage"
                                     Width="180"
                                     VerticalAlignment="Center"
-                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Cover.Uri}"
+                                    ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                     Stretch="UniformToFill" />
                             </Grid>
                             <Grid
@@ -189,18 +189,18 @@
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     VerticalAlignment="Center"
                                     Opacity="0.6"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Subtitle}" />
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
 
                                 <TextBlock
                                     x:Name="TitleBlock"
                                     Grid.Row="1"
                                     VerticalAlignment="Top"
                                     MaxLines="2"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                     TextTrimming="CharacterEllipsis"
                                     TextWrapping="Wrap">
                                     <ToolTipService.ToolTip>
-                                        <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
                                     </ToolTipService.ToolTip>
                                 </TextBlock>
 
@@ -208,20 +208,20 @@
                                     x:Name="InlineUserContainer"
                                     Grid.Row="2"
                                     Orientation="Horizontal"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User, Converter={StaticResource ObjectToVisibilityConverter}}">
                                     <controls:UserAvatar
                                         x:Name="InlineAvatar"
                                         Width="24"
                                         Height="24"
                                         Margin="0,0,8,0"
                                         VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Avatar.Uri}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Name}" />
+                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Avatar.Uri}"
+                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Name}" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         VerticalAlignment="Center"
                                         Opacity="0.6"
-                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Name}" />
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Name}" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
@@ -247,7 +247,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:LiveItem">
                     <controls:CardPanel
-                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         Width="120"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         IsEnableCheck="False"
@@ -277,24 +277,24 @@
                                 Width="52"
                                 Height="52"
                                 HorizontalAlignment="Center"
-                                Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Avatar.Uri}"
+                                Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Avatar.Uri}"
                                 Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                                 DecodeSize="40"
-                                UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Name}" />
+                                UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Name}" />
                             <StackPanel Grid.Row="1" Spacing="8">
                                 <TextBlock
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     HorizontalAlignment="Center"
                                     FontWeight="Bold"
                                     MaxLines="1"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.User.Name}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.User.Name}"
                                     TextAlignment="Center"
                                     TextTrimming="CharacterEllipsis" />
                                 <TextBlock
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     HorizontalAlignment="Center"
                                     MaxLines="3"
-                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Information.Identifier.Title}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                     TextAlignment="Center"
                                     TextTrimming="CharacterEllipsis" />
                             </StackPanel>

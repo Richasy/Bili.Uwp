@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.ViewModels.Interfaces.Community;
 using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -9,25 +10,17 @@ namespace Bili.ViewModels.Uwp.Community
     /// </summary>
     public sealed partial class CommentPageViewModel
     {
-        /// <summary>
-        /// 主视图模型.
-        /// </summary>
-        public CommentMainModuleViewModel MainViewModel { get; }
+        /// <inheritdoc/>
+        public ICommentMainModuleViewModel MainViewModel { get; }
 
-        /// <summary>
-        /// 二级视图模型.
-        /// </summary>
-        public CommentDetailModuleViewModel DetailViewModel { get; }
+        /// <inheritdoc/>
+        public ICommentDetailModuleViewModel DetailViewModel { get; }
 
-        /// <summary>
-        /// 是否显示主视图.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsMainShown { get; set; }
 
-        /// <summary>
-        /// 是否显示二级视图.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsDetailShown { get; set; }
     }

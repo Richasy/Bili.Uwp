@@ -6,8 +6,9 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -23,105 +24,73 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IFavoriteProvider _favoriteProvider;
-        private readonly NavigationViewModel _navigationViewModel;
-        private readonly AppViewModel _appViewModel;
-        private Action<VideoItemViewModel> _additionalAction;
+        private readonly INavigationViewModel _navigationViewModel;
+        private readonly ICallerViewModel _callerViewModel;
+        private Action<IVideoItemViewModel> _additionalAction;
         private object _additionalData;
 
-        /// <summary>
-        /// 添加到稍后再看的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
 
-        /// <summary>
-        /// 从稍后再看中移除的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
 
-        /// <summary>
-        /// 从历史记录中移除的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
 
-        /// <summary>
-        /// 从指定收藏夹中移除的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> RemoveFromFavoriteCommand { get; }
 
-        /// <summary>
-        /// 在网页中打开的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
 
-        /// <summary>
-        /// 播放命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> PlayCommand { get; }
 
-        /// <summary>
-        /// 视频信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public VideoInformation Information { get; internal set; }
+        public VideoInformation Data { get; set; }
 
-        /// <summary>
-        /// 发布者.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public UserItemViewModel Publisher { get; internal set; }
+        public IUserItemViewModel Publisher { get; set; }
 
-        /// <summary>
-        /// 播放次数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string PlayCountText { get; internal set; }
+        public string PlayCountText { get; set; }
 
-        /// <summary>
-        /// 播放次数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string DanmakuCountText { get; internal set; }
+        public string DanmakuCountText { get; set; }
 
-        /// <summary>
-        /// 播放次数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string LikeCountText { get; internal set; }
+        public string LikeCountText { get; set; }
 
-        /// <summary>
-        /// 视频时长.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string DurationText { get; internal set; }
+        public string DurationText { get; set; }
 
-        /// <summary>
-        /// 是否显示评分.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public bool IsShowScore { get; internal set; }
+        public bool IsShowScore { get; set; }
 
-        /// <summary>
-        /// 分数文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string ScoreText { get; internal set; }
+        public string ScoreText { get; set; }
 
-        /// <summary>
-        /// 是否显示社区信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public bool IsShowCommunity { get; internal set; }
+        public bool IsShowCommunity { get; set; }
 
-        /// <summary>
-        /// 是否被选中.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsSelected { get; set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is VideoItemViewModel model && EqualityComparer<VideoInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is VideoItemViewModel model && EqualityComparer<VideoInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

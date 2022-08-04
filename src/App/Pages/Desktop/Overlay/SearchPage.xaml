@@ -11,7 +11,7 @@
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:search="using:Bili.ViewModels.Uwp.Search"
+    xmlns:search="using:Bili.ViewModels.Interfaces.Search"
     mc:Ignorable="d">
 
     <interactivity:Interaction.Behaviors>
@@ -63,15 +63,15 @@
             x:Name="Nav"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.Items}"
             SelectedItem="{x:Bind ViewModel.CurrentModule, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="search:SearchModuleItemViewModel">
+                <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
                     <muxc:NavigationViewItem Content="{x:Bind}" IsEnabled="{x:Bind IsEnabled, Mode=OneWay}">
                         <muxc:NavigationViewItem.ContentTemplate>
-                            <DataTemplate x:DataType="search:SearchModuleItemViewModel">
+                            <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
                                 <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
                             </DataTemplate>
                         </muxc:NavigationViewItem.ContentTemplate>
@@ -84,7 +84,7 @@
             x:Name="FilterContainer"
             Grid.Row="2"
             Margin="0,12,0,0"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsCurrentFilterEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
             <muxc:ItemsRepeater x:Name="FilterRepeater" ItemsSource="{x:Bind ViewModel.CurrentFilters}">
                 <muxc:ItemsRepeater.Layout>
@@ -96,7 +96,7 @@
                         MinRowSpacing="12" />
                 </muxc:ItemsRepeater.Layout>
                 <muxc:ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="search:SearchFilterViewModel">
+                    <DataTemplate x:DataType="search:ISearchFilterViewModel">
                         <ComboBox
                             AutomationProperties.Name="{x:Bind Filter.Name}"
                             HorizontalAlignment="Stretch"

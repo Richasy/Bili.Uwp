@@ -10,7 +10,7 @@
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:live="using:Bili.ViewModels.Uwp.Live"
+    xmlns:live="using:Bili.ViewModels.Interfaces.Live"
     xmlns:liveControls="using:Bili.App.Controls.Live"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -48,7 +48,7 @@
             <ScrollViewer
                 x:Name="RootScrollViewer"
                 Grid.Row="1"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -105,7 +105,7 @@
                             ItemsSource="{x:Bind ViewModel.Follows}"
                             Visibility="{x:Bind ViewModel.IsFollowsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                             <controls:HorizontalRepeaterView.WideItemTemplate>
-                                <DataTemplate x:DataType="live:LiveItemViewModel">
+                                <DataTemplate x:DataType="live:ILiveItemViewModel">
                                     <liveControls:LiveItem Style="{StaticResource SlimLiveItemStyle}" ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </controls:HorizontalRepeaterView.WideItemTemplate>
@@ -129,7 +129,7 @@
                                 <behaviors:IncrementalBehavior />
                             </interactivity:Interaction.Behaviors>
                             <controls:VerticalRepeaterView.ItemTemplate>
-                                <DataTemplate x:DataType="live:LiveItemViewModel">
+                                <DataTemplate x:DataType="live:ILiveItemViewModel">
                                     <liveControls:LiveItem ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </controls:VerticalRepeaterView.ItemTemplate>

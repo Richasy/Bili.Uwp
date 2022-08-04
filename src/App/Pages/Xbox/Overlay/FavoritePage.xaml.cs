@@ -5,8 +5,6 @@ using System.Linq;
 using Bili.App.Pages.Base;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.App;
-using Bili.ViewModels.Uwp.Pgc;
-using Splat;
 using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Xbox.Overlay
@@ -22,10 +20,10 @@ namespace Bili.App.Pages.Xbox.Overlay
         public FavoritePage()
         {
             InitializeComponent();
-            AnimePanel.ViewModel = Locator.Current.GetService<AnimeFavoriteModuleViewModel>();
-            AnimePanel.DataContext = AnimePanel.ViewModel;
-            CinemaPanel.ViewModel = Locator.Current.GetService<CinemaFavoriteModuleViewModel>();
-            CinemaPanel.DataContext = CinemaPanel.ViewModel;
+            AnimePanel.ViewModel = AnimeFavoriteModule;
+            AnimePanel.DataContext = AnimeFavoriteModule;
+            CinemaPanel.ViewModel = CinemaFavoriteModule;
+            CinemaPanel.DataContext = CinemaFavoriteModule;
         }
 
         /// <inheritdoc/>
@@ -37,6 +35,14 @@ namespace Bili.App.Pages.Xbox.Overlay
                 ViewModel.SelectTypeCommand.Execute(header).Subscribe();
             }
         }
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnRefreshButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -9,22 +10,22 @@ namespace Bili.ViewModels.Uwp.Account
     /// <summary>
     /// XBOX 账户页面视图模型.
     /// </summary>
-    public sealed partial class XboxAccountPageViewModel : ViewModelBase
+    public sealed partial class XboxAccountPageViewModel : ViewModelBase, IXboxAccountPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="XboxAccountPageViewModel"/> class.
         /// </summary>
         public XboxAccountPageViewModel(
-            NavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel)
+            INavigationViewModel navigationViewModel,
+            IAccountViewModel accountViewModel)
         {
             _navigationViewModel = navigationViewModel;
             AccountViewModel = accountViewModel;
 
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoViewLaterPageCommand = ReactiveCommand.Create(GotoViewLaterPage, outputScheduler: RxApp.MainThreadScheduler);
-            GotoHistoryPageCommand = ReactiveCommand.Create(GotoHistoryPage, outputScheduler: RxApp.MainThreadScheduler);
-            SignOutCommand = ReactiveCommand.Create(SignOut, outputScheduler: RxApp.MainThreadScheduler);
+            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
+            GotoViewLaterPageCommand = ReactiveCommand.Create(GotoViewLaterPage);
+            GotoHistoryPageCommand = ReactiveCommand.Create(GotoHistoryPage);
+            SignOutCommand = ReactiveCommand.Create(SignOut);
         }
 
         private void GotoFavoritePage()

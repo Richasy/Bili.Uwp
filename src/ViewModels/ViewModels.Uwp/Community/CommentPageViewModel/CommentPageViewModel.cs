@@ -2,20 +2,21 @@
 
 using System;
 using Bili.Models.Enums.Bili;
+using Bili.ViewModels.Interfaces.Community;
 
 namespace Bili.ViewModels.Uwp.Community
 {
     /// <summary>
     /// 评论页面/模块视图模型.
     /// </summary>
-    public sealed partial class CommentPageViewModel : ViewModelBase
+    public sealed partial class CommentPageViewModel : ViewModelBase, ICommentPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentPageViewModel"/> class.
         /// </summary>
         public CommentPageViewModel(
-            CommentMainModuleViewModel mainViewModel,
-            CommentDetailModuleViewModel detailViewModel)
+            ICommentMainModuleViewModel mainViewModel,
+            ICommentDetailModuleViewModel detailViewModel)
         {
             MainViewModel = mainViewModel;
             DetailViewModel = detailViewModel;
@@ -26,28 +27,21 @@ namespace Bili.ViewModels.Uwp.Community
             DetailViewModel.RequestBackToMain += OnRequestBackToMain;
         }
 
-        /// <summary>
-        /// 设置评论初始数据.
-        /// </summary>
-        /// <param name="sourceId">评论区 Id.</param>
-        /// <param name="type">评论区类型.</param>
-        /// <param name="sortType">评论区排序方式.</param>
+        /// <inheritdoc/>
         public void SetData(string sourceId, CommentType type, CommentSortType sortType = CommentSortType.Hot)
         {
             ShowMainView();
             MainViewModel.SetTarget(sourceId, type, sortType);
         }
 
-        /// <summary>
-        /// 清理内部数据.
-        /// </summary>
-        internal void ClearData()
+        /// <inheritdoc/>
+        public void ClearData()
         {
             MainViewModel.ClearData();
             DetailViewModel.ClearData();
         }
 
-        private void OnRequestShowDetail(object sender, CommentItemViewModel e)
+        private void OnRequestShowDetail(object sender, ICommentItemViewModel e)
         {
             IsMainShown = false;
             IsDetailShown = true;

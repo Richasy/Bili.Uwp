@@ -4,8 +4,8 @@ using System;
 using System.ComponentModel;
 using Bili.App.Resources.Extension;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using Splat;
 using Windows.System;
@@ -19,7 +19,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class AccountAvatar : AccountAvatarBase
     {
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountAvatar"/> class.
@@ -27,8 +27,8 @@ namespace Bili.App.Controls
         public AccountAvatar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<AccountViewModel>();
-            _navigationViewModel = Locator.Current.GetService<NavigationViewModel>();
+            ViewModel = Locator.Current.GetService<IAccountViewModel>();
+            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
@@ -108,7 +108,7 @@ namespace Bili.App.Controls
     /// <summary>
     /// <see cref="AccountAvatar"/> 的基类.
     /// </summary>
-    public class AccountAvatarBase : ReactiveUserControl<AccountViewModel>
+    public class AccountAvatarBase : ReactiveUserControl<IAccountViewModel>
     {
     }
 }

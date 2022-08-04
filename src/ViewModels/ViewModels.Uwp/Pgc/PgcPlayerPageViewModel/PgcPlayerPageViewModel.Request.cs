@@ -3,7 +3,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
+using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -38,7 +39,9 @@ namespace Bili.ViewModels.Uwp.Pgc
             foreach (var item in data.Item1.Items)
             {
                 var isSelected = selectIds != null && selectIds.Contains(item.Id);
-                var vm = new VideoFavoriteFolderSelectableViewModel(item, isSelected);
+                var vm = Locator.Current.GetService<IVideoFavoriteFolderSelectableViewModel>();
+                vm.InjectData(item);
+                vm.IsSelected = isSelected;
                 FavoriteFolders.Add(vm);
             }
         }
@@ -51,11 +54,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             if (result == Models.Enums.Bili.FavoriteResult.Success || result == Models.Enums.Bili.FavoriteResult.InsufficientAccess)
             {
                 IsFavorited = selectedFolders.Count > 0;
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FavoriteFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FavoriteFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -70,11 +73,11 @@ namespace Bili.ViewModels.Uwp.Pgc
                     IsLiked = true;
                 }
 
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CoinFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CoinFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -85,11 +88,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             if (isSuccess)
             {
                 IsLiked = isLike;
-                ReloadInteractionInformationCommand.Execute().Subscribe();
+                ReloadCommunityInformationCommand.Execute().Subscribe();
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
 
@@ -99,7 +102,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsLiked = info.IsLiked;
             IsFavorited = info.IsFavorited;
             IsCoined = info.IsCoined;
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
         }
 
         private async Task TrackAsync()
@@ -112,7 +115,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                _appViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
+                _callerViewModel.ShowTip(_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.SetFailed), Models.Enums.App.InfoType.Error);
             }
         }
     }

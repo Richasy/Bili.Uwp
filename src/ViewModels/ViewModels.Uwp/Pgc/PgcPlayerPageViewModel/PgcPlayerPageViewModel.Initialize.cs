@@ -5,8 +5,9 @@ using System.Linq;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
-using Bili.ViewModels.Uwp.Account;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using Splat;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 foreach (var item in actors)
                 {
-                    var vm = Splat.Locator.Current.GetService<UserItemViewModel>();
+                    var vm = Splat.Locator.Current.GetService<IUserItemViewModel>();
                     vm.SetProfile(item);
                     Celebrities.Add(vm);
                 }
@@ -36,7 +37,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         {
             IsTracking = View.Information.IsTracking;
             IsCoinWithLiked = true;
-            ReloadInteractionInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.Execute().Subscribe();
         }
 
         private void InitializeCommunityInformation()
@@ -109,8 +110,8 @@ namespace Bili.ViewModels.Uwp.Pgc
                 for (var i = 0; i < subVideos.Count; i++)
                 {
                     var item = subVideos[i];
-                    var vm = Splat.Locator.Current.GetService<EpisodeItemViewModel>();
-                    vm.SetInformation(item);
+                    var vm = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                    vm.InjectData(item);
                     vm.IsSelected = item.Equals(CurrentEpisode);
                     Episodes.Add(vm);
                 }
@@ -123,7 +124,10 @@ namespace Bili.ViewModels.Uwp.Pgc
                 for (var i = 0; i < seasons.Count; i++)
                 {
                     var item = seasons[i];
-                    var vm = new VideoIdentifierSelectableViewModel(item, i + 1, item.Id == View.Information.Identifier.Id);
+                    var vm = Locator.Current.GetService<IVideoIdentifierSelectableViewModel>();
+                    vm.InjectData(item);
+                    vm.Index = i + 1;
+                    vm.IsSelected = item.Id == View.Information.Identifier.Id;
                     Seasons.Add(vm);
                 }
             }
@@ -132,7 +136,12 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 Sections.Add(new PlayerSectionHeader(PlayerSectionType.Extras, _resourceToolkit.GetLocaleString(LanguageNames.Sections)));
                 var currentId = CurrentEpisode == null ? string.Empty : CurrentEpisode.Identifier.Id;
-                View.Extras.ToList().ForEach(p => Extras.Add(new PgcExtraItemViewModel(p.Key, p.Value, currentId)));
+                foreach (var item in View.Extras)
+                {
+                    var vm = Locator.Current.GetService<IPgcExtraItemViewModel>();
+                    vm.SetData(item.Key, item.Value, currentId);
+                    Extras.Add(vm);
+                }
             }
 
             if (CurrentEpisode != null)

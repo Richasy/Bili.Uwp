@@ -37,7 +37,7 @@ namespace Bili.ViewModels.Interfaces
         event EventHandler<object> MediaPlayerChanged;
 
         /// <summary>
-        /// 清理命令.
+        /// 清除播放数据的命令.
         /// </summary>
         ReactiveCommand<Unit, Unit> ClearCommand { get; }
 

@@ -2,7 +2,7 @@
     x:Class="Bili.App.Pages.Desktop.MyFollowsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:account="using:Bili.ViewModels.Uwp.Account"
+    xmlns:account="using:Bili.ViewModels.Interfaces.Account"
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:community="using:Bili.Models.Data.Community"
@@ -48,7 +48,7 @@
         <muxc:NavigationView
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Groups}"
             SelectedItem="{x:Bind ViewModel.CurrentGroup, Mode=OneWay}">
@@ -69,7 +69,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="2"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto">
             <controls:VerticalRepeaterView
@@ -82,7 +82,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="account:UserItemViewModel">
+                    <DataTemplate x:DataType="account:IUserItemViewModel">
                         <user:UserItem ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </controls:VerticalRepeaterView.ItemTemplate>

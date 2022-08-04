@@ -10,8 +10,9 @@ using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Core;
@@ -21,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播分区详情页面视图模型.
     /// </summary>
-    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase<LiveItemViewModel>
+    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>, ILivePartitionDetailPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePartitionDetailPageViewModel"/> class.
@@ -34,7 +35,7 @@ namespace Bili.ViewModels.Uwp.Live
             IResourceToolkit resourceToolkit,
             ILiveProvider liveProvider,
             CoreDispatcher coreDispatcher,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
             : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
@@ -44,14 +45,11 @@ namespace Bili.ViewModels.Uwp.Live
 
             Tags = new ObservableCollection<LiveTag>();
 
-            SelectTagCommand = ReactiveCommand.CreateFromTask<LiveTag>(SelectTagAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions, outputScheduler: RxApp.MainThreadScheduler);
+            SelectTagCommand = ReactiveCommand.CreateFromTask<LiveTag>(SelectTagAsync);
+            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
         }
 
-        /// <summary>
-        /// 设置初始分区.
-        /// </summary>
-        /// <param name="partition">分区信息.</param>
+        /// <inheritdoc/>
         public void SetPartition(Partition partition)
         {
             OriginPartition = partition;
@@ -99,14 +97,14 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var live in data.Lives)
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(live);
+                    var liveVM = Splat.Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(live);
                     Items.Add(liveVM);
                 }
 
                 var lives = Items
-                        .OfType<LiveItemViewModel>()
-                        .Select(p => p.Information)
+                        .OfType<ILiveItemViewModel>()
+                        .Select(p => p.Data)
                         .ToList();
                 if (_caches.ContainsKey(CurrentTag))
                 {
@@ -131,8 +129,8 @@ namespace Bili.ViewModels.Uwp.Live
                 var data = _caches[tag];
                 foreach (var live in data)
                 {
-                    var liveVM = Splat.Locator.Current.GetService<LiveItemViewModel>();
-                    liveVM.SetInformation(live);
+                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    liveVM.InjectData(live);
                     Items.Add(liveVM);
                 }
             }

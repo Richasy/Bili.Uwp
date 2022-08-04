@@ -11,13 +11,15 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Account;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Community;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Common;
-using Bili.ViewModels.Uwp.Community;
-using Bili.ViewModels.Uwp.Core;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -25,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 视频播放页面视图模型.
     /// </summary>
-    public sealed partial class VideoPlayerPageViewModel : PlayerPageViewModelBase, IReloadViewModel, IErrorViewModel
+    public sealed partial class VideoPlayerPageViewModel : PlayerPageViewModelBase, IVideoPlayerPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlayerPageViewModel"/> class.
@@ -34,67 +36,64 @@ namespace Bili.ViewModels.Uwp.Video
             IPlayerProvider playerProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
-            IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
             INumberToolkit numberToolkit,
             ISettingsToolkit settingsToolkit,
-            AppViewModel appViewModel,
-            NavigationViewModel navigationViewModel,
-            AccountViewModel accountViewModel,
-            CommentPageViewModel commentPageViewModel,
-            MediaPlayerViewModel playerViewModel,
-            DownloadModuleViewModel downloadViewModel,
+            ICallerViewModel callerViewModel,
+            IRecordViewModel recordViewModel,
+            INavigationViewModel navigationViewModel,
+            IAccountViewModel accountViewModel,
+            IDownloadModuleViewModel downloadViewModel,
+            ICommentPageViewModel commentPageViewModel,
             CoreDispatcher dispatcher)
-            : base(playerViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
-            _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _settingsToolkit = settingsToolkit;
-            _appViewModel = appViewModel;
+            _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
-            _accountViewModel = accountViewModel;
+            _recordViewModel = recordViewModel;
             _commentPageViewModel = commentPageViewModel;
+            _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
-            Collaborators = new ObservableCollection<UserItemViewModel>();
+            Collaborators = new ObservableCollection<IUserItemViewModel>();
             Tags = new ObservableCollection<Tag>();
-            FavoriteFolders = new ObservableCollection<VideoFavoriteFolderSelectableViewModel>();
+            FavoriteFolders = new ObservableCollection<IVideoFavoriteFolderSelectableViewModel>();
             Sections = new ObservableCollection<Models.App.Other.PlayerSectionHeader>();
-            RelatedVideos = new ObservableCollection<VideoItemViewModel>();
-            VideoParts = new ObservableCollection<VideoIdentifierSelectableViewModel>();
+            RelatedVideos = new ObservableCollection<IVideoItemViewModel>();
+            VideoParts = new ObservableCollection<IVideoIdentifierSelectableViewModel>();
             Seasons = new ObservableCollection<VideoSeason>();
-            CurrentSeasonVideos = new ObservableCollection<VideoItemViewModel>();
-            VideoPlaylist = new ObservableCollection<VideoItemViewModel>();
+            CurrentSeasonVideos = new ObservableCollection<IVideoItemViewModel>();
+            VideoPlaylist = new ObservableCollection<IVideoItemViewModel>();
 
             DownloadViewModel = downloadViewModel;
 
+            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
-            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
-            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync, outputScheduler: RxApp.MainThreadScheduler);
-            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag, outputScheduler: RxApp.MainThreadScheduler);
-            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason, outputScheduler: RxApp.MainThreadScheduler);
-            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync, outputScheduler: RxApp.MainThreadScheduler);
-            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync, outputScheduler: RxApp.MainThreadScheduler);
-            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync, outputScheduler: RxApp.MainThreadScheduler);
-            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync, outputScheduler: RxApp.MainThreadScheduler);
-            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync, outputScheduler: RxApp.MainThreadScheduler);
-            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShareCommand = ReactiveCommand.Create(Share, outputScheduler: RxApp.MainThreadScheduler);
-            FixedCommand = ReactiveCommand.Create(Fix, outputScheduler: RxApp.MainThreadScheduler);
-            ClearCommand = ReactiveCommand.Create(Reset, outputScheduler: RxApp.MainThreadScheduler);
-            ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart, outputScheduler: RxApp.MainThreadScheduler);
-            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist, outputScheduler: RxApp.MainThreadScheduler);
+            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
+            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
+            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag);
+            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason);
+            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync);
+            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync);
+            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
+            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
+            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
+            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
+            ShareCommand = ReactiveCommand.Create(Share);
+            FixedCommand = ReactiveCommand.Create(Fix);
+            ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
+            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
+            ClearCommand = ReactiveCommand.Create(Clear);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
-            _isFavoriteFolderRequesting = RequestFavoriteFoldersCommand.IsExecuting.ToProperty(this, x => x.IsFavoriteFolderRequesting, scheduler: RxApp.MainThreadScheduler);
+            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
+            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
 
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
             RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
@@ -109,10 +108,7 @@ namespace Bili.ViewModels.Uwp.Video
                 .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
         }
 
-        /// <summary>
-        /// 设置视频.
-        /// </summary>
-        /// <param name="snapshot">视频信息.</param>
+        /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
             _presetVideoId = snapshot.VideoId;
@@ -121,11 +117,7 @@ namespace Bili.ViewModels.Uwp.Video
             ReloadCommand.Execute().Subscribe();
         }
 
-        /// <summary>
-        /// 设置播放列表.
-        /// </summary>
-        /// <param name="videos">视频列表.</param>
-        /// <param name="playIndex">需要播放的视频索引.</param>
+        /// <inheritdoc/>
         public void SetPlaylist(IEnumerable<VideoInformation> videos, int playIndex = 0)
         {
             TryClear(VideoPlaylist);
@@ -134,7 +126,7 @@ namespace Bili.ViewModels.Uwp.Video
                 VideoPlaylist.Add(GetItemViewModel(item));
             }
 
-            var current = VideoPlaylist[playIndex].Information.Identifier;
+            var current = VideoPlaylist[playIndex].Data.Identifier;
             var snapshot = new PlaySnapshot(current.Id, default, Models.Enums.VideoType.Video);
             SetSnapshot(snapshot);
         }
@@ -142,7 +134,6 @@ namespace Bili.ViewModels.Uwp.Video
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
             ResetPublisher();
             ResetOverview();
             ResetOperation();
@@ -159,8 +150,9 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 Title = View.Information.Identifier.Title,
             };
-            _appViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _appViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+
+            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();
@@ -169,6 +161,29 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeInterop();
 
             MediaPlayerViewModel.SetVideoData(View);
+        }
+
+        private void Clear()
+        {
+            Reset();
+            if (MediaPlayerViewModel != null)
+            {
+                MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
+                MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
+                MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+            }
+        }
+
+        private void ReloadMediaPlayer()
+        {
+            if (MediaPlayerViewModel != null)
+            {
+                return;
+            }
+
+            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel.MediaEnded += OnMediaEnded;
+            MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
         }
     }
 }

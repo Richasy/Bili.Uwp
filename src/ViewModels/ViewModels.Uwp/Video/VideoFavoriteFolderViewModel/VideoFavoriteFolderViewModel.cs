@@ -3,15 +3,17 @@
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Bili.ViewModels.Uwp.Video
 {
     /// <summary>
     /// 收藏夹视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteFolderViewModel : ViewModelBase
+    public sealed partial class VideoFavoriteFolderViewModel : ViewModelBase, IVideoFavoriteFolderViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteFolderViewModel"/> class.
@@ -19,23 +21,19 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderViewModel(
             IFavoriteProvider favoriteProvider,
             IAccountProvider accountProvider,
-            NavigationViewModel navigationViewModel)
+            INavigationViewModel navigationViewModel)
         {
             _favoriteProvider = favoriteProvider;
             _accountProvider = accountProvider;
             _navigationViewModel = navigationViewModel;
 
-            RemoveCommand = ReactiveCommand.CreateFromTask(RemoveAsync, outputScheduler: RxApp.MainThreadScheduler);
-            ShowDetailCommand = ReactiveCommand.Create(ShowDetail, outputScheduler: RxApp.MainThreadScheduler);
-            _isRemoving = RemoveCommand.IsExecuting.ToProperty(this, x => x.IsRemoving, scheduler: RxApp.MainThreadScheduler);
+            RemoveCommand = ReactiveCommand.CreateFromTask(RemoveAsync);
+            ShowDetailCommand = ReactiveCommand.Create(ShowDetail);
+            RemoveCommand.IsExecuting.ToPropertyEx(this, x => x.IsRemoving);
         }
 
-        /// <summary>
-        /// 设置收藏夹信息.
-        /// </summary>
-        /// <param name="folder">收藏夹.</param>
-        /// <param name="groupRef">收藏夹分组视图模型引用.</param>
-        public void SetFolder(VideoFavoriteFolder folder, VideoFavoriteFolderGroupViewModel groupRef)
+        /// <inheritdoc/>
+        public void SetFolder(VideoFavoriteFolder folder, IVideoFavoriteFolderGroupViewModel groupRef)
         {
             Folder = folder;
             _groupViewModel = groupRef;

@@ -5,7 +5,7 @@
     xmlns:app="using:Bili.App.Controls.App"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:community="using:Bili.App.Controls.Community"
-    xmlns:community1="using:Bili.ViewModels.Uwp.Community"
+    xmlns:communityInterface="using:Bili.ViewModels.Interfaces.Community"
     xmlns:controls="using:Bili.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -51,15 +51,15 @@
             x:Name="Nav"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnNavItemInvokedAsync"
             MenuItemsSource="{x:Bind ViewModel.MessageTypes}"
             SelectedItem="{x:Bind ViewModel.CurrentType, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="community1:MessageHeaderViewModel">
+                <DataTemplate x:DataType="communityInterface:IMessageHeaderViewModel">
                     <muxc:NavigationViewItem Content="{x:Bind}">
                         <muxc:NavigationViewItem.ContentTemplate>
-                            <DataTemplate x:DataType="community1:MessageHeaderViewModel">
+                            <DataTemplate x:DataType="communityInterface:IMessageHeaderViewModel">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
                                     <TextBlock
@@ -81,7 +81,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="2"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -97,7 +97,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="community1:MessageItemViewModel">
+                    <DataTemplate x:DataType="communityInterface:IMessageItemViewModel">
                         <community:MessageItem ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </controls:VerticalRepeaterView.ItemTemplate>

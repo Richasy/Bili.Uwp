@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using Microsoft.Graphics.Canvas;
 using ReactiveUI;
 using Windows.UI.Core;
@@ -23,12 +23,10 @@ namespace Bili.ViewModels.Uwp.Core
         public NativePlayerViewModel(
             IFileToolkit fileToolkit,
             IResourceToolkit resourceToolkit,
-            ISettingsToolkit settingsToolkit,
             CoreDispatcher dispatcher)
         {
             _fileToolkit = fileToolkit;
             _resourceToolkit = resourceToolkit;
-            _settingsToolkit = settingsToolkit;
             _dispatcher = dispatcher;
 
             ClearCommand = ReactiveCommand.Create(Clear);

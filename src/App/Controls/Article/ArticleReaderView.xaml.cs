@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Interfaces.Article;
 using Newtonsoft.Json;
 using Splat;
 using Windows.System;
@@ -23,29 +23,21 @@ namespace Bili.App.Controls.Article
         /// <see cref="ViewModel"/>的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(ArticleItemViewModel), typeof(ArticleReaderView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IArticleItemViewModel), typeof(ArticleReaderView), new PropertyMetadata(default));
 
         private bool _isPreLoaded;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleReaderView"/> class.
         /// </summary>
-        protected ArticleReaderView()
-        {
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// 实例.
-        /// </summary>
-        public static ArticleReaderView Instance { get; } = new Lazy<ArticleReaderView>(() => new ArticleReaderView()).Value;
+        public ArticleReaderView() => InitializeComponent();
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public ArticleItemViewModel ViewModel
+        public IArticleItemViewModel ViewModel
         {
-            get { return (ArticleItemViewModel)GetValue(ViewModelProperty); }
+            get { return (IArticleItemViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
@@ -54,11 +46,11 @@ namespace Bili.App.Controls.Article
         /// </summary>
         /// <param name="vm">文章视图模型.</param>
         /// <returns><see cref="Task"/>.</returns>
-        public async Task ShowAsync(ArticleItemViewModel vm)
+        public async Task ShowAsync(IArticleItemViewModel vm)
         {
             Show();
             ViewModel = vm;
-            Title = vm.Information.Identifier.Title;
+            Title = vm.Data.Identifier.Title;
             if (!_isPreLoaded)
             {
                 await ReaderWebView.EnsureCoreWebView2Async();

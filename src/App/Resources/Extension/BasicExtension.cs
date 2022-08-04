@@ -2,6 +2,7 @@
 
 using System;
 using Windows.UI;
+using Windows.UI.Xaml;
 
 namespace Bili.App.Resources.Extension
 {
@@ -60,5 +61,21 @@ namespace Bili.App.Resources.Extension
 
             return color;
         }
+
+        /// <summary>
+        /// 将值转换为水平方向的边距.
+        /// </summary>
+        /// <param name="value">值.</param>
+        /// <returns>边距.</returns>
+        public static Thickness ToHorizontalPadding(this double value)
+            => new Thickness(value, 0, value, 0);
+
+        /// <summary>
+        /// 将值转换为顶部边距.
+        /// </summary>
+        /// <param name="value">值.</param>
+        /// <returns>边距.</returns>
+        public static Thickness ToTopPadding(this double value)
+            => new Thickness(0, value, 0, 0);
     }
 }

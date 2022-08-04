@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.App.Controls.App"
-    xmlns:article="using:Bili.ViewModels.Uwp.Article"
+    xmlns:article="using:Bili.ViewModels.Interfaces.Article"
     xmlns:article1="using:Bili.App.Controls.Article"
     xmlns:behaviors="using:Bili.App.Behaviors"
     xmlns:community="using:Bili.Models.Data.Community"
@@ -51,7 +51,7 @@
             x:Name="ArticleNavigationView"
             Style="{StaticResource TopNavigationViewStyle}"
             Grid.Row="1"
-            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             ItemInvoked="OnSpecialColumnNavigationViewItemInvoked"
             MenuItemsSource="{x:Bind ViewModel.Partitions}"
             SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
@@ -67,7 +67,7 @@
             x:Name="ContentScrollViewer"
             Grid.Row="2"
             Margin="0,8,0,0"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
@@ -97,7 +97,7 @@
                     ItemsSource="{x:Bind ViewModel.Ranks}"
                     Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay}">
                     <controls:HorizontalRepeaterView.WideItemTemplate>
-                        <DataTemplate x:DataType="article:ArticleItemViewModel">
+                        <DataTemplate x:DataType="article:IArticleItemViewModel">
                             <article1:ArticleItem
                                 Style="{StaticResource HorizontalArticleItemStyle}"
                                 Width="420"
@@ -137,7 +137,7 @@
                         </Grid>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="article:ArticleItemViewModel">
+                        <DataTemplate x:DataType="article:IArticleItemViewModel">
                             <article1:ArticleItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

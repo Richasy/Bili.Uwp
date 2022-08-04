@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
 
@@ -9,7 +9,7 @@ namespace Bili.App.Controls.Dynamic
     /// <summary>
     /// 动态条目.
     /// </summary>
-    public sealed class DynamicItem : ReactiveControl<DynamicItemViewModel>, IRepeaterItem, IOrientationControl
+    public sealed class DynamicItem : ReactiveControl<IDynamicItemViewModel>, IRepeaterItem, IOrientationControl
     {
         private DynamicPresenter _presenter;
 

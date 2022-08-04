@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atelier39;
 using Bili.Models.Data.Live;
-using Bili.ViewModels.Uwp.Account;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Danmaku
@@ -113,8 +111,6 @@ namespace Bili.App.Controls.Danmaku
                 return;
             }
 
-            var myName = Splat.Locator.Current.GetService<AccountViewModel>().DisplayName;
-            var isOwn = !string.IsNullOrEmpty(myName) && myName == e.UserName;
             var model = new DanmakuItem
             {
                 StartMs = 0,

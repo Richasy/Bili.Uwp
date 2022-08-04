@@ -11,7 +11,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
@@ -38,9 +38,9 @@
                         Margin="0,0,0,4"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         MaxLines="3"
-                        Text="{x:Bind ViewModel.Folder.Description, Mode=OneWay}"
+                        Text="{x:Bind ViewModel.Data.Description, Mode=OneWay}"
                         TextWrapping="Wrap"
-                        Visibility="{x:Bind ViewModel.Folder.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        Visibility="{x:Bind ViewModel.Data.Description, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                     <StackPanel
                         Grid.Row="1"
                         VerticalAlignment="Center"
@@ -67,7 +67,7 @@
                         VerticalAlignment="Center">
                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
                             <Run Text="{loc:Locale Name=VideoCount}" />
-                            <Run Text="{x:Bind ViewModel.Folder.TotalCount, Mode=OneWay}" />
+                            <Run Text="{x:Bind ViewModel.Data.TotalCount, Mode=OneWay}" />
                         </TextBlock>
                     </StackPanel>
                 </Grid>
@@ -76,7 +76,7 @@
 
         <ScrollViewer
             Grid.Row="1"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             IsTabStop="False"
             VerticalScrollBarVisibility="Auto">
@@ -92,7 +92,7 @@
                     <behaviors:IncrementalBehavior />
                 </interactivity:Interaction.Behaviors>
                 <controls:VerticalRepeaterView.ItemTemplate>
-                    <DataTemplate x:DataType="video:VideoItemViewModel">
+                    <DataTemplate x:DataType="video:IVideoItemViewModel">
                         <videos:VideoItem
                             Style="{StaticResource XboxVerticalVideoItemStyle}"
                             IsCustom="True"

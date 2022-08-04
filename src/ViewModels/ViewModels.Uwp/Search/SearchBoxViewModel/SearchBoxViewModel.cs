@@ -7,8 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Search;
 using ReactiveUI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -18,14 +18,14 @@ namespace Bili.ViewModels.Uwp.Search
     /// <summary>
     /// 搜索框视图模型.
     /// </summary>
-    public sealed partial class SearchBoxViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class SearchBoxViewModel : ViewModelBase, ISearchBoxViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchBoxViewModel"/> class.
         /// </summary>
         public SearchBoxViewModel(
             ISearchProvider searchProvider,
-            NavigationViewModel navigationViewModel,
+            INavigationViewModel navigationViewModel,
             CoreDispatcher dispatcher)
         {
             _searchProvider = searchProvider;
@@ -35,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Search
             HotSearchCollection = new ObservableCollection<SearchSuggest>();
             SearchSuggestion = new ObservableCollection<SearchSuggest>();
 
-            SearchCommand = ReactiveCommand.Create<string>(Search, outputScheduler: RxApp.MainThreadScheduler);
-            SelectSuggestCommand = ReactiveCommand.Create<SearchSuggest>(Search, outputScheduler: RxApp.MainThreadScheduler);
-            InitializeCommand = ReactiveCommand.CreateFromTask(LoadHotSearchAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SearchCommand = ReactiveCommand.Create<string>(Search);
+            SelectSuggestCommand = ReactiveCommand.Create<SearchSuggest>(Search);
+            InitializeCommand = ReactiveCommand.CreateFromTask(LoadHotSearchAsync);
 
             _suggestionTimer = new DispatcherTimer
             {

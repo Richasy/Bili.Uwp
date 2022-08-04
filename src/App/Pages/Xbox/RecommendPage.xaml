@@ -10,24 +10,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.App.Controls.Pgc"
     xmlns:selector="using:Bili.App.Resources.Selector"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     IsTabStop="False"
     mc:Ignorable="d">
 
     <base:RecommendPageBase.Resources>
-        <DataTemplate x:Key="VideoTemplate" x:DataType="video:VideoItemViewModel">
+        <DataTemplate x:Key="VideoTemplate" x:DataType="video:IVideoItemViewModel">
             <videos:VideoItem
                 Style="{StaticResource XboxVerticalVideoItemStyle}"
                 IsCustom="True"
                 ViewModel="{x:Bind}" />
         </DataTemplate>
 
-        <DataTemplate x:Key="EpisodeTemplate" x:DataType="pgc:EpisodeItemViewModel">
+        <DataTemplate x:Key="EpisodeTemplate" x:DataType="pgc:IEpisodeItemViewModel">
             <pgc1:EpisodeItem ViewModel="{x:Bind}" />
         </DataTemplate>
 
@@ -50,7 +50,7 @@
             <ScrollViewer
                 x:Name="ContentScrollViewer"
                 Grid.Row="1"
-                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
                 HorizontalScrollMode="Disabled"
                 IsTabStop="False"
                 VerticalScrollBarVisibility="Auto"

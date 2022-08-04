@@ -3,9 +3,8 @@
 using System;
 using System.Linq;
 using Bili.Models.Data.Video;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -17,12 +16,7 @@ namespace Bili.App.Controls.Player
         /// <summary>
         /// Initializes a new instance of the <see cref="UgcSeasonView"/> class.
         /// </summary>
-        public UgcSeasonView()
-        {
-            InitializeComponent();
-            ViewModel = Locator.Current.GetService<VideoPlayerPageViewModel>();
-            DataContext = ViewModel;
-        }
+        public UgcSeasonView() => InitializeComponent();
 
         private void OnSeasonComboBoxSelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
@@ -54,7 +48,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// <see cref="UgcSeason"/> 的基类.
     /// </summary>
-    public class UgcSeasonViewBase : ReactiveUserControl<VideoPlayerPageViewModel>
+    public class UgcSeasonViewBase : ReactiveUserControl<IVideoPlayerPageViewModel>
     {
     }
 }

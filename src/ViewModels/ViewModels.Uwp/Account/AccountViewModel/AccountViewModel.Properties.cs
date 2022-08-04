@@ -9,10 +9,9 @@ using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -26,9 +25,7 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IFileToolkit _fileToolkit;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IAccountProvider _accountProvider;
-        private readonly AppViewModel _appViewModel;
-        private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isSigning;
+        private readonly IAppViewModel _appViewModel;
 
         private bool _isRequestLogout = false;
 
@@ -163,6 +160,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// 是否正在尝试登录.
         /// </summary>
-        public bool IsSigning => _isSigning.Value;
+        [ObservableAsProperty]
+        public bool IsSigning { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.App.Controls.Danmaku;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,7 +10,7 @@ namespace Bili.App.Controls.Player
     /// <summary>
     /// 媒体传输控件.
     /// </summary>
-    public sealed partial class BiliMediaTransportControls : ReactiveControl<MediaPlayerViewModel>
+    public sealed partial class BiliMediaTransportControls : ReactiveControl<IMediaPlayerViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BiliMediaTransportControls"/> class.
@@ -24,12 +24,12 @@ namespace Bili.App.Controls.Player
 
         internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.OldValue is MediaPlayerViewModel oldVM)
+            if (e.OldValue is IMediaPlayerViewModel oldVM)
             {
                 oldVM.PropertyChanged -= OnViewModelPropertyChanged;
             }
 
-            var vm = e.NewValue as MediaPlayerViewModel;
+            var vm = e.NewValue as IMediaPlayerViewModel;
             vm.PropertyChanged -= OnViewModelPropertyChanged;
             vm.PropertyChanged += OnViewModelPropertyChanged;
         }

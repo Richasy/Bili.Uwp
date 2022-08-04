@@ -38,7 +38,6 @@
     <Compile Include="$(SolutionDir)\src\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Behaviors\IncrementalBehavior.cs" />
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\ReloadBehavior.cs" />
@@ -526,6 +525,7 @@
     <Compile Include="Resources\Converter\ErrorOpacityConverter.cs" />
     <Compile Include="Resources\Converter\FavoriteTypeConverter.cs" />
     <Compile Include="Resources\Converter\FixedContentConverter.cs" />
+    <Compile Include="Resources\Converter\HorizontalThicknessConverter.cs" />
     <Compile Include="Resources\Converter\ImageConverter.cs" />
     <Compile Include="Resources\Converter\NumberToVisibilityConverter.cs" />
     <Compile Include="Resources\Converter\PgcFavoriteStatusConverter.cs" />
@@ -544,6 +544,7 @@
     <Compile Include="Resources\Converter\SubtitleConvertTypeConverter.cs" />
     <Compile Include="Resources\Converter\ThemeStringConverter.cs" />
     <Compile Include="Resources\Converter\ToolboxItemIconConverter.cs" />
+    <Compile Include="Resources\Converter\TopThicknessConverter.cs" />
     <Compile Include="Resources\Converter\UserLevelConverter.cs" />
     <Compile Include="Resources\Extension\BasicExtension.cs" />
     <Compile Include="Resources\Extension\LocaleExtension.cs" />
@@ -1357,9 +1358,7 @@
   <ItemGroup>
     <PRIResource Include="Resources\Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Player\Related\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Lib\DI.App\DI.App.csproj">
       <Project>{18d92f2f-046e-4a35-83fc-476b097bb8b7}</Project>
@@ -1396,10 +1395,6 @@
     <ProjectReference Include="..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj">
       <Project>{CD9930DC-36A8-45FC-8824-C8B3FA873FAD}</Project>
       <Name>ViewModels.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
-      <Project>{1af20fdc-36d5-450e-9461-0f78aeb89716}</Project>
-      <Name>ViewModels.Uwp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,8 +4,8 @@ using System;
 using System.Threading.Tasks;
 using Bili.App.Controls.Dialogs;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using Splat;
 using Windows.UI.Xaml;
@@ -24,21 +24,21 @@ namespace Bili.App.Controls.Favorite
         public VideoFavoritePanel()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<VideoFavoriteModuleViewModel>();
+            ViewModel = Locator.Current.GetService<IVideoFavoriteModuleViewModel>();
             DataContext = ViewModel;
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
 
         private async void OnRemoveFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
             => await RemoveAsync(sender);
 
         private async Task RemoveAsync(object sender)
         {
-            var vm = (sender as FrameworkElement).DataContext as VideoFavoriteFolderViewModel;
+            var vm = (sender as FrameworkElement).DataContext as IVideoFavoriteFolderViewModel;
             var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
             var warning = vm.IsMine
                 ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.DeleteFavoriteWarning)
@@ -59,7 +59,7 @@ namespace Bili.App.Controls.Favorite
     /// <summary>
     /// <see cref="VideoFavoritePanel"/> 的基类.
     /// </summary>
-    public class VideoFavoritePanelBase : ReactiveUserControl<VideoFavoriteModuleViewModel>
+    public class VideoFavoritePanelBase : ReactiveUserControl<IVideoFavoriteModuleViewModel>
     {
     }
 }

@@ -6,7 +6,8 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Article;
+using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -21,54 +22,38 @@ namespace Bili.ViewModels.Uwp.Article
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IArticleProvider _articleProvider;
         private readonly IFavoriteProvider _favoriteProvider;
-        private readonly AppViewModel _appViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
+        private readonly ICallerViewModel _callerViewModel;
 
         private string _detailContent;
-        private bool _disposedValue;
-        private Action<ArticleItemViewModel> _additionalAction;
+        private Action<IArticleItemViewModel> _additionalAction;
 
-        /// <summary>
-        /// 在网页中打开的命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
 
-        /// <summary>
-        /// 阅读命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReadCommand { get; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 取消收藏命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> UnfavoriteCommand { get; }
 
-        /// <summary>
-        /// 视频信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public ArticleInformation Information { get; internal set; }
+        public ArticleInformation Data { get; set; }
 
-        /// <summary>
-        /// 阅读次数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string ViewCountText { get; internal set; }
+        public string ViewCountText { get; set; }
 
-        /// <summary>
-        /// 点赞数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string LikeCountText { get; internal set; }
+        public string LikeCountText { get; set; }
 
-        /// <summary>
-        /// 评论数的可读文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public string CommentCountText { get; internal set; }
+        public string CommentCountText { get; set; }
 
         /// <inheritdoc/>
         [Reactive]
@@ -78,19 +63,18 @@ namespace Bili.ViewModels.Uwp.Article
         [Reactive]
         public string ErrorText { get; set; }
 
-        /// <summary>
-        /// 是否显示社区信息.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsShowCommunity { get; set; }
 
         /// <inheritdoc/>
-        public bool IsReloading => _isReloading.Value;
+        [ObservableAsProperty]
+        public bool IsReloading { get; private set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ArticleItemViewModel model && EqualityComparer<ArticleInformation>.Default.Equals(Information, model.Information);
+        public override bool Equals(object obj) => obj is ArticleItemViewModel model && EqualityComparer<ArticleInformation>.Default.Equals(Data, model.Data);
 
         /// <inheritdoc/>
-        public override int GetHashCode() => Information.GetHashCode();
+        public override int GetHashCode() => Data.GetHashCode();
     }
 }

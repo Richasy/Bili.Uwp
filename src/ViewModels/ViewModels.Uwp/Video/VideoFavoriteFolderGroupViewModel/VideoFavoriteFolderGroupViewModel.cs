@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using Splat;
 using Windows.UI.Core;
@@ -13,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Video
     /// <summary>
     /// 收藏夹分组视图模型.
     /// </summary>
-    public sealed partial class VideoFavoriteFolderGroupViewModel : InformationFlowViewModelBase<VideoFavoriteFolderViewModel>
+    public sealed partial class VideoFavoriteFolderGroupViewModel : InformationFlowViewModelBase<IVideoFavoriteFolderViewModel>, IVideoFavoriteFolderGroupViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoFavoriteFolderGroupViewModel"/> class.
@@ -34,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Video
         /// 设置分组信息.
         /// </summary>
         /// <param name="group">分组信息.</param>
-        public void SetGroup(VideoFavoriteFolderGroup group)
+        public void InjectData(VideoFavoriteFolderGroup group)
         {
-            Group = group;
+            Data = group;
             TryClear(Items);
             HandleFavoriteFolderList(group.FavoriteSet);
         }
@@ -49,7 +50,7 @@ namespace Bili.ViewModels.Uwp.Video
                 return;
             }
 
-            var data = await _favoriteProvider.GetVideoFavoriteFolderListAsync(_accountProvider.UserId.ToString(), Group.IsMine);
+            var data = await _favoriteProvider.GetVideoFavoriteFolderListAsync(_accountProvider.UserId.ToString(), Data.IsMine);
             HandleFavoriteFolderList(data);
         }
 
@@ -61,7 +62,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             foreach (var item in set.Items)
             {
-                var folderVM = Splat.Locator.Current.GetService<VideoFavoriteFolderViewModel>();
+                var folderVM = Splat.Locator.Current.GetService<IVideoFavoriteFolderViewModel>();
                 folderVM.SetFolder(item, this);
                 Items.Add(folderVM);
             }

@@ -2,8 +2,8 @@
 
 using System;
 using Bili.Models.Data.Community;
-using Bili.ViewModels.Uwp.Base;
-using Bili.ViewModels.Uwp.Core;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +19,7 @@ namespace Bili.App.Controls.Pgc
         /// <see cref="ViewModel"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(AnimePageViewModelBase), typeof(XboxAnimePageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IAnimePageViewModel), typeof(XboxAnimePageView), new PropertyMetadata(default, new PropertyChangedCallback(OnViewModelChanged)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XboxAnimePageView"/> class.
@@ -30,16 +30,16 @@ namespace Bili.App.Controls.Pgc
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public AnimePageViewModelBase ViewModel
+        public IAnimePageViewModel ViewModel
         {
-            get { return (AnimePageViewModelBase)GetValue(ViewModelProperty); }
+            get { return (IAnimePageViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public AppViewModel CoreViewModel { get; } = Locator.Current.GetService<AppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
 
         private static void OnViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -9,9 +9,10 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Uwp.Core;
-using Bili.ViewModels.Uwp.Pgc;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Common;
+using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -26,11 +27,9 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly IPgcProvider _pgcProvider;
         private readonly IHomeProvider _homeProvider;
         private readonly IResourceToolkit _resourceToolkit;
-        private readonly NavigationViewModel _navigationViewModel;
+        private readonly INavigationViewModel _navigationViewModel;
         private readonly Dictionary<Partition, PgcPageView> _viewCaches;
         private readonly Dictionary<string, IEnumerable<VideoInformation>> _videoCaches;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly ObservableAsPropertyHelper<bool> _isIncrementalLoading;
         private readonly PgcType _type;
 
         private string _currentVideoPartitionId;
@@ -43,22 +42,22 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 横幅集合.
         /// </summary>
-        public ObservableCollection<BannerViewModel> Banners { get; }
+        public ObservableCollection<IBannerViewModel> Banners { get; }
 
         /// <summary>
         /// 排行榜集合.
         /// </summary>
-        public ObservableCollection<PgcRankViewModel> Ranks { get; }
+        public ObservableCollection<IPgcRankViewModel> Ranks { get; }
 
         /// <summary>
         /// 播放列表集合.
         /// </summary>
-        public ObservableCollection<PgcPlaylistViewModel> Playlists { get; }
+        public ObservableCollection<IPgcPlaylistViewModel> Playlists { get; }
 
         /// <summary>
         /// 相关的视频集合.
         /// </summary>
-        public ObservableCollection<VideoItemViewModel> Videos { get; }
+        public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
@@ -146,9 +145,11 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 是否正在重载.
         /// </summary>
-        public bool IsReloading => _isReloading.Value;
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
 
         /// <inheritdoc/>
-        public bool IsIncrementalLoading => _isIncrementalLoading.Value;
+        [ObservableAsProperty]
+        public bool IsIncrementalLoading { get; set; }
     }
 }

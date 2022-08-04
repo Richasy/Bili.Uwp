@@ -3,7 +3,7 @@
 using System;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Article;
+using Bili.ViewModels.Interfaces.Article;
 using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Pages.Desktop
@@ -17,6 +17,14 @@ namespace Bili.App.Pages.Desktop
         /// Initializes a new instance of the <see cref="ArticlePartitionPage"/> class.
         /// </summary>
         public ArticlePartitionPage() => InitializeComponent();
+
+        /// <inheritdoc/>
+        protected override void OnPageLoaded()
+            => Bindings.Update();
+
+        /// <inheritdoc/>
+        protected override void OnPageUnloaded()
+            => Bindings.StopTracking();
 
         private void OnArticleSortComboBoxSlectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -39,7 +47,7 @@ namespace Bili.App.Pages.Desktop
     /// <summary>
     /// <see cref="ArticlePartitionPage"/> 的基类.
     /// </summary>
-    public class ArticlePartitionPageBase : AppPage<ArticlePartitionPageViewModel>
+    public class ArticlePartitionPageBase : AppPage<IArticlePartitionPageViewModel>
     {
     }
 }

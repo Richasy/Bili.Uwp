@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Pgc;
+using Bili.ViewModels.Interfaces.Pgc;
 using Splat;
 
 namespace Bili.App.Controls
@@ -16,12 +16,12 @@ namespace Bili.App.Controls
         public PgcSeasonDetailView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<PgcPlayerPageViewModel>();
+            ViewModel = Locator.Current.GetService<IPgcPlayerPageViewModel>();
         }
 
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public PgcPlayerPageViewModel ViewModel { get; }
+        public IPgcPlayerPageViewModel ViewModel { get; }
     }
 }

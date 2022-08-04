@@ -12,9 +12,10 @@ using Bili.Models.Data.Appearance;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces;
-using Bili.ViewModels.Uwp.Video;
+using Bili.ViewModels.Interfaces.Home;
+using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
 using Windows.UI.Core;
 
@@ -23,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Home
     /// <summary>
     /// 排行榜页面视图模型.
     /// </summary>
-    public sealed partial class RankPageViewModel : ViewModelBase, IInitializeViewModel, IReloadViewModel
+    public sealed partial class RankPageViewModel : ViewModelBase, IRankPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RankPageViewModel"/> class.
@@ -41,24 +42,35 @@ namespace Bili.ViewModels.Uwp.Home
             _dispatcher = dispatcher;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
-            VideoCollection = new ObservableCollection<VideoItemViewModel>();
+            Videos = new ObservableCollection<IVideoItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
 
             var canReload = this.WhenAnyValue(x => x.IsReloading).Select(p => !p);
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync, outputScheduler: RxApp.MainThreadScheduler);
+            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
             ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canReload, RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync, outputScheduler: RxApp.MainThreadScheduler);
+            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)
                 .Merge(SelectPartitionCommand.ThrownExceptions)
                 .Subscribe(DisplayException);
 
-            _isReloading = InitializeCommand.IsExecuting
+            InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)
                 .Merge(SelectPartitionCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading, scheduler: RxApp.MainThreadScheduler);
+                .ToPropertyEx(this, x => x.IsReloading);
+        }
+
+        /// <inheritdoc/>
+        public void DisplayException(Exception exception)
+        {
+            IsError = true;
+            var msg = exception is ServiceException se
+                ? se.GetMessage()
+                : exception.Message;
+            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n{msg}";
+            LogException(exception);
         }
 
         private async Task InitializeAsync()
@@ -76,7 +88,7 @@ namespace Bili.ViewModels.Uwp.Home
         private async Task ReloadAsync()
         {
             TryClear(Partitions);
-            TryClear(VideoCollection);
+            TryClear(Videos);
             _caches.Clear();
             var partitions = (await _homeProvider.GetVideoPartitionIndexAsync()).ToList();
             var allItem = new Partition("0", _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.WholePartitions), new Image("ms-appx:///Assets/Bili_rgba_80.png"));
@@ -89,7 +101,7 @@ namespace Bili.ViewModels.Uwp.Home
         {
             await Task.Delay(100);
             CurrentPartition = partition;
-            TryClear(VideoCollection);
+            TryClear(Videos);
             var videos = _caches.ContainsKey(partition)
                 ? _caches[partition]
                 : await _homeProvider.GetRankDetailAsync(partition.Id);
@@ -103,21 +115,11 @@ namespace Bili.ViewModels.Uwp.Home
 
                 foreach (var item in videos)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<VideoItemViewModel>();
-                    videoVM.SetInformation(item);
-                    VideoCollection.Add(videoVM);
+                    var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                    videoVM.InjectData(item);
+                    Videos.Add(videoVM);
                 }
             }
-        }
-
-        private void DisplayException(Exception exception)
-        {
-            IsError = true;
-            var msg = exception is ServiceException se
-                ? se.GetMessage()
-                : exception.Message;
-            ErrorText = $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RankRequestFailed)}\n{msg}";
-            LogException(exception);
         }
     }
 }

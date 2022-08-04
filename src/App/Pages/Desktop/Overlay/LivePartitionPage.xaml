@@ -26,7 +26,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <app:PageHeader Title="{loc:Locale Name=TotalTags}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
-        <Grid Grid.Row="1" Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}">
+        <Grid Grid.Row="1" Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}">
             <muxc:NavigationView
                 Style="{StaticResource TopNavigationViewStyle}"
                 ItemInvoked="OnParentItemInvoked"
@@ -49,7 +49,7 @@
         <ScrollViewer
             x:Name="ContentScrollViewer"
             Grid.Row="2"
-            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Mode=OneWay}"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalScrollMode="Disabled"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">

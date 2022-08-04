@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Community;
+using Bili.ViewModels.Interfaces.Community;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -21,7 +21,7 @@ namespace Bili.App.Controls.Community
         /// <see cref="TopComment"/> 的依赖属性.
         /// </summary>
         public static readonly DependencyProperty TopCommentProperty =
-            DependencyProperty.Register(nameof(TopComment), typeof(CommentItemViewModel), typeof(CommentRepeater), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(TopComment), typeof(ICommentItemViewModel), typeof(CommentRepeater), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentRepeater"/> class.
@@ -40,9 +40,9 @@ namespace Bili.App.Controls.Community
         /// <summary>
         /// 置顶评论.
         /// </summary>
-        public CommentItemViewModel TopComment
+        public ICommentItemViewModel TopComment
         {
-            get { return (CommentItemViewModel)GetValue(TopCommentProperty); }
+            get { return (ICommentItemViewModel)GetValue(TopCommentProperty); }
             set { SetValue(TopCommentProperty, value); }
         }
     }

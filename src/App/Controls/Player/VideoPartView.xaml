@@ -8,8 +8,7 @@
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Bili.ViewModels.Uwp"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -52,7 +51,7 @@
                     Loaded="OnPartRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoIdentifierSelectableViewModel">
+                        <DataTemplate x:DataType="video:IVideoIdentifierSelectableViewModel">
                             <controls:CardPanel
                                 Click="OnPartItemClick"
                                 DataContext="{x:Bind}"
@@ -84,7 +83,7 @@
                             MinRowSpacing="8" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoIdentifierSelectableViewModel">
+                        <DataTemplate x:DataType="video:IVideoIdentifierSelectableViewModel">
                             <controls:CardPanel
                                 AutomationProperties.Name="{x:Bind Data.Title}"
                                 Click="OnPartItemClick"
