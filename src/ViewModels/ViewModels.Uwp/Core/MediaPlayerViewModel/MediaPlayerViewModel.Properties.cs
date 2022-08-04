@@ -39,7 +39,6 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
         private readonly ObservableAsPropertyHelper<bool> _isReloading;
-        private readonly DisplayRequest _displayRequest;
 
         private IPlayerViewModel _player;
         private VideoType _videoType;
@@ -55,6 +54,7 @@ namespace Bili.ViewModels.Uwp.Core
         private TimeSpan _initializeProgress;
         private Action _playNextAction;
         private SystemMediaTransportControls _systemMediaTransportControls;
+        private DisplayRequest _displayRequest;
 
         private DispatcherTimer _unitTimer;
         private DispatcherTimer _progressTimer;

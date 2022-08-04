@@ -392,5 +392,15 @@ namespace Bili.ViewModels.Interfaces.Core
         /// </summary>
         /// <param name="action">动作.</param>
         void SetPlayNextAction(Action action);
+
+        /// <summary>
+        /// 激活播放显示（不锁屏）.
+        /// </summary>
+        void ActiveDisplay();
+
+        /// <summary>
+        /// 释放播放显示（允许自动锁屏）.
+        /// </summary>
+        void ReleaseDisplay();
     }
 }
