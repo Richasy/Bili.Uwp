@@ -46,8 +46,7 @@ namespace Bili.ViewModels.Uwp.Core
             IInteractionModuleViewModel interactionModuleViewModel,
             ICallerViewModel callerViewModel,
             IAppViewModel appViewModel,
-            CoreDispatcher dispatcher,
-            DisplayRequest displayRequest)
+            CoreDispatcher dispatcher)
         {
             _playerProvider = playerProvider;
             _liveProvider = liveProvider;
@@ -60,7 +59,6 @@ namespace Bili.ViewModels.Uwp.Core
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
             _dispatcher = dispatcher;
-            _displayRequest = displayRequest;
             SubtitleViewModel = subtitleModuleViewModel;
             DanmakuViewModel = danmakuModuleViewModel;
             InteractionViewModel = interactionModuleViewModel;
@@ -203,6 +201,36 @@ namespace Bili.ViewModels.Uwp.Core
             ReloadCommand.Execute().Subscribe();
         }
 
+        /// <inheritdoc/>
+        public async void ActiveDisplay()
+        {
+            if (_displayRequest != null)
+            {
+                return;
+            }
+
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                _displayRequest = new DisplayRequest();
+                _displayRequest.RequestActive();
+            });
+        }
+
+        /// <inheritdoc/>
+        public async void ReleaseDisplay()
+        {
+            if (_displayRequest == null)
+            {
+                return;
+            }
+
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                _displayRequest.RequestRelease();
+                _displayRequest = null;
+            });
+        }
+
         /// <summary>
         /// 设置播放下一个内容的动作.
         /// </summary>
@@ -232,10 +260,10 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             ResetMediaData();
-            ResetPlayer();
             ResetVideoData();
             ResetLiveData();
             InitializePlaybackRates();
+            ResetPlayer();
         }
 
         private async Task LoadAsync()

@@ -34,7 +34,6 @@ using Bili.ViewModels.Uwp.Video;
 using Splat;
 using Splat.NLog;
 using Windows.Storage;
-using Windows.System.Display;
 using Windows.UI.Xaml;
 
 namespace Bili.DI.App
@@ -188,7 +187,6 @@ namespace Bili.DI.App
         public static void RegisterAppRequiredConstants()
         {
             SplatRegistrations.RegisterConstant(Window.Current.CoreWindow.Dispatcher);
-            SplatRegistrations.RegisterConstant(new DisplayRequest());
             SplatRegistrations.SetupIOC();
         }
     }

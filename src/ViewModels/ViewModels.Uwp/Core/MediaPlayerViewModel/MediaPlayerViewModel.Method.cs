@@ -87,6 +87,8 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         private void ResetPlayer()
         {
+            ReleaseDisplay();
+
             if (_player != null)
             {
                 _player.MediaOpened -= OnMediaOpened;
@@ -102,14 +104,6 @@ namespace Bili.ViewModels.Uwp.Core
             _unitTimer?.Stop();
 
             Status = PlayerStatus.NotLoad;
-
-            try
-            {
-                _displayRequest.RequestRelease();
-            }
-            catch (Exception)
-            {
-            }
         }
 
         private void InitializeTimers()
@@ -133,13 +127,6 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _progressTimer?.Start();
             _unitTimer?.Start();
-            try
-            {
-                _displayRequest.RequestActive();
-            }
-            catch (Exception)
-            {
-            }
         }
 
         private string GetVideoPreferCodecId()
@@ -291,6 +278,12 @@ namespace Bili.ViewModels.Uwp.Core
             Status = e.Status;
             IsMediaPause = e.Status != PlayerStatus.Playing;
             IsBuffering = e.Status == PlayerStatus.Buffering;
+
+            if (_systemMediaTransportControls == null)
+            {
+                return;
+            }
+
             if (e.Status == PlayerStatus.Failed)
             {
                 ErrorText = e.Message;
@@ -329,6 +322,15 @@ namespace Bili.ViewModels.Uwp.Core
             else
             {
                 _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+            }
+
+            if (e.Status == PlayerStatus.Playing)
+            {
+                ActiveDisplay();
+            }
+            else
+            {
+                ReleaseDisplay();
             }
         }
 
