@@ -10,7 +10,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:video="using:Bili.ViewModels.Uwp.Video"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     mc:Ignorable="d">
 
@@ -58,7 +58,7 @@
                         <behaviors:IncrementalBehavior />
                     </Interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video:VideoItemViewModel">
+                        <DataTemplate x:DataType="video:IVideoItemViewModel">
                             <videos:VideoItem ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </controls:VerticalRepeaterView.ItemTemplate>

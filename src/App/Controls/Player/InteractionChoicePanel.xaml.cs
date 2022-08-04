@@ -3,7 +3,6 @@
 using System;
 using Bili.Models.Data.Player;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

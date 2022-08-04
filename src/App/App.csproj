@@ -1396,10 +1396,6 @@
       <Project>{CD9930DC-36A8-45FC-8824-C8B3FA873FAD}</Project>
       <Name>ViewModels.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
-      <Project>{1af20fdc-36d5-450e-9461-0f78aeb89716}</Project>
-      <Name>ViewModels.Uwp</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Misc\Question.CHS.json" />

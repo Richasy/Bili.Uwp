@@ -8,7 +8,7 @@
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:video="using:Bili.Models.Data.Video"
-    xmlns:video1="using:Bili.ViewModels.Uwp.Video"
+    xmlns:videoInterface="using:Bili.ViewModels.Interfaces.Video"
     xmlns:videos="using:Bili.App.Controls.Videos"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -46,7 +46,7 @@
                     ItemsSource="{x:Bind ViewModel.CurrentSeasonVideos}"
                     Loaded="OnRepeaterLoadedAsync">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="video1:VideoItemViewModel">
+                        <DataTemplate x:DataType="videoInterface:IVideoItemViewModel">
                             <videos:VideoItem
                                 Style="{StaticResource HorizontalRelatedVideoItemStyle}"
                                 Height="112"

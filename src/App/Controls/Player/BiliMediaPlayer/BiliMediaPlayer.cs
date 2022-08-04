@@ -3,7 +3,6 @@
 using System;
 using Bili.App.Controls.Danmaku;
 using Bili.ViewModels.Interfaces.Core;
-using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -33,12 +32,12 @@ namespace Bili.App.Controls.Player
 
         internal override void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.OldValue is MediaPlayerViewModel oldVM)
+            if (e.OldValue is IMediaPlayerViewModel oldVM)
             {
                 oldVM.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             }
 
-            var vm = e.NewValue as MediaPlayerViewModel;
+            var vm = e.NewValue as IMediaPlayerViewModel;
             vm.IsShowMediaTransport = true;
             vm.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             vm.MediaPlayerChanged += OnMediaPlayerChangedAsync;

@@ -8,8 +8,6 @@ using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Bili;
-using Bilibili.App.View.V1;
-using Bilibili.Community.Service.Dm.V1;
 
 namespace Bili.Lib.Interfaces
 {
@@ -22,7 +20,7 @@ namespace Bili.Lib.Interfaces
         /// 获取视频详细信息，包括分P内容.
         /// </summary>
         /// <param name="videoId">视频Id.</param>
-        /// <returns><see cref="ViewReply"/>.</returns>
+        /// <returns><see cref="VideoPlayerView"/>.</returns>
         Task<VideoPlayerView> GetVideoDetailAsync(string videoId);
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace Bili.Lib.Interfaces
         /// <param name="videoId">视频Id.</param>
         /// <param name="partId">视频分P的Id.</param>
         /// <param name="segmentIndex">分段索引，6分钟为一段.</param>
-        /// <returns><see cref="DmSegMobileReply"/>.</returns>
+        /// <returns>分段弹幕信息.</returns>
         Task<IEnumerable<DanmakuInformation>> GetSegmentDanmakuAsync(string videoId, string partId, int segmentIndex);
 
         /// <summary>

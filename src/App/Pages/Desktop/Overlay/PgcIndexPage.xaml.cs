@@ -5,7 +5,6 @@ using System.Linq;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Pgc;
-using Bili.ViewModels.Uwp.Pgc;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -41,7 +40,7 @@ namespace Bili.App.Pages.Desktop
         private void OnConditionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox.DataContext is IndexFilterViewModel source
+            if (comboBox.DataContext is IIndexFilterViewModel source
                 && comboBox.SelectedItem is Condition item)
             {
                 var index = source.Data.Conditions.ToList().IndexOf(item);

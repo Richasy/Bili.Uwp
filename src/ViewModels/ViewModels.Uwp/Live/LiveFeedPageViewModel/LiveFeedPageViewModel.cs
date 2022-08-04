@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播首页视图模型.
     /// </summary>
-    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>
+    public sealed partial class LiveFeedPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>, ILiveFeedPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveFeedPageViewModel"/> class.

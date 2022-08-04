@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Live;
+using Bili.ViewModels.Interfaces.Live;
 
 namespace Bili.App.Pages.Base
 {
     /// <summary>
     /// 直播分区详情页面的基类.
     /// </summary>
-    public class LivePartitionDetailPageBase : AppPage<LivePartitionDetailPageViewModel>
+    public class LivePartitionDetailPageBase : AppPage<ILivePartitionDetailPageViewModel>
     {
     }
 }

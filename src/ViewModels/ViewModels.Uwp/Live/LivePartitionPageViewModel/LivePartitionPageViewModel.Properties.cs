@@ -19,16 +19,11 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly ILiveProvider _liveProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
 
-        /// <summary>
-        /// 父分区集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<Partition> ParentPartitions { get; }
 
-        /// <summary>
-        /// 显示的分区集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<Partition> DisplayPartitions { get; }
 
         /// <inheritdoc/>
@@ -37,32 +32,23 @@ namespace Bili.ViewModels.Uwp.Live
         /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
 
-        /// <summary>
-        /// 选择分区命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
 
-        /// <summary>
-        /// 当前选中的父分区.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public Partition CurrentParentPartition { get; set; }
 
-        /// <summary>
-        /// 错误文本.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string ErrorText { get; set; }
 
-        /// <summary>
-        /// 请求过程中出现了问题.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsError { get; set; }
 
-        /// <summary>
-        /// 是否正在初始化.
-        /// </summary>
-        public bool IsReloading => _isReloading.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsReloading { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Home;
+using Bili.ViewModels.Interfaces.Home;
 using ReactiveUI;
 using Splat;
 
@@ -17,14 +17,14 @@ namespace Bili.App.Controls
         public QuestionPanel()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<HelpPageViewModel>();
+            ViewModel = Splat.Locator.Current.GetService<IHelpPageViewModel>();
         }
     }
 
     /// <summary>
     /// <see cref="QuestionPanel"/> 的基类.
     /// </summary>
-    public class QuestionPanelBase : ReactiveUserControl<HelpPageViewModel>
+    public class QuestionPanelBase : ReactiveUserControl<IHelpPageViewModel>
     {
     }
 }

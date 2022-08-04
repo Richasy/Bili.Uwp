@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Live
     /// <summary>
     /// 直播分区详情页面视图模型.
     /// </summary>
-    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>
+    public sealed partial class LivePartitionDetailPageViewModel : InformationFlowViewModelBase<ILiveItemViewModel>, ILivePartitionDetailPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LivePartitionDetailPageViewModel"/> class.
@@ -49,10 +49,7 @@ namespace Bili.ViewModels.Uwp.Live
             SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
         }
 
-        /// <summary>
-        /// 设置初始分区.
-        /// </summary>
-        /// <param name="partition">分区信息.</param>
+        /// <inheritdoc/>
         public void SetPartition(Partition partition)
         {
             OriginPartition = partition;

@@ -9,7 +9,6 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Community;
 using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

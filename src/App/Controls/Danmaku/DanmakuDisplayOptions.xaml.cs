@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Interfaces.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,7 +15,7 @@ namespace Bili.App.Controls.Danmaku
         /// <see cref="ViewModel"/>的视图模型.
         /// </summary>
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(DanmakuModuleViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(default));
+            DependencyProperty.Register(nameof(ViewModel), typeof(IDanmakuModuleViewModel), typeof(DanmakuDisplayOptions), new PropertyMetadata(default));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DanmakuDisplayOptions"/> class.
@@ -28,9 +28,9 @@ namespace Bili.App.Controls.Danmaku
         /// <summary>
         /// 视图模型.
         /// </summary>
-        public DanmakuModuleViewModel ViewModel
+        public IDanmakuModuleViewModel ViewModel
         {
-            get { return (DanmakuModuleViewModel)GetValue(ViewModelProperty); }
+            get { return (IDanmakuModuleViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
     }

@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using Atelier39;
-using Bili.ViewModels.Uwp.Common;
+using Bili.ViewModels.Interfaces.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -15,7 +15,7 @@ namespace Bili.App.Controls.Danmaku
     /// <summary>
     /// 弹幕控件.
     /// </summary>
-    public sealed partial class DanmakuView : ReactiveControl<DanmakuModuleViewModel>
+    public sealed partial class DanmakuView : ReactiveControl<IDanmakuModuleViewModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Danmaku"/> class.
@@ -29,7 +29,7 @@ namespace Bili.App.Controls.Danmaku
 
         internal override async void OnViewModelChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue is DanmakuModuleViewModel viewModel)
+            if (e.NewValue is IDanmakuModuleViewModel viewModel)
             {
                 viewModel.PropertyChanged += OnViewModelProeprtyChangedAsync;
                 viewModel.LiveDanmakuAdded += OnLiveDanmakuAdded;

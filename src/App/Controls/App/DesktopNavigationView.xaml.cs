@@ -9,7 +9,6 @@ using Bili.App.Resources.Extension;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
-using Bili.ViewModels.Uwp.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 

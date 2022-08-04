@@ -8,8 +8,7 @@
     xmlns:local="using:Bili.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:pgc="using:Bili.ViewModels.Uwp.Pgc"
-    xmlns:pgcControls="using:Bili.App.Controls.Pgc"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -51,7 +50,7 @@
                     Loaded="OnEpisodeRepeaterLoaded"
                     Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <controls:VerticalRepeaterView.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                        <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                             <controls:CardPanel
                                 Click="OnEpisodeItemClickAsync"
                                 DataContext="{x:Bind}"
@@ -126,7 +125,7 @@
                             MinRowSpacing="8" />
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="pgc:EpisodeItemViewModel">
+                        <DataTemplate x:DataType="pgc:IEpisodeItemViewModel">
                             <controls:CardPanel
                                 AutomationProperties.Name="{x:Bind Data.Identifier.Id}"
                                 Click="OnEpisodeItemClickAsync"
