@@ -35,7 +35,11 @@ namespace Bili.ViewModels.Uwp.Core
                 }
                 else if (Status == PlayerStatus.End)
                 {
-                    _player.SeekTo(TimeSpan.Zero);
+                    if (Math.Abs(_player.Position.TotalSeconds - _player.Duration.TotalSeconds) < 1)
+                    {
+                        _player.SeekTo(TimeSpan.Zero);
+                    }
+
                     _player.Play();
                 }
             });

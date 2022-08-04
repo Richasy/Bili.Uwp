@@ -63,11 +63,7 @@ namespace Bili.ViewModels.Uwp.Core
             await Task.WhenAll(tasks);
             _videoPlaybackItem = _videoFFSource.CreateMediaPlaybackItem();
 
-            if (_videoPlayer == null)
-            {
-                _videoPlayer = GetVideoPlayer();
-            }
-
+            _videoPlayer = GetVideoPlayer();
             _videoPlayer.Source = _videoPlaybackItem;
 
             if (hasAudio)
@@ -77,11 +73,7 @@ namespace Bili.ViewModels.Uwp.Core
                 _videoPlayer.CommandManager.IsEnabled = false;
                 _videoPlayer.TimelineController = _mediaTimelineController;
 
-                if (_audioPlayer == null)
-                {
-                    _audioPlayer = GetAudioPlayer();
-                }
-
+                _audioPlayer = GetAudioPlayer();
                 _audioPlayer.CommandManager.IsEnabled = false;
                 _audioPlayer.Source = _audioPlaybackItem;
                 _audioPlayer.TimelineController = _mediaTimelineController;
@@ -219,7 +211,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
 
                 Status = PlayerStatus.End;
-                StateChanged?.Invoke(this, new MediaStateChangedEventArgs(Status, string.Empty));
+                MediaEnded?.Invoke(this, EventArgs.Empty);
             });
         }
 
@@ -344,6 +336,7 @@ namespace Bili.ViewModels.Uwp.Core
             stream?.Dispose();
 
             mediaPlayer.Source = null;
+            mediaPlayer = null;
         }
 
         private void Clear()

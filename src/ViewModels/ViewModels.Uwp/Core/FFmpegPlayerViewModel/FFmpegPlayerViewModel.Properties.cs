@@ -48,6 +48,9 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler MediaOpened;
 
         /// <inheritdoc/>
+        public event EventHandler MediaEnded;
+
+        /// <inheritdoc/>
         public event EventHandler<MediaStateChangedEventArgs> StateChanged;
 
         /// <inheritdoc/>

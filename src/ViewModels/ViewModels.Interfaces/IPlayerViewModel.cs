@@ -27,6 +27,11 @@ namespace Bili.ViewModels.Interfaces
         event EventHandler<MediaStateChangedEventArgs> StateChanged;
 
         /// <summary>
+        /// 媒体结束.
+        /// </summary>
+        event EventHandler MediaEnded;
+
+        /// <summary>
         /// 播放进度变化.
         /// </summary>
         event EventHandler<MediaPositionChangedEventArgs> PositionChanged;

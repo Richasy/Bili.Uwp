@@ -91,10 +91,6 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (_player != null)
             {
-                _player.MediaOpened -= OnMediaOpened;
-                _player.MediaPlayerChanged -= OnMediaPlayerChanged;
-                _player.PositionChanged -= OnMediaPositionChanged;
-                _player.StateChanged -= OnMediaStateChanged;
                 _player.ClearCommand.Execute().Subscribe();
                 _player = null;
             }
@@ -298,27 +294,6 @@ namespace Bili.ViewModels.Uwp.Core
                     _initializeProgress = TimeSpan.Zero;
                 }
             }
-            else if (e.Status == PlayerStatus.End)
-            {
-                _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Stopped;
-                if (IsInteractionVideo)
-                {
-                    if (InteractionViewModel.Choices.Count == 1 && string.IsNullOrEmpty(InteractionViewModel.Choices.First().Text))
-                    {
-                        // 这是默认选项，直接切换.
-                        SelectInteractionChoiceCommand.Execute(InteractionViewModel.Choices.First());
-                    }
-                    else
-                    {
-                        IsShowInteractionChoices = true;
-                    }
-                }
-
-                if (!IsLoop)
-                {
-                    MediaEnded?.Invoke(this, EventArgs.Empty);
-                }
-            }
             else
             {
                 _systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Paused;
@@ -375,6 +350,27 @@ namespace Bili.ViewModels.Uwp.Core
             if (autoPlay)
             {
                 _player.Play();
+            }
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            if (IsInteractionVideo)
+            {
+                if (InteractionViewModel.Choices.Count == 1 && string.IsNullOrEmpty(InteractionViewModel.Choices.First().Text))
+                {
+                    // 这是默认选项，直接切换.
+                    SelectInteractionChoiceCommand.Execute(InteractionViewModel.Choices.First());
+                }
+                else
+                {
+                    IsShowInteractionChoices = true;
+                }
+            }
+
+            if (!IsLoop)
+            {
+                MediaEnded?.Invoke(this, EventArgs.Empty);
             }
         }
 
