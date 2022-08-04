@@ -11,6 +11,7 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -29,117 +30,77 @@ namespace Bili.ViewModels.Uwp.Search
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly IAppViewModel _appViewModel;
         private readonly Dictionary<SearchModuleType, bool> _requestStatusCache;
-        private readonly Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>> _filters;
-        private readonly ObservableAsPropertyHelper<bool> _isReloadingModule;
+        private readonly Dictionary<SearchModuleType, IEnumerable<ISearchFilterViewModel>> _filters;
 
-        /// <summary>
-        /// 重载搜索模块命令.
-        /// </summary>
+        /// <inheritdoc/>
         public ReactiveCommand<Unit, Unit> ReloadModuleCommand { get; }
 
-        /// <summary>
-        /// 选中模块命令.
-        /// </summary>
-        public ReactiveCommand<SearchModuleItemViewModel, Unit> SelectModuleCommand { get; }
+        /// <inheritdoc/>
+        public ReactiveCommand<ISearchModuleItemViewModel, Unit> SelectModuleCommand { get; }
 
-        /// <summary>
-        /// 视频集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
-        /// <summary>
-        /// 动画集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<ISeasonItemViewModel> Animes { get; }
 
-        /// <summary>
-        /// 影视集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<ISeasonItemViewModel> Movies { get; }
 
-        /// <summary>
-        /// 用户集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IUserItemViewModel> Users { get; }
 
-        /// <summary>
-        /// 文章集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<IArticleItemViewModel> Articles { get; }
 
-        /// <summary>
-        /// 直播集合.
-        /// </summary>
+        /// <inheritdoc/>
         public ObservableCollection<ILiveItemViewModel> Lives { get; }
 
-        /// <summary>
-        /// 当前的过滤器集合.
-        /// </summary>
-        public ObservableCollection<SearchFilterViewModel> CurrentFilters { get; }
+        /// <inheritdoc/>
+        public ObservableCollection<ISearchFilterViewModel> CurrentFilters { get; }
 
-        /// <summary>
-        /// 当前选中的模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
-        public SearchModuleItemViewModel CurrentModule { get; set; }
+        public ISearchModuleItemViewModel CurrentModule { get; set; }
 
-        /// <summary>
-        /// 当前内容是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsCurrentContentEmpty { get; set; }
 
-        /// <summary>
-        /// 当前的过滤器是否为空.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsCurrentFilterEmpty { get; set; }
 
-        /// <summary>
-        /// 是否显示视频模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsVideoModuleShown { get; set; }
 
-        /// <summary>
-        /// 是否显示动漫模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsAnimeModuleShown { get; set; }
 
-        /// <summary>
-        /// 是否显示影视模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsMovieModuleShown { get; set; }
 
-        /// <summary>
-        /// 是否显示文章模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsArticleModuleShown { get; set; }
 
-        /// <summary>
-        /// 是否显示直播模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsLiveModuleShown { get; set; }
 
-        /// <summary>
-        /// 是否显示用户模块.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public bool IsUserModuleShown { get; set; }
 
-        /// <summary>
-        /// 关键词.
-        /// </summary>
+        /// <inheritdoc/>
         [Reactive]
         public string Keyword { get; internal set; }
 
-        /// <summary>
-        /// 是否正在重载模块.
-        /// </summary>
-        public bool IsReloadingModule => _isReloadingModule.Value;
+        /// <inheritdoc/>
+        [ObservableAsProperty]
+        public bool IsReloadingModule { get; set; }
     }
 }

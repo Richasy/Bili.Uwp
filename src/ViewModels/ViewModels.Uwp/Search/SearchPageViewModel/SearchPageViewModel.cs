@@ -14,17 +14,20 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
 {
     /// <summary>
-    /// 搜索页码视图模型.
+    /// 搜索页面视图模型.
     /// </summary>
-    public sealed partial class SearchPageViewModel : InformationFlowViewModelBase<SearchModuleItemViewModel>
+    public sealed partial class SearchPageViewModel : InformationFlowViewModelBase<ISearchModuleItemViewModel>, ISearchPageViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchPageViewModel"/> class.
@@ -47,7 +50,7 @@ namespace Bili.ViewModels.Uwp.Search
             _appViewModel = appViewModel;
 
             _requestStatusCache = new Dictionary<SearchModuleType, bool>();
-            _filters = new Dictionary<SearchModuleType, IEnumerable<SearchFilterViewModel>>();
+            _filters = new Dictionary<SearchModuleType, IEnumerable<ISearchFilterViewModel>>();
 
             Videos = new ObservableCollection<IVideoItemViewModel>();
             Animes = new ObservableCollection<ISeasonItemViewModel>();
@@ -55,14 +58,14 @@ namespace Bili.ViewModels.Uwp.Search
             Users = new ObservableCollection<IUserItemViewModel>();
             Articles = new ObservableCollection<IArticleItemViewModel>();
             Lives = new ObservableCollection<ILiveItemViewModel>();
-            CurrentFilters = new ObservableCollection<SearchFilterViewModel>();
+            CurrentFilters = new ObservableCollection<ISearchFilterViewModel>();
 
             ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
-            SelectModuleCommand = ReactiveCommand.CreateFromTask<SearchModuleItemViewModel>(SelectModuleAsync);
+            SelectModuleCommand = ReactiveCommand.CreateFromTask<ISearchModuleItemViewModel>(SelectModuleAsync);
 
-            _isReloadingModule = ReloadModuleCommand.IsExecuting
+            ReloadModuleCommand.IsExecuting
                 .Merge(SelectModuleCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloadingModule);
+                .ToPropertyEx(this, x => x.IsReloadingModule);
 
             ReloadModuleCommand.ThrownExceptions
                 .Merge(SelectModuleCommand.ThrownExceptions)
@@ -74,10 +77,7 @@ namespace Bili.ViewModels.Uwp.Search
                 .Subscribe(_ => CheckModuleVisibility());
         }
 
-        /// <summary>
-        /// 设置搜索关键词.
-        /// </summary>
-        /// <param name="keyword">关键词.</param>
+        /// <inheritdoc/>
         public void SetKeyword(string keyword)
         {
             Keyword = keyword;
@@ -136,7 +136,7 @@ namespace Bili.ViewModels.Uwp.Search
         protected override string FormatException(string errorMsg)
             => $"{_resourceToolkit.GetLocaleString(LanguageNames.RequestSearchResultFailed)}\n{errorMsg}";
 
-        private async Task SelectModuleAsync(SearchModuleItemViewModel vm)
+        private async Task SelectModuleAsync(ISearchModuleItemViewModel vm)
         {
             ClearException();
             TryClear(CurrentFilters);
@@ -156,15 +156,15 @@ namespace Bili.ViewModels.Uwp.Search
         private void InitializeSearchModules()
         {
             TryClear(Items);
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.Video, _resourceToolkit.GetLocaleString(LanguageNames.Video)));
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.Anime, _resourceToolkit.GetLocaleString(LanguageNames.Anime)));
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.Live, _resourceToolkit.GetLocaleString(LanguageNames.Live)));
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.User, _resourceToolkit.GetLocaleString(LanguageNames.User)));
-            Items.Add(new SearchModuleItemViewModel(SearchModuleType.Movie, _resourceToolkit.GetLocaleString(LanguageNames.Movie)));
+            Items.Add(GetModuleItemViewModel(SearchModuleType.Video, _resourceToolkit.GetLocaleString(LanguageNames.Video)));
+            Items.Add(GetModuleItemViewModel(SearchModuleType.Anime, _resourceToolkit.GetLocaleString(LanguageNames.Anime)));
+            Items.Add(GetModuleItemViewModel(SearchModuleType.Live, _resourceToolkit.GetLocaleString(LanguageNames.Live)));
+            Items.Add(GetModuleItemViewModel(SearchModuleType.User, _resourceToolkit.GetLocaleString(LanguageNames.User)));
+            Items.Add(GetModuleItemViewModel(SearchModuleType.Movie, _resourceToolkit.GetLocaleString(LanguageNames.Movie)));
 
             if (!_appViewModel.IsXbox)
             {
-                Items.Add(new SearchModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
+                Items.Add(GetModuleItemViewModel(SearchModuleType.Article, _resourceToolkit.GetLocaleString(LanguageNames.SpecialColumn)));
             }
         }
 
@@ -223,6 +223,13 @@ namespace Bili.ViewModels.Uwp.Search
             IsArticleModuleShown = CurrentModule.Type == SearchModuleType.Article;
             IsLiveModuleShown = CurrentModule.Type == SearchModuleType.Live;
             IsUserModuleShown = CurrentModule.Type == SearchModuleType.User;
+        }
+
+        private ISearchModuleItemViewModel GetModuleItemViewModel(SearchModuleType type, string title, bool isEnabled = true)
+        {
+            var vm = Locator.Current.GetService<ISearchModuleItemViewModel>();
+            vm.SetData(type, title, isEnabled);
+            return vm;
         }
     }
 }

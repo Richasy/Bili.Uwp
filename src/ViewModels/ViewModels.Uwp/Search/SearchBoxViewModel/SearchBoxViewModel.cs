@@ -7,8 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Search;
 using ReactiveUI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Search
     /// <summary>
     /// 搜索框视图模型.
     /// </summary>
-    public sealed partial class SearchBoxViewModel : ViewModelBase, IInitializeViewModel
+    public sealed partial class SearchBoxViewModel : ViewModelBase, ISearchBoxViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchBoxViewModel"/> class.

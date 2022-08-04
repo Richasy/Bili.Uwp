@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
-
+using Bili.ViewModels.Interfaces.Search;
+using Splat;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -32,7 +33,7 @@ namespace Bili.ViewModels.Uwp.Search
             }
             else
             {
-                _filters.Add(type, new List<SearchFilterViewModel>());
+                _filters.Add(type, new List<ISearchFilterViewModel>());
             }
         }
 
@@ -62,10 +63,10 @@ namespace Bili.ViewModels.Uwp.Search
             partitionConditions.Insert(0, new Condition(_resourceToolkit.GetLocaleString(LanguageNames.Total), "0"));
             var partitionFilter = new Filter("分区", PartitionId, partitionConditions);
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var durationVM = new SearchFilterViewModel(durationFilter);
-            var partitionVM = new SearchFilterViewModel(partitionFilter);
-            _filters.Add(SearchModuleType.Video, new List<SearchFilterViewModel> { orderVM, durationVM, partitionVM });
+            var orderVM = GetFilterViewModel(orderFilter);
+            var durationVM = GetFilterViewModel(durationFilter);
+            var partitionVM = GetFilterViewModel(partitionFilter);
+            _filters.Add(SearchModuleType.Video, new List<ISearchFilterViewModel> { orderVM, durationVM, partitionVM });
         }
 
         private async Task InitializeArticleFiltersAsync()
@@ -85,9 +86,9 @@ namespace Bili.ViewModels.Uwp.Search
                 .ToList();
             var partitionFilter = new Filter("分区", PartitionId, partitionConditions);
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var partitionVM = new SearchFilterViewModel(partitionFilter);
-            _filters.Add(SearchModuleType.Article, new List<SearchFilterViewModel> { orderVM, partitionVM });
+            var orderVM = GetFilterViewModel(orderFilter);
+            var partitionVM = GetFilterViewModel(partitionFilter);
+            _filters.Add(SearchModuleType.Article, new List<ISearchFilterViewModel> { orderVM, partitionVM });
         }
 
         private void InitializeUserFilters()
@@ -109,9 +110,16 @@ namespace Bili.ViewModels.Uwp.Search
                 new Condition(_resourceToolkit.GetLocaleString(LanguageNames.OfficialUser), "3"),
             });
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var typeVM = new SearchFilterViewModel(typeFilter);
-            _filters.Add(SearchModuleType.User, new List<SearchFilterViewModel> { orderVM, typeVM });
+            var orderVM = GetFilterViewModel(orderFilter);
+            var typeVM = GetFilterViewModel(typeFilter);
+            _filters.Add(SearchModuleType.User, new List<ISearchFilterViewModel> { orderVM, typeVM });
+        }
+
+        private ISearchFilterViewModel GetFilterViewModel(Filter filter, Condition condition = null)
+        {
+            var vm = Locator.Current.GetService<ISearchFilterViewModel>();
+            vm.SetData(filter, condition);
+            return vm;
         }
     }
 }
