@@ -4,7 +4,6 @@ using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Appearance;
 using Bili.ViewModels.Interfaces.Search;
-using Bili.ViewModels.Uwp.Search;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -39,7 +38,7 @@ namespace Bili.App.Pages.Xbox.Overlay
 
         private void OnNavItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var item = args.InvokedItem as SearchModuleItemViewModel;
+            var item = args.InvokedItem as ISearchModuleItemViewModel;
             if (item != ViewModel.CurrentModule)
             {
                 ViewModel.SelectModuleCommand.Execute(item).Subscribe();

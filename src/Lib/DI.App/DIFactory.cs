@@ -115,6 +115,7 @@ namespace Bili.DI.App
             SplatRegistrations.Register<IVideoFavoriteFolderViewModel, VideoFavoriteFolderViewModel>();
             SplatRegistrations.Register<IVideoFavoriteFolderGroupViewModel, VideoFavoriteFolderGroupViewModel>();
             SplatRegistrations.Register<ISearchFilterViewModel, SearchFilterViewModel>();
+            SplatRegistrations.Register<ISearchModuleItemViewModel, SearchModuleItemViewModel>();
 
             SplatRegistrations.Register<IIndexFilterViewModel, IndexFilterViewModel>();
             SplatRegistrations.Register<IPgcRankViewModel, PgcRankViewModel>();
@@ -173,8 +174,8 @@ namespace Bili.DI.App
             SplatRegistrations.RegisterLazySingleton<LiveFeedPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<SearchBoxViewModel>();
-            SplatRegistrations.RegisterLazySingleton<SearchPageViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ISearchBoxViewModel, SearchBoxViewModel>();
+            SplatRegistrations.RegisterLazySingleton<ISearchPageViewModel, SearchPageViewModel>();
             SplatRegistrations.RegisterLazySingleton<LivePlayerPageViewModel>();
 
             SplatRegistrations.SetupIOC();

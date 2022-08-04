@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Uwp.Search;
+using Bili.ViewModels.Interfaces.Search;
 
 namespace Bili.App.Pages.Xbox
 {
@@ -48,7 +48,7 @@ namespace Bili.App.Pages.Xbox
     /// <summary>
     /// <see cref="PreSearchPage"/> 的基类.
     /// </summary>
-    public class PreSearchPageBase : AppPage<SearchBoxViewModel>
+    public class PreSearchPageBase : AppPage<ISearchBoxViewModel>
     {
     }
 }

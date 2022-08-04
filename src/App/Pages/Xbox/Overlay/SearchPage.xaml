@@ -12,7 +12,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:search="using:Bili.ViewModels.Interfaces.Search"
-    xmlns:search1="using:Bili.ViewModels.Uwp.Search"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -52,10 +51,10 @@
             OpenPaneLength="120"
             SelectedItem="{x:Bind ViewModel.CurrentModule, Mode=OneWay}">
             <muxc:NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="search1:SearchModuleItemViewModel">
+                <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
                     <muxc:NavigationViewItem Content="{x:Bind}" IsEnabled="{x:Bind IsEnabled, Mode=OneWay}">
                         <muxc:NavigationViewItem.ContentTemplate>
-                            <DataTemplate x:DataType="search1:SearchModuleItemViewModel">
+                            <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
                                 <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
                             </DataTemplate>
                         </muxc:NavigationViewItem.ContentTemplate>

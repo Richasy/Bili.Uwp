@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Search;
+using Splat;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -62,9 +63,9 @@ namespace Bili.ViewModels.Uwp.Search
             partitionConditions.Insert(0, new Condition(_resourceToolkit.GetLocaleString(LanguageNames.Total), "0"));
             var partitionFilter = new Filter("分区", PartitionId, partitionConditions);
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var durationVM = new SearchFilterViewModel(durationFilter);
-            var partitionVM = new SearchFilterViewModel(partitionFilter);
+            var orderVM = GetFilterViewModel(orderFilter);
+            var durationVM = GetFilterViewModel(durationFilter);
+            var partitionVM = GetFilterViewModel(partitionFilter);
             _filters.Add(SearchModuleType.Video, new List<ISearchFilterViewModel> { orderVM, durationVM, partitionVM });
         }
 
@@ -85,8 +86,8 @@ namespace Bili.ViewModels.Uwp.Search
                 .ToList();
             var partitionFilter = new Filter("分区", PartitionId, partitionConditions);
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var partitionVM = new SearchFilterViewModel(partitionFilter);
+            var orderVM = GetFilterViewModel(orderFilter);
+            var partitionVM = GetFilterViewModel(partitionFilter);
             _filters.Add(SearchModuleType.Article, new List<ISearchFilterViewModel> { orderVM, partitionVM });
         }
 
@@ -109,9 +110,16 @@ namespace Bili.ViewModels.Uwp.Search
                 new Condition(_resourceToolkit.GetLocaleString(LanguageNames.OfficialUser), "3"),
             });
 
-            var orderVM = new SearchFilterViewModel(orderFilter);
-            var typeVM = new SearchFilterViewModel(typeFilter);
+            var orderVM = GetFilterViewModel(orderFilter);
+            var typeVM = GetFilterViewModel(typeFilter);
             _filters.Add(SearchModuleType.User, new List<ISearchFilterViewModel> { orderVM, typeVM });
+        }
+
+        private ISearchFilterViewModel GetFilterViewModel(Filter filter, Condition condition = null)
+        {
+            var vm = Locator.Current.GetService<ISearchFilterViewModel>();
+            vm.SetData(filter, condition);
+            return vm;
         }
     }
 }
