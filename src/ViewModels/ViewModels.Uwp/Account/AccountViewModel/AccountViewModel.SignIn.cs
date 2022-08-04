@@ -49,13 +49,16 @@ namespace Bili.ViewModels.Uwp.Account
 
         private void HandleLogged()
         {
-            if (State != AuthorizeState.SignedIn)
+            if (State == AuthorizeState.SignedIn)
             {
                 LoadMyProfileCommand.Execute().Subscribe(async _ =>
                 {
-                    IsConnected = true;
-                    await InitializeFixedItemAsync();
-                    State = AuthorizeState.SignedIn;
+                    await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    {
+                        IsConnected = true;
+                        await InitializeFixedItemAsync();
+                        State = AuthorizeState.SignedIn;
+                    });
                 });
             }
         }
