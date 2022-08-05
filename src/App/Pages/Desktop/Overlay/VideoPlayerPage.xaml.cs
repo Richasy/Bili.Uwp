@@ -44,6 +44,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            RootGrid.Children.Clear();
             ViewModel.ClearCommand.Execute().Subscribe();
             ViewModel.ClearPlaylistCommand.Execute().Subscribe();
         }

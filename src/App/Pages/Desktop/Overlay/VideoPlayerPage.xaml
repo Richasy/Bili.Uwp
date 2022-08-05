@@ -134,7 +134,7 @@
         </Flyout>
     </base:VideoPlayerPageBase.Resources>
 
-    <Grid>
+    <Grid x:Name="RootGrid">
         <player:PlayerPagePanel
             IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
             IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"

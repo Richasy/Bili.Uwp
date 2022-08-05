@@ -72,7 +72,6 @@ namespace Bili.ViewModels.Uwp.Video
 
             DownloadViewModel = downloadViewModel;
 
-            ReloadMediaPlayer();
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
@@ -111,6 +110,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <inheritdoc/>
         public void SetSnapshot(PlaySnapshot snapshot)
         {
+            ReloadMediaPlayer();
             _presetVideoId = snapshot.VideoId;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
@@ -120,6 +120,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <inheritdoc/>
         public void SetPlaylist(IEnumerable<VideoInformation> videos, int playIndex = 0)
         {
+            ReloadMediaPlayer();
             TryClear(VideoPlaylist);
             foreach (var item in videos)
             {
@@ -171,6 +172,7 @@ namespace Bili.ViewModels.Uwp.Video
                 MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
                 MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
                 MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+                MediaPlayerViewModel = null;
             }
         }
 

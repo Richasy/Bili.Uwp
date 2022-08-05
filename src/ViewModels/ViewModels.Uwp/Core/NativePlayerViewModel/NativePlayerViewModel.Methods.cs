@@ -246,8 +246,14 @@ namespace Bili.ViewModels.Uwp.Core
                 _liveStream = null;
             }
 
+            _videoPlayer.MediaOpened -= OnMediaPlayerOpened;
+            _videoPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
+            _videoPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
+            _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+
             _videoPlayer.Source = null;
             _videoPlayer = null;
+            MediaPlayerChanged?.Invoke(this, null);
         }
     }
 }

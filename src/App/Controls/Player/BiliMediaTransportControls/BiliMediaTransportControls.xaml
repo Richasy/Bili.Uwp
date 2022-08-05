@@ -54,7 +54,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaTransportControls">
-                    <Grid>
+                    <Grid x:Name="RootGird">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="PlayPauseStateGroup">
                                 <VisualState x:Name="PlayingState">
@@ -529,7 +529,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaTransportControls">
-                    <Grid>
+                    <Grid x:Name="RootGrid">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="PlayPauseStateGroup">
                                 <VisualState x:Name="PlayingState">
@@ -860,7 +860,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaTransportControls">
-                    <Grid>
+                    <Grid x:Name="RootGrid">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="PlayPauseStateGroup">
                                 <VisualState x:Name="PlayingState">
@@ -1167,7 +1167,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaTransportControls">
-                    <Grid>
+                    <Grid x:Name="RootGrid">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="PlayPauseStateGroup">
                                 <VisualState x:Name="PlayingState">
