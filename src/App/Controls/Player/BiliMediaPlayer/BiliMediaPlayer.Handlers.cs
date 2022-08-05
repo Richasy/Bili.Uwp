@@ -89,7 +89,11 @@ namespace Bili.App.Controls.Player
             }
             else
             {
-                _mediaPlayerElement.SetMediaPlayer(null);
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    _mediaPlayerElement.MediaPlayer?.Dispose();
+                    _mediaPlayerElement.SetMediaPlayer(null);
+                });
             }
         }
 

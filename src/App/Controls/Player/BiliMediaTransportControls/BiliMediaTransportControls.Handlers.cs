@@ -54,7 +54,7 @@ namespace Bili.App.Controls.Player
             _volumeSlider = null;
             _playPauseButton = null;
             _danmakuBox = null;
-            _rootGrid.Children.Clear();
+            _rootGrid?.Children?.Clear();
             _rootGrid = null;
         }
 

@@ -252,7 +252,6 @@ namespace Bili.ViewModels.Uwp.Core
             _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
 
             _videoPlayer.Source = null;
-            _videoPlayer.Dispose();
             _videoPlayer = null;
             MediaPlayerChanged?.Invoke(this, null);
         }

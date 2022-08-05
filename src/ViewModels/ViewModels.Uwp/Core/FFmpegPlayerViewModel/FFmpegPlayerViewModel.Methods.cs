@@ -320,11 +320,6 @@ namespace Bili.ViewModels.Uwp.Core
                 return;
             }
 
-            _videoHttpClient?.Dispose();
-            _videoHttpClient = null;
-            _audioHttpClient?.Dispose();
-            _audioHttpClient = null;
-
             if (mediaPlayer.TimelineController != null)
             {
                 mediaPlayer.TimelineController = null;
@@ -339,8 +334,6 @@ namespace Bili.ViewModels.Uwp.Core
             stream = null;
 
             mediaPlayer.Source = null;
-            mediaPlayer?.Dispose();
-            mediaPlayer = null;
         }
 
         private void Clear()
@@ -363,11 +356,20 @@ namespace Bili.ViewModels.Uwp.Core
             _videoPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
             _videoPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
             _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+            _audioPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+
+            _videoHttpClient?.Dispose();
+            _videoHttpClient = null;
+            _audioHttpClient?.Dispose();
+            _audioHttpClient = null;
 
             ClearMediaPlayerData(ref _videoPlayer, ref _videoPlaybackItem, ref _videoFFSource, ref _videoStream);
             ClearMediaPlayerData(ref _audioPlayer, ref _audioPlaybackItem, ref _audioFFSource, ref _audioStream);
 
             Status = PlayerStatus.NotLoad;
+            _audioPlayer?.Dispose();
+            _audioPlayer = null;
+            _videoPlayer = null;
             MediaPlayerChanged?.Invoke(this, null);
         }
 
