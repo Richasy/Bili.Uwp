@@ -49,6 +49,17 @@ namespace Bili.App.Controls.Player
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+
+            _interactionControl.Tapped -= OnInteractionControlTapped;
+            _interactionControl.DoubleTapped -= OnInteractionControlDoubleTapped;
+            _interactionControl.ManipulationStarted -= OnInteractionControlManipulationStarted;
+            _interactionControl.ManipulationDelta -= OnInteractionControlManipulationDelta;
+            _interactionControl.ManipulationCompleted -= OnInteractionControlManipulationCompleted;
+            _interactionControl.PointerPressed -= OnInteractionControlPointerPressed;
+            _interactionControl.PointerMoved -= OnInteractionControlPointerMoved;
+            _interactionControl.PointerReleased -= OnInteractionControlPointerReleased;
+            _interactionControl.PointerCanceled -= OnInteractionControlPointerCanceled;
+            _gestureRecognizer.Holding -= OnGestureRecognizerHolding;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -69,10 +80,17 @@ namespace Bili.App.Controls.Player
 
         private async void OnMediaPlayerChangedAsync(object sender, object e)
         {
-            _mediaPlayerElement.SetMediaPlayer(e as MediaPlayer);
+            if(e is MediaPlayer mp)
+            {
+                _mediaPlayerElement.SetMediaPlayer(mp);
 
-            await Task.Delay(200);
-            await _danmakuView?.RedrawAsync();
+                await Task.Delay(200);
+                await _danmakuView?.RedrawAsync();
+            }
+            else
+            {
+                _mediaPlayerElement.SetMediaPlayer(null);
+            }
         }
 
         private void OnInteractionControlTapped(object sender, TappedRoutedEventArgs e)

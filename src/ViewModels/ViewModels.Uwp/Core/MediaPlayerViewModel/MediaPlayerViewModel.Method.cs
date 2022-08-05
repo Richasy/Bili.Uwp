@@ -333,12 +333,7 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         private void OnMediaPlayerChanged(object sender, object e)
-        {
-            if (e is MediaPlayer mp)
-            {
-                MediaPlayerChanged?.Invoke(this, mp);
-            }
-        }
+            => MediaPlayerChanged?.Invoke(this, e);
 
         private void OnMediaOpened(object sender, EventArgs e)
         {

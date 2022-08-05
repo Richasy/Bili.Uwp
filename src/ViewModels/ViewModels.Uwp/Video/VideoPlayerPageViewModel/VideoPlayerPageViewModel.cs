@@ -171,6 +171,7 @@ namespace Bili.ViewModels.Uwp.Video
                 MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
                 MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
                 MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+                MediaPlayerViewModel = null;
             }
         }
 

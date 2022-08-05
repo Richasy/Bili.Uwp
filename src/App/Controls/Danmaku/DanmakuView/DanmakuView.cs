@@ -104,6 +104,8 @@ namespace Bili.App.Controls.Danmaku
         {
             Close();
             ViewModel.PropertyChanged -= OnViewModelProeprtyChangedAsync;
+            ViewModel.LiveDanmakuAdded -= OnLiveDanmakuAdded;
+            ViewModel.SendDanmakuSucceeded -= OnSendDanmakuSucceeded;
         }
 
         private async void OnViewModelProeprtyChangedAsync(object sender, PropertyChangedEventArgs e)

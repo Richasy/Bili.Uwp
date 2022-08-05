@@ -41,6 +41,7 @@ namespace Bili.App.Controls.Player
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
             _danmakuBox = GetTemplateChild(DanmakuBoxName) as DanmakuBox;
+            _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
             if (_formatListView != null)
             {

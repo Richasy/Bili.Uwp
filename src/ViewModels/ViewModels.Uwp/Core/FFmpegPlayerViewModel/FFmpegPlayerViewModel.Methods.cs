@@ -313,7 +313,7 @@ namespace Bili.ViewModels.Uwp.Core
             return controller;
         }
 
-        private void ClearMediaPlayerData(MediaPlayer mediaPlayer, MediaPlaybackItem playback, FFmpegMediaSource source, HttpRandomAccessStream stream)
+        private void ClearMediaPlayerData(ref MediaPlayer mediaPlayer, ref MediaPlaybackItem playback, ref FFmpegMediaSource source, ref HttpRandomAccessStream stream)
         {
             if (mediaPlayer == null)
             {
@@ -332,10 +332,14 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             playback?.Source?.Dispose();
+            playback = null;
             source?.Dispose();
+            source = null;
             stream?.Dispose();
+            stream = null;
 
             mediaPlayer.Source = null;
+            mediaPlayer?.Dispose();
             mediaPlayer = null;
         }
 
@@ -354,10 +358,17 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             _videoCurrentSession = null;
-            ClearMediaPlayerData(_videoPlayer, _videoPlaybackItem, _videoFFSource, _videoStream);
-            ClearMediaPlayerData(_audioPlayer, _audioPlaybackItem, _audioFFSource, _audioStream);
+
+            _videoPlayer.MediaOpened -= OnMediaPlayerOpened;
+            _videoPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
+            _videoPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
+            _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+
+            ClearMediaPlayerData(ref _videoPlayer, ref _videoPlaybackItem, ref _videoFFSource, ref _videoStream);
+            ClearMediaPlayerData(ref _audioPlayer, ref _audioPlaybackItem, ref _audioFFSource, ref _audioStream);
 
             Status = PlayerStatus.NotLoad;
+            MediaPlayerChanged?.Invoke(this, null);
         }
 
         private void TryReconnectPlayer(MediaPlayer player)

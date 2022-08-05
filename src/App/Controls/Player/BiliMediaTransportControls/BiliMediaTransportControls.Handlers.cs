@@ -38,7 +38,25 @@ namespace Bili.App.Controls.Player
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
-            => ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        {
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            if (_formatListView != null)
+            {
+                _formatListView.SelectionChanged -= OnFormatListViewSelectionChanged;
+            }
+
+            if (_volumeSlider != null)
+            {
+                _volumeSlider.ValueChanged -= OnVolumeSliderValueChanged;
+            }
+
+            _formatListView = null;
+            _volumeSlider = null;
+            _playPauseButton = null;
+            _danmakuBox = null;
+            _rootGrid.Children.Clear();
+            _rootGrid = null;
+        }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -14,10 +14,12 @@ namespace Bili.App.Controls.Player
         private const string FormatListViewName = "FormatListView";
         private const string PlayPauseButtonName = "PlayPauseButton";
         private const string DanmakuBoxName = "DanmakuBox";
+        private const string RootGridName = "RootGrid";
 
         private Slider _volumeSlider;
         private ListView _formatListView;
         private Button _playPauseButton;
         private DanmakuBox _danmakuBox;
+        private Grid _rootGrid;
     }
 }
