@@ -209,7 +209,7 @@
       <Version>2.9.1</Version>
     </PackageReference>
     <PackageReference Include="FFmpegInteropX">
-      <Version>1.0.1</Version>
+      <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="Humanizer.Core.zh-CN">
       <Version>2.14.1</Version>

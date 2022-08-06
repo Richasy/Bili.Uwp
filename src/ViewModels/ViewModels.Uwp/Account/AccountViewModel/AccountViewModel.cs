@@ -13,7 +13,6 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
@@ -34,7 +33,6 @@ namespace Bili.ViewModels.Uwp.Account
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
             IAccountProvider accountProvider,
-            IAppViewModel appViewModel,
             CoreDispatcher dispatcher)
         {
             _resourceToolkit = resourceToolkit;
@@ -42,7 +40,6 @@ namespace Bili.ViewModels.Uwp.Account
             _fileToolkit = fileToolkit;
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
-            _appViewModel = appViewModel;
             _dispatcher = dispatcher;
 
             TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync);
@@ -110,8 +107,7 @@ namespace Bili.ViewModels.Uwp.Account
         {
             try
             {
-                if (_appViewModel.IsNetworkAvaliable
-                    && await _authorizeProvider.IsTokenValidAsync())
+                if (await _authorizeProvider.IsTokenValidAsync())
                 {
                     AccountInformation = await _accountProvider.GetMyInformationAsync();
                     IsConnected = true;
