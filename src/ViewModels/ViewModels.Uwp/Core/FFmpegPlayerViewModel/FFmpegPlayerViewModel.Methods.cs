@@ -352,11 +352,18 @@ namespace Bili.ViewModels.Uwp.Core
 
             _videoCurrentSession = null;
 
-            _videoPlayer.MediaOpened -= OnMediaPlayerOpened;
-            _videoPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
-            _videoPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
-            _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
-            _audioPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+            if (_videoPlayer != null)
+            {
+                _videoPlayer.MediaOpened -= OnMediaPlayerOpened;
+                _videoPlayer.CurrentStateChanged -= OnMediaPlayerCurrentStateChangedAsync;
+                _videoPlayer.MediaEnded -= OnMediaPlayerEndedAsync;
+                _videoPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+            }
+
+            if (_audioPlayer != null)
+            {
+                _audioPlayer.MediaFailed -= OnMediaPlayerFailedAsync;
+            }
 
             _videoHttpClient?.Dispose();
             _videoHttpClient = null;

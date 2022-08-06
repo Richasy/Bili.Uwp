@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Account
                     isSuccess = true;
                     HandleLogged();
                 }
-                else if (_appViewModel.IsNetworkAvaliable && !isSlientOnly)
+                else if (!isSlientOnly)
                 {
                     isSuccess = await _authorizeProvider.TrySignInAsync();
                 }
