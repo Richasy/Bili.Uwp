@@ -69,6 +69,14 @@ namespace Bili.ViewModels.Uwp.Core
             }
             else
             {
+                if (_videoPlayer != null
+                    && _videoPlayer.TimelineController == null
+                    && _videoPlayer.PlaybackSession != null
+                    && _videoPlayer.PlaybackSession.CanPause)
+                {
+                    _videoPlayer.Pause();
+                }
+
                 if (_audioPlayer != null
                     && _audioPlayer.TimelineController == null
                     && _audioPlayer.PlaybackSession != null
