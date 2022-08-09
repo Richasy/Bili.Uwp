@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Core
             ResetPlayer();
             ResetMediaData();
             await LoadVideoAsync();
-            StartTimersAndDisplayRequest();
+            StartTimers();
         }
 
         private async Task LoadVideoAsync()
@@ -143,7 +143,7 @@ namespace Bili.ViewModels.Uwp.Core
             try
             {
                 await _player.SetSourceAsync(_video, _audio);
-                StartTimersAndDisplayRequest();
+                StartTimers();
             }
             catch (Exception ex)
             {

@@ -70,11 +70,9 @@ namespace Bili.ViewModels.Uwp.Core
             {
                 _audioPlaybackItem = _audioFFSource.CreateMediaPlaybackItem();
                 _mediaTimelineController = GetTimelineController();
-                _videoPlayer.CommandManager.IsEnabled = false;
                 _videoPlayer.TimelineController = _mediaTimelineController;
 
                 _audioPlayer = GetAudioPlayer();
-                _audioPlayer.CommandManager.IsEnabled = false;
                 _audioPlayer.Source = _audioPlaybackItem;
                 _audioPlayer.TimelineController = _mediaTimelineController;
             }
@@ -141,6 +139,7 @@ namespace Bili.ViewModels.Uwp.Core
             player.CurrentStateChanged += OnMediaPlayerCurrentStateChangedAsync;
             player.MediaEnded += OnMediaPlayerEndedAsync;
             player.MediaFailed += OnMediaPlayerFailedAsync;
+            player.CommandManager.IsEnabled = false;
             return player;
         }
 
@@ -148,6 +147,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             var player = new MediaPlayer();
             player.MediaFailed += OnMediaPlayerFailedAsync;
+            player.CommandManager.IsEnabled = false;
             return player;
         }
 

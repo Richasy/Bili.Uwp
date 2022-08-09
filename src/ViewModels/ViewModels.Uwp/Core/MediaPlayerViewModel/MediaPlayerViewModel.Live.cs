@@ -95,7 +95,7 @@ namespace Bili.ViewModels.Uwp.Core
         private async Task InitializeLivePlayerAsync(string url)
         {
             await _player.SetSourceAsync(url);
-            StartTimersAndDisplayRequest();
+            StartTimers();
         }
 
         private async Task ChangeLiveAudioOnlyAsync(bool isAudioOnly)
