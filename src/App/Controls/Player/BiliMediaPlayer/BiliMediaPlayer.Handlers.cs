@@ -44,8 +44,6 @@ namespace Bili.App.Controls.Player
         {
             _unitTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            ViewModel.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAdded;
-            ViewModel.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
             ViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
