@@ -49,6 +49,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (_systemMediaTransportControls != null)
             {
+                _systemMediaTransportControls.DisplayUpdater.ClearAll();
                 _systemMediaTransportControls.IsEnabled = false;
                 _systemMediaTransportControls = null;
             }
@@ -118,7 +119,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
         }
 
-        private void StartTimersAndDisplayRequest()
+        private void StartTimers()
         {
             _progressTimer?.Start();
             _unitTimer?.Start();
@@ -259,6 +260,7 @@ namespace Bili.ViewModels.Uwp.Core
             }
 
             var updater = _systemMediaTransportControls.DisplayUpdater;
+            updater.ClearAll();
             updater.Type = MediaPlaybackType.Video;
             updater.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(cover));
             updater.VideoProperties.Title = title;
