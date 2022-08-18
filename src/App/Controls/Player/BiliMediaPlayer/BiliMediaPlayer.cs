@@ -41,6 +41,11 @@ namespace Bili.App.Controls.Player
             vm.IsShowMediaTransport = true;
             vm.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
             vm.MediaPlayerChanged += OnMediaPlayerChangedAsync;
+
+            vm.DanmakuViewModel.DanmakuListAdded -= OnDanmakuListAdded;
+            vm.DanmakuViewModel.RequestClearDanmaku -= OnRequestClearDanmaku;
+            vm.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
+            vm.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
         }
 
         /// <inheritdoc/>
