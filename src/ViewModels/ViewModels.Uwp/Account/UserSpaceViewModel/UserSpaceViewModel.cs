@@ -61,7 +61,20 @@ namespace Bili.ViewModels.Uwp.Account
 
             this.WhenAnyValue(p => p.Keyword)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x => IsSearchMode = !string.IsNullOrEmpty(x));
+                .Subscribe(x =>
+                {
+                    var isSearchMode = !string.IsNullOrEmpty(x);
+                    ClearSearchData();
+                    TryClear(SearchVideos);
+                    if (isSearchMode && !IsSearchMode)
+                    {
+                        EnterSearchMode();
+                    }
+                    else if (!isSearchMode && IsSearchMode)
+                    {
+                        ExitSearchMode();
+                    }
+                });
         }
 
         /// <inheritdoc/>
@@ -80,7 +93,6 @@ namespace Bili.ViewModels.Uwp.Account
             _isSpaceVideoFinished = false;
             IsSpaceVideoEmpty = false;
             ExitSearchMode();
-            _accountProvider.ResetSpaceSearchStatus();
             _accountProvider.ResetSpaceVideoStatus();
         }
 
@@ -120,23 +132,21 @@ namespace Bili.ViewModels.Uwp.Account
             => $"{_resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.RequestUserInformationFailed)}\n{errorMsg}";
 
         private void EnterSearchMode()
-        {
-            IsSearchMode = true;
-            ClearSearchData();
-        }
+            => IsSearchMode = true;
 
         private void ExitSearchMode()
         {
             IsSearchMode = false;
+            Keyword = string.Empty;
             ClearSearchData();
         }
 
         private void ClearSearchData()
         {
-            Keyword = string.Empty;
             _requestKeyword = string.Empty;
             _isSearchVideoFinished = false;
             IsSearchVideoEmpty = false;
+            _accountProvider.ResetSpaceSearchStatus();
             TryClear(SearchVideos);
         }
 
@@ -148,6 +158,11 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task RequestSearchVideosAsync()
         {
+            if (string.IsNullOrEmpty(_requestKeyword))
+            {
+                return;
+            }
+
             var data = await _accountProvider.SearchUserSpaceVideoAsync(_userProfile.Id, _requestKeyword);
             LoadVideoSet(data);
         }
