@@ -6,6 +6,7 @@ using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
@@ -42,6 +43,10 @@ namespace Bili.ViewModels.Uwp.Article
         /// <inheritdoc/>
         [Reactive]
         public ArticleInformation Data { get; set; }
+
+        /// <inheritdoc/>
+        [Reactive]
+        public IUserItemViewModel Publisher { get; set; }
 
         /// <inheritdoc/>
         [Reactive]

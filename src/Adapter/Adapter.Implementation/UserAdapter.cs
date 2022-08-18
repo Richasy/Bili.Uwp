@@ -154,7 +154,9 @@ namespace Bili.Adapter
         public UserProfile ConvertToUserProfile(long userId, string userName, string avatar, AvatarSize avatarSize)
         {
             var size = int.Parse(avatarSize.ToString().Replace("Size", string.Empty));
-            var image = _imageAdapter.ConvertToImage(avatar, size, size);
+            var image = string.IsNullOrEmpty(avatar)
+                ? default
+                : _imageAdapter.ConvertToImage(avatar, size, size);
             var profile = new UserProfile(userId.ToString(), userName, image);
             return profile;
         }

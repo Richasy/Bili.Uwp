@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Article
@@ -98,6 +100,9 @@ namespace Bili.ViewModels.Uwp.Article
         private void InitializeData()
         {
             IsShowCommunity = Data.CommunityInformation != null;
+            var userVM = Locator.Current.GetService<IUserItemViewModel>();
+            userVM.SetProfile(Data.Publisher);
+            Publisher = userVM;
             if (IsShowCommunity)
             {
                 ViewCountText = _numberToolkit.GetCountText(Data.CommunityInformation.ViewCount);
