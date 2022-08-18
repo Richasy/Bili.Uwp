@@ -9,6 +9,14 @@
 
     <MenuFlyout x:Key="DefaultArticleItemContextFlyout">
         <MenuFlyoutItem
+            Command="{Binding Publisher.ShowDetailCommand}"
+            IsEnabled="{Binding Publisher.User, Converter={StaticResource ObjectToBoolConverter}}"
+            Text="{loc:Locale Name=EnterUserSpace}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Person16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+        <MenuFlyoutItem
             x:Name="OpenInBroswerItem"
             AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
@@ -36,6 +44,7 @@
                             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
                             ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
+                            DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel}"
                             IsEnableCheck="False">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -53,25 +62,6 @@
                                         VerticalAlignment="Center"
                                         ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                         Stretch="UniformToFill" />
-                                </Grid>
-
-                                <Grid
-                                    Margin="0,0,12,-18"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                    <Ellipse
-                                        Width="40"
-                                        Height="40"
-                                        Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
-                                    <controls:UserAvatar
-                                        x:Name="VerticalAvatar"
-                                        Width="36"
-                                        Height="36"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Avatar.Uri}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
                                 </Grid>
 
                                 <Grid
@@ -235,8 +225,9 @@
                                             Height="24"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
-                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Avatar.Uri}"
-                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
+                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.ShowDetailCommand}"
+                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             VerticalAlignment="Center"

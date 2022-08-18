@@ -8,6 +8,14 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <MenuFlyout x:Key="DefaultVideoItemContextFlyout">
+        <MenuFlyoutItem
+            Command="{Binding Publisher.ShowDetailCommand}"
+            IsEnabled="{Binding Publisher.User, Converter={StaticResource ObjectToBoolConverter}}"
+            Text="{loc:Locale Name=EnterUserSpace}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Person16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
         <MenuFlyoutItem Command="{Binding AddToViewLaterCommand}" Text="{loc:Locale Name=AddToViewLater}">
             <MenuFlyoutItem.Icon>
                 <icons:RegularFluentIcon Symbol="Add16" />
@@ -86,26 +94,6 @@
                                             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Highlight}" />
                                     </Grid>
-                                </Grid>
-
-                                <Grid
-                                    Margin="0,0,12,-18"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom"
-                                    Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
-                                    <Ellipse
-                                        Width="40"
-                                        Height="40"
-                                        Fill="{ThemeResource ControlOnImageFillColorDefaultBrush}" />
-                                    <controls:UserAvatar
-                                        x:Name="VerticalAvatar"
-                                        Width="36"
-                                        Height="36"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
-                                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.ShowDetailCommand}"
-                                        UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
                                 </Grid>
 
                                 <Grid

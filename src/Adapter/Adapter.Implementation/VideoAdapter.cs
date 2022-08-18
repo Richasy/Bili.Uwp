@@ -198,6 +198,7 @@ namespace Bili.Adapter
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(hotVideo);
             var highlight = hotVideo.SmallCoverV5.RcmdReasonStyle?.Text ?? string.Empty;
             highlight = _textToolkit.ConvertToTraditionalChineseIfNeeded(highlight);
+            var publisher = _userAdapter.ConvertToUserProfile(shareInfo.AuthorId, shareInfo.Author, string.Empty, Models.Enums.App.AvatarSize.Size48);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
 

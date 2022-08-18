@@ -3,6 +3,7 @@
 using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Models.Data.Article;
+using Bili.ViewModels.Interfaces.Account;
 using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Article
@@ -46,6 +47,11 @@ namespace Bili.ViewModels.Interfaces.Article
         /// 是否显示社区信息.
         /// </summary>
         bool IsShowCommunity { get; }
+
+        /// <summary>
+        /// 发布者.
+        /// </summary>
+        IUserItemViewModel Publisher { get; }
 
         /// <summary>
         /// 获取文章详情内容.

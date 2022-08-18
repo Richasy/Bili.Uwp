@@ -539,6 +539,7 @@ namespace Bili.Models.Enums
         PlayerTypeDescription,
         HDFirst,
         PreferQuality,
+        EnterUserSpace,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

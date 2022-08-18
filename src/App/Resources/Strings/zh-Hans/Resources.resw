@@ -517,6 +517,9 @@ UGC优先级：分P &gt; 播放列表 &gt; 合集视频 &gt; 关联视频 (如�
   <data name="EnterToEffect" xml:space="preserve">
     <value>按下回车以生效</value>
   </data>
+  <data name="EnterUserSpace" xml:space="preserve">
+    <value>进入用户空间</value>
+  </data>
   <data name="Episodes" xml:space="preserve">
     <value>分集</value>
   </data>
