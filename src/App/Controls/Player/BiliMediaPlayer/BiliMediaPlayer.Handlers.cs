@@ -44,10 +44,6 @@ namespace Bili.App.Controls.Player
         {
             _unitTimer.Stop();
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
-            ViewModel.MediaPlayerChanged -= OnMediaPlayerChangedAsync;
-            ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
-            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-
             _interactionControl.Tapped -= OnInteractionControlTapped;
             _interactionControl.DoubleTapped -= OnInteractionControlDoubleTapped;
             _interactionControl.ManipulationStarted -= OnInteractionControlManipulationStarted;
@@ -63,9 +59,10 @@ namespace Bili.App.Controls.Player
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
+            _danmakuView?.ClearAll();
             _isForceHiddenTransportControls = true;
-            ViewModel.DanmakuViewModel.DanmakuListAdded += OnDanmakuListAdded;
-            ViewModel.DanmakuViewModel.RequestClearDanmaku += OnRequestClearDanmaku;
+            ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             ViewModel.RequestShowTempMessage += OnRequestShowTempMessage;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
