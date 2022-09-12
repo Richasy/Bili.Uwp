@@ -167,11 +167,6 @@ namespace Atelier39
             _borderColor = color;
         }
 
-        public void SetSubtitleEnabled(bool enable)
-        {
-            _isSubtitleEnabled = enable;
-        }
-
         public void SetNoOverlapSubtitle(bool value)
         {
             _noOverlapSubtitle = value;
@@ -547,16 +542,6 @@ namespace Atelier39
                     Start();
                 }
             }
-        }
-
-        public void SetLayerRenderState(uint layerId, bool render)
-        {
-            _renderLayerList[layerId].IsEnabled = render;
-        }
-
-        public void SetSubtitleLayer(uint layerId)
-        {
-            _renderLayerList[layerId].SetSubtitleLayer(true);
         }
 
         public void ClearLayer(uint layerId)
@@ -1183,11 +1168,6 @@ namespace Atelier39
                     RenderList.Clear();
                 }
                 YSlotManager.Clear();
-            }
-
-            public void SetSubtitleLayer(bool isSubtitleLayer)
-            {
-                IsSubtitleLayer = isSubtitleLayer;
             }
         }
     }

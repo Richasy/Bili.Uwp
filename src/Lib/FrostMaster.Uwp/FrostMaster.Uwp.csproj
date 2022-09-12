@@ -120,7 +120,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssParser.cs" />
     <Compile Include="BaseTypeDef.cs" />
     <Compile Include="BilibiliDanmakuXmlParser.cs" />
     <Compile Include="DanmakuFrostMaster.cs" />

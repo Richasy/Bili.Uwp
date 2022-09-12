@@ -156,25 +156,10 @@ namespace Atelier39
             }
         }
 
-        public void Restart()
-        {
-            Seek(0);
-        }
-
         public void SetRenderState(bool renderDanmaku, bool renderSubtitle)
         {
             _isRenderEnabled = renderDanmaku || renderSubtitle;
             _render.SetRenderState(renderDanmaku, renderSubtitle);
-        }
-
-        public void SetLayerRenderState(uint layerId, bool render)
-        {
-            _render.SetLayerRenderState(layerId, render);
-        }
-
-        public void SetSubtitleLayer(uint layerId)
-        {
-            _render.SetSubtitleLayer(layerId);
         }
 
         public void Seek(uint targetMs)
@@ -263,9 +248,6 @@ namespace Atelier39
             }
         }
 
-        public List<DanmakuItem> GetDanmakuList()
-            => _danmakuList;
-
         /// <param name="danmakuList">Must be pre-ordered by StartMs</param>
         public void SetDanmakuList(List<DanmakuItem> danmakuList)
         {
@@ -284,65 +266,6 @@ namespace Atelier39
                 var items = danmakuList.Where(p => !_danmakuList.Any(v => v.Id == p.Id));
                 _danmakuList.AddRange(items);
             }
-        }
-
-        /// <param name="subtitleList">Must be pre-ordered by StartMs</param>
-        public void SetSubtitleList(IList<DanmakuItem> subtitleList)
-        {
-            _render.ClearLayer(DanmakuDefaultLayerDef.SubtitleLayerId);
-            lock (_danmakuList)
-            {
-                for (int i = _danmakuList.Count - 1; i >= 0; i--)
-                {
-                    if (_danmakuList[i].Mode == DanmakuMode.Subtitle)
-                    {
-                        _danmakuList.RemoveAt(i);
-                    }
-                }
-
-                if (subtitleList.Count > 0)
-                {
-                    _hasSubtitle = true;
-
-                    int index1 = 0, index2 = 0;
-                    while (index1 < _danmakuList.Count && index2 < subtitleList.Count)
-                    {
-                        if (_danmakuList[index1].StartMs > subtitleList[index2].StartMs)
-                        {
-                            _danmakuList.Insert(index1, subtitleList[index2]);
-                            if (_lastTimeMs > 0 && subtitleList[index2].StartMs < _lastTimeMs && subtitleList[index2].StartMs + subtitleList[index2].DurationMs > _lastTimeMs)
-                            {
-                                _render.RenderDanmakuItem(DanmakuDefaultLayerDef.SubtitleLayerId, subtitleList[index2]);
-                            }
-                            index2++;
-                        }
-                        index1++;
-                    }
-                    if (index1 == _danmakuList.Count && index2 < subtitleList.Count)
-                    {
-                        for (; index2 < subtitleList.Count; index2++)
-                        {
-                            _danmakuList.Add(subtitleList[index2]);
-                            if (_lastTimeMs > 0 && subtitleList[index2].StartMs < _lastTimeMs && subtitleList[index2].StartMs + subtitleList[index2].DurationMs > _lastTimeMs)
-                            {
-                                _render.RenderDanmakuItem(DanmakuDefaultLayerDef.SubtitleLayerId, subtitleList[index2]);
-                            }
-                        }
-                    }
-
-                    if (_lastIndex >= _danmakuList.Count)
-                    {
-                        _lastIndex = _danmakuList.Count - 1;
-                    }
-                }
-            }
-        }
-
-        public static List<string> GetSystemFontFamilyList()
-        {
-            List<string> fontList = CanvasTextFormat.GetSystemFontFamilies(new[] { "zh-CN" }).ToList();
-            fontList.Sort();
-            return fontList;
         }
 
         private void Updater_DoWork(IAsyncAction action)

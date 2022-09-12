@@ -15,13 +15,6 @@ namespace Atelier39
         Subtitle = 9
     }
 
-    public enum DanmakuPool
-    {
-        Normal = 0,
-        Subtitle = 1,
-        Special = 2
-    }
-
     public enum DanmakuFontSize
     {
         Smallest = 1,
