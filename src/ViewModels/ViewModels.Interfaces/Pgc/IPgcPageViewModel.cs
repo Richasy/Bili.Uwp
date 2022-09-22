@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -20,7 +19,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 导航至索引页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoIndexPageCommand { get; }
+        IRelayCommand GotoIndexPageCommand { get; }
 
         /// <summary>
         /// 是否显示横幅.

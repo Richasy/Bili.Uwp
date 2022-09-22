@@ -1,25 +1,25 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Video
 {
     /// <summary>
     /// 收藏夹视图模型的接口定义.
     /// </summary>
-    public interface IVideoFavoriteFolderViewModel : IReactiveObject
+    public interface IVideoFavoriteFolderViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 移除收藏夹命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> RemoveCommand { get; }
+        IRelayCommand RemoveCommand { get; }
 
         /// <summary>
         /// 显示收藏夹详情命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowDetailCommand { get; }
+        IRelayCommand ShowDetailCommand { get; }
 
         /// <summary>
         /// 收藏夹信息.

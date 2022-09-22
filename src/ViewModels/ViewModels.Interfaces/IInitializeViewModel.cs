@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces
 {
@@ -13,6 +12,6 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 初始化命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        IRelayCommand InitializeCommand { get; }
     }
 }

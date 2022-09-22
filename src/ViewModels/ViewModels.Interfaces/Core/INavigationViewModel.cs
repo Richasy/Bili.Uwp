@@ -2,20 +2,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Core
 {
     /// <summary>
     /// 导航视图模型（服务）的接口定义.
     /// </summary>
-    public interface INavigationViewModel : IReactiveObject
+    public interface INavigationViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 当传入新的导航请求时触发.
@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 返回上一级页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> BackCommand { get; }
+        IRelayCommand BackCommand { get; }
 
         /// <summary>
         /// 是否显示主视图.

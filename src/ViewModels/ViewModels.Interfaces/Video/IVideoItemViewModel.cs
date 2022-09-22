@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Video
 {
@@ -15,32 +14,32 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 添加到稍后再看的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
+        public IRelayCommand AddToViewLaterCommand { get; }
 
         /// <summary>
         /// 从稍后再看中移除的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
+        public IRelayCommand RemoveFromViewLaterCommand { get; }
 
         /// <summary>
         /// 从历史记录中移除的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
+        public IRelayCommand RemoveFromHistoryCommand { get; }
 
         /// <summary>
         /// 从指定收藏夹中移除的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> RemoveFromFavoriteCommand { get; }
+        public IRelayCommand RemoveFromFavoriteCommand { get; }
 
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 发布者.

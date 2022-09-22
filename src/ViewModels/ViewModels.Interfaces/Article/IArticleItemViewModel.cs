@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Models.Data.Article;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Article
 {
@@ -16,17 +15,17 @@ namespace Bili.ViewModels.Interfaces.Article
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        IRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 阅读命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReadCommand { get; }
+        IRelayCommand ReadCommand { get; }
 
         /// <summary>
         /// 取消收藏命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> UnfavoriteCommand { get; }
+        IRelayCommand UnfavoriteCommand { get; }
 
         /// <summary>
         /// 阅读次数的可读文本.

@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Video
 {
@@ -32,7 +31,7 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 选中子分区命令.
         /// </summary>
-        ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 父分区.

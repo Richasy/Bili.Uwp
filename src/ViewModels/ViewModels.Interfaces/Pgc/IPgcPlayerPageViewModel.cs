@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Pgc;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -25,67 +24,67 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 请求用户已有的收藏夹列表的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
+        IRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <summary>
         /// 改变视频分P的命令.
         /// </summary>
-        ReactiveCommand<EpisodeInformation, Unit> ChangeEpisodeCommand { get; }
+        IRelayCommand<EpisodeInformation> ChangeEpisodeCommand { get; }
 
         /// <summary>
         /// 改变剧集季度的命令.
         /// </summary>
-        ReactiveCommand<SeasonInformation, Unit> ChangeSeasonCommand { get; }
+        IRelayCommand<SeasonInformation> ChangeSeasonCommand { get; }
 
         /// <summary>
         /// 收藏视频命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> FavoriteEpisodeCommand { get; }
+        IRelayCommand FavoriteEpisodeCommand { get; }
 
         /// <summary>
         /// 追番/追剧命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> TrackSeasonCommand { get; }
+        IRelayCommand TrackSeasonCommand { get; }
 
         /// <summary>
         /// 投币命令.
         /// </summary>
-        ReactiveCommand<int, Unit> CoinCommand { get; }
+        IRelayCommand<int> CoinCommand { get; }
 
         /// <summary>
         /// 点赞/取消点赞命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> LikeCommand { get; }
+        IRelayCommand LikeCommand { get; }
 
         /// <summary>
         /// 一键三连命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> TripleCommand { get; }
+        IRelayCommand TripleCommand { get; }
 
         /// <summary>
         /// 重置社区信息命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
+        IRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <summary>
         /// 分享命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        IRelayCommand ShareCommand { get; }
 
         /// <summary>
         /// 固定条目命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        IRelayCommand FixedCommand { get; }
 
         /// <summary>
         /// 显示剧集详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowSeasonDetailCommand { get; }
+        IRelayCommand ShowSeasonDetailCommand { get; }
 
         /// <summary>
         /// 清空播放数据的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 收藏夹列表.

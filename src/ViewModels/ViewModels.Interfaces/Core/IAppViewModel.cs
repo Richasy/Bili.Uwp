@@ -1,26 +1,26 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
+using System.ComponentModel;
 using System.Threading.Tasks;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Core
 {
     /// <summary>
     /// 应用视图模型的接口定义.
     /// </summary>
-    public interface IAppViewModel : IReactiveObject
+    public interface IAppViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 检查应用更新命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
+        IRelayCommand CheckUpdateCommand { get; }
 
         /// <summary>
         /// 检查新动态通知的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> CheckNewDynamicRegistrationCommand { get; }
+        IRelayCommand CheckNewDynamicRegistrationCommand { get; }
 
         /// <summary>
         /// 导航面板是否已展开.

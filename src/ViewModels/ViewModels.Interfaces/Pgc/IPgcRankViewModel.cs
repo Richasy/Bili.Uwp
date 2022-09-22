@@ -2,15 +2,15 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Bili.Models.Data.Pgc;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
     /// <summary>
     /// PGC 排行榜视图模型的接口定义.
     /// </summary>
-    public interface IPgcRankViewModel : IReactiveObject
+    public interface IPgcRankViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 标题.

@@ -2,15 +2,15 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Bili.Models.Data.Pgc;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
     /// <summary>
     /// PGC 附加内容条目视图模型的接口定义.
     /// </summary>
-    public interface IPgcExtraItemViewModel : IReactiveObject
+    public interface IPgcExtraItemViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 标题.

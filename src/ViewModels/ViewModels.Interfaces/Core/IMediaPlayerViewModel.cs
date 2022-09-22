@@ -2,21 +2,21 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Core
 {
     /// <summary>
     /// 媒体播放器视图模型的接口定义.
     /// </summary>
-    public interface IMediaPlayerViewModel : IReactiveObject, IReloadViewModel, IErrorViewModel
+    public interface IMediaPlayerViewModel : INotifyPropertyChanged, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// 媒体播放器改变.
@@ -41,152 +41,152 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 改变分P的命令.
         /// </summary>
-        ReactiveCommand<VideoIdentifier, Unit> ChangePartCommand { get; }
+        IRelayCommand<VideoIdentifier> ChangePartCommand { get; }
 
         /// <summary>
         /// 重置播放历史的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
+        IRelayCommand ResetProgressHistoryCommand { get; }
 
         /// <summary>
         /// 改变直播源是否仅有音频的命令.
         /// </summary>
-        ReactiveCommand<bool, Unit> ChangeLiveAudioOnlyCommand { get; }
+        IRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
 
         /// <summary>
         /// 改变清晰度/视频格式命令.
         /// </summary>
-        ReactiveCommand<FormatInformation, Unit> ChangeFormatCommand { get; }
+        IRelayCommand<FormatInformation> ChangeFormatCommand { get; }
 
         /// <summary>
         /// 播放/暂停命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> PlayPauseCommand { get; }
+        IRelayCommand PlayPauseCommand { get; }
 
         /// <summary>
         /// 跳进命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ForwardSkipCommand { get; }
+        IRelayCommand ForwardSkipCommand { get; }
 
         /// <summary>
         /// 后退命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> BackwardSkipCommand { get; }
+        IRelayCommand BackwardSkipCommand { get; }
 
         /// <summary>
         /// 改变播放速率的命令.
         /// </summary>
-        ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }
+        IRelayCommand<double> ChangePlayRateCommand { get; }
 
         /// <summary>
         /// 改变音量的命令.
         /// </summary>
-        ReactiveCommand<double, Unit> ChangeVolumeCommand { get; }
+        IRelayCommand<double> ChangeVolumeCommand { get; }
 
         /// <summary>
         /// 进入/退出全屏状态的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleFullScreenCommand { get; }
+        IRelayCommand ToggleFullScreenCommand { get; }
 
         /// <summary>
         /// 进入/退出全窗口状态的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleFullWindowCommand { get; }
+        IRelayCommand ToggleFullWindowCommand { get; }
 
         /// <summary>
         /// 进入/退出小窗状态的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleCompactOverlayCommand { get; }
+        IRelayCommand ToggleCompactOverlayCommand { get; }
 
         /// <summary>
         /// 截图命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ScreenShotCommand { get; }
+        IRelayCommand ScreenShotCommand { get; }
 
         /// <summary>
         /// 改变进度的命令.
         /// </summary>
-        ReactiveCommand<double, Unit> ChangeProgressCommand { get; }
+        IRelayCommand<double> ChangeProgressCommand { get; }
 
         /// <summary>
         /// 开始临时倍速播放.
         /// </summary>
-        ReactiveCommand<Unit, Unit> StartTempQuickPlayCommand { get; }
+        IRelayCommand StartTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 停止临时倍速播放.
         /// </summary>
-        ReactiveCommand<Unit, Unit> StopTempQuickPlayCommand { get; }
+        IRelayCommand StopTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 跳转到上次观看进度的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> JumpToLastProgressCommand { get; }
+        IRelayCommand JumpToLastProgressCommand { get; }
 
         /// <summary>
         /// 清除数据源历史记录的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearSourceProgressCommand { get; }
+        IRelayCommand ClearSourceProgressCommand { get; }
 
         /// <summary>
         /// 报告观看进度的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReportViewProgressCommand { get; }
+        IRelayCommand ReportViewProgressCommand { get; }
 
         /// <summary>
         /// 显示播放下一个视频的提示.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowNextVideoTipCommand { get; }
+        IRelayCommand ShowNextVideoTipCommand { get; }
 
         /// <summary>
         /// 播放下一个视频的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> PlayNextCommand { get; }
+        IRelayCommand PlayNextCommand { get; }
 
         /// <summary>
         /// 增加播放速率命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> IncreasePlayRateCommand { get; }
+        IRelayCommand IncreasePlayRateCommand { get; }
 
         /// <summary>
         /// 降低播放速率命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> DecreasePlayRateCommand { get; }
+        IRelayCommand DecreasePlayRateCommand { get; }
 
         /// <summary>
         /// 增加音量命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> IncreaseVolumeCommand { get; }
+        IRelayCommand IncreaseVolumeCommand { get; }
 
         /// <summary>
         /// 降低音量命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> DecreaseVolumeCommand { get; }
+        IRelayCommand DecreaseVolumeCommand { get; }
 
         /// <summary>
         /// 选择选项命令.
         /// </summary>
-        ReactiveCommand<InteractionInformation, Unit> SelectInteractionChoiceCommand { get; }
+        IRelayCommand<InteractionInformation> SelectInteractionChoiceCommand { get; }
 
         /// <summary>
         /// 跳进命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> BackToInteractionVideoStartCommand { get; }
+        IRelayCommand BackToInteractionVideoStartCommand { get; }
 
         /// <summary>
         /// 返回默认模式的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> BackToDefaultModeCommand { get; }
+        IRelayCommand BackToDefaultModeCommand { get; }
 
         /// <summary>
         /// 退出全尺寸播放器的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ExitFullPlayerCommand { get; }
+        IRelayCommand ExitFullPlayerCommand { get; }
 
         /// <summary>
         /// 清除播放数据的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 视频格式集合.

@@ -1,31 +1,31 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
     /// <summary>
     /// 用户视图模型的接口定义.
     /// </summary>
-    public interface IUserItemViewModel : IReactiveObject
+    public interface IUserItemViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 切换关系命令（关注或取消关注）.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleRelationCommand { get; }
+        IRelayCommand ToggleRelationCommand { get; }
 
         /// <summary>
         /// 显示用户资料详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowDetailCommand { get; }
+        IRelayCommand ShowDetailCommand { get; }
 
         /// <summary>
         /// 初始化关系命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> InitializeRelationCommand { get; }
+        IRelayCommand InitializeRelationCommand { get; }
 
         /// <summary>
         /// 用户基础信息.

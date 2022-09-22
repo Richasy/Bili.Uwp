@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Pgc;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -14,22 +13,22 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        IRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        IRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 取消关注命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> UnfollowCommand { get; }
+        IRelayCommand UnfollowCommand { get; }
 
         /// <summary>
         /// 改变收藏状态命令.
         /// </summary>
-        ReactiveCommand<int, Unit> ChangeFavoriteStatusCommand { get; }
+        IRelayCommand<int> ChangeFavoriteStatusCommand { get; }
 
         /// <summary>
         /// 是否显示评分.

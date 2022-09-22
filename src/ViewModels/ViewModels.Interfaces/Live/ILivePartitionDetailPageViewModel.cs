@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Live
 {
@@ -21,12 +20,12 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 选中标签命令.
         /// </summary>
-        public ReactiveCommand<LiveTag, Unit> SelectTagCommand { get; }
+        public IRelayCommand<LiveTag> SelectTagCommand { get; }
 
         /// <summary>
         /// 查看全部分区命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
+        public IRelayCommand SeeAllPartitionsCommand { get; }
 
         /// <summary>
         /// 始分区.

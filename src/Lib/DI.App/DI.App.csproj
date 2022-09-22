@@ -128,14 +128,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
-    <PackageReference Include="Splat.DependencyInjection.SourceGenerator">
-      <Version>1.1.69</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Splat.NLog">
-      <Version>14.4.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\App.ruleset">
@@ -173,6 +165,10 @@
     <ProjectReference Include="..\..\ViewModels\ViewModels.Uwp\ViewModels.Uwp.csproj">
       <Project>{1af20fdc-36d5-450e-9461-0f78aeb89716}</Project>
       <Name>ViewModels.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Container\DI.Container.csproj">
+      <Project>{81b36a8c-e9a5-46f1-b803-b4d329c6e4b4}</Project>
+      <Name>DI.Container</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib.Implementation\Lib.Implementation.csproj">
       <Project>{ee5c62af-b6b7-4cf9-895f-60adc1801175}</Project>

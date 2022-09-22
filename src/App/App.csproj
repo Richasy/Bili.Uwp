@@ -1323,25 +1323,16 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220712001</Version>
+      <Version>2.8.2-prerelease.220830001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI">
-      <Version>18.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI.Uwp">
-      <Version>18.3.1</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>
     </PackageReference>
     <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
       <Version>1.1.150</Version>
-    </PackageReference>
-    <PackageReference Include="Splat">
-      <Version>14.4.1</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.26.0</Version>

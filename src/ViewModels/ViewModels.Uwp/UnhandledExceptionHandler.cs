@@ -2,9 +2,7 @@
 
 using System;
 using System.Diagnostics;
-using System.Reactive.Concurrency;
-using ReactiveUI;
-using Splat;
+using Bili.DI.Container;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -21,7 +19,7 @@ namespace Bili.ViewModels.Uwp
                 Debugger.Break();
             }
 
-            Locator.Current.GetService<ILogger>().Write(value, "出错了", LogLevel.Error);
+            Locator.Instance.GetService<NLog.ILogger>().Write(value, "出错了", LogLevel.Error);
             RxApp.MainThreadScheduler.Schedule(() => { throw value; });
         }
 

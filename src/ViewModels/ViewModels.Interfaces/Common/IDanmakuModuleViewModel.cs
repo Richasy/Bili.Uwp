@@ -3,20 +3,20 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
     /// <summary>
     /// 弹幕模块视图模型的接口定义.
     /// </summary>
-    public interface IDanmakuModuleViewModel : IReactiveObject, IReloadViewModel
+    public interface IDanmakuModuleViewModel : INotifyPropertyChanged, IReloadViewModel
     {
         /// <summary>
         /// 弹幕列表已添加.
@@ -56,27 +56,27 @@ namespace Bili.ViewModels.Interfaces.Common
         /// <summary>
         /// 重置命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ResetCommand { get; }
+        IRelayCommand ResetCommand { get; }
 
         /// <summary>
         /// 发送弹幕命令.
         /// </summary>
-        ReactiveCommand<string, bool> SendDanmakuCommand { get; }
+        IRelayCommand<string> SendDanmakuCommand { get; }
 
         /// <summary>
         /// 获取分片弹幕命令.
         /// </summary>
-        ReactiveCommand<int, Unit> LoadSegmentDanmakuCommand { get; }
+        IRelayCommand<int> LoadSegmentDanmakuCommand { get; }
 
         /// <summary>
         /// 重新定位命令.
         /// </summary>
-        ReactiveCommand<double, Unit> SeekCommand { get; }
+        IRelayCommand<double> SeekCommand { get; }
 
         /// <summary>
         /// 添加新的直播弹幕命令.
         /// </summary>
-        ReactiveCommand<LiveDanmakuInformation, Unit> AddLiveDanmakuCommand { get; }
+        IRelayCommand<LiveDanmakuInformation> AddLiveDanmakuCommand { get; }
 
         /// <summary>
         /// 是否显示弹幕.

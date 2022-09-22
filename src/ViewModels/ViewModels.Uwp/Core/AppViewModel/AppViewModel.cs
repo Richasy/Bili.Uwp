@@ -7,6 +7,8 @@ using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Windows.Globalization;
 using Windows.UI.Core;
@@ -57,6 +59,9 @@ namespace Bili.ViewModels.Uwp.Core
             var lan = ApplicationLanguages.Languages.First();
             _settingsToolkit.WriteLocalSetting(SettingNames.LastAppLanguage, lan);
             IsTraditionalChinese = lan.Contains("zh-hant", StringComparison.OrdinalIgnoreCase);
+
+            var logger = Bili.DI.Container.Locator.Instance.Provider.GetService<NLog.ILogger>();
+            logger.Log(NLog.LogLevel.Warn, "卧槽");
         }
 
         /// <summary>

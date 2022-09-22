@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
@@ -20,7 +19,7 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 选中分组命令.
         /// </summary>
-        ReactiveCommand<FollowGroup, Unit> SelectGroupCommand { get; }
+        IRelayCommand<FollowGroup> SelectGroupCommand { get; }
 
         /// <summary>
         /// 当前分组.

@@ -2,12 +2,11 @@
 
 using System;
 using System.IO;
-using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces
 {
@@ -44,7 +43,7 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 清除播放数据的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 当前媒体播放位置.

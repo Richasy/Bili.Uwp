@@ -1,18 +1,18 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Community;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
     /// <summary>
     /// 动漫页面视图模型基类的接口定义.
     /// </summary>
-    public interface IAnimePageViewModel : IReactiveObject, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
+    public interface IAnimePageViewModel : INotifyPropertyChanged, IInitializeViewModel, IReloadViewModel, IIncrementalViewModel, IErrorViewModel
     {
         /// <summary>
         /// 顶部分区集合.
@@ -42,22 +42,22 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 前往追番页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoFavoritePageCommand { get; }
+        IRelayCommand GotoFavoritePageCommand { get; }
 
         /// <summary>
         /// 前往动漫索引页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoIndexPageCommand { get; }
+        IRelayCommand GotoIndexPageCommand { get; }
 
         /// <summary>
         /// 前往动漫时间线页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoTimeLinePageCommand { get; }
+        IRelayCommand GotoTimeLinePageCommand { get; }
 
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前选中标签.

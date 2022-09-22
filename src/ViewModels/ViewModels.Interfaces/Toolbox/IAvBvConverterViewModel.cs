@@ -1,19 +1,19 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
+using System.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Toolbox
 {
     /// <summary>
     /// AV/BV互转视图模型的接口定义.
     /// </summary>
-    public interface IAvBvConverterViewModel : IReactiveObject
+    public interface IAvBvConverterViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 转换命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ConvertCommand { get; }
+        IRelayCommand ConvertCommand { get; }
 
         /// <summary>
         /// 输入的Id.

@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -14,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 选择消息类型命令.
         /// </summary>
-        ReactiveCommand<IMessageHeaderViewModel, Unit> SelectTypeCommand { get; }
+        IRelayCommand<IMessageHeaderViewModel> SelectTypeCommand { get; }
 
         /// <summary>
         /// 消息类型集合.

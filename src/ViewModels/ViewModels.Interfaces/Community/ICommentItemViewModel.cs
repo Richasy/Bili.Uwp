@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
 using Bili.Models.Data.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -15,22 +14,22 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 点赞或取消点赞的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
+        IRelayCommand ToggleLikeCommand { get; }
 
         /// <summary>
         /// 显示评论详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
+        IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <summary>
         /// 显示用户详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
+        IRelayCommand ShowUserDetailCommand { get; }
 
         /// <summary>
         /// 点击命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClickCommand { get; }
+        IRelayCommand ClickCommand { get; }
 
         /// <summary>
         /// 是否已点赞.

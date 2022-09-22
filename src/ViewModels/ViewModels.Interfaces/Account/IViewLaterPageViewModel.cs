@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
@@ -14,12 +13,12 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 播放全部命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> PlayAllCommand { get; }
+        IRelayCommand PlayAllCommand { get; }
 
         /// <summary>
         /// 清空全部命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 稍后再看列表是否为空.

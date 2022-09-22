@@ -2,15 +2,15 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Bili.Models.Data.Player;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
     /// <summary>
     /// 互动视频模块视图模型.
     /// </summary>
-    public interface IInteractionModuleViewModel : IReactiveObject, IReloadViewModel
+    public interface IInteractionModuleViewModel : INotifyPropertyChanged, IReloadViewModel
     {
         /// <summary>
         /// 无法获取到选项时发生.

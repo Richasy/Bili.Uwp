@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Enums;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Search
 {
     /// <summary>
     /// 搜索模块条目视图模型的接口定义.
     /// </summary>
-    public interface ISearchModuleItemViewModel : IReactiveObject
+    public interface ISearchModuleItemViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 类型.

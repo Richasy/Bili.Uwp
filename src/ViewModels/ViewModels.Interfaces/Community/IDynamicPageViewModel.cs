@@ -1,26 +1,26 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.App.Other;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
     /// <summary>
     /// 动态页面视图模型的接口定义.
     /// </summary>
-    public interface IDynamicPageViewModel : IReactiveObject
+    public interface IDynamicPageViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 刷新当前模块命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> RefreshModuleCommand { get; }
+        IRelayCommand RefreshModuleCommand { get; }
 
         /// <summary>
         /// 选中分区命令.
         /// </summary>
-        ReactiveCommand<DynamicHeader, Unit> SelectHeaderCommand { get; }
+        IRelayCommand<DynamicHeader> SelectHeaderCommand { get; }
 
         /// <summary>
         /// 分区集合.

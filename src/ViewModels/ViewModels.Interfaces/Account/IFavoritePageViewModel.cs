@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.App.Other;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
     /// <summary>
     /// 我的收藏页面视图模型.
     /// </summary>
-    public interface IFavoritePageViewModel : IReactiveObject
+    public interface IFavoritePageViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 类型集合.
@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 选择收藏类型的命令.
         /// </summary>
-        ReactiveCommand<FavoriteHeader, Unit> SelectTypeCommand { get; }
+        IRelayCommand<FavoriteHeader> SelectTypeCommand { get; }
 
         /// <summary>
         /// 当前选中项.
