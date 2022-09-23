@@ -121,7 +121,7 @@
     <value>操作中止</value>
   </data>
   <data name="AboutThisApp" xml:space="preserve">
-    <value>關於此軟體</value>
+    <value>關於此應用程式</value>
   </data>
   <data name="AddReplyFailed" xml:space="preserve">
     <value>新增評論失敗，請稍後再試</value>
@@ -151,7 +151,7 @@
     <value>任意</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>嗶哩是雲之幻練手做的項目，旨在構建BiliBili的桌面客戶端，滿足個人需求</value>
+    <value>嗶哩是雲之幻練手做的項目，旨在構建BiliBili的桌面用戶端，滿足個人需求</value>
   </data>
   <data name="AppName" xml:space="preserve">
     <value>嗶哩 Preview</value>
@@ -241,7 +241,7 @@ BV號以 BV 開頭，是一串英文數字混合的編號， 如 BV1JL4y1875w</v
     <value>底部彈幕</value>
   </data>
   <data name="CacheCleared" xml:space="preserve">
-    <value>已清理暫存</value>
+    <value>已清理暫存檔</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
@@ -561,7 +561,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>傳送彈幕失敗，請稍後再試</value>
   </data>
   <data name="FansCount" xml:space="preserve">
-    <value>粉絲數</value>
+    <value>粉絲人數</value>
   </data>
   <data name="FansSuffix" xml:space="preserve">
     <value>的粉絲</value>
@@ -739,7 +739,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>洗腦循環</value>
   </data>
   <data name="InitialCheckDescription" xml:space="preserve">
-    <value>是否在軟體啟動時檢查上次關閉時正在播放的影片，並提醒繼續播放</value>
+    <value>是否在應用程式啟動時檢查上次關閉時正在播放的影片，並提醒繼續播放</value>
   </data>
   <data name="InitialCheckTitle" xml:space="preserve">
     <value>初始化檢查</value>
@@ -824,7 +824,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>已清理日誌記錄</value>
   </data>
   <data name="LoggerFolder" xml:space="preserve">
-    <value>日誌資料夾</value>
+    <value>日誌位置</value>
   </data>
   <data name="LoggerModule" xml:space="preserve">
     <value>日誌記錄</value>
@@ -857,7 +857,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>選單</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>消息</value>
+    <value>消息中心</value>
   </data>
   <data name="Minimum" xml:space="preserve">
     <value>最小</value>
@@ -896,7 +896,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>我的追番</value>
   </data>
   <data name="MyWebPage" xml:space="preserve">
-    <value>個人首頁</value>
+    <value>個人主頁</value>
   </data>
   <data name="NativePlayer" xml:space="preserve">
     <value>原生</value>
@@ -1142,7 +1142,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>預先啟動</value>
   </data>
   <data name="PrelaunchDescription" xml:space="preserve">
-    <value>開啟預先啟動，軟體將在系統啟動後自動在背景啟動，軟體打開的速度會很快</value>
+    <value>開啟預先啟動，應用程式將在系統啟動後自動在背景啟動，軟體開啟的速度將會很快</value>
   </data>
   <data name="PreRelease" xml:space="preserve">
     <value>預覽版</value>
@@ -1193,10 +1193,10 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>QR Code已過期，請重新整理</value>
   </data>
   <data name="QRLoginTip" xml:space="preserve">
-    <value>請使用手機客戶端掃描下方的QR Code登入</value>
+    <value>請使用手機客戶端掃描下方的行動條碼登入</value>
   </data>
   <data name="Quality" xml:space="preserve">
-    <value>清晰度</value>
+    <value>畫質</value>
   </data>
   <data name="QualitySuffix" xml:space="preserve">
     <value>加入清晰度後綴</value>
@@ -1373,7 +1373,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>擷取畫面</value>
   </data>
   <data name="ScreenshotFolder" xml:space="preserve">
-    <value>存放截圖的位置</value>
+    <value>儲存截圖的位置</value>
   </data>
   <data name="ScreenshotSettings" xml:space="preserve">
     <value>擷取畫面設定</value>
@@ -1544,7 +1544,7 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
     <value>啟動項由用戶手動關閉，您需要手動開啟才能套用</value>
   </data>
   <data name="StoreComment" xml:space="preserve">
-    <value>求個好評</value>
+    <value>提供評分與評價</value>
   </data>
   <data name="Stroke" xml:space="preserve">
     <value>描邊</value>
