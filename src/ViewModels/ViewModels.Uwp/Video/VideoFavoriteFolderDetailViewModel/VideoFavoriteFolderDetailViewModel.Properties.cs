@@ -22,19 +22,19 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 收藏夹创建者信息.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public UserProfile User { get; set; }
 
         /// <summary>
         /// 收藏夹信息..
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public VideoFavoriteFolder Data { get; set; }
 
         /// <summary>
         /// 收藏夹是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

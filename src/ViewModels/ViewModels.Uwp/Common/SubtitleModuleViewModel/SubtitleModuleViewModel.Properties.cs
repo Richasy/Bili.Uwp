@@ -26,13 +26,13 @@ namespace Bili.ViewModels.Uwp.Common
         private double _currentSeconds;
 
         /// <inheritdoc/>
-        public ReactiveCommand<double, Unit> SeekCommand { get; }
+        public IRelayCommand<double> SeekCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<SubtitleMeta, Unit> ChangeMetaCommand { get; }
+        public IRelayCommand<SubtitleMeta> ChangeMetaCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<SubtitleMeta> Metas { get; }
@@ -41,23 +41,23 @@ namespace Bili.ViewModels.Uwp.Common
         public ObservableCollection<SubtitleConvertType> ConvertTypeCollection { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CurrentSubtitle { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public SubtitleMeta CurrentMeta { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public SubtitleConvertType ConvertType { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool HasSubtitles { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool CanShowSubtitle { get; set; }
 
         /// <inheritdoc/>

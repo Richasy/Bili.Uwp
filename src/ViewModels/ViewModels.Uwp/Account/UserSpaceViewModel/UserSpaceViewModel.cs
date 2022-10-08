@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
@@ -13,9 +12,7 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -45,36 +42,15 @@ namespace Bili.ViewModels.Uwp.Account
 
             SearchVideos = new ObservableCollection<IVideoItemViewModel>();
 
-            var canSearch = this.WhenAnyValue(p => p.Keyword)
-                .Select(p => !string.IsNullOrEmpty(p));
+            EnterSearchModeCommand = new RelayCommand(EnterSearchMode);
+            ExitSearchModeCommand = new RelayCommand(ExitSearchMode);
+            SearchCommand = new AsyncRelayCommand(SearchAsync, () => !string.IsNullOrEmpty(Keyword));
+            GotoFollowsPageCommand = new RelayCommand(GotoFollowsPage);
+            GotoFansPageCommand = new RelayCommand(GotoFansPage);
+            FixedCommand = new RelayCommand(Fix);
 
-            EnterSearchModeCommand = ReactiveCommand.Create(EnterSearchMode);
-            ExitSearchModeCommand = ReactiveCommand.Create(ExitSearchMode);
-            SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, canSearch);
-            GotoFollowsPageCommand = ReactiveCommand.Create(GotoFollowsPage);
-            GotoFansPageCommand = ReactiveCommand.Create(GotoFansPage);
-            FixedCommand = ReactiveCommand.Create(Fix);
-
-            SearchCommand.IsExecuting.ToPropertyEx(this, x => x.IsSearching);
-            canSearch.ToPropertyEx(this, x => x.CanSearch);
-            SearchCommand.ThrownExceptions.Subscribe(ex => DisplayException(ex));
-
-            this.WhenAnyValue(p => p.Keyword)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    var isSearchMode = !string.IsNullOrEmpty(x);
-                    ClearSearchData();
-                    TryClear(SearchVideos);
-                    if (isSearchMode && !IsSearchMode)
-                    {
-                        EnterSearchMode();
-                    }
-                    else if (!isSearchMode && IsSearchMode)
-                    {
-                        ExitSearchMode();
-                    }
-                });
+            AttachExceptionHandlerToAsyncCommand(DisplayException, SearchCommand);
+            AttachIsRunningToAsyncCommand(p => IsSearching = p, SearchCommand);
         }
 
         /// <inheritdoc/>
@@ -108,7 +84,7 @@ namespace Bili.ViewModels.Uwp.Account
             {
                 // 请求用户数据.
                 var view = await _accountProvider.GetUserSpaceInformationAsync(_userProfile.Id);
-                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
+                var userVM = Locator.Instance.GetService<IUserItemViewModel>();
                 userVM.SetInformation(view.Account);
                 UserViewModel = userVM;
                 LoadVideoSet(view.VideoSet);
@@ -172,7 +148,7 @@ namespace Bili.ViewModels.Uwp.Account
             var collection = IsSearchMode ? SearchVideos : Items;
             foreach (var item in set.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(item);
                 collection.Add(videoVM);
             }
@@ -218,17 +194,32 @@ namespace Bili.ViewModels.Uwp.Account
 
             if (IsFixed)
             {
-                _accountViewModel.RemoveFixedItemCommand.Execute(UserViewModel.User.Id).Subscribe();
+                _accountViewModel.RemoveFixedItemCommand.ExecuteAsync(UserViewModel.User.Id);
                 IsFixed = false;
             }
             else
             {
-                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.ExecuteAsync(new FixedItem(
                     UserViewModel.User.Avatar.Uri,
                     UserViewModel.User.Name,
                     UserViewModel.User.Id,
-                    Models.Enums.App.FixedType.Publisher)).Subscribe();
+                    Models.Enums.App.FixedType.Publisher));
                 IsFixed = true;
+            }
+        }
+
+        partial void OnKeywordChanged(string value)
+        {
+            CanSearch = !string.IsNullOrEmpty(value);
+            ClearSearchData();
+            TryClear(SearchVideos);
+            if (CanSearch && !IsSearchMode)
+            {
+                EnterSearchMode();
+            }
+            else if (!CanSearch && IsSearchMode)
+            {
+                ExitSearchMode();
             }
         }
     }

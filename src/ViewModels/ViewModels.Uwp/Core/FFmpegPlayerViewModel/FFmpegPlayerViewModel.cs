@@ -36,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
             _liveConfig.FFmpegOptions.Add("user-agent", "Mozilla/5.0 BiliDroid/1.12.0 (bbcallen@gmail.com)");
 
             _videoConfig = new MediaSourceConfig();
-            ClearCommand = ReactiveCommand.Create(Clear);
+            ClearCommand = new RelayCommand(Clear);
         }
 
         /// <inheritdoc/>

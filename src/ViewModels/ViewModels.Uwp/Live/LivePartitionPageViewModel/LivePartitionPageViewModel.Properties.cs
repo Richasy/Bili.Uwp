@@ -27,24 +27,24 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<Partition> DisplayPartitions { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        public IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Partition CurrentParentPartition { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>

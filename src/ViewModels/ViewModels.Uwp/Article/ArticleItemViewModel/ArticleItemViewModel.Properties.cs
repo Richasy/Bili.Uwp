@@ -29,47 +29,47 @@ namespace Bili.ViewModels.Uwp.Article
         private Action<IArticleItemViewModel> _additionalAction;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReadCommand { get; }
+        public IRelayCommand ReadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> UnfavoriteCommand { get; }
+        public IRelayCommand UnfavoriteCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public ArticleInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public IUserItemViewModel Publisher { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ViewCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string LikeCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CommentCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowCommunity { get; set; }
 
         /// <inheritdoc/>

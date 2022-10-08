@@ -75,13 +75,13 @@ namespace Bili.ViewModels.Uwp.Base
             Ranks.CollectionChanged += OnRanksCollectionChanged;
             Playlists.CollectionChanged += OnPlaylistsCollectionChanged;
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync);
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
-            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            IncrementalCommand = new AsyncRelayCommand(IncrementalAsync);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SetPartitionAsync);
+            GotoFavoritePageCommand = new RelayCommand(GotoFavoritePage);
+            GotoIndexPageCommand = new RelayCommand(GotoIndexPage);
+            GotoTimeLinePageCommand = new RelayCommand(GotoTimelinePage);
 
             InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)

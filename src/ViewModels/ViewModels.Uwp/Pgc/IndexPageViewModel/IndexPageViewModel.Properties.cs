@@ -28,13 +28,13 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 页面类型.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string PageType { get; set; }
 
         /// <summary>
         /// 是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

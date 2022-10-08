@@ -19,15 +19,15 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly IResourceToolkit _resourceToolkit;
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public MessageInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string PublishTime { get; set; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ActiveCommand { get; }
+        public IRelayCommand ActiveCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is MessageItemViewModel model && EqualityComparer<MessageInformation>.Default.Equals(Data, model.Data);

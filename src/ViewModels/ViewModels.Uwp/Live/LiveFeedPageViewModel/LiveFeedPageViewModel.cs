@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Live
             Follows = new ObservableCollection<ILiveItemViewModel>();
             HotPartitions = new ObservableCollection<Models.Data.Community.Partition>();
 
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
+            SeeAllPartitionsCommand = new RelayCommand(SeeAllPartitions);
 
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;

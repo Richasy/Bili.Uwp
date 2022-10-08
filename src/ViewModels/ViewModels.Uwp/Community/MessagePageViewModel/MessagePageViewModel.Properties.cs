@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// 选择消息类型命令.
         /// </summary>
-        public ReactiveCommand<IMessageHeaderViewModel, Unit> SelectTypeCommand { get; }
+        public IRelayCommand<IMessageHeaderViewModel> SelectTypeCommand { get; }
 
         /// <summary>
         /// 消息类型集合.
@@ -40,13 +40,13 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// 当前选中的消息类型.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public IMessageHeaderViewModel CurrentType { get; set; }
 
         /// <summary>
         /// 是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

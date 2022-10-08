@@ -46,9 +46,9 @@ namespace Bili.ViewModels.Uwp.Community
 
             CurrentSort = SortCollection.First();
 
-            ChangeSortCommand = ReactiveCommand.Create<CommentSortHeader>(ChangeSort);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
+            ChangeSortCommand = new RelayCommand<CommentSortHeader>(ChangeSort);
+            ResetSelectedCommentCommand = new RelayCommand(UnselectComment);
+            SendCommentCommand = new AsyncRelayCommand(SendCommentAsync);
 
             SendCommentCommand.IsExecuting.ToPropertyEx(this, x => x.IsSending);
         }

@@ -16,14 +16,14 @@ namespace Bili.ViewModels.Uwp.Common
         private Action<double> _action;
 
         /// <inheritdoc/>
-        [Reactive]
-        public ReactiveCommand<Unit, Unit> ActiveCommand { get; set; }
+        [ObservableProperty]
+        public IRelayCommand ActiveCommand { get; set; }
 
         /// <inheritdoc/>
         public void InjectAction(Action<double> action)
         {
             _action = action;
-            ActiveCommand = ReactiveCommand.Create(() => { _action.Invoke(Data); });
+            ActiveCommand = new RelayCommand(() => { _action.Invoke(Data); });
         }
     }
 }

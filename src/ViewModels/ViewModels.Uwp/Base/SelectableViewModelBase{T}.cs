@@ -13,11 +13,11 @@ namespace Bili.ViewModels.Uwp
     public class SelectableViewModelBase<T> : ViewModelBase, ISelectableViewModel<T>
     {
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public T Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSelected { get; set; }
 
         /// <inheritdoc/>

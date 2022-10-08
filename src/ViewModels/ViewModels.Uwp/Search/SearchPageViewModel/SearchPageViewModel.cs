@@ -60,8 +60,8 @@ namespace Bili.ViewModels.Uwp.Search
             Lives = new ObservableCollection<ILiveItemViewModel>();
             CurrentFilters = new ObservableCollection<ISearchFilterViewModel>();
 
-            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
-            SelectModuleCommand = ReactiveCommand.CreateFromTask<ISearchModuleItemViewModel>(SelectModuleAsync);
+            ReloadModuleCommand = new AsyncRelayCommand(ReloadModuleAsync);
+            SelectModuleCommand = new AsyncRelayCommand<ISearchModuleItemViewModel>(SelectModuleAsync);
 
             ReloadModuleCommand.IsExecuting
                 .Merge(SelectModuleCommand.IsExecuting)

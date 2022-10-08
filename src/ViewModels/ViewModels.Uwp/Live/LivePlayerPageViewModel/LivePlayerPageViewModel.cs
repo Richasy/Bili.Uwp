@@ -64,11 +64,11 @@ namespace Bili.ViewModels.Uwp.Live
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
-            ShareCommand = ReactiveCommand.Create(Share);
-            FixedCommand = ReactiveCommand.Create(Fix);
-            ClearCommand = ReactiveCommand.Create(Reset);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
+            ReloadCommand = new AsyncRelayCommand(GetDataAsync);
+            ShareCommand = new RelayCommand(Share);
+            FixedCommand = new RelayCommand(Fix);
+            ClearCommand = new RelayCommand(Reset);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
 

@@ -60,7 +60,7 @@ namespace Bili.ViewModels.Uwp.Community
 
             isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
 
-            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectSubPartition);
+            SelectPartitionCommand = new RelayCommand<Partition>(SelectSubPartition);
         }
 
         /// <summary>

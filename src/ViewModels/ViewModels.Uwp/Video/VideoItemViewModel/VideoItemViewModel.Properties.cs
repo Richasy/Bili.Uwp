@@ -30,61 +30,61 @@ namespace Bili.ViewModels.Uwp.Video
         private object _additionalData;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
+        public IRelayCommand AddToViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
+        public IRelayCommand RemoveFromViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
+        public IRelayCommand RemoveFromHistoryCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromFavoriteCommand { get; }
+        public IRelayCommand RemoveFromFavoriteCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public VideoInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public IUserItemViewModel Publisher { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string PlayCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string DanmakuCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string LikeCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string DurationText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowScore { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ScoreText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowCommunity { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSelected { get; set; }
 
         /// <inheritdoc/>

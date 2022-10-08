@@ -21,15 +21,15 @@ namespace Bili.ViewModels.Uwp.Toolbox
             => _resourceToolkit = resourceToolkit;
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public ToolboxItemType Type { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Description { get; set; }
 
         /// <inheritdoc/>

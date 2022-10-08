@@ -13,16 +13,11 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 清空全部命令.
         /// </summary>
-        IRelayCommand ClearCommand { get; }
+        IAsyncRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 稍后再看列表是否为空.
         /// </summary>
         bool IsEmpty { get; }
-
-        /// <summary>
-        /// 是否正在清空内容.
-        /// </summary>
-        bool IsClearing { get; }
     }
 }

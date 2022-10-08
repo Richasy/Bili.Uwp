@@ -47,9 +47,9 @@ namespace Bili.ViewModels.Uwp.Home
 
             var canReload = this.WhenAnyValue(x => x.IsReloading).Select(p => !p);
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canReload, RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync, canReload, RxApp.MainThreadScheduler);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SelectPartitionAsync);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)

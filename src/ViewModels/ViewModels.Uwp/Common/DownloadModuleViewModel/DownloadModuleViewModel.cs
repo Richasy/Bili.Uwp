@@ -40,8 +40,8 @@ namespace Bili.ViewModels.Uwp.Common
             _authorizeProvider = authorizeProvider;
             TotalPartCollection = new ObservableCollection<INumberPartViewModel>();
 
-            ChangeSaveLocationCommand = ReactiveCommand.CreateFromTask(ChangeSaveLocationAsync);
-            SaveDownloadTextCommand = ReactiveCommand.CreateFromTask(SaveDownloadCommandAsync);
+            ChangeSaveLocationCommand = new AsyncRelayCommand(ChangeSaveLocationAsync);
+            SaveDownloadTextCommand = new AsyncRelayCommand(SaveDownloadCommandAsync);
 
             UseMp4Box = ReadSetting(SettingNames.Download_UseMp4Box, false);
             OnlyHevc = ReadSetting(SettingNames.Download_OnlyHevc, false);

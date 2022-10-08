@@ -24,25 +24,25 @@ namespace Bili.ViewModels.Uwp.Pgc
         public ObservableCollection<TimelineInformation> Timelines { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Description { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>

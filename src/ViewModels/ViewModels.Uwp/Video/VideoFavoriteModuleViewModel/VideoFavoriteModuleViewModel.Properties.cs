@@ -21,18 +21,18 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 显示默认收藏夹详情的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> ShowDefaultFolderDetailCommand { get; }
+        public IRelayCommand ShowDefaultFolderDetailCommand { get; }
 
         /// <summary>
         /// 默认收藏夹.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public VideoFavoriteFolder DefaultFolder { get; set; }
 
         /// <summary>
         /// 默认视频收藏夹是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDefaultFolderEmpty { get; set; }
     }
 }

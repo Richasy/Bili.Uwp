@@ -23,17 +23,17 @@ namespace Bili.ViewModels.Uwp.Video
         private IVideoFavoriteFolderGroupViewModel _groupViewModel;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveCommand { get; }
+        public IRelayCommand RemoveCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowDetailCommand { get; }
+        public IRelayCommand ShowDetailCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public VideoFavoriteFolder Folder { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsMine { get; set; }
 
         /// <inheritdoc/>

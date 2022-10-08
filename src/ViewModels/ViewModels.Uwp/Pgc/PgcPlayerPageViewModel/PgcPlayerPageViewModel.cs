@@ -74,20 +74,20 @@ namespace Bili.ViewModels.Uwp.Pgc
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
-            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
-            ChangeSeasonCommand = ReactiveCommand.Create<SeasonInformation>(SelectSeason);
-            ChangeEpisodeCommand = ReactiveCommand.Create<EpisodeInformation>(SelectEpisode);
-            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(RequestEpisodeInteractionInformationAsync);
-            FavoriteEpisodeCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
-            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
-            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
-            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
-            ShareCommand = ReactiveCommand.Create(Share);
-            FixedCommand = ReactiveCommand.Create(Fix);
-            ShowSeasonDetailCommand = ReactiveCommand.Create(ShowSeasonDetail);
-            TrackSeasonCommand = ReactiveCommand.CreateFromTask(TrackAsync);
-            ClearCommand = ReactiveCommand.Create(Reset);
+            ReloadCommand = new AsyncRelayCommand(GetDataAsync);
+            RequestFavoriteFoldersCommand = new AsyncRelayCommand(GetFavoriteFoldersAsync);
+            ChangeSeasonCommand = new RelayCommand<SeasonInformation>(SelectSeason);
+            ChangeEpisodeCommand = new RelayCommand<EpisodeInformation>(SelectEpisode);
+            ReloadCommunityInformationCommand = new AsyncRelayCommand(RequestEpisodeInteractionInformationAsync);
+            FavoriteEpisodeCommand = new AsyncRelayCommand(FavoriteVideoAsync);
+            CoinCommand = new AsyncRelayCommand<int>(CoinAsync);
+            LikeCommand = new AsyncRelayCommand(LikeAsync);
+            TripleCommand = new AsyncRelayCommand(TripleAsync);
+            ShareCommand = new RelayCommand(Share);
+            FixedCommand = new RelayCommand(Fix);
+            ShowSeasonDetailCommand = new RelayCommand(ShowSeasonDetail);
+            TrackSeasonCommand = new AsyncRelayCommand(TrackAsync);
+            ClearCommand = new RelayCommand(Reset);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);

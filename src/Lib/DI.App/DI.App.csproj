@@ -128,6 +128,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>5.0.4</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\App.ruleset">

@@ -29,18 +29,18 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 选中状态命令.
         /// </summary>
-        public ReactiveCommand<int, Unit> SetStatusCommand { get; }
+        public IRelayCommand<int> SetStatusCommand { get; }
 
         /// <summary>
         /// 状态.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public int Status { get; set; }
 
         /// <summary>
         /// 是否显示空白.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

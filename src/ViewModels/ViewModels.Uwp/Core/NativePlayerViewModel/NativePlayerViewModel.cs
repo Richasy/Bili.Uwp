@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Core
             _resourceToolkit = resourceToolkit;
             _dispatcher = dispatcher;
 
-            ClearCommand = ReactiveCommand.Create(Clear);
+            ClearCommand = new RelayCommand(Clear);
         }
 
         /// <inheritdoc/>

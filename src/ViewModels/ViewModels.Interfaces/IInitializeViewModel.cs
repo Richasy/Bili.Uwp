@@ -12,6 +12,6 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 初始化命令.
         /// </summary>
-        IRelayCommand InitializeCommand { get; }
+        IAsyncRelayCommand InitializeCommand { get; }
     }
 }

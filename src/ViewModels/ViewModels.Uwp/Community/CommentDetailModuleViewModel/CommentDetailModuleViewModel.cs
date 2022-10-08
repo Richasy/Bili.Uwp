@@ -35,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Community
             _resourceToolkit = resourceToolkit;
             _callerViewModel = callerViewModel;
 
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
-            BackCommand = ReactiveCommand.Create(Back);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
+            SendCommentCommand = new AsyncRelayCommand(SendCommentAsync);
+            BackCommand = new RelayCommand(Back);
+            ResetSelectedCommentCommand = new RelayCommand(UnselectComment);
 
             SendCommentCommand.IsExecuting.ToPropertyEx(this, x => x.IsSending);
         }

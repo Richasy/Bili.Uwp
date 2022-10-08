@@ -37,14 +37,14 @@ namespace Bili.ViewModels.Uwp.Article
         public ObservableCollection<ArticleSortType> SortTypes { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        public IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Partition CurrentPartition { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public ArticleSortType SortType { get; set; }
 
         /// <inheritdoc/>

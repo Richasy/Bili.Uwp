@@ -35,9 +35,9 @@ namespace Bili.ViewModels.Uwp.Pgc
 
             Seasons = new ObservableCollection<ISeasonItemViewModel>();
 
-            ShowMoreCommand = ReactiveCommand.Create(ShowMore);
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            ShowMoreCommand = new RelayCommand(ShowMore);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
             _isReloading = InitializeCommand.IsExecuting.Merge(ReloadCommand.IsExecuting)
                 .ToProperty(this, x => x.IsReloading);

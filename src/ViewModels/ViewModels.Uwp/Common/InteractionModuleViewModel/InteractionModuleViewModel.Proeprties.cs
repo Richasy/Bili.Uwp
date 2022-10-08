@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Uwp.Common
         public event EventHandler NoMoreChoices;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<InteractionInformation> Choices { get; }

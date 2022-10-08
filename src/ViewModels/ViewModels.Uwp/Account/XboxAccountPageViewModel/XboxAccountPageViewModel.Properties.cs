@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -14,29 +13,19 @@ namespace Bili.ViewModels.Uwp.Account
     {
         private readonly INavigationViewModel _navigationViewModel;
 
-        /// <summary>
-        /// 账户视图模型.
-        /// </summary>
+        /// <inheritdoc/>
         public IAccountViewModel AccountViewModel { get; }
 
-        /// <summary>
-        /// 前往收藏页面的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoFavoritePageCommand { get; }
+        /// <inheritdoc/>
+        public IRelayCommand GotoFavoritePageCommand { get; }
 
-        /// <summary>
-        /// 前往稍后再看页面的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoViewLaterPageCommand { get; }
+        /// <inheritdoc/>
+        public IRelayCommand GotoViewLaterPageCommand { get; }
 
-        /// <summary>
-        /// 前往历史记录页面的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoHistoryPageCommand { get; }
+        /// <inheritdoc/>
+        public IRelayCommand GotoHistoryPageCommand { get; }
 
-        /// <summary>
-        /// 登出命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> SignOutCommand { get; }
+        /// <inheritdoc/>
+        public IRelayCommand SignOutCommand { get; }
     }
 }

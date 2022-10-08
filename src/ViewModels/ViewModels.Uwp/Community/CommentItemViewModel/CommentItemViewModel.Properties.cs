@@ -26,39 +26,39 @@ namespace Bili.ViewModels.Uwp.Community
         private Action<ICommentItemViewModel> _clickAction;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
+        public IRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
+        public IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
+        public IRelayCommand ShowUserDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClickCommand { get; }
+        public IRelayCommand ClickCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public CommentInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLiked { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string LikeCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ReplyCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string PublishDateText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsUserHighlight { get; set; }
     }
 }

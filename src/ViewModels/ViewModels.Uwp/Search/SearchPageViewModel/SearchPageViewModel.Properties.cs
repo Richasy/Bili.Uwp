@@ -33,10 +33,10 @@ namespace Bili.ViewModels.Uwp.Search
         private readonly Dictionary<SearchModuleType, IEnumerable<ISearchFilterViewModel>> _filters;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadModuleCommand { get; }
+        public IRelayCommand ReloadModuleCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<ISearchModuleItemViewModel, Unit> SelectModuleCommand { get; }
+        public IRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> Videos { get; }
@@ -60,43 +60,43 @@ namespace Bili.ViewModels.Uwp.Search
         public ObservableCollection<ISearchFilterViewModel> CurrentFilters { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public ISearchModuleItemViewModel CurrentModule { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsCurrentContentEmpty { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsCurrentFilterEmpty { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsVideoModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsAnimeModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsMovieModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsArticleModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLiveModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsUserModuleShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Keyword { get; internal set; }
 
         /// <inheritdoc/>

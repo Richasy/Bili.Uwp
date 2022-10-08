@@ -37,7 +37,7 @@
                 <muxc:NavigationViewItem
                     x:Name="SignInItem"
                     Content="{loc:Locale Name=SignIn}"
-                    IsEnabled="{x:Bind AccountViewModel.IsSigning, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+                    IsEnabled="{x:Bind AccountViewModel.TrySignInCommand.IsRunning, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
                     Visibility="{x:Bind AccountViewModel.IsConnected, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
                     <muxc:NavigationViewItem.Icon>
                         <icons:RegularFluentIcon Symbol="Person16" />

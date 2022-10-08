@@ -34,10 +34,10 @@ namespace Bili.ViewModels.Uwp.Community
             _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
 
-            ShowCommentDetailCommand = ReactiveCommand.Create(ShowDetail);
-            ToggleLikeCommand = ReactiveCommand.CreateFromTask(ToggleLikeAsync);
-            ShowUserDetailCommand = ReactiveCommand.Create(ShowUserDetail);
-            ClickCommand = ReactiveCommand.Create(Click);
+            ShowCommentDetailCommand = new RelayCommand(ShowDetail);
+            ToggleLikeCommand = new AsyncRelayCommand(ToggleLikeAsync);
+            ShowUserDetailCommand = new RelayCommand(ShowUserDetail);
+            ClickCommand = new RelayCommand(Click);
         }
 
         /// <inheritdoc/>

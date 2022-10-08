@@ -33,14 +33,14 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<Partition> HotPartitions { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
+        public IRelayCommand SeeAllPartitionsCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLoggedIn { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsFollowsEmpty { get; set; }
     }
 }

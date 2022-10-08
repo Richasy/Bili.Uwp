@@ -14,11 +14,11 @@ namespace Bili.ViewModels.Uwp.Pgc
     public sealed class IndexFilterViewModel : ViewModelBase, IIndexFilterViewModel
     {
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Filter Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public int SelectedIndex { get; set; }
 
         /// <inheritdoc/>

@@ -16,13 +16,13 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// 筛选器.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public Filter Filter { get; set; }
 
         /// <summary>
         /// 当前值.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public Condition CurrentCondition { get; set; }
 
         /// <inheritdoc/>

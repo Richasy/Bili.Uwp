@@ -36,10 +36,10 @@ namespace Bili.ViewModels.Uwp.Article
             _articleProvider = articleProvider;
             _favoriteProvider = favoriteProvider;
 
-            ReadCommand = ReactiveCommand.Create(Read);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            UnfavoriteCommand = ReactiveCommand.CreateFromTask(UnfavoriteAsync);
+            ReadCommand = new RelayCommand(Read);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteAsync);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             ReloadCommand.ThrownExceptions.Subscribe(DisplayException);

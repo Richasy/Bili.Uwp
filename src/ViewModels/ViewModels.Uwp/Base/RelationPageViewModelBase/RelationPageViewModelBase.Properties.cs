@@ -22,19 +22,19 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 对应的用户基础资料.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public UserProfile Profile { get; internal set; }
 
         /// <summary>
         /// 标题后缀.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string TitleSuffix { get; internal set; }
 
         /// <summary>
         /// 是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

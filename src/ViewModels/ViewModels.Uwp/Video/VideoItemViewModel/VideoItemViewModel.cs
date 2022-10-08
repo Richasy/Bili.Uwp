@@ -40,12 +40,12 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _callerViewModel = callerViewModel;
 
-            PlayCommand = ReactiveCommand.Create(Play);
-            AddToViewLaterCommand = ReactiveCommand.CreateFromTask(AddToViewLaterAsync);
-            RemoveFromViewLaterCommand = ReactiveCommand.CreateFromTask(RemoveFromViewLaterAsync);
-            RemoveFromHistoryCommand = ReactiveCommand.CreateFromTask(RemoveFromHistoryAsync);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            RemoveFromFavoriteCommand = ReactiveCommand.CreateFromTask(RemoveFromFavoriteAsync);
+            PlayCommand = new RelayCommand(Play);
+            AddToViewLaterCommand = new AsyncRelayCommand(AddToViewLaterAsync);
+            RemoveFromViewLaterCommand = new AsyncRelayCommand(RemoveFromViewLaterAsync);
+            RemoveFromHistoryCommand = new AsyncRelayCommand(RemoveFromHistoryAsync);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            RemoveFromFavoriteCommand = new AsyncRelayCommand(RemoveFromFavoriteAsync);
 
             RemoveFromFavoriteCommand.ThrownExceptions.Subscribe(x =>
             {

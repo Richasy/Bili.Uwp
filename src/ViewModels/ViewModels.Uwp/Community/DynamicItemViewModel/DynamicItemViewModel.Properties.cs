@@ -23,49 +23,49 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly INavigationViewModel _navigationViewModel;
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public IUserItemViewModel Publisher { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public DynamicInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLiked { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string LikeCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CommentCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowCommunity { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool CanAddViewLater { get; set; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
+        public IRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ActiveCommand { get; }
+        public IRelayCommand ActiveCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
+        public IRelayCommand ShowUserDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
+        public IRelayCommand AddToViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
+        public IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
     }
 }

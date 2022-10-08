@@ -9,7 +9,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ReactiveUI;
 using Windows.Globalization;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -49,19 +48,14 @@ namespace Bili.ViewModels.Uwp.Core
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
             IsShowTitleBar = true;
 
-            CheckUpdateCommand = ReactiveCommand.CreateFromTask(CheckUpdateAsync);
-            CheckNewDynamicRegistrationCommand = ReactiveCommand.CreateFromTask(CheckNewDynamicRegistrationAsync);
+            CheckUpdateCommand = new AsyncRelayCommand(CheckUpdateAsync);
+            CheckNewDynamicRegistrationCommand = new AsyncRelayCommand(CheckNewDynamicRegistrationAsync);
 
             CheckUpdateCommand.ThrownExceptions.Subscribe(LogException);
-
-            RxApp.DefaultExceptionHandler = new UnhandledExceptionHandler();
 
             var lan = ApplicationLanguages.Languages.First();
             _settingsToolkit.WriteLocalSetting(SettingNames.LastAppLanguage, lan);
             IsTraditionalChinese = lan.Contains("zh-hant", StringComparison.OrdinalIgnoreCase);
-
-            var logger = Bili.DI.Container.Locator.Instance.Provider.GetService<NLog.ILogger>();
-            logger.Log(NLog.LogLevel.Warn, "卧槽");
         }
 
         /// <summary>

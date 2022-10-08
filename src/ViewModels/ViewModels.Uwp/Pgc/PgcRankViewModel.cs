@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             => Episodes = new ObservableCollection<IEpisodeItemViewModel>();
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <inheritdoc/>

@@ -21,47 +21,47 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 剧集单集信息.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public EpisodeInformation Data { get; set; }
 
         /// <summary>
         /// 播放次数的可读文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string PlayCountText { get; set; }
 
         /// <summary>
         /// 播放次数的可读文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string DanmakuCountText { get; set; }
 
         /// <summary>
         /// 追番/追剧次数的可读文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string TrackCountText { get; set; }
 
         /// <summary>
         /// 是否被选中.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSelected { get; set; }
 
         /// <summary>
         /// 时长的可读文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string DurationText { get; set; }
 
         /// <inheritdoc/>

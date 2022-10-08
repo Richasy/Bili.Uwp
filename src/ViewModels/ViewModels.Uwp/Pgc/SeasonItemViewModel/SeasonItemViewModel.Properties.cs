@@ -24,31 +24,31 @@ namespace Bili.ViewModels.Uwp.Pgc
         private Action<ISeasonItemViewModel> _additionalAction;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> UnfollowCommand { get; }
+        public IRelayCommand UnfollowCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<int, Unit> ChangeFavoriteStatusCommand { get; }
+        public IRelayCommand<int> ChangeFavoriteStatusCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public SeasonInformation Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSelected { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowRating { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string TrackCountText { get; set; }
 
         /// <inheritdoc/>

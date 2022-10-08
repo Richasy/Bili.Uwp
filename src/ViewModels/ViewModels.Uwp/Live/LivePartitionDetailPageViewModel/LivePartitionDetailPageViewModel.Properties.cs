@@ -29,21 +29,21 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<LiveTag> Tags { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<LiveTag, Unit> SelectTagCommand { get; }
+        public IRelayCommand<LiveTag> SelectTagCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
+        public IRelayCommand SeeAllPartitionsCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Partition OriginPartition { get; private set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public LiveTag CurrentTag { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

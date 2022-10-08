@@ -11,27 +11,27 @@ namespace Bili.ViewModels.Uwp.Common
     public partial class BannerViewModel
     {
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Uri { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Cover { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Description { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsTooltipEnabled { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public double MinHeight { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public BannerIdentifier Data { get; set; }
     }
 }

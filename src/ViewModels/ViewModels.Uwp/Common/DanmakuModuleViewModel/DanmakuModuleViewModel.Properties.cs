@@ -57,77 +57,77 @@ namespace Bili.ViewModels.Uwp.Common
         public ObservableCollection<string> FontCollection { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
+        public IRelayCommand ResetCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<string, bool> SendDanmakuCommand { get; }
+        public IRelayCommand<string, bool> SendDanmakuCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<int, Unit> LoadSegmentDanmakuCommand { get; }
+        public IRelayCommand<int> LoadSegmentDanmakuCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<double, Unit> SeekCommand { get; }
+        public IRelayCommand<double> SeekCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<LiveDanmakuInformation, Unit> AddLiveDanmakuCommand { get; }
+        public IRelayCommand<LiveDanmakuInformation> AddLiveDanmakuCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowDanmaku { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool CanShowDanmaku { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public double DanmakuOpacity { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public double DanmakuFontSize { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public double DanmakuArea { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public double DanmakuSpeed { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string DanmakuFont { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDanmakuLimit { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDanmakuMerge { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDanmakuBold { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseCloudShieldSettings { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsStandardSize { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public DanmakuLocation Location { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Color { get; set; }
 
         /// <inheritdoc/>

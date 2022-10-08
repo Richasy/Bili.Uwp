@@ -36,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Base
             StatusCollection = new ObservableCollection<int> { 1, 2, 3 };
             Status = 2;
 
-            SetStatusCommand = ReactiveCommand.Create<int>(SetStatus);
+            SetStatusCommand = new RelayCommand<int>(SetStatus);
         }
 
         /// <inheritdoc/>

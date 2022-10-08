@@ -40,8 +40,8 @@ namespace Bili.ViewModels.Uwp.Community
 
             var canInteraction = this.WhenAnyValue(p => p.NeedSignIn)
                 .Select(p => !p);
-            SelectHeaderCommand = ReactiveCommand.Create<DynamicHeader>(SelectHeader, canInteraction, RxApp.MainThreadScheduler);
-            RefreshModuleCommand = ReactiveCommand.Create(RefreshModule, canInteraction, RxApp.MainThreadScheduler);
+            SelectHeaderCommand = new RelayCommand<DynamicHeader>(SelectHeader, canInteraction, RxApp.MainThreadScheduler);
+            RefreshModuleCommand = new RelayCommand(RefreshModule, canInteraction, RxApp.MainThreadScheduler);
 
             NeedSignIn = _authorizeProvider.State != Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;

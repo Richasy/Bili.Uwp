@@ -39,19 +39,19 @@ namespace Bili.ViewModels.Uwp.Live
         public event EventHandler RequestDanmakusScrollToBottom;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand FixedCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<LiveDanmakuInformation> Danmakus { get; }
@@ -60,39 +60,39 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<PlayerSectionHeader> Sections { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public LivePlayerView View { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSignedIn { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public IUserItemViewModel User { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string WatchingCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLiveFixed { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public PlayerSectionHeader CurrentSection { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDanmakusEmpty { get; set; }
 
         /// <inheritdoc/>

@@ -20,28 +20,28 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ICallerViewModel _callerViewModel;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> CheckContinuePlayCommand { get; }
+        public IRelayCommand CheckContinuePlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlaySnapshot, Unit> AddLastPlayItemCommand { get; }
+        public IRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
+        public IRelayCommand DeleteLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlayRecord, Unit> AddPlayRecordCommand { get; }
+        public IRelayCommand<PlayRecord> AddPlayRecordCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlayRecord, Unit> RemovePlayRecordCommand { get; }
+        public IRelayCommand<PlayRecord> RemovePlayRecordCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearPlayRecordCommand { get; }
+        public IRelayCommand ClearPlayRecordCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<PlayRecord> PlayRecords { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowPlayRecordButton { get; set; }
     }
 }

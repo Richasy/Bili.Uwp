@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Uwp.Video
         public ObservableCollection<Partition> Partitions { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
         [ObservableAsProperty]

@@ -20,10 +20,10 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly IAuthorizeProvider _authorizeProvider;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RefreshModuleCommand { get; }
+        public IRelayCommand RefreshModuleCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<DynamicHeader, Unit> SelectHeaderCommand { get; }
+        public IRelayCommand<DynamicHeader> SelectHeaderCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<DynamicHeader> Headers { get; }
@@ -35,19 +35,19 @@ namespace Bili.ViewModels.Uwp.Community
         public IDynamicAllModuleViewModel AllModule { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public DynamicHeader CurrentHeader { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowVideo { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowAll { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool NeedSignIn { get; set; }
     }
 }

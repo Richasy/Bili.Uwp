@@ -23,32 +23,32 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IResourceToolkit _resourceToolkit;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowMoreCommand { get; }
+        public IRelayCommand ShowMoreCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public PgcPlaylist Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Subtitle { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowDetailButton { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>

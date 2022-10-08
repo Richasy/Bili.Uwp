@@ -52,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Community
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ => InitializeMessageCount());
 
-            SelectTypeCommand = ReactiveCommand.CreateFromTask<IMessageHeaderViewModel>(SelectTypeAsync);
+            SelectTypeCommand = new AsyncRelayCommand<IMessageHeaderViewModel>(SelectTypeAsync);
         }
 
         /// <inheritdoc/>

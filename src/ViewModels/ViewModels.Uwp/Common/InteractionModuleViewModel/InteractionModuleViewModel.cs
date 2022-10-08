@@ -26,7 +26,7 @@ namespace Bili.ViewModels.Uwp.Common
         {
             _playerProvider = playerProvider;
             Choices = new ObservableCollection<InteractionInformation>();
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             ReloadCommand.ThrownExceptions.ObserveOn(RxApp.MainThreadScheduler).Subscribe(LogException);

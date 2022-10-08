@@ -43,12 +43,12 @@ namespace Bili.ViewModels.Uwp.Common
             LocationCollection = new ObservableCollection<Models.Enums.App.DanmakuLocation>();
             ColorCollection = new ObservableCollection<KeyValue<string>>();
 
-            ResetCommand = ReactiveCommand.Create(Reset);
-            SendDanmakuCommand = ReactiveCommand.CreateFromTask<string, bool>(SendDanmakuAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            LoadSegmentDanmakuCommand = ReactiveCommand.CreateFromTask<int>(LoadSegmentDanmakuAsync);
-            SeekCommand = ReactiveCommand.Create<double>(Seek);
-            AddLiveDanmakuCommand = ReactiveCommand.Create<LiveDanmakuInformation>(AddLiveDanmaku);
+            ResetCommand = new RelayCommand(Reset);
+            SendDanmakuCommand = new AsyncRelayCommand<string, bool>(SendDanmakuAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            LoadSegmentDanmakuCommand = new AsyncRelayCommand<int>(LoadSegmentDanmakuAsync);
+            SeekCommand = new RelayCommand<double>(Seek);
+            AddLiveDanmakuCommand = new RelayCommand<LiveDanmakuInformation>(AddLiveDanmaku);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             LoadSegmentDanmakuCommand.IsExecuting.ToPropertyEx(this, x => x.IsDanmakuLoading);

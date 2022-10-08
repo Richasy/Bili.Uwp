@@ -18,15 +18,15 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountProvider _accountProvider;
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public VideoFavoriteFolderGroup Data { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool HasMore { get; set; }
 
         /// <inheritdoc/>

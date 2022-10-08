@@ -17,6 +17,6 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 增量加载命令.
         /// </summary>
-        IRelayCommand IncrementalCommand { get; }
+        IAsyncRelayCommand IncrementalCommand { get; }
     }
 }

@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             _callerViewModel = callerViewModel;
             _resourceToolkit = resourceToolkit;
-            ActiveCommand = ReactiveCommand.CreateFromTask(ActiveAsync);
+            ActiveCommand = new AsyncRelayCommand(ActiveAsync);
         }
 
         /// <inheritdoc/>

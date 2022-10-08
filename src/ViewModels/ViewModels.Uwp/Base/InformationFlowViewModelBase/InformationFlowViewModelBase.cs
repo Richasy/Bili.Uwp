@@ -2,12 +2,10 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Models.App.Other;
 using Bili.ViewModels.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -24,25 +22,14 @@ namespace Bili.ViewModels.Uwp.Base
             _dispatcher = dispatcher;
             Items = new ObservableCollection<T>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            IncrementalCommand = new AsyncRelayCommand(IncrementalAsync);
 
-            ReloadCommand.IsExecuting
-                .Merge(InitializeCommand.IsExecuting)
-                .ToPropertyEx(
-                this,
-                x => x.IsReloading);
-
-            IncrementalCommand.IsExecuting.ToPropertyEx(
-                this,
-                x => x.IsIncrementalLoading);
-
-            ReloadCommand.ThrownExceptions
-                .Merge(InitializeCommand.ThrownExceptions)
-                .Subscribe(DisplayException);
-
-            IncrementalCommand.ThrownExceptions.Subscribe(LogException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand, InitializeCommand);
+            AttachIsRunningToAsyncCommand(p => IsIncrementalLoading = p, IncrementalCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand, InitializeCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, IncrementalCommand);
         }
 
         /// <inheritdoc/>

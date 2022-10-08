@@ -21,23 +21,23 @@ namespace Bili.ViewModels.Uwp.Live
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 视频信息.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public LiveInformation Data { get; set; }
 
         /// <summary>
         /// 观看人数的可读文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string ViewerCountText { get; set; }
 
         /// <inheritdoc/>

@@ -37,8 +37,8 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _playerProvider = playerProvider;
             _dispatcher = dispatcher;
 
-            DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync);
-            LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync);
+            DownloadCommand = new AsyncRelayCommand(DownloadCoverAsync);
+            LoadPreviewCommand = new AsyncRelayCommand(LoadPreviewAsync);
 
             DownloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsDownloading);
 
@@ -52,19 +52,19 @@ namespace Bili.ViewModels.Uwp.Toolbox
         }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CoverUrl { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string InputId { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorMessage { get; set; }
 
         /// <inheritdoc/>
@@ -72,10 +72,10 @@ namespace Bili.ViewModels.Uwp.Toolbox
         public bool IsDownloading { get; set; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> LoadPreviewCommand { get; }
+        public IRelayCommand LoadPreviewCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DownloadCommand { get; }
+        public IRelayCommand DownloadCommand { get; }
 
         private async Task LoadPreviewAsync()
         {

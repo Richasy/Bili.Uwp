@@ -17,6 +17,6 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 重新加载命令.
         /// </summary>
-        IRelayCommand ReloadCommand { get; }
+        IAsyncRelayCommand ReloadCommand { get; }
     }
 }

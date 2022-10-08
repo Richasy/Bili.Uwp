@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 选中分组命令.
         /// </summary>
-        IRelayCommand<FollowGroup> SelectGroupCommand { get; }
+        IAsyncRelayCommand<FollowGroup> SelectGroupCommand { get; }
 
         /// <summary>
         /// 当前分组.

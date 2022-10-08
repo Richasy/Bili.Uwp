@@ -30,7 +30,7 @@ namespace Bili.ViewModels.Uwp.Video
                 x => x.Partitions.Count,
                 count => count == 0);
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(
+            InitializeCommand = new AsyncRelayCommand(
                 InitializeAsync,
                 canInitialize,
                 outputScheduler: RxApp.MainThreadScheduler);

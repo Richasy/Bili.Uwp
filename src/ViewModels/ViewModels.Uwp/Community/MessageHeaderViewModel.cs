@@ -22,19 +22,19 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// 标题.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <summary>
         /// 消息数.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public int Count { get; set; }
 
         /// <summary>
         /// 是否显示徽章文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowBadge { get; set; }
 
         /// <inheritdoc/>

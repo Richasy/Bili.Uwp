@@ -36,9 +36,9 @@ namespace Bili.ViewModels.Uwp.Live
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SelectPartitionAsync);
 
             InitializeCommand.ThrownExceptions
                 .Merge(ReloadCommand.ThrownExceptions)

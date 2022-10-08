@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 搜索命令.
         /// </summary>
-        IRelayCommand SearchCommand { get; }
+        IAsyncRelayCommand SearchCommand { get; }
 
         /// <summary>
         /// 进入搜索模式的命令.

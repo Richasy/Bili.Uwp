@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _videoToolkit = videoToolkit;
             _appViewModel = appViewModel;
             _playerProvider = playerProvider;
-            ConvertCommand = ReactiveCommand.CreateFromTask(ConvertAsync);
+            ConvertCommand = new AsyncRelayCommand(ConvertAsync);
             ConvertCommand.IsExecuting.ToPropertyEx(this, x => x.IsConverting);
 
             ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
@@ -46,22 +46,22 @@ namespace Bili.ViewModels.Uwp.Toolbox
         }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ConvertCommand { get; }
+        public IRelayCommand ConvertCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string InputId { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string OutputId { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorMessage { get; set; }
 
         /// <inheritdoc/>

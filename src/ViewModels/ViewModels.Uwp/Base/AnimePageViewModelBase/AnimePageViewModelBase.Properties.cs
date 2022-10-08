@@ -60,86 +60,86 @@ namespace Bili.ViewModels.Uwp.Base
         public ObservableCollection<IVideoItemViewModel> Videos { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> IncrementalCommand { get; }
+        public IRelayCommand IncrementalCommand { get; }
 
         /// <summary>
         /// 前往追番页面的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoFavoritePageCommand { get; }
+        public IRelayCommand GotoFavoritePageCommand { get; }
 
         /// <summary>
         /// 前往动漫索引页面的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoIndexPageCommand { get; }
+        public IRelayCommand GotoIndexPageCommand { get; }
 
         /// <summary>
         /// 前往动漫时间线页面的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoTimeLinePageCommand { get; }
+        public IRelayCommand GotoTimeLinePageCommand { get; }
 
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        public IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前选中标签.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public Partition CurrentPartition { get; set; }
 
         /// <summary>
         /// 是否显示我的追番按钮.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLoggedIn { get; set; }
 
         /// <summary>
         /// 是否显示排行榜.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowRank { get; set; }
 
         /// <summary>
         /// 是否显示播放列表.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowPlaylist { get; set; }
 
         /// <summary>
         /// 是否显示横幅.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowBanner { get; set; }
 
         /// <summary>
         /// 是否显示视频.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowVideo { get; set; }
 
         /// <summary>
         /// 页面标题.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <summary>
         /// 是否出错.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; private set; }
 
         /// <summary>
         /// 错误文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <summary>

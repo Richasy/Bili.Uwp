@@ -34,8 +34,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _resourceToolkit = resourceToolkit;
             Timelines = new ObservableCollection<TimelineInformation>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
             InitializeCommand.IsExecuting
                 .Merge(ReloadCommand.IsExecuting)

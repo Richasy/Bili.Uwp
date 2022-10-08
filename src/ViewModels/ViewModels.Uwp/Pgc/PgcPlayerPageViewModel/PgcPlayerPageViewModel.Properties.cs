@@ -52,46 +52,46 @@ namespace Bili.ViewModels.Uwp.Pgc
         public bool IsFavoriteFolderRequesting { get; set; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
+        public IRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<EpisodeInformation, Unit> ChangeEpisodeCommand { get; }
+        public IRelayCommand<EpisodeInformation> ChangeEpisodeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<SeasonInformation, Unit> ChangeSeasonCommand { get; }
+        public IRelayCommand<SeasonInformation> ChangeSeasonCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FavoriteEpisodeCommand { get; }
+        public IRelayCommand FavoriteEpisodeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> TrackSeasonCommand { get; }
+        public IRelayCommand TrackSeasonCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<int, Unit> CoinCommand { get; }
+        public IRelayCommand<int> CoinCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> LikeCommand { get; }
+        public IRelayCommand LikeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> TripleCommand { get; }
+        public IRelayCommand TripleCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
+        public IRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand FixedCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowSeasonDetailCommand { get; }
+        public IRelayCommand ShowSeasonDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoFavoriteFolderSelectableViewModel> FavoriteFolders { get; }
@@ -115,115 +115,115 @@ namespace Bili.ViewModels.Uwp.Pgc
         public IDownloadModuleViewModel DownloadViewModel { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public PgcPlayerView View { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSignedIn { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string PlayCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string DanmakuCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CommentCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string LikeCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string CoinCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string FavoriteCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string RatingCountText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsLiked { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsCoined { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsFavorited { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsTracking { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsCoinWithLiked { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ErrorText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsFavoriteFoldersError { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string FavoriteFoldersErrorText { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsVideoFixed { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsOnlyShowIndex { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowCelebrities { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public PlayerSectionHeader CurrentSection { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public EpisodeInformation CurrentEpisode { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowSeasons { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowEpisodes { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowComments { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowExtras { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSectionsEmpty { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 标题.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <summary>

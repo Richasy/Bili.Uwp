@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Base
             _navigationViewModel = navigationViewModel;
             Banners = new ObservableCollection<IBannerViewModel>();
 
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
+            GotoIndexPageCommand = new RelayCommand(GotoIndexPage);
 
             Title = _type switch
             {

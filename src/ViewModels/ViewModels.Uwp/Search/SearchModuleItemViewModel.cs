@@ -14,19 +14,19 @@ namespace Bili.ViewModels.Uwp.Search
         /// <summary>
         /// 类型.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public SearchModuleType Type { get; set; }
 
         /// <summary>
         /// 标题.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
 
         /// <summary>
         /// 是否可用.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEnabled { get; set; }
 
         /// <inheritdoc/>

@@ -75,21 +75,21 @@ namespace Bili.ViewModels.Uwp.Video
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
-            RequestFavoriteFoldersCommand = ReactiveCommand.CreateFromTask(GetFavoriteFoldersAsync);
-            SearchTagCommand = ReactiveCommand.Create<Tag>(SearchTag);
-            SelectSeasonCommand = ReactiveCommand.Create<VideoSeason>(SelectSeason);
-            ReloadCommunityInformationCommand = ReactiveCommand.CreateFromTask(ReloadCommunityInformationAsync);
-            RequestOnlineCountCommand = ReactiveCommand.CreateFromTask(GetOnlineCountAsync);
-            FavoriteVideoCommand = ReactiveCommand.CreateFromTask(FavoriteVideoAsync);
-            CoinCommand = ReactiveCommand.CreateFromTask<int>(CoinAsync);
-            LikeCommand = ReactiveCommand.CreateFromTask(LikeAsync);
-            TripleCommand = ReactiveCommand.CreateFromTask(TripleAsync);
-            ShareCommand = ReactiveCommand.Create(Share);
-            FixedCommand = ReactiveCommand.Create(Fix);
-            ChangeVideoPartCommand = ReactiveCommand.Create<VideoIdentifier>(ChangeVideoPart);
-            ClearPlaylistCommand = ReactiveCommand.Create(ClearPlaylist);
-            ClearCommand = ReactiveCommand.Create(Clear);
+            ReloadCommand = new AsyncRelayCommand(GetDataAsync);
+            RequestFavoriteFoldersCommand = new AsyncRelayCommand(GetFavoriteFoldersAsync);
+            SearchTagCommand = new RelayCommand<Tag>(SearchTag);
+            SelectSeasonCommand = new RelayCommand<VideoSeason>(SelectSeason);
+            ReloadCommunityInformationCommand = new AsyncRelayCommand(ReloadCommunityInformationAsync);
+            RequestOnlineCountCommand = new AsyncRelayCommand(GetOnlineCountAsync);
+            FavoriteVideoCommand = new AsyncRelayCommand(FavoriteVideoAsync);
+            CoinCommand = new AsyncRelayCommand<int>(CoinAsync);
+            LikeCommand = new AsyncRelayCommand(LikeAsync);
+            TripleCommand = new AsyncRelayCommand(TripleAsync);
+            ShareCommand = new RelayCommand(Share);
+            FixedCommand = new RelayCommand(Fix);
+            ChangeVideoPartCommand = new RelayCommand<VideoIdentifier>(ChangeVideoPart);
+            ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
+            ClearCommand = new RelayCommand(Clear);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
             RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);

@@ -2,13 +2,12 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -23,26 +22,22 @@ namespace Bili.ViewModels.Uwp.Account
 
         private readonly Dictionary<string, IEnumerable<IUserItemViewModel>> _cache;
 
+        [ObservableProperty]
+        private FollowGroup _currentGroup;
+
+        [ObservableProperty]
+        private bool _isCurrentGroupEmpty;
+
+        [ObservableProperty]
+        private string _userName;
+
+        [ObservableProperty]
+        private bool _isSwitching;
+
         /// <inheritdoc/>
         public ObservableCollection<FollowGroup> Groups { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<FollowGroup, Unit> SelectGroupCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public FollowGroup CurrentGroup { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsCurrentGroupEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string UserName { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsSwitching { get; set; }
+        public IAsyncRelayCommand<FollowGroup> SelectGroupCommand { get; }
     }
 }

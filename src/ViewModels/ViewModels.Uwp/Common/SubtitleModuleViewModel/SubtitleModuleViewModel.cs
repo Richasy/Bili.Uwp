@@ -43,9 +43,9 @@ namespace Bili.ViewModels.Uwp.Common
             ConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, SubtitleConvertType.None);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            ChangeMetaCommand = ReactiveCommand.CreateFromTask<SubtitleMeta>(ChangeMetaAsync);
-            SeekCommand = ReactiveCommand.Create<double>(Seek);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            ChangeMetaCommand = new AsyncRelayCommand<SubtitleMeta>(ChangeMetaAsync);
+            SeekCommand = new RelayCommand<double>(Seek);
 
             ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
 

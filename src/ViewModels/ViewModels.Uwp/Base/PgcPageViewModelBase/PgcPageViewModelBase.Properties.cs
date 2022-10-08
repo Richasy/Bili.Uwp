@@ -30,18 +30,18 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 导航至索引页面的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoIndexPageCommand { get; }
+        public IRelayCommand GotoIndexPageCommand { get; }
 
         /// <summary>
         /// 是否显示横幅.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowBanner { get; set; }
 
         /// <summary>
         /// 页面标题.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string Title { get; set; }
     }
 }

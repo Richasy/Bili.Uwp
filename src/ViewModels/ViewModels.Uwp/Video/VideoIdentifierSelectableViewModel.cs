@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Uwp.Video
         /// <summary>
         /// 索引.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public int Index { get; set; }
     }
 }

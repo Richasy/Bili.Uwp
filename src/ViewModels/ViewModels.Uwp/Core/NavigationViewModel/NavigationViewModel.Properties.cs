@@ -26,26 +26,26 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler ExitPlayer;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> BackCommand { get; }
+        public IRelayCommand BackCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsMainViewShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsSecondaryViewShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsPlayViewShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool CanBack { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsBackButtonEnabled { get; set; }
 
         /// <inheritdoc/>

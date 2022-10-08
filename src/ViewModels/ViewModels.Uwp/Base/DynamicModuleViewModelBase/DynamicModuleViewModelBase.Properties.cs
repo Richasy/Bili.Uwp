@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 动态是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

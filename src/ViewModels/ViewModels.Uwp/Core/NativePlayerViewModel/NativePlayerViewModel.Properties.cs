@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler<object> MediaPlayerChanged;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <inheritdoc/>
         public TimeSpan Position => _videoPlayer?.PlaybackSession?.Position ?? TimeSpan.Zero;

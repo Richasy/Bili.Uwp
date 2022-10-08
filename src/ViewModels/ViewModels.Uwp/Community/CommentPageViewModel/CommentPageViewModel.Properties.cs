@@ -17,11 +17,11 @@ namespace Bili.ViewModels.Uwp.Community
         public ICommentDetailModuleViewModel DetailViewModel { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsMainShown { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsDetailShown { get; set; }
     }
 }

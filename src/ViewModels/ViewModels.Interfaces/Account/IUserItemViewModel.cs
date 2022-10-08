@@ -15,17 +15,17 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 切换关系命令（关注或取消关注）.
         /// </summary>
-        IRelayCommand ToggleRelationCommand { get; }
+        IAsyncRelayCommand ToggleRelationCommand { get; }
+
+        /// <summary>
+        /// 初始化关系命令.
+        /// </summary>
+        IAsyncRelayCommand InitializeRelationCommand { get; }
 
         /// <summary>
         /// 显示用户资料详情的命令.
         /// </summary>
         IRelayCommand ShowDetailCommand { get; }
-
-        /// <summary>
-        /// 初始化关系命令.
-        /// </summary>
-        IRelayCommand InitializeRelationCommand { get; }
 
         /// <summary>
         /// 用户基础信息.

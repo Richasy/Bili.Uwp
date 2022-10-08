@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -31,8 +29,8 @@ namespace Bili.ViewModels.Uwp.Account
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;
 
-            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllAsync);
-            ClearCommand.IsExecuting.ToPropertyEx(this, x => x.IsClearing);
+            ClearCommand = new AsyncRelayCommand(ClearAllAsync);
+            AttachExceptionHandlerToAsyncCommand(LogException, ClearCommand);
         }
 
         /// <inheritdoc/>
@@ -54,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Account
             var data = await _accountProvider.GetMyHistorySetAsync();
             foreach (var item in data.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(item);
                 videoVM.InjectAction(vm => RemoveVideo(vm));
                 Items.Add(videoVM);
@@ -74,7 +72,7 @@ namespace Bili.ViewModels.Uwp.Account
             if (result)
             {
                 TryClear(Items);
-                ReloadCommand.Execute().Subscribe();
+                _ = ReloadCommand.ExecuteAsync(null);
             }
         }
 

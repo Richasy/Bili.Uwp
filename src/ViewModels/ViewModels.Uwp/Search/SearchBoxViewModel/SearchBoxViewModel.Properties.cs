@@ -33,16 +33,16 @@ namespace Bili.ViewModels.Uwp.Search
         public ObservableCollection<SearchSuggest> SearchSuggestion { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<string, Unit> SearchCommand { get; }
+        public IRelayCommand<string> SearchCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<SearchSuggest, Unit> SelectSuggestCommand { get; }
+        public IRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string Keyword { get; set; }
     }
 }

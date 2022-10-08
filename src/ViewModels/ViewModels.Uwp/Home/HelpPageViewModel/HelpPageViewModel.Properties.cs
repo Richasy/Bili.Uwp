@@ -25,19 +25,19 @@ namespace Bili.ViewModels.Uwp.Home
         public ObservableCollection<QuestionModule> QuestionCollection { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public QuestionModule CurrentQuestionModule { get; set; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> AskIssueCommand { get; }
+        public IRelayCommand AskIssueCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> GotoProjectHomeCommand { get; }
+        public IRelayCommand GotoProjectHomeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> GotoDeveloperBiliBiliHomePageCommand { get; }
+        public IRelayCommand GotoDeveloperBiliBiliHomePageCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        public IRelayCommand InitializeCommand { get; }
     }
 }

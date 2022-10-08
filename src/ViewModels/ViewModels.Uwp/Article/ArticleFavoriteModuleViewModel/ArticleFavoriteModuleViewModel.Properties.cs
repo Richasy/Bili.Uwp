@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// <summary>
         /// 是否显示空白.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
     }
 }

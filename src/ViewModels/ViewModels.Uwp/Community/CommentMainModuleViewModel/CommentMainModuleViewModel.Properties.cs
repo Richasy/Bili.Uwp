@@ -34,32 +34,32 @@ namespace Bili.ViewModels.Uwp.Community
         public ObservableCollection<CommentSortHeader> SortCollection { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<CommentSortHeader, Unit> ChangeSortCommand { get; }
+        public IRelayCommand<CommentSortHeader> ChangeSortCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
+        public IRelayCommand ResetSelectedCommentCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
+        public IRelayCommand SendCommentCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public ICommentItemViewModel TopComment { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public CommentSortHeader CurrentSort { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ReplyTip { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string ReplyText { get; set; }
 
         /// <inheritdoc/>

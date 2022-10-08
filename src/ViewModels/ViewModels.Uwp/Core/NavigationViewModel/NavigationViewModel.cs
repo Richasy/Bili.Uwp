@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             IsMainViewShown = true;
             var canBack = this.WhenAnyValue(x => x.CanBack);
-            BackCommand = ReactiveCommand.Create(Back, canBack, RxApp.MainThreadScheduler);
+            BackCommand = new RelayCommand(Back, canBack, RxApp.MainThreadScheduler);
 
             this.WhenAnyValue(x => x.IsMainViewShown)
                 .Subscribe(x =>

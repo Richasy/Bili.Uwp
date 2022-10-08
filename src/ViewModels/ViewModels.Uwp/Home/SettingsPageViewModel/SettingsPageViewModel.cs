@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Home
             PlayerTypeCollection = new ObservableCollection<PlayerType>();
             PreferQualities = new ObservableCollection<PreferQuality>();
 
-            InitializeCommand = ReactiveCommand.Create(InitializeSettings);
+            InitializeCommand = new RelayCommand(InitializeSettings);
 
             InitializeSettings();
         }

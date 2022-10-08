@@ -8,7 +8,7 @@ using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -39,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Account
                 TypeCollection.Add(CreateHeader(FavoriteType.Article));
             }
 
-            SelectTypeCommand = ReactiveCommand.Create<FavoriteHeader>(SelectType);
+            SelectTypeCommand = new RelayCommand<FavoriteHeader>(SelectType);
             SelectType(TypeCollection.First());
         }
 

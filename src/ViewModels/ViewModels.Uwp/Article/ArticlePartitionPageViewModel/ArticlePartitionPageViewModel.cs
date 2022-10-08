@@ -66,7 +66,7 @@ namespace Bili.ViewModels.Uwp.Article
 
             isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
 
-            SelectPartitionCommand = ReactiveCommand.Create<Partition>(SelectPartition);
+            SelectPartitionCommand = new RelayCommand<Partition>(SelectPartition);
         }
 
         /// <inheritdoc/>

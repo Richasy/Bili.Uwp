@@ -24,10 +24,10 @@ namespace Bili.ViewModels.Uwp.Common
         private readonly IAccountViewModel _accountViewModel;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ChangeSaveLocationCommand { get; }
+        public IRelayCommand ChangeSaveLocationCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SaveDownloadTextCommand { get; }
+        public IRelayCommand SaveDownloadTextCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<INumberPartViewModel> TotalPartCollection { get; }
@@ -36,63 +36,63 @@ namespace Bili.ViewModels.Uwp.Common
         public string DownloadParameter { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseMp4Box { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlyHevc { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlyAvc { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlyAv1 { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlyAudio { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlyVideo { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool OnlySubtitle { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseMultiThread { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseTvInterface { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseAppInterface { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseInternationalInterface { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool DownloadDanmaku { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public string DownloadFolder { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool UseInteractionQuality { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public bool IsShowPart { get; set; }
     }
 }

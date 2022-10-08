@@ -24,7 +24,7 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        public IRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IBannerViewModel> Banners { get; }
@@ -36,15 +36,15 @@ namespace Bili.ViewModels.Uwp.Community
         public ObservableCollection<VideoSortType> SortTypes { get; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Partition OriginPartition { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public Partition CurrentSubPartition { get; set; }
 
         /// <inheritdoc/>
-        [Reactive]
+        [ObservableProperty]
         public VideoSortType SortType { get; set; }
 
         /// <inheritdoc/>

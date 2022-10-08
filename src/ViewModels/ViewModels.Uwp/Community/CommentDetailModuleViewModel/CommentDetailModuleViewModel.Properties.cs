@@ -30,40 +30,40 @@ namespace Bili.ViewModels.Uwp.Community
         /// <summary>
         /// 重置选中的评论.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
+        public IRelayCommand ResetSelectedCommentCommand { get; }
 
         /// <summary>
         /// 发送评论命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
+        public IRelayCommand SendCommentCommand { get; }
 
         /// <summary>
         /// 返回到上一层（主视图）的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> BackCommand { get; }
+        public IRelayCommand BackCommand { get; }
 
         /// <summary>
         /// 根评论.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public ICommentItemViewModel RootComment { get; set; }
 
         /// <summary>
         /// 是否为空.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public bool IsEmpty { get; set; }
 
         /// <summary>
         /// 回复框提示文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string ReplyTip { get; set; }
 
         /// <summary>
         /// 回复框的输入文本.
         /// </summary>
-        [Reactive]
+        [ObservableProperty]
         public string ReplyText { get; set; }
 
         /// <summary>

@@ -28,8 +28,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             _numberToolkit = numberToolkit;
             _navigationViewModel = navigationViewModel;
 
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            PlayCommand = ReactiveCommand.Create(Play);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            PlayCommand = new RelayCommand(Play);
         }
 
         /// <inheritdoc/>
